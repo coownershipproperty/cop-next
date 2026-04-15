@@ -4840,3 +4840,15 @@ section.props-sec,
   background: #C9A84C;
   color: #fff;
 }
+
+/* ── Destination page property section — full-width cream bg ── */
+.dest-props-section {
+  background: #F5F2EC;
+  width: 100%;
+  padding: 3rem 0 4rem;
+}
+.dest-props-section .homes-grid-wrap {
+  background: transparent;
+  padding-top: 0;
+  padding-bottom: 0;
+}

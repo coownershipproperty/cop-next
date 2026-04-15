@@ -172,25 +172,20 @@ export default function DestinationPage({ slug, title, metaDesc, heroHtml, restH
       {/* Hero section (from staging) */}
       <div dangerouslySetInnerHTML={{ __html: heroHtml }} />
 
-      {/* Property grid — same layout as Our Homes page */}
+      {/* Property grid — full-width cream background */}
+      <div className="dest-props-section">
       <div className="homes-grid-wrap">
         {properties.length > 0 ? (
-          <>
-            <div className="results-bar">
-              <p className="results-count">
-                <strong>{properties.length}</strong> {properties.length === 1 ? 'property' : 'properties'} found
-              </p>
-            </div>
-            <div className="homes-grid" id="homes-grid">
-              {properties.map(p => <PropertyCard key={p.id} property={p} />)}
-            </div>
-          </>
+          <div className="homes-grid" id="homes-grid">
+            {properties.map(p => <PropertyCard key={p.id} property={p} />)}
+          </div>
         ) : (
           <div className="no-props">
             <p>No properties currently listed for this destination. <a href="/our-homes/">Browse all properties</a> or <a href="/contact">contact us</a> for upcoming listings.</p>
           </div>
         )}
       </div>
+      </div>{/* end dest-props-section */}
 
       {/* Rest of page: CTA, SEO content, related locations */}
       <div dangerouslySetInnerHTML={{ __html: restHtml }} />
