@@ -19,6 +19,8 @@ export async function getStaticProps() {
 const COUNTRY_FLAGS = {
   Spain: '🇪🇸', France: '🇫🇷', Italy: '🇮🇹',
   USA: '🇺🇸', England: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', Mexico: '🇲🇽',
+  Austria: '🇦🇹', Germany: '🇩🇪', Croatia: '🇭🇷',
+  Portugal: '🇵🇹', Sweden: '🇸🇪',
 };
 
 export default function OurHomes({ allProperties }) {
