@@ -4816,3 +4816,27 @@ section.props-sec,
   background: var(--cream, #F5F2EC);
   padding-top: 2rem;
 }
+
+/* ── Load More button ───────────────────────────────────────── */
+.load-more-wrap {
+  text-align: center;
+  padding: 2rem 0 3rem;
+}
+.load-more-btn {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  background: transparent;
+  border: 2px solid #C9A84C;
+  color: #C9A84C;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.load-more-btn:hover {
+  background: #C9A84C;
+  color: #fff;
+}

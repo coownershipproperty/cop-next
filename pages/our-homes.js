@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import fs from 'fs';
 import path from 'path';
 import Header from '@/components/Header';
@@ -24,6 +24,7 @@ const COUNTRY_FLAGS = {
 export default function OurHomes({ allProperties }) {
   const [country, setCountry] = useState('');
   const [sort, setSort] = useState('default');
+  const [visible, setVisible] = useState(12);
 
   // Unique countries for filter buttons
   const countries = useMemo(() => {
@@ -47,6 +48,12 @@ export default function OurHomes({ allProperties }) {
 
     return list;
   }, [allProperties, country, sort]);
+
+  // Reset to 12 whenever country or sort changes
+  useEffect(() => { setVisible(12); }, [country, sort]);
+
+  const shown = filtered.slice(0, visible);
+  const hasMore = filtered.length > visible;
 
   return (
     <>
@@ -124,13 +131,24 @@ export default function OurHomes({ allProperties }) {
       <div className="homes-grid-wrap">
         {filtered.length > 0 ? (
           <div className="homes-grid" id="homes-grid">
-            {filtered.map(p => <PropertyCard key={p.id} property={p} />)}
+            {shown.map(p => <PropertyCard key={p.id} property={p} />)}
           </div>
         ) : (
           <div className="no-results">
             <p>No properties match your filters.</p>
             <button className="clear-btn" onClick={() => { setCountry(''); setSort('default'); }}>
               Clear filters
+            </button>
+          </div>
+        )}
+
+        {hasMore && (
+          <div className="load-more-wrap">
+            <button
+              className="load-more-btn"
+              onClick={() => setVisible(v => v + 12)}
+            >
+              Show More Properties ({filtered.length - visible} remaining)
             </button>
           </div>
         )}
