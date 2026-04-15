@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spain Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Explore Spain co-ownership properties for a cost-effective way to enjoy the Mediterranean&#039;s beauty and culture all year round.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Spain Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Spain?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h2>Spain Fractional Ownership — Islands, Coasts, Cities &amp; Mountains</h2>
+<p>Spain fractional ownership gives you a legally recorded, deeded stake in one of Europe&#8217;s most diverse and enduringly desirable second-home markets — owning a <strong>1/8 share</strong> of a fully managed Spanish property, with approximately <strong>45 days of personal use per year</strong>. Whether you are drawn to a clifftop villa on <a href="/mallorca-fractional-ownership-properties/">Mallorca</a>, a whitewashed finca on <a href="/ibiza-fractional-ownership-properties/">Ibiza</a>, a beachfront apartment on the <a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a>, or a city pied-à-terre in <a href="/madrid-fractional-ownership-properties/">Madrid</a>, this is genuine co-ownership of real Spanish property — not a timeshare, not a points club, and not a holiday membership. Your name appears in the <em>Registro de la Propiedad</em>, the Spanish national land registry, as a real property owner with full resale rights and inheritance rights under Spanish law.</p>
+<p>For UK buyers navigating the post-Brexit <strong>90-day-in-180-day Schengen rule</strong>, Spain fractional co-ownership is the most practical and financially intelligent way to secure your place in the Spanish sun — enjoying the country on your own terms, within your annual allowance, without the full cost and burden of sole ownership. Browse our Spain fractional ownership properties below and discover what Spanish co-ownership at its finest truly looks like.</p>
+<p>Spain&#8217;s co-ownership market spans the full breadth of the country — from the Balearic Islands and their UNESCO-listed landscapes, to the sun-drenched beaches of the Costa del Sol and Costa Blanca, from the year-round warmth of the <a href="/canary-islands-fractional-ownership-properties/">Canary Islands</a> to the alpine drama of the <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees</a>. Whether your vision of the perfect Spanish second home is a hilltop finca on <a href="/menorca-fractional-ownership-properties/">Menorca</a>, a seafront villa on the <a href="/costa-blanca-fractional-ownership-properties/">Costa Blanca</a>, or a city apartment in <a href="/barcelona-fractional-ownership-for-sale/">Barcelona</a>, Spain fractional ownership makes it possible — with deeded title, professional management, and approximately 45 days of personal use per year at a fraction of the cost of outright ownership. For buyers new to the fractional model, our <a href="/co-ownership-explained/">co-ownership explained</a> guide provides everything you need to understand how the model works, what you own, and why it is the most rational approach to owning a Spanish second home in the post-Brexit era. For buyers ready to explore specific properties, browse the listings below — or contact our team directly to discuss which part of Spain best matches your vision and budget.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Why Choose Spain Fractional Ownership?</h2>
+<p>Spain fractional ownership represents the most compelling entry point into one of Europe&#8217;s largest and most internationally recognised second-home markets. Spain consistently ranks among the top three destination countries for foreign property buyers worldwide — a position driven not by marketing but by the fundamental and irreplaceable combination of climate, culture, connectivity, coastline, and cuisine that makes Spain the most versatile second-home destination on the continent. From the Balearic Islands to the Atlantic coast of Andalusia, from the pine-covered mountains of the Pyrenees to the cosmopolitan boulevards of Madrid, Spain offers a second-home proposition that no other single country in Europe can match for sheer geographic and lifestyle breadth. Spain fractional co-ownership taps directly into this depth of choice, giving buyers the keys to any part of this remarkable country without the full capital commitment of sole ownership.</p>
+<p>The structural logic of Spain fractional ownership is particularly compelling for international buyers. Spain&#8217;s premium property market — particularly in the Balearic Islands, the Costa del Sol Golden Mile, and the prime neighbourhoods of Madrid and Barcelona — has appreciated significantly over the long term and continues to attract buyers from across Europe, the UK, Scandinavia, Germany, and the Middle East. A <strong>1/8 share</strong> in a quality Spanish property makes the premium end of this market financially accessible to a far broader buyer community than outright purchase alone would permit — while providing the same deeded ownership, the same legal protections, and the same participation in any long-term appreciation in value. The co-ownership model does not compromise the ownership experience: it optimises it for buyers who want 45 days of exceptional use per year rather than the responsibility and cost of 365-day ownership of a property they visit for a fraction of that time.</p>
+<p>For UK buyers post-Brexit, the Schengen constraint has fundamentally changed the economics of Spanish property ownership in a way that makes fractional co-ownership not just attractive but rationally superior. Under the <strong>90-day-in-180-day rule</strong> that has applied to UK nationals since January 2021, sole ownership of a Spanish holiday home means owning 100% of a property you can legally use for a maximum of 90 days per year — while bearing 100% of the purchase cost, annual taxes, maintenance, insurance, and management burden. A 1/8 share providing 45 days per year uses exactly half of your Schengen entitlement while sharing all costs across co-owners. The financial and practical efficiency is self-evident: Spain fractional ownership is the most rational model for post-Brexit UK buyers who want a genuine, lasting connection with Spain.</p>
+<p>Spain&#8217;s sheer diversity is its defining advantage as a fractional ownership destination. Buyers can choose from four entirely distinct lifestyle propositions within a single country: island living in the <a href="/balearics-fractional-ownership-properties/">Balearics</a> (Mallorca, <a href="/ibiza-fractional-ownership-properties/">Ibiza</a>, <a href="/menorca-fractional-ownership-properties/">Menorca</a>, and <a href="/formentera-fractional-ownership/">Formentera</a>); coastal living on the mainland Costas (<a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a>, <a href="/costa-blanca-fractional-ownership-properties/">Costa Blanca</a>, <a href="/costa-de-la-luz-fractional-ownership-properties/">Costa de la Luz</a>); city living in <a href="/madrid-fractional-ownership-properties/">Madrid</a> or <a href="/barcelona-fractional-ownership-for-sale/">Barcelona</a>; and mountain living in the <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees</a> or the Canary Islands year-round warmth in <a href="/canary-islands-fractional-ownership-properties/">Tenerife, Gran Canaria, and Lanzarote</a>. No other single European country provides this range within the same legal framework, the same language (increasingly understood across all regions), and the same flight network that connects every major European city to multiple Spanish airports within two to three hours.</p>
+<p>Property types available through Spain fractional ownership reflect this geographic breadth. Buyers can choose between traditional Ibicenco fincas and modernist villas on the Balearic Islands, Andalusian cortijos and beachfront apartments on the Costa del Sol, classic Spanish townhouses and luxury penthouses in Madrid, stone farmhouses and ski chalets in the Pyrenees, and volcano-view villas and ocean-front apartments in the Canary Islands. The common thread is quality: co-ownership properties are carefully selected, professionally managed, and maintained to a standard that reflects the investment and lifestyle ambitions of buyers who have chosen the most rational way to own a piece of the country they love.</p>
+<p>The rental market context for Spain fractional ownership varies significantly by region. In the Balearic Islands, the regional government has imposed among the strictest short-term rental licensing rules in Spain — the Balearic <em>Vivienda Vacacional</em> licence is tightly controlled and subject to moratoriums in some areas. On the mainland Costas and in the Canary Islands, the regulatory environment is generally more flexible, though licensing requirements apply throughout Spain. Rental income from unused co-ownership weeks is possible for some buyers — but is always confirmed case by case for the specific property, and should never be assumed or factored into a purchase decision as a given. The primary value of Spain fractional ownership lies in the lifestyle, the asset, and the deeded ownership — not in any rental income assumption.</p>
+<p>Spain&#8217;s legal framework for property ownership is one of the most transparent and internationally recognised in Europe. The Spanish property registration system — the <em>Registro de la Propiedad</em> — is a robust, publicly accessible national database of all registered property rights, charges, encumbrances, and ownership interests. When you purchase a fractional interest in a Spanish property, that interest is registered in your name in this database, providing the same legal certainty and enforceability as any other registered property right in Spain. The notarial system — through which all Spanish property transactions must pass — adds a further layer of legal certainty: the <em>Notario</em> who presides over completion is an independent officer of state whose role is to verify the legality of the transaction, the identity of the parties, and the accuracy of the title being conveyed. This dual system of notarial authentication and land registry recording gives Spain one of the most legally robust property ownership frameworks in Europe, and is one of the structural foundations of its attractiveness as an international second-home market.</p>
+<p>The management infrastructure for Spain fractional ownership has developed significantly over the past decade. Professional co-ownership management companies operating across Spain&#8217;s main second-home markets now offer a comprehensive suite of services that remove every operational burden from the co-owner: pre-arrival preparation and cleaning, key management and concierge services on arrival, routine maintenance scheduling and supervision, emergency repair coordination, utility management, community fee payment, insurance administration, annual tax filings for the collective, and booking calendar management between co-owners. The practical experience of Spain fractional ownership — arriving at a professionally prepared property, using it for your allocated time with full management support, and leaving without any operational responsibilities — is designed to replicate the experience of a high-end hotel or private members&#8217; club while providing the genuine ownership rights, capital value, and personalisation that neither of those alternatives can offer. This is the management infrastructure that transforms Spain fractional property from a theoretical concept into a practical, enjoyable, and financially rational lifestyle proposition.</p>
+<p>For buyers considering Spain fractional ownership as part of a broader European property portfolio strategy, the country&#8217;s position within the Schengen Area creates a specific and useful planning opportunity. The 90-day Schengen allowance applies to the entire zone — not just Spain — which means a UK buyer who allocates 45 days to a Spain fractional property retains 45 days for travel across France, Italy, Portugal, Greece, and the other 22 Schengen countries. Combined with a fractional property in France or Italy, a well-structured European co-ownership portfolio can give a UK buyer access to 90 days in one country plus further periods in others, all within the legal Schengen framework, at a fraction of the cost of outright ownership in multiple countries. The <a href="/co-ownership-explained/">co-ownership explained</a> guide provides further context on how fractional ownership fits within a broader asset and lifestyle strategy for international buyers navigating the post-Brexit European property market.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Spain Fractional Ownership — Regions &amp; Destinations</h2>
+<p>Spain fractional ownership spans the country&#8217;s full geographic and lifestyle range — from the Balearic Islands to the Atlantic coast, from the Mediterranean Costas to the mountains. Each region has its own character, property market dynamics, and buyer profile. Understanding which part of Spain speaks to the life you want to live is the most important starting point in any co-ownership journey here.</p>
+<h3><a href="/balearics-fractional-ownership-properties/">Balearics Fractional Ownership</a> — Spain&#8217;s Island Crown</h3>
+<p>The <a href="/balearics-fractional-ownership-properties/">Balearic Islands</a> — <a href="/mallorca-fractional-ownership-properties/">Mallorca</a>, <a href="/ibiza-fractional-ownership-properties/">Ibiza</a>, <a href="/menorca-fractional-ownership-properties/">Menorca</a>, and <a href="/formentera-fractional-ownership/">Formentera</a> — represent the premium heartland of Spain fractional ownership. Mallorca alone offers extraordinary geographic diversity within a single island: mountain villages in the Serra de Tramuntana, long golden beaches in the south and east, and a property market with international depth unmatched elsewhere in Spain. Ibiza brings Mediterranean glamour, year-round cultural relevance, and a real estate market that has proven its resilience across economic cycles. Menorca, quieter and more natural, offers a UNESCO Biosphere Reserve setting with some of the finest unspoilt beaches in Europe. Formentera, the smallest and least developed, provides extraordinary natural beauty and some of the clearest water in the Mediterranean. Balearic fractional co-ownership is subject to the islands&#8217; strict short-term rental licensing requirements — buyers should never assume rental income without confirming the specific property&#8217;s licensing status.</p>
+<h3>Costa del Sol, Costa Blanca &amp; Costa de la Luz — Spain Fractional Ownership</h3>
+<p>The Spanish Costas represent the most established and internationally recognised mainland Spain fractional ownership market. The <a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a> — stretching from Málaga west through Torremolinos, Fuengirola, Marbella, Estepona, and Sotogrande to the Gibraltar Strait — is Spain&#8217;s most internationalised coastal property market and the traditional heartland of British second-home ownership. Marbella&#8217;s Golden Mile and the Nueva Andalucía area offer the most prestigious addresses; the western Costa from Estepona through Manilva to Sotogrande provides extraordinary value relative to the eastern end. The <a href="/costa-blanca-fractional-ownership-properties/">Costa Blanca</a> — anchored by Alicante and Dénia, with the natural park of Cabo de Gata to the south — offers a drier climate, excellent connectivity from multiple European airports, and a property market with strong long-term residential demand. The <a href="/costa-de-la-luz-fractional-ownership-properties/">Costa de la Luz</a>, on Andalusia&#8217;s Atlantic coast, is Spain&#8217;s best-kept coastal secret: vast sandy beaches, a wild Atlantic landscape, and a surfing and kitesurfing culture centred on Tarifa and El Palmar that draws a younger, more adventurous international buyer community than the Mediterranean coast. See the full range of <a href="/spanish-costas-fractional-ownership-properties/">Spanish Costas fractional ownership</a> options across all three coasts.</p>
+<h3><a href="/madrid-fractional-ownership-properties/">Madrid</a> &amp; <a href="/barcelona-fractional-ownership-for-sale/">Barcelona</a> — Spain Fractional Ownership in the Cities</h3>
+<p><a href="/madrid-fractional-ownership-properties/">Madrid fractional ownership</a> offers a year-round  proposition unlike anything available through the coastal or island markets. The Spanish capital is the political, cultural, and financial centre of a country of 47 million people — with world-class museums (the Prado, the Reina Sofía, the Thyssen), an extraordinary restaurant scene, a social calendar that runs 365 days a year, and a property market anchored by domestic demand rather than purely international buyers. A fractional ownership pied-à-terre in <a href="/madrid-fractional-ownership-properties/">Madrid</a>&#8216;s Salamanca, Chamberí, or Malasaña neighbourhoods gives the co-owner a genuine residential base in one of Europe&#8217;s most liveable capitals. <a href="/barcelona-fractional-ownership-for-sale/">Barcelona</a> — Spain&#8217;s most internationally connected city, where the Mediterranean meets Catalonia&#8217;s distinct cultural identity — offers a different but equally compelling urban fractional ownership proposition: Gothic Quarter apartments, Eixample penthouses, and Barceloneta seafront residences within one of Europe&#8217;s most distinctive and architecturally remarkable cities.</p>
+<h3><a href="/canary-islands-fractional-ownership-properties/">Canary Islands Fractional Ownership</a> — Year-Round Sun</h3>
+<p>The <a href="/canary-islands-fractional-ownership-properties/">Canary Islands</a> — Tenerife, Gran Canaria, Lanzarote, Fuerteventura, and La Palma — occupy a uniquely privileged position in the Spain fractional ownership market: they are the only Spanish destination where a genuinely year-round climate removes the seasonal limitation that affects all mainland and Balearic co-ownership properties. Average temperatures in the Canaries remain between 18°C and 27°C across all twelve months, driven by the islands&#8217; position off the Northwest African coast and the moderating influence of the Atlantic trade winds. Tenerife — Spain&#8217;s most populated island after Mallorca — offers the greatest lifestyle range: the dramatic volcanic landscape of Teide National Park and the pine forests of the north, the golden resort beaches of the south in Playa de las Américas and Los Cristianos, and the sophisticated cultural capital of Santa Cruz in the northeast. Gran Canaria provides a similar diversity, with the extraordinary dune landscape of Maspalomas in the south and the colonial architecture of Las Palmas in the north. Lanzarote&#8217;s UNESCO Biosphere Reserve designation and architect César Manrique&#8217;s extraordinary landscape installations give it a cultural depth and natural beauty that the larger islands cannot quite match. Spain fractional ownership in the Canaries is the most logical choice for buyers who want to use their property across multiple shorter visits throughout the year rather than concentrating use in the peak summer season.</p>
+<h3><a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees Fractional Ownership</a> — Spain&#8217;s Mountain Heartland</h3>
+<p>The <a href="/pyrenees-mountains-fractional-ownership-properties/">Spanish Pyrenees</a> offer a  proposition that rivals the French Alps and Austrian ski resorts for dramatic scenery, while providing a distinctly Spanish character and — in most cases — more accessible pricing per square metre than comparable French Alpine co-ownership properties. The major ski resorts of the Spanish Pyrenees — Baqueira-Beret in the Val d&#8217;Aran, Formigal in the Aragonese Pyrenees, and La Molina and Masella in the Catalan Pyrenees — offer consistently good snow cover, modern resort infrastructure, and direct access from Barcelona and Zaragoza airports. Beyond skiing, the Pyrenees provide extraordinary hiking in summer and autumn, with the Ordesa y Monte Perdido and Aigüestortes i Estany de Sant Maurici national parks among the most spectacular natural landscapes in Spain. Co-ownership in the Pyrenees suits buyers who want a mountain property usable across both winter ski season and summer hiking season — the dual-season use pattern that makes a fractional ownership share in a mountain property particularly rational.</p>
+<h3><a href="/spanish-costas-fractional-ownership-properties/">Spanish Costas Fractional Ownership</a> — The Complete Coastal Guide</h3>
+<p>Spain&#8217;s mainland coastline spans over 7,800 kilometres — the longest of any Mediterranean nation — encompassing the Mediterranean coast from the Costa Brava near the French border all the way to the Costa de Almería in the east, the Costa de la Luz on the Atlantic in the southwest, and the Cantabrian coast in the north. The <a href="/spanish-costas-fractional-ownership-properties/">Spanish Costas</a> fractional ownership market is centred on the south and southeast — where the climate, the connectivity, and the international buyer community are most concentrated. Beyond the established Costas, emerging markets along the Costa Tropical (between Almería and Málaga) and the Costa de Almería offer buyers increasingly interesting opportunities at different price points within the same legal and climatic framework as the more famous coastal destinations.</p>
+<p>Each of these Spain fractional ownership regions rewards buyers who understand it well and choose it for clear, lifestyle-based reasons. The Balearic Islands deliver the most concentrated premium island lifestyle in Spain — but with the most demanding licensing environment for rental. The Costas offer the most established and liquid mainland property markets, with the strongest British and Northern European buyer communities, excellent connectivity, and a climate that is usable from March through November. The Canary Islands provide the unique proposition of genuine year-round use — a property that works in January and February just as comfortably as it does in July and August. Madrid and Barcelona deliver year-round urban living at the highest European standard. The Pyrenees offer a dual-season  that uses the property&#8217;s allocation across both winter and summer. The right region is the one that aligns most precisely with how you will actually use your fractional property — and with the lifestyle you most want to live when you are there. Our co-ownership team is available to help guide you through the regional comparison before you commit to a purchase in any specific destination within Spain&#8217;s extraordinary fractional ownership market.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>How Spain Fractional Ownership Works</h2>
+<p>Spain fractional ownership operates as genuine co-ownership of Spanish real property, conducted entirely through the standard Spanish conveyancing system and governed by Spanish property law. There is no special fractional ownership statute — this is real estate ownership in the fullest legal sense, structured to allow a small number of co-owners to share a single property in defined shares with a clear governance framework for usage scheduling, cost allocation, and management. The legal framework is identical across all regions of Spain, from the Balearic Islands to the Costa del Sol to the Pyrenees, though the specific tax rates and rental licensing rules vary by autonomous community.</p>
+<p>The purchase process follows the standard Spanish property conveyancing structure. After identifying a property and agreeing terms, a preliminary agreement — either a <em>contrato de arras</em> (reservation and deposit agreement) or a private purchase contract — is signed and a deposit of typically 10% of the fractional purchase price is paid. This secures the property while due diligence is carried out: title verification, encumbrance search, community fee arrears check (if applicable), planning and licensing status, and in the Balearics, confirmation of the property&#8217;s short-term rental licensing status. Completion takes place before a Spanish <em>Notario</em> — an independent officer of state who authenticates and records the transaction — after which the buyer&#8217;s ownership interest is registered in the <em>Registro de la Propiedad</em> in the buyer&#8217;s name (or the name of their chosen legal entity). From that moment, the buyer is a <strong>deeded property owner</strong> under Spanish law.</p>
+<p>The most common legal structure for Spain fractional co-ownership is direct <em>comunidad de bienes</em> — joint ownership under the Spanish Civil Code, where each co-owner holds a registered fractional interest in the underlying property. A co-ownership agreement (<em>acuerdo de comuneros</em>) governs the practical aspects of the arrangement: the annual usage calendar, maintenance responsibilities, cost sharing, management structure, and the procedure for sale or transfer of a share. An alternative structure used by some operators is a Spanish <em>Sociedad Limitada</em> (SL) — a limited liability company — where co-owners hold shares in the SL rather than a direct interest in the property. The SL structure can simplify share transfers and estate planning but has different tax implications. The right structure for any buyer depends on their nationality, tax residence, and personal circumstances — a qualified Spanish property lawyer and cross-border tax adviser should always be consulted.</p>
+<p>Usage allocation follows a rotating annual calendar that gives all co-owners equitable access to the property across the full range of seasons and weeks. A standard <strong>1/8 share</strong> provides approximately 45 days of personal use per year — typically structured as a combination of peak season weeks, shoulder-season periods, and the flexibility to bank or swap unused time between co-owners. The management company handles all operational aspects of the property: pre-arrival preparation, cleaning, key management, routine maintenance, utility management, community liaison, and annual tax filings for the collective. Co-owners pay their proportional share of costs quarterly or annually and arrive to a property in perfect condition, ready to use from day one.</p>
+<p>The tax position of Spain fractional ownership for non-resident buyers follows standard Spanish non-resident property ownership rules. Purchase taxes on acquisition are either <em>Impuesto de Transmisiones Patrimoniales</em> (ITP, transfer tax) for resale properties or IVA plus stamp duty for new-build properties. ITP rates vary by autonomous community: the Balearic Islands apply a progressive rate currently ranging from 8% to 13% depending on property value; Andalusia (including the Costa del Sol) applies 7%; Valencia (Costa Blanca) applies between 8% and 11%; and Madrid applies 6%. Annual non-resident ownership costs include the <em>Impuesto sobre la Renta de No Residentes</em> (IRNR, imputed rental income tax based on the property&#8217;s <em>valor catastral</em>) and the <em>Impuesto sobre Bienes Inmuebles</em> (IBI, local annual property ownership tax). Both are calculated on the co-owner&#8217;s proportional share of the property value. Spain applies a <strong>non-resident capital gains tax of 19%</strong> for EU and EEA residents (including EU nationals) and 24% for non-EU residents including UK nationals post-Brexit, on any profit realised on the sale of a fractional interest.</p>
+<p>Co-owners wishing to sell their fractional interest may do so at any time, subject to the terms of the co-ownership agreement. Most agreements provide for a <strong>right of first refusal</strong> among existing co-owners before any external sale. Inheritance of a fractional interest follows Spanish succession law for Spanish-situ assets — an area where both a Spanish inheritance lawyer and a cross-border estate planning specialist are essential, particularly for UK buyers post-Brexit who can no longer elect for the EU Succession Regulation (Brussels IV) to apply to their Spanish assets.</p>
+<p>For buyers new to the co-ownership model, the <a href="/what-is-fractional-ownership/">What is Fractional Ownership?</a> guide provides a comprehensive overview of the legal framework and ownership structures across European jurisdictions. The <a href="/co-ownership-buying-process/">co-ownership buying process</a> guide walks through the specific steps from initial enquiry to completion. The <a href="/the-running-costs-of-a-fractional-ownership-property/">running costs of a fractional ownership property</a> guide provides a clear breakdown of the ongoing annual costs. All are recommended reading for any buyer approaching Spain fractional ownership for the first time.</p>
+<p>Spain&#8217;s autonomous community system creates important regional variations in the legal and tax landscape that buyers need to understand before committing to a Spain fractional ownership purchase in any specific region. The Balearic Islands are one autonomous community with their own parliament and significant devolved powers over property taxation, planning policy, and tourist rental regulation — they apply the highest ITP rates in Spain and the strictest short-term rental licensing regime. Andalusia (home to the Costa del Sol) applies different ITP rates, different succession tax rules, and a different rental licensing framework. The Canary Islands — a special economic zone within Spain — have their own VAT-equivalent tax (IGIC) at 7% rather than standard Spanish IVA, and their own property tax rates. The Valencian Community (Costa Blanca) and the Community of Madrid have further distinct regimes. This regional complexity is manageable with the right local professional advice, but it means that buyers should always engage a lawyer who is specifically expert in the autonomous community where their property is located, rather than relying on a general Spanish property lawyer without the relevant regional expertise.</p>
+<p>The co-ownership agreement that governs any Spain fractional ownership property is the document that translates the legal ownership structure into a practical, liveable arrangement for co-owners. A well-drafted co-ownership agreement should cover in detail: the annual usage calendar and rotation methodology; the procedure for requesting, swapping, and banking usage time; the cost-sharing formula and payment schedule; the management company&#8217;s appointment, scope, and replacement procedure; the maintenance and improvement decision-making process; the exit provisions, including right of first refusal procedure and timelines; the insurance obligations of the co-ownership group; the dispute resolution mechanism between co-owners; and the provisions for inheritance, gift, and voluntary dissolution of the co-ownership. Buyers should review this agreement carefully — ideally with the assistance of an independent Spanish property lawyer — before committing to any Spain fractional ownership purchase. A clear, comprehensive co-ownership agreement is the foundation of a positive co-ownership experience across the life of the ownership.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Spain Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>Spain fractional ownership sits at the intersection of two powerful and mutually reinforcing drivers: the country&#8217;s enduring appeal as one of Europe&#8217;s most sought-after lifestyle and property investment destinations, and the structural logic of shared ownership as the most efficient model for a second home used seasonally. Spain receives more foreign property buyers than any other European nation outside the UK, and has done so consistently over multiple decades — not because of marketing cycles but because the fundamental combination of climate, culture, cuisine, connectivity, and coast that Spain offers is genuinely irreplaceable. No other European country provides the same quality of lifestyle across the same breadth of options within the same two-to-three-hour flight radius from the major British and Northern European cities.</p>
+<p>The property market fundamentals underpinning Spain fractional ownership are robust. Spain&#8217;s premium residential property market — led by the Balearic Islands, the Costa del Sol Golden Mile, and the prime neighbourhoods of Madrid — has demonstrated consistent long-term appreciation driven by structural factors: limited supply of premium properties in the most desirable locations, sustained and growing international demand from an increasingly wealthy global buyer community, and planning restrictions in the most desirable areas that constrain new supply. These structural drivers do not guarantee any specific return, and buyers should never invest in a fractional property on the basis of an assumed or projected capital appreciation — but the underlying logic of limited premium supply and growing international demand has supported the Spanish market through economic cycles in ways that more commoditised property markets have not replicated.</p>
+<p>The lifestyle case for Spain fractional ownership extends far beyond the obvious summer beach experience. Spain operates on a fundamentally different social calendar to northern Europe — one that makes the country genuinely attractive across multiple seasons. Spring brings the <em>fiestas</em> season, wild flowers across Andalusia and the islands, and the beginning of the outdoor café and beach club culture that defines Mediterranean living. Summer is the full Mediterranean experience — but the shoulder seasons of June and September are when many experienced Spain property owners prefer to visit: warm enough to swim from any beach, quiet enough to experience local life rather than tourist saturation, and with a pace that allows genuine enjoyment of the restaurants, markets, and landscapes that define the country. October and November are arguably the finest months on the Costa del Sol, in Mallorca, and across Andalusia — perfect temperatures, the olive and grape harvests underway, and the long golden light of the Mediterranean autumn. The Canary Islands provide a full winter escape when the mainland is cool and grey. Spain fractional co-ownership is not a purely summer proposition: it is a year-round lifestyle asset for buyers who understand the country.</p>
+<p>Spain&#8217;s food and drink culture is, for many buyers, the decisive factor in choosing it over comparable Mediterranean destinations. The country operates at the highest level of any European nation for quality of ingredients, diversity of regional cuisines, accessibility of excellent dining at every price point, and the social centrality of food as a daily ritual rather than an occasional treat. The pintxos bars of San Sebastián, the tapas bars of Seville&#8217;s El Arenal, the fresh fish restaurants of Palma&#8217;s Santa Catalina market, the farm-to-table dining rooms of Mallorca&#8217;s interior villages, the beach chiringuitos of the Costa de la Luz, and the three-Michelin-starred dining rooms of Madrid and Barcelona all represent facets of a food culture that is genuinely world-class and that rewards repeat visits with new discoveries each time. For buyers considering Spain fractional ownership as a lifestyle investment rather than purely a property investment, the food culture alone justifies the country&#8217;s position as the premier European co-ownership destination. Spain produces more olive oil than any other country in the world, more varieties of wine than almost any other, and maintains a daily food culture — the morning café con leche, the midday menu del día, the evening tapas circuit, the Sunday family lunch — that is not a tourist construct but a genuine, living social institution. Buyers who own a fractional property in Spain for five or ten years do not simply repeat the same holiday experience: they gradually join a community, discover their own favourite places, and build a relationship with the country that surface-level tourism never provides.</p>
+<p>Spain&#8217;s connectivity from the UK and Northern Europe remains exceptionally strong. Multiple Spanish airports — Madrid Barajas, Barcelona El Prat, Palma, Ibiza, Málaga, Alicante, Gran Canaria, Tenerife South — operate direct flights from London Heathrow, Gatwick, Stansted, and the major regional UK airports, as well as from Amsterdam, Frankfurt, Paris, Stockholm, and dozens of other European cities. The vast majority of Spanish co-ownership destinations are reachable within two to three hours from London, making the 45-day annual allocation of Spain fractional ownership genuinely usable across multiple shorter visits — a long weekend in April, two weeks in July, ten days in October — rather than requiring a single annual block of time in peak season.</p>
+<p>For buyers comparing Spain fractional ownership with alternatives elsewhere in Europe, the key comparisons are informative. <a href="/france-fractional-ownership-properties/">France fractional ownership</a> — whether in the <a href="/south-of-france-fractional-ownership-properties/">South of France</a>, <a href="/french-alps-fractional-ownership-properties/">French Alps</a>, or <a href="/paris-fractional-ownership-properties/">Paris</a> — offers a different but equally premium set of lifestyle and property market attributes. <a href="/italy-fractional-ownership-properties/">Italy fractional ownership</a>, particularly around the Italian Lakes and in <a href="/sardinia-fractional-ownership-properties/">Sardinia</a>, provides a distinct cultural and culinary proposition. <a href="/portugal-fractional-ownership-properties/">Portugal fractional ownership</a> offers generally lower entry prices and a different climate profile — excellent for buyers who want Atlantic rather than Mediterranean weather and a quieter lifestyle rhythm. Each has its merits — but Spain&#8217;s combination of geographic diversity, market depth, connectivity, climate range, and cultural richness makes it the most versatile and broadly appealing fractional ownership destination in Europe. For buyers who know Spain and love it, the question is not whether to own there, but how — and Spain fractional co-ownership answers that question definitively.</p>
+<p>The <a href="/benefits-of-fractional-ownership-for-second-homes/">benefits of fractional ownership for second homes</a> are well-documented: lower entry cost, shared running expenses, professional management, preserved lifestyle access, and the financial and emotional efficiency of owning exactly as much as you need and use. Spain fractional ownership applies all of these benefits to the broadest and most versatile second-home destination in Europe — which is why the interest in Spanish co-ownership has grown consistently among international buyers seeking the optimal balance between ownership ambition, lifestyle enjoyment, and intelligent use of capital.</p>
+<p>Spain&#8217;s cultural diversity is a lifestyle asset that rewards long-term ownership in a way that purely resort-based second-home destinations cannot match. Each of Spain&#8217;s seventeen autonomous communities has its own distinct identity, language (in many cases), cuisine, architecture, and calendar of festivals and cultural events. A week in <a href="/mallorca-fractional-ownership-properties/">Mallorca</a> in late September — the olive harvest, the island quietening after peak season, the best restaurants fully booked with returning seasonal residents rather than tourists — is a fundamentally different experience from a week in the same property in July. A long weekend in <a href="/madrid-fractional-ownership-properties/">Madrid</a> during the San Isidro festival in May, or during the Christmas and Three Kings season in December, offers cultural immersion of a depth that purely seasonal beach destinations cannot provide. This cultural richness — the understanding that Spain is not a single lifestyle proposition but a country of genuinely distinct and rewarding regions — is one of the strongest arguments for Spain fractional ownership as a long-term lifestyle investment rather than a purely seasonal asset.</p>
+<p>The sports and outdoor lifestyle that Spain offers across its diverse regions adds further depth to the fractional ownership proposition. The Balearic Islands are among the premier sailing destinations in Europe — the waters around <a href="/mallorca-fractional-ownership-properties/">Mallorca</a> host some of the most prestigious regattas in the Mediterranean, and the island has developed a world-class cycling culture that draws professional and amateur riders year-round on roads designed around the Serra de Tramuntana. <a href="/ibiza-fractional-ownership-properties/">Ibiza</a> offers world-class water sports — paddleboarding, kayaking, and kitesurfing among the most popular — alongside the UNESCO natural landscapes of the north and the extraordinary diving conditions around the Freus de Ibiza. The <a href="/costa-de-la-luz-fractional-ownership-properties/">Costa de la Luz</a> is Europe&#8217;s premier destination for Atlantic surfing and kitesurfing. The <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees</a> offer world-class skiing in winter and extraordinary trail running and hiking in summer. Golf, tennis, padel, cycling, hiking, sailing, surfing, skiing — Spain offers every major outdoor sport across its geography, and a fractional ownership property in the right location gives co-owners a seasonal base for the sporting life they love. Spain fractional co-ownership is, for active lifestyle buyers, the most rational way to own a property in the European country that offers the greatest breadth of outdoor sporting lifestyle opportunity.</p>
+<p>Spain&#8217;s healthcare system — consistently ranked among the best in the world — provides an important additional layer of reassurance for buyers who plan to spend significant time in the country as they get older. The country&#8217;s extensive private healthcare network, with hospitals in every major city and resort town offering internationally trained specialists and English-speaking staff, means that buyers can access high-quality medical care during their Spain fractional ownership visits without language barriers or concerns about standard of care. For buyers approaching retirement age who are considering longer periods in Spain within their Schengen allowance, the quality of the Spanish healthcare system is a material factor in the lifestyle assessment of any Spain fractional ownership decision.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/balearics-fractional-ownership-properties/" class="dest-explore-card">Balearics Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card">Mallorca Fractional Ownership &rarr;</a><a href="/costa-del-sol-fractional-ownership-properties/" class="dest-explore-card">Costa del Sol Fractional Ownership &rarr;</a><a href="/france-fractional-ownership-properties/" class="dest-explore-card">France Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Spain Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly do I own with Spain fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>You own a legally registered fractional interest in Spanish real property. Your ownership share — most commonly a <strong>1/8 interest</strong>, though shares of 1/4 or 1/2 are sometimes available — is recorded in the Spanish <em>Registro de la Propiedad</em> (land registry) in your name. You are a real property owner under Spanish law, with all the associated rights: the right to use the property for your allocated time, the right to sell your share on the open market, the right to pass it on through your estate, and the right to benefit from any appreciation in the value of your share as the underlying property increases in value over time.</p>
+<p>This is fundamentally different from a timeshare, which is a contractual usage right — not a property ownership interest. With Spain fractional ownership, the property is a registered asset on your balance sheet. With a timeshare, it is not. The distinction is both legally and financially significant, and is the most important thing to understand when evaluating any co-ownership proposition in Spain.</p></div></details><details class="dest-faq-item"><summary><h3>How is Spain fractional ownership different from a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The differences are fundamental and far-reaching. A timeshare is a consumer product — the contractual sale of a right to use a property (or pool of properties) during a defined period each year. The timeshare company retains ownership of the underlying real estate. When the timeshare company fails or the arrangement ends, the timeshare holder has no residual property interest and no capital value. Spain fractional ownership is the legal opposite: it is a registered real estate transaction completed through the Spanish notarial system, resulting in a property ownership interest recorded in the national land registry. The holder of a fractional interest in a Spanish property owns a capital asset, benefits from any appreciation in value, and has full resale rights on the open market.</p>
+<p>Timeshare resale is notoriously difficult — the secondary market is thin, buyers are scarce, and most timeshare holders struggle to realise any value on exit. A fractional interest in a quality Spanish property can be sold through the standard Spanish property market at any time, subject to the right of first refusal provisions in the co-ownership agreement. Spain fractional ownership is <strong>not a timeshare</strong> — the two arrangements share only the superficial characteristic of involving shared use of a property, and are otherwise entirely different in legal status, financial character, and investment profile.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use my Spain fractional property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard <strong>1/8 share</strong> provides approximately 45 days of personal use per year — roughly six to seven weeks. This is typically structured as a combination of peak-season weeks in the main summer months, shoulder-season periods in spring and autumn, and the flexibility to bank unused time or swap with other co-owners. The usage calendar is managed on a rotating annual basis to ensure that no single co-owner permanently holds the most desirable weeks — all co-owners rotate through peak and off-peak periods equitably over the years. Co-owners who want more time in their property can consider a 1/4 share (approximately 90 days) or, in some cases, a 1/2 share (approximately 180 days).</p>
+<p>For UK buyers specifically, 45 days per year aligns exceptionally well with the post-Brexit Schengen allowance of 90 days in any 180-day rolling period. A 1/8 share uses exactly half your annual Schengen entitlement in Spain, leaving the remaining 45 days for travel across the rest of the Schengen zone. A 1/4 share uses the full 90 days, providing a genuinely immersive Spanish lifestyle within the legal framework that applies to all UK nationals travelling in Europe since January 2021.</p></div></details><details class="dest-faq-item"><summary><h3>Which part of Spain is best for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The right part of Spain for fractional ownership depends entirely on the lifestyle you want to live when you are there. The <a href="/balearics-fractional-ownership-properties/">Balearic Islands</a> — particularly <a href="/mallorca-fractional-ownership-properties/">Mallorca</a> and <a href="/ibiza-fractional-ownership-properties/">Ibiza</a> — represent the premium end of the Spanish co-ownership market, offering the most established infrastructure, the most internationally connected property markets, and the strongest combination of natural beauty, cultural depth, and lifestyle quality. They are also subject to the strictest short-term rental licensing in Spain. The <a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a> is Spain&#8217;s most internationalised mainland co-ownership market — historically the heartland of British second-home ownership and still the most liquid and internationally connected mainland Spanish property market. The <a href="/canary-islands-fractional-ownership-properties/">Canary Islands</a> are the best choice for buyers who want year-round use across multiple shorter visits rather than peak summer concentration. <a href="/madrid-fractional-ownership-properties/">Madrid</a> suits buyers who want a year-round  proposition. The <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees</a> suit buyers drawn to a dual-season mountain property usable for both winter skiing and summer hiking.</p></div></details><details class="dest-faq-item"><summary><h3>What are the tax implications of Spain fractional ownership for UK buyers?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>UK buyers purchasing a fractional interest in a Spanish property face the same Spanish tax obligations as any other non-resident property owner. On purchase, the applicable tax is <em>Impuesto de Transmisiones Patrimoniales</em> (ITP, transfer tax) for resale properties — with rates varying by autonomous community from 6% (Madrid) to up to 13% (Balearic Islands on higher-value properties) — or IVA (21% reduced to 10% for residential properties) plus stamp duty for new-build. UK buyers are no longer EU residents post-Brexit, which means they face the 24% non-resident capital gains tax rate on any profit from disposal of Spanish property (EU/EEA residents pay 19%). Annual non-resident ownership taxes include the IRNR (imputed rental income tax) and IBI (local property tax), both calculated on the co-owner&#8217;s proportional share of the property value.</p>
+<p>Additionally, UK buyers with Spanish assets valued above €700,000 (net of mortgage) may be subject to Spanish <em>Impuesto sobre el Patrimonio</em> (wealth tax) — though rates and thresholds vary by autonomous community. A qualified Spanish tax adviser and UK-Spain cross-border specialist should always be engaged from the outset of any Spain fractional ownership purchase to model the full tax position accurately for your specific circumstances.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Spain fractional property during unused weeks?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Rental income from unused weeks is possible for some co-owners, but this is never guaranteed and is highly dependent on the specific property&#8217;s location and licensing status. Spain has no single national rental licensing regime — the rules are set at the level of each autonomous community, and vary significantly. In the Balearic Islands, the <em>Vivienda Vacacional</em> tourist rental licence is tightly controlled, subject to moratoriums in many municipalities, and cannot be assumed to be available for any specific property. In Andalusia (including the Costa del Sol), Valencia (Costa Blanca), and the Canary Islands, the framework is generally more permissive, though licences are still required for any tourist rental activity and are not automatically transferable.</p>
+<p>Never purchase a Spain fractional property on the basis of assumed or projected rental income. The licensing status of a specific property — and the co-ownership agreement&#8217;s provisions for rental of unused time — must be confirmed before purchase. The primary value of Spain fractional ownership is the lifestyle and the asset, not any rental income assumption. If rental income is important to your decision, ask for explicit confirmation of the property&#8217;s licensing status and the co-ownership agreement&#8217;s rental provisions before proceeding.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing running costs of Spain fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The ongoing costs of Spain fractional property are shared proportionally between co-owners and typically include: the annual management fee (covering maintenance, cleaning between visits, booking coordination, and management company services); the <em>Impuesto sobre Bienes Inmuebles</em> (IBI, local annual property tax); home and contents insurance; utility standing charges (electricity, water, internet); community fees (<em>gastos de comunidad</em>) for properties within developments or urbanisations; and the annual IRNR non-resident tax filing (calculated on the <em>valor catastral</em> of the co-owner&#8217;s proportional interest). These costs are divided by the number of shares — a co-owner with a 1/8 share pays one-eighth of the total property running costs.</p>
+<p>The total annual cost of Spain fractional ownership, properly structured, is a fraction of the cost of sole ownership of a comparable property, and is entirely predictable — co-owners receive a transparent annual cost schedule at the beginning of each year. See the complete guide to <a href="/the-running-costs-of-a-fractional-ownership-property/">running costs of a fractional ownership property</a> for a full breakdown of what to expect.</p></div></details><details class="dest-faq-item"><summary><h3>How does the buying process for Spain fractional ownership work?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The buying process follows standard Spanish property conveyancing. After selecting a property and agreeing terms, a preliminary contract — a <em>contrato de arras</em> or private purchase contract — is signed and a reservation deposit (typically 10% of the fractional purchase price) is paid. Due diligence covers the title registration, any charges or encumbrances registered against the property, planning and licensing status, community fee arrears, and (for Balearic properties) tourist rental licence status. Completion takes place before a Spanish <em>Notario</em>, who reads and authenticates the purchase deed, after which the fractional interest is registered in the <em>Registro de la Propiedad</em>.</p>
+<p>Non-resident buyers need a Spanish NIE (Número de Identificación de Extranjero, tax identification number) and a Spanish bank account to complete the transaction. The NIE application can be submitted through the Spanish consulate in the buyer&#8217;s home country or at a Spanish police station in Spain with a power of attorney. The total process from reservation to completion typically takes 6 to 12 weeks for a well-prepared transaction. See the full <a href="/co-ownership-buying-process/">co-ownership buying process</a> guide for a step-by-step walkthrough.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Spain fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — a fractional interest in a Spanish property is a genuine asset with full resale rights. Co-owners wishing to sell may do so at any time, subject to the co-ownership agreement&#8217;s provisions. Most agreements provide for a <strong>right of first refusal</strong> — requiring the selling co-owner to offer the share to the existing co-owners at the same price and on the same terms before selling externally. If no existing co-owner exercises that right within the defined notice period, the share may be marketed and sold to a new buyer through the standard Spanish property market.</p>
+<p>The same Spanish conveyancing process that applied to the original purchase — <em>Notario</em>, <em>Registro de la Propiedad</em> registration — applies to the resale. Capital gains tax on any profit is 19% for EU/EEA resident sellers and 24% for non-EU resident sellers (including UK nationals post-Brexit). The liquidity of the Spain fractional ownership market varies by location: Balearic properties have the strongest secondary market; Canary Island and Costa del Sol fractional interests are also well-supported; emerging markets (Pyrenees, Costa Blanca interior) may be less liquid. This should be factored into any investment assessment.</p></div></details><details class="dest-faq-item"><summary><h3>Is Spain fractional ownership suitable for UK buyers post-Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Spain fractional ownership is arguably the most rational response to the post-Brexit Schengen constraint for UK buyers who want a genuine long-term connection with Spain. Since January 2021, UK nationals have been subject to the Schengen Area&#8217;s 90-day-in-180-day rule across all Schengen countries, including Spain. A 1/8 share providing approximately 45 days of personal use per year uses exactly half of this annual allowance — leaving the remaining entitlement for travel elsewhere in the Schengen zone while maintaining a legally registered, capital-owning stake in Spanish property. Spain fractional co-ownership is not a workaround for the Schengen rule — it is a model calibrated to work within it, giving UK buyers the maximum lifestyle value from their available time in Spain.</p>
+<p>For UK buyers who want to spend more than 90 days per year in Spain, the Spanish <em>Golden Visa</em> — available to non-EU nationals investing €500,000 or more in Spanish real estate — provides a residency permit that supersedes the Schengen 90-day restriction. Whether a fractional investment could contribute to this threshold as part of a broader portfolio is a complex question that requires specialist immigration and tax advice. For the majority of UK buyers, a well-structured Spain fractional ownership position representing 45 days of annual use is the cleaner, simpler, and more cost-effective answer to the post-Brexit Spain question.</p></div></details><details class="dest-faq-item"><summary><h3>How does Spain fractional ownership compare to France or Portugal?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Each of the major European co-ownership destinations has a distinct set of attributes that suit different buyers. <a href="/france-fractional-ownership-properties/">France fractional ownership</a> — whether in the <a href="/south-of-france-fractional-ownership-properties/">South of France</a>, the <a href="/french-alps-fractional-ownership-properties/">French Alps</a>, or <a href="/paris-fractional-ownership-properties/">Paris</a> — offers a French legal and tax framework, a distinct cultural proposition, and the world&#8217;s most internationally recognised luxury property brand. <a href="/portugal-fractional-ownership-properties/">Portugal fractional ownership</a> offers generally lower entry prices, an Atlantic rather than Mediterranean climate, and a notably more relaxed bureaucratic environment for foreign property buyers. <a href="/italy-fractional-ownership-properties/">Italy fractional ownership</a> provides a rich cultural and culinary counterpoint to Spain, with the Italian Lakes and <a href="/sardinia-fractional-ownership-properties/">Sardinia</a> as the premier co-ownership markets.</p>
+<p>Spain&#8217;s decisive advantage in this comparison is breadth: no other European country offers the same combination of island, coastal, mountain, and city co-ownership options within the same legal and fiscal framework, the same flight network, the same climate range, and the same depth of buyer infrastructure. For buyers who want the widest range of options within a single country — or who want to explore multiple Spanish destinations before settling on one — Spain fractional ownership provides an unmatched proposition in the European market.</p></div></details><details class="dest-faq-item"><summary><h3>What happens to my Spain fractional ownership interest when I die?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>For EU residents, the EU Succession Regulation (Brussels IV) allows election for the law of habitual residence to govern overall succession, potentially offering more favourable outcomes than pure Spanish rules. For UK nationals post-Brexit, this EU election is no longer available — making cross-border estate planning advice essential. The co-ownership agreement should also be reviewed to understand whether inheritance transfers to direct family members trigger the right of first refusal provisions that would apply to a commercial sale. This is an area where both a Spanish inheritance specialist and a UK-Spain cross-border estate planning adviser should be involved from the outset of the purchase, not as an afterthought. Spain fractional ownership is a genuine intergenerational asset — but it requires professional planning to transfer efficiently.</p></div></details><details class="dest-faq-item"><summary><h3>What should I look for when choosing a Spain fractional ownership operator?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Selecting the right co-ownership operator is one of the most important decisions in any Spain fractional ownership purchase. The operator — the company or platform that has structured the co-ownership, selected and acquired the property, established the co-ownership agreement, and appointed the management company — is the foundation of the entire ownership experience. Key factors to evaluate include: the legal robustness of the co-ownership structure (has it been established with Spanish property lawyers and registered correctly in the Registro de la Propiedad?); the quality and independence of the property management (is the management company professional, experienced, and properly incentivised?); the fairness and clarity of the usage calendar and booking system; the transparency of the annual cost structure and financial reporting to co-owners; the track record of the operator in managing co-ownership properties through the full ownership lifecycle, including the resale and exit process; and the quality of their due diligence on the specific property&#8217;s title, planning status, and — for Balearic properties — rental licensing position.</p>
+<p>Before committing to any Spain fractional ownership purchase, buyers should ask to review the draft co-ownership agreement, the property&#8217;s title and registration documents, the annual cost schedule, and references from existing co-owners on properties the operator has managed for at least two to three years. An independent Spanish property lawyer should review all documentation before the reservation deposit is paid. Spain fractional ownership is a long-term commitment — the governance, management quality, and operator integrity behind the specific property matter as much as the property itself. See our <a href="/co-ownership-buying-process/">co-ownership buying process</a> guide for a full checklist of what to evaluate and verify before proceeding with any Spain fractional property purchase.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

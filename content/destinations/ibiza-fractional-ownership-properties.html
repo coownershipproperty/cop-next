@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibiza Fractional Ownership properties | Co-Ownership Property</title>
+    <meta name="description" content="Discover premium co-ownership properties in Ibiza including villas &amp; apartments on the White Isle. Luxury Mediterranean properties available through fractional ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Ibiza Fractional Ownership properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Ibiza?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Ibiza Fractional Ownership — White Isle Living, Real Deeded Ownership</h2>
+<p>Ibiza fractional ownership gives you a legally recorded, deeded stake in one of the Mediterranean&#8217;s most iconic and enduringly desirable islands — owning a <strong>1/8 share</strong> of a fully managed Ibicenco villa, hillside finca, or coastal apartment, with approximately <strong>45 days of personal use per year</strong>. This is genuine co-ownership of real Spanish property — not a timeshare, not a points club, and not a holiday membership. Your name appears on the Spanish land registry, the <em>Registro de la Propiedad</em>, as a real property owner with full resale rights and inheritance rights under Spanish law.</p>
+<p>For UK buyers navigating the post-Brexit <strong>90-day-in-180-day Schengen rule</strong>, Ibiza fractional co-ownership is the most practical and financially intelligent way to secure your place on the White Isle — enjoying the island on your own terms, within your annual allowance, without the full cost and burden of sole ownership. Browse our Ibiza properties below and discover what island co-ownership at its finest truly looks like.</p>
+<p>Whether you are drawn to a clifftop finca in the north, a southwest villa with panoramic sea views, or a stylish apartment in Ibiza Town steps from the marina, Ibiza fractional ownership gives you the keys to the White Isle — deeded, managed, and ready to enjoy from your very first visit on the island.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose Ibiza Fractional Ownership?</h2>
+<p>Ibiza fractional ownership is among the most compelling propositions in the European co-ownership market — and it is easy to understand why. The island sits at a unique intersection of natural beauty, cultural depth, world-class cuisine, and an international buyer community that has made it one of the most sought-after second-home destinations in the Mediterranean. Whether you are drawn by the dramatic cliffs of the north, the crystal-clear coves of the west coast, the buzzing marina culture of Ibiza Town, or the family-friendly calm of the east, Ibiza delivers an experience that is genuinely unlike anywhere else in Spain. Ibiza fractional ownership gives you a real, legally registered stake in this world, without the full capital outlay and ongoing cost burden of sole ownership.</p>
+<p>The island&#8217;s property market is one of the most robust and internationally recognised in the Balearics. Premium villas and hillside fincas across the island attract buyers from across the UK, Europe, Scandinavia, and the Middle East. Fractional co-ownership taps into exactly this market — giving buyers a deeded share of a property that is professionally managed, impeccably maintained, and used by a small group of co-owners who share the lifestyle and the costs. In place of a sole purchase requiring hundreds of thousands or millions of euros in upfront capital, a <strong>1/8 share</strong> makes the Ibiza lifestyle financially accessible without compromising on the quality of the property or the ownership experience.</p>
+<p>For UK buyers specifically, the post-Brexit landscape has transformed the economics of Spanish property ownership. Under Schengen rules, UK nationals are limited to <strong>90 days in any 180-day period</strong> across the entire Schengen zone — a constraint that makes sole ownership of a Spanish property feel wasteful for many buyers. You own 100% of a property you can legally occupy for a maximum of 90 days per year, while carrying 100% of the costs, taxes, and management burden. Ibiza fractional co-ownership resolves this directly: a 1/8 share gives you approximately 45 days of personal use per year — nearly perfectly calibrated to your Schengen entitlement — while sharing the costs across co-owners and benefiting from professional management that keeps the property in pristine condition between visits. It is the most rational response to the post-Brexit reality for buyers who want a genuine, lasting connection with Ibiza.</p>
+<p>Ibiza is, of course, far more than its famous nightlife. The island has a year-round community, an extraordinary natural landscape — much of it UNESCO-protected — and a pace of life that changes with the seasons. Summer brings the full Mediterranean carnival of beach clubs, market nights, and sunset sessions at the island&#8217;s legendary venues. Spring and autumn offer a quieter, more intimate Ibiza: hiking trails through pine forests, morning swims in empty coves, long lunches at farmhouse restaurants, and a sense of the island as a genuine home rather than a tourist destination. Winter in Ibiza has its own magic — clear skies, empty roads, and an authenticity that only those with real property ownership on the island ever truly experience. Ibiza fractional ownership gives you access to all of it, on your own schedule, with the keys and the time to use it properly.</p>
+<p>The island&#8217;s rental market is exceptionally active during peak summer months, and some co-owners explore rental income from unused weeks — but this is subject to Balearic Island licensing requirements, which are among the strictest in Spain, and should never be assumed or guaranteed. The Balearic government has significantly tightened short-term rental rules in recent years, requiring a Vacation Tourist Licence (<em>Vivienda Vacacional</em> licence) for any property rented to tourists. Whether rental income is available for a specific property is confirmed case by case — the primary value of Ibiza fractional ownership remains the lifestyle, the asset, and the deeded ownership rather than any income assumption.</p>
+<p>The property types available through Ibiza fractional ownership reflect the full breadth of what the island offers. Classic Ibicenco fincas — thick-walled, whitewashed rural farmhouses set among carob and almond trees, with private pools and uninterrupted views across pine-forested hills to the sea — represent the quintessential Ibiza property dream. Modern architect-designed villas in the premium zones of the southwest combine infinity pools, open-plan living, and the kind of indoor-outdoor connection that the Ibiza climate makes possible for the full summer season and beyond. Coastal apartments and townhouses in Ibiza Town and Santa Eulària offer the lifestyle convenience of being within walking distance of restaurants, markets, and the sea, without the land and maintenance commitment of a rural property. Ibiza fractional co-ownership properties span all of these categories — the common thread is quality, professional management, and a location that rewards repeat visits with new discoveries each time.</p>
+<p>The community of co-owners on any given Ibiza property is deliberately small — typically six to eight people sharing a single property, all of whom are vetted through the same purchase process, bound by the same co-ownership agreement, and united by a shared appreciation of the property and the island. This is not anonymous hotel-style access: it is the closest thing to genuine private ownership that a second-home model can offer, with all the operational simplicity of a managed property and none of the loneliness of an empty villa sitting unused and deteriorating for eleven months of the year. Ibiza fractional ownership is, at its best, the most human and most rational way to genuinely own a piece of the White Isle — shared between people who love it, managed by professionals who care for it, and enjoyed on a schedule that makes the most of every day on the island.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Ibiza Fractional Ownership — Areas &amp; Neighbourhoods</h2>
+<p>Ibiza fractional ownership spans the full geographic range of the island — from the cosmopolitan southwest and the cultural richness of Ibiza Town, to the rugged northern landscapes, the family-friendly east coast, and the boho heartland of Santa Gertrudis. Each area of the island has its own character and its own buyer profile. The right area for your co-ownership depends on how you want to use the property: for summer beach life, year-round culture, peaceful countryside retreats, or direct access to the island&#8217;s famous social scene.</p>
+<h3>San José, Cala Tarida &amp; the Southwest Coast — Ibiza Fractional Ownership</h3>
+<p>The southwest is where Ibiza&#8217;s reputation for breathtaking natural beauty is at its most concentrated. The municipality of San José (<em>Sant Josep de sa Talaia</em>) encompasses some of the island&#8217;s most photographed coves — Cala Tarida, Cala Bassa, Cala Conta, and Cala d&#8217;Hort, with its iconic view of the rock fortress of Es Vedrà. Villas and fincas here tend to be set on elevated positions with dramatic sea views, private pools, and the space and privacy that define high-end Ibiza living. This is the heartland of Ibiza fractional co-ownership for buyers seeking the quintessential White Isle experience: sun, sea, seclusion, and world-class sunsets. The area is also home to some of the island&#8217;s most celebrated restaurant and beach club culture, including Ses Salines beach and the world-famous Sunset Strip of Café del Mar and Savannah just to the north in San Antonio&#8217;s bay.</p>
+<h3>Ibiza Town (Eivissa), Talamanca &amp; Can Rimbau — Ibiza Fractional Ownership</h3>
+<p>Ibiza Town — <em>Eivissa</em> in Catalan — is the island&#8217;s capital and its cultural and social heart. The UNESCO World Heritage-listed <em>Dalt Vila</em> (the walled upper city) rises dramatically above the marina, its cobbled streets lined with boutiques, galleries, and restaurants that draw an international crowd year-round. The marina itself is a parade of superyachts, café terraces, and evening paseo culture that makes Ibiza Town a living destination in its own right, rather than simply a gateway to the beaches. Talamanca, the sheltered bay immediately to the north of the marina, offers calm swimming and a genuine residential character. Can Rimbau, the prestigious residential quarter overlooking the marina and the city, is among the most sought-after addresses on the island. Ibiza fractional ownership in this area suits buyers who want cultural depth, restaurant access, and a year-round connection to the island — not just peak summer beach life.</p>
+<h3>San Juan, Portinatx &amp; the Rural North — Ibiza Fractional Ownership</h3>
+<p>The north of Ibiza — centred on the village of San Juan (<em>Sant Joan de Labritja</em>) — is the island&#8217;s quiet, unhurried counterpoint to the busy southwest. Pine-covered hillsides, ancient farmhouses, organic food markets, and an arts-and-crafts community that has been drawn here since the 1960s give the north a character that is entirely its own. The coastline is dramatic and largely undeveloped — the cliffs at Cap de Barbaria and the secluded coves of Benirràs, famous for its Sunday drum circle at sunset, define a landscape that feels genuinely wild. Fincas and rural villas here tend to be larger, more private, and more affordable per square metre than comparable properties in the southwest, making the north one of the most interesting areas for Ibiza fractional property for buyers who value peace, nature, and authenticity over access to beach clubs and nightlife.</p>
+<h3>Santa Gertrudis, San Rafael &amp; the Ibiza Heartland — Ibiza Fractional Ownership</h3>
+<p>The central zone of Ibiza — anchored by the village of Santa Gertrudis de Fruitera — is where the island&#8217;s bohemian spirit and its international creative community coexist most visibly. Gallery openings, excellent farm-to-table restaurants, a famous ice cream shop that has served as the social hub of the village for generations, and a genuine village-life pace that the beach resorts cannot replicate. Properties in and around Santa Gertrudis tend to be traditional Ibicenco fincas — whitewashed, thick-walled, with characteristic arched doorways and terraced gardens — set within a short drive of both the beaches and Ibiza Town. San Rafael, sitting between Santa Gertrudis and the capital, adds another dimension: it is home to two of the island&#8217;s most iconic clubs and, increasingly, a growing food and arts scene of its own. Ibiza fractional ownership in the island&#8217;s heartland suits buyers who want the full Ibiza experience — the culture, the landscape, the community — without anchoring themselves to a single coastal resort.</p>
+<h3>Santa Eulària, Cala Llenya &amp; the East Coast — Ibiza Fractional Ownership</h3>
+<p>The east coast of Ibiza, centred on the town of Santa Eulària des Riu — the only river town in the Balearic Islands — is the quietest and most family-oriented part of the island. Its beaches, including Es Canar, Cala Llenya, and Cala Nova, are sheltered, gently sloping, and served by a variety of restaurants and beach bars that cater to a relaxed, all-ages crowd rather than the party circuit. Santa Eulària itself is a genuinely liveable town with a year-round market, quality supermarkets, an excellent marina, and a residential fabric that feels authentic rather than purely tourist-oriented. For families, couples, and buyers who want to use their Ibiza fractional property across a longer season — spring through autumn — rather than exclusively in the peak summer weeks, the east coast offers the most balanced and practical base on the island. Property types range from modern villas and townhouses within walking distance of the town to rural fincas set in the quieter interior between the coast and Santa Gertrudis.</p>
+<p>Each of these areas of Ibiza has its own distinct property character, buyer community, and seasonal personality. The southwest is the island&#8217;s glamour heartland — maximum sun, maximum sea views, maximum access to the beaches and beach clubs that define the Ibiza summer experience. Ibiza Town and its surroundings offer culture, cuisine, and year-round relevance for buyers who want a connection to the island&#8217;s living community rather than a purely seasonal retreat. The rural north rewards patience and authenticity — the buyers who choose it tend to love it with a particular intensity that those focused on the southwest rarely fully understand until they visit. Santa Gertrudis and the central zone are Ibiza for those who have moved past the obvious and want the real thing: the village café on a Tuesday morning, the art gallery opening on a Saturday evening, the farmhouse restaurant where the chef grows half the menu in the garden behind the kitchen. The east coast is the family zone — calm, practical, beautiful, and unpretentious. For a buyer approaching Ibiza fractional ownership for the first time, the most important question to answer early is not which property type or share size — it is which part of the island speaks to the life you want to live when you are there. Every area of Ibiza rewards that clarity with something genuinely special. The Balearic Islands as a whole offer extraordinary depth — see our full <a href="/balearics-fractional-ownership-properties/">Balearics fractional ownership</a> guide to explore the full range of islands and options across the archipelago.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Ibiza Fractional Ownership Works</h2>
+<p>Ibiza fractional ownership operates as genuine co-ownership of Spanish real property, conducted through the standard Spanish conveyancing system and governed entirely by Spanish property law. There is no special fractional ownership statute or separate regulatory framework — this is real estate ownership in every legal sense, structured to allow a small number of co-owners to share a single property in defined shares with a clear governance framework for scheduling and management.</p>
+<p>The purchase process follows the standard Spanish property transaction structure. A preliminary agreement — the <em>contrato de arras</em> or private purchase contract — is signed, a deposit of typically 10% of the purchase price is paid, and the transaction is then completed before a Spanish <em>Notario</em> (notary public), who is an independent officer of state responsible for authenticating and recording the transaction. On completion, the buyer&#8217;s ownership interest — whether a 1/8 share, a 1/4 share, or another fraction — is registered in the <em>Registro de la Propiedad</em>, the official Spanish national land registry. From that moment, the buyer is a <strong>deeded property owner</strong> under Spanish law, with all the legal protections, rights, and responsibilities that entails.</p>
+<p>The most common legal vehicle for Ibiza fractional co-ownership is direct <em>comunidad de bienes</em> — joint ownership under the Spanish Civil Code, where each co-owner holds a registered fractional interest in the underlying property directly. A co-ownership agreement (<em>acuerdo de comuneros</em>) sits alongside the registered title and governs the practical aspects of shared ownership: the annual usage calendar, maintenance responsibilities, the management structure, the procedure for sale or transfer of a share, and the rights of co-owners in relation to one another. This agreement is drafted by Spanish lawyers and constitutes the operating rules of the co-ownership. An alternative structure used by some operators is a Spanish <em>Sociedad Limitada</em> (SL) — the equivalent of a limited liability company — where co-owners hold shares in the company rather than a direct interest in the property. The SL structure can simplify share transfers and estate planning but carries different tax implications, and the right choice depends on the buyer&#8217;s nationality, tax residence, and estate planning objectives. A Spanish property lawyer and cross-border tax adviser should always be consulted.</p>
+<p>Usage allocation in Ibiza fractional ownership follows a rotating calendar system designed to give all co-owners equitable access across the full range of seasons and weeks. A standard <strong>1/8 share</strong> provides approximately 45 days of personal use per year — typically structured as a combination of high-season summer weeks, shoulder-season spring and autumn periods, and the option to swap unused time between co-owners. The management company administers the booking system, handles all arrivals and departures, coordinates maintenance and cleaning between visits, and manages any interaction with local authorities, community fees, and utility providers. The co-owner&#8217;s role is simply to arrive, enjoy the property, and leave — the operational burden of property ownership is entirely removed.</p>
+<p>The tax position of Ibiza fractional ownership for non-resident buyers follows standard Spanish non-resident property ownership rules. Buyers pay the relevant purchase taxes on acquisition — typically <em>Impuesto de Transmisiones Patrimoniales</em> (ITP, transfer tax) for resale properties or IVA (VAT) plus stamp duty for new-build properties. Ibiza is within the Balearic Islands, which applies its own regional ITP rate — currently among the most progressive in Spain, with rates scaling from 8% up to 13% depending on the property value. Annual non-resident property taxes include the <em>Impuesto sobre la Renta de No Residentes</em> (IRNR, non-resident income tax on imputed rental income from the property), which is calculated as a percentage of the property&#8217;s rateable value (<em>valor catastral</em>), and the <em>Impuesto sobre Bienes Inmuebles</em> (IBI, the local annual property ownership tax). Spain also applies a non-resident capital gains tax (<strong>19% for EU/EEA residents</strong>, 24% for others) on any profit realised on sale of the fractional interest. A qualified Spanish tax adviser should be engaged from the outset to model the full cost of ownership accurately.</p>
+<p>Co-owners wishing to sell their fractional interest at any time may do so — this is a genuine asset with full resale rights. The co-ownership agreement typically provides for a <strong>right of first refusal</strong> among existing co-owners, followed by the ability to sell to a new buyer on the open market. The same Spanish conveyancing process — <em>Notario</em>, <em>Registro de la Propiedad</em> — applies to any resale of a fractional interest. Inheritance of a fractional interest follows Spanish succession law, which applies to Spanish-situ assets regardless of the owner&#8217;s country of residence or domicile — an area where cross-border estate planning advice is essential for UK, US, and other non-EU buyers.</p>
+<p>For buyers seeking a deeper understanding of the co-ownership model before committing to a purchase, the <a href="/what-is-fractional-ownership/">What is Fractional Ownership?</a> guide provides a comprehensive overview of the legal framework, ownership structures, and practical considerations across European jurisdictions. The <a href="/co-ownership-buying-process/">co-ownership buying process</a> guide walks through the specific steps of a fractional purchase from initial enquiry to completion and registration. Both are recommended reading for any buyer approaching Ibiza fractional ownership for the first time.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Ibiza Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>Ibiza fractional ownership stands at the intersection of two powerful drivers: the island&#8217;s enduring appeal as one of Europe&#8217;s most desirable lifestyle destinations, and the structural logic of shared ownership as the most efficient model for a second home used seasonally. The lifestyle case is straightforward — Ibiza is one of the most recognisable and internationally connected islands in the Mediterranean, with a year-round calendar of experiences that gives every season its own distinct character and appeal. The property market logic is equally compelling: the island&#8217;s position within the premium end of the Balearic property market means that co-ownership makes premium properties accessible to a broader international buyer community than outright purchase alone would allow.</p>
+<p>The Ibiza property market has demonstrated consistent long-term resilience. The island&#8217;s combination of limited land supply, strict planning regulations — particularly in the north, where rural property development is tightly controlled — and sustained international demand has supported property values across economic cycles in a way that few other Mediterranean markets have matched. This is not an invented statistic but a structural reality: an island of finite size, with planning constraints that restrict new supply, and demand from one of the most geographically diverse international buyer communities in Europe. Ibiza fractional ownership participates in this market at the quality end — co-ownership properties are typically the kind of well-built, well-located villas and fincas that benefit most directly from the island&#8217;s underlying value fundamentals.</p>
+<p>The lifestyle offering of Ibiza fractional property extends across every season. Summer — July and August particularly — is the island at its most intense: every beach club, marina terrace, and restaurant at capacity, the social calendar relentless, and the Mediterranean light extraordinary. June and September offer many buyers their preferred version of Ibiza: warm enough to swim from any cove, quiet enough to actually get a table at Ama Lur or Na Xamena without a month&#8217;s advance booking, and with a pace that allows the island to breathe. May and October bring cooler temperatures, clearer air, and the autumn almond harvest that turns the interior of the island a warm ochre-gold. Even winter has its advocates among those who know Ibiza well — the local community comes into its own, the restaurants of Santa Gertrudis and Es Canar stay open, and the island&#8217;s natural landscape, usually busy with tourists, can be walked and explored in near-total solitude.</p>
+<p>Beyond the beach, Ibiza&#8217;s lifestyle offer includes some of the finest dining in the Balearics. Restaurants like Heart Ibiza — a collaboration between the Adrià brothers and Cirque du Soleil — sit alongside neighbourhood gems in Santa Gertrudis, fresh-fish tavernas in the fishing village of Es Canar, and organic farm restaurants in the northern hills that source everything from within a few kilometres. The island has a dedicated international school, excellent private healthcare, a marina with berths for vessels of all sizes, a network of water sports providers, and the kind of international connectivity — direct flights from across Europe and beyond from April through October — that makes it genuinely practical as a regular destination rather than a once-a-year trip.</p>
+<p>For buyers comparing Ibiza fractional ownership with alternatives across the Balearics, the key distinction is character and market positioning. <a href="/mallorca-fractional-ownership-properties/">Mallorca</a> is larger, more diverse, and arguably more family-oriented in its overall market profile. <a href="/menorca-fractional-ownership-properties/">Menorca</a> is quieter, more natural, and less internationally connected. <a href="/formentera-fractional-ownership/">Formentera</a>, Ibiza&#8217;s smaller sister island, offers the finest beaches in the archipelago but extremely limited property supply and even more complex planning rules. Ibiza occupies a specific and irreplaceable position: internationally connected, culturally sophisticated, naturally beautiful, and with a property market deep enough to offer genuine choice and liquidity at the quality end. Ibiza fractional co-ownership is simply the most rational entry point for buyers who want that position without the full capital commitment of outright ownership.</p>
+<p>The ongoing costs of Ibiza fractional property are shared proportionally between co-owners and typically cover community fees (<em>gastos de comunidad</em> if the property is within a development), local property tax (IBI), home and contents insurance, utility standing charges, and the management company&#8217;s annual fee for maintenance, cleaning, and booking coordination. These costs are modest relative to the asset and are predictable — co-owners receive a transparent annual cost schedule at the start of each year. There are no hidden overheads and no surprises — professional management is one of the defining advantages of the structured co-ownership model over traditional sole-ownership holiday properties.</p>
+<p>Ibiza&#8217;s connectivity to the rest of Europe is one of its defining practical advantages as a fractional ownership destination. Ibiza Airport — the island&#8217;s international gateway — operates direct flights from London Gatwick, Heathrow, Stansted, Manchester, Birmingham, Bristol, and Edinburgh, as well as from Paris, Amsterdam, Frankfurt, Zurich, Stockholm, and a dozen other major European cities throughout the summer season. From April to October, reaching Ibiza from anywhere in western Europe is a two-to-three-hour journey at most. This ease of access makes the 45-day annual allocation of Ibiza fractional ownership feel genuinely usable across multiple shorter visits — a long weekend in May, two weeks in July, a week in September — rather than requiring a single annual trip that concentrates all use in the peak season. The winter schedule is more limited, with fewer direct routes, but the island remains accessible year-round via connections through Barcelona, Madrid, or Palma for those who want to visit outside the main season.</p>
+<p>For buyers weighing Ibiza fractional ownership against other Mediterranean co-ownership destinations, the comparison is informative. <a href="/south-of-france-fractional-ownership-properties/">South of France fractional ownership</a> offers a different but equally compelling set of lifestyle and property market attributes — the <a href="/french-alps-fractional-ownership-properties/">French Alps</a> offer a mountain rather than coastal experience — and <a href="/sardinia-fractional-ownership-properties/">Sardinia</a> provides an Italian island alternative with its own distinct culture and property market dynamics. <a href="/portugal-fractional-ownership-properties/">Portugal fractional ownership</a> offers a broader range of climate zones and property types at generally lower entry prices. Each has its merits — but Ibiza&#8217;s combination of island exclusivity, year-round connectivity, cultural depth, and premium property stock makes it a uniquely strong and compelling proposition within the broader European co-ownership landscape. For buyers who know the island and love it, the question is not whether to own there, but how — and Ibiza fractional co-ownership answers that question definitively.</p>
+<p>The <a href="/benefits-of-fractional-ownership-for-second-homes/">benefits of fractional ownership for second homes</a> are well-documented: lower entry cost, shared running expenses, professional management, preserved lifestyle access, and the financial and emotional efficiency of owning exactly as much as you need and use. Ibiza fractional ownership applies all of these benefits to one of the Mediterranean&#8217;s most coveted addresses — which is why the interest in White Isle co-ownership has grown consistently among international buyers seeking the optimal balance between ownership, enjoyment, and intelligent use of capital.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/balearics-fractional-ownership-properties/" class="dest-explore-card">Balearics Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card">Mallorca Fractional Ownership &rarr;</a><a href="/menorca-fractional-ownership-properties/" class="dest-explore-card">Menorca Fractional Ownership &rarr;</a><span class="dest-explore-card">Spain Fractional Ownership</span><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Ibiza Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What do I actually own with Ibiza fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>You own a legally registered fractional interest in Spanish real property. Your ownership share — typically a <strong>1/8 interest</strong> — is recorded in the Spanish land registry, the <em>Registro de la Propiedad</em>, in your name. You are a real property owner under Spanish law, with all the rights that entails: the right to use the property for your allocated weeks, the right to sell your share on the open market, the right to pass it on through your estate, and the right to the appreciation in value of your share as the underlying property value changes over time. What you do not own is exclusive use of the property for the entire year — you own your proportional share of the whole, with usage allocated equitably among co-owners under the governance framework of the co-ownership agreement.</p>
+<p>This is fundamentally different from a timeshare, which is a contractual right to use a property during a specified period each year — not an ownership interest in the real estate itself. With Ibiza fractional ownership, the property is on your balance sheet as an asset. With a timeshare, it is not. The distinction is both legally and financially significant.</p></div></details><details class="dest-faq-item"><summary><h3>Is Ibiza fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — and the distinction matters enormously. A timeshare involves the sale of a contractual usage right, not a property ownership interest. When a timeshare company fails or the arrangement ends, the timeshare holder walks away with no asset value and no legal recourse as a property owner. Ibiza fractional ownership is the precise legal opposite: it is a registered property ownership interest that gives the holder a capital asset, the benefits of any appreciation in value, and full resale rights on the open market.</p>
+<p>Timeshare resale is notoriously difficult — many buyers struggle to find buyers at any price, and the secondary market is thin and problematic. Fractional ownership interest in a quality Ibiza property can be sold through the standard Spanish property market, through existing co-owners exercising their right of first refusal, or through specialist fractional property agents. These are two entirely different legal and financial arrangements that happen, superficially, to involve shared access to a property — <strong>not a timeshare</strong> is the accurate and important description of Ibiza fractional co-ownership.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use my Ibiza fractional property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard <strong>1/8 share</strong> provides approximately 45 days of personal use per year — structured typically as a combination of peak summer weeks, shoulder-season periods in spring and autumn, and the flexibility to bank or swap unused time with other co-owners. The usage allocation is managed through a rotating annual calendar that ensures no single co-owner permanently holds the most desirable high-season weeks — all co-owners rotate through peak and off-peak periods over the years.</p>
+<p>For UK buyers specifically, 45 days aligns exceptionally well with the post-Brexit Schengen allowance of 90 days in any 180-day rolling period. A 1/8 share of an Ibiza property uses just half your annual Schengen entitlement, leaving the other 45 days available for travel across the rest of Europe. Buyers who want more time in Ibiza can consider a 1/4 share (approximately 90 days) if they wish to use the full Schengen allocation in a single destination.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Ibiza fractional property during weeks I&#8217;m not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Rental income from unused weeks is possible for some co-owners, but this is never guaranteed and is subject to Balearic Island licensing requirements that are among the most stringent in Spain. The Balearic government has significantly tightened short-term tourist rental regulations in recent years. A property must hold a valid <em>Vivienda Vacacional</em> (Vacation Tourist Licence) to be legally rented to tourists, and new licences in many parts of Ibiza — particularly within the municipality of Ibiza Town and in certain coastal zones — have been placed under moratoriums or restricted in number. There is a formal waiting list for new licences in some areas.</p>
+<p>Whether a specific co-ownership property has a tourist licence, and whether co-owners may rent their unused time, is confirmed on a case-by-case basis for each property. Never select an Ibiza fractional property on the basis of an assumed or projected rental income — the lifestyle value, the asset value, and the deeded ownership structure are the primary drivers of value, not rental returns.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Ibiza fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Non-resident co-owners are also liable for the <em>Impuesto sobre la Renta de No Residentes</em> (IRNR) — a small annual tax calculated on the deemed rental value of the property (based on the <em>valor catastral</em>) that applies even when the property is not actually rented out. Again, this is calculated on the co-owner&#8217;s proportional share of the property value. A Spanish tax adviser will calculate and file this on your behalf annually. The total annual cost of Ibiza fractional ownership, properly structured, is a fraction of the cost of sole ownership and is entirely predictable.</p></div></details><details class="dest-faq-item"><summary><h3>What legal structure is used for Ibiza fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The most common structure for Ibiza fractional co-ownership is direct joint ownership under the Spanish Civil Code — <em>comunidad de bienes</em> — where each co-owner holds a registered fractional interest in the underlying property. This is the simplest and most transparent structure: your name (or the name of your chosen legal entity) appears directly on the Spanish land registry title alongside the other co-owners, with your fractional interest clearly stated.</p>
+<p>An alternative is co-ownership through a Spanish <em>Sociedad Limitada</em> (SL) — a limited company structure where co-owners hold shares in the SL rather than a direct interest in the property. The SL structure can simplify the transfer of interests (share transfers rather than full property conveyances) and may offer advantages in estate planning — but it carries different tax treatment, including corporate tax obligations for the SL entity itself, and is not automatically more efficient than direct ownership for all buyers. The right structure depends on your nationality, tax residence, and personal circumstances. Always take advice from a qualified Spanish property lawyer and a cross-border tax specialist before committing to a structure.</p></div></details><details class="dest-faq-item"><summary><h3>How does the buying process for Ibiza fractional ownership work?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The buying process follows the standard Spanish property conveyancing structure. After selecting a property and agreeing terms, a preliminary contract — either a <em>contrato de arras</em> (reservation deposit agreement) or a private purchase contract — is signed, and a reservation deposit (typically 10% of the fractional purchase price) is paid. This takes the property off the market while due diligence is carried out. Due diligence on an Ibiza fractional property purchase covers the title registration, any encumbrances or charges registered against the property, planning and licensing status, community fee arrears (if applicable), and — critically for Ibiza — the tourist licence status of the property.</p>
+<p>Completion takes place before a Spanish <em>Notario</em>, who reads and authenticates the purchase deed (<em>escritura de compraventa</em>), after which the buyer&#8217;s fractional interest is registered in the <em>Registro de la Propiedad</em>. Purchase taxes (ITP for resale properties — at Balearic rates — or IVA plus stamp duty for new-build) are paid within 30 days of completion. Non-resident buyers will need a Spanish tax identification number (NIE) and a Spanish bank account for the transaction. The entire process, from reservation to completion, typically takes 6 to 12 weeks for a well-prepared transaction.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Ibiza fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — this is a genuine asset with full resale rights. Co-owners wishing to sell their fractional interest may do so at any time, subject to the terms of the co-ownership agreement. Most agreements provide for a <strong>right of first refusal</strong> among the existing co-owners — meaning that before selling to a third party, the seller must first offer the share to their fellow co-owners at the same price and on the same terms. This protects the co-ownership group by giving them control over who joins the ownership group before the share is marketed externally.</p>
+<p>If no existing co-owner exercises the right of first refusal, the share may be marketed and sold to a new buyer through the same Spanish conveyancing process as the original purchase. Any capital gain on the sale of an Ibiza fractional interest is subject to Spanish non-resident capital gains tax — currently <strong>19% for EU and EEA residents</strong>, and 24% for non-EU residents including UK nationals post-Brexit. A Spanish tax adviser should model the exit tax position as part of the investment assessment.</p></div></details><details class="dest-faq-item"><summary><h3>Is Ibiza fractional ownership suitable for UK buyers post-Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Ibiza fractional ownership is arguably the most rational response to the post-Brexit Schengen constraint for UK buyers who want a genuine long-term connection with the island. Since January 2021, UK nationals have been subject to the Schengen Area&#8217;s 90-day-in-180-day rule, which limits the total time they can spend in Spain (and across all Schengen countries) without a long-stay visa. A 1/8 share providing approximately 45 days of personal use aligns almost perfectly with half of this annual allowance — leaving the remaining entitlement for travel elsewhere in Europe while giving the buyer a legally registered, capital-owning stake in an Ibiza property.</p>
+<p>For UK buyers who want more time in Spain, the Spanish <em>Golden Visa</em> — available to non-EU nationals investing €500,000 or more in Spanish real estate — provides residency rights that supersede the Schengen 90-day restriction. A fractional interest could, in some cases, contribute towards this threshold as part of a broader property portfolio. However, this is a complex area and specialist Spanish immigration and tax advice is essential. For the majority of UK buyers, a well-structured Ibiza fractional property representing 45 days of use per year is the cleaner, simpler, and more cost-effective answer.</p></div></details><details class="dest-faq-item"><summary><h3>How does Ibiza compare to Mallorca and Menorca for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Each of the main Balearic islands has a distinct character and a distinct buyer profile. <a href="/mallorca-fractional-ownership-properties/">Mallorca fractional ownership</a> offers the greatest geographic diversity within a single island: mountain villages, long golden beaches, marina towns, and a property market with extraordinary range from rustic farmhouses to ultra-luxury villas. It appeals to a broader family market and has the most developed fractional property infrastructure of the three main islands. <a href="/menorca-fractional-ownership-properties/">Menorca</a> is the quietest and most natural of the three — a UNESCO Biosphere Reserve with some of the finest unspoilt beaches in the Mediterranean, a slower pace, and a property market that is notably less developed in the fractional space, giving early buyers an advantageous position. Ibiza sits between the two in terms of pace: more international and cosmopolitan than Menorca, more focused and characterful than Mallorca, with a year-round cultural and social calendar that neither of its sister islands can match. The choice between the three comes down entirely to how you want to live in the property, and in which season.</p></div></details><details class="dest-faq-item"><summary><h3>What happens if I want to pass on my Ibiza fractional interest to my heirs?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Ibiza fractional ownership carries full inheritance rights — your fractional interest is an asset that can be passed on through your estate. However, because the property is situated in Spain, Spanish succession law (<em>Ley del Impuesto sobre Sucesiones y Donaciones</em>) applies to the transfer of Spanish-situ assets regardless of your country of residence or domicile. For EU residents, the EU Succession Regulation (Brussels IV) allows you to elect for the law of your habitual residence to govern your overall succession — which may result in more favourable outcomes than Spanish forced heirship rules in some cases. For UK residents post-Brexit, this EU election is no longer available, and specialist cross-border estate planning advice is essential.</p>
+<p>The Balearic Islands apply their own regional succession tax rules, which are generally more favourable than the national Spanish rates — particularly for direct-line family heirs. The co-ownership agreement should be reviewed to understand whether a transfer of interest by inheritance requires notification to or consent from the other co-owners. In many well-structured co-ownership arrangements, inheritance transfers to direct family members are permitted without triggering the right of first refusal that would apply to a commercial sale. This is an area where both a Spanish inheritance lawyer and a cross-border estate planning specialist should be consulted early in the purchase process, not as an afterthought.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mallorca Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Explore Mallorca fractional ownership properties for an affordable way to enjoy Mediterranean living without full ownership costs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Mallorca Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Mallorca?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3>
+<p>Mallorca fractional ownership lets you step into some of Europe&#8217;s most coveted coastal real estate — from north Mallorca&#8217;s bays and Tramuntana foothills to the superyacht‑rich southwest and the cala‑lined southeast — without tying up millions in a second home you only use for a few weeks a year. Instead of buying 100% of a villa in <a href="/pollenca-port-de-pollenca-fractional-ownership-properties/" target="_blank" rel="noopener"><strong>Pollença / Port de Pollença</strong></a>, a frontline apartment in <a href="/alcudia-port-dalcudia-fractional-ownership-properties/" target="_blank" rel="noopener"><strong>Alcúdia / Port d&#8217;Alcúdia</strong></a>, or a sea‑view home in <a href="/santa-ponsa-fractional-ownership-properties/" target="_blank" rel="noopener"><strong>Santa Ponsa</strong></a>, <a href="/andratx-fractional-ownership-properties-co-ownership-property/" target="_blank" rel="noopener"><strong>Andratx</strong></a> or <a href="/santanyi-fractional-ownership-properties/" target="_blank" rel="noopener"><strong>Santanyí / Cala d&#8217;Or</strong></a>, you co‑own a carefully chosen property with a small group of like‑minded owners, typically via a <strong>1/8th deeded share</strong> that appears through a legally structured property company.</p>
+<p>For buyers considering a Mallorca second home, the island delivers five genuinely distinct lifestyle zones within a compact 3,640 km² footprint — something no other Mediterranean island matches at this scale of quality or accessibility. Mountainous northwest, golden southwest coast, medieval north, family beach north coast, intimate creative southeast: each is a completely different experience, yet all are reachable within 90 minutes of any other. The challenge is that full ownership of a villa in any of these zones requires committing <strong>€1.5–3 million or more</strong> to a single asset that may sit empty for 40+ weeks per year, accumulate annual running costs regardless of use, and demand time-consuming remote management from abroad. Fractional co-ownership solves this directly: <strong>a 1/8 deeded share aligns capital, running costs and usage weeks to how you actually live</strong>, while still providing genuine real estate equity that appreciates in line with the underlying property — without the burden of full ownership.</p>
+<p>International demand for Mallorca property continues to be exceptionally broad. <a href="https://www.engelvoelkers.com/es/en/properties-prices/balearic-islands/majorca" target="_blank" rel="noopener"><strong>Engel &amp; Völkers</strong></a> and <a href="https://www.fineandcountry.es/en/mallorca-estate-agents/" target="_blank" rel="noopener"><strong>Fine &amp; Country Mallorca</strong></a> both report continued multi-nationality interest across all price points and zones, with German, British, Scandinavian, Dutch and Swiss buyers forming the established core, now joined by growing cohorts of North Americans, Belgians and buyers from further afield. This breadth of demand — spread across nationalities, economic cycles and motivations — is a critical long-term value support for the island&#8217;s second homes and co‑ownership assets alike. Unlike markets driven by a single buyer nationality, Mallorca&#8217;s diversified buyer base provides a natural hedge against any one country&#8217;s economic cycle, making values here structurally more resilient than comparable Mediterranean destinations.</p>
+</div></section><section class="dest-sec white"><div class="dest-inner"><h2>Mallorca lifestyle: four seasons of Mediterranean living</h2>
+<p>Mallorca is the only European island combining Tramuntana mountain hiking, white‑sand beaches, a cosmopolitan UNESCO-recognised capital city, World Heritage landscapes, a rapidly maturing food and wine culture and an established international arts scene — all within a 90‑minute drive of any point on the island. Co‑ownership homes here are not just beach houses; they are bases for a genuinely rich, layered and endlessly repeatable lifestyle that rewards long-term, returning use. Palma alone hosts a Michelin-starred restaurant scene, a cathedral considered one of the finest Gothic structures in the Mediterranean, a thriving gallery quarter in Santa Catalina, and a nightlife and dining culture that easily rivals Ibiza town for energy and quality — without the excess. The island reveals itself gradually, and that depth of discovery is what fundamentally separates Mallorca from single‑note sun‑and‑sand destinations that exhaust their appeal after two or three visits.</p>
+<p>Palma&#8217;s international airport (PMI) is one of Spain&#8217;s three busiest, with <strong>over 29 million passengers annually</strong> and direct routes to 65+ European destinations. Multiple daily flights to London, Frankfurt, Amsterdam, Stockholm, Zürich and Madrid keep your Mallorca vacation home within 2–3 hours of most Northern and Central European cities — practical enough for long weekends and working retreats as well as full-week family stays. Fast fibre broadband across all major second-home zones and a growing network of co-working spaces in Palma and the larger towns support the growing number of owners who combine co-ownership weeks with remote work, extending stays far beyond traditional holiday windows. For practical trip planning and local discovery, the official <a href="https://www.mallorca.es/en/" target="_blank" rel="noopener"><strong>Mallorca.es</strong></a> tourism portal, <a href="https://www.tripadvisor.com/Tourism-g187462-Majorca_Balearic_Islands-Vacations.html" target="_blank" rel="noopener"><strong>TripAdvisor</strong></a> and <a href="https://www.getyourguide.com/mallorca-l47/" target="_blank" rel="noopener"><strong>GetYourGuide</strong></a> are excellent starting points for activity discovery across all five zones.</p>
+<p>Mild, reliably sunny and genuinely uncrowded. Palma&#8217;s cultural season opens fully, professional cycling teams base their spring training here, golf courses are in perfect condition and restaurants are fully booked by locals rather than tourists. An ideal remote-working escape from northern winters.</p>
+<p>This four‑season usability is central to the fractional co-ownership value proposition. A 1/8 share&#8217;s <strong>6–7 annual weeks</strong> can be spread strategically across the calendar: spring hiking in the Tramuntana from a Pollença finca, summer cala days from a Santanyí villa above the cliffs, early autumn wine tours and cycling from a Santa Ponsa base, winter golf and Palma culture from an Andratx terrace. Very few Mallorca vacation homes sit completely idle regardless of season — and that reliable year-round utility, combined with the rental potential of unused weeks in licensed properties, is precisely what makes the island such a compelling co‑ownership and wealth preservation market.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Key Mallorca fractional ownership areas</h2>
+<p>Santa Ponsa fractional ownership sits in the heart of Mallorca&#8217;s most established international second‑home belt — a seamless blend of large sandy beaches, four championship golf courses within 15 minutes, family-friendly gated residential zones, designer boutiques and fast dual-carriageway access to Palma city centre and Son Sant Joan Airport. The area spans several distinct sub-zones: Nova Santa Ponsa for ultra-prime hillside villas with panoramic sea views, El Toro for marina life at Port Adriano, and Bendinat for discreet proximity to Palma&#8217;s best international schools, restaurants and private clinics.</p>
+<p>Property types are among the most diverse on the island: contemporary sea-view villas with infinity pools and outdoor kitchens, golf-side homes within gated communities, high-specification apartments in managed complexes with concierge and communal pools, and refurbished stone houses in quieter residential pockets. Co-ownership here makes premium stock in these sought-after sub-zones genuinely accessible — <strong>typical 1/8 shares sit in the €200,000–€350,000 range</strong> against whole-property prices of €1.6m–€3m+. <strong>Best for:</strong> families, golfers, buyers prioritising year-round usability and strong infrastructure.</p>
+<h3>Andratx &amp; Port d&#8217;Andratx</h3>
+<p>Andratx is Mallorca&#8217;s ultra‑prime address — a dramatic hillside amphitheatre descending to one of the Mediterranean&#8217;s most celebrated superyacht harbours, framed by centuries-old almond terraces and sweeping sea views towards the protected island of Sa Dragonera. The slopes above Port d&#8217;Andratx are home to some of the island&#8217;s most architecturally ambitious contemporary villas, alongside Michelin-star restaurants, serious galleries and one of the highest concentrations of ultra-high-net-worth second homes anywhere in the western Mediterranean. Camp de Mar adds a quieter sheltered bay with a beach, while the old town of Andratx itself retains a genuine Mallorcan character completely apart from the tourist circuit.</p>
+<p>Andratx fractional ownership opens this emphatically top-of-market world at a fraction of the solo purchase cost. Properties in this zone are invariably villas with expansive terraces, infinity pools with sea or mountain backdrops, panoramic glazing and finishes that rival five-star hotels — all professionally managed to an immaculate standard that protects the asset and your experience equally. <strong>Best for:</strong> luxury buyers, yacht enthusiasts, architecture admirers and investors building a flagship asset portfolio anchored to one of Europe&#8217;s most supply-constrained markets.</p>
+<h3>Pollença &amp; Port de Pollença</h3>
+<p>Pollença fractional ownership anchors the north coast — a perfectly preserved hilltop town with the famous 365-step Calvari staircase, a celebrated Sunday market filling the colonnaded main square and an artistic legacy stretching back to the island&#8217;s early 20th-century painters. Port de Pollença adds a beautiful shallow bay of exceptionally calm water, ideal for paddleboarding, kayaking and sailing, with the iconic Pine Walk promenade, a cluster of excellent seafood restaurants and easy access to both Cap de Formentor and the dramatic western wall of the Serra de Tramuntana. The area has one of the most loyal repeat-visitor communities of any Mallorca zone — a sign, above all else, of just how satisfying the everyday experience here is.</p>
+<p>Properties span medieval stone townhouses with roof terraces and Tramuntana views, countryside fincas surrounded by ancient olive and almond groves, and contemporary villas close to the bay. Prices are typically below the very top of the southwest, giving outstanding value for the quality of lifestyle, scenery and repeat usability. The area has seen strong capital growth as its international profile has risen and supply has remained tightly constrained. <strong>Best for:</strong> families, cyclists using the Tramuntana routes, hikers, sailors and buyers who value authentic Mallorcan culture alongside exceptional natural beauty.</p>
+<h3>Alcúdia &amp; Port d&#8217;Alcúdia</h3>
+<p>Alcúdia fractional ownership pairs a beautifully preserved 14th-century walled old town — one of Spain&#8217;s finest — with one of the Mediterranean&#8217;s longest and best-equipped family beaches. Playa de Muro and Port d&#8217;Alcúdia offer kilometres of shallow safe swimming, extensive cycle paths linking the entire bay, water sports centres, family water parks and immediate access to the S&#8217;Albufera natural park — Mallorca&#8217;s largest wetland reserve and a celebrated destination for birdwatchers and nature lovers. It is one of the most versatile and family-friendly bases anywhere in the Balearics, combining genuine historical character with resort-level beach and leisure infrastructure in a way very few destinations anywhere in the Mediterranean can match.</p>
+<h3>Santanyí &amp; Cala d&#8217;Or</h3>
+<p>Santanyí fractional ownership is the island&#8217;s most aesthetically distinctive zone — golden limestone cliffs plunging into turquoise coves carved from the rock, white-washed low-rise architecture glowing in the afternoon light and a quietly creative village scene centred on Santanyí town&#8217;s twice-weekly market, galleries and artisan food producers. The southeast coast is home to some of the island&#8217;s most photographed beaches — Cala Llombards, Cala Figuera, Cala Santanyí — each small, intimate and genuinely beautiful in a way the larger resort beaches cannot replicate. Neighbouring Cala d&#8217;Or adds a stylish marina with waterfront restaurants, a string of pine-backed calas and a well-established international community with its own distinct character.</p>
+<p>Co-ownership in this zone focuses on villas above or close to the coves with pool terraces framing sea views, marina-side apartments in well-maintained gated communities, and countryside houses within the soft rolling interior. The buyer profile here skews toward design-conscious couples, creative professionals and families who place aesthetics, swimming quality and a genuinely slower pace above golf, city access or large-resort infrastructure — though Palma is a comfortable 50-minute drive. <strong>Best for:</strong> couples, creative professionals, design-focused buyers and anyone who prioritises natural beauty and intimate cove access above all else.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A week in your Mallorca co‑ownership home</h2>
+<p>One of the most compelling things about owning a co‑ownership property in Mallorca is how differently each stay can feel. The island has enough depth — coastline, mountains, culture, food, villages, water — that you could spend a week here every season for years and still be discovering something new. This is what a typical late-spring week might look like, arriving on a Sunday afternoon and leaving the following Sunday morning. Adjust the zone, the season and your own pace — and the island reshapes itself entirely around you.</p>
+<p>You land at <a href="https://www.aena.es/en/son-sant-joan.html" target="_blank" rel="noopener">Palma Son Sant Joan Airport</a> mid-afternoon, collect the hire car and within 20 minutes you are pulling into the driveway. <strong>The property is immaculate — stocked, aired, pool sparkling.</strong> You didn&#8217;t arrange any of it. You unpack, pour something cold and sit on the terrace as the light turns gold over the garden. That evening, no ambition beyond a short walk to a local restaurant, something fresh and simple, and a very early night.</p>
+<p>If you are in the north, <strong>Monday morning means Pollença market</strong> — one of Mallorca&#8217;s finest, filling the historic centre with around 300 stalls of local produce, ceramics, textiles and sobrasada every Sunday morning. Check the <a href="https://www.pollensa.com/en/what-to-do/markets/pollenca-market" target="_blank" rel="noopener">official Pollença market guide</a> for timings and stall details. Afterwards, drive 20 minutes to <a href="https://www.seemallorca.com/beaches/cala-sant-vicenc-beach-cala-san-vincente-686099" target="_blank" rel="noopener">Cala de Sant Vicenç</a> — four intimate coves of extraordinary turquoise clarity, never overcrowded outside August. Swim, read, do nothing particularly well. The afternoon deserves nothing more than that.</p>
+<p>The <a href="https://whc.unesco.org/en/list/1371" target="_blank" rel="noopener">UNESCO World Heritage Serra de Tramuntana</a> is one of Europe&#8217;s great mountain landscapes and rewards a full day. Walkers can tackle classic routes above Pollença or the spectacular coastal paths near Banyalbufar. Cyclists — <strong>the island attracts professional teams for a reason</strong> — can ride the legendary Sa Calobra climb or the Col de Sóller pass with gradients and scenery that rival anything the Alps offer. <a href="https://trendesoller.com/eng/index" target="_blank" rel="noopener">The vintage Sóller train</a>, running since 1912, is a beautiful alternative for non-cyclists wanting to experience the mountains without exertion. End the day in Sóller&#8217;s main square with a long, unhurried lunch.</p>
+<p><strong>Palma is one of the Mediterranean&#8217;s most underrated capital cities</strong> and deserves a full day. Start at the <a href="https://catedraldemallorca.org/en/" target="_blank" rel="noopener">Cathedral of Santa Maria</a> — one of the greatest Gothic structures in Europe. Walk through the old town to the <a href="https://www.fundacionbmarch.es/en/museum-palau-march/" target="_blank" rel="noopener">Palau March</a> sculpture garden. Lunch in Santa Catalina, the city&#8217;s most vibrant neighbourhood — a dense cluster of wine bars, modern Mallorcan kitchens and delis packed with local producers. The afternoon belongs to the boutiques of the old town, the <a href="https://miromallorca.com/en/" target="_blank" rel="noopener">Fundació Pilar i Joan Miró</a>, or simply a long coffee watching the harbour. Stay for dinner — <strong>Palma&#8217;s restaurant scene comfortably rivals Barcelona for quality</strong> and far surpasses it for atmosphere.</p>
+<p>Mallorca&#8217;s coastline has <strong>over 80 named beaches and calas</strong>, and the best of them are only properly accessible by boat. Hire a small motorboat for the day from <a href="https://www.clickandboat.com/us/boat-rental/spain/port-de-pollen%C3%A7a" target="_blank" rel="noopener">Port de Pollença</a> or <a href="https://www.portadriano.com/" target="_blank" rel="noopener">Port Adriano</a> in the southwest — no licence required for smaller boats — and spend the day exploring coves that no road reaches. Pack a picnic, anchor in water so clear you can see the seagrass metres below, and swim until you lose track of time. <strong>This is the day that makes people want to come back every year.</strong></p>
+<p>Mallorca&#8217;s inland villages are completely removed from the coastal tourist circuit and utterly worth the detour. <a href="https://binissalemdo.com/en/do-binissalem-en/" target="_blank" rel="noopener">Binissalem DO</a> and the <a href="https://www.illesbalears.travel/en/mallorca/gastronomic-market-mercat-de-pollenca" target="_blank" rel="noopener">Pla i Llevant</a> wine regions produce indigenous varieties — Manto Negro, Prensal Blanc — that have caught serious international attention in recent years. Book a morning winery visit, lunch at a village restaurant, and spend the afternoon wandering Sineu&#8217;s medieval streets or climbing to the hilltop monastery at Randa for views across the entire plain. <strong>This is the Mallorca that most visitors never find.</strong></p>
+<p>The best last days are unplanned. Maybe a morning swim at the beach you didn&#8217;t get to during the week. Maybe a long breakfast at the table outside, reading, doing nothing at all. Maybe a final sunset dinner at the restaurant you bookmarked on day one and never quite got to. <strong>The rhythm of Mallorca rewards unhurried time</strong> — the island has a quality of light in the early evening, particularly in spring and autumn, that does something to the air you simply cannot replicate anywhere else. You will already be thinking about when to come back.</p>
+<p>Repeat this week in autumn and the mountains are quieter, the sea is still warm, the <a href="https://binissalemdo.com/en/do-binissalem-en/" target="_blank" rel="noopener">wine harvest</a> is underway and the restaurant tables are booked by locals rather than tourists. Repeat it in winter and <strong>Palma&#8217;s cultural season is in full swing</strong>, the cycling teams are training on empty roads and the golf courses are in perfect condition. Repeat it in summer and the energy shifts entirely — the calas shimmer, the nightlife opens up and the island hums. The <a href="https://www.mallorca.es/en/" target="_blank" rel="noopener">official Mallorca tourism portal</a>, <a href="https://www.getyourguide.com/mallorca-l47/" target="_blank" rel="noopener">GetYourGuide</a> and <a href="https://www.tripadvisor.com/Tourism-g187462-Majorca_Balearic_Islands-Vacations.html" target="_blank" rel="noopener">TripAdvisor&#8217;s Mallorca guide</a> are all excellent for activity and restaurant discovery across every zone.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Mallorca with children — the family co‑ownership experience</h2>
+<p>Mallorca is one of Europe&#8217;s genuinely great family destinations — and not in the generic, any-beach-resort sense. The island combines the practical ingredients that make family travel genuinely easy (calm shallow seas, short flight times, excellent infrastructure, reliable sunshine from April to October) with a depth and variety that means parents enjoy themselves just as much as the children do. A co‑ownership property here changes the family experience entirely: instead of the revolving door of holiday apartments and hotel rooms, your children have a place they return to year after year — a home with a familiar garden, a known pool, a favourite beach down the road. That sense of place and continuity is something family holidays rarely offer, and it matters more than most parents expect.</p>
+<h3>The best family beaches — by age and temperament</h3>
+<p>Mallorca&#8217;s variety of coastline means there is a perfect beach for every family configuration. For toddlers and non-swimmers, <a href="https://www.seemallorca.com/news/fantastic-family-beaches-in-mallorca-697260" target="_blank" rel="noopener">Playa de Muro</a> in the north is hard to beat: the water stays knee-deep for 50+ metres, the sand is white and fine, and the long flat beach gives small children essentially unlimited space to roam safely. <a href="https://balearicwayfinder.com/articles/mallorca-family-beaches/" target="_blank" rel="noopener">Santa Ponsa beach</a> in the southwest offers similarly gentle conditions with the added convenience of cafés, sunbeds and facilities immediately to hand.</p>
+<p>For older children and teenagers, <strong>Cala d&#8217;Or on the southeast coast</strong> delivers something more exciting: a collection of connected natural coves with rocky headlands creating calm water, interesting rock pools at low tide and enough character to hold the attention of kids who have outgrown the sandcastle phase. <a href="https://familyfriendlymallorca.com/our-top-ten-family-beaches-in-mallorca/" target="_blank" rel="noopener">Family Friendly Mallorca</a> maintains a well-curated guide to the island&#8217;s best family beaches updated each season.</p>
+<h3>Water parks, caves and big days out</h3>
+<p>When children need something beyond the beach, Mallorca delivers generously. <a href="https://www.seemallorca.com/waterparks/" target="_blank" rel="noopener">Aqualand El Arenal</a> is the island&#8217;s largest water park, with an extensive range of slides and pools for all ages and one of the best-shaded layouts of any park in Spain. <strong>Hidropark in Port d&#8217;Alcúdia</strong> is smaller and more manageable for younger children — perfectly sized so parents can supervise everything from a single sun lounger. In the northwest, <a href="https://www.mallorca-beaches.com/en/top-10-family-fun-activities/" target="_blank" rel="noopener">Jungle Parc near Santa Ponsa</a> offers a forest climbing and zip-line park with courses graded from ages four upwards — a genuine favourite with energetic children of all ages.</p>
+<p>For something completely different, the <strong>Coves del Drac near Porto Cristo</strong> — a vast underground cave system culminating in a subterranean lake and classical music concert — is one of the island&#8217;s most memorable experiences for children aged five and above. <a href="https://www.getyourguide.com/mallorca-l47/" target="_blank" rel="noopener">GetYourGuide&#8217;s Mallorca family activities</a> page is a reliable source for booking day trips and experiences across all zones.</p>
+<h3>The north coast — Mallorca&#8217;s best family zone</h3>
+<p>If you are choosing a co‑ownership zone with children in mind, the north coast — <a href="/alcudia-port-dalcudia-fractional-ownership-properties/" target="_blank" rel="noopener">Alcúdia and Port d&#8217;Alcúdia</a> in particular — offers the most complete family package on the island. The bay combines kilometres of <strong>Blue Flag-rated shallow sandy beach</strong>, an extensive network of safe cycling paths running the full length of the bay, water sports centres offering kayaking and paddleboarding for older children, immediate access to the <a href="https://www.illesbalears.travel/" target="_blank" rel="noopener">S&#8217;Albufera natural park</a> for wildlife walks, and Hidropark for the inevitable water-park day.</p>
+<p>The 14th-century walled old town of Alcúdia adds a genuinely magical dimension that most beach resorts completely lack — children love exploring the medieval walls and gates — and the area&#8217;s year-round infrastructure (supermarkets, medical facilities, international schools nearby) makes it one of the most practical and self-contained bases on the island for families with young children.</p>
+<h3>Outdoor adventures for active families</h3>
+<p>Mallorca&#8217;s outdoor offer extends well beyond the beach, and active families find the island almost inexhaustible. The <a href="https://whc.unesco.org/en/list/1371" target="_blank" rel="noopener">UNESCO-listed Serra de Tramuntana</a> has walking routes graded for all abilities — shorter, shadier trails through the mountains are manageable with children from around age six, and the scenery rewards the effort handsomely. The <strong>GR221 long-distance route</strong> through the mountains can be walked in day stages, each ending in a village with a restaurant and often a rural hotel, making it ideal for families who want to explore the interior without a single car journey.</p>
+<p>On the water, <a href="https://www.clickandboat.com/us/boat-rental/spain/port-de-pollen%C3%A7a" target="_blank" rel="noopener">small boat hire from Port de Pollença</a> or Port d&#8217;Alcúdia for a day of cove-hopping is an experience children talk about for years — snorkelling over Posidonia seagrass meadows, jumping from low rocks into clear water, having lunch anchored in a bay no road reaches. Kayak hire is available from multiple points around the coast for older children and teenagers looking for something more active.</p>
+<h3>Mallorca for multi-generational stays</h3>
+<p>One of the most underappreciated aspects of a co‑ownership villa in Mallorca is how well it works for <strong>multi-generational family groups</strong> — grandparents, parents and children together. A well-sized villa with a private pool, generous outdoor space and multiple bedrooms gives every generation exactly what they need: grandparents a shaded terrace and a slow morning; parents the infrastructure to manage logistics without stress; children a pool and a garden that effectively babysit themselves for hours.</p>
+<p>The practical reality of a co‑ownership property — professionally prepared on arrival, fully equipped, managed to a high standard — removes the friction that self-catering holiday rentals often introduce when large family groups are involved. Everything works, everything is clean, and no one is spending the first afternoon of the holiday working out how the hob functions or why the Wi-Fi isn&#8217;t connecting. For family groups who value that frictionless start, <strong>the difference from a typical holiday rental is immediately apparent</strong>.</p>
+<h3>Growing up with Mallorca — the long-term family dimension</h3>
+<p>Perhaps the most distinctive thing about owning a co‑ownership property in Mallorca, rather than booking a different holiday each year, is what it means for children over time. <strong>They grow up with the island.</strong> They learn which cala has the best snorkelling. They develop a favourite ice cream shop in the village. They recognise the Tramuntana peaks by name. They look forward to coming back in the way children only look forward to places that feel genuinely like theirs.</p>
+<p>That accumulation of shared family memory — built year after year in the same place, through the same rituals and the same discoveries — is something no hotel or rental holiday can replicate. It is, for many families, the single most compelling reason to own rather than rent. And the co‑ownership model makes it financially accessible at a level that outright villa ownership in Mallorca simply is not for most buyers. <a href="/contact/" target="_blank" rel="noopener"><strong>Talk to us</strong></a> about which zones and properties work best for families — we are happy to help you find the right fit.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Investment advantages of Mallorca fractional ownership</h2>
+<p>Beyond the lifestyle case, Mallorca co‑ownership properties offer a compelling financial structure for buyers used to thinking in portfolio terms. Understanding the investment mechanics helps you evaluate fractional ownership clearly against traditional real estate and alternative vacation solutions such as holiday clubs, destination memberships or straightforward rental — and see why the numbers increasingly favour the fractional model for buyers who will realistically use a property for 6–10 weeks per year.</p>
+<p><strong>Capital efficiency and proportional appreciation:</strong> Your fractional share appreciates proportionally with the full property value. If a prime Andratx villa rises 6% in a year, your 1/8 share gains the same 6%, whether you paid €250,000 or €2 million. Instead of locking €2–3 million into a single second home visited for 6 weeks, you deploy €200,000–€350,000 for comparable usage and identical percentage appreciation — freeing capital for other investments, additional co‑owned homes in Ibiza, Menorca or the Costa del Sol, or simply keeping your wealth more liquid and diversified. Many buyers build a multi-destination portfolio of fractional shares that gives them far more collective lifestyle value than a single whole property ever could.</p>
+<p><strong>Strict supply constraints protect long-term values:</strong> The Balearic Islands operate under some of the most restrictive building and planning regulations in Spain. The Consell de Mallorca has consistently limited new coastal development, banned new tourist licence grants in many zones, extended protected area designations and enshrined a sustainability-first philosophy that actively prioritises quality of life over volume growth. This structural supply constraint — which is regulatory and essentially permanent rather than cyclical — underpins Mallorca&#8217;s long-term price resilience and gives well-located co-ownership properties a fundamentally different risk profile from European markets where new supply can freely respond to demand.</p>
+<p><strong>Year‑round rental potential from unused weeks:</strong> Licensed co-owned properties in zones such as Port de Pollença, Port d&#8217;Alcúdia, Santa Ponsa and Cala d&#8217;Or can generate meaningful rental income from weeks the owner does not plan to use, benefiting from the island&#8217;s strong summer demand and rapidly growing shoulder-season appeal. property ownership records estimates suggest that two to three unused high-season weeks in a quality property with the correct tourist licence can offset a significant portion of annual running costs. Operators handle all rental logistics; owners simply receive their share of net proceeds without any of the management burden of traditional letting.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Mallorca property values keep rising</h2>
+<p>Mallorca&#8217;s sustained price growth is not driven by speculation — it is the direct, measurable result of one of Europe&#8217;s most restrictive residential supply environments colliding with structurally rising international demand. The Balearic Islands government has systematically limited new construction at every turn over the past decade: frozen tourist licences, coastal build bans, protected zone expansions and strict caps on total accommodation capacity across the islands. The result is a structural, growing gap between rising demand from an affluent, internationally diversified buyer pool and a near-static supply of quality residential stock. Since 2015, island-wide average prices have <strong>more than doubled</strong> — a compound annual growth rate achieved with almost zero meaningful new prime supply entering the market during that period.</p>
+<p>Key regulatory interventions that have directly shaped this price trajectory include: the 2018 tourist licence moratorium halting all new short-term rental approvals in most zones; extended coastal protection designations in 2021–2022 preventing development within expanding buffer zones; updated coastal build regulations in 2022 placing further restrictions on new construction near the shoreline; and tightened rental licence caps in 2024 that reduced the total permitted accommodation pool. Far from being temporary or reversible, these interventions reflect the Balearic government&#8217;s long-stated commitment to sustainable tourism and quality-of-life preservation — <strong>the political trajectory is toward further restriction, not relaxation</strong>. Each new constraint further limits the total supply of quality Mallorca property available to buy, reinforcing the scarcity premium that already-existing assets command, including well-located co-ownership properties in established residential zones.</p>
+
+<p>The COVID dip visible in 2020 proved brief and shallow — within 12 months the Mallorca market had not only recovered but accelerated, driven by post-pandemic reappraisal of lifestyle priorities among affluent European households who suddenly valued quality of life, outdoor space and proximity to nature far more highly than before. The gap between what buyers want and what the island can legally supply has widened every year since, and there is no credible planning or political scenario in which that changes materially in the medium term. For co-ownership buyers, this supply story is perhaps the single most important structural reason to have confidence in long-term asset values.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Exit &amp; resale liquidity</h2>
+<p>One of the most important and most frequently overlooked questions any second-home buyer should ask before committing capital is: <em>when I want to exit, how straightforward and how profitable is it?</em> For whole Mallorca properties priced at €1.5–3 million, selling means finding a buyer who simultaneously has the capital, the motivation, the timing and the specific taste to pay your asking price — a rare overlap that explains why average time-to-sale for prime Mallorca villas can stretch to <strong>12–24 months</strong> even in healthy market conditions. For a fractional ownership share priced at €150,000–€400,000, you are selling into a buyer pool that is many multiples larger, geographically more diverse and not dependent on any single financing environment or buyer nationality. The professional management records, documented annual costs, established usage schedule and rental income history that come with a well-run co-ownership also dramatically reduce the due diligence burden for incoming buyers — removing much of the friction and uncertainty that slows conventional whole-property sales.</p>
+<p>It is also worth noting that some co-ownership platforms operate internal resale marketplaces — matching exiting owners with new buyers who are already familiar with the model and motivated to enter a specific property or zone. This can dramatically shorten sale timelines versus marketing on the open market. Others operate planned collective exit horizons, giving owners a clear, pre-agreed timeline for whole-property sale and capital return. Both mechanisms reflect a fundamentally more liquid structure than conventional single-ownership property, and are worth examining carefully when evaluating any specific fractional opportunity.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>International buyer demand &amp; market fundamentals</h2>
+<p>Mallorca attracts one of Europe&#8217;s most diverse and financially resilient international buyer pools — a critical structural factor when assessing the long-term liquidity, value support and exit potential for any co‑ownership investment here. Unlike markets that depend heavily on a single buyer nationality — where a weakening economy, currency shift or regulatory change in one country can meaningfully suppress demand — the island&#8217;s buyer base is spread across at least eight to ten significant source markets, providing a natural hedge against any single economy&#8217;s slowdown or political disruption. This diversity has been tested across multiple cycles and has consistently proven itself: even during periods of economic weakness in Germany or political uncertainty around Brexit, Mallorca values held firm because other buyer nationalities filled the gap.</p>
+<p>German buyers — the island&#8217;s largest single nationality group, particularly active in Pollença, Santa Ponsa and Andratx — have been purchasing Mallorca second homes since the 1970s and represent one of the most deeply rooted and stable demand sources in European real estate. British buyers, historically dominant in Pollença and Alcúdia, remain highly active despite Brexit, their purchasing rights unchanged and a 1/8 share&#8217;s 6–7 annual weeks sitting comfortably within Schengen limits. Scandinavian buyers — Swedish, Norwegian and Danish — bring some of the strongest price sensitivity and highest quality expectations of any group, and their continued presence across north coast and southeast zones reflects genuine confidence in the island&#8217;s long-term value. North American buyers and other newer entrants are now among the fastest-growing cohorts in the €150,000–€400,000 co-ownership segment, attracted by Mallorca&#8217;s lifestyle credentials, asset quality and the relative value versus comparable second homes in the US or Caribbean.</p>
+<p>Luxury agencies including Engel &amp; Völkers and Fine &amp; Country consistently report that demand in the prime southwest and north coast segments remains resilient across market cycles, underpinned by buyers who view Mallorca not as a speculative investment but as a long‑term lifestyle asset with credible wealth preservation characteristics — a property they will use heavily, hold across generations and sell only when personal circumstances dictate rather than in response to market sentiment. The island&#8217;s combination of limited land, legally entrenched planning controls, established international infrastructure and unmatched lifestyle diversity means that well-located second homes in areas like Santa Ponsa, Andratx, Pollença, Alcúdia and Santanyí are genuinely difficult to replicate at equivalent quality anywhere else in Europe.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>How Mallorca fractional ownership works</h2>
+<p>Most Mallorca fractional ownership structures use a special‑purpose company (typically a Spanish Sociedad Limitada) holding title to the property, with each co‑owner holding shares in that company corresponding to their ownership fraction — most commonly 1/8. Your interest is recorded in the company&#8217;s share register and, depending on the structure, also at the Spanish Ownership Documentation, providing a clear, legally documented chain of ownership. <strong>This is genuine real estate equity</strong>, not a holiday product: you can sell your share at market value, bequeath it to family members and benefit from the same long-term capital growth as a full owner of the identical property. Unlike timeshare or holiday club membership, you are not purchasing the right to use accommodation for a fixed period — you are acquiring a proportional ownership stake in a specific, high-quality Mallorcan villa or apartment.</p>
+<p>Running costs are shared proportionally between co-owners according to their fraction. A professional management company — appointed by the co-owners and accountable to all of them through a clear governance framework — coordinates every element of property management: regular cleaning and preparation, gardening and pool care, routine and planned maintenance, supplier management, annual accounts, insurance administration, local tax compliance and concierge-level guest services for arriving owners. The result is that arriving at your co‑ownership property feels like checking into a private, perfectly familiar boutique hotel rather than opening a house that has been sitting empty and unattended for months. The table below illustrates the typical cost differences for a representative premium Mallorca villa, making the capital efficiency of the fractional model immediately clear.</p>
+
+<p>Mallorca fractional ownership FAQsWhat is Mallorca fractional ownership and how is it different from buying a whole second home?+Mallorca fractional ownership means purchasing a real, legally deeded share in a specific villa or apartment on the island — <strong>typically a 1/8 share</strong> — rather than committing to 100% of the property. Each co‑owner holds their stake through a dedicated ownership structure, enjoys a guaranteed number of weeks of use per year, and holds a fully proportional stake in the property&#8217;s long‑term capital value. When the underlying Mallorca property appreciates — and <a href="https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&#038;cid=1254736152838&#038;menu=ultiDatos&#038;idp=1254735576757" target="_blank" rel="noopener">Spain&#8217;s residential price data</a> shows Mallorca has done so consistently — every co‑owner benefits in direct proportion to their share, exactly as if they owned the whole property outright.</p>
+<p>This is fundamentally different from timeshare, holiday clubs or destination memberships in every meaningful way. In Mallorca fractional co‑ownership, <strong>you own genuine, transferable real estate equity</strong> in a specific, named property at a specific address. You can sell your share on the open market, bequeath it to family members, or hold it indefinitely as a wealth preservation and lifestyle asset. There is no resort developer managing access against your interests, no opaque fee structure, and no artificial booking constraints.</p>
+<p>Buying a whole Mallorca second home gives you complete control and unlimited access, but demands that you <strong>deploy €1.5–3 million or more into a single illiquid asset that typically sits empty for 40+ weeks per year</strong> — while you pay 100% of every running cost regardless. For buyers who realistically visit for 6–8 weeks annually, Mallorca fractional ownership aligns your capital, your costs and your usage in a way that whole ownership structurally cannot. The result is a premium Mallorca property experience calibrated entirely to how you actually live.</p>
+<p>The financial case for Mallorca fractional ownership becomes very clear when you compare cost-per-week-of-actual-use rather than headline purchase price alone. A quality villa in Santa Ponsa, Andratx, Pollença or Santanyí typically costs <strong>€1.6–3 million to buy outright</strong>. Add acquisition taxes and fees of <strong>10–13%</strong> — <a href="https://www.atib.es/TF/itp/itp.aspx" target="_blank" rel="noopener">ITP transfer tax</a> or VAT plus stamp duty, notary, registration, legal costs — and you are looking at an all-in entry of €1.8–3.4 million before you spend a single night there. Annual running costs for a quality Mallorca villa then run <strong>€25,000–€50,000+ per year</strong> regardless of how many weeks you actually visit: pool and garden maintenance, cleaning, IBI property tax, community fees, insurance, utilities, routine repairs and professional management all add up relentlessly.</p>
+<p>A 1/8 Mallorca fractional ownership share in an equivalent property requires roughly <strong>€200,000–€350,000 of acquisition capital</strong>, with scaled taxes and fees bringing your all-in entry to approximately €220,000–€390,000. Annual running costs for your share typically run <strong>€3,000–€6,500 per year</strong> — proportional, predictable and budgetable. Your 6–7 weeks of guaranteed annual use means your effective cost per week of actual occupancy is dramatically lower than full ownership, and your capital exposure is a fraction of the whole. Crucially, <strong>your percentage exposure to Mallorca property price growth is identical</strong>: if the villa rises 8% in value, your 1/8 share rises 8% too.</p>
+<p>For buyers thinking in portfolio terms, the efficiency is even more compelling: instead of locking €2–3 million into a single second home, <strong>you can deploy €200,000–€350,000 per share and potentially hold co‑ownership stakes in two or three exceptional properties</strong> across Mallorca and other destinations — enjoying far more collective lifestyle value and geographic diversification than a single whole property could ever provide.</p>
+<p>For most international buyers, this is one of the most underappreciated advantages of Mallorca fractional ownership. Managing a Mallorca second home remotely is considerably more demanding than it appears before purchase. The operational reality involves coordinating a team of local contractors — gardeners, pool technicians, cleaning teams, plumbers, electricians, keyholders — alongside tracking invoices, managing utility contracts, renewing insurance, maintaining <a href="https://www.caib.es/sites/habitatgeturistic/ca/inici-56166/" target="_blank" rel="noopener">tourist licence compliance</a> if applicable, and handling Spanish tax obligations from abroad. <strong>It accumulates quickly into a genuine part-time responsibility</strong>, and the further you live from Mallorca, the more amplified those frustrations become.</p>
+<p>In a professionally managed Mallorca fractional co‑ownership model, <strong>the management company assumes responsibility for all of this entirely</strong>. They maintain every contractor relationship, manage maintenance schedules, oversee quality standards between owner stays, handle all Spanish administrative and tax compliance, and typically provide concierge-level support — pre-arrival provisioning, restaurant recommendations, car hire, activity planning. The annual service charge that covers all of this is shared proportionally between co‑owners, making it both affordable and completely transparent.</p>
+<p>Owners participate in key decisions through a structured governance framework — major expenditure, refurbishment decisions, operator changes — but the day-to-day operational burden is eliminated entirely. Your experience of a Mallorca co‑ownership property is simply this: <strong>arriving to a perfectly prepared home, using it to the full, and leaving without a single administrative task on your list</strong>. For busy professionals, families and anyone who values their time, that difference is transformative.</p>
+<p>Mallorca&#8217;s five main fractional ownership zones each deliver a genuinely distinct lifestyle, and the right choice depends entirely on how you want to spend your weeks on the island. The southwest — <a href="/santa-ponsa-fractional-ownership-properties/" target="_blank" rel="noopener">Santa Ponsa</a> and <a href="/andratx-fractional-ownership-properties-co-ownership-property/" target="_blank" rel="noopener">Andratx</a> — is Mallorca&#8217;s luxury heartland: <strong>four championship golf courses within 15 minutes</strong> of Santa Ponsa, one of the Mediterranean&#8217;s most celebrated superyacht harbours at <a href="https://www.portadriano.com/" target="_blank" rel="noopener">Port Adriano</a>, Michelin-starred dining, and Palma city centre reachable in 20–35 minutes. Property here reaches the island&#8217;s highest price points, and for good reason — <strong>the combination of infrastructure, scenery and prestige is unmatched anywhere else on the island</strong>.</p>
+<p>The north coast — <a href="/pollenca-port-de-pollenca-fractional-ownership-properties/" target="_blank" rel="noopener">Pollença</a> and <a href="/alcudia-port-dalcudia-fractional-ownership-properties/" target="_blank" rel="noopener">Alcúdia</a> — offers something equally compelling: the dramatic <a href="https://whc.unesco.org/en/list/.*" target="_blank" rel="noopener">UNESCO World Heritage</a>-listed Serra de Tramuntana backdrop, internationally celebrated cycling routes, calm and shallow family bays, beautifully preserved medieval old towns, and the kind of repeat-visitor loyalty that <strong>only truly exceptional places inspire</strong>. Pollença and Alcúdia fractional ownership both offer outstanding lifestyle value, typically at more accessible capital entry points than the southwest.</p>
+<p>The southeast — <a href="/santanyi-fractional-ownership-properties/" target="_blank" rel="noopener">Santanyí and Cala d&#8217;Or</a> — is Mallorca&#8217;s most aesthetically distinctive corner: golden limestone cliffs above impossibly clear turquoise water, intimate calas that genuinely take your breath away, a creative village community and a pace of life that feels like the real Mallorca at its most unhurried and beautiful. There is genuinely <strong>no single best zone — the right answer is the one whose lifestyle makes you want to come back every single year</strong>.</p>
+<p>Scheduling systems vary between Mallorca fractional ownership platforms, but the best operators build their models around one core principle: <strong>every co‑owner gets genuinely fair and balanced access to the full calendar</strong>. That means peak summer weeks, shoulder-season spring and autumn, quieter winter periods and holiday windows like Easter and Christmas are all distributed equitably across the ownership group over time. No single owner is permanently allocated only low season while another always enjoys August — the system is designed so that your weeks across multiple years of ownership feel <strong>varied, balanced and consistently rewarding</strong>.</p>
+<p>In practice, the day-to-day booking experience at quality operators is refreshingly straightforward: a transparent online calendar, clearly documented advance-booking windows, and a well-defined process for requesting and confirming stays. Many platforms allow owners to <strong>swap or transfer weeks between themselves by mutual agreement</strong>, adding real flexibility around changing family schedules, work commitments or last-minute opportunities. Some operators also offer additional availability for spontaneous short stays when the property would otherwise sit unoccupied, giving owners even more ways to maximise their enjoyment of the asset.</p>
+<p>When evaluating any specific Mallorca co‑ownership property, ask the operator to walk you through their scheduling model in detail. <strong>A great operator will answer every question confidently and completely</strong> — how peak periods are distributed, how owner conflicts are resolved, how the system evolves over time. That transparency is itself a strong quality signal. At COP, we only list properties from operators whose scheduling frameworks we consider genuinely fair, clearly documented and owner-first in design.</p>
+<p>Rental potential is one of the most common questions about Mallorca fractional ownership, and it&#8217;s important to be straightforward: <strong>short-term tourist rental licences in the Balearic Islands are genuinely rare</strong>. The <a href="https://www.caib.es/sites/habitatgeturistic/ca/inici-56166/" target="_blank" rel="noopener">Balearic government&#8217;s 2018 tourist licence moratorium</a> halted almost all new approvals in most zones, and subsequent regulatory tightening has further reduced the total licensed pool. This means the majority of residential properties on the island — whether owned outright or co‑owned — cannot legally be rented on a short-term basis. Any operator casually promising rental income without being specific about licence status deserves careful scrutiny.</p>
+<p>That said, we do list a select number of Mallorca fractional ownership properties that benefit from active, valid tourist licences — and in those cases, <strong>the rental potential for unused owner weeks is genuinely attractive</strong>, particularly during peak summer periods when demand from across Europe is strong and nightly rates in quality properties are highly competitive. These opportunities are relatively rare precisely because the licensing environment is so restricted, which also means <strong>licensed properties carry a meaningful long-term premium as assets</strong>: their income-capable status cannot be replicated by new entrants to the market.</p>
+<p>If rental income is an important consideration in your decision, we would encourage you to <a href="/contact/" target="_blank" rel="noopener"><strong>contact us directly</strong></a>. We can point you specifically toward the properties in our portfolio that hold the relevant licences and give you an honest, realistic picture of what income potential looks like in practice — with no inflated projections. We would always rather have that straightforward conversation upfront than oversell a benefit that only applies to a subset of our listings.</p>
+<p>Spain treats Mallorca fractional ownership as genuine real estate ownership proportional to your share, and the tax treatment on acquisition is straightforward and well-established. On purchase you pay <a href="https://www.atib.es/TF/itp/itp.aspx" target="_blank" rel="noopener">ITP transfer tax</a> — currently <strong>8–11% on resale properties in the Balearic Islands</strong> on a sliding scale — or VAT plus stamp duty on new builds, calculated on your proportional share of the property value. Notary fees, land registry fees and legal costs are also scaled to your 1/8 share — so <strong>all acquisition taxes and costs are a fraction of what a full buyer pays</strong>, making the entry process both efficient and predictable.</p>
+<p>On an ongoing basis, each co‑owner is liable for their proportional share of <a href="https://www.atib.es/TF/imi/imi.aspx" target="_blank" rel="noopener">IBI local property tax</a>, and depending on individual circumstances, potentially <a href="https://sede.agenciatributaria.gob.es/Sede/en_gb/no-residents.html" target="_blank" rel="noopener">Spanish non-resident income tax</a> (which applies an annual imputed income calculation even if the property generates no actual rental income), and wealth tax above certain asset thresholds. For EU/EEA residents and non-EU residents, rates and allowances differ — and <strong>Spain&#8217;s network of double-taxation treaties generally prevents full double taxation</strong> on the same income or asset.</p>
+<p>The good news is that the tax framework for Mallorca property ownership by international buyers is mature, well-understood by Spanish tax professionals, and <strong>manageable with the right advice in place</strong>. We always recommend engaging a qualified Spanish tax adviser with cross-border experience before completing any purchase — not because the situation is complicated, but because personalised structuring advice at the outset can make a meaningful positive difference to your long-term position. Good operators will have trusted advisers they can recommend.</p>
+<p>Exit flexibility is one of the genuinely positive distinguishing features of well-structured Mallorca fractional ownership compared with timeshare or holiday club products. Because you own real, deeded real estate equity in a specific property, <strong>your share can be sold on the open market just like any other Spanish property asset</strong>. Resale liquidity is strongest in Mallorca&#8217;s most established and internationally recognised zones — Santa Ponsa, Andratx, Pollença, Alcúdia and Santanyí — where buyer demand is deep, internationally diversified and structurally supported by the island&#8217;s continuing supply constraints and lifestyle appeal.</p>
+<p>Many Mallorca co‑ownership platforms support resale actively through internal marketplaces that match existing owners and prospective new buyers, <strong>often giving current co‑owners right of first refusal</strong> before a share is offered externally. This internal route frequently results in faster, lower-friction transactions than going to the open market, and some operators have established track records of facilitating smooth owner exits at market value. Where a platform manages multiple properties, existing buyers looking to move between zones or upgrade to a different property type can sometimes do so within the same operator&#8217;s portfolio.</p>
+<p>Other exit routes include participating in a <strong>planned collective whole-property sale at a pre-agreed horizon</strong> — some co-ownership structures are set up with a 10 or 15-year review point — or simply holding long-term as a lifestyle and wealth preservation position. The key is to <strong>review exit provisions carefully in the ownership documentation before purchase</strong>, so you enter your Mallorca fractional ownership with complete clarity on how and when you can leave if your circumstances change.</p>
+<p>Absolutely — British buyers remain one of the most active and enthusiastic international buyer groups across Mallorca second homes and co‑ownership properties, particularly in Pollença, Alcúdia, Santa Ponsa and Santanyí. Brexit changed certain immigration rules but <strong>did not alter property ownership rights in any way</strong>: UK nationals can still buy freehold and fractional property in Spain with exactly the same legal standing as before, and the process of purchasing, owning and eventually selling a Mallorca fractional ownership share is identical for British buyers as for any other non-EU purchaser.</p>
+<p>The main practical consideration post-Brexit is the <a href="https://www.gov.uk/foreign-travel-advice/spain/entry-requirements" target="_blank" rel="noopener">Schengen Area&#8217;s 90-days-in-180-days rule</a>, which limits UK passport holders&#8217; consecutive stays in EU countries without a visa. In practice, <strong>a standard 1/8 share&#8217;s 6–7 annual usage weeks — roughly 42–49 days — comfortably fits within this limit</strong> for the vast majority of British owners, particularly when stays are spread across the year as the co-ownership model naturally encourages. British buyers who wish to stay longer have pathways available including the <a href="https://www.exteriores.gob.es/Consulados/londres/en/ServiciosConsulares/Paginas/index.aspx?scco=Reino+Unido&#038;scd=13&#038;scca=Visas&#038;scs=Non-lucrative%20residence%20visa" target="_blank" rel="noopener">Spanish Non-Lucrative Visa</a> and the Digital Nomad Visa, which a good Spanish immigration lawyer can advise on quickly.</p>
+<p>Mallorca fractional ownership is in many ways particularly well suited to British buyers navigating the post-Brexit landscape: instead of committing a large sterling-to-euro transfer into a single illiquid whole property, <strong>you deploy a smaller, more manageable capital sum, retain greater financial flexibility</strong>, and access the same premium Mallorca lifestyle and long-term property appreciation that has made the island one of British buyers&#8217; most loved destinations for decades. <a href="https://www.aena.es/en/son-sant-joan.html" target="_blank" rel="noopener">Palma&#8217;s Son Sant Joan Airport</a> operates multiple daily services from London, Manchester, Edinburgh and beyond — keeping the property feeling genuinely accessible year-round.</p>
+<p>Mallorca fractional ownership is an excellent fit for a wide range of buyer profiles. It works exceptionally well for <strong>internationally mobile professionals who want guaranteed, high-quality weeks on the island each year</strong> without the administrative burden of full ownership. It suits busy families who want a premium, consistently well-maintained Mallorca vacation home to return to year after year, without the complexity of managing the property remotely between visits. It appeals strongly to retirees and semi-retired buyers who want <strong>multiple lifestyle destinations rather than concentrating all their property wealth in a single location</strong>.</p>
+<p>It is also compelling for portfolio-minded investors who understand the capital efficiency argument: <strong>deploying €250,000 into a 1/8 share of a €2 million Andratx villa gives you the same percentage appreciation exposure as buying the whole property</strong>, with a fraction of the capital at risk and the remainder free to work elsewhere. Buyers who want to hold two or three co-ownership shares across Mallorca and other destinations — perhaps pairing a Pollença fractional ownership share for spring hiking with a <a href="/ibiza-fractional-ownership-properties/" target="_blank" rel="noopener">fractional property in Ibiza</a> for summer — find that the model enables a lifestyle and portfolio breadth that whole ownership simply cannot match at the same capital level.</p>
+<p>Whole ownership makes more sense for a specific set of circumstances: if you plan to <strong>spend three or more months per year in Mallorca</strong>, want total freedom to renovate and personalise the property to your own specification, prefer to run a fully bespoke rental strategy under your own management, or simply want absolute control over every aspect of the property&#8217;s operation. For everyone else — and that is most international second-home buyers — <strong>Mallorca fractional co‑ownership is a genuinely superior structure in almost every dimension that matters</strong>.</p>
+<p>Mallorca fractional ownership and timeshare are separated by a fundamental structural difference that determines everything else: in fractional co‑ownership, <strong>you own a genuine share of a specific, high-value real estate asset</strong>. Your name — or your ownership vehicle&#8217;s name — is on the title. Your interest is tied directly to the equity value of the underlying Mallorca property. When that property&#8217;s value rises, as Mallorca prime residential assets have done consistently over the past decade, <strong>your share rises with it</strong>. You can sell at open market value, bequeath your share, and benefit from the same capital appreciation trajectory as a whole-property owner. That is real wealth — not an access right, not a licence to occupy, and not a product that depreciates from the moment you sign.</p>
+<p>Classic timeshare, by contrast, sells the right to occupy a resort unit for a defined annual period <strong>without any ownership of the underlying bricks, mortar or land</strong>. The resale market for traditional timeshare products is notoriously thin — many owners find it practically impossible to sell at any price, let alone at the price they paid. Values typically fall rather than rise over time. Annual maintenance fees often increase well above inflation. The Spanish timeshare sector specifically has faced <a href="https://www.boe.es/buscar/act.php?id=BOE-A-1998-5923" target="_blank" rel="noopener">significant legal scrutiny</a>, with numerous court rulings finding against developers for non-compliant contract structures and misleading sales practices.</p>
+<p>The contrast could not be more complete. Mallorca fractional ownership is <strong>transparent, equity-based, professionally governed and aligned entirely with the owner&#8217;s long-term interests</strong>. It has more in common with buying a second home than it does with any timeshare product — the critical difference being that your capital commitment, your running costs and your usage weeks are all proportional to how you actually live, rather than requiring full ownership of an asset you can only use for a fraction of the year.</p>
+<p>Yes — and this multi-destination portfolio approach is one of the most exciting possibilities that Mallorca fractional ownership opens up. Because each 1/8 share requires a fraction of the capital that whole ownership demands, <strong>many buyers find they can hold two or even three co-ownership stakes across different zones and destinations for the same total capital that a single whole Mallorca property would require</strong>. The lifestyle and investment implications of that flexibility are significant.</p>
+<p>Within Mallorca itself, some buyers combine shares across complementary zones: a <a href="/pollenca-port-de-pollenca-fractional-ownership-properties/" target="_blank" rel="noopener">Pollença fractional ownership</a> property for spring hiking and summer family weeks in the calm northern bay, paired with a <a href="/santa-ponsa-fractional-ownership-properties/" target="_blank" rel="noopener">Santa Ponsa</a> or <a href="/andratx-fractional-ownership-properties-co-ownership-property/" target="_blank" rel="noopener">Andratx</a> villa for winter golf and Palma cultural weekends. Others anchor their Mallorcan base with a share in <a href="/ibiza-fractional-ownership-properties/" target="_blank" rel="noopener">Ibiza</a> for high-summer contrast, or complement their island portfolio with a <a href="/costa-del-sol-fractional-ownership-properties/" target="_blank" rel="noopener">Costa del Sol fractional ownership</a> property for mainland Spain access. <strong>The ability to build a genuinely diversified Mediterranean lifestyle portfolio at a total capital outlay that remains manageable</strong> is one of the strongest arguments for the fractional model over conventional whole ownership.</p>
+<p>The main practical consideration when building a multi-property portfolio is time: <strong>be honest with yourself about how many weeks per year you will realistically travel</strong>, and make sure your total annual allocation across all properties matches your actual lifestyle rather than an aspirational one. COP can help you think through the right combination of destinations, property types and seasonal splits to build a portfolio that you will use fully and love for years to come.</p>
+<p>Because Mallorca fractional ownership represents genuine real estate equity, <strong>your share can be gifted or bequeathed to family members just like any other Spanish property asset</strong> — and for many owners, the idea of passing on a beautifully managed Mallorca property share to children or grandchildren is part of the long-term appeal. The mechanics depend on the specific ownership structure used for the property and the rules in the co-ownership agreement regarding new owners joining the group, but well-structured operators design their frameworks specifically to accommodate inheritance and gifting in a straightforward way.</p>
+<p>Spain has its own inheritance and gift tax rules that apply to property transfers, and the <a href="https://www.atib.es/TF/isd/isd.aspx" target="_blank" rel="noopener">Balearic Islands applies its own regional succession rules</a> — rates and allowances vary by the relationship between the transferring and receiving parties. While Spanish inheritance tax can be meaningful in some circumstances, <strong>there are legitimate planning structures available</strong> that experienced Spanish estate-planning lawyers can advise on. The earlier in your ownership journey you take that advice, the more options you will have available.</p>
+<p>For buyers thinking generationally, Mallorca fractional co‑ownership has a particular appeal: you are not just buying weeks of holiday use, <strong>you are acquiring a stake in one of Europe&#8217;s most consistently appreciating real estate markets</strong> — an asset that could grow meaningfully in value over a decade or two, and that a future generation could either continue to enjoy or sell at a strong market price. That combination of lifestyle value today and potential capital value tomorrow is a compelling long-term proposition.</p>
+<p>Professional maintenance management is one of the cornerstones of well-run Mallorca fractional ownership, and it is an area where quality operators genuinely excel. The management company prepares a detailed annual budget covering all routine maintenance — regular cleaning between stays, garden upkeep, pool servicing, minor repairs, appliance servicing and regulatory compliance works — alongside a <strong>forward-looking sinking fund or capital reserve for planned future expenditure</strong> such as repainting, kitchen or bathroom updates, terrace refurbishment and major equipment replacement. This budget is shared transparently with all co-owners at the start of each year, and <strong>costs are divided proportionally between owners according to their shares</strong>.</p>
+<p>The result is that <strong>you are never blindsided by a large unexpected repair bill</strong>. Because the management company is responsible for ongoing maintenance and is incentivised to keep the property in excellent condition — their reputation depends on it — issues are identified and addressed proactively rather than being left to deteriorate. The properties listed on COP are maintained to a consistently high standard that reflects their status as premium assets, and owners consistently report that the property condition on arrival <strong>meets or exceeds their expectations visit after visit</strong>.</p>
+<p>Decisions on significant upgrades or major capital expenditure beyond the planned budget are governed by the co-ownership agreement, <strong>typically requiring a majority owner vote before any commitment is made</strong>. This governance structure means no single owner can unilaterally impose costs on others — and equally, that the whole group of owners has a say in protecting and enhancing the asset they jointly own. This transparent, democratically governed approach to property stewardship is one of the aspects that most clearly distinguishes well-run Mallorca fractional ownership from the unpredictable, often stressful reality of managing a traditional second home from abroad.</p>
+<p>Choosing well between Mallorca fractional ownership opportunities starts with lifestyle clarity, not spreadsheets. Use the zone guides and cluster tabs on this page to identify which area of Mallorca genuinely resonates with how you want to spend your time — the activities, the pace, the scenery, the social scene. Once you have that clarity, assess each specific property on its fundamentals: orientation and natural light, quality of views, build and finish standard, size and usability of outdoor spaces, proximity to beaches, restaurants and amenities, and — if it matters to you — its tourist licence status. <strong>The property that works best for you on paper is the one that will work best for you in real life.</strong></p>
+<p>On the platform side, <strong>the single most important quality to look for is transparency</strong>. Reputable Mallorca co‑ownership operators provide clear, plain-English owner agreements with no hidden clauses; honest and itemised cost projections that include all taxes, fees and running costs; demonstrable track records in resale and owner exits; governance frameworks that protect all co-owners equally; and management quality you can verify independently through owner references, reviews or site visits. <strong>Good operators actively welcome your scrutiny</strong> — they know their product is strong and they want you to buy with full confidence. You can cross-reference operator reputations via <a href="https://www.trustpilot.com/" target="_blank" rel="noopener">Trustpilot</a> and independent property forums as part of your due diligence.</p>
+<p>Red flags to watch for include: <strong>vague or evasive answers about costs or exit routes</strong>; pressure to commit quickly before you have reviewed all documentation; rental income projections without confirmed licence status; and governance frameworks that give the operator or a single owner disproportionate control. At COP, every operator and property on our platform has been vetted against these standards — but we always encourage buyers to do their own due diligence as well, and we are happy to support that process in whatever way is most useful. <a href="/contact/" target="_blank" rel="noopener"><strong>Get in touch</strong></a> and we will help you find the right match.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Check Out Our Other Locations</h2></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Germany  Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Explore Germany Fractional Ownership Properties for a luxurious holiday home without the hassle of full ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Germany  Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Germany?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Germany Fractional Ownership — Own a Piece of Europe&#8217;s Heartland</h2>
+<p><strong>Germany fractional ownership</strong> gives buyers across the UK and Europe a legally deeded route into one of the continent&#8217;s most stable and diverse property markets — not a timeshare, not a holiday club, but a genuine 1/8 share held through a legally structured property company, giving you documented co-ownership rights. Each share delivers approximately 45 days of personal use per year, with professional management handling everything from maintenance and insurance to cleaning and seasonal preparation.</p>
+<p>For UK buyers navigating their 90-day EU allowance post-Brexit, Germany fractional ownership aligns perfectly with that limit — making genuine co-ownership one of the most practical and cost-effective ways to hold a real second home in Germany. Whether your vision is a Bavarian lakeside retreat, a Black Forest chalet, a Baltic Sea cottage, or a city apartment in one of Germany&#8217;s celebrated cultural capitals, fractional property ownership opens the door to all of it. Browse our Germany properties below and find the co-ownership home that fits your life.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose Germany Fractional Ownership?</h2>
+<p>Germany fractional ownership offers something that few other European co-ownership destinations can match: variety. Germany is not a single-note destination. It is a country of extraordinary regional character — the deep pine forests and alpine meadows of Bavaria, the windswept Baltic and North Sea coastlines, the vine-terraced Rhine and Moselle valleys, the dramatic sandstone cliffs and heathland of the north, and a string of world-class cities that compete with any capital in Europe for culture, architecture, and quality of life. Germany fractional ownership allows the international buyer to access this remarkable range through a single, legally robust co-ownership structure, without the full capital commitment and administrative burden of sole property ownership.</p>
+<p>The legal foundation of Germany fractional ownership is one of its most compelling features. German property law is among the most systematic and buyer-protective in the world. All property ownership is recorded in the property ownership records — the property ownership records. This distinction is fundamental: Germany fractional ownership is <strong>not a timeshare</strong> in any sense, and the legal framework provides structural protections that make it one of the most secure forms of co-ownership available anywhere in Europe.</p>
+<p>For UK buyers in the post-Brexit landscape, Germany fractional ownership has particular practical appeal. As Schengen Area members of a third country, UK nationals are subject to the 90-day rule, which limits stays across the Schengen Area to 90 days in any 180-day period. A standard 1/8 Germany fractional ownership share delivering approximately <strong>45 days per share</strong> per year sits almost exactly within that allowance, making co-ownership one of the few property structures that aligns naturally with the realities of post-Brexit travel. The combination of a fixed number of personal weeks, professional management during absences, and a clear legal title in one of Europe&#8217;s most stable property markets makes Germany fractional ownership a strategically sound choice for UK buyers who want a genuine European base.</p>
+<p>Germany&#8217;s property market also benefits from structural characteristics that underpin long-term value. German property culture has historically been weighted towards renting rather than ownership, meaning that owner-occupied residential supply in desirable holiday and second home areas — particularly around the Bavarian lakes, the Baltic coast, and the alpine foothills — is genuinely constrained. This supply constraint, combined with sustained domestic and international demand, has created a second home market with a strong track record of capital participation. Germany fractional ownership allows international buyers to access this market at a cost that reflects their fractional interest in the property, while holding a tangible, transferable asset. Rental income from unused weeks is possible on a case-by-case basis, depending on the terms of the co-ownership agreement and applicable local licensing rules, but we are always transparent: rental income is not guaranteed and should not be the primary motivation for purchasing. For a full overview of how <a href="/co-ownership-buying-process/">co-ownership buying</a> works from search to property ownership documentation, our dedicated guide covers every step of the process.</p>
+<p>Germany&#8217;s four-season character adds a dimension that single-season destinations like coastal <a href="/croatia-fractional-ownership-properties/">Croatia</a> or the <a href="/portugal-fractional-ownership-properties/">Portugal</a> coast cannot replicate. The Bavarian Alps offer world-class skiing in winter and unrivalled hiking in summer. The Baltic coast — with its wide sandy beaches and low humidity — attracts holidaymakers from June through September, while the island of Rügen offers dramatic chalk cliffs that are just as compelling in autumn light. The Rhine and Moselle valleys are at their most beautiful during the grape harvest in September and October. Germany fractional ownership gives co-owners the flexibility to visit across multiple seasons, building a relationship with the country that deepens year on year and that a hotel stay or short-let rental can never replicate.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Germany Fractional Ownership — Areas &amp; Regions</h2>
+<p>Germany fractional ownership properties span the country&#8217;s most celebrated landscapes and destinations, from the alpine south to the Baltic north. Here is a guide to the key regions and what each offers the co-ownership buyer looking for a German second home.</p>
+<h3>Bavaria &amp; the Alpine Lakes — Germany Fractional Ownership</h3>
+<p>Bavaria is the destination that draws the most international interest in Germany fractional ownership — and with good reason. The Bavarian Alps and their surrounding foothills contain some of Germany&#8217;s most spectacular landscapes: the Zugspitze (Germany&#8217;s highest peak), the celebrated Königssee, and the extraordinary chain of glacial lakes — the Starnberger See, Ammersee, Tegernsee, Chiemsee, and Walchensee — that stretch across the foothills of the Alps south of Munich. Germany fractional ownership in this region most commonly takes the form of traditional Bavarian farmhouses (Bauernhäuser), alpine chalets, and lake-view villas — properties that combine the warmth and texture of southern German vernacular architecture with high-quality contemporary interiors.</p>
+<p>The Bavarian lakes region is genuinely four-season. In winter, the ski resorts of Garmisch-Partenkirchen, Berchtesgaden, and the Allgäu offer reliable snow and access to Germany&#8217;s finest alpine terrain. In summer, the lakes warm to temperatures ideal for sailing, kayaking, and open-water swimming, while the surrounding forests provide some of the best hiking in central Europe. Bavaria also benefits from proximity to Munich — one of Europe&#8217;s most liveable and prosperous cities — making it a practical choice for buyers who combine Germany fractional ownership visits with business trips to the Bavarian capital.</p>
+<h3>Baltic Coast &amp; Rügen — Germany Fractional Ownership</h3>
+<p>The German Baltic coast is one of Europe&#8217;s most underrated coastal destinations for international buyers — and its discovery by the Germany fractional ownership market represents a genuinely interesting opportunity. The coastline stretches from Flensburg on the Danish border east through Lübeck Bay, the resort towns of Kühlungsborn and Warnemünde, and out to the island of Rügen — Germany&#8217;s largest island and a protected national park of astonishing natural beauty. Rügen&#8217;s chalk cliffs at Jasmund (the inspiration for a celebrated painting by Caspar David Friedrich) are among the most dramatic natural features in northern Europe, rising white and sheer above the deep blue Baltic with a backdrop of ancient beech forest.</p>
+<p>Germany fractional ownership on the Baltic coast most commonly takes the form of traditional timber-framed beach houses (Strandvillen), seaside apartments, and traditional northern German farmsteads converted to high-specification holiday properties. The Baltic&#8217;s notably lower salinity — around seven times less salty than the Atlantic — makes it gentle for swimming, and the wide sandy beaches of Rügen and the Fischland-Darß-Zingst peninsula are free of the overcrowding that affects many Mediterranean coastal destinations in peak summer. For buyers who value authentic natural beauty and a genuine sense of place over established resort infrastructure, Baltic Coast Germany fractional ownership is a compelling and distinctive choice.</p>
+<h3>Black Forest — Germany Fractional Ownership</h3>
+<p>The Black Forest (Schwarzwald) in Baden-Württemberg is Germany&#8217;s most iconic upland landscape — a dense, deeply atmospheric forest of silver firs and Norway spruce, criss-crossed by ancient trails, dotted with farmsteads and spa towns, and offering one of the most restorative natural environments in Central Europe. Germany fractional ownership in the Black Forest typically centres on the high plateau region around the Feldberg (the highest point in the German Mittelgebirge), the spa resort town of Baden-Baden (a UNESCO World Heritage Site for its remarkable collection of 19th-century thermal architecture), and the charming small towns of Freiburg, Triberg, and Titisee-Neustadt.</p>
+<p>Black Forest Germany fractional ownership suits buyers who are drawn to the combination of natural beauty, cultural heritage, wellness, and outdoor activity. The region&#8217;s spa tradition is world-renowned — Baden-Baden&#8217;s thermal baths date back to the Roman period and continue to attract visitors from across Europe seeking the restorative qualities of the local mineral-rich waters. In winter, the Feldberg area offers modest but reliable skiing; in summer, the trails, cycling routes, and swimming lakes of the Black Forest are exceptional. The region&#8217;s proximity to <a href="/france-fractional-ownership-properties/">France</a> and <a href="/switzerland/">Switzerland</a> adds cross-border travel possibilities for Germany fractional ownership buyers who want variety across their annual allocation of days.</p>
+<h3>Rhine &amp; Moselle Valleys — Germany Fractional Ownership</h3>
+<p>The Rhine and Moselle valleys represent Germany&#8217;s wine country at its most dramatic and historically layered. The Middle Rhine Gorge — a UNESCO World Heritage Site — cuts south through steep slate-faced terraces draped in Riesling vines, punctuated by mediaeval castles, picturesque riverside towns, and the legendary Lorelei rock. The Moselle valley, winding northwest from Trier through Cochem and Bernkastel-Kues to Koblenz, is even more intimate: tighter bends, narrower slopes, and villages of half-timbered houses that feel genuinely unchanged from another century. Germany fractional ownership in these valleys tends to take the form of historic townhouses and vineyard properties — buildings with genuine architectural character that sit within landscapes that have been shaped by viticulture for over two thousand years.</p>
+<p>The autumn harvest season — September and October — is the absolute peak of the year in the Rhine and Moselle, when the vineyards turn amber and gold, the wine festivals fill the riverside squares, and the quality of light takes on the warm amber tones that have inspired painters from the Romantic period to the present day. Germany fractional ownership in this region suits buyers who value wine culture, culinary excellence, cycling along the river paths, and the particular pleasure of a landscape that rewards slow, attentive exploration rather than rapid consumption. For buyers already drawn to <a href="/france-fractional-ownership-properties/">France</a> wine country, the Rhine and Moselle offer a genuinely comparable — and in some respects deeper — viticulture experience.</p>
+<h3>Berlin, Hamburg &amp; the Cultural Cities — Germany Fractional Ownership</h3>
+<p>Germany&#8217;s cities are among the most dynamic and culturally rich in Europe — and Germany fractional ownership in a Berlin, Hamburg, or Munich apartment represents a distinct and increasingly sought-after segment of the market. Berlin is the obvious flagship: one of Europe&#8217;s great creative capitals, a city of museums, galleries, music, architecture, and nightlife that rewards many visits without exhausting its possibilities. For buyers who visit Berlin regularly — for business, for art fairs, for family, or simply for the city&#8217;s extraordinary energy — a Germany fractional ownership share in a well-located Berlin apartment provides a quality of access and a consistency of experience that hotel stays cannot match.</p>
+<p>Hamburg, Germany&#8217;s second-largest city and its principal port, offers a different but equally compelling urban co-ownership experience: a prosperous, design-conscious Hanseatic city with a spectacular waterfront HafenCity district, the world&#8217;s largest model railway (the Miniatur Wunderland, which sounds trivial until you see it), an extraordinary classical music scene at the Elbphilharmonie, and some of the best restaurants in northern Europe. Munich sits at the apex of German urban quality of life — clean, prosperous, beautiful, and with the Bavarian Alps less than an hour away. Germany fractional ownership in any of these cities suits the buyer who wants a genuine urban base in the heart of Europe, with all the convenience and familiarity of a property that is genuinely their own.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Germany Fractional Ownership Works</h2>
+<p>Germany fractional ownership is structured as a genuine property purchase — <strong>not a timeshare</strong>, not a holiday club, and not a points-based scheme. You purchase a legally registered fraction of a real German property, with your ownership interest documented through a properly structured property company. German property law provides some of the strongest co-owner protections in Europe, and the purchase process is conducted with full legal transparency by licensed German estate agents and notaries whose professional obligations run to all parties. Here is how the <a href="/co-ownership-buying-process/">co-ownership buying process</a> works in practice in Germany.</p>
+<h3>Browse Germany Fractional Ownership Properties</h3>
+<p>Start by exploring the available Germany fractional ownership listings on this page. Each property includes detailed descriptions, professional photography, regional information, and co-ownership share pricing. Filter by region, property type, and lifestyle preference to identify the properties that best match your requirements. Our team at <a href="/">Co-Ownership Property</a> acts as a buyer&#8217;s agency — working on your behalf, not the seller&#8217;s — ensuring you find the right Germany co-ownership property at the right price.</p>
+<h3>Legal Due Diligence &amp; Germany Fractional Ownership Review</h3>
+<p>Once you identify a property, an independent German property lawyer conducts comprehensive due diligence. This includes verifying the title at the property ownership records, checking for any encumbrances (Belastungen), mortgages, or easements, reviewing the co-ownership agreement (Miteigentümervereinbarung — which governs usage scheduling, maintenance obligations, decision-making, and exit provisions), and confirming compliance with all planning and building regulations. The full legal structure is documented and reviewed before any commitment is made, giving every buyer complete certainty and full legal protection under German civil law.</p>
+<h3>Purchase &amp; property ownership documentation of Your Germany Fractional Ownership Share</h3>
+<p>Completion of a Germany fractional ownership purchase follows the standard German notarial conveyancing process. The purchase contract (Kaufvertrag) is prepared and authenticated by a licensed German notary (Notar), whose role is to act impartially in the interests of all parties and ensure the transaction complies fully with German law. The notary registers the title transfer at the property ownership records, and your fractional ownership share is formally recorded in your name. Applicable taxes — Grunderwerbsteuer (property transfer tax), notary fees, and land registry fees — are calculated transparently before completion, with no hidden costs at the closing stage.</p>
+<h3>Enjoy &amp; Manage Your Germany Fractional Ownership Property</h3>
+<p>Once the purchase completes, a professional management company takes over all operational responsibility for the property on behalf of all co-owners. Your personal weeks — approximately <strong>45 days per share</strong> for a 1/8 Germany fractional ownership share — are allocated through a fair rotation system established at the start of each calendar year. The management company handles seasonal maintenance, cleaning and preparation before each occupancy, insurance administration, payment of property taxes and service charges, and all other statutory requirements. You arrive to a property that is fully prepared, professionally maintained, and entirely yours for the duration of your stay.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Germany Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>Germany fractional ownership sits at the intersection of lifestyle quality, legal security, and long-term property market participation — and it does so with a level of structural solidity that few other European co-ownership destinations can match. The German economy is the largest in Europe and among the most stable in the world. German property law is rigorous, transparent, and exceptionally well-enforced. The property ownership records is one of the most reliable and well-maintained land registries on the planet. For international buyers who place legal certainty and institutional stability at the top of their evaluation criteria, Germany fractional ownership delivers confidence that is difficult to replicate elsewhere.</p>
+<p>The lifestyle case for Germany fractional ownership is equally persuasive. Owning a fraction of a Bavarian lakeside house, a Baltic coast cottage, a Black Forest chalet, or a city apartment in Berlin is not simply a property decision — it is a decision about how you want to spend your time and what experiences you want to return to year after year. Germany rewards the kind of slow, immersive visit that ownership enables: the weekend exploring a regional wine festival on the Moselle, the week of hiking in the Berchtesgaden Alps, the long summer days on the Tegernsee reading on the jetty. These experiences are available to hotel guests, but they belong only to owners — the familiarity, the continuity, the sense that this corner of Germany is genuinely yours, that you know which bakery makes the best Weißbrot and which trail takes you to the best view of the valley.</p>
+<p>From a financial and legal perspective, <strong>documented co-ownership</strong> — documented through the property structure — provides a level of title security that ranks among the highest in Europe. Under the German Civil Code (Bürgerliches Gesetzbuch), co-ownership (Miteigentum) is a clearly defined legal concept with well-established rules governing the rights and obligations of co-owners, the resolution of disputes, and the mechanism for any co-owner who wishes to exit the arrangement. The German system&#8217;s emphasis on rigorous German legal framework means there is no ambiguity about ownership and no risk of disputed title in a well-structured Germany fractional ownership arrangement. Your co-ownership share is a real, legally registered asset — one that can be sold, inherited, and used as collateral, with all the protections that German property law provides.</p>
+<p>Germany fractional ownership is also attractive for buyers building a diversified portfolio of European co-ownership properties. Germany&#8217;s geography and climate differ fundamentally from Mediterranean destinations like <a href="/spain-fractional-ownership-properties/">Spain</a> or <a href="/italy-fractional-ownership-properties/">Italy</a>, meaning that a German property delivers a genuinely different experience. A buyer who holds a 1/8 share in a Mallorca villa for summer and a 1/8 share in a Bavarian chalet for winter is building a lifestyle property portfolio that covers two fundamentally different but complementary use cases. Germany fractional ownership in the Alps also invites comparison with <a href="/austria-fractional-ownership-properties/">Austrian</a> and <a href="/french-alps-fractional-ownership-properties/">French Alps</a> co-ownership: the Bavarian Alps offer comparable terrain and quality at often more accessible price points, with the added benefit of proximity to Munich and the broader Bavarian cultural landscape.</p>
+<p>For buyers considering Germany fractional ownership as their first co-ownership purchase, the combination of legal clarity, professional management infrastructure, and the country&#8217;s extraordinary regional diversity makes Germany one of the most defensible entry points into the European fractional property market. Whether your priority is the mountains, the coast, the wine country, the forests, or the cities, Germany fractional ownership provides access to all of it within a single, legally robust structure — and with a country that rewards, perhaps more than any other in Europe, the depth of engagement that comes from returning year after year to a property that is genuinely and irrevocably yours.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Germany Fractional Ownership &amp; Related Destinations</h2><div class="dest-explore-grid"><span class="dest-explore-card">All Co-Ownership Destinations</span><a href="/austria-fractional-ownership-properties/" class="dest-explore-card">Austria Fractional Ownership &rarr;</a><a href="/sweden-fractional-ownership-properties/" class="dest-explore-card">Sweden Fractional Ownership &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a><a href="/french-alps-fractional-ownership-properties/" class="dest-explore-card">French Alps Fractional Ownership &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Germany Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What is Germany fractional ownership and how is it different from a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Germany fractional ownership is the purchase of a legally defined share — typically a 1/8 share — in a real German property, with your ownership registered at the property ownership records in your name. You are a co-ownership interest holder with full legal rights under the German Civil Code (Bürgerliches Gesetzbuch): you can sell your share, pass it to your heirs, mortgage it, and exercise all the rights of a property owner. The property ownership documentation is publicly verifiable and legally authoritative — it is the definitive record of property ownership in Germany, and your entry on it is the most robust form of property right available under German law.</p>
+<p>A timeshare is the structural and legal opposite of Germany fractional ownership. A timeshare conveys usage rights rather than property ownership: you hold no transferable property asset, you have no equity stake in the real property, and your ability to exit the arrangement is typically contractually constrained and practically very difficult. The timeshare industry has a well-documented history of aggressive sales practices, opaque ongoing fee structures, and extremely poor exit options. Germany fractional ownership — genuine co-ownership, documented through the property structure — is not a timeshare in any meaningful sense, and buyers should be confident in drawing a clear distinction between the two structures.</p></div></details><details class="dest-faq-item"><summary><h3>How does the German property ownership records protect Germany fractional ownership buyers?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The property ownership records is one of the most reliable and rigorously maintained land registries in the world. Administered by local courts (Amtsgerichte), it records all property ownership, encumbrances, mortgages, easements, and rights of way in a structured, publicly accessible register. Every transfer of Germany fractional ownership must be conducted through licensed legal professionals — a requirement that ensures every transaction is legally reviewed by an independent professional (the Notar) whose role is to protect the interests of all parties and ensure legal compliance.</p>
+<p>For Germany fractional ownership buyers, the property ownership records provides three key protections. First, it gives you a publicly verifiable, legally authoritative record of your ownership — no one can dispute your title without going to court. Second, it requires that all encumbrances on the property are disclosed before sale — there are no hidden mortgages or charges that can surprise you after completion. Third, the notarial process mandated by German law ensures that the purchase contract is reviewed for legal compliance before it is executed — providing a layer of professional protection that is absent from purely contractual arrangements. Germany fractional ownership benefits from all of these protections as a matter of German law, not merely as a matter of good practice.</p></div></details><details class="dest-faq-item"><summary><h3>How many days can I use my Germany fractional ownership property each year?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard 1/8 Germany fractional ownership share entitles each co-owner to approximately 45 days of personal use per year — equivalent to six to seven weeks. This is calculated by dividing the usable year equally across eight co-owners, with a standard allowance for maintenance and changeover days. The specific weeks allocated to each co-owner in any given year are determined by a rotation system set out in the co-ownership agreement (Miteigentümervereinbarung), ensuring that over time all co-owners have fair access to different seasons and different times of year.</p>
+<p>Weekly allocations are typically confirmed at the start of each calendar year, giving you the certainty to plan your travel to Germany well in advance. Some Germany fractional ownership agreements also permit co-owners to swap weeks by mutual agreement or to roll over unused days — subject to the specific terms of the agreement for the property in question. The co-ownership agreement you receive at purchase will set out the exact scheduling mechanism and any flexibility provisions that apply to your specific property.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK buyers purchase Germany fractional ownership after Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — UK buyers can purchase property in Germany without restriction. German law imposes no nationality-based restrictions on residential property ownership, and the Brexit changes to the UK&#8217;s relationship with the European Union do not affect the ability of British nationals to buy, own, or sell property in Germany. The property ownership documentation process is equally open to international buyers, and the notarial conveyancing system provides the same protections regardless of the buyer&#8217;s nationality or country of residence.</p>
+<p>What Brexit does affect is the duration of time UK nationals can spend in Germany: as third-country nationals, UK passport holders are subject to the Schengen Area 90-day rule, which limits stays to 90 days in any 180-day period across the Schengen Area. A 1/8 Germany fractional ownership share delivering approximately 45 days of personal use per year sits comfortably within this limit, making Germany fractional ownership one of the most practically aligned property structures for UK buyers who want a genuine, permanent base in Germany. Our team regularly assists UK buyers through the Germany fractional ownership purchase process and can connect you with advisers experienced in cross-border property transactions for British nationals.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Germany fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. Resale rights are a fundamental and non-negotiable feature of deeded Germany fractional ownership. Because your share is documented through the property structure, it is a transferable legal property interest that can be sold to any willing buyer through a standard German notarial conveyancing process. You do not require the permission of a commercial operator, you are not subject to a lock-in period imposed by the co-ownership structure itself, and there is no operator buyback programme that you need to rely on. Your exit from Germany fractional ownership is, in principle, clear and professionally managed — a notarial sale contract, a legal share transfer, and the payment of applicable taxes.</p>
+<p>In practice, most Germany fractional ownership agreements include a right of first refusal for existing co-owners — you offer your share to the other owners before listing on the open market. This is standard practice in co-ownership structures and ensures that the group of owners retains some influence over who joins the ownership. If no co-owner exercises the right, you are free to sell on the open market at a price reflecting current German property values. German Capital Gains Tax (Kapitalertragsteuer) may apply on disposal, and tax advice is strongly recommended before any resale.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Germany fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The ongoing costs of Germany fractional ownership are proportional to your ownership share and typically include your portion of the annual management fee, property insurance (Gebäudeversicherung), Grundsteuer (property tax — one of the lowest in Europe for residential properties), and any maintenance and repair costs that arise during the year. For properties in Bavaria or the Alps, additional costs may include seasonal maintenance, snow clearance, and specialist systems servicing. All of these costs are divided equally across co-owners, making them substantially lower per person than the equivalent costs for a sole owner.</p>
+<p>Co-owners in Germany should also be aware of German income tax obligations if rental income is received from unused weeks, and the potential application of Kapitalertragsteuer on any capital gain on disposal. Germany has comprehensive double-taxation treaties with the UK, most EU member states, and many other countries, which typically prevent double taxation — but individual tax advice in both Germany and your country of residence is strongly recommended before purchasing. Co-Ownership Property does not provide tax advice, but can refer buyers to advisers with experience in German property taxation and international co-ownership.</p></div></details><details class="dest-faq-item"><summary><h3>Who manages the Germany fractional ownership property when I&#8217;m not there?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Each Germany fractional ownership property is managed by a professional property management company on behalf of all co-owners. The management company is responsible for: maintaining the property to the agreed standard, coordinating all maintenance and repairs, cleaning and preparing the property before each occupancy, managing insurance renewals, administering property taxes and service charges, liaising with local contractors, and operating the usage scheduling system. For alpine or rural properties, seasonal preparation (including winterisation in autumn and spring opening) is an important element of the management company&#8217;s role.</p>
+<p>Management costs are shared equally across co-owners and are set out clearly in the co-ownership agreement. Importantly, the co-owners collectively have governance rights over the management company: a majority of co-owners can replace the management company if performance is unsatisfactory, providing a meaningful accountability mechanism rather than simply accepting whatever service a third party provides. When evaluating any Germany fractional ownership property, reviewing the management company&#8217;s track record, its fee structure, and the governance provisions in the co-ownership agreement is an important part of the due diligence process.</p></div></details><details class="dest-faq-item"><summary><h3>Can I earn rental income from my Germany fractional ownership weeks?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>In some cases, yes — but we are always transparent that rental income is not guaranteed and should not be treated as a primary financial rationale for Germany fractional ownership. Whether rental of unused weeks is possible depends on several factors: the specific terms of the co-ownership agreement (Miteigentümervereinbarung), which may or may not permit third-party letting; the applicable local planning and licensing rules for short-term residential rental (which vary by federal state and municipality); and the practical rental demand for the specific property, location, and season.</p>
+<p>Germany has a generally well-regulated approach to short-term residential letting — several major cities have introduced restrictions on holiday letting to protect long-term rental housing supply, and these rules may affect some urban Germany fractional ownership properties. In rural and resort areas — Bavaria, the Baltic coast, the Black Forest — the rules are typically more permissive, and rental of unused weeks to holiday guests is often feasible. We discuss the rental position for each specific property transparently during our consultation process, and we never market Germany co-ownership on the basis of projected rental yields.</p></div></details><details class="dest-faq-item"><summary><h3>What happens to my Germany fractional ownership share when I die?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Because Germany fractional ownership is a deeded property right documented through the property structure, it forms part of your estate on death and passes to your heirs under your will, or under the applicable intestacy rules in the absence of a valid will. Your beneficiaries inherit a real property interest — not a contractual right — and can choose to hold the share as a co-owner, sell it to a third party, or offer it to the existing co-owners in accordance with any right of first refusal in the agreement. German inheritance law (Erbrecht) recognises fractional property interests clearly, and the transfer process follows standard German succession procedures.</p>
+<p>For international buyers, it is important to note that German inheritance law applies to real property located in Germany, regardless of the owner&#8217;s country of residence. Under EU Succession Regulation 650/2012, citizens of EU member states can elect to have their home country&#8217;s succession law apply to all their assets — but UK nationals (post-Brexit) are not covered by this regulation and should seek specialist legal advice on how German and UK succession law interact for their specific estate. Keeping an updated will that explicitly addresses your Germany fractional ownership share is strongly recommended.</p></div></details><details class="dest-faq-item"><summary><h3>What types of properties are available for Germany fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Germany fractional ownership spans a genuinely wide range of property types, reflecting the country&#8217;s extraordinary regional diversity. In Bavaria and the alpine foothills, the dominant formats are traditional Bavarian farmhouses (Bauernhäuser), alpine chalets, and lakeside villas — properties that combine period architectural character with high-specification contemporary interiors and direct access to the lakes or mountains. On the Baltic coast, traditional timber beach houses, seaside cottages, and converted Reetdachhäuser (thatched-roof farmsteads) are the characteristic formats, typically set close to the shore with sea views and private garden access.</p>
+<p>In the Black Forest and the Moselle and Rhine valleys, Germany fractional ownership properties tend to take the form of converted farmhouses, historic townhouses, and vineyard properties — buildings with genuine cultural and architectural character. In the cities, co-ownership apartments in premium residential buildings in central locations (Mitte in Berlin, Blankenese in Hamburg, Schwabing in Munich) represent a growing segment of the Germany fractional ownership market. The listings on this page reflect current available stock across these categories. We are happy to discuss specific preferences and identify properties that match your requirements during a no-obligation consultation.</p></div></details><details class="dest-faq-item"><summary><h3>How does Germany fractional ownership compare to buying a holiday property outright in Germany?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The comparison between Germany fractional ownership and outright sole ownership is one that every prospective buyer should consider honestly. Outright sole ownership of a quality German holiday or second home — particularly in the Bavarian lakes, on the Baltic coast, or in the city centres — requires a substantial capital outlay, plus Grunderwerbsteuer (German property transfer tax, which varies between 3.5% and 6.5% depending on the federal state), notary and property ownership records fees, and ongoing costs borne entirely by one owner. For a buyer who will use the property for six to seven weeks per year, the cost-per-day of sole ownership over a ten-year horizon is very significant.</p>
+<p>Germany fractional ownership, by contrast, provides the same access — or better — for a capital investment that reflects the fractional nature of the purchase, with ongoing costs shared across all co-owners and professional management included as standard. The trade-off is that your personal use is limited to approximately 45 days per year rather than unlimited. For buyers whose realistic annual usage of a German second home is six to seven weeks, Germany fractional ownership is almost invariably the more rational financial structure — and it delivers the same quality of access and ownership experience at a fraction of the total cost of sole ownership.</p></div></details><details class="dest-faq-item"><summary><h3>How do I get started with Germany fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Getting started with Germany fractional ownership is straightforward. The first step is to browse the available properties on this page, filtering by region, property type, and lifestyle preference to identify the Germany co-ownership properties that best match your requirements. Once you have identified one or more properties of interest, arrange a consultation with our team — we act as a buyer&#8217;s agency, meaning our role is to help you find and secure the right property at the right price, not to sell you a specific one.</p>
+<p>Before committing to any Germany fractional ownership purchase, we strongly recommend instructing an independent German property lawyer to review the Miteigentümervereinbarung, the property ownership records extract, and all other legal documents associated with the property. You should also take independent tax advice in both Germany and your country of residence to understand the full tax position before completing. Use the contact form below to start your Germany fractional ownership journey — our team is experienced in guiding buyers from first enquiry through to property ownership documentation, and we are happy to answer questions at any stage with no obligation. Germany fractional ownership, done properly, is one of the most legally secure and lifestyle-rewarding forms of European co-ownership available.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

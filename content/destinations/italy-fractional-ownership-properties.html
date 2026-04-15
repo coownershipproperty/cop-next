@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Italy fractional ownership properties | Co-Ownership Property</title>
+    <meta name="description" content="Explore Italy fractional ownership as a cost-effective way to own a premium property">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Italy fractional ownership properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Italy?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3>
+<p>For buyers considering an Italian second home, the structural challenge is identical across all three regions: full ownership of a quality property in any of these markets requires committing <strong>€1.5–3 million or more</strong> to a single asset that will typically sit empty for 40+ weeks per year, accumulate annual running costs of €30,000–€60,000+ regardless of use, and demand complex remote management in a country with a notoriously intricate bureaucratic and tax environment. <strong>Italian fractional co-ownership solves this directly:</strong> a 1/8 deeded share aligns your capital, running costs and annual usage weeks to how you actually live — while preserving the same real estate equity and long-term capital appreciation potential as full ownership. Research from <a href="https://www.scenari-immobiliari.it/" target="_blank" rel="noopener"><strong>Scenari Immobiliari</strong></a> and <a href="https://www.nomisma.it/" target="_blank" rel="noopener"><strong>Nomisma</strong></a>, Italy&#8217;s leading residential research firms, consistently shows that second-home buyers across all three of these Italian regions use their properties for an average of just 4–8 weeks per year — precisely the usage profile that makes a 1/8 fractional share the most capital-efficient structure available. The fractional model does not change the property or the experience; it changes the financial structure to match the reality of how affluent international buyers actually live.</p>
+<p>International demand for Italian resort and lifestyle second homes is structurally deep and genuinely diverse. <a href="https://www.engelvoelkers.com/it/en/" target="_blank" rel="noopener"><strong>Engel &amp; Völkers Italy</strong></a>, <a href="https://www.sothebysrealty.it/eng/" target="_blank" rel="noopener"><strong>Italy Sotheby&#8217;s International Realty</strong></a> and <a href="https://www.knightfrank.com/research/topic/italy" target="_blank" rel="noopener"><strong>Knight Frank</strong></a> all report that Italy&#8217;s luxury second-home market is supported by one of the most internationally diversified buyer bases in Europe: German, Swiss and Austrian buyers form the dominant core in the Lakes and northern Liguria; British buyers remain highly active across all three regions despite any post-Brexit friction; American and North American buyers are the fastest-growing segment in Sardinia, Lake Como and the Amalfi-adjacent areas; French buyers are deeply rooted in Ligurian Riviera markets. This multi-nationality buyer diversity — spread across economic cycles, currencies and cultural motivations — provides a natural structural hedge for Italian resort real estate values that single-nationality markets simply cannot replicate. Combined with Italy&#8217;s permanent supply constraints, world-leading cultural cachet and the irreplicable quality of Italian lakefront, Riviera and island real estate, the case for fractional co-ownership here is as strong as anywhere in Europe.</p>
+</div></section><section class="dest-sec white"><div class="dest-inner"><h2>Italy lifestyle: four seasons of la dolce vita</h2>
+<p>Italy is the only European country combining UNESCO World Heritage alpine lake landscapes, a cliff-sculpted Mediterranean riviera of world-famous beauty, a wild and spectacular Mediterranean island with some of Europe&#8217;s finest beaches, three of the world&#8217;s greatest art cities within two hours of its major second-home zones, and the most sophisticated food and wine culture on the planet — all within a country compact enough to be navigated by high-speed rail, regional flight or a few hours of scenic driving. Co-ownership homes in Italy&#8217;s three great second-home regions are not simply places to relax; they are permanent bases for a layered, ever-deepening engagement with one of the world&#8217;s richest civilisations. <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener">Lake Como and Lake Garda</a> place you within an hour of Milan — Europe&#8217;s fashion, design and finance capital — and within minutes of some of the most photographed villa gardens, mountain hiking and freshwater swimming in the world. <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Liguria</a> gives you the Italian Riviera in its most authentic form: Portofino&#8217;s harbour, the painted villages of Cinque Terre tumbling to the sea, the market towns of the inland Ligurian hills and a cuisine — pesto, farinata, trofie al pesto, branzino al sale — that is among Italy&#8217;s most regionally distinct and deeply satisfying. <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a> delivers something else entirely: a genuinely wild, unspoiled island of ancient nuraghi, pink flamingo lagoons, vertiginous granite cliffs and beaches whose water colour rivals the Caribbean at its clearest — yet with a cultural depth and culinary tradition entirely its own, worlds away from generic resort-island tourism.</p>
+<p>Italy&#8217;s connectivity from Northern Europe, the United Kingdom and North America is exceptional and improving. <a href="https://www.milanomalpensa-airport.com/en/" target="_blank" rel="noopener"><strong>Milan Malpensa</strong></a> is 45 minutes from Lake Como and receives nonstop flights from London, New York, Dubai, Tokyo and most major European cities year-round. <a href="https://www.aeroportoverona.it/en_gb/" target="_blank" rel="noopener"><strong>Verona Catullo</strong></a> and <a href="https://www.milanbergamoairport.it/en/" target="_blank" rel="noopener"><strong>Bergamo Orio al Serio</strong></a> serve Lake Garda from across Europe. <a href="https://www.airport.genova.it/en/" target="_blank" rel="noopener"><strong>Genova Cristoforo Colombo</strong></a> is 30 minutes from the Ligurian Riviera with connections from major European hubs; Nice Côte d&#8217;Azur airport is also viable for the eastern Riviera, just 90 minutes from the Tigullio Gulf. <a href="https://www.sogaer.it/en/" target="_blank" rel="noopener"><strong>Olbia Costa Smeralda Airport</strong></a> in Sardinia is one of Italy&#8217;s best-served regional airports in summer, with direct flights from over 60 European cities, and receives year-round connections from Rome and Milan in under an hour. <a href="https://www.aeroportodialghero.it/en/" target="_blank" rel="noopener"><strong>Alghero Fertilia</strong></a> serves northwest Sardinia with flights from major European cities, while <a href="https://www.cagliariairport.it/en/" target="_blank" rel="noopener"><strong>Cagliari Elmas</strong></a> provides access to the south. For discovery and activity planning, the <a href="https://www.italia.it/en" target="_blank" rel="noopener"><strong>official Italy tourism portal</strong></a>, <a href="https://www.tripadvisor.com/Tourism-g187768-Italy-Vacations.html" target="_blank" rel="noopener"><strong>TripAdvisor Italy</strong></a> and <a href="https://www.getyourguide.com/italy-l181/" target="_blank" rel="noopener"><strong>GetYourGuide Italy</strong></a> are excellent starting points for all three regions.</p>
+<p>The Italian Lakes at their most romantic: camellia and wisteria in full bloom on the villa terraces, the mountains still snow-capped above the lake, cycling and hiking in perfect temperatures. Liguria&#8217;s Cinque Terre trails are uncrowded and spectacularly green. Sardinia&#8217;s wildflower season transforms the interior. Strong shoulder-season rental demand across all three regions.</p>
+<p>Sardinia&#8217;s beaches reach their absolute peak — Europe&#8217;s finest water quality, long warm evenings, the Costa Smeralda at its most vibrant. Lake Como and Lake Garda shimmer under long summer days; Bellagio and Sirmione fill with visitors from across the world. Liguria&#8217;s fishing villages are at their most alive. Italy&#8217;s summer is a feast of colour, heat and outdoor living at full intensity.</p>
+<p>Italy&#8217;s finest season for food, wine and atmosphere. The Lakes are bathed in a particular golden light as the hills turn amber and russet. Liguria&#8217;s truffle season and olive harvest begin. Sardinia&#8217;s sea remains warm well into October and beaches empty completely after mid-September. The grape harvest is underway across all regions. Autumn in Italy rewards those who know.</p>
+<p>Milan and the Lakes&#8217; cultural season — La Scala, world-class art exhibitions, Michelin-starred restaurants full of Italians rather than tourists. Liguria&#8217;s mild microclimate makes it Italy&#8217;s most appealing winter coast: lemon trees flowering, coastal paths empty, fish simply grilled. Sardinia in winter is dramatically beautiful — austere, quiet, genuinely unspoiled. All three regions reward the curious winter visitor.</p>
+<p>This four-season usability is the foundation of the Italy fractional co-ownership value proposition. A 1/8 share&#8217;s <strong>6–7 annual weeks</strong> can be deployed with extraordinary strategic flexibility: spring blooms and hiking at <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener">Lake Como</a>, summer beach weeks on <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a>&#8216;s Costa Smeralda, an autumn truffle weekend on the <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Ligurian Riviera</a>, and a winter cultural escape to Milan or Genova. Very few Italian resort second homes sit completely idle regardless of season — and that reliable year-round utility, combined with the rental potential of unused weeks in licensed properties, is precisely what makes Italy such a compelling co-ownership and wealth-preservation market across all three regions.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Key Italy fractional ownership regions</h2>
+<h3>Italian Lakes — Como &amp; Garda</h3>
+<p>Italian Lakes fractional ownership places you at the heart of Europe&#8217;s most celebrated inland water landscape — a glacially sculpted arc of deep, mirror-calm lakes set between the Alps and the Po Valley, lined with centuries of aristocratic villa culture, garden art and a way of life that has captivated writers, composers, industrialists and royalty for two hundred years. <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener"><strong>Lake Como</strong></a> is the most globally recognised and structurally constrained of Italy&#8217;s lakes: a 46km fjord-like ribbon of water flanked by near-vertical mountain slopes that physically prevent any meaningful new lakefront construction. The villages of Bellagio, Varenna, Tremezzo and Menaggio have been essentially unchanged for a century, and the prime lakefront villas lining the central lake — once summer retreats of the Milanese aristocracy — now represent some of the most coveted and irreplicable residential addresses in all of Europe. <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener"><strong>Lake Garda</strong></a>, Italy&#8217;s largest lake, offers a different and in many ways even more versatile experience: the northern Trentino shore is Alpine in character, with dramatic cliffs and a thermal wind system that makes Riva del Garda the wind-sports capital of Central Europe; the central and southern shores transition through olive-grove terraces, medieval villages, Roman ruins at Sirmione and eventually into the gentler, more family-oriented Brescian and Veronese lakefronts where Gardone Riviera and Salò maintain a quieter, more residential elegance.</p>
+<p>Italian Lakes co-ownership properties range from restored nineteenth-century lakefront villas with private boat jetties, terraced gardens and views that stop every first-time visitor completely in their tracks, to contemporary architect-designed apartments in historic palazzi with shared pool terraces cantilevered above the lake surface, to hillside stone case coloniche — traditional farmhouses — converted to a standard of interior quality that belies their rural origins entirely. The combined supply constraint of mountain geography, UNESCO landscape protection, historic preservation orders and regional planning restrictions on lakefront zones creates a real estate environment of near-absolute scarcity that has underpinned consistent long-term price appreciation with remarkable resilience across every economic cycle of the past thirty years. <strong>Typical 1/8 shares sit in the €175,000–€450,000 range</strong> against whole-property prices of €1.4m–€3.6m+. <strong>Best for:</strong> culture lovers, architecture enthusiasts, water sports and sailing families, gastronomes, buyers building long-term northern Italian equity close to Milan.</p>
+<h3>Liguria — the Italian Riviera</h3>
+<p>Liguria fractional ownership opens access to one of the most dramatically beautiful and supply-constrained coastal environments in the Mediterranean — a 350km arc of cliff-edge fishing villages, terraced olive groves and crystal-clear sea stretching from the French border to the Tuscan coast, with no flat land, no room for new development and a UNESCO World Heritage designation that permanently protects the most iconic stretches of coastline from any meaningful change. The Riviera di Levante — the eastern section anchored by <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Portofino</a>, Santa Margherita Ligure, Rapallo and the five painted villages of Cinque Terre — is the crown of the Ligurian coast and one of the most recognisable and beloved landscapes in the world. Portofino itself is a property market of near-absolute scarcity: a tiny promontory of fewer than 500 permanent residents where every building has been frozen by heritage protection for decades, and where the demand from the world&#8217;s wealthiest buyers far exceeds any conceivable supply. The Tigullio Gulf — Santa Margherita, Rapallo, Sestri Levante — offers similar character at more accessible price points, with a complete Italian lifestyle that high-season tourism barely disrupts. The Riviera di Ponente, stretching west toward France via Sanremo, Alassio and Albenga, provides a sunnier, more sheltered and increasingly sought-after alternative with its own deep tradition of international second-home ownership stretching back to the Belle Époque.</p>
+<p>Ligurian co-ownership properties are among the most characterful in Europe: pastel-washed terraced houses with sea-view terraces above the harbour, converted fishing lofts with direct sea access, elegant Liberty-style villas set in terraced gardens above the cliff edge, and contemporary apartments in historic palazzo buildings with panoramic glazing and professional management that delivers a hotel-quality arrival experience. The physical geography of Liguria — cliffs dropping directly to the sea, no coastal plain, mountains immediately behind the coast — creates a supply constraint so permanent it is geological rather than regulatory. There is simply no land on which to build, and that reality underpins the long-term scarcity premium of every existing Ligurian property with sea views. <strong>Typical 1/8 shares sit in the €150,000–€500,000 range</strong> against whole-property prices of €1.2m–€4m+. <strong>Best for:</strong> sailors, walkers, food lovers, architecture admirers, buyers who value authentic Italian village life alongside dramatic natural beauty.</p>
+<p>Sardinia fractional ownership gives you access to Europe&#8217;s most exceptional island — a place of such wild, untouched beauty, so deeply different from the rest of the Mediterranean, that even those who have travelled widely find it genuinely surprising. The <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Costa Smeralda</a> in the northeast — created as Europe&#8217;s most exclusive resort by the Aga Khan consortium in the 1960s and protected ever since by the Consorzio Costa Smeralda&#8217;s stringent architectural and environmental controls — remains the benchmark for Mediterranean luxury real estate: a 55km stretch of pink granite boulders, juniper forests and beaches of extraordinary water quality, where the Emerald Coast&#8217;s famous sea colour (that particular turquoise-to-deep-teal gradient) is the result of exceptionally shallow, silica-rich seabed meeting the deep Mediterranean waters. Porto Cervo, Cala di Volpe, Romazzino and Capriccioli are the defining addresses: a world of discreet elegance that draws royalty, art world figures, fashion dynasties and international finance families year after year, generation after generation. Beyond the Costa Smeralda, Sardinia reveals itself as a far larger and more varied destination: the medieval Spanish-Gothic old town of <a href="https://www.alghero-turismo.it/en" target="_blank" rel="noopener">Alghero</a> on the northwest coast, with its Catalan dialect and coral-coloured old city walls; the silver-sand beaches and turquoise lagoons of Chia and the south coast; the ancient nuraghi stone towers of the interior; and a gastronomic tradition — bottarga, porceddu, mirto liqueur, Vermentino di Gallura, Cannonau di Sardegna — that reflects four thousand years of isolated, intensely local food culture.</p>
+<p>Sardinian co-ownership properties span Costa Smeralda villa compounds set in pineta forests above the sea with private pools, sea-view terraces and direct cove access, to architect-designed contemporary villas on the Gallura granite headlands with panoramic sea views and infinity pools vanishing into the horizon, to beautifully restored stazzi — traditional Sardinian stone farmhouses — in the island&#8217;s quieter inland and coastal valleys. The Gallura Regional Plan, the Consorzio Costa Smeralda&#8217;s charter and Sardinia&#8217;s regional coastal protection laws collectively make this one of the most restrictive development environments in all of Italy — new build on the Costa Smeralda is essentially impossible, and the existing stock of quality villas and compounds is finite and irreplaceable. <strong>Typical 1/8 shares sit in the €150,000–€500,000 range</strong> against whole-property prices of €1.2m–€4m+. <strong>Best for:</strong> beach lovers, families, sailors, buyers seeking the finest sea quality in Europe, investors building equity in Europe&#8217;s most supply-constrained island resort market.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A week in your Italy co-ownership home</h2>
+<p>One of the most compelling things about owning a co-ownership property in Italy is how differently each stay can feel. Italy has enough depth — lakes, coastline, mountains, cities, villages, food, culture, history — that you could spend a week here every season for a lifetime and still be discovering something new. This is what a typical late-spring week at a Lake Como co-ownership villa might look like, arriving on a Sunday afternoon and leaving the following Sunday morning. Adjust the region, the season, and your own pace — and Italy reshapes itself entirely around you.</p>
+<p>You land at <a href="https://www.milanomalpensa-airport.com/en/" target="_blank" rel="noopener">Milan Malpensa</a> mid-afternoon and within 45 minutes you are turning off the SS340 onto the lane that descends to the property. The first glimpse of Lake Como through the trees is never something you fully prepare for — that depth of colour, that stillness, the Alps rising on both sides. <strong>The property is immaculate — shutters opened, fridge stocked, boat moored at the private jetty.</strong> You arranged none of it. You unpack onto the terrace, pour a glass of local Lugana, and sit listening to the silence as the evening light turns the water copper and gold. Tomorrow the lake is waiting.</p>
+<p>Lake Como&#8217;s most spectacular quality is how completely the mountains rise from the water&#8217;s edge. Take the <a href="https://www.funicolarecomo.it/" target="_blank" rel="noopener">Brunate funicular</a> from Como town — a five-minute ascent to a viewpoint 720 metres above the lake, with the city, the lake and the distant Alps laid out beneath you in what feels like the best view in Lombardy. From Brunate, a network of marked hiking paths leads deeper into the hills. <strong>The two-hour loop to San Maurizio and back is manageable for most fitness levels and rewards with panoramas that change at every turn.</strong> Descend to Como in the early afternoon: lunch in the old town, a walk around the <a href="https://www.cattedraledicomo.it/" target="_blank" rel="noopener">Gothic-Romanesque Duomo</a>, and the silk shops on Via Vittorio Emanuele II — Como has been Europe&#8217;s finest silk-producing city for five centuries, and the showrooms here sell to couture houses across the world.</p>
+<p>There is a reason every return visitor to Lake Como puts Bellagio on their list without hesitation. The ferry from the nearest landing stage takes 20 minutes; the walk from the dock up the steep stone stairways into the old town takes five. <strong>Bellagio is one of the most perfectly preserved historic villages in all of Italy</strong> — narrow walled lanes opening onto sudden terraced gardens and lake views, artisan silk and leather shops operating from the same premises for generations, a handful of genuinely outstanding restaurants and the most beautiful hotel terrace in northern Italy at the Grand Hotel Villa Serbelloni. Spend the morning in the <a href="https://www.lakecomotravel.com/" target="_blank" rel="noopener">Villa Melzi gardens</a> — a lakefront Neoclassical park of camellia allées, Japanese garden and an Egyptian-inspired temple — and the afternoon entirely at your own pace among the lanes. Return to the villa for a long, quiet evening dinner on the terrace.</p>
+<p>One of the most compelling practical advantages of a Lake Como co-ownership base is Milan&#8217;s proximity — <strong>45 minutes by road or fast train from Como San Giovanni, 70 minutes from Varenna</strong>. Reserve Thursday for a Milan day: the <a href="https://www.ambrosiana.it/en/" target="_blank" rel="noopener">Biblioteca Ambrosiana</a> and its extraordinary art collection, a morning in the Brera quarter&#8217;s galleries and antique dealers, lunch at a proper Milanese trattoria (osso buco, risotto alla milanese, a carafe of Barbera), and an afternoon in the fashion district or the <a href="https://www.triennale.org/en/" target="_blank" rel="noopener">Triennale design museum</a>. <strong>If the calendar allows, the scale of Duomo cathedral and the reconstructed Santa Maria delle Grazie (Leonardo&#8217;s Last Supper) are among Italy&#8217;s top four or five cultural experiences</strong> and are never wasted on repeat visitors. Return to Como by early evening       for the golden-hour light on the lake that no Milan hotel can replicate.</p>
+<p>Lake Como has a concentration of historic villa gardens unmatched anywhere in Europe — <a href="https://www.villaerba.it/en/" target="_blank" rel="noopener">Villa d&#8217;Este</a> in Cernobbio, <a href="https://www.villacarlotta.it/en/" target="_blank" rel="noopener">Villa Carlotta</a> in Tremezzo, <a href="https://www.comune.como.it/en/" target="_blank" rel="noopener">Villa Olmo</a> in Como — each representing centuries of garden art in the grand Italian tradition. <strong>Villa Carlotta in May is among the top five garden experiences in Europe</strong>: forty varieties of rhododendron and azalea in simultaneous bloom above the lake, Canova sculptures in the orangery, and a terrace view that has been drawing painters since the eighteenth century. Devote the morning to one garden and the afternoon to the one you have been meaning to revisit. End the day on the property&#8217;s own terrace with a Campari soda and the knowledge that tomorrow is the last morning, and it too will be perfect.</p>
+<p>The best last days at Lake Como are unhurried. Rise early while the lake is still completely calm — <strong>the morning light on Como before 8am, the mountains perfectly reflected in the glass-still water, is one of the most quietly beautiful things Italy offers</strong> and it belongs entirely to those who are already there. Take the boat out for an hour with a coffee. Swim from the dock. Sit on the terrace and read. A long final lunch at the village trattoria you discovered on the first day. The packing can wait. Italy rewards those who let time slow down, and Lake Como slows it better than almost anywhere else in the world.</p>
+<p>Return in September and the lakes are at their warmest, the terraces golden, the summer crowds gone. Come in winter for Milan&#8217;s cultural season, the lake deserted and theatrical under low cloud, truffle lunches in the Brianza hills. Swap the Lakes for <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a> in July for the finest beaches in Europe. Come to <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Liguria</a> in April for Cinque Terre without the crowds. <strong>Italy is the only co-ownership destination in this guide where every season in every region rewards a return visit without diminishing returns.</strong> The <a href="https://www.italia.it/en" target="_blank" rel="noopener">official Italy tourism portal</a>, <a href="https://www.getyourguide.com/italy-l181/" target="_blank" rel="noopener">GetYourGuide Italy</a> and <a href="https://www.tripadvisor.com/Tourism-g187768-Italy-Vacations.html" target="_blank" rel="noopener">TripAdvisor Italy</a> cover all three regions across all four seasons in exceptional depth.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Who buys Italy fractional co-ownership?</h2>
+<p>Italy fractional ownership attracts one of the most internationally diverse and culturally motivated buyer profiles in European second-home real estate. Unlike purely lifestyle-driven beach markets, Italy draws buyers for whom the depth of cultural, culinary and historical engagement is as important as the property itself — people who return not just for the sunshine but for the specific texture of a particular place that rewards knowing deeply over many years.</p>
+<p>German, Swiss and Austrian buyers have the longest established tradition of Italian Lakes and Ligurian Riviera second-home ownership — cultural, linguistic and geographic proximity has made northern Italy a natural extension of the Central European second-home market for generations. The Lake Como and Lake Garda waterfronts have historically been described as &#8220;the German Riviera&#8221; in local real estate circles, and the depth of this buyer base provides a structural demand floor that insulates lakefront values across economic cycles. British buyers — despite any post-Brexit friction in the ownership process — remain among the most active international participants in all three Italian regions, drawn by a cultural affinity with Italy that is among the deepest of any northern European nationality. American buyers are the fastest-growing segment in both the Italian Lakes and Sardinia markets: the combination of dollar-denominated wealth, cultural draw and Italy&#8217;s flat-tax regime for new residents (€100,000 per year regardless of foreign income — an extraordinary proposition for high-net-worth American buyers) is accelerating US buyer participation at every price point.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Italy fractional ownership vs full ownership</h2></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Getting to your Italy co-ownership property</h2>
+<p>Italy&#8217;s connectivity from Northern Europe, the UK and North America is one of the structural advantages of Italian second-home ownership — all three co-ownership regions are within 2–3 hours of most major European cities, and within direct long-haul reach from New York, Toronto, Dubai and Singapore via their gateway airports. The combination of scheduled airline competition, improving high-speed rail infrastructure and Italy&#8217;s excellent autostrada network means that travel to an Italian co-ownership property is rarely a logistical obstacle — particularly for owners who plan their usage weeks to avoid the very peak August gridlock that affects every popular Italian summer destination.</p>
+<p><a href="https://www.milanomalpensa-airport.com/en/" target="_blank" rel="noopener">Milan Malpensa (MXP)</a> is the primary gateway: 45 min to Lake Como, 80 min to Lake Garda&#8217;s western shore. Direct flights from London (multiple daily), Amsterdam, Frankfurt, Zurich, Madrid, Paris, New York JFK, Dubai and 60+ European cities. <a href="https://www.milanbergamoairport.it/en/" target="_blank" rel="noopener">Bergamo Orio al Serio (BGY)</a> serves Como in 60 min with low-cost routes from across Europe. <a href="https://www.aeroportoverona.it/en_gb/" target="_blank" rel="noopener">Verona Catullo (VRN)</a> serves eastern Lake Garda and Sirmione in 30 min. High-speed Frecciarossa trains connect Milan to Como San Giovanni in 37 min and to Desenzano del Garda (Lake Garda south) in 50 min.</p>
+<p><a href="https://www.airport.genova.it/en/" target="_blank" rel="noopener">Genova Cristoforo Colombo (GOA)</a> is 30–45 min from the Riviera di Levante with direct flights from London, Paris, Frankfurt, Amsterdam, Rome and Barcelona. <a href="https://www.nice.aeroport.fr/en" target="_blank" rel="noopener">Nice Côte d&#8217;Azur (NCE)</a> is 90 min from Santa Margherita Ligure and serves as an excellent alternative gateway for the eastern Riviera, with transatlantic connections from North America. <a href="https://www.gva.ch/en/" target="_blank" rel="noopener">Geneva (GVA)</a> is a viable option for Swiss and northern European buyers. The A7 and A10 autostrade provide fast coastal access; <a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener">Trenitalia&#8217;s</a> coastal railway line connects all major Ligurian resorts in a single scenic journey.</p>
+<p><a href="https://www.sogaer.it/en/" target="_blank" rel="noopener">Olbia Costa Smeralda (OLB)</a> serves the northeast coast — 20 min from Porto Cervo and the Costa Smeralda — with direct flights from London Gatwick, London Heathrow, Amsterdam, Frankfurt, Paris, Zurich, Milan, Rome and 60+ European cities in summer; year-round from Rome and Milan. <a href="https://www.aeroportodialghero.it/en/" target="_blank" rel="noopener">Alghero Fertilia (AHO)</a> serves the northwest with low-cost connections from across Europe. <a href="https://www.cagliariairport.it/en/" target="_blank" rel="noopener">Cagliari Elmas (CAG)</a> serves the south. Ferries from Genova, Civitavecchia and Livorno offer a scenic alternative for those travelling with cars or who prefer the overnight crossing from the mainland.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Investment advantages of Italian fractional ownership</h2>
+<p>Beyond the lifestyle case, Italian co‑ownership properties offer a compelling financial structure for buyers used to thinking in portfolio terms. Understanding the investment mechanics helps you evaluate fractional ownership clearly against traditional real estate and alternative vacation solutions such as holiday clubs, destination memberships or straightforward rental — and see why the numbers increasingly favour the fractional model for buyers who will realistically use a property for 6–10 weeks per year across three of Europe&#8217;s most coveted resort destinations.</p>
+<p><strong>Capital efficiency and proportional appreciation:</strong> Your fractional share appreciates proportionally with the full property value. If a prime Lake Como lakefront villa rises 7% in a year, your 1/8 share gains the same 7%, whether you paid €250,000 or €2 million. Instead of locking €2–4 million into a single second home visited for 6 weeks, you deploy €200,000–€500,000 for comparable usage and identical percentage appreciation — freeing capital for other investments, additional co‑owned homes across the <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener">Lakes</a>, <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Liguria</a> or <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a>, or simply keeping your wealth more liquid and diversified. Many buyers build a multi-destination Italian portfolio of fractional shares — a Lake Como villa for spring, a Ligurian clifftop house for early summer, a Sardinian compound for August — that gives them far more collective lifestyle value than a single whole property ever could.</p>
+<p><strong>Strict supply constraints protect long-term values:</strong> All three Italian co-ownership regions operate under some of the most restrictive planning and coastal protection frameworks in Europe. Italy&#8217;s <em>Codice del Paesaggio</em> places binding national-level constraints on development within scenic, coastal and UNESCO-designated zones — and Lake Como, the Ligurian Riviera and the Costa Smeralda are among the most heavily protected areas in the entire country. Regional governments in Lombardy, Liguria and Sardinia have consistently tightened these restrictions over the past decade: Sardinia&#8217;s <em>Piano Paesaggistico Regionale</em> effectively prohibits new coastal construction within two kilometres of the shoreline; Liguria enforces strict height, density and materials controls across the entire Riviera di Levante; and Lake Como&#8217;s UNESCO World Heritage buffer status means any development proposal faces national-level scrutiny before a single permit is issued. <strong>This structural supply constraint is regulatory and essentially permanent</strong> — it gives well-located Italian co-ownership properties a fundamentally different risk profile from European markets where new supply can freely respond to demand.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Italian resort property values keep rising</h2>
+<p>Italy&#8217;s sustained prime resort price growth is not driven by speculation — it is the direct, measurable result of some of Europe&#8217;s most restrictive residential supply environments colliding with structurally rising international demand. Across all three Italian co-ownership clusters, the regulatory picture is strikingly consistent: coastal build bans, UNESCO and landscape protection designations, regional planning moratoriums and strict caps on new accommodation capacity have combined to make meaningful new prime supply essentially impossible. The result is a structural, growing gap between rising demand from an affluent, internationally diversified buyer pool and a near-static inventory of quality lakefront, coastal and resort residential stock. Since 2015, prime prices across all three regions have <strong>risen by 70–80%</strong> — a compound annual growth rate achieved with almost zero meaningful new prime supply entering the market during that period.</p>
+<p>Key regulatory interventions that have directly shaped this price trajectory include: the ongoing enforcement of Sardinia&#8217;s <em>Piano Paesaggistico Regionale</em> preventing all new coastal construction within 2km of the shoreline; Lake Como&#8217;s UNESCO World Heritage buffer zone tightening in 2017 that placed additional national-level constraints on any lakefront development; tightened short-term rental regulations in both Liguria and Lombardy in 2022–2023 reducing the total permitted accommodation pool; and Liguria&#8217;s 2023 introduction of rental caps in the Riviera di Levante&#8217;s most in-demand comuni. Far from being temporary or reversible, these interventions reflect Italy&#8217;s national and regional governments&#8217; long-stated commitment to landscape preservation and sustainable tourism — <strong>the political and regulatory trajectory across all three regions is toward further restriction, not relaxation</strong>. Each new constraint further limits the total supply of quality Italian resort property available to buy, reinforcing the scarcity premium that already-existing assets command.</p>
+
+<p>The COVID dip visible in 2020 proved brief and shallow across all three Italian clusters — within 12 months each market had not only recovered but accelerated, driven by post-pandemic reappraisal of lifestyle priorities among affluent European households who suddenly valued quality of life, outdoor space and proximity to nature far more highly than before. The Ligurian Riviera and Costa Smeralda in particular saw exceptional demand acceleration from 2021 onwards as international buyers — priced out of comparable French Riviera and Côte d&#8217;Azur assets — recognised Italian coastal property as representing extraordinary relative value at similar quality levels. The gap between what buyers want and what Italy&#8217;s three premier resort regions can legally supply has widened every year since, and there is no credible planning or political scenario in which that changes materially in the medium term. For co-ownership buyers, this supply story is perhaps the single most important structural reason to have confidence in long-term Italian resort asset values.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Exit &amp; resale liquidity</h2>
+<p>It is also worth noting that some Italian co-ownership platforms operate internal resale marketplaces — matching exiting owners with new buyers who are already familiar with the model and motivated to enter a specific property in <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener">the Lakes</a>, <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Liguria</a> or <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a>. This can dramatically shorten sale timelines versus marketing on the open market and eliminates the full Italian agency and notarial cost structure associated with a first-sale purchase. Others operate planned collective exit horizons, giving all co-owners a clear, pre-agreed timeline for whole-property sale and capital return — typically at a premium to piecemeal individual share sales, since a single whole-property transaction in any of Italy&#8217;s three co-ownership regions commands a wider buyer pool and greater competitive tension than any fractional share sale. Both mechanisms reflect a fundamentally more liquid structure than conventional single-ownership Italian property, and are worth examining carefully — alongside the operator&#8217;s documented resale track record — when evaluating any specific Italian fractional co-ownership opportunity.</p></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Italy fractional ownership: frequently asked questions</h2><div class="dest-faq-list"><section class="dest-sec white"><div class="dest-inner"><h2>Italy Fractional Ownership — Investment in Detail</h2>
+<p>Lake Como has seen significant appreciation driven by extremely limited supply and sustained international demand. Prime lakefront properties have outperformed broader Italian real estate markets consistently across the past two decades, with comparable villa compounds on Lake Como trading at multiples higher than equally positioned properties on Lake Garda or the Ligurian coast. This sustained premium reflects both the lake&#8217;s unmatched cultural cachet and the geological impossibility of new lakefront development — the mountain slopes flanking Como are too steep, too heavily protected and too densely developed to accommodate meaningful new construction anywhere in the central or northern lake zones.</p>
+<p>Italian resort property has demonstrated resilience — cultural capital of Italy sustains interest through economic cycles. Even during the 2008-2012 European property downturn, demand for the very best Lake Como, Portofino and Costa Smeralda properties remained structurally strong from German, Swiss, French and Russian buyers. The scarcity premium of genuinely prime properties — those with exceptional lakefront positions, sunset exposures, private water access or integrated garden terraces — did not weaken. This resilience reflects a fundamental truth: Italy&#8217;s cultural and lifestyle magnetism is not cyclical. Supply constraints are permanent. The buyers who value these properties have the capital to weather market corrections. These structural factors together support a genuine long-term appreciation case that fractional ownership investors can capture with a 1/8 share structure.</p>
+<p>Premium properties across Italy have historically returned 6-8% per year in prime locations, outpacing broader Italian residential market performance and matching or exceeding property appreciation across comparable Alpine lake destinations in Switzerland and Austria. These returns exclude the value creation possible through careful renovation, tenant management and strategic lease structures — opportunities that COP&#8217;s hands-on management platform is specifically designed to unlock. The fractional structure itself amplifies per-pound capital efficiency: a 1/8 share investor capturing 6-8% annual appreciation on a €200,000 entry cost is capturing equity growth rate equivalent to what full-property ownership would generate, but with one-eighth the capital at risk, one-eighth the management burden, and one-eighth the running costs.</p>
+<p>Italy&#8217;s tourism draw — approximately 95 million international visitors per year — creates deep rental demand for quality second homes across all three Italian regions. Lake Como attracts 1.2+ million visits annually from German, Swiss and British visitors (many of whom are repeat returnees and property owners themselves). The Ligurian Riviera draws tourists from across Northern Europe and increasingly from North America and Asia. Sardinia&#8217;s Costa Smeralda is one of the Mediterranean&#8217;s top ten resort destinations by visitor volume and willingness to pay. This tourism intensity, combined with Italy&#8217;s cultural depth, creates a stable rental market for quality co-ownership properties. Unlike many European resort markets, which depend heavily on a narrow seasonal window, Italy&#8217;s attractions — art, food, landscapes, villages — sustain visitor demand across all seasons. A property available for rental in October in Bellagio or November in Porto Cervo will find tenants. This year-round rental optionality makes Italy fractional shares more capital-efficient than purely lifestyle-driven co-ownership in more seasonally constrained locations.</p>
+<hr class="cop-divider"></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Italy Fractional Ownership — Regions in Detail</h2>
+<h3>Lake Como: The Benchmark for Italian Luxury</h3>
+<p>45 minutes from Milan&#8217;s international airports, genuinely accessible for weekend visits. The combination of dramatic pre-Alpine scenery and extraordinary built environment (18th-19th century lakeside villas) creates an environment where geography, history and human endeavour combine to produce the most celebrated inland water landscape in continental Europe. Every return visit to Lake Como — whether your tenth or your fiftieth — reveals new details: the exact colour of the water shifts with season and angle of light; hiking trails in the mountains reveal new viewpoints; village restaurants rotate between old favourites and newly discovered places. This layered depth of experience is foundational to understanding why Lake Como commands premium prices and why fractional ownership here works so effectively for long-term wealth preservation. You are not buying a property; you are buying access to a place of extraordinary human interest and architectural significance. The deeded ownership structure captures that value directly.</p>
+<h3>Lake Garda: Italy&#8217;s Largest Lake</h3>
+<p>Northern end famous for windsurfing, southern end for Sirmione and Roman ruins. Western shore between Salò and Gargnano has most prestigious residential addresses. Lake Garda offers more geographic diversity than Lake Como — the climate shifts from Alpine to Mediterranean as you move from north to south; the village character ranges from mountain resort (Riva del Garda, with its thermal wind patterns that make it Europe&#8217;s premier wind-sports destination) to medieval fishing village to genteel lakeside resort town to rural agricultural valley. This diversity makes Garda accessible for different lifestyle preferences: families seeking water sports and family-friendly villages; couples valuing quieter, more sophisticated settings in places like Salò or Gargnano; walkers and hikers interested in the Alpine trails of the northern shore. A fractional ownership at Lake Garda potentially offers more seasonal flexibility than Lake Como because the range of activities available shifts meaningfully through the year — summer for water sports and swimming, autumn for hiking and food, winter for the cultural season in nearby Brescia and Verona.</p>
+<h3>Liguria — Italian Riviera</h3>
+<p>Cinque Terre, Portofino, Santa Margherita Ligure — 19th century history as European aristocracy&#8217;s destination. The Ligurian coast is the oldest resort destination in the Mediterranean (eclipsed only by the French Côte d&#8217;Azur in terms of historical cachet, and arguably superior in terms of genuine village authenticity). Portofino was already a destination for Italian and European nobility by the 1800s; by the Belle Époque, it was one of Europe&#8217;s most sought-after addresses. This long history of international second-home ownership has created a sophisticated infrastructure of luxury hospitality, fine dining, marina services and property management that is second to none in Italy. Unlike some newly discovered resort destinations (where infrastructure and services are still developing), Liguria has 150+ years of experience delivering at the highest level to discerning international buyers. Genuinely scarce supply in Portofino, Santa Margherita, Lerici — these villages have essentially no new development, fixed populations, and property supply that turns over only when existing owners choose to sell. This means every fractional share purchased here is genuinely capturing a permanent scarcity premium.</p>
+<hr class="cop-divider"></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Italy Fractional Ownership — Practical Buyer Information</h2>
+<p>Each property held in Italian SRL (limited liability company) or similar vehicle — this structure is standard across Italy for investment property held by multiple owners, and provides clear liability protection, administrative clarity and ease of transfer. The Italian legal system recognizes co-ownership (comproprietà) and the rights of fractional shareholders with complete certainty. When you purchase a 1/8 share in an Italian property, your ownership is registered with the local notaire (notaio), recorded on the property cadastre, and protected with the same certainty as full ownership. This is a genuine deeded property right, not a timeshare, not a lease, not a club membership.</p>
+<p>The notaio&#8217;s role in Italian property transactions — independent public official, not just a witness. The Italian notary is a government-certified official responsible for validating all aspects of a property transaction: confirming legal title, verifying that the seller has clear right to convey, ensuring all municipal taxes and utility arrears are settled, and registering the new ownership with local authorities. The notary&#8217;s involvement is mandatory, expensive (typically 1,000-3,000 euros for a fractional share purchase) and absolutely essential. It is this notarial certification that gives Italian property ownership its legal certainty. Unlike some Anglo-Saxon property markets that rely on title insurance and conveyancing lawyers, the Italian system puts a government official in the middle of every transaction. This adds cost but provides certainty that ownership is truly clear.</p>
+<p>IMU tax (municipal property tax) on second homes — levied annually on the presumed rental value of the property. For a fractional share, IMU is calculated on 1/8 of the full property&#8217;s assessed rental value, and divided proportionally among all co-owners. For typical premium Italian lake or coastal properties, IMU typically runs 0.4-0.6% per annum of the property&#8217;s market value. This is a genuine ongoing cost that should be factored into the total cost of ownership. Unlike some countries, Italian property tax is not waived for EU citizens or second-home owners — the tax applies equally to all property owners. COP&#8217;s annual management reports detail IMU allocation and payment for each property.</p>
+<p>Italian capital gains tax: no CGT for non-residents who hold 5+ years. If you own a property (either directly or as a fractional share co-owner) for five or more consecutive years, and are not an Italian tax resident at the time of sale, you owe zero capital gains tax on any appreciation. This is one of Europe&#8217;s most owner-friendly CGT regimes and reflects Italy&#8217;s policy of welcoming foreign investment in second homes. For international buyers planning to hold a fractional share for any meaningful period (5+ years), the long-term tax treatment is extremely attractive. This is a major distinction from many other countries where non-residents face punitive CGT rates (Spain, France, Portugal) or where CGT is owed by all owners regardless of residency. The five-year holding period requirement is specific and well-established in Italian tax law, and COP can help clarify your specific situation based on your residency and timeline.</p>
+<p>Running costs divided proportionally among co-owners at one-eighth — property management fees (typically 3-5% of gross rental income, or 800-1,500 euros per year for unfurnished fractional shares), property insurance (split eight ways), utilities (water, electricity, gas, internet — typically 40-80 euros per month per share for unfurnished properties), and maintenance reserves (typically 200-400 euros per year per share). These costs are entirely transparent and detailed in the annual property statements COP provides to all co-owners. For an active rental property, management fees are offset by rental income. For properties held for personal use only, these running costs are genuine ongoing obligations that should be factored into the investment case.</p>
+<p>Independent tax advice strongly recommended — Italian property ownership has specific implications for your personal tax residency, Italian wealth tax exposure (for Italian residents only), currency exposure (if you are not euro-domiciled), and potential complications if you eventually inherit the property to non-EU heirs. The tax treatment of Italian fractional ownership is genuinely complex and country-of-residence specific. Before purchasing any fractional share, working with a tax advisor familiar with your specific circumstances (your country of residence, your citizenship, your broader asset picture) is not optional — it is essential. COP can provide references to English-speaking Italian property tax specialists, but the choice and engagement of tax advice is entirely your responsibility.</p></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

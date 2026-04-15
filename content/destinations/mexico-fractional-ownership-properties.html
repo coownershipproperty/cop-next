@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mexico Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Premium fractional ownership (co-ownership) properties in Mexico including Los Cabos, Puerto Vallarta &amp; Cancun. Luxury beach homes through fractional co-ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Mexico Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Mexico?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><title>Mexico Fractional Ownership | Los Cabos &#038; Riviera Maya | COP</title></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Mexico Fractional Ownership: Year-Round Paradise, Two Coastlines</h2>
+
+<p>Mexico offers year-round warmth, resort-quality infrastructure, and two dramatically distinct coastal environments for fractional property ownership through Co-Ownership Property. Los Cabos, where the Pacific Ocean meets the Sea of Cortez at Baja California&#8217;s southernmost tip, delivers dramatic desert landscapes, world-class sport fishing, championship golf courses, and over 300 days of sunshine annually. The Riviera Maya, stretching along the Caribbean coast south of Cancun, offers turquoise waters, cenote swimming, Mayan ruins, and a lifestyle centered on beach clubs, wellness, and natural beauty. For North American buyers seeking proximity to the United States, climate consistency, proven luxury resort infrastructure, and genuine investment appreciation, Mexico&#8217;s fractional ownership market represents an increasingly sophisticated alternative to Caribbean island properties. Whether you&#8217;re drawn to Baja&#8217;s dramatic desert-meets-ocean landscape or Quintana Roo&#8217;s Caribbean perfection, Mexico&#8217;s fractional ownership model delivers access to year-round paradise through genuine deeded ownership and professional management.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Mexico Fractional Ownership?</h2>
+
+<p>Mexico represents a compelling fractional ownership destination for several distinct reasons. First, geographic proximity: both Los Cabos and Riviera Maya are 4-5 hours from major US metropolitan areas by direct flight. For American buyers, Mexico offers escape with accessibility; you&#8217;re not crossing 10+ time zones or enduring long international flights. This proximity translates into usage frequency: owning a fractional share in Mexico means you can realistically visit for long weekends, month-long winter escapes, or extended summer stays without exhausting travel time. European buyers also find Mexico increasingly accessible, with direct flights from London, Frankfurt, and Paris to both Cancun and Los Cabos.</p>
+
+<p>Second, cost advantage: Mexico&#8217;s luxury properties command significantly lower acquisition prices than equivalent properties in California, the Caribbean, or Europe. A beachfront Los Cabos villa that costs $6-8 million would cost $15+ million in comparable Malibu or Santa Monica locations; a Riviera Maya oceanfront property identical in quality to Caribbean competitors costs 30-40% less. This price advantage means your capital achieves greater property quality and location prestige per dollar invested, improving both lifestyle quality and investment returns.</p>
+
+<p>Third, proven resort infrastructure: Mexico&#8217;s coastal resort markets—particularly Los Cabos and Riviera Maya—have decades of five-star resort experience. Infrastructure exists: helicopter services, private aircraft facilities, world-class restaurants, championship golf courses, diving operations, sport fishing fleets, and wellness centers. This infrastructure means fractional owners enjoy resort-quality experiences without the burden of operating a resort: Co-Ownership Property&#8217;s management team coordinates all services, from private chef services to yacht charters to spa treatments.</p>
+
+<p>Fourth, investment appreciation: Mexico&#8217;s premium coastal real estate has appreciated 5-8% annually for the past decade, driven by demographic migration (remote workers, retirees), increasing international brand development (Four Seasons, St. Regis, Rosewood expanding in Mexico), and constrained land supply in premium locations. Mexico&#8217;s properties offer moderate-to-strong appreciation while delivering immediate lifestyle benefits and short-term rental income potential.</p>
+
+<p>Fifth, Mexican property ownership is straightforward for foreigners: unlike some countries, Mexico welcomes foreign property ownership through a simple fideicomiso (bank trust) structure that protects your ownership rights fully. You own genuine property rights; you can sell, rent, improve, or pass to heirs without restriction. The fideicomiso structure is transparent, low-cost, and universally understood by international buyers.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Los Cabos — Baja California&#8217;s Crown Jewel</h2>
+
+<p>Los Cabos represents Mexico&#8217;s most developed, most globally recognized luxury property market. Located at the southern tip of the Baja California Peninsula where the Pacific Ocean meets the Sea of Cortez, Los Cabos combines dramatic desert landscape (golden cliffs meeting turquoise water), world-class resort infrastructure, and a buyer profile spanning Hollywood celebrities, international business titans, and wealthy American and Canadian retirees. The region receives over 300 days of sunshine annually, making it one of the world&#8217;s most reliably sunny destinations.</p>
+
+<p>The Los Cabos market is anchored by &#8220;the Corridor,&#8221; a 20-mile stretch from San José del Cabo (the quaint colonial city with art galleries and farm-to-table restaurants) to Cabo San Lucas (the resort-focused tourist hub with nightlife and sport fishing). The Corridor contains most of the region&#8217;s ultra-luxury development: the St. Regis, One &#038; Only Palmilla, Nobu Residences, Montage, and numerous private villa communities. Properties range from $2 million beachfront condominiums to $15+ million oceanfront estates with private beach access, infinity pools, and staff quarters.</p>
+
+<p>Los Cabos fractional ownership attracts several distinct buyer profiles. Sport fishermen seek world-class marlin and tuna fishing; the Pacific waters and Sea of Cortez provide some of the world&#8217;s finest deep-sea fishing, with charter operations operating year-round. Golf enthusiasts pursue championship courses designed by Jack Nicklaus, Tom Weiskopf, and Greg Norman. Business executives use their weeks as extended working escapes: modern properties include home offices, dedicated WiFi infrastructure, and cellular coverage supporting remote work while enjoying Baja sun. Retirees and lifestyle buyers see Los Cabos as superior to Caribbean alternatives: the food scene rivals major US cities, the climate is more predictable than hurricane-prone Caribbean islands, and the Baja landscape—while desert-like—offers distinctive beauty and outdoor activity unavailable on traditional beach islands.</p>
+
+<h3>San José del Cabo: Authenticity and Culinary Excellence</h3>
+
+<p>San José del Cabo, the Corridor&#8217;s western anchor, offers a markedly different character than resort-focused Cabo San Lucas. San José is a genuine colonial town, founded in the 17th century, with a central plaza, Spanish colonial architecture, local markets, and authentic Mexican culture. Over the past decade, San José has transformed into a culinary destination: dozens of acclaimed restaurants operated by chefs who&#8217;ve relocated from major US cities and Europe now line the town center and nearby areas. Thursday evening Art Walk brings galleries, restaurants, and locals together for a distinctly bohemian atmosphere unmatched in other Los Cabos areas.</p>
+
+<p>Properties in San José del Cabo range from renovated colonial casas in the town center to modern estates on nearby estates and foothill properties overlooking the valley toward the ocean. San José fractional ownership appeals to cultural buyers, culinary enthusiasts, and those seeking &#8220;real Mexico&#8221; alongside resort convenience. Rather than spending your weeks poolside at a resort, San José owners explore galleries, dine at innovative restaurants, hike nearby trails, and participate in an authentic cultural landscape.</p>
+
+<h3>Sport Fishing, Golf, and Corridor Luxury</h3>
+
+<p>The Corridor between San José and Cabo San Lucas concentrates most luxury resort development and private villa communities. This area is defined by championship golf (multiple Nicklaus Design courses, challenging coastal layouts), world-class sport fishing (Pacific marlin, yellowfin tuna, dorado), and resort-scale amenities. Properties here range from high-end resort residences (ownership of a luxury condo within a Five Seasons or One &#038; Only resort) to standalone estates with private beach access, infinity pools, and staff compounds.</p>
+
+<p>Corridor fractional ownership is ideal for active buyers: your weeks are spent sport fishing in the morning (with charter captains and crews coordinated by management), golfing in the afternoon at championship courses, and dining at acclaimed restaurants nightly. Or, equivalently, weeks spent simply by the pool with ocean views, reading, and occasional cultural excursions to San José del Cabo. The Corridor offers ultimate flexibility: pursue active adventure or complete relaxation, depending on your mood and season.</p>
+
+<h3>Cabo San Lucas: Resort Energy and Nightlife</h3>
+
+<p>Cabo San Lucas, the Corridor&#8217;s eastern anchor, is Mexico&#8217;s most tourist-focused, highest-energy resort destination. Land&#8217;s End (El Arco), the dramatic natural rock formation at Baja&#8217;s southern tip, is Mexico&#8217;s most iconic image. Cabo&#8217;s marina is filled with sport fishing charters, sunset cruise operators, and water sports concessions. Nightlife in Cabo is unmatched in Los Cabos: dedicated nightclubs, beach clubs with DJ stages and dancing until sunrise, and cosmopolitan bar scenes rivaling Miami or Cancun.</p>
+
+<p>Cabo fractional ownership attracts buyers seeking resort energy and active social scenes. Rather than peaceful isolation, Cabo weeks are spent around crowds, dining, dancing, and constant entertainment. For younger buyers or those seeking lively atmospheres, Cabo&#8217;s fractional properties (typically ultra-luxury resort residences) provide immediate access to the full resort experience without managing a standalone property.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Riviera Maya — Caribbean Mexico</h2>
+
+<p>The Riviera Maya, stretching along Quintana Roo&#8217;s Caribbean coast south from Cancun, offers a fundamentally different Mexico from Los Cabos. Where Los Cabos emphasizes dramatic landscape and sport fishing, Riviera Maya emphasizes turquoise water, cenote swimming, Mayan ruins, wellness culture, and Caribbean beach club sophistication. The region spans from Playa del Carmen (the tourism-focused beach town with nightlife and shopping) south to Tulum (the bohemian beachfront town, famous for Mayan ruins overlook, eco-luxury resorts, and wellness retreats) and includes cenote swimming destinations, offshore coral reefs perfect for diving, and jungle canopy activities.</p>
+
+<p>Riviera Maya&#8217;s real estate market is rapidly developing, particularly at the ultra-luxury end. Traditional Riviera Maya development has focused on all-inclusive resorts catering to American and Canadian package tourists; recent years have seen significant private villa and boutique resort residency development targeting affluent buyers seeking something beyond package tourism. Ultra-luxury developments now line the Riviera Maya coast, emphasizing privacy, natural surroundings, and wellness culture rather than commercial resort bustle.</p>
+
+<p>Riviera Maya fractional ownership attracts different buyers than Los Cabos. Rather than sport fishermen and golfers, Riviera Maya owners seek cenote swimming, diving, Mayan archaeology, wellness retreats, and Caribbean beach aesthetics. The pace is slower, more contemplative, more focused on natural beauty and cultural immersion than on activity and entertainment.</p>
+
+<h3>Playa del Carmen: Tourism Hub and Growing Sophistication</h3>
+
+<p>Playa del Carmen, located centrally along the Riviera Maya coast, is Mexico&#8217;s second-largest Caribbean beach town (after Cancun). Playa developed initially as a tourism destination; today it balances package-tour infrastructure with increasingly sophisticated dining, shopping, and nightlife. The central beachfront promenade (La Quinta Avenida) is lined with restaurants, bars, beach clubs, and shops; the beachfront itself maintains its Caribbean appeal despite significant tourism development.</p>
+
+<p>Playa del Carmen fractional ownership ranges from resort residences within large resort properties to private villas in residential developments. Playa attracts buyers seeking Caribbean energy and sophistication: you can spend mornings diving or snorkeling, afternoons at beach clubs, and evenings dining at acclaimed restaurants. Playa&#8217;s infrastructure is mature: international schools, shopping centers, medical facilities, and cultural activities create a lifestyle beyond pure resort experience.</p>
+
+<h3>Tulum: Bohemian Beachfront, Ruins and Wellness</h3>
+
+<p>Tulum, approximately 30 miles south of Playa del Carmen, represents the Riviera Maya&#8217;s most distinctive destination. Tulum is defined by its Mayan ruins—the most photogenic archaeological site in Mexico, perched on a limestone cliff overlooking the Caribbean—and by its bohemian, wellness-focused culture. Unlike Playa&#8217;s commercialism or Cancun&#8217;s all-inclusive mega-resorts, Tulum has attracted artists, yoga teachers, healers, and lifestyle refugees seeking Caribbean beauty without cruise-ship crowds. The town center (a small grid of streets) contains yoga studios, meditation retreats, organic restaurants, and galleries; the beachfront hosts boutique eco-resorts emphasizing sustainability and natural materials.</p>
+
+<p>Tulum fractional ownership appeals to wellness-focused buyers, cultural explorers, and those seeking Caribbean authenticity without commercial resort dominance. Rather than nightclubs and sports, Tulum weeks involve yoga, meditation, cenote swimming, Mayan ruin exploration, and farm-to-table dining. The pace is intentionally slower; the culture is intentionally spiritual; the connection to nature is paramount. For buyers seeking restoration and cultural immersion, Tulum offers unmatched Caribbean appeal.</p>
+
+<h3>Cenotes and Diving: Riviera Maya&#8217;s Natural Wonders</h3>
+
+<p>The Riviera Maya&#8217;s defining natural feature is its cenotes: freshwater sinkholes created when limestone bedrock collapses, revealing underground rivers and crystal-clear freshwater pools. Cenotes are sacred to Mayan culture (used for ritual offerings), and today they&#8217;re Mexico&#8217;s most unique swimming and diving destination. Cenotes provide year-round refreshment (water temperature around 75°F), visibility perfect for diving or snorkeling, and an otherworldly experience of swimming in cave systems and underground rivers. Many fractional properties include cenote access or are located within 30 minutes of multiple cenote destinations.</p>
+
+<p>Beyond cenotes, the Riviera Maya&#8217;s Caribbean waters provide exceptional diving and snorkeling: coral reef systems, tropical fish species, underwater caves, and the second-longest coral reef in the world. Divers can pursue everything from shallow reef snorkeling to advanced cave diving in sunken rivers and cenote systems. For buyers prioritizing water activities over sports like fishing or golf, Riviera Maya&#8217;s diving and cenote swimming offer unparalleled natural appeal.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A Week in Your Mexico Co-Ownership Property</h2>
+
+<p>Imagine a week in your Los Cabos fractional ownership during March. You arrive at your beachfront villa in the Corridor on Friday afternoon; the villa opens onto a private stretch of beach, with the Cabo landscape—golden cliffs, turquoise water, desert vegetation—framing your view. Saturday morning, you&#8217;re on a sport fishing charter at 6 AM, trolling the Pacific for marlin; by noon you&#8217;ve landed a 250-pound sailfish and are back at your villa, lunch prepared by your property&#8217;s available chef service. Saturday afternoon is spent at a championship golf course, the course running along coastal cliffs with impossible ocean views. Sunday is pure relaxation: you never leave your property&#8217;s oceanfront infinity pool, reading, swimming, watching the afternoon light change across the water. Monday brings a day trip to San José del Cabo: you explore the Art Walk, dine at an innovative restaurant focusing on local ingredients, visit galleries, and return to your villa for a sunset drink on your terrace. By Friday, you&#8217;ve experienced complete oscillation between resort activity and complete isolation—the essence of Los Cabos flexibility—and you&#8217;re already planning your next visit.</p>
+
+<p>Now imagine a week in your Riviera Maya fractional ownership in July. You arrive at your beachfront villa near Tulum Thursday afternoon; the Caribbean water stretches before you in impossible turquoise. Friday morning begins with sunrise yoga on your terrace, followed by a trip to a nearby cenote for swimming and snorkeling in underground freshwater pools—the strangest, most magical swimming experience possible. Friday afternoon is a diving excursion; you explore a coral reef and underwater cave system with a professional dive guide. That evening, you dine at a farm-to-table restaurant in Tulum town center, the meal featuring locally sourced vegetables, fresh seafood, and natural wines. Saturday is slower: you float in your private pool overlooking the Caribbean, read, and take a sunset walk along the beach. Sunday involves a guided tour to Mayan ruins—either Tulum&#8217;s dramatic cliff-top site or the inland jungle ruins of Coba—followed by evening meditation and early rest. By your final Friday, you&#8217;ve integrated into a rhythm of water, nature, culture, and wellness—the antithesis of schedule and productivity—and you&#8217;ve experienced Caribbean beauty unmediated by commercial resort structures.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Investment Advantages of Mexico Fractional Ownership</h2>
+
+<p>Mexico&#8217;s coastal real estate, particularly in Los Cabos and Riviera Maya, offers solid long-term investment fundamentals. First, demographic migration is accelerating: remote workers are increasingly locating to Mexico&#8217;s Caribbean and Pacific coasts, seeking warm weather, lower cost of living, and escape from northern winter climates. This creates organic demand growth, supporting property appreciation without speculative bubble dynamics.</p>
+
+<p>Second, international resort brand development is expanding significantly. Four Seasons, St. Regis, Rosewood, Nobu, and other ultra-luxury brands are adding properties to Mexico&#8217;s coasts annually. This brand expansion elevates real estate values in surrounding neighborhoods, supporting appreciation through market professionalization and infrastructure improvements.</p>
+
+<p>Third, Mexico&#8217;s real estate appreciates 5-8% annually in premium locations, typically with minimal leverage. A $6 million Los Cabos property appreciating at 6% annually creates $360,000 in annual value growth—on a 1/8 share, that&#8217;s $45,000 in annual appreciation with zero management burden, zero maintenance responsibility, and immediate lifestyle access.</p>
+
+<p>Fourth, rental income potential is significant. Los Cabos and Riviera Maya attract short-term rental demand year-round. During your non-ownership weeks, properties can generate $1,500-$3,000+ nightly in Los Cabos (particularly sport fishing season, December-March and June-September) and $800-$1,500 nightly in Riviera Maya. This rental income substantially offsets annual carrying costs and creates positive cash flow for most fractional owners.</p>
+
+<p>Fifth, Mexico&#8217;s tax structure is favorable for foreign property owners. Carrying costs (property tax, insurance) are low compared to US or European equivalents; rental income is taxable but at moderate Mexican rates. Co-Ownership Property manages all tax compliance and reporting, coordinating with Mexican accountants to optimize your tax position.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>How Mexico Fractional Ownership Works</h2>
+
+<p>Co-Ownership Property&#8217;s Mexico fractional ownership model is structured to provide legal security, tax efficiency, and operational simplicity. You acquire a genuine 1/8 beneficial ownership stake in a property held within a Mexican LLC structure (combining elements of LLC and a fideicomiso bank trust for additional protection).</p>
+
+<p>The fideicomiso, a critical element of Mexican property ownership for foreigners, is a legal arrangement where a Mexican bank holds legal title to the property on behalf of the foreign owners, with full beneficial ownership and operational control remaining with you. This structure protects your ownership rights absolutely: the bank is merely a trustee, with no operational control and no claim to the property. The fideicomiso costs approximately $1,500-$3,000 to establish and requires modest annual fees ($150-$300). This structure has been used for decades by international property owners and is universally recognized in Mexico.</p>
+
+<p>Combined with the LLC ownership structure (which provides liability protection and operational management clarity), you have full legal ownership: you can improve the property, rent it during your non-usage periods, pass it to heirs, or sell your share to another buyer. Your ownership is documented, transparent, and enforceable under Mexican law and international property conventions.</p>
+
+<p>Usage allocation works identically to England properties: as a 1/8 owner, you&#8217;re entitled to approximately 45-47 days annually. Usage is allocated through priority-booking systems (6-8 months advance booking) combined with fair-rotation systems for popular periods. You can exchange usage periods with other co-owners, arrange temporary transfers, or simply maintain a consistent annual schedule.</p>
+
+<p>Annual running costs vary by property. A premium Los Cabos beachfront villa might carry annual costs of $35,000-$50,000 total (or $4,375-$6,250 per 1/8 owner); a Riviera Maya property might run $25,000-$35,000 total (or $3,125-$4,375 per 1/8 owner). These costs cover property tax, insurance, maintenance, utilities, staff (groundskeeping), and professional management. Co-Ownership Property provides quarterly accounting of all expenses and manages all vendor relationships, maintenance, and regulatory compliance.</p></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Mexico Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>Can foreigners buy fractional ownership in Mexico?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes, absolutely. Mexico actively encourages foreign property ownership and provides streamlined legal mechanisms (the fideicomiso trust) specifically designed for foreign buyers. As a fractional owner through Co-Ownership Property, you&#8217;ll acquire your share through an LLC structure combined with a fideicomiso arrangement that protects your ownership fully. Thousands of North American and European property owners hold Mexican real estate; the legal framework is mature, transparent, and secure.</p></div></details><details class="dest-faq-item"><summary><h3>What is a fideicomiso, and how does it protect me?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A fideicomiso is a legal trust arrangement unique to Mexico. A Mexican bank (the trustee) holds legal title to the property on your behalf, but you retain complete beneficial ownership and operational control. You can rent the property, improve it, sell your interest, or pass it to heirs without the bank&#8217;s permission or involvement. The bank has no operational control and no claim to the property; it is purely a legal placeholder required by Mexican law to allow foreign ownership. The fideicomiso costs $1,500-$3,000 to establish and requires modest annual maintenance fees ($150-$300). This structure has been standard for international property owners in Mexico for decades and provides absolute security.</p></div></details><details class="dest-faq-item"><summary><h3>What taxes apply to Mexico fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Property tax in Mexico is low—typically 0.05-0.10% of assessed property value annually (compared to 1-2% in US states). Insurance costs are moderate. Rental income is taxable at Mexican tax rates (approximately 25-30% on net rental income, depending on your filing structure). Non-resident property owners can optimize tax positions through proper structure and accounting; Co-Ownership Property&#8217;s management team coordinates with Mexican tax professionals to ensure compliance and minimize tax burden. Capital gains on property sales are generally low in Mexico; long-term appreciation is lightly taxed compared to other countries.</p></div></details><details class="dest-faq-item"><summary><h3>What are flight times from the US and UK to Los Cabos and Riviera Maya?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Los Cabos (Cabo San Lucas): approximately 3-4 hours direct from Los Angeles, San Francisco, Denver, Dallas, and Phoenix; 5-6 hours from New York and East Coast major cities. Direct flights operate from numerous US cities to Los Cabos International Airport (SJD). From London, you&#8217;ll typically fly to a US hub (5-7 hours to LA/Dallas/Miami) and then 3-4 hours south to Los Cabos, requiring 10-14 hours total travel time. Riviera Maya (Cancun): approximately 4-5 hours direct from East Coast US cities and 5-6 hours from West Coast major cities. Direct flights operate frequently from US major metros to Cancun International Airport (CUN). From London, direct flights to Cancun take approximately 10 hours, making Riviera Maya slightly more accessible than Los Cabos for UK-based owners.</p></div></details><details class="dest-faq-item"><summary><h3>Can I generate short-term rental income from my fractional share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes, absolutely. During your non-usage periods, Co-Ownership Property can list your property on short-term rental platforms (Airbnb, Booking.com, or luxury-focused rental agencies). Management coordinates all rental logistics: guest vetting, cleaning, damage claims, and regulatory compliance. Short-term rental rates in Los Cabos typically range $1,500-$3,000+ nightly (higher during peak sport fishing seasons, December-March and June-September); Riviera Maya typically commands $800-$1,500 nightly. Rental income is distributed quarterly to co-owners, less management fees (typically 20-25% of gross rental revenue). For most fractional owners, rental income substantially offsets annual carrying costs and creates modest positive cash flow.</p></div></details><details class="dest-faq-item"><summary><h3>How do I sell my fractional share in Mexico?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Co-Ownership Property maintains a secondary market for fractional shares and typically locates buyers within 60-120 days. You can also sell independently through your own networks. Sale process: you list your share with COP&#8217;s support, undergo vetting of potential buyers (including financial and legal verification), transfer ownership documentation (including fideicomiso transfer), and receive funds upon completion. Mexican property sales close within 30 days of agreement. Exit is straightforward: Mexico fractional shares in premium locations remain liquid assets with genuine buyer demand.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

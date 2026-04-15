@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paris Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Premium fractional ownership properties in Paris. Luxury French apartments in Saint-Germain, Le Marais &amp; more through co-ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Paris Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Paris?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Paris Fractional Ownership — La Ville Lumière, Yours to Own</h2>
+<p>Paris fractional ownership gives you a legally recorded, deeded stake in one of the world&#8217;s most iconic and enduringly desirable cities — owning a <strong>1/8 share</strong> of a fully managed Haussmannian apartment, a Left Bank pied-à-terre, or a contemporary Marais residence, with approximately <strong>45 days of personal use per year</strong>. This is genuine co-ownership — <strong>not a timeshare</strong>, not a points club, and not a holiday membership. Your name appears on the French land registry, the <em>fichier immobilier</em>, as a real property owner.</p>
+<p>For UK buyers navigating the post-Brexit 90-day-in-180-day rule across the Schengen Area, Paris fractional co-ownership is the most intelligent solution — allowing you to maximise your allocated time in the city while owning a genuine share of prime Parisian real estate. Browse our Paris properties below and discover what city co-ownership at the highest level truly looks like.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose Paris Fractional Ownership?</h2>
+<p>Paris fractional ownership occupies a category entirely its own in the world of city-based co-ownership property. There is no city more universally recognised, more consistently coveted, and more deeply embedded in the global imagination of what a great city should be. To own a share of an apartment here — on a quiet street in Saint-Germain-des-Prés, in a grand Haussmannian building facing the Luxembourg Gardens, or in a sleek contemporary residence in the <a href="/paris-fractional-ownership-properties/">Marais district</a> — is to secure one of the most sought-after lifestyle assets available to any private buyer. Paris fractional co-ownership makes that asset genuinely accessible.</p>
+<p>The enduring appeal of Paris as a property market is not sentiment alone — it is structural. Paris is the capital of France, the seat of French government, one of the leading financial centres in post-Brexit Europe, and the cultural capital of the continent. Its residential property market — particularly in the most prestigious arrondissements — is characterised by extraordinary scarcity: the city is small, dense, architecturally protected, and severely constrained in its capacity to add meaningful new supply. Haussmann&#8217;s grands travaux in the 19th century created the city&#8217;s defining character and fixed its built form for generations. The result is a market where supply is permanently limited and global demand — from American, Middle Eastern, Asian, British, and European buyers — never meaningfully diminishes. Paris fractional property sits within this context.</p>
+<p>For UK buyers specifically, Paris fractional co-ownership carries an additional layer of practical urgency in the post-Brexit era. Since January 2021, British nationals visiting Schengen-area countries — which includes France — are subject to a <strong>90-day-in-180-day limit</strong> across the entire zone. This means that extended stays in Paris, which were previously unrestricted for UK nationals, now require careful management. A 1/8 Paris fractional ownership share, providing approximately 45 days of personal use per year, maps almost perfectly onto the practical UK Schengen allocation — giving UK buyers the maximum lifestyle benefit from their allowance, in the most desirable city in Europe, with the full backing of genuine <strong>deeded property ownership</strong>.</p>
+<p>The lifestyle case for Paris fractional ownership is as strong as the property case. Paris in spring — when the chestnut trees along the grands boulevards come into blossom and café life spills onto every pavement — is one of the great urban experiences on earth. Paris in autumn — with its golden light, its fashion weeks, its literary festivals and gallery openings — is equally compelling. Even a grey Parisian January has a particular kind of cultural richness: the Musée d&#8217;Orsay and the Louvre are quiet, the brasseries are full, and the city belongs to those who know it well. Co-ownership in Paris means returning to the same apartment in the same neighbourhood season after season — building the familiarity, the local relationships, and the depth of experience that hotel stays and short-term rentals can never provide.</p>
+<p>Paris fractional co-ownership also compares favourably to the alternative of sole ownership. Prime residential property in the city&#8217;s most desirable arrondissements — the 6th, 7th, 4th, 1st, 8th — commands prices that are among the highest in Europe. A well-positioned Haussmannian apartment with the character, location, and quality of finish that makes Parisian property so desirable can represent an acquisition cost that places it beyond most buyers&#8217; reach as a pure second home. Paris fractional ownership changes this calculus entirely. By acquiring a legally recorded fractional interest — typically a <strong>1/8 share</strong> — buyers gain access to exactly the category of property they genuinely want, in exactly the location they want it, at a fraction of the total acquisition cost. Ongoing running costs — property taxes (<em>taxe foncière</em>, <em>taxe d&#8217;habitation</em> for secondary residences), management fees, insurance, and maintenance — are shared proportionally, making Paris co-ownership economically rational as well as aspirationally satisfying.</p>
+<p>Paris fractional ownership is not a compromise. It is a more intelligent way to own a great property in the world&#8217;s greatest city — with all the legal protections of standard French real estate ownership, professional management removing the burden of administration, and the genuine lifestyle benefit of returning to your Paris apartment several times each year, for however many years you choose to hold your share.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Paris Fractional Ownership — Arrondissements &#038; Neighbourhoods</h2>
+<p>Paris fractional ownership is available across the city&#8217;s most prestigious and characterful districts. Each arrondissement has its own personality, its own pace, and its own reasons to be the base for a lifetime of Parisian visits. Below are the areas that most consistently attract co-ownership buyers.</p>
+<h3>Saint-Germain-des-Prés — Paris Fractional Ownership</h3>
+<p>Saint-Germain-des-Prés is the spiritual and intellectual heartland of Paris, and for many buyers it remains the defining answer to the question of where a Paris fractional ownership apartment should be. The neighbourhood&#8217;s literary history — Sartre and de Beauvoir at the Café de Flore, the publishing houses lining the Rue Jacob, the bookshops clustered around the Odéon — gives it a cultural depth that no amount of fashion or gastronomy can replicate. The 6th arrondissement offers some of the finest residential property in the city: wide streets of cut-stone Haussmannian buildings, elegant courtyards, and apartments with the high ceilings, herringbone parquet, and generous proportions that characterise classic Parisian architecture. The Luxembourg Gardens are on the doorstep — perhaps the finest public park in any European city — and the Seine is a short walk north. Paris co-ownership in Saint-Germain-des-Prés appeals to buyers who want the most classically Parisian experience available: neighbourhood cafés, independent galleries, bookshops, and the sense that this part of the city has been exactly as it is for generations and will remain so. Sole ownership at this level is beyond almost any second-home buyer; Paris fractional property makes it possible.</p>
+<h3>Le Marais — Paris Fractional Ownership</h3>
+<p>Le Marais is Paris fractional ownership for buyers who want the full energy of the city alongside extraordinary historical richness. The 4th arrondissement encompasses the Place des Vosges — the oldest planned square in Paris, flanked by identical red-brick and stone arcaded pavilions dating from the early 17th century — as well as the Picasso Museum, the Hôtel de Ville, and a concentration of contemporary art galleries that makes it one of the most culturally active neighbourhoods in Europe. The architecture in Le Marais is uniquely diverse: genuine medieval buildings (unusual in a city where Haussmann demolished so much), Renaissance hôtels particuliers, and 17th-century mansions converted into exceptional residential apartments sit alongside contemporary conversions and boutique buildings. The neighbourhood is young, international, and vibrant — filled with some of the best independent restaurants, concept stores, and wine bars in the city — while simultaneously being home to some of the most historically significant streets in France. Paris fractional co-ownership in Le Marais suits buyers who want to be at the beating heart of the city: close to everything, surrounded by beauty, never bored.</p>
+<h3>7th Arrondissement (Eiffel Tower District) — Paris Fractional Ownership</h3>
+<p>The 7th arrondissement is the most aristocratic and serene of all Paris&#8217;s central districts — the home of embassies, ministries, prestigious schools, and some of the quietest, most elegant residential streets in the city. The Eiffel Tower anchors the neighbourhood&#8217;s western end, visible from countless windows and rooftops throughout the arrondissement, and the Champ-de-Mars — the great formal garden stretching south from the tower — provides open space rare in the dense urban fabric of central Paris. The 7th&#8217;s streets — Rue du Bac, Rue de Grenelle, Rue de Varenne, Boulevard des Invalides — are lined with some of the finest Haussmannian buildings in the city, where apartments frequently offer the ceiling heights, the double reception rooms, and the stone fireplaces that define grand Parisian living. The Musée d&#8217;Orsay sits on the riverbank, the Musée Rodin occupies a former hôtel particulier on the Rue de Varenne, and the Invalides — Napoleon&#8217;s tomb and one of the great monuments of Baroque architecture — dominates the neighbourhood&#8217;s skyline. Paris fractional ownership in the 7th provides one of the most refined and genuinely Parisian experiences available: a quiet, beautiful, intellectually rich neighbourhood that is simultaneously central to everything the city offers.</p>
+<h3>The Golden Triangle &#038; Champs-Élysées — Paris Fractional Ownership</h3>
+<p>The 8th arrondissement represents Paris fractional ownership at its most internationally prominent. The Champs-Élysées — three kilometres of grand boulevard running from the Arc de Triomphe to the Place de la Concorde — is the world&#8217;s most famous avenue, and the streets radiating south from it into the Golden Triangle (the triangle of avenues formed by Avenue Montaigne, Avenue George V, and Avenue des Champs-Élysées) constitute Paris&#8217;s most prestigious luxury district: the headquarters of the great couture houses, the flagship stores of the global luxury goods industry, and some of the finest palace hotels in the world. Residential life in the 8th is quieter than the commercial grandeur of its main arteries might suggest — the streets between the boulevards are more residential, and the proximity to the Parc Monceau in the 17th provides the neighbourhood&#8217;s northern reaches with genuine green space. Paris co-ownership in the 8th provides access to the most internationally visible and recognised part of the city — appropriate for buyers who want proximity to the best hotels, restaurants, galleries, and luxury retail that Paris offers, alongside the prestige of an address in one of Europe&#8217;s most coveted postcodes.</p>
+<h3>Île de la Cité, Palais-Royal &#038; Opéra — Paris Fractional Ownership</h3>
+<p>The 1st arrondissement is the geographical and historical heart of Paris — the Île de la Cité with Notre-Dame (now magnificently restored), the Sainte-Chapelle, the Louvre, the Tuileries Garden, and the Palais-Royal constitute one of the most extraordinary concentrations of art, architecture, and history in any city on earth. Property here is exceptionally rare and correspondingly prestigious; Paris fractional ownership provides one of the very few routes by which a buyer can secure a genuine residential foothold in this part of the city. The adjacent Palais-Royal area — the colonnaded gardens surrounded by galleries, restaurants, and boutiques — is one of the most serene and exclusive addresses in central Paris, popular with writers, artists, and discerning buyers who prioritise character and history over commercial visibility. The 2nd arrondissement, meanwhile, encompasses the Opéra Garnier — Charles Garnier&#8217;s magnificent 19th-century opera house — and the grands boulevards of Montmartre and des Capucines, where Paris&#8217;s Belle Époque character is most vividly preserved. Paris fractional co-ownership in the 1st and 2nd suits buyers who want the absolute centre of the city&#8217;s historical and cultural life.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Paris Fractional Ownership Works</h2>
+<p>Paris fractional ownership operates as genuine co-ownership of French real property, structured and completed through the standard French conveyancing system. The process is legally identical to any other French property purchase — a <em>compromis de vente</em> is signed, a <em>notaire</em> (French notary public) manages the transaction, and on completion the buyer&#8217;s ownership interest is recorded in the national property registry, the <strong><em>fichier immobilier</em></strong>. Your name — or the name of a legal entity you choose for tax and estate planning purposes — appears on the title deed, the <em>acte authentique</em>, as a genuine property owner. This is not a contractual right to use a property. It is a registered real property interest in France, subject to French property law, carrying all the legal protections and entitlements that French ownership law provides.</p>
+<p>The legal relationship between co-owners is typically governed either through an <strong>indivision</strong> agreement — France&#8217;s standard form of co-ownership under the Civil Code — or through a <em>Société Civile Immobilière</em> (SCI), a French civil property company that holds the real estate with co-owners as shareholders. Each structure has its advantages. Indivision is simpler and more straightforward for smaller groups of co-owners; an SCI offers greater flexibility for estate planning, inheritance, and the admission of new co-owners through the transfer of company shares rather than the conveyancing of the underlying real property. A Paris-based notaire and tax adviser will help co-owners determine the most appropriate structure for their circumstances.</p>
+<p>Usage allocation for Paris fractional ownership typically follows a rotating annual calendar. A 1/8 share provides approximately <strong>45 days of personal use per year</strong>, typically structured as two or more separate stays. The rotation ensures that no single co-owner permanently holds the most desirable periods — peak spring and autumn weeks, the summer fashion and arts season, the Christmas and New Year period — but that all co-owners access them in a fair sequence over the years. The management company administers the calendar, handles booking requests and swap arrangements between co-owners, and manages all coordination of arrivals, departures, cleaning, and property readiness. Most well-structured Paris fractional co-ownership arrangements have flexible booking mechanisms that accommodate the realities of modern professional and family travel schedules.</p>
+<p>French property law governs Paris fractional ownership as standard real estate — not as a timeshare or leisure product. The right to sell your fractional interest independently, subject to any <strong>right of first refusal</strong> in favour of existing co-owners, is a standard feature of most Paris co-ownership agreements. This means that if you choose to exit your co-ownership, your share can be listed and marketed like any other property interest — offering it first to your co-owners, then to the open market if no co-owner exercises their right. Resale value reflects movements in the underlying Paris property market, which has historically been one of the most resilient and stable in Europe.</p>
+<p>For UK buyers and other non-EU nationals, several key French and international tax considerations apply. France has an annual <em>taxe foncière</em> (property tax) assessed by the commune, and a <em>taxe d&#8217;habitation</em> for secondary residences, which continues to be levied on properties not used as a primary home. Non-resident owners — including UK nationals post-Brexit — are subject to French capital gains tax on any future sale, with a withholding mechanism applied at the point of transaction. France&#8217;s progressive inheritance tax rules, which apply to French situ assets regardless of the owner&#8217;s country of residence, make estate planning through the correct legal structure (often an SCI or a life insurance wrapper) particularly important for international Paris co-ownership buyers. A French <em>notaire</em> and a tax adviser experienced in cross-border French property ownership are essential members of any international buyer&#8217;s professional team.</p>
+<p>Ongoing costs in Paris fractional ownership are shared proportionally among all co-owners in line with their fractional interest. For a 1/8 share, each co-owner bears one-eighth of: annual property taxes, building insurance, professional management fees, routine maintenance and cleaning costs, utilities, and contributions to the property&#8217;s reserve fund for longer-term capital expenditure such as refurbishment or major building works. In buildings managed by a <em>syndic de copropriété</em> (the French co-ownership body that manages apartment buildings), the annual <em>charges de copropriété</em> — maintenance fees for common areas, lifts, concierge services, and shared infrastructure — are an additional cost shared by all owners in the building. Management companies operating Paris fractional ownership arrangements provide regular financial statements to all co-owners, ensuring complete transparency over the property&#8217;s running costs.</p>
+<p>Inheritance of a Paris fractional share follows French succession law as it applies to French situ real property. For British nationals who held their Paris property through an SCI, the EU Succession Regulation (Brussels IV) may allow them to elect for UK succession law to apply to their estate as a whole — a useful planning tool for international buyers. A properly structured will, ideally drafted with both French and UK legal advice, ensures that your Paris co-ownership interest passes to your chosen heirs in the most tax-efficient manner possible. Paris fractional ownership is a genuine, transferable real property asset — not a consumable product that expires. It can be held, sold, gifted, or inherited, and it retains its character as a recorded real property interest throughout.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Paris Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>Paris fractional ownership combines two things that rarely align so naturally: a lifestyle of exceptional quality and a property interest in one of the most structurally sound real estate markets in the world. The lifestyle case is almost too familiar to need restating, and yet it repays careful consideration. What does it actually mean to have your own apartment in Paris — available to you for six or seven weeks every year, in the neighbourhood you have chosen, managed and prepared so that arriving feels like coming home rather than checking into accommodation? It means walking to your favourite boulangerie in the morning, building relationships with the local commerçants, knowing which café has the best croque-monsieur and which wine bar opens earliest on a Sunday. It means bringing friends and family to a home rather than a hotel. It means understanding Paris the way you can only understand a city when you return to the same place, in the same neighbourhood, over and over again — accumulating the kind of intimate knowledge that transforms a great city from a tourist destination into a place where you genuinely belong.</p>
+<p>The investment context for Paris fractional property is genuinely distinctive. Paris operates in what is effectively one of the world&#8217;s most supply-constrained residential real estate markets. The city&#8217;s boundaries are fixed, its architectural heritage is comprehensively protected, and meaningful additions to the prime residential stock in the most desirable arrondissements are rare and slow. At the same time, global demand for Paris property has been structurally elevated for decades — the city&#8217;s role as a financial centre has grown post-Brexit, its status as a global tourism destination (consistently among the most visited cities on earth) means short-term demand for quality accommodation is persistent, and its cultural and educational institutions continue to attract a resident population of internationally mobile professionals and families. These structural demand factors, combined with the city&#8217;s protected supply, provide the foundation for Paris fractional co-ownership as a long-term property holding.</p>
+<p>We do not position Paris fractional ownership as a guaranteed financial product and do not invent yield projections or price appreciation assumptions. Property markets move, and Paris has seen periods of both strong appreciation and relative stagnation. What we can observe is that Paris fractional property is priced relative to an underlying real estate market that has historically demonstrated long-term resilience, and that the running costs of fractional ownership compare very favourably to the equivalent spend on hotel accommodation in Paris over comparable periods — while also building a transferable, inheritable property interest in one of the world&#8217;s most coveted real estate markets. The financial case is rational; the lifestyle case is transformative.</p>
+<p>Rental income from unused Paris fractional ownership weeks is possible for some co-owners, but it is never guaranteed and is always subject to the specific co-ownership agreement, any applicable building regulations or <em>copropriété</em> rules, and Paris&#8217;s short-term rental licensing requirements. Paris has implemented regulations governing short-term lettings — including registration requirements, annual night limits for primary residences, and specific rules for secondary properties — that vary by arrondissement and property type. Rental income should be treated as a potential supplementary benefit, not a baseline assumption, and co-owners should always verify the specific rental position for the property under consideration before purchase. We recommend discussing rental possibilities directly with the management company responsible for the specific property.</p>
+<p>Comparing Paris fractional ownership to other city co-ownership destinations in the COP portfolio provides useful context. <a href="/london-fractional-ownership-properties/">London fractional ownership</a> offers the appeal of the UK&#8217;s capital without Schengen constraints for UK buyers, but at a price point that reflects London&#8217;s exceptional property market. <a href="/south-of-france-fractional-ownership-properties/">South of France fractional ownership</a> provides the Mediterranean lifestyle alternative — sunshine, coast, and warmth — within the same French legal framework as Paris but with a completely different character. <a href="/french-alps-fractional-ownership-properties/">French Alps fractional ownership</a> delivers the world-class mountain experience, again within the French property system. Paris fractional co-ownership is unique in its combination of urban culture, architectural grandeur, gastronomic excellence, and the depth of lifestyle experience that only the world&#8217;s great capital cities can provide.</p>
+<p>For buyers considering <a href="/france-fractional-ownership-properties/">France fractional ownership</a> more broadly, Paris represents the pinnacle of the city co-ownership opportunity in the country — the most internationally recognised address, the deepest cultural offer, and the most structurally resilient property market. It complements the coastal and mountain options available elsewhere in France perfectly, and for buyers who want a multi-destination co-ownership portfolio, Paris and the South of France or Paris and the Alps together provide an extraordinarily complete French lifestyle offering across all four seasons.</p>
+<p>Access to Paris from the UK and major European cities is as straightforward as any destination in the co-ownership market. Eurostar services run from London St Pancras to Paris Gare du Nord in two hours and fifteen minutes — city centre to city centre, without the stress of airports, security queues, or baggage allowances. Direct flights from major UK regional airports — Manchester, Edinburgh, Birmingham, Bristol — take between ninety minutes and two hours. From elsewhere in Europe, Paris is one of the best-connected cities on the continent. For US buyers, CDG is one of the best-connected transatlantic hubs in the world, with direct services from virtually every major American city. Paris fractional ownership is not a remote luxury — it is one of the most accessible premium destinations in any co-ownership portfolio.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/france-fractional-ownership-properties/" class="dest-explore-card">France Fractional Ownership &rarr;</a><a href="/france-fractional-ownership-properties/" class="dest-explore-card">South of France Fractional Ownership &rarr;</a><a href="/french-alps-fractional-ownership-properties/" class="dest-explore-card">French Alps Fractional Ownership &rarr;</a><a href="/london-fractional-ownership-properties/" class="dest-explore-card">London Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Paris Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly do I own with Paris fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>With Paris fractional ownership, you own a legally recorded real property interest in a French apartment or residence — most commonly a <strong>1/8 share</strong> of the property. Your ownership is registered in the French national property registry, the <em>fichier immobilier</em>, giving you the same legal standing as any other French property owner. You are a genuine co-owner of the underlying real estate — not a timeshare holder, not a club member, and not the holder of a right-to-use agreement. Your name, or that of a legal entity you designate, appears on the <em>acte authentique</em> (the French notarial deed of sale) as a recorded property owner.</p>
+<p>This ownership interest carries all the fundamental rights of French property law: the right to use the property during your allocated periods, the right to sell your share independently at market value (subject to any right of first refusal in favour of your co-owners), the right to pass your interest to heirs through your will or via a legal entity, and the right to benefit proportionally from any appreciation in the property&#8217;s value. Paris fractional co-ownership is property ownership in the fullest legal sense — simply structured to make the acquisition and management of premium Parisian real estate accessible to a wider range of buyers.</p></div></details><details class="dest-faq-item"><summary><h3>Is Paris fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — and the distinction is fundamental, both legally and financially. A timeshare involves the sale of a contractual right to use a property during a specific period each year; the timeshare company retains ownership of the underlying real estate. When a timeshare is sold or a timeshare company fails, the holder walks away with no real property interest and often no capital value. Paris fractional ownership is the legal opposite: a recorded real property interest in French real estate, registered in the national property registry, carrying all the protections and rights of French property law.</p>
+<p>The practical implications are significant. A Paris fractional ownership share can be sold at market price at any time; timeshare resale is notoriously difficult and frequently achieves well below the original purchase price, or is effectively unsaleable. A Paris co-ownership interest is a real asset that can be mortgaged, insured, inherited, and held within a tax-efficient legal structure. It is governed by French property law and completed through the French notarial system — not by the leisure industry regulations that govern timeshare products. Paris fractional property and timeshare have almost nothing in common beyond the shared concept of using a property for part of the year.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use a Paris fractional property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The most common fractional interest is a <strong>1/8 share</strong>, which provides approximately <strong>45 days of personal use per year</strong>. This is typically structured as two or more separate stays allocated through a rotating annual calendar. A 1/4 share provides approximately 90 days; a 1/2 share approximately 180 days. The specific allocation depends on the co-ownership agreement for the particular property.</p>
+<p>The rotating calendar is designed to be fair over time — no single co-owner permanently holds the best seasons (spring in Paris, the autumn fashion season, Christmas week) but all co-owners access them in sequence across the years. The management company administers the booking system, handles swap requests between co-owners, and coordinates all arrivals, departures, cleaning, and property preparation. Most Paris fractional co-ownership agreements include mechanisms for flexible booking — allowing owners to adjust their allocation by arrangement with other co-owners when personal circumstances require it.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK buyers purchase Paris fractional ownership properties?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. There are no restrictions on non-EU nationals owning real property in France. UK buyers can purchase Paris fractional property as individuals, through a UK company, through an SCI (Société Civile Immobilière), or through a trust structure — each with different tax and estate planning implications that are worth discussing with a qualified French notaire and cross-border tax adviser before completing the purchase.</p>
+<p>Post-Brexit, UK buyers visiting Paris are subject to the Schengen Area&#8217;s <strong>90-day-in-180-day rule</strong>, which limits British nationals to a total of 90 days across all Schengen countries in any 180-day rolling window. A 1/8 share&#8217;s annual allocation of approximately 45 days fits comfortably within this allowance, making Paris fractional ownership particularly well-suited to UK buyers who want to maximise their Schengen allocation in the most desirable city in Europe. Careful travel planning — structuring stays to respect the 90-day limit — is essential for UK co-owners. Longer stays or more frequent visits may require a French long-stay visa or residency permit, which is possible to obtain but requires advance planning.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Paris fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>All costs are shared proportionally and fully transparent — management companies provide regular financial statements to all co-owners. In most cases, co-owners find that the total annual carrying cost of their Paris fractional share compares very favourably to the equivalent cost of hotel stays in Paris during comparable periods — while simultaneously building equity in a real property asset in one of the world&#8217;s most coveted real estate markets. There are no hidden fees; all costs are known and divided fairly from the outset of the co-ownership arrangement.</p></div></details><details class="dest-faq-item"><summary><h3>What legal structure governs Paris fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Paris fractional co-ownership is most commonly structured either as <em>indivision</em> — France&#8217;s standard co-ownership form under the Civil Code, where co-owners hold the property as tenants-in-common with defined fractional interests — or as a <strong>Société Civile Immobilière (SCI)</strong>, a French civil property company that holds the real estate with co-owners as shareholders of the SCI rather than direct owners of the property.</p>
+<p>The choice between indivision and an SCI has important implications for how the ownership interest is transferred, inherited, and taxed. An SCI is generally preferred for larger groups of co-owners and for international buyers for whom inheritance planning and the admission of new co-owners needs to be managed efficiently — shares in the SCI can be transferred without the need for a full notarial property conveyance. Indivision is simpler and may be preferred for smaller groups. In both cases, the ownership interest is a genuine, legally recorded property right in France — not a contractual right to use, not a membership, and not a timeshare. A French <em>notaire</em> will advise on the most appropriate structure for your specific circumstances and nationality.</p></div></details><details class="dest-faq-item"><summary><h3>How does the buying process work for Paris fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The purchase of a Paris fractional share follows the standard French property conveyancing process, adapted for the co-ownership structure. After selecting a property and reviewing all co-ownership documentation — the co-ownership agreement, the SCI articles of association if applicable, the management agreement, and the financial accounts — with your own independent legal adviser, you sign a <em>compromis de vente</em> (preliminary contract) and pay a deposit, typically 10% of the purchase price. A <em>notaire</em> — a French notary public, who acts as an independent legal officer of the state — manages the transaction from this point forward.</p>
+<p>The notaire conducts the title search, verifies all regulatory compliance, prepares the <em>acte authentique</em> (the final deed of sale), and registers the transfer in the <em>fichier immobilier</em>. The entire process from signing the <em>compromis</em> to completion and registration typically takes eight to twelve weeks. French property law provides a ten-day statutory cooling-off period after signing the <em>compromis de vente</em>, during which a buyer can withdraw without penalty. The transaction can be completed remotely for international buyers through a <em>procuration</em> (power of attorney), meaning you do not need to be physically present in Paris to complete the purchase.</p></div></details><details class="dest-faq-item"><summary><h3>What taxes apply to Paris fractional ownership for UK buyers?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Several French taxes apply to Paris fractional property ownership, and for non-EU buyers including UK nationals post-Brexit, the tax position is worth considering carefully with a qualified adviser. At acquisition, French <em>droits de mutation</em> (transfer taxes and registration fees) are payable on the purchase price — typically around 7–8% of the purchase price for second-hand properties, lower for new builds. The <em>notaire&#8217;s</em> fees, which include disbursements and their professional fee, are included within this figure.</p>
+<p>Annual property taxes include the <em>taxe foncière</em> and the <em>taxe d&#8217;habitation</em> for secondary residences, both assessed by the local commune. On any future sale, non-residents are subject to French capital gains tax (<em>plus-value immobilière</em>) at 19%, plus social charges (currently 17.2% for non-EU residents, though this may be reduced for some UK residents depending on applicable bilateral tax treaties). A withholding mechanism applies at the point of transaction, with the net proceeds paid to the seller after withholding. French inheritance tax on French situ assets applies to beneficiaries regardless of their country of residence, making estate planning — potentially through an SCI or appropriate insurance wrapper — particularly important for international Paris co-ownership buyers.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Paris fractional property when I&#8217;m not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Paris&#8217;s short-term rental market is one of the most regulated in Europe. The city requires registration for all short-term lets, applies annual night limits for primary residences renting out part of the property, and has specific rules for secondary properties — including some areas where short-term letting of secondary residences requires prior authorisation, which can be difficult to obtain. Rental income should be treated as a potential supplementary benefit, never as a baseline financial assumption. Always verify the specific rental position for the property under consideration with the management company before purchase.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Paris fractional share if I want to exit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. As a recorded real property interest, a Paris fractional ownership share can be sold at any time. The co-ownership agreement will typically include a <strong>right of first refusal</strong>, giving existing co-owners the opportunity to match any third-party offer before the departing owner lists their share externally. If no co-owner exercises this right within the specified period, the departing owner can sell to any willing buyer at market price. The management company, co-ownership specialists, or local estate agents can assist with the marketing and sale of the share.</p>
+<p>The resale value of a Paris fractional ownership share reflects movements in the underlying Paris property market. French capital gains tax will apply to any appreciation realised on the sale, with the applicable rate and social charge level depending on the seller&#8217;s tax residence and the length of ownership (long-term ownership benefits from progressive relief from capital gains tax after five years, reaching full exemption after twenty-two years for income tax and thirty years for social charges). Inheritance follows standard French succession law, with the fractional interest passing to your heirs through your will or the applicable legal structure — stepping into the same ownership position with the same rights as the original co-owner.</p></div></details><details class="dest-faq-item"><summary><h3>How does Paris fractional ownership compare to other French destinations?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Paris fractional co-ownership and <a href="/south-of-france-fractional-ownership-properties/">South of France fractional ownership</a> are the two principal nodes of the French co-ownership market, serving fundamentally different buyer profiles. The <a href="/french-alps-fractional-ownership-properties/">French Alps</a> provide a third, season-dependent alternative for ski and mountain buyers. Paris fractional ownership appeals to buyers who prioritise urban culture, architectural grandeur, gastronomic and artistic life, and the depth of experience that only one of the world&#8217;s truly great cities can provide. The South of France serves buyers drawn to Mediterranean light, coastal landscapes, outdoor living, and the slower pace of Provençal or Riviera life. The French Alps deliver the mountain and  within the same French legal ownership framework.</p>
+<p>For buyers exploring options beyond France, Paris fractional co-ownership&#8217;s closest natural comparisons are <a href="/london-fractional-ownership-properties/">London fractional ownership</a> (another great European capital, with no Schengen constraints for UK buyers) and other major European city co-ownership destinations. For buyers wanting a multi-destination portfolio, Paris and the South of France together provide a compelling all-season French lifestyle — city in spring, autumn, and winter; coast and countryside in summer. Paris fractional ownership remains one of the most compelling city co-ownership opportunities available to international buyers today.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

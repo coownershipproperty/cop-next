@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>London Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Premium fractional ownership properties across London including Mayfair, Chelsea &amp; Canary Wharf. Luxury UK apartments through fractional ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>London Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in London?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>London Fractional Ownership — The Smarter Way to Own in One of the World&#8217;s Greatest Cities</h2>
+<p><strong>London fractional ownership</strong> gives buyers across the UK and internationally a legally deeded route into the capital&#8217;s prime property market — not a timeshare, not a holiday club, but a genuine 1/8 share registered in your name through a legally structured property company. Each share delivers approximately 45 days of personal use per year, with professional management handling everything from maintenance and insurance to cleaning and scheduling.</p>
+<p>For UK residents working around busy schedules, or for international buyers navigating their 90-day UK visitor allowance, London fractional ownership is the most practical, cost-effective way to hold real property in one of the world&#8217;s most in-demand cities. Browse our London properties below and find the co-ownership home that fits your life.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose London Fractional Ownership?</h2>
+<p>London fractional ownership sits at the intersection of lifestyle and intelligent property strategy. Owning a fraction of a prime London property — whether a Georgian townhouse in Kensington, a contemporary apartment in Battersea, or a period conversion in Marylebone — means holding real, deeded property rights in one of the world&#8217;s most resilient and globally recognised real estate markets. You are not purchasing usage rights or a points allocation. You are a named co-owner on the title register through a legally structured property company, with full legal protections, resale rights, and inheritance rights from day one.</p>
+<p>The case for London fractional ownership is especially compelling for buyers who visit London regularly but cannot justify — or do not wish to carry — the full cost of sole ownership. A prime London apartment can cost £1.5 million or more. <strong>Owning a 1/8 share</strong> means accessing that same address, that same quality, and that same level of management for a fraction of the outright cost, while still holding a tangible, transferable asset. There are no black-out dates imposed by the operator: usage scheduling is managed fairly and transparently across all co-owners, ensuring your personal weeks are predictable and protected.</p>
+<p>Professional management is included as standard. A dedicated management company oversees day-to-day operations: coordinating maintenance, managing insurance policies, handling local taxes, arranging cleaning between stays, and maintaining the property to the standard you would expect of a luxury second home. You arrive to a property that is fully prepared, fully operational, and entirely yours for the duration of your stay — without the administrative burden of sole ownership.</p>
+<p>For international buyers, particularly those outside the UK, the 90-day visitor rule creates a natural ceiling on time spent in the UK in any twelve-month period. London fractional ownership, with its approximately 45 days of personal use per 1/8 share per year, aligns almost precisely with that limit — making it one of the few property structures that feels purpose-built for the modern international buyer who wants a genuine London base without overstaying their welcome under immigration rules. For full details on how <a href="/co-ownership-buying-process/">co-ownership buying process</a> works, our dedicated guide walks through every stage from search to title registration.</p>
+<p>It is worth noting that rental income from unused weeks is possible on a case-by-case basis. Licensing requirements vary depending on the borough, the property type, and the co-ownership agreement. We are transparent about this: we never promise rental yields, but we are happy to discuss what is realistic for any individual property during your consultation. The primary draw of London fractional ownership is not yield — it is the unparalleled combination of real ownership, genuine access, and meaningful capital participation in one of the world&#8217;s most enduring property markets. London fractional ownership continues to attract buyers from across Europe, the Middle East, and the Americas who want something more permanent than a serviced apartment and more practical than sole ownership.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>London Fractional Ownership — Areas &amp; Neighbourhoods</h2>
+<p>London fractional ownership properties span the capital&#8217;s most sought-after postcodes, from the grand stucco terraces of West London to the regenerated riverside districts of the South and East. Understanding which area best suits your lifestyle is the first step to finding the right co-ownership home.</p>
+<h3>Kensington &amp; Chelsea — London Fractional Ownership</h3>
+<p>Kensington and Chelsea represent the gold standard of London residential property. Wide white-stucco avenues, garden squares, proximity to the world&#8217;s finest museums, and a density of five-star hospitality options make this the natural heartland of London fractional ownership for buyers seeking prestige, permanence, and privacy. Properties here typically take the form of lateral apartments within converted Victorian or Edwardian houses, offering period architecture with fully contemporary interiors.</p>
+<p>The Royal Borough&#8217;s planning constraints mean that supply of prime residential stock is tightly controlled — a structural driver of long-term value that underpins the London fractional ownership market in this postcode. For buyers who associate London with Sloane Street, Notting Hill Gate, or Holland Park, Kensington and Chelsea fractional ownership is the entry point to the best the capital offers.</p>
+<h3>Marylebone &amp; Mayfair — London Fractional Ownership</h3>
+<p>Marylebone and Mayfair occupy the northern and eastern flanks of prime central London, offering two very different but equally compelling lifestyles. Marylebone has evolved into London&#8217;s most liveable village — an intimate, walkable neighbourhood of independent boutiques, Michelin-starred restaurants, and handsome Georgian townhouses. It is especially popular for London fractional ownership buyers who want a true neighbourhood feel within central London, rather than a purely transactional postcode.</p>
+<p>Mayfair, by contrast, is London at its most uncompromisingly glamorous — Grosvenor Square, Berkeley Square, and Mount Street deliver a concentration of luxury that few neighbourhoods anywhere in the world can rival. For London fractional ownership in Mayfair, buyers should expect lateral apartments and mansion block flats, many with original mouldings, high ceilings, and east or west-facing aspects over London&#8217;s most celebrated private garden squares.</p>
+<h3>Battersea &amp; South Bank — London Fractional Ownership</h3>
+<p>The south bank of the Thames has undergone one of the most dramatic regenerations in London&#8217;s recent history, and Battersea in particular has emerged as a genuine destination rather than a compromise. The Battersea Power Station development has brought with it a new Apple headquarters, the Northern Line extension, a curated retail and restaurant district, and a range of London fractional ownership-grade apartments with river views and direct Central London access in under ten minutes.</p>
+<p>South Bank, stretching east from Waterloo to London Bridge, combines cultural gravitas — the Tate Modern, Shakespeare&#8217;s Globe, the Southbank Centre — with a growing stock of premium residential development. For buyers who prioritise views, culture, and connectivity over postcode prestige, South Bank and Battersea offer compelling London fractional ownership options at price points that remain competitive relative to equivalent properties north of the river.</p>
+<h3>Shoreditch &amp; East London — London Fractional Ownership</h3>
+<p>Shoreditch and its surrounding East London neighbourhoods — Spitalfields, Hoxton, Bethnal Green — occupy a unique position in the London property market. Once overlooked by the prime residential sector, this corridor has attracted significant investment from the creative industries, the tech sector, and the hospitality world, transforming Victorian warehouses and former industrial buildings into some of London&#8217;s most architecturally distinctive co-ownership homes. Shoreditch fractional ownership is particularly popular with buyers who visit London for business as well as leisure: the area&#8217;s proximity to the City and Canary Wharf makes it a practical base, while its independent restaurant and gallery scene offers a cultural life that feels entirely different to the West End.</p>
+<h3>Richmond &amp; South-West London — London Fractional Ownership</h3>
+<p>Richmond-upon-Thames, Barnes, Wimbledon, and the broader south-west London corridor represent a category of London fractional ownership that prioritises green space, village pace, and outstanding residential quality over urban intensity. Richmond Park — the largest Royal Park in London — sits at the heart of a neighbourhood defined by period houses, river walks, and some of the best state and independent schools in the country. The air quality, the open space, and the calm of Richmond are genuine differentiators for buyers who visit London with families, or who find central London overstimulating for longer stays.</p>
+<p>London fractional ownership in Richmond and South-West London is ideal for buyers who want the capital within easy reach — District line trains reach central London in twenty-five minutes — while spending their personal weeks in a setting that feels more like a country market town than a global megacity. Richmond fractional ownership combines the best of both worlds.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How London Fractional Ownership Works</h2>
+<p>London fractional ownership is structured as a genuine property purchase — <strong>not a timeshare</strong>, not a holiday club, and not a points-based scheme. You purchase a legally registered fraction of a real London property, with your name recorded on the title register through a legally structured property company. The process is fully transparent, legally robust, and governed by English property law, giving every co-owner the same rights and protections as a sole purchaser. Here is how the <a href="/co-ownership-buying-process/">co-ownership buying process</a> works in London.</p>
+<h3>Browse London Fractional Ownership Properties</h3>
+<p>Start by exploring the available London fractional ownership listings on this page. Each property includes detailed descriptions, professional photography, neighbourhood information, and share pricing. You can filter by area, property type, and budget to find the co-ownership home that matches your requirements. Our team at <a href="/about-us/">Co-Ownership Property</a> acts as a buyer&#8217;s agency — working on your behalf, not the seller&#8217;s — to ensure you find the right London property at the right price.</p>
+<h3>Legal Review &amp; London Fractional Ownership Due Diligence</h3>
+<p>Once you identify a property, an independent English property solicitor conducts full legal due diligence. This includes checking the title register through a legally structured property company, reviewing any charges or restrictions, examining the co-ownership agreement (which governs scheduling, maintenance obligations, decision-making, and exit provisions), and ensuring the property complies with all planning and building regulations. The co-ownership legal structure is established before any funds are committed. Everything is documented and reviewed before you proceed.</p>
+<h3>Purchase &amp; Title Registration of Your London Fractional Ownership Share</h3>
+<p>Completion follows the same process as any English residential property transaction. Contracts are exchanged, funds are transferred, and your ownership share is registered through a legally structured property company in your name. You receive official confirmation of your title entry — proof that your London fractional ownership is a real, deeded property right, not a usage agreement or a membership scheme. Stamp Duty Land Tax and legal fees apply as they would on any residential acquisition, and your solicitor will guide you through every cost before you commit.</p>
+<h3>Enjoy &amp; Manage Your London Fractional Ownership Property</h3>
+<p>Once the purchase completes, a professional management company takes over the day-to-day running of the property. Scheduling of your personal weeks — approximately <strong>45 days per share</strong> per year — is managed through a fair rotation system, typically allocated in advance each calendar year. The management team handles maintenance, cleaning between stays, insurance renewals, service charge administration, and any statutory requirements. You arrive to a property that is fully prepared and professionally maintained, with no hidden burdens of ownership — just the experience of having a beautiful London home that is genuinely yours.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>London Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>London fractional ownership is not a passive financial product — it is an active lifestyle asset that also happens to participate in one of the world&#8217;s most historically resilient property markets. That distinction matters. The primary benefit of co-ownership in London is the ability to hold and use a genuinely desirable property, in a genuinely desirable location, at a cost that reflects the fractional nature of the investment rather than the full market value of the asset. But the capital dimension is not incidental: London&#8217;s prime residential market has demonstrated consistent long-term value appreciation, underpinned by constrained land supply, robust demand from domestic and international buyers, and a legal and regulatory environment that offers strong property rights protections.</p>
+<p>The lifestyle case for London fractional ownership is straightforward. London is a city that rewards time — time spent in its neighbourhoods, its restaurants, its galleries, its parks, and its theatre scene. Owners who visit London multiple times per year, whether for leisure, business, or both, benefit enormously from having a permanent, consistent base rather than cycling through hotel rooms or short-let apartments. There is a qualitative difference between staying somewhere and having somewhere — a difference that London fractional ownership makes tangible and affordable. Your London property is always your London property: it reflects your taste, it welcomes you on arrival, and it provides a sense of continuity and belonging that no hotel can replicate.</p>
+<p>From an investment and financial planning perspective, London fractional ownership is a tangible asset with clear legal standing. Your co-ownership share is registered through a legally structured property company, can be sold on the open market at any time, can be passed to heirs as part of your estate, and can be used as security for lending, subject to individual lender criteria. The exit mechanism is one of the clearest in the fractional property market: you can offer your share to fellow co-owners first, or list it openly. There is no lock-in period imposed by the structure itself, though individual co-ownership agreements may include agreed notice periods. Resale rights are fundamental to the London fractional ownership model — they are what distinguishes genuine co-ownership from a timeshare or a holiday club, where exit is often difficult, costly, and dependent on the operator&#8217;s goodwill.</p>
+<p>The legal framework governing London fractional ownership is clear and well-established. Co-ownership in England and Wales is recognised under the Law of Property Act 1925 and subsequent legislation. Ownership is typically structured as tenants in common, meaning each co-owner holds a defined, severable share in the property. This structure is legally distinct from a joint tenancy and provides explicit protection for each owner&#8217;s individual share on death, insolvency, or sale. The co-ownership agreement — a separate contractual document alongside the title register — governs the operational and management aspects of the arrangement, including usage scheduling, maintenance cost allocation, dispute resolution, and the process for one co-owner wishing to sell their share. Buyers are always advised to have this agreement reviewed by an independent solicitor before proceeding, and Co-Ownership Property actively facilitates this as part of the standard purchase process.</p>
+<p>For international buyers considering London fractional ownership as part of a broader property portfolio, the UK&#8217;s transparent legal system, its depth of professional services (solicitors, surveyors, managing agents), and the liquidity of the prime London market all provide meaningful reassurance. London is one of the few cities in the world where fractional property ownership can be pursued with full legal certainty, a deep secondary market, and a professional management infrastructure that has decades of experience serving international clients. Whether you are based in <a href="/france-fractional-ownership-properties/">France</a>, <a href="/spain-fractional-ownership-properties/">Spain</a>, or <a href="/portugal-fractional-ownership-properties/">Portugal</a>, a London fractional ownership property offers a compelling addition to any international co-ownership strategy.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More London Fractional Ownership &amp; Related Guides</h2><div class="dest-explore-grid"><span class="dest-explore-card">UK Fractional Ownership</span><span class="dest-explore-card">Europe Fractional Ownership</span><span class="dest-explore-card">City Fractional Ownership</span><span class="dest-explore-card">The Co-Ownership Buying Process</span><span class="dest-explore-card">Fractional Ownership vs Timeshare</span><a href="/portugal-fractional-ownership-properties/" class="dest-explore-card">Portugal Fractional Ownership &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>London Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What is London fractional ownership and how is it different from a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>London fractional ownership is the purchase of a legally defined share — typically a 1/8 share — in a real residential property, with your ownership recorded through a legally structured property company in your name. You are a co-ownership interest holder, not a club member, not a points holder, and <strong>not a timeshare</strong> buyer. This distinction is fundamental and has real consequences: you can sell your share independently on the open market, you can pass it to your heirs, you can mortgage it, and your ownership rights are protected by English property law rather than dependent on the ongoing operation of a commercial operator.</p>
+<p>A timeshare, by contrast, typically conveys usage rights rather than property ownership. You are buying the right to use a property for a defined period each year, not the property itself. This means your timeshare has no title register entry, no independent resale value determined by the market, and no inheritance rights beyond those specified in the operator&#8217;s contract. The timeshare industry has a well-documented history of aggressive sales practices, opaque fee structures, and extremely difficult exit processes. London fractional ownership — genuine co-ownership — is the legal and structural opposite of a timeshare in every meaningful respect.</p></div></details><details class="dest-faq-item"><summary><h3>How much does a London fractional ownership share typically cost?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The cost of a London fractional ownership share varies significantly depending on the location, the size and quality of the property, and the number of shares in issue. As a general principle, a 1/8 share in a prime central London apartment will reflect roughly one-eighth of the property&#8217;s full market value, plus an allowance for the quality of the management service and any refurbishment invested in the property. This means London fractional ownership shares in prime postcodes can range from relatively modest entry points to significant investments for the most prestigious properties.</p>
+<p>The comparison to alternative ways of accessing London is instructive. A week in a prime London serviced apartment or hotel suite costs thousands of pounds. A 1/8 share delivering approximately 45 days per year, over a five or ten year horizon, will almost always represent a more cost-effective solution for buyers who visit London regularly — and unlike a hotel stay, the co-ownership purchase is an asset that participates in the London property market and can be resold. We do not publish specific prices here as they vary by property; please use the listings above or contact us for current share pricing.</p></div></details><details class="dest-faq-item"><summary><h3>How many days can I use my London fractional ownership property each year?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard 1/8 London fractional ownership share entitles each co-owner to approximately 45 days of personal use per year. This is calculated on the basis of a 360-day usable year (setting aside maintenance and change-over days) divided equally across eight co-owners. The scheduling of which weeks you receive in each calendar year is typically managed through a fair rotation system, meaning that over time every co-owner has access to different seasons and different times of year. Your specific weeks are allocated in advance — usually at the start of each calendar year — giving you the predictability you need to plan travel arrangements.</p>
+<p>Some co-ownership agreements also permit co-owners to swap weeks with each other or to bank unused weeks, subject to the specific terms of the agreement. This flexibility makes London fractional ownership particularly practical for buyers whose schedules vary year to year. The co-ownership agreement you receive at purchase will set out the exact scheduling mechanism for the specific property.</p></div></details><details class="dest-faq-item"><summary><h3>Is London fractional ownership suitable for buyers outside the UK?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — London fractional ownership is well-suited to international buyers, and in many respects is purpose-designed for them. English property law imposes no restrictions on foreign nationals purchasing residential property, and the title registration process through a legally structured property company is equally open to all buyers regardless of nationality or residence. The co-ownership structure — with professional management handling all operational matters in your absence — means that being based overseas is not a burden: the property is looked after, maintained, and kept ready for your arrival without any action required from you between visits.</p>
+<p>For buyers from European Union countries, the 90-day rule (applying to stays in the UK since Brexit) creates a natural alignment with the approximately 45 days of personal use that a 1/8 London fractional ownership share delivers. This makes London fractional ownership the most practical property structure for EU residents who want a genuine London presence without exceeding their visa-free allowance. We regularly assist buyers from <a href="/france-fractional-ownership-properties/">France</a>, <a href="/spain-fractional-ownership-properties/">Spain</a>, the UAE, and further afield with London fractional ownership purchases, and our team is experienced in navigating the practical and legal requirements for international buyers.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my London fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. Resale rights are a core feature of deeded London fractional ownership — they are, in fact, one of the defining characteristics that separates genuine co-ownership from a timeshare. Because your 1/8 share is registered through a legally structured property company, it is a legal property interest that can be transferred to a third party through a standard property sale process. You can offer your share to the other co-owners first (which many co-ownership agreements encourage as a first step), or you can list it on the open market at a price that reflects current London property values.</p>
+<p>The resale process involves the usual conveyancing steps: instructing a solicitor, preparing a contract, and completing a transfer of title. Stamp Duty Land Tax may be payable by the buyer depending on the sale price and their existing property holdings. There is no operator permission required to sell, no buyback guarantee (which can be a warning sign in some less reputable co-ownership schemes), and no exit fee imposed by the legal structure itself, although individual co-ownership agreements should be reviewed for any agreed-upon notice periods or pre-emption rights for fellow co-owners.</p></div></details><details class="dest-faq-item"><summary><h3>Who manages the London fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Each London fractional ownership property is managed by a professional management company on behalf of all co-owners. The management company is responsible for maintaining the property to the agreed standard, coordinating maintenance and repairs, arranging and overseeing cleaning between occupancies, managing building insurance, paying service charges and ground rent (where applicable), handling any required periodic safety inspections, and administering the usage scheduling system. Management costs are shared equally among co-owners, typically on a per-share basis, and are invoiced annually or quarterly in advance.</p>
+<p>The management arrangement is set out in the co-ownership agreement and any associated management contract. Co-owners collectively have the right to replace the management company if they choose to, typically by a majority vote, providing a meaningful check on the quality and cost of the service. This co-owner governance right is an important protection — it means that the management arrangement is not simply imposed by a third party, but is accountable to the owners themselves. When evaluating any London fractional ownership property, we recommend reviewing the management agreement carefully and asking about the track record of the management company before committing to purchase.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of London fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The ongoing costs of London fractional ownership are proportional to your ownership share and typically include your share of the annual management fee, your share of service charges and ground rent (for leasehold properties), your share of buildings insurance, and your share of any maintenance and repair costs as they arise. Because these costs are divided across all co-owners, they are substantially lower than the equivalent costs for a sole owner — but they are not zero, and buyers should budget for them as part of the true cost of ownership.</p>
+<p>In addition to the shared property costs, co-owners should be aware of Council Tax liability during periods of personal use, and any income tax obligations that may arise if rental income is received on unused weeks. The tax treatment of London fractional ownership is the same as for any other residential property investment in the UK: income tax applies to rental income (with allowable deductions), and Capital Gains Tax applies on disposal. We strongly recommend taking independent tax advice before purchasing, particularly for international buyers whose home country tax obligations may interact with their UK property ownership. Co-Ownership Property does not provide tax advice but can refer you to specialists experienced in this area.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my London fractional ownership weeks when I&#8217;m not using the property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>In some cases, yes — but this is not guaranteed and the position varies by property, borough, and the specific terms of the co-ownership agreement. Short-term letting in London is subject to a statutory 90-day cap under the Greater London Council (General Powers) Act 1973, as amended by the Deregulation Act 2015: properties in Greater London may only be used for short-term lets for up to 90 days per year without planning permission. This cap applies per property across all co-owners, not per individual owner, and its interaction with co-ownership usage scheduling requires careful consideration.</p>
+<p>Where rental of unused weeks is permitted under both the co-ownership agreement and the applicable planning rules, the management company will typically facilitate this on the co-owner&#8217;s behalf. We are transparent about the rental position for each property: we do not market London fractional ownership on the basis of rental income projections or yields, and we encourage buyers to treat rental as a possible ancillary benefit rather than a primary investment rationale. The core case for London fractional ownership is documented co-ownership, genuine personal use, and participation in the London property market.</p></div></details><details class="dest-faq-item"><summary><h3>What happens to my London fractional ownership share if I pass away?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Because London fractional ownership is structured as tenants in common (each owner holds a legally defined, severable share in the property), your share forms part of your estate on death and can be passed to your heirs under the terms of your will, or under the rules of intestacy if you die without a valid will. Your beneficiaries inherit a real property interest registered through a legally structured property company, not a contractual right or membership, and can choose to retain it as a co-owner, sell it to a third party, or offer it to the existing co-owners.</p>
+<p>The inheritance process follows normal English probate procedures, with the executor or administrator of your estate responsible for managing the transfer. For international buyers, the interaction of English property law with the inheritance laws of your home country should be considered — in particular, EU Regulation 650/2012 (which continues to apply in many EU states) and any bilateral treaty provisions may affect how your UK property asset is treated on death. Again, we recommend taking independent legal and estate planning advice to ensure your London fractional ownership forms part of a coherent estate plan.</p></div></details><details class="dest-faq-item"><summary><h3>How does London fractional ownership compare to buying a London holiday let outright?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The comparison between London fractional ownership and outright sole ownership of a London holiday let is instructive and often decisive for buyers who are genuinely weighing both options. The first and most obvious difference is capital outlay: a prime central London property suitable for high-quality personal use and intermittent letting will require a significant purchase price, plus Stamp Duty Land Tax (which is substantially higher for second properties), legal fees, and ongoing costs borne entirely by one owner. A 1/8 London fractional ownership share requires a fraction of that capital commitment for access to the same quality of property.</p>
+<p>The second difference is management burden. A sole owner of a London holiday let is responsible for finding and managing tenants, maintaining compliance with London&#8217;s 90-day short-let cap and associated licensing requirements, handling all maintenance and service charge administration, and managing the property between stays — either directly or through a management agent at additional cost. London fractional ownership removes all of this: professional management is built in, shared across all co-owners, and administered on your behalf. The trade-off is that your personal use is limited to approximately 45 days per year rather than unlimited. For buyers who visit London for a defined period each year and do not need or want the full burden of sole ownership, London fractional ownership is almost always the more rational choice.</p></div></details><details class="dest-faq-item"><summary><h3>Which parts of London are best for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The best area for London fractional ownership depends on your priorities — lifestyle, connectivity, architecture, and value for money all vary considerably across the capital. For buyers who prioritise prestige, architectural grandeur, and proximity to the best of London&#8217;s retail, restaurant, and cultural offer, Kensington, Chelsea, Marylebone, and Mayfair remain the prime benchmarks. For buyers who prioritise value, modernity, and river views alongside central connectivity, Battersea and the South Bank offer compelling properties that were inconceivable as prime London fractional ownership locations a decade ago.</p>
+<p>For buyers who want a genuine neighbourhood experience with an independent character, Shoreditch and East London offer architecturally distinctive properties in a setting that feels unlike anywhere else in the capital. And for buyers who prioritise green space, schools, and a pace of life that is gentler than central London, Richmond and the south-west corridor are outstanding. Our team is happy to discuss which area of London fractional ownership best suits your specific requirements — use the contact form below to start the conversation. London fractional ownership is available across all of these areas, and our listings above reflect the current available stock.</p></div></details><details class="dest-faq-item"><summary><h3>How do I get started with London fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Getting started with London fractional ownership is straightforward. The first step is to browse the available properties using the listings on this page — filter by area, price range, or property type to identify properties that align with your requirements. Once you have identified one or more properties of interest, the next step is to arrange a consultation with our team. We act as a buyer&#8217;s agency, which means our role is to help you identify the right property for your needs, facilitate introductions to independent legal advisers, and guide you through every stage of the co-ownership buying process from first enquiry to completion.</p>
+<p>We strongly recommend that every buyer instructs an independent property solicitor before committing to any London fractional ownership purchase. Legal costs for a fractional purchase are typically similar to those for a standard residential purchase of equivalent value, and the peace of mind provided by having independent legal advice on the co-ownership agreement and the title position is well worth the investment. Use the contact form below to start the conversation — we are happy to answer questions at any stage, with no obligation, and our team is experienced in supporting buyers across the full spectrum of London fractional ownership from first enquiry to completion.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

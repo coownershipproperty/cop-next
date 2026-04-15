@@ -1,4 +1,10 @@
 import Head from 'next/head';
+import Script from 'next/script';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Newsletter from '@/components/Newsletter';
+import ExpertForm from '@/components/ExpertForm';
+
 
 export default function Home() {
   return (
@@ -6,36 +12,19 @@ export default function Home() {
       <Head>
         <title>Co-Ownership Property | Luxury Fractional Ownership</title>
         <meta name="description" content="Co-Ownership Property - Luxury fractional ownership of premium properties worldwide." />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header />
 {/* ===== HERO SECTION ===== */}
     <section className="hero">
-        <video className="hero-video" autoPlay muted loop playsinline preload="auto" fetchPriority="high">
+        <video className="hero-video" autoPlay muted loop playsInline preload="auto" fetchPriority="high">
             <source src="https://co-ownership-property.com/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4" type="video/mp4" />
         </video>
         <div className="hero-overlay"></div>
 
-        {/* Header & Navigation (shared partial) */}
-        <header className="cop-header" id="cop-header">
-    <div className="cop-logo">
-        <a href="/">
-            <img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="Co-Ownership Property" className="logo-white" />
-            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property" className="logo-dark" />
-        </a>
-    </div>
-    <nav className="cop-nav" id="cop-nav">
-        <a href="/" className="cop-nav-active">Home</a>
-        <a href="/our-homes/">Our Homes</a>
-        <a href="/how-it-works/">How It Works</a>
-        <a href="/about-us">About Us</a>
-        <a href="/all-our-blog/">Our Blog</a>
-        <a href="/favourites" className="cop-nav-favourites">My Favourites</a>
-        <a href="/contact">Contact</a>
-    </nav>
-    <button className="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-    </button>
-</header>
+        {/* Header &amp; Navigation (shared partial) */}
+        
 
         {/* Hero Content */}
         <div className="hero-content">
@@ -398,7 +387,7 @@ export default function Home() {
         <p className="lp-subtitle">Destination guides, market analysis and ownership stories — published daily for the discerning buyer.</p>
 
         <div className="latest-posts-grid">
-                        <article className="lp-card" onclick="window.location='https://staging.co-ownership-property.com/the-algarve-golden-triangle-why-portugals-most-exclusive-coast-is-europes-smartest-co-ownership-destination-in-2026/'">
+                        <article className="lp-card" onClick={() => { window.location='https://staging.co-ownership-property.com/the-algarve-golden-triangle-why-portugals-most-exclusive-coast-is-europes-smartest-co-ownership-destination-in-2026/' }}>
                                 <div className="lp-image-wrap">
                     <img src="https://staging.co-ownership-property.com/wp-content/uploads/2026/04/algarve-golden-triangle-co-ownership-luxury-property-2026-hero-768x1152.jpg"
                          alt="The Algarve Golden Triangle: Why Portugal&#8217;s Most Exclusive Coast Is Europe&#8217;s Smartest Co-Ownership Destination in 2026"
@@ -413,7 +402,7 @@ export default function Home() {
                     <a href="https://staging.co-ownership-property.com/the-algarve-golden-triangle-why-portugals-most-exclusive-coast-is-europes-smartest-co-ownership-destination-in-2026/" className="lp-read-more">Read Article →</a>
                 </div>
             </article>
-                        <article className="lp-card" onclick="window.location='https://staging.co-ownership-property.com/three-paths-luxury-fractional-ownership-success-stories/'">
+                        <article className="lp-card" onClick={() => { window.location='https://staging.co-ownership-property.com/three-paths-luxury-fractional-ownership-success-stories/' }}>
                                 <div className="lp-image-wrap">
                     <img src="https://staging.co-ownership-property.com/wp-content/uploads/2026/04/three-paths-luxury-fractional-ownership-success-stories-hero-768x512.jpg"
                          alt="Three Paths to Luxury: How Real Buyers Are Using Fractional Ownership to Transform Their Holiday Home Experience"
@@ -428,7 +417,7 @@ export default function Home() {
                     <a href="https://staging.co-ownership-property.com/three-paths-luxury-fractional-ownership-success-stories/" className="lp-read-more">Read Article →</a>
                 </div>
             </article>
-                        <article className="lp-card" onclick="window.location='https://staging.co-ownership-property.com/idle-asset-problem-fractional-ownership-investment-second-homes/'">
+                        <article className="lp-card" onClick={() => { window.location='https://staging.co-ownership-property.com/idle-asset-problem-fractional-ownership-investment-second-homes/' }}>
                                 <div className="lp-image-wrap">
                     <img src="https://staging.co-ownership-property.com/wp-content/uploads/2026/04/idle-asset-problem-fractional-ownership-investment-second-homes-hero-768x512.jpg"
                          alt="The Idle Asset Problem: Why Smart Investors Are Choosing Fractional Ownership Over Empty Second Homes"
@@ -452,107 +441,11 @@ export default function Home() {
 
     {/* ===== NEWSLETTER (shared partial) ===== */}
         {/* ===== NEWSLETTER SIGNUP (shared partial) ===== */}
-    <section className="newsletter-section" id="newsletter">
-        <h2 className="newsletter-heading">Be The First To Know</h2>
-        <p className="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
-        <form className="newsletter-form" id="cop-newsletter-form" novalidate>
-            <input type="email" name="email" placeholder="Enter your email address" required />
-            <button type="submit" className="newsletter-btn">Join Newsletter</button>
-        </form>
-        <p className="newsletter-form-msg" id="newsletter-form-msg"></p>
-    </section>
+    
 
     {/* ===== EXPERT FORM (shared partial) ===== */}
         {/* ===== SPEAK TO AN EXPERT (shared partial) ===== */}
-    <section className="expert-section" id="speak-to-expert">
-        <div className="expert-inner">
-            <p className="expert-eyebrow">Get in Touch</p>
-            <h2 className="expert-heading">Speak to an <em>expert</em></h2>
-            <p className="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
-
-            <form className="expert-form" id="expert-enquiry-form" novalidate>
-                <input type="hidden" name="nonce" value="9e3a8b0450" />                <div className="expert-form-grid">
-                    <div className="expert-form-field">
-                        <label htmlFor="ef-name">Name <span>*</span></label>
-                        <input type="text" id="ef-name" name="name" placeholder="Your name" required />
-                    </div>
-                    <div className="expert-form-field">
-                        <label htmlFor="ef-email">Email Address <span>*</span></label>
-                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required />
-                    </div>
-                    <div className="expert-form-field">
-                        <label htmlFor="ef-phone">Phone Number <span>*</span></label>
-                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required />
-                    </div>
-                    <div className="expert-form-field">
-                        <label>Destinations</label>
-                        <div className="dest-multiselect" id="dest-multiselect">
-                            <div className="dest-trigger" id="dest-trigger">
-                                <span className="dest-placeholder">Select destinations</span>
-                            </div>
-                            <div className="dest-dropdown" id="dest-dropdown">
-                                                                <div className="dest-option" data-value="France">
-                                    <span className="dest-check"></span>
-                                    🇫🇷 France                                </div>
-                                                                <div className="dest-option" data-value="Spain">
-                                    <span className="dest-check"></span>
-                                    🇪🇸 Spain                                </div>
-                                                                <div className="dest-option" data-value="Italy">
-                                    <span className="dest-check"></span>
-                                    🇮🇹 Italy                                </div>
-                                                                <div className="dest-option" data-value="USA">
-                                    <span className="dest-check"></span>
-                                    🇺🇸 USA                                </div>
-                                                                <div className="dest-option" data-value="Portugal">
-                                    <span className="dest-check"></span>
-                                    🇵🇹 Portugal                                </div>
-                                                                <div className="dest-option" data-value="Austria">
-                                    <span className="dest-check"></span>
-                                    🇦🇹 Austria                                </div>
-                                                                <div className="dest-option" data-value="England">
-                                    <span className="dest-check"></span>
-                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
-                                                                <div className="dest-option" data-value="Sweden">
-                                    <span className="dest-check"></span>
-                                    🇸🇪 Sweden                                </div>
-                                                                <div className="dest-option" data-value="Germany">
-                                    <span className="dest-check"></span>
-                                    🇩🇪 Germany                                </div>
-                                                                <div className="dest-option" data-value="Croatia">
-                                    <span className="dest-check"></span>
-                                    🇭🇷 Croatia                                </div>
-                                                                <div className="dest-option" data-value="Mexico">
-                                    <span className="dest-check"></span>
-                                    🇲🇽 Mexico                                </div>
-                                                            </div>
-                        </div>
-                        <input type="hidden" name="destination" id="ef-destination" />
-                    </div>
-                    <div className="expert-form-field">
-                        <label htmlFor="ef-budget">Budget Range</label>
-                        <select id="ef-budget" name="budget">
-                            <option value="" disabled selected>Select a budget</option>
-                            <option>Under €100,000</option>
-                            <option>€100,000 – €200,000</option>
-                            <option>€200,000 – €350,000</option>
-                            <option>€350,000 – €500,000</option>
-                            <option>€500,000 – €750,000</option>
-                            <option>€750,000 – €1,000,000</option>
-                            <option>Over €1,000,000</option>
-                        </select>
-                    </div>
-                    <div className="expert-form-field">
-                        <label htmlFor="ef-message">Message</label>
-                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
-                    </div>
-                </div>
-                <div className="expert-submit">
-                    <button type="submit" className="expert-submit-btn">Send Enquiry</button>
-                    <p className="expert-form-msg" id="expert-form-msg"></p>
-                </div>
-            </form>
-        </div>
-    </section>
+    
 
     {/* ===== FAQ SECTION ===== */}
     <section className="faq-section" id="faq">
@@ -562,52 +455,52 @@ export default function Home() {
         <div className="faq-list">
 
             <details className="faq-item">
-                <summary className="faq-q"><span>What is fractional or co-ownership of a holiday home?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>What is fractional or co-ownership of a holiday home?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>Co-ownership means you and a small number of other owners each purchase a deeded share of a fully managed luxury property. You own a real fraction of the home — typically one-eighth — and unlike a timeshare, you hold genuine legal ownership of the property itself. It combines the pride and financial benefits of real property ownership with the ease of a five-star hotel experience, at a fraction of the cost of buying outright.</p></div>
             </details>
 
             <details className="faq-item">
-                <summary className="faq-q"><span>How is co-ownership different from timeshare?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>How is co-ownership different from timeshare?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>Unlike a timeshare, co-ownership gives you a real share of the property deed, meaning you benefit from any appreciation in value and can sell your share on the open market whenever you choose. Because these are luxury properties in high-demand locations, prices typically do rise over time. There is no membership club, no points system, and no long-term contractual lock-in. You are a genuine property owner with full legal rights over your fraction.</p></div>
             </details>
 
             <details className="faq-item">
-                <summary className="faq-q"><span>What does the purchase price include?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>What does the purchase price include?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>Your purchase price covers your deeded share of the property along with its full furnishings, interior design, and equipment. Many of our homes are professionally styled to a turnkey standard, so they are move-in ready from day one. Ongoing costs such as maintenance, insurance, property management, and local taxes are shared proportionally among all co-owners, keeping individual running costs very low.</p></div>
             </details>
 
             <details className="faq-item">
-                <summary className="faq-q"><span>How is usage time divided between owners?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>How is usage time divided between owners?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>Every one-eighth share gives you 45 days — roughly six weeks — which is one-eighth of a year. Each property has a clear usage schedule that rotates fairly so all owners enjoy peak-season access over time. Many operators also offer a digital booking platform so you can swap, extend, or exchange weeks with fellow owners flexibly.</p></div>
             </details>
 
             <details className="faq-item">
-                <summary className="faq-q"><span>Can I rent out my weeks when I'm not using them?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>Can I rent out my weeks when I'm not using them?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>In many cases, yes. Many of our properties allow owners to place unused weeks into a managed rental programme. The property management company handles guest screening, check-in, cleaning, and maintenance, while rental income is returned to you. This can offset your annual running costs significantly and, in popular destinations, even generate a net return.</p></div>
             </details>
 
             <details className="faq-item">
-                <summary className="faq-q"><span>Who manages the property day to day?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>Who manages the property day to day?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>Every home on our platform is looked after by a professional property management company. They handle everything from routine maintenance and housekeeping to landscaping, pool care, and emergency repairs. You arrive to a pristine, hotel-quality home every visit — without lifting a finger.</p></div>
             </details>
 
             <details className="faq-item">
-                <summary className="faq-q"><span>Can I sell my share later?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>Can I sell my share later?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>Absolutely. Because you hold a deeded share, you can sell it at any time on the open market — just like any other property. If the home has appreciated in value, you benefit from that growth in proportion to your ownership share. Our team can also assist with resales to our network of qualified buyers.</p></div>
             </details>
 
             <details className="faq-item">
-                <summary className="faq-q"><span>Which destinations and property types do you offer?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>Which destinations and property types do you offer?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>We curate luxury co-ownership homes across Europe and the United States, including France, Spain, Italy, Portugal, Austria, England, and several US destinations. Properties range from coastal villas and Parisian apartments to Alpine chalets and Tuscan farmhouses. Every home is hand-selected for its location, build quality, and lifestyle appeal.</p></div>
             </details>
 
             <details className="faq-item">
-                <summary className="faq-q"><span>Is co-ownership a good investment?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>Is co-ownership a good investment?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>Co-ownership allows you to access a high-value property at a fraction of the cost of buying outright, freeing capital for other investments. You enjoy potential property appreciation, possible rental income, and the personal value of a luxury holiday home — all while sharing costs with fellow owners. It is increasingly recognised as one of the most financially sensible ways to own a second home.</p></div>
             </details>
 
             <details className="faq-item">
-                <summary className="faq-q"><span>How do I get started?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9" /></svg></summary>
+                <summary className="faq-q"><span>How do I get started?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
                 <div className="faq-a"><p>Simply browse our collection above or speak to one of our property specialists using the enquiry form. We will walk you through available homes, answer any questions, and guide you through the purchase process from start to finish — with full legal and financial transparency at every step.</p></div>
             </details>
 
@@ -617,81 +510,18 @@ export default function Home() {
     {/* FAQ Structured Data (SEO) */}
     
 
-    {/* ===== FOOTER ===== */}    <footer>
-        <div className="footer-content">
-            <div className="footer-logo">
-                <a href="/" className="footer-logo-link" style={{textDecoration: 'none'}}>
-                    <div style={{fontFamily: "'Playfair Display',serif", fontSize: '1.5rem', fontStyle: 'italic', color: '#fff', letterSpacing: '.02em', marginBottom: '6px', lineHeight: '1.2'}}>Co-Ownership<br />Properties</div>
-                </a>
-                <p className="footer-tagline" style={{fontSize: '.82rem', lineHeight: '1.7', color: 'rgba(255,255,255,.55)', maxWidth: '220px', marginBottom: '24px'}}>The independent guide to luxury fractional ownership across Europe &amp; the USA.</p>
-                <div className="footer-social">
-                    <a href="#" className="social-icon" aria-label="Facebook">f</a>
-                    <a href="#" className="social-icon" aria-label="Instagram">in</a>
-                    <a href="#" className="social-icon" aria-label="LinkedIn">in</a>
-                    <a href="#" className="social-icon" aria-label="X / Twitter">&#120143;</a>
-                </div>
-            </div>
-
-            <div className="footer-section">
-                <h4>Discover</h4>
-                <ul>
-                    <li><a href="/our-homes/">All Properties</a></li>
-                    <li><a href="/how-it-works/">How It Works</a></li>
-                    <li><a href="/about-us/">About Us</a></li>
-                    <li><a href="/all-our-blog/">Our Blog</a></li>
-                    <li><a href="/favourites/">&#9829; My Favourites</a></li>
-                </ul>
-            </div>
-
-            <div className="footer-section">
-                <h4>Destinations</h4>
-                <ul>
-                    <li><a href="/spain-fractional-ownership-properties/">Spain</a></li>
-                    <li><a href="/france-fractional-ownership-properties/">France</a></li>
-                    <li><a href="/italy-fractional-ownership-properties/">Italy</a></li>
-                    <li><a href="/usa-fractional-ownership-properties/">USA</a></li>
-                    <li><a href="/portugal-fractional-ownership-properties/">Portugal</a></li>
-                    <li><a href="/austria-fractional-ownership-properties/">Austria</a></li>
-                </ul>
-            </div>
-
-            <div className="footer-section">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="/about-us/">About COP</a></li>
-                    <li><a href="/how-it-works/">How It Works</a></li>
-                    <li><a href="/all-our-blog/">Our Blog</a></li>
-                    <li><a href="/contact-us/">Contact</a></li>
-                </ul>
-            </div>
-
-            <div className="footer-section">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="/contact-us/">Get in Touch</a></li>
-                    <li><a href="/how-it-works/#faq">FAQ</a></li>
-                    <li><a href="/contact-us/">Book a Call</a></li>
-                    <li><a href="/favourites/">Saved Properties</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div className="footer-bottom">
-            <p className="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p>
-            <div className="footer-legal">
-                <a href="/privacy-policy/">Privacy Policy</a>
-                <a href="/terms/">Terms of Use</a>
-                <a href="#">Cookie Policy</a>
-            </div>
-        </div>
-    </footer>
+    {/* ===== FOOTER ===== */}
+    
 
     {/* jQuery + Slick (same carousel library as August Collections) */}
     
     
 
     {/* ===== VANILLA JAVASCRIPT ===== */}
-    
+      <Newsletter />
+      <ExpertForm />
+      <Footer />
+      <Script src="/js/index.js" strategy="afterInteractive" />
     </>
   );
 }

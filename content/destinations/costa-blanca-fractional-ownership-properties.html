@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costa Blanca Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Discover premium co-ownership properties on the Costa Blanca including Alicante, Javea &amp; Benidorm. Affordable luxury coastal properties available through fractional ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Costa Blanca Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Costa?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h2>Why Costa Blanca Fractional Ownership Makes Sense</h2>
+<p><strong>Costa Blanca fractional ownership</strong> places you at the heart of one of Europe&#8217;s most consistently popular and accessible Mediterranean destinations. The White Coast — named for the brilliant white facades of its traditional villages and the pale limestone cliffs that frame much of its 244-kilometre shoreline — stretches along the province of Alicante in southeastern <a href="/spain-fractional-ownership-properties/" class="cb-il">Spain</a>, from Dénia in the north to Pilar de la Horadada in the south. It is a coast of extraordinary variety: glamorous marina towns, family beach resorts, unspoilt headlands, UNESCO-heritage mountain villages, and a thriving international community that has made this one of the most established second-home markets in all of Europe.</p>
+<p>The climate is the Costa Blanca&#8217;s most celebrated asset. The World Health Organisation has historically cited the microclimate of the Alicante region — and particularly the area around Benidorm and the Marina Alta — as among the healthiest in the world, with over 320 days of sunshine per year, low humidity, and mild temperatures across all four seasons. Even in January, daytime temperatures regularly reach 17–19°C along the coast, making the Costa Blanca one of the very few Mediterranean destinations where year-round visits are genuinely comfortable and rewarding. This extended seasonal appeal is one of the key reasons Costa Blanca co-ownership is so well-suited to the realities of the post-Brexit 90-day limit: your 6–7 annual weeks can be distributed across a genuinely usable calendar.</p>
+<p>Flight access from the UK is outstanding. Alicante-Elche Miguel Hernández Airport is one of Spain&#8217;s busiest international airports, with direct services from virtually every major UK airport — London Gatwick, Heathrow, Stansted, Luton, Manchester, Birmingham, Bristol, Edinburgh, Glasgow, Belfast, and dozens more. Flight times from London are typically under 2.5 hours. This exceptional connectivity means Costa Blanca fractional property ownership is genuinely practical for weekend breaks as well as longer stays — and it remains one of the easiest European destinations to reach from most corners of the UK.</p>
+<p>For UK buyers post-Brexit, <strong>Costa Blanca fractional ownership</strong> is one of the most intelligently structured solutions available. A 1/8 share delivering 6–7 weeks per year fits comfortably within the 90-day Schengen limit while eliminating the financial burden of 52 weeks of ownership costs on a property you can only legally use for 13. Professional management handles all maintenance, taxes, insurance, cleaning, and scheduling — so every arrival to your Costa Blanca co-ownership property is seamless, and every departure is without worry.</p>
+<p>The Costa Blanca&#8217;s established international community — estimated at over 100,000 British residents — means the destination has exceptional infrastructure for foreign property owners: English-speaking legal and financial services, international schools, well-stocked supermarkets, British pubs alongside excellent Spanish restaurants, and a property market with deep liquidity and long track record. Costa Blanca fractional real estate benefits from all of this — a mature, transparent, well-understood market within which co-ownership is a natural fit.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Costa Blanca Fractional Ownership — Key Areas &amp; Destinations</h2>
+<p><strong>Costa Blanca fractional ownership</strong> spans a remarkably diverse stretch of coastline. The region divides broadly into the Costa Blanca Norte (northern White Coast, centred on Dénia, Jávea, and Altea) and the Costa Blanca Sur (southern White Coast, centred on Torrevieja, Orihuela Costa, and the Mar Menor) — each with a distinct character, market profile, and lifestyle offering.</p>
+<h3>Dénia, Jávea &amp; the Marina Alta</h3>
+<p>The northern Costa Blanca — the Marina Alta — is consistently regarded as the most prestigious and scenically dramatic stretch of the entire coast. Dénia, a lively port city at the foot of the Montgó Natural Park, combines excellent beaches (the sandy Las Marinas to the north, the rocky Las Rotas to the south) with a thriving gastronomy scene centred on its famous rice dishes and fresh seafood. Jávea (Xàbia), a few kilometres south, is one of the Costa Blanca&#8217;s most sought-after addresses: a sheltered bay of remarkable clarity flanked by the dramatic Cape of San Antonio and the Montgó massif, with a traditional Spanish old town, a charming fishing port, and an international beach suburb of considerable quality. For Costa Blanca fractional ownership buyers seeking the most unspoilt and exclusive end of the market, the Marina Alta delivers outstanding natural beauty alongside genuine year-round appeal.</p>
+<h3>Altea, Calpe &amp; Benidorm</h3>
+<p>Moving south along the Costa Blanca Norte, the character shifts from exclusive to cosmopolitan. Altea is one of Andalucía&#8217;s — and indeed Spain&#8217;s — most beautiful white towns: a hilltop village of cobbled streets, blue-domed churches, and art galleries overlooking the sea, with an international reputation as a creative and cultural destination. Calpe is dominated by the extraordinary Peñón de Ifach — a 332-metre rock that rises from the sea like a miniature Gibraltar, a Natural Park offering spectacular coastal walks — with good beaches and a lively resort atmosphere. And then there is Benidorm: Europe&#8217;s most famous — and most misunderstood — resort. Beyond the famous skyline, Benidorm offers year-round tourism infrastructure, outstanding restaurants, and some of the best sandy beaches on the coast. For Costa Blanca co-ownership buyers looking at investment potential and guaranteed rental demand (where licensed), this central zone is highly relevant.</p>
+<h3>Alicante City &amp; El Campello</h3>
+<h3>Torrevieja, Orihuela Costa &amp; the Southern Costa Blanca</h3>
+<p>The southern Costa Blanca — the Costa Blanca Sur — offers a different character from the dramatic northern coast: flatter, drier, and in places more reminiscent of the North African coast than Mediterranean Spain, with pink salt lakes, vast sandy beaches, and a large international community. Torrevieja is a working Spanish city with excellent beaches (Playa del Cura, Playa de los Locos), Spain&#8217;s most famous outdoor karaoke festival, and a large British and Irish community. Orihuela Costa — which includes the urbanisations of La Zenia, Campoamor, and Playa Flamenca — is one of the most active markets for international property buyers on the entire Costa Blanca. The Mar Menor, a warm saltwater lagoon just south of the Murcia border, offers calm, shallow water ideal for families and water sports enthusiasts. Costa Blanca fractional ownership in this zone tends to offer excellent value relative to the northern coast, with strong year-round rental demand where licensing applies.</p>
+<h3>Inland Costa Blanca — Guadalest, Jalón Valley &amp; Beyond</h3>
+<p>The Costa Blanca hinterland is one of the region&#8217;s least-discovered treasures and an increasingly interesting zone for Costa Blanca co-ownership buyers seeking something beyond the beach. The Guadalest Valley — just 30 minutes from Benidorm — is a dramatic landscape of reservoir, castle ruins, and traditional mountain villages that feels a world away from the coast. The Jalón Valley (Vall de Pop) is famous for its almond and cherry blossom in February — a spectacular natural event that draws visitors from across Europe — and its string of traditional white villages: Jalón, Alcalalí, Murla. The Montgo Natural Park between Dénia and Jávea offers outstanding walking and cycling. For buyers who want their Costa Blanca fractional ownership experience to encompass more than beach life, the inland dimension of the region is a significant part of the appeal.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Costa Blanca Fractional Ownership Works</h2>
+<p><strong>Costa Blanca fractional ownership</strong> is built on a clear, legally sound framework under Spanish property law. Here is exactly how it works — and why it is the most practical and financially efficient way to own a Mediterranean holiday home in 2024 and beyond.</p>
+<h3>genuine co-ownership through a legally structured property company</h3>
+<p>Every Costa Blanca fractional ownership purchase is registered as a genuine co-ownership on the <em>property ownership records</em> — the Spanish Ownership Documentation. Your name appears on the property title deed (<em>escritura</em>) alongside up to seven co-owners as a fractional co-owner of the property. You are not purchasing timeshare, usage rights, or a club membership — you are acquiring a legally defined fraction of a real property asset, protected by Spanish property law in exactly the same way as any other registered Spanish freehold. Your Costa Blanca fractional ownership share is a real asset: transparent, legally robust, and fully transferable.</p>
+<h3>Your 1/8 Share — Guaranteed Annual Weeks</h3>
+<h3>Professional Full-Service Management</h3>
+<p>All Costa Blanca co-ownership properties are managed end-to-end by professional property management companies with local expertise across the Alicante region. Services include: professional cleaning before and after every stay; all maintenance and repair work; building and contents insurance; Spanish property tax (IBI); local municipal levies; utility management; and co-ordination of any agreed capital improvements. Your annual running costs are simply your 1/8 share of these overheads, disclosed fully and transparently before you purchase. For most buyers, the annual cost of Costa Blanca fractional property ownership is considerably lower than renting an equivalent property for the same number of weeks, while also providing a capital asset and long-term ownership stake.</p>
+<h3>Resale, Inheritance &amp; Rental Rights</h3>
+<p>Your Costa Blanca fractional ownership share is fully transferable and may be sold on the open market at any time through our platform, a specialist resale agent, or independently. The sale follows standard Spanish conveyancing with a notary and Ownership Documentation update. Your share also forms part of your estate and may be bequeathed through your will under Spanish inheritance law. Regarding rental income: some Costa Blanca co-ownership holders do rent out unused weeks. Short-term rental licensing in the Valencia region (which governs most of the Costa Blanca) has become more regulated in recent years — always confirm the specific licensing position of a property with our team before purchasing if rental income is a factor in your decision.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Costa Blanca Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>The Costa Blanca property market is one of the deepest and most liquid second-home markets in Europe, with decades of track record and a broad base of international buyers that provides structural support to values across market cycles. Within <a href="/spain-fractional-ownership-properties/" class="cb-il">Spain</a>, the Costa Blanca consistently ranks alongside the <a href="/costa-del-sol-fractional-ownership-properties/" class="cb-il">Costa del Sol</a> and the <a href="/balearics-fractional-ownership-properties/" class="cb-il">Balearics</a> as the most active markets for foreign buyers. For investors considering <strong>Costa Blanca fractional real estate</strong>, this liquidity is an important differentiator: your ability to sell your share benefits from being in a market where buyers are consistently present and the concept of foreign co-ownership is well understood.</p>
+<p>From a lifestyle perspective, Costa Blanca co-ownership rewards its owners across every season and for every type of buyer. Families benefit from some of Spain&#8217;s best Blue Flag beaches — calm, clean, and with excellent facilities — alongside a warm and welcoming culture that is genuinely child-friendly. The Spanish pace of life, the evening <em>paseo</em> along the promenade, the ice cream after dinner, the Sunday paella at a beachside restaurant — these are the rhythms that families who own Costa Blanca fractional property year after year come to call their own. Children who grow up with a consistent second home build a relationship with a place, a language, and a culture that stays with them for life.</p>
+<p>For couples and independent travellers, the Costa Blanca&#8217;s lifestyle offer extends far beyond the beach. The regional cuisine is outstanding: Alicante&#8217;s rice dishes — <em>arroz a banda</em>, <em>caldero</em> — are considered among the finest in Spain. Dénia&#8217;s creative restaurant scene punches well above the weight of a town its size. The Jalón Valley&#8217;s wine production — particularly its Moscatel — rewards exploration. The region&#8217;s festivals are spectacular: the Moors and Christians festivals of Alcoy and Villajoyosa in spring, the Bonfires of San Juan on the Alicante beaches in June, the Fogueres de Sant Joan — all uniquely Valencian in character and deeply rooted in a culture that has been shaped by centuries of Mediterranean trade, art, and conquest.</p>
+<p>Golfers are exceptionally well-served on the Costa Blanca. The region has over 30 golf courses within easy driving distance of most Costa Blanca co-ownership locations, ranging from the world-class La Manga Club complex in Murcia to the beautiful El Plantío Golf Resort near Alicante, and numerous well-maintained parkland and links-style courses throughout Orihuela Costa and the Marina Alta. Golf tourism has been a consistent driver of shoulder and winter season visits for decades, and the accessibility of courses from most Costa Blanca fractional ownership locations makes the region one of Europe&#8217;s finest golf destinations.</p>
+<p>Seasonality on the Costa Blanca is strongly positive for year-round ownership. High summer (July–August) is peak beach season with full facilities, vibrant resort atmosphere, and warm sea temperatures. May, June, and September–October offer warm weather, uncrowded beaches, and the best conditions for cycling, hiking, and cultural exploration. November through March is mild and ideal for golf, walking in the mountains, and exploring the region&#8217;s cities and villages without a tourist in sight. Your 6–7 annual weeks of <strong>Costa Blanca fractional ownership</strong> distributed intelligently across this calendar delivers exceptional variety and value from every visit.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Discover More Costa Blanca Fractional Ownership &amp; Beyond</h2></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Costa Blanca Fractional Ownership — FAQs</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What is Costa Blanca fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Costa Blanca fractional ownership is a legally structured form of co-ownership in which typically eight buyers each purchase a 1/8 share of a property. Each co-owner is registered on the Spanish <em>property ownership records</em> (Ownership Documentation) as a genuine fractional title holder — meaning you own a real, deeded fraction of a real property. This is categorically not a timeshare. You hold a registered property asset with full legal protections under Spanish law, resale rights, and inheritance rights. Costa Blanca co-ownership gives you all the benefits of owning a Mediterranean holiday home at a fraction of the outright purchase cost, without the full burden of sole ownership costs and responsibilities.</p></div></details><details class="dest-faq-item"><summary><h3>How many weeks do I get with Costa Blanca fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"></div></details><details class="dest-faq-item"><summary><h3>How does Costa Blanca fractional ownership differ from timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The difference is fundamental. Timeshare gives you a contractual right to use a resort for a period — you own nothing of the underlying property and have no stake in its capital value. Costa Blanca fractional ownership is the opposite: you purchase a deeded fractional title through a legally structured property company. You own a real fraction of the property itself — an asset you can sell, inherit, and benefit from through any capital appreciation. There are no resort management fees, no points system, and no risk of your usage right being revoked. Costa Blanca co-ownership is a genuine property investment.</p></div></details><details class="dest-faq-item"><summary><h3>Is Costa Blanca fractional ownership a good investment?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The Costa Blanca has one of Europe&#8217;s deepest and most liquid international property markets, with strong structural fundamentals: high year-round demand from British, German, Dutch, and Scandinavian buyers; limited new development on the most sought-after parts of the coast; and a very long track record of international co-ownership. Costa Blanca fractional real estate gives buyers access to this market at a fraction of the outright cost, with genuine documented co-ownership and long-term capital exposure. We do not publish specific yield projections, but the market&#8217;s fundamentals are consistently regarded as solid by experienced property investors.</p></div></details><details class="dest-faq-item"><summary><h3>What are the running costs of Costa Blanca fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Running costs are shared proportionally across all co-owners. Your 1/8 share means you pay one-eighth of the property&#8217;s total annual costs — typically covering professional management, cleaning, building and contents insurance, Spanish property tax (IBI), municipal levies, utility standing charges, and maintenance. These figures are fully disclosed before you purchase. For most buyers, the annual cost of Costa Blanca fractional property ownership is significantly lower than renting a comparable property for the same number of weeks, while also giving you a capital asset and ownership stake.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Costa Blanca fractional ownership weeks?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Some co-owners do rent out unused weeks and generate rental income from their Costa Blanca co-ownership share. Short-term rental licensing in the Valencia region has become more regulated in recent years, with new requirements around official tourist accommodation registration. Availability of a tourist rental licence varies by property, municipality, and property type. Always confirm the specific rental licensing position of any property with our team before purchasing if rental income is part of your plan — we provide full transparency on this for every listing.</p></div></details><details class="dest-faq-item"><summary><h3>Can I pass my Costa Blanca fractional ownership to my children?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. Because Costa Blanca fractional ownership is structured as genuine co-ownership through a legally structured property company, your share is a legal property asset that forms part of your estate. It can be bequeathed through your will to your heirs under Spanish inheritance law. Spanish inheritance tax applies, and international private law may also be relevant depending on your domicile. We strongly recommend engaging a Spanish property solicitor for estate planning to ensure the most efficient and tax-effective transfer of your Costa Blanca fractional property to your heirs.</p></div></details><details class="dest-faq-item"><summary><h3>How do I sell my Costa Blanca fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Selling your Costa Blanca fractional ownership share follows standard Spanish conveyancing. As a registered co-owner, you hold a legally transferable property asset that you may sell at any time — through our platform, via a specialist resale agent, or independently. The sale is completed before a Spanish notary with a transfer deed registered in the buyer&#8217;s name on the Ownership Documentation. Spanish capital gains tax applies to any gain. We recommend a Spanish property solicitor to manage the transaction efficiently and with full legal protection.</p></div></details><details class="dest-faq-item"><summary><h3>Is Costa Blanca fractional ownership right for UK buyers post-Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Costa Blanca fractional ownership is extremely well-suited to UK buyers under the post-Brexit Schengen 90-day rule. A standard 1/8 share delivering 6–7 weeks (42–49 days) per year fits comfortably within the limit, making optimal use of available days without exceeding the threshold. It eliminates the financial waste of sole ownership — where a property sits empty for 46+ weeks while the owner still pays full running costs — and replaces it with a model that precisely matches realistic modern British usage patterns. With Alicante airport offering some of the best UK connections in Spain, Costa Blanca co-ownership is one of the most accessible and practical Mediterranean second-home solutions for British buyers.</p></div></details><details class="dest-faq-item"><summary><h3>North or south Costa Blanca — which is better for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Both zones offer compelling but different propositions for Costa Blanca fractional ownership buyers. The northern Costa Blanca (Marina Alta — Dénia, Jávea, Altea) offers more dramatic scenery, more exclusive pricing, higher property values, and a more discerning international market with a strong French, German, and British professional buyer base. The southern Costa Blanca (Torrevieja, Orihuela Costa, Mar Menor area) offers better value per square metre, calmer beaches ideal for families, and a very large established British community. Your ideal zone depends on your lifestyle priorities, budget, and how you plan to use your weeks — our team can advise on which area best fits your specific requirements.</p></div></details></div></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A Week in Your Costa Blanca Co-Ownership Property</h2>
+
+<h3>Mornings: Beaches Before the Crowds</h3>
+
+<p>Start your days early at the quieter northern beaches of Jávea and Dénia, where Mediterranean mornings are undisturbed and the water is crystalline. The nearby Wednesday Dénia market brings fresh produce, local crafts, and authentic Valencian atmosphere to your doorstep. On Saturdays, Jávea&#8217;s market offers similar charm with seafood specialties and regional products. These markets form the backbone of local life, offering everything from almonds to anchovies at prices that reflect genuine agricultural value rather than tourist markup.</p>
+
+<p>Mid-morning, settle into a seafront restaurant overlooking the Mediterranean. The Costa Blanca excels at simple seafood preparations—grilled red mullet, gambas a la sal, fresh mussels—that showcase ingredient quality rather than complicated technique. Many beachfront venues offer set menus at reasonable prices, with local wine pairings that cost less than a cappuccino in central London.</p>
+
+<h3>Afternoons: Inland Discoveries</h3>
+
+<p>Venture into the palmeral of Elche, a UNESCO World Heritage site featuring over 200,000 date palms in groves that have existed for centuries. Walking through these ancient plantations offers surprising tranquility just minutes from developed areas. The palm harvesting tradition continues, and local restaurants serve regional specialties impossible to find elsewhere.</p>
+
+<p>The limestone hills above the Jalón Valley present extraordinary natural pools fed by mountain springs. These &#8220;pozos&#8221; (pools) remain cool year-round and attract local swimmers rather than tourist crowds. The hiking trails connecting these pools wind through Mediterranean scrub and offer panoramic views toward the coast. Many properties in the area feature direct access to these trail networks, making afternoon exploration a natural daily rhythm.</p>
+
+<h3>Evenings: Paseo and Local Culture</h3>
+
+<p>Participate in the paseo tradition—the evening promenade through town centers where locals walk, socialize, and observe community life. Jávea&#8217;s old town and Dénia&#8217;s seafront promenades offer this experience with authentic Spanish atmosphere. Stop at a local bar for a horchata or vermouth, watch the sunset, and observe the cadence of Mediterranean life that moves slower than northern Europe but with clear intentionality.</p>
+
+<p>Dinner typically occurs between 8:30 and 10:00 PM in family-run restaurants where the owner knows regulars and adjusts menus based on daily market offerings. These establishments offer substantially better value than tourist-oriented venues while delivering genuine regional cuisine.</p>
+
+<h3>Day Trips Within Easy Reach</h3>
+
+<p>Valencia lies 1.5 hours north and represents Spain&#8217;s paella capital—the dish originated here, not in Andalucía. The City of Arts and Sciences offers striking modern architecture contrasting with the historic city center. Countless restaurants serve authentic paella both in seafront venues and in the original working-class neighborhoods where the dish evolved.</p>
+
+<p>Alicante sits 45 minutes south, offering castle views, a historic waterfront, and access to the airport connecting directly to 50+ European cities. The city provides cultural amenities and dining without the formality of major metropolitan areas.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Costa Blanca Property Values Keep Rising</h2>
+
+<h3>Climate Advantage: 320 Days of Sunshine Annually</h3>
+
+<p>The Costa Blanca&#8217;s climate distinction transcends marketing language—it reflects measurable atmospheric data. With 320 days of sunshine per year, the region maintains attractiveness throughout twelve months, not merely during summer season. Winter temperatures rarely drop below 12°C, making outdoor activities viable year-round. This climate stability supports both permanent residence and seasonal occupation, broadening the buyer pool significantly.</p>
+
+<h3>Connectivity and Airport Access</h3>
+
+<p>Alicante-Elche Airport has evolved from a regional facility into a major European hub. Direct flights operate to more than 50 European cities, including major centers like London, Paris, Berlin, Amsterdam, Copenhagen, and Stockholm. This connectivity means fractional ownership becomes practical for European families and professionals based across the continent. Flight frequency to Northern Europe—particularly from Netherlands, Germany, and Scandinavia—has expanded consistently over the past decade.</p>
+
+<h3>Pricing Advantage Against Comparable Markets</h3>
+
+<p>Per-square-metre prices on the northern Costa Blanca remain materially lower than Costa del Sol or the Balearic Islands, despite offering comparable or superior natural environments. This pricing differential persists despite rising demand, particularly for premium locations in Jávea, Moraira, and Dénia. The value proposition has strengthened as buyers recognize equivalent lifestyle and climate benefits at substantially lower entry costs.</p>
+
+<h3>Post-Pandemic Migration Shift</h3>
+
+<p>The shift toward remote work and distributed living patterns, accelerated by 2020-2021 circumstances, brought sustained new buyer interest to the Costa Blanca. Dutch, German, and Scandinavian professionals established roots in northern Spain during this period, continuing to seek permanent or seasonal residence as hybrid working models normalize. This demographic shift differs from traditional holiday home purchasing—it reflects intention toward actual occupancy and lifestyle change rather than speculative acquisition.</p>
+
+<h3>Supply Constraints and Geographic Protection</h3>
+
+<p>The northern Costa Blanca—particularly the Jávea, Moraira, and Dénia corridor—experiences severe supply constraints. Spanish coastal planning laws protect natural areas and limit development density. The region&#8217;s natural geography (mountains, protected pine forests, rocky coastline) restricts available land for new construction. Existing properties, particularly those with optimal orientation, proximity to beaches, or access to natural features, face genuine scarcity that persists regardless of market cycles.</p>
+
+<p>Fractional ownership of premium properties in this constrained supply environment offers access to assets that individual buyers might find impossible to acquire at posted prices, while enabling sustainable usage patterns through professional management and shared operating costs.</p></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

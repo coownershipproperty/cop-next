@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USA Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Own a 1/8th share of luxury homes in Aspen, Malibu, Miami &amp; Lake Tahoe. Deeded co-ownership, not a timeshare. Explore USA vacation homes now.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>USA Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in USA?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>USA Fractional Ownership — Deeded Second Homes Across America&#8217;s Finest Destinations</h2>
+<p>USA fractional ownership gives you a legally recorded, <strong>deeded stake</strong> in one of America&#8217;s most sought-after vacation properties — owning a <strong>1/8 share</strong> of a fully managed ski chalet, beachfront villa, or city residence in destinations ranging from Aspen and Vail to Miami and Malibu, with approximately <strong>45 days of personal use per year</strong>. This is genuine co-ownership of real US property — not a timeshare, not a points club, and not a right-to-use arrangement — with your name on the American property deed and all the legal protections that entails.</p>
+<p>For UK buyers and international second-home seekers, USA fractional ownership provides the most practical pathway to owning a slice of American lifestyle — the mountain resorts of <a href="/colorado-fractional-ownership-properties/">Colorado</a>, the beaches of <a href="/florida-fractional-ownership-properties/">Florida</a>, the Pacific Coast glamour of <a href="/california-fractional-ownership-properties/">California</a>, and the canyon country of <a href="/utah-fractional-ownership-properties/">Utah</a> — with professional management handling every operational detail between visits. Browse our USA fractional ownership properties below and discover what deeded American co-ownership at the highest level truly means.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose USA Fractional Ownership?</h2>
+<p>USA fractional ownership represents one of the most compelling entry points into American real estate that exists for both domestic and international buyers. The United States offers an extraordinary breadth of lifestyle environments that no single European or Asian market can match: world-class ski resorts in <a href="/colorado-fractional-ownership-properties/">Colorado</a> and <a href="/utah-fractional-ownership-properties/">Utah</a>, year-round beach living in <a href="/florida-fractional-ownership-properties/">Florida</a> and <a href="/california-fractional-ownership-properties/">California</a>, sophisticated city culture in New York and Chicago, and the magical desert landscape of the American Southwest. Through deeded fractional co-ownership, buyers can own a genuine, legally registered share of premium American property at a fraction of the full acquisition cost without the operational complexity of sole ownership.</p>
+<p>The structural case for USA fractional ownership is powerful. America&#8217;s most desirable vacation property markets — <a href="/aspen-fractional-ownership/">Aspen</a>, <a href="/vail-fractional-ownership/">Vail</a>, <a href="/breckenridge-fractional-ownership/">Breckenridge</a>, <a href="/miami-fractional-ownership/">Miami</a>, <a href="/lake-tahoe-fractional-ownership-properties/">Lake Tahoe</a>, <a href="/park-city-fractional-ownership-2/">Park City</a> — feature exceptional properties that regularly command values beyond what most second-home buyers can commit to outright. A fractional ownership structure changes this equation fundamentally: buyers acquire a <strong>deeded 1/8 share</strong> registered at the county recorder&#8217;s office, giving them the same legal standing as any full property owner — the right to use, the right to sell, the right to bequeath the asset, and the right to benefit from any appreciation in the underlying asset value. This is not a lease, a licence, or a membership — it is documented real property ownership under US state law.</p>
+<p>USA fractional ownership also fits the reality of modern international lifestyle exceptionally well. Most buyers — whether from the UK, Europe, or elsewhere — can realistically use an American vacation property for four to six weeks per year. A full sole-ownership purchase at Aspen or Malibu prices brings with it an enormous capital outlay, ongoing costs, and operational complexity for a property that will sit empty for the majority of the year. Fractional co-ownership aligns the cost structure with the actual usage pattern, distributes the operational burden across co-owners, and provides a professional management framework that makes cross-border ownership genuinely workable. For UK buyers navigating the US immigration landscape, the B-2 visitor visa allows stays of up to six months, making USA fractional ownership&#8217;s typical <strong>45 days of personal use</strong> completely compatible with standard visitor arrangements.</p>
+<p>Beyond the purely financial logic, USA fractional ownership delivers something more difficult to quantify: genuine access to the American lifestyle that defines some of the world&#8217;s most extraordinary vacation experiences. Morning ski runs on champagne powder in the Rockies, afternoons on pristine white-sand beaches on the Gulf Coast, evenings in world-class restaurants in Miami&#8217;s South Beach — these are not simulated experiences through a club membership or a points system. They are the lived reality of property ownership in some of America&#8217;s most exceptional environments, experienced on your own schedule, in a property that is genuinely yours. That authenticity is what separates USA fractional ownership from every alternative model in the market, and what makes the deeded co-ownership structure so compelling for discerning second-home buyers worldwide.</p>
+<p>The USA fractional ownership market has also matured significantly in legal and structural terms over the past decade. Established operators now offer sophisticated co-ownership agreements, transparent cost structures, independent property management, and clear exit mechanisms — all of which give buyers the confidence to commit to this model at a high level. Whether you are drawn to the mountains, the coast, the desert, or the city, USA fractional ownership offers a credible, legally robust, and genuinely lifestyle-enhancing pathway to American property ownership that simply did not exist at this level of quality a generation ago.</p>
+<p>The timing of USA fractional ownership decisions is also worth understanding from a market cycle perspective. American resort property markets — particularly the top ski and beach destinations — have historically been resilient through economic cycles, supported by the inelastic global demand from high-net-worth buyers who continue to prioritise lifestyle assets even in periods of broader economic uncertainty. The post-pandemic period in particular demonstrated this resilience dramatically, with resort markets like Aspen, Jackson Hole, and Miami Beach experiencing unprecedented price appreciation as buyers recalibrated their lifestyle priorities and committed to owning second homes rather than simply renting them intermittently. USA fractional ownership provides an accessible entry point into these markets at any point in the cycle — the fractional price point is lower than full ownership, but the exposure to the market&#8217;s long-term trajectory is equivalent on a per-share basis.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>USA Fractional Ownership — Regions &amp; Destinations</h2>
+<p>USA fractional ownership spans an extraordinary range of environments — from the snow-capped peaks of the Rocky Mountains to the sun-drenched shores of the Pacific and Atlantic coasts. Each region has its own property market dynamics, seasonal rhythm, lifestyle proposition, and legal framework. Understanding which part of America speaks to you is the most important first step in any USA fractional ownership journey.</p>
+<h3>Colorado &amp; Utah — America&#8217;s Mountain Crown</h3>
+<p>The Rocky Mountain states offer the pinnacle of USA fractional ownership for buyers drawn to . <a href="/colorado-fractional-ownership-properties/">Colorado</a> is home to the world&#8217;s most celebrated ski resorts — <a href="/aspen-fractional-ownership/">Aspen</a>, <a href="/vail-fractional-ownership/">Vail</a>, and <a href="/breckenridge-fractional-ownership/">Breckenridge</a> — where ski-in/ski-out chalets and mountain lodges command extraordinary prices that make fractional co-ownership the most practical entry point. <a href="/utah-fractional-ownership-properties/">Utah</a> offers <a href="/park-city-fractional-ownership-2/">Park City</a> — host of the Sundance Film Festival and gateway to the Wasatch Mountains — alongside extraordinary landscapes from Zion to Bryce Canyon. Both states offer a four-season proposition: world-class skiing in winter, and hiking, mountain biking, fly fishing, and whitewater rafting through spring, summer, and fall. USA fractional ownership in the Rockies provides roughly <strong>45 days of annual use</strong> across both peak ski season and summer months, structured to give co-owners genuine access to both seasons.</p>
+<h3>California — Pacific Glamour &amp; Year-Round Living</h3>
+<p><a href="/california-fractional-ownership-properties/">California</a> represents the most internationally recognised USA fractional ownership destination — a state of extraordinary lifestyle breadth where Pacific Ocean beachfront, desert luxury, and world-class wine country all exist within a few hours of each other. Malibu, Santa Barbara, and the Monterey Peninsula offer cliff-top estates and beachside villas that rank among the most coveted residential real estate on the planet. The Napa Valley and Sonoma wine country provide an entirely different proposition: vineyard estates and Californian ranch properties surrounded by rolling hills and Michelin-starred restaurants. In the desert, Palm Springs offers mid-century modern architecture, year-round sunshine, and a thriving cultural scene. California&#8217;s year-round mild climate makes it particularly suited to fractional ownership — there is no single off season that leaves a property sitting idle, and co-owners can time their visits to personal preference rather than seasonal constraint.</p>
+<h3>Florida — Sunshine State Beach &amp; City Living</h3>
+<p><a href="/florida-fractional-ownership-properties/">Florida</a> is America&#8217;s most popular domestic vacation destination and a USA fractional ownership market of remarkable depth and variety. <a href="/miami-fractional-ownership/">Miami</a> — and specifically Miami Beach and South Beach — offers an urban  unlike anywhere else in the United States: Art Deco architecture, world-class nightlife, Wynwood&#8217;s gallery district, and direct Atlantic Ocean frontage. Beyond Miami, the Gulf Coast&#8217;s Naples and Sarasota offer a more tranquil luxury beach experience, while the Florida Keys provide an entirely unique island proposition. Florida&#8217;s year-round warmth makes it particularly appealing for buyers from the UK and northern Europe, who can escape winter months in genuine subtropical comfort. USA fractional ownership in Florida typically provides access across the full calendar year, giving co-owners the flexibility to use their weeks when the contrast with home is most valuable.</p>
+<h3>Lake Tahoe — Alpine Lake Living on the Nevada Border</h3>
+<p><a href="/lake-tahoe-fractional-ownership-properties/">Lake Tahoe</a> sits at 6,225 feet on the border of California and Nevada, forming one of the most dramatically beautiful natural environments in the United States. Crystal-clear waters ringed by the Sierra Nevada mountains create a setting that is spectacular in every season: world-class skiing at Heavenly, Northstar, and Squaw Valley in winter; sailing, paddleboarding, kayaking, and hiking in summer. The North Shore offers a quieter, more residential character with lakefront estates, while the South Shore combines casino entertainment with mountain adventure. USA fractional ownership at Lake Tahoe provides access to a genuinely four-season destination — the lakes and mountains here rival the <a href="/italian-lakes-fractional-ownership-properties/">Italian Lakes</a> and <a href="/austria-fractional-ownership-properties/">Austrian</a> alpine destinations, but with America&#8217;s distinctive spaciousness and year-round accessibility.</p>
+<h3>Mexico — Caribbean Coast Fractional Ownership</h3>
+<p>For buyers whose North American lifestyle ambitions extend beyond the US border, <a href="/mexico-fractional-ownership-properties/">Mexico</a> offers a natural extension of the USA fractional ownership proposition — Caribbean and Pacific coastline destinations including Los Cabos, the Riviera Maya, and Puerto Vallarta, where world-class beachfront properties are available at price points significantly below their US equivalents. Mexico&#8217;s fideicomiso trust structure provides international buyers with secure, legally recognised property rights, and the co-ownership model translates directly to the Mexican market with the same deeded, registered ownership framework. The proximity to US hubs — Los Cabos is under three hours from Los Angeles, Cancun under three hours from Miami — makes Mexico a genuinely connected part of the North American fractional ownership universe.</p>
+<h3>Beyond the Clusters — The Full North American Opportunity</h3>
+<p>USA fractional ownership is not limited to the most prominent resort markets. The Pacific Northwest, the Texas Hill Country, the Carolinas&#8217; Outer Banks, Maine&#8217;s rugged coastline, and the Hamptons on Long Island all provide highly sought coastal and rural environments with strong lifestyle credentials and established co-ownership frameworks. As the market continues to mature, new destinations are opening up that offer exceptional quality at more accessible price points. For buyers comparing USA fractional ownership with European alternatives such as <a href="/france-fractional-ownership-properties/">France</a>, <a href="/spain-fractional-ownership-properties/">Spain</a>, or <a href="/italy-fractional-ownership-properties/">Italy</a>, the USA offers unmatched geographic diversity and the security of the world&#8217;s most developed legal system for property rights.</p>
+<p>Beyond the headline markets, <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> is increasingly popular in emerging second-home destinations. The Great Smoky Mountains in Tennessee and North Carolina draw buyers seeking a quieter, four-season retreat — a rustic cabin or mountain lodge where every owner enjoys full autumn leaf-peeping season, winter snowfalls, and summer hiking on the Appalachian Trail. The Texas Hill Country has also matured as a lifestyle market, with San Antonio and Fredericksburg anchoring a growing cluster of vineyard estates and ranch-style properties that combine Western heritage with refined modern living. Meanwhile, the Pacific Northwest — particularly around Bend, Oregon, and the Columbia River Gorge — is attracting buyers who want dramatic volcanic landscapes, world-class cycling, and proximity to Portland, all without the full purchase cost of an outright buy. Fractional ownership across these emerging areas typically follows the same <strong>deeded 1/8 share</strong> structure as the major markets, ensuring the same legal protections regardless of location. As the USA second-home market broadens, co-ownership is expanding beyond its traditional coastal and ski strongholds, giving international buyers genuinely diverse lifestyle options at a fraction of the full property cost.</p>
+<p>Choosing the right area for your <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> investment requires thinking about more than just property prices. Consider the seasonality of your preferred activities — ski markets like <a href="/aspen-fractional-ownership/">Aspen</a> and <a href="/vail-fractional-ownership/">Vail</a> are busiest November through March, while coastal markets in <a href="/florida-fractional-ownership-properties/">Florida</a> and <a href="/california-fractional-ownership-properties/">California</a> offer year-round warmth. Think about flight routes from your home country — <a href="/miami-fractional-ownership/">Miami</a> and Los Angeles have extensive transatlantic connections, while mountain resort towns require a connecting flight. Consider the lifestyle you want week to week: urban walkability in cities like Miami or San Francisco, versus the wide-open ranch and wilderness experience of Colorado or Utah. Our team can help you map your lifestyle priorities to the right state and micro-market before you review specific properties.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How USA Fractional Ownership Works</h2>
+<p>USA fractional ownership operates as genuine co-ownership of American real property, structured and documented under the property law of the relevant state. There is no special statute or legal category called fractional ownership — this is simply real estate ownership in the fullest legal sense, with a co-ownership agreement governing how co-owners share usage, costs, and governance. Each owner holds a <strong>deeded fractional interest</strong> — typically one-eighth (1/8) — that is recorded at the county recorder&#8217;s office in the county where the property is located, exactly as any full property purchase would be.</p>
+<p>The acquisition process follows the standard US real estate transaction framework. Once a property and share are identified, the buyer enters into a purchase agreement and pays a deposit — typically 10–15% of the fractional purchase price. A title company conducts a title search to confirm clean ownership, and the transaction closes through an escrow agent. At closing, the deed is executed and recorded at the county recorder&#8217;s office, confirming the buyer&#8217;s ownership interest in the public land record. The buyer receives a copy of the deed and the co-ownership agreement, which governs the ongoing management and usage of the property. The entire process typically takes 30–60 days from signed purchase agreement to recorded deed, and can be completed remotely for international buyers with appropriate power of attorney arrangements.</p>
+<p>The co-ownership agreement is the central governance document of any USA fractional ownership structure. It defines the usage calendar — how the 52 weeks of the year are allocated across eight co-owners — the annual operating budget, the cost-sharing arrangements, the decision-making process for major expenditures, and the rules governing resale and transfer of shares. Most established operators provide co-ownership agreements drafted by specialist real estate attorneys that address all these elements in detail, and that include provisions for orderly exit if a co-owner wishes to sell their share. Some agreements include a <strong>right of first refusal</strong> giving existing co-owners the first opportunity to purchase any share that comes to market — a provision that many buyers find reassuring as it helps ensure ownership remains among parties who have agreed to the same governance framework.</p>
+<p>The legal structures used for USA fractional ownership vary by operator and state, but two frameworks predominate. The simpler approach — direct tenancy in common (TIC) — records each fractional interest directly on the deed in the co-owners&#8217; individual names. The alternative — an <strong>LLC (Limited Liability Company)</strong> structure — involves each co-owner holding a membership interest in an LLC that holds the property deed. The LLC approach offers certain administrative advantages including easier transfer of shares and cleaner governance through the operating agreement, and is often preferred by operators managing multiple co-owners across multiple properties. Both approaches provide equivalent security of ownership, and both result in legally registered interests in American real property.</p>
+<p>Day-to-day management of USA fractional ownership properties is handled by a professional property management company appointed by and accountable to the co-owners. The management company coordinates housekeeping and maintenance between visits, manages the usage calendar and booking system, handles all utility and service contracts, prepares the annual financial reporting for cost-sharing purposes, and serves as the primary point of contact for any operational issues that arise. High-quality management is the operational foundation of a successful USA fractional ownership experience — it is what allows co-owners from the UK or Europe to own American property with genuine confidence that it is being professionally cared for in their absence.</p>
+<p>For international buyers, the USA fractional ownership process involves some additional considerations. Foreign buyers of US real property are subject to <strong>FIRPTA</strong> (Foreign Investment in Real Property Tax Act) withholding at the time of sale — typically 15% of the gross sale price withheld at closing, which is applied against any actual capital gains tax liability. Annual property ownership for foreign nationals generates US tax reporting obligations, typically handled by a US accountant or tax adviser who files the necessary returns. Property taxes — levied by the county rather than the federal government — are typically handled through the property management arrangement and shared pro-rata among co-owners. These additional administrative requirements are manageable with proper professional support, and the leading USA fractional ownership operators have well-established processes for guiding international buyers through them.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>USA Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>USA fractional ownership sits at the intersection of two powerful motivations: the desire for an exceptional lifestyle experience in America&#8217;s finest vacation destinations, and the desire for a sound long-term property investment in the world&#8217;s most transparent and liquid real estate market. Understanding both dimensions clearly — and their relationship to each other — is essential for anyone considering USA fractional ownership as part of their broader wealth management and lifestyle strategy.</p>
+<p>From a lifestyle perspective, USA fractional ownership delivers something that no hotel, rental platform, or membership club can replicate: a genuine sense of place and belonging in a destination you own. When you own a deeded 1/8 share of a ski chalet in <a href="/aspen-fractional-ownership/">Aspen</a>, you are not a guest — you are an owner. The property is furnished to your taste or to a high standard by the operator, stocked and prepared before your arrival, and cared for as your own home. Over multiple visits each year, you build familiarity with the destination, relationships with local restaurants and guides, and the kind of deep local knowledge that only comes from genuine ownership. This sense of having a home in America — not just a reservation — is what most USA fractional co-owners cite as the defining advantage of ownership over even the best hotel or villa rental experience.</p>
+<p>The investment dimension of USA fractional ownership deserves careful analysis. America&#8217;s premier resort and coastal property markets have demonstrated remarkable long-term capital appreciation — markets like Aspen, Malibu, and Miami Beach have produced property value growth over multiple decades that has significantly outpaced broader US real estate averages. This appreciation reflects structural factors: permanently constrained supply in the most desirable locations, sustained and growing global demand from high-net-worth buyers, and the enduring strength of the US dollar as a reserve currency. These structural drivers suggest continued long-term value support for the highest-quality USA fractional ownership locations, though buyers should approach any property acquisition with a long-term horizon and appropriate professional advice.</p>
+<p>Rental income from unused weeks is a realistic possibility for some USA fractional ownership structures, but should not be relied upon as a primary investment thesis. Some co-ownership operators allow owners to make their allocated weeks available for short-term rental through approved platforms or the operator&#8217;s own rental programme. The economics vary considerably by destination — premium ski weeks in Aspen or Vail can command very strong nightly rates, while off-peak periods generate more modest returns. Rental income is always case-by-case, property-specific, and subject to the terms of the co-ownership agreement and local short-term rental regulations, which in some resort markets have become increasingly restrictive. The correct frame for rental income in USA fractional ownership is: a potential contribution to running costs, not a guaranteed yield.</p>
+<p>Annual running costs for USA fractional ownership properties typically include property taxes levied by the county, insurance, HOA or community fees where applicable, property management fees, and routine maintenance and servicing. These costs are shared equally among co-owners, so each 1/8 share owner pays one-eighth of the total annual operating budget. This shared cost structure is one of the most compelling financial advantages of USA fractional ownership — the running costs of a premium American property are distributed across eight co-owners rather than falling entirely on a sole owner who uses the property for only a fraction of the year. Transparency of running costs — <strong>detailed annual budgets</strong> prepared by the management company and shared with all co-owners — is a hallmark of professionally structured USA fractional ownership.</p>
+<p>For buyers comparing USA fractional ownership with European alternatives — <a href="/france-fractional-ownership-properties/">France fractional ownership</a>, <a href="/spain-fractional-ownership-properties/">Spain</a>, or <a href="/italy-fractional-ownership-properties/">Italy</a> — the USA offers some distinct advantages: an extremely well-developed legal system for property rights, a highly liquid secondary market for premium real estate, complete absence of Schengen residency restrictions for non-EU buyers, and access to lifestyle experiences that exist nowhere in Europe. USA fractional ownership is the right choice for buyers whose American dream is specific, genuine, and central to their lifestyle vision.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/colorado-fractional-ownership-properties/" class="dest-explore-card">Colorado Fractional Ownership &rarr;</a><a href="/florida-fractional-ownership-properties/" class="dest-explore-card">Florida Fractional Ownership &rarr;</a><a href="/california-fractional-ownership-properties/" class="dest-explore-card">California Fractional Ownership &rarr;</a><a href="/utah-fractional-ownership-properties/" class="dest-explore-card">Utah Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>USA Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly do I own with USA fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>With USA fractional ownership, you own a legally recorded fractional interest in American real property — most commonly a <strong>1/8 share</strong> (12.5%) of the property and all associated land. Your ownership is documented in a deed that is recorded at the county recorder&#8217;s office, exactly as any full property purchase would be. You are named on the public land record as a property owner in the United States. This gives you all the legal rights of property ownership: the right to use the property during your allocated time, the right to sell your share on the open market, the right to bequeath it through your estate, and the right to benefit from any increase in the property&#8217;s value over time.</p>
+<p>This is fundamentally different from a timeshare, which is a contractual right to use a property during specified periods — not a property ownership interest. With USA fractional ownership, you own real American real estate. With a timeshare, you own a contract. The legal, financial, and lifestyle implications of that distinction are enormous, and it is the central reason why deeded USA fractional ownership has grown in credibility and popularity as the timeshare model has declined.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use my USA fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>As a 1/8 share owner, you are entitled to use the property for approximately <strong>45 days per year</strong> — the equivalent of six to seven weeks of personal use. The specific allocation of weeks is governed by the co-ownership agreement and the usage calendar managed by the property management company. Most operators use a rotating calendar system that ensures fair allocation of peak-season weeks across all co-owners on an annual basis. Some operators allow owners to trade, rent, or donate unused weeks within the co-ownership arrangement, subject to the terms of the agreement.</p>
+<p>For international buyers, 45 days of annual use in the United States is fully compatible with standard B-2 visitor visa arrangements, which allow stays of up to 6 months (180 days). Unlike EU destinations where UK buyers face the post-Brexit 90-day Schengen limit, the United States imposes no equivalent restriction on property owners visiting their American homes — though buyers should always take professional immigration advice specific to their individual circumstances.</p></div></details><details class="dest-faq-item"><summary><h3>How does USA fractional ownership differ from a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The distinction is fundamental: <strong>timeshare is not property ownership</strong> — it is a contractual right to use a resort unit for a specified period each year, typically for a fixed term, with no ownership of the underlying real estate. USA fractional ownership, by contrast, is documented real property ownership. You hold a deeded fractional interest registered in your name at the county recorder&#8217;s office. You own an undivided share of an actual property and the land it sits on.</p>
+<p>The practical implications of this difference are significant: fractional owners benefit from any appreciation in the property&#8217;s value, can sell their share on the open market to any buyer at any price, and can bequeath their ownership interest through their estate. Timeshare holders typically cannot benefit from property appreciation, face severely restricted resale markets, and hold a contractual right that may expire or be subject to resort management decisions.</p>
+<p>From a financial perspective, the historical resale outcomes are dramatically different. Quality USA fractional ownership properties in premium markets have demonstrated genuine long-term capital appreciation. Timeshares are widely known to have poor resale value and are frequently given away or abandoned at significant financial loss to the original purchaser. These facts are why deeded co-ownership has grown rapidly as the timeshare model has declined.</p></div></details><details class="dest-faq-item"><summary><h3>What are the tax implications of USA fractional ownership for UK and international buyers?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>USA fractional ownership carries several tax considerations for international buyers that require proper professional advice. At the point of sale, foreign buyers are subject to <strong>FIRPTA</strong> (Foreign Investment in Real Property Tax Act) withholding — the buyer&#8217;s agent withholds 15% of the gross sales price at closing and remits it to the IRS as a withholding on any potential capital gain. This is a withholding mechanism, not an additional tax — if the actual capital gain is less than the amount withheld, the seller can file a US tax return to claim a refund. If rental income is generated from the property during ownership, this is also subject to US taxation and reporting requirements.</p>
+<p>Annual property taxes are levied by the county and are typically 0.5–2% of assessed value per year, shared pro-rata among co-owners. For a 1/8 share owner, this represents one-eighth of the total annual property tax bill. For UK buyers, the USA and UK have a comprehensive double taxation treaty that provides relief on income and capital gains — professional cross-border tax advice is essential to ensure you structure your USA fractional ownership correctly from the outset.</p>
+<p>For buyers considering an LLC structure for their fractional ownership, the tax treatment of the LLC also requires professional advice — the transparency of the LLC for US and home-country tax purposes depends on elections made at formation and must be coordinated carefully with specialist advisers on both sides of the Atlantic.</p></div></details><details class="dest-faq-item"><summary><h3>Which USA destination is best for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The best USA fractional ownership destination depends entirely on your lifestyle priorities, travel patterns, and the type of experience you are seeking. For mountain and ski enthusiasts, <a href="/colorado-fractional-ownership-properties/">Colorado</a> — specifically Aspen and Vail — and <a href="/utah-fractional-ownership-properties/">Utah&#8217;s Park City</a> represent the gold standard of North American ski resort living, with ski-in/ski-out access, world-class dining, and exceptional four-season utility. For beach and warmth seekers, <a href="/florida-fractional-ownership-properties/">Florida</a> offers year-round sunshine, white-sand beaches, and no state income tax. For Pacific Coast living, <a href="/california-fractional-ownership-properties/">California</a> provides the most internationally glamorous American lifestyle proposition.</p>
+<p>From a pure investment perspective, Aspen and Miami Beach have historically produced the strongest long-term capital appreciation of any US vacation market, driven by permanently constrained supply and relentlessly growing global demand. <a href="/lake-tahoe-fractional-ownership-properties/">Lake Tahoe</a> and Park City represent strong second-tier markets with excellent lifestyle credentials. The most important factor is which specific property, operator, and co-ownership structure gives you the best combination of personal utility, cost transparency, and legal security.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my USA fractional ownership property during unused weeks?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Rental income from unused weeks is permitted in many USA fractional ownership structures but is not guaranteed or universal. Whether rental is permitted — and under what conditions — depends on the terms of the specific co-ownership agreement, the property management arrangement, and local short-term rental regulations. In most resort markets, the co-ownership operator will manage an optional rental programme through which unused weeks can be made available to third-party renters, with revenue distributed to the owner after platform and management fees.</p>
+<p>It is important to note that rental regulation in the US varies significantly by municipality and county. Some resort markets — including certain ski towns in Colorado and vacation communities in Florida — have enacted restrictions on short-term rental permits that can affect the viability of rental programmes. Always confirm the specific rental permissions and restrictions applicable to any property before making rental income a material part of your investment rationale.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing running costs of USA fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Annual running costs for USA fractional ownership properties vary by destination, property size, and management arrangement, but typically include: property taxes (shared pro-rata, typically 0.5–2% of assessed value annually); property insurance; HOA or condominium association fees where applicable; property management fees covering housekeeping, maintenance coordination, and administration; utilities and consumables; and a capital reserve contribution for future major maintenance or improvement works. These costs are split equally among co-owners, so a 1/8 share owner pays one-eighth of the total annual budget.</p>
+<p>In concrete terms, annual running costs for a quality USA fractional ownership property in a tier-one resort market might range from $8,000 to $25,000 per year for a 1/8 share — representing excellent value when benchmarked against the cost of renting equivalent accommodation for 45 days in the same destination. The co-ownership model fundamentally changes the cost structure of premium American vacation property access, making it genuinely affordable to own rather than merely rent at high seasonal cost.</p>
+<p>Transparency of running costs is a critical quality indicator when evaluating USA fractional ownership operators. Reputable operators provide detailed annual budgets before purchase, maintain a capital reserve fund for maintenance, and distribute audited financial accounts to all co-owners each year. If a prospective operator cannot or will not provide this level of financial transparency before you commit, that is a significant red flag.</p></div></details><details class="dest-faq-item"><summary><h3>How do I sell my USA fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Selling a USA fractional ownership share follows a process similar to selling any real property interest — the share can be listed for sale on the open market, marketed through specialist fractional ownership brokers, or offered to existing co-owners if the co-ownership agreement includes a <strong>right of first refusal</strong> clause. The sale is documented through a purchase agreement and closes through a title company and escrow agent, with the deed transfer recorded at the county recorder&#8217;s office. The process is legally identical to selling any US real property interest.</p>
+<p>The liquidity of the secondary market for USA fractional ownership shares varies by destination and operator. Shares in well-maintained properties in high-demand markets — Aspen, Miami, Malibu — typically attract buyer interest relatively quickly. For foreign sellers, FIRPTA withholding applies at the time of sale, with any overpayment refunded after filing. Professional advice from a US real estate attorney and cross-border tax adviser is recommended before listing.</p>
+<p>Buyers should evaluate the exit provisions of any co-ownership agreement carefully before purchasing, including any restrictions on who may purchase a share, any approval processes required from existing co-owners, and any pre-emption rights that might affect pricing or timing of a future sale.</p></div></details><details class="dest-faq-item"><summary><h3>Can I pass my USA fractional ownership to family members or through my estate?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — because USA fractional ownership is genuine deeded real property, the ownership interest can be transferred to family members, gifted, or bequeathed through a will or estate plan, subject to the terms of the co-ownership agreement and applicable US and home-country estate planning rules. This is one of the most significant distinguishing features between deeded fractional ownership and timeshare — timeshares are frequently non-transferable or subject to resort company approval, while USA fractional ownership shares are transferable property rights governed by standard real estate law.</p>
+<p>For US estate planning, an interest in American real property owned by a foreign national is subject to US federal estate tax on death — currently at rates up to 40% on US situs assets above a relatively low exemption threshold for non-domiciliaries. This can be mitigated through appropriate planning, including holding the interest through a non-US trust or foreign corporation structure, though such structures have their own complexities. Cross-border estate planning advice from a specialist who understands both US and UK estate tax rules is essential before acquiring USA fractional ownership property.</p>
+<p>The co-ownership agreement will typically specify whether transfers to family members require co-owner approval, and whether the transferee is bound by the same terms and obligations as the original owner. Understanding these provisions in advance ensures there are no surprises when succession planning becomes relevant.</p></div></details><details class="dest-faq-item"><summary><h3>How does USA fractional ownership compare to European fractional ownership destinations?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>USA fractional ownership and European fractional ownership share the same fundamental model — deeded co-ownership of real property with structured usage, professional management, and shared running costs — but differ in several important respects. The US real estate legal system is among the most developed in the world for property rights, with highly transparent title insurance systems, professional escrow processes, and well-established secondary markets in most resort locations. <a href="/france-fractional-ownership-properties/">France</a>, <a href="/spain-fractional-ownership-properties/">Spain</a>, and <a href="/italy-fractional-ownership-properties/">Italy</a> all have their own robust legal frameworks, but the processes differ and require country-specific expertise.</p>
+<p>For UK buyers post-Brexit, USA fractional ownership carries a specific advantage over EU destinations: there are no equivalent Schengen 90-day restrictions limiting how frequently you can visit your American property. UK holders of the B-2 visitor visa can stay in the US for up to 6 months at a time, and the typical 45-day fractional ownership usage sits very comfortably within this framework. By contrast, UK buyers visiting a property in <a href="/french-alps-fractional-ownership-properties/">the French Alps</a> or <a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a> are subject to the 90-day-in-any-180-day Schengen restriction, which complicates usage planning.</p>
+<p>The choice between USA and European fractional ownership ultimately comes down to lifestyle orientation. The USA offers unmatched geographic diversity within a single country, with English as the working language and a cultural familiarity that many British buyers find immediately comfortable. European destinations offer Mediterranean sunshine, proximity from UK airports, and a lifestyle tradition that speaks powerfully to buyers with family or cultural connections to France, Spain, or Italy. USA fractional ownership is the right choice when America is genuinely where you want to be.</p></div></details><details class="dest-faq-item"><summary><h3>Do I need a US visa to own USA fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Owning property in the United States does not automatically grant any visa or immigration status. UK citizens can visit the US under the Visa Waiver Program (ESTA) for up to 90 days per visit, or apply for a B-2 visitor visa which allows stays of up to 6 months. Neither form of admission is affected by property ownership — the 45 days of personal use typical of a 1/8 share USA fractional ownership sits well within either framework, and can be structured as a single visit or multiple shorter visits depending on personal preference and travel patterns.</p>
+<p>The US immigration authorities are alert to individuals who appear to be living in the country outside the terms of their visa admission. Visitors on ESTA or B-2 visas who spend very extensive periods in the US may face questions about their immigration status. For buyers whose lifestyle ambitions include extended US stays beyond the fractional ownership allocation, specific immigration advice about E-2 investor visas or other appropriate pathways is recommended.</p>
+<p>The absence of EU-equivalent residency restrictions is a genuine advantage of USA fractional ownership for UK buyers — there is no Schengen 90-day cap that limits total annual time in the country across multiple visits. USA fractional ownership&#8217;s 45-day personal allocation can be used in a flexible, multi-visit pattern without the administrative complexity that post-Brexit Schengen rules impose on European fractional ownership usage.</p></div></details><details class="dest-faq-item"><summary><h3>What should I look for when choosing a USA fractional ownership operator?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Choosing the right USA fractional ownership operator is one of the most important decisions in the entire acquisition process. The operator — the company that has structured the co-ownership, selected and acquired the property, drafted the co-ownership agreement, and appointed the property management company — is the foundation of your entire ownership experience. Key factors to evaluate include: the legal robustness of the co-ownership structure (has it been established by specialist US real estate attorneys?); the quality and independence of the property management; the fairness and transparency of the usage calendar and booking system; the clarity of the annual cost structure and financial reporting; and the operator&#8217;s track record of managing co-ownership properties through the full ownership lifecycle including resale.</p>
+<p>Before committing to any USA fractional ownership purchase, buyers should review the full co-ownership agreement with a specialist US real estate attorney, understand the complete cost structure including all management fees and capital reserve contributions, verify the title insurance commitment, and speak with existing co-owners on comparable properties managed by the same operator if possible. References and track record matter enormously in a market where the quality differential between operators is significant.</p>
+<p>USA fractional ownership at its best is a genuinely excellent way to own premium American property — but the quality of the experience depends heavily on the quality of the operator and the legal framework they have established. Invest appropriate time and professional resource in due diligence before signing, and you will be in the best possible position to enjoy your USA fractional ownership for many years to come.</p></div></details><details class="dest-faq-item"><summary><h3>Is USA fractional ownership a good investment compared to buying outright?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>USA fractional ownership is not designed to replace outright ownership for buyers who genuinely need a full-time vacation home or who want unlimited access to their American property. Rather, it is specifically designed for buyers who will realistically use an American property for four to seven weeks per year and want the quality, legal security, and lifestyle authenticity of true ownership — rather than the operational complexity and capital commitment of sole ownership on one hand, or the impermanence of rental on the other.</p>
+<p>On a pure cost-per-day-used basis, USA fractional ownership typically compares very favourably with both sole ownership (where the full capital cost and running expenses are borne by a single owner using the property for perhaps 40-50 days per year) and premium villa rental (where daily rates in top ski and beach destinations can exceed $2,000–$5,000 per night during peak season). The fractional model captures the capital appreciation of genuine property ownership while distributing the costs across usage patterns that actually reflect how most second-home buyers use their properties in practice.</p>
+<p>For buyers who can commit to a full sole-ownership purchase and genuinely want unlimited access — or who intend to use the property as a long-term rental investment — outright ownership may be more appropriate. For those who want quality access, legal ownership, and manageable costs aligned to realistic usage, USA fractional ownership consistently offers the superior overall value proposition. The conversation with a specialist adviser about your specific circumstances, financial position, and lifestyle requirements will quickly clarify which approach is right for you.</p></div></details><details class="dest-faq-item"><summary><h3>What happens if one co-owner stops paying their share of running costs?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>This is one of the most important practical risk questions in any USA fractional ownership evaluation, and the answer lies almost entirely in the quality of the co-ownership agreement and the operator&#8217;s governance framework. In a properly structured USA fractional ownership arrangement, the co-ownership agreement will include clear provisions for what happens if a co-owner defaults on their obligations — typically a combination of suspension of usage rights, a right for the other co-owners to pursue the defaulting owner for their share of costs through standard legal process, and in some structures a forced-sale provision that enables the defaulting share to be sold to recover outstanding amounts.</p>
+<p>Some operators mitigate this risk further by holding a maintenance reserve fund contributed by all co-owners, which can cover short-term shortfalls while any dispute with a defaulting owner is resolved. Others manage the capital reserve at the property level, ensuring that routine maintenance and major works are pre-funded regardless of individual co-owner circumstances. The existence and adequacy of these protections is one of the most important due diligence questions to raise with any prospective USA fractional ownership operator before committing.</p>
+<p>The practical reality is that defaults among co-owners of premium USA fractional ownership properties are relatively rare — the buyers who invest in high-quality co-ownership properties tend to be financially stable individuals for whom the annual running costs represent a modest proportion of their overall wealth. Nevertheless, understanding the protection mechanisms in advance gives buyers the confidence to commit to the model, and evaluating the quality of those protections is an important part of the operator due diligence process.</p></div></details><details class="dest-faq-item"><summary><h3>How do I get started with USA fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Getting started with USA fractional ownership begins with clarity about your lifestyle vision — which American destinations genuinely excite you, what property type suits your lifestyle best, how many weeks per year you realistically intend to use the property, and what budget you have available for both the initial acquisition and ongoing annual running costs. The clearer you are about these parameters from the outset, the more efficiently you can evaluate the available inventory and identify the specific property and share that represents the best fit for your needs.</p>
+<p>The next step is engaging with a specialist co-ownership adviser — ideally one with specific expertise in USA fractional ownership and familiarity with the leading operators in each market. A good adviser will help you understand the available inventory, evaluate the quality of different co-ownership structures, identify any red flags in operator due diligence, and navigate the legal and financial aspects of the acquisition with appropriate professional support on both the US and home-country sides. The <a href="/co-ownership-buying-process/">co-ownership buying process</a> is well-established and, with the right guidance, straightforward — but it benefits enormously from experienced specialist support throughout.</p>
+<p>The team at Co-Ownership Property works exclusively with buyers seeking premium fractional co-ownership opportunities across the USA and internationally. We can introduce you to the leading USA fractional ownership operators, help you evaluate specific properties and structures, and connect you with the specialist legal and financial advisers you will need to complete a USA fractional ownership acquisition with confidence. Start the conversation by browsing our current USA fractional ownership listings above, or reach out directly to discuss your specific requirements with our team.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK or European buyers get a US mortgage or financing for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Traditional US residential mortgages are generally not available for <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> properties because most high-street lenders require whole ownership of a single property. However, this does not mean financing is impossible. Some specialist lenders, private banks, and wealth management firms offer portfolio lending or foreign national loan products that can be structured around a fractional interest in a US property held via an LLC or co-ownership agreement. Seller financing — where the property management company or selling party provides an instalment arrangement — is also available on certain listings. Many buyers from the UK and Europe also find that releasing equity from an existing property at home, or using a SIPP or investment portfolio, provides a cleaner and faster route to funding their share. The <strong>lower entry price</strong> of a 1/8 share relative to full ownership often means the total purchase sum is achievable without institutional lending at all. Our team can introduce you to advisers who specialise in cross-border property financing and help you identify the most practical route based on your personal financial situation.</p></div></details><details class="dest-faq-item"><summary><h3>What happens if I want to sell my fractional ownership share in the USA?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Because <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> involves a genuine deeded interest recorded at the county level, your share can be resold in the same way as any real property interest — through a real estate agent, via the management company&#8217;s internal resale programme, or privately. The co-ownership agreement typically includes a <strong>right of first refusal</strong> clause, which means existing co-owners have the opportunity to buy your share before it is offered to the general market. This protects the integrity of the ownership group and can accelerate the resale process. Listing your share through the property manager&#8217;s network often reaches buyers who are specifically seeking entry into an established, professionally managed co-ownership — making the resale market more liquid than many buyers expect. From a tax standpoint, any capital gain realised on the sale of a US property interest by a foreign national is subject to <strong>FIRPTA</strong> (the Foreign Investment in Real Property Tax Act), which requires the buyer to withhold a percentage of the sale price and remit it to the IRS on the seller&#8217;s behalf. A US tax adviser can help you structure the sale efficiently and claim any applicable treaty benefits. Overall, the resale process for fractional ownership in the USA is straightforward provided the original purchase documents are in order and the co-ownership agreement has been properly structured.</p>
+<p>If market conditions have changed and you are not ready to sell, most <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> agreements also allow owners to transfer their usage weeks to family members or, where the property permits, to rent unused time. This flexibility ensures that your ownership adapts to life changes — relocation, family growth, changing travel habits — without forcing a premature sale. Speak with our team or your legal adviser about the specific provisions in your co-ownership agreement before making any decisions about transfer or resale.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South of France Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Own a share of luxury villas and apartments on the French Riviera through fractional ownership. Discover Cannes, Nice &amp; Saint-Tropez opportunities.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>South of France Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in South?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose South of France Fractional Ownership?</h2>
+<p>South of France fractional ownership brings together one of the world&#8217;s most recognisable and enduringly desirable Mediterranean landscapes with the most rational model for accessing premium French real estate. The South of France — encompassing Provence, the Côte d&#8217;Azur, the Languedoc, the Luberon, the Var, and the Camargue — is not one destination but a mosaic of profoundly different yet equally extraordinary environments. Lavender fields and stone farmhouses. Cliffside fishing villages and superyacht harbours. Ancient Roman aqueducts and contemporary art foundations. Pine forests meeting turquoise coves. All of it bathed in the particular Mediterranean light that has attracted painters, writers, philosophers, and lifestyle buyers for generations. South of France co-ownership means choosing your place within this landscape and returning to it, season after season, as a genuine property owner.</p>
+<p>The case for South of France fractional property rests on a combination of lifestyle quality, structural market logic, and post-Brexit practicality that is difficult to match in any other European destination. The lifestyle offer is exceptional in its variety: the Côte d&#8217;Azur from Nice to Menton offers the most glamorous Mediterranean coastline in Europe — the original Riviera, where palatial Belle Époque hotels and contemporary art foundations sit beside intimate fishing harbours and some of the best markets and restaurants in France. Provence offers an entirely different but equally compelling experience: the heat and stillness of a Luberon summer afternoon, the scent of lavender and wild thyme, the satisfying weight of a cold rosé at a shaded table outside a restaurant in a hilltop village that has looked more or less the same for five hundred years. The Languedoc and the Occitanie coast offer a third register entirely — more rugged, more affordable, wilder in its landscapes, with kilometres of undeveloped Mediterranean shoreline, extraordinary wine culture, and the remarkable mediaeval heritage of Carcassonne, Nîmes, and the Canal du Midi.</p>
+<p>For UK buyers, South of France fractional ownership carries a particular urgency in the post-Brexit era. Since January 2021, British nationals visiting Schengen-area countries — which includes France — are subject to the <strong>90-day-in-180-day limit</strong> across the entire zone. For UK families who previously spent long, continuous summer months at a French holiday property, this represents a genuine and significant constraint. A <strong>1/8 share</strong> providing approximately 45 days of personal use per year represents the most efficient use of a UK buyer&#8217;s annual Schengen allocation in the finest Mediterranean destination in Europe — ensuring that the allocated time is spent in a property that is genuinely owned, professionally managed, and fully prepared for every arrival. For buyers who also have commitments in other Schengen countries — Spain, Italy, Portugal, Greece — the pooled nature of the 90-day limit makes the precision and flexibility of a South of France fractional co-ownership arrangement particularly valuable.</p>
+<p>South of France fractional property is structured as genuine co-ownership under French law, completed through the standard French notarial conveyancing system. The purchase is identical in legal character to any other French property acquisition — a <em>compromis de vente</em>, a notaire managing the transaction, and registration of the ownership interest in the <em>fichier immobilier</em>. Your name, or that of a legal entity you designate, appears on the <em>acte authentique</em> as a recorded French property owner. This is not a holiday club, a timeshare, or a leisure arrangement. It is a registered real property interest in France, carrying all the legal protections and rights of French property ownership — including the right to sell your share independently, inherit it, and benefit proportionally from any appreciation in the underlying property&#8217;s value.</p>
+<p>The property market context for South of France fractional ownership is equally compelling. Prime coastal real estate on the Côte d&#8217;Azur — between Cap Ferrat and Ramatuelle — represents some of the most expensive and supply-constrained residential property in the world. Inland, the finest Provençal villages and the most sought-after Luberon properties command prices that have risen steadily for decades, underpinned by permanent scarcity and sustained global demand from French, British, American, Scandinavian, and Middle Eastern buyers. The South of France has, in a very real sense, never gone out of fashion — and the structural reasons for this (climate, beauty, gastronomy, cultural depth, infrastructure) are not transient. South of France co-ownership provides access to exactly this tier of the French property market, at a proportionate fraction of the acquisition cost, with professional management removing the burden of remote property ownership entirely.</p>
+<p>Access to the South of France from the UK and major European cities is among the best of any co-ownership destination. Direct flights from London and UK regional airports to Nice, Marseille, Montpellier, and Nîmes operate year-round, with flight times typically under two hours. Nice Côte d&#8217;Azur Airport is one of the busiest international airports in France, with direct connections from virtually every major European city and transatlantic services from North America. Eurostar services to Paris, with onward TGV connections to Marseille and Aix-en-Provence, provide a comfortable and increasingly popular alternative for travellers from London and the southeast. The South of France is not remote luxury — it is genuinely, practically accessible for lifestyle buyers from across Europe and beyond.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>South of France Fractional Ownership — Regions &amp; Destinations</h2>
+<p>South of France fractional ownership spans an extraordinary range of environments — from the glamorous Mediterranean coast to the wild Provençal interior. Each region has its own character, its own pace, and its own reasons to be the right base for a lifetime of French returns. Below are the areas and destinations that attract the most discerning South of France co-ownership buyers.</p>
+<h3>Côte d&#8217;Azur — South of France Fractional Ownership</h3>
+<p>The Côte d&#8217;Azur is the defining statement of South of France fractional ownership — the original Riviera, stretching from the Italian border at Menton to Saint-Tropez and the Var coast, encompassing Nice, Antibes, Cannes, Juan-les-Pins, and some of the most exclusive property markets in Europe. Nice itself is a city of extraordinary vitality: a Baroque old town of pastel-painted palaces, a remarkable museum landscape (the Matisse Museum, the Chagall Museum, and the recently renovated and internationally celebrated MAMAC modern art museum), and a seven-kilometre seafront promenade that represents the Riviera at its most magnificently theatrical. Between Nice and Monaco — the stretch that includes Cap Ferrat, Beaulieu-sur-Mer, Eze, and Cap d&#8217;Ail — the coastline becomes increasingly dramatic and the property market increasingly rarefied. Cap Ferrat is one of the most expensive residential addresses in the world, a pine-covered peninsula of extraordinary Belle Époque villas, hidden coves, and a marina of impeccable calm. To the west, Antibes and Juan-les-Pins offer a more vivid and cosmopolitan character — Antibes&#8217; old town with its Picasso Museum and lively market, Juan-les-Pins with its legendary jazz festival history. Cannes combines the prestige of its international film festival with a genuinely liveable Provençal city character. South of France fractional co-ownership along the Côte d&#8217;Azur gives buyers access to the most glamorous and internationally recognised section of the French Mediterranean coast — a market where supply is permanently limited by geography and demand from global buyers has never meaningfully diminished. The proximity of Nice Côte d&#8217;Azur Airport, with its exceptional international connections, makes this one of the most logistically convenient co-ownership destinations in Europe.</p>
+<h3>Provence &amp; the Luberon — South of France Fractional Ownership</h3>
+<p>Provence and the Luberon represent South of France fractional ownership in its most authentically French and most quietly coveted form. The Luberon Massif — the range of hills between the Durance and the Calavon valleys, designated a UNESCO biosphere reserve — is the heartland of the South of France property market for buyers who want landscape, tranquillity, and the genuine Provençal experience rather than the glamour of the coast. The hilltop villages of Gordes, Bonnieux, Ménerbes, Lacoste, and Lourmarin are among the most beautiful villages in France — stone-built, ochre-coloured, centuries old, and impeccably maintained as living communities rather than tourist spectacles. Gordes, in particular, regularly appears on any shortlist of the most beautiful villages in the world: its terraced streets of pale limestone buildings cascading down a dramatic hill, with views across the valley to the Luberon crest and the lavender fields of the Valensole plateau beyond, have made it one of the most photographed places in France. Aix-en-Provence — the refined university city where Cézanne was born and where he painted the Montagne Sainte-Victoire obsessively throughout his life — provides the urban centre for this part of Provence: elegant streets of 17th and 18th-century hôtels particuliers, exceptional restaurants and food markets, and a cultural life that makes it one of the most liveable cities in France. South of France co-ownership in Provence and the Luberon appeals to buyers who want the interior landscape — the heat, the light, the silence, and the depth of French village life — rather than the coast.</p>
+<h3>Saint-Tropez &amp; the Var — South of France Fractional Ownership</h3>
+<p>Saint-Tropez and the Var coast represent the South of France fractional ownership market at its most storied and most seasonally intense. Saint-Tropez itself — the fishing village made legendary by Brigitte Bardot in the 1950s and now the most recognisable summer resort destination in the world — delivers an extraordinary concentration of glamour, natural beauty, and gastronomic excellence within a setting that remains, despite its fame, genuinely beautiful. The Pampelonne beach, stretching south from the town across three kilometres of fine white sand, is lined with the most famous beach clubs in Europe. The old port, with its multi-million-euro superyachts and its morning fish market operating in their shadow, encapsulates the particular Saint-Tropez paradox: simultaneously one of the most exclusive addresses in Europe and one of the most authentically French fishing communities on the coast. Beyond Saint-Tropez, the Var offers an enormous range of South of France co-ownership opportunities: the Gorges du Verdon — one of Europe&#8217;s great canyons — for outdoor adventure and dramatic landscape; the wine villages of the Massif des Maures for a quieter, more rural Provençal experience; and the coastal towns of Bandol and Cassis for Mediterranean living with an authentic local character. The Var is also home to some of France&#8217;s finest rosé wine production — the wines of Provence are increasingly recognised internationally as among the best in France, adding a gastronomic dimension to any South of France fractional property investment here.</p>
+<h3>Languedoc &amp; the Occitanie Coast — South of France Fractional Ownership</h3>
+<p>The Languedoc and the broader Occitanie coast represent the least commercially developed and arguably the most genuinely wild section of the French Mediterranean — a stretch of coast and hinterland extending from the Rhône delta in the east to the foothills of the Pyrenees in the west, encompassing remarkable diversity of landscape, culture, and property character. Montpellier — one of the fastest-growing and most dynamic cities in France, with an exceptional university, a vibrant cultural scene, and an increasingly significant tech and biomedical industry — provides the urban anchor for the region. The coastal lagoons and wild beaches of the Camargue, extending west from the Rhône towards Sète, offer a completely different South of France co-ownership experience: flat, wild, flamingo-populated wetlands fringed by kilometres of undeveloped sand beaches, accessible to buyers who want the Mediterranean coast without the density of development that characterises the Côte d&#8217;Azur or the Var. Further west, the fortified city of Carcassonne and the vineyards of the Languedoc — producing some of the most exciting wines in France — offer a cultural and gastronomic dimension of genuine depth. South of France fractional property in Languedoc-Roussillon tends to offer more accessible price points than the Côte d&#8217;Azur or the Luberon, with equally dramatic landscape and a more authentically local character — making it particularly attractive for buyers entering the South of France co-ownership market for the first time, or seeking a complement to a more expensive primary second-home destination.</p>
+<h3>Aix-en-Provence, Marseille &amp; the Calanques — South of France Fractional Ownership</h3>
+<p>The arc of territory running from Aix-en-Provence south through the Étang de Berre to Marseille and the extraordinary Calanques coastline represents a South of France fractional co-ownership opportunity of quite singular character. Marseille — France&#8217;s second city and one of the great port cities of the Mediterranean world — has undergone a remarkable transformation over the past decade. The opening of the MuCEM (the Museum of European and Mediterranean Civilisations) in 2013, the regeneration of the Euroméditerranée waterfront district, and a genuinely extraordinary food scene anchored by the world&#8217;s most celebrated fish stew, bouillabaisse, have repositioned Marseille as one of the most compelling urban destinations in southern France. The Calanques — the dramatic series of limestone fjords stretching east from Marseille towards Cassis, designated a national park in 2012 — provide some of the most spectacular coastal scenery in France: sheer white limestone cliffs plunging vertically into crystalline turquoise water, accessible by boat, kayak, or the extraordinary network of hiking trails that traverse the massif. Cassis itself — a small, elegant port town sitting at the western end of the Calanques with its own appellation wine — is one of the most charming and underrated towns on the entire French Mediterranean coast. South of France co-ownership in this western Provence arc offers an extraordinary combination of urban culture, wild nature, and Mediterranean seaside living within a single, highly accessible geographical area.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How South of France Fractional Ownership Works</h2>
+<p>South of France fractional ownership operates as genuine co-ownership of French real property, completed through the standard French conveyancing system under the supervision of a French notaire. The purchase process is legally identical to any other French property transaction: a <em>compromis de vente</em> (preliminary contract) is signed, the notaire manages the title search and transaction mechanics, and on completion the buyer&#8217;s ownership interest is registered in the national property registry, the <strong><em>fichier immobilier</em></strong>. Your name — or the name of a legal entity you designate for tax and estate planning purposes — appears on the <em>acte authentique</em> (the final notarial deed of sale) as a genuine property owner with all the rights that French property law provides.</p>
+<p>The co-ownership structure is most commonly established through one of two legal frameworks under French law. The first is <em>indivision</em> — the standard French form of co-ownership under the Civil Code, where each co-owner holds a defined fractional interest in the property directly, with their percentage share registered in the <em>fichier immobilier</em>. The second is a <strong>Société Civile Immobilière (SCI)</strong> — a French civil property company that holds the real estate, with co-owners as shareholders of the SCI rather than direct co-owners of the underlying property. An SCI is generally preferred for international buyer groups and for ownership structures requiring flexibility in estate planning, inheritance management, and the transfer of interests without a full notarial property conveyance. A French notaire and a cross-border tax adviser will guide co-owners to the most appropriate structure for their individual circumstances and nationalities.</p>
+<p>Usage allocation in South of France fractional co-ownership follows a rotating annual calendar. A 1/8 share provides approximately <strong>45 days of personal use per year</strong>, typically allocated as two or more separate stays that span both peak summer season and shoulder-season visits in spring and autumn. The rotation ensures that no co-owner permanently holds the most coveted summer weeks — July and August on the Côte d&#8217;Azur and in Provence are the peak of the season — but that all co-owners access them in sequence across the years. The management company administers the booking system, manages swap requests between co-owners, and coordinates all arrivals, departures, cleaning, and property preparation. Well-structured South of France fractional co-ownership agreements include flexible booking mechanisms that accommodate the real-world variability of family and professional travel schedules.</p>
+<p>French property law governs South of France fractional ownership as standard real estate — not as a timeshare or leisure product. The <strong>right of first refusal</strong> is a standard feature of most French co-ownership agreements, giving existing co-owners the opportunity to match any third-party offer before the departing owner&#8217;s share is listed externally. This preserves the cohesion of the ownership group and provides an orderly mechanism for transitions. Resale of a South of France fractional share follows the standard French real estate process — the departing co-owner lists their interest, the right of first refusal period is observed, and if not exercised, the share can be marketed to any willing buyer at market price.</p>
+<p>For UK buyers and other non-EU nationals, French and international tax considerations apply at several points in the ownership lifecycle. At acquisition, French <em>droits de mutation</em> (transfer taxes and registration fees) are payable — typically around 7–8% of the purchase price for second-hand properties. Annual property taxes include the <em>taxe foncière</em>, assessed by the commune, and the <em>taxe d&#8217;habitation</em> for secondary residences. On any future sale by a non-resident, French capital gains tax (<em>plus-value immobilière</em>) applies at 19%, plus social charges, with a withholding mechanism at the point of transaction. France&#8217;s inheritance tax on French situ assets — including interests held through an SCI — applies to beneficiaries regardless of their country of residence, making estate planning through the appropriate legal structure particularly important for international South of France co-ownership buyers. A French notaire and a cross-border tax adviser experienced in Franco-British property ownership are essential advisers for any UK or international buyer.</p>
+<p>Ongoing costs in South of France fractional co-ownership are shared proportionally among all co-owners in line with their fractional interest. For a 1/8 share, each co-owner bears one-eighth of: annual <em>taxe foncière</em>, building insurance, professional management fees, pool and garden maintenance (a significant element for Provençal villas and Côte d&#8217;Azur properties with outdoor living spaces), routine maintenance and cleaning costs, utilities, and contributions to the property&#8217;s reserve fund for longer-term capital expenditure. For apartment buildings managed by a <em>copropriété</em>, annual <em>charges de copropriété</em> — covering shared building infrastructure, lifts, and common areas — are an additional shared cost. Management companies provide regular itemised financial statements to all co-owners, ensuring full transparency over running costs.</p>
+<p>Inheritance of a South of France fractional share follows French succession law as it applies to French situ real property. For British nationals owning through an SCI, the EU Succession Regulation (Brussels IV) may allow them to elect for UK succession law to apply to their worldwide estate — a valuable planning tool for international buyers. A will drafted with both French and home-country legal advice ensures that the co-ownership interest passes to chosen heirs as efficiently and as tax-effectively as possible. South of France fractional ownership is a genuine, transferable real property asset — one that can be held for decades, sold, gifted, or inherited, retaining its character as a registered real property interest throughout its ownership life.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>South of France Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>South of France fractional ownership is, above all else, a lifestyle decision — and the lifestyle it delivers is one of the most consistently extraordinary available to any property buyer in the world. What does it mean, concretely, to return to your own South of France property six or seven times a year? It means the July morning when you wake early in a Luberon farmhouse to hear the cicadas already at full volume, walk through the garden where the lavender is in full bloom, and drive to the market in Apt before the heat becomes fierce, buying melons and tapenade and rosé from producers you have come to know over years. It means the September afternoon on the Côte d&#8217;Azur when the summer crowds have gone and the sea is still warm, and you swim from your own terrace steps into water that is clearer than anything available in northern Europe, and the evening light turns the limestone cliffs above Cassis the colour of old gold. It means owning the context for those moments — not renting it, not booking it, but owning it — and returning to it with the accumulated familiarity that makes a place genuinely yours.</p>
+<p>The investment context for South of France fractional property is genuinely robust. Prime coastal and Provençal real estate operates in one of the most supply-constrained property markets in Europe. The Côte d&#8217;Azur — from the Italian border to Saint-Tropez — has virtually no remaining capacity for meaningful new development in the most desirable locations; geographical constraints (mountains to the north, sea to the south), planning protections, and the density of existing built form ensure that supply remains permanently limited. The Luberon and the most sought-after Provençal villages are similarly protected by UNESCO biosphere reserve status, architectural heritage designations, and strict planning regimes that limit new construction and preserve the character of existing villages. Against this permanently constrained supply, global demand from French, British, American, Scandinavian, and increasingly Middle Eastern and Asian buyers has been structurally elevated for decades and shows no sign of diminishing.</p>
+<p>We do not position South of France fractional ownership as a guaranteed financial product and do not invent yield projections or price appreciation assumptions. Property markets move, and the South of France is no exception — there have been periods of stagnation alongside periods of strong appreciation. What we consistently observe is that South of France fractional property is priced relative to an underlying real estate market with historically robust long-term fundamentals, and that the carrying cost of a fractional share compares very favourably to the equivalent expenditure on villa rental in Provence or Côte d&#8217;Azur accommodation over comparable periods — while simultaneously building a transferable, inheritable property interest in one of Europe&#8217;s most coveted markets.</p>
+<p>Rental income from unused South of France fractional ownership weeks is possible for some co-owners. The South of France has one of the most active and consistently priced short-term rental markets in Europe — peak summer weeks in Provence and on the Côte d&#8217;Azur command some of the highest villa rental rates in France. However, rental income is never guaranteed, is always subject to the specific co-ownership agreement and applicable local regulations, and should never be treated as a baseline financial assumption. South of France rental licensing requirements vary by commune and property type, and some co-ownership arrangements explicitly prohibit or restrict rental activity. Always verify the specific rental position for the property under consideration with the management company before purchase. Treat rental income as a potential supplementary benefit, never as a substitute for the lifestyle and ownership value that South of France fractional co-ownership delivers on its own terms.</p>
+<p>Comparing South of France fractional ownership to other Mediterranean co-ownership destinations reveals a distinctive profile. <a href="/mallorca-fractional-ownership-properties/">Mallorca fractional ownership</a> and <a href="/ibiza-fractional-ownership-properties/">Ibiza fractional ownership</a> offer the Spanish Balearic alternative — outstanding sun, sea, and outdoor living, without the Schengen constraint for UK buyers (Spain is also Schengen, so the same 90-day limit applies). <a href="/sardinia-fractional-ownership-properties/">Sardinia fractional ownership</a> provides the Italian island alternative — the extraordinary Costa Smeralda coastline, also subject to Schengen constraints for UK buyers. <a href="/portugal-fractional-ownership-properties/">Portugal fractional ownership</a> — in the Algarve and around Lisbon — offers a Schengen destination with a slightly different climate character and a more accessible price point. The South of France occupies a singular position in this landscape: the finest Mediterranean climate and cuisine in Europe, the most diverse and extraordinary range of landscape within a single region, and a property market that has attracted the world&#8217;s most discerning buyers for over a century and a half.</p>
+<p>For buyers considering <a href="/france-fractional-ownership-properties/">France fractional ownership</a> more broadly, the South of France represents the country&#8217;s Mediterranean pinnacle — its most visited and most coveted regional property market. It sits naturally alongside <a href="/french-alps-fractional-ownership-properties/">French Alps fractional ownership</a> for buyers who want a multi-season French co-ownership portfolio, with the Alps providing winter and spring mountain access and the South of France providing summer and autumn Mediterranean living. <a href="/paris-fractional-ownership-properties/">Paris fractional ownership</a> adds a year-round city dimension for buyers who want the full French lifestyle trifecta — mountain, coast, and capital.</p>
+<p>The South of France is also, notably, a destination that functions across a far longer season than purely beach-focused Mediterranean destinations. The Côte d&#8217;Azur and Provence are pleasant to visit from March to November — spring wildflowers and empty villages in April, the height of the lavender season in June and July, the warmth and golden light of October and November when the summer crowds have departed and the markets are full of truffles, wild mushrooms, and the last of the season&#8217;s tomatoes. A 1/8 share of a South of France fractional property can theoretically be used across multiple seasons — winter in Provence is cold but extraordinarily beautiful, with the Luberon villages covered in snow and the Christmas markets of Aix-en-Provence among the finest in France. South of France co-ownership delivers genuine lifestyle value across more of the calendar year than almost any other Mediterranean co-ownership destination.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/france-fractional-ownership-properties/" class="dest-explore-card">France Fractional Ownership &rarr;</a><a href="/french-alps-fractional-ownership-properties/" class="dest-explore-card">French Alps Fractional Ownership &rarr;</a><a href="/paris-fractional-ownership-properties/" class="dest-explore-card">Paris Fractional Ownership &rarr;</a><a href="/liguria-fractional-ownership-properties/" class="dest-explore-card">Liguria Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>South of France Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly do I own with South of France fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>With South of France fractional ownership, you own a legally recorded real property interest in a French property — most commonly a <strong>1/8 share</strong>. Your ownership is registered in the French national property registry, the <em>fichier immobilier</em>, giving you the same legal standing as any other French property owner. You are a genuine co-owner of the underlying real estate — not a timeshare holder, not a holiday club member, and not the holder of a contractual right-to-use that can be terminated or that expires.</p>
+<p>Your name, or that of a legal entity you designate (such as a Société Civile Immobilière or a UK trust), appears on the <em>acte authentique</em> as a recorded property owner. This ownership interest carries all the fundamental rights of French property law: the right to use the property during your allocated periods each year, the right to sell your fractional interest at market value subject to any right of first refusal in favour of co-owners, the right to pass your interest to heirs through your will or legal entity, and the right to benefit proportionally from any appreciation in the property&#8217;s value. South of France fractional co-ownership is property ownership in the fullest legal sense — structured to make premium French Mediterranean real estate accessible to a wider range of buyers than sole ownership would allow.</p></div></details><details class="dest-faq-item"><summary><h3>Is South of France fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — and the distinction is both legally fundamental and financially significant. A timeshare involves the sale of a contractual right to use a property during a specified period each year; the timeshare company retains ownership of the underlying real estate. When the timeshare arrangement ends or the timeshare company fails, the holder walks away with no capital value and no real property interest. South of France fractional ownership is the legal opposite: a recorded real property interest in French real estate, registered in the national property registry, carrying all the protections and rights of French property law.</p>
+<p>A South of France fractional ownership share can be sold at market price, mortgaged, insured as a real property asset, inherited, and held within a tax-efficient legal structure. Timeshare resale is notoriously difficult and frequently achieves well below the original purchase price, if achievable at all. South of France co-ownership is a real estate transaction completed through the French notarial system and governed by French property law — not a consumer product governed by timeshare or hospitality industry regulations. The two arrangements have almost nothing in common beyond the concept of shared use of a property.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use a South of France fractional property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The most common fractional interest is a <strong>1/8 share</strong>, providing approximately <strong>45 days of personal use per year</strong>. This is typically structured as two or more separate stays across the year — usually including a summer stay and one or more shoulder-season visits in spring or autumn. A 1/4 share provides approximately 90 days; a 1/2 share approximately 180 days.</p>
+<p>The rotating calendar is designed to ensure fairness — no co-owner permanently holds the most coveted weeks (peak July and August on the Côte d&#8217;Azur and in Provence), but all co-owners access them in sequence over the years. The management company administers the booking system, handles swap requests between co-owners, and coordinates all arrivals, departures, cleaning, and property preparation. Most South of France fractional co-ownership agreements include flexible booking mechanisms that allow owners to adjust their allocation by arrangement with other co-owners when personal circumstances require it.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK buyers purchase South of France fractional ownership properties?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. There are no restrictions on non-EU nationals owning real property in France. UK buyers can purchase South of France fractional property as individuals, through a French SCI, through a UK company or trust, or through a combination of legal structures — each with different tax and estate planning implications that are worth discussing with a qualified French notaire and a cross-border tax adviser before completing the purchase.</p>
+<p>Post-Brexit, UK buyers visiting France are subject to the Schengen Area&#8217;s <strong>90-day-in-180-day rule</strong>. A 1/8 share&#8217;s annual allocation of approximately 45 days fits comfortably within this limit, making South of France fractional ownership particularly well-suited to UK buyers who want to maximise their Schengen allocation in the world&#8217;s most desirable Mediterranean destination. UK buyers who also visit other Schengen countries — Spain, Italy, Portugal, Greece — should note that all Schengen time is pooled and capped at 90 days in any 180-day rolling window. Careful travel planning is essential, and buyers approaching or exceeding 90 days may wish to investigate the French long-stay visa or residency permit options, both of which are achievable with advance planning.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of South of France fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Ongoing costs are shared proportionally among co-owners. For a 1/8 share, you bear one-eighth of: the annual <em>taxe foncière</em>, building insurance, professional management fees, pool and garden maintenance (a significant element for Provençal and coastal villas with extensive outdoor living spaces), routine maintenance and cleaning costs, utilities, and contributions to the property&#8217;s reserve fund for longer-term capital expenditure. For apartments within a <em>copropriété</em>, annual <em>charges de copropriété</em> are an additional shared cost.</p>
+<p>All costs are transparent and shared proportionally — management companies provide regular itemised financial statements to all co-owners. In most cases, co-owners find that the total annual carrying cost of a South of France fractional share compares very favourably to the equivalent expenditure on villa rental in Provence or Côte d&#8217;Azur hotel accommodation during comparable periods — while simultaneously building equity in a real property interest in one of Europe&#8217;s most sought-after real estate markets.</p></div></details><details class="dest-faq-item"><summary><h3>What legal structure governs South of France fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>South of France fractional co-ownership is most commonly structured through either <em>indivision</em> (direct co-ownership where each owner holds a defined fractional interest registered in the <em>fichier immobilier</em>) or a <strong>Société Civile Immobilière (SCI)</strong> (a French civil property company that holds the real estate, with co-owners as shareholders). An SCI is generally preferred for international owner groups, as it allows ownership interests to be transferred through share transactions rather than full property conveyances, provides cleaner mechanisms for estate planning, and can simplify the admission of new co-owners over time.</p>
+<p>In both structures, the co-ownership agreement (or SCI statutes and shareholder agreement) governs the usage schedule, cost-sharing arrangements, governance procedures, and the mechanism for selling or transferring a fractional interest. A carefully drafted co-ownership agreement is the legal backbone of the arrangement — it protects every co-owner&#8217;s investment, provides operational clarity for the management company, and establishes a transparent framework for all parties throughout the ownership life. A French notaire will advise on the most appropriate structure for your individual circumstances.</p></div></details><details class="dest-faq-item"><summary><h3>How does the buying process work for South of France fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The purchase of a South of France fractional share follows the standard French property conveyancing process. After selecting a property and reviewing all co-ownership documentation with your own qualified legal adviser, you sign a <em>compromis de vente</em> and pay a deposit (typically 10% of the purchase price). French law provides a statutory ten-day cooling-off period after signing the <em>compromis</em>, during which you can withdraw without penalty. A French notaire then manages the transaction — conducting the title search, preparing the <em>acte authentique</em>, and registering the transfer in the <em>fichier immobilier</em>. The total process from signing the <em>compromis</em> to completion typically takes eight to twelve weeks.</p>
+<p>International buyers can complete the transaction remotely through a <em>procuration</em> (power of attorney), so physical presence in France is not required for completion. Key professional advisers include a French-qualified notaire (who acts as an independent legal officer of the state, not as a solicitor for either party), a cross-border tax adviser experienced in French property, and an independent legal adviser to review the co-ownership documentation specifically on your behalf.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my South of France fractional property when I&#8217;m not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>South of France rental licensing requirements vary by commune and property type. Some co-ownership arrangements explicitly permit rental of unused weeks through professional management channels; others restrict or prohibit it. Always verify the specific rental position for the property under consideration with the management company before purchase. Treat rental income as a potential supplementary benefit — the lifestyle and ownership value of South of France fractional co-ownership should always stand on their own merits.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my South of France fractional share if I want to exit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. As a recorded real property interest, a South of France fractional ownership share can be sold at any time. The co-ownership agreement will typically include a <strong>right of first refusal</strong> in favour of existing co-owners — giving them the opportunity to match any third-party offer before the departing owner lists their share externally. If no co-owner exercises this right, the share can be marketed to any willing buyer at market price through the management company, a co-ownership specialist, or a local estate agent.</p>
+<p>The resale value reflects movements in the underlying South of France property market. French capital gains tax (<em>plus-value immobilière</em>) applies to any appreciation on sale, with progressive relief available after five years of ownership and full exemption from income tax after twenty-two years (thirty years for social charges). For overseas sellers, a withholding mechanism applies at the point of transaction. Inheritance follows French succession law as it applies to French situ assets — a properly structured will, drafted with both French and home-country legal advice, ensures that the South of France co-ownership interest passes to your chosen heirs efficiently and tax-effectively.</p></div></details><details class="dest-faq-item"><summary><h3>Which area of the South of France is best for fractional ownership — Côte d&#8217;Azur or Provence?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The right area for South of France fractional co-ownership depends on what you want from your property. The Côte d&#8217;Azur delivers the most glamorous and internationally connected Mediterranean experience — beach access, marina culture, world-class restaurants, and proximity to Nice Airport with its exceptional international network. The Côte d&#8217;Azur market is the most expensive and supply-constrained on the French Mediterranean, and fractional ownership provides access to exactly the tier of property that would be unattainable as a sole purchase for most buyers.</p>
+<p>Provence and the Luberon offer a quieter, more authentically French experience — ancient hilltop villages, lavender landscapes, exceptional markets, and the particular summer light that has inspired painters for over a century. Saint-Tropez and the Var coast combine the glamour of a world-famous resort with a genuinely Provençal landscape character. Languedoc-Roussillon provides the most accessible price points and a wilder, more rugged landscape — ideal for buyers who want the South of France experience without the premium pricing of the most famous destinations. All represent outstanding South of France fractional ownership — the choice comes down to the lifestyle, the landscape, and the specific combination of coast and countryside that speaks to you most directly.</p></div></details><details class="dest-faq-item"><summary><h3>How does South of France fractional ownership compare to other Mediterranean destinations?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>South of France fractional co-ownership and <a href="/mallorca-fractional-ownership-properties/">Mallorca fractional ownership</a> are arguably the two premier Mediterranean co-ownership markets in Europe, serving slightly different buyer profiles. Mallorca offers outstanding island lifestyle — beaches, sailing, rural interior, and year-round sunshine — within the Spanish legal system and with the same Schengen 90-day constraint for UK buyers. <a href="/italy-fractional-ownership-properties/">Italy fractional ownership</a> — across Tuscany, <a href="/liguria-fractional-ownership-properties/">Liguria</a>, and <a href="/sardinia-fractional-ownership-properties/">Sardinia</a> — provides a compelling alternative with a distinctive cultural character and extraordinary cuisine, again within the Schengen zone.</p>
+<p>The South of France occupies a singular position in this Mediterranean landscape: the finest climate diversity (coast, mountains, and interior all within a single region), the deepest gastronomic culture, the most established international property market infrastructure, and a combination of landscape and cultural depth that no single-landscape Mediterranean island can match. For buyers who want to maximise their Schengen allocation in the finest possible Mediterranean destination, South of France fractional ownership is the most compelling choice available.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
