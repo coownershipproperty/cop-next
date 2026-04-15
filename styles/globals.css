@@ -4965,3 +4965,32 @@ section.props-sec,
 @media (max-width: 480px) {
   .footer-inner { grid-template-columns: 1fr; }
 }
+
+/* ── Logo text in header ─────────────────────────────────────── */
+.cop-logo-link {
+  text-decoration: none;
+}
+.cop-logo-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: #2C4A5E;
+  display: block;
+  letter-spacing: 0.01em;
+}
+/* On transparent header (over hero video) → white */
+.cop-header:not(.scrolled) .cop-logo-text {
+  color: #fff;
+}
+
+/* ── Fix intro-sec text colours (white text on cream bg) ──────── */
+.intro-sec .eyebrow { color: #C9A84C !important; }
+.intro-sec h2,
+.intro-sec h2 em { color: #2C4A5E !important; }
+.intro-sec .intro-text,
+.intro-sec .highlight,
+.intro-sec p { color: #1a2533 !important; font-style: normal !important; }
+.intro-sec blockquote,
+.intro-sec .highlight { border-color: #C9A84C; }
