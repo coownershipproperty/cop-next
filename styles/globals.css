@@ -4852,3 +4852,42 @@ section.props-sec,
   padding-top: 0;
   padding-bottom: 0;
 }
+
+/* ── Also Explore — clean, no arrows, simple links ─────────── */
+.dest-also-explore {
+  background: #F5F2EC;
+  padding: 3rem 3rem 3.5rem;
+  text-align: center;
+}
+.dest-also-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin-bottom: 1.5rem;
+}
+.dest-also-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.dest-also-link {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid #e8e0d4;
+  background: #fff;
+  color: #2C4A5E;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.dest-also-link:hover {
+  border-color: #C9A84C;
+  color: #C9A84C;
+}

@@ -81,6 +81,75 @@ const DEST_FILTERS = {
   "lake-tahoe-fractional-ownership-properties":     { country: "USA", cities: ["Truckee","South Lake Tahoe","Olympic Valley","Incline Village","Homewood","Tahoma","Tahoe City"] },
 };
 
+// ── Related destinations — clusters show parent+siblings, pillars show clusters ──
+const RELATED = {
+  // Spain — Balearics cluster
+  "ibiza-fractional-ownership-properties":       ["mallorca-fractional-ownership-properties","menorca-fractional-ownership-properties","balearics-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  "mallorca-fractional-ownership-properties":    ["ibiza-fractional-ownership-properties","menorca-fractional-ownership-properties","balearics-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  "menorca-fractional-ownership-properties":     ["ibiza-fractional-ownership-properties","mallorca-fractional-ownership-properties","balearics-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  "balearics-fractional-ownership-properties":   ["ibiza-fractional-ownership-properties","mallorca-fractional-ownership-properties","menorca-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  // Spain — Costas cluster
+  "costa-del-sol-fractional-ownership-properties":   ["costa-blanca-fractional-ownership-properties","costa-de-la-luz-fractional-ownership-properties","spanish-costas-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  "costa-blanca-fractional-ownership-properties":    ["costa-del-sol-fractional-ownership-properties","costa-de-la-luz-fractional-ownership-properties","spanish-costas-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  "costa-de-la-luz-fractional-ownership-properties": ["costa-del-sol-fractional-ownership-properties","costa-blanca-fractional-ownership-properties","spanish-costas-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  "spanish-costas-fractional-ownership-properties":  ["costa-del-sol-fractional-ownership-properties","costa-blanca-fractional-ownership-properties","costa-de-la-luz-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  // Spain — other
+  "pyrenees-mountains-fractional-ownership-properties": ["french-alps-fractional-ownership-properties","spain-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "madrid-fractional-ownership-properties":      ["spain-fractional-ownership-properties","barcelona-fractional-ownership-for-sale","balearics-fractional-ownership-properties"],
+  "barcelona-fractional-ownership-for-sale":     ["spain-fractional-ownership-properties","madrid-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties"],
+  // Spain pillar — shows all its clusters
+  "spain-fractional-ownership-properties":       ["balearics-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties","pyrenees-mountains-fractional-ownership-properties","madrid-fractional-ownership-properties","barcelona-fractional-ownership-for-sale"],
+  // France
+  "french-alps-fractional-ownership-properties":     ["south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties","pyrenees-mountains-fractional-ownership-properties"],
+  "south-of-france-fractional-ownership-properties": ["french-alps-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "paris-fractional-ownership-properties":           ["french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "france-fractional-ownership-properties":          ["french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties"],
+  // Italy
+  "sardinia-fractional-ownership-properties":    ["italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "lake-como-fractional-ownership-properties":   ["italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "italian-lakes-fractional-ownership-properties": ["lake-como-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "liguria-fractional-ownership-properties":     ["italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "italy-fractional-ownership-properties":       ["sardinia-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties"],
+  // UK
+  "london-fractional-ownership-properties":      ["england-fractional-ownership-properties"],
+  "england-fractional-ownership-properties":     ["london-fractional-ownership-properties"],
+  // USA — states (pillars)
+  "california-fractional-ownership-properties":  ["colorado-fractional-ownership-properties","florida-fractional-ownership-properties","utah-fractional-ownership-properties","usa-fractional-ownership-properties"],
+  "colorado-fractional-ownership-properties":    ["california-fractional-ownership-properties","utah-fractional-ownership-properties","usa-fractional-ownership-properties","aspen-fractional-ownership","vail-fractional-ownership","breckenridge-fractional-ownership"],
+  "florida-fractional-ownership-properties":     ["california-fractional-ownership-properties","colorado-fractional-ownership-properties","usa-fractional-ownership-properties","miami-fractional-ownership"],
+  "utah-fractional-ownership-properties":        ["colorado-fractional-ownership-properties","california-fractional-ownership-properties","usa-fractional-ownership-properties","park-city-fractional-ownership-2"],
+  "usa-fractional-ownership-properties":         ["california-fractional-ownership-properties","colorado-fractional-ownership-properties","florida-fractional-ownership-properties","utah-fractional-ownership-properties"],
+  // USA — cities (clusters)
+  "aspen-fractional-ownership":                  ["vail-fractional-ownership","breckenridge-fractional-ownership","colorado-fractional-ownership-properties","usa-fractional-ownership-properties"],
+  "vail-fractional-ownership":                   ["aspen-fractional-ownership","breckenridge-fractional-ownership","colorado-fractional-ownership-properties","usa-fractional-ownership-properties"],
+  "breckenridge-fractional-ownership":           ["aspen-fractional-ownership","vail-fractional-ownership","colorado-fractional-ownership-properties","usa-fractional-ownership-properties"],
+  "park-city-fractional-ownership-2":            ["utah-fractional-ownership-properties","colorado-fractional-ownership-properties","usa-fractional-ownership-properties"],
+  "miami-fractional-ownership":                  ["florida-fractional-ownership-properties","newport-beach-fractional-ownership","usa-fractional-ownership-properties"],
+  "newport-beach-fractional-ownership":          ["california-fractional-ownership-properties","malibu-santa-barbara-fractional-ownership","napa-sonoma-fractional-ownership-wine-country-estates","usa-fractional-ownership-properties"],
+  "malibu-santa-barbara-fractional-ownership":   ["california-fractional-ownership-properties","newport-beach-fractional-ownership","usa-fractional-ownership-properties"],
+  "napa-sonoma-fractional-ownership-wine-country-estates": ["california-fractional-ownership-properties","newport-beach-fractional-ownership","usa-fractional-ownership-properties"],
+  "lake-tahoe-fractional-ownership-properties":  ["california-fractional-ownership-properties","colorado-fractional-ownership-properties","usa-fractional-ownership-properties"],
+  "palm-springs-fractional-ownership-desert-modern-luxury": ["california-fractional-ownership-properties","newport-beach-fractional-ownership","usa-fractional-ownership-properties"],
+  // Mexico
+  "mexico-fractional-ownership-properties":      ["usa-fractional-ownership-properties","spain-fractional-ownership-properties"],
+};
+
+// Slug → clean display label
+function destLabel(slug) {
+  return slug
+    .replace(/-fractional-ownership-properties$/, '')
+    .replace(/-fractional-ownership$/, '')
+    .replace(/-fractional-property-for-sale$/, '')
+    .replace(/-co-ownership-beach-homes$/, '')
+    .replace(/-fractional-ownership-wine-country-estates$/, '')
+    .replace(/-fractional-ownership-desert-modern-luxury$/, '')
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase())
+    .replace(/^Park City.*/, 'Park City')
+    .replace(/^30A.*/, '30A / Emerald Coast')
+    .trim();
+}
+
 function matchesFilter(prop, filter) {
   for (const [key, val] of Object.entries(filter)) {
     const propVal = (prop[key === 'cities' ? 'city' : key] || '').trim();
@@ -153,22 +222,25 @@ export async function getStaticProps({ params }) {
   const heroHtml = splitIdx > 0 ? body.slice(0, splitIdx).trim() : body.trim();
   let restHtml = splitIdx > 0 ? body.slice(splitIdx).trim() : '';
 
-  // ── Clean up staging content that doesn't belong ──────────────
-  // Remove 'Which country are you interested in?' — irrelevant on a specific destination page
+  // ── Clean up staging content ──────────────────────────────────
+  // Remove 'Which country are you interested in?'
   restHtml = restHtml.replace(/<section[^>]*><div[^>]*><h3>Which country are you interested in\?<\/h3><\/div><\/section>/g, '');
-
-  // Shorten FAQ title: 'Ibiza Fractional Ownership — Frequently Asked Questions' → 'Frequently Asked Questions'
+  // Remove the entire staging 'Also Explore / Explore More' section — replaced by our own
+  restHtml = restHtml.replace(/<section[^>]*class="[^"]*dest-explore[^"]*"[^>]*>[\s\S]*?<\/section>/g, '');
+  // Shorten FAQ title
   restHtml = restHtml.replace(/<h2([^>]*)>[^<]*?—\s*Frequently Asked Questions<\/h2>/g, '<h2$1>Frequently Asked Questions</h2>');
-
-  // Fix image URLs to production
+  // Fix staging image URLs
   restHtml = restHtml.replace(/https:\/\/staging\.co-ownership-property\.com\//g, 'https://co-ownership-property.com/');
+  
+  // Build related destinations list
+  const related = (RELATED[slug] || []).map(s => ({ slug: s, label: destLabel(s) }));
 
   return {
-    props: { slug, title, metaDesc, heroHtml, restHtml, properties: matchedProps },
+    props: { slug, title, metaDesc, heroHtml, restHtml, properties: matchedProps, related },
   };
 }
 
-export default function DestinationPage({ slug, title, metaDesc, heroHtml, restHtml, properties }) {
+export default function DestinationPage({ slug, title, metaDesc, heroHtml, restHtml, properties, related }) {
   return (
     <>
       <Head>
@@ -199,6 +271,20 @@ export default function DestinationPage({ slug, title, metaDesc, heroHtml, restH
 
       {/* Rest of page: CTA, SEO content, related locations */}
       <div dangerouslySetInnerHTML={{ __html: restHtml }} />
+
+      {/* Also Explore — smart related destinations, no arrows */}
+      {related && related.length > 0 && (
+        <section className="dest-also-explore">
+          <p className="dest-also-label">Also Explore</p>
+          <div className="dest-also-links">
+            {related.map(r => (
+              <a key={r.slug} href={`/${r.slug}/`} className="dest-also-link">
+                {r.label}
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       <Newsletter />
       <ExpertForm />
