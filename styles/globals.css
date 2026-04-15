@@ -4994,3 +4994,26 @@ section.props-sec,
 .intro-sec p { color: #1a2533 !important; font-style: normal !important; }
 .intro-sec blockquote,
 .intro-sec .highlight { border-color: #C9A84C; }
+
+/* ── Footer social icons ────────────────────────────────────── */
+.footer-social {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.footer-social-link:hover {
+  border-color: #C9A84C;
+  color: #C9A84C;
+}

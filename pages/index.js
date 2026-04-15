@@ -214,134 +214,134 @@ export default function Home() {
         <div className="dest-panels">
 
             <div className="dest-panel active" id="dest-france">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/france-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/france-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-france.webp" alt="France" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">France</div>
                     <p className="dest-info-desc">From the sun-drenched shores of the Côte d'Azur to the ski slopes of the French Alps and the timeless elegance of Paris, France is Europe's most coveted address for fractional ownership.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-spain">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/spain-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/spain-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-spain.webp" alt="Spain" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Spain</div>
                     <p className="dest-info-desc">Spain combines world-class beaches, vibrant culture and year-round sunshine across Mallorca, Ibiza, the Costa del Sol and beyond — all at remarkable value for discerning co-owners.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-italy">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/italy-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/italy-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-italy-v2.webp" alt="Italy" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Italy</div>
                     <p className="dest-info-desc">Italy's extraordinary landscapes — from the glassy waters of Lake Como to the ancient villages of Liguria and the Tuscan hills — make it a perennial favourite for discerning co-owners.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-portugal">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/portugal-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/portugal-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-portugal.webp" alt="Portugal" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Portugal</div>
                     <p className="dest-info-desc">From the golden coastline of the Algarve to the elegant boulevards of Lisbon and the unspoilt beauty of the Silver Coast, Portugal is one of Europe's most exciting destinations for luxury co-ownership.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-austria">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/austria-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/austria-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-austria.webp" alt="Austria" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Austria</div>
                     <p className="dest-info-desc">Austria's Alpine splendour — from the world-class ski resorts of Tyrol to the grand imperial charm of Vienna — makes it one of Europe's most rewarding destinations for luxury fractional ownership.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-england">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/england-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/england-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-england.webp" alt="England" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">England</div>
                     <p className="dest-info-desc">London remains one of the world's great cities for luxury property — from Mayfair townhouses to riverside apartments — while the English countryside offers idyllic retreats for discerning co-owners.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-sweden">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/sweden-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/sweden-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-sweden.webp" alt="Sweden" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Sweden</div>
                     <p className="dest-info-desc">Sweden's dramatic landscapes — from the Stockholm archipelago to the forested lake districts of the north — offer a uniquely peaceful setting for luxury co-ownership away from the crowds.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-germany">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/germany-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/germany-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-germany.webp" alt="Germany" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Germany</div>
                     <p className="dest-info-desc">From the Bavarian Alps and the shores of Lake Constance to the cultural capitals of Berlin and Munich, Germany offers a compelling range of luxury property opportunities for co-owners.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-croatia">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/croatia-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/croatia-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-croatia.webp" alt="Croatia" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Croatia</div>
                     <p className="dest-info-desc">Croatia's breathtaking Adriatic coastline, crystal-clear waters and historic walled towns like Dubrovnik make it one of the Mediterranean's most coveted destinations for luxury fractional ownership.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-usa">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/usa-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/usa-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-usa-v2.webp" alt="USA" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">USA</div>
                     <p className="dest-info-desc">From the surf culture of California to the ski slopes of Colorado and the waterfront glamour of Florida, America's luxury property market offers extraordinary opportunities for international co-owners.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
             <div className="dest-panel" id="dest-mexico">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/mexico-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/mexico-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-mexico-v2.webp" alt="Mexico" loading="lazy" width="504" height="466" />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Mexico</div>
                     <p className="dest-info-desc">From the turquoise shores of the Riviera Maya to the Pacific glamour of Los Cabos, Mexico offers extraordinary luxury at exceptional value — making it one of the most exciting co-ownership markets in the world.</p>
-                    <a href="#properties" className="dest-explore-btn">Explore Properties</a>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
 
