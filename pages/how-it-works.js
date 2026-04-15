@@ -126,32 +126,32 @@ export default function HowItWorks() {
 
             <div className="benefits-grid">
                 <div className="benefit-card">
-                    <div className="benefit-icon">&amp;#x1f3e0;</div>
+                    <div className="benefit-icon">&#x1f3e0;</div>
                     <h3>Real Property Ownership</h3>
                     <p>A deeded freehold share registered in your name through a property-specific LLC. Not a contract — a genuine asset you own.</p>
                 </div>
                 <div className="benefit-card">
-                    <div className="benefit-icon">&amp;#x1f4c8;</div>
+                    <div className="benefit-icon">&#x1f4c8;</div>
                     <h3>Capital Appreciation</h3>
                     <p>Your share appreciates in value just like any property investment. Premium locations in Europe and the USA tend to grow consistently over time.</p>
                 </div>
                 <div className="benefit-card">
-                    <div className="benefit-icon">&amp;#x1f4b0;</div>
+                    <div className="benefit-icon">&#x1f4b0;</div>
                     <h3>Rental Income</h3>
                     <p>Not using your allocated weeks? Many of our properties allow you to rent out your unused time and earn income while you're away.</p>
                 </div>
                 <div className="benefit-card">
-                    <div className="benefit-icon">&amp;#x1f504;</div>
+                    <div className="benefit-icon">&#x1f504;</div>
                     <h3>Home Swapping</h3>
                     <p>Most properties in our portfolio offer a home exchange system. Fancy a different destination this year? Swap your stay with another co-owner.</p>
                 </div>
                 <div className="benefit-card">
-                    <div className="benefit-icon">&amp;#x1f5d3;</div>
+                    <div className="benefit-icon">&#x1f5d3;</div>
                     <h3>Fair Scheduling</h3>
                     <p>A rotating calendar ensures every co-owner gets peak and off-peak dates. Summer, Christmas, Easter — everyone takes turns fairly.</p>
                 </div>
                 <div className="benefit-card">
-                    <div className="benefit-icon">&amp;#x1f6e0;</div>
+                    <div className="benefit-icon">&#x1f6e0;</div>
                     <h3>Fully Managed</h3>
                     <p>Professional property management handles maintenance, repairs, cleaning, and local taxes. You show up, enjoy, and leave — everything else is taken care of.</p>
                 </div>

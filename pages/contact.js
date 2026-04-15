@@ -45,17 +45,17 @@ export default function Contact() {
             <h2 style={{textAlign: 'center', fontSize: 'clamp(1.8rem,3.5vw,2.4rem)', marginBottom: '0'}}>What to Expect When You Contact Us</h2>
             <div className="trust-grid">
                 <div className="trust-card">
-                    <div className="trust-icon">&amp;#x2709;</div>
+                    <div className="trust-icon">&#x2709;</div>
                     <h3>Email Us Directly</h3>
                     <p>Prefer to write? Reach us at<br /><a href="mailto:info@co-ownership-property.com">info@co-ownership-property.com</a><br />We read every message personally.</p>
                 </div>
                 <div className="trust-card">
-                    <div className="trust-icon">&amp;#x23F0;</div>
+                    <div className="trust-icon">&#x23F0;</div>
                     <h3>Fast Response</h3>
                     <p>We typically respond within a few hours — often faster. For USA enquiries, please allow for the time difference. We'll always get back to you.</p>
                 </div>
                 <div className="trust-card">
-                    <div className="trust-icon">&amp;#x2713;</div>
+                    <div className="trust-icon">&#x2713;</div>
                     <h3>No Pressure, No Obligation</h3>
                     <p>We ask questions, point you to the right properties, and leave the decision entirely to you. We're independent — not tied to any platform or developer.</p>
                 </div>

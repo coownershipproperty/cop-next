@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Script from 'next/script';
 
-export default function Blog() {
+export default function AllOurBlog() {
   return (
     <>
       <Head>
@@ -390,7 +390,7 @@ export default function Blog() {
 
     
 
-      <Script src="/js/blog.js" strategy="afterInteractive" />
+      <Script src="/js/all-our-blog.js" strategy="afterInteractive" />
     </>
   );
 }
