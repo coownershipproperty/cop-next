@@ -55,55 +55,55 @@ export default function Home() {
             {/* Set 1 */}
             <div className="press-track">
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-times.png" alt="The Times" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-times.png" alt="The Times" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-express.png" alt="Express" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-express.png" alt="Express" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" loading="eager" width="200" height="50" />
                 </div>
             </div>
             {/* Set 2 (identical – creates seamless infinite loop) */}
             <div className="press-track" aria-hidden="true">
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-times.png" alt="" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-times.png" alt="" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-ft.png" alt="" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-ft.png" alt="" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-dailymail.png" alt="" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-dailymail.png" alt="" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-forbes.png" alt="" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-forbes.png" alt="" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-express.png" alt="" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-express.png" alt="" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-businessinsider.png" alt="" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-businessinsider.png" alt="" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-luxtravel.png" alt="" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-luxtravel.png" alt="" loading="eager" width="200" height="50" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2025/11/press-rollingstone.png" alt="" loading="eager" width="200" height="50" />
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-rollingstone.png" alt="" loading="eager" width="200" height="50" />
                 </div>
             </div>
         </div>
@@ -214,7 +214,7 @@ export default function Home() {
         <div className="dest-panels">
 
             <div className="dest-panel active" id="dest-france">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/france-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/france-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-france.webp" alt="France" loading="lazy" width="504" height="466" />
                 </div>
@@ -226,7 +226,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-spain">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/spain-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/spain-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-spain.webp" alt="Spain" loading="lazy" width="504" height="466" />
                 </div>
@@ -238,7 +238,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-italy">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/italy-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/italy-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-italy-v2.webp" alt="Italy" loading="lazy" width="504" height="466" />
                 </div>
@@ -250,7 +250,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-portugal">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/portugal-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/portugal-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-portugal.webp" alt="Portugal" loading="lazy" width="504" height="466" />
                 </div>
@@ -262,7 +262,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-austria">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/austria-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/austria-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-austria.webp" alt="Austria" loading="lazy" width="504" height="466" />
                 </div>
@@ -274,7 +274,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-england">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/england-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/england-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-england.webp" alt="England" loading="lazy" width="504" height="466" />
                 </div>
@@ -286,7 +286,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-sweden">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/sweden-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/sweden-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-sweden.webp" alt="Sweden" loading="lazy" width="504" height="466" />
                 </div>
@@ -298,7 +298,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-germany">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/germany-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/germany-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-germany.webp" alt="Germany" loading="lazy" width="504" height="466" />
                 </div>
@@ -310,7 +310,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-croatia">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/croatia-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/croatia-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-croatia.webp" alt="Croatia" loading="lazy" width="504" height="466" />
                 </div>
@@ -322,7 +322,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-usa">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/usa-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/usa-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-usa-v2.webp" alt="USA" loading="lazy" width="504" height="466" />
                 </div>
@@ -334,7 +334,7 @@ export default function Home() {
             </div>
 
             <div className="dest-panel" id="dest-mexico">
-                <div className="dest-country-outline" style={{backgroundImage: "url('https://staging.co-ownership-property.com/wp-content/uploads/mexico-line.webp')"}}></div>
+                <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/mexico-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-mexico-v2.webp" alt="Mexico" loading="lazy" width="504" height="466" />
                 </div>
@@ -389,7 +389,7 @@ export default function Home() {
         <div className="latest-posts-grid">
                         <article className="lp-card" onClick={() => { window.location='https://staging.co-ownership-property.com/the-algarve-golden-triangle-why-portugals-most-exclusive-coast-is-europes-smartest-co-ownership-destination-in-2026/' }}>
                                 <div className="lp-image-wrap">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2026/04/algarve-golden-triangle-co-ownership-luxury-property-2026-hero-768x1152.jpg"
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2026/04/algarve-golden-triangle-co-ownership-luxury-property-2026-hero-768x1152.jpg"
                          alt="The Algarve Golden Triangle: Why Portugal&#8217;s Most Exclusive Coast Is Europe&#8217;s Smartest Co-Ownership Destination in 2026"
                          className="lp-image"
                          loading="lazy"
@@ -404,7 +404,7 @@ export default function Home() {
             </article>
                         <article className="lp-card" onClick={() => { window.location='https://staging.co-ownership-property.com/three-paths-luxury-fractional-ownership-success-stories/' }}>
                                 <div className="lp-image-wrap">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2026/04/three-paths-luxury-fractional-ownership-success-stories-hero-768x512.jpg"
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2026/04/three-paths-luxury-fractional-ownership-success-stories-hero-768x512.jpg"
                          alt="Three Paths to Luxury: How Real Buyers Are Using Fractional Ownership to Transform Their Holiday Home Experience"
                          className="lp-image"
                          loading="lazy"
@@ -419,7 +419,7 @@ export default function Home() {
             </article>
                         <article className="lp-card" onClick={() => { window.location='https://staging.co-ownership-property.com/idle-asset-problem-fractional-ownership-investment-second-homes/' }}>
                                 <div className="lp-image-wrap">
-                    <img src="https://staging.co-ownership-property.com/wp-content/uploads/2026/04/idle-asset-problem-fractional-ownership-investment-second-homes-hero-768x512.jpg"
+                    <img src="https://co-ownership-property.com/wp-content/uploads/2026/04/idle-asset-problem-fractional-ownership-investment-second-homes-hero-768x512.jpg"
                          alt="The Idle Asset Problem: Why Smart Investors Are Choosing Fractional Ownership Over Empty Second Homes"
                          className="lp-image"
                          loading="lazy"
