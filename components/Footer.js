@@ -3,15 +3,11 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="footer-inner">
 
-        {/* Brand column */}
         <div className="footer-brand">
           <div className="footer-logo-text">Co-Ownership<br />Property</div>
-          <p className="footer-tagline">
-            The independent guide to luxury fractional ownership — Europe &amp; the USA.
-          </p>
+          <p className="footer-tagline">The independent guide to luxury fractional ownership — Europe &amp; the USA.</p>
         </div>
 
-        {/* Explore */}
         <div className="footer-col">
           <h4 className="footer-col-heading">Explore</h4>
           <ul>
@@ -25,7 +21,6 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Learn */}
         <div className="footer-col">
           <h4 className="footer-col-heading">Learn</h4>
           <ul>
@@ -33,10 +28,11 @@ export default function Footer() {
             <li><a href="/all-our-blog/">Our Blog</a></li>
             <li><a href="/about-us/">About Us</a></li>
             <li><a href="/buying-a-co-ownership-property-faqs/">FAQs</a></li>
+            <li><a href="/privacy-policy/">Privacy Policy</a></li>
+            <li><a href="/terms-and-conditions/">Terms &amp; Conditions</a></li>
           </ul>
         </div>
 
-        {/* Contact */}
         <div className="footer-col">
           <h4 className="footer-col-heading">Contact</h4>
           <ul>
@@ -45,18 +41,8 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Legal */}
-        <div className="footer-col">
-          <h4 className="footer-col-heading">Legal</h4>
-          <ul>
-            <li><a href="/privacy-policy/">Privacy Policy</a></li>
-            <li><a href="/terms-and-conditions/">Terms &amp; Conditions</a></li>
-          </ul>
-        </div>
-
       </div>
 
-      {/* Bottom bar */}
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} Co-Ownership Property. All rights reserved.</p>
         <p className="footer-bottom-right">Independent. Unbiased. Expert.</p>
