@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  trailingSlash: true, // Match existing WordPress URL structure exactly
   images: {
     // Allow next/image to optimise images from these external domains
     remotePatterns: [
@@ -20,5 +21,14 @@ const nextConfig = {
     minimumCacheTTL: 604800,
   },
 };
+
+nextConfig.redirects = async () => [
+  // /contact-us is the old WordPress slug — redirect to /contact permanently
+  { source: '/contact-us', destination: '/contact', permanent: true },
+  { source: '/contact-us/', destination: '/contact/', permanent: true },
+  // Blog alias
+  { source: '/blog', destination: '/all-our-blog', permanent: true },
+  { source: '/blog/', destination: '/all-our-blog/', permanent: true },
+];
 
 module.exports = nextConfig;
