@@ -111,6 +111,8 @@ export default function OurHomes({ allProperties }) {
         </div>
       </div>
 
+      {/* Cream section wrapper */}
+      <div className="our-homes-section">
       {/* Results count */}
       <div className="results-bar">
         <p className="results-count">
@@ -133,6 +135,7 @@ export default function OurHomes({ allProperties }) {
           </div>
         )}
       </div>
+      </div>{/* end our-homes-section */}
 
       <Newsletter />
       <ExpertForm />

@@ -4661,3 +4661,158 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
 .prop-card:hover .prop-card-img {
   transform: scale(1.04);
 }
+
+/* ===== PROPERTY CARDS — exact staging design ===== */
+
+/* Cream background behind the entire property grid section */
+.homes-grid-wrap,
+.results-bar {
+  background: var(--cream, #F5F2EC);
+}
+.homes-grid-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 3rem 4rem;
+}
+section.props-sec,
+.props-outer {
+  background: var(--cream, #F5F2EC);
+}
+
+/* Card */
+.prop-card {
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  display: flex;
+  flex-direction: column;
+}
+.prop-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(44,74,94,0.12);
+}
+
+/* Image */
+.prop-img-wrap {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+  background: var(--blue-20, #C5CED5);
+}
+.prop-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.prop-card:hover .prop-img { transform: scale(1.06); }
+
+/* Heart button */
+.prop-heart {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.92);
+  border: none;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s, background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.prop-heart:hover { transform: scale(1.15); background: #fff; }
+
+/* Badge */
+.prop-badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Nunito Sans', sans-serif;
+}
+.prop-badge.sold     { background: #2C4A5E; color: #fff; }
+.prop-badge.hot      { background: #C9A84C; color: #fff; }
+.prop-badge.waitlist { background: #6B8A9E; color: #fff; }
+
+/* Card body */
+.prop-body {
+  padding: 1rem 1.5rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.prop-location {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #C9A84C;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.prop-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #2C4A5E;
+  margin-bottom: 0.6rem;
+  font-weight: 400;
+  flex: 1;
+}
+.prop-stats {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: #5a6a7a;
+  font-weight: 600;
+}
+.prop-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.prop-stat svg {
+  width: 13px; height: 13px;
+  flex-shrink: 0;
+  opacity: 0.55;
+}
+.prop-stat-sep {
+  display: inline-block;
+  width: 1px; height: 10px;
+  background: rgba(201,168,76,0.35);
+  margin: 0 0.75rem;
+}
+.prop-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: #2C4A5E;
+  margin-bottom: 0.6rem;
+  font-weight: 400;
+  border-top: 1px solid rgba(201,168,76,0.18);
+  padding-top: 0.6rem;
+}
+.prop-view-btn {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #C9A84C;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.3s ease, letter-spacing 0.3s ease;
+  margin-top: auto;
+}
+.prop-view-btn:hover { color: #C9A84C; letter-spacing: 0.18em; }
+
+/* Cream background section wrapper for Our Homes page */
+.our-homes-section {
+  background: var(--cream, #F5F2EC);
+  padding-top: 2rem;
+}
