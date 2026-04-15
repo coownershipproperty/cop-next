@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function PropertyCard({ property: p, priority = false }) {
   const slug = p.url
     .replace(/^https?:\/\/[^/]+\/property\//, '')
@@ -23,13 +25,14 @@ export default function PropertyCard({ property: p, priority = false }) {
         {p.label && <span className="prop-card-label">{p.label}</span>}
 
         <div className="prop-card-img-wrap">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={p.img}
             alt={p.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="prop-card-img"
             loading={priority ? 'eager' : 'lazy'}
-            decoding="async"
+            quality={82}
           />
         </div>
 
