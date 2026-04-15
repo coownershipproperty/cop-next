@@ -123,12 +123,27 @@ export async function getStaticProps({ params }) {
   const filter = DEST_FILTERS[slug] || null;
   const matchedProps = filter ? allProps.filter(p => matchesFilter(p, filter)) : [];
 
+  // Split body: hero section (before mid-cta) and rest (mid-cta onwards)
+  const splitMarkers = ['class="dest-mid-cta"', 'class="dest-mid-cta ', 'id="dest-mid-cta"'];
+  let splitIdx = -1;
+  for (const marker of splitMarkers) {
+    const idx = body.indexOf(marker);
+    if (idx > 0) {
+      // Find the opening < of this element
+      splitIdx = body.lastIndexOf('<', idx);
+      break;
+    }
+  }
+
+  const heroHtml = splitIdx > 0 ? body.slice(0, splitIdx).trim() : body.trim();
+  const restHtml = splitIdx > 0 ? body.slice(splitIdx).trim() : '';
+
   return {
-    props: { slug, title, metaDesc, bodyHtml: body.trim(), properties: matchedProps },
+    props: { slug, title, metaDesc, heroHtml, restHtml, properties: matchedProps },
   };
 }
 
-export default function DestinationPage({ slug, title, metaDesc, bodyHtml, properties }) {
+export default function DestinationPage({ slug, title, metaDesc, heroHtml, restHtml, properties }) {
   return (
     <>
       <Head>
@@ -139,10 +154,10 @@ export default function DestinationPage({ slug, title, metaDesc, bodyHtml, prope
       </Head>
       <Header />
 
-      {/* Unique page content: hero + SEO sections */}
-      <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+      {/* Hero section (from staging) */}
+      <div dangerouslySetInnerHTML={{ __html: heroHtml }} />
 
-      {/* Property grid — injected server-side */}
+      {/* Property grid — injected right after hero */}
       {properties.length > 0 ? (
         <section className="props-sec">
           <div className="props-inner">
@@ -161,6 +176,9 @@ export default function DestinationPage({ slug, title, metaDesc, bodyHtml, prope
           </div>
         </section>
       )}
+
+      {/* Rest of page: CTA, SEO content, related locations */}
+      <div dangerouslySetInnerHTML={{ __html: restHtml }} />
 
       <Newsletter />
       <ExpertForm />

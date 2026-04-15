@@ -4542,3 +4542,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
         }
     
+/* PropertyCard meta separator */
+.prop-card-meta { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+.prop-card-meta-sep { color: var(--muted, #5a6a7a); font-size: 0.75rem; }

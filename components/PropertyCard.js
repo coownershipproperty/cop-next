@@ -20,6 +20,7 @@ export default function PropertyCard({ property: p }) {
           <h3 className="prop-card-title">{p.title}</h3>
           <div className="prop-card-meta">
             {p.beds > 0 && <span>{p.beds} Beds</span>}
+            {p.beds > 0 && p.size > 0 && <span className="prop-card-meta-sep">·</span>}
             {p.size > 0 && <span>{p.size} m²</span>}
           </div>
           {priceFormatted && <p className="prop-card-price">From {priceFormatted}</p>}
