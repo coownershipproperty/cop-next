@@ -14,16 +14,15 @@ export default function PropertyCard({ property: p }) {
       }).format(p.price)
     : null;
 
-  // Location line: show region if different from city, otherwise city + country
-  const region = p.region || '';
-  const city   = p.city   || '';
-  const locationLine = [region || city, p.country].filter(Boolean).join(', ');
+  const meta = [
+    p.beds > 0 ? `${p.beds} Beds` : null,
+    p.size > 0 ? `${p.size} m²` : null,
+  ].filter(Boolean).join('  ·  ');
 
   return (
     <div className="prop-card">
       <a href={href} className="prop-card-link">
         {p.label && <span className="prop-card-label">{p.label}</span>}
-
         <div className="prop-card-img-wrap">
           <Image
             src={p.img}
@@ -35,17 +34,9 @@ export default function PropertyCard({ property: p }) {
             quality={80}
           />
         </div>
-
         <div className="prop-card-body">
-          {locationLine && (
-            <p className="prop-card-location">{locationLine.toUpperCase()}</p>
-          )}
           <h3 className="prop-card-title">{p.title}</h3>
-          <div className="prop-card-meta">
-            {p.beds > 0 && <span>⊞ {p.beds} Beds</span>}
-            {p.beds > 0 && p.size > 0 && <span className="prop-card-meta-sep">·</span>}
-            {p.size > 0 && <span>⊡ {p.size} m²</span>}
-          </div>
+          {meta && <p className="prop-card-meta">{meta}</p>}
           {priceFormatted && (
             <p className="prop-card-price">{priceFormatted}</p>
           )}

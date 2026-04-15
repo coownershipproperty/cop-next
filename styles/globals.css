@@ -4575,3 +4575,69 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
   color: var(--gold, #C9A84C);
   text-transform: uppercase;
 }
+
+/* ── Property card — clean luxury style ─────────────────────── */
+.prop-card {
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e8e0d4;
+}
+.prop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(44,74,94,0.10);
+}
+.prop-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.prop-card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #e8e0d4;
+}
+.prop-card-img-wrap img,
+.prop-card-img {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.prop-card:hover .prop-card-img {
+  transform: scale(1.04);
+}
+.prop-card-body {
+  padding: 1.25rem 1.25rem 1.4rem;
+}
+.prop-card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #1a2533;
+  margin: 0 0 0.6rem;
+}
+.prop-card-meta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #5a6a7a;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+.prop-card-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a2533;
+  margin: 0 0 0.85rem;
+  font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+.prop-card-cta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #C9A84C;
+}
