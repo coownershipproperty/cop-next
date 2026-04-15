@@ -28,8 +28,6 @@ export default function Footer() {
             <li><a href="/all-our-blog/">Our Blog</a></li>
             <li><a href="/about-us/">About Us</a></li>
             <li><a href="/buying-a-co-ownership-property-faqs/">FAQs</a></li>
-            <li><a href="/privacy-policy/">Privacy Policy</a></li>
-            <li><a href="/terms-and-conditions/">Terms &amp; Conditions</a></li>
           </ul>
         </div>
 
