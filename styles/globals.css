@@ -4642,25 +4642,21 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
   color: #C9A84C;
 }
 
-/* ── Image fade-in on load — no jarring brown flash ─────────── */
+
+/* ── Property card image — clean, no opacity tricks ────────── */
 .prop-card-img-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: #f0ece4; /* warm neutral, closer to image content */
+  background: #ede8df;
 }
 .prop-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 0;
-  transition: opacity 0.4s ease, transform 0.5s ease;
-}
-.prop-card-img.loaded,
-.prop-card-img[loading="eager"] {
-  opacity: 1;
+  transition: transform 0.5s ease;
 }
 .prop-card:hover .prop-card-img {
   transform: scale(1.04);
