@@ -6,7 +6,10 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 
 
+import { useState } from 'react';
+
 export default function Home() {
+  const [activeDest, setActiveDest] = useState('france');
   return (
     <>
       <Head>
@@ -197,23 +200,23 @@ export default function Home() {
 
         {/* Tab navigation */}
         <div className="dest-tabs">
-            <button className="dest-tab-btn active" data-dest="france">France</button>
-            <button className="dest-tab-btn" data-dest="spain">Spain</button>
-            <button className="dest-tab-btn" data-dest="usa">USA</button>
-            <button className="dest-tab-btn" data-dest="italy">Italy</button>
-            <button className="dest-tab-btn" data-dest="portugal">Portugal</button>
-            <button className="dest-tab-btn" data-dest="austria">Austria</button>
-            <button className="dest-tab-btn" data-dest="england">England</button>
-            <button className="dest-tab-btn" data-dest="sweden">Sweden</button>
-            <button className="dest-tab-btn" data-dest="germany">Germany</button>
-            <button className="dest-tab-btn" data-dest="croatia">Croatia</button>
-            <button className="dest-tab-btn" data-dest="mexico">Mexico</button>
+            <button className={`dest-tab-btn${activeDest === "france" ? " active" : ""}`} onClick={() => setActiveDest("france")}>  France</button>
+            <button className={`dest-tab-btn${activeDest === "spain" ? " active" : ""}`} onClick={() => setActiveDest("spain")}>  Spain</button>
+            <button className={`dest-tab-btn${activeDest === "usa" ? " active" : ""}`} onClick={() => setActiveDest("usa")}>  USA</button>
+            <button className={`dest-tab-btn${activeDest === "italy" ? " active" : ""}`} onClick={() => setActiveDest("italy")}>  Italy</button>
+            <button className={`dest-tab-btn${activeDest === "portugal" ? " active" : ""}`} onClick={() => setActiveDest("portugal")}>  Portugal</button>
+            <button className={`dest-tab-btn${activeDest === "austria" ? " active" : ""}`} onClick={() => setActiveDest("austria")}>  Austria</button>
+            <button className={`dest-tab-btn${activeDest === "england" ? " active" : ""}`} onClick={() => setActiveDest("england")}>  England</button>
+            <button className={`dest-tab-btn${activeDest === "sweden" ? " active" : ""}`} onClick={() => setActiveDest("sweden")}>  Sweden</button>
+            <button className={`dest-tab-btn${activeDest === "germany" ? " active" : ""}`} onClick={() => setActiveDest("germany")}>  Germany</button>
+            <button className={`dest-tab-btn${activeDest === "croatia" ? " active" : ""}`} onClick={() => setActiveDest("croatia")}>  Croatia</button>
+            <button className={`dest-tab-btn${activeDest === "mexico" ? " active" : ""}`} onClick={() => setActiveDest("mexico")}>  Mexico</button>
         </div>
 
         {/* Panels */}
         <div className="dest-panels">
 
-            <div className="dest-panel active" id="dest-france">
+            <div className={`dest-panel${activeDest === "france" ? " active" : ""}`} id="dest-france">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/france-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-france.webp" alt="France" loading="lazy" width="504" height="466" />
@@ -225,7 +228,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-spain">
+            <div className={`dest-panel${activeDest === "spain" ? " active" : ""}`} id="dest-spain">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/spain-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-spain.webp" alt="Spain" loading="lazy" width="504" height="466" />
@@ -237,7 +240,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-italy">
+            <div className={`dest-panel${activeDest === "italy" ? " active" : ""}`} id="dest-italy">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/italy-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-italy-v2.webp" alt="Italy" loading="lazy" width="504" height="466" />
@@ -249,7 +252,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-portugal">
+            <div className={`dest-panel${activeDest === "portugal" ? " active" : ""}`} id="dest-portugal">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/portugal-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-portugal.webp" alt="Portugal" loading="lazy" width="504" height="466" />
@@ -261,7 +264,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-austria">
+            <div className={`dest-panel${activeDest === "austria" ? " active" : ""}`} id="dest-austria">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/austria-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-austria.webp" alt="Austria" loading="lazy" width="504" height="466" />
@@ -273,7 +276,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-england">
+            <div className={`dest-panel${activeDest === "england" ? " active" : ""}`} id="dest-england">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/england-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-england.webp" alt="England" loading="lazy" width="504" height="466" />
@@ -285,7 +288,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-sweden">
+            <div className={`dest-panel${activeDest === "sweden" ? " active" : ""}`} id="dest-sweden">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/sweden-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-sweden.webp" alt="Sweden" loading="lazy" width="504" height="466" />
@@ -297,7 +300,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-germany">
+            <div className={`dest-panel${activeDest === "germany" ? " active" : ""}`} id="dest-germany">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/germany-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-germany.webp" alt="Germany" loading="lazy" width="504" height="466" />
@@ -309,7 +312,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-croatia">
+            <div className={`dest-panel${activeDest === "croatia" ? " active" : ""}`} id="dest-croatia">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/croatia-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-croatia.webp" alt="Croatia" loading="lazy" width="504" height="466" />
@@ -321,7 +324,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-usa">
+            <div className={`dest-panel${activeDest === "usa" ? " active" : ""}`} id="dest-usa">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/usa-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-usa-v2.webp" alt="USA" loading="lazy" width="504" height="466" />
@@ -333,7 +336,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="dest-panel" id="dest-mexico">
+            <div className={`dest-panel${activeDest === "mexico" ? " active" : ""}`} id="dest-mexico">
                 <div className="dest-country-outline" style={{backgroundImage: "url('https://co-ownership-property.com/wp-content/uploads/mexico-line.webp')"}}></div>
                 <div className="dest-img-wrap">
                     <img src="https://co-ownership-property.com/wp-content/uploads/dest-mexico-v2.webp" alt="Mexico" loading="lazy" width="504" height="466" />
