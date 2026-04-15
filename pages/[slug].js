@@ -68,13 +68,15 @@ const DEST_FILTERS = {
 
 function matchesFilter(prop, filter) {
   for (const [key, val] of Object.entries(filter)) {
-    const propVal = prop[key === 'cities' ? 'city' : key] || '';
+    const propVal = (prop[key === 'cities' ? 'city' : key] || '').trim();
+    if (!propVal) return false; // empty field never matches a filter
     if (key === 'regions') {
       if (!val.some(v => propVal.toLowerCase().includes(v.toLowerCase()))) return false;
     } else if (key === 'cities') {
-      if (!val.some(v => propVal.toLowerCase().includes(v.toLowerCase()) || v.toLowerCase().includes(propVal.toLowerCase()))) return false;
+      if (!val.some(v => propVal.toLowerCase() === v.toLowerCase() || propVal.toLowerCase().includes(v.toLowerCase()))) return false;
     } else {
-      if (!propVal.toLowerCase().includes(val.toLowerCase()) && !val.toLowerCase().includes(propVal.toLowerCase())) return false;
+      // Exact or contains match — but propVal must be non-empty (checked above)
+      if (!propVal.toLowerCase().includes(val.toLowerCase())) return false;
     }
   }
   return true;
