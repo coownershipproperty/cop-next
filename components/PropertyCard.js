@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export default function PropertyCard({ property: p, priority = false }) {
   const slug = p.url
     .replace(/^https?:\/\/[^/]+\/property\//, '')
@@ -23,19 +21,15 @@ export default function PropertyCard({ property: p, priority = false }) {
     <div className="prop-card">
       <a href={href} className="prop-card-link">
         {p.label && <span className="prop-card-label">{p.label}</span>}
-
         <div className="prop-card-img-wrap">
-          <Image
+          <img
             src={p.img}
             alt={p.title}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="prop-card-img"
             loading={priority ? 'eager' : 'lazy'}
-            quality={82}
+            decoding="async"
           />
         </div>
-
         <div className="prop-card-body">
           <h3 className="prop-card-title">{p.title}</h3>
           {meta && <p className="prop-card-meta">{meta}</p>}
