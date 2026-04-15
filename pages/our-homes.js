@@ -1,68 +1,95 @@
-import Layout from '../components/Layout';
-import Link from 'next/link';
-import { useState } from 'react';
+import React from 'react';
+import Head from 'next/head';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-const COUNTRIES = ['All', 'France', 'Spain', 'USA', 'Italy', 'Other'];
-
-export default function OurHomes() {
-  const [country, setCountry] = useState('All');
-
+export default function OurHomesPage() {
   return (
-    <Layout title="All Our Homes" description="Browse our handpicked luxury co-ownership properties across Europe, the USA and beyond.">
-      {/* Hero */}
-      <section style={{ background: 'var(--blue)', padding: '7rem 2rem 4rem', textAlign: 'center' }}>
-        <div className="eyebrow" style={{ color: 'var(--gold)', marginBottom: '1rem' }}>Worldwide Collection</div>
-        <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 400, color: 'white', marginBottom: '1rem' }}>
-          All Our Homes
-        </h1>
-        <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '0 auto', lineHeight: 1.8 }}>
-          Handpicked luxury co-ownership properties across Europe, the USA and beyond — find the home that&apos;s right for you.
-        </p>
-      </section>
+    <>
+      <Head>
+        <title>Co-Ownership Property</title>
+        <meta name="description" content="Co-Ownership Property - Luxury fractional ownership of premium properties worldwide." />
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
 
-      {/* Filter bar */}
-      <section style={{ background: 'white', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '1.2rem 2rem' }}>
-        <div style={{ maxWidth: 'var(--max)', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--muted)' }}>Country</span>
-          {COUNTRIES.map(c => (
-            <button key={c} onClick={() => setCountry(c)} style={{
-              padding: '0.4rem 1rem',
-              background: country === c ? 'var(--blue)' : 'transparent',
-              color: country === c ? 'white' : 'var(--muted)',
-              border: '1px solid ' + (country === c ? 'var(--blue)' : 'var(--border)'),
-              fontFamily: 'Nunito Sans, sans-serif',
-              fontSize: '0.78rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}>{c}</button>
-          ))}
-        </div>
-      </section>
+      <main>
 
-      {/* Properties grid - will be populated from Sheet */}
-      <section style={{ background: 'var(--cream)', padding: '3rem 2rem' }}>
-        <div style={{ maxWidth: 'var(--max)', margin: '0 auto' }}>
-          <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginBottom: '2rem' }}>
-            234+ properties available — loading from our portfolio...
-          </p>
-          {/* Property cards will render here once data layer is connected */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '2rem' }}>
-            {/* Placeholder */}
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} style={{ background: 'white', height: 380, opacity: 0.4, animation: 'pulse 1.5s infinite' }}>
-                <div style={{ height: 240, background: '#e0dcd4' }} />
-                <div style={{ padding: '1.2rem' }}>
-                  <div style={{ height: 12, background: '#e0dcd4', width: '60%', marginBottom: '0.8rem' }} />
-                  <div style={{ height: 20, background: '#e0dcd4', width: '80%', marginBottom: '0.5rem' }} />
-                  <div style={{ height: 16, background: '#e0dcd4', width: '40%' }} />
+
+        {/* ===== NAVIGATION (shared partial) ===== */}
+
+        {/* ===== PAGE HERO ===== */}
+        <section className="page-hero">
+            <span className="page-hero-eyebrow">Worldwide Collection</span>
+            <h1>All Our Homes</h1>
+            <p className="page-hero-sub">Handpicked luxury co-ownership properties across Europe, the USA and beyond — find the home that's right for you.</p>
+        </section>
+
+        {/* ===== FILTER BAR ===== */}
+        <div className="filter-bar" id="filter-bar">
+            {/* Country row — scrollable */}
+            <div className="filter-row" id="country-row">
+                <span className="filter-label">Country</span>
+                <div className="filter-scroll-outer">
+                    <div className="filter-scroll-wrap" id="country-scroll">
+                        <button className="filter-btn active" data-country="">All</button>
+                        {/* Populated by JS */}
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
+            </div>
+            {/* Region row — scrollable, shown when a country is selected */}
+            <div className="filter-row region-row" id="region-row">
+                <span className="filter-label">Region</span>
+                <div className="filter-scroll-outer">
+                    <div className="filter-scroll-wrap" id="region-scroll">
+                        {/* Populated by JS */}
+                    </div>
+                </div>
+            </div>
+            {/* Sort + Type row — scrollable */}
+            <div className="filter-row" id="sort-row">
+                <span className="filter-label">Sort</span>
+                <div className="filter-scroll-outer">
+                    <div className="filter-scroll-wrap">
+                        <button className="filter-btn sort-btn active" data-sort="default">Default</button>
+                        <button className="filter-btn sort-btn" data-sort="asc">Price ↑ Low</button>
+                        <button className="filter-btn sort-btn" data-sort="desc">Price ↓ High</button>
+                        <div className="filter-divider"></div>
+                        <button className="clear-btn" id="clear-btn">✕ Clear</button>
+                        <a href="#speak-to-expert" className="interested-btn">I'm Interested</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
-      <style>{`@keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:.6} }`}</style>
-    </Layout>
+
+        {/* ===== RESULTS BAR ===== */}
+        <div className="results-bar">
+            <p className="results-count" id="results-count"><strong></strong> properties found</p>
+        </div>
+
+        {/* ===== PROPERTY GRID ===== */}
+        <div className="homes-grid-wrap">
+            <div className="homes-grid" id="homes-grid">
+                {/* Rendered by JS */}
+            </div>
+            <div className="no-results" id="no-results">No properties match your filters. <button className="clear-btn" onclick="clearAllFilters()" style={{display: 'inline-flex', marginLeft: '0.5rem'}}>Clear filters</button></div>
+        </div>
+
+        {/* ===== LOAD MORE ===== */}
+        <div className="load-more-wrap">
+            <button className="load-more-btn" id="load-more-btn" style={{display: 'none'}}>Show More Properties</button>
+        </div>
+
+        {/* ===== NEWSLETTER (shared partial) ===== */}
+
+        {/* ===== EXPERT FORM (shared partial) ===== */}
+
+        {/* ===== FOOTER ===== */}
+
+        {/* ===== PROPERTY DATA + CLIENT-SIDE ENGINE ===== */}
+        
+
+      </main>
+    </>
   );
 }

@@ -1,64 +1,90 @@
-import Layout from '../components/Layout';
-import { useState } from 'react';
+import React from 'react';
+import Head from 'next/head';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-function ContactForm() {
-  const [form, setForm] = useState({ name:'', email:'', phone:'', message:'' });
-  const [sent, setSent] = useState(false);
-  const set = k => e => setForm(f=>({...f,[k]:e.target.value}));
-  const submit = async e => {
-    e.preventDefault();
-    try { await fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(form)}); } catch{}
-    setSent(true);
-  };
-  const inp = { width:'100%', padding:'0.9rem 1rem', border:'1px solid var(--border)', background:'white', fontFamily:'Nunito Sans,sans-serif', fontSize:'0.88rem', marginBottom:'1rem', outline:'none', color:'var(--text)' };
-  if(sent) return <div style={{textAlign:'center',padding:'3rem',color:'var(--blue)'}}><div style={{fontSize:'2rem',marginBottom:'1rem'}}>✓</div><h3 style={{fontFamily:'Playfair Display,serif',marginBottom:'0.5rem'}}>Message Sent</h3><p style={{color:'var(--muted)'}}>We typically respond within a few hours.</p></div>;
+export default function ContactPage() {
   return (
-    <form onSubmit={submit}>
-      <input required placeholder="Your name *" value={form.name} onChange={set('name')} style={inp}/>
-      <input required type="email" placeholder="Email address *" value={form.email} onChange={set('email')} style={inp}/>
-      <input placeholder="Phone (optional)" value={form.phone} onChange={set('phone')} style={inp}/>
-      <textarea placeholder="How can we help?" value={form.message} onChange={set('message')} rows={5} style={{...inp,resize:'vertical'}}/>
-      <button type="submit" className="btn-gold" style={{width:'100%',marginTop:'0.5rem'}}>Send Message</button>
-    </form>
-  );
-}
+    <>
+      <Head>
+        <title>Co-Ownership Property</title>
+        <meta name="description" content="Co-Ownership Property - Luxury fractional ownership of premium properties worldwide." />
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
 
-export default function Contact() {
-  return (
-    <Layout title="Contact" description="Get in touch with the Co-Ownership Property team. No pressure, no obligation. We respond within a few hours.">
-      <section style={{background:'var(--blue)',padding:'7rem 2rem 4rem',textAlign:'center'}}>
-        <div className="eyebrow" style={{color:'var(--gold)',marginBottom:'1rem'}}>Get In Touch</div>
-        <h1 style={{fontFamily:'Playfair Display,serif',fontSize:'clamp(2.5rem,5vw,4rem)',fontWeight:400,color:'white',marginBottom:'1rem'}}>
-          Let&apos;s <em>Talk</em>
-        </h1>
-        <p style={{color:'rgba(255,255,255,0.7)',maxWidth:480,margin:'0 auto'}}>Straight answers, no sales pressure, no obligation.</p>
-      </section>
-      <section style={{background:'var(--cream)',padding:'5rem 2rem'}}>
-        <div style={{maxWidth:960,margin:'0 auto',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:'3rem',alignItems:'start'}}>
-          {/* Info */}
-          <div>
-            <h2 style={{fontFamily:'Playfair Display,serif',fontSize:'1.8rem',fontWeight:400,color:'var(--blue)',marginBottom:'1.5rem'}}>How We Can Help</h2>
-            {[
-              {icon:'✉', title:'Email Us Directly', desc:<><a href="mailto:info@co-ownership-property.com" style={{color:'var(--gold)'}}>info@co-ownership-property.com</a></>},
-              {icon:'⏱', title:'Fast Response', desc:'We typically respond within a few hours (we&apos;re based in the UK).'},
-              {icon:'○', title:'No Pressure', desc:'We&apos;re independent. No quotas, no commissions pushing you toward the wrong property.'},
-            ].map(item => (
-              <div key={item.title} style={{display:'flex',gap:'1rem',marginBottom:'2rem'}}>
-                <div style={{fontSize:'1.5rem',flexShrink:0,marginTop:'2px'}}>{item.icon}</div>
-                <div>
-                  <h3 style={{fontFamily:'Playfair Display,serif',fontSize:'1rem',color:'var(--blue)',marginBottom:'0.3rem'}}>{item.title}</h3>
-                  <p style={{color:'var(--muted)',fontSize:'0.88rem',lineHeight:1.7}}>{item.desc}</p>
+      <main>
+
+
+            {/* HERO */}
+            <section className="page-hero">
+                <p className="eyebrow">We're Here to Help</p>
+                <h1>Get in <em>Touch</em></h1>
+                <p className="subtitle">Questions about co-ownership, a specific property, or just want to understand how it all works? We'll give you straight answers — no sales pressure.</p>
+            </section>
+
+            {/* TRUST STRIP */}
+            <section className="trust-sec">
+                <div className="trust-inner">
+                    <p className="eyebrow" style={{textAlign: 'center'}}>How We Work</p>
+                    <h2 style={{textAlign: 'center', fontSize: 'clamp(1.8rem,3.5vw,2.4rem)', marginBottom: '0'}}>What to Expect When You Contact Us</h2>
+                    <div className="trust-grid">
+                        <div className="trust-card">
+                            <div className="trust-icon">&#x2709;</div>
+                            <h3>Email Us Directly</h3>
+                            <p>Prefer to write? Reach us at<br /><a href="mailto:info@co-ownership-property.com">info@co-ownership-property.com</a><br />We read every message personally.</p>
+                        </div>
+                        <div className="trust-card">
+                            <div className="trust-icon">&#x23F0;</div>
+                            <h3>Fast Response</h3>
+                            <p>We typically respond within a few hours — often faster. For USA enquiries, please allow for the time difference. We'll always get back to you.</p>
+                        </div>
+                        <div className="trust-card">
+                            <div className="trust-icon">&#x2713;</div>
+                            <h3>No Pressure, No Obligation</h3>
+                            <p>We ask questions, point you to the right properties, and leave the decision entirely to you. We're independent — not tied to any platform or developer.</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          {/* Form */}
-          <div style={{background:'white',padding:'2.5rem',boxShadow:'0 4px 24px rgba(0,0,0,0.06)'}}>
-            <h3 style={{fontFamily:'Playfair Display,serif',fontSize:'1.4rem',color:'var(--blue)',marginBottom:'1.5rem'}}>Send Us a Message</h3>
-            <ContactForm />
-          </div>
-        </div>
-      </section>
-    </Layout>
+            </section>
+
+            {/* EXPERT FORM (shared partial = the main contact form) */}
+
+            {/* HELPFUL LINKS */}
+            <section className="links-sec">
+                <div className="links-inner">
+                    <p className="eyebrow" style={{textAlign: 'center'}}>Still Researching?</p>
+                    <h2 style={{textAlign: 'center', fontSize: 'clamp(1.6rem,3vw,2.2rem)', marginBottom: '0'}}>Not Ready to Get in Touch Yet?</h2>
+                    <div className="links-grid">
+                        <a href="/how-it-works/" className="link-card">
+                            <span className="link-cat">How It Works</span>
+                            <span className="link-title">The buying process, step by step</span>
+                            <span className="link-desc">From first enquiry to signed contracts — what happens, in what order, and what you need to prepare.</span>
+                            <span className="link-arrow">Read the guide &rarr;</span>
+                        </a>
+                        <a href="/how-it-works/#faq" className="link-card">
+                            <span className="link-cat">The Comparison</span>
+                            <span className="link-title">Co-ownership vs. buying the whole property</span>
+                            <span className="link-desc">Usage, costs, appreciation, and exit — laid out side by side without the marketing spin.</span>
+                            <span className="link-arrow">See the comparison &rarr;</span>
+                        </a>
+                        <a href="/all-our-blog/" className="link-card">
+                            <span className="link-cat">Our Blog</span>
+                            <span className="link-title">Market insights &amp; buyer guides</span>
+                            <span className="link-desc">In-depth articles on destinations, legals, investment returns, and everything a smart buyer needs to know.</span>
+                            <span className="link-arrow">Browse articles &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            {/* NEWSLETTER */}
+
+            {/* FOOTER */}
+
+            
+
+      </main>
+    </>
   );
 }

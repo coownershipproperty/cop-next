@@ -1,87 +1,74 @@
-import Link from 'next/link';
-
-const DESTINATIONS = [
-  { label: 'Spain',       href: '/spain-fractional-ownership-properties' },
-  { label: 'France',      href: '/france-fractional-ownership-properties' },
-  { label: 'Italy',       href: '/italy-fractional-ownership-properties' },
-  { label: 'USA',         href: '/usa-fractional-ownership-properties' },
-  { label: 'Portugal',    href: '/portugal-fractional-ownership-properties' },
-  { label: 'Austria',     href: '/austria-fractional-ownership-properties' },
-  { label: 'England',     href: '/england-fractional-ownership-properties' },
-];
-
-const COMPANY = [
-  { label: 'Our Homes',    href: '/our-homes' },
-  { label: 'How It Works', href: '/how-it-works' },
-  { label: 'About Us',     href: '/about-us' },
-  { label: 'Our Blog',     href: '/all-our-blog' },
-  { label: 'Contact',      href: '/contact' },
-];
+import React from 'react';
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#2C4A5E', color: 'white', padding: '4rem 2rem 2rem' }}>
-      <div style={{ maxWidth: 'var(--max)', margin: '0 auto' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          gap: '2.5rem',
-          marginBottom: '3rem',
-        }}>
-          {/* Brand */}
-          <div>
-            <div style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.8rem', fontWeight: 700, letterSpacing: '0.05em', marginBottom: '0.5rem' }}>COP</div>
-            <div style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)', marginBottom: '1rem' }}>CO-OWNERSHIP PROPERTIES</div>
-            <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>
-              The independent guide to luxury fractional property ownership across Europe and the USA.
-            </p>
-          </div>
+    <>
+      <footer className="cop-footer">
+        <div className="footer-content">
+            <div className="footer-logo">
+                <div className="footer-logo-text">Co-Ownership Property</div>
+                <p className="footer-tagline">Fractional ownership of luxury properties worldwide. Own more, invest less.</p>
+                <div className="footer-social">
+                    <a href="#" className="social-icon" title="Facebook">f</a>
+                    <a href="#" className="social-icon" title="Instagram">📷</a>
+                    <a href="#" className="social-icon" title="LinkedIn">in</a>
+                </div>
+            </div>
 
-          {/* Destinations */}
-          <div>
-            <h4 style={{ fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '1.2rem' }}>Destinations</h4>
-            {DESTINATIONS.map(({ label, href }) => (
-              <Link key={href} href={href} style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255,255,255,0.7)', marginBottom: '0.6rem', transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color='var(--gold)'}
-                onMouseLeave={e => e.target.style.color='rgba(255,255,255,0.7)'}
-              >{label}</Link>
-            ))}
-          </div>
+            <div className="footer-section">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/our-homes/">Our Homes</a></li>
+                    <li><a href="/how-it-works/">How It Works</a></li>
+                    <li><a href="/about-us/">About Us</a></li>
+                    <li><a href="/all-our-blog/">Our Blog</a></li>
+                    <li><a href="/favourites/">My Favourites</a></li>
+                </ul>
+            </div>
 
-          {/* Company */}
-          <div>
-            <h4 style={{ fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '1.2rem' }}>Company</h4>
-            {COMPANY.map(({ label, href }) => (
-              <Link key={href} href={href} style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255,255,255,0.7)', marginBottom: '0.6rem', transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color='var(--gold)'}
-                onMouseLeave={e => e.target.style.color='rgba(255,255,255,0.7)'}
-              >{label}</Link>
-            ))}
-          </div>
+            <div className="footer-section">
+                <h4>Destinations</h4>
+                <ul>
+                    <li><a href="/spain-fractional-ownership-properties/">Spain</a></li>
+                    <li><a href="/france-fractional-ownership-properties/">France</a></li>
+                    <li><a href="/italy-fractional-ownership-properties/">Italy</a></li>
+                    <li><a href="/usa-fractional-ownership-properties/">USA</a></li>
+                    <li><a href="/portugal-fractional-ownership-properties/">Portugal</a></li>
+                    <li><a href="/austria-fractional-ownership-properties/">Austria</a></li>
+                </ul>
+            </div>
 
-          {/* Contact */}
-          <div>
-            <h4 style={{ fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '1.2rem' }}>Get In Touch</h4>
-            <a href="mailto:info@co-ownership-property.com" style={{ display: 'block', fontSize: '0.82rem', color: 'rgba(255,255,255,0.7)', marginBottom: '0.6rem' }}>
-              info@co-ownership-property.com
-            </a>
-            <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6 }}>
-              No pressure, no obligation. We respond within a few hours.
-            </p>
-          </div>
+            <div className="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="/about-us/">About COP</a></li>
+                    <li><a href="/how-it-works/">How It Works</a></li>
+                    <li><a href="/all-our-blog/">Our Blog</a></li>
+                    <li><a href="/contact-us/">Contact</a></li>
+                </ul>
+            </div>
+
+            <div className="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="/contact-us/">Get in Touch</a></li>
+                    <li><a href="/how-it-works/#faq">FAQ</a></li>
+                    <li><a href="/contact-us/">Book a Call</a></li>
+                    <li><a href="/favourites/">Saved Properties</a></li>
+                </ul>
+            </div>
         </div>
 
-        {/* Bottom bar */}
-        <div style={{
-          borderTop: '1px solid rgba(255,255,255,0.1)',
-          paddingTop: '1.5rem',
-          textAlign: 'center',
-          fontSize: '0.75rem',
-          color: 'rgba(255,255,255,0.4)',
-        }}>
-          © {new Date().getFullYear()} Co-Ownership Property. All rights reserved.
+        <div className="footer-bottom">
+            <p className="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p>
+            <div className="footer-legal">
+                <a href="/privacy-policy/">Privacy Policy</a>
+                <a href="/terms/">Terms of Use</a>
+                <a href="#">Cookie Policy</a>
+            </div>
         </div>
-      </div>
     </footer>
+    </>
   );
 }
