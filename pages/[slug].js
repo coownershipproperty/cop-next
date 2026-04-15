@@ -151,7 +151,17 @@ export async function getStaticProps({ params }) {
   }
 
   const heroHtml = splitIdx > 0 ? body.slice(0, splitIdx).trim() : body.trim();
-  const restHtml = splitIdx > 0 ? body.slice(splitIdx).trim() : '';
+  let restHtml = splitIdx > 0 ? body.slice(splitIdx).trim() : '';
+
+  // ── Clean up staging content that doesn't belong ──────────────
+  // Remove 'Which country are you interested in?' — irrelevant on a specific destination page
+  restHtml = restHtml.replace(/<section[^>]*><div[^>]*><h3>Which country are you interested in\?<\/h3><\/div><\/section>/g, '');
+
+  // Shorten FAQ title: 'Ibiza Fractional Ownership — Frequently Asked Questions' → 'Frequently Asked Questions'
+  restHtml = restHtml.replace(/<h2([^>]*)>[^<]*?—\s*Frequently Asked Questions<\/h2>/g, '<h2$1>Frequently Asked Questions</h2>');
+
+  // Fix image URLs to production
+  restHtml = restHtml.replace(/https:\/\/staging\.co-ownership-property\.com\//g, 'https://co-ownership-property.com/');
 
   return {
     props: { slug, title, metaDesc, heroHtml, restHtml, properties: matchedProps },
