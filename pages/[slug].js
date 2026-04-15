@@ -130,6 +130,25 @@ const RELATED = {
   "napa-sonoma-fractional-ownership-wine-country-estates": ["california-fractional-ownership-properties","newport-beach-fractional-ownership","usa-fractional-ownership-properties"],
   "lake-tahoe-fractional-ownership-properties":  ["california-fractional-ownership-properties","colorado-fractional-ownership-properties","usa-fractional-ownership-properties"],
   "palm-springs-fractional-ownership-desert-modern-luxury": ["california-fractional-ownership-properties","newport-beach-fractional-ownership","usa-fractional-ownership-properties"],
+
+  // Mallorca sub-destinations
+  "alcudia-port-dalcudia-fractional-ownership-properties":  ["mallorca-fractional-ownership-properties","pollenca-port-de-pollenca-fractional-ownership-properties","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
+  "andratx-fractional-ownership-properties-co-ownership-property": ["mallorca-fractional-ownership-properties","santa-ponsa-fractional-ownership-properties","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
+  "pollenca-port-de-pollenca-fractional-ownership-properties": ["mallorca-fractional-ownership-properties","alcudia-port-dalcudia-fractional-ownership-properties","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
+  "santa-ponsa-fractional-ownership-properties": ["mallorca-fractional-ownership-properties","andratx-fractional-ownership-properties-co-ownership-property","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
+  "santanyi-fractional-ownership-properties":    ["mallorca-fractional-ownership-properties","santa-ponsa-fractional-ownership-properties","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
+  "formentera-fractional-ownership":             ["ibiza-fractional-ownership-properties","mallorca-fractional-ownership-properties","balearics-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  "canary-islands-fractional-ownership-properties": ["spain-fractional-ownership-properties","balearics-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties"],
+  // USA — Florida sub-destinations
+  "florida-keys-fractional-ownership":           ["miami-fractional-ownership","florida-fractional-ownership-properties","usa-fractional-ownership-properties"],
+  "brickell-fractional-ownership-miami":         ["miami-fractional-ownership","florida-fractional-ownership-properties","usa-fractional-ownership-properties"],
+  "30a-fractional-ownership-emerald-coast-co-ownership-beach-homes": ["florida-fractional-ownership-properties","usa-fractional-ownership-properties","california-fractional-ownership-properties"],
+  // Empty country pillars — show nearby countries + our homes
+  "austria-fractional-ownership-properties":     ["french-alps-fractional-ownership-properties","italy-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "croatia-fractional-ownership-properties":     ["italy-fractional-ownership-properties","sardinia-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "germany-fractional-ownership-properties":     ["french-alps-fractional-ownership-properties","austria-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "portugal-fractional-ownership-properties":    ["spain-fractional-ownership-properties","balearics-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties"],
+  "sweden-fractional-ownership-properties":      ["england-fractional-ownership-properties","france-fractional-ownership-properties","spain-fractional-ownership-properties"],
   // Mexico
   "mexico-fractional-ownership-properties":      ["usa-fractional-ownership-properties","spain-fractional-ownership-properties"],
 };
