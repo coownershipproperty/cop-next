@@ -30,12 +30,9 @@ export default function PropertyCard({ property: p }) {
 
   const location = [p.region, p.country].filter(Boolean).join(', ');
 
+  const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
   const priceFormatted = p.price
-    ? new Intl.NumberFormat('en-GB', {
-        style: 'currency',
-        currency: p.currency || 'EUR',
-        maximumFractionDigits: 0,
-      }).format(p.price)
+    ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}`
     : null;
 
   return (
