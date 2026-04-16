@@ -5033,7 +5033,7 @@ section.props-sec,
 
 /* ── Gallery grid ── */
 .pgal{background:#C9A84C;width:100%}
-.pgal-grid{display:grid;grid-template-columns:3fr 1fr 1fr;grid-template-rows:320px 320px;gap:0;max-height:640px}
+.pgal-grid{display:grid;grid-template-columns:3fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:0;height:640px}
 .pgal-cell{overflow:hidden;cursor:pointer;position:relative}
 .pgal-cell--main{grid-column:1;grid-row:1/3}
 .pgal-cell--sm1{grid-column:2;grid-row:1}
@@ -5133,17 +5133,20 @@ section.props-sec,
   .ppage-main{flex:none;width:100%;padding:0}
   .ppage-side{flex:none;width:100%;order:-1}
   .pside-sticky{position:static}
-  .pgal-grid{grid-template-rows:220px 220px}
+  .pgal-grid{height:440px;grid-template-rows:1fr 1fr}
   .prop-similar-grid{grid-template-columns:1fr}
   .prop-similar{padding:40px 1.5rem}
 }
 @media(max-width:600px){
-  .pgal-grid{grid-template-columns:1fr;grid-template-rows:220px 110px 110px 110px}
+  .pgal-grid{grid-template-columns:1fr;height:auto;grid-template-rows:240px 120px 120px 120px}
   .pgal-cell--main{grid-column:1;grid-row:1}
   .pgal-cell--sm1{grid-column:1;grid-row:2}
   .pgal-cell--sm2{grid-column:1;grid-row:3}
   .pgal-cell--teaser{grid-column:1;grid-row:4}
 }
+
+/* ── Ensure the Next.js <main> wrapper is always cream (matches staging body bg) ── */
+main { background: var(--cream-bg); width: 100%; }
 
 /* ── Property page: inherits cream body background (same as staging) ── */
 .ppage { background: var(--cream-bg); }
