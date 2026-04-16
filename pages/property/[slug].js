@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Script from 'next/script';
 import { useEffect } from 'react';
 import fs from 'fs';
 import path from 'path';
@@ -103,9 +104,14 @@ export default function PropertyPage({ title, metaDesc, bodyHtml, propScript }) 
       {/* Property page body — gallery, two-col layout, similar properties */}
       <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
 
-      {/* Property JS — gallery lightbox, map, unlock modal, enquiry form */}
+      {/* Property JS — gallery lightbox, map, unlock modal, enquiry form
+          afterInteractive = deferred until after page paints (no render block) */}
       {propScript && (
-        <script dangerouslySetInnerHTML={{ __html: propScript }} />
+        <Script
+          id="prop-page-js"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: propScript }}
+        />
       )}
 
       <Newsletter />
