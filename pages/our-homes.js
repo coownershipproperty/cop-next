@@ -126,7 +126,7 @@ export default function OurHomes({ allProperties }) {
       <div className="homes-grid-wrap">
         {filtered.length > 0 ? (
           <div className="homes-grid" id="homes-grid">
-            {filtered.map(p => <PropertyCard key={p.id} property={p} />)}
+            {filtered.map(p => <PropertyCard key={p.slug} property={p} />)}
           </div>
         ) : (
           <div className="no-results">

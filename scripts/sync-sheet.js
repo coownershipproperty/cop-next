@@ -120,9 +120,19 @@ async function main() {
       slugCount[base] = (slugCount[base] || 0) + 1;
       const slug = slugCount[base] > 1 ? `${base}-${slugCount[base]}` : base;
 
-      // Parse comma-separated images
+      // Parse comma-separated images, converting Google Drive share URLs
+      // to direct thumbnail URLs that work as <img src>
       const images = r.Images
-        ? r.Images.split(',').map(s => s.trim()).filter(Boolean)
+        ? r.Images.split(',').map(s => {
+            const url = s.trim();
+            // Convert drive.google.com/uc?id=FILE_ID → lh3 thumbnail URL
+            const ucMatch = url.match(/drive\.google\.com\/uc\?.*?id=([a-zA-Z0-9_-]+)/);
+            if (ucMatch) return `https://lh3.googleusercontent.com/d/${ucMatch[1]}`;
+            // Convert drive.google.com/file/d/FILE_ID/view → lh3 thumbnail URL
+            const fileMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (fileMatch) return `https://lh3.googleusercontent.com/d/${fileMatch[1]}`;
+            return url;
+          }).filter(Boolean)
         : [];
 
       // Parse comma-separated amenities
