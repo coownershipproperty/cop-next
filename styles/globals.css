@@ -5688,3 +5688,8 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .pp-gallery-lock{grid-column:2;grid-row:1/3}
   .pp-amenity-list{grid-template-columns:1fr}
 }
+
+/* ── Gallery v4: no gaps, taller ── */
+.pp-gallery{gap:0!important;background:transparent!important;height:580px!important}
+@media(max-width:960px){.pp-gallery{height:420px!important}}
+@media(max-width:600px){.pp-gallery{height:260px!important}}

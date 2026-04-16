@@ -178,10 +178,9 @@ export default function PropertyPage({ property: p, similar }) {
           {/* Title */}
           <h1 className="pp-title">{p.title}</h1>
 
-          {/* Save + Partner */}
+          {/* Save */}
           <div className="pp-actions">
             <button className="pp-save">♡ Save Property</button>
-            {partnerLabel && <span className="pp-partner-tag">{partnerLabel}</span>}
           </div>
 
           {/* Stats */}
@@ -232,19 +231,6 @@ export default function PropertyPage({ property: p, similar }) {
             </div>
           )}
 
-          {/* Extra photos */}
-          {p.images.length > 1 && (
-            <div className="pp-photos">
-              <h2 className="pp-heading">Photos</h2>
-              <div className="pp-photo-grid">
-                {p.images.slice(1).map((img, i) => (
-                  <div key={i} className="pp-photo-thumb" onClick={() => setLightbox(i + 1)}>
-                    <Img src={img} alt={`${p.title} ${i + 2}`} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* Similar */}
           {similar.length > 0 && (
