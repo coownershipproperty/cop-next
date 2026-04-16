@@ -61,6 +61,18 @@ export async function getStaticProps({ params }) {
   body = body.replace(/<section[^>]*id="speak-to-expert"[^>]*>[\s\S]*?<\/section>/g, '');
   body = body.replace(/<footer\b[^>]*>[\s\S]*?<\/footer>/g, '');
 
+  // ── Strip WP floating widgets / junk that appears after </footer> ──
+  body = body.replace(/<input[^>]+id="wpestate_ajax_log_reg"[^>]*\/?>/gi, '');
+  body = body.replace(/<a\b[^>]*class="[^"]*backtop[^"]*"[^>]*>[\s\S]*?<\/a>/gi, '');
+  body = body.replace(/<a\b[^>]*class="[^"]*contact-box[^"]*"[^>]*>[\s\S]*?<\/a>/gi, '');
+  body = body.replace(/<!--Compare Starts here-->[\s\S]*?<!--Compare Ends here-->/gi, '');
+  // Truncate at the end of the last </section> — removes contactformwrapper,
+  // prop-compare, lightbox_property_wrapper and anything else WP appended
+  const lastSectionEnd = body.lastIndexOf('</section>');
+  if (lastSectionEnd !== -1) {
+    body = body.slice(0, lastSectionEnd + '</section>'.length);
+  }
+
   // Fix image URLs to production
   body = body.replace(
     /https:\/\/staging\.co-ownership-property\.com\/wp-content\//g,
@@ -71,6 +83,10 @@ export async function getStaticProps({ params }) {
     /href="https:\/\/staging\.co-ownership-property\.com\/property\/([^"]+)"/g,
     'href="/property/$1"'
   );
+
+  // ── Clean description HTML artifact (escaped entities leaking as text) ──
+  // WordPress sometimes ends descriptions with &lt;h5 class=&quot;other-amen...
+  body = body.replace(/&lt;h5\s[^<]*/g, '');
 
   return {
     props: { slug, title, metaDesc, bodyHtml: body.trim(), propScript },

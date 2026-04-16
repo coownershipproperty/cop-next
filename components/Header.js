@@ -18,7 +18,7 @@ export default function Header() {
     <header className="cop-header scrolled" id="cop-header">
       <div className="cop-logo">
         <a href="/" className="cop-logo-link">
-          <span className="cop-logo-text">Co-Ownership<br />Property</span>
+          <img src="/images/cop-logo.svg" alt="Co-Ownership Property" className="logo-dark" />
         </a>
       </div>
       <nav className="cop-nav" id="cop-nav">
