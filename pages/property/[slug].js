@@ -134,11 +134,21 @@ export default function PropertyPage({ property: p, similar }) {
 
       <Header />
 
-      {/* ── Full-width gallery ── */}
+      {/* ── Full-width gallery: hero (left, full height) + 2 thumbs (top-right) + lock panel (bottom-right) ── */}
       <div className="pp-gallery">
+        {/* Hero — spans both rows */}
         <div className="pp-gallery-hero" onClick={() => setLightbox(0)}>
           <Img src={heroImg} alt={p.title} loading="eager" />
         </div>
+        {/* Top-right: thumb 1 */}
+        <div className="pp-gallery-thumb" onClick={() => p.images[1] && setLightbox(1)}>
+          {p.images[1] ? <Img src={p.images[1]} alt={`${p.title} 2`} /> : <div className="pp-gallery-blank" />}
+        </div>
+        {/* Top-right: thumb 2 */}
+        <div className="pp-gallery-thumb" onClick={() => p.images[2] && setLightbox(2)}>
+          {p.images[2] ? <Img src={p.images[2]} alt={`${p.title} 3`} /> : <div className="pp-gallery-blank" />}
+        </div>
+        {/* Bottom-right: lock panel, spans both right columns */}
         <div className="pp-gallery-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
           <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
@@ -191,13 +201,34 @@ export default function PropertyPage({ property: p, similar }) {
               : <p className="pp-desc-empty">Full details coming soon. Use the enquiry form to get in touch.</p>}
           </div>
 
-          {/* Amenities */}
+          {/* Amenities — 2-column bullet list */}
           {p.amenities.length > 0 && (
             <div className="pp-amenities">
-              <h2 className="pp-heading">Amenities</h2>
+              <h2 className="pp-heading">Features &amp; Amenities</h2>
               <ul className="pp-amenity-list">
-                {p.amenities.map((a, i) => <li key={i} className="pp-amenity-item">{a}</li>)}
+                {p.amenities.map((a, i) => (
+                  <li key={i} className="pp-amenity-item">
+                    <span className="pp-amenity-dot">·</span>{a}
+                  </li>
+                ))}
               </ul>
+            </div>
+          )}
+
+          {/* Location */}
+          {(p.lat || p.city) && (
+            <div className="pp-location-section">
+              <h2 className="pp-heading">Location</h2>
+              <p className="pp-location-text">{[p.city, p.region, p.country].filter(Boolean).join(', ')}</p>
+              {p.lat && p.lng && (
+                <div className="pp-map-wrap">
+                  <iframe
+                    title="Property location"
+                    src={`https://maps.google.com/maps?q=${p.lat},${p.lng}&z=13&output=embed`}
+                    width="100%" height="280" style={{border:0}} loading="lazy" allowFullScreen
+                  />
+                </div>
+              )}
             </div>
           )}
 
