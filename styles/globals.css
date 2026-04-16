@@ -5081,7 +5081,7 @@ section.props-sec,
 .prop-tags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:flex-end}
 .prop-tag{font-size:.68rem;font-family:'Nunito Sans',sans-serif;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--gold);color:var(--gold)}
 .prop-breadcrumb{font-size:.8rem;color:var(--muted);margin-bottom:10px;font-family:'Nunito Sans',sans-serif}
-.prop-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;line-height:1.2;color:var(--text);margin-bottom:16px}
+.ppage .prop-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;line-height:1.2;color:var(--text);margin-bottom:16px}
 .prop-price-mobile{display:block;background:transparent;padding:16px 0 32px;border-bottom:none}
 .prop-price-mobile-pfx{font-size:1rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:'Nunito Sans',sans-serif;font-weight:700}
 .prop-price-mobile-val{font-family:'Playfair Display',serif;font-size:2.6rem;color:var(--gold);line-height:1}
