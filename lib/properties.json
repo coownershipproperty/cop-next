@@ -11909,7 +11909,7 @@
   {
     "slug": "petersberg-italy-2-bed-chalet-with-sea-views",
     "id": "myne-80024",
-    "title": "Petersberg, Italy — 2-Bed Chalet With Sea Views",
+    "title": "Petersberg, Italy — 2-Bed Villa With Mountain Views",
     "status": "Live",
     "country": "Italy",
     "region": "South Tyrol",
@@ -11919,8 +11919,14 @@
     "size": 0,
     "price": 329000,
     "currency": "EUR",
-    "description": "",
-    "amenities": [],
+    "description": "This new-build villa in the Eggental valley, in the heart of the Dolomites, combines modern holiday comfort with a prime location not far from Bolzano. Surrounded by lush greenery, you can enjoy magnificent views of the surrounding countryside.\n\nThe sunny south-west-facing terrace with a private garden is the perfect spot for sunbathing, relaxing together and enjoying the fresh mountain air. Generous floor-to-ceiling panoramic windows flood the interior with natural light, whilst a fireplace provides cosy warmth and comfort on cooler days. A fitness area is available for an active start to the day, and the outdoor sauna offers relaxing moments after an active day in the mountains.\n\nThe location offers both tranquillity and alpine diversity: the Petersberg Panoramic Lift, featuring a practice lift and a 600-metre blue run, is just 2 minutes away, whilst the Obereggen ski area, connected to Dolomiti Superski (1,200 km of slopes), can be reached in 20 minutes. For golf enthusiasts, the Petersberg Golf Club is right on the doorstep and can be reached in less than five minutes by car. The lively town of Bolzano, with its restaurants, cafés and shops, is around 30 minutes away.",
+    "amenities": [
+      "New-build villa in the Dolomites",
+      "Peaceful location in the Eggental valley",
+      "Panoramic views of the surrounding countryside",
+      "South-west-facing terrace with private garden",
+      "Outdoor sauna and fitness area"
+    ],
     "images": [
       "https://lh3.googleusercontent.com/d/1qxrVaxH1l-LuOXmY116UHL-KfW5WtFNJ",
       "https://lh3.googleusercontent.com/d/1wVjrTObxsuml6wyzpppcxSij1MeD_pjN",
@@ -11933,7 +11939,7 @@
     "lng": null,
     "partner": "myne",
     "dateAdded": "2026-04-16",
-    "notes": "https://www.myne-homes.com/listings/casa-merlot-italy-new-build-villa-with-countryside-views-and-distant-sea-views"
+    "notes": "https://www.myne-homes.com/listings/new-build-luxury-villa-dolomites-bolzano-views-sauna-gym"
   },
   {
     "slug": "palma-spain-2-bed-townhouse-with-pool",
