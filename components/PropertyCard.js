@@ -25,12 +25,8 @@ const HeartIcon = ({ filled }) => (
 export default function PropertyCard({ property: p }) {
   const [fav, setFav] = useState(false);
 
-  // Myne (and any other external partner) properties link directly to their site.
-  // COP WordPress properties have a /property/ path — strip to get the slug.
-  const isExternal = !/co-ownership-property\.com/.test(p.url);
-  const href = isExternal
-    ? p.url
-    : `/property/${p.url.replace(/^https?:\/\/[^/]+\/property\//, '').replace(/\/$/, '')}/`;
+  // All properties now have a slug → internal /property/[slug] route
+  const href = `/property/${p.slug}`;
 
   const location = [p.region, p.country].filter(Boolean).join(', ');
 
@@ -43,7 +39,7 @@ export default function PropertyCard({ property: p }) {
     : null;
 
   return (
-    <article className="prop-card" onClick={() => isExternal ? window.open(href, '_blank', 'noopener') : window.location.href = href} role="link" aria-label={p.title}>
+    <article className="prop-card" onClick={() => window.location.href = href} role="link" aria-label={p.title}>
       <div className="prop-img-wrap">
         <img
           src={p.img}
@@ -78,7 +74,7 @@ export default function PropertyCard({ property: p }) {
         )}
 
         {priceFormatted && <p className="prop-price">{priceFormatted}</p>}
-        <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()} {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>View Property →</a>
+        <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>View Property →</a>
       </div>
     </article>
   );

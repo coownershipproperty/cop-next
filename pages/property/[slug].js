@@ -1,132 +1,332 @@
 import Head from 'next/head';
-import Script from 'next/script';
-import { useEffect } from 'react';
-import fs from 'fs';
+import { useState } from 'react';
 import path from 'path';
+import fs from 'fs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 
+// ── Static generation ─────────────────────────────────────────────────────────
+
 export async function getStaticPaths() {
-  const contentDir = path.join(process.cwd(), 'content', 'properties');
-  const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.html'));
+  const data = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8')
+  );
   return {
-    paths: files.map(f => ({ params: { slug: f.replace('.html', '') } })),
+    paths: data.map(p => ({ params: { slug: p.slug } })),
     fallback: false,
   };
 }
 
 export async function getStaticProps({ params }) {
-  const { slug } = params;
-  const contentPath = path.join(process.cwd(), 'content', 'properties', `${slug}.html`);
-
-  if (!fs.existsSync(contentPath)) return { notFound: true };
-
-  const rawHtml = fs.readFileSync(contentPath, 'utf-8');
-
-  // Extract title + meta from <head>
-  const titleMatch = rawHtml.match(/<title>(.*?)<\/title>/);
-  const title = titleMatch ? titleMatch[1] : slug;
-  const metaMatch = rawHtml.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']/);
-  const metaDesc = metaMatch ? metaMatch[1] : '';
-
-  // Extract <body> content
-  let bodyMatch = rawHtml.match(/<body[^>]*>([\s\S]*?)<\/body>/);
-  let body = bodyMatch ? bodyMatch[1] : '';
-
-  // ── Extract the main property JS script before stripping scripts ──
-  // This block contains COP_IMGS, copLbOpen, copOpenModal, copLoadMap, etc.
-  let propScript = '';
-  const scriptMatch = body.match(/<script>([\s\S]*?const COP_IMGS[\s\S]*?)<\/script>/);
-  if (scriptMatch) {
-    propScript = scriptMatch[1]
-      // Point AJAX calls to the WordPress backend (absolute URL)
-      .replace(
-        /fetch\('\/wp-admin\/admin-ajax\.php'/g,
-        "fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php'"
-      )
-      // Fix any remaining staging image URLs to production
-      .replace(
-        /https:\/\/staging\.co-ownership-property\.com\/wp-content\//g,
-        'https://co-ownership-property.com/wp-content/'
-      );
-  }
-
-  // ── Strip sections we don't need (shared nav/footer rendered by React) ──
-  body = body.replace(/<style[^>]*>[\s\S]*?<\/style>/g, '');
-  body = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
-  body = body.replace(/<header\b[^>]*>[\s\S]*?<\/header>/g, '');
-  body = body.replace(/<section[^>]*class="newsletter-section"[^>]*>[\s\S]*?<\/section>/g, '');
-  body = body.replace(/<section[^>]*id="speak-to-expert"[^>]*>[\s\S]*?<\/section>/g, '');
-  body = body.replace(/<footer\b[^>]*>[\s\S]*?<\/footer>/g, '');
-
-  // ── Strip WP floating widgets / junk that appears after </footer> ──
-  body = body.replace(/<input[^>]+id="wpestate_ajax_log_reg"[^>]*\/?>/gi, '');
-  body = body.replace(/<a\b[^>]*class="[^"]*backtop[^"]*"[^>]*>[\s\S]*?<\/a>/gi, '');
-  body = body.replace(/<a\b[^>]*class="[^"]*contact-box[^"]*"[^>]*>[\s\S]*?<\/a>/gi, '');
-  body = body.replace(/<!--Compare Starts here-->[\s\S]*?<!--Compare Ends here-->/gi, '');
-  // Truncate at the end of the last </section> — removes contactformwrapper,
-  // prop-compare, lightbox_property_wrapper and anything else WP appended
-  const lastSectionEnd = body.lastIndexOf('</section>');
-  if (lastSectionEnd !== -1) {
-    body = body.slice(0, lastSectionEnd + '</section>'.length);
-  }
-
-  // Fix image URLs to production
-  body = body.replace(
-    /https:\/\/staging\.co-ownership-property\.com\/wp-content\//g,
-    'https://co-ownership-property.com/wp-content/'
+  const data = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8')
   );
-  // Fix similar-property hrefs to point to Next.js routes
-  body = body.replace(
-    /href="https:\/\/staging\.co-ownership-property\.com\/property\/([^"]+)"/g,
-    'href="/property/$1"'
-  );
+  const property = data.find(p => p.slug === params.slug);
+  if (!property) return { notFound: true };
 
-  // ── Clean description HTML artifact (escaped entities leaking as text) ──
-  // WordPress sometimes ends descriptions with &lt;h5 class=&quot;other-amen...
-  body = body.replace(/&lt;h5\s[^<]*/g, '');
+  // Similar properties: same country, different slug, max 3
+  const similar = data
+    .filter(p => p.country === property.country && p.slug !== property.slug)
+    .slice(0, 3);
 
-  return {
-    props: { slug, title, metaDesc, bodyHtml: body.trim(), propScript },
-  };
+  return { props: { property, similar } };
 }
 
-export default function PropertyPage({ title, metaDesc, bodyHtml, propScript }) {
-  // Re-run any header scroll logic after hydration
-  useEffect(() => {
-    const header = document.getElementById('cop-header');
-    if (!header) return;
-    const onScroll = () => {
-      header.classList.toggle('scrolled', window.scrollY > 10);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+const CURRENCY_SYMBOL = { EUR: '€', USD: '$', GBP: '£' };
+
+function fmt(price, currency) {
+  const sym = CURRENCY_SYMBOL[currency] || currency;
+  return `${sym}${price.toLocaleString('en-GB')}`;
+}
+
+const PARTNER_LABEL = {
+  pacaso: 'Pacaso',
+  andhamlet: '&Hamlet',
+  vivla: 'Vivla',
+  myne: 'Myne',
+};
+
+// ── Unlock modal ──────────────────────────────────────────────────────────────
+
+function UnlockModal({ propertyTitle, driveUrl, onClose }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('idle'); // idle | sending | done | error
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus('sending');
+    try {
+      const r = await fetch('/api/unlock-drive', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, propertyTitle, driveUrl }),
+      });
+      setStatus(r.ok ? 'done' : 'error');
+    } catch {
+      setStatus('error');
+    }
+  }
+
+  return (
+    <div className="unlock-overlay" onClick={onClose}>
+      <div className="unlock-modal" onClick={e => e.stopPropagation()}>
+        <button className="unlock-close" onClick={onClose} aria-label="Close">×</button>
+        {status === 'done' ? (
+          <div className="unlock-success">
+            <div className="unlock-success-icon">✓</div>
+            <h3>Check your inbox!</h3>
+            <p>We&apos;ve sent the floor plans and additional photos to <strong>{email}</strong>.</p>
+          </div>
+        ) : (
+          <>
+            <span className="unlock-eyebrow">Exclusive access</span>
+            <h3>Floor Plans &amp; More Photos</h3>
+            <p>Enter your details and we&apos;ll send the full photo gallery and floor plans straight to your inbox.</p>
+            <form onSubmit={handleSubmit} className="unlock-form">
+              <input
+                type="text"
+                placeholder="Your name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                placeholder="Your email address"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit" className="unlock-submit" disabled={status === 'sending'}>
+                {status === 'sending' ? 'Sending…' : 'Send me the photos →'}
+              </button>
+              {status === 'error' && <p className="unlock-error">Something went wrong. Please try again.</p>}
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Gallery ───────────────────────────────────────────────────────────────────
+
+function Gallery({ images, title }) {
+  const [active, setActive] = useState(null);
+  const main = images[0] || '/images/placeholder.jpg';
+  const thumbs = images.slice(1, 4); // up to 3 thumbnails
+
+  return (
+    <>
+      <div className="pgal-grid">
+        <div className="pgal-main" onClick={() => setActive(0)}>
+          <img src={main} alt={title} loading="eager" />
+        </div>
+        <div className="pgal-thumbs">
+          {thumbs.map((img, i) => (
+            <div key={i} className="pgal-thumb" onClick={() => setActive(i + 1)}>
+              <img src={img} alt={`${title} ${i + 2}`} loading="lazy" />
+            </div>
+          ))}
+          {thumbs.length === 0 && <div className="pgal-thumb pgal-thumb--empty" />}
+        </div>
+      </div>
+
+      {active !== null && (
+        <div className="pgal-lightbox" onClick={() => setActive(null)}>
+          <button className="pgal-lb-close" onClick={() => setActive(null)}>×</button>
+          <button
+            className="pgal-lb-prev"
+            onClick={e => { e.stopPropagation(); setActive((active - 1 + images.length) % images.length); }}
+          >‹</button>
+          <img src={images[active]} alt={title} onClick={e => e.stopPropagation()} />
+          <button
+            className="pgal-lb-next"
+            onClick={e => { e.stopPropagation(); setActive((active + 1) % images.length); }}
+          >›</button>
+          <span className="pgal-lb-count">{active + 1} / {images.length}</span>
+        </div>
+      )}
+    </>
+  );
+}
+
+// ── Similar property card ─────────────────────────────────────────────────────
+
+function SimilarCard({ p }) {
+  return (
+    <a href={`/property/${p.slug}`} className="similar-card">
+      <div className="similar-card-img">
+        <img src={p.img || '/images/placeholder.jpg'} alt={p.title} loading="lazy" />
+      </div>
+      <div className="similar-card-body">
+        <h4>{p.title}</h4>
+        <p className="similar-card-price">{fmt(p.price, p.currency)}</p>
+      </div>
+    </a>
+  );
+}
+
+// ── Main page ─────────────────────────────────────────────────────────────────
+
+export default function PropertyPage({ property: p, similar }) {
+  const [showUnlock, setShowUnlock] = useState(false);
+
+  const location = [p.city, p.region, p.country].filter(Boolean).join(', ');
+  const partnerLabel = PARTNER_LABEL[p.partner] || p.partner;
 
   return (
     <>
       <Head>
-        <title>{title}</title>
-        <meta name="description" content={metaDesc} />
+        <title>{p.title} | Co-Ownership Property</title>
+        <meta name="description" content={p.description ? p.description.slice(0, 155) : `${p.title} — available for co-ownership from ${fmt(p.price, p.currency)}.`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        {/* Open Graph */}
+        <meta property="og:title" content={p.title} />
+        <meta property="og:image" content={p.img} />
+        <meta property="og:type" content="website" />
       </Head>
 
       <Header />
 
-      {/* Property page body — gallery, two-col layout, similar properties */}
-      <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+      <div className="ppage">
 
-      {/* Property JS — gallery lightbox, map, unlock modal, enquiry form
-          afterInteractive = deferred until after page paints (no render block) */}
-      {propScript && (
-        <Script
-          id="prop-page-js"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: propScript }}
+        {/* ── Gallery ── */}
+        <section className="pgal-section">
+          <Gallery images={p.images} title={p.title} />
+        </section>
+
+        {/* ── Main content ── */}
+        <div className="ppage-inner">
+
+          {/* Breadcrumb */}
+          <nav className="prop-breadcrumb">
+            <a href="/our-homes">All Properties</a>
+            {' › '}
+            <a href={`/our-homes?country=${encodeURIComponent(p.country)}`}>{p.country}</a>
+            {p.region && <>{' › '}{p.region}</>}
+          </nav>
+
+          {/* Tags */}
+          <div className="prop-tags">
+            {partnerLabel && <span className="prop-tag">{partnerLabel}</span>}
+            {p.rental && <span className="prop-tag">Rental Income</span>}
+            {p.country && <span className="prop-tag">{p.country}</span>}
+          </div>
+
+          {/* Title */}
+          <h1 className="prop-title">{p.title}</h1>
+
+          {/* Location */}
+          {location && <p className="prop-location">📍 {location}</p>}
+
+          {/* Stats bar */}
+          <div className="prop-stats ppage-stats">
+            <div className="prop-stat">
+              <span className="prop-stat-val">{fmt(p.price, p.currency)}</span>
+              <span className="prop-stat-lbl">Price per share</span>
+            </div>
+            {p.beds > 0 && (
+              <div className="prop-stat">
+                <span className="prop-stat-val">{p.beds}</span>
+                <span className="prop-stat-lbl">Bedroom{p.beds !== 1 ? 's' : ''}</span>
+              </div>
+            )}
+            {p.baths > 0 && (
+              <div className="prop-stat">
+                <span className="prop-stat-val">{p.baths}</span>
+                <span className="prop-stat-lbl">Bathroom{p.baths !== 1 ? 's' : ''}</span>
+              </div>
+            )}
+            {p.size > 0 && (
+              <div className="prop-stat">
+                <span className="prop-stat-val">{p.size} m²</span>
+                <span className="prop-stat-lbl">Property size</span>
+              </div>
+            )}
+          </div>
+
+          {/* Two-column body */}
+          <div className="ppage-body">
+
+            {/* Left: description + amenities */}
+            <div className="ppage-left">
+              {p.description && (
+                <div className="prop-desc">
+                  <h2 className="prop-section-heading">About this property</h2>
+                  {p.description.split('\n').filter(Boolean).map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
+              )}
+
+              {!p.description && (
+                <div className="prop-desc prop-desc--placeholder">
+                  <h2 className="prop-section-heading">About this property</h2>
+                  <p>Full details for this property are coming soon. In the meantime, use the enquiry form to get in touch and we&apos;ll send you everything you need.</p>
+                </div>
+              )}
+
+              {p.amenities.length > 0 && (
+                <div className="prop-amenities-section">
+                  <h2 className="prop-section-heading">Amenities</h2>
+                  <ul className="prop-amenities-list">
+                    {p.amenities.map((a, i) => (
+                      <li key={i} className="prop-amenity">{a}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Unlock CTA */}
+              {p.driveUrl && (
+                <div className="prop-unlock-cta">
+                  <div className="prop-unlock-cta-text">
+                    <h3>Floor Plans &amp; More Photos</h3>
+                    <p>Get the full photo gallery and floor plans sent straight to your inbox — free and instant.</p>
+                  </div>
+                  <button className="prop-unlock-btn" onClick={() => setShowUnlock(true)}>
+                    Unlock Photos &amp; Floor Plans →
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Right: enquiry form */}
+            <div className="ppage-right">
+              <div className="prop-enquiry-card">
+                <span className="prop-enquiry-eyebrow">Get in touch</span>
+                <h3>Interested in this property?</h3>
+                <p>Send us a message and we&apos;ll get back to you within a few hours.</p>
+                <EnquiryForm propertyTitle={p.title} />
+              </div>
+            </div>
+          </div>
+
+          {/* Similar properties */}
+          {similar.length > 0 && (
+            <div className="prop-similar">
+              <h2 className="prop-section-heading">Similar properties in {p.country}</h2>
+              <div className="similar-grid">
+                {similar.map(s => <SimilarCard key={s.slug} p={s} />)}
+              </div>
+            </div>
+          )}
+
+        </div>{/* /ppage-inner */}
+      </div>{/* /ppage */}
+
+      {showUnlock && (
+        <UnlockModal
+          propertyTitle={p.title}
+          driveUrl={p.driveUrl}
+          onClose={() => setShowUnlock(false)}
         />
       )}
 
@@ -134,5 +334,63 @@ export default function PropertyPage({ title, metaDesc, bodyHtml, propScript }) 
       <ExpertForm />
       <Footer />
     </>
+  );
+}
+
+// ── Inline enquiry form ───────────────────────────────────────────────────────
+
+function EnquiryForm({ propertyTitle }) {
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [status, setStatus] = useState('idle');
+
+  const set = k => e => setForm(f => ({ ...f, [k]: e.target.value }));
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus('sending');
+    try {
+      const r = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, property: propertyTitle }),
+      });
+      setStatus(r.ok ? 'done' : 'error');
+    } catch {
+      setStatus('error');
+    }
+  }
+
+  if (status === 'done') {
+    return (
+      <div className="enquiry-success">
+        <div className="enquiry-success-icon">✓</div>
+        <p>Thanks {form.name}! We&apos;ll be in touch shortly.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="enquiry-form">
+      <div className="enquiry-field">
+        <label>Full name *</label>
+        <input type="text" value={form.name} onChange={set('name')} required placeholder="Jane Smith" />
+      </div>
+      <div className="enquiry-field">
+        <label>Email address *</label>
+        <input type="email" value={form.email} onChange={set('email')} required placeholder="jane@example.com" />
+      </div>
+      <div className="enquiry-field">
+        <label>Phone number</label>
+        <input type="tel" value={form.phone} onChange={set('phone')} placeholder="+44 7700 000000" />
+      </div>
+      <div className="enquiry-field">
+        <label>Message</label>
+        <textarea value={form.message} onChange={set('message')} rows={4} placeholder="I'd like to find out more about this property…" />
+      </div>
+      <button type="submit" className="enquiry-submit" disabled={status === 'sending'}>
+        {status === 'sending' ? 'Sending…' : 'Send Enquiry →'}
+      </button>
+      {status === 'error' && <p className="enquiry-error">Something went wrong. Please try again.</p>}
+    </form>
   );
 }
