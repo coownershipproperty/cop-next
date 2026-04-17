@@ -84,15 +84,10 @@ function downloadBuffer(url) {
 }
 
 // ─── Availability check ──────────────────────────────────────────────────────
+// Only rejects SOLD OUT. UNDER CONSTRUCTION properties are included as normal.
 function checkAvailability(html) {
   const soldMatch = html.match(/class="home_sold-out-wrapper([^"]*)"/);
   if (soldMatch && !soldMatch[1].includes('w-condition-invisible')) return 'SOLD OUT';
-
-  const lastShareMatch = html.match(/class="last-share-left-wrapper([^"]*)"/);
-  if (lastShareMatch && !lastShareMatch[1].includes('w-condition-invisible')) {
-    const idx = html.indexOf('last-share-left-wrapper');
-    if (/under construction/i.test(html.slice(idx, idx + 500))) return 'UNDER CONSTRUCTION';
-  }
   return null;
 }
 

@@ -89,9 +89,14 @@ async function main() {
       continue;
     }
 
-    // Derive vivla property name from title: "Casa Son Parc, Menorca" → "Casa Son Parc"
-    const vivlaTitle = p.title.includes(',') ? p.title.split(',')[0].trim() : p.title;
-    const folderName = `${vivlaTitle}, ${p.region} - Vivla`;
+    // Folder name: use the Vivla slug from notes URL, or fall back to title
+    // e.g. notes = "https://www.vivla.com/listings/casa-son-parc" → "Casa Son Parc"
+    let vivlaName = p.title; // fallback
+    if (p.notes && p.notes.includes('/listings/')) {
+      vivlaName = p.notes.split('/listings/').pop()
+        .replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    }
+    const folderName = `${vivlaName} - Vivla`;
 
     console.log(`[${i+1}/${vivla.length}] ${p.title} — ${images.length} photos`);
     console.log(`   Creating folder: "${folderName}"`);
