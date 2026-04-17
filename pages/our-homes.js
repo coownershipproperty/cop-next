@@ -50,89 +50,95 @@ function franceCluserLabel(region) {
 }
 
 export default function OurHomes({ allProperties }) {
-  const [country, setCountry] = useState('');   // '' = All, 'OTHER' = other countries
-  const [region,  setRegion]  = useState('');   // '' = all, 'OTHER' = grouped rest
-  const [sort,    setSort]    = useState('default');
+  const [countries, setCountries] = useState([]); // [] = All; array of selected countries
+  const [regions,   setRegions]   = useState([]); // [] = all; array of selected region labels
+  const [sort,      setSort]      = useState('default');
 
-  // ── Region/sub-filter buttons for the selected country ─────────────────────
+  // ── Toggle a country in/out of selection ────────────────────────────────────
+  function toggleCountry(c) {
+    if (c === '') { setCountries([]); setRegions([]); return; } // "All" resets
+    setCountries(prev => {
+      const next = prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c];
+      return next;
+    });
+    setRegions([]); // reset regions whenever country selection changes
+  }
+
+  // ── Toggle a region in/out of selection ─────────────────────────────────────
+  function toggleRegion(r) {
+    setRegions(prev => prev.includes(r) ? prev.filter(x => x !== r) : [...prev, r]);
+  }
+
+  // ── Region buttons: union across all selected countries ──────────────────────
   const regionButtons = useMemo(() => {
-    // "Other" country → show individual country names as sub-filter buttons
-    if (country === 'OTHER') {
-      const seen = new Set();
-      allProperties
-        .filter(p => !TOP_COUNTRIES.includes(p.country) && p.country)
-        .forEach(p => seen.add(p.country));
-      return [...seen].sort();  // alphabetical; no "Other" button needed (all are shown)
+    if (countries.length === 0) return [];
+    const all = [];
+    for (const c of countries) {
+      if (c === 'OTHER') {
+        const seen = new Set();
+        allProperties.filter(p => !TOP_COUNTRIES.includes(p.country) && p.country).forEach(p => seen.add(p.country));
+        all.push(...[...seen].sort());
+      } else if (c === 'France') {
+        FRANCE_CLUSTERS
+          .filter(cl => allProperties.some(p => p.country === 'France' && cl.regions.includes(p.region)))
+          .sort((a, b) =>
+            allProperties.filter(p => p.country === 'France' && b.regions.includes(p.region)).length -
+            allProperties.filter(p => p.country === 'France' && a.regions.includes(p.region)).length
+          )
+          .forEach(cl => all.push(cl.label));
+      } else {
+        const seen = new Set();
+        allProperties.filter(p => p.country === c && p.region).forEach(p => seen.add(p.region));
+        all.push(...[...seen].sort((a, b) =>
+          allProperties.filter(p => p.country === c && p.region === b).length -
+          allProperties.filter(p => p.country === c && p.region === a).length
+        ));
+      }
     }
+    return [...new Set(all)]; // deduplicate
+  }, [allProperties, countries]);
 
-    if (!country) return [];
-
-    if (country === 'France') {
-      // Return cluster labels sorted by property count desc
-      return FRANCE_CLUSTERS
-        .filter(c => allProperties.some(
-          p => p.country === 'France' && c.regions.includes(p.region)
-        ))
-        .sort((a, b) =>
-          allProperties.filter(p => p.country === 'France' && b.regions.includes(p.region)).length -
-          allProperties.filter(p => p.country === 'France' && a.regions.includes(p.region)).length
-        )
-        .map(c => c.label);
-    }
-
-    // USA, Spain, Italy — return all distinct region values, sorted by count desc
-    const seen = new Set();
-    allProperties
-      .filter(p => p.country === country && p.region)
-      .forEach(p => seen.add(p.region));
-    return [...seen].sort((a, b) =>
-      allProperties.filter(p => p.country === country && p.region === b).length -
-      allProperties.filter(p => p.country === country && p.region === a).length
-    );
-  }, [allProperties, country]);
-
-  // Whether to show an "Other" sub-filter button (properties in country that don't fit any shown region/cluster)
+  // Whether any selected country has un-clustered/regionless properties
   const hasOtherRegions = useMemo(() => {
-    if (!country || country === 'OTHER') return false;
-    if (country === 'France') {
-      return allProperties.some(p => p.country === 'France' && !franceCluserLabel(p.region));
-    }
-    // For USA/Spain/Italy: "Other" = properties with no region set
-    return allProperties.some(p => p.country === country && !p.region);
-  }, [allProperties, country]);
+    if (countries.length === 0) return false;
+    return countries.some(c => {
+      if (c === 'OTHER') return false;
+      if (c === 'France') return allProperties.some(p => p.country === 'France' && !franceCluserLabel(p.region));
+      return allProperties.some(p => p.country === c && !p.region);
+    });
+  }, [allProperties, countries]);
 
-  const showRegionRow = country !== '' && (regionButtons.length > 0 || hasOtherRegions);
+  const showRegionRow = countries.length > 0 && (regionButtons.length > 0 || hasOtherRegions);
+
+  // ── Helper: does a property match a region label? ───────────────────────────
+  function propMatchesRegion(p, label) {
+    const cluster = FRANCE_CLUSTERS.find(cl => cl.label === label);
+    if (cluster) return p.country === 'France' && cluster.regions.includes(p.region);
+    if (label === 'OTHER') {
+      if (p.country === 'France') return !franceCluserLabel(p.region);
+      return !p.region;
+    }
+    // Could be a raw country name (OTHER mode) or a raw region name
+    return p.region === label || p.country === label;
+  }
 
   // ── Filtered + sorted property list ────────────────────────────────────────
   const filtered = useMemo(() => {
     let list = [...allProperties];
 
-    // Country filter
-    if (country === 'OTHER') {
-      if (region) {
-        // region holds an actual country name when in "OTHER" mode
-        list = list.filter(p => p.country === region);
-      } else {
-        list = list.filter(p => !TOP_COUNTRIES.includes(p.country));
-      }
-    } else if (country) {
-      list = list.filter(p => p.country === country);
+    // Country filter — match any selected country
+    if (countries.length > 0) {
+      list = list.filter(p =>
+        countries.some(c => {
+          if (c === 'OTHER') return !TOP_COUNTRIES.includes(p.country);
+          return p.country === c;
+        })
+      );
+    }
 
-      // Region sub-filter
-      if (region === 'OTHER') {
-        if (country === 'France') {
-          list = list.filter(p => !franceCluserLabel(p.region));
-        } else {
-          list = list.filter(p => !p.region);
-        }
-      } else if (region) {
-        if (country === 'France') {
-          const cluster = FRANCE_CLUSTERS.find(c => c.label === region);
-          if (cluster) list = list.filter(p => cluster.regions.includes(p.region));
-        } else {
-          list = list.filter(p => p.region === region);
-        }
-      }
+    // Region filter — match any selected region label
+    if (regions.length > 0) {
+      list = list.filter(p => regions.some(r => propMatchesRegion(p, r)));
     }
 
     // Sort
@@ -140,18 +146,13 @@ export default function OurHomes({ allProperties }) {
     if (sort === 'desc') list.sort((a, b) => (b.price || 0) - (a.price || 0));
 
     return list;
-  }, [allProperties, country, region, sort]);
+  }, [allProperties, countries, regions, sort]);
 
-  const hasActiveFilters = country || sort !== 'default';
-
-  function handleCountry(c) {
-    setCountry(c);
-    setRegion('');
-  }
+  const hasActiveFilters = countries.length > 0 || sort !== 'default';
 
   function clearAll() {
-    setCountry('');
-    setRegion('');
+    setCountries([]);
+    setRegions([]);
     setSort('default');
   }
 
@@ -180,55 +181,55 @@ export default function OurHomes({ allProperties }) {
       {/* ── Filter bar ── */}
       <div className="filter-bar" id="filter-bar">
 
-        {/* Row 1 — Country */}
+        {/* Row 1 — Country (multi-select) */}
         <div className="filter-row">
           <span className="filter-label">Country</span>
           <div className="filter-scroll-outer">
             <div className="filter-scroll-wrap">
               <button
-                className={`filter-btn${country === '' ? ' active' : ''}`}
-                onClick={() => handleCountry('')}
+                className={`filter-btn${countries.length === 0 ? ' active' : ''}`}
+                onClick={() => toggleCountry('')}
               >All</button>
 
               {TOP_COUNTRIES.map(c => (
                 <button
                   key={c}
-                  className={`filter-btn${country === c ? ' active' : ''}`}
-                  onClick={() => handleCountry(c)}
+                  className={`filter-btn${countries.includes(c) ? ' active' : ''}`}
+                  onClick={() => toggleCountry(c)}
                 >
                   {COUNTRY_FLAGS[c]} {c}
                 </button>
               ))}
 
               <button
-                className={`filter-btn${country === 'OTHER' ? ' active' : ''}`}
-                onClick={() => handleCountry('OTHER')}
+                className={`filter-btn${countries.includes('OTHER') ? ' active' : ''}`}
+                onClick={() => toggleCountry('OTHER')}
               >🌐 Other</button>
             </div>
           </div>
         </div>
 
-        {/* Row 2 — Region / sub-country (shown whenever a country is selected) */}
+        {/* Row 2 — Region (multi-select, shown when any country selected) */}
         {showRegionRow && (
           <div className="filter-row">
             <span className="filter-label">
-              {country === 'OTHER' ? 'Country' : 'Region'}
+              {countries.length === 1 && countries[0] === 'OTHER' ? 'Country' : 'Region'}
             </span>
             <div className="filter-scroll-outer">
               <div className="filter-scroll-wrap">
                 {regionButtons.map(r => (
                   <button
                     key={r}
-                    className={`filter-btn${region === r ? ' active' : ''}`}
-                    onClick={() => setRegion(region === r ? '' : r)}
+                    className={`filter-btn${regions.includes(r) ? ' active' : ''}`}
+                    onClick={() => toggleRegion(r)}
                   >
                     {COUNTRY_FLAGS[r] ? `${COUNTRY_FLAGS[r]} ` : ''}{r}
                   </button>
                 ))}
                 {hasOtherRegions && (
                   <button
-                    className={`filter-btn${region === 'OTHER' ? ' active' : ''}`}
-                    onClick={() => setRegion(region === 'OTHER' ? '' : 'OTHER')}
+                    className={`filter-btn${regions.includes('OTHER') ? ' active' : ''}`}
+                    onClick={() => toggleRegion('OTHER')}
                   >Other</button>
                 )}
               </div>
