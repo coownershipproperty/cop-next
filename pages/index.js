@@ -7,7 +7,7 @@ import ExpertForm from '@/components/ExpertForm';
 import fs from 'fs';
 import path from 'path';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 
@@ -66,9 +66,14 @@ export async function getStaticProps() {
   return { props: { propertyCount: data.length, featuredProps, latestPosts } };
 }
 
-const CARD_W = 430;
 const CARD_GAP = 20;
-const CARD_STEP = CARD_W + CARD_GAP;
+
+function getCardW() {
+  if (typeof window === 'undefined') return 430;
+  return window.innerWidth <= 480 ? Math.min(window.innerWidth - 40, 320)
+       : window.innerWidth <= 768 ? 300
+       : 430;
+}
 
 function PropCarousel({ items, propertyCount }) {
   // Build full list: featured properties + "view all" end card
@@ -80,8 +85,17 @@ function PropCarousel({ items, propertyCount }) {
   const START = N; // pos N = first item of middle copy
 
   const [pos, setPos] = useState(START);
+  const [cardW, setCardW] = useState(430);
   const trackRef = useRef(null);
   const snapping = useRef(false); // prevents moves during instant snap
+
+  // Keep card width in sync with viewport
+  useEffect(() => {
+    setCardW(getCardW());
+    const onResize = () => setCardW(getCardW());
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   // Which real card (0..N-1) is currently active
   const realIdx = ((pos % N) + N) % N;
@@ -115,7 +129,8 @@ function PropCarousel({ items, propertyCount }) {
     }
   };
 
-  const offset = pos * CARD_STEP;
+  const cardStep = cardW + CARD_GAP;
+  const offset = pos * cardStep;
 
   return (
     <div className="pc-wrap">
@@ -123,7 +138,7 @@ function PropCarousel({ items, propertyCount }) {
         <div
           ref={trackRef}
           className="pc-track"
-          style={{ transform: `translateX(calc(-${offset}px + 50vw - ${CARD_W / 2}px))` }}
+          style={{ transform: `translateX(calc(-${offset}px + 50vw - ${cardW / 2}px))` }}
           onTransitionEnd={onTransitionEnd}
         >
           {extended.map((p, i) => {

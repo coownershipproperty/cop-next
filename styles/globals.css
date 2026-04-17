@@ -241,29 +241,61 @@ img {
 .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
+            /* Dark navy header on mobile */
+            .cop-header,
+            .cop-header.scrolled {
+                background: rgba(22,38,52,0.98) !important;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+                border-bottom: 1px solid rgba(201,168,76,0.18);
+                padding: 1rem 1.5rem;
+                position: relative;
+            }
+            /* Hamburger on left, logo absolutely centred */
+            .cop-hamburger {
+                display: flex;
+                order: -1;
+                position: relative;
+                z-index: 1;
+            }
+            .cop-hamburger span { background: rgba(255,255,255,0.85) !important; }
+            .cop-logo {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 0;
+            }
+            .cop-header-spacer {
+                display: block;
+                width: 30px;
+                flex-shrink: 0;
+            }
+            /* Invert dark logo so it shows white on dark background */
+            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 40px; }
+            /* Nav dropdown */
             .cop-nav {
                 position: fixed;
-                top: 80px; left: 0; right: 0;
+                top: 72px; left: 0; right: 0;
                 transform: none;
                 flex-direction: column;
                 align-items: center;
-                background: rgba(22,38,52,0.97);
+                background: rgba(22,38,52,0.98);
                 backdrop-filter: blur(12px);
                 -webkit-backdrop-filter: blur(12px);
                 padding: 0;
                 max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
+                border-top: 1px solid rgba(201,168,76,0.2);
                 z-index: 9998;
             }
-            .admin-bar .cop-nav { top: 112px; }
+            .admin-bar .cop-nav { top: 104px; }
             .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
             .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
+                font-size: 0.78rem;
+                letter-spacing: 0.18em;
+                padding: 0.9rem 2rem;
                 width: 100%;
                 text-align: center;
                 border-left: none !important;
@@ -273,9 +305,9 @@ img {
             }
             .cop-nav a:last-child { border-bottom: none; }
             .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.08); color: rgba(255,255,255,1); }
+            /* Hide press bar on mobile */
+            .press-bar { display: none !important; }
         }
 
 /* Hero Content */
@@ -4159,29 +4191,61 @@ button { font-family: inherit; cursor: pointer; }
 
         /* ===== MOBILE (<768px) ===== */
         @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
+            /* Dark navy header on mobile */
+            .cop-header,
+            .cop-header.scrolled {
+                background: rgba(22,38,52,0.98) !important;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+                border-bottom: 1px solid rgba(201,168,76,0.18);
+                padding: 1rem 1.5rem;
+                position: relative;
+            }
+            /* Hamburger on left, logo absolutely centred */
+            .cop-hamburger {
+                display: flex;
+                order: -1;
+                position: relative;
+                z-index: 1;
+            }
+            .cop-hamburger span { background: rgba(255,255,255,0.85) !important; }
+            .cop-logo {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 0;
+            }
+            .cop-header-spacer {
+                display: block;
+                width: 30px;
+                flex-shrink: 0;
+            }
+            /* Invert dark logo so it shows white on dark background */
+            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 40px; }
+            /* Nav dropdown */
             .cop-nav {
                 position: fixed;
-                top: 80px; left: 0; right: 0;
+                top: 72px; left: 0; right: 0;
                 transform: none;
                 flex-direction: column;
                 align-items: center;
-                background: rgba(22,38,52,0.97);
+                background: rgba(22,38,52,0.98);
                 backdrop-filter: blur(12px);
                 -webkit-backdrop-filter: blur(12px);
                 padding: 0;
                 max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
+                border-top: 1px solid rgba(201,168,76,0.2);
                 z-index: 9998;
             }
-            .admin-bar .cop-nav { top: 112px; }
+            .admin-bar .cop-nav { top: 104px; }
             .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
             .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
+                font-size: 0.78rem;
+                letter-spacing: 0.18em;
+                padding: 0.9rem 2rem;
                 width: 100%;
                 text-align: center;
                 border-left: none !important;
@@ -4191,9 +4255,9 @@ button { font-family: inherit; cursor: pointer; }
             }
             .cop-nav a:last-child { border-bottom: none; }
             .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.08); color: rgba(255,255,255,1); }
+            /* Hide press bar on mobile */
+            .press-bar { display: none !important; }
         }
 
         /* ===== HERO ===== */
@@ -6473,8 +6537,23 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .pc-card {
     flex: 0 0 300px;
   }
-  .pc-img-wrap {
-    width: 300px;
-    height: 200px;
+  .pc-img-wrap,
+  .pc-card.pc-active .pc-img-wrap,
+  .pc-card-viewall .pc-img-wrap {
+    height: 220px !important;
   }
+  .pc-card-body { padding: 0.9rem 1rem 1rem; }
+}
+@media (max-width: 480px) {
+  .pc-card {
+    flex: 0 0 calc(100vw - 40px);
+    max-width: 320px;
+  }
+  .pc-img-wrap,
+  .pc-card.pc-active .pc-img-wrap,
+  .pc-card-viewall .pc-img-wrap {
+    height: 200px !important;
+  }
+  .properties-section { padding: 3rem 0 2rem; }
+  .pc-browse-all { padding: 0 1.5rem; }
 }
