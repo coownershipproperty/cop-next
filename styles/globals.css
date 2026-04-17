@@ -2489,10 +2489,10 @@ footer {
                 padding: 110px 1.2rem 50px;
             }
 
-            /* Properties on Our Homes */
+            /* Properties on Our Homes — never wrap on any screen size */
             .filter-scroll-wrap {
                 gap: 0.4rem;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
             }
 
             .filter-btn {
@@ -3007,43 +3007,53 @@ img { display:block; max-width:100%; height:auto; }
 .clear-btn:hover { border-color:var(--blue); color:var(--blue); }
 
 @media (max-width:768px) {
-            .filter-bar { padding:0.9rem 0; position: static; }
+            .filter-bar { padding: 0.75rem 0 0; position: static; }
 
-            /* Hide labels to save space — context is obvious */
-            .filter-label { display: none; }
-
-            /* Remove white fade hint — it covers buttons on mobile */
-            .filter-scroll-outer::after { display: none; }
-
-            /* Each row scrolls horizontally, no wrapping */
-            .filter-row {
-                padding: 0 1.2rem;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                gap: 0.4rem;
-            }
-            .filter-row::-webkit-scrollbar { display: none; }
-            .filter-row + .filter-row { margin-top: 0.5rem; }
-
-            .filter-btn {
-                padding: 0.4rem 0.85rem;
-                font-size: 0.78rem;
+            /* Compact label — small, left-aligned, stays on one line */
+            .filter-label {
+                display: block;
+                min-width: 52px;
+                font-size: 0.58rem;
+                letter-spacing: 0.12em;
                 flex-shrink: 0;
             }
 
-            /* I'M INTERESTED — own full-width centred row */
+            /* Remove white fade — it clips buttons */
+            .filter-scroll-outer::after { display: none; }
+
+            /* Each row: label + one horizontally-scrolling line of pills */
+            .filter-row {
+                padding: 0 1.2rem;
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: 0.3rem;
+            }
+            .filter-row + .filter-row { margin-top: 0.45rem; }
+
+            /* Pills: small, compact, no shrink */
+            .filter-btn {
+                padding: 0.35rem 0.7rem;
+                font-size: 0.72rem;
+                flex-shrink: 0;
+            }
+
+            /* Scroll wrap must never wrap */
+            .filter-scroll-wrap {
+                flex-wrap: nowrap !important;
+                gap: 0.35rem;
+            }
+
+            /* I'M INTERESTED — full-width gold row at bottom */
             .interested-btn {
                 display: block;
                 width: calc(100% - 2.4rem);
-                margin: 0.7rem 1.2rem 0;
+                margin: 0.75rem 1.2rem 0.75rem;
                 text-align: center;
-                padding: 0.65rem 1rem;
+                padding: 0.6rem 1rem;
                 border-radius: 2px;
             }
 
-            /* Hide the divider on mobile */
+            /* Hide sort divider */
             .filter-divider { display: none; }
         }
 
