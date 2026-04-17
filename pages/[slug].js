@@ -41,13 +41,13 @@ const DEST_FILTERS = {
 
   // ── FRANCE ─────────────────────────────────────────────────────
   "french-alps-fractional-ownership-properties":    { country: "France", regions: ["French Alps", "Portes du Soleil"] },
-  "south-of-france-fractional-ownership-properties": { country: "France", region: "South of France" },
+  "south-of-france-fractional-ownership-properties": { country: "France", region: "Côte d'Azur" },
   "paris-fractional-ownership-properties":           { country: "France", region: "Paris" },
 
   // ── ITALY ──────────────────────────────────────────────────────
   "sardinia-fractional-ownership-properties":       { country: "Italy", region: "Sardinia" },
-  "lake-como-fractional-ownership-properties":      { country: "Italy", city: "Lake Como" },
-  "italian-lakes-fractional-ownership-properties":  { country: "Italy" },
+  "lake-como-fractional-ownership-properties":      { country: "Italy", region: "Lake Como" },
+  "italian-lakes-fractional-ownership-properties":  { country: "Italy", regions: ["Lake Garda", "Lake Como", "Lago Maggiore"] },
   "liguria-fractional-ownership-properties":        { country: "Italy", region: "Liguria" },
 
   // ── UK ─────────────────────────────────────────────────────────
