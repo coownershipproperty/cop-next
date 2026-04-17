@@ -14,7 +14,7 @@
 ## Partners
 | Partner | Status | Notes |
 |---------|--------|-------|
-| `pacaso` | ✅ Good | Images, descriptions, Drive all correct |
+| `pacaso` | ✅ Good | 190 properties; images served from Google Drive lh3 URLs (not staging); Drive folders hold photos |
 | `andhamlet` | ✅ Good | 11 properties; scraper at `scripts/scrape-andhamlet.js` |
 | `vivla` | ✅ Good | 34 properties; single-add: `scripts/add-vivla-property.js`; bulk: `scripts/scrape-vivla-all.js` |
 | `myne` | ✅ Good | 95 properties; single-add: `scripts/add-myne-property.js`; bulk: `scripts/scrape-myne-all.js` |
@@ -194,6 +194,30 @@ git push origin main
 node scripts/repopulate-drive-andhamlet.js          # all 11
 node scripts/repopulate-drive-andhamlet.js SLUG      # one property
 ```
+
+## Pacaso — Updating Images from Drive
+Pacaso has 190 properties. Photos are stored in Google Drive (one folder per property,
+`driveUrl` already set). The `images` and `img` fields in properties.json use
+`https://lh3.googleusercontent.com/d/FILE_ID` URLs served directly from Drive — **not**
+the old `staging.co-ownership-property.com` URLs.
+
+If Drive folders are refreshed or re-uploaded, re-run the image sync:
+```bash
+node scripts/repopulate-drive-pacaso.js                    # update all 190
+node scripts/repopulate-drive-pacaso.js --start=N          # resume from index N
+node scripts/repopulate-drive-pacaso.js --start=N --count=20  # safe batch of 20
+node scripts/repopulate-drive-pacaso.js --dry-run          # preview only
+```
+
+What it does:
+- Reads the Drive folder for each Pacaso property (from `driveUrl`)
+- Lists all image files inside (sorted by name)
+- Sets `p.images` = array of lh3 URLs for all files, `p.img` = first
+- Saves `lib/properties.json` after each property (resumable)
+- Skips properties with no driveUrl or empty Drive folder (keeps existing URLs)
+
+Pacaso data comes from the Google Sheet via `node scripts/sync-sheet.js` — that preserves
+existing `images`/`img` values, so re-running sync will NOT overwrite the Drive URLs.
 
 ## Property Page Structure
 - `/pages/property/[slug].js` — property detail page
