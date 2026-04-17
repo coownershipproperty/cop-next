@@ -5965,7 +5965,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 
 /* ── Sticky CTA box ── */
 .bsb-cta {
-  background: linear-gradient(150deg, var(--navy) 0%, #1a3d5c 100%);
+  background: linear-gradient(150deg, #143047 0%, #1a3d5c 100%);
   border-radius: 12px;
   padding: 26px 22px;
   text-align: center;
