@@ -6,7 +6,8 @@ export default async function handler(req, res) {
   const { email } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
 
-  const smtpUser = process.env.SMTP_USER || 'david@domosno.com';
+  const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
+  const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
@@ -19,10 +20,9 @@ export default async function handler(req, res) {
   });
 
   try {
-    // Notify the team
     await transporter.sendMail({
-      from: `"COP Website" <${smtpUser}>`,
-      to: ['info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
+      from: `"COP Website" <${fromEmail}>`,
+      to: ['dylan@domosno.com'],
       subject: `New Newsletter Subscriber — ${email}`,
       html: `
         <h2>New Newsletter Subscriber</h2>
@@ -30,9 +30,8 @@ export default async function handler(req, res) {
       `,
     });
 
-    // Auto-reply to subscriber
     await transporter.sendMail({
-      from: `"Co-Ownership Property" <${smtpUser}>`,
+      from: `"Co-Ownership Property" <${fromEmail}>`,
       to: email,
       subject: 'Welcome — you\'re on the list',
       html: `
@@ -41,7 +40,7 @@ export default async function handler(req, res) {
         <p>In the meantime, browse our current properties at <a href="https://co-ownership-property.com/our-homes/">co-ownership-property.com</a>.</p>
         <p>Best,<br>The Co-Ownership Property Team</p>
       `,
-      replyTo: smtpUser,
+      replyTo: fromEmail,
     });
 
     res.status(200).json({ ok: true });

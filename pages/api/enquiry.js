@@ -5,7 +5,8 @@ export default async function handler(req, res) {
 
   const { name, email, phone, message, property, destination, budget } = req.body;
 
-  const smtpUser = process.env.SMTP_USER || 'david@domosno.com';
+  const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
+  const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
@@ -19,8 +20,8 @@ export default async function handler(req, res) {
 
   try {
     await transporter.sendMail({
-      from: `"COP Website" <${smtpUser}>`,
-      to: ['info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
+      from: `"COP Website" <${fromEmail}>`,
+      to: ['dylan@domosno.com'],
       subject: `New Enquiry${property ? ` — ${property}` : ''} from ${name}`,
       html: `
         <h2>New Enquiry</h2>
@@ -35,9 +36,8 @@ export default async function handler(req, res) {
       replyTo: email,
     });
 
-    // Auto-reply to visitor
     await transporter.sendMail({
-      from: `"Co-Ownership Property" <${smtpUser}>`,
+      from: `"Co-Ownership Property" <${fromEmail}>`,
       to: email,
       subject: 'We received your enquiry',
       html: `

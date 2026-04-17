@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   if (!email || !driveUrl) return res.status(400).json({ error: 'Missing fields' });
 
   const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
+  const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
@@ -21,7 +22,7 @@ export default async function handler(req, res) {
   try {
     // Send the Drive link to the visitor
     await transporter.sendMail({
-      from: `"Co-Ownership Property" <${smtpUser}>`,
+      from: `"Co-Ownership Property" <${fromEmail}>`,
       to: email,
       subject: `Floor Plans & More Photos — ${propertyTitle}`,
       html: `
@@ -32,13 +33,13 @@ export default async function handler(req, res) {
         <p>If you have any questions, feel free to reply to this email.</p>
         <p>Best,<br>The Co-Ownership Property Team</p>
       `,
-      replyTo: smtpUser,
+      replyTo: fromEmail,
     });
 
     // Notify COP team
     await transporter.sendMail({
-      from: `"COP Website" <${smtpUser}>`,
-      to: ['info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
+      from: `"COP Website" <${fromEmail}>`,
+      to: ['dylan@domosno.com'],
       subject: `Floor Plan Request — ${propertyTitle}`,
       html: `
         <h2>Floor Plan / Photo Request</h2>
