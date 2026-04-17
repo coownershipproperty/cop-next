@@ -2372,10 +2372,13 @@ footer {
                 display: flex !important;
                 flex-wrap: nowrap !important;
                 overflow-x: auto !important;
+                overflow-y: visible;
                 -webkit-overflow-scrolling: touch;
                 scroll-snap-type: x mandatory;
                 padding: 0 1.5rem 8px;
                 gap: 0;
+                width: 100%;
+                box-sizing: border-box;
                 justify-content: flex-start !important;
                 /* hide scrollbar visually */
                 scrollbar-width: none;
@@ -2391,7 +2394,11 @@ footer {
 
             .destinations-section {
                 padding: 60px 0;
-                overflow: visible; /* allow tab strip to scroll horizontally */
+                overflow: hidden; /* clip decorative elements */
+            }
+            .destinations-section .section-heading,
+            .destinations-section .section-subtitle {
+                padding: 0 1.5rem;
             }
 
             .how-it-works-section {
