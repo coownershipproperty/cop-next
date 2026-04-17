@@ -104,8 +104,20 @@ function extractDescription(html) {
     /as\s+an?\s+owner/gi,
     /\bis\s+happy\s+to\b[^.]*\./gi,  // " is happy to welcome you to The Bay." (orphaned verb)
     /,\s*\bis\s+happy\s+to\b[^,.]*/gi,
+    // "but you can just relax as [partner] takes care of the property"
+    // → after stripping partner → "as takes care of the property"
+    /,?\s+but\s+you\s+can\s+just\s+relax\s+as\s+takes\s+care\s+of\s+the\s+property/gi,
+    // generic: any leftover "as takes [verb]" orphan
+    /\s+as\s+takes\s+\w+/gi,
+    // "With , everything..." → "With [partner], everything..." after stripping
+    /\bWith\s*,/gi,
+    // Remove "Partner: XYZ" attribution lines at the end
+    /\s*Partner\s*:\s*[^\n.]*/gi,
   ];
   stripPatterns.forEach(p => { text = text.replace(p, ''); });
+
+  // Remove leading comma+space left by a stripped partner name at sentence start
+  text = text.replace(/^[,\s]+/, '');
 
   // Remove leading NB: disclaimer sentence(s)
   // e.g. "NB: Please note that ... renderings. Real description..."
@@ -115,10 +127,10 @@ function extractDescription(html) {
   const noteIdx = text.indexOf('Note:');
   if (noteIdx > 100) text = text.slice(0, noteIdx);
 
-  // Final cleanup
+  // Final cleanup — only strip trailing comma (not period — a period ends a real sentence)
   text = text
     .replace(/\s{2,}/g, ' ')
-    .replace(/[,.]?\s*$/, '')
+    .replace(/,\s*$/, '')
     .trim();
 
   // Remove any trailing sentence fragment that starts with a lowercase letter
