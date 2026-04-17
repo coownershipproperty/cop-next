@@ -130,7 +130,7 @@ The script automatically:
 - ✅ Includes `in-development` / `renovation` / `available` / `normal` statuses
 - ✅ Detects city, country, region, beds, baths from the page
 - ✅ Scrapes gallery images from `/_next/image` patterns (Storyblok CDN)
-- ✅ Extracts full multi-paragraph description (last `description` field before `bedroomsCount`)
+- ✅ Extracts full multi-paragraph description from the server-rendered `<p class="typo-body">` HTML tag (the "What we love about this property" section); falls back to Storyblok JS data chunk if not found
 - ✅ Extracts highlights/amenities from `highlights` array
 - ✅ Extracts lat/lng (strips Storyblok internal ID suffix from `locationLong`)
 - ✅ Creates Drive folder named `"{H1 Title} - Myne"` and uploads photos
@@ -161,6 +161,8 @@ node scripts/scrape-myne-all.js --start=N    # resume from property N (0-indexed
 - Skips sold-out; includes in-development, renovation, available, normal
 - Replaces ALL myne entries in `properties.json` at end
 - Saves JSON after each property (resumable with `--start=N` if killed)
+- `--no-drive` automatically **preserves existing driveUrls** from the previous run (matched by `notes` URL) — safe to use when only fixing descriptions/data
+- Full run (without `--no-drive`) creates new Drive folders and uploads photos fresh
 
 ## Repopulating MYNE Drive Folders
 
