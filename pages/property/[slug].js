@@ -16,7 +16,7 @@ export async function getStaticProps({ params }) {
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
   const property = data.find(p => p.slug === params.slug);
   if (!property) return { notFound: true };
-  const similar = data.filter(p => p.country === property.country && p.slug !== property.slug).slice(0, 3);
+  const similar = data.filter(p => p.country === property.country && p.slug !== property.slug && !p.unlisted).slice(0, 3);
   return { props: { property, similar } };
 }
 
