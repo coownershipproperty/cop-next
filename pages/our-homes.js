@@ -8,12 +8,22 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 
+/** Fisher-Yates shuffle — runs once at build time for a stable random order */
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 export async function getStaticProps() {
   const data = fs.readFileSync(
     path.join(process.cwd(), 'lib', 'properties.json'),
     'utf-8'
   );
-  return { props: { allProperties: JSON.parse(data) } };
+  return { props: { allProperties: shuffle(JSON.parse(data)) } };
 }
 
 // Fixed top-country order
