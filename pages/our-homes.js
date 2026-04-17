@@ -16,52 +16,113 @@ export async function getStaticProps() {
   return { props: { allProperties: JSON.parse(data) } };
 }
 
-// Fixed top-country order (everything else → "Other")
+// Fixed top-country order
 const TOP_COUNTRIES = ['France', 'Spain', 'USA', 'Italy'];
-const COUNTRY_FLAGS  = {
+const COUNTRY_FLAGS = {
   France: '🇫🇷', Spain: '🇪🇸', USA: '🇺🇸', Italy: '🇮🇹',
+  Mexico: '🇲🇽', Germany: '🇩🇪', Austria: '🇦🇹', England: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+  Croatia: '🇭🇷', Portugal: '🇵🇹', Sweden: '🇸🇪',
 };
 
-// Regions with fewer than this many properties get rolled into "Other"
-const REGION_MIN = 2;
+// France: map raw region values → cluster label
+const FRANCE_CLUSTERS = [
+  { label: 'Paris',           regions: ['Paris'] },
+  { label: 'South of France', regions: ["Côte d'Azur"] },
+  { label: 'French Alps',     regions: ['French Alps', 'Portes du Soleil'] },
+];
+
+/** Return the France cluster label for a raw region string, or null */
+function franceCluserLabel(region) {
+  for (const c of FRANCE_CLUSTERS) {
+    if (c.regions.includes(region)) return c.label;
+  }
+  return null;
+}
 
 export default function OurHomes({ allProperties }) {
-  const [country, setCountry] = useState('');   // '' = All, 'OTHER' = Other countries
-  const [region,  setRegion]  = useState('');   // '' = all regions, 'OTHER' = grouped rest
+  const [country, setCountry] = useState('');   // '' = All, 'OTHER' = other countries
+  const [region,  setRegion]  = useState('');   // '' = all, 'OTHER' = grouped rest
   const [sort,    setSort]    = useState('default');
 
-  // Derived region list for the selected country (only for the 4 top countries)
-  const regionData = useMemo(() => {
-    if (!country || country === 'OTHER') return { main: [], otherNames: [] };
-    const counts = {};
+  // ── Region/sub-filter buttons for the selected country ─────────────────────
+  const regionButtons = useMemo(() => {
+    // "Other" country → show individual country names as sub-filter buttons
+    if (country === 'OTHER') {
+      const seen = new Set();
+      allProperties
+        .filter(p => !TOP_COUNTRIES.includes(p.country) && p.country)
+        .forEach(p => seen.add(p.country));
+      return [...seen].sort();  // alphabetical; no "Other" button needed (all are shown)
+    }
+
+    if (!country) return [];
+
+    if (country === 'France') {
+      // Return cluster labels that actually have properties
+      return FRANCE_CLUSTERS
+        .filter(c => allProperties.some(
+          p => p.country === 'France' && c.regions.includes(p.region)
+        ))
+        .map(c => c.label);
+    }
+
+    // USA, Spain, Italy — return all distinct region values
+    const seen = new Set();
     allProperties
       .filter(p => p.country === country && p.region)
-      .forEach(p => { counts[p.region] = (counts[p.region] || 0) + 1; });
-    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    const main       = sorted.filter(([, c]) => c >= REGION_MIN).map(([r]) => r);
-    const otherNames = sorted.filter(([, c]) => c <  REGION_MIN).map(([r]) => r);
-    return { main, otherNames };
+      .forEach(p => seen.add(p.region));
+    return [...seen].sort((a, b) => {
+      // sort by count desc for Spain/Italy; alphabetical for USA
+      if (country === 'USA') return a.localeCompare(b);
+      return (
+        allProperties.filter(p => p.country === country && p.region === b).length -
+        allProperties.filter(p => p.country === country && p.region === a).length
+      );
+    });
   }, [allProperties, country]);
 
-  const showRegionRow    = regionData.main.length > 0;
-  const hasOtherRegions  = regionData.otherNames.length > 0;
+  // Whether to show an "Other" sub-filter button (properties in country that don't fit any shown region/cluster)
+  const hasOtherRegions = useMemo(() => {
+    if (!country || country === 'OTHER') return false;
+    if (country === 'France') {
+      return allProperties.some(p => p.country === 'France' && !franceCluserLabel(p.region));
+    }
+    // For USA/Spain/Italy: "Other" = properties with no region set
+    return allProperties.some(p => p.country === country && !p.region);
+  }, [allProperties, country]);
 
-  // Filtered + sorted property list
+  const showRegionRow = country !== '' && (regionButtons.length > 0 || hasOtherRegions);
+
+  // ── Filtered + sorted property list ────────────────────────────────────────
   const filtered = useMemo(() => {
     let list = [...allProperties];
 
     // Country filter
     if (country === 'OTHER') {
-      list = list.filter(p => !TOP_COUNTRIES.includes(p.country));
+      if (region) {
+        // region holds an actual country name when in "OTHER" mode
+        list = list.filter(p => p.country === region);
+      } else {
+        list = list.filter(p => !TOP_COUNTRIES.includes(p.country));
+      }
     } else if (country) {
       list = list.filter(p => p.country === country);
-    }
 
-    // Region filter (only relevant when a specific top country is active)
-    if (region === 'OTHER') {
-      list = list.filter(p => regionData.otherNames.includes(p.region));
-    } else if (region) {
-      list = list.filter(p => p.region === region);
+      // Region sub-filter
+      if (region === 'OTHER') {
+        if (country === 'France') {
+          list = list.filter(p => !franceCluserLabel(p.region));
+        } else {
+          list = list.filter(p => !p.region);
+        }
+      } else if (region) {
+        if (country === 'France') {
+          const cluster = FRANCE_CLUSTERS.find(c => c.label === region);
+          if (cluster) list = list.filter(p => cluster.regions.includes(p.region));
+        } else {
+          list = list.filter(p => p.region === region);
+        }
+      }
     }
 
     // Sort
@@ -69,13 +130,13 @@ export default function OurHomes({ allProperties }) {
     if (sort === 'desc') list.sort((a, b) => (b.price || 0) - (a.price || 0));
 
     return list;
-  }, [allProperties, country, region, sort, regionData]);
+  }, [allProperties, country, region, sort]);
 
   const hasActiveFilters = country || sort !== 'default';
 
   function handleCountry(c) {
     setCountry(c);
-    setRegion('');   // always reset region when switching country
+    setRegion('');
   }
 
   function clearAll() {
@@ -132,18 +193,22 @@ export default function OurHomes({ allProperties }) {
           </div>
         </div>
 
-        {/* Row 2 — Region (only when a top country is selected and has regions) */}
+        {/* Row 2 — Region / sub-country (shown whenever a country is selected) */}
         {showRegionRow && (
           <div className="filter-row">
-            <span className="filter-label">Region</span>
+            <span className="filter-label">
+              {country === 'OTHER' ? 'Country' : 'Region'}
+            </span>
             <div className="filter-scroll-outer">
               <div className="filter-scroll-wrap">
-                {regionData.main.map(r => (
+                {regionButtons.map(r => (
                   <button
                     key={r}
                     className={`filter-btn${region === r ? ' active' : ''}`}
                     onClick={() => setRegion(region === r ? '' : r)}
-                  >{r}</button>
+                  >
+                    {COUNTRY_FLAGS[r] ? `${COUNTRY_FLAGS[r]} ` : ''}{r}
+                  </button>
                 ))}
                 {hasOtherRegions && (
                   <button
