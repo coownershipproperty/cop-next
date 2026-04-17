@@ -212,11 +212,12 @@ export default function PropertyPage({ property: p, similar }) {
               </div>
             ) : (
               <div key={i} className="pp-mob-slide pp-mob-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
+                <div className="pp-lock-blur-bg" style={{ backgroundImage: `url(${heroImg})` }} />
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
-                <span className="pp-mob-lock-title">Exclusive Photos &amp; Floor Plans</span>
-                <span className="pp-mob-lock-sub">Enter email to unlock</span>
+                <span className="pp-mob-lock-title">See Inside This Property</span>
+                <span className="pp-mob-lock-sub">Full photo gallery &amp; floor plans — free</span>
               </div>
             )
           )}
@@ -250,11 +251,12 @@ export default function PropertyPage({ property: p, similar }) {
         </div>
         {/* Bottom-right: lock panel, spans both right columns */}
         <div className="pp-gallery-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
+          <div className="pp-lock-blur-bg" style={{ backgroundImage: `url(${heroImg})` }} />
           <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
           </svg>
-          <span className="pp-lock-title">Exclusive Photos &amp; Floor Plans</span>
-          <span className="pp-lock-sub">Enter email to unlock</span>
+          <span className="pp-lock-title">See Inside This Property</span>
+          <span className="pp-lock-sub">Full gallery &amp; floor plans — free</span>
         </div>
       </div>
 
