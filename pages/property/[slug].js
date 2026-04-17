@@ -401,16 +401,19 @@ export default function PropertyPage({ property: p, similar }) {
 
       </div>{/* /pp-content */}
 
-      {/* Lightbox */}
-      {lightbox !== null && (
-        <div className="pp-lb" onClick={() => setLightbox(null)}>
-          <button className="pp-lb-close" onClick={() => setLightbox(null)}>×</button>
-          <button className="pp-lb-prev" onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + p.images.length) % p.images.length); }}>‹</button>
-          <img src={p.images[lightbox]} alt={p.title} onClick={e => e.stopPropagation()} />
-          <button className="pp-lb-next" onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % p.images.length); }}>›</button>
-          <span className="pp-lb-count">{lightbox + 1} / {p.images.length}</span>
-        </div>
-      )}
+      {/* Lightbox — only first 3 images visible; rest locked behind unlock modal */}
+      {lightbox !== null && (() => {
+        const lbImages = p.images.slice(0, 3);
+        return (
+          <div className="pp-lb" onClick={() => setLightbox(null)}>
+            <button className="pp-lb-close" onClick={() => setLightbox(null)}>×</button>
+            <button className="pp-lb-prev" onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + lbImages.length) % lbImages.length); }}>‹</button>
+            <img src={lbImages[lightbox]} alt={p.title} onClick={e => e.stopPropagation()} />
+            <button className="pp-lb-next" onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % lbImages.length); }}>›</button>
+            <span className="pp-lb-count">{lightbox + 1} / {lbImages.length}</span>
+          </div>
+        );
+      })()}
 
       {showUnlock && <UnlockModal propertyTitle={p.title} driveUrl={p.driveUrl} onClose={() => setShowUnlock(false)} />}
 
