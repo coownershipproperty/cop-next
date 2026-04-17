@@ -5900,6 +5900,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   background: var(--blue-20) center/cover no-repeat;
 }
 .bsb-prop-body {
+  display: block;
   padding: 14px 24px 18px;
 }
 .bsb-prop-title {
@@ -5907,7 +5908,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   font-family: 'Playfair Display', serif;
   font-size: 14px;
   font-weight: 600;
-  color: var(--navy);
+  color: #143047;
   line-height: 1.4;
   margin-bottom: 6px;
 }
@@ -5916,7 +5917,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   font-family: 'Nunito Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
-  color: var(--gold);
+  color: #A69052;
 }
 
 .bsb-view-all {
