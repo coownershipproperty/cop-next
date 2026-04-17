@@ -320,8 +320,8 @@ img {
                 cursor: pointer;
             }
 
-            /* Hide press bar on mobile */
-            .press-bar { display: none !important; }
+            /* Press bar on mobile: show logos, hide "As Featured In" label */
+            .press-bar-header { display: none; }
         }
 
 /* Hero Content */
@@ -4420,8 +4420,8 @@ button { font-family: inherit; cursor: pointer; }
                 cursor: pointer;
             }
 
-            /* Hide press bar on mobile */
-            .press-bar { display: none !important; }
+            /* Press bar on mobile: show logos, hide "As Featured In" label */
+            .press-bar-header { display: none; }
         }
 
         /* ===== HERO ===== */
