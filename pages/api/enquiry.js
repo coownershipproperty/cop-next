@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { name, email, phone, message, property } = req.body;
+  const { name, email, phone, message, property, destination, budget } = req.body;
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.hostinger.com',
@@ -26,6 +26,8 @@ export default async function handler(req, res) {
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+        ${destination ? `<p><strong>Destinations:</strong> ${destination}</p>` : ''}
+        ${budget ? `<p><strong>Budget:</strong> ${budget}</p>` : ''}
         <p><strong>Message:</strong> ${message || 'No message'}</p>
       `,
       replyTo: email,

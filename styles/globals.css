@@ -1587,7 +1587,7 @@ img {
             left: 0; right: 0;
             background: #1e3a4f;
             border: 1px solid rgba(201,168,76,0.3);
-            max-height: 240px;
+            max-height: 320px;
             overflow-y: auto;
             z-index: 50;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
@@ -1638,6 +1638,48 @@ img {
         }
 
 .dest-option.selected .dest-check::after { opacity: 1; }
+
+/* Country group headers */
+.dest-group-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            background: rgba(201,168,76,0.06);
+            border-bottom: 1px solid rgba(201,168,76,0.1);
+            user-select: none;
+            transition: background 0.15s;
+        }
+
+.dest-group-header:hover { background: rgba(201,168,76,0.12); }
+
+.dest-group-arrow {
+            display: inline-block;
+            font-size: 0.85rem;
+            line-height: 1;
+            transition: transform 0.2s;
+            transform: rotate(0deg);
+            color: rgba(201,168,76,0.6);
+        }
+
+.dest-group-header.expanded .dest-group-arrow {
+            transform: rotate(90deg);
+        }
+
+.dest-group-children {
+            border-bottom: 1px solid rgba(201,168,76,0.08);
+        }
+
+.dest-group-children .dest-option {
+            padding-left: 2rem;
+        }
 
 /* Scrollbar for dropdown */
         .dest-dropdown::-webkit-scrollbar { width: 5px; }
