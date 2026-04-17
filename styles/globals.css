@@ -241,71 +241,85 @@ img {
 .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 @media (max-width:768px) {
-            /* Dark navy header on mobile */
+            /* Keep header fixed (sticky) — do NOT set position:relative */
             .cop-header,
             .cop-header.scrolled {
-                background: rgba(22,38,52,0.98) !important;
+                background: rgba(16,30,42,0.99) !important;
                 backdrop-filter: blur(12px);
                 -webkit-backdrop-filter: blur(12px);
-                box-shadow: 0 2px 20px rgba(0,0,0,0.25);
-                border-bottom: 1px solid rgba(201,168,76,0.18);
-                padding: 1rem 1.5rem;
-                position: relative;
+                box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+                border-bottom: 1px solid rgba(201,168,76,0.2);
+                padding: 0.9rem 1.5rem;
             }
-            /* Hamburger on left, logo absolutely centred */
+            /* Hamburger on left */
             .cop-hamburger {
                 display: flex;
                 order: -1;
                 position: relative;
-                z-index: 1;
+                z-index: 10001;
             }
-            .cop-hamburger span { background: rgba(255,255,255,0.85) !important; }
+            .cop-hamburger span { background: rgba(255,255,255,0.9) !important; }
+            /* Logo absolutely centred */
             .cop-logo {
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: 0;
             }
-            .cop-header-spacer {
-                display: block;
-                width: 30px;
-                flex-shrink: 0;
-            }
-            /* Invert dark logo so it shows white on dark background */
-            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 40px; }
-            /* Nav dropdown */
+            .cop-header-spacer { display: block; width: 30px; flex-shrink: 0; }
+            /* White logo on dark header */
+            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 38px; }
+
+            /* ── Left-side drawer ── */
             .cop-nav {
                 position: fixed;
-                top: 72px; left: 0; right: 0;
-                transform: none;
+                top: 0; left: 0; bottom: 0;
+                width: 75vw;
+                max-width: 300px;
+                transform: translateX(-100%);
                 flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.98);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.2);
-                z-index: 9998;
+                align-items: flex-start;
+                background: #101e2a;
+                padding: 100px 0 2rem;
+                transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 10000;
+                overflow-y: auto;
+                /* reset desktop absolute positioning */
+                right: auto;
+                max-height: none;
+                overflow: visible;
+                overflow-y: auto;
             }
-            .admin-bar .cop-nav { top: 104px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav.active { transform: translateX(0); }
             .cop-nav a {
-                font-size: 0.78rem;
+                font-size: 0.82rem !important;
                 letter-spacing: 0.18em;
-                padding: 0.9rem 2rem;
+                padding: 1rem 2rem !important;
                 width: 100%;
-                text-align: center;
+                text-align: left !important;
                 border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
+                border-bottom: 1px solid rgba(201,168,76,0.12) !important;
+                color: #ffffff !important;
                 box-sizing: border-box;
+                display: block;
             }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.08); color: rgba(255,255,255,1); }
+            .cop-nav a:last-child { border-bottom: none !important; }
+            .cop-nav a::after { display: none !important; }
+            .cop-nav a:hover,
+            .cop-nav a.cop-nav-active {
+                background: rgba(201,168,76,0.1);
+                color: var(--warm-gold) !important;
+            }
+
+            /* Overlay behind drawer */
+            .cop-nav-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.55);
+                z-index: 9999;
+                cursor: pointer;
+            }
+
             /* Hide press bar on mobile */
             .press-bar { display: none !important; }
         }
@@ -4194,71 +4208,85 @@ button { font-family: inherit; cursor: pointer; }
 
         /* ===== MOBILE (<768px) ===== */
         @media (max-width:768px) {
-            /* Dark navy header on mobile */
+            /* Keep header fixed (sticky) — do NOT set position:relative */
             .cop-header,
             .cop-header.scrolled {
-                background: rgba(22,38,52,0.98) !important;
+                background: rgba(16,30,42,0.99) !important;
                 backdrop-filter: blur(12px);
                 -webkit-backdrop-filter: blur(12px);
-                box-shadow: 0 2px 20px rgba(0,0,0,0.25);
-                border-bottom: 1px solid rgba(201,168,76,0.18);
-                padding: 1rem 1.5rem;
-                position: relative;
+                box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+                border-bottom: 1px solid rgba(201,168,76,0.2);
+                padding: 0.9rem 1.5rem;
             }
-            /* Hamburger on left, logo absolutely centred */
+            /* Hamburger on left */
             .cop-hamburger {
                 display: flex;
                 order: -1;
                 position: relative;
-                z-index: 1;
+                z-index: 10001;
             }
-            .cop-hamburger span { background: rgba(255,255,255,0.85) !important; }
+            .cop-hamburger span { background: rgba(255,255,255,0.9) !important; }
+            /* Logo absolutely centred */
             .cop-logo {
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: 0;
             }
-            .cop-header-spacer {
-                display: block;
-                width: 30px;
-                flex-shrink: 0;
-            }
-            /* Invert dark logo so it shows white on dark background */
-            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 40px; }
-            /* Nav dropdown */
+            .cop-header-spacer { display: block; width: 30px; flex-shrink: 0; }
+            /* White logo on dark header */
+            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 38px; }
+
+            /* ── Left-side drawer ── */
             .cop-nav {
                 position: fixed;
-                top: 72px; left: 0; right: 0;
-                transform: none;
+                top: 0; left: 0; bottom: 0;
+                width: 75vw;
+                max-width: 300px;
+                transform: translateX(-100%);
                 flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.98);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.2);
-                z-index: 9998;
+                align-items: flex-start;
+                background: #101e2a;
+                padding: 100px 0 2rem;
+                transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 10000;
+                overflow-y: auto;
+                /* reset desktop absolute positioning */
+                right: auto;
+                max-height: none;
+                overflow: visible;
+                overflow-y: auto;
             }
-            .admin-bar .cop-nav { top: 104px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav.active { transform: translateX(0); }
             .cop-nav a {
-                font-size: 0.78rem;
+                font-size: 0.82rem !important;
                 letter-spacing: 0.18em;
-                padding: 0.9rem 2rem;
+                padding: 1rem 2rem !important;
                 width: 100%;
-                text-align: center;
+                text-align: left !important;
                 border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
+                border-bottom: 1px solid rgba(201,168,76,0.12) !important;
+                color: #ffffff !important;
                 box-sizing: border-box;
+                display: block;
             }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.08); color: rgba(255,255,255,1); }
+            .cop-nav a:last-child { border-bottom: none !important; }
+            .cop-nav a::after { display: none !important; }
+            .cop-nav a:hover,
+            .cop-nav a.cop-nav-active {
+                background: rgba(201,168,76,0.1);
+                color: var(--warm-gold) !important;
+            }
+
+            /* Overlay behind drawer */
+            .cop-nav-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.55);
+                z-index: 9999;
+                cursor: pointer;
+            }
+
             /* Hide press bar on mobile */
             .press-bar { display: none !important; }
         }

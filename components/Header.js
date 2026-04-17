@@ -32,39 +32,50 @@ export default function Header() {
   ];
 
   return (
-    <header className="cop-header scrolled" id="cop-header">
-      {/* Hamburger — left on mobile */}
-      <button
-        className={`cop-hamburger${menuOpen ? ' open' : ''}`}
-        id="cop-hamburger"
-        aria-label="Toggle menu"
-        onClick={() => setMenuOpen(prev => !prev)}
-      >
-        <span></span><span></span><span></span>
-      </button>
+    <>
+      <header className="cop-header scrolled" id="cop-header">
+        {/* Hamburger — left on mobile */}
+        <button
+          className={`cop-hamburger${menuOpen ? ' open' : ''}`}
+          id="cop-hamburger"
+          aria-label="Toggle menu"
+          onClick={() => setMenuOpen(prev => !prev)}
+        >
+          <span></span><span></span><span></span>
+        </button>
 
-      {/* Logo — centred on mobile via CSS */}
-      <div className="cop-logo">
-        <a href="/" className="cop-logo-link">
-          <img src="/images/cop-logo.svg" alt="Co-Ownership Property" className="logo-dark" />
-        </a>
-      </div>
+        {/* Logo — centred on mobile via CSS */}
+        <div className="cop-logo">
+          <a href="/" className="cop-logo-link">
+            <img src="/images/cop-logo.svg" alt="Co-Ownership Property" className="logo-dark" />
+          </a>
+        </div>
 
-      {/* Invisible spacer keeps logo centred on mobile */}
-      <div className="cop-header-spacer" aria-hidden="true"></div>
+        {/* Invisible spacer keeps logo centred on mobile */}
+        <div className="cop-header-spacer" aria-hidden="true"></div>
 
-      {/* Nav — desktop: absolute centre; mobile: dropdown */}
-      <nav className={`cop-nav${menuOpen ? ' active' : ''}`} id="cop-nav">
-        {navLinks.map(({ href, label, extra }) => {
-          const isActive = path === href || (href !== '/' && path.startsWith(href));
-          const cls = [extra, isActive ? 'cop-nav-active' : ''].filter(Boolean).join(' ') || undefined;
-          return (
-            <a key={href} href={href} className={cls} onClick={() => setMenuOpen(false)}>
-              {label}
-            </a>
-          );
-        })}
-      </nav>
-    </header>
+        {/* Nav — desktop: absolute centre; mobile: left drawer */}
+        <nav className={`cop-nav${menuOpen ? ' active' : ''}`} id="cop-nav">
+          {navLinks.map(({ href, label, extra }) => {
+            const isActive = path === href || (href !== '/' && path.startsWith(href));
+            const cls = [extra, isActive ? 'cop-nav-active' : ''].filter(Boolean).join(' ') || undefined;
+            return (
+              <a key={href} href={href} className={cls} onClick={() => setMenuOpen(false)}>
+                {label}
+              </a>
+            );
+          })}
+        </nav>
+      </header>
+
+      {/* Dark overlay behind drawer — tap to close */}
+      {menuOpen && (
+        <div
+          className="cop-nav-overlay"
+          onClick={() => setMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+    </>
   );
 }
