@@ -607,33 +607,6 @@ img {
             overflow: hidden;
         }
 
-/* Subtle aged-paper texture overlay */
-        .cta-band::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
-                repeating-linear-gradient(
-                    45deg,
-                    transparent,
-                    transparent 60px,
-                    rgba(255,255,255,0.012) 60px,
-                    rgba(255,255,255,0.012) 61px
-                );
-            pointer-events: none;
-            z-index: 0;
-        }
-
-/* Gold corner ornaments */
-        .cta-band::after {
-            content: '';
-            position: absolute;
-            top: 28px; left: 28px; right: 28px; bottom: 28px;
-            border: 1px solid rgba(201,168,76,0.18);
-            pointer-events: none;
-            z-index: 0;
-        }
 
 .cta-band > * { position: relative; z-index: 1; }
 
