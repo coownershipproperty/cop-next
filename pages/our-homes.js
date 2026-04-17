@@ -252,9 +252,15 @@ export default function OurHomes({ allProperties }) {
               {hasActiveFilters && (
                 <button className="clear-btn" onClick={clearAll}>✕ Clear</button>
               )}
-              <a href="#speak-to-expert" className="interested-btn">I&apos;M INTERESTED</a>
+              {/* Desktop: CTA inline in sort row */}
+              <a href="#speak-to-expert" className="interested-btn desktop-only-cta">I&apos;M INTERESTED</a>
             </div>
           </div>
+        </div>
+
+        {/* Mobile: CTA on its own centred row */}
+        <div className="filter-cta-row">
+          <a href="#speak-to-expert" className="interested-btn">I&apos;M INTERESTED</a>
         </div>
 
       </div>{/* end filter-bar */}
