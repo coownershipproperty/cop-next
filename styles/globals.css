@@ -6085,8 +6085,40 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-gallery{margin-top:80px!important}
 @media(max-width:900px){.pp-gallery{margin-top:70px!important}}
 
-/* ── Save button: saved state ── */
-.pp-save.saved { background: var(--warm-gold); color: #fff; border-color: var(--warm-gold); }
+/* ── Heart save button — overlaid top-right of gallery ── */
+.pp-gallery, .pp-mob-carousel { position: relative; }
+
+.pp-heart-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.88);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  transition: background 0.2s, transform 0.15s;
+  padding: 0;
+}
+
+.pp-heart-btn:active { transform: scale(0.9); }
+
+.pp-heart-btn svg {
+  width: 18px;
+  height: 18px;
+  color: #143047;
+  display: block;
+}
+
+.pp-heart-btn.saved svg { color: #C9A84C; }
+.pp-heart-btn.saved { background: rgba(255,255,255,0.95); }
 
 /* ── See more / See less button (mobile only) ── */
 .pp-seemore {

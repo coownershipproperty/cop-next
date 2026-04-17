@@ -204,6 +204,12 @@ export default function PropertyPage({ property: p, similar }) {
 
       {/* ── Mobile carousel (hidden on desktop) ── */}
       <div className="pp-mob-carousel">
+        <button className={`pp-heart-btn${saved ? ' saved' : ''}`} onClick={toggleSave} aria-label={saved ? 'Remove from favourites' : 'Save property'}>
+          {saved
+            ? <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="currentColor" stroke="currentColor" strokeWidth="1.8"/></svg>
+            : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          }
+        </button>
         <div className="pp-mob-track" style={{ transform: `translateX(${-mobileSlide * 100}%)` }}>
           {mobileSlides.map((slide, i) =>
             slide.type === 'img' ? (
@@ -237,6 +243,12 @@ export default function PropertyPage({ property: p, similar }) {
 
       {/* ── Full-width gallery: hero (left, full height) + 2 thumbs (top-right) + lock panel (bottom-right) ── */}
       <div className="pp-gallery">
+        <button className={`pp-heart-btn${saved ? ' saved' : ''}`} onClick={toggleSave} aria-label={saved ? 'Remove from favourites' : 'Save property'}>
+          {saved
+            ? <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="currentColor" stroke="currentColor" strokeWidth="1.8"/></svg>
+            : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          }
+        </button>
         {/* Hero — spans both rows */}
         <div className="pp-gallery-hero" onClick={() => setLightbox(0)}>
           <Img src={heroImg} alt={p.title} loading="eager" />
@@ -279,13 +291,6 @@ export default function PropertyPage({ property: p, similar }) {
 
           {/* Title */}
           <h1 className="pp-title">{p.title}</h1>
-
-          {/* Save */}
-          <div className="pp-actions">
-            <button className={`pp-save${saved ? ' saved' : ''}`} onClick={toggleSave}>
-              {saved ? '♥ Saved' : '♡ Save Property'}
-            </button>
-          </div>
 
           {/* Stats */}
           <div className="pp-stats">
