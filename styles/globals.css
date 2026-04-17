@@ -5759,22 +5759,37 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
    ══════════════════════════════════════════════════════════════ */
 
 /* ── Blog Hero ── */
+.blog-hero-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 110px 32px 0;   /* 80px fixed header + 30px breathing room */
+}
 .blog-hero {
-  margin-top: 80px;
-  height: 560px;
-  background: var(--navy) center/cover no-repeat;
   position: relative;
+  height: 460px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--navy);
+}
+.blog-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
 }
 .blog-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(20,48,71,0.85) 0%, rgba(20,48,71,0.25) 100%);
+  background: linear-gradient(0deg, rgba(20,48,71,0.88) 0%, rgba(20,48,71,0.28) 55%, rgba(20,48,71,0.05) 100%);
   display: flex;
   align-items: flex-end;
 }
 .blog-hero-inner {
-  max-width: 860px;
-  padding: 0 48px 52px;
+  width: 100%;
+  padding: 0 44px 44px;
 }
 .blog-hero-cat {
   margin: 0 0 10px;
@@ -5782,21 +5797,22 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   font-size: 11px;
   font-weight: 700;
   color: var(--gold);
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
 }
 .blog-hero-title {
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   font-family: 'Playfair Display', serif;
-  font-size: 42px;
+  font-size: 38px;
   font-weight: 700;
   color: #fff;
   line-height: 1.15;
+  max-width: 860px;
 }
 .blog-hero-sub {
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(255,255,255,0.85);
   line-height: 1.6;
   max-width: 640px;
@@ -5805,16 +5821,16 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   margin: 0;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 13px;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.55);
 }
 
 /* ── Blog Layout (article + sidebar) ── */
 .blog-layout {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 48px 32px 80px;
+  padding: 52px 32px 80px;
   display: flex;
-  gap: 48px;
+  gap: 52px;
   align-items: flex-start;
 }
 
@@ -5823,8 +5839,6 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   flex: 1;
   min-width: 0;
 }
-
-/* Override inline styles inside article for consistency */
 .blog-article p {
   font-family: 'Nunito Sans', sans-serif !important;
   font-size: 16px !important;
@@ -5840,115 +5854,75 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   color: var(--gold) !important;
   font-weight: 600 !important;
 }
-.blog-article strong {
-  color: var(--navy) !important;
-}
+.blog-article strong { color: var(--navy) !important; }
 
 /* ── Blog Sidebar ── */
 .blog-sidebar {
-  width: 300px;
+  width: 320px;
   flex-shrink: 0;
+}
+
+/* Sticky CTA wrapper — pins after scrolling past it */
+.bsb-sticky-cta {
   position: sticky;
-  top: 100px;
+  top: 96px;
+  margin-top: 28px;
 }
-.bsb-cta {
-  background: linear-gradient(135deg, var(--navy) 0%, #1a3d5c 100%);
-  border-radius: 12px;
-  padding: 28px 24px;
-  text-align: center;
-  margin-bottom: 28px;
-}
-.bsb-cta-title {
-  margin: 0 0 8px;
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
-}
-.bsb-cta-sub {
-  margin: 0 0 18px;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 13px;
-  color: rgba(255,255,255,0.8);
-  line-height: 1.6;
-}
-.bsb-cta-btn {
-  display: block;
-  background: var(--gold);
-  color: #fff;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-}
-.bsb-cta-btn:hover { opacity: .9; }
-.bsb-cta-note {
-  margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 11px;
-  color: rgba(255,255,255,0.5);
-}
+
 .bsb-section {
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 .bsb-heading {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--gold);
-  padding-bottom: 8px;
+  padding-bottom: 10px;
   border-bottom: 2px solid var(--gold);
+  display: block;
 }
+
+/* ── Large property cards (image on top) ── */
 .bsb-prop-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: block;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   border: 1px solid var(--border);
   background: #fff;
+  transition: box-shadow .2s;
 }
-.bsb-prop-card:hover { box-shadow: 0 4px 12px rgba(20,48,71,0.1); }
+.bsb-prop-card:hover { box-shadow: 0 6px 20px rgba(20,48,71,0.12); }
 .bsb-prop-img {
   display: block;
-  width: 72px;
-  height: 60px;
-  flex-shrink: 0;
+  width: 100%;
+  height: 160px;
   background: var(--blue-20) center/cover no-repeat;
 }
 .bsb-prop-body {
-  flex: 1;
-  min-width: 0;
-  padding: 0 10px 0 0;
+  padding: 14px 16px 16px;
 }
 .bsb-prop-title {
   display: block;
   font-family: 'Playfair Display', serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--navy);
-  line-height: 1.3;
-  margin-bottom: 3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.35;
+  margin-bottom: 6px;
 }
 .bsb-prop-price {
   display: block;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--gold);
 }
+
 .bsb-view-all {
   display: block;
   text-align: center;
@@ -5957,13 +5931,14 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   font-weight: 700;
   color: var(--gold);
   text-decoration: none;
-  padding: 8px;
+  padding: 9px;
   border: 1px solid var(--gold);
   border-radius: 6px;
   letter-spacing: 0.5px;
   margin-top: 4px;
 }
 .bsb-view-all:hover { background: var(--gold); color: #fff; }
+
 .bsb-dest-link {
   display: block;
   padding: 8px 0;
@@ -5974,17 +5949,67 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   border-bottom: 1px solid var(--border);
 }
 .bsb-dest-link:hover { color: var(--gold); }
+
 .bsb-blog-link {
   display: block;
-  padding: 8px 0;
+  padding: 9px 0;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 12px;
   color: var(--navy);
   text-decoration: none;
   border-bottom: 1px solid var(--border);
-  line-height: 1.4;
+  line-height: 1.45;
+  /* truncate to ~2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .bsb-blog-link:hover { color: var(--gold); }
+
+/* ── Sticky CTA box ── */
+.bsb-cta {
+  background: linear-gradient(150deg, var(--navy) 0%, #1a3d5c 100%);
+  border-radius: 12px;
+  padding: 26px 22px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.bsb-cta-title {
+  margin: 0 0 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #fff;
+}
+.bsb-cta-sub {
+  margin: 0 0 18px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.6;
+}
+.bsb-cta-btn {
+  display: block;
+  background: var(--gold);
+  color: #fff;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 13px 20px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.bsb-cta-btn:hover { opacity: .9; }
+.bsb-cta-note {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+}
+
 .bsb-from {
   background: var(--cream);
   border-radius: 12px;
@@ -6017,7 +6042,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 
 /* ── Back link ── */
 .blog-back-wrap {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 32px 48px;
 }
@@ -6044,15 +6069,8 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   white-space: nowrap;
   transition: background .2s, color .2s;
 }
-.cat-btn:hover, .cat-btn.active {
-  background: var(--gold);
-  color: #fff;
-}
-.blog-thumb-placeholder {
-  width: 100%;
-  height: 100%;
-  background: var(--blue-20);
-}
+.cat-btn:hover, .cat-btn.active { background: var(--gold); color: #fff; }
+.blog-thumb-placeholder { width: 100%; height: 100%; background: var(--blue-20); }
 .blog-count {
   font-family: 'Nunito Sans', sans-serif;
   font-size: .9rem;
@@ -6063,14 +6081,18 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 
 /* ── Mobile blog ── */
 @media (max-width: 900px) {
-  .blog-hero { height: auto; min-height: 380px; margin-top: 70px; }
-  .blog-hero-inner { padding: 80px 24px 36px; }
-  .blog-hero-title { font-size: 26px; }
+  .blog-hero-wrap { padding: 90px 16px 0; }
+  .blog-hero { height: auto; min-height: 300px; border-radius: 12px; }
+  .blog-hero-inner { padding: 60px 24px 30px; }
+  .blog-hero-title { font-size: 24px; }
   .blog-hero-sub { font-size: 14px; }
-  .blog-layout { flex-direction: column; padding: 32px 20px 60px; gap: 40px; }
-  .blog-sidebar { width: 100%; position: static; }
+  .blog-layout { flex-direction: column; padding: 28px 20px 60px; gap: 40px; }
+  .blog-sidebar { width: 100%; }
+  .bsb-sticky-cta { position: static; }
 }
 @media (max-width: 600px) {
-  .blog-hero-title { font-size: 22px; }
-  .blog-layout { padding: 24px 16px 48px; }
+  .blog-hero-wrap { padding: 80px 12px 0; }
+  .blog-hero-title { font-size: 20px; }
+  .blog-hero-inner { padding: 50px 20px 26px; }
+  .blog-layout { padding: 20px 16px 48px; }
 }

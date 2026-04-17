@@ -32,14 +32,16 @@ export async function getStaticProps({ params }) {
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 
 const DEST_LINKS = [
-  ['French Alps', '/french-alps-fractional-ownership-properties/'],
-  ['Colorado', '/colorado-fractional-ownership-properties/'],
-  ['Costa del Sol', '/costa-del-sol-fractional-ownership-properties/'],
-  ['Balearic Islands', '/balearics-fractional-ownership-properties/'],
-  ['Italian Lakes', '/italian-lakes-fractional-ownership-properties/'],
-  ['South of France', '/south-of-france-fractional-ownership-properties/'],
-  ['Florida', '/florida-fractional-ownership-properties/'],
-  ['Portugal', '/portugal-fractional-ownership-properties/'],
+  ['French Alps Properties', '/french-alps-fractional-ownership-properties/'],
+  ['Colorado Properties', '/colorado-fractional-ownership-properties/'],
+  ['Costa del Sol Properties', '/costa-del-sol-fractional-ownership-properties/'],
+  ['Balearic Islands Properties', '/balearics-fractional-ownership-properties/'],
+  ['Italian Lakes Properties', '/italian-lakes-fractional-ownership-properties/'],
+  ['South of France Properties', '/south-of-france-fractional-ownership-properties/'],
+  ['Florida Properties', '/florida-fractional-ownership-properties/'],
+  ['Portugal Properties', '/portugal-fractional-ownership-properties/'],
+  ['Spanish Costas Properties', '/costa-del-sol-fractional-ownership-properties/'],
+  ['Pyrenees Properties', '/french-alps-fractional-ownership-properties/'],
 ];
 
 export default function BlogPost({ post, latestPosts, sideProps }) {
@@ -64,13 +66,18 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
       <Header />
 
       {/* ── Hero ── */}
-      <div className="blog-hero" style={post.heroImage ? { backgroundImage: `url('${post.heroImage}')` } : {}}>
-        <div className="blog-hero-overlay">
-          <div className="blog-hero-inner">
-            <p className="blog-hero-cat">{post.category}</p>
-            <h1 className="blog-hero-title">{post.title}</h1>
-            {post.subtitle && <p className="blog-hero-sub">{post.subtitle}</p>}
-            <p className="blog-hero-meta">{post.dateFormatted}</p>
+      <div className="blog-hero-wrap">
+        <div className="blog-hero">
+          {post.heroImage && (
+            <img src={post.heroImage} alt={post.title} className="blog-hero-img" />
+          )}
+          <div className="blog-hero-overlay">
+            <div className="blog-hero-inner">
+              <p className="blog-hero-cat">{post.category}</p>
+              <h1 className="blog-hero-title">{post.title}</h1>
+              {post.subtitle && <p className="blog-hero-sub">{post.subtitle}</p>}
+              <p className="blog-hero-meta">{post.dateFormatted}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -86,14 +93,6 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
         {/* Sidebar */}
         <aside className="blog-sidebar">
 
-          {/* CTA */}
-          <div className="bsb-cta">
-            <p className="bsb-cta-title">Find Your Perfect Share</p>
-            <p className="bsb-cta-sub">Speak with our co-ownership specialists about properties matching your lifestyle and budget.</p>
-            <a href="https://co-ownership-property.com/client-form/" className="bsb-cta-btn">Book Free Consultation</a>
-            <p className="bsb-cta-note">No obligation · Response within 24h</p>
-          </div>
-
           {/* Featured Properties */}
           <div className="bsb-section">
             <p className="bsb-heading">Featured Properties</p>
@@ -103,7 +102,7 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
                 <span className="bsb-prop-body">
                   <span className="bsb-prop-title">{p.title}</span>
                   <span className="bsb-prop-price">
-                    {p.price ? `From ${SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}` : p.region}
+                    {p.price ? `${SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}` : p.region}
                   </span>
                 </span>
               </a>
@@ -124,16 +123,26 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
             <p className="bsb-heading">Latest From Our Blog</p>
             {latestPosts.map(p => (
               <a key={p.slug} href={`/blog/${p.slug}`} className="bsb-blog-link">
-                {p.title.length > 70 ? p.title.slice(0, 70) + '…' : p.title}
+                {p.title}
               </a>
             ))}
           </div>
 
-          {/* Starting from */}
-          <div className="bsb-from">
-            <p className="bsb-from-label">Starting From</p>
-            <p className="bsb-from-price">€65,000</p>
-            <p className="bsb-from-sub">per 1/8 share</p>
+          {/* Sticky CTA */}
+          <div className="bsb-sticky-cta">
+            <div className="bsb-cta">
+              <p className="bsb-cta-title">Find Your Perfect Share</p>
+              <p className="bsb-cta-sub">Speak with our co-ownership specialists about properties matching your lifestyle and budget.</p>
+              <a href="https://co-ownership-property.com/client-form/" className="bsb-cta-btn">Book Free Consultation</a>
+              <p className="bsb-cta-note">No obligation · Response within 24h</p>
+            </div>
+
+            {/* Starting from */}
+            <div className="bsb-from">
+              <p className="bsb-from-label">Starting From</p>
+              <p className="bsb-from-price">€65,000</p>
+              <p className="bsb-from-sub">per 1/8 share</p>
+            </div>
           </div>
 
         </aside>

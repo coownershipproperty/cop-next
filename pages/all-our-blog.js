@@ -8,7 +8,11 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 
 export async function getStaticProps() {
-  const posts = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
+  const raw = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
+  // Only pass fields needed for listing — not the full article content
+  const posts = raw.map(({ slug, title, category, date, dateFormatted, excerpt, heroImage }) => ({
+    slug, title, category, date, dateFormatted, excerpt, heroImage,
+  }));
   return { props: { posts } };
 }
 
