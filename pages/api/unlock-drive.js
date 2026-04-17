@@ -6,12 +6,14 @@ export default async function handler(req, res) {
   const { name, email, propertyTitle, driveUrl } = req.body;
   if (!email || !driveUrl) return res.status(400).json({ error: 'Missing fields' });
 
+  const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
+
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.hostinger.com',
-    port: 465,
-    secure: true,
+    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
+    port: 587,
+    secure: false,
     auth: {
-      user: process.env.SMTP_USER || 'info@co-ownership-property.com',
+      user: smtpUser,
       pass: process.env.SMTP_PASS,
     },
   });
@@ -19,7 +21,7 @@ export default async function handler(req, res) {
   try {
     // Send the Drive link to the visitor
     await transporter.sendMail({
-      from: '"Co-Ownership Property" <info@co-ownership-property.com>',
+      from: `"Co-Ownership Property" <${smtpUser}>`,
       to: email,
       subject: `Floor Plans & More Photos — ${propertyTitle}`,
       html: `
@@ -30,12 +32,12 @@ export default async function handler(req, res) {
         <p>If you have any questions, feel free to reply to this email.</p>
         <p>Best,<br>The Co-Ownership Property Team</p>
       `,
-      replyTo: 'info@co-ownership-property.com',
+      replyTo: smtpUser,
     });
 
     // Notify COP team
     await transporter.sendMail({
-      from: '"COP Website" <info@co-ownership-property.com>',
+      from: `"COP Website" <${smtpUser}>`,
       to: ['info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
       subject: `Floor Plan Request — ${propertyTitle}`,
       html: `
@@ -51,6 +53,6 @@ export default async function handler(req, res) {
     res.status(200).json({ ok: true });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to send' });
+    res.status(500).json({ error: 'Failed to send', detail: err.message });
   }
 }

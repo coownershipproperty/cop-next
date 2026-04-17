@@ -9,9 +9,9 @@ export default async function handler(req, res) {
   const smtpUser = process.env.SMTP_USER || 'david@domosno.com';
 
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.hostinger.com',
-    port: 465,
-    secure: true,
+    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
+    port: 587,
+    secure: false,
     auth: {
       user: smtpUser,
       pass: process.env.SMTP_PASS,
