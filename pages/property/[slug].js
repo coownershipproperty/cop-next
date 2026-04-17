@@ -40,7 +40,7 @@ function UnlockModal({ propertyTitle, driveUrl, onClose }) {
   async function submit(e) {
     e.preventDefault(); setStatus('sending');
     try {
-      const r = await fetch('/api/unlock-drive', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      const r = await fetch('/api/unlock-drive/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, propertyTitle, driveUrl }) });
       setStatus(r.ok ? 'done' : 'error');
     } catch { setStatus('error'); }
@@ -83,7 +83,7 @@ function EnquiryForm({ propertyTitle }) {
   async function submit(e) {
     e.preventDefault(); setStatus('sending');
     try {
-      const r = await fetch('/api/enquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      const r = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...f, property: propertyTitle }) });
       setStatus(r.ok ? 'done' : 'error');
     } catch { setStatus('error'); }

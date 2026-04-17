@@ -166,7 +166,7 @@ export default function ExpertForm({ property }) {
     setMsg('');
 
     try {
-      const res = await fetch('/api/enquiry', {
+      const res = await fetch('/api/enquiry/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, phone, budget, destination: destStr, message, property }),
