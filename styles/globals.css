@@ -6093,3 +6093,183 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .blog-hero-inner { padding: 50px 20px 26px; }
   .blog-layout { padding: 20px 16px 48px; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Homepage Property Carousel  (.pc-*)
+   Pure CSS transform — GPU-accelerated, zero layout jank
+   ══════════════════════════════════════════════════════════════ */
+
+.pc-wrap {
+  padding: 0 0 16px;
+}
+
+/* Outer container clips the sliding track */
+.pc-outer {
+  overflow: hidden;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 10px 20px 20px;
+}
+
+/* Track — hardware-accelerated translate only */
+.pc-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+/* Portrait card */
+.pc-card {
+  flex: 0 0 240px;
+  height: 340px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  display: block;
+  text-decoration: none;
+  background: #143047;
+  cursor: pointer;
+}
+
+.pc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.pc-card:hover .pc-img {
+  transform: scale(1.06);
+}
+
+/* Gradient overlay — always visible at bottom */
+.pc-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(20, 48, 71, 0.90) 0%,
+    rgba(20, 48, 71, 0.35) 45%,
+    transparent 70%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18px 16px 20px;
+  pointer-events: none;
+}
+
+.pc-card-loc {
+  display: block;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin-bottom: 5px;
+}
+
+.pc-card-title {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.35;
+  margin-bottom: 7px;
+}
+
+.pc-card-price {
+  display: block;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.02em;
+}
+
+/* Navigation row */
+.pc-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.pc-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(20, 48, 71, 0.22);
+  background: transparent;
+  color: #143047;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.pc-btn:hover:not(:disabled) {
+  background: #143047;
+  border-color: #143047;
+  color: #ffffff;
+}
+
+.pc-btn:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+.pc-counter {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 13px;
+  color: #143047;
+  letter-spacing: 0.06em;
+  min-width: 52px;
+  text-align: center;
+}
+
+/* Browse all link below carousel */
+.pc-browse-all {
+  text-align: center;
+  margin-top: 28px;
+}
+
+.pc-browse-btn {
+  display: inline-block;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #143047;
+  border: 1.5px solid rgba(20,48,71,0.28);
+  padding: 13px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.pc-browse-btn:hover {
+  background: #143047;
+  color: #ffffff;
+  border-color: #143047;
+}
+
+/* Mobile: show 1 full card + peek of next */
+@media (max-width: 768px) {
+  .pc-outer {
+    padding: 10px 16px 16px;
+  }
+  .pc-card {
+    flex: 0 0 200px;
+    height: 290px;
+  }
+  /* Adjust step in JS isn't possible via CSS — we just let natural overflow handle it */
+}

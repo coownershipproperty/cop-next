@@ -9,12 +9,78 @@ import path from 'path';
 
 import { useState } from 'react';
 
+const SYM = { EUR: '€', USD: '$', GBP: '£' };
+
 export async function getStaticProps() {
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
-  return { props: { propertyCount: data.length } };
+  const featuredProps = data
+    .filter(p => p.img)
+    .slice(0, 20)
+    .map(p => ({
+      slug: p.slug,
+      title: p.title,
+      img: p.img,
+      region: p.region || '',
+      country: p.country || '',
+      price: p.price || null,
+      currency: p.currency || 'EUR',
+    }));
+  return { props: { propertyCount: data.length, featuredProps } };
 }
 
-export default function Home({ propertyCount }) {
+function PropCarousel({ items }) {
+  const [idx, setIdx] = useState(0);
+  const CARD_STEP = 260; // card width 240 + gap 20
+  const VISIBLE = 4;
+  const max = Math.max(0, items.length - VISIBLE);
+
+  const prev = () => setIdx(i => Math.max(0, i - 1));
+  const next = () => setIdx(i => Math.min(max, i + 1));
+
+  return (
+    <div className="pc-wrap">
+      <div className="pc-outer">
+        <div
+          className="pc-track"
+          style={{ transform: `translateX(-${idx * CARD_STEP}px)` }}
+        >
+          {items.map((p, i) => {
+            const label = p.title.includes('—')
+              ? p.title.split('—').slice(1).join('—').trim()
+              : p.title;
+            return (
+              <a key={p.slug} href={`/property/${p.slug}`} className="pc-card">
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  className="pc-img"
+                  loading={i < 5 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+                <div className="pc-overlay">
+                  <span className="pc-card-loc">{p.region}{p.region && p.country ? ', ' : ''}{p.country}</span>
+                  <span className="pc-card-title">{label}</span>
+                  {p.price && (
+                    <span className="pc-card-price">
+                      From {SYM[p.currency] || p.currency}{p.price.toLocaleString('en-GB')}
+                    </span>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+      <div className="pc-nav">
+        <button className="pc-btn" onClick={prev} disabled={idx === 0} aria-label="Previous">&#8592;</button>
+        <span className="pc-counter">{idx + 1} / {max + 1}</span>
+        <button className="pc-btn" onClick={next} disabled={idx >= max} aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+  );
+}
+
+export default function Home({ propertyCount, featuredProps }) {
   const [activeDest, setActiveDest] = useState('france');
   return (
     <>
@@ -181,22 +247,10 @@ export default function Home({ propertyCount }) {
         <h2 className="section-heading">Explore Our Properties</h2>
         <p className="section-subtitle">Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.</p>
 
-        <ul className="prop-list" id="prop-list">
-                        <li className="prop-see-more-slide">
-                <div className="prop-card prop-card-see-more">
-                    <a href="/properties" className="prop-see-more-inner">
-                        <span className="prop-see-more-count">{propertyCount}</span>
-                        <span className="prop-see-more-label">properties</span>
-                        <span className="prop-see-more-cta">Browse All &rarr;</span>
-                    </a>
-                </div>
-            </li>
-        </ul>
+        <PropCarousel items={featuredProps} />
 
-        <div className="prop-nav">
-            <button className="prop-nav-btn" id="prop-prev">&#8592;</button>
-            <span className="prop-counter"><span id="prop-current">1</span> / <span id="prop-total">{propertyCount}</span></span>
-            <button className="prop-nav-btn" id="prop-next">&#8594;</button>
+        <div className="pc-browse-all">
+          <a href="/our-homes/" className="pc-browse-btn">View All {propertyCount} Properties &rarr;</a>
         </div>
     </section>
 
