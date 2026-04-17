@@ -5522,7 +5522,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-lock-sub{font-family:'Nunito Sans',sans-serif;font-size:.68rem;color:rgba(255,255,255,.65)}
 
 /* ── Content wrapper ── */
-.pp-content{max-width:1200px;margin:0 auto;padding:40px 32px 80px;display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:start}
+.pp-content{max-width:1200px;margin:0 auto;padding:24px 32px 80px;display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:start}
 .pp-left{min-width:0}
 .pp-right{position:sticky;top:100px}
 
@@ -5634,7 +5634,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Responsive ── */
 @media(max-width:960px){
   .pp-gallery{height:300px}
-  .pp-content{grid-template-columns:1fr;gap:32px;padding:32px 20px 60px}
+  .pp-content{grid-template-columns:1fr;gap:32px;padding:20px 20px 60px}
   .pp-right{position:static}
   .pp-similar-grid{grid-template-columns:repeat(2,1fr)}
   .pp-photo-grid{grid-template-columns:repeat(2,1fr)}
@@ -5647,7 +5647,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .pp-stat-val{font-size:1.1rem}
   .pp-similar-grid,.pp-photo-grid{grid-template-columns:1fr}
   .pp-form-card{padding:20px}
-  .pp-content{padding:24px 16px 60px}
+  .pp-content{padding:16px 16px 60px}
 }
 
 /* ── Gallery v3 fix: staging 3-col grid ── */
