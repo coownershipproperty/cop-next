@@ -156,6 +156,7 @@ export default function HowItWorks() {
             <h2>Co-Ownership vs. the <em>Alternatives</em></h2>
             <p className="lead">Not all second-home options are equal. Here's how co-ownership compares.</p>
 
+            <div className="compare-table-scroll">
             <table className="compare-table">
                 <thead>
                     <tr>
@@ -232,6 +233,7 @@ export default function HowItWorks() {
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </section>
 
