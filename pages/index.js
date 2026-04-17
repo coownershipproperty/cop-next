@@ -432,17 +432,16 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
 
         {/* Tab navigation */}
         <div className="dest-tabs">
-            <button className={`dest-tab-btn${activeDest === "france" ? " active" : ""}`} onClick={() => setActiveDest("france")}>  France</button>
-            <button className={`dest-tab-btn${activeDest === "spain" ? " active" : ""}`} onClick={() => setActiveDest("spain")}>  Spain</button>
-            <button className={`dest-tab-btn${activeDest === "usa" ? " active" : ""}`} onClick={() => setActiveDest("usa")}>  USA</button>
-            <button className={`dest-tab-btn${activeDest === "italy" ? " active" : ""}`} onClick={() => setActiveDest("italy")}>  Italy</button>
-            <button className={`dest-tab-btn${activeDest === "portugal" ? " active" : ""}`} onClick={() => setActiveDest("portugal")}>  Portugal</button>
-            <button className={`dest-tab-btn${activeDest === "austria" ? " active" : ""}`} onClick={() => setActiveDest("austria")}>  Austria</button>
-            <button className={`dest-tab-btn${activeDest === "england" ? " active" : ""}`} onClick={() => setActiveDest("england")}>  England</button>
-            <button className={`dest-tab-btn${activeDest === "sweden" ? " active" : ""}`} onClick={() => setActiveDest("sweden")}>  Sweden</button>
-            <button className={`dest-tab-btn${activeDest === "germany" ? " active" : ""}`} onClick={() => setActiveDest("germany")}>  Germany</button>
-            <button className={`dest-tab-btn${activeDest === "croatia" ? " active" : ""}`} onClick={() => setActiveDest("croatia")}>  Croatia</button>
-            <button className={`dest-tab-btn${activeDest === "mexico" ? " active" : ""}`} onClick={() => setActiveDest("mexico")}>  Mexico</button>
+            {[["france","France"],["spain","Spain"],["usa","USA"],["italy","Italy"],["portugal","Portugal"],["austria","Austria"],["england","England"],["sweden","Sweden"],["germany","Germany"],["croatia","Croatia"],["mexico","Mexico"]].map(([key, label]) => (
+              <button
+                key={key}
+                className={`dest-tab-btn${activeDest === key ? " active" : ""}`}
+                onClick={e => {
+                  setActiveDest(key);
+                  e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }}
+              >{label}</button>
+            ))}
         </div>
 
         {/* Panels */}
