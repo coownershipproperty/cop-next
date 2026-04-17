@@ -6106,11 +6106,25 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   padding-bottom: 8px;
 }
 
-/* Full-width overflow clip — no max-width so track bleeds to edges */
+/* Full-width overflow clip — gradient mask fades edges instead of hard-clipping */
 .pc-outer {
   overflow: hidden;
   width: 100%;
   padding: 16px 0 24px;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
 }
 
 /* Track — GPU-accelerated only */
