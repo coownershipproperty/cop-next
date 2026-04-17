@@ -6537,20 +6537,30 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 
 /* ── Mobile ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  /* Hard-clip instead of gradient fade — no bleed-through on narrow screens */
+  .pc-outer {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    overflow: hidden;
+  }
   .pc-card {
-    flex: 0 0 300px;
+    flex: 0 0 calc(100vw - 48px);
+    max-width: 380px;
   }
   .pc-img-wrap,
   .pc-card.pc-active .pc-img-wrap,
   .pc-card-viewall .pc-img-wrap {
     height: 220px !important;
+    width: 100% !important;
   }
   .pc-card-body { padding: 0.9rem 1rem 1rem; }
+  /* Dim non-active cards strongly so they can't be seen peeking */
+  .pc-card:not(.pc-active) { opacity: 0 !important; }
 }
 @media (max-width: 480px) {
   .pc-card {
     flex: 0 0 calc(100vw - 40px);
-    max-width: 320px;
+    max-width: 340px;
   }
   .pc-img-wrap,
   .pc-card.pc-active .pc-img-wrap,
