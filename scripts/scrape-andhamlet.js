@@ -1,11 +1,12 @@
 /**
  * scrape-andhamlet.js
- * 
- * Scrapes gallery images + descriptions for all &Hamlet properties
+ *
+ * Scrapes gallery images, descriptions and m² for all &Hamlet properties
  * directly from andhamlet.com.
  *
  * Gallery: targets section.section_gallery8 — only the property's own photos.
  * Description: extracts div.component_rich-text.w-richtext, strips partner name.
+ * Size (m²): reads the aria-current="page" card in the "More homes" section.
  *
  * Usage:
  *   node scripts/scrape-andhamlet.js                          (all properties)
@@ -48,7 +49,6 @@ function fetchHtml(url) {
 }
 
 function extractGalleryImages(html) {
-  // Find the gallery section by its Webflow class name
   const galStart = html.indexOf('section_gallery8');
   if (galStart === -1) return [];
 
@@ -56,7 +56,6 @@ function extractGalleryImages(html) {
   const sectionEnd   = html.indexOf('</section>', galStart) + '</section>'.length;
   const galHtml      = html.slice(sectionStart, sectionEnd);
 
-  // Extract only <img src="..."> attributes within this section
   const imgRegex = /<img[^>]+\bsrc="(https:\/\/cdn\.prod\.website-files\.com\/[^"]+)"/gi;
   const seen = new Set();
   const images = [];
@@ -67,15 +66,29 @@ function extractGalleryImages(html) {
   return images;
 }
 
+async function fetchSizeMap() {
+  // Scrape andhamlet.com/homes once to get all ahSlug → m² mappings
+  const html = await fetchHtml('https://www.andhamlet.com/homes');
+  const slugMatches  = [...html.matchAll(/href="\/listings\/([a-z0-9-]+)"/gi)];
+  const meterMatches = [...html.matchAll(/class="meters">(\d+)<\/div>/gi)];
+  const map = {};
+  meterMatches.forEach(mm => {
+    const preceding = slugMatches.filter(s => s.index < mm.index);
+    if (preceding.length > 0) {
+      const slug = preceding[preceding.length - 1][1];
+      if (!map[slug]) map[slug] = parseInt(mm[1], 10); // first hit per slug wins
+    }
+  });
+  return map;
+}
+
 function extractDescription(html) {
-  // Target the rich text description block
   const rtIdx = html.indexOf('component_rich-text w-richtext');
   if (rtIdx === -1) return '';
 
-  const tagStart   = html.lastIndexOf('<', rtIdx);
-  const tagEnd     = html.indexOf('>', tagStart);
+  const tagStart = html.lastIndexOf('<', rtIdx);
+  const tagEnd   = html.indexOf('>', tagStart);
 
-  // Walk forward counting div nesting to find the closing </div>
   let depth = 1, pos = tagEnd + 1;
   while (depth > 0 && pos < html.length) {
     const open  = html.indexOf('<div', pos);
@@ -86,74 +99,99 @@ function extractDescription(html) {
   }
 
   let text = html.slice(tagEnd + 1, pos - 6)
-    .replace(/<[^>]+>/g, ' ')      // strip tags
+    .replace(/<[^>]+>/g, ' ')
     .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
     .replace(/&#x27;/g, "'")
-    .replace(/&#[0-9a-fx]+;/gi, '')
-    .replace(/\u200d/g, '')        // zero-width joiner
+    .replace(/&#[0-9]+;/gi, '')
+    .replace(/&[a-z]+;/gi, '')
+    .replace(/\u200d/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 
-  // Strip partner name variants (including partial leftovers like "Through , ")
+  // ── Partner name & direct orphan cleanup ────────────────────────────────
   const stripPatterns = [
     /&Hamlet/gi,
     /\bAndHamlet\b/gi,
-    /Through\s*,/gi,              // "Through &Hamlet," → "Through ," → remove
-    /through\s*[.,]/gi,           // "through ." / "through ," → remove
-    /as\s+a\s+owner/gi,           // "as a &Hamlet owner" → "as a  owner" → clean
+    /Through\s*,/gi,
+    /through\s*[.,!]/gi,
+    /through\s*!/gi,
+    /as\s+a\s+owner/gi,
     /as\s+an?\s+owner/gi,
-    /\bis\s+happy\s+to\b[^.]*\./gi,  // " is happy to welcome you to The Bay." (orphaned verb)
+    /\bis\s+happy\s+to\b[^.]*\./gi,
     /,\s*\bis\s+happy\s+to\b[^,.]*/gi,
-    // "but you can just relax as [partner] takes care of the property"
-    // → after stripping partner → "as takes care of the property"
     /,?\s+but\s+you\s+can\s+just\s+relax\s+as\s+takes\s+care\s+of\s+the\s+property/gi,
-    // generic: any leftover "as takes [verb]" orphan
     /\s+as\s+takes\s+\w+/gi,
-    // "With , everything..." → "With [partner], everything..." after stripping
     /\bWith\s*,/gi,
-    // Remove "Partner: XYZ" attribution lines at the end
     /\s*Partner\s*:\s*[^\n.]*/gi,
+    // "your family has everything set for unforgettable experiences ... not be postponed."
+    /[^.]*your family has everything set for unforgettable experiences[^.]*/gi,
+    // "everything is in place. All you need to do is arrive..."
+    /everything is in place\.\s*/gi,
+    /All you need to do is arrive[^.]*/gi,
+    // "every [single] detail is taken care of" (lowercase orphan sentence)
+    /\bevery\s+(?:single\s+)?detail\s+is\s+taken\s+care\s+of\b[^.]*/gi,
+    // "Please note: Illustrations are for information purposes only..."
+    /Please\s+note\s*:\s*Illustrations[^.]*/gi,
+    // "We curate every detail" (partner-specific management copy)
+    /We curate every detail[^.]*/gi,
   ];
   stripPatterns.forEach(p => { text = text.replace(p, ''); });
 
-  // Remove leading comma+space left by a stripped partner name at sentence start
+  // Remove leading comma/space left after stripping partner from sentence start
   text = text.replace(/^[,\s]+/, '');
 
-  // Remove leading NB: disclaimer sentence(s)
-  // e.g. "NB: Please note that ... renderings. Real description..."
+  // Remove leading NB: disclaimer
   text = text.replace(/^\s*NB\s*:[^.]*\.\s*/i, '');
+  // Also remove the intro sentence right after NB if it still starts with "is happy to"
+  text = text.replace(/^\s*is\s+happy\s+to\b[^.]*\.\s*/i, '');
 
-  // Remove disclaimer (Note:...) and everything after
-  const noteIdx = text.indexOf('Note:');
+  // Remove whole boilerplate sentences
+  const boilerplate = [
+    /[^.]*\benough buyers\b[^.]*/gi,
+    /[^.]*\bpurchased in its entirety\b[^.]*/gi,
+    /[^.]*\bco-owning this\b[^.]*/gi,
+    /[^.]*\bwe will ensure it becomes\b[^.]*/gi,
+    /[^.]*\bbecomes a\s+\w*\s*property\b[^.]*/gi,
+    // "Refer to the floor plan and layout for precise specifications"
+    /[^.]*\bRefer to the floor plan\b[^.]*/gi,
+  ];
+  boilerplate.forEach(p => { text = text.replace(p, ''); });
+
+  // Remove Note:/Please note: and everything after
+  const noteIdx = text.search(/\bNote\s*:/i);
   if (noteIdx > 100) text = text.slice(0, noteIdx);
 
-  // Final cleanup — only strip trailing comma (not period — a period ends a real sentence)
+  // Tidy up
   text = text
     .replace(/\s{2,}/g, ' ')
-    .replace(/,\s*$/, '')
+    .replace(/\.\s*\./g, '.')           // double periods
+    .replace(/,\s*$/, '')               // trailing comma
+    .replace(/^\.\s*/, '')              // leading period
     .trim();
 
-  // Remove any trailing sentence fragment that starts with a lowercase letter
-  // (orphaned after partner-name stripping, e.g. "every single detail is taken care of")
+  // Remove trailing sentence fragment that starts with lowercase
   text = text.replace(/\.\s+[a-z][^.]*$/, '.');
   text = text.replace(/\s{2,}/g, ' ').trim();
 
   return text;
 }
 
-async function scrapeProperty(slug, ahSlug) {
+async function scrapeProperty(slug, ahSlug, sizeMap) {
   const url = `https://www.andhamlet.com/listings/${ahSlug}`;
   console.log(`\n[${slug}]  →  ${url}`);
 
   const html   = await fetchHtml(url);
   const images = extractGalleryImages(html);
   const desc   = extractDescription(html);
+  const size   = sizeMap[ahSlug] || null;
 
   console.log(`  ✓ ${images.length} gallery images`);
   if (images.length > 0) console.log(`    hero: ${images[0].split('/').pop()}`);
+  console.log(`  ✓ size: ${size ? size + ' m²' : 'not found'}`);
   console.log(`  ✓ description (${desc.length} chars): ${desc.slice(0, 80)}...`);
 
-  return { images, description: desc, partnerUrl: url };
+  return { images, description: desc, size, partnerUrl: url };
 }
 
 async function main() {
@@ -163,28 +201,30 @@ async function main() {
     ? (AH_MAP[targetSlug] ? { [targetSlug]: AH_MAP[targetSlug] } : (() => { throw new Error(`Unknown slug: ${targetSlug}`); })())
     : AH_MAP;
 
+  console.log('Fetching m² data from andhamlet.com/homes...');
+  const sizeMap = await fetchSizeMap();
+  console.log(`  → ${Object.keys(sizeMap).length} properties with m² data`);
+
   let updated = 0;
 
   for (const [slug, ahSlug] of Object.entries(toProcess)) {
     try {
-      const { images, description, partnerUrl } = await scrapeProperty(slug, ahSlug);
+      const { images, description, size, partnerUrl } = await scrapeProperty(slug, ahSlug, sizeMap);
 
       const prop = props.find(p => p.slug === slug);
       if (!prop) { console.log(`  ✗ slug not in properties.json`); continue; }
 
       if (images.length > 0) {
-        prop.images    = images.slice(0, 3);   // 3 hero images for listing page
-        prop.img       = images[0];            // primary card image
-        prop.allImages = images;               // full set for Drive upload
-      } else {
-        console.log(`  ✗ no images — skipping`);
+        prop.images    = images.slice(0, 3);
+        prop.img       = images[0];
+        prop.allImages = images;
       }
-
       if (description.length > 80) prop.description = description;
+      if (size) prop.size = size;
       prop.notes = partnerUrl;
 
       updated++;
-      await new Promise(r => setTimeout(r, 1200)); // rate limit
+      await new Promise(r => setTimeout(r, 1200));
 
     } catch (err) {
       console.log(`  ✗ Error: ${err.message}`);
