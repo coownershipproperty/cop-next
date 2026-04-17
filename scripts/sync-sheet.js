@@ -167,6 +167,38 @@ async function main() {
       };
     });
 
+  // ── Merge with existing enriched data ────────────────────────────────────────
+  // The sheet has truncated descriptions and may lack amenities/notes we've
+  // fetched from partner sites. Preserve enriched fields when the sheet has
+  // shorter or empty values. Sheet remains authoritative for structural fields
+  // (title, price, images, region, partner, etc.).
+  let existing = [];
+  if (fs.existsSync(OUT_PATH)) {
+    try { existing = JSON.parse(fs.readFileSync(OUT_PATH, 'utf8')); } catch (e) { /* ignore */ }
+  }
+  const existingBySlug = {};
+  existing.forEach(p => { existingBySlug[p.slug] = p; });
+
+  properties.forEach(p => {
+    const ex = existingBySlug[p.slug];
+    if (!ex) return;
+
+    // Keep description if existing is longer (sheet may be truncated)
+    if (ex.description && ex.description.length > (p.description || '').length) {
+      p.description = ex.description;
+    }
+
+    // Keep amenities if sheet has none but we've enriched them before
+    if ((!p.amenities || p.amenities.length === 0) && ex.amenities && ex.amenities.length > 0) {
+      p.amenities = ex.amenities;
+    }
+
+    // Keep notes (partner URL) if sheet is empty but we have a corrected one
+    if (!p.notes && ex.notes) {
+      p.notes = ex.notes;
+    }
+  });
+
   // Stats
   const byPartner = {};
   properties.forEach(p => { byPartner[p.partner] = (byPartner[p.partner] || 0) + 1; });
