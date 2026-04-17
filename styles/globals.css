@@ -2225,7 +2225,7 @@ footer {
             /* Header mobile handled by shared partial */
 
             .hero-content {
-                padding: 0 1.5rem 6rem;
+                padding: 0 1.5rem 5rem;
             }
 
             .hero-heading {
@@ -2235,6 +2235,24 @@ footer {
 
             .hero-bottom {
                 padding: 0 1.5rem 2rem;
+            }
+
+            /* ── Hero CTA buttons ── */
+            .hero-ctas {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.9rem;
+            }
+
+            .hero-cta-primary {
+                padding: 0.9rem 2.2rem;
+                font-size: 0.78rem;
+                width: auto;
+                display: inline-block;
+            }
+
+            .hero-cta-secondary {
+                font-size: 0.78rem;
             }
 
             .hero-tabs {
@@ -2259,14 +2277,14 @@ footer {
             }
 
             .carousel-card {
-                flex: 0 0 calc(50% - 1rem);
+                flex: 0 0 300px;
             }
 
             .dest-panel.active { flex-direction: column; }
-            .dest-img-wrap { flex: none; width: 100%; height: 260px; }
-            .dest-info-name { font-size: 2rem; }
-            .explainer-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-            .explainer-section { padding: 70px 1.5rem; }
+            .dest-img-wrap { flex: none; width: 100%; height: 240px; }
+            .dest-info-name { font-size: 1.8rem; }
+            .explainer-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+            .explainer-section { padding: 60px 1.5rem; }
 
             .dest-tabs { padding: 0 1.5rem; }
             .dest-panels { padding: 0 1.5rem; }
@@ -2317,6 +2335,11 @@ footer {
                 gap: 1rem;
                 text-align: center;
             }
+
+            /* Expert form grid → single column */
+            .expert-form-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
 @media (max-width: 480px) {
@@ -2324,8 +2347,20 @@ footer {
                 font-size: 1.5rem;
             }
 
+            /* Full-width gold button on small phones */
+            .hero-ctas {
+                align-items: stretch;
+            }
+
+            .hero-cta-primary {
+                padding: 0.9rem 1.5rem;
+                text-align: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
             .carousel-card {
-                flex: 0 0 calc(100% - 1rem);
+                flex: 0 0 calc(100% - 3rem);
             }
 
             .carousel-pagination {
@@ -2346,8 +2381,37 @@ footer {
                 letter-spacing: 0.1em;
             }
 
+            /* 1-column grids on small phones */
             .blog-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .explainer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Destination tabs scroll */
+            .dest-tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 4px;
+            }
+
+            /* Page hero padding */
+            .page-hero {
+                padding: 110px 1.2rem 50px;
+            }
+
+            /* Properties on Our Homes */
+            .filter-scroll-wrap {
+                gap: 0.4rem;
+                flex-wrap: wrap;
+            }
+
+            .filter-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.75rem;
             }
         }
 
