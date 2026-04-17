@@ -5835,37 +5835,33 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 }
 
 /* ── Article content ── */
+/* WordPress content has correct inline styles on every element already.
+   We only add fallbacks for elements the WP template may not have styled. */
 .blog-article {
   flex: 1;
   min-width: 0;
 }
-.blog-article p {
-  font-family: 'Nunito Sans', sans-serif !important;
-  font-size: 16px !important;
-  color: var(--navy) !important;
-  line-height: 1.8 !important;
-  margin-bottom: 24px !important;
+/* Only colour anchor tags that have no inline style — don't override font/size */
+.blog-article a:not([style]) {
+  color: var(--gold);
+  font-weight: 600;
 }
-.blog-article h2 {
-  font-family: 'Playfair Display', serif !important;
-  color: var(--navy) !important;
-}
-.blog-article a {
-  color: var(--gold) !important;
-  font-weight: 600 !important;
-}
-.blog-article strong { color: var(--navy) !important; }
 
 /* ── Blog Sidebar ── */
 .blog-sidebar {
   width: 320px;
   flex-shrink: 0;
-}
-
-/* Sticky CTA wrapper — pins after scrolling past it */
-.bsb-sticky-cta {
   position: sticky;
-  top: 96px;
+  top: 100px;
+  align-self: flex-start;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  /* Hide scrollbar visually but keep it functional */
+  scrollbar-width: none;
+}
+.blog-sidebar::-webkit-scrollbar { display: none; }
+
+.bsb-sticky-cta {
   margin-top: 28px;
 }
 

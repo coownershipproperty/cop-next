@@ -61,6 +61,11 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
         <meta property="og:type" content="article" />
         <meta property="og:url" content={canonicalUrl} />
         <meta name="twitter:card" content="summary_large_image" />
+        {/* Google Fonts by actual name — needed so article inline styles like
+            font-family:'Playfair Display' resolve correctly */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet" />
       </Head>
 
       <Header />
