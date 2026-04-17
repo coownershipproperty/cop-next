@@ -233,9 +233,9 @@ export default function PropertyPage({ property: p, similar }) {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
-                <span className="pp-mob-lock-title">Private Gallery</span>
-                <span className="pp-mob-lock-sub">Full photo gallery &amp; floor plans — free</span>
-                <span className="pp-mob-lock-btn">Unlock Exclusive Photos &amp; Floor Plans →</span>
+                <span className="pp-mob-lock-title">You&apos;re missing {p.images.length > 3 ? p.images.length - 3 : ''} photos</span>
+                <span className="pp-mob-lock-sub">Unlock the full gallery &amp; floor plans — free</span>
+                <span className="pp-mob-lock-btn">Unlock Now →</span>
               </div>
             )
           )}
@@ -279,8 +279,9 @@ export default function PropertyPage({ property: p, similar }) {
           <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
           </svg>
-          <span className="pp-lock-title">See Inside This Property</span>
-          <span className="pp-lock-sub">Full gallery &amp; floor plans — free</span>
+          <span className="pp-lock-title">You&apos;re missing {p.images.length > 3 ? p.images.length - 3 : ''} photos</span>
+          <span className="pp-lock-sub">Unlock the full gallery &amp; floor plans — free</span>
+          <span className="pp-lock-cta-btn">Unlock Now →</span>
         </div>
       </div>
 
@@ -401,16 +402,30 @@ export default function PropertyPage({ property: p, similar }) {
 
       </div>{/* /pp-content */}
 
-      {/* Lightbox — only first 3 images visible; rest locked behind unlock modal */}
+      {/* Lightbox — 3 photos + lock slide as 4th */}
       {lightbox !== null && (() => {
         const lbImages = p.images.slice(0, 3);
+        const total = lbImages.length + 1; // +1 for lock slide
+        const isLockSlide = lightbox >= lbImages.length;
         return (
           <div className="pp-lb" onClick={() => setLightbox(null)}>
             <button className="pp-lb-close" onClick={() => setLightbox(null)}>×</button>
-            <button className="pp-lb-prev" onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + lbImages.length) % lbImages.length); }}>‹</button>
-            <img src={lbImages[lightbox]} alt={p.title} onClick={e => e.stopPropagation()} />
-            <button className="pp-lb-next" onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % lbImages.length); }}>›</button>
-            <span className="pp-lb-count">{lightbox + 1} / {lbImages.length}</span>
+            <button className="pp-lb-prev" onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + total) % total); }}>‹</button>
+            {isLockSlide ? (
+              <div className="pp-lb-lock" onClick={e => { e.stopPropagation(); setLightbox(null); setShowUnlock(true); }}>
+                <div className="pp-lb-lock-blur" style={{ backgroundImage: `url(${heroImg})` }} />
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{width:40,height:40,marginBottom:12,color:'#fff'}}>
+                  <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+                </svg>
+                <span className="pp-lb-lock-title">You&apos;re missing {p.images.length > 3 ? p.images.length - 3 : ''} photos</span>
+                <span className="pp-lb-lock-sub">Unlock the full gallery &amp; floor plans — free</span>
+                <span className="pp-lb-lock-btn">Unlock Now →</span>
+              </div>
+            ) : (
+              <img src={lbImages[lightbox]} alt={p.title} onClick={e => e.stopPropagation()} />
+            )}
+            <button className="pp-lb-next" onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % total); }}>›</button>
+            <span className="pp-lb-count">{lightbox + 1} / {total}</span>
           </div>
         );
       })()}
