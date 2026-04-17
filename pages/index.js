@@ -106,9 +106,6 @@ function PropCarousel({ items, propertyCount }) {
                       <a href="/our-homes/" className="pc-viewall-btn" onClick={e => e.stopPropagation()}>Browse All →</a>
                     </div>
                   </div>
-                  <div className="pc-caption">
-                    <span className="pc-caption-title">View all properties</span>
-                  </div>
                 </div>
               );
             }
