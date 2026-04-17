@@ -5900,7 +5900,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   background: var(--blue-20) center/cover no-repeat;
 }
 .bsb-prop-body {
-  padding: 14px 20px 18px;
+  padding: 14px 24px 18px;
 }
 .bsb-prop-title {
   display: block;
