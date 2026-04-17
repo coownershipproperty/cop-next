@@ -6143,9 +6143,13 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   transition: opacity 0.4s ease;
 }
 
-/* View-all card always full opacity */
+/* View-all card always full opacity and full height */
 .pc-card-viewall {
   opacity: 1;
+}
+
+.pc-card-viewall .pc-img-wrap {
+  height: 390px;
 }
 
 .pc-card.pc-active {
