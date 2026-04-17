@@ -95,8 +95,7 @@ export default function OurHomes({ allProperties }) {
 
   // ── Filtered + sorted property list ────────────────────────────────────────
   const filtered = useMemo(() => {
-    // Never show unlisted properties in the public listing
-    let list = allProperties.filter(p => !p.unlisted);
+    let list = [...allProperties];
 
     // Country filter
     if (country === 'OTHER') {
