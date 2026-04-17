@@ -4,11 +4,17 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-
+import fs from 'fs';
+import path from 'path';
 
 import { useState } from 'react';
 
-export default function Home() {
+export async function getStaticProps() {
+  const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
+  return { props: { propertyCount: data.length } };
+}
+
+export default function Home({ propertyCount }) {
   const [activeDest, setActiveDest] = useState('france');
   return (
     <>
@@ -179,7 +185,7 @@ export default function Home() {
                         <li className="prop-see-more-slide">
                 <div className="prop-card prop-card-see-more">
                     <a href="/properties" className="prop-see-more-inner">
-                        <span className="prop-see-more-count">234</span>
+                        <span className="prop-see-more-count">{propertyCount}</span>
                         <span className="prop-see-more-label">properties</span>
                         <span className="prop-see-more-cta">Browse All &rarr;</span>
                     </a>
@@ -189,7 +195,7 @@ export default function Home() {
 
         <div className="prop-nav">
             <button className="prop-nav-btn" id="prop-prev">&#8592;</button>
-            <span className="prop-counter"><span id="prop-current">1</span> / <span id="prop-total">234</span></span>
+            <span className="prop-counter"><span id="prop-current">1</span> / <span id="prop-total">{propertyCount}</span></span>
             <button className="prop-nav-btn" id="prop-next">&#8594;</button>
         </div>
     </section>

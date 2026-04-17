@@ -20,7 +20,7 @@ const COUNTRY_FLAGS = {
   Spain: '🇪🇸', France: '🇫🇷', Italy: '🇮🇹',
   USA: '🇺🇸', England: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', Mexico: '🇲🇽',
   Austria: '🇦🇹', Germany: '🇩🇪', Croatia: '🇭🇷',
-  Portugal: '🇵🇹', Sweden: '🇸🇪',
+  Portugal: '🇵🇹', Sweden: '🇸🇪', 'United Kingdom': '🇬🇧',
 };
 
 export default function OurHomes({ allProperties }) {
