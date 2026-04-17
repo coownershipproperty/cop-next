@@ -1560,12 +1560,12 @@ img {
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
+            background: rgba(201,168,76,0.15);
+            border: 1px solid rgba(201,168,76,0.3);
+            color: rgba(255,255,255,0.9);
+            font-size: 0.72rem;
             font-weight: 600;
-            padding: 0.2rem 0.55rem;
+            padding: 0.18rem 0.5rem;
             border-radius: 999px;
             white-space: nowrap;
         }
@@ -1585,12 +1585,13 @@ img {
             position: absolute;
             top: calc(100% + 4px);
             left: 0; right: 0;
-            background: #1e3a4f;
+            background: rgba(255,255,255,0.07);
+            backdrop-filter: blur(4px);
             border: 1px solid rgba(201,168,76,0.3);
             max-height: 320px;
             overflow-y: auto;
             z-index: 50;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
 
 .dest-multiselect.open .dest-dropdown { display: block; }
@@ -1599,22 +1600,22 @@ img {
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 0.6rem 1rem;
+            padding: 0.55rem 1rem;
             cursor: pointer;
             font-family: 'Nunito Sans', sans-serif;
             font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            transition: background 0.15s;
+            color: rgba(255,255,255,0.75);
+            transition: background 0.15s, color 0.15s;
             user-select: none;
         }
 
-.dest-option:hover { background: rgba(201,168,76,0.1); }
+.dest-option:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.95); }
 
-.dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+.dest-option.selected { background: transparent; color: var(--white); }
 
 .dest-check {
-            width: 16px; height: 16px;
-            border: 1.5px solid rgba(201,168,76,0.4);
+            width: 15px; height: 15px;
+            border: 1.5px solid rgba(255,255,255,0.25);
             border-radius: 3px;
             display: flex;
             align-items: center;
@@ -1628,11 +1629,15 @@ img {
             border-color: var(--warm-gold);
         }
 
+.dest-option:hover .dest-check {
+            border-color: rgba(201,168,76,0.5);
+        }
+
 .dest-check::after {
             content: '';
-            width: 4px; height: 8px;
-            border-right: 2px solid #1a2a3a;
-            border-bottom: 2px solid #1a2a3a;
+            width: 4px; height: 7px;
+            border-right: 1.5px solid #fff;
+            border-bottom: 1.5px solid #fff;
             transform: rotate(45deg) translateY(-1px);
             opacity: 0;
         }
@@ -1643,38 +1648,39 @@ img {
 .dest-group-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.6rem 1rem;
+            gap: 0.45rem;
+            padding: 0.5rem 1rem;
             cursor: pointer;
             font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--warm-gold);
-            background: rgba(201,168,76,0.06);
-            border-bottom: 1px solid rgba(201,168,76,0.1);
+            color: rgba(201,168,76,0.75);
+            background: rgba(0,0,0,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             user-select: none;
-            transition: background 0.15s;
+            transition: background 0.15s, color 0.15s;
         }
 
-.dest-group-header:hover { background: rgba(201,168,76,0.12); }
+.dest-group-header:hover { background: rgba(0,0,0,0.25); color: var(--warm-gold); }
 
 .dest-group-arrow {
             display: inline-block;
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             line-height: 1;
             transition: transform 0.2s;
             transform: rotate(0deg);
-            color: rgba(201,168,76,0.6);
+            opacity: 0.5;
         }
 
 .dest-group-header.expanded .dest-group-arrow {
             transform: rotate(90deg);
+            opacity: 0.8;
         }
 
 .dest-group-children {
-            border-bottom: 1px solid rgba(201,168,76,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
 .dest-group-children .dest-option {
@@ -4434,12 +4440,12 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
+            background: rgba(201,168,76,0.15);
+            border: 1px solid rgba(201,168,76,0.3);
+            color: rgba(255,255,255,0.9);
+            font-size: 0.72rem;
             font-weight: 600;
-            padding: 0.2rem 0.55rem;
+            padding: 0.18rem 0.5rem;
             border-radius: 999px;
             white-space: nowrap;
         }
