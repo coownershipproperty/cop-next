@@ -311,12 +311,12 @@ img {
                 color: var(--warm-gold) !important;
             }
 
-            /* Overlay behind drawer */
+            /* Overlay behind drawer — must be BELOW header (9999) so nav links stay clickable */
             .cop-nav-overlay {
                 position: fixed;
                 inset: 0;
                 background: rgba(0,0,0,0.55);
-                z-index: 9999;
+                z-index: 9998;
                 cursor: pointer;
             }
 
@@ -4315,12 +4315,12 @@ button { font-family: inherit; cursor: pointer; }
                 color: var(--warm-gold) !important;
             }
 
-            /* Overlay behind drawer */
+            /* Overlay behind drawer — must be BELOW header (9999) so nav links stay clickable */
             .cop-nav-overlay {
                 position: fixed;
                 inset: 0;
                 background: rgba(0,0,0,0.55);
-                z-index: 9999;
+                z-index: 9998;
                 cursor: pointer;
             }
 
