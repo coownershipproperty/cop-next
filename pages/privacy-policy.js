@@ -8,8 +8,8 @@ export default function PrivacyPolicy() {
   return (
     <>
       <Head>
-        <title>Privacy Policy &#8211; COP</title>
-        <meta name="description" content="" />
+        <title>Privacy Policy | Co-Ownership Property</title>
+        <meta name="description" content="Co-Ownership Property privacy policy — how we collect, use, and protect your personal data in accordance with GDPR and applicable data protection law." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

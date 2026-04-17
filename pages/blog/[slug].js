@@ -61,6 +61,23 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
         <meta property="og:type" content="article" />
         <meta property="og:url" content={canonicalUrl} />
         <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": post.excerpt || post.subtitle || '',
+          "image": post.heroImage || '',
+          "url": canonicalUrl,
+          "datePublished": post.date || '',
+          "dateModified": post.date || '',
+          "author": { "@type": "Organization", "name": "Co-Ownership Property", "url": "https://co-ownership-property.com" },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Co-Ownership Property",
+            "logo": { "@type": "ImageObject", "url": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png" }
+          },
+          "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl }
+        }) }} />
         {/* Google Fonts by actual name — needed so article inline styles like
             font-family:'Playfair Display' resolve correctly */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

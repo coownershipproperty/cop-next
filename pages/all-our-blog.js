@@ -40,6 +40,11 @@ export default function AllOurBlog({ posts }) {
         <meta name="description" content="Insights, guides, and market intelligence on luxury fractional ownership, co-ownership properties, and the second-home market across Europe and the USA." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Co-Ownership Property Blog — Fractional Ownership Insights" />
+        <meta property="og:description" content="Destination guides, market analysis, and ownership stories for the discerning fractional buyer. Published daily." />
+        <meta property="og:url" content="https://co-ownership-property.com/all-our-blog/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
 

@@ -8,8 +8,8 @@ export default function BuyingFAQs() {
   return (
     <>
       <Head>
-        <title>Buying a co-ownership property FAQs &#8211; COP</title>
-        <meta name="description" content="" />
+        <title>Buying a Co-Ownership Property — FAQs | Co-Ownership Property</title>
+        <meta name="description" content="Everything you need to know about buying a co-ownership property — legal structure, costs, mortgages, and how the purchase process works from offer to completion." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

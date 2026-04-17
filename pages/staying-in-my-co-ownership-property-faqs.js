@@ -8,8 +8,8 @@ export default function StayingFAQs() {
   return (
     <>
       <Head>
-        <title>FAQs Staying in my co-ownership property &#8211; COP</title>
-        <meta name="description" content="" />
+        <title>Staying in My Co-Ownership Property — FAQs | Co-Ownership Property</title>
+        <meta name="description" content="Answers to common questions about staying in your co-ownership property — booking your days, arrival, house rules, guests, and what to expect during your stays." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

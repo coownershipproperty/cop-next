@@ -14,6 +14,11 @@ export default function AboutUs() {
         <meta name="description" content="Meet the team behind Co-Ownership Property. Founded in 2022 by David Olsson, we help smart buyers access luxury second homes through fractional co-ownership." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="About Us | Co-Ownership Property" />
+        <meta property="og:description" content="Meet the team behind Co-Ownership Property. We help smart buyers access luxury second homes through fractional co-ownership." />
+        <meta property="og:url" content="https://co-ownership-property.com/about-us/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
 {/* ===== HERO ===== */}

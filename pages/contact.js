@@ -14,6 +14,11 @@ export default function Contact() {
         <meta name="description" content="Speak to the COP team. Questions about fractional ownership? We respond within a few hours — no sales pressure, no obligation." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Contact Co-Ownership Property" />
+        <meta property="og:description" content="Questions about fractional ownership? Speak to our team — no sales pressure, no obligation. We respond within a few hours." />
+        <meta property="og:url" content="https://co-ownership-property.com/contact/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
 {/* HERO */}

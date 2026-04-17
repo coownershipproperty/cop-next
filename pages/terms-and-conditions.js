@@ -8,8 +8,8 @@ export default function TermsAndConditions() {
   return (
     <>
       <Head>
-        <title>Terms &#038; Conditions &#8211; COP</title>
-        <meta name="description" content="" />
+        <title>Terms &amp; Conditions | Co-Ownership Property</title>
+        <meta name="description" content="Terms and conditions for using the Co-Ownership Property website and services — your rights, our obligations, and the rules governing use of this platform." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

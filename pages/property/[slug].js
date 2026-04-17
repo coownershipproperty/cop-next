@@ -125,11 +125,37 @@ export default function PropertyPage({ property: p, similar }) {
     <>
       <Head>
         <title>{p.title} | Co-Ownership Property</title>
-        <meta name="description" content={p.description ? p.description.slice(0, 155) : `${p.title} — co-ownership from ${fmt(p.price, p.currency)}.`} />
+        <meta name="description" content={p.description ? p.description.slice(0, 155) : `${p.title} — luxury co-ownership property in ${p.city || p.region || p.country}. Fractional ownership from ${fmt(p.price, p.currency)}.`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content={p.title} />
+        <link rel="canonical" href={`https://co-ownership-property.com/property/${p.slug}/`} />
+        <meta property="og:title" content={`${p.title} | Co-Ownership Property`} />
+        <meta property="og:description" content={p.description ? p.description.slice(0, 155) : `Luxury co-ownership property in ${p.city || p.region || p.country}. Fractional ownership from ${fmt(p.price, p.currency)}.`} />
         <meta property="og:image" content={p.img} />
+        <meta property="og:url" content={`https://co-ownership-property.com/property/${p.slug}/`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": p.title,
+          "description": p.description ? p.description.slice(0, 300) : `Luxury co-ownership property in ${p.city || p.region || p.country}.`,
+          "image": p.images || [p.img],
+          "url": `https://co-ownership-property.com/property/${p.slug}/`,
+          "offers": p.price ? {
+            "@type": "Offer",
+            "price": p.price,
+            "priceCurrency": p.currency || "USD",
+            "availability": "https://schema.org/InStock",
+            "seller": { "@type": "Organization", "name": "Co-Ownership Property" }
+          } : undefined,
+          "additionalProperty": [
+            p.beds && { "@type": "PropertyValue", "name": "Bedrooms", "value": p.beds },
+            p.baths && { "@type": "PropertyValue", "name": "Bathrooms", "value": p.baths },
+            p.country && { "@type": "PropertyValue", "name": "Country", "value": p.country },
+            p.region && { "@type": "PropertyValue", "name": "Region", "value": p.region },
+          ].filter(Boolean)
+        }) }} />
       </Head>
 
       <Header />

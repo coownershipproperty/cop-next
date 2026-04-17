@@ -8,8 +8,8 @@ export default function OurMission() {
   return (
     <>
       <Head>
-        <title>Our Mission &#8211; COP</title>
-        <meta name="description" content="" />
+        <title>Our Mission | Co-Ownership Property</title>
+        <meta name="description" content="Co-Ownership Property exists to make luxury second home ownership accessible — independently, transparently, and without the price tag of outright purchase." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

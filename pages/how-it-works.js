@@ -14,6 +14,11 @@ export default function HowItWorks() {
         <meta name="description" content="Learn how fractional co-ownership works. Buy a genuine deeded share in luxury holiday homes across Europe and the USA. Own only what you use, share costs with like-minded co-owners." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="How Co-Ownership Works | Fractional Property Ownership Explained" />
+        <meta property="og:description" content="Learn how fractional co-ownership works. Buy a genuine deeded share in luxury holiday homes across Europe and the USA from a fraction of the cost." />
+        <meta property="og:url" content="https://co-ownership-property.com/how-it-works/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
 {/* ===== HERO ===== */}

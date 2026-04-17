@@ -8,8 +8,8 @@ export default function Ownership() {
   return (
     <>
       <Head>
-        <title>Ownership and Funding &#8211; COP</title>
-        <meta name="description" content="" />
+        <title>Ownership and Funding | Co-Ownership Property</title>
+        <meta name="description" content="Understand how fractional ownership is legally structured — LLC ownership, deeded title, funding options, and how co-owners hold and sell their shares." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

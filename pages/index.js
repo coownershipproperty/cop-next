@@ -213,6 +213,22 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         <meta name="description" content="Co-Ownership Property - Luxury fractional ownership of premium properties worldwide." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Co-Ownership Property | Luxury Fractional Ownership" />
+        <meta property="og:description" content="Browse 333+ luxury fractional ownership properties across Europe and the USA. Real deeded ownership from a fraction of the cost." />
+        <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/02/co-ownership-property-og.jpg" />
+        <meta property="og:url" content="https://co-ownership-property.com/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Co-Ownership Property",
+          "url": "https://co-ownership-property.com",
+          "logo": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png",
+          "description": "The independent guide to luxury fractional ownership across Europe & the USA.",
+          "contactPoint": { "@type": "ContactPoint", "email": "info@co-ownership-property.com", "contactType": "customer service" },
+          "sameAs": ["https://www.linkedin.com/company/co-ownership-property"]
+        }) }} />
       </Head>
       <Header />
 {/* ===== HERO SECTION ===== */}

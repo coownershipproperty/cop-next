@@ -162,6 +162,11 @@ export default function OurHomes({ allProperties }) {
         <meta name="description" content="Browse all our luxury co-ownership properties worldwide. Filter by destination, region and price." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Browse 333+ Luxury Co-Ownership Properties | Co-Ownership Property" />
+        <meta property="og:description" content="Browse luxury fractional ownership properties across Spain, France, Italy, the USA and more. Filter by destination and price." />
+        <meta property="og:url" content="https://co-ownership-property.com/our-homes/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
 
