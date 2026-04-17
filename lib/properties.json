@@ -9982,7 +9982,7 @@
     "size": 0,
     "price": 495000,
     "currency": "EUR",
-    "description": "Welcome to The Bay, an exquisite villa in the coveted Higueron area with spectacular sea views. Nestled in the hillside, this extraordinary home offers an unparalleled living experience. Boasting five tastefully designed bedrooms, the villa provides the utmost comfort to its owners. Every detail is evident from the meticulously chosen materials and curated furnishings, to the well-equipped home gym and underfloor heating throughout.",
+    "description": "An exquisite 5-bedroom villa in the coveted Higueron area on the Costa del Sol, featuring spectacular unobstructed Mediterranean Sea views. Nestled into the hillside, the property offers a glamorous yet private living experience with premium materials and furnishings throughout. Includes a home gym, underfloor heating, spacious living areas, panoramic floor-to-ceiling windows, a large pool, and jacuzzi. Neighbouring properties sit below, ensuring complete privacy from all angles.",
     "amenities": [
       "Private pool",
       "Terrace",
@@ -9991,17 +9991,43 @@
       "Fully furnished"
     ],
     "images": [
-      "https://staging.co-ownership-property.com/wp-content/uploads/properties/the-bay/photo-01.jpg",
-      "https://staging.co-ownership-property.com/wp-content/uploads/properties/the-bay/photo-03.jpg"
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e7802c34ae74aef121bf_CAMARA%201.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e7812c34ae74aef121e3_CAMARA%202%20DELANTERA.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e781b3a57bbf999244df_CAMARA%203%20PISCINA.jpeg"
     ],
-    "img": "https://staging.co-ownership-property.com/wp-content/uploads/properties/the-bay/photo-01.jpg",
+    "img": "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e7802c34ae74aef121bf_CAMARA%201.jpeg",
     "driveUrl": "https://drive.google.com/drive/folders/1vJP4HAV-YEilegB6xLL8dJzXV5XH--VL",
     "rental": false,
     "lat": 36.582224,
     "lng": -4.604118,
     "partner": "andhamlet",
     "dateAdded": "2026-04-15",
-    "notes": ""
+    "notes": "https://www.andhamlet.com/listings/the-bay",
+    "allImages": [
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e7802c34ae74aef121bf_CAMARA%201.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e7812c34ae74aef121e3_CAMARA%202%20DELANTERA.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e781b3a57bbf999244df_CAMARA%203%20PISCINA.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/64897eeee8b87bea8c44de29_2200xxs%20(6).jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6502bac77b33e5b2f2826133_43065151-Original.jpg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6502bac7f3b5d6bff025b1a5_196_282884667.jpg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6502bac7c8b11390887551ae_196_361234363.jpg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6502bac830efee40b834657f_196_482977355.jpg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6502bc2dec938694c7388713_Higueron%20Padel%20Night.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/64897ec487087696a900b505_2200xxs%20(3).jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/64897ec55268603940a97f73_2200xxs%20(2).jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e8a633d23cec5d89532f_Camara%207%20Salon%20a%20cuadros.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/64897ec5e612f3f12434ebbb_2200xxs%20(4).jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/64897e9e27bb2958f9eb1250_2200xxs%20(5).jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e8a533d23cec5d89522e_Camara%2010%20Entrada%20arriba.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e8a6efe1531cdab0bcf1_Camara%204%20Entrada1.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e8a633d23cec5d8952f8_Camara%20Puerta%20entrada.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e86e7392d61365f1c9c6_Camara%209%20Cocina.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e84c7392d61365f191fb_CAMARA%20SOTANO%205%20DORMITORIO.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e84c55c1d11b999af7b0_CAMARA%20SOTANO%206%20DORMITORIO%202.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e84cab58adc3583a9f9e_Camara%206%20Vestidor.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e84c7392d61365f1918c_Camara%2013%20Mastersuite.jpeg",
+      "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6468e86e7392d61365f1c9d6_Camara%205%20Bano.jpeg"
+    ]
   },
   {
     "slug": "costa-blanca-spain-4-bed-villa-with-sea-views",
