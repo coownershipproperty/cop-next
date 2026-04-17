@@ -3007,10 +3007,44 @@ img { display:block; max-width:100%; height:auto; }
 .clear-btn:hover { border-color:var(--blue); color:var(--blue); }
 
 @media (max-width:768px) {
-            .filter-bar { padding:1.1rem 0; }
-            .filter-row { padding:0 1.5rem; }
-            .filter-btn { padding:0.45rem 0.85rem; font-size:0.82rem; }
-            .filter-label { min-width:58px; font-size:0.62rem; }
+            .filter-bar { padding:0.9rem 0; }
+
+            /* Hide labels to save space — context is obvious */
+            .filter-label { display: none; }
+
+            /* Remove white fade hint — it covers buttons on mobile */
+            .filter-scroll-outer::after { display: none; }
+
+            /* Each row scrolls horizontally, no wrapping */
+            .filter-row {
+                padding: 0 1.2rem;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                gap: 0.4rem;
+            }
+            .filter-row::-webkit-scrollbar { display: none; }
+            .filter-row + .filter-row { margin-top: 0.5rem; }
+
+            .filter-btn {
+                padding: 0.4rem 0.85rem;
+                font-size: 0.78rem;
+                flex-shrink: 0;
+            }
+
+            /* I'M INTERESTED — own full-width centred row */
+            .interested-btn {
+                display: block;
+                width: calc(100% - 2.4rem);
+                margin: 0.7rem 1.2rem 0;
+                text-align: center;
+                padding: 0.65rem 1rem;
+                border-radius: 2px;
+            }
+
+            /* Hide the divider on mobile */
+            .filter-divider { display: none; }
         }
 
 .results-bar {
