@@ -28,53 +28,94 @@ export async function getStaticProps() {
   return { props: { propertyCount: data.length, featuredProps } };
 }
 
-function PropCarousel({ items }) {
-  const [idx, setIdx] = useState(0);
-  const CARD_STEP = 260; // card width 240 + gap 20
-  const VISIBLE = 4;
-  const max = Math.max(0, items.length - VISIBLE);
+const CARD_W = 340;
+const CARD_GAP = 20;
+const CARD_STEP = CARD_W + CARD_GAP;
 
-  const prev = () => setIdx(i => Math.max(0, i - 1));
-  const next = () => setIdx(i => Math.min(max, i + 1));
+function PropCarousel({ items, propertyCount }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+  // +1 for the "View All" end card
+  const total = items.length + 1;
+
+  const prev = () => setActiveIdx(i => Math.max(0, i - 1));
+  const next = () => setActiveIdx(i => Math.min(total - 1, i + 1));
+
+  // Offset so the active card is centered in the viewport
+  const offset = activeIdx * CARD_STEP;
 
   return (
     <div className="pc-wrap">
       <div className="pc-outer">
         <div
           className="pc-track"
-          style={{ transform: `translateX(-${idx * CARD_STEP}px)` }}
+          style={{ transform: `translateX(calc(-${offset}px + 50vw - ${CARD_W / 2}px))` }}
         >
           {items.map((p, i) => {
             const label = p.title.includes('—')
               ? p.title.split('—').slice(1).join('—').trim()
               : p.title;
+            const isActive = i === activeIdx;
+            const sym = SYM[p.currency] || p.currency;
             return (
-              <a key={p.slug} href={`/property/${p.slug}`} className="pc-card">
-                <img
-                  src={p.img}
-                  alt={p.title}
-                  className="pc-img"
-                  loading={i < 5 ? 'eager' : 'lazy'}
-                  decoding="async"
-                />
-                <div className="pc-overlay">
-                  <span className="pc-card-loc">{p.region}{p.region && p.country ? ', ' : ''}{p.country}</span>
-                  <span className="pc-card-title">{label}</span>
-                  {p.price && (
-                    <span className="pc-card-price">
-                      From {SYM[p.currency] || p.currency}{p.price.toLocaleString('en-GB')}
-                    </span>
-                  )}
+              <div
+                key={p.slug}
+                className={`pc-card${isActive ? ' pc-active' : ''}`}
+                onClick={() => setActiveIdx(i)}
+              >
+                <div className="pc-img-wrap">
+                  <img
+                    src={p.img}
+                    alt={p.title}
+                    className="pc-img"
+                    loading={i < 3 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
                 </div>
-              </a>
+                {isActive ? (
+                  <div className="pc-panel">
+                    <span className="pc-panel-loc">
+                      {p.region}{p.region && p.country ? ', ' : ''}{p.country}
+                    </span>
+                    <span className="pc-panel-title">{label}</span>
+                    {p.price && (
+                      <span className="pc-panel-price">
+                        From {sym}{p.price.toLocaleString('en-GB')}
+                      </span>
+                    )}
+                    <a href={`/property/${p.slug}`} className="pc-panel-btn">View Property →</a>
+                  </div>
+                ) : (
+                  <div className="pc-caption">
+                    <span className="pc-caption-title">{label}</span>
+                  </div>
+                )}
+              </div>
             );
           })}
+
+          {/* View All end card */}
+          <div
+            className={`pc-card pc-card-viewall${activeIdx === items.length ? ' pc-active' : ''}`}
+            onClick={() => setActiveIdx(items.length)}
+          >
+            <div className="pc-img-wrap pc-viewall-img">
+              <div className="pc-viewall-inner">
+                <span className="pc-viewall-count">{propertyCount}</span>
+                <span className="pc-viewall-label">Properties</span>
+                <a href="/our-homes/" className="pc-viewall-btn">Browse All →</a>
+              </div>
+            </div>
+            <div className="pc-caption">
+              <span className="pc-caption-title">View all properties</span>
+            </div>
+          </div>
         </div>
       </div>
+
       <div className="pc-nav">
-        <button className="pc-btn" onClick={prev} disabled={idx === 0} aria-label="Previous">&#8592;</button>
-        <span className="pc-counter">{idx + 1} / {max + 1}</span>
-        <button className="pc-btn" onClick={next} disabled={idx >= max} aria-label="Next">&#8594;</button>
+        <button className="pc-btn" onClick={prev} disabled={activeIdx === 0} aria-label="Previous">&#8592;</button>
+        <span className="pc-counter">{activeIdx + 1} / {total}</span>
+        <button className="pc-btn" onClick={next} disabled={activeIdx >= total - 1} aria-label="Next">&#8594;</button>
       </div>
     </div>
   );
@@ -247,7 +288,7 @@ export default function Home({ propertyCount, featuredProps }) {
         <h2 className="section-heading">Explore Our Properties</h2>
         <p className="section-subtitle">Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.</p>
 
-        <PropCarousel items={featuredProps} />
+        <PropCarousel items={featuredProps} propertyCount={propertyCount} />
 
         <div className="pc-browse-all">
           <a href="/our-homes/" className="pc-browse-btn">View All {propertyCount} Properties &rarr;</a>

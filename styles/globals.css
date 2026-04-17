@@ -6098,40 +6098,48 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 
 /* ══════════════════════════════════════════════════════════════
    Homepage Property Carousel  (.pc-*)
-   Pure CSS transform — GPU-accelerated, zero layout jank
+   August Collections-inspired: clean cards, active info panel,
+   edge-to-edge, GPU-accelerated transform.
    ══════════════════════════════════════════════════════════════ */
 
 .pc-wrap {
-  padding: 0 0 16px;
+  padding-bottom: 8px;
 }
 
-/* Outer container clips the sliding track */
+/* Full-width overflow clip — no max-width so track bleeds to edges */
 .pc-outer {
   overflow: hidden;
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 10px 20px 20px;
+  width: 100%;
+  padding: 16px 0 24px;
 }
 
-/* Track — hardware-accelerated translate only */
+/* Track — GPU-accelerated only */
 .pc-track {
   display: flex;
   gap: 20px;
-  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.52s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
 }
 
-/* Portrait card */
+/* ── Base card (non-active) ─────────────────────────────────── */
 .pc-card {
-  flex: 0 0 240px;
-  height: 340px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 14px;
-  display: block;
-  text-decoration: none;
-  background: #143047;
+  flex: 0 0 340px;
   cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.4s ease;
+}
+
+.pc-card.pc-active {
+  opacity: 1;
+}
+
+/* Image wrapper */
+.pc-img-wrap {
+  width: 340px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #e8e0d4;
 }
 
 .pc-img {
@@ -6139,67 +6147,148 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.55s ease;
 }
 
 .pc-card:hover .pc-img {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
-/* Gradient overlay — always visible at bottom */
-.pc-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    0deg,
-    rgba(20, 48, 71, 0.90) 0%,
-    rgba(20, 48, 71, 0.35) 45%,
-    transparent 70%
-  );
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 18px 16px 20px;
-  pointer-events: none;
+/* ── Active card info panel (below image) ───────────────────── */
+.pc-panel {
+  background: #ffffff;
+  border: 1px solid rgba(20, 48, 71, 0.10);
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  padding: 18px 22px 22px;
 }
 
-.pc-card-loc {
+.pc-panel-loc {
   display: block;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #C9A84C;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
-.pc-card-title {
+.pc-panel-title {
   display: block;
   font-family: 'Playfair Display', serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
-  color: #ffffff;
+  color: #143047;
   line-height: 1.35;
   margin-bottom: 7px;
 }
 
-.pc-card-price {
+.pc-panel-price {
   display: block;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  color: #6b7d8d;
+  margin-bottom: 14px;
   letter-spacing: 0.02em;
 }
 
-/* Navigation row */
+.pc-panel-btn {
+  display: inline-block;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #143047;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid #C9A84C;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.pc-panel-btn:hover {
+  color: #C9A84C;
+}
+
+/* ── Non-active card caption (below image) ──────────────────── */
+.pc-caption {
+  padding: 12px 2px 0;
+}
+
+.pc-caption-title {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #143047;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── "View All" end card ────────────────────────────────────── */
+.pc-viewall-img {
+  background: #143047 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-viewall-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.pc-viewall-count {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.pc-viewall-label {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 12px;
+}
+
+.pc-viewall-btn {
+  display: inline-block;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #143047;
+  background: #C9A84C;
+  padding: 10px 22px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.pc-viewall-btn:hover {
+  background: #ffffff;
+}
+
+/* ── Navigation ─────────────────────────────────────────────── */
 .pc-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
+  gap: 18px;
+  margin-top: 12px;
+  padding-bottom: 8px;
 }
 
 .pc-btn {
@@ -6224,7 +6313,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 }
 
 .pc-btn:disabled {
-  opacity: 0.28;
+  opacity: 0.25;
   cursor: default;
 }
 
@@ -6237,41 +6326,16 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   text-align: center;
 }
 
-/* Browse all link below carousel */
-.pc-browse-all {
-  text-align: center;
-  margin-top: 28px;
-}
+/* Remove the old browse-all link (now replaced by end card) */
+.pc-browse-all { display: none; }
 
-.pc-browse-btn {
-  display: inline-block;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #143047;
-  border: 1.5px solid rgba(20,48,71,0.28);
-  padding: 13px 36px;
-  border-radius: 2px;
-  text-decoration: none;
-  transition: background 0.25s, color 0.25s, border-color 0.25s;
-}
-
-.pc-browse-btn:hover {
-  background: #143047;
-  color: #ffffff;
-  border-color: #143047;
-}
-
-/* Mobile: show 1 full card + peek of next */
+/* ── Mobile ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .pc-outer {
-    padding: 10px 16px 16px;
-  }
   .pc-card {
-    flex: 0 0 200px;
-    height: 290px;
+    flex: 0 0 260px;
   }
-  /* Adjust step in JS isn't possible via CSS — we just let natural overflow handle it */
+  .pc-img-wrap {
+    width: 260px;
+    height: 320px;
+  }
 }
