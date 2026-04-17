@@ -2328,11 +2328,32 @@ footer {
 
             .dest-panel.active { flex-direction: column; }
             .dest-img-wrap { flex: none; width: 100%; height: 240px; }
-            .dest-info-name { font-size: 1.8rem; }
+            /* Hide duplicate country name & gold outline on mobile */
+            .dest-info-name { display: none; }
+            .dest-country-outline { display: none !important; }
             .explainer-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
             .explainer-section { padding: 60px 1.5rem; }
 
-            .dest-tabs { padding: 0 1.5rem; }
+            /* Smooth scrolling tab strip — no wrap, scroll sideways */
+            .dest-tabs {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                padding: 0 1.5rem 8px;
+                gap: 0;
+                justify-content: flex-start;
+                /* hide scrollbar visually */
+                scrollbar-width: none;
+            }
+            .dest-tabs::-webkit-scrollbar { display: none; }
+            .dest-tab-btn {
+                scroll-snap-align: start;
+                flex: 0 0 auto;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.75rem;
+            }
             .dest-panels { padding: 0 1.5rem; }
 
             .destinations-section {
@@ -2439,13 +2460,7 @@ footer {
                 grid-template-columns: 1fr;
             }
 
-            /* Destination tabs scroll */
-            .dest-tabs {
-                overflow-x: auto;
-                flex-wrap: nowrap;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 4px;
-            }
+            /* Destination tabs scroll — handled in 768px block above */
 
             /* Page hero padding */
             .page-hero {
