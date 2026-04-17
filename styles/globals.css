@@ -3100,7 +3100,19 @@ img { display:block; max-width:100%; height:auto; }
 
 .results-count strong { color:var(--text-dark); }
 
-@media (max-width:768px) { .results-bar { padding:0 1.5rem; } }
+@media (max-width:768px) {
+    .results-bar {
+        padding: 0.6rem 1.5rem;
+        margin: 0;
+        justify-content: center;
+        border-bottom: 1px solid var(--gray-border);
+    }
+    .results-count {
+        font-size: 0.78rem;
+        text-align: center;
+        width: 100%;
+    }
+}
 
 .homes-grid-wrap {
             max-width:1400px;
