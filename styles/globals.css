@@ -6582,7 +6582,9 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
     width: 100% !important;
   }
   .pc-card-body { padding: 0.9rem 1rem 1rem; }
-  /* Dim non-active cards strongly so they can't be seen peeking */
+  /* Active card: always fully visible */
+  .pc-card.pc-active { opacity: 1 !important; }
+  /* Non-active cards: fully hidden so they don't bleed in */
   .pc-card:not(.pc-active) { opacity: 0 !important; }
 }
 @media (max-width: 480px) {
