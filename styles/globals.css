@@ -3699,7 +3699,7 @@ h1,h2,h3{font-family:'Playfair Display',serif;font-weight:400}
 
 .trust-card a:hover{color:var(--blue)}
 
-.links-sec{background:#143047;padding:70px 3rem}
+.links-sec{background:var(--blue);padding:70px 3rem}
 
 .links-sec h2{color:#ffffff}
 
