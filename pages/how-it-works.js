@@ -36,24 +36,24 @@ export default function HowItWorks() {
         <div className="press-marquee-wrap">
         <div className="press-track-outer">
             <div className="press-track">
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-times.png" alt="The Times" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-express.png" alt="Express" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-times.png" alt="The Times" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-express.png" alt="Express" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" width="200" height="50" /></div>
             </div>
             <div className="press-track" aria-hidden="true">
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-times.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-ft.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-dailymail.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-forbes.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-express.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-businessinsider.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-luxtravel.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="https://co-ownership-property.com/wp-content/uploads/2025/11/press-rollingstone.png" alt="" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-times.png" alt="" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-ft.png" alt="" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-dailymail.png" alt="" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-forbes.png" alt="" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-express.png" alt="" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="" width="200" height="50" /></div>
+                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="" width="200" height="50" /></div>
             </div>
         </div>
         </div>
@@ -64,7 +64,7 @@ export default function HowItWorks() {
         <div className="sec-inner">
             <div className="intro-grid">
                 <div className="intro-img">
-                    <img src="https://co-ownership-property.com/wp-content/uploads/2026/01/Fractional-ownership-in-Menaggio-3.jpeg" alt="Luxury lakeside property in Menaggio, Italy" />
+                    <img src="/wp-content/uploads/2026/01/Fractional-ownership-in-Menaggio-3.jpeg" alt="Luxury lakeside property in Menaggio, Italy" />
                 </div>
                 <div className="intro-text">
                     <p className="eyebrow">The Smart Way to Own</p>

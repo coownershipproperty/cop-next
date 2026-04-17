@@ -92,7 +92,7 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
           "publisher": {
             "@type": "Organization",
             "name": "Co-Ownership Property",
-            "logo": { "@type": "ImageObject", "url": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png" }
+            "logo": { "@type": "ImageObject", "url": "/wp-content/uploads/2025/10/COP-Logo-Large.png" }
           },
           "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl }
         }) }} />
