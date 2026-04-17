@@ -6391,7 +6391,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .blog-hero-title { font-size: 24px; }
   .blog-hero-sub { display: none; }
   .blog-layout { flex-direction: column; padding: 28px 20px 60px; gap: 40px; }
-  .blog-sidebar { width: 100%; }
+  .blog-sidebar { display: none; }
   .bsb-sticky-cta { position: static; }
 }
 @media (max-width: 600px) {

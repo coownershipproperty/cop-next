@@ -17,9 +17,10 @@ export async function getStaticProps({ params }) {
   if (!post) return { notFound: true };
 
   // Strip embedded CTAs from post content (gold "Explore Properties" banners, old WP contact forms)
+  // Only strip divs that contain actual links (CTA blocks) — not chart bar divs (which only have <span> labels)
   let content = post.content || '';
-  content = content.replace(/<div[^>]*background[^>]*linear-gradient[^>]*A69052[^>]*>[\s\S]*?<\/div>/g, '');
-  content = content.replace(/<div[^>]*background[^>]*#a69052[^>]*>[\s\S]*?<\/div>/gi, '');
+  content = content.replace(/<div[^>]*background[^>]*linear-gradient[^>]*A69052[^>]*>([\s\S]*?<a\s[\s\S]*?)<\/div>/g, '');
+  content = content.replace(/<div[^>]*background[^>]*#a69052[^>]*>([\s\S]*?<a\s[\s\S]*?)<\/div>/gi, '');
   // Also strip any "Book Free Consultation" / "client-form" links that look like CTA blocks
   content = content.replace(/<div[^>]*style="[^"]*background[^"]*#143047[^"]*"[^>]*>[\s\S]*?client-form[\s\S]*?<\/div>/gi, '');
 
