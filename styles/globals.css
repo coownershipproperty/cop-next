@@ -6702,6 +6702,35 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .blog-layout { padding: 20px 16px 48px; }
 }
 
+/* ── Gutenberg column blocks: stack on mobile ── */
+@media (max-width: 768px) {
+  .wp-block-columns {
+    flex-direction: column !important;
+    gap: 1.2em !important;
+  }
+  .wp-block-column {
+    width: 100% !important;
+    flex-basis: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Comparison tables inside blog posts: horizontal scroll */
+  .wp-block-table {
+    overflow-x: auto;
+    display: block;
+  }
+  .wp-block-table table {
+    min-width: 480px;
+  }
+
+  /* Feature/comparison table blocks used in blog posts */
+  .wp-block-table td,
+  .wp-block-table th {
+    font-size: 0.88rem;
+    padding: 0.6rem 0.8rem;
+  }
+}
+
 /* ══════════════════════════════════════════════════════════════
    Homepage Property Carousel  (.pc-*)
    August Collections-inspired: clean cards, active info panel,
