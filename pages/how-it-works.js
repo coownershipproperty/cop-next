@@ -235,7 +235,7 @@ export default function HowItWorks() {
         <p>Ready to find your second home?</p>
         <div className="mid-cta-buttons">
             <a href="#speak-to-expert" className="btn btn-gold">Speak to an Expert</a>
-            <a href="#newsletter" className="btn btn-outline">Join Our Newsletter</a>
+            <a href="#newsletter" className="btn btn-blue">Join Our Newsletter</a>
         </div>
     </section>
 

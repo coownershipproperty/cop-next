@@ -3274,6 +3274,10 @@ body { font-family:'Nunito Sans',sans-serif; color:var(--text-dark); background:
 
 .btn-outline:hover { border-color:var(--warm-gold); color:var(--warm-gold); }
 
+.btn-blue { background:var(--blue); color:#fff; border:1.5px solid var(--blue); padding:13px 36px; }
+
+.btn-blue:hover { background:#243d51; border-color:#243d51; color:#fff; }
+
 .sec { padding:100px 3rem; }
 
 .sec-inner { max-width:1200px; margin:0 auto; }
