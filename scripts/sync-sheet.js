@@ -133,6 +133,8 @@ async function main() {
             if (fileMatch) return `https://lh3.googleusercontent.com/d/${fileMatch[1]}`;
             return url;
           }).filter(Boolean)
+          // Remove known branding/logo images that should never appear in galleries
+          .filter(url => !url.endsWith('photo-02.png'))
         : [];
 
       // Parse comma-separated amenities
