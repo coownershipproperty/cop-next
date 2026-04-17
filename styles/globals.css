@@ -5842,7 +5842,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Price row ── */
 .pp-price-row{display:flex;align-items:center;gap:16px;margin-bottom:10px;flex-wrap:wrap;margin-top:8px}
 .pp-price{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:400;color:#C9A84C;line-height:1}
-.pp-badge{font-family:'Nunito Sans',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;border:1px solid #C9A84C;color:#C9A84C;padding:5px 12px}
+.pp-badge{display:none}
 
 /* ── Breadcrumb ── */
 .pp-crumb{font-family:'Nunito Sans',sans-serif;font-size:.8rem;color:#6b8a9e;margin-bottom:10px}
@@ -5908,8 +5908,8 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .eq-field label{font-family:'Nunito Sans',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6b8a9e}
 .eq-field input,.eq-field textarea{font-family:'Nunito Sans',sans-serif;font-size:.9rem;color:#143047;border:none;border-bottom:1px solid #ddd;background:transparent;padding:8px 0;outline:none;transition:border-color .2s;resize:vertical;width:100%}
 .eq-field input:focus,.eq-field textarea:focus{border-bottom-color:#143047}
-.eq-submit{font-family:'Nunito Sans',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#143047;color:#fff;border:none;padding:14px;cursor:pointer;transition:background .2s;width:100%;margin-top:6px}
-.eq-submit:hover{background:#1e4060}
+.eq-submit{font-family:'Nunito Sans',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#C9A84C;color:#fff;border:none;padding:14px;cursor:pointer;transition:background .2s;width:100%;margin-top:6px}
+.eq-submit:hover{background:#b8963e}
 .eq-submit:disabled{opacity:.6;cursor:not-allowed}
 .eq-err{font-family:'Nunito Sans',sans-serif;font-size:.8rem;color:#c0392b;margin:4px 0 0}
 .eq-done{text-align:center;padding:24px 0}
@@ -6007,8 +6007,8 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-map-wrap{border:1px solid var(--border);overflow:hidden}
 
 /* ── Gold send button (matches staging) ── */
-.eq-submit{background:#7a6b3c!important}
-.eq-submit:hover{background:#6a5c30!important}
+.eq-submit{background:#C9A84C!important}
+.eq-submit:hover{background:#b8963e!important}
 
 /* ── Responsive gallery v3 ── */
 @media(max-width:960px){
