@@ -6155,10 +6155,16 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* Image wrapper — landscape ratio to match property photos */
 .pc-img-wrap {
   width: 430px;
-  height: 340px;
+  height: 300px;
   overflow: hidden;
   border-radius: 3px;
   background: #e8e0d4;
+  transition: height 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Active card image — taller to create visual hierarchy */
+.pc-card.pc-active .pc-img-wrap {
+  height: 390px;
 }
 
 .pc-img {
