@@ -7,7 +7,7 @@ import ExpertForm from '@/components/ExpertForm';
 import fs from 'fs';
 import path from 'path';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 
@@ -33,41 +33,105 @@ const CARD_GAP = 20;
 const CARD_STEP = CARD_W + CARD_GAP;
 
 function PropCarousel({ items, propertyCount }) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  // +1 for the "View All" end card
-  const total = items.length + 1;
+  // Build full list: featured properties + "view all" end card
+  const allItems = [...items, { slug: '__viewall', isViewAll: true }];
+  const N = allItems.length; // e.g. 21
 
-  const prev = () => setActiveIdx(i => Math.max(0, i - 1));
-  const next = () => setActiveIdx(i => Math.min(total - 1, i + 1));
+  // Triple the array for infinite loop — start in the middle copy
+  const extended = [...allItems, ...allItems, ...allItems];
+  const START = N; // pos N = first item of middle copy
 
-  // Offset so the active card is centered in the viewport
-  const offset = activeIdx * CARD_STEP;
+  const [pos, setPos] = useState(START);
+  const trackRef = useRef(null);
+  const snapping = useRef(false); // prevents moves during instant snap
+
+  // Which real card (0..N-1) is currently active
+  const realIdx = ((pos % N) + N) % N;
+  // Counter shows 1..items.length (not counting the view-all card), / total db count
+  const displayNum = realIdx < items.length ? realIdx + 1 : items.length;
+
+  const move = (dir) => {
+    if (snapping.current) return;
+    setPos(p => p + dir);
+  };
+
+  // After each CSS transition ends, silently snap back to the middle copy if needed
+  const onTransitionEnd = () => {
+    const current = pos;
+    let newPos = null;
+    if (current < N) newPos = current + N;
+    else if (current >= 2 * N) newPos = current - N;
+
+    if (newPos !== null) {
+      snapping.current = true;
+      const track = trackRef.current;
+      if (track) {
+        track.style.transition = 'none';
+        void track.getBoundingClientRect(); // force reflow so transition removal takes effect
+        setPos(newPos);
+        requestAnimationFrame(() => {
+          if (track) track.style.transition = '';
+          snapping.current = false;
+        });
+      }
+    }
+  };
+
+  const offset = pos * CARD_STEP;
 
   return (
     <div className="pc-wrap">
       <div className="pc-outer">
         <div
+          ref={trackRef}
           className="pc-track"
           style={{ transform: `translateX(calc(-${offset}px + 50vw - ${CARD_W / 2}px))` }}
+          onTransitionEnd={onTransitionEnd}
         >
-          {items.map((p, i) => {
+          {extended.map((p, i) => {
+            const isActive = i === pos;
+            const copyNum = Math.floor(i / N); // 0, 1, or 2 — used for unique keys
+
+            if (p.isViewAll) {
+              return (
+                <div
+                  key={`viewall-${copyNum}`}
+                  className={`pc-card${isActive ? ' pc-active' : ''}`}
+                  onClick={() => { snapping.current = false; setPos(i); }}
+                >
+                  <div className="pc-img-wrap pc-viewall-img">
+                    <div className="pc-viewall-inner">
+                      <span className="pc-viewall-count">{propertyCount}</span>
+                      <span className="pc-viewall-label">Properties</span>
+                      <a href="/our-homes/" className="pc-viewall-btn" onClick={e => e.stopPropagation()}>Browse All →</a>
+                    </div>
+                  </div>
+                  <div className="pc-caption">
+                    <span className="pc-caption-title">View all properties</span>
+                  </div>
+                </div>
+              );
+            }
+
             const label = p.title.includes('—')
               ? p.title.split('—').slice(1).join('—').trim()
               : p.title;
-            const isActive = i === activeIdx;
             const sym = SYM[p.currency] || p.currency;
+            // Eager-load only the first few cards in the middle copy
+            const eager = copyNum === 1 && (i - N) < 4;
+
             return (
               <div
-                key={p.slug}
+                key={`${p.slug}-${copyNum}`}
                 className={`pc-card${isActive ? ' pc-active' : ''}`}
-                onClick={() => setActiveIdx(i)}
+                onClick={() => { snapping.current = false; setPos(i); }}
               >
                 <div className="pc-img-wrap">
                   <img
                     src={p.img}
                     alt={p.title}
                     className="pc-img"
-                    loading={i < 3 ? 'eager' : 'lazy'}
+                    loading={eager ? 'eager' : 'lazy'}
                     decoding="async"
                   />
                 </div>
@@ -82,40 +146,24 @@ function PropCarousel({ items, propertyCount }) {
                         From {sym}{p.price.toLocaleString('en-GB')}
                       </span>
                     )}
-                    <a href={`/property/${p.slug}`} className="pc-panel-btn">View Property →</a>
+                    <a href={`/property/${p.slug}`} className="pc-panel-btn" onClick={e => e.stopPropagation()}>View Property →</a>
                   </div>
                 ) : (
                   <div className="pc-caption">
+                    <span className="pc-caption-loc">{p.region}{p.region && p.country ? ', ' : ''}{p.country}</span>
                     <span className="pc-caption-title">{label}</span>
                   </div>
                 )}
               </div>
             );
           })}
-
-          {/* View All end card */}
-          <div
-            className={`pc-card pc-card-viewall${activeIdx === items.length ? ' pc-active' : ''}`}
-            onClick={() => setActiveIdx(items.length)}
-          >
-            <div className="pc-img-wrap pc-viewall-img">
-              <div className="pc-viewall-inner">
-                <span className="pc-viewall-count">{propertyCount}</span>
-                <span className="pc-viewall-label">Properties</span>
-                <a href="/our-homes/" className="pc-viewall-btn">Browse All →</a>
-              </div>
-            </div>
-            <div className="pc-caption">
-              <span className="pc-caption-title">View all properties</span>
-            </div>
-          </div>
         </div>
       </div>
 
       <div className="pc-nav">
-        <button className="pc-btn" onClick={prev} disabled={activeIdx === 0} aria-label="Previous">&#8592;</button>
-        <span className="pc-counter">{activeIdx + 1} / {total}</span>
-        <button className="pc-btn" onClick={next} disabled={activeIdx >= total - 1} aria-label="Next">&#8594;</button>
+        <button className="pc-btn" onClick={() => move(-1)} aria-label="Previous">&#8592;</button>
+        <span className="pc-counter">{displayNum} / {propertyCount}</span>
+        <button className="pc-btn" onClick={() => move(1)} aria-label="Next">&#8594;</button>
       </div>
     </div>
   );

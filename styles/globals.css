@@ -6216,6 +6216,17 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   padding: 12px 2px 0;
 }
 
+.pc-caption-loc {
+  display: block;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin-bottom: 4px;
+}
+
 .pc-caption-title {
   display: block;
   font-family: 'Playfair Display', serif;
