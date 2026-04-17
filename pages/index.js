@@ -96,7 +96,7 @@ function PropCarousel({ items, propertyCount }) {
               return (
                 <div
                   key={`viewall-${copyNum}`}
-                  className={`pc-card${isActive ? ' pc-active' : ''}`}
+                  className={`pc-card pc-card-viewall${isActive ? ' pc-active' : ''}`}
                   onClick={() => { snapping.current = false; setPos(i); }}
                 >
                   <div className="pc-img-wrap pc-viewall-img">
