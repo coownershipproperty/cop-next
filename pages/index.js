@@ -225,6 +225,19 @@ function PropCarousel({ items, propertyCount }) {
 
 export default function Home({ propertyCount, featuredProps, latestPosts }) {
   const [activeDest, setActiveDest] = useState('france');
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    // Force play on mobile — declarative autoPlay is ignored by some mobile browsers
+    v.muted = true;
+    v.play().catch(() => {});
+    // Also retry on visibility change (e.g. tab switching, phone wake)
+    const retry = () => { if (!document.hidden) v.play().catch(() => {}); };
+    document.addEventListener('visibilitychange', retry);
+    return () => document.removeEventListener('visibilitychange', retry);
+  }, []);
   return (
     <>
       <Head>
@@ -252,7 +265,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
       <Header />
 {/* ===== HERO SECTION ===== */}
     <section className="hero">
-        <video className="hero-video" autoPlay muted loop playsInline preload="auto" fetchPriority="high">
+        <video ref={videoRef} className="hero-video" autoPlay muted loop playsInline preload="auto" fetchPriority="high">
             <source src="https://co-ownership-property.com/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4" type="video/mp4" />
         </video>
         <div className="hero-overlay"></div>
