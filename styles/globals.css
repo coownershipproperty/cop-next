@@ -5312,8 +5312,16 @@ section.props-sec,
     border-radius: 50%;
     box-shadow: 0 2px 12px rgba(0,0,0,0.22);
     z-index: 99999;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.7);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .wa-fab.wa-visible {
     opacity: 0.88;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: auto;
+    transform: scale(1);
   }
 
   .wa-fab svg {

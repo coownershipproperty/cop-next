@@ -19,6 +19,22 @@ const nunito = Nunito_Sans({
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
+    // Show WhatsApp FAB only after first touch/scroll
+    function revealWaFab() {
+      const fab = document.querySelector('.wa-fab');
+      if (fab) fab.classList.add('wa-visible');
+      window.removeEventListener('touchstart', revealWaFab);
+      window.removeEventListener('scroll', revealWaFab);
+    }
+    window.addEventListener('touchstart', revealWaFab, { passive: true });
+    window.addEventListener('scroll', revealWaFab, { passive: true });
+    return () => {
+      window.removeEventListener('touchstart', revealWaFab);
+      window.removeEventListener('scroll', revealWaFab);
+    };
+  }, []);
+
+  useEffect(() => {
     // Intercept all #newsletter anchor clicks and center the section in the viewport
     function handleNewsletterClick(e) {
       const anchor = e.target.closest('a[href="#newsletter"]');
