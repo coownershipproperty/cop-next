@@ -166,7 +166,7 @@ function PropCarousel({ items, propertyCount }) {
                     <span className="pc-panel-title">{label}</span>
                     {p.price && (
                       <span className="pc-panel-price">
-                        From {sym}{p.price.toLocaleString('en-GB')}
+                        {sym}{p.price.toLocaleString('en-GB')}
                       </span>
                     )}
                     <a href={`/property/${p.slug}`} className="pc-panel-btn" onClick={e => e.stopPropagation()}>View Property →</a>
