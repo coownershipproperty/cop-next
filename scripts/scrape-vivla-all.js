@@ -219,6 +219,17 @@ function detectFeature(uniqueFeatures) {
   return '';
 }
 
+// ─── Title generator ─────────────────────────────────────────────────────────
+// e.g. "Menorca, Spain — 4-Bed Villa With Pool"
+function buildTitle(destination, beds, type, feature) {
+  const typeLabel    = type.charAt(0).toUpperCase() + type.slice(1);
+  const bedsLabel    = beds ? `${beds}-Bed ` : '';
+  const featureLabel = feature
+    ? ' ' + feature.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    : '';
+  return `${destination}, Spain — ${bedsLabel}${typeLabel}${featureLabel}`;
+}
+
 // ─── Slug helpers ─────────────────────────────────────────────────────────────
 function toSlug(str) {
   return str.toLowerCase()
@@ -370,7 +381,7 @@ async function main() {
       const feature = detectFeature(uniqueFeatures);
       const base    = generateBaseSlug(destination, beds, type, feature);
       const slug    = makeUniqueSlug(base, takenSlugs);
-      const title   = `${vivlaTitle}, ${destination}`;
+      const title   = buildTitle(destination, beds, type, feature);
 
       console.log(`   ✅ ${title} | ${beds}bd/${baths}ba | ${size}m² | €${(price||0).toLocaleString()} | ${images.length} imgs | ${slug}`);
 

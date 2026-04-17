@@ -312,12 +312,14 @@ function makeUniqueSlug(base, properties) {
   return `${base}-${i}`;
 }
 
-function generateCopTitle(vivlaTitle, destination, beds, type, feature) {
-  // Use the vivla property name as the primary title: "Casa Son Parc, Menorca"
-  const featureFormatted = feature
+// e.g. "Menorca, Spain — 4-Bed Villa With Pool"
+function generateCopTitle(destination, beds, type, feature) {
+  const typeLabel    = type.charAt(0).toUpperCase() + type.slice(1);
+  const bedsLabel    = beds ? `${beds}-Bed ` : '';
+  const featureLabel = feature
     ? ' ' + feature.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
     : '';
-  return `${vivlaTitle}, ${destination}`;
+  return `${destination}, Spain — ${bedsLabel}${typeLabel}${featureLabel}`;
 }
 
 // ─── Drive: create folder ────────────────────────────────────────────────────
@@ -451,7 +453,7 @@ async function main() {
   const properties = JSON.parse(fs.readFileSync(PROPS_FILE, 'utf8'));
   const baseSlug   = generateSlug(destination, beds, type, feature);
   const slug       = makeUniqueSlug(baseSlug, properties);
-  const title      = generateCopTitle(vivlaTitle, destination, beds, type, feature);
+  const title      = generateCopTitle(destination, beds, type, feature);
 
   console.log(`\n🏷  Slug  : ${slug}`);
   console.log(`   Title : ${title}`);
