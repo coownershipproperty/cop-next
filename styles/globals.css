@@ -5954,8 +5954,11 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 }
 @media(max-width:600px){
   .pp-gallery{height:220px;grid-template-columns:2fr 1fr}
-  .pp-price{font-size:1.8rem}
-  .pp-title{font-size:1.6rem}
+  .pp-price { font-size: 1.8rem; }
+  .pp-badge { display: none; }
+  .pp-price-row { margin-bottom: 14px; margin-top: 6px; }
+  .pp-crumb { margin-bottom: 12px; font-size: 0.8rem; }
+  .pp-title { font-size: 1.55rem; margin-bottom: 20px; line-height: 1.25; }
   /* Clean grid stats on mobile */
   .pp-stats {
     display: grid;
