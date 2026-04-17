@@ -235,6 +235,7 @@ export default function PropertyPage({ property: p, similar }) {
                 </svg>
                 <span className="pp-mob-lock-title">See Inside This Property</span>
                 <span className="pp-mob-lock-sub">Full photo gallery &amp; floor plans — free</span>
+                <span className="pp-mob-lock-btn">Unlock Free Access →</span>
               </div>
             )
           )}
