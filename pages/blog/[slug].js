@@ -3,6 +3,8 @@ import path from 'path';
 import fs from 'fs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Newsletter from '@/components/Newsletter';
+import ExpertForm from '@/components/ExpertForm';
 
 export async function getStaticPaths() {
   const posts = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
@@ -13,6 +15,15 @@ export async function getStaticProps({ params }) {
   const posts = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
   const post = posts.find(p => p.slug === params.slug);
   if (!post) return { notFound: true };
+
+  // Strip embedded CTAs from post content (gold "Explore Properties" banners, old WP contact forms)
+  let content = post.content || '';
+  content = content.replace(/<div[^>]*background[^>]*linear-gradient[^>]*A69052[^>]*>[\s\S]*?<\/div>/g, '');
+  content = content.replace(/<div[^>]*background[^>]*#a69052[^>]*>[\s\S]*?<\/div>/gi, '');
+  // Also strip any "Book Free Consultation" / "client-form" links that look like CTA blocks
+  content = content.replace(/<div[^>]*style="[^"]*background[^"]*#143047[^"]*"[^>]*>[\s\S]*?client-form[\s\S]*?<\/div>/gi, '');
+
+  const cleanPost = { ...post, content };
 
   // Latest 5 posts (excluding current)
   const latestPosts = posts.filter(p => p.slug !== params.slug).slice(0, 5).map(p => ({
@@ -26,7 +37,7 @@ export async function getStaticProps({ params }) {
     slug: p.slug, title: p.title, img: p.img, price: p.price, currency: p.currency, country: p.country, region: p.region,
   }));
 
-  return { props: { post, latestPosts, sideProps } };
+  return { props: { post: cleanPost, latestPosts, sideProps } };
 }
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
@@ -153,9 +164,10 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
           {/* Sticky CTA */}
           <div className="bsb-sticky-cta">
             <div className="bsb-cta">
-              <p className="bsb-cta-title">Find Your Perfect Share</p>
-              <p className="bsb-cta-sub">Speak with our co-ownership specialists about properties matching your lifestyle and budget.</p>
-              <a href="https://co-ownership-property.com/client-form/" className="bsb-cta-btn">Book Free Consultation</a>
+              <p className="bsb-cta-eyebrow">Get in Touch</p>
+              <p className="bsb-cta-title">Speak to an <em>expert</em></p>
+              <p className="bsb-cta-sub">Our co-ownership specialists match buyers to properties across Europe and the USA.</p>
+              <a href="#speak-to-expert" className="bsb-cta-btn">Book Free Consultation</a>
               <p className="bsb-cta-note">No obligation · Response within 24h</p>
             </div>
           </div>
@@ -167,6 +179,9 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
       <div className="blog-back-wrap">
         <a href="/all-our-blog/" className="blog-back-link">← Back to Blog</a>
       </div>
+
+      <Newsletter />
+      <ExpertForm />
 
       <Footer />
     </>
