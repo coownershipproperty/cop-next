@@ -58,27 +58,27 @@ export default function OurHomes({ allProperties }) {
     if (!country) return [];
 
     if (country === 'France') {
-      // Return cluster labels that actually have properties
+      // Return cluster labels sorted by property count desc
       return FRANCE_CLUSTERS
         .filter(c => allProperties.some(
           p => p.country === 'France' && c.regions.includes(p.region)
         ))
+        .sort((a, b) =>
+          allProperties.filter(p => p.country === 'France' && b.regions.includes(p.region)).length -
+          allProperties.filter(p => p.country === 'France' && a.regions.includes(p.region)).length
+        )
         .map(c => c.label);
     }
 
-    // USA, Spain, Italy — return all distinct region values
+    // USA, Spain, Italy — return all distinct region values, sorted by count desc
     const seen = new Set();
     allProperties
       .filter(p => p.country === country && p.region)
       .forEach(p => seen.add(p.region));
-    return [...seen].sort((a, b) => {
-      // sort by count desc for Spain/Italy; alphabetical for USA
-      if (country === 'USA') return a.localeCompare(b);
-      return (
-        allProperties.filter(p => p.country === country && p.region === b).length -
-        allProperties.filter(p => p.country === country && p.region === a).length
-      );
-    });
+    return [...seen].sort((a, b) =>
+      allProperties.filter(p => p.country === country && p.region === b).length -
+      allProperties.filter(p => p.country === country && p.region === a).length
+    );
   }, [allProperties, country]);
 
   // Whether to show an "Other" sub-filter button (properties in country that don't fit any shown region/cluster)
