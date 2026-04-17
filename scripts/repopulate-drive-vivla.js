@@ -26,7 +26,9 @@ const DRIVE_PARENT = '1tO1sgQ4_LEylvdjkySFDKSi6CzAf98Zl';
 
 const FORCE     = process.argv.includes('--force');
 const startArg  = process.argv.find(a => a.startsWith('--start='));
+const countArg  = process.argv.find(a => a.startsWith('--count='));
 const START_IDX = startArg ? parseInt(startArg.split('=')[1], 10) : 0;
+const MAX_COUNT = countArg ? parseInt(countArg.split('=')[1], 10) : Infinity;
 
 function downloadBuffer(url) {
   return new Promise((resolve, reject) => {
@@ -138,6 +140,11 @@ async function main() {
 
     // Save after each property (so we don't lose progress if killed)
     fs.writeFileSync(PROPS_FILE, JSON.stringify(allProps, null, 2));
+
+    if (updated >= MAX_COUNT) {
+      console.log(`\n⏸  Reached --count=${MAX_COUNT} limit. Run again with --start=${i + 1} to continue.`);
+      break;
+    }
   }
 
   console.log(`\n✅ Done. Updated ${updated} properties.`);
