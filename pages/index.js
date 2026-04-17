@@ -11,11 +11,37 @@ import { useState, useRef } from 'react';
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 
+const FEATURED_SLUGS = [
+  'paris-fra-2-bed-apartment-with-fireplace',
+  'corona-del-mar-ca-4-bed-villa',
+  'grimaud-france-3-bed-villa-with-pool',
+  'marbella-spain-4-bed-villa-with-jacuzzi',
+  'london-gbr-3-bed-cabin',
+  'apricale-italy-3-bed-villa-with-infinity-pool',
+  'florence-ita-2-bed-apartment',
+  'palm-springs-ca-3-bed-cabin-with-mountain-views',
+  'paris-fra-3-bed-apartment',
+  'breckenridge-co-4-bed-cabin-with-mountain-views-2',
+  'brickell-miami-florida-luxury-studio-apartment',
+  'domaso-italy-2-bed-apartment-with-pool',
+  'morzine-france-2-bed-apartment-with-mountain-views',
+  'la-jolla-ca-3-bed-villa-with-sauna',
+  'costa-de-la-luz-spain-4-bed-villa-with-sea-views',
+  'fayence-france-6-bed-villa',
+  'rosemary-beach-fl-6-bed-cabin',
+  'costa-de-la-luz-spain-4-bed-villa-with-pool',
+  'park-city-ut-5-bed-apartment-with-mountain-views',
+  'nova-santa-ponsa-spain-2-bed-apartment-with-pool',
+  'sa-rapita-spain-3-bed-villa-with-pool-3',
+  'playa-d-en-bossa-spain-1-bed-apartment-with-pool',
+];
+
 export async function getStaticProps() {
   const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
-  const featuredProps = data
-    .filter(p => p.img)
-    .slice(0, 20)
+  const bySlug = Object.fromEntries(data.map(p => [p.slug, p]));
+  const featuredProps = FEATURED_SLUGS
+    .map(slug => bySlug[slug])
+    .filter(Boolean)
     .map(p => ({
       slug: p.slug,
       title: p.title,
