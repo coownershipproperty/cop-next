@@ -16,7 +16,7 @@
 |---------|--------|-------|
 | `pacaso` | ✅ Good | Images, descriptions, Drive all correct |
 | `andhamlet` | ✅ Good | 11 properties; scraper at `scripts/scrape-andhamlet.js` |
-| `vivla` | ⚠️ Partial | Descriptions sometimes Spanish; no dedicated scraper yet |
+| `vivla` | ✅ Good | Script at `scripts/add-vivla-property.js`; SOLD OUT + UNDER CONSTRUCTION auto-rejected |
 | `myne` | ⚠️ Partial | Drive folders have only 3 photos (should have more) |
 
 ## Adding a New And Hamlet Property
@@ -50,6 +50,39 @@ Then commit and push:
 ```bash
 git add lib/properties.json
 git commit -m "Add And Hamlet property: TITLE"
+git push origin main
+```
+
+## Adding a New Vivla Property
+
+```bash
+node scripts/add-vivla-property.js \
+  --url https://www.vivla.com/listings/SLUG \
+  --type villa \
+  --feature "with-pool"
+```
+
+**Types:** villa, apartment, penthouse, chalet, townhouse  
+**Features (optional):** with-pool, with-sea-views, with-garden, with-terrace, with-fireplace
+
+The script automatically:
+- ❌ Rejects SOLD OUT properties (`home_sold-out-wrapper` visible)
+- ❌ Rejects UNDER CONSTRUCTION properties (`last-share-left-wrapper` with text)
+- ✅ Detects destination, price, beds, baths, m² from the page
+- ✅ Scrapes all gallery images from `cl-slider-detail-images` slider
+- ✅ Cleans description (strips "Vivla" brand name)
+- ✅ Extracts lat/lng from JS variable `coordinates = "LAT, LNG"`
+- ✅ Extracts unique features from "What makes it unique?" section
+- ✅ Creates a fresh Drive folder and uploads all photos
+- ✅ Auto-generates COP slug (`{destination}-spain-{beds}-bed-{type}-{feature}`)
+- ✅ Saves to `lib/properties.json` with source URL in `notes` field
+
+Country is always Spain. If destination can't be detected, pass `--region "Menorca"`.
+
+Then commit and push:
+```bash
+git add lib/properties.json
+git commit -m "Add Vivla property: TITLE"
 git push origin main
 ```
 
