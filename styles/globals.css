@@ -5955,8 +5955,27 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .pp-gallery{height:220px;grid-template-columns:2fr 1fr}
   .pp-price{font-size:1.8rem}
   .pp-title{font-size:1.6rem}
-  .pp-stat{padding:0 14px 0 0;margin-right:14px}
-  .pp-stat-val{font-size:1.1rem}
+  /* Clean grid stats on mobile */
+  .pp-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    border: none;
+    padding: 4px 0 20px;
+    margin-bottom: 20px;
+  }
+  .pp-stat {
+    text-align: center;
+    padding: 12px 6px;
+    border-right: none;
+    border-bottom: none;
+    margin: 0;
+    background: #f5f2ed;
+    border-radius: 8px;
+  }
+  .pp-stat:last-child { border-right: none; }
+  .pp-stat-val { font-size: 1.1rem; }
+  .pp-stat-lbl { font-size: 0.58rem; letter-spacing: 0.1em; margin-top: 3px; }
   .pp-similar-grid,.pp-photo-grid{grid-template-columns:1fr}
   .pp-form-card{padding:20px}
   .pp-content{padding:16px 16px 60px}
