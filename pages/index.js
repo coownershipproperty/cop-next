@@ -226,6 +226,7 @@ function PropCarousel({ items, propertyCount }) {
 export default function Home({ propertyCount, featuredProps, latestPosts }) {
   const [activeDest, setActiveDest] = useState('france');
   const videoRef = useRef(null);
+  const destTabsRef = useRef(null);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -431,14 +432,21 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         <h2 className="section-heading">Our Destinations</h2>
 
         {/* Tab navigation */}
-        <div className="dest-tabs">
+        <div className="dest-tabs" ref={destTabsRef}>
             {[["france","France"],["spain","Spain"],["usa","USA"],["italy","Italy"],["portugal","Portugal"],["austria","Austria"],["england","England"],["sweden","Sweden"],["germany","Germany"],["croatia","Croatia"],["mexico","Mexico"]].map(([key, label]) => (
               <button
                 key={key}
                 className={`dest-tab-btn${activeDest === key ? " active" : ""}`}
                 onClick={e => {
                   setActiveDest(key);
-                  e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                  // Manually scroll the strip so the clicked tab is centred
+                  const strip = destTabsRef.current;
+                  const btn = e.currentTarget;
+                  if (strip) {
+                    const stripCenter = strip.offsetWidth / 2;
+                    const btnCenter = btn.offsetLeft + btn.offsetWidth / 2;
+                    strip.scrollTo({ left: btnCenter - stripCenter, behavior: 'smooth' });
+                  }
                 }}
               >{label}</button>
             ))}
