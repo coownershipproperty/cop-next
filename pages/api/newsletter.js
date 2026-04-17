@@ -6,12 +6,14 @@ export default async function handler(req, res) {
   const { email } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
 
+  const smtpUser = process.env.SMTP_USER || 'david@domosno.com';
+
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.hostinger.com',
     port: 465,
     secure: true,
     auth: {
-      user: process.env.SMTP_USER || 'info@co-ownership-property.com',
+      user: smtpUser,
       pass: process.env.SMTP_PASS,
     },
   });
@@ -19,7 +21,7 @@ export default async function handler(req, res) {
   try {
     // Notify the team
     await transporter.sendMail({
-      from: '"COP Website" <info@co-ownership-property.com>',
+      from: `"COP Website" <${smtpUser}>`,
       to: ['info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
       subject: `New Newsletter Subscriber — ${email}`,
       html: `
@@ -30,7 +32,7 @@ export default async function handler(req, res) {
 
     // Auto-reply to subscriber
     await transporter.sendMail({
-      from: '"Co-Ownership Property" <info@co-ownership-property.com>',
+      from: `"Co-Ownership Property" <${smtpUser}>`,
       to: email,
       subject: 'Welcome — you\'re on the list',
       html: `
@@ -39,7 +41,7 @@ export default async function handler(req, res) {
         <p>In the meantime, browse our current properties at <a href="https://co-ownership-property.com/our-homes/">co-ownership-property.com</a>.</p>
         <p>Best,<br>The Co-Ownership Property Team</p>
       `,
-      replyTo: 'info@co-ownership-property.com',
+      replyTo: smtpUser,
     });
 
     res.status(200).json({ ok: true });

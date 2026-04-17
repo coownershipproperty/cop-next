@@ -5,19 +5,21 @@ export default async function handler(req, res) {
 
   const { name, email, phone, message, property, destination, budget } = req.body;
 
+  const smtpUser = process.env.SMTP_USER || 'david@domosno.com';
+
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.hostinger.com',
     port: 465,
     secure: true,
     auth: {
-      user: process.env.SMTP_USER || 'info@co-ownership-property.com',
+      user: smtpUser,
       pass: process.env.SMTP_PASS,
     },
   });
 
   try {
     await transporter.sendMail({
-      from: '"COP Website" <info@co-ownership-property.com>',
+      from: `"COP Website" <${smtpUser}>`,
       to: ['info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
       subject: `New Enquiry${property ? ` — ${property}` : ''} from ${name}`,
       html: `
@@ -35,7 +37,7 @@ export default async function handler(req, res) {
 
     // Auto-reply to visitor
     await transporter.sendMail({
-      from: '"Co-Ownership Property" <info@co-ownership-property.com>',
+      from: `"Co-Ownership Property" <${smtpUser}>`,
       to: email,
       subject: 'We received your enquiry',
       html: `
