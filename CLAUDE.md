@@ -16,7 +16,7 @@
 |---------|--------|-------|
 | `pacaso` | ✅ Good | Images, descriptions, Drive all correct |
 | `andhamlet` | ✅ Good | 11 properties; scraper at `scripts/scrape-andhamlet.js` |
-| `vivla` | ✅ Good | Script at `scripts/add-vivla-property.js`; SOLD OUT + UNDER CONSTRUCTION auto-rejected |
+| `vivla` | ✅ Good | 34 properties; single-add: `scripts/add-vivla-property.js`; bulk: `scripts/scrape-vivla-all.js` |
 | `myne` | ⚠️ Partial | Drive folders have only 3 photos (should have more) |
 
 ## Adding a New And Hamlet Property
@@ -53,31 +53,29 @@ git commit -m "Add And Hamlet property: TITLE"
 git push origin main
 ```
 
-## Adding a New Vivla Property
+## Adding a New Vivla Property (Single)
 
 ```bash
 node scripts/add-vivla-property.js \
-  --url https://www.vivla.com/listings/SLUG \
-  --type villa \
-  --feature "with-pool"
+  --url https://www.vivla.com/listings/SLUG
 ```
 
-**Types:** villa, apartment, penthouse, chalet, townhouse  
-**Features (optional):** with-pool, with-sea-views, with-garden, with-terrace, with-fireplace
+**Types (auto-detected, or override):** villa · apartment · chalet  
+- Baqueira / ski destinations → chalet; Madrid / city → apartment; else → villa  
+
+**Features (auto-detected from "What makes it unique?" section):** pool › sea-views › garden › terrace › fireplace
 
 The script automatically:
 - ❌ Rejects SOLD OUT properties (`home_sold-out-wrapper` visible)
-- ❌ Rejects UNDER CONSTRUCTION properties (`last-share-left-wrapper` with text)
+- ✅ Includes UNDER CONSTRUCTION properties (shown as normal, no badge)
 - ✅ Detects destination, price, beds, baths, m² from the page
-- ✅ Scrapes all gallery images from `cl-slider-detail-images` slider
+- ✅ Scrapes all gallery images from `cl-slider-detail-images` slider (background-image URLs)
 - ✅ Cleans description (strips "Vivla" brand name)
 - ✅ Extracts lat/lng from JS variable `coordinates = "LAT, LNG"`
-- ✅ Extracts unique features from "What makes it unique?" section
-- ✅ Creates a fresh Drive folder and uploads all photos
-- ✅ Auto-generates COP slug (`{destination}-spain-{beds}-bed-{type}-{feature}`)
-- ✅ Saves to `lib/properties.json` with source URL in `notes` field
-
-Country is always Spain. If destination can't be detected, pass `--region "Menorca"`.
+- ✅ Extracts unique CMS features (stops before `others-amenities-container` to avoid generic template items)
+- ✅ Creates a fresh Drive folder named `{Vivla Slug} - Vivla` and uploads all photos
+- ✅ Auto-generates COP title: `{Destination}, Spain — {N}-Bed {Type} With {Feature}`
+- ✅ Saves to `lib/properties.json` with `country: "Spain"`, `currency: "EUR"`, source URL in `notes`
 
 Then commit and push:
 ```bash
@@ -85,6 +83,39 @@ git add lib/properties.json
 git commit -m "Add Vivla property: TITLE"
 git push origin main
 ```
+
+## Re-scraping All Vivla Properties (Bulk)
+
+```bash
+node scripts/scrape-vivla-all.js              # full run
+node scripts/scrape-vivla-all.js --dry-run    # preview only, no writes
+node scripts/scrape-vivla-all.js --no-drive   # skip Drive uploads
+node scripts/scrape-vivla-all.js --start=N    # resume from property N (0-indexed)
+```
+
+- Scrapes https://www.vivla.com/listings (all pages) to build URL list
+- Skips SOLD OUT; includes UNDER CONSTRUCTION
+- Replaces ALL vivla entries in `properties.json` at end
+- Auto-detects type + feature per property
+- Generates correct titles: `{Destination}, Spain — {N}-Bed {Type} With {Feature}`
+- Saves `country: "Spain"` and `currency: "EUR"` on every property
+
+## Repopulating Vivla Drive Folders
+
+Use this to fix missing/empty/wrong-named Drive folders without re-scraping.
+
+```bash
+node scripts/repopulate-drive-vivla.js                     # only properties missing driveUrl
+node scripts/repopulate-drive-vivla.js --force             # redo ALL 34 folders
+node scripts/repopulate-drive-vivla.js --force --start=N   # resume from index N
+node scripts/repopulate-drive-vivla.js --force --start=N --count=8  # safe batch of 8
+```
+
+- Folder name comes from the Vivla slug in `p.notes` URL → `{Slug Title} - Vivla`
+  e.g. `casa-son-parc` → `"Casa Son Parc - Vivla"`
+- Trashes the old Drive folder, creates a fresh one, re-uploads all photos
+- Saves `lib/properties.json` after **each** property (resumable if killed)
+- Run in batches of ~8 with `--count=8` to stay within the 10-minute tool timeout
 
 ## Re-scraping All And Hamlet Properties
 ```bash
