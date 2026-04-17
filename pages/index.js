@@ -70,9 +70,13 @@ const CARD_GAP = 20;
 
 function getCardW() {
   if (typeof window === 'undefined') return 430;
-  return window.innerWidth <= 480 ? Math.min(window.innerWidth - 40, 320)
-       : window.innerWidth <= 768 ? 300
-       : 430;
+  const vw = window.innerWidth;
+  // Must match CSS exactly:
+  // ≤480px → calc(100vw - 40px) capped at 340px
+  // ≤768px → calc(100vw - 48px) capped at 380px
+  if (vw <= 480) return Math.min(vw - 40, 340);
+  if (vw <= 768) return Math.min(vw - 48, 380);
+  return 430;
 }
 
 function PropCarousel({ items, propertyCount }) {
