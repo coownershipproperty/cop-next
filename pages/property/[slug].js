@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import path from 'path';
 import fs from 'fs';
 import Header from '@/components/Header';
@@ -114,12 +114,52 @@ function EnquiryForm({ propertyTitle }) {
   );
 }
 
+const COP_FAV_KEY = 'cop_favourites';
+
+function getFavs() {
+  try { return JSON.parse(localStorage.getItem(COP_FAV_KEY) || '{}'); } catch { return {}; }
+}
+
 /* ── Main page ── */
 export default function PropertyPage({ property: p, similar }) {
   const [showUnlock, setShowUnlock] = useState(false);
   const [lightbox, setLightbox] = useState(null);
+  const [mobileSlide, setMobileSlide] = useState(0);
+  const [saved, setSaved] = useState(false);
   const heroImg = p.images[0] || '/images/placeholder.jpg';
   const partnerLabel = PARTNER_LABEL[p.partner] || p.partner;
+
+  // Sync saved state from localStorage on mount
+  useEffect(() => {
+    setSaved(!!getFavs()[p.slug]);
+  }, [p.slug]);
+
+  function toggleSave() {
+    const favs = getFavs();
+    if (favs[p.slug]) {
+      delete favs[p.slug];
+      setSaved(false);
+    } else {
+      favs[p.slug] = {
+        slug: p.slug, title: p.title, img: p.images[0] || p.img || '',
+        price: p.price, currency: p.currency, country: p.country,
+        beds: p.beds, baths: p.baths, size: p.size,
+      };
+      setSaved(true);
+    }
+    localStorage.setItem(COP_FAV_KEY, JSON.stringify(favs));
+    // Update header heart count
+    const n = Object.keys(favs).length;
+    document.querySelectorAll('.cop-fav-count').forEach(el => {
+      el.textContent = n > 0 ? n : '';
+      el.style.display = n > 0 ? 'inline-flex' : 'none';
+    });
+  }
+  // Mobile carousel: up to 3 photos + lock panel as last slide
+  const mobileSlides = [
+    ...(p.images.slice(0, 3).map((img, i) => ({ type: 'img', src: img, idx: i }))),
+    { type: 'lock' },
+  ];
 
   return (
     <>
@@ -159,6 +199,38 @@ export default function PropertyPage({ property: p, similar }) {
       </Head>
 
       <Header />
+
+      {/* ── Mobile carousel (hidden on desktop) ── */}
+      <div className="pp-mob-carousel">
+        <div className="pp-mob-track" style={{ transform: `translateX(${-mobileSlide * 100}%)` }}>
+          {mobileSlides.map((slide, i) =>
+            slide.type === 'img' ? (
+              <div key={i} className="pp-mob-slide" onClick={() => setLightbox(slide.idx)}>
+                <Img src={slide.src} alt={`${p.title} ${i + 1}`} loading={i === 0 ? 'eager' : 'lazy'} />
+              </div>
+            ) : (
+              <div key={i} className="pp-mob-slide pp-mob-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+                </svg>
+                <span className="pp-mob-lock-title">Exclusive Photos &amp; Floor Plans</span>
+                <span className="pp-mob-lock-sub">Enter email to unlock</span>
+              </div>
+            )
+          )}
+        </div>
+        {mobileSlide > 0 && (
+          <button className="pp-mob-arrow pp-mob-prev" onClick={() => setMobileSlide(s => s - 1)}>&#8249;</button>
+        )}
+        {mobileSlide < mobileSlides.length - 1 && (
+          <button className="pp-mob-arrow pp-mob-next" onClick={() => setMobileSlide(s => s + 1)}>&#8250;</button>
+        )}
+        <div className="pp-mob-dots">
+          {mobileSlides.map((_, i) => (
+            <button key={i} className={`pp-mob-dot${i === mobileSlide ? ' active' : ''}`} onClick={() => setMobileSlide(i)} />
+          ))}
+        </div>
+      </div>
 
       {/* ── Full-width gallery: hero (left, full height) + 2 thumbs (top-right) + lock panel (bottom-right) ── */}
       <div className="pp-gallery">
@@ -206,7 +278,9 @@ export default function PropertyPage({ property: p, similar }) {
 
           {/* Save */}
           <div className="pp-actions">
-            <button className="pp-save">♡ Save Property</button>
+            <button className={`pp-save${saved ? ' saved' : ''}`} onClick={toggleSave}>
+              {saved ? '♥ Saved' : '♡ Save Property'}
+            </button>
           </div>
 
           {/* Stats */}
