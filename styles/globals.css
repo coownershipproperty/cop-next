@@ -6190,7 +6190,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(20,48,71,0.45);
+    color: var(--warm-gold);
     white-space: nowrap;
   }
   .pp-seemore::before,
@@ -6198,9 +6198,9 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
     content: '';
     flex: 1;
     height: 1px;
-    background: rgba(20,48,71,0.12);
+    background: rgba(201,168,76,0.25);
   }
-  .pp-seemore:active { color: rgba(20,48,71,0.7); }
+  .pp-seemore:active { color: #b8963e; }
 }
 
 /* ══════════════════════════════════════════════════
