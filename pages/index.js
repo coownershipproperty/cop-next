@@ -54,7 +54,7 @@ export async function getStaticProps() {
   return { props: { propertyCount: data.length, featuredProps } };
 }
 
-const CARD_W = 340;
+const CARD_W = 430;
 const CARD_GAP = 20;
 const CARD_STEP = CARD_W + CARD_GAP;
 

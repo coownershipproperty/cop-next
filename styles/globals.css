@@ -6137,7 +6137,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 
 /* ── Base card (non-active) ─────────────────────────────────── */
 .pc-card {
-  flex: 0 0 340px;
+  flex: 0 0 430px;
   cursor: pointer;
   opacity: 0.55;
   transition: opacity 0.4s ease;
@@ -6152,10 +6152,10 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   opacity: 1;
 }
 
-/* Image wrapper */
+/* Image wrapper — landscape ratio to match property photos */
 .pc-img-wrap {
-  width: 340px;
-  height: 420px;
+  width: 430px;
+  height: 290px;
   overflow: hidden;
   border-radius: 3px;
   background: #e8e0d4;
@@ -6362,10 +6362,10 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Mobile ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .pc-card {
-    flex: 0 0 260px;
+    flex: 0 0 300px;
   }
   .pc-img-wrap {
-    width: 260px;
-    height: 320px;
+    width: 300px;
+    height: 200px;
   }
 }
