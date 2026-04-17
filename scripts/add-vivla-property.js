@@ -270,21 +270,21 @@ function extractCoords(html) {
 }
 
 // ─── Extract unique features ("What makes it unique?" section) ───────────────
+// Only extracts from the CMS (w-dyn-list) section — not the static template icons
 function extractUniqueFeatures(html) {
   const wmIdx = html.toLowerCase().indexOf('what makes it unique');
   if (wmIdx < 0) return [];
-  const chunk = html.slice(wmIdx, wmIdx + 4000);
-  const raw = [...chunk.matchAll(/<h5 class="other-amenities-text">([^<]+)<\/h5>/g)]
-    .map(m => m[1].trim())
-    .filter(Boolean);
-  // Deduplicate case-insensitively, keeping the first (better-cased) occurrence
+  const chunk = html.slice(wmIdx, wmIdx + 5000);
+  // Stop before the static "others-amenities-container" section
+  const staticBoundary = chunk.indexOf('others-amenities-container');
+  const cmsChunk = staticBoundary > 0 ? chunk.slice(0, staticBoundary) : chunk.slice(0, 3000);
   const seen = new Set();
-  return raw.filter(f => {
-    const key = f.toLowerCase();
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
+  return [...cmsChunk.matchAll(/<h5 class="other-amenities-text">([^<]+)<\/h5>/g)]
+    .map(m => m[1].trim()).filter(f => {
+      const key = f.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key); return true;
+    });
 }
 
 // ─── Slug / title generators ─────────────────────────────────────────────────
