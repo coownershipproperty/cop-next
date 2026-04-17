@@ -6702,8 +6702,20 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .blog-layout { padding: 20px 16px 48px; }
 }
 
-/* ── Gutenberg column blocks: stack on mobile ── */
+/* ── Blog inline two-column blocks: stack on mobile ── */
+/* WordPress posts use inline style="display:grid;grid-template-columns:1fr 1fr"
+   We tag these server-side with class="blog-two-col" and override here */
 @media (max-width: 768px) {
+  .blog-two-col {
+    display: block !important;
+    grid-template-columns: unset !important;
+  }
+  .blog-two-col > div {
+    width: 100% !important;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Gutenberg class-based columns fallback */
   .wp-block-columns {
     flex-direction: column !important;
     gap: 1.2em !important;
@@ -6715,19 +6727,12 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   }
 
   /* Comparison tables inside blog posts: horizontal scroll */
-  .wp-block-table {
+  .wp-block-table, .blog-post-content table {
     overflow-x: auto;
     display: block;
   }
-  .wp-block-table table {
+  .blog-post-content table {
     min-width: 480px;
-  }
-
-  /* Feature/comparison table blocks used in blog posts */
-  .wp-block-table td,
-  .wp-block-table th {
-    font-size: 0.88rem;
-    padding: 0.6rem 0.8rem;
   }
 }
 

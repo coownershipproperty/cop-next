@@ -24,6 +24,12 @@ export async function getStaticProps({ params }) {
   // Also strip any "Book Free Consultation" / "client-form" links that look like CTA blocks
   content = content.replace(/<div[^>]*style="[^"]*background[^"]*#143047[^"]*"[^>]*>[\s\S]*?client-form[\s\S]*?<\/div>/gi, '');
 
+  // Fix mobile layout: tag inline two-column grid divs with a class so CSS can collapse them
+  content = content.replace(
+    /(<div)([^>]*style="[^"]*grid-template-columns\s*:\s*1fr\s+1fr[^"]*")/gi,
+    '$1 class="blog-two-col"$2'
+  );
+
   const cleanPost = { ...post, content };
 
   // Latest 5 posts (excluding current)
