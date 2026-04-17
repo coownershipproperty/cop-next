@@ -2372,6 +2372,9 @@ footer {
             .expert-form-grid {
                 grid-template-columns: 1fr;
             }
+
+            /* Hide decorative gold inset border on mobile */
+            .expert-section::after { display: none; }
         }
 
 @media (max-width: 480px) {
