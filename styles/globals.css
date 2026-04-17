@@ -3889,6 +3889,7 @@ img{display:block;max-width:100%;height:auto}
 
 @media(max-width:768px){
             .team-grid{grid-template-columns:1fr;gap:2rem}
+            .team-bio{text-align:center}
             .poppy-card{flex-direction:column;text-align:center;max-width:100%}
             .poppy-card .team-photo{margin:0 auto}
         }
