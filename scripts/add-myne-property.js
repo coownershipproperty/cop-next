@@ -165,29 +165,37 @@ function extractGalleryImages(html) {
 
 // ─── Extract description ─────────────────────────────────────────────────────
 // Finds the full multi-paragraph description that belongs to THIS property.
-// Strategy: locate `bedroomsCount` (marks current property block), then walk
-// backwards to find the nearest description field before it.
-function extractDescription(chunk) {
-  const bcIdx = chunk.indexOf('\\"bedroomsCount\\"');
+// Strategy: locate `bedroomsCount`, collect all description fields before it,
+// and pick the LONGEST non-placeholder one.
+// (Some pages have a short SEO desc first + full body desc last; others have
+//  the full desc first and a Storyblok placeholder like "$31" last.)
+function extractDescValue(chunk, startIdx) {
+  const raw      = chunk.slice(startIdx, startIdx + 5000);
+  const endMatch = raw.match(/(?<!\\)\\"/);
+  return endMatch ? raw.slice(0, endMatch.index) : raw.slice(0, 3000);
+}
 
-  // Find all description field positions
-  const descRe = /\\"description\\":\\"/g;
+function extractDescription(chunk) {
+  const bcIdx   = chunk.indexOf('\\"bedroomsCount\\"');
+  const descRe  = /\\"description\\":\\"/g;
   let m;
-  let lastDescIdx = -1;
+  let bestValue = '';
+
   while ((m = descRe.exec(chunk)) !== null) {
-    if (m.index < bcIdx) lastDescIdx = m.index + m[0].length;
+    if (m.index >= bcIdx) continue;
+    const startIdx = m.index + m[0].length;
+    const val      = extractDescValue(chunk, startIdx);
+    // Skip empty values, Storyblok placeholders like "$31", and doubly-encoded strings
+    if (!val || /^\$\d+$/.test(val.trim())) continue;
+    if (val.startsWith('\\"') || val.startsWith('\\\\')) continue;
+    if (val.length > bestValue.length) bestValue = val;
   }
 
-  if (lastDescIdx < 0) return '';
+  if (!bestValue) return '';
 
-  // Extract value — stop at first unescaped closing quote
-  const raw = chunk.slice(lastDescIdx, lastDescIdx + 5000);
-  // Find end: first \" that is NOT preceded by \\
-  const endMatch = raw.match(/(?<!\\)\\"/);
-  const value = endMatch ? raw.slice(0, endMatch.index) : raw.slice(0, 3000);
-
-  let text = value
-    .replace(/\\n/g, '\n')
+  let text = bestValue
+    .replace(/\\\\n/g, '\n')   // double-backslash-n  (raw HTML encoding)
+    .replace(/\\n/g, '\n')     // single-backslash-n  (fallback)
     .replace(/\\t/g, ' ')
     .replace(/\\"/g, '"')
     .replace(/\\u[\da-f]{4}/gi, c => String.fromCharCode(parseInt(c.slice(2), 16)))

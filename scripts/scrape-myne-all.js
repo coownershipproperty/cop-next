@@ -166,21 +166,33 @@ function extractGalleryImages(html) {
 }
 
 // ─── Description (full multi-paragraph version) ───────────────────────────────
+function extractDescValue(chunk, startIdx) {
+  const raw      = chunk.slice(startIdx, startIdx + 5000);
+  const endMatch = raw.match(/(?<!\\)\\"/);
+  return endMatch ? raw.slice(0, endMatch.index) : raw.slice(0, 3000);
+}
+
 function extractDescription(chunk) {
-  const bcIdx = chunk.indexOf('\\"bedroomsCount\\"');
+  const bcIdx  = chunk.indexOf('\\"bedroomsCount\\"');
   const descRe = /\\"description\\":\\"/g;
-  let m, lastDescIdx = -1;
+  let m;
+  let bestValue = '';
+
   while ((m = descRe.exec(chunk)) !== null) {
-    if (m.index < bcIdx) lastDescIdx = m.index + m[0].length;
+    if (m.index >= bcIdx) continue;
+    const startIdx = m.index + m[0].length;
+    const val      = extractDescValue(chunk, startIdx);
+    // Skip empty values, Storyblok placeholders like "$31", and doubly-encoded strings
+    if (!val || /^\$\d+$/.test(val.trim())) continue;
+    if (val.startsWith('\\"') || val.startsWith('\\\\')) continue;
+    if (val.length > bestValue.length) bestValue = val;
   }
-  if (lastDescIdx < 0) return '';
 
-  const raw       = chunk.slice(lastDescIdx, lastDescIdx + 5000);
-  const endMatch  = raw.match(/(?<!\\)\\"/);
-  const value     = endMatch ? raw.slice(0, endMatch.index) : raw.slice(0, 3000);
+  if (!bestValue) return '';
 
-  let text = value
-    .replace(/\\n/g, '\n')
+  let text = bestValue
+    .replace(/\\\\n/g, '\n')   // double-backslash-n  (raw HTML encoding)
+    .replace(/\\n/g, '\n')     // single-backslash-n  (fallback)
     .replace(/\\t/g, ' ')
     .replace(/\\"/g, '"')
     .replace(/\\u[\da-f]{4}/gi, c => String.fromCharCode(parseInt(c.slice(2), 16)))
@@ -401,10 +413,15 @@ async function main() {
   const nonMyne    = allProps.filter(p => p.partner !== 'myne');
   const takenSlugs = new Set(nonMyne.map(p => p.slug));
 
+  // Build a lookup of existing driveUrls by notes URL (stable key) and slug
+  // so re-scraping preserves Drive folder links
+  const existingMyne   = allProps.filter(p => p.partner === 'myne');
+  const driveByNotes   = new Map(existingMyne.filter(p => p.notes && p.driveUrl).map(p => [p.notes, p.driveUrl]));
+  const driveBySlug    = new Map(existingMyne.filter(p => p.slug  && p.driveUrl).map(p => [p.slug,  p.driveUrl]));
+
   // If resuming, pre-load already-scraped myne entries to preserve their slugs
   const newMyne = [];
   if (START_IDX > 0) {
-    const existingMyne = allProps.filter(p => p.partner === 'myne');
     for (const p of existingMyne) {
       newMyne.push(p);
       takenSlugs.add(p.slug);
@@ -464,13 +481,16 @@ async function main() {
 
       console.log(`  ✅ ${title} — ${images.length} photos (${status})`);
 
-      // Drive upload
+      // Drive upload — or restore existing driveUrl if not uploading
       let driveUrl = null;
       if (drive && !DRY_RUN) {
         const folderName = `${h1Title} - Myne`;
         const folderId   = await createDriveFolder(drive, folderName);
         await uploadImages(drive, folderId, images);
         driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
+      } else {
+        // Preserve any existing Drive folder URL from a previous run
+        driveUrl = driveByNotes.get(url) || driveBySlug.get(slug) || null;
       }
 
       const hero = images.slice(0, 3);
