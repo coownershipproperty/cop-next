@@ -16,39 +16,73 @@ export async function getStaticProps() {
   return { props: { allProperties: JSON.parse(data) } };
 }
 
-const COUNTRY_FLAGS = {
-  Spain: '🇪🇸', France: '🇫🇷', Italy: '🇮🇹',
-  USA: '🇺🇸', England: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', Mexico: '🇲🇽',
-  Austria: '🇦🇹', Germany: '🇩🇪', Croatia: '🇭🇷',
-  Portugal: '🇵🇹', Sweden: '🇸🇪', 'United Kingdom': '🇬🇧',
+// Fixed top-country order (everything else → "Other")
+const TOP_COUNTRIES = ['France', 'Spain', 'USA', 'Italy'];
+const COUNTRY_FLAGS  = {
+  France: '🇫🇷', Spain: '🇪🇸', USA: '🇺🇸', Italy: '🇮🇹',
 };
 
+// Regions with fewer than this many properties get rolled into "Other"
+const REGION_MIN = 2;
+
 export default function OurHomes({ allProperties }) {
-  const [country, setCountry] = useState('');
-  const [sort, setSort] = useState('default');
+  const [country, setCountry] = useState('');   // '' = All, 'OTHER' = Other countries
+  const [region,  setRegion]  = useState('');   // '' = all regions, 'OTHER' = grouped rest
+  const [sort,    setSort]    = useState('default');
 
-  // Unique countries for filter buttons
-  const countries = useMemo(() => {
+  // Derived region list for the selected country (only for the 4 top countries)
+  const regionData = useMemo(() => {
+    if (!country || country === 'OTHER') return { main: [], otherNames: [] };
     const counts = {};
-    allProperties.forEach(p => {
-      counts[p.country] = (counts[p.country] || 0) + 1;
-    });
-    return Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .map(([c]) => c);
-  }, [allProperties]);
+    allProperties
+      .filter(p => p.country === country && p.region)
+      .forEach(p => { counts[p.region] = (counts[p.region] || 0) + 1; });
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const main       = sorted.filter(([, c]) => c >= REGION_MIN).map(([r]) => r);
+    const otherNames = sorted.filter(([, c]) => c <  REGION_MIN).map(([r]) => r);
+    return { main, otherNames };
+  }, [allProperties, country]);
 
-  // Filter + sort
+  const showRegionRow    = regionData.main.length > 0;
+  const hasOtherRegions  = regionData.otherNames.length > 0;
+
+  // Filtered + sorted property list
   const filtered = useMemo(() => {
-    let list = country
-      ? allProperties.filter(p => p.country === country)
-      : [...allProperties];
+    let list = [...allProperties];
 
+    // Country filter
+    if (country === 'OTHER') {
+      list = list.filter(p => !TOP_COUNTRIES.includes(p.country));
+    } else if (country) {
+      list = list.filter(p => p.country === country);
+    }
+
+    // Region filter (only relevant when a specific top country is active)
+    if (region === 'OTHER') {
+      list = list.filter(p => regionData.otherNames.includes(p.region));
+    } else if (region) {
+      list = list.filter(p => p.region === region);
+    }
+
+    // Sort
     if (sort === 'asc')  list.sort((a, b) => (a.price || 0) - (b.price || 0));
     if (sort === 'desc') list.sort((a, b) => (b.price || 0) - (a.price || 0));
 
     return list;
-  }, [allProperties, country, sort]);
+  }, [allProperties, country, region, sort, regionData]);
+
+  const hasActiveFilters = country || sort !== 'default';
+
+  function handleCountry(c) {
+    setCountry(c);
+    setRegion('');   // always reset region when switching country
+  }
+
+  function clearAll() {
+    setCountry('');
+    setRegion('');
+    setSort('default');
+  }
 
   return (
     <>
@@ -67,29 +101,62 @@ export default function OurHomes({ allProperties }) {
         <p className="page-hero-sub">Handpicked luxury co-ownership properties across Europe, the USA and beyond — find the home that&apos;s right for you.</p>
       </section>
 
-      {/* Filter bar */}
+      {/* ── Filter bar ── */}
       <div className="filter-bar" id="filter-bar">
+
+        {/* Row 1 — Country */}
         <div className="filter-row">
           <span className="filter-label">Country</span>
           <div className="filter-scroll-outer">
             <div className="filter-scroll-wrap">
               <button
                 className={`filter-btn${country === '' ? ' active' : ''}`}
-                onClick={() => setCountry('')}
+                onClick={() => handleCountry('')}
               >All</button>
-              {countries.map(c => (
+
+              {TOP_COUNTRIES.map(c => (
                 <button
                   key={c}
                   className={`filter-btn${country === c ? ' active' : ''}`}
-                  onClick={() => setCountry(c)}
+                  onClick={() => handleCountry(c)}
                 >
-                  {COUNTRY_FLAGS[c] || ''} {c}
+                  {COUNTRY_FLAGS[c]} {c}
                 </button>
               ))}
+
+              <button
+                className={`filter-btn${country === 'OTHER' ? ' active' : ''}`}
+                onClick={() => handleCountry('OTHER')}
+              >🌐 Other</button>
             </div>
           </div>
         </div>
 
+        {/* Row 2 — Region (only when a top country is selected and has regions) */}
+        {showRegionRow && (
+          <div className="filter-row">
+            <span className="filter-label">Region</span>
+            <div className="filter-scroll-outer">
+              <div className="filter-scroll-wrap">
+                {regionData.main.map(r => (
+                  <button
+                    key={r}
+                    className={`filter-btn${region === r ? ' active' : ''}`}
+                    onClick={() => setRegion(region === r ? '' : r)}
+                  >{r}</button>
+                ))}
+                {hasOtherRegions && (
+                  <button
+                    className={`filter-btn${region === 'OTHER' ? ' active' : ''}`}
+                    onClick={() => setRegion(region === 'OTHER' ? '' : 'OTHER')}
+                  >Other</button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Row 3 — Sort + Clear + CTA */}
         <div className="filter-row">
           <span className="filter-label">Sort</span>
           <div className="filter-scroll-outer">
@@ -101,42 +168,40 @@ export default function OurHomes({ allProperties }) {
                   onClick={() => setSort(val)}
                 >{label}</button>
               ))}
-              {(country || sort !== 'default') && (
-                <button
-                  className="clear-btn"
-                  onClick={() => { setCountry(''); setSort('default'); }}
-                >✕ Clear</button>
+              {hasActiveFilters && (
+                <button className="clear-btn" onClick={clearAll}>✕ Clear</button>
               )}
-              <a href="#speak-to-expert" className="interested-btn">I&apos;m Interested</a>
             </div>
           </div>
+          <a href="#speak-to-expert" className="interested-btn">I&apos;M INTERESTED</a>
         </div>
-      </div>
+
+      </div>{/* end filter-bar */}
 
       {/* Cream section wrapper */}
       <div className="our-homes-section">
-      {/* Results count */}
-      <div className="results-bar">
-        <p className="results-count">
-          <strong>{filtered.length}</strong> {filtered.length === 1 ? 'property' : 'properties'} found
-        </p>
-      </div>
 
-      {/* Property grid */}
-      <div className="homes-grid-wrap">
-        {filtered.length > 0 ? (
-          <div className="homes-grid" id="homes-grid">
-            {filtered.map(p => <PropertyCard key={p.slug} property={p} />)}
-          </div>
-        ) : (
-          <div className="no-results">
-            <p>No properties match your filters.</p>
-            <button className="clear-btn" onClick={() => { setCountry(''); setSort('default'); }}>
-              Clear filters
-            </button>
-          </div>
-        )}
-      </div>
+        {/* Results count */}
+        <div className="results-bar">
+          <p className="results-count">
+            <strong>{filtered.length}</strong> {filtered.length === 1 ? 'property' : 'properties'} found
+          </p>
+        </div>
+
+        {/* Property grid */}
+        <div className="homes-grid-wrap">
+          {filtered.length > 0 ? (
+            <div className="homes-grid" id="homes-grid">
+              {filtered.map(p => <PropertyCard key={p.slug} property={p} />)}
+            </div>
+          ) : (
+            <div className="no-results">
+              <p>No properties match your filters.</p>
+              <button className="clear-btn" onClick={clearAll}>Clear filters</button>
+            </div>
+          )}
+        </div>
+
       </div>{/* end our-homes-section */}
 
       <Newsletter />
