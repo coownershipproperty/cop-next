@@ -126,6 +126,8 @@ export default function PropertyPage({ property: p, similar }) {
   const [lightbox, setLightbox] = useState(null);
   const [mobileSlide, setMobileSlide] = useState(0);
   const [saved, setSaved] = useState(false);
+  const [descExpanded, setDescExpanded] = useState(false);
+  const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.images[0] || '/images/placeholder.jpg';
   const partnerLabel = PARTNER_LABEL[p.partner] || p.partner;
 
@@ -295,9 +297,20 @@ export default function PropertyPage({ property: p, similar }) {
           {/* Description */}
           <div className="pp-desc">
             <h2 className="pp-heading">About This Property</h2>
-            {p.description
-              ? p.description.split('\n').filter(Boolean).map((para, i) => <p key={i}>{para}</p>)
-              : <p className="pp-desc-empty">Full details coming soon. Use the enquiry form to get in touch.</p>}
+            {p.description ? (() => {
+              const paras = p.description.split('\n').filter(Boolean);
+              const visible = descExpanded ? paras : paras.slice(0, 1);
+              return (
+                <>
+                  {visible.map((para, i) => <p key={i}>{para}</p>)}
+                  {paras.length > 1 && (
+                    <button className="pp-seemore" onClick={() => setDescExpanded(v => !v)}>
+                      {descExpanded ? 'See less ↑' : 'See more ↓'}
+                    </button>
+                  )}
+                </>
+              );
+            })() : <p className="pp-desc-empty">Full details coming soon. Use the enquiry form to get in touch.</p>}
           </div>
 
           {/* Amenities — 2-column bullet list */}
@@ -305,12 +318,17 @@ export default function PropertyPage({ property: p, similar }) {
             <div className="pp-amenities">
               <h2 className="pp-heading">Features &amp; Amenities</h2>
               <ul className="pp-amenity-list">
-                {p.amenities.map((a, i) => (
+                {(amenExpanded ? p.amenities : p.amenities.slice(0, 6)).map((a, i) => (
                   <li key={i} className="pp-amenity-item">
                     <span className="pp-amenity-dot">·</span>{a}
                   </li>
                 ))}
               </ul>
+              {p.amenities.length > 6 && (
+                <button className="pp-seemore" onClick={() => setAmenExpanded(v => !v)}>
+                  {amenExpanded ? 'See less ↑' : `See all ${p.amenities.length} amenities ↓`}
+                </button>
+              )}
             </div>
           )}
 
@@ -378,7 +396,6 @@ export default function PropertyPage({ property: p, similar }) {
       {showUnlock && <UnlockModal propertyTitle={p.title} driveUrl={p.driveUrl} onClose={() => setShowUnlock(false)} />}
 
       <Newsletter />
-      <ExpertForm />
       <Footer />
     </>
   );

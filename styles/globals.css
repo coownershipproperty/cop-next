@@ -6066,6 +6066,28 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Save button: saved state ── */
 .pp-save.saved { background: var(--warm-gold); color: #fff; border-color: var(--warm-gold); }
 
+/* ── See more / See less button (mobile only) ── */
+.pp-seemore {
+  display: none; /* hidden on desktop */
+}
+@media (max-width: 768px) {
+  .pp-seemore {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--blue);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    letter-spacing: 0.04em;
+    opacity: 0.75;
+  }
+  .pp-seemore:active { opacity: 1; }
+}
+
 /* ══════════════════════════════════════════════════
    MOBILE PROPERTY CAROUSEL
    ══════════════════════════════════════════════════ */
@@ -6082,8 +6104,8 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
     display: block;
     position: relative;
     width: 100%;
-    height: 72vw;
-    max-height: 420px;
+    height: 90vw;
+    max-height: 560px;
     overflow: hidden;
     margin-top: 70px;
     background: #000;
