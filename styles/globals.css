@@ -248,7 +248,7 @@ img {
                 backdrop-filter: blur(12px);
                 -webkit-backdrop-filter: blur(12px);
                 box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-                border-bottom: 1px solid rgba(201,168,76,0.2);
+                border-bottom: none;
                 padding: 0.9rem 1.5rem;
             }
             /* Hamburger on left */
@@ -2269,17 +2269,29 @@ footer {
 @media (max-width: 768px) {
             /* Header mobile handled by shared partial */
 
+            /* Hero fits entire visible phone screen — 100svh excludes browser chrome */
+            .hero {
+                height: 100svh;
+                min-height: unset;
+            }
+
+            /* Darken overlay slightly more on mobile for readability */
+            .hero-overlay {
+                background: linear-gradient(135deg, rgba(20,40,55,0.78) 0%, rgba(20,40,55,0.65) 50%, rgba(20,40,55,0.78) 100%);
+            }
+
             .hero-content {
-                padding: 0 1.5rem 5rem;
+                padding: 0 1.5rem 3rem;
             }
 
             .hero-heading {
                 font-size: 2.6rem;
                 max-width: 100%;
+                margin-bottom: 1.8rem;
             }
 
             .hero-bottom {
-                padding: 0 1.5rem 2rem;
+                padding: 0 1.5rem 1.8rem;
             }
 
             /* ── Hero CTA buttons ── */
@@ -4340,7 +4352,7 @@ button { font-family: inherit; cursor: pointer; }
                 backdrop-filter: blur(12px);
                 -webkit-backdrop-filter: blur(12px);
                 box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-                border-bottom: 1px solid rgba(201,168,76,0.2);
+                border-bottom: none;
                 padding: 0.9rem 1.5rem;
             }
             /* Hamburger on left */
