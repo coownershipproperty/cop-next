@@ -3291,7 +3291,7 @@ body { font-family:'Nunito Sans',sans-serif; color:var(--text-dark); background:
 
 .page-hero .subtitle { font-size:1rem; color:rgba(255,255,255,0.7); max-width:520px; margin:0 auto; line-height:1.7; }
 
-.hero-ctas { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; }
+.page-hero .hero-ctas { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; }
 
 .btn { display:inline-block; padding:14px 36px; font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; font-family:'Nunito Sans',sans-serif; transition:all var(--transition); cursor:pointer; border:none; }
 
