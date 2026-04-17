@@ -246,9 +246,9 @@ export default function OurHomes({ allProperties }) {
               {hasActiveFilters && (
                 <button className="clear-btn" onClick={clearAll}>✕ Clear</button>
               )}
+              <a href="#speak-to-expert" className="interested-btn">I&apos;M INTERESTED</a>
             </div>
           </div>
-          <a href="#speak-to-expert" className="interested-btn">I&apos;M INTERESTED</a>
         </div>
 
       </div>{/* end filter-bar */}

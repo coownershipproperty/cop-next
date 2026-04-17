@@ -2776,9 +2776,7 @@ img { display:block; max-width:100%; height:auto; }
             margin-left:0.5rem;
         }
 
-.interested-btn,
-        .interested-btn:hover,
-        .interested-btn:visited { color:#fff !important; background:#b8942e; }
+.interested-btn:hover { background:#b8942e; }
 
 .interested-btn { background:var(--warm-gold); }
 
