@@ -2390,7 +2390,8 @@ footer {
             .dest-panels { padding: 0 1.5rem; }
 
             .destinations-section {
-                padding: 60px 1.5rem;
+                padding: 60px 0;
+                overflow: visible; /* allow tab strip to scroll horizontally */
             }
 
             .how-it-works-section {
