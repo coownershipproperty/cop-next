@@ -2331,6 +2331,28 @@ footer {
             /* Hide duplicate country name & gold outline on mobile */
             .dest-info-name { display: none; }
             .dest-country-outline { display: none !important; }
+            /* Destination tab labels — bigger, fully opaque */
+            .dest-tab-btn {
+                font-size: 0.88rem;
+                color: rgba(255,255,255,0.85);
+            }
+            .dest-tab-btn.active { color: var(--warm-gold); }
+            /* Info text — centred, more breathing room, less transparent */
+            .dest-info {
+                text-align: center;
+                padding-top: 1.4rem;
+            }
+            .dest-info-desc {
+                color: rgba(255,255,255,0.88);
+                font-size: 0.92rem;
+                margin-bottom: 1.6rem;
+            }
+            /* Explore button — centred */
+            .dest-explore-btn {
+                display: block;
+                width: fit-content;
+                margin: 0 auto;
+            }
             .explainer-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
             .explainer-section { padding: 60px 1.5rem; }
 
