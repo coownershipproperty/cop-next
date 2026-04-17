@@ -5294,6 +5294,47 @@ section.props-sec,
   .footer-inner { grid-template-columns: 1fr; }
 }
 
+/* ── WhatsApp floating button ───────────────────────────────── */
+.wa-fab {
+  display: none; /* desktop: hidden */
+}
+
+@media (max-width: 768px) {
+  .wa-fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 22px;
+    right: 18px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.28);
+    z-index: 99999;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: wa-pulse 2.8s ease-in-out infinite;
+  }
+
+  .wa-fab svg {
+    width: 56px;
+    height: 56px;
+    display: block;
+  }
+
+  .wa-fab:active {
+    transform: scale(0.93);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+    animation: none;
+  }
+
+  @keyframes wa-pulse {
+    0%   { box-shadow: 0 4px 18px rgba(37,211,102,0.4); }
+    50%  { box-shadow: 0 4px 28px rgba(37,211,102,0.75); }
+    100% { box-shadow: 0 4px 18px rgba(37,211,102,0.4); }
+  }
+}
+
 /* ── Logo text in header ─────────────────────────────────────── */
 .cop-logo-link {
   text-decoration: none;
