@@ -3007,7 +3007,7 @@ img { display:block; max-width:100%; height:auto; }
 .clear-btn:hover { border-color:var(--blue); color:var(--blue); }
 
 @media (max-width:768px) {
-            .filter-bar { padding:0.9rem 0; }
+            .filter-bar { padding:0.9rem 0; position: static; }
 
             /* Hide labels to save space — context is obvious */
             .filter-label { display: none; }
