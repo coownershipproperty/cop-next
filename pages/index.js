@@ -226,7 +226,7 @@ export default function Home({ propertyCount, featuredProps }) {
         {/* Hero Bottom Section */}
         <div className="hero-bottom">
             <div className="hero-ctas">
-                <a href="/properties" className="hero-cta-primary">Browse Properties &rarr;</a>
+                <a href="/our-homes" className="hero-cta-primary">Browse Properties &rarr;</a>
                 <a href="/how-it-works" className="hero-cta-secondary">How It Works</a>
             </div>
         </div>
