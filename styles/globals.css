@@ -6155,7 +6155,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* Image wrapper — landscape ratio to match property photos */
 .pc-img-wrap {
   width: 430px;
-  height: 290px;
+  height: 340px;
   overflow: hidden;
   border-radius: 3px;
   background: #e8e0d4;
