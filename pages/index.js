@@ -584,7 +584,6 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
               <div className="lp-content">
                 <span className="lp-date">{post.dateFormatted}</span>
                 <h3 className="lp-title">{post.title}</h3>
-                {post.excerpt && <p className="lp-excerpt">{post.excerpt.length > 120 ? post.excerpt.slice(0, 120) + '…' : post.excerpt}</p>}
                 <a href={`/blog/${post.slug}/`} className="lp-read-more" onClick={e => e.stopPropagation()}>Read Article →</a>
               </div>
             </article>
