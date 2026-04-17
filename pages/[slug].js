@@ -238,7 +238,7 @@ export async function getStaticProps({ params }) {
     }
   }
 
-  const heroHtml = splitIdx > 0 ? body.slice(0, splitIdx).trim() : body.trim();
+  let heroHtml = splitIdx > 0 ? body.slice(0, splitIdx).trim() : body.trim();
   let restHtml = splitIdx > 0 ? body.slice(splitIdx).trim() : '';
 
   // ── Clean up staging content ──────────────────────────────────
@@ -250,6 +250,9 @@ export async function getStaticProps({ params }) {
   restHtml = restHtml.replace(/<h2([^>]*)>[^<]*?—\s*Frequently Asked Questions<\/h2>/g, '<h2$1>Frequently Asked Questions</h2>');
   // Fix staging image URLs
   restHtml = restHtml.replace(/https:\/\/staging\.co-ownership-property\.com\//g, 'https://co-ownership-property.com/');
+  // Fix newsletter CTA — "#contact" doesn't exist; point to the Newsletter section
+  restHtml = restHtml.replace(/href="#contact"/g, 'href="#newsletter"');
+  heroHtml = heroHtml.replace(/href="#contact"/g, 'href="#newsletter"');
   
   // Build related destinations list
   const related = (RELATED[slug] || []).map(s => ({ slug: s, label: destLabel(s) }));

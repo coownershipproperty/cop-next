@@ -51,7 +51,19 @@ export async function getStaticProps() {
       price: p.price || null,
       currency: p.currency || 'EUR',
     }));
-  return { props: { propertyCount: data.length, featuredProps } };
+
+  // Latest 3 blog posts
+  const allPosts = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
+  const latestPosts = allPosts.slice(0, 3).map(p => ({
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt || p.subtitle || '',
+    dateFormatted: p.dateFormatted || '',
+    heroImage: p.heroImage || '',
+    category: p.category || '',
+  }));
+
+  return { props: { propertyCount: data.length, featuredProps, latestPosts } };
 }
 
 const CARD_W = 430;
@@ -192,7 +204,7 @@ function PropCarousel({ items, propertyCount }) {
   );
 }
 
-export default function Home({ propertyCount, featuredProps }) {
+export default function Home({ propertyCount, featuredProps, latestPosts }) {
   const [activeDest, setActiveDest] = useState('france');
   return (
     <>
@@ -350,7 +362,7 @@ export default function Home({ propertyCount, featuredProps }) {
         <p className="cta-band-sub">From a villa on the Côte d'Azur to a chalet in Aspen — fractional ownership gives you a genuine stake in the world's finest homes, at a fraction of the cost.</p>
         <div className="cta-band-buttons">
             <a href="#speak-to-expert" className="cta-band-primary">Speak to an Expert</a>
-            <a href="#contact" className="cta-band-secondary">Subscribe to Newsletter</a>
+            <a href="#newsletter" className="cta-band-secondary">Subscribe to Newsletter</a>
         </div>
     </section>
 
@@ -562,52 +574,22 @@ export default function Home({ propertyCount, featuredProps }) {
         <p className="lp-subtitle">Destination guides, market analysis and ownership stories — published daily for the discerning buyer.</p>
 
         <div className="latest-posts-grid">
-                        <article className="lp-card" onClick={() => { window.location='https://staging.co-ownership-property.com/the-algarve-golden-triangle-why-portugals-most-exclusive-coast-is-europes-smartest-co-ownership-destination-in-2026/' }}>
-                                <div className="lp-image-wrap">
-                    <img src="https://co-ownership-property.com/wp-content/uploads/2026/04/algarve-golden-triangle-co-ownership-luxury-property-2026-hero-768x1152.jpg"
-                         alt="The Algarve Golden Triangle: Why Portugal&#8217;s Most Exclusive Coast Is Europe&#8217;s Smartest Co-Ownership Destination in 2026"
-                         className="lp-image"
-                         loading="lazy"
-                         decoding="async" />
-                </div>
-                                <div className="lp-content">
-                    <span className="lp-date">13 Apr 2026</span>
-                    <h3 className="lp-title">The Algarve Golden Triangle: Why Portugal&#8217;s Most Exclusive Coast Is Europe&#8217;s Smartest Co-Ownership Destination in 2026</h3>
-                    <p className="lp-excerpt">Discover why the Algarve&#039;s Golden Triangle is Europe&#039;s top co-ownership destination in 2026. Quinta do Lago, Vale do Lobo fractional…</p>
-                    <a href="https://staging.co-ownership-property.com/the-algarve-golden-triangle-why-portugals-most-exclusive-coast-is-europes-smartest-co-ownership-destination-in-2026/" className="lp-read-more">Read Article →</a>
-                </div>
+          {latestPosts.map(post => (
+            <article key={post.slug} className="lp-card" onClick={() => { window.location=`/blog/${post.slug}/`; }}>
+              <div className="lp-image-wrap">
+                {post.heroImage && (
+                  <img src={post.heroImage} alt={post.title} className="lp-image" loading="lazy" decoding="async" />
+                )}
+              </div>
+              <div className="lp-content">
+                <span className="lp-date">{post.dateFormatted}</span>
+                <h3 className="lp-title">{post.title}</h3>
+                {post.excerpt && <p className="lp-excerpt">{post.excerpt.length > 120 ? post.excerpt.slice(0, 120) + '…' : post.excerpt}</p>}
+                <a href={`/blog/${post.slug}/`} className="lp-read-more" onClick={e => e.stopPropagation()}>Read Article →</a>
+              </div>
             </article>
-                        <article className="lp-card" onClick={() => { window.location='https://staging.co-ownership-property.com/three-paths-luxury-fractional-ownership-success-stories/' }}>
-                                <div className="lp-image-wrap">
-                    <img src="https://co-ownership-property.com/wp-content/uploads/2026/04/three-paths-luxury-fractional-ownership-success-stories-hero-768x512.jpg"
-                         alt="Three Paths to Luxury: How Real Buyers Are Using Fractional Ownership to Transform Their Holiday Home Experience"
-                         className="lp-image"
-                         loading="lazy"
-                         decoding="async" />
-                </div>
-                                <div className="lp-content">
-                    <span className="lp-date">12 Apr 2026</span>
-                    <h3 className="lp-title">Three Paths to Luxury: How Real Buyers Are Using Fractional Ownership to Transform Their Holiday Home Experience</h3>
-                    <p className="lp-excerpt">Discover how three different buyer profiles transformed their holiday home experience through fractional ownership — from downsizers to first-time luxury…</p>
-                    <a href="https://staging.co-ownership-property.com/three-paths-luxury-fractional-ownership-success-stories/" className="lp-read-more">Read Article →</a>
-                </div>
-            </article>
-                        <article className="lp-card" onClick={() => { window.location='https://staging.co-ownership-property.com/idle-asset-problem-fractional-ownership-investment-second-homes/' }}>
-                                <div className="lp-image-wrap">
-                    <img src="https://co-ownership-property.com/wp-content/uploads/2026/04/idle-asset-problem-fractional-ownership-investment-second-homes-hero-768x512.jpg"
-                         alt="The Idle Asset Problem: Why Smart Investors Are Choosing Fractional Ownership Over Empty Second Homes"
-                         className="lp-image"
-                         loading="lazy"
-                         decoding="async" />
-                </div>
-                                <div className="lp-content">
-                    <span className="lp-date">12 Apr 2026</span>
-                    <h3 className="lp-title">The Idle Asset Problem: Why Smart Investors Are Choosing Fractional Ownership Over Empty Second Homes</h3>
-                    <p className="lp-excerpt">Discover why smart investors are switching from underused second homes to fractional ownership. Cut costs by 87%, enjoy 45 days…</p>
-                    <a href="https://staging.co-ownership-property.com/idle-asset-problem-fractional-ownership-investment-second-homes/" className="lp-read-more">Read Article →</a>
-                </div>
-            </article>
-                    </div>
+          ))}
+        </div>
 
         <div className="lp-footer">
             <a href="/all-our-blog/" className="lp-all-btn">View All Articles</a>
