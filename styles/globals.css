@@ -6259,7 +6259,9 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
     padding: 24px;
     cursor: pointer;
     text-align: center;
-    /* background comes from blurred image layer */
+    position: relative;
+    overflow: hidden;
+    background: var(--blue); /* fallback if image fails */
   }
 
   .pp-mob-lock svg {

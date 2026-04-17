@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import path from 'path';
 import fs from 'fs';
 import Header from '@/components/Header';
@@ -130,6 +130,7 @@ export default function PropertyPage({ property: p, similar }) {
   const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.images[0] || '/images/placeholder.jpg';
   const partnerLabel = PARTNER_LABEL[p.partner] || p.partner;
+  const touchStartX = useRef(null);
 
   // Sync saved state from localStorage on mount
   useEffect(() => {
@@ -203,7 +204,17 @@ export default function PropertyPage({ property: p, similar }) {
       <Header />
 
       {/* ── Mobile carousel (hidden on desktop) ── */}
-      <div className="pp-mob-carousel">
+      <div
+        className="pp-mob-carousel"
+        onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
+        onTouchEnd={e => {
+          if (touchStartX.current === null) return;
+          const diff = touchStartX.current - e.changedTouches[0].clientX;
+          if (diff > 40) setMobileSlide(s => Math.min(s + 1, mobileSlides.length - 1));
+          else if (diff < -40) setMobileSlide(s => Math.max(s - 1, 0));
+          touchStartX.current = null;
+        }}
+      >
         <button className={`pp-heart-btn${saved ? ' saved' : ''}`} onClick={toggleSave} aria-label={saved ? 'Remove from favourites' : 'Save property'}>
           {saved
             ? <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="currentColor" stroke="currentColor" strokeWidth="1.8"/></svg>
