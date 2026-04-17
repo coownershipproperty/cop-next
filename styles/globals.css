@@ -6126,20 +6126,31 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 }
 @media (max-width: 768px) {
   .pp-seemore {
-    display: inline-block;
-    margin-top: 0.75rem;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 1.1rem;
     background: none;
     border: none;
     cursor: pointer;
     padding: 0;
-    letter-spacing: 0.04em;
-    opacity: 0.75;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(20,48,71,0.45);
+    white-space: nowrap;
   }
-  .pp-seemore:active { opacity: 1; }
+  .pp-seemore::before,
+  .pp-seemore::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(20,48,71,0.12);
+  }
+  .pp-seemore:active { color: rgba(20,48,71,0.7); }
 }
 
 /* ══════════════════════════════════════════════════

@@ -312,7 +312,7 @@ export default function PropertyPage({ property: p, similar }) {
                   {visible.map((para, i) => <p key={i}>{para}</p>)}
                   {paras.length > 1 && (
                     <button className="pp-seemore" onClick={() => setDescExpanded(v => !v)}>
-                      {descExpanded ? 'See less ↑' : 'See more ↓'}
+                      {descExpanded ? 'Show less' : 'Read more'}
                     </button>
                   )}
                 </>
@@ -333,7 +333,7 @@ export default function PropertyPage({ property: p, similar }) {
               </ul>
               {p.amenities.length > 6 && (
                 <button className="pp-seemore" onClick={() => setAmenExpanded(v => !v)}>
-                  {amenExpanded ? 'See less ↑' : `See all ${p.amenities.length} amenities ↓`}
+                  {amenExpanded ? 'Show less' : `All ${p.amenities.length} amenities`}
                 </button>
               )}
             </div>
