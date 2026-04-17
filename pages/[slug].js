@@ -27,13 +27,7 @@ const DEST_FILTERS = {
   "mallorca-fractional-ownership-properties":     { country: "Spain", region: "Mallorca" },
   "ibiza-fractional-ownership-properties":        { country: "Spain", region: "Ibiza" },
   "menorca-fractional-ownership-properties":      { country: "Spain", region: "Menorca" },
-  "formentera-fractional-ownership":              { country: "Spain", region: "Formentera" },
-  "alcudia-port-dalcudia-fractional-ownership-properties": { country: "Spain", city: "Alcudia" },
-  "andratx-fractional-ownership-properties-co-ownership-property": { country: "Spain", city: "Andratx" },
-  "pollenca-port-de-pollenca-fractional-ownership-properties": { country: "Spain", city: "Pollenca" },
-  "santa-ponsa-fractional-ownership-properties":  { country: "Spain", city: "Santa Ponsa" },
-  "santanyi-fractional-ownership-properties":     { country: "Spain", city: "Santanyi" },
-  "canary-islands-fractional-ownership-properties": { country: "Spain", region: "Canary Islands" },
+  "canary-islands-fractional-ownership-properties": { country: "Spain", region: "Tenerife" },
 
   // ── SPANISH COSTAS ─────────────────────────────────────────────
   "costa-del-sol-fractional-ownership-properties": { country: "Spain", region: "Costa del Sol" },
@@ -43,10 +37,10 @@ const DEST_FILTERS = {
   "spanish-costas-fractional-ownership-properties": { country: "Spain", regions: ["Costa del Sol","Costa Blanca","Costa de la Luz"] },
   "barcelona-fractional-ownership-for-sale":        { country: "Spain", city: "Barcelona" },
   "madrid-fractional-ownership-properties":         { country: "Spain", region: "Madrid" },
-  "pyrenees-mountains-fractional-ownership-properties": { country: "Spain", region: "Pyrenees" },
+  "pyrenees-mountains-fractional-ownership-properties": { country: "Spain", region: "Baqueira" },
 
   // ── FRANCE ─────────────────────────────────────────────────────
-  "french-alps-fractional-ownership-properties":    { country: "France", region: "French Alps" },
+  "french-alps-fractional-ownership-properties":    { country: "France", regions: ["French Alps", "Portes du Soleil"] },
   "south-of-france-fractional-ownership-properties": { country: "France", region: "South of France" },
   "paris-fractional-ownership-properties":           { country: "France", region: "Paris" },
 
@@ -131,13 +125,6 @@ const RELATED = {
   "lake-tahoe-fractional-ownership-properties":  ["california-fractional-ownership-properties","colorado-fractional-ownership-properties","usa-fractional-ownership-properties"],
   "palm-springs-fractional-ownership-desert-modern-luxury": ["california-fractional-ownership-properties","newport-beach-fractional-ownership","usa-fractional-ownership-properties"],
 
-  // Mallorca sub-destinations
-  "alcudia-port-dalcudia-fractional-ownership-properties":  ["mallorca-fractional-ownership-properties","pollenca-port-de-pollenca-fractional-ownership-properties","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
-  "andratx-fractional-ownership-properties-co-ownership-property": ["mallorca-fractional-ownership-properties","santa-ponsa-fractional-ownership-properties","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
-  "pollenca-port-de-pollenca-fractional-ownership-properties": ["mallorca-fractional-ownership-properties","alcudia-port-dalcudia-fractional-ownership-properties","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
-  "santa-ponsa-fractional-ownership-properties": ["mallorca-fractional-ownership-properties","andratx-fractional-ownership-properties-co-ownership-property","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
-  "santanyi-fractional-ownership-properties":    ["mallorca-fractional-ownership-properties","santa-ponsa-fractional-ownership-properties","ibiza-fractional-ownership-properties","balearics-fractional-ownership-properties"],
-  "formentera-fractional-ownership":             ["ibiza-fractional-ownership-properties","mallorca-fractional-ownership-properties","balearics-fractional-ownership-properties","spain-fractional-ownership-properties"],
   "canary-islands-fractional-ownership-properties": ["spain-fractional-ownership-properties","balearics-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties"],
   // USA — Florida sub-destinations
   "florida-keys-fractional-ownership":           ["miami-fractional-ownership","florida-fractional-ownership-properties","usa-fractional-ownership-properties"],
@@ -171,7 +158,9 @@ function destLabel(slug) {
 
 function matchesFilter(prop, filter) {
   for (const [key, val] of Object.entries(filter)) {
-    const propVal = (prop[key === 'cities' ? 'city' : key] || '').trim();
+    // Map plural filter keys to singular property fields
+    const propKey = key === 'cities' ? 'city' : key === 'regions' ? 'region' : key;
+    const propVal = (prop[propKey] || '').trim();
     if (!propVal) return false; // empty field never matches a filter
     if (key === 'regions') {
       if (!val.some(v => propVal.toLowerCase().includes(v.toLowerCase()))) return false;
