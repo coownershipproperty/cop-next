@@ -17,7 +17,7 @@
 | `pacaso` | ✅ Good | Images, descriptions, Drive all correct |
 | `andhamlet` | ✅ Good | 11 properties; scraper at `scripts/scrape-andhamlet.js` |
 | `vivla` | ✅ Good | 34 properties; single-add: `scripts/add-vivla-property.js`; bulk: `scripts/scrape-vivla-all.js` |
-| `myne` | ⚠️ Partial | Drive folders have only 3 photos (should have more) |
+| `myne` | ✅ Good | 95 properties; single-add: `scripts/add-myne-property.js`; bulk: `scripts/scrape-myne-all.js` |
 
 ## Adding a New And Hamlet Property
 
@@ -113,6 +113,68 @@ node scripts/repopulate-drive-vivla.js --force --start=N --count=8  # safe batch
 
 - Folder name comes from the Vivla slug in `p.notes` URL → `{Slug Title} - Vivla`
   e.g. `casa-son-parc` → `"Casa Son Parc - Vivla"`
+- Trashes the old Drive folder, creates a fresh one, re-uploads all photos
+- Saves `lib/properties.json` after **each** property (resumable if killed)
+- Run in batches of ~8 with `--count=8` to stay within the 10-minute tool timeout
+
+## Adding a New MYNE Property (Single)
+
+```bash
+node scripts/add-myne-property.js \
+  --url https://www.myne-homes.com/listings/SLUG
+```
+
+The script automatically:
+- ❌ Rejects sold-out properties (`propertyStatus` contains "sold")
+- ❌ Rejects discreet-marketing properties (`isDiscreet: true`)
+- ✅ Includes `in-development` / `renovation` / `available` / `normal` statuses
+- ✅ Detects city, country, region, beds, baths from the page
+- ✅ Scrapes gallery images from `/_next/image` patterns (Storyblok CDN)
+- ✅ Extracts full multi-paragraph description (last `description` field before `bedroomsCount`)
+- ✅ Extracts highlights/amenities from `highlights` array
+- ✅ Extracts lat/lng (strips Storyblok internal ID suffix from `locationLong`)
+- ✅ Creates Drive folder named `"{H1 Title} - Myne"` and uploads photos
+- ✅ Auto-generates COP slug + title: `{City}, {Country} — {N}-Bed {Type} With {Feature}`
+- ✅ Saves to `lib/properties.json` with `size: null`, `currency: 'EUR'`, source URL in `notes`
+
+**Type detection** (from URL slug): chalet > penthouse > finca > townhouse > semi-detached(→villa) > villa > apartment > house/home  
+**Feature detection** (from slug + description + subtitle + highlights): pool > sea-views > lake-views > mountain-views > garden > terrace > fireplace
+
+Then commit and push:
+```bash
+git add lib/properties.json
+git commit -m "Add MYNE property: TITLE"
+git push origin main
+```
+
+## Re-scraping All MYNE Properties (Bulk)
+
+```bash
+node scripts/scrape-myne-all.js              # full run
+node scripts/scrape-myne-all.js --dry-run    # preview only, no writes
+node scripts/scrape-myne-all.js --no-drive   # skip Drive uploads
+node scripts/scrape-myne-all.js --start=N    # resume from property N (0-indexed)
+```
+
+- Scrapes https://www.myne-homes.com/listings to extract all public slugs
+- Auto-skips discreet-marketing properties (empty `full_slug` on listings page)
+- Skips sold-out; includes in-development, renovation, available, normal
+- Replaces ALL myne entries in `properties.json` at end
+- Saves JSON after each property (resumable with `--start=N` if killed)
+
+## Repopulating MYNE Drive Folders
+
+Use this to fix missing/empty/wrong-named Drive folders without re-scraping.
+
+```bash
+node scripts/repopulate-drive-myne.js                          # only properties missing driveUrl
+node scripts/repopulate-drive-myne.js --force                  # redo ALL 95 folders
+node scripts/repopulate-drive-myne.js --force --start=N        # resume from index N
+node scripts/repopulate-drive-myne.js --force --start=N --count=8  # safe batch of 8
+```
+
+- Folder name comes from fetching the live MYNE page (stored in `p.notes`) → H1 title + " - Myne"
+  e.g. `"Casita Ses Salines - Myne"`; falls back to COP title if page unreachable
 - Trashes the old Drive folder, creates a fresh one, re-uploads all photos
 - Saves `lib/properties.json` after **each** property (resumable if killed)
 - Run in batches of ~8 with `--count=8` to stay within the 10-minute tool timeout
