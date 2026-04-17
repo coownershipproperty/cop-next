@@ -39,7 +39,7 @@ export default async function handler(req, res) {
     // Notify COP team
     await transporter.sendMail({
       from: `"COP Website" <${fromEmail}>`,
-      to: ['dylan@domosno.com'],
+      to: ['dylan@domosno.com', 'info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
       subject: `Floor Plan Request — ${propertyTitle}`,
       html: `
         <h2>Floor Plan / Photo Request</h2>

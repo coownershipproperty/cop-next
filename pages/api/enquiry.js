@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   try {
     await transporter.sendMail({
       from: `"COP Website" <${fromEmail}>`,
-      to: ['dylan@domosno.com'],
+      to: ['dylan@domosno.com', 'info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
       subject: `New Enquiry${property ? ` — ${property}` : ''} from ${name}`,
       html: `
         <h2>New Enquiry</h2>
