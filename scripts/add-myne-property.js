@@ -164,18 +164,27 @@ function extractGalleryImages(html) {
 }
 
 // ─── Extract description ─────────────────────────────────────────────────────
-// Finds the full multi-paragraph description that belongs to THIS property.
-// Strategy: locate `bedroomsCount`, collect all description fields before it,
-// and pick the LONGEST non-placeholder one.
-// (Some pages have a short SEO desc first + full body desc last; others have
-//  the full desc first and a Storyblok placeholder like "$31" last.)
+// PRIMARY: The full description is server-rendered inside a <p class="typo-body ...">
+// tag in the HTML — this is the "What we love about this property" section.
+// FALLBACK: Parse the Storyblok JS data chunks if the HTML tag isn't found.
+function extractDescriptionFromHtml(html) {
+  const m = html.match(/<p[^>]*class="typo-body[^"]*"[^>]*>([\s\S]*?)<\/p>/);
+  if (!m) return '';
+  return m[1]
+    .replace(/&#x27;/g, "'").replace(/&#39;/g, "'").replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 function extractDescValue(chunk, startIdx) {
   const raw      = chunk.slice(startIdx, startIdx + 5000);
   const endMatch = raw.match(/(?<!\\)\\"/);
   return endMatch ? raw.slice(0, endMatch.index) : raw.slice(0, 3000);
 }
 
-function extractDescription(chunk) {
+function extractDescriptionFromChunk(chunk) {
   const bcIdx   = chunk.indexOf('\\"bedroomsCount\\"');
   const descRe  = /\\"description\\":\\"/g;
   let m;
@@ -185,7 +194,6 @@ function extractDescription(chunk) {
     if (m.index >= bcIdx) continue;
     const startIdx = m.index + m[0].length;
     const val      = extractDescValue(chunk, startIdx);
-    // Skip empty values, Storyblok placeholders like "$31", and doubly-encoded strings
     if (!val || /^\$\d+$/.test(val.trim())) continue;
     if (val.startsWith('\\"') || val.startsWith('\\\\')) continue;
     if (val.length > bestValue.length) bestValue = val;
@@ -193,18 +201,19 @@ function extractDescription(chunk) {
 
   if (!bestValue) return '';
 
-  let text = bestValue
-    .replace(/\\\\n/g, '\n')   // double-backslash-n  (raw HTML encoding)
-    .replace(/\\n/g, '\n')     // single-backslash-n  (fallback)
+  return bestValue
+    .replace(/\\\\n/g, '\n')
+    .replace(/\\n/g, '\n')
     .replace(/\\t/g, ' ')
     .replace(/\\"/g, '"')
     .replace(/\\u[\da-f]{4}/gi, c => String.fromCharCode(parseInt(c.slice(2), 16)))
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s{3,}/g, '\n\n')
     .trim();
+}
 
-  // Strip MYNE brand references
-  text = text
+function cleanDescription(text) {
+  return text
     .replace(/\bMYNE\b/g, '')
     .replace(/\bmyne-homes\.com\b/gi, '')
     .replace(/,?\s+with MYNE[^.]*\./gi, '.')
@@ -212,8 +221,14 @@ function extractDescription(chunk) {
     .replace(/MYNE\s+takes\s+care[^.]*\./gi, '')
     .replace(/  +/g, ' ')
     .trim();
+}
 
-  return text;
+function extractDescription(html, chunk) {
+  const fromHtml  = extractDescriptionFromHtml(html);
+  const fromChunk = extractDescriptionFromChunk(chunk);
+  // Use whichever is longer
+  const best = fromHtml.length >= fromChunk.length ? fromHtml : fromChunk;
+  return cleanDescription(best);
 }
 
 // ─── Extract highlights (shown as "Highlights" section on MYNE pages) ─────────
@@ -468,7 +483,7 @@ async function main() {
   const { beds, baths }     = extractAmenities(html, chunk);
   const price               = extractPrice(html);
   const { lat, lng }        = extractCoords(chunk);
-  const description         = extractDescription(chunk);
+  const description         = extractDescription(html, chunk);
   const highlights          = extractHighlights(chunk);
   const subtitle            = extractSubtitle(chunk);
   const images              = extractGalleryImages(html);
