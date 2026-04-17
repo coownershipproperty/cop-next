@@ -23,9 +23,17 @@ nextConfig.redirects = async () => [
   { source: '/tag/:slug',         destination: '/all-our-blog/', permanent: true },
   { source: '/tag/:slug/',        destination: '/all-our-blog/', permanent: true },
 
-  // Old destination landing pages → our homes with filter
-  { source: '/:slug*-fractional-ownership-properties',  destination: '/our-homes/', permanent: true },
-  { source: '/:slug*-fractional-ownership-properties/', destination: '/our-homes/', permanent: true },
+  // Old WordPress "properties" or "homes" page → our-homes
+  { source: '/properties',  destination: '/our-homes/', permanent: true },
+  { source: '/properties/', destination: '/our-homes/', permanent: true },
+
+  // what-is-fractional-ownership → how it works (linked internally in blog posts)
+  { source: '/what-is-fractional-ownership',  destination: '/how-it-works/', permanent: true },
+  { source: '/what-is-fractional-ownership/', destination: '/how-it-works/', permanent: true },
+
+  // sell-your-fractional-share → how it works
+  { source: '/sell-your-fractional-share',  destination: '/how-it-works/', permanent: true },
+  { source: '/sell-your-fractional-share/', destination: '/how-it-works/', permanent: true },
 ];
 
 module.exports = nextConfig;
