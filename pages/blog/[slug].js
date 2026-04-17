@@ -141,13 +141,6 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
               <a href="https://co-ownership-property.com/client-form/" className="bsb-cta-btn">Book Free Consultation</a>
               <p className="bsb-cta-note">No obligation · Response within 24h</p>
             </div>
-
-            {/* Starting from */}
-            <div className="bsb-from">
-              <p className="bsb-from-label">Starting From</p>
-              <p className="bsb-from-price">€65,000</p>
-              <p className="bsb-from-sub">per 1/8 share</p>
-            </div>
           </div>
 
         </aside>
