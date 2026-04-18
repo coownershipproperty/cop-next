@@ -362,7 +362,19 @@ export default function PropertyPage({ property: p, similar }) {
           <div className="pp-desc">
             <h2 className="pp-heading">About This Property</h2>
             {p.description ? (
-              p.description.split('\n').filter(Boolean).map((para, i) => <p key={i}>{para}</p>)
+              p.description.split('\n').filter(Boolean).map((para, i) => {
+                // Parse **bold** markdown into <strong> tags
+                const parts = para.split(/(\*\*[^*]+\*\*)/g);
+                return (
+                  <p key={i}>
+                    {parts.map((part, j) =>
+                      part.startsWith('**') && part.endsWith('**')
+                        ? <strong key={j}>{part.slice(2, -2)}</strong>
+                        : part
+                    )}
+                  </p>
+                );
+              })
             ) : <p className="pp-desc-empty">Full details coming soon. Use the enquiry form to get in touch.</p>}
           </div>
 
