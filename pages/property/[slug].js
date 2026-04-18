@@ -273,7 +273,7 @@ export default function PropertyPage({ property: p, similar }) {
               </div>
             ) : (
               <div key={i} className="pp-mob-slide pp-mob-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
-                <div className="pp-lock-blur-bg" style={{ backgroundImage: `url(${heroImg})` }} />
+                <div className="pp-lock-blur-bg" style={{ backgroundImage: `url('${heroImg}')` }} />
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
@@ -319,7 +319,7 @@ export default function PropertyPage({ property: p, similar }) {
         </div>
         {/* Bottom-right: lock panel, spans both right columns */}
         <div className="pp-gallery-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
-          <div className="pp-lock-blur-bg" style={{ backgroundImage: `url(${heroImg})` }} />
+          <div className="pp-lock-blur-bg" style={{ backgroundImage: `url('${heroImg}')` }} />
           <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
           </svg>
@@ -458,7 +458,7 @@ export default function PropertyPage({ property: p, similar }) {
             <button className="pp-lb-prev" onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + total) % total); }}>‹</button>
             {isLockSlide ? (
               <div className="pp-lb-lock" onClick={e => { e.stopPropagation(); setLightbox(null); setShowUnlock(true); }}>
-                <div className="pp-lb-lock-blur" style={{ backgroundImage: `url(${heroImg})` }} />
+                <div className="pp-lb-lock-blur" style={{ backgroundImage: `url('${heroImg}')` }} />
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{width:40,height:40,marginBottom:12,color:'#fff'}}>
                   <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
