@@ -385,7 +385,7 @@ export default function PropertyPage({ property: p, similar }) {
               <ul className="pp-amenity-list">
                 {p.amenities.map((a, i) => (
                   <li key={i} className={`pp-amenity-item${i >= 6 ? ' pp-amenity-extra' : ''}`}>
-                    <span className="pp-amenity-dot">·</span>{a}
+                    <span className="pp-amenity-dot"></span>{a}
                   </li>
                 ))}
               </ul>

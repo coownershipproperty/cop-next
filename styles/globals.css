@@ -5941,10 +5941,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-desc p strong{font-weight:600;color:#143047}
 .pp-desc-empty{color:#8a9bb0;font-style:italic}
 
-/* ── Amenities ── */
-.pp-amenities{margin-bottom:40px}
-.pp-amenity-list{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:10px}
-.pp-amenity-item{font-family:'Nunito Sans',sans-serif;font-size:.82rem;font-weight:600;color:#2c3e50;background:#fff;border:1px solid var(--border);padding:6px 14px;border-radius:20px}
+/* ── Amenities ── (defined fully below in v2) ── */
 
 /* ── Extra photos ── */
 .pp-photos{margin-bottom:40px}
@@ -6065,10 +6062,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-gallery-blank{width:100%;height:100%;background:#1a1a1a}
 .pp-gallery-lock{grid-column:2/4;grid-row:2;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;cursor:pointer;text-align:center}
 
-/* ── Amenities: 2-col bullet list ── */
-.pp-amenity-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0}
-.pp-amenity-item{display:flex;align-items:flex-start;gap:10px;padding:10px 16px 10px 0;border-bottom:1px solid var(--border);font-family:'Nunito Sans',sans-serif;font-size:.88rem;color:#2c3e50;font-weight:400}
-.pp-amenity-dot{color:#C9A84C;font-size:1.2rem;line-height:1;flex-shrink:0;margin-top:-1px}
+/* ── Amenities: luxury grid (full definition below in v2) ── */
 
 /* ── Location ── */
 .pp-location-section{margin-bottom:40px}
@@ -6111,43 +6105,74 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   background:transparent!important;
 }
 
-/* ── Amenities v2: clean luxury list ── */
-.pp-amenity-list{
-  display:grid!important;
-  grid-template-columns:1fr 1fr!important;
-  gap:0!important;
-  list-style:none!important;
-  padding:0!important;
-  margin:0!important;
-  border-top:1px solid var(--border)!important;
+/* ── Amenities: luxury design ── */
+.pp-amenities { margin-bottom: 48px; }
+.pp-amenity-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--border);
 }
-.pp-amenity-item{
-  display:flex!important;
-  align-items:center!important;
-  gap:12px!important;
-  padding:14px 24px 14px 0!important;
-  border:none!important;
-  border-bottom:1px solid var(--border)!important;
-  border-radius:0!important;
-  background:transparent!important;
-  font-family:'Nunito Sans',sans-serif!important;
-  font-size:.88rem!important;
-  font-weight:300!important;
-  color:#2c3e50!important;
+.pp-amenity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px 14px 0;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: .875rem;
+  font-weight: 400;
+  color: #4a5568;
+  letter-spacing: 0.01em;
 }
-.pp-amenity-dot{
-  color:#C9A84C!important;
-  font-size:1rem!important;
-  flex-shrink:0!important;
-  line-height:1!important;
+.pp-amenity-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C9A84C;
+  flex-shrink: 0;
 }
+/* hide extras by default on all screen sizes */
+.pp-amenity-extra { display: none; }
+.pp-amenities.expanded .pp-amenity-extra { display: flex; }
+
+/* See all button — shown on all screen sizes */
+.pp-seemore {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 1.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  white-space: nowrap;
+}
+.pp-seemore::before,
+.pp-seemore::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(201,168,76,0.3);
+}
+.pp-seemore:hover { color: #b8963e; }
+.pp-seemore:active { color: #a07830; }
 
 @media(max-width:960px){
   .pp-gallery{grid-template-rows:200px 200px!important;height:400px!important}
 }
 @media(max-width:600px){
   .pp-gallery{grid-template-columns:2fr 1fr!important;grid-template-rows:130px 130px!important;height:260px!important}
-  .pp-amenity-list{grid-template-columns:1fr!important}
+  .pp-amenity-list{grid-template-columns:1fr}
 }
 
 /* ── Header clearance: fixed header is 80px tall ── */
@@ -6189,41 +6214,6 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-heart-btn.saved svg { color: #C9A84C; }
 .pp-heart-btn.saved { background: rgba(255,255,255,0.95); }
 
-/* ── See more / See less button (mobile only) ── */
-.pp-amenity-extra { display: list-item; } /* show all on desktop */
-.pp-seemore {
-  display: none; /* hidden on desktop */
-}
-@media (max-width: 768px) {
-  .pp-amenity-extra { display: none; } /* hide extras on mobile by default */
-  .pp-amenities.expanded .pp-amenity-extra { display: list-item; }
-  .pp-seemore {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    margin-top: 1.1rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--warm-gold);
-    white-space: nowrap;
-  }
-  .pp-seemore::before,
-  .pp-seemore::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(201,168,76,0.25);
-  }
-  .pp-seemore:active { color: #b8963e; }
-}
 
 /* ══════════════════════════════════════════════════
    MOBILE PROPERTY CAROUSEL
