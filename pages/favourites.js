@@ -33,7 +33,20 @@ export default function Favourites() {
   const [favs, setFavs] = useState(null); // null = not hydrated yet
 
   useEffect(() => {
-    setFavs(getFavs());
+    // Load favs and clean up any malformed entries (e.g. from old code formats)
+    const raw = getFavs();
+    const cleaned = {};
+    for (const [key, val] of Object.entries(raw)) {
+      // Only keep entries where the value is a non-null object with at least a title or img
+      if (val && typeof val === 'object' && !Array.isArray(val)) {
+        cleaned[key] = val;
+      }
+    }
+    // Persist cleanup if anything was removed
+    if (Object.keys(cleaned).length !== Object.keys(raw).length) {
+      localStorage.setItem(COP_FAV_KEY, JSON.stringify(cleaned));
+    }
+    setFavs(cleaned);
     const sync = (e) => { if (e.key === COP_FAV_KEY) setFavs(getFavs()); };
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
@@ -61,7 +74,9 @@ export default function Favourites() {
     });
   }
 
-  const entries = favs ? Object.values(favs) : [];
+  // Use Object.entries so we always have the reliable localStorage KEY (slug),
+  // independent of whatever p.id the stored object contains.
+  const entries = favs ? Object.entries(favs) : [];
 
   return (
     <>
@@ -103,25 +118,30 @@ export default function Favourites() {
                 <button className="clear-favs-btn" onClick={clearAll}>Clear all</button>
               </div>
               <div className="fav-grid">
-                {entries.map(p => {
-                  const price = p.price ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}` : null;
-                  const location = [p.city, p.region, p.country].filter(Boolean).join(', ');
+                {entries.map(([slug, p]) => {
+                  // slug = the reliable localStorage key; p = stored property object
+                  // Defensive URL: use stored p.url if valid, otherwise construct from slug
+                  const propUrl = (p && p.url && typeof p.url === 'string' && p.url.startsWith('/'))
+                    ? p.url
+                    : `/property/${slug}`;
+                  const price = p && p.price ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}` : null;
+                  const location = p ? [p.city, p.region, p.country].filter(Boolean).join(', ') : '';
                   return (
-                    <article key={p.id} className="prop-card" onClick={() => window.location.href = p.url} role="link" aria-label={p.title}>
+                    <article key={slug} className="prop-card" onClick={() => window.location.href = propUrl} role="link" aria-label={p && p.title}>
                       <div className="prop-img-wrap">
-                        {p.img
+                        {p && p.img
                           ? <img src={p.img} alt={p.title} className="prop-img" loading="lazy" />
                           : <div className="prop-img" style={{background:'var(--blue-20)'}} />
                         }
-                        {p.label && <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>}
-                        <button className="prop-heart active" onClick={e => { e.stopPropagation(); remove(p.id); }} aria-label="Remove from favourites">
+                        {p && p.label && <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>}
+                        <button className="prop-heart active" onClick={e => { e.stopPropagation(); remove(slug); }} aria-label="Remove from favourites">
                           <HeartFilledIcon />
                         </button>
                       </div>
                       <div className="prop-body">
                         {location && <p className="prop-location">{location}</p>}
-                        <h3 className="prop-title">{p.title}</h3>
-                        {(p.beds > 0 || p.size > 0) && (
+                        <h3 className="prop-title">{p && p.title}</h3>
+                        {p && (p.beds > 0 || p.size > 0) && (
                           <div className="prop-stats">
                             {p.beds > 0 && <span className="prop-stat"><BedIcon />{p.beds} Bed{p.beds > 1 ? 's' : ''}</span>}
                             {p.beds > 0 && p.size > 0 && <span className="prop-stat-sep" />}
@@ -129,7 +149,7 @@ export default function Favourites() {
                           </div>
                         )}
                         {price && <p className="prop-price">{price}</p>}
-                        <a href={p.url} className="prop-view-btn" onClick={e => e.stopPropagation()}>View Property →</a>
+                        <a href={propUrl} className="prop-view-btn" onClick={e => e.stopPropagation()}>View Property →</a>
                       </div>
                     </article>
                   );
