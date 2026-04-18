@@ -1,23 +1,55 @@
 import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
-import path from 'path';
-import fs from 'fs';
+import { createClient } from '@supabase/supabase-js';
+import { trackConversion } from '@/lib/gtag';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+}
+
 export async function getStaticPaths() {
-  const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
-  return { paths: data.map(p => ({ params: { slug: p.slug } })), fallback: false };
+  const supabase = getSupabase();
+  const { data } = await supabase.from('properties').select('slug');
+  return {
+    paths: (data || []).map(p => ({ params: { slug: p.slug } })),
+    fallback: 'blocking',
+  };
 }
 
 export async function getStaticProps({ params }) {
-  const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
-  const property = data.find(p => p.slug === params.slug);
+  const supabase = getSupabase();
+  const { data: property } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('slug', params.slug)
+    .single();
+
   if (!property) return { notFound: true };
-  const similar = data.filter(p => p.country === property.country && p.slug !== property.slug).slice(0, 3);
-  return { props: { property, similar } };
+
+  // Map DB column names back to what the page template expects
+  const prop = {
+    ...property,
+    driveUrl: property.drive_url,
+    dateAdded: property.date_added,
+  };
+
+  const { data: similarRaw } = await supabase
+    .from('properties')
+    .select('slug, title, img, price, currency, country, region, city, beds, size, status')
+    .eq('country', property.country)
+    .neq('slug', property.slug)
+    .limit(3);
+
+  const similar = (similarRaw || []).map(p => ({ ...p, driveUrl: null }));
+
+  return { props: { property: prop, similar }, revalidate: 1 };
 }
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
@@ -42,6 +74,12 @@ function UnlockModal({ propertyTitle, driveUrl, onClose }) {
     try {
       const r = await fetch('/api/unlock-drive/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, propertyTitle, driveUrl }) });
+      if (r.ok) {
+        trackConversion('generate_lead', 'Lead', {
+          event_category: 'floor_plan_unlock',
+          property_title: propertyTitle,
+        });
+      }
       setStatus(r.ok ? 'done' : 'error');
     } catch { setStatus('error'); }
   }
@@ -85,6 +123,12 @@ function EnquiryForm({ propertyTitle }) {
     try {
       const r = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...f, property: propertyTitle }) });
+      if (r.ok) {
+        trackConversion('generate_lead', 'Lead', {
+          event_category: 'property_enquiry',
+          property_title: propertyTitle,
+        });
+      }
       setStatus(r.ok ? 'done' : 'error');
     } catch { setStatus('error'); }
   }

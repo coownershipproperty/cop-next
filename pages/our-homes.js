@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { useState, useMemo } from 'react';
-import fs from 'fs';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -19,11 +18,37 @@ function shuffle(arr) {
 }
 
 export async function getStaticProps() {
-  const data = fs.readFileSync(
-    path.join(process.cwd(), 'lib', 'properties.json'),
-    'utf-8'
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   );
-  return { props: { allProperties: shuffle(JSON.parse(data)) } };
+
+  const { data: raw, error } = await supabase
+    .from('properties')
+    .select('slug, title, img, price, currency, country, region, city, beds, size, status, property_type');
+
+  if (error) {
+    console.error('Supabase error (our-homes):', error);
+    return { props: { allProperties: [] }, revalidate: 60 };
+  }
+
+  const allProperties = shuffle((raw || []).map(p => ({
+    slug:     p.slug,
+    title:    p.title,
+    img:      p.img,
+    price:    p.price    || null,
+    currency: p.currency || 'EUR',
+    country:  p.country  || '',
+    region:   p.region   || '',
+    city:     p.city     || '',
+    beds:     p.beds     || 0,
+    size:     p.size     || 0,
+    label:         '',
+    status:        p.status        || '',
+    property_type: p.property_type || '',
+  })));
+
+  return { props: { allProperties }, revalidate: 1 };
 }
 
 // Fixed top-country order
@@ -163,8 +188,10 @@ export default function OurHomes({ allProperties }) {
         <meta name="description" content="Browse all our luxury co-ownership properties worldwide. Filter by destination, region and price." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://co-ownership-property.com/our-homes/" />
         <meta property="og:title" content="Browse 333+ Luxury Co-Ownership Properties | Co-Ownership Property" />
         <meta property="og:description" content="Browse luxury fractional ownership properties across Spain, France, Italy, the USA and more. Filter by destination and price." />
+        <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
         <meta property="og:url" content="https://co-ownership-property.com/our-homes/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
