@@ -173,6 +173,8 @@ export default function PropertyPage({ property: p, similar }) {
   const [descExpanded, setDescExpanded] = useState(false);
   const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.images[0] || '/images/placeholder.jpg';
+  const totalImgs = p.total_images || p.images.length;
+  const missingCount = totalImgs > 3 ? totalImgs - 3 : '';
   const descParas = p.description ? p.description.split('\n').filter(Boolean) : [];
   const descVisible = descExpanded ? descParas : descParas.slice(0, 2);
   const descHasMore = descParas.length > 2;
@@ -280,7 +282,7 @@ export default function PropertyPage({ property: p, similar }) {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
-                <span className="pp-mob-lock-title">You&apos;re missing {p.images.length > 3 ? p.images.length - 3 : ''} photos</span>
+                <span className="pp-mob-lock-title">You&apos;re missing {missingCount} photos</span>
                 <span className="pp-mob-lock-sub">Unlock the full gallery &amp; floor plans — free</span>
                 <span className="pp-mob-lock-btn">Unlock Now →</span>
               </div>
@@ -326,7 +328,7 @@ export default function PropertyPage({ property: p, similar }) {
           <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
           </svg>
-          <span className="pp-lock-title">You&apos;re missing {p.images.length > 3 ? p.images.length - 3 : ''} photos</span>
+          <span className="pp-lock-title">You&apos;re missing {missingCount} photos</span>
           <span className="pp-lock-sub">Unlock the full gallery &amp; floor plans — free</span>
           <span className="pp-lock-cta-btn">Unlock Now →</span>
         </div>
@@ -471,7 +473,7 @@ export default function PropertyPage({ property: p, similar }) {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{width:40,height:40,marginBottom:12,color:'#fff'}}>
                   <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
-                <span className="pp-lb-lock-title">You&apos;re missing {p.images.length > 3 ? p.images.length - 3 : ''} photos</span>
+                <span className="pp-lb-lock-title">You&apos;re missing {missingCount} photos</span>
                 <span className="pp-lb-lock-sub">Unlock the full gallery &amp; floor plans — free</span>
                 <span className="pp-lb-lock-btn">Unlock Now →</span>
               </div>
