@@ -380,11 +380,11 @@ export default function PropertyPage({ property: p, similar }) {
 
           {/* Amenities — 2-column bullet list */}
           {p.amenities.length > 0 && (
-            <div className="pp-amenities">
+            <div className={`pp-amenities${amenExpanded ? ' expanded' : ''}`}>
               <h2 className="pp-heading">Features &amp; Amenities</h2>
               <ul className="pp-amenity-list">
-                {(amenExpanded ? p.amenities : p.amenities.slice(0, 6)).map((a, i) => (
-                  <li key={i} className="pp-amenity-item">
+                {p.amenities.map((a, i) => (
+                  <li key={i} className={`pp-amenity-item${i >= 6 ? ' pp-amenity-extra' : ''}`}>
                     <span className="pp-amenity-dot">·</span>{a}
                   </li>
                 ))}

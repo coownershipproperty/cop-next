@@ -6190,10 +6190,13 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-heart-btn.saved { background: rgba(255,255,255,0.95); }
 
 /* ── See more / See less button (mobile only) ── */
+.pp-amenity-extra { display: list-item; } /* show all on desktop */
 .pp-seemore {
   display: none; /* hidden on desktop */
 }
 @media (max-width: 768px) {
+  .pp-amenity-extra { display: none; } /* hide extras on mobile by default */
+  .pp-amenities.expanded .pp-amenity-extra { display: list-item; }
   .pp-seemore {
     display: flex;
     align-items: center;
