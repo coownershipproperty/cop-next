@@ -5938,6 +5938,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Description ── */
 .pp-desc{margin-bottom:40px}
 .pp-desc p{color:#4a5568;font-weight:300;line-height:1.8;margin-bottom:12px;font-family:'Nunito Sans',sans-serif}
+.pp-desc p strong{font-weight:700;color:#143047}
 .pp-desc-empty{color:#8a9bb0;font-style:italic}
 
 /* ── Amenities ── */
@@ -7062,4 +7063,18 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   }
   .properties-section { padding: 3rem 0 2rem; }
   .pc-browse-all { padding: 0 1.5rem; }
+}
+
+/* ── Font family alias: maps WP inline styles to Next.js self-hosted fonts ──
+   Blog article content uses inline font-family:'Playfair Display'/'Nunito Sans'
+   from the original WordPress export. These rules redirect those references
+   to the self-hosted Next.js font variables, eliminating the duplicate Google
+   Fonts network request on blog pages. */
+.blog-content [style*="Playfair Display"],
+.blog-content [style*="playfair display"] {
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif !important;
+}
+.blog-content [style*="Nunito Sans"],
+.blog-content [style*="nunito sans"] {
+  font-family: var(--font-nunito), 'Nunito Sans', system-ui, sans-serif !important;
 }
