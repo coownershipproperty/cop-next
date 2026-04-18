@@ -5938,7 +5938,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Description ── */
 .pp-desc{margin-bottom:40px}
 .pp-desc p{color:#4a5568;font-weight:300;line-height:1.8;margin-bottom:12px;font-family:'Nunito Sans',sans-serif}
-.pp-desc p strong{font-weight:700;color:#143047}
+.pp-desc p strong{font-weight:600;color:#143047}
 .pp-desc-empty{color:#8a9bb0;font-style:italic}
 
 /* ── Amenities ── */
