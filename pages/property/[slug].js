@@ -173,6 +173,9 @@ export default function PropertyPage({ property: p, similar }) {
   const [descExpanded, setDescExpanded] = useState(false);
   const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.images[0] || '/images/placeholder.jpg';
+  const descParas = p.description ? p.description.split('\n').filter(Boolean) : [];
+  const descVisible = descExpanded ? descParas : descParas.slice(0, 2);
+  const descHasMore = descParas.length > 2;
   const partnerLabel = PARTNER_LABEL[p.partner] || p.partner;
   const touchStartX = useRef(null);
 
@@ -361,33 +364,26 @@ export default function PropertyPage({ property: p, similar }) {
           {/* Description */}
           <div className="pp-desc">
             <h2 className="pp-heading">About This Property</h2>
-            {p.description ? (() => {
-              const paras = p.description.split('\n').filter(Boolean);
-              const SHOW = 2;
-              const visible = descExpanded ? paras : paras.slice(0, SHOW);
-              const hasMore = paras.length > SHOW;
-              return (
-                <>
-                  {visible.map((para, i) => {
-                    const parts = para.split(/(\*\*[^*]+\*\*)/g);
-                    return (
-                      <p key={i}>
-                        {parts.map((part, j) =>
-                          part.startsWith('**') && part.endsWith('**')
-                            ? <strong key={j}>{part.slice(2, -2)}</strong>
-                            : part
-                        )}
-                      </p>
-                    );
-                  })}
-                  {hasMore && (
-                    <button className="pp-seemore" onClick={() => setDescExpanded(v => !v)}>
-                      {descExpanded ? 'Show less' : 'Read more'}
-                    </button>
-                  )}
-                </>
-              );
-            })()
+            {p.description ? (
+              <>
+                {descVisible.map((para, i) => {
+                  const parts = para.split(/(\*\*[^*]+\*\*)/g);
+                  return (
+                    <p key={i}>
+                      {parts.map((part, j) =>
+                        part.startsWith('**') && part.endsWith('**')
+                          ? <strong key={j}>{part.slice(2, -2)}</strong>
+                          : part
+                      )}
+                    </p>
+                  );
+                })}
+                {descHasMore && (
+                  <button className="pp-seemore" onClick={() => setDescExpanded(v => !v)}>
+                    {descExpanded ? 'Show less' : 'Read more'}
+                  </button>
+                )}
+              </>
             ) : <p className="pp-desc-empty">Full details coming soon. Use the enquiry form to get in touch.</p>}
           </div>
 
