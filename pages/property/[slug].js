@@ -361,20 +361,9 @@ export default function PropertyPage({ property: p, similar }) {
           {/* Description */}
           <div className="pp-desc">
             <h2 className="pp-heading">About This Property</h2>
-            {p.description ? (() => {
-              const paras = p.description.split('\n').filter(Boolean);
-              const visible = descExpanded ? paras : paras.slice(0, 1);
-              return (
-                <>
-                  {visible.map((para, i) => <p key={i}>{para}</p>)}
-                  {paras.length > 1 && (
-                    <button className="pp-seemore" onClick={() => setDescExpanded(v => !v)}>
-                      {descExpanded ? 'Show less' : 'Read more'}
-                    </button>
-                  )}
-                </>
-              );
-            })() : <p className="pp-desc-empty">Full details coming soon. Use the enquiry form to get in touch.</p>}
+            {p.description ? (
+              p.description.split('\n').filter(Boolean).map((para, i) => <p key={i}>{para}</p>)
+            ) : <p className="pp-desc-empty">Full details coming soon. Use the enquiry form to get in touch.</p>}
           </div>
 
           {/* Amenities — 2-column bullet list */}
