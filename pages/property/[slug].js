@@ -361,20 +361,33 @@ export default function PropertyPage({ property: p, similar }) {
           {/* Description */}
           <div className="pp-desc">
             <h2 className="pp-heading">About This Property</h2>
-            {p.description ? (
-              p.description.split('\n').filter(Boolean).map((para, i) => {
-                // Parse **bold** markdown into <strong> tags
-                const parts = para.split(/(\*\*[^*]+\*\*)/g);
-                return (
-                  <p key={i}>
-                    {parts.map((part, j) =>
-                      part.startsWith('**') && part.endsWith('**')
-                        ? <strong key={j}>{part.slice(2, -2)}</strong>
-                        : part
-                    )}
-                  </p>
-                );
-              })
+            {p.description ? (() => {
+              const paras = p.description.split('\n').filter(Boolean);
+              const SHOW = 2;
+              const visible = descExpanded ? paras : paras.slice(0, SHOW);
+              const hasMore = paras.length > SHOW;
+              return (
+                <>
+                  {visible.map((para, i) => {
+                    const parts = para.split(/(\*\*[^*]+\*\*)/g);
+                    return (
+                      <p key={i}>
+                        {parts.map((part, j) =>
+                          part.startsWith('**') && part.endsWith('**')
+                            ? <strong key={j}>{part.slice(2, -2)}</strong>
+                            : part
+                        )}
+                      </p>
+                    );
+                  })}
+                  {hasMore && (
+                    <button className="pp-seemore" onClick={() => setDescExpanded(v => !v)}>
+                      {descExpanded ? 'Show less' : 'Read more'}
+                    </button>
+                  )}
+                </>
+              );
+            })()
             ) : <p className="pp-desc-empty">Full details coming soon. Use the enquiry form to get in touch.</p>}
           </div>
 

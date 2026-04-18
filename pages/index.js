@@ -178,7 +178,15 @@ function PropCarousel({ items, propertyCount }) {
               <div
                 key={`${p.slug}-${copyNum}`}
                 className={`pc-card${isActive ? ' pc-active' : ''}`}
-                onClick={() => { snapping.current = false; setPos(i); }}
+                onClick={() => {
+                  if (isActive) {
+                    window.location.href = `/property/${p.slug}`;
+                  } else {
+                    snapping.current = false;
+                    setPos(i);
+                  }
+                }}
+                style={{ cursor: 'pointer' }}
               >
                 <div className="pc-img-wrap">
                   <img
@@ -243,12 +251,13 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
     <>
       <Head>
         <title>Co-Ownership Property | Luxury Fractional Ownership</title>
-        <meta name="description" content="Co-Ownership Property - Luxury fractional ownership of premium properties worldwide." />
+        <meta name="description" content="Browse 333+ luxury co-ownership properties across Europe and the USA. Real deeded ownership in the world's finest homes — from a fraction of the cost." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://co-ownership-property.com/" />
         <meta property="og:title" content="Co-Ownership Property | Luxury Fractional Ownership" />
         <meta property="og:description" content="Browse 333+ luxury fractional ownership properties across Europe and the USA. Real deeded ownership from a fraction of the cost." />
-        <meta property="og:image" content="/wp-content/uploads/2026/02/co-ownership-property-og.jpg" />
+        <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
         <meta property="og:url" content="https://co-ownership-property.com/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
