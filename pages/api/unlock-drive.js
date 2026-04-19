@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { name, email, propertyTitle, driveUrl } = req.body;
+  const { name, email, propertyTitle, driveUrl, propertyUrl } = req.body;
   if (!email || !driveUrl) return res.status(400).json({ error: 'Missing fields' });
 
   const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
       subject: `Floor Plan Request — ${propertyTitle}`,
       html: `
         <h2>Floor Plan / Photo Request</h2>
-        <p><strong>Property:</strong> ${propertyTitle}</p>
+        <p><strong>Property:</strong> ${propertyTitle}${propertyUrl ? ` — <a href="${propertyUrl}">${propertyUrl}</a>` : ''}</p>
         <p><strong>Name:</strong> ${name || 'Not provided'}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p>Drive link sent: <a href="${driveUrl}">${driveUrl}</a></p>

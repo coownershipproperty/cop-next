@@ -452,7 +452,7 @@ export default function PropertyPage({ property: p, similar }) {
         );
       })()}
 
-      {showUnlock && <UnlockModal propertyTitle={p.title} driveUrl={p.driveUrl} onClose={() => setShowUnlock(false)} />}
+      {showUnlock && <UnlockModal propertyTitle={p.title} driveUrl={p.driveUrl} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} onClose={() => setShowUnlock(false)} />}
 
       <Newsletter />
       <Footer />

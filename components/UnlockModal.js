@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { trackConversion } from '@/lib/gtag';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 
-export default function UnlockModal({ propertyTitle, driveUrl, onClose }) {
+export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, onClose }) {
   const saved = getSavedUser();
   const [name, setName] = useState(saved.name);
   const [email, setEmail] = useState(saved.email);
@@ -14,7 +14,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, onClose }) {
       const r = await fetch('/api/unlock-drive/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, propertyTitle, driveUrl }),
+        body: JSON.stringify({ name, email, propertyTitle, driveUrl, propertyUrl }),
       });
       if (r.ok) {
         saveUser({ name, email });
