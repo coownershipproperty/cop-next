@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import NextImage from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { trackConversion } from '@/lib/gtag';
@@ -57,16 +58,15 @@ const SYM = { EUR: '€', USD: '$', GBP: '£' };
 function fmt(price, currency) { return `${SYM[currency] || currency}${price.toLocaleString('en-GB')}`; }
 const PARTNER_LABEL = { pacaso: 'Pacaso', andhamlet: '&Hamlet', vivla: 'Vivla', myne: 'Myne' };
 
-function Img({ src, alt, className, loading = 'lazy' }) {
-  const [imgSrc, setImgSrc] = useState(src || '/images/placeholder.jpg');
+function Img({ src, alt, loading = 'lazy', sizes = '100vw' }) {
   return (
-    <img
-      src={imgSrc}
+    <NextImage
+      src={src || '/images/placeholder.jpg'}
       alt={alt || ''}
-      className={className}
+      fill
       loading={loading}
-      decoding="async"
-      onError={() => setImgSrc('/images/placeholder.jpg')}
+      sizes={sizes}
+      style={{ objectFit: 'cover' }}
     />
   );
 }

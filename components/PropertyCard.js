@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 
 const BedIcon = () => (
@@ -49,12 +50,13 @@ export default function PropertyCard({ property: p }) {
   return (
     <article className="prop-card" onClick={() => window.location.href = href} role="link" aria-label={p.title}>
       <div className="prop-img-wrap">
-        <img
+        <Image
           src={p.img || '/images/placeholder.jpg'}
           alt={p.title}
+          fill
           className="prop-img"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           loading="lazy"
-          decoding="async"
         />
         {p.label && <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>}
         <button

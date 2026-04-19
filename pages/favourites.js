@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import Header from '@/components/Header';
@@ -148,7 +149,7 @@ export default function Favourites() {
                       aria-label={p.title}
                     >
                       <div className="prop-img-wrap">
-                        <img src={imgSrc} alt={p.title} className="prop-img" loading="lazy" />
+                        <Image src={imgSrc} alt={p.title} fill className="prop-img" loading="lazy" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                         {p.status === 'sold' && <span className="prop-badge sold">Sold</span>}
                         <button
                           className="prop-heart active"

@@ -3,11 +3,13 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     remotePatterns: [
-      // Property images hosted on Google Drive
-      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
-      { protocol: 'https', hostname: '*.googleusercontent.com' },
-      // How-it-works hero image (Webflow CDN)
+      // All property images — now hosted on Supabase Storage
+      { protocol: 'https', hostname: 'iotzzoxyckpyatzqcjbo.supabase.co' },
+      // Blog / static images on Webflow CDN
       { protocol: 'https', hostname: 'cdn.prod.website-files.com' },
+      // Fallback: any remaining external images not yet migrated
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
+      { protocol: 'https', hostname: 'a.storyblok.com' },
     ],
   },
 };
