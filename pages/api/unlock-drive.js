@@ -82,7 +82,7 @@ export default async function handler(req, res) {
     await transporter.sendMail({
       from:    `"COP Website" <${fromEmail}>`,
       to:      ['dylan@domosno.com', 'info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
-      subject: `Floor Plan Request — ${propertyTitle}`,
+      subject: `Floor Plan Request — ${name || email}`,
       html: `
         <h2>Floor Plan / Photo Request</h2>
         <p><strong>Property:</strong> ${propertyTitle}${propertyUrl ? ` — <a href="${propertyUrl}">${propertyUrl}</a>` : ''}</p>
