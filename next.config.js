@@ -15,6 +15,9 @@ const nextConfig = {
 };
 
 nextConfig.redirects = async () => [
+  // ── Page redirects ──
+  { source: '/our-mission/', destination: '/about-us/', permanent: true },
+
   // ── Blog post root-level redirects (WordPress served posts at /slug/, Next.js serves at /blog/slug/) ──
   { source: '/the-algarve-golden-triangle-why-portugals-most-exclusive-coast-is-europes-smartest-co-ownership-destination-in-2026/', destination: '/blog/the-algarve-golden-triangle-why-portugals-most-exclusive-coast-is-europes-smartest-co-ownership-destination-in-2026/', permanent: true },
   { source: '/three-paths-luxury-fractional-ownership-success-stories/', destination: '/blog/three-paths-luxury-fractional-ownership-success-stories/', permanent: true },
