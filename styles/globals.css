@@ -1097,9 +1097,9 @@ img {
 
 /* Content panels */
         .dest-panels {
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 0 3rem;
+            max-width: none;
+            margin: 0;
+            padding: 0 9% 0 4%;
         }
 
 .dest-panel {
