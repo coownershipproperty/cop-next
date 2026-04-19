@@ -55,11 +55,15 @@ export default function PropertyCard({ property: p }) {
   useEffect(() => { setSlide(0); }, [p.slug]);
 
   // Slide 1 = p.img (hero — always reliable, confirmed migrated).
-  // Slides 2-3 = gallery images that differ from the hero (avoids duplicates when
-  // images[0] === img, and skips that slot so broken gallery URLs stay off slide 1).
+  // images[0] (gallery-0) is always a visual duplicate of hero.jpg — skip it.
+  // Slides 2-3 = images[1] and images[2] (genuine different Supabase Storage photos).
+  // lh3.googleusercontent.com URLs are private Drive links — exclude from carousel.
   const heroImg = p.img || null;
-  const extraImgs = (p.images || []).filter(url => url && url !== heroImg);
-  const imgSlides = [heroImg, ...extraImgs].filter(Boolean).slice(0, 3);
+  const supabaseExtras = (p.images || [])
+    .slice(1)
+    .filter(url => url && !url.includes('lh3.googleusercontent.com'))
+    .slice(0, 2);
+  const imgSlides = [heroImg, ...supabaseExtras].filter(Boolean);
   const hasLock = !!p.driveUrl;
   const totalSlides = imgSlides.length + (hasLock ? 1 : 0);
   const isLockSlide = hasLock && slide >= imgSlides.length;
