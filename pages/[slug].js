@@ -180,13 +180,21 @@ export async function getStaticPaths() {
   const slugs = files.map(f => f.replace('.html', ''));
   return {
     paths: slugs.map(slug => ({ params: { slug } })),
-    fallback: false,
+    fallback: 'blocking',
   };
 }
 
 export async function getStaticProps({ params }) {
   const { slug } = params;
   const contentPath = path.join(process.cwd(), 'content', 'destinations', `${slug}.html`);
+
+  // If this slug has no destination content file, treat it as a blog post URL
+  // and redirect — catches any old WordPress root-level blog post links
+  if (!fs.existsSync(contentPath)) {
+    return {
+      redirect: { destination: `/blog/${slug}/`, permanent: true },
+    };
+  }
   const rawHtml = fs.readFileSync(contentPath, 'utf-8');
 
   // Extract title + meta
