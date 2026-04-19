@@ -77,7 +77,7 @@ function Img({ src, alt, loading = 'lazy', priority = false, sizes = '100vw' }) 
 /* UnlockModal is now in components/UnlockModal.js */
 
 /* ── Enquiry form ── */
-function EnquiryForm({ propertyTitle }) {
+function EnquiryForm({ propertyTitle, propertyUrl }) {
   const saved = getSavedUser();
   const [f, setF] = useState({ name: saved.name, email: saved.email, phone: '', message: '' });
   const [status, setStatus] = useState('idle');
@@ -87,7 +87,7 @@ function EnquiryForm({ propertyTitle }) {
     e.preventDefault(); setStatus('sending');
     try {
       const r = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...f, property: propertyTitle }) });
+        body: JSON.stringify({ ...f, property: propertyTitle, url: propertyUrl }) });
       if (r.ok) {
         saveUser({ name: f.name, email: f.email });
         trackConversion('generate_lead', 'Lead', {
@@ -418,7 +418,7 @@ export default function PropertyPage({ property: p, similar }) {
             <p className="pp-form-eye">Get in touch</p>
             <h3 className="pp-form-title">Enquire About This Property</h3>
             <p className="pp-form-sub">Our team typically responds within a few hours. No obligation.</p>
-            <EnquiryForm propertyTitle={p.title} />
+            <EnquiryForm propertyTitle={p.title} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} />
           </div>
         </div>
 

@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { name, email, phone, message, property, destination, budget } = req.body;
+  const { name, email, phone, message, property, url, destination, budget } = req.body;
 
   const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
   const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       subject: `New Enquiry${property ? ` — ${property}` : ''} from ${name}`,
       html: `
         <h2>New Enquiry</h2>
-        ${property ? `<p><strong>Property:</strong> ${property}</p>` : ''}
+        ${property ? `<p><strong>Property:</strong> ${property}${url ? ` — <a href="${url}">${url}</a>` : ''}</p>` : ''}
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
