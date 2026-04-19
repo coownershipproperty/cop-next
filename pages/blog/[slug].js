@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import path from 'path';
 import fs from 'fs';
 import Header from '@/components/Header';
@@ -16,13 +17,10 @@ export async function getStaticProps({ params }) {
   const post = posts.find(p => p.slug === params.slug);
   if (!post) return { notFound: true };
 
-  // Strip embedded CTAs from post content (gold "Explore Properties" banners, old WP contact forms)
-  // Only strip divs that contain actual links (CTA blocks) — not chart bar divs (which only have <span> labels)
+  // Embedded CTAs ("Explore Properties" gold banners, "Book Free Consultation" buttons) are
+  // hidden via CSS on .blog-article — regex stripping was causing cross-div-boundary over-matches
+  // that stripped bar chart and table content. CSS rule: div[style*="linear-gradient"][style*="text-align:center"]
   let content = post.content || '';
-  content = content.replace(/<div[^>]*background[^>]*linear-gradient[^>]*A69052[^>]*>([\s\S]*?<a\s[\s\S]*?)<\/div>/g, '');
-  content = content.replace(/<div[^>]*background[^>]*#a69052[^>]*>([\s\S]*?<a\s[\s\S]*?)<\/div>/gi, '');
-  // Also strip any "Book Free Consultation" / "client-form" links that look like CTA blocks
-  content = content.replace(/<div[^>]*style="[^"]*background[^"]*#143047[^"]*"[^>]*>[\s\S]*?client-form[\s\S]*?<\/div>/gi, '');
 
   // Fix mobile layout: tag inline two-column grid divs with a class so CSS can collapse them
   content = content.replace(
@@ -96,11 +94,8 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
           },
           "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl }
         }) }} />
-        {/* Google Fonts by actual name — needed so article inline styles like
-            font-family:'Playfair Display' resolve correctly */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet" />
+        {/* Font aliases for WP inline styles handled via CSS variables in globals.css —
+            no duplicate Google Fonts request needed */}
       </Head>
 
       <Header />
@@ -109,7 +104,14 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
       <div className="blog-hero-wrap">
         <div className="blog-hero">
           {post.heroImage && (
-            <img src={post.heroImage} alt={post.title} className="blog-hero-img" />
+            <Image
+              src={post.heroImage}
+              alt={post.title}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 1200px"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+            />
           )}
           <div className="blog-hero-overlay">
             <div className="blog-hero-inner">

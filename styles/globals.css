@@ -6486,6 +6486,22 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   color: var(--gold);
   font-weight: 600;
 }
+/* Hide embedded "Explore Properties" CTA banners (gold gradient, centred) —
+   targeted by style attributes to avoid touching bar chart / timeline elements */
+.blog-article div[style*="linear-gradient"][style*="text-align:center"] {
+  display: none !important;
+}
+/* Ensure images inside post content don't overflow the article column */
+.blog-article img {
+  max-width: 100%;
+  height: auto;
+}
+/* Contain any wide tables */
+.blog-article table {
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}
 
 /* ── Blog Sidebar ── */
 .blog-sidebar {
