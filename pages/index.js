@@ -190,14 +190,12 @@ function PropCarousel({ items, propertyCount }) {
                 style={{ cursor: 'pointer' }}
               >
                 <div className="pc-img-wrap">
-                  <Image
+                  <img
                     src={p.img || '/images/placeholder.jpg'}
                     alt={p.title}
-                    fill
-                    sizes="430px"
                     className="pc-img"
-                    style={{ objectFit: 'cover' }}
                     loading={eager ? 'eager' : 'lazy'}
+                    decoding="async"
                   />
                 </div>
                 {isActive ? (
