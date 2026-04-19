@@ -237,7 +237,7 @@ function PropCarousel({ items, propertyCount }) {
 }
 
 export default function Home({ propertyCount, featuredProps, latestPosts }) {
-  const [activeDest, setActiveDest] = useState('france');
+  const [activeDest, setActiveDest] = useState('spain');
   const videoRef = useRef(null);
   const destTabsRef = useRef(null);
 
@@ -447,7 +447,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
 
         {/* Tab navigation */}
         <div className="dest-tabs" ref={destTabsRef}>
-            {[["france","France"],["spain","Spain"],["usa","USA"],["italy","Italy"],["portugal","Portugal"],["austria","Austria"],["england","England"],["sweden","Sweden"],["germany","Germany"],["croatia","Croatia"],["mexico","Mexico"]].map(([key, label]) => (
+            {[["spain","Spain"],["france","France"],["usa","USA"],["italy","Italy"],["portugal","Portugal"],["austria","Austria"],["england","England"],["sweden","Sweden"],["germany","Germany"],["croatia","Croatia"],["mexico","Mexico"]].map(([key, label]) => (
               <button
                 key={key}
                 className={`dest-tab-btn${activeDest === key ? " active" : ""}`}
@@ -469,18 +469,6 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         {/* Panels */}
         <div className="dest-panels">
 
-            <div className={`dest-panel${activeDest === "france" ? " active" : ""}`} id="dest-france">
-                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/france-line.webp')"}}></div>
-                <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-france.webp" alt="France" fill loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
-                </div>
-                <div className="dest-info">
-                    <div className="dest-info-name">France</div>
-                    <p className="dest-info-desc">From the sun-drenched shores of the Côte d'Azur to the ski slopes of the French Alps and the timeless elegance of Paris, France is Europe's most coveted address for fractional ownership.</p>
-                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
-                </div>
-            </div>
-
             <div className={`dest-panel${activeDest === "spain" ? " active" : ""}`} id="dest-spain">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/spain-line.webp')"}}></div>
                 <div className="dest-img-wrap">
@@ -489,6 +477,18 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
                 <div className="dest-info">
                     <div className="dest-info-name">Spain</div>
                     <p className="dest-info-desc">Spain combines world-class beaches, vibrant culture and year-round sunshine across Mallorca, Ibiza, the Costa del Sol and beyond — all at remarkable value for discerning co-owners.</p>
+                    <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
+                </div>
+            </div>
+
+            <div className={`dest-panel${activeDest === "france" ? " active" : ""}`} id="dest-france">
+                <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/france-line.webp')"}}></div>
+                <div className="dest-img-wrap">
+                    <Image src="/wp-content/uploads/dest-france.webp" alt="France" fill loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                </div>
+                <div className="dest-info">
+                    <div className="dest-info-name">France</div>
+                    <p className="dest-info-desc">From the sun-drenched shores of the Côte d'Azur to the ski slopes of the French Alps and the timeless elegance of Paris, France is Europe's most coveted address for fractional ownership.</p>
                     <a href="/our-homes/" className="dest-explore-btn">Explore Properties</a>
                 </div>
             </div>
