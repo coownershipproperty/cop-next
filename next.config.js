@@ -1110,6 +1110,8 @@ nextConfig.redirects = async () => [
   { source: '/mougins-7-bed-villa-with-pool-and-views-of-esterel-mounts', destination: '/property/mouans-sartoux-france-7-bed-villa-with-sea-views/', permanent: true },
   { source: '/property/mougins-7-bed-villa-with-pool-and-views-of-esterel-mounts/', destination: '/property/mouans-sartoux-france-7-bed-villa-with-sea-views/', permanent: true },
   { source: '/property/mougins-7-bed-villa-with-pool-and-views-of-esterel-mounts', destination: '/property/mouans-sartoux-france-7-bed-villa-with-sea-views/', permanent: true },
+  { source: '/property/eze-cote-dazur-2-bed-terrace-apartment-with-sea-village-views/', destination: '/property/eze-france-2-bed-apartment-with-pool/', permanent: true },
+  { source: '/property/eze-cote-dazur-2-bed-terrace-apartment-with-sea-village-views', destination: '/property/eze-france-2-bed-apartment-with-pool/', permanent: true },
 
 ];
 
