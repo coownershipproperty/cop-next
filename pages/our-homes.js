@@ -36,7 +36,7 @@ export async function getStaticProps() {
     slug:     p.slug,
     title:    p.title,
     img:      p.img,
-    images:      p.images      || [],
+    images:      (p.images || []).slice(0, 3),
     totalImages: p.total_images || 0,
     driveUrl:    p.drive_url   || null,
     price:    p.price    || null,
