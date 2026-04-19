@@ -1105,9 +1105,11 @@ nextConfig.redirects = async () => [
   { source: '/property/west-palm-beach-fl-4-bed-house-with-pool/', destination: '/property/west-palm-beach-florida-4-bed-house-with-pool/', permanent: true },
   { source: '/property/west-palm-beach-fl-4-bed-house-with-pool', destination: '/property/west-palm-beach-florida-4-bed-house-with-pool/', permanent: true },
 
-  // ── Rightmove legacy root-level slug redirects ────────────────────────────────
+  // ── Rightmove legacy slug redirects ──────────────────────────────────────────
   { source: '/mougins-7-bed-villa-with-pool-and-views-of-esterel-mounts/', destination: '/property/mouans-sartoux-france-7-bed-villa-with-sea-views/', permanent: true },
   { source: '/mougins-7-bed-villa-with-pool-and-views-of-esterel-mounts', destination: '/property/mouans-sartoux-france-7-bed-villa-with-sea-views/', permanent: true },
+  { source: '/property/mougins-7-bed-villa-with-pool-and-views-of-esterel-mounts/', destination: '/property/mouans-sartoux-france-7-bed-villa-with-sea-views/', permanent: true },
+  { source: '/property/mougins-7-bed-villa-with-pool-and-views-of-esterel-mounts', destination: '/property/mouans-sartoux-france-7-bed-villa-with-sea-views/', permanent: true },
 
 ];
 
