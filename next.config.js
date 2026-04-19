@@ -1105,6 +1105,20 @@ nextConfig.redirects = async () => [
   { source: '/property/west-palm-beach-fl-4-bed-house-with-pool/', destination: '/property/west-palm-beach-florida-4-bed-house-with-pool/', permanent: true },
   { source: '/property/west-palm-beach-fl-4-bed-house-with-pool', destination: '/property/west-palm-beach-florida-4-bed-house-with-pool/', permanent: true },
 
+  // ── Paris arrondissement slug renames ────────────────────────────────────────
+  { source: '/property/paris-france-2-bed-apartment/', destination: '/property/6th-arrondissement-paris-france-2-bed-apartment/', permanent: true },
+  { source: '/property/paris-france-2-bed-apartment', destination: '/property/6th-arrondissement-paris-france-2-bed-apartment/', permanent: true },
+  { source: '/property/paris-france-2-bed-apartment-with-fireplace/', destination: '/property/6th-arrondissement-paris-france-2-bed-apartment-with-fireplace/', permanent: true },
+  { source: '/property/paris-france-2-bed-apartment-with-fireplace', destination: '/property/6th-arrondissement-paris-france-2-bed-apartment-with-fireplace/', permanent: true },
+  { source: '/property/paris-france-3-bed-apartment-x/', destination: '/property/6th-arrondissement-paris-france-3-bed-apartment/', permanent: true },
+  { source: '/property/paris-france-3-bed-apartment-x', destination: '/property/6th-arrondissement-paris-france-3-bed-apartment/', permanent: true },
+  { source: '/property/paris-france-2-bed-apartment-2/', destination: '/property/7th-arrondissement-paris-france-2-bed-apartment/', permanent: true },
+  { source: '/property/paris-france-2-bed-apartment-2', destination: '/property/7th-arrondissement-paris-france-2-bed-apartment/', permanent: true },
+  { source: '/property/paris-france-2-bed-apartment-x/', destination: '/property/7th-arrondissement-paris-france-2-bed-apartment-2/', permanent: true },
+  { source: '/property/paris-france-2-bed-apartment-x', destination: '/property/7th-arrondissement-paris-france-2-bed-apartment-2/', permanent: true },
+  { source: '/property/paris-france-3-bed-apartment/', destination: '/property/7th-arrondissement-paris-france-3-bed-apartment/', permanent: true },
+  { source: '/property/paris-france-3-bed-apartment', destination: '/property/7th-arrondissement-paris-france-3-bed-apartment/', permanent: true },
+
   // ── Rightmove legacy slug redirects ──────────────────────────────────────────
   { source: '/mougins-7-bed-villa-with-pool-and-views-of-esterel-mounts/', destination: '/property/mouans-sartoux-france-7-bed-villa-with-sea-views/', permanent: true },
   { source: '/mougins-7-bed-villa-with-pool-and-views-of-esterel-mounts', destination: '/property/mouans-sartoux-france-7-bed-villa-with-sea-views/', permanent: true },
