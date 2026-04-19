@@ -54,10 +54,12 @@ export default function PropertyCard({ property: p }) {
   // Reset carousel when property changes
   useEffect(() => { setSlide(0); }, [p.slug]);
 
-  // Use the gallery images array directly (p.img is the same as images[0] — don't prepend it)
-  const imgSlides = (p.images && p.images.length > 0)
-    ? p.images.slice(0, 3)
-    : p.img ? [p.img] : [];
+  // Slide 1 = p.img (hero — always reliable, confirmed migrated).
+  // Slides 2-3 = gallery images that differ from the hero (avoids duplicates when
+  // images[0] === img, and skips that slot so broken gallery URLs stay off slide 1).
+  const heroImg = p.img || null;
+  const extraImgs = (p.images || []).filter(url => url && url !== heroImg);
+  const imgSlides = [heroImg, ...extraImgs].filter(Boolean).slice(0, 3);
   const hasLock = !!p.driveUrl;
   const totalSlides = imgSlides.length + (hasLock ? 1 : 0);
   const isLockSlide = hasLock && slide >= imgSlides.length;
@@ -138,7 +140,7 @@ export default function PropertyCard({ property: p }) {
               style={{ opacity: isLockSlide ? 1 : 0, pointerEvents: isLockSlide ? 'auto' : 'none' }}
               onClick={handleLockClick}
             >
-              <div className="prop-card-lock-blur" style={{ backgroundImage: `url('${imgSlides[0] || p.img || ''}')` }} />
+              <div className="prop-card-lock-blur" style={{ backgroundImage: `url('${heroImg || ''}')` }} />
               <div className="prop-card-lock-inner">
                 <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
