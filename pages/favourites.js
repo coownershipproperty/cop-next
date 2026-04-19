@@ -1,15 +1,20 @@
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
+import { createClient } from '@supabase/supabase-js';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
+import { FAV_KEY, FAV_EVENT, getFavSlugs, toggleFav, onFavsChange } from '@/lib/favs';
 
-const COP_FAV_KEY = 'cop_favourites';
-
-function getFavs() {
-  try { return JSON.parse(localStorage.getItem(COP_FAV_KEY) || '{}'); } catch { return {}; }
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
 }
+
+const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
 
 const BedIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{width:14,height:14}}>
@@ -27,56 +32,54 @@ const HeartFilledIcon = () => (
   </svg>
 );
 
-const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
-
 export default function Favourites() {
-  const [favs, setFavs] = useState(null); // null = not hydrated yet
+  // null = not yet hydrated; [] = hydrated but empty; [...] = has slugs
+  const [slugs, setSlugs]       = useState(null);
+  const [props, setProps]       = useState([]);
+  const [loading, setLoading]   = useState(false);
 
+  // On mount: read localStorage and subscribe to changes
   useEffect(() => {
-    // Load favs and clean up any malformed entries (e.g. from old code formats)
-    const raw = getFavs();
-    const cleaned = {};
-    for (const [key, val] of Object.entries(raw)) {
-      // Only keep entries where the value is a non-null object with at least a title or img
-      if (val && typeof val === 'object' && !Array.isArray(val)) {
-        cleaned[key] = val;
-      }
-    }
-    // Persist cleanup if anything was removed
-    if (Object.keys(cleaned).length !== Object.keys(raw).length) {
-      localStorage.setItem(COP_FAV_KEY, JSON.stringify(cleaned));
-    }
-    setFavs(cleaned);
-    const sync = (e) => { if (e.key === COP_FAV_KEY) setFavs(getFavs()); };
-    window.addEventListener('storage', sync);
-    return () => window.removeEventListener('storage', sync);
+    const initial = getFavSlugs();
+    setSlugs(initial);
+    return onFavsChange((updated) => setSlugs([...updated]));
   }, []);
 
+  // Whenever the slug list changes, fetch fresh property data from Supabase
+  useEffect(() => {
+    if (!slugs || slugs.length === 0) {
+      setProps([]);
+      return;
+    }
+    let cancelled = false;
+    setLoading(true);
+    getSupabase()
+      .from('properties')
+      .select('slug, title, img, images, price, currency, country, region, city, beds, size, status')
+      .in('slug', slugs)
+      .then(({ data }) => {
+        if (cancelled) return;
+        // Preserve the order the user saved them (most recent last → show most recent first)
+        const bySlug = Object.fromEntries((data || []).map(p => [p.slug, p]));
+        const ordered = slugs.map(s => bySlug[s]).filter(Boolean).reverse();
+        setProps(ordered);
+        setLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, [slugs]);
+
   function remove(slug) {
-    const updated = getFavs();
-    delete updated[slug];
-    localStorage.setItem(COP_FAV_KEY, JSON.stringify(updated));
-    setFavs({ ...updated });
-    const n = Object.keys(updated).length;
-    document.querySelectorAll('.cop-fav-count').forEach(el => {
-      el.textContent = n > 0 ? n : '';
-      el.style.display = n > 0 ? 'inline-flex' : 'none';
-    });
+    toggleFav(slug); // also broadcasts the cop:favs event → setSlugs fires above
   }
 
   function clearAll() {
     if (!confirm('Remove all saved properties?')) return;
-    localStorage.removeItem(COP_FAV_KEY);
-    setFavs({});
-    document.querySelectorAll('.cop-fav-count').forEach(el => {
-      el.textContent = '';
-      el.style.display = 'none';
-    });
+    localStorage.removeItem(FAV_KEY);
+    window.dispatchEvent(new CustomEvent(FAV_EVENT, { detail: [] }));
   }
 
-  // Use Object.entries so we always have the reliable localStorage KEY (slug),
-  // independent of whatever p.id the stored object contains.
-  const entries = favs ? Object.entries(favs) : [];
+  const hydrated = slugs !== null;
+  const isEmpty  = hydrated && slugs.length === 0;
 
   return (
     <>
@@ -97,11 +100,11 @@ export default function Favourites() {
       <section className="fav-sec">
         <div className="fav-inner">
 
-          {/* Not yet hydrated */}
-          {favs === null && <div style={{minHeight: 200}} />}
+          {/* Not hydrated yet — show nothing to avoid flash */}
+          {!hydrated && <div style={{ minHeight: 200 }} />}
 
           {/* Empty state */}
-          {favs !== null && entries.length === 0 && (
+          {isEmpty && (
             <div className="fav-empty">
               <div className="fav-empty-icon">&#9825;</div>
               <h2>No Saved Properties Yet</h2>
@@ -110,38 +113,54 @@ export default function Favourites() {
             </div>
           )}
 
+          {/* Loading spinner while fetching */}
+          {hydrated && !isEmpty && loading && props.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}>
+              Loading your saved properties…
+            </div>
+          )}
+
           {/* Saved grid */}
-          {entries.length > 0 && (
+          {props.length > 0 && (
             <>
               <div className="fav-header">
-                <p className="fav-count"><strong>{entries.length}</strong> saved propert{entries.length === 1 ? 'y' : 'ies'}</p>
+                <p className="fav-count">
+                  <strong>{slugs.length}</strong> saved propert{slugs.length === 1 ? 'y' : 'ies'}
+                </p>
                 <button className="clear-favs-btn" onClick={clearAll}>Clear all</button>
               </div>
               <div className="fav-grid">
-                {entries.map(([slug, p]) => {
-                  // slug = the reliable localStorage key; p = stored property object
-                  // Defensive URL: use stored p.url if valid, otherwise construct from slug
-                  const propUrl = (p && p.url && typeof p.url === 'string' && p.url.startsWith('/'))
-                    ? p.url
-                    : `/property/${slug}`;
-                  const price = p && p.price ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}` : null;
-                  const location = p ? [p.city, p.region, p.country].filter(Boolean).join(', ') : '';
+                {props.map((p) => {
+                  const propUrl  = `/property/${p.slug}`;
+                  const imgSrc   = p.img || (p.images && p.images[0]) || '/images/placeholder.jpg';
+                  const price    = p.price
+                    ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}`
+                    : null;
+                  const location = [p.city, p.region, p.country].filter(Boolean).join(', ');
+
                   return (
-                    <article key={slug} className="prop-card" onClick={() => window.location.href = propUrl} role="link" aria-label={p && p.title}>
+                    <article
+                      key={p.slug}
+                      className="prop-card"
+                      onClick={() => window.location.href = propUrl}
+                      role="link"
+                      aria-label={p.title}
+                    >
                       <div className="prop-img-wrap">
-                        {p && p.img
-                          ? <img src={p.img} alt={p.title} className="prop-img" loading="lazy" />
-                          : <div className="prop-img" style={{background:'var(--blue-20)'}} />
-                        }
-                        {p && p.label && <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>}
-                        <button className="prop-heart active" onClick={e => { e.stopPropagation(); remove(slug); }} aria-label="Remove from favourites">
+                        <img src={imgSrc} alt={p.title} className="prop-img" loading="lazy" />
+                        {p.status === 'sold' && <span className="prop-badge sold">Sold</span>}
+                        <button
+                          className="prop-heart active"
+                          onClick={e => { e.stopPropagation(); remove(p.slug); }}
+                          aria-label="Remove from favourites"
+                        >
                           <HeartFilledIcon />
                         </button>
                       </div>
                       <div className="prop-body">
                         {location && <p className="prop-location">{location}</p>}
-                        <h3 className="prop-title">{p && p.title}</h3>
-                        {p && (p.beds > 0 || p.size > 0) && (
+                        <h3 className="prop-title">{p.title}</h3>
+                        {(p.beds > 0 || p.size > 0) && (
                           <div className="prop-stats">
                             {p.beds > 0 && <span className="prop-stat"><BedIcon />{p.beds} Bed{p.beds > 1 ? 's' : ''}</span>}
                             {p.beds > 0 && p.size > 0 && <span className="prop-stat-sep" />}

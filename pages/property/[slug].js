@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { trackConversion } from '@/lib/gtag';
+import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -165,12 +166,6 @@ function EnquiryForm({ propertyTitle }) {
   );
 }
 
-const COP_FAV_KEY = 'cop_favourites';
-
-function getFavs() {
-  try { return JSON.parse(localStorage.getItem(COP_FAV_KEY) || '{}'); } catch { return {}; }
-}
-
 /* ── Main page ── */
 export default function PropertyPage({ property: p, similar }) {
   const [showUnlock, setShowUnlock] = useState(false);
@@ -188,31 +183,14 @@ export default function PropertyPage({ property: p, similar }) {
   const partnerLabel = PARTNER_LABEL[p.partner] || p.partner;
   const touchStartX = useRef(null);
 
-  // Sync saved state from localStorage on mount
+  // Hydrate saved state and keep it in sync with any other component
   useEffect(() => {
-    setSaved(!!getFavs()[p.slug]);
+    setSaved(isFav(p.slug));
+    return onFavsChange((slugs) => setSaved(slugs.includes(p.slug)));
   }, [p.slug]);
 
   function toggleSave() {
-    const favs = getFavs();
-    if (favs[p.slug]) {
-      delete favs[p.slug];
-      setSaved(false);
-    } else {
-      favs[p.slug] = {
-        slug: p.slug, title: p.title, img: p.images[0] || p.img || '',
-        price: p.price, currency: p.currency, country: p.country,
-        beds: p.beds, baths: p.baths, size: p.size,
-      };
-      setSaved(true);
-    }
-    localStorage.setItem(COP_FAV_KEY, JSON.stringify(favs));
-    // Update header heart count
-    const n = Object.keys(favs).length;
-    document.querySelectorAll('.cop-fav-count').forEach(el => {
-      el.textContent = n > 0 ? n : '';
-      el.style.display = n > 0 ? 'inline-flex' : 'none';
-    });
+    setSaved(toggleFav(p.slug));
   }
   // Mobile carousel: up to 3 photos + lock panel as last slide
   const mobileSlides = [
