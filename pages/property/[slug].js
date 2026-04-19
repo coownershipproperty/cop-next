@@ -3,6 +3,7 @@ import NextImage from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { trackConversion } from '@/lib/gtag';
+import { getSavedUser, saveUser } from '@/lib/savedUser';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -77,7 +78,8 @@ function Img({ src, alt, loading = 'lazy', priority = false, sizes = '100vw' }) 
 
 /* ── Enquiry form ── */
 function EnquiryForm({ propertyTitle }) {
-  const [f, setF] = useState({ name: '', email: '', phone: '', message: '' });
+  const saved = getSavedUser();
+  const [f, setF] = useState({ name: saved.name, email: saved.email, phone: '', message: '' });
   const [status, setStatus] = useState('idle');
   const set = k => e => setF(prev => ({ ...prev, [k]: e.target.value }));
 
@@ -87,6 +89,7 @@ function EnquiryForm({ propertyTitle }) {
       const r = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...f, property: propertyTitle }) });
       if (r.ok) {
+        saveUser({ name: f.name, email: f.email });
         trackConversion('generate_lead', 'Lead', {
           event_category: 'property_enquiry',
           property_title: propertyTitle,
