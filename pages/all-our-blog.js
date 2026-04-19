@@ -14,7 +14,7 @@ export async function getStaticProps() {
   const posts = raw.map(({ slug, title, category, date, dateFormatted, excerpt, heroImage }) => ({
     slug, title, category, date, dateFormatted, excerpt, heroImage,
   }));
-  return { props: { posts } };
+  return { props: { posts }, revalidate: 86400 };
 }
 
 const CATEGORIES = [

@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
+import { createClient } from '@supabase/supabase-js';
 
 export async function getStaticPaths() {
   const posts = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
@@ -35,14 +36,22 @@ export async function getStaticProps({ params }) {
     slug: p.slug, title: p.title, category: p.category, dateFormatted: p.dateFormatted, heroImage: p.heroImage,
   }));
 
-  // 4 featured properties (random selection for variety)
-  const properties = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
-  const featured = properties.filter(p => p.img).slice(0, 8);
-  const sideProps = [...featured].sort(() => 0.5 - Math.random()).slice(0, 4).map(p => ({
+  // 4 featured properties from Supabase (random selection for variety)
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+  const { data: propRows } = await supabase
+    .from('properties')
+    .select('slug, title, img, price, currency, country, region')
+    .not('img', 'is', null)
+    .limit(40);
+  const pool = (propRows || []);
+  const sideProps = [...pool].sort(() => 0.5 - Math.random()).slice(0, 4).map(p => ({
     slug: p.slug, title: p.title, img: p.img, price: p.price, currency: p.currency, country: p.country, region: p.region,
   }));
 
-  return { props: { post: cleanPost, latestPosts, sideProps } };
+  return { props: { post: cleanPost, latestPosts, sideProps }, revalidate: 86400 };
 }
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };

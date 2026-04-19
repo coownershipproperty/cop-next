@@ -7,6 +7,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import fs from 'fs';
 import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 
 import { useState, useRef, useEffect } from 'react';
 
@@ -38,8 +39,18 @@ const FEATURED_SLUGS = [
 ];
 
 export async function getStaticProps() {
-  const data = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
-  const bySlug = Object.fromEntries(data.map(p => [p.slug, p]));
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+
+  // Featured properties from Supabase
+  const { data: rows } = await supabase
+    .from('properties')
+    .select('slug, title, img, region, country, price, currency, beds, size')
+    .in('slug', FEATURED_SLUGS);
+
+  const bySlug = Object.fromEntries((rows || []).map(p => [p.slug, p]));
   const featuredProps = FEATURED_SLUGS
     .map(slug => bySlug[slug])
     .filter(Boolean)
@@ -55,7 +66,12 @@ export async function getStaticProps() {
       size: p.size || null,
     }));
 
-  // Latest 3 blog posts
+  // Live property count from Supabase
+  const { count: propertyCount } = await supabase
+    .from('properties')
+    .select('*', { count: 'exact', head: true });
+
+  // Latest 3 blog posts (still from file — posts aren't in Supabase)
   const allPosts = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
   const latestPosts = allPosts.slice(0, 3).map(p => ({
     slug: p.slug,
@@ -66,7 +82,7 @@ export async function getStaticProps() {
     category: p.category || '',
   }));
 
-  return { props: { propertyCount: data.length, featuredProps, latestPosts } };
+  return { props: { propertyCount: propertyCount || 0, featuredProps, latestPosts }, revalidate: 3600 };
 }
 
 const CARD_GAP = 20;
