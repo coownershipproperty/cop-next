@@ -17,7 +17,6 @@ const nextConfig = {
 nextConfig.redirects = async () => [
   // ── Page redirects ──
   { source: '/our-mission/', destination: '/about-us/', permanent: true },
-  { source: '/french-alps-fractional-ownership-properties/', destination: '/our-homes/', permanent: true },
   { source: '/renting-your-fractional-ownership-share-the-3-options-explained-cop/', destination: '/blog/renting-your-fractional-ownership-share-the-3-options-explained-cop/', permanent: true },
 
   // ── Blog post root-level redirects (WordPress served posts at /slug/, Next.js serves at /blog/slug/) ──
