@@ -25,7 +25,7 @@ export async function getStaticProps() {
 
   const { data: raw, error } = await supabase
     .from('properties')
-    .select('slug, title, img, price, currency, country, region, city, beds, size, status, property_type');
+    .select('slug, title, img, images, drive_url, price, currency, country, region, city, beds, size, status, property_type');
 
   if (error) {
     console.error('Supabase error (our-homes):', error);
@@ -36,6 +36,8 @@ export async function getStaticProps() {
     slug:     p.slug,
     title:    p.title,
     img:      p.img,
+    images:   p.images   || [],
+    driveUrl: p.drive_url || null,
     price:    p.price    || null,
     currency: p.currency || 'EUR',
     country:  p.country  || '',
