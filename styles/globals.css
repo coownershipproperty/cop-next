@@ -5948,7 +5948,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-lb-prev,.pp-lb-next{position:fixed;top:50%;transform:translateY(-50%);font-size:3.5rem;color:#fff;background:none;border:none;cursor:pointer;padding:0 20px;opacity:.8;z-index:10101}
 .pp-lb-prev{left:0}.pp-lb-next{right:0}
 .pp-lb-prev:hover,.pp-lb-next:hover{opacity:1}
-.pp-lb-count{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);color:rgba(201,168,76,.55);font-family:'Nunito Sans',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;z-index:10101}
+.pp-lb-count{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);color:rgba(201,168,76,.55);font-family:'Nunito Sans',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;z-index:10101}
 
 /* ── Unlock modal ── */
 .ul-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9000;display:flex;align-items:center;justify-content:center;padding:24px}
