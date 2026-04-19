@@ -132,7 +132,6 @@ export default function PropertyCard({ property: p }) {
                 fill
                 className="prop-img"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                loading={i === 0 ? 'eager' : 'lazy'}
               />
             </div>
           ))}

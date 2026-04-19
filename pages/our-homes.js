@@ -77,10 +77,13 @@ function franceCluserLabel(region) {
   return null;
 }
 
+const PAGE_SIZE = 24;
+
 export default function OurHomes({ allProperties }) {
   const [countries, setCountries] = useState([]); // [] = All; array of selected countries
   const [regions,   setRegions]   = useState([]); // [] = all; array of selected region labels
   const [sort,      setSort]      = useState('default');
+  const [page,      setPage]      = useState(1);
 
   // ── Toggle a country in/out of selection ────────────────────────────────────
   function toggleCountry(c) {
@@ -176,12 +179,31 @@ export default function OurHomes({ allProperties }) {
     return list;
   }, [allProperties, countries, regions, sort]);
 
+  const visible = useMemo(() => filtered.slice(0, page * PAGE_SIZE), [filtered, page]);
+  const hasMore = visible.length < filtered.length;
+
   const hasActiveFilters = countries.length > 0 || sort !== 'default';
 
   function clearAll() {
     setCountries([]);
     setRegions([]);
     setSort('default');
+    setPage(1);
+  }
+
+  function toggleCountryAndReset(c) {
+    toggleCountry(c);
+    setPage(1);
+  }
+
+  function toggleRegionAndReset(r) {
+    toggleRegion(r);
+    setPage(1);
+  }
+
+  function setSortAndReset(s) {
+    setSort(s);
+    setPage(1);
   }
 
   return (
@@ -218,14 +240,14 @@ export default function OurHomes({ allProperties }) {
             <div className="filter-scroll-wrap">
               <button
                 className={`filter-btn${countries.length === 0 ? ' active' : ''}`}
-                onClick={() => toggleCountry('')}
+                onClick={() => toggleCountryAndReset('')}
               >All</button>
 
               {TOP_COUNTRIES.map(c => (
                 <button
                   key={c}
                   className={`filter-btn${countries.includes(c) ? ' active' : ''}`}
-                  onClick={() => toggleCountry(c)}
+                  onClick={() => toggleCountryAndReset(c)}
                 >
                   {COUNTRY_FLAGS[c]} {c}
                 </button>
@@ -233,7 +255,7 @@ export default function OurHomes({ allProperties }) {
 
               <button
                 className={`filter-btn${countries.includes('OTHER') ? ' active' : ''}`}
-                onClick={() => toggleCountry('OTHER')}
+                onClick={() => toggleCountryAndReset('OTHER')}
               >🌐 Other</button>
             </div>
           </div>
@@ -251,7 +273,7 @@ export default function OurHomes({ allProperties }) {
                   <button
                     key={r}
                     className={`filter-btn${regions.includes(r) ? ' active' : ''}`}
-                    onClick={() => toggleRegion(r)}
+                    onClick={() => toggleRegionAndReset(r)}
                   >
                     {COUNTRY_FLAGS[r] ? `${COUNTRY_FLAGS[r]} ` : ''}{r}
                   </button>
@@ -259,7 +281,7 @@ export default function OurHomes({ allProperties }) {
                 {hasOtherRegions && (
                   <button
                     className={`filter-btn${regions.includes('OTHER') ? ' active' : ''}`}
-                    onClick={() => toggleRegion('OTHER')}
+                    onClick={() => toggleRegionAndReset('OTHER')}
                   >Other</button>
                 )}
               </div>
@@ -276,7 +298,7 @@ export default function OurHomes({ allProperties }) {
                 <button
                   key={val}
                   className={`filter-btn sort-btn${sort === val ? ' active' : ''}`}
-                  onClick={() => setSort(val)}
+                  onClick={() => setSortAndReset(val)}
                 >{label}</button>
               ))}
               {hasActiveFilters && (
@@ -301,16 +323,25 @@ export default function OurHomes({ allProperties }) {
         {/* Results count */}
         <div className="results-bar">
           <p className="results-count">
-            <strong>{filtered.length}</strong> {filtered.length === 1 ? 'property' : 'properties'} found
+            Showing <strong>{visible.length}</strong> of <strong>{filtered.length}</strong> {filtered.length === 1 ? 'property' : 'properties'}
           </p>
         </div>
 
         {/* Property grid */}
         <div className="homes-grid-wrap">
           {filtered.length > 0 ? (
-            <div className="homes-grid" id="homes-grid">
-              {filtered.map(p => <PropertyCard key={p.slug} property={p} />)}
-            </div>
+            <>
+              <div className="homes-grid" id="homes-grid">
+                {visible.map(p => <PropertyCard key={p.slug} property={p} />)}
+              </div>
+              {hasMore && (
+                <div className="load-more-wrap">
+                  <button className="load-more-btn" onClick={() => setPage(p => p + 1)}>
+                    Load more ({filtered.length - visible.length} remaining)
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <div className="no-results">
               <p>No properties match your filters.</p>
