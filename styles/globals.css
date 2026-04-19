@@ -2073,14 +2073,17 @@ img {
 
 .faq-a p { margin: 0; }
 
-/* ── Buying FAQ page — button accordion ── */
-.bfaq-q { width:100%; display:flex; align-items:center; gap:0; cursor:pointer; padding:22px 0; background:none; border:none; text-align:left; }
-.bfaq-q .faq-num { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--warm-gold); opacity:0.5; min-width:50px; flex-shrink:0; }
-.bfaq-q > span:not(.faq-num):not(.faq-chevron-arrow) { flex:1; font-size:1.05rem; color:var(--text-dark); font-family:'Playfair Display',serif; font-weight:400; }
-.faq-chevron-arrow { width:12px; height:12px; border-right:2px solid var(--warm-gold); border-bottom:2px solid var(--warm-gold); transform:rotate(45deg); transition:transform 0.3s; flex-shrink:0; margin-left:20px; display:inline-block; }
-.faq-chevron-arrow.open { transform:rotate(-135deg); }
-.bfaq-a { padding:0 0 24px 50px; font-size:1rem; line-height:1.8; color:var(--text-muted); }
-.bfaq-a p { margin:0; }
+/* ── Buying FAQ page — standalone accordion (no inheritance from .faq-q) ── */
+.bfaq-list { list-style:none; max-width:900px; margin:3rem auto 0; }
+.bfaq-row { border-top:1px solid var(--warm-gold); }
+.bfaq-row:last-child { border-bottom:1px solid var(--warm-gold); }
+.bfaq-btn { width:100%; display:flex; align-items:center; cursor:pointer; padding:22px 0; background:none; border:none; text-align:left; }
+.bfaq-num { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--warm-gold); opacity:0.5; min-width:50px; flex-shrink:0; }
+.bfaq-question { flex:1; font-size:1.05rem; color:var(--text-dark); font-family:'Playfair Display',serif; font-weight:400; }
+.bfaq-arrow { width:12px; height:12px; border-right:2px solid var(--warm-gold); border-bottom:2px solid var(--warm-gold); transform:rotate(45deg); transition:transform 0.3s; flex-shrink:0; margin-left:20px; display:inline-block; }
+.bfaq-arrow--open { transform:rotate(-135deg); }
+.bfaq-answer { padding:0 0 24px 50px; font-size:1rem; line-height:1.8; color:var(--text-muted); }
+.bfaq-answer p { margin:0; }
 /* Buying FAQ resource links */
 .bfaq-links { display:flex; flex-direction:column; gap:0; border-top:1px solid var(--gray-border); }
 .bfaq-link { display:block; padding:16px 0; border-bottom:1px solid var(--gray-border); color:var(--text-dark); font-family:'Nunito Sans',sans-serif; font-size:0.95rem; font-weight:600; text-decoration:none; transition:color 0.2s; }

@@ -138,20 +138,20 @@ export default function BuyingFAQs() {
       <section className="faq-section">
         <p className="faq-eyebrow">Common Questions</p>
         <h2 className="faq-heading">Frequently Asked <em>Questions</em></h2>
-        <div className="faq-list">
+        <div className="bfaq-list">
           {FAQS.map((item, i) => (
-            <div key={i} className={`faq-item${open === i ? ' faq-item--open' : ''}`}>
+            <div key={i} className="bfaq-row">
               <button
-                className="faq-q bfaq-q"
+                className="bfaq-btn"
                 onClick={() => setOpen(open === i ? null : i)}
                 aria-expanded={open === i}
               >
-                <span className="faq-num">{String(i + 1).padStart(2, '0')}</span>
-                <span>{item.q}</span>
-                <span className={`faq-chevron-arrow${open === i ? ' open' : ''}`} />
+                <span className="bfaq-num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="bfaq-question">{item.q}</span>
+                <span className={`bfaq-arrow${open === i ? ' bfaq-arrow--open' : ''}`} />
               </button>
               {open === i && (
-                <div className="faq-a bfaq-a">
+                <div className="bfaq-answer">
                   <p>{item.a}</p>
                 </div>
               )}
