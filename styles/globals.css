@@ -6866,6 +6866,19 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   margin-bottom: 7px;
 }
 
+.pc-panel-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 7px;
+}
+.pc-panel-stats span {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #6b7d8d;
+}
+
 .pc-panel-price {
   display: block;
   font-family: 'Nunito Sans', sans-serif;

@@ -13,7 +13,7 @@ import { useState, useRef, useEffect } from 'react';
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 
 const FEATURED_SLUGS = [
-  'paris-fra-2-bed-apartment-with-fireplace',
+  '6th-arrondissement-paris-france-2-bed-apartment-with-fireplace',
   'corona-del-mar-ca-4-bed-villa',
   'grimaud-france-3-bed-villa-with-pool',
   'marbella-spain-4-bed-villa-with-jacuzzi',
@@ -21,7 +21,7 @@ const FEATURED_SLUGS = [
   'apricale-italy-3-bed-villa-with-infinity-pool',
   'florence-ita-2-bed-apartment',
   'palm-springs-ca-3-bed-cabin-with-mountain-views',
-  'paris-fra-3-bed-apartment',
+  '7th-arrondissement-paris-france-3-bed-apartment',
   'breckenridge-co-4-bed-cabin-with-mountain-views-2',
   'brickell-miami-florida-luxury-studio-apartment',
   'domaso-italy-2-bed-apartment-with-pool',
@@ -51,6 +51,8 @@ export async function getStaticProps() {
       country: p.country || '',
       price: p.price || null,
       currency: p.currency || 'EUR',
+      beds: p.beds || null,
+      size: p.size || null,
     }));
 
   // Latest 3 blog posts
@@ -168,9 +170,9 @@ function PropCarousel({ items, propertyCount }) {
               );
             }
 
-            const label = p.title.includes('—')
-              ? p.title.split('—').slice(1).join('—').trim()
-              : p.title;
+            const titleParts = p.title.includes('—') ? p.title.split('—') : null;
+            const loc   = titleParts ? titleParts[0].trim() : `${p.region}${p.region && p.country ? ', ' : ''}${p.country}`;
+            const label = titleParts ? titleParts.slice(1).join('—').trim() : p.title;
             const sym = SYM[p.currency] || p.currency;
             // Eager-load only the first few cards in the middle copy
             const eager = copyNum === 1 && (i - N) < 4;
@@ -200,10 +202,12 @@ function PropCarousel({ items, propertyCount }) {
                 </div>
                 {isActive ? (
                   <div className="pc-panel">
-                    <span className="pc-panel-loc">
-                      {p.region}{p.region && p.country ? ', ' : ''}{p.country}
-                    </span>
+                    <span className="pc-panel-loc">{loc}</span>
                     <span className="pc-panel-title">{label}</span>
+                    <div className="pc-panel-stats">
+                      {p.beds && <span>{p.beds} Beds</span>}
+                      {p.size && <span>{p.size.toLocaleString('en-GB')} m²</span>}
+                    </div>
                     {p.price && (
                       <span className="pc-panel-price">
                         {sym}{p.price.toLocaleString('en-GB')}
@@ -213,7 +217,7 @@ function PropCarousel({ items, propertyCount }) {
                   </div>
                 ) : (
                   <div className="pc-caption">
-                    <span className="pc-caption-loc">{p.region}{p.region && p.country ? ', ' : ''}{p.country}</span>
+                    <span className="pc-caption-loc">{loc}</span>
                     <span className="pc-caption-title">{label}</span>
                   </div>
                 )}
