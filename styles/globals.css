@@ -5854,7 +5854,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-lock-cta-btn{margin-top:10px;background:#C9A84C;color:#fff;font-family:'Nunito Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 18px;border-radius:2px;position:relative;z-index:1;transition:background .2s}
 .pp-gallery-lock:hover .pp-lock-cta-btn{background:#b8923e}
 /* Lightbox lock slide */
-.pp-lb-lock{position:relative;width:72vw;max-width:860px;height:60vh;max-height:580px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:4px;overflow:hidden;cursor:pointer}
+.pp-lb-lock{position:relative;width:90vw;max-width:90vw;height:92vh;max-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:4px;overflow:hidden;cursor:pointer}
 .pp-lb-lock-blur{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(10px) brightness(0.35) saturate(0.6);transform:scale(1.12)}
 .pp-lb-lock-title{font-family:'Nunito Sans',sans-serif;font-size:1.1rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;position:relative;z-index:1;text-align:center}
 .pp-lb-lock-sub{font-family:'Nunito Sans',sans-serif;font-size:.85rem;color:rgba(255,255,255,.8);position:relative;z-index:1;text-align:center}
