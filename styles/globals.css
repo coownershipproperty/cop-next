@@ -5278,19 +5278,20 @@ section.props-sec,
 .load-more-btn {
   display: inline-block;
   padding: 0.9rem 2.5rem;
-  background: transparent;
+  background: #C9A84C;
   border: 2px solid #C9A84C;
-  color: #C9A84C;
+  color: #fff;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 .load-more-btn:hover {
-  background: #C9A84C;
+  background: #b8923e;
+  border-color: #b8923e;
   color: #fff;
 }
 
