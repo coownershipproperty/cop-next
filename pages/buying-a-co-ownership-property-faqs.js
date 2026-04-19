@@ -123,17 +123,6 @@ export default function BuyingFAQs() {
         <p className="subtitle">Everything you need to know about purchasing a fractional share — from legal structure and costs to the buying process and beyond.</p>
       </section>
 
-      {/* Intro */}
-      <section className="sec" style={{ background: 'var(--cream-bg)' }}>
-        <div className="sec-inner" style={{ maxWidth: 760, textAlign: 'center' }}>
-          <p className="eyebrow">About Co-Ownership</p>
-          <h2>The Smart Way to Own a <em>Luxury Holiday Home</em></h2>
-          <p className="sec-lead" style={{ marginTop: '1.2rem' }}>
-            Fractional ownership lets you buy a genuine deeded share of a professionally managed luxury property — at a fraction of the outright purchase price. Below we answer the most common questions from buyers considering co-ownership for the first time.
-          </p>
-        </div>
-      </section>
-
       {/* FAQ Accordion */}
       <section className="faq-section">
         <p className="faq-eyebrow">Common Questions</p>

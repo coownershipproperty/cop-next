@@ -1,129 +1,155 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 
+const FAQS = [
+  {
+    q: 'How do I book a stay in my co-ownership property?',
+    a: `Reservations are made directly through the property management platform — in most cases a dedicated mobile app or online calendar provided by your management company. The calendar is typically open 10 to 24 months in advance, depending on the operator. You browse available dates, select your stay, and the booking is confirmed instantly within your seasonal allowance. Your co-owners book independently on the same system, with the scheduling designed to ensure no two owners are at the property at the same time. Co-owners are also selected with complementary stay preferences to minimise conflicts over peak dates from the outset.`,
+  },
+  {
+    q: 'How far in advance should I book my stay?',
+    a: `You can book up to 24 months in advance, with a minimum notice period of two days for last-minute stays. During high and mid seasons, bookings operate through an options system: you can secure a preferred slot at least 120 days before your intended arrival. Most management systems operate two booking categories — advance bookings for peak periods (typically confirmed well ahead of the season) and last-minute bookings (minimum two days' notice, up to 30 days ahead), which are made directly on the calendar without requiring manager validation. The system is designed to give owners maximum flexibility while ensuring fairness across the ownership group.`,
+  },
+  {
+    q: 'How many days per year can I stay in my co-ownership property?',
+    a: `Your annual allowance is directly proportional to the number of shares you own. One 1/8 share entitles you to 1/8 of the calendar year — typically 42 to 45 nights, equivalent to around six weeks or 1.5 months per year. These nights are divided across the property's seasons (high, mid, and low for most ski and coastal properties) to ensure all owners receive a fair share of peak-time access on a rotating basis. If you own more than one share, your total allowance scales proportionally: 2 shares = approximately 3 months per year, 3 shares = 4.5 months, and 4 shares (the maximum 50%) = 6 months. Some properties are structured into 1/4 shares, doubling the per-share allowance. Contact us for specific details on the property you are interested in.`,
+  },
+  {
+    q: 'Can I use unused days to generate rental income?',
+    a: `In many cases, yes. If you are not planning to use some or all of your allocated time in a given season, many of our co-ownership properties allow you to place those days into a professionally managed rental programme. The management company handles all guest-facing operations — listing, booking, check-in, housekeeping, and checkout — while rental income is returned directly to you. Rental yields in high-demand destinations such as the French Riviera, Ibiza, the French Alps, and Tuscany can be strong enough to cover your annual management fees and in some cases generate a net return. Note that rental permissions vary by property and local regulation — some areas restrict short-term letting, so always confirm with our team for a specific property before purchase.`,
+  },
+  {
+    q: 'What are the arrival and departure times?',
+    a: `Standard arrival time is 3:00 pm and standard departure time is 11:00 am. These times are set to allow the housekeeping and cleaning team sufficient time to prepare the property to hotel-quality standards between consecutive owner stays. The exact window may vary slightly by property depending on the cleaning team's schedule and the gap between bookings. If you need an early check-in or late checkout, it is always worth contacting your property manager in advance — where no other stay is scheduled, accommodation is often possible.`,
+  },
+  {
+    q: 'What is the minimum stay length?',
+    a: `The standard minimum stay is two nights. However, some co-ownership operators and properties work on a week-by-week basis, particularly ski chalets and resort properties where weekly changeovers are more practical from a logistics standpoint. The minimum stay is designed to balance operational efficiency (cleaning, preparation, and management costs) with flexibility for owners. If you have a specific requirement — for example, a weekend trip or a one-night stop — contact us and we can advise on which properties in our portfolio are most suited to short stays.`,
+  },
+  {
+    q: 'Can I invite guests and family to stay with me?',
+    a: `Absolutely. During your reserved stays, the property is entirely yours. You are free to invite friends, family members, and guests to join you, or to allow them to use the property independently during your allocated time. The home is yours for the duration of your booking — every room, every amenity, the pool, garden, and all facilities. There is no restriction on the number of guests up to the property's stated capacity, and no additional charge for guests. You can host a dinner party, have family visiting for the full stay, or lend your time to a friend. The experience is identical to sole ownership.`,
+  },
+  {
+    q: 'Can I lend or give my stay to someone else?',
+    a: `Yes. As a co-owner, you have the right to transfer your booked stay to a family member, friend, or guest of your choosing. There is no requirement for you to be physically present during a stay you have allocated to someone else. This is one of the practical advantages of co-ownership over timeshare — you own the asset and the associated time rights, so you can use them as you see fit within the property's house rules. If you are lending your stay to someone unfamiliar with the property or management system, it is good practice to brief them on arrival and departure procedures and house rules in advance.`,
+  },
+  {
+    q: 'What is included when I arrive at the property?',
+    a: `The property is prepared to a hotel-ready standard before every arrival. This includes professionally laundered bed linens and towels, a clean and fully equipped kitchen, and all appliances in working order. Most co-ownership properties come stocked with basic essentials — cleaning products, paper goods, and bathroom consumables. Some operators include a welcome pack with local produce or wine. The home is interior-designed to a high standard, fully furnished, and equipped with everything needed for daily use. You do not need to bring anything beyond your personal items and food for your stay.`,
+  },
+  {
+    q: 'Who looks after the property between stays?',
+    a: `A dedicated professional property management company is responsible for the home at all times. Between stays they handle cleaning and housekeeping, routine maintenance and inspections, garden and pool care, utility management, and any repairs. If something needs attention during your stay — an appliance issue, a maintenance query, or an emergency — your property manager is contactable directly and typically responds promptly. You will never arrive to find a problem that has gone unaddressed. The management team is your point of contact for everything property-related, leaving you free to simply enjoy your time there.`,
+  },
+  {
+    q: 'What are the ongoing costs of ownership during my stays?',
+    a: `Your ongoing costs as a co-owner are shared proportionally between all owners and typically cover: property management fees, maintenance and repairs, insurance, local property taxes, utility costs, and any communal service charges. These costs are split in line with your ownership share — so as a 1/8 shareholder you pay 1/8 of the annual running costs, regardless of how many nights you actually use. Annual costs vary by property and location but are consistently far lower than the equivalent costs of wholly owning a comparable property. There are no additional per-night charges for using the property during your allocated time.`,
+  },
+  {
+    q: 'How does seasonal scheduling work for ski and coastal properties?',
+    a: `Ski and coastal properties typically operate across two or three seasons — high, mid, and low (and sometimes an additional shoulder season). Each season has different levels of demand and, accordingly, different booking dynamics. Your annual allowance of nights is divided across these seasons, usually through a rotating schedule that ensures every co-owner receives access to peak-season dates over a multi-year cycle. This prevents any one owner from monopolising Christmas week or peak summer every year. The rotation is managed transparently by the property management company, and the schedule is shared with all owners well in advance of each season.`,
+  },
+  {
+    q: 'Can I swap or exchange my allocated dates with other co-owners?',
+    a: `Yes, in many cases. The booking system used by most of our management partners allows owners to see availability and, where another owner agrees, to swap allocated slots. Some operators also allow you to bank unused days in one season and use them in another, subject to availability. This flexibility is one of the practical advantages of the co-ownership model — if your plans change, you are not simply forfeiting your time. Contact your property manager to understand the specific exchange and flexibility options available for your property.`,
+  },
+  {
+    q: 'Are pets allowed at co-ownership properties?',
+    a: `Pet policies vary by property and are set out in the co-ownership agreement and house rules. Some properties do welcome pets, while others restrict them to protect furnishings, gardens, and the experience of other owners. If travelling with a pet is important to you, it is something to clarify before purchase — our team can filter available properties based on pet-friendly policies. Where pets are permitted, standard good-practice rules apply: keeping pets off furniture, ensuring the property is clean on departure, and giving advance notice to the management company.`,
+  },
+  {
+    q: 'What happens if something is damaged during my stay?',
+    a: `Minor wear and tear is covered by the property's general maintenance budget, shared equally by all co-owners. If damage occurs during your stay that is beyond normal use — for example, accidental breakage of furniture or equipment — you are expected to report it promptly to the property manager. Most co-ownership arrangements include a damage deposit or insurance mechanism to cover such eventualities, ensuring the property is restored to its full standard before the next owner arrives. Transparency and prompt communication with the management team is all that is required; the process is handled professionally and without drama.`,
+  },
+  {
+    q: 'Can I make changes or improvements to the property?',
+    a: `Major changes to the property — redecoration, structural modifications, or significant purchases — require agreement from all co-owners and are coordinated through the management company. This is by design: the property is a shared asset and any changes affect all owners. In practice, the management company handles all significant decisions on behalf of the ownership group, and most properties are already furnished and designed to a high standard that requires little intervention. If you have suggestions or improvements in mind, the right approach is to raise them through the co-owners' communication channel or at the periodic owners' review, where all voices are heard.`,
+  },
+];
+
 export default function StayingFAQs() {
+  const [open, setOpen] = useState(null);
+
   return (
     <>
       <Head>
         <title>Staying in My Co-Ownership Property — FAQs | Co-Ownership Property</title>
-        <meta name="description" content="Answers to common questions about staying in your co-ownership property — booking your days, arrival, house rules, guests, and what to expect during your stays." />
+        <meta name="description" content="Everything you need to know about staying in your co-ownership property — booking your time, arrival, guests, seasonal scheduling, rental income, and house rules." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/staying-in-my-co-ownership-property-faqs/" />
+        <meta property="og:title" content="Staying in My Co-Ownership Property — FAQs" />
+        <meta property="og:description" content="Everything you need to know about staying in your co-ownership property — booking, arrival, guests, seasonal scheduling, and more." />
+        <meta property="og:url" content="https://co-ownership-property.com/staying-in-my-co-ownership-property-faqs/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": FAQS.map(({ q, a }) => ({
+            "@type": "Question",
+            "name": q,
+            "acceptedAnswer": { "@type": "Answer", "text": a },
+          })),
+        }) }} />
       </Head>
       <Header />
-      <div dangerouslySetInnerHTML={{__html: bodyHtml}} />
+
+      {/* Hero */}
+      <section className="page-hero">
+        <p className="eyebrow">Owner Guides</p>
+        <h1>Staying in My Co-Ownership Property — <em>FAQs</em></h1>
+        <p className="subtitle">Everything you need to know about booking your time, arriving, hosting guests, and making the most of your co-ownership property.</p>
+      </section>
+
+      {/* FAQ Accordion */}
+      <section className="faq-section">
+        <p className="faq-eyebrow">Common Questions</p>
+        <h2 className="faq-heading">Frequently Asked <em>Questions</em></h2>
+        <div className="bfaq-list">
+          {FAQS.map((item, i) => (
+            <div key={i} className="bfaq-row">
+              <button
+                className="bfaq-btn"
+                onClick={() => setOpen(open === i ? null : i)}
+                aria-expanded={open === i}
+              >
+                <span className="bfaq-num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="bfaq-question">{item.q}</span>
+                <span className={`bfaq-arrow${open === i ? ' bfaq-arrow--open' : ''}`} />
+              </button>
+              {open === i && (
+                <div className="bfaq-answer">
+                  <p>{item.a}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Helpful links */}
+      <section className="sec" style={{ background: 'var(--cream-bg)', paddingTop: 60, paddingBottom: 80 }}>
+        <div className="sec-inner" style={{ maxWidth: 760 }}>
+          <p className="eyebrow" style={{ textAlign: 'center', marginBottom: '2rem' }}>Useful Resources</p>
+          <div className="bfaq-links">
+            <a href="/buying-a-co-ownership-property-faqs/" className="bfaq-link">Buying a Co-Ownership Property — FAQs →</a>
+            <a href="/how-it-works/" className="bfaq-link">How Co-Ownership Works →</a>
+            <a href="/our-homes/" className="bfaq-link">View All Properties →</a>
+            <a href="/all-our-blog/" className="bfaq-link">Market Insights &amp; Guides →</a>
+            <a href="/terms-and-conditions/" className="bfaq-link">Terms &amp; Conditions →</a>
+          </div>
+        </div>
+      </section>
+
       <Newsletter />
       <ExpertForm />
       <Footer />
     </>
   );
 }
-
-const bodyHtml = `<!-- ===== COP Navigation Bar ===== -->
-
-<!-- /COP Navigation Bar -->
-
-
-
-<div class="website-wrapper wpresidence_wrapper_for_header_type1  wide " id="all_wrapper">
-<div class="container-fluid px-0 wpresidence_main_wrapper_class  wide  has_header_type1 ">
-<main class="content_wrapper container-fluid">
-
-<div class="wpresidence-content-container-wrapper col-12 row flex-wrap">
-    <div class="col-12 breadcrumb_container "></div>    
-    <div class="col-xs-12 col-lg-12 p-0  single_width_page">
-        <span class="entry-title listing_loader_title">Your search results</span>
-<div class="spinner" id="listing_loader">
-  <div class="rect1"></div>
-  <div class="rect2"></div>
-  <div class="rect3"></div>
-  <div class="rect4"></div>
-  <div class="rect5"></div>
-</div>
-<div id="listing_ajax_container">
-</div>        
-                    <div class="single-content"><p>Welcome to our FAQs on staying in my property! <strong>Co-ownership</strong>, also called <strong>fractional ownership</strong> for second homes, is a type of property investment that allows multiple people to co-own a holiday property without all the costs associated with it. This is a great option for those who want to holiday in a particular location, but don&#8217;t want the burden of maintaining a full-time residence there.</p>
-<p>In this FAQ, we will cover everything you need to know about staying and using your property, including how it works,  and what to consider before making a purchase.</p>
-<p>So if you&#8217;re considering buying a fractional ownership property, read on for all the information you need to make an informed decision.</p>
-<p><a tabindex="0">How do I book a stay in my second home?</a></p>
-<p>Reservations can be made directly on the dynamic calendar of the mobile app (with most of our partners) or manually when managed by the owners themselves. The calendar is usually open up 10-24 months in advance depending on the property management in place. The co-owners are also selected with complementary profiles to ensure that everyone’s stay preferences can be accommodated.</p>
-<p><a tabindex="0">How far in advance should I book my stay?</a></p>
-<p>Bookings can be made up to 24 months in advance, with a minimum of two days’ notice required. During high and mid seasons, reservations are made through a system of options, which can be confirmed at least 120 days before the start of the stay if you wish. Often you have two categories of bookings depending on the season:</p>
-<p>-Advance bookings (usually high season)</p>
-<p>-Last-minute bookings (minimum two days before and max. 30 days in advance). This is booked directly on the calendar without any need for validation by the property manager. Obviously within your stay allowance.</p>
-<p><a tabindex="0">How many days per year can I stay in my residence?</a></p>
-<p>Each share gives you the same pro-rata in terms of days to spend in your home. If you buy one share worth 1/8th of the price, you get to use your home 1/8th of the calendar year (1.5 months/year or 6 weeks). Most of our partners sell on the basis of 1/8th shares giving you access to a total quota of <strong>42-45 nights</strong>, divided between the different seasons. Broadly speaking, for ski properties and seaside properties, there are between two and three seasons depending on the location (high, mid, low or high and low). You can let what you are not using to generate rental income if the rental of your property is not prohibited in the area.</p>
-<p><strong>We also a few fractional ownership properties sold in 1/4 shares, so double the time.</strong></p>
-<p>Contact us for more info based on the property that you are interested in.</p>
-<p>Of course, the more shares you buy, the more your total quota of nights/months increases (1 share = 1.5 months/year, 2 shares = 3 months/year, 3 shares = 4.5 months/year, 4 shares = 6 months/year).</p>
-<p><a tabindex="0">What are the arrival and departure times?</a></p>
-<p>These times vary according to each property depending on the duration of intervention of the cleaning teams between two stays. The standard arrival time is set at 3 p.m. and departure at 11 a.m.</p>
-<p><a tabindex="0">What is the minimum stay in your property?</a></p>
-<p>Usually, it is two days but some partners work per week stays. Contact us for a particular property.</p>
-<div class="internal-links-section" style="padding: 24px; background: #fafafa; border-top: 2px solid #e0e0e0; margin-top: 0;">
-<p style="font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; color: #888; margin-bottom: 12px;">Useful Resources</p>
-<div><a style="display: inline-block; margin: 4px 8px 4px 0; padding: 8px 16px; background: #f5f5f5; border-radius: 4px; text-decoration: none; color: #333; font-size: 14px; border: 1px solid #ddd;" href="/terms-and-conditions/">Terms &amp; Conditions</a><br />
-<a style="display: inline-block; margin: 4px 8px 4px 0; padding: 8px 16px; background: #f5f5f5; border-radius: 4px; text-decoration: none; color: #333; font-size: 14px; border: 1px solid #ddd;" href="/about-us/">About Co-Ownership Property</a><br />
-<a style="display: inline-block; margin: 4px 8px 4px 0; padding: 8px 16px; background: #f5f5f5; border-radius: 4px; text-decoration: none; color: #333; font-size: 14px; border: 1px solid #ddd;" href="/market-insights/">Market Insights</a><br />
-<a style="display: inline-block; margin: 4px 8px 4px 0; padding: 8px 16px; background: #f5f5f5; border-radius: 4px; text-decoration: none; color: #333; font-size: 14px; border: 1px solid #ddd;" href="/robots-ai-second-homes/">Robots &amp; AI for Second Homes</a></div>
-</div>
-</div><!-- single content -->
-        
-            </div>
- 
-    <!-- begin sidebar -->
-<!-- end sidebar --></div>  
-
-</main><!-- end content_wrapper started in header --></div> <!-- end class container -->
-
-
-<!-- #colophon -->
-</div> <!-- end website wrapper -->
-
-
-<input type="hidden" id="wpestate_ajax_log_reg" value="d2e28d2e16" />    <a href="#" class="backtop"  aria-label="up" ><i class="fas fa-chevron-up"></i></a>
-    <a href="#" class="contact-box "  aria-label="contact" ><i class="fas fa-envelope"></i></a>
-
-
- 
-<div class="contactformwrapper  hidden"> 
-
-        <div id="footer-contact-form">
-        <div class="contact_close_button">
-            <i class="fas fa-times" aria-hidden="true"></i>
-        </div>
-        <h4>Contact Us</h4>
-        <p>Use the form below to contact us!</p>
-        <div class="alert-box error">
-            <div class="alert-message" id="footer_alert-agent-contact"></div>
-        </div> 
-
-        
-        <input type="text" placeholder="Your Name" required="required"   id="foot_contact_name"  name="contact_name" class="form-control" value="" tabindex="373"> 
-        <input type="email" required="required" placeholder="Your Email"  id="foot_contact_email" name="contact_email" class="form-control" value="" tabindex="374">
-        <input type="email" required="required" placeholder="Your Phone"  id="foot_contact_phone" name="contact_phone" class="form-control" value="" tabindex="374">
-        <textarea placeholder="Type your message..." required="required" id="foot_contact_content" name="contact_content" class="form-control" tabindex="375"></textarea>
-        <input type="hidden" name="contact_ajax_nonce" id="agent_property_ajax_nonce"  value="2545ffece6" />
-
-                <div class="btn-cont">
-            <button type="submit" id="btn-cont-submit" class="wpresidence_button">Send</button>
-         
-            <input type="hidden" value="" name="contact_to">
-            <div class="bottom-arrow"></div>
-        </div>  
-    </div>
-    
-</div>
-<!--Compare Starts here-->     
-<div class="prop-compare ">
-    <div id="compare_close"><i class="fas fa-times" aria-hidden="true"></i></div>
-    <form method="post" id="form_compare" action="https://co-ownership-property.com/">
-        <h4 class="title_compare">Compare Listings</h4>
-        <button   id="submit_compare" class="wpresidence_button"> Compare </button>
-    </form>
-</div>    
-<!--Compare Ends here-->  <input type="hidden" id="wpestate_ajax_filtering" value="bbd729ca09" /><input type="hidden" id="wpestate_payments_nonce" value="8971223dc8" />`;
