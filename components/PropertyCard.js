@@ -38,13 +38,6 @@ const ChevronRight = () => (
   </svg>
 );
 
-const LockIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{width:28,height:28}}>
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-  </svg>
-);
-
 const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
 
 export default function PropertyCard({ property: p }) {
@@ -61,11 +54,17 @@ export default function PropertyCard({ property: p }) {
   // Reset carousel when property changes
   useEffect(() => { setSlide(0); }, [p.slug]);
 
-  // Build slides: hero img + up to 2 gallery images = max 3 real photos
-  const imgSlides = [p.img, ...(p.images || [])].filter(Boolean).slice(0, 3);
+  // Use the gallery images array directly (p.img is the same as images[0] — don't prepend it)
+  const imgSlides = (p.images && p.images.length > 0)
+    ? p.images.slice(0, 3)
+    : p.img ? [p.img] : [];
   const hasLock = !!p.driveUrl;
   const totalSlides = imgSlides.length + (hasLock ? 1 : 0);
   const isLockSlide = hasLock && slide >= imgSlides.length;
+
+  // How many photos the user can't see (same calc as property detail page)
+  const totalImgs = p.totalImages || imgSlides.length;
+  const missingCount = totalImgs > imgSlides.length ? totalImgs - imgSlides.length : null;
 
   function goTo(idx, e) {
     if (e) e.stopPropagation();
@@ -100,8 +99,6 @@ export default function PropertyCard({ property: p }) {
     ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}`
     : null;
 
-  const blurSrc = imgSlides[0] || '/images/placeholder.jpg';
-
   return (
     <>
       <article
@@ -134,18 +131,23 @@ export default function PropertyCard({ property: p }) {
             </div>
           ))}
 
-          {/* ── Lock slide (4th position) ── */}
+          {/* ── Lock slide (4th position) — same wording as listing page ── */}
           {hasLock && (
             <div
               className="prop-carousel-slide prop-carousel-lock"
               style={{ opacity: isLockSlide ? 1 : 0, pointerEvents: isLockSlide ? 'auto' : 'none' }}
               onClick={handleLockClick}
             >
-              <div className="prop-card-lock-blur" style={{ backgroundImage: `url('${blurSrc}')` }} />
+              <div className="prop-card-lock-blur" style={{ backgroundImage: `url('${imgSlides[0] || p.img || ''}')` }} />
               <div className="prop-card-lock-inner">
-                <LockIcon />
-                <span className="prop-card-lock-title">More Photos &amp; Floor Plans</span>
-                <span className="prop-card-lock-sub">Free — enter your email</span>
+                <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                {missingCount && (
+                  <span className="pp-lock-title">You&apos;re missing {missingCount} photos</span>
+                )}
+                <span className="pp-lock-sub">Unlock the full gallery &amp; floor plans — free</span>
+                <span className="pp-lock-cta-btn">Unlock Now →</span>
               </div>
             </div>
           )}
