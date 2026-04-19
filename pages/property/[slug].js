@@ -59,13 +59,14 @@ const SYM = { EUR: '€', USD: '$', GBP: '£' };
 function fmt(price, currency) { return `${SYM[currency] || currency}${price.toLocaleString('en-GB')}`; }
 const PARTNER_LABEL = { pacaso: 'Pacaso', andhamlet: '&Hamlet', vivla: 'Vivla', myne: 'Myne' };
 
-function Img({ src, alt, loading = 'lazy', sizes = '100vw' }) {
+function Img({ src, alt, loading = 'lazy', priority = false, sizes = '100vw' }) {
   return (
     <NextImage
       src={src || '/images/placeholder.jpg'}
       alt={alt || ''}
       fill
-      loading={loading}
+      loading={priority ? 'eager' : loading}
+      priority={priority}
       sizes={sizes}
       style={{ objectFit: 'cover' }}
     />
@@ -236,7 +237,7 @@ export default function PropertyPage({ property: p, similar }) {
           {mobileSlides.map((slide, i) =>
             slide.type === 'img' ? (
               <div key={i} className="pp-mob-slide" onClick={() => setLightbox(slide.idx)}>
-                <Img src={slide.src} alt={`${p.title} ${i + 1}`} loading={i === 0 ? 'eager' : 'lazy'} />
+                <Img src={slide.src} alt={`${p.title} ${i + 1}`} priority={i === 0} loading={i === 0 ? 'eager' : 'lazy'} />
               </div>
             ) : (
               <div key={i} className="pp-mob-slide pp-mob-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
@@ -274,7 +275,7 @@ export default function PropertyPage({ property: p, similar }) {
         </button>
         {/* Hero — spans both rows */}
         <div className="pp-gallery-hero" onClick={() => setLightbox(0)}>
-          <Img src={heroImg} alt={p.title} loading="eager" sizes="(max-width: 960px) 67vw, 75vw" />
+          <Img src={heroImg} alt={p.title} priority sizes="(max-width: 960px) 67vw, 75vw" />
         </div>
         {/* Top-right: thumb 1 */}
         <div className="pp-gallery-thumb" onClick={() => p.images[1] && setLightbox(1)}>
