@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Script from 'next/script';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -189,12 +190,14 @@ function PropCarousel({ items, propertyCount }) {
                 style={{ cursor: 'pointer' }}
               >
                 <div className="pc-img-wrap">
-                  <img
-                    src={p.img}
+                  <Image
+                    src={p.img || '/images/placeholder.jpg'}
                     alt={p.title}
+                    fill
+                    sizes="430px"
                     className="pc-img"
+                    style={{ objectFit: 'cover' }}
                     loading={eager ? 'eager' : 'lazy'}
-                    decoding="async"
                   />
                 </div>
                 {isActive ? (
@@ -312,55 +315,55 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             {/* Set 1 */}
             <div className="press-track">
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-times.png" alt="The Times" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-times.png" alt="The Times" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-express.png" alt="Express" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-express.png" alt="Express" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" width={200} height={50} loading="eager" />
                 </div>
             </div>
             {/* Set 2 (identical – creates seamless infinite loop) */}
             <div className="press-track" aria-hidden="true">
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-times.png" alt="" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-times.png" alt="" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-ft.png" alt="" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-ft.png" alt="" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-dailymail.png" alt="" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-dailymail.png" alt="" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-forbes.png" alt="" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-forbes.png" alt="" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-express.png" alt="" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-express.png" alt="" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="" width={200} height={50} loading="eager" />
                 </div>
                 <div className="press-logo-item">
-                    <img src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="" loading="eager" width="200" height="50" />
+                    <Image src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="" width={200} height={50} loading="eager" />
                 </div>
             </div>
         </div>
@@ -467,7 +470,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "france" ? " active" : ""}`} id="dest-france">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/france-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-france.webp" alt="France" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-france.webp" alt="France" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">France</div>
@@ -479,7 +482,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "spain" ? " active" : ""}`} id="dest-spain">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/spain-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-spain.webp" alt="Spain" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-spain.webp" alt="Spain" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Spain</div>
@@ -491,7 +494,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "italy" ? " active" : ""}`} id="dest-italy">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/italy-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-italy-v2.webp" alt="Italy" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-italy-v2.webp" alt="Italy" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Italy</div>
@@ -503,7 +506,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "portugal" ? " active" : ""}`} id="dest-portugal">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/portugal-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-portugal.webp" alt="Portugal" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-portugal.webp" alt="Portugal" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Portugal</div>
@@ -515,7 +518,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "austria" ? " active" : ""}`} id="dest-austria">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/austria-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-austria.webp" alt="Austria" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-austria.webp" alt="Austria" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Austria</div>
@@ -527,7 +530,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "england" ? " active" : ""}`} id="dest-england">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/england-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-england.webp" alt="England" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-england.webp" alt="England" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">England</div>
@@ -539,7 +542,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "sweden" ? " active" : ""}`} id="dest-sweden">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/sweden-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-sweden.webp" alt="Sweden" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-sweden.webp" alt="Sweden" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Sweden</div>
@@ -551,7 +554,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "germany" ? " active" : ""}`} id="dest-germany">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/germany-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-germany.webp" alt="Germany" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-germany.webp" alt="Germany" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Germany</div>
@@ -563,7 +566,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "croatia" ? " active" : ""}`} id="dest-croatia">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/croatia-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-croatia.webp" alt="Croatia" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-croatia.webp" alt="Croatia" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Croatia</div>
@@ -575,7 +578,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "usa" ? " active" : ""}`} id="dest-usa">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/usa-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-usa-v2.webp" alt="USA" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-usa-v2.webp" alt="USA" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">USA</div>
@@ -587,7 +590,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "mexico" ? " active" : ""}`} id="dest-mexico">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/mexico-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <img src="/wp-content/uploads/dest-mexico-v2.webp" alt="Mexico" loading="lazy" width="504" height="466" />
+                    <Image src="/wp-content/uploads/dest-mexico-v2.webp" alt="Mexico" width={504} height={466} loading="lazy" style={{width:'100%',height:'auto'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Mexico</div>
@@ -605,25 +608,25 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         <h2 className="section-heading">Homeowner Stories</h2>
         <div className="testimonials-grid">
             <div className="testimonial-card">
-                <img src="/wp-content/uploads/2026/02/Hedda-testimonial-south-of-France.jpg" alt="Astrid" className="testimonial-image" loading="lazy" />
+                <Image src="/wp-content/uploads/2026/02/Hedda-testimonial-south-of-France.jpg" alt="Astrid" width={120} height={120} className="testimonial-image" loading="lazy" />
                 <p className="testimonial-quote">"From the first stay, everything felt effortless — like arriving at your own home with the comfort of a hotel. Provence is now part of our rhythm. I don't have to worry about a thing."</p>
                 <div className="testimonial-author">Astrid</div>
                 <div className="testimonial-location">Mougins, South of France</div>
             </div>
             <div className="testimonial-card">
-                <img src="/wp-content/uploads/2026/02/Middle-aged-couple-from-the-UK-with-mountain-and-ski-slopes-behind.-La-Plagne.jpg" alt="Harry &amp; Nicole" className="testimonial-image" loading="lazy" />
+                <Image src="/wp-content/uploads/2026/02/Middle-aged-couple-from-the-UK-with-mountain-and-ski-slopes-behind.-La-Plagne.jpg" alt="Harry &amp; Nicole" width={120} height={120} className="testimonial-image" loading="lazy" />
                 <p className="testimonial-quote">"Fractional ownership gave us the Alpine dream we thought was out of reach. The process was seamless, and our son now brings his school friends to ski. It's become a proper family home."</p>
                 <div className="testimonial-author">Harry &amp; Nicole</div>
                 <div className="testimonial-location">La Plagne, French Alps</div>
             </div>
             <div className="testimonial-card">
-                <img src="/wp-content/uploads/2026/02/Young-couple-from-LA-review-about-Lake-Tahoe-property.jpg" alt="Mateo &amp; Anne" className="testimonial-image" loading="lazy" />
+                <Image src="/wp-content/uploads/2026/02/Young-couple-from-LA-review-about-Lake-Tahoe-property.jpg" alt="Mateo &amp; Anne" width={120} height={120} className="testimonial-image" loading="lazy" />
                 <p className="testimonial-quote">"We finally own a piece of the land without the guilt of an unused mortgage. Transparent from day one — we couldn't be happier. Already planning our next share in Europe."</p>
                 <div className="testimonial-author">Mateo &amp; Anne</div>
                 <div className="testimonial-location">LA, California</div>
             </div>
             <div className="testimonial-card">
-                <img src="/wp-content/uploads/2026/02/Family-swimming-in-Mallorca.jpg" alt="Jan &amp; The Family" className="testimonial-image" loading="lazy" />
+                <Image src="/wp-content/uploads/2026/02/Family-swimming-in-Mallorca.jpg" alt="Jan &amp; The Family" width={120} height={120} className="testimonial-image" loading="lazy" />
                 <p className="testimonial-quote">"I sold my French holiday home and bought a much nicer villa in Mallorca for a quarter of the price. The team handled everything flawlessly — it feels like ours the moment we walk through the door."</p>
                 <div className="testimonial-author">Jan &amp; The Family</div>
                 <div className="testimonial-location">Mallorca, Spain</div>
@@ -642,7 +645,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <article key={post.slug} className="lp-card" onClick={() => { window.location=`/blog/${post.slug}/`; }}>
               <div className="lp-image-wrap">
                 {post.heroImage && (
-                  <img src={post.heroImage} alt={post.title} className="lp-image" loading="lazy" decoding="async" />
+                  <Image src={post.heroImage} alt={post.title} fill className="lp-image" style={{objectFit:'cover'}} loading="lazy" sizes="(max-width: 768px) 100vw, 400px" />
                 )}
               </div>
               <div className="lp-content">

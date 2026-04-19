@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const COP_FAV_KEY = 'cop_favourites';
 
@@ -87,12 +88,13 @@ export default function PropertyCard({ property: p }) {
   return (
     <article className="prop-card" onClick={() => window.location.href = href} role="link" aria-label={p.title}>
       <div className="prop-img-wrap">
-        <img
-          src={p.img}
+        <Image
+          src={p.img || '/images/placeholder.jpg'}
           alt={p.title}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="prop-img"
-          loading="lazy"
-          decoding="async"
+          style={{ objectFit: 'cover' }}
         />
         {p.label && <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>}
         <button

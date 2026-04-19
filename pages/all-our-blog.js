@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import { useState, useMemo } from 'react';
 import path from 'path';
 import fs from 'fs';
@@ -40,8 +41,10 @@ export default function AllOurBlog({ posts }) {
         <meta name="description" content="Insights, guides, and market intelligence on luxury fractional ownership, co-ownership properties, and the second-home market across Europe and the USA." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://co-ownership-property.com/all-our-blog/" />
         <meta property="og:title" content="Co-Ownership Property Blog — Fractional Ownership Insights" />
         <meta property="og:description" content="Destination guides, market analysis, and ownership stories for the discerning fractional buyer. Published daily." />
+        <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
         <meta property="og:url" content="https://co-ownership-property.com/all-our-blog/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -83,7 +86,7 @@ export default function AllOurBlog({ posts }) {
               <a key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
                 <div className="blog-thumb">
                   {post.heroImage
-                    ? <img src={post.heroImage} alt={post.title} loading="lazy" width={600} height={400} />
+                    ? <Image src={post.heroImage} alt={post.title} fill style={{objectFit:"cover"}} loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                     : <div className="blog-thumb-placeholder" />
                   }
                 </div>

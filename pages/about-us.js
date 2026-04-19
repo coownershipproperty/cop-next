@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -14,10 +15,12 @@ export default function AboutUs() {
         <meta name="description" content="Meet the team behind Co-Ownership Property. Founded in 2022 by David Olsson, we help smart buyers access luxury second homes through fractional co-ownership." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://co-ownership-property.com/about-us/" />
         <meta property="og:title" content="About Us | Co-Ownership Property" />
         <meta property="og:description" content="Meet the team behind Co-Ownership Property. We help smart buyers access luxury second homes through fractional co-ownership." />
         <meta property="og:url" content="https://co-ownership-property.com/about-us/" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
@@ -33,24 +36,24 @@ export default function AboutUs() {
         <div className="press-bar-header"><span className="press-bar-label">As Featured In</span></div>
         <div className="press-marquee-wrap"><div className="press-track-outer">
             <div className="press-track">
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-times.png" alt="The Times" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-express.png" alt="Express" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" width="200" height="50" /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-times.png" alt="The Times" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-express.png" alt="Express" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" width={200} height={50} /></div>
             </div>
             <div className="press-track" aria-hidden="true">
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-times.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-ft.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-dailymail.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-forbes.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-express.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="" width="200" height="50" /></div>
-                <div className="press-logo-item"><img src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="" width="200" height="50" /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-times.png" alt="" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-ft.png" alt="" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-dailymail.png" alt="" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-forbes.png" alt="" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-express.png" alt="" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="" width={200} height={50} /></div>
+                <div className="press-logo-item"><Image src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="" width={200} height={50} /></div>
             </div>
         </div></div>
     </div>
@@ -74,7 +77,7 @@ export default function AboutUs() {
             <div className="team-grid">
                 <div className="team-card">
                     <div className="team-photo">
-                        <img src="/wp-content/uploads/2025/11/unnamed-4-1.jpg" alt="David Olsson" loading="lazy" />
+                        <Image src="/wp-content/uploads/2025/11/unnamed-4-1.jpg" alt="David Olsson" fill style={{objectFit:"cover"}} sizes="140px" />
                     </div>
                     <h3>David Olsson</h3>
                     <span className="team-role">Founder</span>
@@ -82,7 +85,7 @@ export default function AboutUs() {
                 </div>
                 <div className="team-card">
                     <div className="team-photo">
-                        <img src="/wp-content/uploads/2025/12/1761762811297.jpg" alt="Dylan Olsson" loading="lazy" />
+                        <Image src="/wp-content/uploads/2025/12/1761762811297.jpg" alt="Dylan Olsson" fill style={{objectFit:"cover"}} sizes="140px" />
                     </div>
                     <h3>Dylan Olsson</h3>
                     <span className="team-role">Sales</span>
@@ -90,7 +93,7 @@ export default function AboutUs() {
                 </div>
                 <div className="poppy-card">
                     <div className="team-photo">
-                        <img src="/wp-content/uploads/2025/11/unnamed-8.jpg" alt="Poppy" loading="lazy" />
+                        <Image src="/wp-content/uploads/2025/11/unnamed-8.jpg" alt="Poppy" fill style={{objectFit:"cover"}} sizes="140px" />
                     </div>
                     <div>
                         <h3 style={{color: '#fff'}}>Poppy</h3>
@@ -107,7 +110,7 @@ export default function AboutUs() {
         <div className="sec-inner">
             <div className="story-grid">
                 <div className="story-img">
-                    <img src="/wp-content/uploads/2026/02/1920-x-1080-px-resale-ski-chalet-interior.jpg" alt="Luxury Alpine chalet interior" loading="lazy" />
+                    <Image src="/wp-content/uploads/2026/02/1920-x-1080-px-resale-ski-chalet-interior.jpg" alt="Luxury Alpine chalet interior" fill style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
                 </div>
                 <div className="story-text">
                     <p className="eyebrow">Why We Started</p>
@@ -135,7 +138,7 @@ export default function AboutUs() {
                     <blockquote>The average second home sits empty for 330 days a year. A fractional share gives you more time in an exceptional property — at a fraction of the cost.</blockquote>
                 </div>
                 <div className="story-img">
-                    <img src="/wp-content/uploads/2025/11/ibiza-villa.jpg" alt="Ibiza villa with pool" loading="lazy" />
+                    <Image src="/wp-content/uploads/2025/11/ibiza-villa.jpg" alt="Ibiza villa with pool" fill style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
                 </div>
             </div>
         </div>
@@ -158,28 +161,28 @@ export default function AboutUs() {
 
             <div className="testi-grid">
                 <div className="testi-card">
-                    <div className="testi-photo"><img src="/wp-content/uploads/2026/02/Hedda-testimonial-south-of-France.jpg" alt="Astrid" loading="lazy" /></div>
+                    <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Hedda-testimonial-south-of-France.jpg" alt="Astrid" fill style={{objectFit:"cover"}} sizes="90px" /></div>
                     <div className="testi-name">Astrid</div>
                     <span className="testi-loc">Mougins, South of France</span>
                     <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <p className="testi-quote">From the first stay, everything felt effortless. It's like arriving at your own home with the comfort of a hotel. The beds are made, towels ready — nothing to think about. Every visit starts with calm, not chores. I love it already, and I don't have to worry about a thing.</p>
                 </div>
                 <div className="testi-card">
-                    <div className="testi-photo"><img src="/wp-content/uploads/2026/02/Middle-aged-couple-from-the-UK-with-mountain-and-ski-slopes-behind.-La-Plagne.jpg" alt="Harry &amp; Nicole" loading="lazy" /></div>
+                    <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Middle-aged-couple-from-the-UK-with-mountain-and-ski-slopes-behind.-La-Plagne.jpg" alt="Harry &amp; Nicole" fill style={{objectFit:"cover"}} sizes="90px" /></div>
                     <div className="testi-name">Harry &amp; Nicole</div>
                     <span className="testi-loc">La Plagne, French Alps</span>
                     <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <p className="testi-quote">Owning a place in the French Alps had always been a dream. Fractional ownership offered the perfect solution — all the benefits of a luxury mountain home without the stress and cost of managing a whole property. Our son can now invite his school friends to ski for half term. It truly made our dream a reality.</p>
                 </div>
                 <div className="testi-card">
-                    <div className="testi-photo"><img src="/wp-content/uploads/2026/02/Young-couple-from-LA-review-about-Lake-Tahoe-property.jpg" alt="Mateo &amp; Anne" loading="lazy" /></div>
+                    <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Young-couple-from-LA-review-about-Lake-Tahoe-property.jpg" alt="Mateo &amp; Anne" fill style={{objectFit:"cover"}} sizes="90px" /></div>
                     <div className="testi-name">Mateo &amp; Anne</div>
                     <span className="testi-loc">Lake Tahoe, California</span>
                     <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <p className="testi-quote">We've been driving up from LA to Tahoe every summer for years, but couldn't justify a whole house. This ownership model felt like the perfect middle way. We finally own a piece of the land without the guilt of an unused mortgage. Transparent from day one — we couldn't be happier.</p>
                 </div>
                 <div className="testi-card">
-                    <div className="testi-photo"><img src="/wp-content/uploads/2026/02/Family-swimming-in-Mallorca-300x300.jpg" alt="Jan &amp; Family" loading="lazy" /></div>
+                    <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Family-swimming-in-Mallorca-300x300.jpg" alt="Jan &amp; Family" fill style={{objectFit:"cover"}} sizes="90px" /></div>
                     <div className="testi-name">Jan &amp; Family</div>
                     <span className="testi-loc">Port d'Andratx, Mallorca</span>
                     <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>

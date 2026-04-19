@@ -1,6 +1,12 @@
 import "@/styles/globals.css";
 import { Playfair_Display, Nunito_Sans } from 'next/font/google';
 import { useEffect } from 'react';
+import Script from 'next/script';
+import { trackConversion } from '@/lib/gtag';
+
+const GA_ID = 'G-83RBNEXX4E';
+// Add your Meta Pixel ID to .env.local as NEXT_PUBLIC_META_PIXEL_ID
+const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -50,6 +56,39 @@ export default function App({ Component, pageProps }) {
 
   return (
     <main className={`${playfair.variable} ${nunito.variable}`}>
+      {/* ── Google Analytics 4 ── */}
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="ga4-init" strategy="afterInteractive">{`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+      `}</Script>
+
+      {/* ── Meta Pixel ── (activate by adding NEXT_PUBLIC_META_PIXEL_ID to .env.local) */}
+      {META_PIXEL_ID && (
+        <>
+          <Script id="meta-pixel" strategy="afterInteractive">{`
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+            document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '${META_PIXEL_ID}');
+            fbq('track', 'PageView');
+          `}</Script>
+          <noscript>
+            <img height="1" width="1" style={{display:'none'}}
+              src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+              alt=""
+            />
+          </noscript>
+        </>
+      )}
+
       <Component {...pageProps} />
 
       {/* ── WhatsApp floating button (mobile only) ── */}
@@ -59,6 +98,7 @@ export default function App({ Component, pageProps }) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
+        onClick={() => trackConversion('whatsapp_click', 'Contact', { method: 'whatsapp' })}
       >
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="16" cy="16" r="16" fill="#25D366"/>

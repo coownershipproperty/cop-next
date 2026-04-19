@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -19,6 +20,7 @@ export default function HowItWorks() {
         <meta property="og:description" content="Learn how fractional co-ownership works. Buy a genuine deeded share in luxury holiday homes across Europe and the USA from a fraction of the cost." />
         <meta property="og:url" content="https://co-ownership-property.com/how-it-works/" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/02/1920-x-1080-px-resale-ski-chalet-interior.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
@@ -65,7 +67,7 @@ export default function HowItWorks() {
         <div className="sec-inner">
             <div className="intro-grid">
                 <div className="intro-img">
-                    <img src="https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6910dcda781c75aa91ca0cf7_DJI_0957_58_59_60_61.jpeg" alt="Luxury villa with pool in Mouans-Sartoux, Côte d'Azur" />
+                    <Image src="https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6910dcda781c75aa91ca0cf7_DJI_0957_58_59_60_61.jpeg" alt="Luxury villa with pool in Mouans-Sartoux, Côte d'Azur" fill style={{objectFit:'cover'}} sizes="(max-width: 900px) 100vw, 50vw" />
                 </div>
                 <div className="intro-text">
                     <p className="eyebrow">The Smart Way to Own</p>

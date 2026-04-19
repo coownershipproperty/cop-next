@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
+import NextImage from 'next/image';
 import { createClient } from '@supabase/supabase-js';
 import { trackConversion } from '@/lib/gtag';
 import Header from '@/components/Header';
@@ -49,17 +50,26 @@ export async function getStaticProps({ params }) {
 
   const similar = (similarRaw || []).map(p => ({ ...p, driveUrl: null }));
 
-  return { props: { property: prop, similar }, revalidate: 1 };
+  return { props: { property: prop, similar }, revalidate: 3600 };
 }
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 function fmt(price, currency) { return `${SYM[currency] || currency}${price.toLocaleString('en-GB')}`; }
 const PARTNER_LABEL = { pacaso: 'Pacaso', andhamlet: '&Hamlet', vivla: 'Vivla', myne: 'Myne' };
 
-function Img({ src, alt, className, loading = 'lazy' }) {
+function Img({ src, alt, className, loading = 'lazy', sizes = '(max-width: 768px) 100vw, 50vw' }) {
+  const [imgSrc, setImgSrc] = useState(src || '/images/placeholder.jpg');
   return (
-    <img src={src || '/images/placeholder.jpg'} alt={alt} className={className} loading={loading}
-      onError={e => { e.target.onerror = null; e.target.src = '/images/placeholder.jpg'; }} />
+    <NextImage
+      src={imgSrc}
+      alt={alt || ''}
+      fill
+      className={className}
+      loading={loading}
+      style={{ objectFit: 'cover' }}
+      sizes={sizes}
+      onError={() => setImgSrc('/images/placeholder.jpg')}
+    />
   );
 }
 
@@ -312,15 +322,15 @@ export default function PropertyPage({ property: p, similar }) {
         </button>
         {/* Hero — spans both rows */}
         <div className="pp-gallery-hero" onClick={() => setLightbox(0)}>
-          <Img src={heroImg} alt={p.title} loading="eager" />
+          <Img src={heroImg} alt={p.title} loading="eager" sizes="(max-width: 960px) 67vw, 75vw" />
         </div>
         {/* Top-right: thumb 1 */}
         <div className="pp-gallery-thumb" onClick={() => p.images[1] && setLightbox(1)}>
-          {p.images[1] ? <Img src={p.images[1]} alt={`${p.title} 2`} /> : <div className="pp-gallery-blank" />}
+          {p.images[1] ? <Img src={p.images[1]} alt={`${p.title} 2`} sizes="(max-width: 960px) 33vw, 25vw" /> : <div className="pp-gallery-blank" />}
         </div>
         {/* Top-right: thumb 2 */}
         <div className="pp-gallery-thumb" onClick={() => p.images[2] && setLightbox(2)}>
-          {p.images[2] ? <Img src={p.images[2]} alt={`${p.title} 3`} /> : <div className="pp-gallery-blank" />}
+          {p.images[2] ? <Img src={p.images[2]} alt={`${p.title} 3`} sizes="(max-width: 960px) 33vw, 25vw" /> : <div className="pp-gallery-blank" />}
         </div>
         {/* Bottom-right: lock panel, spans both right columns */}
         <div className="pp-gallery-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
@@ -433,7 +443,7 @@ export default function PropertyPage({ property: p, similar }) {
               <div className="pp-similar-grid">
                 {similar.map(s => (
                   <a key={s.slug} href={`/property/${s.slug}`} className="pp-sim-card">
-                    <div className="pp-sim-img"><Img src={s.img} alt={s.title} /></div>
+                    <div className="pp-sim-img"><Img src={s.img} alt={s.title} sizes="(max-width: 768px) 100vw, 33vw" /></div>
                     <div className="pp-sim-body">
                       <h4>{s.title}</h4>
                       <p>{fmt(s.price, s.currency)}</p>

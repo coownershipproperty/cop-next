@@ -48,7 +48,7 @@ export async function getStaticProps() {
     property_type: p.property_type || '',
   })));
 
-  return { props: { allProperties }, revalidate: 1 };
+  return { props: { allProperties }, revalidate: 3600 };
 }
 
 // Fixed top-country order

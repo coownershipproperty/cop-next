@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: true,
+  images: {
+    remotePatterns: [
+      // Property images hosted on Google Drive
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
+      { protocol: 'https', hostname: '*.googleusercontent.com' },
+      // How-it-works hero image (Webflow CDN)
+      { protocol: 'https', hostname: 'cdn.prod.website-files.com' },
+    ],
+  },
 };
 
 nextConfig.redirects = async () => [
