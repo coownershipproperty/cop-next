@@ -12,6 +12,7 @@ export default function Ownership() {
         <meta name="description" content="Understand how fractional ownership is legally structured — LLC ownership, deeded title, funding options, and how co-owners hold and sell their shares." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://co-ownership-property.com/ownership/" />
       </Head>
       <Header />
       <div dangerouslySetInnerHTML={{__html: bodyHtml}} />

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 
 const BASE = 'https://co-ownership-property.com';
 
@@ -11,20 +12,20 @@ const STATIC_PAGES = [
   { url: '/about-us/',   priority: '0.7', changefreq: 'monthly' },
   { url: '/all-our-blog/', priority: '0.8', changefreq: 'daily' },
   { url: '/contact/',    priority: '0.6', changefreq: 'monthly' },
-  { url: '/favourites/', priority: '0.4', changefreq: 'never'   },
   { url: '/buying-a-co-ownership-property-faqs/', priority: '0.7', changefreq: 'monthly' },
   { url: '/staying-in-my-co-ownership-property-faqs/', priority: '0.6', changefreq: 'monthly' },
   { url: '/our-mission/', priority: '0.5', changefreq: 'monthly' },
   { url: '/ownership/',   priority: '0.5', changefreq: 'monthly' },
+  // /favourites/ intentionally excluded — noindex personal page
 ];
 
-function escape(str) {
+function xmlEscape(str) {
   return str.replace(/&/g, '&amp;').replace(/'/g, '&apos;').replace(/"/g, '&quot;').replace(/>/g, '&gt;').replace(/</g, '&lt;');
 }
 
-function url(loc, priority, changefreq, lastmod) {
+function urlEntry(loc, priority, changefreq, lastmod) {
   return `  <url>
-    <loc>${escape(loc)}</loc>
+    <loc>${xmlEscape(loc)}</loc>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
   </url>`;
@@ -33,8 +34,15 @@ function url(loc, priority, changefreq, lastmod) {
 export async function getServerSideProps({ res }) {
   const cwd = process.cwd();
 
-  // Properties
-  const properties = JSON.parse(fs.readFileSync(path.join(cwd, 'lib', 'properties.json'), 'utf-8'));
+  // Properties — fetch from Supabase so slugs are always current
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+  const { data: properties } = await supabase
+    .from('properties')
+    .select('slug, date_added')
+    .order('date_added', { ascending: false });
 
   // Blog posts
   const posts = JSON.parse(fs.readFileSync(path.join(cwd, 'lib', 'posts.json'), 'utf-8'));
@@ -49,21 +57,21 @@ export async function getServerSideProps({ res }) {
 
   const urls = [
     // Static pages
-    ...STATIC_PAGES.map(p => url(`${BASE}${p.url}`, p.priority, p.changefreq)),
+    ...STATIC_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
 
     // Destination pages
     ...destSlugs.map(slug =>
-      url(`${BASE}/${slug}/`, '0.8', 'weekly')
+      urlEntry(`${BASE}/${slug}/`, '0.8', 'weekly')
     ),
 
-    // Property pages
-    ...properties.map(p =>
-      url(`${BASE}/property/${p.slug}/`, '0.7', 'weekly', p.dateAdded || today)
+    // Property pages — from Supabase (always reflects current slugs)
+    ...(properties || []).map(p =>
+      urlEntry(`${BASE}/property/${p.slug}/`, '0.7', 'weekly', p.date_added ? p.date_added.split('T')[0] : today)
     ),
 
     // Blog posts
     ...posts.map(p =>
-      url(`${BASE}/blog/${p.slug}/`, '0.6', 'never', p.date || today)
+      urlEntry(`${BASE}/blog/${p.slug}/`, '0.6', 'never', p.date || today)
     ),
   ];
 

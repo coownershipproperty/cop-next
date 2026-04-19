@@ -198,40 +198,63 @@ export default function PropertyPage({ property: p, similar }) {
     { type: 'lock' },
   ];
 
+  // ── SEO helpers ──────────────────────────────────────────────────────────────
+  const propStyle   = (p.property_style || p.property_type || 'property').toLowerCase();
+  const propLocation = [p.city || p.region, p.country].filter(Boolean).join(', ');
+  const metaDesc = p.price
+    ? `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership at ${fmt(p.price, p.currency)}. Real deeded ownership, own only what you use.`
+    : `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership. Real deeded ownership, own only what you use.`;
+  const canonicalUrl = `https://co-ownership-property.com/property/${p.slug}/`;
+  const ogImage = p.img && p.img.startsWith('http') ? p.img : `https://co-ownership-property.com${p.img}`;
+
   return (
     <>
       <Head>
         <title>{p.title} | Co-Ownership Property</title>
-        <meta name="description" content={p.description ? p.description.slice(0, 155) : `${p.title} — luxury co-ownership property in ${p.city || p.region || p.country}. Fractional ownership from ${fmt(p.price, p.currency)}.`} />
+        <meta name="description" content={metaDesc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href={`https://co-ownership-property.com/property/${p.slug}/`} />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content={`${p.title} | Co-Ownership Property`} />
-        <meta property="og:description" content={p.description ? p.description.slice(0, 155) : `Luxury co-ownership property in ${p.city || p.region || p.country}. Fractional ownership from ${fmt(p.price, p.currency)}.`} />
-        <meta property="og:image" content={p.img} />
-        <meta property="og:url" content={`https://co-ownership-property.com/property/${p.slug}/`} />
-        <meta property="og:type" content="website" />
+        <meta property="og:description" content={metaDesc} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${p.title} | Co-Ownership Property`} />
+        <meta name="twitter:description" content={metaDesc} />
+        <meta name="twitter:image" content={ogImage} />
+        {/* RealEstateListing schema */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Product",
+          "@type": "RealEstateListing",
           "name": p.title,
-          "description": p.description ? p.description.slice(0, 300) : `Luxury co-ownership property in ${p.city || p.region || p.country}.`,
-          "image": p.images || [p.img],
-          "url": `https://co-ownership-property.com/property/${p.slug}/`,
+          "description": metaDesc,
+          "url": canonicalUrl,
+          "image": (p.images && p.images.length > 0) ? p.images : [ogImage],
+          "numberOfRooms": p.beds || undefined,
+          "floorSize": p.size > 0 ? { "@type": "QuantitativeValue", "value": p.size, "unitCode": "MTK" } : undefined,
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": p.city || p.region || undefined,
+            "addressRegion": p.region || undefined,
+            "addressCountry": p.country || undefined,
+          },
           "offers": p.price ? {
             "@type": "Offer",
             "price": p.price,
-            "priceCurrency": p.currency || "USD",
-            "availability": "https://schema.org/InStock",
-            "seller": { "@type": "Organization", "name": "Co-Ownership Property" }
+            "priceCurrency": p.currency || "EUR",
           } : undefined,
-          "additionalProperty": [
-            p.beds && { "@type": "PropertyValue", "name": "Bedrooms", "value": p.beds },
-            p.baths && { "@type": "PropertyValue", "name": "Bathrooms", "value": p.baths },
-            p.country && { "@type": "PropertyValue", "name": "Country", "value": p.country },
-            p.region && { "@type": "PropertyValue", "name": "Region", "value": p.region },
-          ].filter(Boolean)
+        }) }} />
+        {/* BreadcrumbList schema */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://co-ownership-property.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Our Homes", "item": "https://co-ownership-property.com/our-homes/" },
+            { "@type": "ListItem", "position": 3, "name": p.title, "item": canonicalUrl },
+          ]
         }) }} />
       </Head>
 

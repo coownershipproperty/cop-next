@@ -86,6 +86,7 @@ export default function Favourites() {
       <Head>
         <title>My Favourites | Co-Ownership Property</title>
         <meta name="description" content="Your saved co-ownership properties on Co-Ownership Property." />
+        <meta name="robots" content="noindex, nofollow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

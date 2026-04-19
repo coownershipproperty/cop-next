@@ -259,6 +259,23 @@ export default function DestinationPage({ slug, title, metaDesc, heroHtml, restH
         <meta name="description" content={metaDesc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={`https://co-ownership-property.com/${slug}/`} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={metaDesc} />
+        <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
+        <meta property="og:url" content={`https://co-ownership-property.com/${slug}/`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={metaDesc} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://co-ownership-property.com/" },
+            { "@type": "ListItem", "position": 2, "name": title, "item": `https://co-ownership-property.com/${slug}/` },
+          ]
+        }) }} />
       </Head>
       <Header />
 
