@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import { getSavedUser, saveUser } from '@/lib/savedUser';
+import { trackConversion } from '@/lib/gtag';
 
 // ── Destination tree ────────────────────────────────────────────────────────
 const DEST_TREE = [
@@ -141,6 +143,9 @@ function DestinationPicker({ selected, onChange }) {
 }
 
 export default function ExpertForm({ property }) {
+  const saved = getSavedUser();
+  const [name, setName] = useState(saved.name);
+  const [email, setEmail] = useState(saved.email);
   const [destinations, setDestinations] = useState([]);
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [msg, setMsg] = useState('');
@@ -149,8 +154,6 @@ export default function ExpertForm({ property }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const form = formRef.current;
-    const name     = form.querySelector('[name="name"]').value.trim();
-    const email    = form.querySelector('[name="email"]').value.trim();
     const phone    = form.querySelector('[name="phone"]').value.trim();
     const budget   = form.querySelector('[name="budget"]').value;
     const message  = form.querySelector('[name="message"]').value.trim();
@@ -173,10 +176,16 @@ export default function ExpertForm({ property }) {
       });
       const data = await res.json();
       if (data.ok) {
+        saveUser({ name, email });
         setStatus('success');
         setMsg("Thank you! We'll be in touch within 24 hours.");
         form.reset();
         setDestinations([]);
+        trackConversion('generate_lead', 'Lead', {
+          event_category: 'enquiry',
+          destination: destStr || 'unspecified',
+          budget,
+        });
       } else {
         setStatus('error');
         setMsg('Something went wrong. Please try again.');
@@ -199,12 +208,12 @@ export default function ExpertForm({ property }) {
 
             <div className="expert-form-field">
               <label htmlFor="ef-name">Name <span>*</span></label>
-              <input type="text" id="ef-name" name="name" placeholder="Your full name" required />
+              <input type="text" id="ef-name" name="name" placeholder="Your full name" required value={name} onChange={e => setName(e.target.value)} />
             </div>
 
             <div className="expert-form-field">
               <label htmlFor="ef-email">Email <span>*</span></label>
-              <input type="email" id="ef-email" name="email" placeholder="your@email.com" required />
+              <input type="email" id="ef-email" name="email" placeholder="your@email.com" required value={email} onChange={e => setEmail(e.target.value)} />
             </div>
 
             <div className="expert-form-field">

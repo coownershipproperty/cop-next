@@ -12,6 +12,7 @@ export default function StayingFAQs() {
         <meta name="description" content="Answers to common questions about staying in your co-ownership property — booking your days, arrival, house rules, guests, and what to expect during your stays." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://co-ownership-property.com/staying-in-my-co-ownership-property-faqs/" />
       </Head>
       <Header />
       <div dangerouslySetInnerHTML={{__html: bodyHtml}} />

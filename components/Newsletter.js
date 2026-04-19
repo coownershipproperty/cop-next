@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import { trackConversion } from '@/lib/gtag';
+import { getSavedUser, saveUser } from '@/lib/savedUser';
 
 export default function Newsletter() {
+  const [email, setEmail] = useState(getSavedUser().email);
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [msg, setMsg] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const email = e.target.querySelector('input[type="email"]').value.trim();
     if (!email) return;
 
     setStatus('sending');
@@ -20,9 +22,10 @@ export default function Newsletter() {
       });
       const data = await res.json();
       if (data.ok) {
+        saveUser({ email });
         setStatus('success');
         setMsg('Thank you for subscribing!');
-        e.target.reset();
+        trackConversion('sign_up', 'Lead', { method: 'newsletter' });
       } else {
         setStatus('error');
         setMsg('Something went wrong. Please try again.');
@@ -38,7 +41,7 @@ export default function Newsletter() {
       <h2 className="newsletter-heading">Be The First To Know</h2>
       <p className="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
       <form className="newsletter-form" id="cop-newsletter-form" onSubmit={handleSubmit} noValidate>
-        <input type="email" name="email" placeholder="Enter your email address" required />
+        <input type="email" name="email" placeholder="Enter your email address" required value={email} onChange={e => setEmail(e.target.value)} />
         <button type="submit" className="newsletter-btn" disabled={status === 'sending'}>
           {status === 'sending' ? 'Subscribing…' : status === 'success' ? 'Subscribed!' : 'Join Newsletter'}
         </button>

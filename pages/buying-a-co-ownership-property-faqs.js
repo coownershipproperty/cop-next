@@ -12,6 +12,7 @@ export default function BuyingFAQs() {
         <meta name="description" content="Everything you need to know about buying a co-ownership property — legal structure, costs, mortgages, and how the purchase process works from offer to completion." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://co-ownership-property.com/buying-a-co-ownership-property-faqs/" />
       </Head>
       <Header />
       <div dangerouslySetInnerHTML={{__html: bodyHtml}} />

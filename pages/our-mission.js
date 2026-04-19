@@ -12,6 +12,7 @@ export default function OurMission() {
         <meta name="description" content="Co-Ownership Property exists to make luxury second home ownership accessible — independently, transparently, and without the price tag of outright purchase." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://co-ownership-property.com/our-mission/" />
       </Head>
       <Header />
       <div dangerouslySetInnerHTML={{__html: bodyHtml}} />

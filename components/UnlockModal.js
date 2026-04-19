@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { trackConversion } from '@/lib/gtag';
+import { getSavedUser, saveUser } from '@/lib/savedUser';
 
 export default function UnlockModal({ propertyTitle, driveUrl, onClose }) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const saved = getSavedUser();
+  const [name, setName] = useState(saved.name);
+  const [email, setEmail] = useState(saved.email);
   const [status, setStatus] = useState('idle');
 
   async function submit(e) {
@@ -15,6 +17,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, onClose }) {
         body: JSON.stringify({ name, email, propertyTitle, driveUrl }),
       });
       if (r.ok) {
+        saveUser({ name, email });
         trackConversion('generate_lead', 'Lead', {
           event_category: 'floor_plan_unlock',
           property_title: propertyTitle,
