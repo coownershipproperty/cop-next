@@ -5,8 +5,7 @@ import Script from 'next/script';
 import { trackConversion } from '@/lib/gtag';
 
 const GA_ID = 'G-83RBNEXX4E';
-// Add your Meta Pixel ID to .env.local as NEXT_PUBLIC_META_PIXEL_ID
-const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '';
+const META_PIXEL_ID = '900153063012762';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
