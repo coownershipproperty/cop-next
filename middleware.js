@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 // Known bot / scraper user-agent patterns
 const BOT_PATTERNS = [
   /bot/i, /crawler/i, /spider/i, /scraper/i, /curl/i, /wget/i,
-  /python-requests/i, /go-http/i, /java\//i, /ruby/i, /perl/i,
-  /libwww/i, /httpclient/i, /okhttp/i, /axios/i, /node-fetch/i,
+  /python-requests/i, /python\//i, /go-http/i, /java\//i,
+  /libwww/i, /httpclient/i, /okhttp/i, /axios/i, /node-fetch/i, /node\.js/i,
   /headlesschrome/i, /phantomjs/i, /selenium/i, /puppeteer/i,
   /nmap/i, /masscan/i, /zgrab/i, /nuclei/i, /dirbuster/i, /nikto/i,
   /sqlmap/i, /hydra/i, /burpsuite/i, /semrush/i, /ahrefs/i, /majestic/i,
