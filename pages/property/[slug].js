@@ -2,7 +2,7 @@ import Head from 'next/head';
 import NextImage from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { trackConversion } from '@/lib/gtag';
+import { trackConversion, fbqEvent } from '@/lib/gtag';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import Header from '@/components/Header';
@@ -146,6 +146,19 @@ export default function PropertyPage({ property: p, similar }) {
     setSaved(isFav(p.slug));
     return onFavsChange((slugs) => setSaved(slugs.includes(p.slug)));
   }, [p.slug]);
+
+  // Meta Pixel: ViewContent — tells Meta which property was viewed so
+  // dynamic retargeting ads can show this exact property to the visitor
+  useEffect(() => {
+    fbqEvent('ViewContent', {
+      content_ids:  [String(p.id)],
+      content_type: 'product',
+      content_name: p.title,
+      ...(p.price    && { value: p.price }),
+      ...(p.currency && { currency: p.currency }),
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [p.id]);
 
   function toggleSave() {
     setSaved(toggleFav(p.slug));
