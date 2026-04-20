@@ -7078,3 +7078,84 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .blog-content [style*="nunito sans"] {
   font-family: var(--font-nunito), 'Nunito Sans', system-ui, sans-serif !important;
 }
+
+/* ── Mobile readability boost ───────────────────────────────────────────────
+   Slightly larger base font + more opaque text colours on small screens.
+   Targets common rgba/opacity patterns used throughout the site so that
+   older or visually impaired users on phones find content easier to read.
+   All rules are scoped to max-width 768px so desktop is untouched.           */
+@media (max-width: 768px) {
+
+  /* 1. Base font size — nudge body up from default (usually 14–16px) */
+  body {
+    font-size: 16.5px;
+  }
+
+  /* 2. Override CSS variables so every component that references them
+        automatically gets the more-opaque value */
+  :root {
+    --text-light: rgba(255,255,255,0.95);   /* was 0.85 */
+    --text-muted: #5a7a8e;                  /* was #6B8A9E (lighter) */
+    --muted:      #5a7a8e;
+  }
+
+  /* 3. Boost the most common low-opacity white text patterns used in
+        dark/hero sections throughout the site */
+  .hero-tagline,
+  .hero-sub,
+  .hero-description,
+  [class*="hero"] p,
+  [class*="hero"] span,
+  [class*="section"] p,
+  [class*="section"] li,
+  .footer-tagline,
+  .footer-links a,
+  footer p,
+  footer li,
+  footer a,
+  .expert-form p,
+  .how-step p,
+  .feature-text,
+  .card-desc,
+  .prop-location,
+  .prop-price,
+  .newsletter p,
+  .blog-excerpt,
+  .faq-answer,
+  .dest-body,
+  .about-text p,
+  .ownership-body p,
+  .mission-body p {
+    opacity: 1 !important;
+  }
+
+  /* 4. Lift inline rgba white text that hovers around 0.6–0.75 range.
+        We can't override inline styles directly so we target the known
+        utility classes and structural selectors. */
+
+  /* Footer white-on-dark text */
+  footer { color: rgba(255,255,255,0.97); }
+
+  /* Muted subtitles / captions that use the muted variable */
+  .text-muted,
+  [class*="muted"],
+  [class*="subtitle"],
+  [class*="caption"],
+  [class*="meta"],
+  [class*="label"] {
+    opacity: 1;
+    color: var(--text-muted);
+  }
+
+  /* Light text on dark backgrounds */
+  .cop-nav a,
+  .cop-mobile-nav a,
+  [class*="nav"] a {
+    opacity: 1;
+  }
+
+  /* 5. Slightly increase line-height so lines don't feel cramped */
+  body {
+    line-height: 1.7;
+  }
+}
