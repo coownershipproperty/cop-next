@@ -11,7 +11,7 @@
  *                   price, link, image_link, brand
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js'
 
 const BASE_URL = 'https://co-ownership-property.com';
 
@@ -89,7 +89,7 @@ export default async function handler(req, res) {
       const additionalImgs = imgs.slice(1, 4).join(','); // up to 3 extra
 
       const row = [
-        p.id,                                   // id  — matches pixel content_ids
+        p.slug,                                   // id  — matches pixel content_ids
         p.title,                                // title
         buildDescription(p),                    // description
         'in stock',                             // availability
