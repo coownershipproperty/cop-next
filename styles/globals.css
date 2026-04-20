@@ -7086,9 +7086,16 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
    All rules are scoped to max-width 768px so desktop is untouched.           */
 @media (max-width: 768px) {
 
-  /* 1. Base font size — nudge body up from default (usually 14–16px) */
+  /* 1. Base font size — nudge body up for readability on mobile */
   body {
-    font-size: 16.5px;
+    font-size: 17.5px;
+  }
+
+  /* Paragraphs, list items, and other reading-heavy text slightly larger */
+  p, li, .card-desc, .blog-excerpt, .faq-answer,
+  .dest-body, .about-text, .ownership-body, .mission-body,
+  .how-step p, .feature-text, .prop-location {
+    font-size: 1rem; /* inherits 17.5px from body */
   }
 
   /* 2. Override CSS variables so every component that references them
