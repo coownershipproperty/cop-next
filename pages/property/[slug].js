@@ -151,14 +151,14 @@ export default function PropertyPage({ property: p, similar }) {
   // dynamic retargeting ads can show this exact property to the visitor
   useEffect(() => {
     fbqEvent('ViewContent', {
-      content_ids:  [String(p.id)],
+      content_ids:  [p.slug],
       content_type: 'product',
       content_name: p.title,
       ...(p.price    && { value: p.price }),
       ...(p.currency && { currency: p.currency }),
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [p.id]);
+  }, [p.slug]);
 
   function toggleSave() {
     setSaved(toggleFav(p.slug));
