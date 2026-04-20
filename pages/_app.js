@@ -5,6 +5,7 @@ import Script from 'next/script';
 import { trackConversion } from '@/lib/gtag';
 
 const GA_ID = 'G-83RBNEXX4E';
+const GADS_ID = 'AW-4882418749';
 const META_PIXEL_ID = '900153063012762';
 
 const playfair = Playfair_Display({
@@ -65,6 +66,7 @@ export default function App({ Component, pageProps }) {
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+        gtag('config', '${GADS_ID}');
       `}</Script>
 
       {/* ── Meta Pixel ── (activate by adding NEXT_PUBLIC_META_PIXEL_ID to .env.local) */}
