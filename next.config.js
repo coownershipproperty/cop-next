@@ -2,7 +2,6 @@
 const nextConfig = {
   trailingSlash: true,
   images: {
-    quality: 90,
     remotePatterns: [
       // All property images — now hosted on Supabase Storage
       { protocol: 'https', hostname: 'iotzzoxyckpyatzqcjbo.supabase.co' },

@@ -66,6 +66,7 @@ function Img({ src, alt, loading = 'lazy', priority = false, sizes = '100vw' }) 
       src={src || '/images/placeholder.jpg'}
       alt={alt || ''}
       fill
+      quality={90}
       loading={priority ? 'eager' : loading}
       priority={priority}
       sizes={sizes}

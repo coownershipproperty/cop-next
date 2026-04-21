@@ -130,6 +130,7 @@ export default function PropertyCard({ property: p }) {
                 src={src}
                 alt={`${p.title} — photo ${i + 1}`}
                 fill
+                quality={90}
                 className="prop-img"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
