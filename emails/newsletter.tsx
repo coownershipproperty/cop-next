@@ -18,15 +18,13 @@ import * as React from 'react';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface Property {
+  /** Full title as on the website, e.g. "Callao Salvaje, Tenerife, Spain — 2-Bed Villa" */
   title: string;
-  location: string;
-  country: string;
   price: string;
   beds: number;
   size: number;
   imageUrl: string;
   slug: string;
-  label?: string; // e.g. "New", "Hot"
 }
 
 interface NewsletterEmailProps {
@@ -37,66 +35,61 @@ interface NewsletterEmailProps {
   properties?: Property[];
 }
 
-// ── Design tokens (exact match to globals.css) ────────────────────────────────
+// ── Design tokens — exact match to globals.css ────────────────────────────────
 const C = {
-  blue:       '#2C4A5E',   // --blue / --text-dark
-  blue80:     '#4A6A7E',
-  blue60:     '#6B8A9E',   // --text-muted
-  blue20:     '#C5CED5',
-  gold:       '#C9A84C',   // --warm-gold
-  cream:      '#F5F2EC',   // --cream-bg
-  creamLight: '#FAF8F5',
+  navy:       '#2C4A5E',
+  navy80:     '#4A6A7E',
+  navy60:     '#6B8A9E',
+  gold:       '#C9A84C',
+  cream:      '#F5F2EC',
   white:      '#FFFFFF',
-  border:     '#DDD9D4',   // --gray-border
+  border:     '#DDD9D4',
   goldBorder: 'rgba(201,168,76,0.18)',
 };
 
 // ── Sample data for preview ───────────────────────────────────────────────────
 const sampleProperties: Property[] = [
   {
-    title: 'Luxury Coastal Villa',
-    location: 'Marbella',
-    country: 'Spain',
-    price: '€185,000',
-    beds: 4,
-    size: 320,
+    title: 'Callao Salvaje, Tenerife, Spain — 2-Bed Apartment With Infinity Pool',
+    price: '€199,000',
+    beds: 2,
+    size: 95,
     imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
-    slug: 'luxury-coastal-villa-marbella',
-    label: 'New',
+    slug: 'callao-salvaje-tenerife-2-bed-apartment',
   },
   {
-    title: 'Provençal Stone Farmhouse',
-    location: 'Luberon',
-    country: 'France',
+    title: 'Luberon, Provence, France — 3-Bed Stone Farmhouse With Pool',
     price: '€122,500',
     beds: 3,
     size: 210,
     imageUrl: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=600&q=80',
-    slug: 'provencal-stone-farmhouse-luberon',
+    slug: 'luberon-provence-3-bed-stone-farmhouse',
   },
   {
-    title: 'Tuscan Hilltop Retreat',
-    location: 'Siena',
-    country: 'Italy',
+    title: 'Siena, Tuscany, Italy — 2-Bed Hilltop Retreat With Views',
     price: '€97,000',
     beds: 2,
     size: 140,
     imageUrl: 'https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=600&q=80',
-    slug: 'tuscan-hilltop-retreat-siena',
-    label: 'Hot',
+    slug: 'siena-tuscany-2-bed-hilltop-retreat',
   },
 ];
+
+// ── Bed icon (inline SVG as base64 image workaround — use text instead) ───────
+const BedSvg = () => (
+  <Text style={{ margin: 0, display: 'inline', fontSize: 12, color: C.navy60 }}>🛏</Text>
+);
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function NewsletterEmail({
   firstName = 'there',
   previewText = 'New co-ownership properties handpicked for you this week.',
-  introHeading = 'New Properties, Handpicked for You',
-  introText = 'We\'ve selected a few stunning new listings this week — each a beautifully designed home in a sought-after location, available as a fractional co-ownership share. Browse below and click any property to see the full details.',
+  introHeading = 'New Properties, Handpicked For You',
+  introText = "We've selected a few stunning new listings this week — each a beautifully designed home in a sought-after location, available as a fractional co-ownership share.",
   properties = sampleProperties,
 }: NewsletterEmailProps) {
 
-  const baseUrl = 'https://co-ownershipproperty.com';
+  const base = 'https://co-ownershipproperty.com';
 
   return (
     <Html lang="en">
@@ -110,168 +103,158 @@ export default function NewsletterEmail({
       <Body style={body}>
 
         {/* ── Header ─────────────────────────────────────────────────── */}
-        <Section style={header}>
+        <Section style={headerWrap}>
           <Container style={container}>
-            <Text style={logoWordmark}>Co-Ownership Property</Text>
-            <Text style={logoTagline}>Your European Dream Home, Shared Smartly</Text>
+            <Text style={logoText}>Co-Ownership Property</Text>
+            <Text style={logoSub}>Your European Dream Home, Shared Smartly</Text>
           </Container>
         </Section>
 
         {/* ── Gold rule ──────────────────────────────────────────────── */}
-        <Section style={{ backgroundColor: C.gold, height: 3, lineHeight: '3px', fontSize: 1 }}>
-          <Text style={{ margin: 0, fontSize: 1 }}>&nbsp;</Text>
+        <Section style={goldRule}>
+          <Text style={{ margin: 0, fontSize: 1, lineHeight: '3px' }}>&nbsp;</Text>
         </Section>
 
-        {/* ── Main content ───────────────────────────────────────────── */}
+        {/* ── Intro ──────────────────────────────────────────────────── */}
         <Section style={{ backgroundColor: C.cream }}>
           <Container style={container}>
-
-            {/* Greeting */}
-            <Section style={{ paddingTop: 48, paddingBottom: 32 }}>
-              <Text style={eyebrow}>Hello {firstName}</Text>
-              <Heading style={h1}>{introHeading}</Heading>
-              <Text style={bodyText}>{introText}</Text>
+            <Section style={{ padding: '52px 0 40px' }}>
+              <Text style={eyebrow}>Hello, {firstName}</Text>
+              <Heading style={sectionTitle}>{introHeading.toUpperCase()}</Heading>
+              <Hr style={titleRule} />
+              <Text style={introBodyText}>{introText}</Text>
             </Section>
+          </Container>
+        </Section>
 
-            {/* ── Property cards ──────────────────────────────────────── */}
+        {/* ── Properties section ─────────────────────────────────────── */}
+        <Section style={{ backgroundColor: C.cream, paddingBottom: 8 }}>
+          <Container style={container}>
+
             {properties.map((p, i) => (
               <Section key={i} style={card}>
 
-                {/* Image */}
-                <Link href={`${baseUrl}/property/${p.slug}`}>
+                {/* Photo */}
+                <Link href={`${base}/property/${p.slug}`} style={{ display: 'block' }}>
                   <Img
                     src={p.imageUrl}
                     alt={p.title}
                     width="552"
-                    style={cardImg}
+                    style={cardPhoto}
                   />
                 </Link>
 
-                {/* Badge */}
-                {p.label && (
-                  <Section style={{ margin: 0, padding: 0 }}>
-                    <Text style={badge}>{p.label}</Text>
-                  </Section>
-                )}
-
-                {/* Card body */}
+                {/* Body */}
                 <Section style={cardBody}>
-
-                  {/* Location */}
-                  <Text style={cardLocation}>{p.location} · {p.country}</Text>
-
                   {/* Title */}
                   <Heading style={cardTitle}>{p.title}</Heading>
 
-                  {/* Stats row */}
-                  <Row style={{ marginBottom: 0 }}>
-                    <Column style={{ width: '40%' }}>
-                      <Text style={cardStat}>
-                        🛏&nbsp; {p.beds} Bedroom{p.beds !== 1 ? 's' : ''}
-                      </Text>
+                  {/* Stats */}
+                  <Row style={{ marginBottom: 0, marginTop: 0 }}>
+                    <Column style={{ width: 'auto', paddingRight: 16 }}>
+                      <Text style={stat}>🛏&ensp;{p.beds} BED{p.beds !== 1 ? 'S' : ''}</Text>
                     </Column>
-                    <Column style={{ width: '40%' }}>
-                      <Text style={cardStat}>
-                        📐&nbsp; {p.size} m²
-                      </Text>
+                    <Column style={{ paddingLeft: 12, borderLeft: `1px solid ${C.border}` }}>
+                      <Text style={stat}>▪&ensp;{p.size} M²</Text>
                     </Column>
                   </Row>
 
                   {/* Price */}
-                  <Section style={{ borderTop: `1px solid ${C.goldBorder}`, marginTop: 12, paddingTop: 12 }}>
-                    <Row>
-                      <Column style={{ width: '60%' }}>
-                        <Text style={cardPrice}>{p.price}</Text>
-                      </Column>
-                      <Column style={{ width: '40%', textAlign: 'right' as const }}>
-                        <Button href={`${baseUrl}/property/${p.slug}`} style={viewBtn}>
-                          View Property →
-                        </Button>
-                      </Column>
-                    </Row>
-                  </Section>
+                  <Text style={price}>{p.price}</Text>
 
+                  {/* View link */}
+                  <Link href={`${base}/property/${p.slug}`} style={viewLink}>
+                    VIEW PROPERTY →
+                  </Link>
                 </Section>
+
               </Section>
             ))}
-
-            {/* ── Browse all CTA ──────────────────────────────────────── */}
-            <Section style={{ textAlign: 'center' as const, padding: '40px 0' }}>
-              <Text style={eyebrow}>Explore More</Text>
-              <Heading style={h2}>Over 50 Properties Across Europe</Heading>
-              <Text style={bodyText}>
-                Spain, France, Italy, Portugal, Austria and more — all available as fractional co-ownership shares.
-              </Text>
-              <Button href={`${baseUrl}`} style={primaryBtn}>
-                Browse All Properties →
-              </Button>
-            </Section>
-
-            <Hr style={divider} />
-
-            {/* ── How it works ────────────────────────────────────────── */}
-            <Section style={{ padding: '32px 0 48px' }}>
-              <Text style={{ ...eyebrow, textAlign: 'center' as const }}>The Simple Way to Own More</Text>
-              <Heading style={{ ...h2, textAlign: 'center' as const }}>How Co-Ownership Works</Heading>
-
-              <Row style={{ marginTop: 28 }}>
-                <Column style={howItWorksCol}>
-                  <Text style={howItWorksIcon}>🏡</Text>
-                  <Text style={howItWorksTitle}>Buy a Share</Text>
-                  <Text style={howItWorksText}>
-                    Own 1/8 to 1/2 of a premium home for a fraction of the full price.
-                  </Text>
-                </Column>
-                <Column style={howItWorksCol}>
-                  <Text style={howItWorksIcon}>📅</Text>
-                  <Text style={howItWorksTitle}>Enjoy Your Time</Text>
-                  <Text style={howItWorksText}>
-                    Use your property for weeks per year proportional to your ownership share.
-                  </Text>
-                </Column>
-                <Column style={howItWorksCol}>
-                  <Text style={howItWorksIcon}>📈</Text>
-                  <Text style={howItWorksTitle}>Build Equity</Text>
-                  <Text style={howItWorksText}>
-                    Benefit from property appreciation with zero hassle management.
-                  </Text>
-                </Column>
-              </Row>
-
-              <Section style={{ textAlign: 'center' as const, marginTop: 32 }}>
-                <Button href={`${baseUrl}/how-it-works`} style={outlineBtn}>
-                  Learn More →
-                </Button>
-              </Section>
-            </Section>
 
           </Container>
         </Section>
 
-        {/* ── Footer ─────────────────────────────────────────────────── */}
-        <Section style={footer}>
+        {/* ── Browse all ─────────────────────────────────────────────── */}
+        <Section style={{ backgroundColor: C.cream, paddingBottom: 60 }}>
           <Container style={container}>
-            <Text style={footerLogo}>Co-Ownership Property</Text>
-            <Row style={{ marginBottom: 16 }}>
-              <Column style={{ textAlign: 'center' as const }}>
-                <Link href={`${baseUrl}`} style={footerLink}>Website</Link>
-                {' '}·{' '}
-                <Link href={`${baseUrl}/all-our-blog`} style={footerLink}>Blog</Link>
-                {' '}·{' '}
-                <Link href={`${baseUrl}/how-it-works`} style={footerLink}>How It Works</Link>
-                {' '}·{' '}
-                <Link href={`${baseUrl}/contact`} style={footerLink}>Contact</Link>
+            <Section style={{ textAlign: 'center' as const, padding: '32px 0 0' }}>
+              <Heading style={{ ...sectionTitle, textAlign: 'center' as const }}>
+                EXPLORE OUR PROPERTIES
+              </Heading>
+              <Hr style={{ ...titleRule, margin: '10px auto 20px' }} />
+              <Text style={{ ...introBodyText, textAlign: 'center' as const }}>
+                Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.
+              </Text>
+              <Button href={`${base}/our-homes`} style={browseBtn}>
+                BROWSE ALL PROPERTIES →
+              </Button>
+            </Section>
+          </Container>
+        </Section>
+
+        {/* ── How it works ───────────────────────────────────────────── */}
+        <Section style={{ backgroundColor: C.navy, padding: '52px 0' }}>
+          <Container style={container}>
+            <Heading style={{ ...sectionTitle, color: C.white, textAlign: 'center' as const }}>
+              HOW CO-OWNERSHIP WORKS
+            </Heading>
+            <Hr style={{ ...titleRule, borderColor: C.gold, margin: '10px auto 32px' }} />
+
+            <Row>
+              <Column style={howCol}>
+                <Text style={howNum}>01</Text>
+                <Text style={howTitle}>Buy a Share</Text>
+                <Text style={howText}>
+                  Own 1/8 to 1/2 of a premium home for a fraction of the full purchase price.
+                </Text>
+              </Column>
+              <Column style={howCol}>
+                <Text style={howNum}>02</Text>
+                <Text style={howTitle}>Enjoy Your Time</Text>
+                <Text style={howText}>
+                  Use your property for weeks per year proportional to your ownership share.
+                </Text>
+              </Column>
+              <Column style={howCol}>
+                <Text style={howNum}>03</Text>
+                <Text style={howTitle}>Build Equity</Text>
+                <Text style={howText}>
+                  Benefit from property appreciation with fully managed, hassle-free ownership.
+                </Text>
               </Column>
             </Row>
-            <Hr style={{ borderColor: 'rgba(255,255,255,0.1)', margin: '16px 0' }} />
-            <Text style={footerSmall}>
+
+            <Section style={{ textAlign: 'center' as const, marginTop: 32 }}>
+              <Button href={`${base}/how-it-works`} style={outlineBtn}>
+                LEARN MORE →
+              </Button>
+            </Section>
+          </Container>
+        </Section>
+
+        {/* ── Footer ─────────────────────────────────────────────────── */}
+        <Section style={footerWrap}>
+          <Container style={container}>
+            <Text style={footerLogo}>Co-Ownership Property</Text>
+            <Text style={footerLinks}>
+              <Link href={`${base}`} style={footerLink}>Website</Link>
+              {'  ·  '}
+              <Link href={`${base}/our-homes`} style={footerLink}>Our Homes</Link>
+              {'  ·  '}
+              <Link href={`${base}/how-it-works`} style={footerLink}>How It Works</Link>
+              {'  ·  '}
+              <Link href={`${base}/all-our-blog`} style={footerLink}>Blog</Link>
+            </Text>
+            <Hr style={{ borderColor: 'rgba(255,255,255,0.08)', margin: '20px 0' }} />
+            <Text style={footerFine}>
               You're receiving this because you enquired about a co-ownership property.
             </Text>
-            <Text style={footerSmall}>
+            <Text style={footerFine}>
               <Link href="{{unsubscribe_url}}" style={{ color: C.gold, textDecoration: 'none' }}>
                 Unsubscribe
               </Link>
-              {' '}· Co-Ownership Property Ltd · info@co-ownershipproperty.com
+              {'  ·  '}
+              info@co-ownershipproperty.com
             </Text>
           </Container>
         </Section>
@@ -296,219 +279,208 @@ const container: React.CSSProperties = {
   padding: '0 24px',
 };
 
-// Header
-const header: React.CSSProperties = {
-  backgroundColor: C.blue,
-  padding: '28px 0 24px',
+/* Header */
+const headerWrap: React.CSSProperties = {
+  backgroundColor: C.navy,
+  padding: '30px 0 26px',
 };
 
-const logoWordmark: React.CSSProperties = {
+const logoText: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
   color: C.white,
   fontSize: 24,
   fontWeight: 700,
   textAlign: 'center' as const,
+  letterSpacing: '0.03em',
   margin: 0,
-  letterSpacing: '0.02em',
 };
 
-const logoTagline: React.CSSProperties = {
+const logoSub: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   color: C.gold,
-  fontSize: 11,
-  textAlign: 'center' as const,
-  margin: '6px 0 0',
-  letterSpacing: '0.12em',
+  fontSize: 10,
+  fontWeight: 700,
+  letterSpacing: '0.16em',
   textTransform: 'uppercase' as const,
-  fontWeight: 600,
+  textAlign: 'center' as const,
+  margin: '8px 0 0',
 };
 
-// Typography
+const goldRule: React.CSSProperties = {
+  backgroundColor: C.gold,
+  height: 3,
+  lineHeight: '3px',
+  fontSize: 1,
+};
+
+/* Section heading — matches "EXPLORE OUR PROPERTIES" on site */
+const sectionTitle: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 26,
+  fontWeight: 700,
+  letterSpacing: '0.12em',
+  color: C.navy,
+  textAlign: 'left' as const,
+  margin: '0 0 6px',
+  lineHeight: '1.25',
+};
+
+const titleRule: React.CSSProperties = {
+  borderColor: C.gold,
+  borderTopWidth: 2,
+  width: 48,
+  margin: '0 0 20px',
+};
+
 const eyebrow: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   fontSize: 11,
   fontWeight: 700,
-  letterSpacing: '0.14em',
+  letterSpacing: '0.16em',
   textTransform: 'uppercase' as const,
   color: C.gold,
   margin: '0 0 10px',
 };
 
-const h1: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 30,
-  fontWeight: 700,
-  color: C.blue,
-  margin: '0 0 16px',
-  lineHeight: '1.3',
-};
-
-const h2: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 22,
-  fontWeight: 700,
-  color: C.blue,
-  margin: '0 0 12px',
-  lineHeight: '1.35',
-};
-
-const bodyText: React.CSSProperties = {
+const introBodyText: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   fontSize: 15,
-  color: C.blue80,
-  lineHeight: '1.7',
-  margin: '0 0 8px',
+  color: C.navy80,
+  lineHeight: '1.75',
+  margin: 0,
 };
 
-// Property card
+/* Property card — mirrors prop-card on site */
 const card: React.CSSProperties = {
   backgroundColor: C.white,
   border: `1px solid ${C.border}`,
-  marginBottom: 24,
+  marginBottom: 20,
   overflow: 'hidden',
 };
 
-const cardImg: React.CSSProperties = {
+const cardPhoto: React.CSSProperties = {
   width: '100%',
-  height: 260,
+  height: 280,
   objectFit: 'cover' as const,
   display: 'block',
 };
 
-const badge: React.CSSProperties = {
-  display: 'inline-block',
-  backgroundColor: C.gold,
-  color: C.white,
-  fontSize: 10,
-  fontWeight: 700,
-  letterSpacing: '0.1em',
-  textTransform: 'uppercase' as const,
-  padding: '4px 12px',
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  margin: '12px 0 0 16px',
-};
-
 const cardBody: React.CSSProperties = {
-  padding: '16px 24px 24px',
+  padding: '16px 24px 20px',
 };
 
-const cardLocation: React.CSSProperties = {
+/* Playfair title — same as prop-title */
+const cardTitle: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 17,
+  fontWeight: 700,
+  color: C.navy,
+  margin: '0 0 10px',
+  lineHeight: '1.45',
+};
+
+/* Uppercase muted stats — same as prop-stats / prop-stat */
+const stat: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 700,
+  letterSpacing: '0.13em',
+  textTransform: 'uppercase' as const,
+  color: C.navy60,
+  margin: 0,
+};
+
+/* Playfair price — same as prop-price */
+const price: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 22,
+  color: C.navy,
+  margin: '14px 0 0',
+  paddingTop: 12,
+  borderTop: `1px solid ${C.goldBorder}`,
+};
+
+/* "VIEW PROPERTY →" text link — same as prop-view-btn */
+const viewLink: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   fontSize: 11,
   fontWeight: 700,
   letterSpacing: '0.14em',
   textTransform: 'uppercase' as const,
-  color: C.gold,
-  margin: '0 0 8px',
-};
-
-const cardTitle: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 19,
-  fontWeight: 700,
-  color: C.blue,
-  margin: '0 0 12px',
-  lineHeight: '1.35',
-};
-
-const cardStat: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  fontSize: 11,
-  fontWeight: 600,
-  letterSpacing: '0.12em',
-  textTransform: 'uppercase' as const,
-  color: C.blue60,
-  margin: 0,
-};
-
-const cardPrice: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 22,
-  color: C.blue,
-  margin: '8px 0 0',
-};
-
-const viewBtn: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  fontSize: 11,
-  fontWeight: 700,
-  letterSpacing: '0.1em',
-  textTransform: 'uppercase' as const,
-  color: C.blue,
-  backgroundColor: 'transparent',
+  color: C.navy,
   textDecoration: 'none',
-  padding: '8px 0',
+  display: 'block',
+  marginTop: 12,
 };
 
-// CTAs
-const primaryBtn: React.CSSProperties = {
+/* Browse all button — matches gold CTA on site */
+const browseBtn: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
-  backgroundColor: C.gold,
+  backgroundColor: C.navy,
   color: C.white,
-  fontSize: 13,
+  fontSize: 12,
   fontWeight: 700,
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase' as const,
+  letterSpacing: '0.14em',
   padding: '14px 36px',
   textDecoration: 'none',
   display: 'inline-block',
+  marginTop: 8,
 };
 
+/* Outline button for How It Works */
 const outlineBtn: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   backgroundColor: 'transparent',
-  color: C.blue,
-  border: `2px solid ${C.blue}`,
-  fontSize: 12,
+  color: C.white,
+  border: `1px solid rgba(255,255,255,0.4)`,
+  fontSize: 11,
   fontWeight: 700,
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase' as const,
+  letterSpacing: '0.14em',
   padding: '12px 32px',
   textDecoration: 'none',
   display: 'inline-block',
 };
 
-const divider: React.CSSProperties = {
-  borderColor: C.border,
-  margin: '8px 0',
-};
-
-// How it works
-const howItWorksCol: React.CSSProperties = {
-  textAlign: 'center' as const,
-  padding: '0 16px',
-  verticalAlign: 'top',
+/* How it works — navy bg */
+const howCol: React.CSSProperties = {
   width: '33%',
+  padding: '0 16px',
+  textAlign: 'center' as const,
+  verticalAlign: 'top',
 };
 
-const howItWorksIcon: React.CSSProperties = {
-  fontSize: 32,
-  margin: '0 0 10px',
+const howNum: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 36,
+  fontWeight: 700,
+  color: C.gold,
+  margin: '0 0 6px',
   textAlign: 'center' as const,
 };
 
-const howItWorksTitle: React.CSSProperties = {
+const howTitle: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
   fontSize: 15,
   fontWeight: 700,
-  color: C.blue,
+  color: C.white,
   margin: '0 0 8px',
   textAlign: 'center' as const,
 };
 
-const howItWorksText: React.CSSProperties = {
+const howText: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   fontSize: 13,
-  color: C.blue60,
-  lineHeight: '1.6',
+  color: 'rgba(255,255,255,0.65)',
+  lineHeight: '1.65',
   margin: 0,
   textAlign: 'center' as const,
 };
 
-// Footer
-const footer: React.CSSProperties = {
-  backgroundColor: C.blue,
+/* Footer */
+const footerWrap: React.CSSProperties = {
+  backgroundColor: C.navy,
   padding: '36px 0 32px',
+  borderTop: `3px solid ${C.gold}`,
 };
 
 const footerLogo: React.CSSProperties = {
@@ -518,20 +490,26 @@ const footerLogo: React.CSSProperties = {
   fontWeight: 700,
   textAlign: 'center' as const,
   margin: '0 0 16px',
+  letterSpacing: '0.04em',
+};
+
+const footerLinks: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  textAlign: 'center' as const,
+  margin: 0,
+  fontSize: 12,
 };
 
 const footerLink: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.7)',
-  fontSize: 12,
+  color: 'rgba(255,255,255,0.6)',
   textDecoration: 'none',
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
 };
 
-const footerSmall: React.CSSProperties = {
+const footerFine: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.4)',
+  color: 'rgba(255,255,255,0.35)',
   fontSize: 11,
   textAlign: 'center' as const,
-  margin: '6px 0 0',
-  lineHeight: '1.6',
+  margin: '4px 0 0',
+  lineHeight: '1.7',
 };
