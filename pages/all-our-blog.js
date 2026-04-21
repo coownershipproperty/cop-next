@@ -86,7 +86,7 @@ export default function AllOurBlog({ posts }) {
               <a key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
                 <div className="blog-thumb">
                   {post.heroImage
-                    ? <Image src={post.heroImage} alt={post.title} fill style={{objectFit:"cover"}} loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                    ? <Image src={post.heroImage} alt={post.title} fill quality={90} style={{objectFit:"cover"}} loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                     : <div className="blog-thumb-placeholder" />
                   }
                 </div>

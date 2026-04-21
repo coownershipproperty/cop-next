@@ -110,7 +110,7 @@ export default function AboutUs() {
         <div className="sec-inner">
             <div className="story-grid">
                 <div className="story-img">
-                    <Image src="/wp-content/uploads/2026/02/1920-x-1080-px-resale-ski-chalet-interior.jpg" alt="Luxury Alpine chalet interior" fill style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
+                    <Image src="/wp-content/uploads/2026/02/1920-x-1080-px-resale-ski-chalet-interior.jpg" alt="Luxury Alpine chalet interior" fill quality={90} style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
                 </div>
                 <div className="story-text">
                     <p className="eyebrow">Why We Started</p>
@@ -138,7 +138,7 @@ export default function AboutUs() {
                     <blockquote>The average second home sits empty for 330 days a year. A fractional share gives you more time in an exceptional property — at a fraction of the cost.</blockquote>
                 </div>
                 <div className="story-img">
-                    <Image src="/wp-content/uploads/2025/11/ibiza-villa.jpg" alt="Ibiza villa with pool" fill style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
+                    <Image src="/wp-content/uploads/2025/11/ibiza-villa.jpg" alt="Ibiza villa with pool" fill quality={90} style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
                 </div>
             </div>
         </div>

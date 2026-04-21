@@ -149,7 +149,7 @@ export default function Favourites() {
                       aria-label={p.title}
                     >
                       <div className="prop-img-wrap">
-                        <Image src={imgSrc} alt={p.title} fill className="prop-img" loading="lazy" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                        <Image src={imgSrc} alt={p.title} fill quality={90} className="prop-img" loading="lazy" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                         {p.status === 'sold' && <span className="prop-badge sold">Sold</span>}
                         <button
                           className="prop-heart active"

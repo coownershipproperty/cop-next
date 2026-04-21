@@ -67,7 +67,7 @@ export default function HowItWorks() {
         <div className="sec-inner">
             <div className="intro-grid">
                 <div className="intro-img">
-                    <Image src="https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6910dcda781c75aa91ca0cf7_DJI_0957_58_59_60_61.jpeg" alt="Luxury villa with pool in Mouans-Sartoux, Côte d'Azur" fill style={{objectFit:'cover'}} sizes="(max-width: 900px) 100vw, 50vw" />
+                    <Image src="https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/6910dcda781c75aa91ca0cf7_DJI_0957_58_59_60_61.jpeg" alt="Luxury villa with pool in Mouans-Sartoux, Côte d'Azur" fill quality={90} style={{objectFit:'cover'}} sizes="(max-width: 900px) 100vw, 50vw" />
                 </div>
                 <div className="intro-text">
                     <p className="eyebrow">The Smart Way to Own</p>
