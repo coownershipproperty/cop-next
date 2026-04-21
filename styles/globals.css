@@ -2773,7 +2773,7 @@ footer {
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
-body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: clip; }
 
 img { max-width: 100%; display: block; }
 
@@ -3527,7 +3527,7 @@ footer {
             padding: 48px 3rem 24px;
         }
 
-body { font-family:'Nunito Sans',sans-serif; color:var(--text-dark); background:var(--white); line-height:1.6; overflow-x:hidden; }
+body { font-family:'Nunito Sans',sans-serif; color:var(--text-dark); background:var(--white); line-height:1.6; overflow-x:clip; }
 
 .page-hero { background:var(--blue); padding:150px 3rem 60px; text-align:center; position:relative; overflow:hidden; }
 
