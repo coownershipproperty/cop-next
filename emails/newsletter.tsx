@@ -16,6 +16,7 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
+// ── Types ─────────────────────────────────────────────────────────────────────
 interface Property {
   title: string;
   price: string;
@@ -27,21 +28,43 @@ interface Property {
 
 interface NewsletterEmailProps {
   firstName?: string;
-  previewText?: string;
-  introText?: string;
+  /** Used as email subject line: "David, this week's Editor's Pick is stunning" */
+  subjectLine?: string;
+  /** Editor's Pick — the hero property */
+  pick?: Property & { editorNote?: string };
+  /** Supporting properties shown below the hero */
   properties?: Property[];
+  /** Founder's first name shown in the sign-off */
+  founderName?: string;
+  /** Founder's title/credentials shown under name */
+  founderTitle?: string;
+  /** Public URL to a headshot photo (square, at least 120×120) */
+  founderPhotoUrl?: string;
 }
 
+// ── Brand colours ─────────────────────────────────────────────────────────────
 const C = {
-  navy:    '#2C4A5E',
-  navy60:  '#6B8A9E',
-  gold:    '#C9A84C',
-  cream:   '#F5F2EC',
-  white:   '#FFFFFF',
-  border:  '#E8E3DC',
+  navy:   '#2C4A5E',
+  navy60: '#6B8A9E',
+  gold:   '#C9A84C',
+  cream:  '#F5F2EC',
+  white:  '#FFFFFF',
+  border: '#E8E3DC',
 };
 
 const base = 'https://co-ownershipproperty.com';
+
+// ── Sample / preview data ─────────────────────────────────────────────────────
+const samplePick: NonNullable<NewsletterEmailProps['pick']> = {
+  title: 'Luberon, Provence, France — 4-Bed Mas With Vineyard Views',
+  price: '€247,500',
+  beds: 4,
+  size: 280,
+  imageUrl: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=85',
+  slug: 'luberon-provence-4-bed-mas-vineyard',
+  editorNote:
+    "I've been watching the Luberon market for nearly three decades, and properties like this are becoming genuinely rare. The vineyard views, the original stone walls, the light in those rooms in the afternoon — this is the kind of home that people buy and never want to leave. At a quarter-share, you're in for a fraction of what it would cost to own outright. I'd move quickly on this one.",
+};
 
 const sampleProperties: Property[] = [
   {
@@ -53,14 +76,6 @@ const sampleProperties: Property[] = [
     slug: 'callao-salvaje-tenerife-2-bed-apartment',
   },
   {
-    title: 'Luberon, Provence, France — 3-Bed Stone Farmhouse With Pool',
-    price: '€122,500',
-    beds: 3,
-    size: 210,
-    imageUrl: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=600&q=80',
-    slug: 'luberon-provence-3-bed-stone-farmhouse',
-  },
-  {
     title: 'Siena, Tuscany, Italy — 2-Bed Hilltop Retreat With Views',
     price: '€97,000',
     beds: 2,
@@ -70,12 +85,18 @@ const sampleProperties: Property[] = [
   },
 ];
 
+// ── Component ─────────────────────────────────────────────────────────────────
 export default function NewsletterEmail({
   firstName = 'David',
-  previewText = 'New co-ownership properties handpicked for you this week.',
-  introText = "We've handpicked a few stunning new listings this week — each a beautifully designed home in a sought-after European destination, available as a fractional co-ownership share.",
+  pick = samplePick,
   properties = sampleProperties,
+  founderName = 'Jonathan',
+  founderTitle = '28 years in European property',
+  founderPhotoUrl = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=120&q=80',
 }: NewsletterEmailProps) {
+
+  const previewText = `${firstName}, this week's Editor's Pick is one I'm particularly excited about.`;
+
   return (
     <Html lang="en">
       <Head>
@@ -83,6 +104,8 @@ export default function NewsletterEmail({
           @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap');
         `}</style>
       </Head>
+
+      {/* Subject line personalisation: shown in inbox preview */}
       <Preview>{previewText}</Preview>
 
       <Body style={body}>
@@ -94,70 +117,129 @@ export default function NewsletterEmail({
             <Text style={headerSub}>Your European Dream Home, Shared Smartly</Text>
           </Container>
         </Section>
-
-        {/* ── GOLD LINE ── */}
-        <Section style={{ backgroundColor: C.gold, padding: '0', margin: '0', lineHeight: '3px', fontSize: '3px', height: '3px' }}>
-          <Text style={{ margin: 0, padding: 0, fontSize: 1 }}> </Text>
+        <Section style={goldLine}>
+          <Text style={{ margin: 0, padding: 0, fontSize: 1, lineHeight: '3px' }}> </Text>
         </Section>
 
-        {/* ── GREETING ── */}
+        {/* ── PERSONAL NOTE FROM FOUNDER ── */}
         <Section style={{ backgroundColor: C.cream }}>
           <Container style={wrap}>
-            <Section style={{ padding: '56px 0 16px' }}>
-              <Text style={greetLabel}>A Note From Co-Ownership Property</Text>
-              <Heading style={greetHeading}>
-                New Properties,<br/>Handpicked For You
-              </Heading>
-              <Hr style={goldBar} />
+            <Section style={{ padding: '52px 0 40px' }}>
+
+              <Text style={eyebrow}>A Personal Note</Text>
+
+              {/* Founder row */}
+              <Row style={{ marginBottom: 20 }}>
+                <Column style={{ width: 64, verticalAlign: 'top', paddingRight: 18 }}>
+                  <Img
+                    src={founderPhotoUrl}
+                    alt={founderName}
+                    width="56"
+                    height="56"
+                    style={founderPhoto}
+                  />
+                </Column>
+                <Column style={{ verticalAlign: 'middle' }}>
+                  <Text style={founderNameStyle}>
+                    {founderName}
+                  </Text>
+                  <Text style={founderTitleStyle}>{founderTitle}</Text>
+                </Column>
+              </Row>
+
+              <Text style={greetBody}>Dear {firstName},</Text>
               <Text style={greetBody}>
-                Dear {firstName},
+                Every week I look through what's come to market and pick the one property I'd personally recommend. This week's selection is a home I find genuinely special — and I wanted to write to you about it directly.
               </Text>
               <Text style={greetBody}>
-                {introText}
+                Below you'll find my Editor's Pick, plus a couple of other listings that caught my eye. As always, reply to this email if anything catches your attention — I'm always happy to talk it through.
               </Text>
+              <Text style={{ ...greetBody, fontStyle: 'italic', marginTop: 4 }}>
+                — {founderName}
+              </Text>
+
             </Section>
           </Container>
         </Section>
 
-        {/* ── SECTION HEADER ── */}
-        <Section style={{ backgroundColor: C.cream, paddingTop: 32, paddingBottom: 8 }}>
+        {/* ── EDITOR'S PICK ── */}
+        <Section style={{ backgroundColor: C.cream, paddingBottom: 8 }}>
           <Container style={wrap}>
-            <Text style={sectionEyebrow}>This Week's Selection</Text>
-            <Heading style={sectionHeading}>EXPLORE OUR PROPERTIES</Heading>
+
+            <Text style={eyebrow}>Editor's Pick This Week</Text>
+            <Heading style={heroHeading}>
+              This Week, I'm Particularly Excited About&nbsp;This One
+            </Heading>
             <Hr style={goldBar} />
+
+            <Section style={heroPick}>
+
+              {/* Hero image — taller than regular cards */}
+              <Link href={`${base}/property/${pick.slug}`}>
+                <Img
+                  src={pick.imageUrl}
+                  alt={pick.title}
+                  width="536"
+                  style={heroImg}
+                />
+              </Link>
+
+              <Section style={heroBody}>
+
+                {/* Pick badge */}
+                <Text style={pickBadge}>⭐ Editor's Pick</Text>
+
+                {/* Title */}
+                <Heading style={heroTitle}>{pick.title}</Heading>
+
+                {/* Stats */}
+                <Text style={cardStats}>
+                  🛏&ensp;{pick.beds} BEDS&emsp;|&emsp;{pick.size} M²
+                </Text>
+
+                {/* Editor's personal note */}
+                {pick.editorNote && (
+                  <Section style={quoteBlock}>
+                    <Text style={quoteText}>"{pick.editorNote}"</Text>
+                    <Text style={quoteAttrib}>— {founderName}</Text>
+                  </Section>
+                )}
+
+                <Hr style={cardDivider} />
+
+                {/* Price + CTA */}
+                <Row>
+                  <Column style={{ verticalAlign: 'middle' }}>
+                    <Text style={heroPrice}>{pick.price}</Text>
+                  </Column>
+                  <Column style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
+                    <Button href={`${base}/property/${pick.slug}`} style={pickCta}>
+                      VIEW PROPERTY →
+                    </Button>
+                  </Column>
+                </Row>
+
+              </Section>
+            </Section>
+
           </Container>
         </Section>
 
-        {/* ── PROPERTY CARDS ── */}
-        <Section style={{ backgroundColor: C.cream, paddingBottom: 16 }}>
+        {/* ── MORE LISTINGS ── */}
+        <Section style={{ backgroundColor: C.cream, paddingBottom: 16, paddingTop: 40 }}>
           <Container style={wrap}>
+            <Text style={eyebrow}>Also This Week</Text>
+            <Heading style={sectionHeading}>MORE PROPERTIES TO EXPLORE</Heading>
+            <Hr style={goldBar} />
 
             {properties.map((p, i) => (
               <Section key={i} style={card}>
-                {/* Image */}
                 <Link href={`${base}/property/${p.slug}`}>
-                  <Img
-                    src={p.imageUrl}
-                    alt={p.title}
-                    width="552"
-                    style={cardImg}
-                  />
+                  <Img src={p.imageUrl} alt={p.title} width="552" style={cardImg} />
                 </Link>
-
-                {/* Card content */}
                 <Section style={cardContent}>
                   <Heading style={cardTitle}>{p.title}</Heading>
-
-                  {/* Stats */}
-                  <Row>
-                    <Column>
-                      <Text style={cardStats}>
-                        🛏&ensp;{p.beds} BEDS&emsp;|&emsp;{p.size} M²
-                      </Text>
-                    </Column>
-                  </Row>
-
-                  {/* Divider + price row */}
+                  <Text style={cardStats}>🛏&ensp;{p.beds} BEDS&emsp;|&emsp;{p.size} M²</Text>
                   <Hr style={cardDivider} />
                   <Row>
                     <Column style={{ verticalAlign: 'middle' }}>
@@ -176,7 +258,7 @@ export default function NewsletterEmail({
           </Container>
         </Section>
 
-        {/* ── BROWSE ALL CTA ── */}
+        {/* ── BROWSE ALL ── */}
         <Section style={{ backgroundColor: C.cream, paddingBottom: 64 }}>
           <Container style={wrap}>
             <Section style={ctaBlock}>
@@ -185,9 +267,7 @@ export default function NewsletterEmail({
               <Text style={ctaBody}>
                 Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.
               </Text>
-              <Button href={`${base}/our-homes`} style={ctaBtn}>
-                BROWSE ALL →
-              </Button>
+              <Button href={`${base}/our-homes`} style={ctaBtn}>BROWSE ALL →</Button>
             </Section>
           </Container>
         </Section>
@@ -195,28 +275,22 @@ export default function NewsletterEmail({
         {/* ── HOW IT WORKS ── */}
         <Section style={{ backgroundColor: C.navy, padding: '56px 0' }}>
           <Container style={wrap}>
-            <Text style={{ ...sectionEyebrow, color: 'rgba(201,168,76,0.8)', textAlign: 'center' as const }}>
-              Simple &amp; Transparent
-            </Text>
-            <Heading style={{ ...sectionHeading, color: C.white, textAlign: 'center' as const }}>
-              HOW CO-OWNERSHIP WORKS
-            </Heading>
+            <Text style={{ ...eyebrow, color: 'rgba(201,168,76,0.8)', textAlign: 'center' as const }}>Simple &amp; Transparent</Text>
+            <Heading style={{ ...sectionHeading, color: C.white, textAlign: 'center' as const }}>HOW CO-OWNERSHIP WORKS</Heading>
             <Hr style={{ ...goldBar, margin: '0 auto 40px' }} />
-
             <Row>
               {[
-                { n: '01', title: 'Buy a Share', body: 'Own 1/8 to 1/2 of a premium property — for a fraction of the full purchase price.' },
-                { n: '02', title: 'Use &amp; Enjoy', body: 'Enjoy your home for weeks per year proportional to your share, fully managed.' },
-                { n: '03', title: 'Build Equity', body: 'Benefit from property appreciation. Sell your share whenever you choose.' },
-              ].map(({ n, title, body: b }) => (
+                { n: '01', t: 'Buy a Share', b: 'Own 1/8 to 1/2 of a premium property — for a fraction of the full purchase price.' },
+                { n: '02', t: 'Use & Enjoy', b: 'Enjoy your home for weeks per year proportional to your share, fully managed.' },
+                { n: '03', t: 'Build Equity', b: 'Benefit from property appreciation. Sell your share whenever you choose.' },
+              ].map(({ n, t, b }) => (
                 <Column key={n} style={howCol}>
                   <Text style={howNum}>{n}</Text>
-                  <Text style={howTitle}>{title}</Text>
+                  <Text style={howTitle}>{t}</Text>
                   <Text style={howBody}>{b}</Text>
                 </Column>
               ))}
             </Row>
-
             <Section style={{ textAlign: 'center' as const, marginTop: 36 }}>
               <Button href={`${base}/how-it-works`} style={howBtn}>LEARN MORE →</Button>
             </Section>
@@ -228,12 +302,9 @@ export default function NewsletterEmail({
           <Container style={wrap}>
             <Text style={footLogo}>Co-Ownership Property</Text>
             <Text style={footLinks}>
-              <Link href={`${base}`} style={footLink}>Website</Link>
-              {'  ·  '}
-              <Link href={`${base}/our-homes`} style={footLink}>Our Homes</Link>
-              {'  ·  '}
-              <Link href={`${base}/how-it-works`} style={footLink}>How It Works</Link>
-              {'  ·  '}
+              <Link href={`${base}`} style={footLink}>Website</Link>{'  ·  '}
+              <Link href={`${base}/our-homes`} style={footLink}>Our Homes</Link>{'  ·  '}
+              <Link href={`${base}/how-it-works`} style={footLink}>How It Works</Link>{'  ·  '}
               <Link href={`${base}/all-our-blog`} style={footLink}>Blog</Link>
             </Text>
             <Hr style={{ borderColor: 'rgba(255,255,255,0.08)', margin: '20px 0' }} />
@@ -241,9 +312,7 @@ export default function NewsletterEmail({
               You're receiving this because you enquired about a co-ownership property.
             </Text>
             <Text style={footFine}>
-              <Link href="{{unsubscribe_url}}" style={{ color: C.gold, textDecoration: 'none' }}>
-                Unsubscribe
-              </Link>
+              <Link href="{{unsubscribe_url}}" style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
               {'  ·  info@co-ownershipproperty.com'}
             </Text>
           </Container>
@@ -254,12 +323,11 @@ export default function NewsletterEmail({
   );
 }
 
-// ─── STYLES ───────────────────────────────────────────────────────────────────
+// ── STYLES ────────────────────────────────────────────────────────────────────
 
 const body: React.CSSProperties = {
   backgroundColor: C.cream,
-  margin: 0,
-  padding: 0,
+  margin: 0, padding: 0,
   fontFamily: "'Nunito Sans', 'Helvetica Neue', Arial, sans-serif",
 };
 
@@ -269,7 +337,6 @@ const wrap: React.CSSProperties = {
   padding: '0 32px',
 };
 
-// Header
 const header: React.CSSProperties = {
   backgroundColor: C.navy,
   padding: '32px 0 28px',
@@ -296,24 +363,21 @@ const headerSub: React.CSSProperties = {
   margin: '8px 0 0',
 };
 
-// Greeting
-const greetLabel: React.CSSProperties = {
+const goldLine: React.CSSProperties = {
+  backgroundColor: C.gold,
+  height: 3,
+  lineHeight: '3px',
+  fontSize: 1,
+};
+
+const eyebrow: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   fontSize: 11,
   fontWeight: 600,
   letterSpacing: '0.18em',
   textTransform: 'uppercase' as const,
   color: C.gold,
-  margin: '0 0 14px',
-};
-
-const greetHeading: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 34,
-  fontWeight: 400,
-  color: C.navy,
-  margin: '0 0 16px',
-  lineHeight: '1.3',
+  margin: '0 0 10px',
 };
 
 const goldBar: React.CSSProperties = {
@@ -321,6 +385,32 @@ const goldBar: React.CSSProperties = {
   borderTopWidth: 2,
   width: 40,
   margin: '0 0 24px',
+};
+
+// Founder
+const founderPhoto: React.CSSProperties = {
+  width: 56,
+  height: 56,
+  borderRadius: '50%',
+  objectFit: 'cover' as const,
+  display: 'block',
+  border: `2px solid ${C.gold}`,
+};
+
+const founderNameStyle: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 16,
+  fontWeight: 700,
+  color: C.navy,
+  margin: '0 0 2px',
+};
+
+const founderTitleStyle: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontSize: 11,
+  color: C.navy60,
+  letterSpacing: '0.08em',
+  margin: 0,
 };
 
 const greetBody: React.CSSProperties = {
@@ -331,37 +421,118 @@ const greetBody: React.CSSProperties = {
   margin: '0 0 12px',
 };
 
-// Section headings
-const sectionEyebrow: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  fontSize: 11,
-  fontWeight: 600,
-  letterSpacing: '0.18em',
-  textTransform: 'uppercase' as const,
-  color: C.gold,
-  margin: '0 0 10px',
+// Hero pick
+const heroHeading: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 28,
+  fontWeight: 400,
+  fontStyle: 'italic',
+  color: C.navy,
+  margin: '0 0 16px',
+  lineHeight: '1.35',
 };
 
+const heroPick: React.CSSProperties = {
+  backgroundColor: C.white,
+  overflow: 'hidden',
+  marginBottom: 8,
+};
+
+const heroImg: React.CSSProperties = {
+  width: '100%',
+  height: 360,
+  objectFit: 'cover' as const,
+  display: 'block',
+};
+
+const heroBody: React.CSSProperties = {
+  padding: '24px 28px 28px',
+};
+
+const pickBadge: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 700,
+  letterSpacing: '0.16em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  margin: '0 0 12px',
+};
+
+const heroTitle: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 22,
+  fontWeight: 400,
+  color: C.navy,
+  margin: '0 0 14px',
+  lineHeight: '1.4',
+};
+
+const quoteBlock: React.CSSProperties = {
+  borderLeft: `3px solid ${C.gold}`,
+  paddingLeft: 20,
+  margin: '20px 0',
+};
+
+const quoteText: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 15,
+  fontStyle: 'italic',
+  color: '#4A6070',
+  lineHeight: '1.8',
+  margin: '0 0 8px',
+};
+
+const quoteAttrib: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontSize: 12,
+  fontWeight: 600,
+  letterSpacing: '0.1em',
+  color: C.gold,
+  margin: 0,
+};
+
+const heroPrice: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 28,
+  fontWeight: 400,
+  color: C.navy,
+  margin: '8px 0 0',
+};
+
+const pickCta: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  backgroundColor: C.gold,
+  color: C.white,
+  fontSize: 11,
+  fontWeight: 700,
+  letterSpacing: '0.16em',
+  padding: '12px 24px',
+  textDecoration: 'none',
+  display: 'inline-block',
+};
+
+// Section headings
 const sectionHeading: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 24,
-  fontWeight: 700,
+  fontSize: 22,
+  fontWeight: 400,
   letterSpacing: '0.14em',
   color: C.navy,
   margin: '0 0 12px',
   lineHeight: '1.2',
 };
 
-// Property card — mirrors the site's prop-card exactly
+// Regular cards
 const card: React.CSSProperties = {
   backgroundColor: C.white,
-  marginBottom: 24,
+  marginBottom: 20,
   overflow: 'hidden',
 };
 
 const cardImg: React.CSSProperties = {
   width: '100%',
-  height: 300,
+  height: 260,
   objectFit: 'cover' as const,
   display: 'block',
 };
@@ -372,10 +543,10 @@ const cardContent: React.CSSProperties = {
 
 const cardTitle: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 18,
+  fontSize: 17,
   fontWeight: 400,
   color: C.navy,
-  margin: '0 0 14px',
+  margin: '0 0 12px',
   lineHeight: '1.45',
 };
 
@@ -396,7 +567,7 @@ const cardDivider: React.CSSProperties = {
 
 const cardPrice: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 24,
+  fontSize: 22,
   fontWeight: 400,
   color: C.navy,
   margin: 0,
@@ -412,7 +583,7 @@ const viewProp: React.CSSProperties = {
   textDecoration: 'none',
 };
 
-// Browse all block
+// Browse all
 const ctaBlock: React.CSSProperties = {
   backgroundColor: C.navy,
   textAlign: 'center' as const,
