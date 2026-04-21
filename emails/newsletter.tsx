@@ -16,9 +16,7 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-// ── Types ────────────────────────────────────────────────────────────────────
 interface Property {
-  /** Full title as on the website, e.g. "Callao Salvaje, Tenerife, Spain — 2-Bed Villa" */
   title: string;
   price: string;
   beds: number;
@@ -30,24 +28,21 @@ interface Property {
 interface NewsletterEmailProps {
   firstName?: string;
   previewText?: string;
-  introHeading?: string;
   introText?: string;
   properties?: Property[];
 }
 
-// ── Design tokens — exact match to globals.css ────────────────────────────────
 const C = {
-  navy:       '#2C4A5E',
-  navy80:     '#4A6A7E',
-  navy60:     '#6B8A9E',
-  gold:       '#C9A84C',
-  cream:      '#F5F2EC',
-  white:      '#FFFFFF',
-  border:     '#DDD9D4',
-  goldBorder: 'rgba(201,168,76,0.18)',
+  navy:    '#2C4A5E',
+  navy60:  '#6B8A9E',
+  gold:    '#C9A84C',
+  cream:   '#F5F2EC',
+  white:   '#FFFFFF',
+  border:  '#E8E3DC',
 };
 
-// ── Sample data for preview ───────────────────────────────────────────────────
+const base = 'https://co-ownershipproperty.com';
+
 const sampleProperties: Property[] = [
   {
     title: 'Callao Salvaje, Tenerife, Spain — 2-Bed Apartment With Infinity Pool',
@@ -75,186 +70,181 @@ const sampleProperties: Property[] = [
   },
 ];
 
-// ── Bed icon (inline SVG as base64 image workaround — use text instead) ───────
-const BedSvg = () => (
-  <Text style={{ margin: 0, display: 'inline', fontSize: 12, color: C.navy60 }}>🛏</Text>
-);
-
-// ── Component ─────────────────────────────────────────────────────────────────
 export default function NewsletterEmail({
-  firstName = 'there',
+  firstName = 'David',
   previewText = 'New co-ownership properties handpicked for you this week.',
-  introHeading = 'New Properties, Handpicked For You',
-  introText = "We've selected a few stunning new listings this week — each a beautifully designed home in a sought-after location, available as a fractional co-ownership share.",
+  introText = "We've handpicked a few stunning new listings this week — each a beautifully designed home in a sought-after European destination, available as a fractional co-ownership share.",
   properties = sampleProperties,
 }: NewsletterEmailProps) {
-
-  const base = 'https://co-ownershipproperty.com';
-
   return (
     <Html lang="en">
       <Head>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito+Sans:wght@400;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap');
         `}</style>
       </Head>
       <Preview>{previewText}</Preview>
 
       <Body style={body}>
 
-        {/* ── Header ─────────────────────────────────────────────────── */}
-        <Section style={headerWrap}>
-          <Container style={container}>
-            <Text style={logoText}>Co-Ownership Property</Text>
-            <Text style={logoSub}>Your European Dream Home, Shared Smartly</Text>
+        {/* ── HEADER ── */}
+        <Section style={header}>
+          <Container style={wrap}>
+            <Text style={headerLogo}>Co-Ownership Property</Text>
+            <Text style={headerSub}>Your European Dream Home, Shared Smartly</Text>
           </Container>
         </Section>
 
-        {/* ── Gold rule ──────────────────────────────────────────────── */}
-        <Section style={goldRule}>
-          <Text style={{ margin: 0, fontSize: 1, lineHeight: '3px' }}>&nbsp;</Text>
+        {/* ── GOLD LINE ── */}
+        <Section style={{ backgroundColor: C.gold, padding: '0', margin: '0', lineHeight: '3px', fontSize: '3px', height: '3px' }}>
+          <Text style={{ margin: 0, padding: 0, fontSize: 1 }}> </Text>
         </Section>
 
-        {/* ── Intro ──────────────────────────────────────────────────── */}
+        {/* ── GREETING ── */}
         <Section style={{ backgroundColor: C.cream }}>
-          <Container style={container}>
-            <Section style={{ padding: '52px 0 40px' }}>
-              <Text style={eyebrow}>Hello, {firstName}</Text>
-              <Heading style={sectionTitle}>{introHeading.toUpperCase()}</Heading>
-              <Hr style={titleRule} />
-              <Text style={introBodyText}>{introText}</Text>
+          <Container style={wrap}>
+            <Section style={{ padding: '56px 0 16px' }}>
+              <Text style={greetLabel}>A Note From Co-Ownership Property</Text>
+              <Heading style={greetHeading}>
+                New Properties,<br/>Handpicked For You
+              </Heading>
+              <Hr style={goldBar} />
+              <Text style={greetBody}>
+                Dear {firstName},
+              </Text>
+              <Text style={greetBody}>
+                {introText}
+              </Text>
             </Section>
           </Container>
         </Section>
 
-        {/* ── Properties section ─────────────────────────────────────── */}
-        <Section style={{ backgroundColor: C.cream, paddingBottom: 8 }}>
-          <Container style={container}>
+        {/* ── SECTION HEADER ── */}
+        <Section style={{ backgroundColor: C.cream, paddingTop: 32, paddingBottom: 8 }}>
+          <Container style={wrap}>
+            <Text style={sectionEyebrow}>This Week's Selection</Text>
+            <Heading style={sectionHeading}>EXPLORE OUR PROPERTIES</Heading>
+            <Hr style={goldBar} />
+          </Container>
+        </Section>
+
+        {/* ── PROPERTY CARDS ── */}
+        <Section style={{ backgroundColor: C.cream, paddingBottom: 16 }}>
+          <Container style={wrap}>
 
             {properties.map((p, i) => (
               <Section key={i} style={card}>
-
-                {/* Photo */}
-                <Link href={`${base}/property/${p.slug}`} style={{ display: 'block' }}>
+                {/* Image */}
+                <Link href={`${base}/property/${p.slug}`}>
                   <Img
                     src={p.imageUrl}
                     alt={p.title}
                     width="552"
-                    style={cardPhoto}
+                    style={cardImg}
                   />
                 </Link>
 
-                {/* Body */}
-                <Section style={cardBody}>
-                  {/* Title */}
+                {/* Card content */}
+                <Section style={cardContent}>
                   <Heading style={cardTitle}>{p.title}</Heading>
 
                   {/* Stats */}
-                  <Row style={{ marginBottom: 0, marginTop: 0 }}>
-                    <Column style={{ width: 'auto', paddingRight: 16 }}>
-                      <Text style={stat}>🛏&ensp;{p.beds} BED{p.beds !== 1 ? 'S' : ''}</Text>
-                    </Column>
-                    <Column style={{ paddingLeft: 12, borderLeft: `1px solid ${C.border}` }}>
-                      <Text style={stat}>▪&ensp;{p.size} M²</Text>
+                  <Row>
+                    <Column>
+                      <Text style={cardStats}>
+                        🛏&ensp;{p.beds} BEDS&emsp;|&emsp;{p.size} M²
+                      </Text>
                     </Column>
                   </Row>
 
-                  {/* Price */}
-                  <Text style={price}>{p.price}</Text>
-
-                  {/* View link */}
-                  <Link href={`${base}/property/${p.slug}`} style={viewLink}>
-                    VIEW PROPERTY →
-                  </Link>
+                  {/* Divider + price row */}
+                  <Hr style={cardDivider} />
+                  <Row>
+                    <Column style={{ verticalAlign: 'middle' }}>
+                      <Text style={cardPrice}>{p.price}</Text>
+                    </Column>
+                    <Column style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
+                      <Link href={`${base}/property/${p.slug}`} style={viewProp}>
+                        VIEW PROPERTY →
+                      </Link>
+                    </Column>
+                  </Row>
                 </Section>
-
               </Section>
             ))}
 
           </Container>
         </Section>
 
-        {/* ── Browse all ─────────────────────────────────────────────── */}
-        <Section style={{ backgroundColor: C.cream, paddingBottom: 60 }}>
-          <Container style={container}>
-            <Section style={{ textAlign: 'center' as const, padding: '32px 0 0' }}>
-              <Heading style={{ ...sectionTitle, textAlign: 'center' as const }}>
-                EXPLORE OUR PROPERTIES
-              </Heading>
-              <Hr style={{ ...titleRule, margin: '10px auto 20px' }} />
-              <Text style={{ ...introBodyText, textAlign: 'center' as const }}>
+        {/* ── BROWSE ALL CTA ── */}
+        <Section style={{ backgroundColor: C.cream, paddingBottom: 64 }}>
+          <Container style={wrap}>
+            <Section style={ctaBlock}>
+              <Text style={ctaCount}>333</Text>
+              <Text style={ctaCountLabel}>PROPERTIES AVAILABLE</Text>
+              <Text style={ctaBody}>
                 Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.
               </Text>
-              <Button href={`${base}/our-homes`} style={browseBtn}>
-                BROWSE ALL PROPERTIES →
+              <Button href={`${base}/our-homes`} style={ctaBtn}>
+                BROWSE ALL →
               </Button>
             </Section>
           </Container>
         </Section>
 
-        {/* ── How it works ───────────────────────────────────────────── */}
-        <Section style={{ backgroundColor: C.navy, padding: '52px 0' }}>
-          <Container style={container}>
-            <Heading style={{ ...sectionTitle, color: C.white, textAlign: 'center' as const }}>
+        {/* ── HOW IT WORKS ── */}
+        <Section style={{ backgroundColor: C.navy, padding: '56px 0' }}>
+          <Container style={wrap}>
+            <Text style={{ ...sectionEyebrow, color: 'rgba(201,168,76,0.8)', textAlign: 'center' as const }}>
+              Simple &amp; Transparent
+            </Text>
+            <Heading style={{ ...sectionHeading, color: C.white, textAlign: 'center' as const }}>
               HOW CO-OWNERSHIP WORKS
             </Heading>
-            <Hr style={{ ...titleRule, borderColor: C.gold, margin: '10px auto 32px' }} />
+            <Hr style={{ ...goldBar, margin: '0 auto 40px' }} />
 
             <Row>
-              <Column style={howCol}>
-                <Text style={howNum}>01</Text>
-                <Text style={howTitle}>Buy a Share</Text>
-                <Text style={howText}>
-                  Own 1/8 to 1/2 of a premium home for a fraction of the full purchase price.
-                </Text>
-              </Column>
-              <Column style={howCol}>
-                <Text style={howNum}>02</Text>
-                <Text style={howTitle}>Enjoy Your Time</Text>
-                <Text style={howText}>
-                  Use your property for weeks per year proportional to your ownership share.
-                </Text>
-              </Column>
-              <Column style={howCol}>
-                <Text style={howNum}>03</Text>
-                <Text style={howTitle}>Build Equity</Text>
-                <Text style={howText}>
-                  Benefit from property appreciation with fully managed, hassle-free ownership.
-                </Text>
-              </Column>
+              {[
+                { n: '01', title: 'Buy a Share', body: 'Own 1/8 to 1/2 of a premium property — for a fraction of the full purchase price.' },
+                { n: '02', title: 'Use &amp; Enjoy', body: 'Enjoy your home for weeks per year proportional to your share, fully managed.' },
+                { n: '03', title: 'Build Equity', body: 'Benefit from property appreciation. Sell your share whenever you choose.' },
+              ].map(({ n, title, body: b }) => (
+                <Column key={n} style={howCol}>
+                  <Text style={howNum}>{n}</Text>
+                  <Text style={howTitle}>{title}</Text>
+                  <Text style={howBody}>{b}</Text>
+                </Column>
+              ))}
             </Row>
 
-            <Section style={{ textAlign: 'center' as const, marginTop: 32 }}>
-              <Button href={`${base}/how-it-works`} style={outlineBtn}>
-                LEARN MORE →
-              </Button>
+            <Section style={{ textAlign: 'center' as const, marginTop: 36 }}>
+              <Button href={`${base}/how-it-works`} style={howBtn}>LEARN MORE →</Button>
             </Section>
           </Container>
         </Section>
 
-        {/* ── Footer ─────────────────────────────────────────────────── */}
-        <Section style={footerWrap}>
-          <Container style={container}>
-            <Text style={footerLogo}>Co-Ownership Property</Text>
-            <Text style={footerLinks}>
-              <Link href={`${base}`} style={footerLink}>Website</Link>
+        {/* ── FOOTER ── */}
+        <Section style={footer}>
+          <Container style={wrap}>
+            <Text style={footLogo}>Co-Ownership Property</Text>
+            <Text style={footLinks}>
+              <Link href={`${base}`} style={footLink}>Website</Link>
               {'  ·  '}
-              <Link href={`${base}/our-homes`} style={footerLink}>Our Homes</Link>
+              <Link href={`${base}/our-homes`} style={footLink}>Our Homes</Link>
               {'  ·  '}
-              <Link href={`${base}/how-it-works`} style={footerLink}>How It Works</Link>
+              <Link href={`${base}/how-it-works`} style={footLink}>How It Works</Link>
               {'  ·  '}
-              <Link href={`${base}/all-our-blog`} style={footerLink}>Blog</Link>
+              <Link href={`${base}/all-our-blog`} style={footLink}>Blog</Link>
             </Text>
             <Hr style={{ borderColor: 'rgba(255,255,255,0.08)', margin: '20px 0' }} />
-            <Text style={footerFine}>
+            <Text style={footFine}>
               You're receiving this because you enquired about a co-ownership property.
             </Text>
-            <Text style={footerFine}>
+            <Text style={footFine}>
               <Link href="{{unsubscribe_url}}" style={{ color: C.gold, textDecoration: 'none' }}>
                 Unsubscribe
               </Link>
-              {'  ·  '}
-              info@co-ownershipproperty.com
+              {'  ·  info@co-ownershipproperty.com'}
             </Text>
           </Container>
         </Section>
@@ -264,7 +254,7 @@ export default function NewsletterEmail({
   );
 }
 
-// ── Styles ────────────────────────────────────────────────────────────────────
+// ─── STYLES ───────────────────────────────────────────────────────────────────
 
 const body: React.CSSProperties = {
   backgroundColor: C.cream,
@@ -273,241 +263,281 @@ const body: React.CSSProperties = {
   fontFamily: "'Nunito Sans', 'Helvetica Neue', Arial, sans-serif",
 };
 
-const container: React.CSSProperties = {
+const wrap: React.CSSProperties = {
   maxWidth: 600,
   margin: '0 auto',
-  padding: '0 24px',
+  padding: '0 32px',
 };
 
-/* Header */
-const headerWrap: React.CSSProperties = {
+// Header
+const header: React.CSSProperties = {
   backgroundColor: C.navy,
-  padding: '30px 0 26px',
+  padding: '32px 0 28px',
 };
 
-const logoText: React.CSSProperties = {
+const headerLogo: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
   color: C.white,
-  fontSize: 24,
+  fontSize: 26,
   fontWeight: 700,
+  letterSpacing: '0.04em',
   textAlign: 'center' as const,
-  letterSpacing: '0.03em',
   margin: 0,
 };
 
-const logoSub: React.CSSProperties = {
+const headerSub: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   color: C.gold,
   fontSize: 10,
-  fontWeight: 700,
-  letterSpacing: '0.16em',
+  fontWeight: 600,
+  letterSpacing: '0.2em',
   textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
   margin: '8px 0 0',
 };
 
-const goldRule: React.CSSProperties = {
-  backgroundColor: C.gold,
-  height: 3,
-  lineHeight: '3px',
-  fontSize: 1,
-};
-
-/* Section heading — matches "EXPLORE OUR PROPERTIES" on site */
-const sectionTitle: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 26,
-  fontWeight: 700,
-  letterSpacing: '0.12em',
-  color: C.navy,
-  textAlign: 'left' as const,
-  margin: '0 0 6px',
-  lineHeight: '1.25',
-};
-
-const titleRule: React.CSSProperties = {
-  borderColor: C.gold,
-  borderTopWidth: 2,
-  width: 48,
-  margin: '0 0 20px',
-};
-
-const eyebrow: React.CSSProperties = {
+// Greeting
+const greetLabel: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   fontSize: 11,
-  fontWeight: 700,
-  letterSpacing: '0.16em',
+  fontWeight: 600,
+  letterSpacing: '0.18em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  margin: '0 0 14px',
+};
+
+const greetHeading: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 34,
+  fontWeight: 400,
+  color: C.navy,
+  margin: '0 0 16px',
+  lineHeight: '1.3',
+};
+
+const goldBar: React.CSSProperties = {
+  borderColor: C.gold,
+  borderTopWidth: 2,
+  width: 40,
+  margin: '0 0 24px',
+};
+
+const greetBody: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontSize: 15,
+  color: '#4A6070',
+  lineHeight: '1.8',
+  margin: '0 0 12px',
+};
+
+// Section headings
+const sectionEyebrow: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 600,
+  letterSpacing: '0.18em',
   textTransform: 'uppercase' as const,
   color: C.gold,
   margin: '0 0 10px',
 };
 
-const introBodyText: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  fontSize: 15,
-  color: C.navy80,
-  lineHeight: '1.75',
-  margin: 0,
+const sectionHeading: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 24,
+  fontWeight: 700,
+  letterSpacing: '0.14em',
+  color: C.navy,
+  margin: '0 0 12px',
+  lineHeight: '1.2',
 };
 
-/* Property card — mirrors prop-card on site */
+// Property card — mirrors the site's prop-card exactly
 const card: React.CSSProperties = {
   backgroundColor: C.white,
-  border: `1px solid ${C.border}`,
-  marginBottom: 20,
+  marginBottom: 24,
   overflow: 'hidden',
 };
 
-const cardPhoto: React.CSSProperties = {
+const cardImg: React.CSSProperties = {
   width: '100%',
-  height: 280,
+  height: 300,
   objectFit: 'cover' as const,
   display: 'block',
 };
 
-const cardBody: React.CSSProperties = {
-  padding: '16px 24px 20px',
+const cardContent: React.CSSProperties = {
+  padding: '20px 28px 24px',
 };
 
-/* Playfair title — same as prop-title */
 const cardTitle: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 17,
-  fontWeight: 700,
+  fontSize: 18,
+  fontWeight: 400,
   color: C.navy,
-  margin: '0 0 10px',
+  margin: '0 0 14px',
   lineHeight: '1.45',
 };
 
-/* Uppercase muted stats — same as prop-stats / prop-stat */
-const stat: React.CSSProperties = {
+const cardStats: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   fontSize: 11,
-  fontWeight: 700,
-  letterSpacing: '0.13em',
+  fontWeight: 600,
+  letterSpacing: '0.12em',
   textTransform: 'uppercase' as const,
   color: C.navy60,
+  margin: '0 0 2px',
+};
+
+const cardDivider: React.CSSProperties = {
+  borderColor: 'rgba(201,168,76,0.2)',
+  margin: '14px 0 12px',
+};
+
+const cardPrice: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 24,
+  fontWeight: 400,
+  color: C.navy,
   margin: 0,
 };
 
-/* Playfair price — same as prop-price */
-const price: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 22,
-  color: C.navy,
-  margin: '14px 0 0',
-  paddingTop: 12,
-  borderTop: `1px solid ${C.goldBorder}`,
-};
-
-/* "VIEW PROPERTY →" text link — same as prop-view-btn */
-const viewLink: React.CSSProperties = {
+const viewProp: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   fontSize: 11,
   fontWeight: 700,
   letterSpacing: '0.14em',
   textTransform: 'uppercase' as const,
-  color: C.navy,
+  color: C.gold,
   textDecoration: 'none',
-  display: 'block',
-  marginTop: 12,
 };
 
-/* Browse all button — matches gold CTA on site */
-const browseBtn: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
+// Browse all block
+const ctaBlock: React.CSSProperties = {
   backgroundColor: C.navy,
-  color: C.white,
-  fontSize: 12,
-  fontWeight: 700,
-  letterSpacing: '0.14em',
-  padding: '14px 36px',
-  textDecoration: 'none',
-  display: 'inline-block',
-  marginTop: 8,
+  textAlign: 'center' as const,
+  padding: '48px 40px',
 };
 
-/* Outline button for How It Works */
-const outlineBtn: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  backgroundColor: 'transparent',
+const ctaCount: React.CSSProperties = {
+  fontFamily: "'Playfair Display', Georgia, serif",
+  fontSize: 64,
+  fontWeight: 700,
   color: C.white,
-  border: `1px solid rgba(255,255,255,0.4)`,
+  margin: '0 0 4px',
+  lineHeight: '1',
+};
+
+const ctaCountLabel: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 700,
+  letterSpacing: '0.22em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  margin: '0 0 20px',
+};
+
+const ctaBody: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontSize: 14,
+  color: 'rgba(255,255,255,0.65)',
+  lineHeight: '1.7',
+  margin: '0 0 28px',
+};
+
+const ctaBtn: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  backgroundColor: C.gold,
+  color: C.white,
   fontSize: 11,
   fontWeight: 700,
-  letterSpacing: '0.14em',
-  padding: '12px 32px',
+  letterSpacing: '0.18em',
+  padding: '14px 40px',
   textDecoration: 'none',
   display: 'inline-block',
 };
 
-/* How it works — navy bg */
+// How it works
 const howCol: React.CSSProperties = {
   width: '33%',
-  padding: '0 16px',
+  padding: '0 12px',
   textAlign: 'center' as const,
   verticalAlign: 'top',
 };
 
 const howNum: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 36,
+  fontSize: 40,
   fontWeight: 700,
   color: C.gold,
-  margin: '0 0 6px',
+  margin: '0 0 8px',
   textAlign: 'center' as const,
 };
 
 const howTitle: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 15,
+  fontSize: 16,
   fontWeight: 700,
   color: C.white,
   margin: '0 0 8px',
   textAlign: 'center' as const,
 };
 
-const howText: React.CSSProperties = {
+const howBody: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
   fontSize: 13,
-  color: 'rgba(255,255,255,0.65)',
-  lineHeight: '1.65',
+  color: 'rgba(255,255,255,0.55)',
+  lineHeight: '1.7',
   margin: 0,
   textAlign: 'center' as const,
 };
 
-/* Footer */
-const footerWrap: React.CSSProperties = {
+const howBtn: React.CSSProperties = {
+  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  backgroundColor: 'transparent',
+  color: C.white,
+  border: '1px solid rgba(255,255,255,0.3)',
+  fontSize: 11,
+  fontWeight: 700,
+  letterSpacing: '0.16em',
+  padding: '13px 36px',
+  textDecoration: 'none',
+  display: 'inline-block',
+};
+
+// Footer
+const footer: React.CSSProperties = {
   backgroundColor: C.navy,
   padding: '36px 0 32px',
   borderTop: `3px solid ${C.gold}`,
 };
 
-const footerLogo: React.CSSProperties = {
+const footLogo: React.CSSProperties = {
   fontFamily: "'Playfair Display', Georgia, serif",
   color: C.white,
   fontSize: 18,
   fontWeight: 700,
   textAlign: 'center' as const,
-  margin: '0 0 16px',
-  letterSpacing: '0.04em',
+  letterSpacing: '0.06em',
+  margin: '0 0 14px',
 };
 
-const footerLinks: React.CSSProperties = {
+const footLinks: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontSize: 12,
   textAlign: 'center' as const,
   margin: 0,
-  fontSize: 12,
 };
 
-const footerLink: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.6)',
+const footLink: React.CSSProperties = {
+  color: 'rgba(255,255,255,0.55)',
   textDecoration: 'none',
 };
 
-const footerFine: React.CSSProperties = {
+const footFine: React.CSSProperties = {
   fontFamily: "'Nunito Sans', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.35)',
+  color: 'rgba(255,255,255,0.3)',
   fontSize: 11,
   textAlign: 'center' as const,
   margin: '4px 0 0',
