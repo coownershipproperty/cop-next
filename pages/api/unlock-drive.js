@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import { upsertContact, createEmailSend, logActivity, trackingPixel } from '@/lib/crm';
+import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel } from '@/lib/crm';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -17,32 +17,44 @@ export default async function handler(req, res) {
     auth: { user: smtpUser, pass: process.env.SMTP_PASS },
   });
 
-  // ── CRM: upsert contact + log email send ──────────────────────────────────
+  // Extract slug from propertyUrl e.g. https://...property/some-slug/ → some-slug
+  const propertySlug = propertyUrl
+    ? propertyUrl.replace(/https?:\/\/[^/]+\/property\//, '').replace(/\/$/, '') || null
+    : null;
+
+  // ── CRM: upsert contact + create lead + log email send ──────────────────
   const nameParts = (name || '').trim().split(' ');
   const firstName = nameParts[0] || null;
-  const lastName  = nameParts.slice(1).join(' ') || null;
+  const lastName = nameParts.slice(1).join(' ') || null;
 
-  let contact   = null;
+  let contact = null;
   let emailSend = null;
 
   try {
     contact = await upsertContact({ email, firstName, lastName, source: 'floor_plan' });
 
     if (contact) {
-      emailSend = await createEmailSend({
-        contactId:     contact.id,
-        type:          'floor_plan',
-        subject:       `Floor Plans & More Photos — ${propertyTitle}`,
-        toEmail:       email,
+      // Create a lead so this contact appears in the CRM leads list
+      await createLead({
+        contactId: contact.id,
+        propertySlug: propertySlug || null,
         propertyTitle: propertyTitle || null,
-        propertyUrl:   propertyUrl   || null,
+      });
+
+      emailSend = await createEmailSend({
+        contactId: contact.id,
+        type: 'floor_plan',
+        subject: `Floor Plans & More Photos — ${propertyTitle}`,
+        toEmail: email,
+        propertyTitle: propertyTitle || null,
+        propertyUrl: propertyUrl || null,
       });
 
       await logActivity({
-        contactId:   contact.id,
-        type:        'floor_plan_requested',
+        contactId: contact.id,
+        type: 'floor_plan_requested',
         description: `Floor plan requested for ${propertyTitle}`,
-        metadata:    { propertyTitle, propertyUrl },
+        metadata: { propertyTitle, propertyUrl },
       });
     }
   } catch (e) {
@@ -54,8 +66,8 @@ export default async function handler(req, res) {
 
     // Send the Drive link to the visitor (with tracking pixel)
     await transporter.sendMail({
-      from:    `"Co-Ownership Property" <${fromEmail}>`,
-      to:      email,
+      from: `"Co-Ownership Property" <${fromEmail}>`,
+      to: email,
       subject: `Floor Plans & More Photos — ${propertyTitle}`,
       html: `
         <p>Hi ${name || 'there'},</p>
@@ -71,17 +83,17 @@ export default async function handler(req, res) {
 
     if (contact && emailSend) {
       await logActivity({
-        contactId:   contact.id,
-        type:        'email_sent',
+        contactId: contact.id,
+        type: 'email_sent',
         description: `Floor plan email sent to ${email}`,
-        metadata:    { email_send_id: emailSend.id },
+        metadata: { email_send_id: emailSend.id },
       });
     }
 
     // Notify COP team
     await transporter.sendMail({
-      from:    `"COP Website" <${fromEmail}>`,
-      to:      ['dylan@domosno.com', 'info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
+      from: `"COP Website" <${fromEmail}>`,
+      to: ['dylan@domosno.com', 'info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
       subject: `Floor Plan Request — ${name || email}`,
       html: `
         <h2>Floor Plan / Photo Request</h2>
