@@ -16,6 +16,8 @@ const nextConfig = {
 
 nextConfig.redirects = async () => [
   // ── Page redirects ──
+  { source: '/sitemap_index.xml', destination: '/sitemap.xml', permanent: true },
+
   { source: '/our-mission/', destination: '/about-us/', permanent: true },
   { source: '/renting-your-fractional-ownership-share-the-3-options-explained-cop/', destination: '/all-our-blog/', permanent: true },
 
