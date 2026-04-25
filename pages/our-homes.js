@@ -90,7 +90,6 @@ export default function OurHomes({ allProperties }) {
   const [alertStatus,   setAlertStatus]   = useState('idle'); // idle | sending | done | error
   const [alertRegions,  setAlertRegions]  = useState([]);
   const [alertMaxPrice, setAlertMaxPrice] = useState('');
-  const [alertMinBeds,  setAlertMinBeds]  = useState('');
 
   // ── Toggle a country in/out of selection ────────────────────────────────────
   function toggleCountry(c) {
@@ -213,7 +212,6 @@ export default function OurHomes({ allProperties }) {
     setAlertStatus('idle');
     setAlertRegions([]);
     setAlertMaxPrice('');
-    setAlertMinBeds('');
     setAlertExpanded({});
   }
 
@@ -233,7 +231,6 @@ export default function OurHomes({ allProperties }) {
           name:     alertName || null,
           regions:  alertRegions.length > 0 ? alertRegions : ['All'],
           maxPrice: alertMaxPrice || null,
-          minBeds:  alertMinBeds ? parseInt(alertMinBeds) : null,
         }),
       });
       setAlertStatus(r.ok ? 'done' : 'error');
@@ -457,32 +454,19 @@ export default function OurHomes({ allProperties }) {
                     ))}
                   </div>
 
-                  {/* Price + Beds row */}
-                  <div className="alert-row-2">
-                    <div className="alert-field">
-                      <div className="alert-field-label">Max Budget <span style={{color:'#9EAFBC',fontWeight:300}}>(optional)</span></div>
-                      <select value={alertMaxPrice} onChange={e => setAlertMaxPrice(e.target.value)} className="alert-select">
-                        <option value="">Any budget</option>
-                        <option value="100000">Under €100,000</option>
-                        <option value="200000">Up to €200,000</option>
-                        <option value="350000">Up to €350,000</option>
-                        <option value="500000">Up to €500,000</option>
-                        <option value="750000">Up to €750,000</option>
-                        <option value="1000000">Up to €1,000,000</option>
-                        <option value="9999999">€1,000,000+</option>
-                      </select>
-                    </div>
-                    <div className="alert-field">
-                      <div className="alert-field-label">Min Bedrooms <span style={{color:'#9EAFBC',fontWeight:300}}>(optional)</span></div>
-                      <select value={alertMinBeds} onChange={e => setAlertMinBeds(e.target.value)} className="alert-select">
-                        <option value="">Any</option>
-                        <option value="1">1+</option>
-                        <option value="2">2+</option>
-                        <option value="3">3+</option>
-                        <option value="4">4+</option>
-                        <option value="5">5+</option>
-                      </select>
-                    </div>
+                  {/* Budget */}
+                  <div className="alert-field">
+                    <div className="alert-field-label">Max Budget <span style={{color:'#9EAFBC',fontWeight:300}}>(optional)</span></div>
+                    <select value={alertMaxPrice} onChange={e => setAlertMaxPrice(e.target.value)} className="alert-select" style={{width:'100%'}}>
+                      <option value="">Any budget</option>
+                      <option value="100000">Under €100,000</option>
+                      <option value="200000">Up to €200,000</option>
+                      <option value="350000">Up to €350,000</option>
+                      <option value="500000">Up to €500,000</option>
+                      <option value="750000">Up to €750,000</option>
+                      <option value="1000000">Up to €1,000,000</option>
+                      <option value="9999999">€1,000,000+</option>
+                    </select>
                   </div>
 
                   {/* Name + Email */}
