@@ -3,6 +3,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
+  // Verify caller is authorised (Supabase webhook or internal cron)
+  const auth = req.headers['authorization'] || '';
+  const secret = process.env.CRON_SECRET;
+  if (!secret || auth !== `Bearer ${secret}`) {
+    return res.status(401).json({ message: 'Unauthorised' });
+  }
+
   try {
     const slug = req.body?.record?.slug;
 

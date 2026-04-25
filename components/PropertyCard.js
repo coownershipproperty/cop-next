@@ -240,6 +240,7 @@ export default function PropertyCard({ property: p }) {
         <UnlockModal
           propertyTitle={p.title}
           driveUrl={p.driveUrl}
+          propertyCountry={p.country || null}
           onClose={() => setUnlockOpen(false)}
         />
       )}

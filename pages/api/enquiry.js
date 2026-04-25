@@ -1,11 +1,16 @@
 import nodemailer from 'nodemailer';
-import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel } from '@/lib/crm';
+import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
+import { checkRateLimit } from '@/lib/rateLimit';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const { name, email, phone, message, property, url, destination, budget } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
+
+  // Rate limit: max 3 enquiries from same email in 5 minutes
+  const { limited } = await checkRateLimit(email, 'enquiry');
+  if (limited) return res.status(429).json({ error: 'Too many requests. Please try again later.' });
 
   const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
   const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
@@ -17,20 +22,23 @@ export default async function handler(req, res) {
     auth: { user: smtpUser, pass: process.env.SMTP_PASS },
   });
 
-  // ── Parse name ────────────────────────────────────────────────────────────
+  // ── Parse name ──────────────────────────────────────────────────────────────
   const nameParts = (name || '').trim().split(' ');
   const firstName = nameParts[0] || null;
   const lastName  = nameParts.slice(1).join(' ') || null;
 
-  // ── CRM: upsert contact + create lead ─────────────────────────────────────
-  let contact = null;
-  let lead    = null;
+  // ── CRM: upsert contact + create lead + score ───────────────────────────────
+  let contact   = null;
+  let lead      = null;
   let emailSend = null;
 
   try {
     contact = await upsertContact({ email, firstName, lastName, phone, source: 'website_enquiry' });
 
     if (contact) {
+      // +20 points for submitting an enquiry
+      await incrementScore(contact.id, 20);
+
       lead = await createLead({
         contactId:     contact.id,
         propertyTitle: property || null,
@@ -38,7 +46,6 @@ export default async function handler(req, res) {
         budget:        budget   || null,
       });
 
-      // Create email_send record BEFORE sending so we have the tracking_id
       const subject = `We received your enquiry${property ? ` — ${property}` : ''}`;
       emailSend = await createEmailSend({
         contactId:     contact.id,
@@ -62,7 +69,7 @@ export default async function handler(req, res) {
     console.error('[CRM] enquiry CRM write failed:', e.message);
   }
 
-  // ── Send team notification ─────────────────────────────────────────────────
+  // ── Send team notification ──────────────────────────────────────────────────
   try {
     await transporter.sendMail({
       from:    `"COP Website" <${fromEmail}>`,
@@ -84,7 +91,7 @@ export default async function handler(req, res) {
     console.error('[Mail] team notification failed:', e.message);
   }
 
-  // ── Send auto-reply to visitor (with tracking pixel) ──────────────────────
+  // ── Send auto-reply with tracking pixel ────────────────────────────────────
   try {
     const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
 

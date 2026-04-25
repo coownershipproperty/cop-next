@@ -80,10 +80,14 @@ function franceCluserLabel(region) {
 const PAGE_SIZE = 24;
 
 export default function OurHomes({ allProperties }) {
-  const [countries, setCountries] = useState([]); // [] = All; array of selected countries
-  const [regions,   setRegions]   = useState([]); // [] = all; array of selected region labels
-  const [sort,      setSort]      = useState('default');
-  const [page,      setPage]      = useState(1);
+  const [countries,    setCountries]    = useState([]); // [] = All; array of selected countries
+  const [regions,      setRegions]      = useState([]); // [] = all; array of selected region labels
+  const [sort,         setSort]         = useState('default');
+  const [page,         setPage]         = useState(1);
+  const [alertOpen,    setAlertOpen]    = useState(false);
+  const [alertEmail,   setAlertEmail]   = useState('');
+  const [alertName,    setAlertName]    = useState('');
+  const [alertStatus,  setAlertStatus]  = useState('idle'); // idle | sending | done | error
 
   // ── Toggle a country in/out of selection ────────────────────────────────────
   function toggleCountry(c) {
@@ -201,6 +205,24 @@ export default function OurHomes({ allProperties }) {
     setPage(1);
   }
 
+  async function submitAlert(e) {
+    e.preventDefault();
+    setAlertStatus('sending');
+    try {
+      const selectedRegions = countries.length > 0 ? countries.filter(c => c !== 'OTHER') : [];
+      const r = await fetch('/api/save-search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email:    alertEmail,
+          name:     alertName || null,
+          regions:  selectedRegions.length > 0 ? selectedRegions : ['All'],
+        }),
+      });
+      setAlertStatus(r.ok ? 'done' : 'error');
+    } catch { setAlertStatus('error'); }
+  }
+
   function setSortAndReset(s) {
     setSort(s);
     setPage(1);
@@ -304,6 +326,12 @@ export default function OurHomes({ allProperties }) {
               {hasActiveFilters && (
                 <button className="clear-btn" onClick={clearAll}>✕ Clear</button>
               )}
+              <button
+                className="filter-btn"
+                onClick={() => setAlertOpen(true)}
+                style={{ borderColor: '#C9A84C', color: '#C9A84C', fontWeight: 700 }}
+                title="Get emailed when new matching properties are listed"
+              >🔔 Save Alert</button>
               {/* Desktop: CTA inline in sort row */}
               <a href="#speak-to-expert" className="interested-btn desktop-only-cta">I&apos;M INTERESTED</a>
             </div>
@@ -355,6 +383,51 @@ export default function OurHomes({ allProperties }) {
       <Newsletter />
       <ExpertForm />
       <Footer />
+
+      {/* ── Save Alert Modal ── */}
+      {alertOpen && (
+        <div className="ul-overlay" onClick={() => { setAlertOpen(false); setAlertStatus('idle'); }}>
+          <div className="ul-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 420 }}>
+            <button className="ul-close" onClick={() => { setAlertOpen(false); setAlertStatus('idle'); }}>×</button>
+            {alertStatus === 'done' ? (
+              <div className="ul-success">
+                <div className="ul-tick">✓</div>
+                <h3>Alert saved!</h3>
+                <p>We&apos;ll email you at <strong>{alertEmail}</strong> as soon as a matching property is listed.</p>
+              </div>
+            ) : (
+              <>
+                <p className="ul-eye">Property Alerts</p>
+                <h3>Get notified of new listings</h3>
+                <p className="ul-sub">
+                  {countries.length > 0
+                    ? `We'll email you when a new property is listed in ${countries.filter(c => c !== 'OTHER').join(', ') || 'your selected destinations'}.`
+                    : "Enter your email and we'll notify you when new properties are listed."}
+                </p>
+                <form onSubmit={submitAlert} className="ul-form">
+                  <input
+                    type="text"
+                    placeholder="Your name (optional)"
+                    value={alertName}
+                    onChange={e => setAlertName(e.target.value)}
+                  />
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    value={alertEmail}
+                    onChange={e => setAlertEmail(e.target.value)}
+                    required
+                  />
+                  <button type="submit" disabled={alertStatus === 'sending'}>
+                    {alertStatus === 'sending' ? 'Saving…' : 'Save Alert →'}
+                  </button>
+                  {alertStatus === 'error' && <p className="ul-err">Something went wrong. Please try again.</p>}
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 }

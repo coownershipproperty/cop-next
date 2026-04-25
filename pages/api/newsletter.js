@@ -1,10 +1,16 @@
 import nodemailer from 'nodemailer';
+import { checkRateLimit } from '@/lib/rateLimit';
+import { upsertContact, logActivity } from '@/lib/crm';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const { email } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
+
+  // Rate limit: max 3 submissions from same email in 5 minutes
+  const { limited } = await checkRateLimit(email, 'newsletter');
+  if (limited) return res.status(429).json({ error: 'Too many requests. Please try again later.' });
 
   const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
   const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
@@ -13,27 +19,36 @@ export default async function handler(req, res) {
     host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
     port: 587,
     secure: false,
-    auth: {
-      user: smtpUser,
-      pass: process.env.SMTP_PASS,
-    },
+    auth: { user: smtpUser, pass: process.env.SMTP_PASS },
   });
+
+  // CRM: upsert contact + log activity
+  try {
+    const contact = await upsertContact({ email, source: 'newsletter' });
+    if (contact) {
+      await logActivity({
+        contactId: contact.id,
+        type: 'newsletter_signup',
+        description: 'Subscribed to newsletter',
+        metadata: {},
+      });
+    }
+  } catch (e) {
+    console.error('[CRM] newsletter write failed:', e.message);
+  }
 
   try {
     await transporter.sendMail({
       from: `"COP Website" <${fromEmail}>`,
       to: ['dylan@domosno.com', 'info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
       subject: `New Newsletter Subscriber — ${email}`,
-      html: `
-        <h2>New Newsletter Subscriber</h2>
-        <p><strong>Email:</strong> ${email}</p>
-      `,
+      html: `<h2>New Newsletter Subscriber</h2><p><strong>Email:</strong> ${email}</p>`,
     });
 
     await transporter.sendMail({
       from: `"Co-Ownership Property" <${fromEmail}>`,
       to: email,
-      subject: 'Welcome — you\'re on the list',
+      subject: "Welcome — you're on the list",
       html: `
         <p>Hi there,</p>
         <p>Thanks for joining our newsletter. We'll keep you updated with exclusive listings and destination insights.</p>
@@ -46,6 +61,6 @@ export default async function handler(req, res) {
     res.status(200).json({ ok: true });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to send', detail: err.message, code: err.code });
+    res.status(500).json({ error: 'Failed to send', detail: err.message });
   }
 }

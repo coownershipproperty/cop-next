@@ -1,20 +1,49 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState, useMemo } from 'react';
-import path from 'path';
-import fs from 'fs';
+import { createClient } from '@supabase/supabase-js';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 
 export async function getStaticProps() {
-  const raw = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
-  // Only pass fields needed for listing — not the full article content
-  const posts = raw.map(({ slug, title, category, date, dateFormatted, excerpt, heroImage }) => ({
-    slug, title, category, date, dateFormatted, excerpt, heroImage,
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
+
+  const { data: rows } = await supabase
+    .from('posts')
+    .select('slug, title, category, date, date_formatted, excerpt, hero_image')
+    .eq('published', true)
+    .order('date', { ascending: false });
+
+  // Fallback to JSON if Supabase table empty (pre-migration safety net)
+  let source = rows || [];
+  if (source.length === 0) {
+    try {
+      const jsonPosts = require('../lib/posts.json');
+      source = jsonPosts.map(p => ({
+        slug: p.slug, title: p.title, category: p.category,
+        date: p.date, date_formatted: p.dateFormatted,
+        excerpt: p.excerpt, hero_image: p.heroImage,
+      }));
+    } catch (_) {}
+  }
+
+  // Normalise field names to match component expectations
+  const posts = source.map(p => ({
+    slug:          p.slug,
+    title:         p.title,
+    category:      p.category,
+    date:          p.date,
+    dateFormatted: p.date_formatted || p.dateFormatted,
+    excerpt:       p.excerpt,
+    heroImage:     p.hero_image || p.heroImage,
   }));
-  return { props: { posts }, revalidate: 86400 };
+
+  return { props: { posts }, revalidate: 3600 };
 }
 
 const CATEGORIES = [

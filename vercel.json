@@ -3,6 +3,10 @@
     {
       "path": "/api/refresh-rates",
       "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/send-property-alerts",
+      "schedule": "0 9 * * *"
     }
   ]
 }

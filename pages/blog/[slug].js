@@ -1,57 +1,134 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import path from 'path';
-import fs from 'fs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import { createClient } from '@supabase/supabase-js';
 
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
+}
+
 export async function getStaticPaths() {
-  const posts = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
-  return { paths: posts.map(p => ({ params: { slug: p.slug } })), fallback: false };
+  const supabase = getSupabase();
+  const { data } = await supabase
+    .from('posts')
+    .select('slug')
+    .eq('published', true);
+
+  let slugs = (data || []).map(p => p.slug);
+
+  // Fallback: if Supabase posts table is empty (migration not yet run), use JSON file
+  if (slugs.length === 0) {
+    try {
+      const { default: jsonPosts } = await import('@/lib/posts.json');
+      slugs = jsonPosts.map(p => p.slug);
+    } catch (_) {}
+  }
+
+  // fallback: 'blocking' so newly added posts render on first request without a deploy
+  return {
+    paths: slugs.map(slug => ({ params: { slug } })),
+    fallback: 'blocking',
+  };
 }
 
 export async function getStaticProps({ params }) {
-  const posts = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
-  const post = posts.find(p => p.slug === params.slug);
-  if (!post) return { notFound: true };
+  const supabase = getSupabase();
 
-  // Embedded CTAs ("Explore Properties" gold banners, "Book Free Consultation" buttons) are
-  // hidden via CSS on .blog-article — regex stripping was causing cross-div-boundary over-matches
-  // that stripped bar chart and table content. CSS rule: div[style*="linear-gradient"][style*="text-align:center"]
-  let content = post.content || '';
+  // Fetch the post
+  const { data: postRow } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('slug', params.slug)
+    .eq('published', true)
+    .single();
 
-  // Fix mobile layout: tag inline two-column grid divs with a class so CSS can collapse them
-  content = content.replace(
+  // Fallback: if not in Supabase yet, try the JSON file (pre-migration safety net)
+  if (!postRow) {
+    try {
+      const { default: jsonPosts } = await import('@/lib/posts.json');
+      const jsonPost = jsonPosts.find(p => p.slug === params.slug);
+      if (!jsonPost) return { notFound: true };
+      // Wrap in same shape and continue
+      const content = (jsonPost.content || '').replace(
+        /(<div)([^>]*style="[^"]*grid-template-columns\s*:\s*1fr\s+1fr[^"]*")/gi,
+        '$1 class="blog-two-col"$2'
+      );
+      const latestRaw = jsonPosts.filter(p => p.slug !== params.slug).slice(0, 5);
+      const latestPosts = latestRaw.map(p => ({
+        slug: p.slug, title: p.title, category: p.category,
+        dateFormatted: p.dateFormatted, heroImage: p.heroImage,
+      }));
+      const supabase = getSupabase();
+      const { data: propRows } = await supabase
+        .from('properties').select('slug, title, img, price, currency, country, region')
+        .not('img', 'is', null).limit(40);
+      const sideProps = [...(propRows || [])].sort(() => 0.5 - Math.random()).slice(0, 4).map(p => ({
+        slug: p.slug, title: p.title, img: p.img, price: p.price,
+        currency: p.currency, country: p.country, region: p.region,
+      }));
+      return {
+        props: {
+          post: { ...jsonPost, content },
+          latestPosts,
+          sideProps,
+        },
+        revalidate: 3600,
+      };
+    } catch (_) { return { notFound: true }; }
+  }
+
+  // Normalise field names
+  const post = {
+    slug:          postRow.slug,
+    title:         postRow.title,
+    category:      postRow.category,
+    date:          postRow.date,
+    dateFormatted: postRow.date_formatted,
+    subtitle:      postRow.subtitle,
+    excerpt:       postRow.excerpt,
+    heroImage:     postRow.hero_image,
+    content:       postRow.content || '',
+  };
+
+  // Embedded CTAs are hidden via CSS — regex strips two-column grid for mobile
+  post.content = post.content.replace(
     /(<div)([^>]*style="[^"]*grid-template-columns\s*:\s*1fr\s+1fr[^"]*")/gi,
     '$1 class="blog-two-col"$2'
   );
 
-  const cleanPost = { ...post, content };
+  // Latest 5 posts (excluding current), no content needed
+  const { data: latestRows } = await supabase
+    .from('posts')
+    .select('slug, title, category, date_formatted, hero_image')
+    .eq('published', true)
+    .neq('slug', params.slug)
+    .order('date', { ascending: false })
+    .limit(5);
 
-  // Latest 5 posts (excluding current)
-  const latestPosts = posts.filter(p => p.slug !== params.slug).slice(0, 5).map(p => ({
-    slug: p.slug, title: p.title, category: p.category, dateFormatted: p.dateFormatted, heroImage: p.heroImage,
+  const latestPosts = (latestRows || []).map(p => ({
+    slug: p.slug, title: p.title, category: p.category,
+    dateFormatted: p.date_formatted, heroImage: p.hero_image,
   }));
 
-  // 4 featured properties from Supabase (random selection for variety)
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
+  // 4 featured sidebar properties
   const { data: propRows } = await supabase
     .from('properties')
     .select('slug, title, img, price, currency, country, region')
     .not('img', 'is', null)
     .limit(40);
-  const pool = (propRows || []);
-  const sideProps = [...pool].sort(() => 0.5 - Math.random()).slice(0, 4).map(p => ({
-    slug: p.slug, title: p.title, img: p.img, price: p.price, currency: p.currency, country: p.country, region: p.region,
+
+  const sideProps = [...(propRows || [])].sort(() => 0.5 - Math.random()).slice(0, 4).map(p => ({
+    slug: p.slug, title: p.title, img: p.img, price: p.price,
+    currency: p.currency, country: p.country, region: p.region,
   }));
 
-  return { props: { post: cleanPost, latestPosts, sideProps }, revalidate: 86400 };
+  return { props: { post, latestPosts, sideProps }, revalidate: 3600 };
 }
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
