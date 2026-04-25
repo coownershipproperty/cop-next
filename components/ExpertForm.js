@@ -217,8 +217,8 @@ export default function ExpertForm({ property }) {
             </div>
 
             <div className="expert-form-field">
-              <label htmlFor="ef-phone">Phone</label>
-              <input type="tel" id="ef-phone" name="phone" placeholder="+44 or +1…" />
+              <label htmlFor="ef-phone">Phone *</label>
+              <input type="tel" id="ef-phone" name="phone" placeholder="+44 or +1…" required />
             </div>
 
             <div className="expert-form-field">
