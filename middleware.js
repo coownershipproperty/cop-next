@@ -25,9 +25,10 @@ const EU_COUNTRIES = new Set([
 ]);
 
 function currencyForCountry(country) {
-  if (!country) return 'USD';
+  if (!country) return null; // unknown — don't convert, show original price
   if (country === 'GB') return 'GBP';
   if (EU_COUNTRIES.has(country)) return 'EUR';
+  if (country === 'US') return 'USD';
   if (country === 'AU') return 'AUD';
   if (country === 'CA') return 'CAD';
   if (country === 'CH') return 'CHF';
@@ -38,7 +39,7 @@ function currencyForCountry(country) {
   if (country === 'SG') return 'SGD';
   if (country === 'HK') return 'HKD';
   if (country === 'AE') return 'AED';
-  return 'USD'; // default for everyone else
+  return null; // everywhere else — show original price
 }
 
 export function middleware(request) {

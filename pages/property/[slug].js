@@ -8,6 +8,7 @@ import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
+import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
 import ExpertForm from '@/components/ExpertForm';
 import UnlockModal from '@/components/UnlockModal';
 
@@ -58,6 +59,9 @@ export async function getStaticProps({ params }) {
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 function fmt(price, currency) { return `${SYM[currency] || currency}${price.toLocaleString('en-GB')}`; }
+function fmtApprox(amount) {
+  return Math.round(amount / 1_000).toLocaleString('en-GB') + 'k';
+}
 const PARTNER_LABEL = { pacaso: 'Pacaso', andhamlet: '&Hamlet', vivla: 'Vivla', myne: 'Myne' };
 
 function Img({ src, alt, loading = 'lazy', priority = false, sizes = '100vw' }) {
@@ -132,6 +136,7 @@ export default function PropertyPage({ property: p, similar }) {
   const [mobileSlide, setMobileSlide] = useState(0);
   const [saved, setSaved] = useState(false);
   const [descExpanded, setDescExpanded] = useState(false);
+  const cx = useCurrency();
   const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.images[0] || '/images/placeholder.jpg';
   const totalImgs = p.total_images || p.images.length;
@@ -320,7 +325,17 @@ export default function PropertyPage({ property: p, similar }) {
 
           {/* Price */}
           <div className="pp-price-row">
-            <span className="pp-price">{fmt(p.price, p.currency)}</span>
+            <span className="pp-price" title={p.price && cx && convertPrice(p.price, p.currency || 'EUR', cx) != null ? `Listed at ${fmt(p.price, p.currency)}` : undefined}>
+              {(() => {
+                const fromCcy = p.currency || 'EUR';
+                const converted = p.price ? convertPrice(p.price, fromCcy, cx) : null;
+                if (converted != null) {
+                  const sym = CURRENCY_SYMBOLS[cx.currency] || cx.currency;
+                  return `~${sym}${fmtApprox(converted)}`;
+                }
+                return p.price ? fmt(p.price, fromCcy) : null;
+              })()}
+            </span>
             <span className="pp-badge">1/8 Co-Ownership</span>
           </div>
 

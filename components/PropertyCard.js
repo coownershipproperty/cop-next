@@ -41,6 +41,11 @@ const ChevronRight = () => (
 
 const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
 
+// Round to nearest 1k → "204k", "1,235k" etc.
+function formatApprox(amount) {
+  return Math.round(amount / 1_000).toLocaleString('en-GB') + 'k';
+}
+
 export default function PropertyCard({ property: p }) {
   const href = `/property/${p.slug}`;
   const [fav, setFav] = useState(false);
@@ -112,7 +117,7 @@ export default function PropertyCard({ property: p }) {
   const convertedAmount = p.price ? convertPrice(p.price, fromCurrency, cx) : null;
   const convertedSym = cx ? (CURRENCY_SYMBOLS[cx.currency] || cx.currency) : null;
   const priceDisplay = convertedAmount != null
-    ? `~${convertedSym}${convertedAmount.toLocaleString('en-GB')}`
+    ? `~${convertedSym}${formatApprox(convertedAmount)}`
     : priceFormatted;
 
   return (
