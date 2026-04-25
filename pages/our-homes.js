@@ -209,7 +209,10 @@ export default function OurHomes({ allProperties }) {
     e.preventDefault();
     setAlertStatus('sending');
     try {
-      const selectedRegions = countries.length > 0 ? countries.filter(c => c !== 'OTHER') : [];
+      // Prefer subregions (e.g. Colorado) over parent countries (e.g. USA) for precision
+      const selectedRegions = regions.length > 0
+        ? regions
+        : countries.length > 0 ? countries.filter(c => c !== 'OTHER') : [];
       const r = await fetch('/api/save-search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -327,20 +330,21 @@ export default function OurHomes({ allProperties }) {
                 <button className="clear-btn" onClick={clearAll}>✕ Clear</button>
               )}
               <button
-                className="filter-btn"
+                className="interested-btn desktop-only-cta"
                 onClick={() => setAlertOpen(true)}
-                style={{ borderColor: '#C9A84C', color: '#C9A84C', fontWeight: 700 }}
+                style={{ cursor: 'pointer' }}
                 title="Get emailed when new matching properties are listed"
               >🔔 Save Alert</button>
               {/* Desktop: CTA inline in sort row */}
-              <a href="#speak-to-expert" className="interested-btn desktop-only-cta">I&apos;M INTERESTED</a>
+              <a href="#speak-to-expert" className="filter-btn desktop-only-cta" style={{ color: '#143047', borderColor: '#143047', fontWeight: 700 }}>I&apos;M INTERESTED</a>
             </div>
           </div>
         </div>
 
-        {/* Mobile: CTA on its own centred row */}
-        <div className="filter-cta-row">
-          <a href="#speak-to-expert" className="interested-btn">I&apos;M INTERESTED</a>
+        {/* Mobile: CTAs on their own centred row */}
+        <div className="filter-cta-row" style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <button className="interested-btn" onClick={() => setAlertOpen(true)} style={{ cursor: 'pointer' }}>🔔 Save Alert</button>
+          <a href="#speak-to-expert" className="interested-btn" style={{ background: '#143047', borderColor: '#143047' }}>I&apos;M INTERESTED</a>
         </div>
 
       </div>{/* end filter-bar */}
@@ -400,9 +404,14 @@ export default function OurHomes({ allProperties }) {
                 <p className="ul-eye">Property Alerts</p>
                 <h3>Get notified of new listings</h3>
                 <p className="ul-sub">
-                  {countries.length > 0
-                    ? `We'll email you when a new property is listed in ${countries.filter(c => c !== 'OTHER').join(', ') || 'your selected destinations'}.`
-                    : "Enter your email and we'll notify you when new properties are listed."}
+                  {(() => {
+                    const displayRegions = regions.length > 0
+                      ? regions
+                      : countries.filter(c => c !== 'OTHER');
+                    return displayRegions.length > 0
+                      ? `We'll email you when a new property is listed in ${displayRegions.join(', ')}.`
+                      : "Enter your email and we'll notify you when new properties are listed.";
+                  })()}
                 </p>
                 <form onSubmit={submitAlert} className="ul-form">
                   <input
