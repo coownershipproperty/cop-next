@@ -54,7 +54,8 @@ function ensureLoaded() {
     try {
       const stored = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
       if (stored && Date.now() - stored.ts < CACHE_TTL && stored.rates) {
-        _result = { rates: stored.rates, currency: cookieCurrency || stored.currency || 'USD' };
+        // Cookie takes priority; if no cookie, no conversion (null)
+        _result = { rates: stored.rates, currency: cookieCurrency || null };
         notify();
         return _result;
       }
@@ -65,7 +66,8 @@ function ensureLoaded() {
       const res = await fetch('/api/rates');
       if (res.ok) {
         const data = await res.json();
-        _result = { rates: data.rates, currency: cookieCurrency || 'USD' };
+        // If no cookie, currency is null → no conversion, show original price
+        _result = { rates: data.rates, currency: cookieCurrency || null };
         try {
           localStorage.setItem(CACHE_KEY, JSON.stringify({
             rates: data.rates,
