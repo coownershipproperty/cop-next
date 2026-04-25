@@ -347,16 +347,14 @@ export default function OurHomes({ allProperties }) {
                 className="save-alert-btn desktop-only-cta"
                 onClick={() => setAlertOpen(true)}
                 title="Get emailed when new matching properties are listed"
-              >Save Alert</button>
-              <a href="#speak-to-expert" className="interested-btn desktop-only-cta">I&apos;M INTERESTED</a>
+              >Notify Me!</button>
             </div>
           </div>
         </div>
 
         {/* Mobile: CTAs on their own centred row */}
         <div className="filter-cta-row">
-          <button className="save-alert-btn" onClick={() => setAlertOpen(true)}>Save Alert</button>
-          <a href="#speak-to-expert" className="interested-btn">I&apos;M INTERESTED</a>
+          <button className="save-alert-btn" onClick={() => setAlertOpen(true)}>Notify Me!</button>
         </div>
 
       </div>{/* end filter-bar */}
