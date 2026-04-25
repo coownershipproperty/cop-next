@@ -6008,9 +6008,9 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .ul-form{display:flex;flex-direction:column;gap:14px}
 .ul-form input{font-family:'Nunito Sans',sans-serif;font-size:.9rem;color:#143047;border:none;border-bottom:1px solid #ddd;background:transparent;padding:8px 0;outline:none;transition:border-color .2s;width:100%}
 .ul-form input:focus{border-bottom-color:#143047}
-.ul-form button{font-family:'Nunito Sans',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#C9A84C;color:#fff;border:none;padding:14px;cursor:pointer;width:100%;transition:background .2s}
-.ul-form button:hover{background:#b8943d}
-.ul-form button:disabled{opacity:.6;cursor:not-allowed}
+.ul-form button[type="submit"]{font-family:'Nunito Sans',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#C9A84C;color:#fff;border:none;padding:14px;cursor:pointer;width:100%;transition:background .2s}
+.ul-form button[type="submit"]:hover{background:#b8943d}
+.ul-form button[type="submit"]:disabled{opacity:.6;cursor:not-allowed}
 .ul-err{font-family:'Nunito Sans',sans-serif;font-size:.8rem;color:#c0392b;margin:4px 0 0}
 
 /* Save Alert modal — destination picker + criteria fields */
@@ -6018,9 +6018,9 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .alert-dest-wrap{border:1px solid #DDD9D4;max-height:180px;overflow-y:auto;margin-bottom:12px}
 .alert-dest-group{border-bottom:1px solid #f0ece6}
 .alert-dest-group:last-child{border-bottom:none}
-.alert-dest-country{width:100%;text-align:left;background:none;border:none;padding:9px 14px;font-family:'Nunito Sans',sans-serif;font-size:.8rem;font-weight:600;color:#2C4A5E;cursor:pointer;display:flex;align-items:center;gap:8px}
-.alert-dest-country:hover{background:#faf8f5}
-.alert-dest-arrow{font-size:.75rem;color:#C9A84C;width:12px;display:inline-block}
+.alert-dest-country{width:100%;text-align:left;background:#fff;border:none;border-left:2px solid transparent;padding:9px 14px;font-family:'Nunito Sans',sans-serif;font-size:.78rem;font-weight:600;color:#2C4A5E;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:10px;transition:border-color .15s,background .15s}
+.alert-dest-country:hover{background:#faf8f5;border-left-color:#C9A84C}
+.alert-dest-arrow{font-size:.65rem;color:#C9A84C;width:10px;display:inline-block;transition:transform .15s}
 .alert-dest-chips{padding:0 14px 10px;display:flex;flex-wrap:wrap;gap:6px}
 .alert-dest-chip{background:#f5f2ec;border:1px solid #DDD9D4;padding:4px 10px;font-family:'Nunito Sans',sans-serif;font-size:.72rem;font-weight:400;color:#2C4A5E;cursor:pointer;transition:all .2s}
 .alert-dest-chip.selected{background:#2C4A5E;border-color:#2C4A5E;color:#fff}
