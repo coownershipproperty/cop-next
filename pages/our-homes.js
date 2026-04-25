@@ -413,7 +413,7 @@ export default function OurHomes({ allProperties }) {
               <>
                 <p className="ul-eye">Property Alerts</p>
                 <h3>Be the first to know</h3>
-                <p className="ul-sub">Tell us what you&apos;re looking for. The moment a matching property lists, you&apos;ll hear about it before anyone else.</p>
+                <p className="ul-sub">Tell us what you&apos;re looking for. The moment a new matching property is added to the site, you&apos;ll be the first to know.</p>
 
                 <form onSubmit={submitAlert} className="ul-form">
 
