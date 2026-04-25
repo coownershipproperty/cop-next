@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import UnlockModal from '@/components/UnlockModal';
+import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
 
 const BedIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -45,6 +46,7 @@ export default function PropertyCard({ property: p }) {
   const [fav, setFav] = useState(false);
   const [slide, setSlide] = useState(0);
   const [unlockOpen, setUnlockOpen] = useState(false);
+  const cx = useCurrency();
 
   useEffect(() => {
     setFav(isFav(p.slug));
@@ -101,9 +103,17 @@ export default function PropertyCard({ property: p }) {
     if (!isLockSlide) window.location.href = href;
   }
 
+  const fromCurrency = p.currency || 'EUR';
   const priceFormatted = p.price
-    ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}`
+    ? `${CURRENCY_SYM[fromCurrency] || fromCurrency}${p.price.toLocaleString('en-GB')}`
     : null;
+
+  // Converted price in visitor's local currency (null while loading or if same currency)
+  const convertedAmount = p.price ? convertPrice(p.price, fromCurrency, cx) : null;
+  const convertedSym = cx ? (CURRENCY_SYMBOLS[cx.currency] || cx.currency) : null;
+  const priceDisplay = convertedAmount != null
+    ? `~${convertedSym}${convertedAmount.toLocaleString('en-GB')}`
+    : priceFormatted;
 
   return (
     <>
@@ -212,7 +222,11 @@ export default function PropertyCard({ property: p }) {
             </div>
           )}
 
-          {priceFormatted && <p className="prop-price">{priceFormatted}</p>}
+          {priceDisplay && (
+            <p className="prop-price" title={convertedAmount != null ? `Listed at ${priceFormatted}` : undefined}>
+              {priceDisplay}
+            </p>
+          )}
           <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>View Property →</a>
         </div>
       </article>
