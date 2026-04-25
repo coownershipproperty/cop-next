@@ -342,7 +342,7 @@ export default function OurHomes({ allProperties }) {
         </div>
 
         {/* Mobile: CTAs on their own centred row */}
-        <div className="filter-cta-row" style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div className="filter-cta-row">
           <button className="interested-btn" onClick={() => setAlertOpen(true)} style={{ cursor: 'pointer' }}>🔔 Save Alert</button>
           <a href="#speak-to-expert" className="interested-btn" style={{ background: '#143047', borderColor: '#143047' }}>I&apos;M INTERESTED</a>
         </div>
