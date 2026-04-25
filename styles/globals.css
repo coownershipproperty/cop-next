@@ -5987,8 +5987,9 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-lb-count{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);color:rgba(201,168,76,.55);font-family:'Nunito Sans',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;z-index:10101}
 
 /* ── Unlock modal ── */
-.ul-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9000;display:flex;align-items:center;justify-content:center;padding:24px}
-.ul-modal{background:#fff;max-width:440px;width:100%;padding:40px;position:relative}
+.ul-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9000;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.ul-modal{background:#fff;max-width:440px;width:100%;padding:40px;position:relative;max-height:calc(100vh - 48px);overflow-y:auto;margin:auto}
+@media(max-width:600px){.ul-modal{padding:28px 20px;max-height:calc(100dvh - 32px)}.ul-overlay{padding:16px;align-items:flex-start}}
 .ul-close{position:absolute;top:14px;right:18px;font-size:1.8rem;background:none;border:none;color:#6b8a9e;cursor:pointer;line-height:1}
 .ul-eye{font-family:'Nunito Sans',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#C9A84C;margin:0 0 8px}
 .ul-modal h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;color:#143047;margin:0 0 10px}
