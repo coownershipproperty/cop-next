@@ -60,7 +60,7 @@ export async function getStaticProps({ params }) {
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 function fmt(price, currency) { return `${SYM[currency] || currency}${price.toLocaleString('en-GB')}`; }
 function fmtApprox(amount) {
-  return Math.round(amount / 1_000).toLocaleString('en-GB') + 'k';
+  return (Math.round(amount / 1_000) * 1_000).toLocaleString('en-GB');
 }
 const PARTNER_LABEL = { pacaso: 'Pacaso', andhamlet: '&Hamlet', vivla: 'Vivla', myne: 'Myne' };
 

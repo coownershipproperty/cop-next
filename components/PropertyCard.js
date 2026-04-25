@@ -41,9 +41,9 @@ const ChevronRight = () => (
 
 const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
 
-// Round to nearest 1k → "204k", "1,235k" etc.
+// Round to nearest 1,000 → "204,000", "1,235,000" etc.
 function formatApprox(amount) {
-  return Math.round(amount / 1_000).toLocaleString('en-GB') + 'k';
+  return (Math.round(amount / 1_000) * 1_000).toLocaleString('en-GB');
 }
 
 export default function PropertyCard({ property: p }) {
