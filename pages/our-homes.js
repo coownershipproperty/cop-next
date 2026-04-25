@@ -330,21 +330,19 @@ export default function OurHomes({ allProperties }) {
                 <button className="clear-btn" onClick={clearAll}>✕ Clear</button>
               )}
               <button
-                className="interested-btn desktop-only-cta"
+                className="save-alert-btn desktop-only-cta"
                 onClick={() => setAlertOpen(true)}
-                style={{ cursor: 'pointer' }}
                 title="Get emailed when new matching properties are listed"
-              >🔔 Save Alert</button>
-              {/* Desktop: CTA inline in sort row */}
-              <a href="#speak-to-expert" className="filter-btn desktop-only-cta" style={{ color: '#143047', borderColor: '#143047', fontWeight: 700 }}>I&apos;M INTERESTED</a>
+              >Save Alert</button>
+              <a href="#speak-to-expert" className="interested-btn desktop-only-cta">I&apos;M INTERESTED</a>
             </div>
           </div>
         </div>
 
         {/* Mobile: CTAs on their own centred row */}
         <div className="filter-cta-row">
-          <button className="interested-btn" onClick={() => setAlertOpen(true)} style={{ cursor: 'pointer' }}>🔔 Save Alert</button>
-          <a href="#speak-to-expert" className="interested-btn" style={{ background: '#143047', borderColor: '#143047' }}>I&apos;M INTERESTED</a>
+          <button className="save-alert-btn" onClick={() => setAlertOpen(true)}>Save Alert</button>
+          <a href="#speak-to-expert" className="interested-btn">I&apos;M INTERESTED</a>
         </div>
 
       </div>{/* end filter-bar */}
