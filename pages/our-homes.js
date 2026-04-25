@@ -423,13 +423,12 @@ export default function OurHomes({ allProperties }) {
                   <div className="alert-field-label">Destinations <span style={{color:'#9EAFBC',fontWeight:300}}>(optional)</span></div>
                   <div className="alert-dest-wrap">
                     {[
-                      { country: 'Spain',            children: ['Mallorca','Ibiza','Menorca','Costa del Sol','Costa Blanca','Barcelona','Canary Islands'] },
-                      { country: 'France',           children: ['South of France','French Alps','Paris'] },
-                      { country: 'Italy',            children: ['Lake Como','Lake Garda','Sardinia','Liguria'] },
-                      { country: 'USA — Colorado',   children: ['Aspen','Breckenridge','Vail'] },
-                      { country: 'USA — Florida',    children: ['Miami','Florida Keys','30A Emerald Coast'] },
-                      { country: 'USA — California', children: ['Malibu & Santa Barbara','Newport Beach','Palm Springs','Lake Tahoe'] },
-                      { country: 'Other',            children: ['Austria','Croatia','Germany','Mexico','Portugal','Sweden'] },
+                      { country: 'Spain',           children: ['Mallorca','Ibiza','Menorca','Costa del Sol','Costa Blanca','Barcelona','Canary Islands'] },
+                      { country: 'France',          children: ['South of France','French Alps','Paris'] },
+                      { country: 'Italy',           children: ['Italian Lakes','Sardinia','Liguria'] },
+                      { country: 'USA',             children: ['Colorado','Florida','California','Utah'] },
+                      { country: 'United Kingdom',  children: ['London','England'] },
+                      { country: 'Other',           children: ['Austria','Croatia','Germany','Mexico','Portugal','Sweden'] },
                     ].map(({ country, children }) => (
                       <div key={country} className="alert-dest-group">
                         {/* Country row — selectable */}
