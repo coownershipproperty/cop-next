@@ -91,7 +91,6 @@ export default function OurHomes({ allProperties }) {
   const [alertRegions,  setAlertRegions]  = useState([]);
   const [alertMaxPrice, setAlertMaxPrice] = useState('');
   const [alertMinBeds,  setAlertMinBeds]  = useState('');
-  const [alertExpanded, setAlertExpanded] = useState({});
 
   // ── Toggle a country in/out of selection ────────────────────────────────────
   function toggleCountry(c) {
@@ -220,10 +219,6 @@ export default function OurHomes({ allProperties }) {
 
   function toggleAlertRegion(val) {
     setAlertRegions(prev => prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val]);
-  }
-
-  function toggleAlertExpand(country) {
-    setAlertExpanded(prev => ({ ...prev, [country]: !prev[country] }));
   }
 
   async function submitAlert(e) {
@@ -430,40 +425,39 @@ export default function OurHomes({ allProperties }) {
                     {[
                       { country: 'Spain',            children: ['Mallorca','Ibiza','Menorca','Costa del Sol','Costa Blanca','Barcelona','Canary Islands'] },
                       { country: 'France',           children: ['South of France','French Alps','Paris'] },
-                      { country: 'Italy',            children: ['Lake Como','Lake Garda','Italian Lakes','Sardinia','Liguria'] },
+                      { country: 'Italy',            children: ['Lake Como','Lake Garda','Sardinia','Liguria'] },
                       { country: 'USA — Colorado',   children: ['Aspen','Breckenridge','Vail'] },
                       { country: 'USA — Florida',    children: ['Miami','Florida Keys','30A Emerald Coast'] },
                       { country: 'USA — California', children: ['Malibu & Santa Barbara','Newport Beach','Palm Springs','Lake Tahoe'] },
-                      { country: 'Other',            children: ['Austria','Croatia','Germany','Mexico','Portugal','Sweden','London'] },
+                      { country: 'Other',            children: ['Austria','Croatia','Germany','Mexico','Portugal','Sweden'] },
                     ].map(({ country, children }) => (
                       <div key={country} className="alert-dest-group">
-                        <button
-                          type="button"
-                          className="alert-dest-country"
-                          onClick={() => toggleAlertExpand(country)}
-                        >
-                          <span className="alert-dest-arrow">{alertExpanded[country] ? '▾' : '›'}</span>
-                          {country}
-                        </button>
-                        {alertExpanded[country] && (
-                          <div className="alert-dest-chips">
-                            {children.map(child => (
-                              <button
-                                key={child}
-                                type="button"
-                                className={`alert-dest-chip${alertRegions.includes(child) ? ' selected' : ''}`}
-                                onClick={() => toggleAlertRegion(child)}
-                              >{child}</button>
-                            ))}
-                          </div>
-                        )}
+                        {/* Country row — selectable */}
+                        <label className="alert-check-row alert-check-country">
+                          <input
+                            type="checkbox"
+                            className="alert-check-input"
+                            checked={alertRegions.includes(country)}
+                            onChange={() => toggleAlertRegion(country)}
+                          />
+                          <span className="alert-check-box" />
+                          <span className="alert-check-label">{country}</span>
+                        </label>
+                        {/* Region rows — indented */}
+                        {children.map(child => (
+                          <label key={child} className="alert-check-row alert-check-region">
+                            <input
+                              type="checkbox"
+                              className="alert-check-input"
+                              checked={alertRegions.includes(child)}
+                              onChange={() => toggleAlertRegion(child)}
+                            />
+                            <span className="alert-check-box" />
+                            <span className="alert-check-label">{child}</span>
+                          </label>
+                        ))}
                       </div>
                     ))}
-                    {alertRegions.length > 0 && (
-                      <div className="alert-selected-summary">
-                        {alertRegions.join(' · ')}
-                      </div>
-                    )}
                   </div>
 
                   {/* Price + Beds row */}
