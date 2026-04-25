@@ -111,7 +111,7 @@ function EnquiryForm({ propertyTitle, propertyUrl }) {
   return (
     <form onSubmit={submit} className="eq-form">
       {[['name','Your name','text','Full name',true],['email','Email','email','your@email.com',true],
-        ['phone','Phone','tel','+1 or +44…',false]].map(([k,label,type,ph,req]) => (
+        ['phone','Phone','tel','+1 or +44…',true]].map(([k,label,type,ph,req]) => (
         <div key={k} className="eq-field">
           <label>{label}{req ? ' *' : ''}</label>
           <input type={type} placeholder={ph} value={f[k]} onChange={set(k)} required={req} />
