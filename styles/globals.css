@@ -6840,7 +6840,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pc-panel-loc {
   display: block;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -6851,7 +6851,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pc-panel-title {
   display: block;
   font-family: 'Playfair Display', serif;
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 600;
   color: #143047;
   line-height: 1.35;
@@ -6865,7 +6865,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 }
 .pc-panel-stats span {
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.05em;
   color: #6b7d8d;
@@ -6874,7 +6874,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pc-panel-price {
   display: block;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   color: #6b7d8d;
   margin-bottom: 14px;
   letter-spacing: 0.02em;
@@ -6883,7 +6883,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pc-panel-btn {
   display: inline-block;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;

@@ -225,7 +225,6 @@ function PropCarousel({ items, propertyCount }) {
                     <span className="pc-panel-loc">{loc}</span>
                     <span className="pc-panel-title">{label}</span>
                     <div className="pc-panel-stats">
-                      {p.beds && <span>{p.beds} Beds</span>}
                       {p.size && <span>{p.size.toLocaleString('en-GB')} m²</span>}
                     </div>
                     {p.price && (
