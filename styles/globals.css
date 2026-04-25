@@ -6012,6 +6012,23 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .ul-form button:hover{background:#b8943d}
 .ul-form button:disabled{opacity:.6;cursor:not-allowed}
 .ul-err{font-family:'Nunito Sans',sans-serif;font-size:.8rem;color:#c0392b;margin:4px 0 0}
+
+/* Save Alert modal — destination picker + criteria fields */
+.alert-field-label{font-size:.7rem;font-weight:600;color:#2C4A5E;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.alert-dest-wrap{border:1px solid #DDD9D4;max-height:180px;overflow-y:auto;margin-bottom:12px}
+.alert-dest-group{border-bottom:1px solid #f0ece6}
+.alert-dest-group:last-child{border-bottom:none}
+.alert-dest-country{width:100%;text-align:left;background:none;border:none;padding:9px 14px;font-family:'Nunito Sans',sans-serif;font-size:.8rem;font-weight:600;color:#2C4A5E;cursor:pointer;display:flex;align-items:center;gap:8px}
+.alert-dest-country:hover{background:#faf8f5}
+.alert-dest-arrow{font-size:.75rem;color:#C9A84C;width:12px;display:inline-block}
+.alert-dest-chips{padding:0 14px 10px;display:flex;flex-wrap:wrap;gap:6px}
+.alert-dest-chip{background:#f5f2ec;border:1px solid #DDD9D4;padding:4px 10px;font-family:'Nunito Sans',sans-serif;font-size:.72rem;font-weight:400;color:#2C4A5E;cursor:pointer;transition:all .2s}
+.alert-dest-chip.selected{background:#2C4A5E;border-color:#2C4A5E;color:#fff}
+.alert-dest-chip:hover:not(.selected){border-color:#C9A84C;color:#C9A84C}
+.alert-selected-summary{padding:8px 14px;background:#2C4A5E;font-family:'Nunito Sans',sans-serif;font-size:.72rem;color:rgba(255,255,255,.75);letter-spacing:.03em}
+.alert-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.alert-select{width:100%;padding:10px 12px;font-family:'Nunito Sans',sans-serif;font-size:.85rem;color:#2C4A5E;border:1px solid #DDD9D4;background:#fff;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer}
+
 .ul-success{text-align:center;padding:16px 0}
 .ul-tick{font-size:2.5rem;color:#C9A84C;margin-bottom:12px;display:block}
 .ul-success h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:400;color:#143047;margin:0 0 8px}

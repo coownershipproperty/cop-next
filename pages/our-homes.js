@@ -84,10 +84,14 @@ export default function OurHomes({ allProperties }) {
   const [regions,      setRegions]      = useState([]); // [] = all; array of selected region labels
   const [sort,         setSort]         = useState('default');
   const [page,         setPage]         = useState(1);
-  const [alertOpen,    setAlertOpen]    = useState(false);
-  const [alertEmail,   setAlertEmail]   = useState('');
-  const [alertName,    setAlertName]    = useState('');
-  const [alertStatus,  setAlertStatus]  = useState('idle'); // idle | sending | done | error
+  const [alertOpen,     setAlertOpen]     = useState(false);
+  const [alertEmail,    setAlertEmail]    = useState('');
+  const [alertName,     setAlertName]     = useState('');
+  const [alertStatus,   setAlertStatus]   = useState('idle'); // idle | sending | done | error
+  const [alertRegions,  setAlertRegions]  = useState([]);
+  const [alertMaxPrice, setAlertMaxPrice] = useState('');
+  const [alertMinBeds,  setAlertMinBeds]  = useState('');
+  const [alertExpanded, setAlertExpanded] = useState({});
 
   // ── Toggle a country in/out of selection ────────────────────────────────────
   function toggleCountry(c) {
@@ -205,21 +209,36 @@ export default function OurHomes({ allProperties }) {
     setPage(1);
   }
 
+  function closeAlert() {
+    setAlertOpen(false);
+    setAlertStatus('idle');
+    setAlertRegions([]);
+    setAlertMaxPrice('');
+    setAlertMinBeds('');
+    setAlertExpanded({});
+  }
+
+  function toggleAlertRegion(val) {
+    setAlertRegions(prev => prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val]);
+  }
+
+  function toggleAlertExpand(country) {
+    setAlertExpanded(prev => ({ ...prev, [country]: !prev[country] }));
+  }
+
   async function submitAlert(e) {
     e.preventDefault();
     setAlertStatus('sending');
     try {
-      // Prefer subregions (e.g. Colorado) over parent countries (e.g. USA) for precision
-      const selectedRegions = regions.length > 0
-        ? regions
-        : countries.length > 0 ? countries.filter(c => c !== 'OTHER') : [];
       const r = await fetch('/api/save-search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email:    alertEmail,
           name:     alertName || null,
-          regions:  selectedRegions.length > 0 ? selectedRegions : ['All'],
+          regions:  alertRegions.length > 0 ? alertRegions : ['All'],
+          maxPrice: alertMaxPrice || null,
+          minBeds:  alertMinBeds ? parseInt(alertMinBeds) : null,
         }),
       });
       setAlertStatus(r.ok ? 'done' : 'error');
@@ -388,9 +407,9 @@ export default function OurHomes({ allProperties }) {
 
       {/* ── Save Alert Modal ── */}
       {alertOpen && (
-        <div className="ul-overlay" onClick={() => { setAlertOpen(false); setAlertStatus('idle'); }}>
-          <div className="ul-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 420 }}>
-            <button className="ul-close" onClick={() => { setAlertOpen(false); setAlertStatus('idle'); }}>×</button>
+        <div className="ul-overlay" onClick={closeAlert}>
+          <div className="ul-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 460 }}>
+            <button className="ul-close" onClick={closeAlert}>×</button>
             {alertStatus === 'done' ? (
               <div className="ul-success">
                 <div className="ul-tick">✓</div>
@@ -400,18 +419,82 @@ export default function OurHomes({ allProperties }) {
             ) : (
               <>
                 <p className="ul-eye">Property Alerts</p>
-                <h3>Get notified of new listings</h3>
-                <p className="ul-sub">
-                  {(() => {
-                    const displayRegions = regions.length > 0
-                      ? regions
-                      : countries.filter(c => c !== 'OTHER');
-                    return displayRegions.length > 0
-                      ? `We'll email you when a new property is listed in ${displayRegions.join(', ')}.`
-                      : "Enter your email and we'll notify you when new properties are listed.";
-                  })()}
-                </p>
+                <h3>Save your search</h3>
+                <p className="ul-sub">Tell us what you&apos;re looking for and we&apos;ll email you the moment a match is listed.</p>
+
                 <form onSubmit={submitAlert} className="ul-form">
+
+                  {/* Destinations */}
+                  <div className="alert-field-label">Destinations <span style={{color:'#9EAFBC',fontWeight:300}}>(optional)</span></div>
+                  <div className="alert-dest-wrap">
+                    {[
+                      { country: 'Spain',            children: ['Mallorca','Ibiza','Menorca','Costa del Sol','Costa Blanca','Barcelona','Canary Islands'] },
+                      { country: 'France',           children: ['South of France','French Alps','Paris'] },
+                      { country: 'Italy',            children: ['Lake Como','Lake Garda','Italian Lakes','Sardinia','Liguria'] },
+                      { country: 'USA — Colorado',   children: ['Aspen','Breckenridge','Vail'] },
+                      { country: 'USA — Florida',    children: ['Miami','Florida Keys','30A Emerald Coast'] },
+                      { country: 'USA — California', children: ['Malibu & Santa Barbara','Newport Beach','Palm Springs','Lake Tahoe'] },
+                      { country: 'Other',            children: ['Austria','Croatia','Germany','Mexico','Portugal','Sweden','London'] },
+                    ].map(({ country, children }) => (
+                      <div key={country} className="alert-dest-group">
+                        <button
+                          type="button"
+                          className="alert-dest-country"
+                          onClick={() => toggleAlertExpand(country)}
+                        >
+                          <span className="alert-dest-arrow">{alertExpanded[country] ? '▾' : '›'}</span>
+                          {country}
+                        </button>
+                        {alertExpanded[country] && (
+                          <div className="alert-dest-chips">
+                            {children.map(child => (
+                              <button
+                                key={child}
+                                type="button"
+                                className={`alert-dest-chip${alertRegions.includes(child) ? ' selected' : ''}`}
+                                onClick={() => toggleAlertRegion(child)}
+                              >{child}</button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    {alertRegions.length > 0 && (
+                      <div className="alert-selected-summary">
+                        {alertRegions.join(' · ')}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Price + Beds row */}
+                  <div className="alert-row-2">
+                    <div className="alert-field">
+                      <div className="alert-field-label">Max Budget <span style={{color:'#9EAFBC',fontWeight:300}}>(optional)</span></div>
+                      <select value={alertMaxPrice} onChange={e => setAlertMaxPrice(e.target.value)} className="alert-select">
+                        <option value="">Any budget</option>
+                        <option value="100000">Under €100,000</option>
+                        <option value="200000">Up to €200,000</option>
+                        <option value="350000">Up to €350,000</option>
+                        <option value="500000">Up to €500,000</option>
+                        <option value="750000">Up to €750,000</option>
+                        <option value="1000000">Up to €1,000,000</option>
+                        <option value="9999999">€1,000,000+</option>
+                      </select>
+                    </div>
+                    <div className="alert-field">
+                      <div className="alert-field-label">Min Bedrooms <span style={{color:'#9EAFBC',fontWeight:300}}>(optional)</span></div>
+                      <select value={alertMinBeds} onChange={e => setAlertMinBeds(e.target.value)} className="alert-select">
+                        <option value="">Any</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Name + Email */}
                   <input
                     type="text"
                     placeholder="Your name (optional)"
@@ -420,11 +503,12 @@ export default function OurHomes({ allProperties }) {
                   />
                   <input
                     type="email"
-                    placeholder="Your email address"
+                    placeholder="Your email address *"
                     value={alertEmail}
                     onChange={e => setAlertEmail(e.target.value)}
                     required
                   />
+
                   <button type="submit" disabled={alertStatus === 'sending'}>
                     {alertStatus === 'sending' ? 'Saving…' : 'Save Alert →'}
                   </button>
