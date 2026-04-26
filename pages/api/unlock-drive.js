@@ -10,18 +10,84 @@ function getDb() {
   return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
 }
 
-/** Fetch up to 3 similar properties (same country, different slug, available) */
-async function getSimilarProperties(propertySlug, propertyCountry) {
+/**
+ * Fetch up to 3 similar properties.
+ * Strategy:
+ *   1. Same city + price within ±40%  (up to 3)
+ *   2. Same country + price within ±40%, excluding already picked  (backfill to 3)
+ *   3. Same country, any price, excluding already picked  (last resort)
+ */
+async function getSimilarProperties(propertySlug, propertyCountry, propertyCity, propertyPrice) {
   if (!propertyCountry) return [];
   const db = getDb();
-  const { data } = await db
-    .from('properties')
-    .select('slug, title, img, price, currency, beds, size, city')
-    .eq('country', propertyCountry)
-    .neq('slug', propertySlug || '')
-    .in('status', ['available', 'new'])
-    .limit(3);
-  return data || [];
+  const exclude = propertySlug || '';
+  const FIELDS = 'slug, title, img, price, currency, beds, size, city';
+  const STATUSES = ['available', 'new'];
+
+  let results = [];
+
+  // ── Pass 1: same city, ±40% price ────────────────────────────────────────
+  if (propertyCity) {
+    let q = db
+      .from('properties')
+      .select(FIELDS)
+      .eq('country', propertyCountry)
+      .ilike('city', `%${propertyCity}%`)
+      .neq('slug', exclude)
+      .in('status', STATUSES);
+
+    if (propertyPrice) {
+      const lo = Math.round(propertyPrice * 0.6);
+      const hi = Math.round(propertyPrice * 1.4);
+      q = q.gte('price', lo).lte('price', hi);
+    }
+
+    const { data } = await q.limit(3);
+    results = data || [];
+  }
+
+  // ── Pass 2: same country, ±40% price, backfill ───────────────────────────
+  if (results.length < 3 && propertyPrice) {
+    const alreadyIn = new Set([exclude, ...results.map(p => p.slug)]);
+    const lo = Math.round(propertyPrice * 0.6);
+    const hi = Math.round(propertyPrice * 1.4);
+    const { data } = await db
+      .from('properties')
+      .select(FIELDS)
+      .eq('country', propertyCountry)
+      .gte('price', lo)
+      .lte('price', hi)
+      .in('status', STATUSES)
+      .limit(10);
+
+    for (const p of (data || [])) {
+      if (!alreadyIn.has(p.slug)) {
+        results.push(p);
+        alreadyIn.add(p.slug);
+        if (results.length >= 3) break;
+      }
+    }
+  }
+
+  // ── Pass 3: same country, any price ─────────────────────────────────────
+  if (results.length < 3) {
+    const alreadyIn = new Set([exclude, ...results.map(p => p.slug)]);
+    const { data } = await db
+      .from('properties')
+      .select(FIELDS)
+      .eq('country', propertyCountry)
+      .in('status', STATUSES)
+      .limit(10);
+
+    for (const p of (data || [])) {
+      if (!alreadyIn.has(p.slug)) {
+        results.push(p);
+        if (results.length >= 3) break;
+      }
+    }
+  }
+
+  return results.slice(0, 3);
 }
 
 export default async function handler(req, res) {
@@ -80,8 +146,22 @@ export default async function handler(req, res) {
     console.error('[CRM] unlock-drive write failed:', e.message);
   }
 
+  // ── Look up property city + price for similar-property matching ─────────────
+  let propertyCity  = null;
+  let propertyPrice = null;
+  if (propertySlug) {
+    const db = getDb();
+    const { data: prop } = await db
+      .from('properties')
+      .select('city, price')
+      .eq('slug', propertySlug)
+      .single();
+    propertyCity  = prop?.city  || null;
+    propertyPrice = prop?.price ? Number(prop.price) : null;
+  }
+
   // ── Fetch similar properties for email ────────────────────────────────────
-  const rawSimilar = await getSimilarProperties(propertySlug, propertyCountry);
+  const rawSimilar = await getSimilarProperties(propertySlug, propertyCountry, propertyCity, propertyPrice);
 
   // Map to FloorPlanEmail's SimilarProperty shape
   const similarProperties = rawSimilar.map(p => {

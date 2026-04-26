@@ -6,9 +6,10 @@
  * Body: { email, name?, regions[], maxPrice?, minBeds? }
  */
 import { createClient } from '@supabase/supabase-js';
-import nodemailer from 'nodemailer';
 import { upsertContact, logActivity } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { FROM_ADDRESS, REPLY_TO, sendTeamNotification } from '@/lib/resend';
+import resend from '@/lib/resend';
 
 function getDb() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -27,7 +28,7 @@ export default async function handler(req, res) {
 
   const db = getDb();
 
-  // Save the search
+  // Save the search (upsert on email — one saved search per email address)
   const { data: saved, error } = await db
     .from('saved_searches')
     .upsert(
@@ -70,47 +71,95 @@ export default async function handler(req, res) {
     console.error('[CRM] save-search write failed:', e.message);
   }
 
-  // Send confirmation email
+  // Send confirmation email via Resend
   try {
-    const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-      port: 587,
-      secure: false,
-      auth: { user: process.env.SMTP_USER || 'a373bb001@smtp-brevo.com', pass: process.env.SMTP_PASS },
-    });
-
     const regionList = regions.join(', ');
-    const criteria = [
-      `Destinations: <strong>${regionList}</strong>`,
-      maxPrice ? `Max budget: <strong>€${parseInt(maxPrice).toLocaleString()}</strong>` : '',
-      minBeds  ? `Min bedrooms: <strong>${minBeds}</strong>` : '',
-    ].filter(Boolean).join('<br>');
+    const criteriaLines = [
+      `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d;width:120px">Destinations</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">${regionList}</td></tr>`,
+      maxPrice ? `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d">Max budget</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">€${parseInt(maxPrice).toLocaleString()}</td></tr>` : '',
+      minBeds  ? `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d">Min bedrooms</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">${minBeds}+</td></tr>` : '',
+    ].filter(Boolean).join('');
 
-    await transporter.sendMail({
-      from:    `"Co-Ownership Property" <${fromEmail}>`,
-      to:      email,
-      subject: `Property alert set — we'll notify you of new listings`,
+    const firstName = (name || '').trim().split(' ')[0] || null;
+
+    await resend.emails.send({
+      from:    FROM_ADDRESS,
+      to:      [email],
+      replyTo: REPLY_TO,
+      subject: 'Your property alert is set — we'll notify you of new listings',
       html: `
-        <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#143047;">
-          <p style="font-size:15px;">Hi ${name || 'there'},</p>
-          <p style="font-size:15px;">Your property alert is active. We'll email you as soon as a new property matching your criteria is listed.</p>
-          <div style="background:#f8f9fa;border-radius:6px;padding:16px 20px;margin:20px 0;">
-            <p style="margin:0 0 8px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#C9A84C;">Your search</p>
-            <p style="margin:0;font-size:14px;line-height:1.8;">${criteria}</p>
-          </div>
-          <p style="font-size:14px;color:#6b7d8d;">In the meantime, browse everything that's available now:</p>
-          <p style="margin:20px 0;">
-            <a href="https://co-ownership-property.com/our-homes/" style="display:inline-block;background:#143047;color:#ffffff;padding:12px 24px;text-decoration:none;font-size:14px;font-weight:600;border-radius:3px;">Browse Properties →</a>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#F7F4EE;font-family:'Helvetica Neue',Arial,sans-serif">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F7F4EE;padding:40px 0">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
+
+        <!-- Header -->
+        <tr><td style="background:#1E3448;padding:40px 48px 32px;text-align:center">
+          <p style="margin:0 0 16px;font-family:Georgia,serif;font-size:20px;font-weight:400;letter-spacing:0.16em;text-transform:uppercase;color:#ffffff">Co-Ownership Property</p>
+          <div style="width:40px;height:1px;background:#C9A84C;margin:0 auto"></div>
+        </td></tr>
+
+        <!-- Body -->
+        <tr><td style="background:#ffffff;padding:48px 48px 40px;text-align:center">
+          <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:#C9A84C">Property Alert</p>
+          <h1 style="margin:0 0 24px;font-family:Georgia,serif;font-size:28px;font-weight:400;color:#1E3448;line-height:1.3">
+            <em>Your alert is active${firstName ? `, ${firstName}` : ''}</em>
+          </h1>
+          <div style="width:40px;height:1px;background:#C9A84C;margin:0 auto 28px"></div>
+          <p style="margin:0 0 28px;font-size:14px;font-weight:300;color:#4A6070;line-height:1.8;text-align:center">
+            We'll email you the moment a new property matching your criteria is listed on the site.
           </p>
-          <p style="font-size:13px;color:#9ca3af;">You can unsubscribe from these alerts at any time by replying to this email.</p>
-          <p style="font-size:14px;">Best,<br>The Co-Ownership Property Team</p>
-        </div>
-      `,
-      replyTo: fromEmail,
+
+          <!-- Criteria box -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#F7F4EE;padding:20px 24px;margin-bottom:32px;text-align:left">
+            <tr><td colspan="2" style="padding-bottom:10px;font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#C9A84C">Your search criteria</td></tr>
+            ${criteriaLines}
+          </table>
+
+          <!-- CTA -->
+          <a href="https://co-ownership-property.com/our-homes/" style="display:inline-block;background:#1E3448;color:#ffffff;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:18px 48px;text-decoration:none">
+            Browse Properties Now
+          </a>
+        </td></tr>
+
+        <!-- Footer -->
+        <tr><td style="background:#1E3448;border-top:1px solid #C9A84C;padding:36px 48px;text-align:center">
+          <p style="margin:0 0 12px;font-family:Georgia,serif;font-size:15px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff">Co-Ownership Property</p>
+          <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.35);line-height:1.7">
+            You're receiving this because you set up a property alert on co-ownership-property.com.<br>
+            Reply to this email to update or cancel your alert at any time.
+          </p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`,
     });
   } catch (e) {
-    console.error('[Mail] save-search confirmation failed:', e.message);
+    console.error('[Resend] save-search confirmation failed:', e.message);
+    // Don't fail the request — the alert was saved successfully
+  }
+
+  // Team notification
+  try {
+    await sendTeamNotification({
+      subject: `Property Alert Set — ${name || email}`,
+      html: `
+        <h2>New Property Alert</h2>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Name:</strong> ${name || 'Not provided'}</p>
+        <p><strong>Regions:</strong> ${regions.join(', ')}</p>
+        ${maxPrice ? `<p><strong>Max Budget:</strong> €${parseInt(maxPrice).toLocaleString()}</p>` : ''}
+        ${minBeds  ? `<p><strong>Min Beds:</strong> ${minBeds}</p>` : ''}
+      `,
+    });
+  } catch (e) {
+    console.error('[Resend] save-search team notification failed:', e.message);
   }
 
   return res.status(200).json({ ok: true });
