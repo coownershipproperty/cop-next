@@ -168,21 +168,6 @@ export default function EnquiryAutoreply({
           </Container>
         </Section>
 
-        {/* ── SIGN-OFF ── */}
-        <Section style={{ backgroundColor: C.white }}>
-          <Container style={wrapBody}>
-            <Hr style={thinDivider} />
-            <Text style={replyText}>
-              Have more questions? Simply reply to this email — we're always happy to help.
-            </Text>
-            <Hr style={goldAccentRule} />
-            <Text style={signoffName}>The Co-Ownership Property Team</Text>
-            <Text style={signoffSite}>
-              <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
-            </Text>
-          </Container>
-        </Section>
-
         {/* ── MATCHING PROPERTIES ── */}
         {matchingProperties.length > 0 && (
           <Section style={similarSection}>
@@ -209,19 +194,19 @@ export default function EnquiryAutoreply({
                     </Column>
                     <Column style={cardTextCol}>
                       <Text style={locationLabel}>
-                        {p.title.split('\u2014')[0]?.trim() ?? ''}
+                        {p.title.split('—')[0]?.trim() ?? ''}
                       </Text>
                       <Heading style={cardTitle}>
-                        {p.title.split('\u2014')[1]?.trim() ?? p.title}
+                        {p.title.split('—')[1]?.trim() ?? p.title}
                       </Heading>
                       {(p.beds > 0 || p.size > 0) && (
                         <Text style={cardStats}>
-                          {p.beds > 0 ? `${p.beds} Beds` : ''}{p.beds > 0 && p.size > 0 ? '\u2002\u00b7\u2002' : ''}{p.size > 0 ? `${p.size} m\u00b2` : ''}
+                          {p.beds > 0 ? `${p.beds} Beds` : ''}{p.beds > 0 && p.size > 0 ? ' · ' : ''}{p.size > 0 ? `${p.size} m²` : ''}
                         </Text>
                       )}
                       {p.price && <Text style={cardPrice}>{p.price}</Text>}
                       <Link href={`${base}/property/${p.slug}`} style={viewPropLink}>
-                        View Property \u2192
+                        View Property →
                       </Link>
                     </Column>
                   </Row>
@@ -229,12 +214,27 @@ export default function EnquiryAutoreply({
               ))}
               <Section style={{ paddingTop: 24, paddingBottom: 8, textAlign: 'center' as const }}>
                 <Link href={`${base}/our-homes/`} style={seeAllLink}>
-                  See All Properties \u2192
+                  See All Properties →
                 </Link>
               </Section>
             </Container>
           </Section>
         )}
+
+        {/* ── SIGN-OFF ── */}
+        <Section style={{ backgroundColor: C.white }}>
+          <Container style={wrapBody}>
+            <Hr style={thinDivider} />
+            <Text style={replyText}>
+              Have more questions? Simply reply to this email — we're always happy to help.
+            </Text>
+            <Hr style={goldAccentRule} />
+            <Text style={signoffName}>The Co-Ownership Property Team</Text>
+            <Text style={signoffSite}>
+              <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
+            </Text>
+          </Container>
+        </Section>
 
         {/* ── FOOTER ── */}
         <Section style={footer}>
