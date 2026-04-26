@@ -23,7 +23,6 @@ function getDb() {
 async function getMatchingProperties(regions, maxPrice, minBeds) {
   const db = getDb();
   const FIELDS = 'slug, title, img, price, currency, beds, size, city, country, region';
-  const STATUSES = ['available', 'new'];
 
   // Build a filter: each region string is matched against country OR region (case-insensitive)
   // Skip 'All' as it means no restriction
@@ -32,7 +31,7 @@ async function getMatchingProperties(regions, maxPrice, minBeds) {
   let query = db
     .from('properties')
     .select(FIELDS)
-    .in('status', STATUSES)
+    .eq('status', 'Live')
     .order('date_added', { ascending: false });
 
   if (maxPrice) query = query.lte('price', parseInt(maxPrice, 10));

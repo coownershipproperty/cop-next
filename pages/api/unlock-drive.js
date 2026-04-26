@@ -22,7 +22,7 @@ async function getSimilarProperties(propertySlug, propertyCountry, propertyCity,
   const db = getDb();
   const exclude = propertySlug || '';
   const FIELDS = 'slug, title, img, price, currency, beds, size, city';
-  const STATUSES = ['available', 'new'];
+  const STATUSES = ['Live'];
 
   let results = [];
 
