@@ -112,12 +112,14 @@ export default function FloorPlanEmail({
         {/* ── HERO IMAGE ── */}
         {propertyImg && (
           <Section style={{ backgroundColor: C.white, textAlign: 'center' as const, lineHeight: 0, fontSize: 0 }}>
-            <Img
-              src={propertyImg}
-              alt={propertyTitle}
-              width="600"
-              style={heroImg}
-            />
+            <Link href={driveUrl ?? base}>
+              <Img
+                src={propertyImg}
+                alt={propertyTitle}
+                width="600"
+                style={heroImg}
+              />
+            </Link>
           </Section>
         )}
 
