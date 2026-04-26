@@ -65,6 +65,11 @@ export default function NurtureDay14({
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+          @media only screen and (max-width: 600px) {
+            p { font-size: 17px !important; line-height: 1.75 !important; }
+            h1, h2, h3 { font-size: 26px !important; line-height: 1.35 !important; }
+            img { max-width: 100% !important; height: auto !important; }
+          }
         `}</style>
       </Head>
 
@@ -201,7 +206,7 @@ const body: React.CSSProperties = {
 const wrap: React.CSSProperties = {
   maxWidth: 600,
   margin: '0 auto',
-  padding: '0 32px',
+  padding: '0 20px',
 };
 
 const header: React.CSSProperties = {
@@ -244,7 +249,7 @@ const goldBar: React.CSSProperties = {
 
 const bodyText: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 15,
+  fontSize: 16,
   color: '#4A6070',
   lineHeight: '1.8',
   margin: '0 0 12px',
@@ -312,7 +317,7 @@ const goldRule: React.CSSProperties = {
 
 const signOffName: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 15,
+  fontSize: 16,
   fontWeight: 400,
   color: C.navy,
   margin: '0 0 4px',
@@ -320,7 +325,7 @@ const signOffName: React.CSSProperties = {
 
 const signOffSite: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
+  fontSize: 13,
   color: C.navy60,
   margin: 0,
 };
@@ -369,7 +374,7 @@ const footLogo: React.CSSProperties = {
 
 const footLinks: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 400,
   textAlign: 'center' as const,
   margin: 0,
@@ -383,7 +388,7 @@ const footLink: React.CSSProperties = {
 const footFine: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   color: 'rgba(255,255,255,0.25)',
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 300,
   textAlign: 'center' as const,
   margin: '4px 0 0',

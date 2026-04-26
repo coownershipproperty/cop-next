@@ -78,6 +78,11 @@ export default function EnquiryAutoreply({
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+          @media only screen and (max-width: 600px) {
+            p { font-size: 17px !important; line-height: 1.75 !important; }
+            h1, h2, h3 { font-size: 26px !important; line-height: 1.35 !important; }
+            img { max-width: 100% !important; height: auto !important; }
+          }
         `}</style>
       </Head>
 
@@ -299,13 +304,13 @@ const body: React.CSSProperties = {
 const wrap: React.CSSProperties = {
   maxWidth: 600,
   margin: '0 auto',
-  padding: '0 40px',
+  padding: '0 20px',
 };
 
 const wrapBody: React.CSSProperties = {
   maxWidth: 600,
   margin: '0 auto',
-  padding: '0 48px',
+  padding: '0 24px',
 };
 
 // Header
@@ -368,7 +373,7 @@ const summarySection: React.CSSProperties = {
 
 const summaryEyebrow: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
+  fontSize: 13,
   fontWeight: 500,
   letterSpacing: '0.22em',
   textTransform: 'uppercase' as const,
@@ -379,7 +384,7 @@ const summaryEyebrow: React.CSSProperties = {
 
 const summaryLabel: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 12,
+  fontSize: 13,
   fontWeight: 400,
   color: C.navy60,
   padding: '6px 0',
@@ -403,7 +408,7 @@ const propertyCallout: React.CSSProperties = {
 
 const propLocationStyle: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 500,
   letterSpacing: '0.22em',
   textTransform: 'uppercase' as const,
@@ -447,7 +452,7 @@ const ctaSection: React.CSSProperties = {
 
 const ctaLabel: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 500,
   letterSpacing: '0.2em',
   textTransform: 'uppercase' as const,
@@ -460,7 +465,7 @@ const ctaButtonNavy: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   backgroundColor: C.navy,
   color: C.white,
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 500,
   letterSpacing: '0.18em',
   textTransform: 'uppercase' as const,
@@ -473,7 +478,7 @@ const ctaButtonGold: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   backgroundColor: C.gold,
   color: C.white,
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 500,
   letterSpacing: '0.18em',
   textTransform: 'uppercase' as const,
@@ -484,7 +489,7 @@ const ctaButtonGold: React.CSSProperties = {
 
 const ctaSubLink: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 12,
+  fontSize: 13,
   fontWeight: 400,
   color: C.navy60,
   textAlign: 'center' as const,
@@ -535,7 +540,7 @@ const signoffName: React.CSSProperties = {
 
 const signoffSite: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 400,
   color: C.navy60,
   textAlign: 'center' as const,
@@ -557,7 +562,7 @@ const similarSection: React.CSSProperties = {
 
 const sectionEyebrow: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
+  fontSize: 13,
   fontWeight: 500,
   letterSpacing: '0.22em',
   textTransform: 'uppercase' as const,
@@ -603,7 +608,7 @@ const cardTextCol: React.CSSProperties = {
 
 const locationLabel: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
+  fontSize: 13,
   fontWeight: 500,
   letterSpacing: '0.18em',
   textTransform: 'uppercase' as const,
@@ -627,7 +632,7 @@ const cardTitle: React.CSSProperties = {
 
 const cardStats: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 400,
   letterSpacing: '0.08em',
   color: C.navy60,
@@ -644,7 +649,7 @@ const cardPrice: React.CSSProperties = {
 
 const viewPropLink: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 500,
   letterSpacing: '0.1em',
   color: C.gold,
@@ -671,7 +676,7 @@ const footLogo: React.CSSProperties = {
 
 const footLinks: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 400,
   textAlign: 'center' as const,
   margin: 0,
@@ -685,7 +690,7 @@ const footLink: React.CSSProperties = {
 const footFine: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   color: 'rgba(255,255,255,0.25)',
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 300,
   textAlign: 'center' as const,
   margin: '4px 0 0',
