@@ -118,6 +118,8 @@ export default async function handler(req, res) {
         propertyTitle:     property     || undefined,
         propertyImg:       propertyImg  || undefined,
         propertyUrl:       url          || undefined,
+        destination:       destination  || undefined,
+        budget:            budget       || undefined,
         trackingPixelHtml: pixel        || undefined,
       }),
       templateName:  'enquiry-autoreply',

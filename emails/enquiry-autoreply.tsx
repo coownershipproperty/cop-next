@@ -19,6 +19,8 @@ interface EnquiryAutoreplyProps {
   propertyTitle?: string;
   propertyImg?: string;
   propertyUrl?: string;
+  destination?: string;
+  budget?: string;
   trackingPixelHtml?: string;
 }
 
@@ -41,6 +43,8 @@ export default function EnquiryAutoreply({
   propertyTitle,
   propertyImg,
   propertyUrl,
+  destination,
+  budget,
   trackingPixelHtml,
 }: EnquiryAutoreplyProps) {
 
@@ -81,11 +85,35 @@ export default function EnquiryAutoreply({
             </Text>
             <Text style={introText}>
               {propertyTitle
-                ? "Thank you for your interest. We've received your enquiry and a member of our team will be in touch shortly — usually within a few hours."
-                : "Thank you for getting in touch. We've received your message and a member of our team will be in touch shortly — usually within a few hours."}
+                ? "Thank you for your interest. We've received your enquiry and a member of our team will be in touch shortly."
+                : "Thank you for getting in touch. We've received your message and a member of our team will be in touch shortly."}
             </Text>
           </Container>
         </Section>
+
+        {/* ── ENQUIRY SUMMARY (destination + budget, general enquiries only) ── */}
+        {!propertyTitle && (destination || budget) && (
+          <Section style={summarySection}>
+            <Container style={wrapBody}>
+              <Text style={summaryEyebrow}>Your enquiry details</Text>
+              <Section style={goldRuleCenter} />
+              <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 20 }}>
+                {destination && (
+                  <tr>
+                    <td style={summaryLabel}>Destination</td>
+                    <td style={summaryValue}>{destination}</td>
+                  </tr>
+                )}
+                {budget && (
+                  <tr>
+                    <td style={summaryLabel}>Budget</td>
+                    <td style={summaryValue}>{budget}</td>
+                  </tr>
+                )}
+              </table>
+            </Container>
+          </Section>
+        )}
 
         {/* ── PROPERTY CALLOUT (only when property-specific) ── */}
         {propertyTitle && (
@@ -116,18 +144,13 @@ export default function EnquiryAutoreply({
         <Section style={ctaSection}>
           <Container style={wrapBody}>
             <Text style={ctaLabel}>
-              {propertyTitle ? 'Explore the listing' : 'Browse our collection'}
+              {propertyTitle ? 'Explore the listing' : 'In the meantime'}
             </Text>
             <Section style={{ textAlign: 'center' as const }}>
               <Button href={propertyUrl ?? `${base}/our-homes/`} style={ctaButton}>
                 {propertyTitle ? 'View Property' : 'Browse All Properties'}
               </Button>
             </Section>
-            {!propertyTitle && (
-              <Text style={ctaSubLink}>
-                <Link href={`${base}/our-homes/`} style={subtleLink}>See all available properties →</Link>
-              </Text>
-            )}
           </Container>
         </Section>
 
@@ -320,18 +343,39 @@ const ctaButton: React.CSSProperties = {
   display: 'inline-block',
 };
 
-const ctaSubLink: React.CSSProperties = {
+// Enquiry summary box
+const summarySection: React.CSSProperties = {
+  backgroundColor: C.cream,
+  paddingTop: 32,
+  paddingBottom: 32,
+};
+
+const summaryEyebrow: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 500,
+  letterSpacing: '0.22em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  textAlign: 'center' as const,
+  margin: '0 0 12px',
+};
+
+const summaryLabel: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 12,
   fontWeight: 400,
   color: C.navy60,
-  textAlign: 'center' as const,
-  margin: '16px 0 0',
+  padding: '6px 0',
+  width: '40%',
 };
 
-const subtleLink: React.CSSProperties = {
-  color: C.gold,
-  textDecoration: 'none',
+const summaryValue: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 13,
+  fontWeight: 500,
+  color: C.navy,
+  padding: '6px 0',
 };
 
 // Sign-off
