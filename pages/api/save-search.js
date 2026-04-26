@@ -6,7 +6,7 @@
  * Body: { email, name?, regions[], maxPrice?, minBeds? }
  */
 import { createClient } from '@supabase/supabase-js';
-import { upsertContact, logActivity } from '@/lib/crm';
+import { upsertContact, createLead, incrementScore, logActivity } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { FROM_ADDRESS, REPLY_TO, sendTeamNotification } from '@/lib/resend';
 import resend from '@/lib/resend';
@@ -99,6 +99,16 @@ export default async function handler(req, res) {
       source:    'saved_search',
     });
     if (contact) {
+      // +5 points for setting up an alert (good intent signal)
+      await incrementScore(contact.id, 5);
+
+      // Create a lead record so it appears in the CRM leads view
+      await createLead({
+        contactId:  contact.id,
+        mainRegion: regions.filter(r => r !== 'All').join(', ') || null,
+        budget:     maxPrice || null,
+      });
+
       await logActivity({
         contactId:   contact.id,
         type:        'search_saved',
