@@ -21,10 +21,10 @@ interface Welcome2Props {
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
 const C = {
-  navy:   '#2C4A5E',
+  navy:   '#1E3448',
   navy60: '#6B8A9E',
   gold:   '#C9A84C',
-  cream:  '#F5F2EC',
+  cream:  '#F7F4EE',
   white:  '#FFFFFF',
   border: '#E8E3DC',
 };
@@ -40,7 +40,7 @@ export default function Welcome2({
     <Html lang="en">
       <Head>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
         `}</style>
       </Head>
 
@@ -51,12 +51,9 @@ export default function Welcome2({
         {/* ── HEADER ── */}
         <Section style={header}>
           <Container style={wrap}>
-            <Text style={headerLogo}>Co-Ownership Property</Text>
-            <Text style={headerSub}>Your European Dream Home, Shared Smartly</Text>
+            <Text style={wordmark}>Co-Ownership Property</Text>
+            <Section style={goldRuleHeader} />
           </Container>
-        </Section>
-        <Section style={goldLine}>
-          <Text style={{ margin: 0, padding: 0, fontSize: 1, lineHeight: '3px' }}> </Text>
         </Section>
 
         {/* ── BODY ── */}
@@ -174,7 +171,7 @@ const body: React.CSSProperties = {
   backgroundColor: C.cream,
   margin: 0,
   padding: 0,
-  fontFamily: "'Nunito Sans', 'Helvetica Neue', Arial, sans-serif",
+  fontFamily: "'Jost', 'Helvetica Neue', Arial, sans-serif",
 };
 
 const wrap: React.CSSProperties = {
@@ -191,46 +188,36 @@ const wrapBody: React.CSSProperties = {
 
 const header: React.CSSProperties = {
   backgroundColor: C.navy,
-  padding: '32px 0 28px',
+  padding: '40px 0 32px',
 };
 
-const headerLogo: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
+const wordmark: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: C.white,
-  fontSize: 26,
-  fontWeight: 700,
-  letterSpacing: '0.04em',
-  textAlign: 'center' as const,
-  margin: 0,
-};
-
-const headerSub: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  color: C.gold,
-  fontSize: 10,
-  fontWeight: 600,
-  letterSpacing: '0.2em',
+  fontSize: 22,
+  fontWeight: 300,
+  letterSpacing: '0.18em',
   textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  margin: '8px 0 0',
+  margin: '0 0 20px',
 };
 
-const goldLine: React.CSSProperties = {
+const goldRuleHeader: React.CSSProperties = {
   backgroundColor: C.gold,
-  height: 3,
-  lineHeight: '3px',
-  fontSize: 1,
+  height: 1,
+  maxWidth: 48,
+  margin: '0 auto',
 };
 
 const greeting: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 15,
   color: '#4A6070',
   margin: '0 0 20px',
 };
 
 const mainHeading: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: 28,
   fontWeight: 700,
   color: C.navy,
@@ -250,7 +237,7 @@ const numberedSection: React.CSSProperties = {
 };
 
 const goldNumber: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: 36,
   fontWeight: 700,
   color: C.gold,
@@ -259,7 +246,7 @@ const goldNumber: React.CSSProperties = {
 };
 
 const sectionTitle: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: 18,
   fontWeight: 700,
   color: C.navy,
@@ -267,7 +254,7 @@ const sectionTitle: React.CSSProperties = {
 };
 
 const bodyText: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 15,
   color: '#4A6070',
   lineHeight: '1.8',
@@ -280,7 +267,7 @@ const divider: React.CSSProperties = {
 };
 
 const faqLabel: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 13,
   fontWeight: 600,
   color: C.navy60,
@@ -295,7 +282,7 @@ const quoteBlock: React.CSSProperties = {
 };
 
 const quoteText: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: 18,
   fontStyle: 'italic',
   color: C.navy,
@@ -304,7 +291,7 @@ const quoteText: React.CSSProperties = {
 };
 
 const ctaBtn: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontFamily: "'Jost', Arial, sans-serif",
   backgroundColor: C.navy,
   color: C.white,
   fontSize: 11,
@@ -316,7 +303,7 @@ const ctaBtn: React.CSSProperties = {
 };
 
 const signoffName: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: 15,
   fontWeight: 400,
   color: C.navy,
@@ -324,7 +311,7 @@ const signoffName: React.CSSProperties = {
 };
 
 const signoffSite: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
+  fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 12,
   color: C.navy60,
   margin: 0,
@@ -337,36 +324,39 @@ const signoffLink: React.CSSProperties = {
 
 const footer: React.CSSProperties = {
   backgroundColor: C.navy,
-  padding: '36px 0 32px',
-  borderTop: `3px solid ${C.gold}`,
+  padding: '40px 0 36px',
+  borderTop: `1px solid ${C.gold}`,
 };
 
 const footLogo: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: C.white,
-  fontSize: 18,
-  fontWeight: 700,
+  fontSize: 17,
+  fontWeight: 300,
+  letterSpacing: '0.16em',
+  textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  letterSpacing: '0.06em',
   margin: '0 0 14px',
 };
 
 const footLinks: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  fontSize: 12,
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 400,
   textAlign: 'center' as const,
   margin: 0,
 };
 
 const footLink: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.55)',
+  color: 'rgba(255,255,255,0.45)',
   textDecoration: 'none',
 };
 
 const footFine: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.3)',
+  fontFamily: "'Jost', Arial, sans-serif",
+  color: 'rgba(255,255,255,0.25)',
   fontSize: 11,
+  fontWeight: 300,
   textAlign: 'center' as const,
   margin: '4px 0 0',
   lineHeight: '1.7',
