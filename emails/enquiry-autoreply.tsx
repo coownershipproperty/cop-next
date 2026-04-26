@@ -332,7 +332,7 @@ const ctaLabel: React.CSSProperties = {
 
 const ctaButton: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  backgroundColor: C.navy,
+  backgroundColor: C.gold,
   color: C.white,
   fontSize: 11,
   fontWeight: 500,
@@ -345,9 +345,9 @@ const ctaButton: React.CSSProperties = {
 
 // Enquiry summary box
 const summarySection: React.CSSProperties = {
-  backgroundColor: C.cream,
+  backgroundColor: C.white,
   paddingTop: 32,
-  paddingBottom: 32,
+  paddingBottom: 0,
 };
 
 const summaryEyebrow: React.CSSProperties = {
