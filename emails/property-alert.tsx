@@ -194,14 +194,17 @@ export default function PropertyAlert({
             <Section style={footGoldRule} />
             <Text style={footLinks}>
               <Link href={base} style={footLink}>Website</Link>
-              {' — '}
+              {'  ·  '}
               <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
-              {' — '}
+              {'  ·  '}
               <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
-              {' — '}
+              {'  ·  '}
               <Link href={`${base}/all-our-blog/`} style={footLink}>Blog</Link>
             </Text>
             <Hr style={footDivider} />
+            <Text style={footFine}>
+              You're receiving this email because you signed up at co-ownership-property.com
+            </Text>
             <Text style={footFine}>
               Not what you're looking for?{' '}
               <Link href={editAlertUrl} style={{ color: C.gold, textDecoration: 'none' }}>Edit your alert</Link>
@@ -460,11 +463,10 @@ const footLinks: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 11,
   fontWeight: 300,
-  letterSpacing: '0.12em',
-  textTransform: 'uppercase' as const,
+  letterSpacing: '0.1em',
   textAlign: 'center' as const,
   margin: '0 0 4px',
-  color: 'rgba(255,255,255,0.5)',
+  color: 'rgba(255,255,255,0.4)',
 };
 
 const footLink: React.CSSProperties = {

@@ -220,18 +220,20 @@ export default function NewListingsDigest({
             <Section style={footGoldRule} />
             <Text style={footLinks}>
               <Link href={`${base}/our-homes/`} style={footLink}>Properties</Link>
-              {' — '}
+              {'  ·  '}
               <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
-              {' — '}
+              {'  ·  '}
               <Link href={`${base}/all-our-blog/`} style={footLink}>Our Blog</Link>
-              {' — '}
+              {'  ·  '}
               <Link href={unsubscribeUrl} style={footLink}>Unsubscribe</Link>
             </Text>
             <Hr style={footDivider} />
             <Text style={footFine}>
-              You're receiving this because you signed up for property alerts.
+              You're receiving this email because you signed up at co-ownership-property.com
             </Text>
-            <Text style={footFine}>info@co-ownership-property.com</Text>
+            <Text style={footFine}>
+              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+            </Text>
           </Container>
         </Section>
 
@@ -478,11 +480,10 @@ const footLinks: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 11,
   fontWeight: 300,
-  letterSpacing: '0.12em',
-  textTransform: 'uppercase' as const,
+  letterSpacing: '0.1em',
   textAlign: 'center' as const,
   margin: '0 0 4px',
-  color: 'rgba(255,255,255,0.5)',
+  color: 'rgba(255,255,255,0.4)',
 };
 
 const footLink: React.CSSProperties = {
