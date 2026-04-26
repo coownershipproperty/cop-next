@@ -210,6 +210,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .pulse{animation:badgepulse 2s ease-in-out infinite}
 @keyframes badgepulse{0%,100%{opacity:1}50%{opacity:0.6}}
 
+/* Email Queue Tabs */
+.queue-tab{background:none;border:none;padding:8px 16px;font-size:12px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:0.04em}
+.queue-tab:hover{color:var(--text1)}
+.queue-tab.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:600}
+
 /* Email Queue */
 .queue-layout{display:flex;height:calc(100vh - 64px);overflow:hidden}
 .queue-list-pane{width:400px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;background:var(--card)}
@@ -313,7 +318,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
     <div class="nav-item" onclick="showView('queue')" id="nav-queue">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Email Queue
+      Emails
       <span class="nav-badge" id="badge-queue" style="display:none;background:#d97706;color:#fff">0</span>
     </div>
     <div class="nav-item" onclick="showView('scheduled')" id="nav-scheduled">
@@ -514,19 +519,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
     <!-- Email Queue -->
     <div id="view-queue" style="display:none">
-      <div class="page-header" style="padding-bottom:16px">
+      <div class="page-header" style="padding-bottom:12px">
         <div>
-          <div class="page-title">Email Queue</div>
-          <div class="page-sub">Review and approve outgoing emails before they send</div>
+          <div class="page-title">Emails</div>
+          <div class="page-sub">Sent history, pending approvals, and scheduled</div>
         </div>
         <div class="header-actions">
-          <select id="queue-status-filter" class="lt-filter" onchange="loadQueue()" style="height:32px;font-size:12px">
-            <option value="pending">Pending approval</option>
-            <option value="sent">Sent</option>
-            <option value="rejected">Rejected</option>
-          </select>
           <button class="btn" onclick="loadQueue()">↻ Refresh</button>
         </div>
+      </div>
+      <div style="display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:0">
+        <button class="queue-tab" id="qtab-sent" onclick="setQueueTab('sent')">Sent</button>
+        <button class="queue-tab" id="qtab-pending" onclick="setQueueTab('pending')">Pending <span id="qtab-pending-count" style="font-size:10px;opacity:0.7"></span></button>
+        <button class="queue-tab" id="qtab-rejected" onclick="setQueueTab('rejected')">Rejected</button>
       </div>
       <div class="queue-layout">
         <!-- Left: email list -->
@@ -625,7 +630,7 @@ function showView(view) {
   });
   if(view==='leads') loadLeads();
   if(view==='attention') loadAttention();
-  if(view==='queue') loadQueue();
+  if(view==='queue') { setQueueTab(activeQueueTab || 'sent'); }
   if(view==='scheduled') loadScheduled();
 }
 
@@ -1490,25 +1495,47 @@ async function loadQueueBadge() {
   } catch(e) { /* silent */ }
 }
 
+let activeQueueTab = 'sent';
+
+function setQueueTab(tab) {
+  activeQueueTab = tab;
+  document.querySelectorAll('.queue-tab').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('qtab-' + tab);
+  if(el) el.classList.add('active');
+  activeQueueId = null;
+  clearQueuePreview();
+  loadQueue();
+}
+
 async function loadQueue() {
-  const statusFilter = document.getElementById('queue-status-filter')?.value || 'pending';
+  const statusFilter = activeQueueTab || 'sent';
   document.getElementById('queue-list-title').textContent = 'Loading…';
   document.getElementById('queue-list-body').innerHTML = '<div class="loading-state"><div class="spinner"></div><br>Loading…</div>';
 
   try {
+    const sortCol = statusFilter === 'sent' ? 'sent_at' : 'created_at';
     const { data, error } = await db
       .from('email_queue')
-      .select('id, created_at, status, to_email, to_name, subject, template_name, trigger, notes')
+      .select('id, created_at, sent_at, status, to_email, to_name, subject, template_name, trigger, notes')
       .eq('status', statusFilter)
-      .order('created_at', { ascending: false })
-      .limit(100);
+      .order(sortCol, { ascending: false })
+      .limit(200);
 
     if(error) throw error;
     queueEmails = data || [];
 
     const count = queueEmails.length;
-    const statusLabel = statusFilter === 'pending' ? 'pending' : statusFilter;
+    const labelMap = { sent: 'sent', pending: 'pending approval', rejected: 'rejected' };
+    const statusLabel = labelMap[statusFilter] || statusFilter;
     document.getElementById('queue-list-title').textContent = `${count} email${count!==1?'s':''} — ${statusLabel}`;
+
+    // Update pending count badge in tab
+    if(statusFilter !== 'pending') {
+      const { count: pendingCount } = await db.from('email_queue')
+        .select('*', { count: 'exact', head: true }).eq('status', 'pending');
+      const el = document.getElementById('qtab-pending-count');
+      if(el) el.textContent = pendingCount > 0 ? `(${pendingCount})` : '';
+    }
 
     if(count === 0) {
       document.getElementById('queue-list-body').innerHTML =
@@ -1517,18 +1544,21 @@ async function loadQueue() {
       return;
     }
 
-    document.getElementById('queue-list-body').innerHTML = queueEmails.map(e => `
+    document.getElementById('queue-list-body').innerHTML = queueEmails.map(e => {
+      const displayTime = statusFilter === 'sent' ? fmtRelative(e.sent_at || e.created_at) : fmtRelative(e.created_at);
+      return `
       <div class="queue-item" id="qi-${esc(e.id)}" onclick="selectQueueItem('${esc(e.id)}')">
         <div class="qi-meta">
-          <span class="qi-to">${esc(e.to_name ? e.to_name + ' <' + e.to_email + '>' : e.to_email)}</span>
-          <span class="qi-time">${fmtRelative(e.created_at)}</span>
+          <span class="qi-to">${esc(e.to_name || e.to_email)}</span>
+          <span class="qi-time">${displayTime}</span>
         </div>
         <div class="qi-subject">${esc(e.subject)}</div>
         <div class="qi-tags">
           ${e.template_name ? `<span class="qi-tag">${esc(e.template_name)}</span>` : ''}
           ${e.trigger ? `<span class="qi-tag">${esc(e.trigger)}</span>` : ''}
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
 
     // Auto-select first
     if(count > 0 && !activeQueueId) selectQueueItem(queueEmails[0].id);
