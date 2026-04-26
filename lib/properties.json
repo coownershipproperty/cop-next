@@ -21955,5 +21955,133 @@
     "partner": "abitaro",
     "dateAdded": "2026-04-17",
     "notes": "Unit 2303 – 898 sq.ft."
+  },
+  {
+    "slug": "cumbre-del-sol-spain-3-bed-apartment-with-pool",
+    "partner": "myne",
+    "title": "Cumbre del Sol, Spain — 3-Bed Apartment With Pool",
+    "country": "Spain",
+    "region": "Costa Blanca",
+    "currency": "EUR",
+    "price": 159000,
+    "beds": 3,
+    "baths": 2,
+    "img": "https://a.storyblok.com/f/148662/2100x1400/e5065ebc39/vista-paraiso-4.jpg",
+    "images": [
+      "https://a.storyblok.com/f/148662/2100x1400/e5065ebc39/vista-paraiso-4.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/3e6824b0de/vista-paraiso-3.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/4e2ea91cc3/vista-paraiso.jpg"
+    ],
+    "allImages": [
+      "https://a.storyblok.com/f/148662/2100x1400/e5065ebc39/vista-paraiso-4.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/3e6824b0de/vista-paraiso-3.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/4e2ea91cc3/vista-paraiso.jpg"
+    ],
+    "description": "Perched in an elevated position on the clifftops of Cumbre del Sol, on Spain's unspoilt northern Costa Blanca, this **modern three-bedroom apartment** offers an outlook of extraordinary breadth — **panoramic sea views** that sweep uninterrupted from the coastline far below to the horizon, and a **south-west-facing terrace** that becomes the natural centre of life from the first day of arrival. The air here is clear, the light exceptional, and the sense of separation from the everyday entirely genuine.\n\nThe apartment itself is designed with the terrace in mind: floor-to-ceiling glazing draws the view directly into the living area, where the sea is an ever-present backdrop to daily life. The **three bedrooms** are well-proportioned and generously finished, and the **shared pool and wellness facilities** are situated just moments from the apartment — the kind of amenity that becomes essential rather than incidental on longer stays.\n\nCumbre del Sol is a quiet, residential urbanisation set within a natural park landscape of striking beauty — one of the few remaining stretches of undeveloped Mediterranean coastline in Spain. The charming village of Benitachell lies within easy reach, as do the beaches of Moraira and the whitewashed streets of Jávea, one of the Costa Blanca's most characterful towns. Alicante, with its international airport, is just over an hour away.",
+    "amenities": [
+      "Modern terrace apartment",
+      "Elevated location in Cumbre del Sol",
+      " Impressive panoramic sea view ",
+      "Sunny south-west facing terrace",
+      "Shared infinity pool and indoor pool",
+      "Shared use of fitness/wellness area with sauna",
+      "Cala del Moraig gravel beach, 5-minute drive away by car",
+      "Xàbia Golf Club is 10 minutes away by car",
+      "Moraira is just a 15-minute drive away, with a marina, restaurants, and shops"
+    ],
+    "lat": 38.714083,
+    "lng": 0.168917,
+    "size": null,
+    "driveUrl": "https://drive.google.com/drive/folders/1BFR0Cjvrmsi5D8FLekMZari_84GW3Km7",
+    "notes": "https://www.myne-homes.com/listings/modern-terrace-apartment-panoramic-sea-views-pool-wellness-beach"
+  },
+  {
+    "slug": "portimao-portugal-3-bed-apartment-with-pool",
+    "partner": "myne",
+    "title": "Portimão, Portugal — 3-Bed Apartment With Pool",
+    "country": "Portugal",
+    "region": "Algarve",
+    "currency": "EUR",
+    "price": 169000,
+    "beds": 3,
+    "baths": 2,
+    "img": "https://a.storyblok.com/f/148662/2100x1400/c4758bb0cf/portimao.jpg",
+    "images": [
+      "https://a.storyblok.com/f/148662/2100x1400/c4758bb0cf/portimao.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/44a1481245/portimao_3.jpg",
+      "https://a.storyblok.com/f/148662/1838x1225/92a6a7af85/portimao.jpg"
+    ],
+    "allImages": [
+      "https://a.storyblok.com/f/148662/2100x1400/c4758bb0cf/portimao.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/44a1481245/portimao_3.jpg",
+      "https://a.storyblok.com/f/148662/1838x1225/92a6a7af85/portimao.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/1ac8b06a8e/portimao_2.jpg"
+    ],
+    "description": "On one of the Algarve's most celebrated stretches of coastline, this **new-build three-bedroom apartment** in Portimão has been conceived entirely around its remarkable position. The **wraparound south-west-facing terrace** captures the afternoon sun from mid-morning through to dusk, framing **beautiful sea views** that make every evening meal outdoors feel like an event. The architecture is crisp and contemporary, and the quality of finish throughout is exceptional.\n\nInside, the apartment is thoughtfully arranged: an **open-plan living and dining area** opens fully onto the terrace, creating a continuous flow between interior and exterior that defines the Algarve lifestyle at its finest. The three bedrooms are spacious and well-lit, and the development's **shared pool** provides an additional dimension to outdoor life at the property.\n\nPraia da Rocha — one of the most celebrated beaches in the Algarve, with its dramatic ochre cliffs and wide golden sands — is within easy walking distance. The marina at Portimão, with its fish restaurants and boat trips into the surrounding coastline, adds a further dimension of pleasure to the base. Faro International Airport lies approximately 75 kilometres to the east, and Portugal's non-habitual resident tax regime continues to make the Algarve one of the most compelling propositions for international buyers in southern Europe.",
+    "amenities": [],
+    "lat": 37.120528,
+    "lng": -8.547111,
+    "size": null,
+    "driveUrl": "https://drive.google.com/drive/folders/1NuXyC5TyCLVTPm44waY9ptkCrO0qvtT9",
+    "notes": "https://www.myne-homes.com/listings/new-build-terrace-apartment-sea-views-praia-da-rocha-portimao"
+  },
+  {
+    "slug": "vilamoura-portugal-2-bed-apartment-with-pool",
+    "partner": "myne",
+    "title": "Vilamoura, Portugal — 2-Bed Apartment With Pool",
+    "country": "Portugal",
+    "region": "Algarve",
+    "currency": "EUR",
+    "price": 179000,
+    "beds": 2,
+    "baths": 2,
+    "img": "https://a.storyblok.com/f/148662/1838x1225/9d8da21b60/beira-vilamoura.jpg",
+    "images": [
+      "https://a.storyblok.com/f/148662/1838x1225/9d8da21b60/beira-vilamoura.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/9200777eb0/beira-vilamoura_3.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/a236020ed5/beira_vilamoura_3.jpg"
+    ],
+    "allImages": [
+      "https://a.storyblok.com/f/148662/1838x1225/9d8da21b60/beira-vilamoura.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/9200777eb0/beira-vilamoura_3.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/a236020ed5/beira_vilamoura_3.jpg"
+    ],
+    "description": "Part of the exclusive **Dom Pedro Resort** in Vilamoura, this newly built **waterfront apartment** occupies one of the finest positions in the Algarve — set directly on the water's edge, with a **south-facing terrace** that commands **sweeping views across the Atlantic**, where the light shifts continuously from morning to evening in a display of extraordinary beauty.\n\nThe apartment has been finished to a high specification throughout, with an **open-plan living area** that flows naturally onto the terrace, two generous bedrooms, and two well-appointed bathrooms. The resort's amenities — pool, concierge, and landscaped grounds — are immediately accessible, ensuring that the property is maintained and serviced to an exceptional standard between visits.\n\nVilamoura is the Algarve in its most refined expression: the marina, with its restaurants, bars, and boat trips to hidden coastal coves; the long golden beach just minutes from the resort; five championship golf courses within the resort boundaries; and a general atmosphere of sophisticated, unhurried leisure that has made this one of Portugal's most enduringly popular destinations. Faro International Airport is a straightforward 30-minute drive, making this among the most accessible co-ownership properties in the region.",
+    "amenities": [],
+    "lat": 37.072093,
+    "lng": -8.112567,
+    "size": null,
+    "driveUrl": "https://drive.google.com/drive/folders/1SyL10Y4XMHX1HG4pOV78eqfACsGa2y_l",
+    "notes": "https://www.myne-homes.com/listings/new-build-waterfront-apartment-sea-views-dom-pedro-resort-vilamoura"
+  },
+  {
+    "slug": "grimaud-france-3-bed-villa-with-pool-2",
+    "partner": "myne",
+    "title": "Grimaud, France — 3-Bed Villa With Pool",
+    "country": "France",
+    "region": "Côte d’Azur",
+    "currency": "EUR",
+    "price": 389000,
+    "beds": 3,
+    "baths": 4.5,
+    "img": "https://a.storyblok.com/f/148662/2100x1400/a630bc8666/villa-colline.jpg",
+    "images": [
+      "https://a.storyblok.com/f/148662/2100x1400/a630bc8666/villa-colline.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/b5d4e9e433/villa-colline_1.png",
+      "https://a.storyblok.com/f/148662/2100x1400/58b11a1696/villa-colline_5.png"
+    ],
+    "allImages": [
+      "https://a.storyblok.com/f/148662/2100x1400/a630bc8666/villa-colline.jpg",
+      "https://a.storyblok.com/f/148662/2100x1400/b5d4e9e433/villa-colline_1.png",
+      "https://a.storyblok.com/f/148662/2100x1400/58b11a1696/villa-colline_5.png",
+      "https://a.storyblok.com/f/148662/2100x1400/1413f1bcf7/villa-colline_2.jpg"
+    ],
+    "description": "Nestled in the green Provençal countryside between Grimaud and Saint-Tropez, this **charming three-bedroom villa** is a property of genuine character and exceptional setting. The land is terraced and beautifully planted with Mediterranean species — lavender, olive, cypress — and from the **south-east-facing terraces** and the **heated private pool**, there are clear and beautiful **views across the valley to the sea**, a combination of landscape and light that is characteristic of this most celebrated corner of the French Riviera.\n\nThe villa itself is built in the traditional Provençal style, with the warmth and solidity that the vernacular demands: thick stone walls, high ceilings, and interiors that feel both distinguished and deeply comfortable. The **three bedrooms and four and a half bathrooms** accommodate guests with genuine ease, and the relationship between the interior spaces and the various outdoor terraces — each oriented to catch a different quality of light — makes this a home to be lived in fully, rather than simply occupied.\n\nGrimaud is a village of authentic medieval character, its hilltop setting offering views across the Gulf of Saint-Tropez that few other places can equal. The town of Saint-Tropez itself is fifteen minutes by car — and by boat across the gulf, closer still — while the great market of Sainte-Maxime and the beaches of Cavalaire and La Croix-Valmer are all within easy reach. Nice Côte d'Azur and Toulon Hyères airports serve the region with excellent connections throughout the year.",
+    "amenities": [],
+    "lat": 43.30565248581513,
+    "lng": 6.588422656059265,
+    "size": null,
+    "driveUrl": "https://drive.google.com/drive/folders/1bcpTeETC46HXi3_Y0DLixtH0SjqzrL08",
+    "notes": "https://www.myne-homes.com/listings/provence-style-villa-sea-view-heated-pool-grimaud-saint-tropez"
   }
 ]
