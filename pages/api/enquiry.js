@@ -33,37 +33,82 @@ function parseBudgetMax(budget) {
  * Fetch up to 3 Live properties matching the enquiry's destination + budget.
  * destination is a raw string like "South of France; Miami" — split on ; / ,
  */
+/**
+ * Fetch up to 6 Live properties matching the enquiry's destination + budget.
+ *
+ * Distribution strategy:
+ *   - Split destination into individual region labels (e.g. "French Alps; Italian Lakes")
+ *   - Query each region separately and aim for an even split (e.g. 3/3 for 2 regions)
+ *   - If a region comes up short, backfill from other regions that have extras
+ *   - Result is deduplicated and capped at 6
+ */
 async function getMatchingProperties(destination, budget) {
   const db = getDb();
   const FIELDS = 'slug, title, img, price, currency, beds, size, city, country, region';
+  const TOTAL = 6;
 
-  // Split the raw destination string on ; , / then expand each label to DB terms
   const rawLabels = destination
     ? destination.split(/[;,\/]/).map(r => r.trim()).filter(Boolean)
     : [];
-  const dbTerms = expandRegions(rawLabels);
 
   const maxPrice = parseBudgetMax(budget);
 
-  let query = db
-    .from('properties')
-    .select(FIELDS)
-    .eq('status', 'Live')
-    .order('price', { ascending: true });
-
-  if (maxPrice) query = query.lte('price', maxPrice);
-
-  if (dbTerms.length > 0) {
-    const orParts = dbTerms.flatMap(t => [
-      `country.ilike.%${t}%`,
-      `region.ilike.%${t}%`,
-      `city.ilike.%${t}%`,
-    ]);
-    query = query.or(orParts.join(','));
+  // No destination — return cheapest TOTAL live properties within budget
+  if (rawLabels.length === 0) {
+    let q = db.from('properties').select(FIELDS).eq('status', 'Live').order('price', { ascending: true });
+    if (maxPrice) q = q.lte('price', maxPrice);
+    const { data } = await q.limit(TOTAL);
+    return data || [];
   }
 
-  const { data } = await query.limit(3);
-  return data || [];
+  // Query each region label separately (generous limit so backfill has options)
+  const perRegion = await Promise.all(
+    rawLabels.map(async label => {
+      const dbTerms = expandRegions([label]);
+      const orParts = dbTerms.flatMap(t => [
+        `country.ilike.%${t}%`,
+        `region.ilike.%${t}%`,
+        `city.ilike.%${t}%`,
+      ]);
+      let q = db.from('properties').select(FIELDS).eq('status', 'Live').order('price', { ascending: true });
+      if (maxPrice) q = q.lte('price', maxPrice);
+      q = q.or(orParts.join(','));
+      const { data } = await q.limit(TOTAL);
+      return data || [];
+    })
+  );
+
+  // Distribute evenly: take fairShare from each region first, then backfill
+  const n = perRegion.length;
+  const fairShare = Math.ceil(TOTAL / n);
+  const seen = new Set();
+  const result = [];
+  const extras = []; // leftover from regions that had more than their share
+
+  for (const props of perRegion) {
+    let taken = 0;
+    for (const p of props) {
+      if (seen.has(p.slug)) continue;
+      if (taken < fairShare) {
+        result.push(p);
+        seen.add(p.slug);
+        taken++;
+      } else {
+        extras.push(p); // available for backfill
+      }
+    }
+  }
+
+  // Backfill with extras if total < TOTAL
+  for (const p of extras) {
+    if (result.length >= TOTAL) break;
+    if (!seen.has(p.slug)) {
+      result.push(p);
+      seen.add(p.slug);
+    }
+  }
+
+  return result.slice(0, TOTAL);
 }
 
 export default async function handler(req, res) {
