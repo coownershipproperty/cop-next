@@ -9,6 +9,7 @@ import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, incrementScore, logActivity } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { FROM_ADDRESS, REPLY_TO, sendTeamNotification } from '@/lib/resend';
+import { expandRegions } from '@/lib/regionMap';
 import resend from '@/lib/resend';
 
 function getDb() {
@@ -38,9 +39,12 @@ async function getMatchingProperties(regions, maxPrice, minBeds) {
   // Push region filter into SQL using Supabase .or() — avoids client-side
   // sampling issues when there are many properties
   if (activeRegions.length > 0) {
-    const orParts = activeRegions.flatMap(r => [
-      `country.ilike.%${r}%`,
-      `region.ilike.%${r}%`,
+    // Expand form labels (e.g. "Italian Lakes") to actual DB region values
+    const dbTerms = expandRegions(activeRegions);
+    const orParts = dbTerms.flatMap(t => [
+      `country.ilike.%${t}%`,
+      `region.ilike.%${t}%`,
+      `city.ilike.%${t}%`,
     ]);
     query = query.or(orParts.join(','));
   }

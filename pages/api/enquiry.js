@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
+import { expandRegions } from '@/lib/regionMap';
 import EnquiryAutoreply from '@/emails/enquiry-autoreply';
 import * as React from 'react';
 
@@ -36,9 +37,11 @@ async function getMatchingProperties(destination, budget) {
   const db = getDb();
   const FIELDS = 'slug, title, img, price, currency, beds, size, city, country, region';
 
-  const regions = destination
+  // Split the raw destination string on ; , / then expand each label to DB terms
+  const rawLabels = destination
     ? destination.split(/[;,\/]/).map(r => r.trim()).filter(Boolean)
     : [];
+  const dbTerms = expandRegions(rawLabels);
 
   const maxPrice = parseBudgetMax(budget);
 
@@ -50,11 +53,11 @@ async function getMatchingProperties(destination, budget) {
 
   if (maxPrice) query = query.lte('price', maxPrice);
 
-  if (regions.length > 0) {
-    const orParts = regions.flatMap(r => [
-      `country.ilike.%${r}%`,
-      `region.ilike.%${r}%`,
-      `city.ilike.%${r}%`,
+  if (dbTerms.length > 0) {
+    const orParts = dbTerms.flatMap(t => [
+      `country.ilike.%${t}%`,
+      `region.ilike.%${t}%`,
+      `city.ilike.%${t}%`,
     ]);
     query = query.or(orParts.join(','));
   }
