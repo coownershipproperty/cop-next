@@ -50,6 +50,7 @@ export default async function handler(req, res) {
   // Queue welcome email (Day 0)
   try {
     await queueEmail({
+      autoSend:     true,
       to:           email,
       subject:      "Welcome — you're on the list",
       template:     React.createElement(Welcome1, {
