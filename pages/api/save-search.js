@@ -24,34 +24,29 @@ async function getMatchingProperties(regions, maxPrice, minBeds) {
   const db = getDb();
   const FIELDS = 'slug, title, img, price, currency, beds, size, city, country, region';
 
-  // Build a filter: each region string is matched against country OR region (case-insensitive)
-  // Skip 'All' as it means no restriction
   const activeRegions = (regions || []).filter(r => r && r !== 'All');
 
   let query = db
     .from('properties')
     .select(FIELDS)
     .eq('status', 'Live')
-    .order('date_added', { ascending: false });
+    .order('price', { ascending: true });
 
   if (maxPrice) query = query.lte('price', parseInt(maxPrice, 10));
   if (minBeds)  query = query.gte('beds',  parseInt(minBeds,  10));
 
-  const { data: allMatches } = await query.limit(50);
-  if (!allMatches || allMatches.length === 0) return [];
-
-  // Client-side region filter (Supabase doesn't support OR across multiple ilike easily)
+  // Push region filter into SQL using Supabase .or() — avoids client-side
+  // sampling issues when there are many properties
   if (activeRegions.length > 0) {
-    const lower = activeRegions.map(r => r.toLowerCase());
-    const filtered = allMatches.filter(p => {
-      const c = (p.country || '').toLowerCase();
-      const r = (p.region  || '').toLowerCase();
-      return lower.some(reg => c.includes(reg) || r.includes(reg) || reg.includes(c) || reg.includes(r));
-    });
-    return filtered.slice(0, 3);
+    const orParts = activeRegions.flatMap(r => [
+      `country.ilike.%${r}%`,
+      `region.ilike.%${r}%`,
+    ]);
+    query = query.or(orParts.join(','));
   }
 
-  return allMatches.slice(0, 3);
+  const { data } = await query.limit(3);
+  return data || [];
 }
 
 export default async function handler(req, res) {
