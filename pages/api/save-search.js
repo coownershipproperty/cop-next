@@ -86,7 +86,7 @@ export default async function handler(req, res) {
       from:    FROM_ADDRESS,
       to:      [email],
       replyTo: REPLY_TO,
-      subject: 'Your property alert is set — we'll notify you of new listings',
+      subject: "Your property alert is set — we'll notify you of new listings",
       html: `
 <!DOCTYPE html>
 <html lang="en">
