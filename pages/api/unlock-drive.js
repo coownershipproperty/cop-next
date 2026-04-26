@@ -109,6 +109,28 @@ export default async function handler(req, res) {
   const firstName = nameParts[0] || null;
   const lastName  = nameParts.slice(1).join(' ') || null;
 
+  // ── Look up property details from DB (authoritative — don't rely on frontend) ─
+  let propertyCity    = null;
+  let propertyPrice   = null;
+  let propertyImg     = null;
+  let propertyRegion  = null;
+  let propertyPartner = null;
+  let resolvedCountry = propertyCountry || null; // use frontend value as fallback
+  if (propertySlug) {
+    const db = getDb();
+    const { data: prop } = await db
+      .from('properties')
+      .select('city, price, img, country, region, partner')
+      .eq('slug', propertySlug)
+      .single();
+    propertyCity    = prop?.city    || null;
+    propertyPrice   = prop?.price   ? Number(prop.price) : null;
+    propertyImg     = prop?.img     || null;
+    propertyRegion  = prop?.region  || null;
+    propertyPartner = prop?.partner || null;
+    resolvedCountry = prop?.country || resolvedCountry;
+  }
+
   // ── CRM ────────────────────────────────────────────────────────────────────
   let contact   = null;
   let emailSend = null;
@@ -122,8 +144,11 @@ export default async function handler(req, res) {
 
       await createLead({
         contactId:     contact.id,
-        propertySlug:  propertySlug || null,
-        propertyTitle: propertyTitle || null,
+        propertySlug:  propertySlug   || null,
+        propertyTitle: propertyTitle  || null,
+        mainRegion:    propertyRegion || null,
+        subregion:     propertyCity   || null,
+        partner:       propertyPartner || null,
       });
 
       emailSend = await createEmailSend({
@@ -144,24 +169,6 @@ export default async function handler(req, res) {
     }
   } catch (e) {
     console.error('[CRM] unlock-drive write failed:', e.message);
-  }
-
-  // ── Look up property details from DB (authoritative — don't rely on frontend) ─
-  let propertyCity    = null;
-  let propertyPrice   = null;
-  let propertyImg     = null;
-  let resolvedCountry = propertyCountry || null; // use frontend value as fallback
-  if (propertySlug) {
-    const db = getDb();
-    const { data: prop } = await db
-      .from('properties')
-      .select('city, price, img, country')
-      .eq('slug', propertySlug)
-      .single();
-    propertyCity    = prop?.city    || null;
-    propertyPrice   = prop?.price   ? Number(prop.price) : null;
-    propertyImg     = prop?.img     || null;
-    resolvedCountry = prop?.country || resolvedCountry;
   }
 
   // ── Fetch similar properties for email ────────────────────────────────────
