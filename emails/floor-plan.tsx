@@ -29,6 +29,7 @@ interface SimilarProperty {
 interface FloorPlanEmailProps {
   firstName?: string;
   propertyTitle?: string;
+  propertyImg?: string;
   driveUrl?: string;
   propertyUrl?: string;
   similarProperties?: SimilarProperty[];
@@ -48,33 +49,14 @@ const C = {
 
 const base = 'https://co-ownership-property.com';
 
-// ── Sample data ───────────────────────────────────────────────────────────────
-const sampleSimilar: SimilarProperty[] = [
-  {
-    title: 'Mallorca, Spain — 5-Bed Clifftop Villa With Sea Views',
-    price: '€287,500',
-    beds: 5,
-    size: 380,
-    slug: 'mallorca-5-bed-clifftop-villa',
-    imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
-  },
-  {
-    title: 'Luberon, Provence, France — 4-Bed Mas With Vineyard Views',
-    price: '€247,500',
-    beds: 4,
-    size: 280,
-    slug: 'luberon-provence-4-bed-mas-vineyard',
-    imageUrl: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=600&q=80',
-  },
-];
-
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function FloorPlanEmail({
-  firstName = 'James',
-  propertyTitle = 'Morzine, French Alps — 5-Bed Ski Chalet With Hot Tub',
+  firstName = 'there',
+  propertyTitle = 'Your Property',
+  propertyImg,
   driveUrl = 'https://drive.google.com/drive/folders/example',
-  propertyUrl = 'https://co-ownership-property.com/property/morzine-5-bed-ski-chalet/',
-  similarProperties = sampleSimilar,
+  propertyUrl,
+  similarProperties = [],
   trackingPixelHtml,
 }: FloorPlanEmailProps) {
 
@@ -126,6 +108,18 @@ export default function FloorPlanEmail({
             <Section style={goldRuleCenter} />
           </Container>
         </Section>
+
+        {/* ── HERO IMAGE ── */}
+        {propertyImg && (
+          <Section style={{ backgroundColor: C.white, paddingBottom: 0 }}>
+            <Img
+              src={propertyImg}
+              alt={propertyTitle}
+              width="600"
+              style={heroImg}
+            />
+          </Section>
+        )}
 
         {/* ── CTA ── */}
         <Section style={ctaSection}>
@@ -256,6 +250,13 @@ const wrapBody: React.CSSProperties = {
   maxWidth: 600,
   margin: '0 auto',
   padding: '0 48px',
+};
+
+const heroImg: React.CSSProperties = {
+  width: '100%',
+  maxWidth: 600,
+  height: 'auto',
+  display: 'block',
 };
 
 // Header

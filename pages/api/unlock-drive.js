@@ -146,22 +146,26 @@ export default async function handler(req, res) {
     console.error('[CRM] unlock-drive write failed:', e.message);
   }
 
-  // ── Look up property city + price for similar-property matching ─────────────
-  let propertyCity  = null;
-  let propertyPrice = null;
+  // ── Look up property details from DB (authoritative — don't rely on frontend) ─
+  let propertyCity    = null;
+  let propertyPrice   = null;
+  let propertyImg     = null;
+  let resolvedCountry = propertyCountry || null; // use frontend value as fallback
   if (propertySlug) {
     const db = getDb();
     const { data: prop } = await db
       .from('properties')
-      .select('city, price')
+      .select('city, price, img, country')
       .eq('slug', propertySlug)
       .single();
-    propertyCity  = prop?.city  || null;
-    propertyPrice = prop?.price ? Number(prop.price) : null;
+    propertyCity    = prop?.city    || null;
+    propertyPrice   = prop?.price   ? Number(prop.price) : null;
+    propertyImg     = prop?.img     || null;
+    resolvedCountry = prop?.country || resolvedCountry;
   }
 
   // ── Fetch similar properties for email ────────────────────────────────────
-  const rawSimilar = await getSimilarProperties(propertySlug, propertyCountry, propertyCity, propertyPrice);
+  const rawSimilar = await getSimilarProperties(propertySlug, resolvedCountry, propertyCity, propertyPrice);
 
   // Map to FloorPlanEmail's SimilarProperty shape
   const similarProperties = rawSimilar.map(p => {
@@ -187,12 +191,13 @@ export default async function handler(req, res) {
       toName:        name || null,
       subject:       `Floor Plans & More Photos — ${propertyTitle}`,
       template:      React.createElement(FloorPlanEmail, {
-        firstName:         firstName    || name || undefined,
+        firstName:         firstName     || name || undefined,
         propertyTitle:     propertyTitle || undefined,
+        propertyImg:       propertyImg   || undefined,
         driveUrl:          driveUrl,
-        propertyUrl:       propertyUrl  || undefined,
-        similarProperties: similarProperties.length > 0 ? similarProperties : undefined,
-        trackingPixelHtml: pixel        || undefined,
+        propertyUrl:       propertyUrl   || undefined,
+        similarProperties: similarProperties, // always pass array (empty = no section shown)
+        trackingPixelHtml: pixel         || undefined,
       }),
       templateName:  'floor-plan',
       templateProps: { firstName, propertyTitle, driveUrl, propertyUrl },
