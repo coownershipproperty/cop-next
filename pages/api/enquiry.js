@@ -1,6 +1,8 @@
-import nodemailer from 'nodemailer';
 import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { queueEmail, sendTeamNotification } from '@/lib/resend';
+import EnquiryAutoreply from '@/emails/enquiry-autoreply';
+import * as React from 'react';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -11,16 +13,6 @@ export default async function handler(req, res) {
   // Rate limit: max 3 enquiries from same email in 5 minutes
   const { limited } = await checkRateLimit(email, 'enquiry');
   if (limited) return res.status(429).json({ error: 'Too many requests. Please try again later.' });
-
-  const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
-  const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
-
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-    port: 587,
-    secure: false,
-    auth: { user: smtpUser, pass: process.env.SMTP_PASS },
-  });
 
   // ── Parse name ──────────────────────────────────────────────────────────────
   const nameParts = (name || '').trim().split(' ');
@@ -69,11 +61,9 @@ export default async function handler(req, res) {
     console.error('[CRM] enquiry CRM write failed:', e.message);
   }
 
-  // ── Send team notification ──────────────────────────────────────────────────
+  // ── Send team notification (always immediate — internal only) ───────────────
   try {
-    await transporter.sendMail({
-      from:    `"COP Website" <${fromEmail}>`,
-      to:      ['dylan@domosno.com', 'info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
+    await sendTeamNotification({
       subject: `New Enquiry${property ? ` — ${property}` : ''} from ${name}`,
       html: `
         <h2>New Enquiry</h2>
@@ -85,40 +75,44 @@ export default async function handler(req, res) {
         ${budget ? `<p><strong>Budget:</strong> ${budget}</p>` : ''}
         <p><strong>Message:</strong> ${message || 'No message'}</p>
       `,
-      replyTo: email,
     });
   } catch (e) {
     console.error('[Mail] team notification failed:', e.message);
   }
 
-  // ── Send auto-reply with tracking pixel ────────────────────────────────────
+  // ── Queue auto-reply to lead ────────────────────────────────────────────────
   try {
     const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
 
-    await transporter.sendMail({
-      from:    `"Co-Ownership Property" <${fromEmail}>`,
-      to:      email,
-      subject: `We received your enquiry${property ? ` — ${property}` : ''}`,
-      html: `
-        <p>Hi ${firstName || name},</p>
-        <p>Thanks for getting in touch${property ? ` about <strong>${property}</strong>` : ''}. We typically respond within a few hours.</p>
-        <p>Best,<br>The Co-Ownership Property Team</p>
-        ${pixel}
-      `,
-      replyTo: fromEmail,
+    await queueEmail({
+      to:            email,
+      toName:        name || null,
+      subject:       `We received your enquiry${property ? ` — ${property}` : ''}`,
+      template:      React.createElement(EnquiryAutoreply, {
+        firstName:        firstName || name || undefined,
+        propertyTitle:    property  || undefined,
+        propertyUrl:      url       || undefined,
+        trackingPixelHtml: pixel    || undefined,
+      }),
+      templateName:  'enquiry-autoreply',
+      templateProps: { firstName, propertyTitle: property, propertyUrl: url },
+      trigger:       'enquiry_submitted',
+      notes:         `Auto-reply for enquiry${property ? ` about ${property}` : ''}`,
+      contactId:     contact?.id || null,
+      leadId:        lead?.id    || null,
     });
 
     if (contact && emailSend) {
       await logActivity({
         contactId:   contact.id,
         leadId:      lead?.id || null,
-        type:        'email_sent',
-        description: `Auto-reply sent to ${email}`,
+        type:        'email_queued',
+        description: `Auto-reply queued for ${email}`,
         metadata:    { email_send_id: emailSend.id, type: 'enquiry_auto' },
       });
     }
   } catch (e) {
-    console.error('[Mail] auto-reply failed:', e.message);
+    console.error('[Mail] auto-reply queue failed:', e.message);
   }
 
   res.status(200).json({ ok: true });

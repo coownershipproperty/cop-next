@@ -1,6 +1,8 @@
-import nodemailer from 'nodemailer';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { upsertContact, logActivity } from '@/lib/crm';
+import { queueEmail, sendTeamNotification, addToAudience } from '@/lib/resend';
+import Welcome1 from '@/emails/welcome-1';
+import * as React from 'react';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -12,19 +14,10 @@ export default async function handler(req, res) {
   const { limited } = await checkRateLimit(email, 'newsletter');
   if (limited) return res.status(429).json({ error: 'Too many requests. Please try again later.' });
 
-  const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
-  const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
-
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-    port: 587,
-    secure: false,
-    auth: { user: smtpUser, pass: process.env.SMTP_PASS },
-  });
-
   // CRM: upsert contact + log activity
+  let contact = null;
   try {
-    const contact = await upsertContact({ email, source: 'newsletter' });
+    contact = await upsertContact({ email, source: 'newsletter' });
     if (contact) {
       await logActivity({
         contactId: contact.id,
@@ -37,30 +30,40 @@ export default async function handler(req, res) {
     console.error('[CRM] newsletter write failed:', e.message);
   }
 
+  // Add to Resend Audience
   try {
-    await transporter.sendMail({
-      from: `"COP Website" <${fromEmail}>`,
-      to: ['dylan@domosno.com', 'info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
+    await addToAudience({ email });
+  } catch (e) {
+    console.error('[Resend] addToAudience failed:', e.message);
+  }
+
+  // Team notification (always immediate)
+  try {
+    await sendTeamNotification({
       subject: `New Newsletter Subscriber — ${email}`,
       html: `<h2>New Newsletter Subscriber</h2><p><strong>Email:</strong> ${email}</p>`,
     });
-
-    await transporter.sendMail({
-      from: `"Co-Ownership Property" <${fromEmail}>`,
-      to: email,
-      subject: "Welcome — you're on the list",
-      html: `
-        <p>Hi there,</p>
-        <p>Thanks for joining our newsletter. We'll keep you updated with exclusive listings and destination insights.</p>
-        <p>In the meantime, browse our current properties at <a href="https://co-ownership-property.com/our-homes/">co-ownership-property.com</a>.</p>
-        <p>Best,<br>The Co-Ownership Property Team</p>
-      `,
-      replyTo: fromEmail,
-    });
-
-    res.status(200).json({ ok: true });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to send', detail: err.message });
+  } catch (e) {
+    console.error('[Mail] team notification failed:', e.message);
   }
+
+  // Queue welcome email (Day 0)
+  try {
+    await queueEmail({
+      to:           email,
+      subject:      "Welcome — you're on the list",
+      template:     React.createElement(Welcome1, {
+        unsubscribeUrl: `https://co-ownership-property.com/unsubscribe/?email=${encodeURIComponent(email)}`,
+      }),
+      templateName:  'welcome-1',
+      templateProps: { email },
+      trigger:       'newsletter_signup',
+      notes:         `Welcome email (Day 0) for new subscriber ${email}`,
+      contactId:     contact?.id || null,
+    });
+  } catch (e) {
+    console.error('[Mail] welcome email queue failed:', e.message);
+  }
+
+  res.status(200).json({ ok: true });
 }

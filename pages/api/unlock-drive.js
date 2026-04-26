@@ -1,7 +1,9 @@
-import nodemailer from 'nodemailer';
 import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { queueEmail, sendTeamNotification } from '@/lib/resend';
+import FloorPlanEmail from '@/emails/floor-plan';
+import * as React from 'react';
 
 function getDb() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -22,34 +24,6 @@ async function getSimilarProperties(propertySlug, propertyCountry) {
   return data || [];
 }
 
-/** Render a single property card for the email */
-function propertyCard(p) {
-  const sym = { EUR: '€', USD: '$', GBP: '£' }[p.currency] || p.currency || '€';
-  const price = p.price ? `${sym}${p.price.toLocaleString('en-GB')}` : '';
-  const location = p.city || '';
-  const meta = [p.beds ? `${p.beds} bed` : '', p.size ? `${p.size} m²` : '']
-    .filter(Boolean).join(' · ');
-  const url = `https://co-ownership-property.com/property/${p.slug}/`;
-
-  return `
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;border:1px solid #e5e7eb;border-radius:6px;overflow:hidden;">
-      <tr>
-        ${p.img ? `<td width="110" style="padding:0;vertical-align:top;">
-          <a href="${url}" style="display:block;"><img src="${p.img}" width="110" height="80" alt="${p.title}" style="display:block;object-fit:cover;width:110px;height:80px;" /></a>
-        </td>` : ''}
-        <td style="padding:12px 14px;vertical-align:top;">
-          <a href="${url}" style="font-family:Georgia,serif;font-size:14px;font-weight:600;color:#143047;text-decoration:none;line-height:1.3;">${p.title}</a>
-          ${location ? `<p style="margin:3px 0 0;font-family:sans-serif;font-size:11px;color:#C9A84C;letter-spacing:0.08em;text-transform:uppercase;">${location}</p>` : ''}
-          ${meta ? `<p style="margin:4px 0 0;font-family:sans-serif;font-size:12px;color:#6b7d8d;">${meta}</p>` : ''}
-          ${price ? `<p style="margin:6px 0 0;font-family:sans-serif;font-size:13px;font-weight:700;color:#143047;">${price}</p>` : ''}
-        </td>
-        <td style="padding:12px 14px;vertical-align:middle;white-space:nowrap;">
-          <a href="${url}" style="display:inline-block;padding:7px 14px;background:#143047;color:#ffffff;font-family:sans-serif;font-size:12px;font-weight:600;text-decoration:none;border-radius:3px;">View →</a>
-        </td>
-      </tr>
-    </table>`;
-}
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
@@ -59,16 +33,6 @@ export default async function handler(req, res) {
   // Rate limit: max 5 unlock requests per email per 5 minutes
   const { limited } = await checkRateLimit(email, 'unlock', 5 * 60 * 1000, 5);
   if (limited) return res.status(429).json({ error: 'Too many requests. Please try again later.' });
-
-  const smtpUser = process.env.SMTP_USER || 'a373bb001@smtp-brevo.com';
-  const fromEmail = process.env.SMTP_FROM || 'info@domosno.com';
-
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-    port: 587,
-    secure: false,
-    auth: { user: smtpUser, pass: process.env.SMTP_PASS },
-  });
 
   // Extract slug from propertyUrl
   const propertySlug = propertyUrl
@@ -117,69 +81,56 @@ export default async function handler(req, res) {
   }
 
   // ── Fetch similar properties for email ────────────────────────────────────
-  const similar = await getSimilarProperties(propertySlug, propertyCountry);
+  const rawSimilar = await getSimilarProperties(propertySlug, propertyCountry);
+
+  // Map to FloorPlanEmail's SimilarProperty shape
+  const similarProperties = rawSimilar.map(p => {
+    const sym   = { EUR: '€', USD: '$', GBP: '£' }[p.currency] || '€';
+    const price = p.price ? `${sym}${p.price.toLocaleString('en-GB')}` : '';
+    return {
+      title:    p.title,
+      price,
+      beds:     p.beds  || 0,
+      size:     p.size  || 0,
+      slug:     p.slug,
+      imageUrl: p.img   || undefined,
+    };
+  });
 
   try {
     const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
-    const similarHtml = similar.length > 0
-      ? `
-        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:32px;">
-          <tr><td style="padding-bottom:12px;">
-            <p style="margin:0;font-family:Georgia,serif;font-size:16px;font-weight:600;color:#143047;">You might also like</p>
-            <p style="margin:4px 0 0;font-family:sans-serif;font-size:13px;color:#6b7d8d;">Similar properties in the same destination</p>
-          </td></tr>
-          <tr><td>${similar.map(propertyCard).join('')}</td></tr>
-          <tr><td style="padding-top:8px;">
-            <a href="https://co-ownership-property.com/our-homes/" style="font-family:sans-serif;font-size:13px;color:#C9A84C;text-decoration:none;font-weight:600;">Browse all properties →</a>
-          </td></tr>
-        </table>`
-      : '';
 
-    // Email to visitor
-    await transporter.sendMail({
-      from:    `"Co-Ownership Property" <${fromEmail}>`,
-      to:      email,
-      subject: `Floor Plans & More Photos — ${propertyTitle}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#143047;">
-          <p style="font-size:15px;">Hi ${name || 'there'},</p>
-          <p style="font-size:15px;">Thanks for your interest in <strong>${propertyTitle}</strong>.</p>
-          <p style="font-size:15px;">Here are the additional photos and floor plans you requested:</p>
-
-          <p style="margin:24px 0;">
-            <a href="${driveUrl}" style="display:inline-block;background:#C9A84C;color:#ffffff;padding:13px 28px;text-decoration:none;font-size:15px;font-weight:600;border-radius:3px;font-family:sans-serif;">
-              View Full Gallery &amp; Floor Plans →
-            </a>
-          </p>
-
-          <p style="font-size:14px;color:#6b7d8d;">
-            Have questions or want to learn more? Simply reply to this email or
-            <a href="https://co-ownership-property.com/contact/" style="color:#143047;">speak to one of our experts</a> —
-            we typically respond within a few hours.
-          </p>
-
-          ${similarHtml}
-
-          <p style="margin-top:32px;font-size:14px;">Best,<br>The Co-Ownership Property Team</p>
-          ${pixel}
-        </div>
-      `,
-      replyTo: fromEmail,
+    // Queue floor plan email to visitor
+    await queueEmail({
+      to:            email,
+      toName:        name || null,
+      subject:       `Floor Plans & More Photos — ${propertyTitle}`,
+      template:      React.createElement(FloorPlanEmail, {
+        firstName:         firstName    || name || undefined,
+        propertyTitle:     propertyTitle || undefined,
+        driveUrl:          driveUrl,
+        propertyUrl:       propertyUrl  || undefined,
+        similarProperties: similarProperties.length > 0 ? similarProperties : undefined,
+        trackingPixelHtml: pixel        || undefined,
+      }),
+      templateName:  'floor-plan',
+      templateProps: { firstName, propertyTitle, driveUrl, propertyUrl },
+      trigger:       'floor_plan_requested',
+      notes:         `Floor plan unlock for ${propertyTitle}`,
+      contactId:     contact?.id || null,
     });
 
     if (contact && emailSend) {
       await logActivity({
         contactId: contact.id,
-        type:      'email_sent',
-        description: `Floor plan email sent to ${email}`,
+        type:      'email_queued',
+        description: `Floor plan email queued for ${email}`,
         metadata:  { email_send_id: emailSend.id },
       });
     }
 
-    // Team notification
-    await transporter.sendMail({
-      from:    `"COP Website" <${fromEmail}>`,
-      to:      ['dylan@domosno.com', 'info@co-ownership-property.com', 'dylan@co-ownership-property.com'],
+    // Team notification (always immediate)
+    await sendTeamNotification({
       subject: `Floor Plan Request — ${name || email}`,
       html: `
         <h2>Floor Plan / Photo Request</h2>
@@ -188,7 +139,6 @@ export default async function handler(req, res) {
         <p><strong>Email:</strong> ${email}</p>
         <p>Drive link sent: <a href="${driveUrl}">${driveUrl}</a></p>
       `,
-      replyTo: email,
     });
 
     res.status(200).json({ ok: true });
