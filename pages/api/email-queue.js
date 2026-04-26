@@ -18,6 +18,12 @@ function getDb() {
 }
 
 export default async function handler(req, res) {
+  // CORS — allow the CRM dashboard
+  res.setHeader('Access-Control-Allow-Origin', 'https://cop-crm.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
   if (req.method !== 'POST') return res.status(405).end();
 
   // Auth check
