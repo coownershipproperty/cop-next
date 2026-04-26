@@ -10,7 +10,7 @@
  *   limit      — optional max emails to send in one call (default: 500)
  */
 import { createClient } from '@supabase/supabase-js';
-import Resend from 'resend';
+import { Resend } from 'resend';
 import { FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const auth   = req.headers['authorization'] || '';
-  const secret = process.env.CRON_SECRET;
+  const secret = process.env.CRM_SECRET;
   if (!secret || auth !== `Bearer ${secret}`) {
     return res.status(401).json({ error: 'Unauthorised' });
   }

@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const auth   = req.headers['authorization'] || '';
-  const secret = process.env.CRON_SECRET;
+  const secret = process.env.CRM_SECRET;
   if (!secret || auth !== `Bearer ${secret}`) {
     return res.status(401).json({ error: 'Unauthorised' });
   }
