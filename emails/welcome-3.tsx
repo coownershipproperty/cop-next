@@ -153,7 +153,7 @@ export default function Welcome3({
                       {p.title.includes('—') ? p.title.split('—')[1]?.trim() : p.title}
                     </Heading>
                     <Text style={cardStats}>
-                      {p.beds} BEDS&ensp;|&ensp;{p.size} M²
+                      {p.beds} BEDS{p.size ? <>&ensp;|&ensp;{p.size} M²</> : null}
                     </Text>
                     <Text style={cardPrice}>{p.price}</Text>
                     <Link href={`${base}/property/${p.slug}`} style={viewPropLink}>

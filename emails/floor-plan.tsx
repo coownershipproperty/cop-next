@@ -195,7 +195,7 @@ export default function FloorPlanEmail({
                         {p.title.split('—')[1]?.trim() ?? p.title}
                       </Heading>
                       <Text style={cardStats}>
-                        {p.beds} Beds&ensp;·&ensp;{p.size} m²
+                        {p.beds} Beds{p.size ? <>&ensp;·&ensp;{p.size} m²</> : null}
                       </Text>
                       <Text style={cardPrice}>{p.price}</Text>
                       <Link href={`${base}/property/${p.slug}`} style={viewPropLink}>
