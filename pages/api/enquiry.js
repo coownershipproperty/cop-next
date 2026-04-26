@@ -12,21 +12,31 @@ function getDb() {
 }
 
 /**
- * Parse the upper bound from a budget string like "350-500k", "500k-1m", "1m+".
- * Returns null if unparseable (no price filter applied).
+ * Parse min + max from a budget string like "200-350k", "500k-1m", "1m+", "Under 100k".
+ * Returns { min, max } — either may be null if not determinable.
  */
-function parseBudgetMax(budget) {
-  if (!budget) return null;
+function parseBudgetRange(budget) {
+  if (!budget) return { min: null, max: null };
   const s = budget.toLowerCase().replace(/,/g, '').replace(/\s/g, '');
+
+  const toNum = (n, suffix) => {
+    const v = parseFloat(n);
+    if (suffix === 'm') return Math.round(v * 1_000_000);
+    if (suffix === 'k') return Math.round(v * 1_000);
+    return v > 5000 ? v : Math.round(v * 1_000);
+  };
+
   const matches = [...s.matchAll(/(\d+(?:\.\d+)?)(k|m)?/g)];
-  if (!matches.length) return null;
-  const nums = matches.map(m => {
-    const n = parseFloat(m[1]);
-    if (m[2] === 'm') return Math.round(n * 1_000_000);
-    if (m[2] === 'k') return Math.round(n * 1_000);
-    return n > 5000 ? n : Math.round(n * 1_000);
-  });
-  return Math.max(...nums);
+  if (!matches.length) return { min: null, max: null };
+
+  const nums = matches.map(m => toNum(m[1], m[2]));
+
+  // "1m+" or "500k+" style → min only
+  if (s.includes('+')) return { min: Math.min(...nums), max: null };
+  // "under X" or single number → max only
+  if (s.startsWith('under') || nums.length === 1) return { min: null, max: Math.max(...nums) };
+  // Range: lower is min, higher is max
+  return { min: Math.min(...nums), max: Math.max(...nums) };
 }
 
 /**
@@ -51,12 +61,18 @@ async function getMatchingProperties(destination, budget) {
     ? destination.split(/[;,\/]/).map(r => r.trim()).filter(Boolean)
     : [];
 
-  const maxPrice = parseBudgetMax(budget);
+  const { min: minPrice, max: maxPrice } = parseBudgetRange(budget);
+
+  const applyBudget = (q) => {
+    if (minPrice) q = q.gte('price', minPrice);
+    if (maxPrice) q = q.lte('price', maxPrice);
+    return q;
+  };
 
   // No destination — return cheapest TOTAL live properties within budget
   if (rawLabels.length === 0) {
     let q = db.from('properties').select(FIELDS).eq('status', 'Live').order('price', { ascending: true });
-    if (maxPrice) q = q.lte('price', maxPrice);
+    q = applyBudget(q);
     const { data } = await q.limit(TOTAL);
     return data || [];
   }
@@ -71,7 +87,7 @@ async function getMatchingProperties(destination, budget) {
         `city.ilike.%${t}%`,
       ]);
       let q = db.from('properties').select(FIELDS).eq('status', 'Live').order('price', { ascending: true });
-      if (maxPrice) q = q.lte('price', maxPrice);
+      q = applyBudget(q);
       q = q.or(orParts.join(','));
       const { data } = await q.limit(TOTAL);
       return data || [];

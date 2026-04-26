@@ -377,8 +377,9 @@ const heroImgStyle: React.CSSProperties = {
 // CTA block
 const ctaSection: React.CSSProperties = {
   backgroundColor: C.white,
-  paddingTop: 40,
+  paddingTop: 52,
   paddingBottom: 52,
+  borderTop: `1px solid ${C.border}`,
 };
 
 const ctaLabel: React.CSSProperties = {
@@ -409,7 +410,7 @@ const ctaButton: React.CSSProperties = {
 const summarySection: React.CSSProperties = {
   backgroundColor: C.white,
   paddingTop: 32,
-  paddingBottom: 0,
+  paddingBottom: 48,
 };
 
 const summaryEyebrow: React.CSSProperties = {
@@ -490,8 +491,9 @@ const signoffLink: React.CSSProperties = {
 // Matching properties section
 const similarSection: React.CSSProperties = {
   backgroundColor: C.cream,
-  paddingTop: 44,
-  paddingBottom: 44,
+  paddingTop: 48,
+  paddingBottom: 48,
+  borderTop: `1px solid ${C.border}`,
 };
 
 const sectionEyebrow: React.CSSProperties = {
