@@ -1,19 +1,31 @@
 import {
   Body,
   Button,
+  Column,
   Container,
   Head,
+  Heading,
   Hr,
   Html,
   Img,
   Link,
   Preview,
+  Row,
   Section,
   Text,
 } from '@react-email/components';
 import * as React from 'react';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
+interface MatchingProperty {
+  title: string;
+  price: string;
+  beds: number;
+  size: number;
+  slug: string;
+  imageUrl?: string;
+}
+
 interface EnquiryAutoreplyProps {
   firstName?: string;
   propertyTitle?: string;
@@ -21,6 +33,7 @@ interface EnquiryAutoreplyProps {
   propertyUrl?: string;
   destination?: string;
   budget?: string;
+  matchingProperties?: MatchingProperty[];
   trackingPixelHtml?: string;
 }
 
@@ -45,6 +58,7 @@ export default function EnquiryAutoreply({
   propertyUrl,
   destination,
   budget,
+  matchingProperties = [],
   trackingPixelHtml,
 }: EnquiryAutoreplyProps) {
 
@@ -168,6 +182,59 @@ export default function EnquiryAutoreply({
             </Text>
           </Container>
         </Section>
+
+        {/* ── MATCHING PROPERTIES ── */}
+        {matchingProperties.length > 0 && (
+          <Section style={similarSection}>
+            <Container style={wrap}>
+              <Text style={sectionEyebrow}>Available Now</Text>
+              <Hr style={goldBarLeft} />
+              {matchingProperties.map((p, i) => (
+                <Section key={i} style={propCard}>
+                  <Row>
+                    <Column style={cardImgCol}>
+                      {p.imageUrl ? (
+                        <Link href={`${base}/property/${p.slug}`}>
+                          <Img
+                            src={p.imageUrl}
+                            alt={p.title}
+                            width="160"
+                            height="120"
+                            style={cardImg}
+                          />
+                        </Link>
+                      ) : (
+                        <Section style={cardImgPlaceholder} />
+                      )}
+                    </Column>
+                    <Column style={cardTextCol}>
+                      <Text style={locationLabel}>
+                        {p.title.split('\u2014')[0]?.trim() ?? ''}
+                      </Text>
+                      <Heading style={cardTitle}>
+                        {p.title.split('\u2014')[1]?.trim() ?? p.title}
+                      </Heading>
+                      {(p.beds > 0 || p.size > 0) && (
+                        <Text style={cardStats}>
+                          {p.beds > 0 ? `${p.beds} Beds` : ''}{p.beds > 0 && p.size > 0 ? '\u2002\u00b7\u2002' : ''}{p.size > 0 ? `${p.size} m\u00b2` : ''}
+                        </Text>
+                      )}
+                      {p.price && <Text style={cardPrice}>{p.price}</Text>}
+                      <Link href={`${base}/property/${p.slug}`} style={viewPropLink}>
+                        View Property \u2192
+                      </Link>
+                    </Column>
+                  </Row>
+                </Section>
+              ))}
+              <Section style={{ paddingTop: 24, paddingBottom: 8, textAlign: 'center' as const }}>
+                <Link href={`${base}/our-homes/`} style={seeAllLink}>
+                  See All Properties \u2192
+                </Link>
+              </Section>
+            </Container>
+          </Section>
+        )}
 
         {/* ── FOOTER ── */}
         <Section style={footer}>
@@ -422,6 +489,114 @@ const signoffSite: React.CSSProperties = {
 
 const signoffLink: React.CSSProperties = {
   color: C.navy60,
+  textDecoration: 'none',
+};
+
+// Matching properties section
+const similarSection: React.CSSProperties = {
+  backgroundColor: C.cream,
+  paddingTop: 44,
+  paddingBottom: 44,
+};
+
+const sectionEyebrow: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 500,
+  letterSpacing: '0.22em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  margin: '0 0 10px',
+};
+
+const goldBarLeft: React.CSSProperties = {
+  borderColor: C.gold,
+  borderTopWidth: 1,
+  width: 36,
+  margin: '0 0 28px',
+};
+
+const propCard: React.CSSProperties = {
+  backgroundColor: C.white,
+  marginBottom: 12,
+  overflow: 'hidden',
+};
+
+const cardImgCol: React.CSSProperties = {
+  width: 160,
+  verticalAlign: 'top',
+};
+
+const cardImg: React.CSSProperties = {
+  width: 160,
+  height: 120,
+  objectFit: 'cover' as const,
+  display: 'block',
+};
+
+const cardImgPlaceholder: React.CSSProperties = {
+  width: 160,
+  height: 120,
+  backgroundColor: C.border,
+};
+
+const cardTextCol: React.CSSProperties = {
+  verticalAlign: 'top',
+  padding: '18px 22px',
+};
+
+const locationLabel: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 500,
+  letterSpacing: '0.18em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  margin: '0 0 6px',
+};
+
+const cardTitle: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontSize: 16,
+  fontWeight: 400,
+  color: C.navy,
+  margin: '0 0 10px',
+  lineHeight: '1.4',
+};
+
+const cardStats: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 400,
+  letterSpacing: '0.08em',
+  color: C.navy60,
+  margin: '0 0 6px',
+};
+
+const cardPrice: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontSize: 20,
+  fontWeight: 400,
+  color: C.navy,
+  margin: '0 0 10px',
+};
+
+const viewPropLink: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 500,
+  letterSpacing: '0.1em',
+  color: C.gold,
+  textDecoration: 'none',
+};
+
+const seeAllLink: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 500,
+  letterSpacing: '0.18em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
   textDecoration: 'none',
 };
 

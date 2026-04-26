@@ -10,6 +10,59 @@ function getDb() {
   return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
 }
 
+/**
+ * Parse the upper bound from a budget string like "350-500k", "500k-1m", "1m+".
+ * Returns null if unparseable (no price filter applied).
+ */
+function parseBudgetMax(budget) {
+  if (!budget) return null;
+  const s = budget.toLowerCase().replace(/,/g, '').replace(/\s/g, '');
+  const matches = [...s.matchAll(/(\d+(?:\.\d+)?)(k|m)?/g)];
+  if (!matches.length) return null;
+  const nums = matches.map(m => {
+    const n = parseFloat(m[1]);
+    if (m[2] === 'm') return Math.round(n * 1_000_000);
+    if (m[2] === 'k') return Math.round(n * 1_000);
+    return n > 5000 ? n : Math.round(n * 1_000);
+  });
+  return Math.max(...nums);
+}
+
+/**
+ * Fetch up to 3 Live properties matching the enquiry's destination + budget.
+ * destination is a raw string like "South of France; Miami" — split on ; / ,
+ */
+async function getMatchingProperties(destination, budget) {
+  const db = getDb();
+  const FIELDS = 'slug, title, img, price, currency, beds, size, city, country, region';
+
+  const regions = destination
+    ? destination.split(/[;,\/]/).map(r => r.trim()).filter(Boolean)
+    : [];
+
+  const maxPrice = parseBudgetMax(budget);
+
+  let query = db
+    .from('properties')
+    .select(FIELDS)
+    .eq('status', 'Live')
+    .order('price', { ascending: true });
+
+  if (maxPrice) query = query.lte('price', maxPrice);
+
+  if (regions.length > 0) {
+    const orParts = regions.flatMap(r => [
+      `country.ilike.%${r}%`,
+      `region.ilike.%${r}%`,
+      `city.ilike.%${r}%`,
+    ]);
+    query = query.or(orParts.join(','));
+  }
+
+  const { data } = await query.limit(3);
+  return data || [];
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
@@ -86,6 +139,28 @@ export default async function handler(req, res) {
     }
   }
 
+  // ── Fetch matching properties for general enquiries ────────────────────────
+  let matchingProperties = [];
+  if (!property && (destination || budget)) {
+    try {
+      const raw = await getMatchingProperties(destination, budget);
+      matchingProperties = raw.map(p => {
+        const sym   = { EUR: '\u20ac', USD: '$', GBP: '\u00a3' }[p.currency] || '\u20ac';
+        const price = p.price ? `${sym}${Number(p.price).toLocaleString('en-GB')}` : '';
+        return {
+          title:    p.title,
+          price,
+          beds:     p.beds  || 0,
+          size:     p.size  || 0,
+          slug:     p.slug,
+          imageUrl: p.img   || undefined,
+        };
+      });
+    } catch (e) {
+      console.error('[enquiry] matching properties lookup failed:', e.message);
+    }
+  }
+
   // ── Send team notification (always immediate — internal only) ───────────────
   try {
     await sendTeamNotification({
@@ -118,9 +193,10 @@ export default async function handler(req, res) {
         propertyTitle:     property     || undefined,
         propertyImg:       propertyImg  || undefined,
         propertyUrl:       url          || undefined,
-        destination:       destination  || undefined,
-        budget:            budget       || undefined,
-        trackingPixelHtml: pixel        || undefined,
+        destination:        destination       || undefined,
+        budget:             budget            || undefined,
+        matchingProperties: matchingProperties,
+        trackingPixelHtml:  pixel             || undefined,
       }),
       templateName:  'enquiry-autoreply',
       templateProps: { firstName, propertyTitle: property, propertyUrl: url },
