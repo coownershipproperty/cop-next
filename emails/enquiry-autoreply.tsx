@@ -154,20 +154,6 @@ export default function EnquiryAutoreply({
           </Section>
         )}
 
-        {/* ── CTA ── */}
-        <Section style={ctaSection}>
-          <Container style={wrapBody}>
-            <Text style={ctaLabel}>
-              {propertyTitle ? 'Explore the listing' : 'In the meantime'}
-            </Text>
-            <Section style={{ textAlign: 'center' as const }}>
-              <Button href={propertyUrl ?? `${base}/our-homes/`} style={ctaButton}>
-                {propertyTitle ? 'View Property' : 'Browse All Properties'}
-              </Button>
-            </Section>
-          </Container>
-        </Section>
-
         {/* ── MATCHING PROPERTIES ── */}
         {matchingProperties.length > 0 && (
           <Section style={similarSection}>
@@ -196,9 +182,11 @@ export default function EnquiryAutoreply({
                       <Text style={locationLabel}>
                         {p.title.split('—')[0]?.trim() ?? ''}
                       </Text>
-                      <Heading style={cardTitle}>
-                        {p.title.split('—')[1]?.trim() ?? p.title}
-                      </Heading>
+                      <Link href={`${base}/property/${p.slug}`} style={cardTitleLink}>
+                        <Heading style={cardTitle}>
+                          {p.title.split('—')[1]?.trim() ?? p.title}
+                        </Heading>
+                      </Link>
                       {(p.beds > 0 || p.size > 0) && (
                         <Text style={cardStats}>
                           {p.beds > 0 ? `${p.beds} Beds` : ''}{p.beds > 0 && p.size > 0 ? ' · ' : ''}{p.size > 0 ? `${p.size} m²` : ''}
@@ -212,14 +200,21 @@ export default function EnquiryAutoreply({
                   </Row>
                 </Section>
               ))}
-              <Section style={{ paddingTop: 24, paddingBottom: 8, textAlign: 'center' as const }}>
-                <Link href={`${base}/our-homes/`} style={seeAllLink}>
-                  See All Properties →
-                </Link>
-              </Section>
             </Container>
           </Section>
         )}
+
+        {/* ── CTA (always shown, below properties if any) ── */}
+        <Section style={ctaSection}>
+          <Container style={wrapBody}>
+            <Text style={ctaLabel}>In the meantime</Text>
+            <Section style={{ textAlign: 'center' as const }}>
+              <Button href={propertyUrl ?? `${base}/our-homes/`} style={ctaButton}>
+                {propertyTitle ? 'View Property' : 'Browse All Properties'}
+              </Button>
+            </Section>
+          </Container>
+        </Section>
 
         {/* ── SIGN-OFF ── */}
         <Section style={{ backgroundColor: C.white }}>
@@ -553,6 +548,11 @@ const locationLabel: React.CSSProperties = {
   textTransform: 'uppercase' as const,
   color: C.gold,
   margin: '0 0 6px',
+};
+
+const cardTitleLink: React.CSSProperties = {
+  textDecoration: 'none',
+  display: 'block',
 };
 
 const cardTitle: React.CSSProperties = {
