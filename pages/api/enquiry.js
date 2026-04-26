@@ -297,12 +297,14 @@ export default async function handler(req, res) {
   }
 
   // ── Nurture sequence (property enquiries only) ─────────────────────────────
-  // Cancel any pending welcome sequence — nurture takes priority
+  // Cancel any pending welcome or existing nurture sequences —
+  // prevents duplicates if someone enquires multiple times
   if (contact?.id) {
     try {
       await cancelPendingSequence(contact.id, 'welcome');
+      await cancelPendingSequence(contact.id, 'nurture');
     } catch (e) {
-      console.error('[Mail] cancel welcome sequence failed:', e.message);
+      console.error('[Mail] cancel sequences failed:', e.message);
     }
   }
 
