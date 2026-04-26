@@ -184,8 +184,9 @@ export default async function handler(req, res) {
     console.error('[CRM] enquiry CRM write failed:', e.message);
   }
 
-  // ── Look up property image from DB (authoritative — don't rely on frontend) ──
+  // ── Look up property image + drive URL from DB ────────────────────────────
   let propertyImg = null;
+  let driveUrl    = null;
   if (url) {
     try {
       const slug = url.replace(/https?:\/\/[^/]+\/property\//, '').replace(/\/$/, '') || null;
@@ -193,13 +194,14 @@ export default async function handler(req, res) {
         const db = getDb();
         const { data: prop } = await db
           .from('properties')
-          .select('img')
+          .select('img, drive_url')
           .eq('slug', slug)
           .single();
-        propertyImg = prop?.img || null;
+        propertyImg = prop?.img       || null;
+        driveUrl    = prop?.drive_url || null;
       }
     } catch (e) {
-      console.error('[enquiry] property img lookup failed:', e.message);
+      console.error('[enquiry] property lookup failed:', e.message);
     }
   }
 
@@ -254,14 +256,15 @@ export default async function handler(req, res) {
       toName:        name || null,
       subject:       `We received your enquiry${property ? ` — ${property}` : ''}`,
       template:      React.createElement(EnquiryAutoreply, {
-        firstName:         firstName    || name || undefined,
-        propertyTitle:     property     || undefined,
-        propertyImg:       propertyImg  || undefined,
-        propertyUrl:       url          || undefined,
-        destination:        destination       || undefined,
-        budget:             budget            || undefined,
+        firstName:          firstName    || name || undefined,
+        propertyTitle:      property     || undefined,
+        propertyImg:        propertyImg  || undefined,
+        propertyUrl:        url          || undefined,
+        driveUrl:           driveUrl     || undefined,
+        destination:        destination  || undefined,
+        budget:             budget       || undefined,
         matchingProperties: matchingProperties,
-        trackingPixelHtml:  pixel             || undefined,
+        trackingPixelHtml:  pixel        || undefined,
       }),
       templateName:  'enquiry-autoreply',
       templateProps: { firstName, propertyTitle: property, propertyUrl: url },

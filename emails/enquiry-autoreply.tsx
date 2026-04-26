@@ -31,6 +31,7 @@ interface EnquiryAutoreplyProps {
   propertyTitle?: string;
   propertyImg?: string;
   propertyUrl?: string;
+  driveUrl?: string;
   destination?: string;
   budget?: string;
   matchingProperties?: MatchingProperty[];
@@ -56,6 +57,7 @@ export default function EnquiryAutoreply({
   propertyTitle,
   propertyImg,
   propertyUrl,
+  driveUrl,
   destination,
   budget,
   matchingProperties = [],
@@ -63,7 +65,7 @@ export default function EnquiryAutoreply({
 }: EnquiryAutoreplyProps) {
 
   // Split property title at em dash for location / name display
-  const dashIdx = propertyTitle?.indexOf('\u2014') ?? -1;
+  const dashIdx = propertyTitle?.indexOf('—') ?? -1;
   const propLocation = dashIdx > -1 ? propertyTitle?.slice(0, dashIdx).trim() : null;
   const propName     = dashIdx > -1 ? propertyTitle?.slice(dashIdx + 1).trim() : propertyTitle;
 
@@ -91,7 +93,7 @@ export default function EnquiryAutoreply({
           </Container>
         </Section>
 
-        {/* ── GREETING ── */}
+        {/* ── HERO INTRO ── */}
         <Section style={heroSection}>
           <Container style={wrapBody}>
             <Text style={greeting}>
@@ -99,8 +101,8 @@ export default function EnquiryAutoreply({
             </Text>
             <Text style={introText}>
               {propertyTitle
-                ? "Thank you for your interest. We've received your enquiry and a member of our team will be in touch shortly."
-                : "Thank you for getting in touch. We've received your message and a member of our team will be in touch shortly."}
+                ? "Thank you for your interest. We've received your enquiry and a member of our team will be in touch within a few hours."
+                : "Thank you for getting in touch. We've received your message and a member of our team will be in touch within a few hours."}
             </Text>
           </Container>
         </Section>
@@ -129,7 +131,7 @@ export default function EnquiryAutoreply({
           </Section>
         )}
 
-        {/* ── PROPERTY CALLOUT (only when property-specific) ── */}
+        {/* ── PROPERTY CALLOUT (property-specific enquiries only) ── */}
         {propertyTitle && (
           <Section style={propertyCallout}>
             <Container style={wrapBody}>
@@ -142,17 +144,71 @@ export default function EnquiryAutoreply({
           </Section>
         )}
 
-        {/* ── HERO IMAGE (only when property-specific and image available) ── */}
+        {/* ── HERO IMAGE ── */}
         {propertyImg && (
           <Section style={{ backgroundColor: C.white, textAlign: 'center' as const, lineHeight: 0, fontSize: 0 }}>
-            <Img
-              src={propertyImg}
-              alt={propertyTitle ?? 'Property'}
-              width="600"
-              style={heroImgStyle}
-            />
+            {propertyUrl ? (
+              <Link href={propertyUrl}>
+                <Img
+                  src={propertyImg}
+                  alt={propertyTitle ?? 'Property'}
+                  width="600"
+                  style={heroImgStyle}
+                />
+              </Link>
+            ) : (
+              <Img
+                src={propertyImg}
+                alt={propertyTitle ?? 'Property'}
+                width="600"
+                style={heroImgStyle}
+              />
+            )}
           </Section>
         )}
+
+        {/* ── CTA ── */}
+        <Section style={ctaSection}>
+          <Container style={wrapBody}>
+            {driveUrl ? (
+              <>
+                <Text style={ctaLabel}>Your exclusive access</Text>
+                <Section style={{ textAlign: 'center' as const }}>
+                  <Button href={driveUrl} style={ctaButtonNavy}>
+                    View Floor Plans &amp; Gallery
+                  </Button>
+                </Section>
+                <Text style={ctaSubLink}>
+                  <Link href={`${base}/our-homes/`} style={subtleLink}>Browse Our Homes →</Link>
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text style={ctaLabel}>In the meantime</Text>
+                <Section style={{ textAlign: 'center' as const }}>
+                  <Button href={`${base}/our-homes/`} style={ctaButtonGold}>
+                    Browse Our Homes
+                  </Button>
+                </Section>
+              </>
+            )}
+          </Container>
+        </Section>
+
+        {/* ── SIGN-OFF ── */}
+        <Section style={signoffSection}>
+          <Container style={wrapBody}>
+            <Hr style={thinDivider} />
+            <Text style={replyText}>
+              Have more questions? Simply reply to this email — we're always happy to help.
+            </Text>
+            <Hr style={goldAccentRule} />
+            <Text style={signoffName}>The Co-Ownership Property Team</Text>
+            <Text style={signoffSite}>
+              <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
+            </Text>
+          </Container>
+        </Section>
 
         {/* ── MATCHING PROPERTIES ── */}
         {matchingProperties.length > 0 && (
@@ -203,33 +259,6 @@ export default function EnquiryAutoreply({
             </Container>
           </Section>
         )}
-
-        {/* ── CTA (always shown, below properties if any) ── */}
-        <Section style={ctaSection}>
-          <Container style={wrapBody}>
-            <Text style={ctaLabel}>In the meantime</Text>
-            <Section style={{ textAlign: 'center' as const }}>
-              <Button href={propertyUrl ?? `${base}/our-homes/`} style={ctaButton}>
-                {propertyTitle ? 'View Property' : 'Browse All Properties'}
-              </Button>
-            </Section>
-          </Container>
-        </Section>
-
-        {/* ── SIGN-OFF ── */}
-        <Section style={{ backgroundColor: C.white }}>
-          <Container style={wrapBody}>
-            <Hr style={thinDivider} />
-            <Text style={replyText}>
-              Have more questions? Simply reply to this email — we're always happy to help.
-            </Text>
-            <Hr style={goldAccentRule} />
-            <Text style={signoffName}>The Co-Ownership Property Team</Text>
-            <Text style={signoffSite}>
-              <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
-            </Text>
-          </Container>
-        </Section>
 
         {/* ── FOOTER ── */}
         <Section style={footer}>
@@ -303,7 +332,7 @@ const goldRuleHeader: React.CSSProperties = {
   margin: '0 auto',
 };
 
-// Greeting
+// Hero intro
 const heroSection: React.CSSProperties = {
   backgroundColor: C.white,
   paddingTop: 52,
@@ -327,7 +356,42 @@ const introText: React.CSSProperties = {
   color: C.text,
   lineHeight: '1.9',
   textAlign: 'center' as const,
-  margin: '0 0 0',
+  margin: 0,
+};
+
+// Enquiry summary
+const summarySection: React.CSSProperties = {
+  backgroundColor: C.white,
+  paddingTop: 32,
+  paddingBottom: 48,
+};
+
+const summaryEyebrow: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 500,
+  letterSpacing: '0.22em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  textAlign: 'center' as const,
+  margin: '0 0 12px',
+};
+
+const summaryLabel: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 12,
+  fontWeight: 400,
+  color: C.navy60,
+  padding: '6px 0',
+  width: '40%',
+};
+
+const summaryValue: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 13,
+  fontWeight: 500,
+  color: C.navy,
+  padding: '6px 0',
 };
 
 // Property callout
@@ -377,9 +441,8 @@ const heroImgStyle: React.CSSProperties = {
 // CTA block
 const ctaSection: React.CSSProperties = {
   backgroundColor: C.white,
-  paddingTop: 52,
+  paddingTop: 40,
   paddingBottom: 52,
-  borderTop: `1px solid ${C.border}`,
 };
 
 const ctaLabel: React.CSSProperties = {
@@ -393,7 +456,20 @@ const ctaLabel: React.CSSProperties = {
   margin: '0 0 18px',
 };
 
-const ctaButton: React.CSSProperties = {
+const ctaButtonNavy: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  backgroundColor: C.navy,
+  color: C.white,
+  fontSize: 11,
+  fontWeight: 500,
+  letterSpacing: '0.18em',
+  textTransform: 'uppercase' as const,
+  padding: '18px 48px',
+  textDecoration: 'none',
+  display: 'inline-block',
+};
+
+const ctaButtonGold: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   backgroundColor: C.gold,
   color: C.white,
@@ -406,42 +482,25 @@ const ctaButton: React.CSSProperties = {
   display: 'inline-block',
 };
 
-// Enquiry summary box
-const summarySection: React.CSSProperties = {
-  backgroundColor: C.white,
-  paddingTop: 32,
-  paddingBottom: 48,
-};
-
-const summaryEyebrow: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
-  fontWeight: 500,
-  letterSpacing: '0.22em',
-  textTransform: 'uppercase' as const,
-  color: C.gold,
-  textAlign: 'center' as const,
-  margin: '0 0 12px',
-};
-
-const summaryLabel: React.CSSProperties = {
+const ctaSubLink: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 12,
   fontWeight: 400,
   color: C.navy60,
-  padding: '6px 0',
-  width: '40%',
+  textAlign: 'center' as const,
+  margin: '16px 0 0',
 };
 
-const summaryValue: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  fontWeight: 500,
-  color: C.navy,
-  padding: '6px 0',
+const subtleLink: React.CSSProperties = {
+  color: C.gold,
+  textDecoration: 'none',
 };
 
 // Sign-off
+const signoffSection: React.CSSProperties = {
+  backgroundColor: C.white,
+};
+
 const thinDivider: React.CSSProperties = {
   borderColor: C.border,
   margin: '0 0 28px',
@@ -588,16 +647,6 @@ const viewPropLink: React.CSSProperties = {
   fontSize: 11,
   fontWeight: 500,
   letterSpacing: '0.1em',
-  color: C.gold,
-  textDecoration: 'none',
-};
-
-const seeAllLink: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
-  fontWeight: 500,
-  letterSpacing: '0.18em',
-  textTransform: 'uppercase' as const,
   color: C.gold,
   textDecoration: 'none',
 };
