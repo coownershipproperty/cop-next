@@ -180,8 +180,9 @@ export default async function handler(req, res) {
   try {
     const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
 
-    // Queue floor plan email to visitor
+    // Send floor plan email immediately — no approval needed
     await queueEmail({
+      autoSend:      true,
       to:            email,
       toName:        name || null,
       subject:       `Floor Plans & More Photos — ${propertyTitle}`,
