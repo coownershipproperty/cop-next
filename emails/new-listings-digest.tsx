@@ -170,7 +170,7 @@ export default function NewListingsDigest({
                     <Column style={hCardContent}>
                       <Text style={hCardLocation}>{p.location}, {p.country}</Text>
                       <Text style={hCardTitle}>{p.title}</Text>
-                      <Text style={hCardStats}>{p.beds} Beds&emsp;|&emsp;{p.size} m²</Text>
+                      <Text style={hCardStats}>{p.beds} Beds{p.size ? <>&emsp;|&emsp;{p.size} m²</> : null}</Text>
                       <Row style={{ marginTop: 12 }}>
                         <Column>
                           <Text style={hCardPrice}>{p.price}</Text>

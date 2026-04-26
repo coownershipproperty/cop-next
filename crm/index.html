@@ -539,6 +539,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <div class="queue-pane-header">
             <span class="queue-pane-title" id="queue-list-title">Loading…</span>
           </div>
+          <div id="queue-campaign-bar" style="display:none;padding:10px 14px;background:#fffbeb;border-bottom:1px solid #fde68a;gap:10px;align-items:center">
+            <span id="queue-campaign-label" style="font-size:12px;color:#92400e;flex:1"></span>
+            <button class="btn btn-primary" id="btn-send-campaign" onclick="sendCampaign()" style="font-size:11px;padding:5px 14px">🚀 Send All</button>
+            <span id="queue-campaign-msg" style="font-size:11px;color:var(--text3)"></span>
+          </div>
           <div id="queue-list-body"></div>
         </div>
         <!-- Right: preview + actions -->
@@ -1511,15 +1516,16 @@ async function loadQueue() {
   const statusFilter = activeQueueTab || 'sent';
   document.getElementById('queue-list-title').textContent = 'Loading…';
   document.getElementById('queue-list-body').innerHTML = '<div class="loading-state"><div class="spinner"></div><br>Loading…</div>';
+  document.getElementById('queue-campaign-bar').style.display = 'none';
 
   try {
     const sortCol = statusFilter === 'sent' ? 'sent_at' : 'created_at';
     const { data, error } = await db
       .from('email_queue')
-      .select('id, created_at, sent_at, status, to_email, to_name, subject, template_name, trigger, notes')
+      .select('id, created_at, sent_at, status, to_email, to_name, subject, template_name, trigger, notes, sequence_type')
       .eq('status', statusFilter)
       .order(sortCol, { ascending: false })
-      .limit(200);
+      .limit(500);
 
     if(error) throw error;
     queueEmails = data || [];
@@ -1544,10 +1550,36 @@ async function loadQueue() {
       return;
     }
 
+    // On pending tab: detect campaigns (sequence_type = 'new-listings-*') and show campaign bar
+    if(statusFilter === 'pending') {
+      const campaigns = {};
+      queueEmails.forEach(e => {
+        if(e.sequence_type && e.sequence_type.startsWith('new-listings-')) {
+          if(!campaigns[e.sequence_type]) campaigns[e.sequence_type] = 0;
+          campaigns[e.sequence_type]++;
+        }
+      });
+      const campaignKeys = Object.keys(campaigns);
+      if(campaignKeys.length > 0) {
+        // Show the most recent campaign
+        const latestCampaign = campaignKeys.sort().reverse()[0];
+        const camCount = campaigns[latestCampaign];
+        const barEl = document.getElementById('queue-campaign-bar');
+        barEl.style.display = 'flex';
+        barEl.dataset.campaignId = latestCampaign;
+        document.getElementById('queue-campaign-label').textContent =
+          `📣 Campaign "${latestCampaign}" — ${camCount} emails pending`;
+        document.getElementById('queue-campaign-msg').textContent = '';
+        document.getElementById('btn-send-campaign').disabled = false;
+        document.getElementById('btn-send-campaign').textContent = `🚀 Send All ${camCount}`;
+      }
+    }
+
     document.getElementById('queue-list-body').innerHTML = queueEmails.map(e => {
       const displayTime = statusFilter === 'sent' ? fmtRelative(e.sent_at || e.created_at) : fmtRelative(e.created_at);
+      const isCampaign = e.sequence_type && e.sequence_type.startsWith('new-listings-');
       return `
-      <div class="queue-item" id="qi-${esc(e.id)}" onclick="selectQueueItem('${esc(e.id)}')">
+      <div class="queue-item${isCampaign ? ' qi-campaign' : ''}" id="qi-${esc(e.id)}" onclick="selectQueueItem('${esc(e.id)}')">
         <div class="qi-meta">
           <span class="qi-to">${esc(e.to_name || e.to_email)}</span>
           <span class="qi-time">${displayTime}</span>
@@ -1555,7 +1587,7 @@ async function loadQueue() {
         <div class="qi-subject">${esc(e.subject)}</div>
         <div class="qi-tags">
           ${e.template_name ? `<span class="qi-tag">${esc(e.template_name)}</span>` : ''}
-          ${e.trigger ? `<span class="qi-tag">${esc(e.trigger)}</span>` : ''}
+          ${isCampaign ? `<span class="qi-tag" style="background:rgba(201,153,58,0.15);color:var(--gold)">campaign</span>` : (e.trigger ? `<span class="qi-tag">${esc(e.trigger)}</span>` : '')}
         </div>
       </div>`;
     }).join('');
@@ -1569,6 +1601,37 @@ async function loadQueue() {
   } catch(e) {
     document.getElementById('queue-list-body').innerHTML =
       `<div class="queue-empty">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+async function sendCampaign() {
+  const barEl = document.getElementById('queue-campaign-bar');
+  const campaignId = barEl.dataset.campaignId;
+  if(!campaignId) return;
+  if(!confirm(`Send all pending emails for campaign "${campaignId}" to your subscribers? This cannot be undone.`)) return;
+
+  const btn = document.getElementById('btn-send-campaign');
+  const msg = document.getElementById('queue-campaign-msg');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  msg.textContent = '';
+
+  try {
+    const res = await fetch(`https://co-ownership-property.com/api/admin/send-campaign`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${CRM_SECRET}` },
+      body: JSON.stringify({ campaignId }),
+    });
+    const json = await res.json();
+    if(!res.ok || !json.ok) throw new Error(json.error || 'Send failed');
+    msg.textContent = `✓ ${json.sent} emails sent!`;
+    msg.style.color = 'var(--success)';
+    setTimeout(() => loadQueue(), 2000);
+  } catch(e) {
+    msg.textContent = '✗ ' + e.message;
+    msg.style.color = 'var(--danger)';
+    btn.disabled = false;
+    btn.textContent = '🚀 Retry';
   }
 }
 
