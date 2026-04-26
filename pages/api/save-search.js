@@ -16,6 +16,45 @@ function getDb() {
   return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
 }
 
+/**
+ * Fetch up to 3 properties matching the alert criteria.
+ * Tries regions against both country and region columns.
+ */
+async function getMatchingProperties(regions, maxPrice, minBeds) {
+  const db = getDb();
+  const FIELDS = 'slug, title, img, price, currency, beds, size, city, country, region';
+  const STATUSES = ['available', 'new'];
+
+  // Build a filter: each region string is matched against country OR region (case-insensitive)
+  // Skip 'All' as it means no restriction
+  const activeRegions = (regions || []).filter(r => r && r !== 'All');
+
+  let query = db
+    .from('properties')
+    .select(FIELDS)
+    .in('status', STATUSES)
+    .order('date_added', { ascending: false });
+
+  if (maxPrice) query = query.lte('price', parseInt(maxPrice, 10));
+  if (minBeds)  query = query.gte('beds',  parseInt(minBeds,  10));
+
+  const { data: allMatches } = await query.limit(50);
+  if (!allMatches || allMatches.length === 0) return [];
+
+  // Client-side region filter (Supabase doesn't support OR across multiple ilike easily)
+  if (activeRegions.length > 0) {
+    const lower = activeRegions.map(r => r.toLowerCase());
+    const filtered = allMatches.filter(p => {
+      const c = (p.country || '').toLowerCase();
+      const r = (p.region  || '').toLowerCase();
+      return lower.some(reg => c.includes(reg) || r.includes(reg) || reg.includes(c) || reg.includes(r));
+    });
+    return filtered.slice(0, 3);
+  }
+
+  return allMatches.slice(0, 3);
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
@@ -63,7 +102,7 @@ export default async function handler(req, res) {
       await logActivity({
         contactId:   contact.id,
         type:        'search_saved',
-        description: `Saved search: ${regions.join(', ')}${maxPrice ? `, max €${parseInt(maxPrice).toLocaleString()}` : ''}`,
+        description: `Saved search: ${regions.join(', ')}${maxPrice ? `, max \u20ac${parseInt(maxPrice).toLocaleString()}` : ''}`,
         metadata:    { regions, maxPrice, minBeds },
       });
     }
@@ -71,22 +110,69 @@ export default async function handler(req, res) {
     console.error('[CRM] save-search write failed:', e.message);
   }
 
+  // Fetch matching properties for the email
+  let matchingProperties = [];
+  try {
+    matchingProperties = await getMatchingProperties(regions, maxPrice, minBeds);
+  } catch (e) {
+    console.error('[SaveSearch] matching properties lookup failed:', e.message);
+  }
+
   // Send confirmation email via Resend
   try {
     const regionList = regions.join(', ');
     const criteriaLines = [
-      `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d;width:120px">Destinations</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">${regionList}</td></tr>`,
-      maxPrice ? `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d">Max budget</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">€${parseInt(maxPrice).toLocaleString()}</td></tr>` : '',
+      `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d;width:130px">Destinations</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">${regionList}</td></tr>`,
+      maxPrice ? `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d">Max budget</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">\u20ac${parseInt(maxPrice).toLocaleString()}</td></tr>` : '',
       minBeds  ? `<tr><td style="padding:6px 0;font-size:13px;color:#6b7d8d">Min bedrooms</td><td style="padding:6px 0;font-size:13px;color:#1E3448;font-weight:600">${minBeds}+</td></tr>` : '',
     ].filter(Boolean).join('');
 
     const firstName = (name || '').trim().split(' ')[0] || null;
+    const base = 'https://co-ownership-property.com';
+
+    // Build property cards HTML
+    const propCardsHtml = matchingProperties.length > 0 ? `
+        <!-- Matching Properties -->
+        <tr><td style="background:#F7F4EE;padding:40px 48px 8px">
+          <p style="margin:0 0 8px;font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#C9A84C;font-family:Georgia,serif">Available Now</p>
+          <div style="width:36px;height:1px;background:#C9A84C;margin:0 0 24px"></div>
+        </td></tr>
+        ${matchingProperties.map(p => {
+          const sym = { EUR: '\u20ac', USD: '$', GBP: '\u00a3' }[p.currency] || '\u20ac';
+          const priceStr = p.price ? `${sym}${Number(p.price).toLocaleString('en-GB')}` : '';
+          const dashIdx = (p.title || '').indexOf('\u2014');
+          const loc  = dashIdx > -1 ? p.title.slice(0, dashIdx).trim() : (p.city || p.country || '');
+          const name = dashIdx > -1 ? p.title.slice(dashIdx + 1).trim() : p.title;
+          const img  = p.img || '';
+          const href = `${base}/property/${p.slug}`;
+          return `
+        <tr><td style="background:#F7F4EE;padding:0 48px 16px">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff">
+            <tr>
+              ${img ? `<td style="width:140px;vertical-align:top">
+                <a href="${href}"><img src="${img}" width="140" height="105" alt="${loc}" style="display:block;width:140px;height:105px;object-fit:cover"></a>
+              </td>` : ''}
+              <td style="vertical-align:top;padding:16px 20px">
+                <p style="margin:0 0 5px;font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#C9A84C">${loc}</p>
+                <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:15px;font-weight:400;color:#1E3448;line-height:1.4">${name}</p>
+                ${p.beds ? `<p style="margin:0 0 6px;font-size:11px;color:#6B8A9E">${p.beds} beds${p.size ? ` &nbsp;&middot;&nbsp; ${p.size} m\u00b2` : ''}</p>` : ''}
+                ${priceStr ? `<p style="margin:0 0 10px;font-family:Georgia,serif;font-size:18px;color:#1E3448">${priceStr}</p>` : ''}
+                <a href="${href}" style="font-size:11px;font-weight:600;letter-spacing:0.1em;color:#C9A84C;text-decoration:none">View Property \u2192</a>
+              </td>
+            </tr>
+          </table>
+        </td></tr>`;
+        }).join('')}
+        <tr><td style="background:#F7F4EE;padding:16px 48px 40px;text-align:center">
+          <a href="${base}/our-homes/" style="font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#C9A84C;text-decoration:none">See All Properties \u2192</a>
+        </td></tr>
+    ` : '';
 
     await resend.emails.send({
       from:    FROM_ADDRESS,
       to:      [email],
       replyTo: REPLY_TO,
-      subject: "Your property alert is set — we'll notify you of new listings",
+      subject: "Your property alert is set \u2014 we'll notify you of new listings",
       html: `
 <!DOCTYPE html>
 <html lang="en">
@@ -120,10 +206,12 @@ export default async function handler(req, res) {
           </table>
 
           <!-- CTA -->
-          <a href="https://co-ownership-property.com/our-homes/" style="display:inline-block;background:#1E3448;color:#ffffff;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:18px 48px;text-decoration:none">
+          <a href="${base}/our-homes/" style="display:inline-block;background:#1E3448;color:#ffffff;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:18px 48px;text-decoration:none">
             Browse Properties Now
           </a>
         </td></tr>
+
+        ${propCardsHtml}
 
         <!-- Footer -->
         <tr><td style="background:#1E3448;border-top:1px solid #C9A84C;padding:36px 48px;text-align:center">
@@ -148,14 +236,15 @@ export default async function handler(req, res) {
   // Team notification
   try {
     await sendTeamNotification({
-      subject: `Property Alert Set — ${name || email}`,
+      subject: `Property Alert Set \u2014 ${name || email}`,
       html: `
         <h2>New Property Alert</h2>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Name:</strong> ${name || 'Not provided'}</p>
         <p><strong>Regions:</strong> ${regions.join(', ')}</p>
-        ${maxPrice ? `<p><strong>Max Budget:</strong> €${parseInt(maxPrice).toLocaleString()}</p>` : ''}
+        ${maxPrice ? `<p><strong>Max Budget:</strong> \u20ac${parseInt(maxPrice).toLocaleString()}</p>` : ''}
         ${minBeds  ? `<p><strong>Min Beds:</strong> ${minBeds}</p>` : ''}
+        <p><strong>Matching properties found:</strong> ${matchingProperties.length}</p>
       `,
     });
   } catch (e) {
