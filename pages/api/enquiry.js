@@ -1,8 +1,14 @@
+import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
 import EnquiryAutoreply from '@/emails/enquiry-autoreply';
 import * as React from 'react';
+
+function getDb() {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -61,6 +67,25 @@ export default async function handler(req, res) {
     console.error('[CRM] enquiry CRM write failed:', e.message);
   }
 
+  // ── Look up property image from DB (authoritative — don't rely on frontend) ──
+  let propertyImg = null;
+  if (url) {
+    try {
+      const slug = url.replace(/https?:\/\/[^/]+\/property\//, '').replace(/\/$/, '') || null;
+      if (slug) {
+        const db = getDb();
+        const { data: prop } = await db
+          .from('properties')
+          .select('img')
+          .eq('slug', slug)
+          .single();
+        propertyImg = prop?.img || null;
+      }
+    } catch (e) {
+      console.error('[enquiry] property img lookup failed:', e.message);
+    }
+  }
+
   // ── Send team notification (always immediate — internal only) ───────────────
   try {
     await sendTeamNotification({
@@ -89,10 +114,11 @@ export default async function handler(req, res) {
       toName:        name || null,
       subject:       `We received your enquiry${property ? ` — ${property}` : ''}`,
       template:      React.createElement(EnquiryAutoreply, {
-        firstName:        firstName || name || undefined,
-        propertyTitle:    property  || undefined,
-        propertyUrl:      url       || undefined,
-        trackingPixelHtml: pixel    || undefined,
+        firstName:         firstName    || name || undefined,
+        propertyTitle:     property     || undefined,
+        propertyImg:       propertyImg  || undefined,
+        propertyUrl:       url          || undefined,
+        trackingPixelHtml: pixel        || undefined,
       }),
       templateName:  'enquiry-autoreply',
       templateProps: { firstName, propertyTitle: property, propertyUrl: url },

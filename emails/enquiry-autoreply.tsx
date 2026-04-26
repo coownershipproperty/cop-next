@@ -3,9 +3,9 @@ import {
   Button,
   Container,
   Head,
-  Heading,
   Hr,
   Html,
+  Img,
   Link,
   Preview,
   Section,
@@ -17,87 +17,132 @@ import * as React from 'react';
 interface EnquiryAutoreplyProps {
   firstName?: string;
   propertyTitle?: string;
+  propertyImg?: string;
   propertyUrl?: string;
   trackingPixelHtml?: string;
 }
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
 const C = {
-  navy:   '#2C4A5E',
+  navy:   '#1E3448',
   navy60: '#6B8A9E',
   gold:   '#C9A84C',
-  cream:  '#F5F2EC',
+  cream:  '#F7F4EE',
   white:  '#FFFFFF',
   border: '#E8E3DC',
+  text:   '#3A5168',
 };
 
 const base = 'https://co-ownership-property.com';
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function EnquiryAutoreply({
-  firstName = 'Sarah',
-  propertyTitle = 'Mallorca, Spain — 5-Bed Clifftop Villa With Sea Views',
-  propertyUrl = 'https://co-ownership-property.com/property/mallorca-5-bed-clifftop-villa/',
+  firstName,
+  propertyTitle,
+  propertyImg,
+  propertyUrl,
   trackingPixelHtml,
 }: EnquiryAutoreplyProps) {
+
+  // Split property title at em dash for location / name display
+  const dashIdx = propertyTitle?.indexOf('\u2014') ?? -1;
+  const propLocation = dashIdx > -1 ? propertyTitle?.slice(0, dashIdx).trim() : null;
+  const propName     = dashIdx > -1 ? propertyTitle?.slice(dashIdx + 1).trim() : propertyTitle;
+
+  const previewText = propertyTitle
+    ? `We've received your enquiry about ${propertyTitle} and will be in touch shortly.`
+    : "We've received your enquiry and will be in touch shortly.";
+
   return (
     <Html lang="en">
       <Head>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
         `}</style>
       </Head>
 
-      <Preview>We've received your enquiry and will be in touch shortly.</Preview>
+      <Preview>{previewText}</Preview>
 
       <Body style={body}>
 
         {/* ── HEADER ── */}
         <Section style={header}>
           <Container style={wrap}>
-            <Text style={headerLogo}>Co-Ownership Property</Text>
-            <Text style={headerSub}>Your European Dream Home, Shared Smartly</Text>
+            <Text style={wordmark}>Co-Ownership Property</Text>
+            <Section style={goldRuleHeader} />
           </Container>
         </Section>
-        <Section style={goldLine}>
-          <Text style={{ margin: 0, padding: 0, fontSize: 1, lineHeight: '3px' }}> </Text>
+
+        {/* ── GREETING ── */}
+        <Section style={heroSection}>
+          <Container style={wrapBody}>
+            <Text style={greeting}>
+              {firstName ? `Dear ${firstName},` : 'Dear Friend,'}
+            </Text>
+            <Text style={introText}>
+              {propertyTitle
+                ? "Thank you for your interest. We've received your enquiry and a member of our team will be in touch shortly — usually within a few hours."
+                : "Thank you for getting in touch. We've received your message and a member of our team will be in touch shortly — usually within a few hours."}
+            </Text>
+          </Container>
         </Section>
 
-        {/* ── BODY ── */}
-        <Section style={{ backgroundColor: C.white }}>
+        {/* ── PROPERTY CALLOUT (only when property-specific) ── */}
+        {propertyTitle && (
+          <Section style={propertyCallout}>
+            <Container style={wrapBody}>
+              {propLocation && (
+                <Text style={propLocationStyle}>{propLocation}</Text>
+              )}
+              <Text style={propNameStyle}>{propName}</Text>
+              <Section style={goldRuleCenter} />
+            </Container>
+          </Section>
+        )}
+
+        {/* ── HERO IMAGE (only when property-specific and image available) ── */}
+        {propertyImg && (
+          <Section style={{ backgroundColor: C.white, textAlign: 'center' as const, lineHeight: 0, fontSize: 0 }}>
+            <Img
+              src={propertyImg}
+              alt={propertyTitle ?? 'Property'}
+              width="600"
+              style={heroImgStyle}
+            />
+          </Section>
+        )}
+
+        {/* ── CTA ── */}
+        <Section style={ctaSection}>
           <Container style={wrapBody}>
-
-            <Text style={greeting}>Hi {firstName},</Text>
-
-            {propertyTitle ? (
-              <Text style={bodyText}>
-                Thank you for reaching out about <strong style={{ color: C.navy }}>{propertyTitle}</strong>.
-              </Text>
-            ) : (
-              <Text style={bodyText}>Thank you for getting in touch.</Text>
-            )}
-
-            <Text style={bodyText}>
-              Our team typically responds within a few hours — often much faster.
+            <Text style={ctaLabel}>
+              {propertyTitle ? 'Explore the listing' : 'Browse our collection'}
             </Text>
-
-            <Text style={bodyText}>
-              In the meantime, feel free to browse our full collection of properties.
-            </Text>
-
-            <Section style={{ margin: '32px 0' }}>
-              <Button href={`${base}/our-homes/`} style={ctaBtn}>
-                BROWSE ALL PROPERTIES
+            <Section style={{ textAlign: 'center' as const }}>
+              <Button href={propertyUrl ?? `${base}/our-homes/`} style={ctaButton}>
+                {propertyTitle ? 'View Property' : 'Browse All Properties'}
               </Button>
             </Section>
+            {!propertyTitle && (
+              <Text style={ctaSubLink}>
+                <Link href={`${base}/our-homes/`} style={subtleLink}>See all available properties →</Link>
+              </Text>
+            )}
+          </Container>
+        </Section>
 
-            <Hr style={goldRule} />
-
+        {/* ── SIGN-OFF ── */}
+        <Section style={{ backgroundColor: C.white }}>
+          <Container style={wrapBody}>
+            <Hr style={thinDivider} />
+            <Text style={replyText}>
+              Have more questions? Simply reply to this email — we're always happy to help.
+            </Text>
+            <Hr style={goldAccentRule} />
             <Text style={signoffName}>The Co-Ownership Property Team</Text>
             <Text style={signoffSite}>
               <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
             </Text>
-
           </Container>
         </Section>
 
@@ -134,102 +179,201 @@ const body: React.CSSProperties = {
   backgroundColor: C.cream,
   margin: 0,
   padding: 0,
-  fontFamily: "'Nunito Sans', 'Helvetica Neue', Arial, sans-serif",
+  fontFamily: "'Jost', 'Helvetica Neue', Arial, sans-serif",
 };
 
 const wrap: React.CSSProperties = {
   maxWidth: 600,
   margin: '0 auto',
-  padding: '0 32px',
+  padding: '0 40px',
 };
 
 const wrapBody: React.CSSProperties = {
   maxWidth: 600,
   margin: '0 auto',
-  padding: '48px 48px',
+  padding: '0 48px',
 };
 
+// Header
 const header: React.CSSProperties = {
   backgroundColor: C.navy,
-  padding: '32px 0 28px',
+  padding: '40px 0 32px',
 };
 
-const headerLogo: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
+const wordmark: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: C.white,
-  fontSize: 26,
-  fontWeight: 700,
-  letterSpacing: '0.04em',
-  textAlign: 'center' as const,
-  margin: 0,
-};
-
-const headerSub: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  color: C.gold,
-  fontSize: 10,
-  fontWeight: 600,
-  letterSpacing: '0.2em',
+  fontSize: 22,
+  fontWeight: 300,
+  letterSpacing: '0.18em',
   textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  margin: '8px 0 0',
-};
-
-const goldLine: React.CSSProperties = {
-  backgroundColor: C.gold,
-  height: 3,
-  lineHeight: '3px',
-  fontSize: 1,
-};
-
-const greeting: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 22,
-  fontWeight: 400,
-  color: C.navy,
   margin: '0 0 20px',
 };
 
-const bodyText: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  fontSize: 15,
-  color: '#4A6070',
-  lineHeight: '1.8',
-  margin: '0 0 14px',
+const goldRuleHeader: React.CSSProperties = {
+  backgroundColor: C.gold,
+  height: 1,
+  maxWidth: 48,
+  margin: '0 auto',
 };
 
-const ctaBtn: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
+// Greeting
+const heroSection: React.CSSProperties = {
+  backgroundColor: C.white,
+  paddingTop: 52,
+  paddingBottom: 0,
+};
+
+const greeting: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontSize: 28,
+  fontWeight: 300,
+  fontStyle: 'italic',
+  color: C.navy,
+  textAlign: 'center' as const,
+  margin: '0 0 20px',
+};
+
+const introText: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 14,
+  fontWeight: 300,
+  color: C.text,
+  lineHeight: '1.9',
+  textAlign: 'center' as const,
+  margin: '0 0 0',
+};
+
+// Property callout
+const propertyCallout: React.CSSProperties = {
+  backgroundColor: C.white,
+  paddingTop: 36,
+  paddingBottom: 36,
+};
+
+const propLocationStyle: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 500,
+  letterSpacing: '0.22em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  textAlign: 'center' as const,
+  margin: '0 0 12px',
+};
+
+const propNameStyle: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontSize: 26,
+  fontWeight: 400,
+  color: C.navy,
+  textAlign: 'center' as const,
+  lineHeight: '1.3',
+  margin: '0 0 24px',
+};
+
+const goldRuleCenter: React.CSSProperties = {
+  backgroundColor: C.gold,
+  height: 1,
+  maxWidth: 40,
+  margin: '0 auto',
+};
+
+// Hero image
+const heroImgStyle: React.CSSProperties = {
+  width: '600px',
+  maxWidth: '100%',
+  height: 'auto',
+  display: 'block',
+  margin: '0 auto',
+};
+
+// CTA block
+const ctaSection: React.CSSProperties = {
+  backgroundColor: C.white,
+  paddingTop: 40,
+  paddingBottom: 52,
+};
+
+const ctaLabel: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 500,
+  letterSpacing: '0.2em',
+  textTransform: 'uppercase' as const,
+  color: C.navy60,
+  textAlign: 'center' as const,
+  margin: '0 0 18px',
+};
+
+const ctaButton: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
   backgroundColor: C.navy,
   color: C.white,
   fontSize: 11,
-  fontWeight: 700,
+  fontWeight: 500,
   letterSpacing: '0.18em',
-  padding: '14px 36px',
+  textTransform: 'uppercase' as const,
+  padding: '18px 48px',
   textDecoration: 'none',
   display: 'inline-block',
 };
 
-const goldRule: React.CSSProperties = {
+const ctaSubLink: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 12,
+  fontWeight: 400,
+  color: C.navy60,
+  textAlign: 'center' as const,
+  margin: '16px 0 0',
+};
+
+const subtleLink: React.CSSProperties = {
+  color: C.gold,
+  textDecoration: 'none',
+};
+
+// Sign-off
+const thinDivider: React.CSSProperties = {
+  borderColor: C.border,
+  margin: '0 0 28px',
+};
+
+const replyText: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 13,
+  fontWeight: 300,
+  color: C.text,
+  lineHeight: '1.8',
+  textAlign: 'center' as const,
+  margin: '0 0 28px',
+};
+
+const goldAccentRule: React.CSSProperties = {
   borderColor: C.gold,
-  borderTopWidth: 2,
-  width: 40,
-  margin: '32px 0 24px',
+  borderTopWidth: 1,
+  width: 32,
+  margin: '0 auto 24px',
 };
 
 const signoffName: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
-  fontSize: 15,
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontSize: 16,
   fontWeight: 400,
+  fontStyle: 'italic',
   color: C.navy,
+  textAlign: 'center' as const,
   margin: '0 0 4px',
 };
 
 const signoffSite: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  fontSize: 12,
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 400,
   color: C.navy60,
-  margin: 0,
+  textAlign: 'center' as const,
+  margin: '0 0 48px',
 };
 
 const signoffLink: React.CSSProperties = {
@@ -237,38 +381,42 @@ const signoffLink: React.CSSProperties = {
   textDecoration: 'none',
 };
 
+// Footer
 const footer: React.CSSProperties = {
   backgroundColor: C.navy,
-  padding: '36px 0 32px',
-  borderTop: `3px solid ${C.gold}`,
+  padding: '40px 0 36px',
+  borderTop: `1px solid ${C.gold}`,
 };
 
 const footLogo: React.CSSProperties = {
-  fontFamily: "'Playfair Display', Georgia, serif",
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: C.white,
-  fontSize: 18,
-  fontWeight: 700,
+  fontSize: 17,
+  fontWeight: 300,
+  letterSpacing: '0.16em',
+  textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  letterSpacing: '0.06em',
   margin: '0 0 14px',
 };
 
 const footLinks: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  fontSize: 12,
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 11,
+  fontWeight: 400,
   textAlign: 'center' as const,
   margin: 0,
 };
 
 const footLink: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.55)',
+  color: 'rgba(255,255,255,0.45)',
   textDecoration: 'none',
 };
 
 const footFine: React.CSSProperties = {
-  fontFamily: "'Nunito Sans', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.3)',
+  fontFamily: "'Jost', Arial, sans-serif",
+  color: 'rgba(255,255,255,0.25)',
   fontSize: 11,
+  fontWeight: 300,
   textAlign: 'center' as const,
   margin: '4px 0 0',
   lineHeight: '1.7',
