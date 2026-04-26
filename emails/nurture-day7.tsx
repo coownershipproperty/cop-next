@@ -81,8 +81,8 @@ const sampleProperties: RelatedProperty[] = [
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function NurtureDay7({
-  firstName = 'Michael',
-  destinationName = 'Mallorca',
+  firstName,
+  destinationName,
   relatedProperties = sampleProperties,
   marketInsights = sampleInsights,
   unsubscribeUrl = '#',

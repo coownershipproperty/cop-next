@@ -1,10 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
-import { queueEmail, sendTeamNotification } from '@/lib/resend';
+import { queueEmail, sendTeamNotification, cancelPendingSequence } from '@/lib/resend';
 import { expandRegions } from '@/lib/regionMap';
 import EnquiryAutoreply from '@/emails/enquiry-autoreply';
+import NurtureDay3  from '@/emails/nurture-day3';
+import NurtureDay7  from '@/emails/nurture-day7';
+import NurtureDay14 from '@/emails/nurture-day14';
 import * as React from 'react';
+
+function daysFromNow(n) {
+  const d = new Date();
+  d.setDate(d.getDate() + n);
+  return d;
+}
 
 function getDb() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -285,6 +294,83 @@ export default async function handler(req, res) {
     }
   } catch (e) {
     console.error('[Mail] auto-reply queue failed:', e.message);
+  }
+
+  // ── Nurture sequence (property enquiries only) ─────────────────────────────
+  // Cancel any pending welcome sequence — nurture takes priority
+  if (contact?.id) {
+    try {
+      await cancelPendingSequence(contact.id, 'welcome');
+    } catch (e) {
+      console.error('[Mail] cancel welcome sequence failed:', e.message);
+    }
+  }
+
+  if (property) {
+    const unsubscribeUrl = `https://co-ownership-property.com/unsubscribe/?email=${encodeURIComponent(email)}`;
+    const nurtureProps = {
+      firstName:     firstName || undefined,
+      propertyTitle: property  || undefined,
+      propertyUrl:   url       || undefined,
+      unsubscribeUrl,
+    };
+
+    // Day 3
+    try {
+      await queueEmail({
+        to:           email,
+        subject:      `Still thinking about ${property ? property.split('—')[1]?.trim() || property : 'the property'}?`,
+        template:     React.createElement(NurtureDay3, nurtureProps),
+        templateName:  'nurture-day3',
+        templateProps: { firstName, propertyTitle: property, propertyUrl: url },
+        trigger:       'enquiry_submitted',
+        notes:         `Nurture sequence — Day 3${property ? ` for ${property}` : ''}`,
+        contactId:     contact?.id || null,
+        leadId:        lead?.id    || null,
+        sendAfter:     daysFromNow(3),
+        sequenceType:  'nurture',
+      });
+    } catch (e) {
+      console.error('[Mail] nurture-day3 queue failed:', e.message);
+    }
+
+    // Day 7
+    try {
+      await queueEmail({
+        to:           email,
+        subject:      `What the market says about ${property ? (property.split(',')[1]?.trim().split('—')[0]?.trim() || 'this destination') : 'this destination'}`,
+        template:     React.createElement(NurtureDay7, nurtureProps),
+        templateName:  'nurture-day7',
+        templateProps: { firstName, propertyTitle: property, propertyUrl: url },
+        trigger:       'enquiry_submitted',
+        notes:         `Nurture sequence — Day 7${property ? ` for ${property}` : ''}`,
+        contactId:     contact?.id || null,
+        leadId:        lead?.id    || null,
+        sendAfter:     daysFromNow(7),
+        sequenceType:  'nurture',
+      });
+    } catch (e) {
+      console.error('[Mail] nurture-day7 queue failed:', e.message);
+    }
+
+    // Day 14
+    try {
+      await queueEmail({
+        to:           email,
+        subject:      'Your co-ownership questions, answered',
+        template:     React.createElement(NurtureDay14, nurtureProps),
+        templateName:  'nurture-day14',
+        templateProps: { firstName, propertyTitle: property, propertyUrl: url },
+        trigger:       'enquiry_submitted',
+        notes:         `Nurture sequence — Day 14${property ? ` for ${property}` : ''}`,
+        contactId:     contact?.id || null,
+        leadId:        lead?.id    || null,
+        sendAfter:     daysFromNow(14),
+        sequenceType:  'nurture',
+      });
+    } catch (e) {
+      console.error('[Mail] nurture-day14 queue failed:', e.message);
+    }
   }
 
   res.status(200).json({ ok: true });

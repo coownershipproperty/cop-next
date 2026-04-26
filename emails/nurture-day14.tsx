@@ -54,9 +54,9 @@ const faqs = [
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function NurtureDay14({
-  firstName = 'Michael',
-  propertyTitle = 'Mallorca, Spain — 5-Bed Clifftop Villa',
-  propertyUrl = `${base}/property/mallorca-5-bed-clifftop-villa`,
+  firstName,
+  propertyTitle,
+  propertyUrl,
   unsubscribeUrl = '#',
 }: NurtureDay14Props) {
 

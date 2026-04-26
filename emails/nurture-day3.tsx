@@ -33,9 +33,9 @@ const base = 'https://co-ownership-property.com';
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function NurtureDay3({
-  firstName = 'Michael',
-  propertyTitle = 'Mallorca, Spain — 5-Bed Clifftop Villa With Sea Views',
-  propertyUrl = 'https://co-ownership-property.com/property/mallorca-5-bed-clifftop-villa/',
+  firstName,
+  propertyTitle,
+  propertyUrl,
   unsubscribeUrl = '{{unsubscribe_url}}',
 }: NurtureDay3Props) {
   return (

@@ -33,7 +33,7 @@ const base = 'https://co-ownership-property.com';
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function Welcome2({
-  firstName = 'Oliver',
+  firstName,
   unsubscribeUrl = '{{unsubscribe_url}}',
 }: Welcome2Props) {
   return (

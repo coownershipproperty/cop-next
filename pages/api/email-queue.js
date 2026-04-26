@@ -40,7 +40,8 @@ export default async function handler(req, res) {
     const db = getDb();
     let query = db
       .from('email_queue')
-      .select('id, created_at, status, to_email, to_name, subject, template_name, trigger, notes, contact_id, lead_id, sent_at, approved_at, rejected_at')
+      .select('id, created_at, status, to_email, to_name, subject, template_name, trigger, notes, contact_id, lead_id, sent_at, approved_at, rejected_at, send_after, sequence_type')
+      .order('send_after', { ascending: true, nullsFirst: true })
       .order('created_at', { ascending: false })
       .range(offset, offset + pageLimit - 1);
 

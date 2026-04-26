@@ -78,7 +78,7 @@ const sampleProperties: FeaturedProperty[] = [
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function Welcome3({
-  firstName = 'Caroline',
+  firstName,
   properties = sampleProperties,
   unsubscribeUrl = '{{unsubscribe_url}}',
 }: Welcome3Props) {

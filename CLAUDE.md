@@ -229,3 +229,44 @@ existing `images`/`img` values, so re-running sync will NOT overwrite the Drive 
 - `photo-02.png` is the &Hamlet logo — filtered out in `sync-sheet.js`
 - Sold-out And Hamlet properties should NOT be added to the site
 - Descriptions must never mention partner names (&Hamlet, Vivla, Myne, etc.)
+
+## Email Templates
+All email templates and the design system live in:
+`/Desktop/email-templates/`  (user's workspace folder)
+
+**IMPORTANT: Before building or editing any email template, always read:**
+`/Desktop/email-templates/_design-system.md`
+
+This file contains every brand rule — colours, fonts, spacing, component patterns, and the full list of completed vs remaining templates. Never deviate from it.
+
+### Completed templates — all 16 done ✅
+| File | Template |
+|------|----------|
+| `01-weekly-newsletter.html` | Weekly general newsletter |
+| `02-property-alert.html` | Property alert (saved search match) |
+| `03-new-listings-digest.html` | New listings digest (3–8 properties) |
+| `04-welcome-1-what-cop-does.html` | Welcome 1 — What COP does |
+| `05-welcome-2-how-coownership-works.html` | Welcome 2 — How co-ownership works |
+| `06-welcome-3-handpicked-properties.html` | Welcome 3 — Handpicked properties |
+| `07-nurture-day3-soft-followup.html` | Post-enquiry nurture — Day 3 |
+| `08-nurture-day7-value-content.html` | Post-enquiry nurture — Day 7 (buyer checklist) |
+| `09-nurture-day14-final-nudge.html` | Post-enquiry nurture — Day 14 (final nudge) |
+| `10-vip-early-access.html` | VIP early access (pre-launch preview) |
+| `11-destination-market-report.html` | Destination market report (quarterly) |
+| `12-seasonal-spotlight.html` | Seasonal spotlight (ski Oct / Mediterranean Mar) |
+| `13-price-drop-alert.html` | Price drop alert |
+| `14-re-engagement.html` | Re-engagement (90-day cold leads) |
+| `15-curated-selection.html` | Curated selection (manual, 3 properties + notes) |
+| `16-post-purchase-owner-welcome.html` | Post-purchase owner welcome |
+
+### Brand colours (quick reference)
+- Navy: `#2C4A5E` — headers, buttons, stat band, footer
+- Gold: `#C9A84C` — accents, rules, badges, labels
+- Cream: `#F5F2EC` — email shell background
+- White: `#FFFFFF` — email body
+- Muted: `#6B8A9E` — secondary text
+
+### Fonts
+- Headings: Playfair Display (fallback: Georgia, serif)
+- Body: Nunito Sans (fallback: Arial, sans-serif)
+- No border-radius anywhere — all corners square
