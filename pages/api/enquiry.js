@@ -249,6 +249,7 @@ export default async function handler(req, res) {
     const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
 
     await queueEmail({
+      autoSend:      true,
       to:            email,
       toName:        name || null,
       subject:       `We received your enquiry${property ? ` — ${property}` : ''}`,
