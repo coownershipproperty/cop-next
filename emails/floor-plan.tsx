@@ -111,7 +111,7 @@ export default function FloorPlanEmail({
 
         {/* ── HERO IMAGE ── */}
         {propertyImg && (
-          <Section style={{ backgroundColor: C.white, paddingBottom: 0 }}>
+          <Section style={{ backgroundColor: C.white, textAlign: 'center' as const, lineHeight: 0, fontSize: 0 }}>
             <Img
               src={propertyImg}
               alt={propertyTitle}
@@ -253,10 +253,11 @@ const wrapBody: React.CSSProperties = {
 };
 
 const heroImg: React.CSSProperties = {
-  width: '100%',
-  maxWidth: 600,
+  width: '600px',
+  maxWidth: '100%',
   height: 'auto',
   display: 'block',
+  margin: '0 auto',
 };
 
 // Header
