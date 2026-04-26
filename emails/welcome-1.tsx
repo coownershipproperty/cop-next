@@ -33,7 +33,7 @@ const base = 'https://co-ownership-property.com';
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function Welcome1({
-  firstName = 'Richard',
+  firstName,
   unsubscribeUrl = '{{unsubscribe_url}}',
 }: Welcome1Props) {
   return (
@@ -44,7 +44,7 @@ export default function Welcome1({
         `}</style>
       </Head>
 
-      <Preview>Welcome — here's what Co-Ownership Property actually does.</Preview>
+      <Preview>Welcome — here's what to expect from us.</Preview>
 
       <Body style={body}>
 
@@ -64,31 +64,23 @@ export default function Welcome1({
             <Text style={eyebrow}>Welcome</Text>
 
             <Heading style={heroHeading}>
-              <em>Your window to Europe's finest co-ownership homes</em>
+              <em>{firstName ? `Welcome, ${firstName}` : 'Welcome to the newsletter'}</em>
             </Heading>
 
-            <Text style={bodyText}>Hi {firstName},</Text>
-
             <Text style={bodyText}>
-              Co-Ownership Property is an independent guide to the best fractional ownership homes available across Europe and beyond. We're not tied to any developer, agency, or sales platform — our only job is to help you find a home you'll love.
-            </Text>
-
-            <Text style={bodyText}>
-              We've listed over 333 properties across France, Spain, Italy, Portugal, the USA, and more, and we curate new additions every week. Whether you're at the research stage or ready to move quickly, you'll find a range of options here to suit different budgets, destinations, and share sizes.
-            </Text>
-
-            <Text style={bodyText}>Here's what to expect from us:</Text>
-
-            <Text style={listItem}>
-              <strong style={{ color: C.navy }}>Weekly handpicked property recommendations</strong> — a curated selection of what's caught our eye this week, from mountain chalets to coastal villas.
+              You're in. Here's what to expect from us:
             </Text>
 
             <Text style={listItem}>
-              <strong style={{ color: C.navy }}>Destination guides and market insights</strong> — honest, practical information on the places and properties we feature.
+              <strong style={{ color: C.navy }}>Weekly handpicked properties</strong> — a curated selection of what's caught our eye, from mountain chalets to coastal villas.
             </Text>
 
             <Text style={listItem}>
-              <strong style={{ color: C.navy }}>Honest, no-pressure advice when you're ready</strong> — reply to any of our emails and a real person will get back to you. No scripts, no sales pressure.
+              <strong style={{ color: C.navy }}>Destination guides &amp; market insights</strong> — honest, practical information on the places and properties we feature.
+            </Text>
+
+            <Text style={listItem}>
+              <strong style={{ color: C.navy }}>No sales pressure, ever</strong> — reply to any email and a real person will get back to you.
             </Text>
 
             <Hr style={goldRule} />
