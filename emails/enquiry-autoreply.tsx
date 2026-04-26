@@ -101,8 +101,8 @@ export default function EnquiryAutoreply({
             </Text>
             <Text style={introText}>
               {propertyTitle
-                ? "Thank you for your interest. We've received your enquiry and a member of our team will be in touch within a few hours."
-                : "Thank you for getting in touch. We've received your message and a member of our team will be in touch within a few hours."}
+                ? "Thank you for your interest. We've received your enquiry and will be in touch shortly."
+                : "Thank you for getting in touch. We've received your message and will be in touch shortly."}
             </Text>
           </Container>
         </Section>
