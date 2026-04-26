@@ -92,11 +92,10 @@ export default function ReEngagement({
         {/* ── HEADER ── */}
         <Section style={header}>
           <Container style={wrap}>
-            <Text style={headerLogo}>Co-Ownership Property</Text>
+            <Section style={goldRuleHeader} />
+            <Text style={wordmark}>Co-Ownership Property</Text>
+            <Section style={goldRuleHeader} />
           </Container>
-        </Section>
-        <Section style={goldStrip}>
-          <Text style={{ margin: 0, padding: 0, fontSize: 1, lineHeight: '3px' }}> </Text>
         </Section>
 
         {/* ── INTRO ── */}
@@ -212,13 +211,17 @@ export default function ReEngagement({
         <Section style={footer}>
           <Container style={wrap}>
             <Text style={footLogo}>Co-Ownership Property</Text>
+            <Section style={footGoldRule} />
             <Text style={footLinks}>
-              <Link href={`${base}/our-homes/`} style={footLink}>Properties</Link>{'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>{'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Our Blog</Link>{'  ·  '}
+              <Link href={`${base}/our-homes/`} style={footLink}>Properties</Link>
+              {' — '}
+              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
+              {' — '}
+              <Link href={`${base}/all-our-blog/`} style={footLink}>Our Blog</Link>
+              {' — '}
               <Link href={unsubscribeUrl} style={footLink}>Unsubscribe</Link>
             </Text>
-            <Hr style={{ borderColor: 'rgba(255,255,255,0.08)', margin: '20px 0' }} />
+            <Hr style={footDivider} />
             <Text style={footFine}>
               You're receiving this because you previously enquired about a co-ownership property.
             </Text>
@@ -248,24 +251,25 @@ const wrap: React.CSSProperties = {
 
 const header: React.CSSProperties = {
   backgroundColor: C.navy,
-  padding: '32px 0 28px',
+  padding: '52px 0 44px',
 };
 
-const headerLogo: React.CSSProperties = {
+const wordmark: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: C.white,
   fontSize: 26,
-  fontWeight: 700,
-  letterSpacing: '0.04em',
+  fontWeight: 300,
+  letterSpacing: '0.24em',
+  textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  margin: 0,
+  margin: '20px 0',
 };
 
-const goldStrip: React.CSSProperties = {
+const goldRuleHeader: React.CSSProperties = {
   backgroundColor: C.gold,
-  height: 3,
-  lineHeight: '3px',
-  fontSize: 1,
+  height: 1,
+  maxWidth: 56,
+  margin: '0 auto',
 };
 
 const mainHeading: React.CSSProperties = {
@@ -460,40 +464,56 @@ const signOffSite: React.CSSProperties = {
 // Footer
 const footer: React.CSSProperties = {
   backgroundColor: C.navy,
-  padding: '40px 0 36px',
-  borderTop: `1px solid ${C.gold}`,
+  padding: '56px 0 48px',
+  borderTop: `2px solid ${C.gold}`,
 };
 
 const footLogo: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: C.white,
-  fontSize: 17,
+  fontSize: 22,
   fontWeight: 300,
-  letterSpacing: '0.16em',
+  letterSpacing: '0.22em',
   textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  margin: '0 0 14px',
+  margin: '0 0 20px',
+};
+
+const footGoldRule: React.CSSProperties = {
+  backgroundColor: C.gold,
+  height: 1,
+  maxWidth: 40,
+  margin: '0 auto 28px',
 };
 
 const footLinks: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  fontWeight: 400,
+  fontSize: 11,
+  fontWeight: 300,
+  letterSpacing: '0.12em',
+  textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  margin: 0,
+  margin: '0 0 4px',
+  color: 'rgba(255,255,255,0.5)',
 };
 
 const footLink: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.45)',
+  color: 'rgba(255,255,255,0.5)',
   textDecoration: 'none',
+};
+
+const footDivider: React.CSSProperties = {
+  borderColor: 'rgba(255,255,255,0.08)',
+  margin: '28px 0',
 };
 
 const footFine: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.25)',
-  fontSize: 13,
+  color: 'rgba(255,255,255,0.3)',
+  fontSize: 12,
   fontWeight: 300,
   textAlign: 'center' as const,
-  margin: '4px 0 0',
-  lineHeight: '1.7',
+  margin: '6px 0 0',
+  lineHeight: '1.8',
+  letterSpacing: '0.04em',
 };
