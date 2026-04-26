@@ -795,4 +795,16 @@ nextConfig.redirects = async () => [
 
 ];
 
+// CORS for CRM dashboard — set at edge so OPTIONS preflight is handled before auth
+nextConfig.headers = async () => [
+  {
+    source: '/api/email-queue/',
+    headers: [
+      { key: 'Access-Control-Allow-Origin',  value: 'https://cop-crm.vercel.app' },
+      { key: 'Access-Control-Allow-Methods', value: 'POST, OPTIONS' },
+      { key: 'Access-Control-Allow-Headers', value: 'Authorization, Content-Type' },
+    ],
+  },
+];
+
 module.exports = nextConfig;
