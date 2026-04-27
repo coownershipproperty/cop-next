@@ -186,10 +186,20 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
 
       <Header />
 
-      {/* ── Hero ── */}
-      <div className="blog-hero-wrap">
-        <div className="blog-hero">
-          {post.heroImage && (
+      {/* ── Blog Header ── */}
+      <div className="bh-header">
+        <div className="bh-header-inner">
+          {post.category && <p className="bh-cat">{post.category}</p>}
+          <h1 className="bh-title">{post.title}</h1>
+          {post.subtitle && <p className="bh-sub">{post.subtitle}</p>}
+          {post.dateFormatted && <p className="bh-date">{post.dateFormatted}</p>}
+        </div>
+      </div>
+
+      {/* ── Hero Image ── */}
+      {post.heroImage && (
+        <div className="bh-image-wrap">
+          <div className="bh-image">
             <Image
               src={post.heroImage}
               alt={post.title}
@@ -198,17 +208,9 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
               sizes="(max-width: 768px) 100vw, 1200px"
               style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
-          )}
-          <div className="blog-hero-overlay">
-            <div className="blog-hero-inner">
-              <p className="blog-hero-cat">{post.category}</p>
-              <h1 className="blog-hero-title">{post.title}</h1>
-              {post.subtitle && <p className="blog-hero-sub">{post.subtitle}</p>}
-              <p className="blog-hero-meta">{post.dateFormatted}</p>
-            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* ── Content + Sidebar ── */}
       <div className="blog-layout">
