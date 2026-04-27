@@ -2114,7 +2114,7 @@ function renderNlDetail(campaign, sends) {
       const sColor = s.status === 'sent' ? '#16a34a' : s.status === 'failed' ? '#dc2626' : '#d97706';
       const pCount = (s.primary_slugs || []).length;
       const fCount = (s.fallback_slugs || []).length;
-      return '<div style="padding:10px 12px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px;background:var(--card);cursor:pointer" onclick="selectNlRecipient(' + i + ')" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">'
+      return '<div style="padding:10px 12px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px;background:var(--card);cursor:pointer;transition:border-color .15s" onclick="selectNlRecipient(' + i + ')">'
         + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'
         + '<span style="font-size:12px;font-weight:600">' + esc(s.email) + '</span>'
         + '<span style="font-size:10px;font-weight:700;color:' + sColor + ';text-transform:uppercase">' + esc(s.status) + '</span>'
