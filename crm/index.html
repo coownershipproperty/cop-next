@@ -2137,7 +2137,7 @@ async function prepareNewsletter() {
   const btn = document.querySelector('[onclick="prepareNewsletter()"]');
   btn.disabled = true; btn.textContent = 'Preparing…';
   try {
-    const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/prepare', {
+    const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/prepare/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
       body: JSON.stringify({ name: name.trim() }),
@@ -2160,7 +2160,7 @@ async function sendNewsletter() {
   const msg = document.getElementById('nl-action-msg');
   btn.disabled = true; btn.textContent = 'Sending…'; msg.textContent = '';
   try {
-    const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/send', {
+    const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/send/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
       body: JSON.stringify({ campaignId: nlActiveCampaignId }),
