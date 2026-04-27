@@ -121,7 +121,7 @@ export default async function handler(req, res) {
     const db = getDb();
     const { data: prop } = await db
       .from('properties')
-      .select('city, price, img, country, region, partner')
+      .select('city, price, img, country, region, partner, photos')
       .eq('slug', propertySlug)
       .single();
     propertyCity    = prop?.city    || null;
@@ -172,6 +172,15 @@ export default async function handler(req, res) {
     console.error('[CRM] unlock-drive write failed:', e.message);
   }
 
+  // ── Generate gallery URL ──────────────────────────────────────────────────
+  const galleryToken = Buffer.from(JSON.stringify({
+    n: name  || '',
+    e: email,
+    s: propertySlug   || '',
+    t: propertyTitle  || '',
+  })).toString('base64url');
+  const galleryUrl = `https://co-ownership-property.com/gallery/${galleryToken}`;
+
   // ── Fetch similar properties for email ────────────────────────────────────
   const rawSimilar = await getSimilarProperties(propertySlug, resolvedCountry, propertyCity, propertyPrice);
 
@@ -192,7 +201,7 @@ export default async function handler(req, res) {
   try {
     const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
 
-    // Send floor plan email immediately — no approval needed
+    // Send floor plan email — gallery URL replaces raw Drive link as primary CTA
     await queueEmail({
       autoSend:      true,
       to:            email,
@@ -202,13 +211,13 @@ export default async function handler(req, res) {
         firstName:         firstName     || name || undefined,
         propertyTitle:     propertyTitle || undefined,
         propertyImg:       propertyImg   || undefined,
-        driveUrl:          driveUrl,
+        driveUrl:          galleryUrl,           // ← gallery page, not raw Drive
         propertyUrl:       propertyUrl   || undefined,
-        similarProperties: similarProperties, // always pass array (empty = no section shown)
+        similarProperties: similarProperties,
         trackingPixelHtml: pixel         || undefined,
       }),
       templateName:  'floor-plan',
-      templateProps: { firstName, propertyTitle, driveUrl, propertyUrl },
+      templateProps: { firstName, propertyTitle, driveUrl: galleryUrl, propertyUrl },
       trigger:       'floor_plan_requested',
       notes:         `Floor plan unlock for ${propertyTitle}`,
       contactId:     contact?.id || null,
