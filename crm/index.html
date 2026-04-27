@@ -2038,7 +2038,6 @@ if(sessionStorage.getItem('cop-auth')==='1') init();
 
 // ─── Newsletters ──────────────────────────────────────────
 let nlActiveCampaignId = null;
-let nlSendsCache = [];
 
 async function loadNewsletters() {
   document.getElementById('nl-list-title').textContent = 'Campaigns';
@@ -2109,19 +2108,17 @@ function renderNlDetail(campaign, sends) {
     html += '<div class="queue-empty">No sends in this campaign.</div>';
   } else {
     html += '<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)">Recipients (' + sends.length + ')</div>';
-    nlSendsCache = sends;
-    html += sends.map((s, i) => {
+    html += sends.map(s => {
       const sColor = s.status === 'sent' ? '#16a34a' : s.status === 'failed' ? '#dc2626' : '#d97706';
       const pCount = (s.primary_slugs || []).length;
       const fCount = (s.fallback_slugs || []).length;
-      return '<div style="padding:10px 12px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px;background:var(--card);cursor:pointer;transition:border-color .15s" onclick="selectNlRecipient(' + i + ')">'
+      return '<div style="padding:10px 12px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px;background:var(--card)">'
         + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'
         + '<span style="font-size:12px;font-weight:600">' + esc(s.email) + '</span>'
         + '<span style="font-size:10px;font-weight:700;color:' + sColor + ';text-transform:uppercase">' + esc(s.status) + '</span>'
         + '</div>'
         + '<div style="font-size:11px;color:var(--text3)">' + pCount + ' primary' + (fCount ? ' + ' + fCount + ' fallback' : '') + ' properties'
-        + (s.error ? ' <span style="color:#dc2626">· Error: ' + esc(s.error) + '</span>' : '')
-        + ' <span style="color:var(--gold)">→ preview</span></div></div>';
+        + (s.error ? ' <span style="color:#dc2626">· Error: ' + esc(s.error) + '</span>' : '') + '</div></div>';
     }).join('');
   }
   document.getElementById('nl-preview-body').innerHTML = html;
@@ -2154,54 +2151,6 @@ async function prepareNewsletter() {
   } finally {
     btn.disabled = false; btn.textContent = '+ Prepare Campaign';
   }
-}
-
-async function selectNlRecipient(i) {
-  const s = nlSendsCache[i];
-  if (!s) return;
-  const primarySlugs = s.primary_slugs || [];
-  const fallbackSlugs = s.fallback_slugs || [];
-  const allSlugs = [...new Set([...primarySlugs, ...fallbackSlugs])];
-  document.getElementById('nl-preview-body').innerHTML = '<div style="padding:20px;color:var(--text3)">Loading properties…</div>';
-  document.getElementById('nl-actions').style.display = 'none';
-  let props = {};
-  if (allSlugs.length) {
-    const { data } = await db.from('properties')
-      .select('id, title, slug, region, subregion, price, currency, images, shares_total, shares_available')
-      .in('slug', allSlugs);
-    (data || []).forEach(p => { props[p.slug] = p; });
-  }
-  const sym = { EUR: '€', GBP: '£', USD: '$', CHF: 'CHF ' };
-  const card = (p) => {
-    if (!p) return '';
-    const img = p.images && p.images.length ? p.images[0] : '';
-    const price = p.price ? (sym[p.currency] || '') + Number(p.price).toLocaleString('en-GB') : 'POA';
-    const loc = [p.region, p.subregion].filter(Boolean).join(' · ');
-    return '<div style="display:flex;gap:10px;padding:10px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px;background:var(--card)">'
-      + (img ? '<img src="' + img + '" style="width:90px;height:65px;object-fit:cover;border-radius:5px;flex-shrink:0" onerror="this.style.display='none'">' : '<div style="width:90px;height:65px;background:var(--bg);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px">🏡</div>')
-      + '<div style="flex:1;min-width:0">'
-      + '<div style="font-size:12px;font-weight:600;margin-bottom:3px;line-height:1.3">' + esc(p.title || p.slug) + '</div>'
-      + '<div style="font-size:11px;color:var(--text3)">' + esc(loc) + '</div>'
-      + '<div style="font-size:12px;color:var(--gold);font-weight:700;margin-top:3px">' + price + '</div>'
-      + '</div></div>';
-  };
-  let html = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)">'
-    + '<button onclick="selectNlCampaign(nlActiveCampaignId)" style="background:none;border:1px solid var(--border);border-radius:5px;cursor:pointer;font-size:12px;color:var(--text2);padding:4px 8px">← Back</button>'
-    + '<div><div style="font-size:13px;font-weight:600">' + esc(s.email) + '</div>'
-    + '<div style="font-size:11px;color:var(--text3)">' + primarySlugs.length + ' primary · ' + fallbackSlugs.length + ' “You Might Also Like”</div></div>'
-    + '</div>';
-  if (primarySlugs.length) {
-    html += '<div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">Primary matches</div>';
-    html += primarySlugs.map(slug => card(props[slug])).join('');
-  }
-  if (fallbackSlugs.length) {
-    html += '<div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 10px">You Might Also Like</div>';
-    html += fallbackSlugs.map(slug => card(props[slug])).join('');
-  }
-  if (!primarySlugs.length && !fallbackSlugs.length) {
-    html += '<div style="color:var(--text3);font-size:12px;padding:20px 0">No properties matched for this lead.</div>';
-  }
-  document.getElementById('nl-preview-body').innerHTML = html;
 }
 
 async function sendNewsletter() {
