@@ -6458,32 +6458,32 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Luxury article body elements ── */
 .blog-article h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 600;
   color: var(--navy);
-  margin: 48px 0 16px;
+  margin: 52px 0 18px;
   line-height: 1.3;
 }
 .blog-article h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   color: var(--navy);
-  margin: 36px 0 12px;
+  margin: 40px 0 14px;
 }
 .blog-article p {
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.9;
+  font-size: 17px;
+  line-height: 1.95;
   color: #4A6070;
-  margin: 0 0 1.4em;
+  margin: 0 0 1.5em;
 }
 .blog-article blockquote {
   border-left: 3px solid var(--gold);
-  margin: 36px 0;
-  padding: 14px 24px;
+  margin: 40px 0;
+  padding: 16px 28px;
   font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  font-size: 20px;
   font-style: italic;
   color: var(--navy);
   background: var(--cream-light);
@@ -6491,16 +6491,16 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 
 /* Opening lead paragraph with drop cap */
 .art-lead {
-  font-size: 17px !important;
-  line-height: 1.9 !important;
+  font-size: 19px !important;
+  line-height: 1.95 !important;
   color: #3d5a6e !important;
 }
 .art-lead::first-letter {
   float: left;
   font-family: 'Playfair Display', serif;
-  font-size: 68px;
+  font-size: 76px;
   line-height: 0.82;
-  padding-right: 12px;
+  padding-right: 14px;
   padding-top: 8px;
   color: var(--navy);
   font-weight: 700;
@@ -6509,14 +6509,14 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* Centred pull quote */
 .art-pull {
   text-align: center;
-  padding: 36px 24px;
+  padding: 40px 24px;
   border-top: 1px solid rgba(201,168,76,0.4);
   border-bottom: 1px solid rgba(201,168,76,0.4);
-  margin: 52px 0;
+  margin: 56px 0;
 }
 .art-pull p {
   font-family: 'Playfair Display', serif !important;
-  font-size: 21px !important;
+  font-size: 23px !important;
   font-style: italic;
   color: var(--navy) !important;
   line-height: 1.65 !important;
@@ -6648,11 +6648,11 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   margin: 0;
 }
 
-/* ── Blog Layout (article + sidebar) ── */
+/* ── Blog Layout (article only — no sidebar) ── */
 .blog-layout {
-  max-width: 1240px;
+  max-width: 780px;
   margin: 0 auto;
-  padding: 52px 32px 80px;
+  padding: 56px 32px 100px;
   display: flex;
   gap: 52px;
   align-items: flex-start;
@@ -6919,19 +6919,21 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .bh-header { padding: 90px 20px 36px; }
   .bh-image-wrap { padding: 0 16px; }
   .bh-image { height: 300px; }
-  .blog-layout { flex-direction: column; padding: 28px 20px 60px; gap: 40px; }
-  .blog-sidebar { display: none; }
-  .bsb-sticky-cta { position: static; }
+  .blog-layout { padding: 36px 24px 80px; }
   .art-prop-cta { flex-direction: column; text-align: center; gap: 16px; }
   .art-author { flex-direction: column; gap: 14px; }
-  .art-pull p { font-size: 18px !important; }
+  .art-pull p { font-size: 20px !important; }
+  .blog-article p { font-size: 16px; }
+  .blog-article h2 { font-size: 26px; }
 }
 @media (max-width: 600px) {
   .bh-header { padding: 80px 16px 28px; }
   .bh-title { font-size: 26px; }
   .bh-image { height: 220px; }
   .bh-image-wrap { padding: 0 12px; }
-  .blog-layout { padding: 20px 16px 48px; }
+  .blog-layout { padding: 28px 20px 60px; }
+  .blog-article p { font-size: 15px; }
+  .blog-article h2 { font-size: 22px; }
 }
 
 /* ── Blog inline two-column blocks: stack on mobile ── */

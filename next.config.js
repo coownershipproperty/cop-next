@@ -10,6 +10,8 @@ const nextConfig = {
       // Fallback: any remaining external images not yet migrated
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
       { protocol: 'https', hostname: 'a.storyblok.com' },
+      // Blog hero images from Unsplash
+      { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
   },
 };

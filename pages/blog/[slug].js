@@ -64,20 +64,8 @@ export async function getStaticProps({ params }) {
         slug: p.slug, title: p.title, category: p.category,
         dateFormatted: p.dateFormatted, heroImage: p.heroImage,
       }));
-      const supabase = getSupabase();
-      const { data: propRows } = await supabase
-        .from('properties').select('slug, title, img, price, currency, country, region')
-        .not('img', 'is', null).limit(40);
-      const sideProps = [...(propRows || [])].sort(() => 0.5 - Math.random()).slice(0, 4).map(p => ({
-        slug: p.slug, title: p.title, img: p.img, price: p.price,
-        currency: p.currency, country: p.country, region: p.region,
-      }));
       return {
-        props: {
-          post: { ...jsonPost, content },
-          latestPosts,
-          sideProps,
-        },
+        props: { post: { ...jsonPost, content }, latestPosts },
         revalidate: 3600,
       };
     } catch (_) { return { notFound: true }; }
@@ -116,37 +104,10 @@ export async function getStaticProps({ params }) {
     dateFormatted: p.date_formatted, heroImage: p.hero_image,
   }));
 
-  // 4 featured sidebar properties
-  const { data: propRows } = await supabase
-    .from('properties')
-    .select('slug, title, img, price, currency, country, region')
-    .not('img', 'is', null)
-    .limit(40);
-
-  const sideProps = [...(propRows || [])].sort(() => 0.5 - Math.random()).slice(0, 4).map(p => ({
-    slug: p.slug, title: p.title, img: p.img, price: p.price,
-    currency: p.currency, country: p.country, region: p.region,
-  }));
-
-  return { props: { post, latestPosts, sideProps }, revalidate: 3600 };
+  return { props: { post, latestPosts }, revalidate: 3600 };
 }
 
-const SYM = { EUR: '€', USD: '$', GBP: '£' };
-
-const DEST_LINKS = [
-  ['French Alps Properties', '/french-alps-fractional-ownership-properties/'],
-  ['Colorado Properties', '/colorado-fractional-ownership-properties/'],
-  ['Costa del Sol Properties', '/costa-del-sol-fractional-ownership-properties/'],
-  ['Balearic Islands Properties', '/balearics-fractional-ownership-properties/'],
-  ['Italian Lakes Properties', '/italian-lakes-fractional-ownership-properties/'],
-  ['South of France Properties', '/south-of-france-fractional-ownership-properties/'],
-  ['Florida Properties', '/florida-fractional-ownership-properties/'],
-  ['Portugal Properties', '/portugal-fractional-ownership-properties/'],
-  ['Spanish Costas Properties', '/costa-del-sol-fractional-ownership-properties/'],
-  ['Pyrenees Properties', '/french-alps-fractional-ownership-properties/'],
-];
-
-export default function BlogPost({ post, latestPosts, sideProps }) {
+export default function BlogPost({ post, latestPosts }) {
   const canonicalUrl = `https://co-ownership-property.com/blog/${post.slug}/`;
 
   return (
@@ -212,64 +173,12 @@ export default function BlogPost({ post, latestPosts, sideProps }) {
         </div>
       )}
 
-      {/* ── Content + Sidebar ── */}
+      {/* ── Article ── */}
       <div className="blog-layout">
-        {/* Article */}
         <article
           className="blog-article"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
-
-        {/* Sidebar */}
-        <aside className="blog-sidebar">
-
-          {/* Featured Properties */}
-          <div className="bsb-section">
-            <p className="bsb-heading">Featured Properties</p>
-            {sideProps.map(p => (
-              <a key={p.slug} href={`/property/${p.slug}`} className="bsb-prop-card">
-                <span className="bsb-prop-img" style={{ backgroundImage: `url('${p.img}')` }} />
-                <span className="bsb-prop-body">
-                  <span className="bsb-prop-title">{p.title}</span>
-                  <span className="bsb-prop-price">
-                    {p.price ? `${SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}` : p.region}
-                  </span>
-                </span>
-              </a>
-            ))}
-            <a href="/our-homes/" className="bsb-view-all">View All Properties →</a>
-          </div>
-
-          {/* Destinations */}
-          <div className="bsb-section">
-            <p className="bsb-heading">Popular Destinations</p>
-            {DEST_LINKS.map(([name, href]) => (
-              <a key={name} href={href} className="bsb-dest-link">{name}</a>
-            ))}
-          </div>
-
-          {/* Latest Posts */}
-          <div className="bsb-section">
-            <p className="bsb-heading">Latest From Our Blog</p>
-            {latestPosts.map(p => (
-              <a key={p.slug} href={`/blog/${p.slug}`} className="bsb-blog-link">
-                {p.title}
-              </a>
-            ))}
-          </div>
-
-          {/* Sticky CTA */}
-          <div className="bsb-sticky-cta">
-            <div className="bsb-cta">
-              <p className="bsb-cta-eyebrow">Get in Touch</p>
-              <p className="bsb-cta-title">Speak to an <em>expert</em></p>
-              <p className="bsb-cta-sub">Our co-ownership specialists match buyers to properties across Europe and the USA.</p>
-              <a href="#speak-to-expert" className="bsb-cta-btn">Book Free Consultation</a>
-              <p className="bsb-cta-note">No obligation · Response within 24h</p>
-            </div>
-          </div>
-
-        </aside>
       </div>
 
       {/* Breadcrumb back */}
