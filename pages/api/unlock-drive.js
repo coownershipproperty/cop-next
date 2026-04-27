@@ -3,6 +3,7 @@ import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel,
 import { checkRateLimit } from '@/lib/rateLimit';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
 import FloorPlanEmail from '@/emails/floor-plan';
+import NurtureFloorPlan from '@/emails/nurture-floor-plan';
 import * as React from 'react';
 
 function getDb() {
@@ -220,6 +221,36 @@ export default async function handler(req, res) {
         description: `Floor plan email queued for ${email}`,
         metadata:  { email_send_id: emailSend.id },
       });
+    }
+
+    // ── Nurture follow-up — 24h after floor plan request ─────────────────────
+    try {
+      const sendAfter = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+      const locationLabel = [propertyRegion, resolvedCountry].filter(Boolean).join(', ');
+      const unsubUrl = `https://co-ownership-property.com/unsubscribe/?email=${encodeURIComponent(email)}`;
+      await queueEmail({
+        autoSend:     true,
+        sendAfter,
+        to:           email,
+        toName:       name || null,
+        subject:      `Still thinking about ${propertyTitle}?`,
+        template:     React.createElement(NurtureFloorPlan, {
+          firstName:     firstName     || name || undefined,
+          propertyTitle: propertyTitle || undefined,
+          propertyImg:   propertyImg   || undefined,
+          propertyUrl:   propertyUrl   || undefined,
+          location:      locationLabel || undefined,
+          unsubscribeUrl: unsubUrl,
+        }),
+        templateName:  'nurture-floor-plan',
+        templateProps: { firstName, propertyTitle, propertyUrl, location: locationLabel },
+        trigger:       'floor_plan_nurture',
+        notes:         `Floor plan follow-up — 24h after request for ${propertyTitle}`,
+        contactId:     contact?.id || null,
+        sequenceType:  'floor-plan-nurture',
+      });
+    } catch (e) {
+      console.error('[Mail] nurture-floor-plan queue failed:', e.message);
     }
 
     // Team notification (always immediate)
