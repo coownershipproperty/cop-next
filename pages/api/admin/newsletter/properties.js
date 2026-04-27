@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   const db = getDb();
   const { data, error } = await db
     .from('properties')
-    .select('id, title, slug, region, subregion, price, currency, img')
+    .select('id, title, slug, region, city, price, currency, img')
     .in('slug', slugs.slice(0, 12));
 
   if (error) return res.status(500).json({ error: error.message });
