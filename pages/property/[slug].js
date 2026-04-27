@@ -140,7 +140,7 @@ export default function PropertyPage({ property: p, similar }) {
   const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.images[0] || '/images/placeholder.jpg';
   const totalImgs = p.total_images || p.images.length;
-  const missingCount = totalImgs > 3 ? totalImgs - 3 : '';
+    const missingCount = totalImgs || '';
   const descParas = p.description ? p.description.split('\n').filter(Boolean) : [];
   const descVisible = descExpanded ? descParas : descParas.slice(0, 2);
   const descHasMore = descParas.length > 2;
