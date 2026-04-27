@@ -2159,7 +2159,7 @@ async function selectNlRecipient(i) {
     if (!p) return '';
     const img = p.img || (p.images && p.images.length ? p.images[0] : '');
     const price = p.price ? (sym[p.currency] || '') + Number(p.price).toLocaleString('en-GB') : 'POA';
-    const loc = [p.region, p.subregion].filter(Boolean).join(' · ');
+    const loc = [p.region, p.city].filter(Boolean).join(' · ');
     const imgEl = img
       ? '<img src="' + img + '" style="width:90px;height:65px;object-fit:cover;border-radius:5px;flex-shrink:0">'
       : '<div style="width:90px;height:65px;background:var(--bg);border-radius:5px;flex-shrink:0"></div>';
