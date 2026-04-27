@@ -805,6 +805,14 @@ nextConfig.headers = async () => [
       { key: 'Access-Control-Allow-Headers', value: 'Authorization, Content-Type' },
     ],
   },
+  {
+    source: '/api/admin/newsletter/:path*',
+    headers: [
+      { key: 'Access-Control-Allow-Origin',  value: 'https://cop-crm.vercel.app' },
+      { key: 'Access-Control-Allow-Methods', value: 'POST, OPTIONS' },
+      { key: 'Access-Control-Allow-Headers', value: 'Authorization, Content-Type' },
+    ],
+  },
 ];
 
 module.exports = nextConfig;
