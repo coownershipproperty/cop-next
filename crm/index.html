@@ -667,6 +667,42 @@ function ini(n){if(!n)return'?';const p=n.trim().split(' ');return(p[0][0]+(p[1]
 function fmt(d){if(!d)return'';return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
 function daysAgo(d){return Math.floor((Date.now()-new Date(d))/86400000);}
 function badge(status){return `<span class="badge ${STATUS_CLASS[status]||''}">${STATUS_LABELS[status]||status}</span>`;}
+function regionToCountry(region){
+  if(!region) return '';
+  const MAP={
+    'French Alps':'France','Portes du Soleil':'France',"Côte d'Azur":'France','Paris':'France',
+    'Burgundy':'France','Provence':'France','Loire Valley':'France','Normandy':'France',
+    'Brittany':'France','Bordeaux':'France','Languedoc':'France',
+    'Ibiza':'Spain','Mallorca':'Spain','Menorca':'Spain','Formentera':'Spain',
+    'Costa del Sol':'Spain','Costa Blanca':'Spain','Costa Brava':'Spain',
+    'Canary Islands':'Spain','Pyrenees':'Spain','Barcelona':'Spain','Madrid':'Spain',
+    'Valencia':'Spain','Marbella':'Spain','Sotogrande':'Spain','Lanzarote':'Spain',
+    'Estepona':'Spain','Alicante':'Spain',
+    'Tuscany':'Italy','Liguria':'Italy','Italian Lakes':'Italy','Amalfi Coast':'Italy',
+    'Sardinia':'Italy','Sicily':'Italy','Umbria':'Italy','Piedmont':'Italy',
+    'Florence':'Italy','Venice':'Italy','Rome':'Italy','Milan':'Italy',
+    'Florida':'USA','California':'USA','New York':'USA','Texas':'USA',
+    'Hawaii':'USA','Colorado':'USA','Utah':'USA','Miami':'USA',
+    'Park City':'USA','Malibu':'USA','Santa Barbara':'USA',
+    'Algarve':'Portugal','Lisbon':'Portugal','Porto':'Portugal',
+    'Madeira':'Portugal','Alentejo':'Portugal',
+    'Vorarlberg':'Austria','Tyrol':'Austria','Salzburg':'Austria',
+    'Vienna':'Austria','Kitzbühel':'Austria',
+    'Istria':'Croatia','Dalmatia':'Croatia','Dubrovnik':'Croatia','Split':'Croatia',
+    'Bavaria':'Germany','Berlin':'Germany','Munich':'Germany','Baltic Sea':'Germany',
+    'Swiss Alps':'Switzerland','Geneva':'Switzerland','Zurich':'Switzerland',
+    'Verbier':'Switzerland','Zermatt':'Switzerland','Gstaad':'Switzerland',
+    'Santorini':'Greece','Mykonos':'Greece','Athens':'Greece','Crete':'Greece',
+    'London':'UK','Cotswolds':'UK','Cornwall':'UK','Scotland':'UK',
+    'Tokyo':'Japan','Kyoto':'Japan','Hokkaido':'Japan',
+    'Phuket':'Thailand','Koh Samui':'Thailand','Bangkok':'Thailand',
+    'Riviera Maya':'Mexico','Los Cabos':'Mexico','Puerto Vallarta':'Mexico',
+    'Dubai':'UAE',
+  };
+  const parts = region.split(';').map(r=>r.trim()).filter(Boolean);
+  const countries = [...new Set(parts.map(r=>MAP[r]||'').filter(Boolean))];
+  return countries.join('; ');
+}
 
 // ─── Router ───────────────────────────────────────────────
 function showView(view) {
@@ -973,7 +1009,7 @@ function filterLeads() {
       <td>${badge(l.status)}</td>
       <td>${esc(l.main_region||'')}</td>
       <td class="lt-muted">${esc(l.subregion||'—')}</td>
-      <td class="lt-muted">${esc(l.country||'—')}</td>
+      <td class="lt-muted">${esc(regionToCountry(l.main_region)||l.country||'—')}</td>
       <td>${l.budget_min?'€'+Number(l.budget_min).toLocaleString():'<span class="lt-muted">—</span>'}</td>
       <td class="lt-muted">${esc(l.timeframe||'—')}</td>
       <td class="lt-muted">${esc(l.source||'—')}</td>
@@ -1078,11 +1114,11 @@ async function selectLead(lid, cid) {
       </div>`:''}
       <div class="ld-grid">
         <div class="ld-field"><label>Property</label><span>${esc(lead?.property_title||'—')}</span></div>
-        <div class="ld-field"><label>Region</label><span>${esc(lead?.main_region||lead?.subregion||'—')}</span></div>
+        <div class="ld-field"><label>Region</label><span>${esc(lead?.main_region||'—')}${lead?.subregion&&lead.subregion!==lead.main_region?`<span style="color:var(--text3);font-size:12px;margin-left:6px">(${esc(lead.subregion)})</span>`:''}</span></div>
         <div class="ld-field"><label>Budget</label><span>${lead?.budget_min?'€'+Number(lead.budget_min).toLocaleString():'—'}</span></div>
         <div class="ld-field"><label>Timeframe</label><span>${esc(lead?.timeframe||'—')}</span></div>
         <div class="ld-field"><label>Phone</label><span>${lead?.phone?`<a href="tel:${esc(lead.phone)}" style="color:var(--text)">${esc(lead.phone)}</a>`:'—'}</span></div>
-        <div class="ld-field"><label>Country</label><span>${esc(lead?.country||'—')}</span></div>
+        <div class="ld-field"><label>Country</label><span>${esc(regionToCountry(lead?.main_region)||lead?.country||'—')}</span></div>
         <div class="ld-field"><label>Source</label><span>${esc(lead?.source||'—')}</span></div>
         <div class="ld-field"><label>Emails sent / opens</label><span>${lead?.emails_sent??0} / ${lead?.total_opens??0}</span></div>
         ${lead?.message?`<div class="ld-message">"${esc(lead.message)}"</div>`:''}
