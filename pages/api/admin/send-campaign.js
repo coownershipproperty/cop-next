@@ -3,7 +3,7 @@
  * Bulk-approves and sends all pending emails for a given campaign (sequenceType).
  * Called from the CRM when the operator clicks "Send Campaign".
  *
- * Authorization: Bearer <CRON_SECRET>
+ * Authorization: Bearer <CRM_SECRET>
  *
  * Body (JSON):
  *   campaignId — the sequenceType value (e.g. 'new-listings-2026-04-27')
@@ -14,6 +14,7 @@ import { Resend } from 'resend';
 import { FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const BATCH_SIZE = 100; // Resend batch limit
 
 function getDb() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -21,6 +22,12 @@ function getDb() {
 }
 
 export default async function handler(req, res) {
+  // CORS — allow the CRM dashboard
+  res.setHeader('Access-Control-Allow-Origin', 'https://cop-crm.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
   if (req.method !== 'POST') return res.status(405).end();
 
   const auth   = req.headers['authorization'] || '';
@@ -52,28 +59,35 @@ export default async function handler(req, res) {
   let failed = 0;
   const now = new Date().toISOString();
 
-  for (const row of rows) {
+  // Send in batches of BATCH_SIZE via Resend batch API
+  for (let i = 0; i < rows.length; i += BATCH_SIZE) {
+    const batch = rows.slice(i, i + BATCH_SIZE);
+
+    const batchPayload = batch.map(row => ({
+      from:     FROM_ADDRESS,
+      to:       [row.to_email],
+      subject:  row.subject,
+      html:     row.html,
+      reply_to: REPLY_TO,
+    }));
+
     try {
-      const { error: sendErr } = await resend.emails.send({
-        from:    FROM_ADDRESS,
-        to:      [row.to_email],
-        subject: row.subject,
-        html:    row.html,
-        replyTo: REPLY_TO,
-      });
+      const { data: batchResult, error: batchErr } = await resend.batch.send(batchPayload);
 
-      if (sendErr) throw new Error(sendErr.message);
+      if (batchErr) throw new Error(batchErr.message || JSON.stringify(batchErr));
 
+      // Mark all emails in this batch as sent
+      const ids = batch.map(r => r.id);
       await db.from('email_queue').update({
         status:      'sent',
         sent_at:     now,
         approved_at: now,
-      }).eq('id', row.id);
+      }).in('id', ids);
 
-      sent++;
+      sent += batch.length;
     } catch (e) {
-      console.error(`[Campaign] send failed for ${row.to_email}:`, e.message);
-      failed++;
+      console.error(`[Campaign] batch ${i}–${i + BATCH_SIZE} failed:`, e.message);
+      failed += batch.length;
     }
   }
 
