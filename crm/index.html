@@ -326,6 +326,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       Scheduled
       <span class="nav-badge" id="badge-scheduled" style="display:none;background:#2563eb;color:#fff">0</span>
     </div>
+    <div class="nav-item" onclick="showView('newsletters')" id="nav-newsletters">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Newsletters
+    </div>
     <div class="sidebar-footer">
       <span class="live-dot"></span>Live data
       <div id="gmail-sidebar-bar" class="gmail-bar gmail-bar-disconnected" style="margin-top:10px">
@@ -566,6 +570,43 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         </div>
       </div>
     </div>
+
+    <!-- Newsletters -->
+    <div id="view-newsletters" style="display:none">
+      <div class="page-header" style="padding-bottom:12px">
+        <div>
+          <div class="page-title">Newsletters</div>
+          <div class="page-sub">Personalised property campaigns sent to leads</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="prepareNewsletter()">+ Prepare Campaign</button>
+          <button class="btn" onclick="loadNewsletters()">↻ Refresh</button>
+        </div>
+      </div>
+      <div class="queue-layout">
+        <div class="queue-list-pane">
+          <div class="queue-pane-header">
+            <span class="queue-pane-title" id="nl-list-title">Campaigns</span>
+          </div>
+          <div id="nl-list-body"><div class="queue-empty" style="margin-top:40px">Loading…</div></div>
+        </div>
+        <div class="queue-preview-pane" id="nl-preview-pane">
+          <div class="queue-pane-header">
+            <span class="queue-pane-title">Campaign Detail</span>
+          </div>
+          <div class="queue-preview-body" id="nl-preview-body">
+            <div class="queue-empty" style="margin-top:60px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="opacity:0.3;margin-bottom:10px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <div>Select a campaign to preview</div>
+            </div>
+          </div>
+          <div class="queue-actions" id="nl-actions" style="display:none">
+            <button class="btn btn-primary" onclick="sendNewsletter()" id="btn-nl-send">🚀 Send Campaign</button>
+            <span id="nl-action-msg" style="font-size:11px;color:var(--text3);margin-left:8px"></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -629,7 +670,7 @@ function badge(status){return `<span class="badge ${STATUS_CLASS[status]||''}">$
 
 // ─── Router ───────────────────────────────────────────────
 function showView(view) {
-  ['dashboard','leads','attention','queue','scheduled'].forEach(v => {
+  ['dashboard','leads','attention','queue','scheduled','newsletters'].forEach(v => {
     document.getElementById('view-'+v).style.display = v===view ? 'block' : 'none';
     document.getElementById('nav-'+v)?.classList.toggle('active', v===view);
   });
@@ -637,6 +678,7 @@ function showView(view) {
   if(view==='attention') loadAttention();
   if(view==='queue') { setQueueTab(activeQueueTab || 'sent'); }
   if(view==='scheduled') loadScheduled();
+  if(view==='newsletters') loadNewsletters();
 }
 
 // ─── Charts store ─────────────────────────────────────────
@@ -1993,6 +2035,146 @@ function init() {
 
 // Auto-login if already authenticated
 if(sessionStorage.getItem('cop-auth')==='1') init();
+
+// ─── Newsletters ──────────────────────────────────────────
+let nlActiveCampaignId = null;
+
+async function loadNewsletters() {
+  document.getElementById('nl-list-title').textContent = 'Campaigns';
+  document.getElementById('nl-list-body').innerHTML = '<div class="queue-empty" style="margin-top:40px">Loading…</div>';
+  document.getElementById('nl-actions').style.display = 'none';
+  try {
+    const { data, error } = await db
+      .from('newsletter_campaigns')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    renderNlList(data || []);
+  } catch(e) {
+    document.getElementById('nl-list-body').innerHTML = '<div class="queue-empty" style="color:#dc2626">Error: ' + esc(e.message) + '</div>';
+  }
+}
+
+function renderNlList(campaigns) {
+  const el = document.getElementById('nl-list-body');
+  if (!campaigns.length) {
+    el.innerHTML = '<div class="queue-empty" style="margin-top:40px">No campaigns yet.<br>Click &quot;+ Prepare Campaign&quot; to start.</div>';
+    return;
+  }
+  el.innerHTML = campaigns.map(c => {
+    const statusColor = c.status === 'sent' ? '#16a34a' : c.status === 'draft' ? '#d97706' : '#6b7280';
+    const date = c.sent_at
+      ? new Date(c.sent_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})
+      : new Date(c.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+    return '<div class="queue-item" onclick="selectNlCampaign(\'' + esc(c.id) + '\')" id="nl-item-' + esc(c.id) + '">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'
+      + '<span style="font-weight:600;font-size:13px">' + esc(c.name) + '</span>'
+      + '<span style="font-size:10px;font-weight:700;color:' + statusColor + ';text-transform:uppercase">' + esc(c.status) + '</span>'
+      + '</div>'
+      + '<div style="font-size:11px;color:var(--text3)">'
+      + (c.total_recipients || 0) + ' recipients · ' + (c.status==='sent' ? 'Sent' : 'Created') + ' ' + date
+      + '</div></div>';
+  }).join('');
+}
+
+async function selectNlCampaign(campaignId) {
+  nlActiveCampaignId = campaignId;
+  document.querySelectorAll('#nl-list-body .queue-item').forEach(el => el.classList.remove('active'));
+  const item = document.getElementById('nl-item-' + campaignId);
+  if (item) item.classList.add('active');
+  document.getElementById('nl-preview-body').innerHTML = '<div class="queue-empty" style="margin-top:40px">Loading…</div>';
+  document.getElementById('nl-actions').style.display = 'none';
+  try {
+    const { data: campaign } = await db.from('newsletter_campaigns').select('*').eq('id', campaignId).single();
+    const { data: sends } = await db.from('newsletter_sends').select('*').eq('campaign_id', campaignId).order('created_at');
+    renderNlDetail(campaign, sends || []);
+  } catch(e) {
+    document.getElementById('nl-preview-body').innerHTML = '<div class="queue-empty" style="color:#dc2626">Error: ' + esc(e.message) + '</div>';
+  }
+}
+
+function renderNlDetail(campaign, sends) {
+  const statusColor = campaign.status === 'sent' ? '#16a34a' : campaign.status === 'draft' ? '#d97706' : '#6b7280';
+  const pendingCount = sends.filter(s => s.status === 'pending').length;
+  const sentCount = sends.filter(s => s.status === 'sent').length;
+  const failedCount = sends.filter(s => s.status === 'failed').length;
+  let html = '<div class="queue-preview-meta" style="margin-bottom:16px">'
+    + '<div class="queue-preview-meta-row"><span class="qpm-label">Campaign</span><span class="qpm-value"><strong>' + esc(campaign.name) + '</strong></span></div>'
+    + '<div class="queue-preview-meta-row"><span class="qpm-label">Status</span><span class="qpm-value"><strong style="color:' + statusColor + '">' + esc(campaign.status.toUpperCase()) + '</strong></span></div>'
+    + '<div class="queue-preview-meta-row"><span class="qpm-label">Recipients</span><span class="qpm-value">' + (campaign.total_recipients || 0) + ' total · ' + pendingCount + ' pending · ' + sentCount + ' sent · ' + failedCount + ' failed</span></div>'
+    + (campaign.sent_at ? '<div class="queue-preview-meta-row"><span class="qpm-label">Sent at</span><span class="qpm-value">' + new Date(campaign.sent_at).toLocaleString('en-GB') + '</span></div>' : '')
+    + '</div>';
+  if (!sends.length) {
+    html += '<div class="queue-empty">No sends in this campaign.</div>';
+  } else {
+    html += '<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)">Recipients (' + sends.length + ')</div>';
+    html += sends.map(s => {
+      const sColor = s.status === 'sent' ? '#16a34a' : s.status === 'failed' ? '#dc2626' : '#d97706';
+      const pCount = (s.primary_slugs || []).length;
+      const fCount = (s.fallback_slugs || []).length;
+      return '<div style="padding:10px 12px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px;background:var(--card)">'
+        + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'
+        + '<span style="font-size:12px;font-weight:600">' + esc(s.email) + '</span>'
+        + '<span style="font-size:10px;font-weight:700;color:' + sColor + ';text-transform:uppercase">' + esc(s.status) + '</span>'
+        + '</div>'
+        + '<div style="font-size:11px;color:var(--text3)">' + pCount + ' primary' + (fCount ? ' + ' + fCount + ' fallback' : '') + ' properties'
+        + (s.error ? ' <span style="color:#dc2626">· Error: ' + esc(s.error) + '</span>' : '') + '</div></div>';
+    }).join('');
+  }
+  document.getElementById('nl-preview-body').innerHTML = html;
+  if (campaign.status === 'draft' && pendingCount > 0) {
+    document.getElementById('nl-actions').style.display = 'flex';
+    document.getElementById('btn-nl-send').textContent = '🚀 Send to ' + pendingCount + ' people';
+    document.getElementById('nl-action-msg').textContent = '';
+  } else {
+    document.getElementById('nl-actions').style.display = 'none';
+  }
+}
+
+async function prepareNewsletter() {
+  const name = prompt('Campaign name (e.g. "May 2026 Personalised"):');
+  if (!name || !name.trim()) return;
+  const btn = document.querySelector('[onclick="prepareNewsletter()"]');
+  btn.disabled = true; btn.textContent = 'Preparing…';
+  try {
+    const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/prepare', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
+      body: JSON.stringify({ name: name.trim() }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || 'Prepare failed');
+    await loadNewsletters();
+    if (data.campaignId) selectNlCampaign(data.campaignId);
+  } catch(e) {
+    alert('Error: ' + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = '+ Prepare Campaign';
+  }
+}
+
+async function sendNewsletter() {
+  if (!nlActiveCampaignId) return;
+  if (!confirm('Send this campaign now? This will email all pending recipients.')) return;
+  const btn = document.getElementById('btn-nl-send');
+  const msg = document.getElementById('nl-action-msg');
+  btn.disabled = true; btn.textContent = 'Sending…'; msg.textContent = '';
+  try {
+    const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
+      body: JSON.stringify({ campaignId: nlActiveCampaignId }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || 'Send failed');
+    msg.textContent = '✓ Sent ' + data.sent + ', failed ' + data.failed;
+    await selectNlCampaign(nlActiveCampaignId);
+    loadNewsletters();
+  } catch(e) {
+    msg.textContent = 'Error: ' + e.message;
+    btn.disabled = false; btn.textContent = '🚀 Send Campaign';
+  }
+}
 </script>
 </body>
 </html>
