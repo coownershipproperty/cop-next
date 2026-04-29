@@ -940,7 +940,7 @@ async function loadDashboard() {
 let sortCol = 'lead_updated', sortDir = -1;
 
 async function loadLeads() {
-  const { data, error } = await db.from('lead_pipeline').select('*').order('lead_updated',{ascending:false});
+  const { data, error } = await db.from('lead_pipeline').select('*').not('email','ilike','%@co-ownership-property.com').order('lead_updated',{ascending:false});
   if(error) { console.error('Leads error:', error); }
   allLeads = data || [];
   // Populate region filter
