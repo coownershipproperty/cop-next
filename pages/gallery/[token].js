@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 function getSupabase() {
@@ -41,80 +40,64 @@ export async function getServerSideProps({ params }) {
   };
 }
 
-// ── Lightbox ──────────────────────────────────────────────────────────────────
-function Lightbox({ photos, index, onClose, onPrev, onNext }) {
-  useEffect(() => {
-    const handler = (e) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') onPrev();
-      if (e.key === 'ArrowRight') onNext();
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [onClose, onPrev, onNext]);
-
-  return (
-    <div style={lb.overlay} onClick={onClose}>
-      <button style={lb.close} onClick={onClose} aria-label="Close">✕</button>
-      <button style={{ ...lb.nav, left: 20 }} onClick={(e) => { e.stopPropagation(); onPrev(); }} aria-label="Previous">‹</button>
-      <div style={lb.imgWrap} onClick={(e) => e.stopPropagation()}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={photos[index]} alt={`Photo ${index + 1}`} style={lb.img} />
-        <p style={lb.counter}>{index + 1} / {photos.length}</p>
-      </div>
-      <button style={{ ...lb.nav, right: 20 }} onClick={(e) => { e.stopPropagation(); onNext(); }} aria-label="Next">›</button>
-    </div>
-  );
-}
-
-const lb = {
-  overlay: {
-    position: 'fixed', inset: 0, background: 'rgba(10,20,30,0.96)',
-    zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center',
-  },
-  close: {
-    position: 'absolute', top: 24, right: 28, background: 'none', border: 'none',
-    color: 'rgba(255,255,255,0.7)', fontSize: 28, cursor: 'pointer', lineHeight: 1, zIndex: 1,
-  },
-  nav: {
-    position: 'absolute', top: '50%', transform: 'translateY(-50%)',
-    background: 'none', border: 'none', color: '#fff', fontSize: 56,
-    cursor: 'pointer', lineHeight: 1, padding: '0 8px', opacity: 0.7,
-  },
-  imgWrap: {
-    maxWidth: '90vw', maxHeight: '88vh', display: 'flex',
-    flexDirection: 'column', alignItems: 'center', gap: 12,
-  },
-  img: {
-    maxWidth: '90vw', maxHeight: '82vh', objectFit: 'contain', display: 'block',
-  },
-  counter: {
-    color: 'rgba(255,255,255,0.4)', fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 12, letterSpacing: 2, margin: 0,
-  },
-};
-
-// ── Main page ─────────────────────────────────────────────────────────────────
 export default function GalleryPage({ name, email, property }) {
-  const [lbIndex, setLbIndex] = useState(null);
-  const [formState, setFormState] = useState({ phone: '', message: '' });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
-
   const photos = Array.isArray(property.photos) && property.photos.length > 0
     ? property.photos
     : property.img ? [property.img] : [];
 
-  const firstName = name ? name.split(' ')[0] : null;
-  const sym = { EUR: '€', USD: '$', GBP: '£' }[property.currency] || '€';
-  const priceStr = property.price ? `${sym}${Number(property.price).toLocaleString('en-GB')}` : null;
-  const location = [property.city, property.country].filter(Boolean).join(', ');
+  // Total slides = photos + 1 enquiry slide
+  const totalSlides = photos.length + 1;
+  const enquiryIndex = photos.length;
 
-  const openLb = (i) => { setLbIndex(i); document.body.style.overflow = 'hidden'; };
-  const closeLb = useCallback(() => { setLbIndex(null); document.body.style.overflow = ''; }, []);
-  const prevLb = useCallback(() => setLbIndex(i => (i - 1 + photos.length) % photos.length), [photos.length]);
-  const nextLb = useCallback(() => setLbIndex(i => (i + 1) % photos.length), [photos.length]);
+  const [index, setIndex] = useState(0);
+  const [prev, setPrev] = useState(null);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = back
+  const [animating, setAnimating] = useState(false);
+  const [formState, setFormState] = useState({ phone: '', message: '' });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const touchStartX = useRef(null);
+
+  const firstName = name ? name.split(' ')[0] : null;
+  const sym = { EUR: '€', USD: '$', GBP: '£', CHF: 'CHF ' }[property.currency] || '€';
+  const priceStr = property.price ? `${sym}${Number(property.price).toLocaleString('en-GB')}` : null;
+  const locationParts = [property.city, property.region, property.country].filter(Boolean);
+  const location = [...new Set(locationParts)].join(', ');
+
+  const goTo = useCallback((next, dir) => {
+    if (animating || next === index) return;
+    setDirection(dir);
+    setPrev(index);
+    setAnimating(true);
+    setIndex(next);
+    setTimeout(() => { setPrev(null); setAnimating(false); }, 500);
+  }, [animating, index]);
+
+  const goNext = useCallback(() => {
+    if (index < totalSlides - 1) goTo(index + 1, 1);
+  }, [index, totalSlides, goTo]);
+
+  const goPrev = useCallback(() => {
+    if (index > 0) goTo(index - 1, -1);
+  }, [index, goTo]);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === 'ArrowRight') goNext();
+      if (e.key === 'ArrowLeft') goPrev();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [goNext, goPrev]);
+
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(dx) > 50) { dx < 0 ? goNext() : goPrev(); }
+    touchStartX.current = null;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -133,429 +116,451 @@ export default function GalleryPage({ name, email, property }) {
           propertyUrl: `https://co-ownership-property.com/property/${property.slug}/`,
         }),
       });
-      if (res.ok) { setSubmitted(true); }
-      else { setError('Something went wrong — please try again.'); }
+      if (res.ok) setSubmitted(true);
+      else setError('Something went wrong — please try again.');
     } catch {
       setError('Something went wrong — please try again.');
-    } finally { setSubmitting(false); }
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  const isEnquiry = index === enquiryIndex;
+  const isPrevEnquiry = prev === enquiryIndex;
 
   return (
     <>
       <Head>
-        <title>{property.title} — Your Private Gallery | Co-Ownership Property</title>
+        <title>{property.title} — Private Gallery | Co-Ownership Property</title>
         <meta name="robots" content="noindex, nofollow" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
       </Head>
 
-      {/* ── NAV ── */}
-      <nav style={s.nav}>
-        <a href="https://co-ownership-property.com" style={s.navLogo}>
-          Co-Ownership Property
-        </a>
-        <a href={`https://co-ownership-property.com/property/${property.slug}/`} style={s.navLink}>
-          View Listing →
-        </a>
-      </nav>
+      <div
+        style={s.stage}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
 
-      {/* ── HERO ── */}
-      <div style={s.hero}>
-        {property.img && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={property.img} alt={property.title} style={s.heroImg} />
-        )}
-        <div style={s.heroOverlay} />
-        <div style={s.heroContent}>
-          {location && <p style={s.heroEyebrow}>{location.toUpperCase()}</p>}
-          <h1 style={s.heroTitle}>{property.title}</h1>
+        {/* ── SLIDES ── */}
+        {photos.map((url, i) => {
+          const isCurrent = index === i;
+          const isPrevSlide = prev === i;
+          return (
+            <div
+              key={url}
+              style={{
+                ...s.slide,
+                opacity: isCurrent ? 1 : isPrevSlide ? 1 : 0,
+                zIndex: isCurrent ? 2 : isPrevSlide ? 1 : 0,
+                transition: isCurrent ? 'opacity 0.55s ease' : 'none',
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={url} alt={`${property.title} — photo ${i + 1}`} style={s.slideImg} />
+              <div style={s.gradient} />
+            </div>
+          );
+        })}
+
+        {/* ── ENQUIRY SLIDE ── */}
+        <div style={{
+          ...s.slide,
+          background: '#0F1D2A',
+          opacity: isEnquiry ? 1 : isPrevEnquiry ? 1 : 0,
+          zIndex: isEnquiry ? 2 : isPrevEnquiry ? 1 : 0,
+          transition: isEnquiry ? 'opacity 0.55s ease' : 'none',
+          overflowY: 'auto',
+        }}>
+          <div style={s.enquiryInner}>
+            {!submitted ? (
+              <>
+                <p style={s.eEyebrow}>Private Enquiry</p>
+                <h2 style={s.eTitle}>
+                  <em>I want to find<br />out more</em>
+                </h2>
+                <p style={s.eProperty}>{property.title}</p>
+                <div style={s.eRule} />
+                <p style={s.eSub}>
+                  Add your number and one of our specialists will be in touch within a few hours.
+                </p>
+
+                <div style={s.prefilled}>
+                  <div style={s.prefilledItem}>
+                    <span style={s.prefilledLabel}>Name</span>
+                    <span style={s.prefilledValue}>{name || '—'}</span>
+                  </div>
+                  <div style={s.prefilledDivider} />
+                  <div style={s.prefilledItem}>
+                    <span style={s.prefilledLabel}>Email</span>
+                    <span style={s.prefilledValue}>{email}</span>
+                  </div>
+                </div>
+
+                <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 420 }}>
+                  <div style={s.fieldWrap}>
+                    <label style={s.fieldLabel}>
+                      Phone number <span style={{ color: '#C9A84C' }}>*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={formState.phone}
+                      onChange={e => setFormState(p => ({ ...p, phone: e.target.value }))}
+                      placeholder="+44 7700 900000"
+                      style={s.input}
+                      required
+                    />
+                  </div>
+                  <div style={s.fieldWrap}>
+                    <label style={s.fieldLabel}>
+                      Message <span style={{ color: 'rgba(255,255,255,0.25)', fontWeight: 300 }}>(optional)</span>
+                    </label>
+                    <textarea
+                      value={formState.message}
+                      onChange={e => setFormState(p => ({ ...p, message: e.target.value }))}
+                      placeholder={`I'd love to find out more about ${property.title}…`}
+                      style={{ ...s.input, height: 90, resize: 'none' }}
+                      rows={3}
+                    />
+                  </div>
+                  {error && <p style={s.errorMsg}>{error}</p>}
+                  <button type="submit" style={s.submitBtn} disabled={submitting}>
+                    {submitting ? 'Sending…' : "I'm Interested — Get In Touch"}
+                  </button>
+                  <p style={s.formNote}>No obligation · We respond within a few hours</p>
+                </form>
+              </>
+            ) : (
+              <div style={{ textAlign: 'center', maxWidth: 480 }}>
+                <div style={s.successIcon}>✓</div>
+                <h2 style={s.successTitle}>We'll be in touch shortly</h2>
+                <p style={s.successSub}>
+                  Thank you{firstName ? `, ${firstName}` : ''}. One of our specialists will reach out about{' '}
+                  <span style={{ color: '#C9A84C' }}>{property.title}</span> within a few hours.
+                </p>
+                <a href={`https://co-ownership-property.com/property/${property.slug}/`} style={s.successLink}>
+                  View the full listing →
+                </a>
+              </div>
+            )}
+          </div>
+          {/* subtle gold top line */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: 'linear-gradient(90deg, transparent, #C9A84C 30%, #C9A84C 70%, transparent)' }} />
+        </div>
+
+        {/* ── NAV BAR ── */}
+        <nav style={s.nav}>
+          <a href="https://co-ownership-property.com" style={s.navLogo}>
+            Co-Ownership Property
+          </a>
+          <a href={`https://co-ownership-property.com/property/${property.slug}/`} style={s.navLink}>
+            View Listing →
+          </a>
+        </nav>
+
+        {/* ── PROPERTY INFO (bottom left, photo slides only) ── */}
+        <div style={{
+          ...s.info,
+          opacity: isEnquiry ? 0 : 1,
+          transform: isEnquiry ? 'translateY(8px)' : 'translateY(0)',
+          transition: 'opacity 0.4s ease, transform 0.4s ease',
+          pointerEvents: isEnquiry ? 'none' : 'auto',
+        }}>
+          {location && <p style={s.infoLocation}>{location.toUpperCase()}</p>}
+          <h1 style={s.infoTitle}>{property.title}</h1>
           {priceStr && (
-            <p style={s.heroPrice}>
+            <p style={s.infoPrice}>
               From {priceStr}
-              <span style={s.heroPriceSub}> per share</span>
+              <span style={s.infoPriceSub}> per share</span>
             </p>
           )}
         </div>
-      </div>
 
-      {/* ── PERSONAL GREETING ── */}
-      <div style={s.greetWrap}>
-        <div style={s.greetInner}>
-          <p style={s.greetEyebrow}>Your Private Gallery</p>
-          <h2 style={s.greetTitle}>
-            {firstName ? `${firstName}, here's your full photo pack` : 'Your full photo pack'}
-          </h2>
-          <p style={s.greetSub}>
-            We've put together every photo, floor plan, and detail for{' '}
-            <strong>{property.title}</strong>. Browse at your own pace — and when you're ready, let us know below.
-          </p>
-          <div style={s.goldRule} />
+        {/* ── COUNTER (bottom right) ── */}
+        <div style={s.counter}>
+          {isEnquiry
+            ? <span style={{ color: '#C9A84C', letterSpacing: '0.2em' }}>ENQUIRY</span>
+            : <>{index + 1} <span style={{ color: 'rgba(255,255,255,0.3)', margin: '0 4px' }}>/</span> {totalSlides}</>
+          }
         </div>
-      </div>
 
-      {/* ── PHOTO GRID ── */}
-      {photos.length > 0 && (
-        <div style={s.gridWrap}>
-          <div style={s.grid}>
-            {photos.map((url, i) => (
-              <button
-                key={i}
-                style={s.gridItem}
-                onClick={() => openLb(i)}
-                aria-label={`View photo ${i + 1}`}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={url} alt={`${property.title} — photo ${i + 1}`} style={s.gridImg} loading="lazy" />
-                <div style={s.gridOverlay}>
-                  <span style={s.gridZoom}>⊕</span>
-                </div>
-              </button>
-            ))}
+        {/* ── DOT INDICATORS ── */}
+        <div style={s.dots}>
+          {Array.from({ length: totalSlides }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i, i > index ? 1 : -1)}
+              aria-label={`Go to slide ${i + 1}`}
+              style={{
+                ...s.dot,
+                background: i === index ? '#C9A84C' : 'rgba(255,255,255,0.35)',
+                width: i === index ? 24 : 6,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* ── PREV ARROW ── */}
+        {index > 0 && (
+          <button style={{ ...s.arrow, left: 0 }} onClick={goPrev} aria-label="Previous">
+            <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
+              <path d="M9 1L1 9L9 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        )}
+
+        {/* ── NEXT ARROW ── */}
+        {index < totalSlides - 1 && (
+          <button style={{ ...s.arrow, right: 0 }} onClick={goNext} aria-label="Next">
+            <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
+              <path d="M1 1L9 9L1 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        )}
+
+        {/* ── SWIPE HINT (first load) ── */}
+        {index === 0 && photos.length > 1 && (
+          <div style={s.swipeHint}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+            <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: 10, letterSpacing: '0.15em' }}>SWIPE</span>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* ── ENQUIRY FORM ── */}
-      <div style={s.formSection}>
-        <div style={s.formCard}>
-          {!submitted ? (
-            <>
-              <p style={s.formEyebrow}>Ready to Take the Next Step?</p>
-              <h2 style={s.formTitle}>
-                {firstName ? `${firstName}, speak to` : 'Speak to'} an{' '}
-                <em style={{ fontStyle: 'italic', color: '#C9A84C' }}>expert</em>
-              </h2>
-              <p style={s.formSub}>
-                Leave your number and we'll be in touch within a few hours — no pressure, just a conversation.
-              </p>
-
-              {/* Pre-filled identity */}
-              <div style={s.identityRow}>
-                <div style={s.identityChip}>
-                  <span style={s.identityLabel}>Name</span>
-                  <span style={s.identityValue}>{name || '—'}</span>
-                </div>
-                <div style={s.identityChip}>
-                  <span style={s.identityLabel}>Email</span>
-                  <span style={s.identityValue}>{email}</span>
-                </div>
-              </div>
-
-              <form onSubmit={handleSubmit} style={s.form}>
-                <div style={s.fieldWrap}>
-                  <label style={s.label}>Phone number <span style={{ color: '#C9A84C' }}>*</span></label>
-                  <input
-                    type="tel"
-                    value={formState.phone}
-                    onChange={(e) => setFormState(p => ({ ...p, phone: e.target.value }))}
-                    placeholder="+44 7700 900000"
-                    style={s.input}
-                    required
-                  />
-                </div>
-                <div style={s.fieldWrap}>
-                  <label style={s.label}>Message <span style={{ color: 'rgba(255,255,255,0.3)', fontWeight: 300 }}>(optional)</span></label>
-                  <textarea
-                    value={formState.message}
-                    onChange={(e) => setFormState(p => ({ ...p, message: e.target.value }))}
-                    placeholder={`I'd love to find out more about ${property.title}…`}
-                    style={{ ...s.input, height: 100, resize: 'vertical' }}
-                    rows={4}
-                  />
-                </div>
-                {error && <p style={s.errorMsg}>{error}</p>}
-                <button type="submit" style={s.submitBtn} disabled={submitting}>
-                  {submitting ? 'Sending…' : "I'm Interested — Get in Touch"}
-                </button>
-                <p style={s.formNote}>No obligation · We respond within a few hours</p>
-              </form>
-            </>
-          ) : (
-            <div style={s.successWrap}>
-              <div style={s.successIcon}>✓</div>
-              <h2 style={s.successTitle}>We'll be in touch shortly</h2>
-              <p style={s.successSub}>
-                Thank you{firstName ? `, ${firstName}` : ''}. One of our co-ownership specialists will reach out to you about{' '}
-                <strong style={{ color: '#C9A84C' }}>{property.title}</strong> within a few hours.
-              </p>
-              <a href={`https://co-ownership-property.com/property/${property.slug}/`} style={s.successLink}>
-                View the listing →
-              </a>
-            </div>
-          )}
-        </div>
       </div>
-
-      {/* ── FOOTER ── */}
-      <footer style={s.footer}>
-        <p style={s.footerLogo}>Co-Ownership Property</p>
-        <div style={s.footerRule} />
-        <p style={s.footerText}>
-          <a href="https://co-ownership-property.com/our-homes/" style={s.footerLink}>Browse Properties</a>
-          {'  ·  '}
-          <a href="https://co-ownership-property.com/how-it-works/" style={s.footerLink}>How It Works</a>
-          {'  ·  '}
-          <a href="https://co-ownership-property.com/about-us/" style={s.footerLink}>About Us</a>
-        </p>
-        <p style={s.footerFine}>
-          This page was created personally for {name || email} and is not indexed publicly.
-        </p>
-      </footer>
-
-      {/* ── LIGHTBOX ── */}
-      {lbIndex !== null && (
-        <Lightbox photos={photos} index={lbIndex} onClose={closeLb} onPrev={prevLb} onNext={nextLb} />
-      )}
 
       <style>{`
         * { box-sizing: border-box; }
-        body { margin: 0; background: #F5F2EC; }
-        @media (max-width: 700px) {
-          .gal-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .hero-title { font-size: 28px !important; }
-          .form-card { padding: 40px 24px !important; }
-          .identity-row { flex-direction: column !important; }
+        html, body { margin: 0; padding: 0; overflow: hidden; height: 100%; background: #0F1D2A; }
+        input, textarea { -webkit-appearance: none; border-radius: 0 !important; }
+        input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
+        input:focus, textarea:focus { outline: none; border-color: rgba(201,168,76,0.6) !important; }
+        button:focus { outline: none; }
+        @media (max-width: 640px) {
+          .info-title { font-size: 22px !important; }
+          .e-title { font-size: 28px !important; }
         }
       `}</style>
     </>
   );
 }
 
-// ── Styles ────────────────────────────────────────────────────────────────────
-const C = {
-  navy:   '#1E3448',
-  gold:   '#C9A84C',
-  cream:  '#F5F2EC',
-  creamL: '#FAF8F5',
-  white:  '#FFFFFF',
-  text:   '#4A6070',
-};
-
 const s = {
-  // Nav
-  nav: {
-    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    padding: '0 32px', height: 72,
-    background: 'rgba(30,52,72,0.96)', backdropFilter: 'blur(12px)',
-    borderBottom: '1px solid rgba(201,168,76,0.2)',
+  stage: {
+    position: 'fixed', inset: 0,
+    background: '#0F1D2A',
+    overflow: 'hidden',
   },
-  navLogo: {
-    fontFamily: "'Playfair Display', Georgia, serif",
-    fontSize: 15, fontWeight: 400, color: '#fff',
-    letterSpacing: '0.2em', textTransform: 'uppercase', textDecoration: 'none',
-  },
-  navLink: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 11, fontWeight: 700, color: C.gold,
-    letterSpacing: '0.15em', textTransform: 'uppercase', textDecoration: 'none',
-  },
-
-  // Hero
-  hero: {
-    position: 'relative', height: '75vh', minHeight: 480,
-    overflow: 'hidden', background: C.navy,
-  },
-  heroImg: {
-    position: 'absolute', inset: 0, width: '100%', height: '100%',
-    objectFit: 'cover', objectPosition: 'center',
-  },
-  heroOverlay: {
+  slide: {
     position: 'absolute', inset: 0,
-    background: 'linear-gradient(0deg, rgba(20,40,60,0.90) 0%, rgba(20,40,60,0.35) 55%, rgba(20,40,60,0.1) 100%)',
+    willChange: 'opacity',
   },
-  heroContent: {
-    position: 'absolute', bottom: 0, left: 0, right: 0,
-    padding: '0 48px 52px',
-  },
-  heroEyebrow: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 10, fontWeight: 800, letterSpacing: '3px',
-    color: C.gold, margin: '0 0 14px',
-  },
-  heroTitle: {
-    fontFamily: "'Playfair Display', Georgia, serif",
-    fontSize: 42, fontWeight: 400, color: '#fff',
-    margin: '0 0 16px', lineHeight: 1.2, maxWidth: 720,
-  },
-  heroPrice: {
-    fontFamily: "'Playfair Display', Georgia, serif",
-    fontSize: 22, fontWeight: 400, color: 'rgba(255,255,255,0.9)',
-    margin: 0,
-  },
-  heroPriceSub: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 12, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.1em',
-  },
-
-  // Greeting
-  greetWrap: { background: C.creamL, padding: '72px 32px 56px' },
-  greetInner: { maxWidth: 680, margin: '0 auto', textAlign: 'center' },
-  greetEyebrow: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 10, fontWeight: 800, letterSpacing: '3px',
-    textTransform: 'uppercase', color: C.gold, margin: '0 0 16px',
-  },
-  greetTitle: {
-    fontFamily: "'Playfair Display', Georgia, serif",
-    fontSize: 34, fontWeight: 400, color: C.navy,
-    margin: '0 0 18px', lineHeight: 1.25,
-  },
-  greetSub: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 16, color: C.text, lineHeight: 1.8, margin: '0 0 36px',
-  },
-  goldRule: {
-    width: 48, height: 1, background: C.gold, margin: '0 auto',
-  },
-
-  // Photo grid
-  gridWrap: { background: C.cream, padding: '56px 32px 72px' },
-  grid: {
-    maxWidth: 1200, margin: '0 auto',
-    display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: 12,
-  },
-  gridItem: {
-    position: 'relative', border: 'none', padding: 0, cursor: 'pointer',
-    background: 'none', overflow: 'hidden', aspectRatio: '4/3',
+  slideImg: {
+    position: 'absolute', inset: 0,
+    width: '100%', height: '100%',
+    objectFit: 'cover', objectPosition: 'center',
     display: 'block',
   },
-  gridImg: {
-    width: '100%', height: '100%', objectFit: 'cover',
-    display: 'block', transition: 'transform 0.4s ease',
-  },
-  gridOverlay: {
-    position: 'absolute', inset: 0, background: 'rgba(20,40,60,0)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    transition: 'background 0.3s',
-  },
-  gridZoom: {
-    color: '#fff', fontSize: 32, opacity: 0,
-    transition: 'opacity 0.3s', userSelect: 'none',
+  gradient: {
+    position: 'absolute', inset: 0,
+    background: 'linear-gradient(to top, rgba(10,20,32,0.88) 0%, rgba(10,20,32,0.45) 40%, rgba(10,20,32,0.12) 70%, rgba(10,20,32,0.25) 100%)',
   },
 
-  // Enquiry form
-  formSection: {
-    background: C.navy, padding: '80px 32px',
-    borderTop: `2px solid ${C.gold}`,
+  // Nav
+  nav: {
+    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10,
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '0 32px', height: 68,
+    background: 'linear-gradient(to bottom, rgba(10,20,32,0.7) 0%, transparent 100%)',
   },
-  formCard: {
-    maxWidth: 580, margin: '0 auto', textAlign: 'center',
+  navLogo: {
+    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.8)',
+    letterSpacing: '0.28em', textTransform: 'uppercase', textDecoration: 'none',
   },
-  formEyebrow: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 10, fontWeight: 800, letterSpacing: '3px',
-    textTransform: 'uppercase', color: C.gold, margin: '0 0 14px',
+  navLink: {
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 10, fontWeight: 500, color: '#C9A84C',
+    letterSpacing: '0.18em', textTransform: 'uppercase', textDecoration: 'none',
   },
-  formTitle: {
-    fontFamily: "'Playfair Display', Georgia, serif",
-    fontSize: 36, fontWeight: 400, color: '#fff',
-    margin: '0 0 14px', lineHeight: 1.25,
+
+  // Property info
+  info: {
+    position: 'absolute', bottom: 76, left: 0, right: '40%',
+    padding: '0 0 0 40px', zIndex: 10,
+    pointerEvents: 'none',
   },
-  formSub: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 15, color: 'rgba(255,255,255,0.6)',
-    lineHeight: 1.7, margin: '0 0 32px',
+  infoLocation: {
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 10, fontWeight: 500, letterSpacing: '0.22em',
+    color: '#C9A84C', margin: '0 0 10px',
   },
-  identityRow: {
-    display: 'flex', gap: 12, marginBottom: 28, justifyContent: 'center',
+  infoTitle: {
+    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontSize: 28, fontWeight: 300, color: '#fff',
+    margin: '0 0 10px', lineHeight: 1.25, maxWidth: 520,
   },
-  identityChip: {
-    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,168,76,0.25)',
-    padding: '10px 18px', flex: 1, textAlign: 'left', maxWidth: 240,
+  infoPrice: {
+    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontSize: 18, fontWeight: 300, color: 'rgba(255,255,255,0.85)',
+    margin: 0,
   },
-  identityLabel: {
-    display: 'block', fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 9, fontWeight: 800, letterSpacing: '2px',
-    textTransform: 'uppercase', color: C.gold, marginBottom: 4,
+  infoPriceSub: {
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 11, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em',
   },
-  identityValue: {
-    display: 'block', fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 13, color: 'rgba(255,255,255,0.85)',
+
+  // Counter
+  counter: {
+    position: 'absolute', bottom: 80, right: 36, zIndex: 10,
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 12, fontWeight: 300, letterSpacing: '0.12em',
+    color: 'rgba(255,255,255,0.55)',
+  },
+
+  // Dot indicators
+  dots: {
+    position: 'absolute', bottom: 28, left: '50%',
+    transform: 'translateX(-50%)',
+    display: 'flex', gap: 6, alignItems: 'center', zIndex: 10,
+  },
+  dot: {
+    height: 6, borderRadius: 3,
+    border: 'none', padding: 0, cursor: 'pointer',
+    transition: 'width 0.3s ease, background 0.3s ease',
+  },
+
+  // Arrows
+  arrow: {
+    position: 'absolute', top: '50%', transform: 'translateY(-50%)',
+    width: 56, height: 80,
+    background: 'none', border: 'none',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    cursor: 'pointer', zIndex: 10,
+    padding: '0 18px',
+  },
+
+  // Swipe hint
+  swipeHint: {
+    position: 'absolute', bottom: 80, right: 80, zIndex: 10,
+    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+    opacity: 0,
+    animation: 'fadeInOut 3s ease 1.5s forwards',
+  },
+
+  // Enquiry slide inner
+  enquiryInner: {
+    position: 'absolute', inset: 0,
+    display: 'flex', flexDirection: 'column',
+    alignItems: 'flex-start', justifyContent: 'center',
+    padding: '80px 10vw 60px',
+    overflowY: 'auto',
+  },
+  eEyebrow: {
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 10, fontWeight: 500, letterSpacing: '0.22em',
+    textTransform: 'uppercase', color: '#C9A84C', margin: '0 0 14px',
+  },
+  eTitle: {
+    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontSize: 36, fontWeight: 300, color: '#fff',
+    margin: '0 0 20px', lineHeight: 1.2,
+  },
+  eProperty: {
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 11, fontWeight: 400, letterSpacing: '0.14em',
+    color: 'rgba(255,255,255,0.4)', margin: '0 0 20px',
+    textTransform: 'uppercase',
+  },
+  eRule: { width: 32, height: 1, background: '#C9A84C', margin: '0 0 22px' },
+  eSub: {
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 13, color: 'rgba(255,255,255,0.4)',
+    lineHeight: 1.75, margin: '0 0 28px', maxWidth: 380,
+  },
+
+  // Pre-filled identity
+  prefilled: {
+    display: 'flex', gap: 0, marginBottom: 24,
+    borderTop: '1px solid rgba(201,168,76,0.2)',
+    borderBottom: '1px solid rgba(201,168,76,0.12)',
+    width: '100%', maxWidth: 420,
+  },
+  prefilledItem: {
+    flex: 1, padding: '12px 0 12px',
+  },
+  prefilledDivider: {
+    width: 1, background: 'rgba(255,255,255,0.08)', flexShrink: 0, margin: '8px 20px 8px 0',
+  },
+  prefilledLabel: {
+    display: 'block', fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 9, fontWeight: 500, letterSpacing: '0.18em',
+    textTransform: 'uppercase', color: 'rgba(201,168,76,0.7)', marginBottom: 4,
+  },
+  prefilledValue: {
+    display: 'block', fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.75)',
     overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
   },
-  form: { textAlign: 'left' },
-  fieldWrap: { marginBottom: 20 },
-  label: {
-    display: 'block', fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 11, fontWeight: 700, letterSpacing: '1.5px',
-    textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)',
+
+  // Form
+  fieldWrap: { width: '100%', maxWidth: 420, marginBottom: 16 },
+  fieldLabel: {
+    display: 'block', fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 10, fontWeight: 500, letterSpacing: '0.16em',
+    textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)',
     marginBottom: 8,
   },
   input: {
-    width: '100%', background: 'rgba(255,255,255,0.07)',
-    border: '1px solid rgba(255,255,255,0.15)',
-    borderRadius: 0, padding: '14px 16px',
-    fontFamily: "'Nunito Sans', sans-serif", fontSize: 15,
-    color: '#fff', outline: 'none',
-    transition: 'border-color 0.2s',
+    display: 'block', width: '100%',
+    background: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.12)',
+    padding: '13px 16px',
+    fontFamily: "'Jost', Arial, sans-serif", fontSize: 14,
+    color: '#fff', transition: 'border-color 0.2s',
   },
   errorMsg: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 13, color: '#ff8080', margin: '0 0 16px',
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 12, color: '#ff8080', margin: '0 0 12px',
   },
   submitBtn: {
-    width: '100%', padding: '18px 32px',
-    background: C.gold, border: 'none', cursor: 'pointer',
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 12, fontWeight: 800, letterSpacing: '2px',
-    textTransform: 'uppercase', color: C.navy,
-    marginTop: 8, transition: 'background 0.2s',
+    display: 'block', width: '100%', maxWidth: 420,
+    padding: '15px 24px',
+    background: '#C9A84C', border: 'none', cursor: 'pointer',
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 11, fontWeight: 600, letterSpacing: '0.2em',
+    textTransform: 'uppercase', color: '#0F1D2A',
+    marginTop: 4,
   },
   formNote: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 11, color: 'rgba(255,255,255,0.3)',
-    textAlign: 'center', margin: '14px 0 0', letterSpacing: '0.5px',
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 10, color: 'rgba(255,255,255,0.25)',
+    margin: '12px 0 0', letterSpacing: '0.08em',
   },
 
   // Success
-  successWrap: { textAlign: 'center', padding: '20px 0' },
   successIcon: {
-    width: 64, height: 64, borderRadius: '50%',
-    border: `2px solid ${C.gold}`, display: 'flex',
-    alignItems: 'center', justifyContent: 'center',
-    margin: '0 auto 24px', color: C.gold, fontSize: 28,
+    width: 56, height: 56, borderRadius: '50%',
+    border: '1px solid #C9A84C',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    margin: '0 auto 24px', color: '#C9A84C', fontSize: 22,
   },
   successTitle: {
-    fontFamily: "'Playfair Display', Georgia, serif",
-    fontSize: 32, fontWeight: 400, color: '#fff', margin: '0 0 16px',
+    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontSize: 30, fontWeight: 300, color: '#fff', margin: '0 0 16px',
   },
   successSub: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 15, color: 'rgba(255,255,255,0.65)',
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 14, color: 'rgba(255,255,255,0.55)',
     lineHeight: 1.7, margin: '0 0 28px',
   },
   successLink: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 11, fontWeight: 800, letterSpacing: '2px',
-    textTransform: 'uppercase', color: C.gold, textDecoration: 'none',
-  },
-
-  // Footer
-  footer: {
-    background: '#141E28', padding: '52px 32px 40px', textAlign: 'center',
-  },
-  footerLogo: {
-    fontFamily: "'Playfair Display', Georgia, serif",
-    fontSize: 15, fontWeight: 400, color: 'rgba(255,255,255,0.4)',
-    letterSpacing: '0.25em', textTransform: 'uppercase', margin: '0 0 16px',
-  },
-  footerRule: {
-    width: 40, height: 1, background: 'rgba(201,168,76,0.3)',
-    margin: '0 auto 16px',
-  },
-  footerText: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 11, color: 'rgba(255,255,255,0.3)',
-    letterSpacing: '0.5px', margin: '0 0 12px',
-  },
-  footerLink: { color: 'rgba(255,255,255,0.35)', textDecoration: 'none' },
-  footerFine: {
-    fontFamily: "'Nunito Sans', sans-serif",
-    fontSize: 10, color: 'rgba(255,255,255,0.2)',
-    letterSpacing: '0.3px', margin: 0,
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 11, fontWeight: 500, letterSpacing: '0.16em',
+    textTransform: 'uppercase', color: '#C9A84C', textDecoration: 'none',
   },
 };
