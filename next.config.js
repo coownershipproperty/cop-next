@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   trailingSlash: true,
   // Fallback public values so cop-crm builds succeed without env vars configured.
   // NEXT_PUBLIC_ (anon) keys — safe to embed; already shipped to the browser.
