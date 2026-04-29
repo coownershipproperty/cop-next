@@ -14,9 +14,9 @@ function getDb() {
 /**
  * Fetch up to 3 similar properties.
  * Strategy:
- *   1. Same city + price within ±40%  (up to 3)
- *   2. Same country + price within ±40%, excluding already picked  (backfill to 3)
- *   3. Same country, any price, excluding already picked  (last resort)
+ * 1. Same city + price within ±40% (up to 3)
+ * 2. Same country + price within ±40%, excluding already picked (backfill to 3)
+ * 3. Same country, any price, excluding already picked (last resort)
  */
 async function getSimilarProperties(propertySlug, propertyCountry, propertyCity, propertyPrice) {
   if (!propertyCountry) return [];
@@ -24,7 +24,6 @@ async function getSimilarProperties(propertySlug, propertyCountry, propertyCity,
   const exclude = propertySlug || '';
   const FIELDS = 'slug, title, img, price, currency, beds, size, city';
   const STATUSES = ['Live'];
-
   let results = [];
 
   // ── Pass 1: same city, ±40% price ────────────────────────────────────────
@@ -67,7 +66,7 @@ async function getSimilarProperties(propertySlug, propertyCountry, propertyCity,
     }
   }
 
-  // ── Pass 3: same country, any price ───────────────────────────────────────
+  // ── Pass 3: same country, any price ──────────────────────────────────────
   if (results.length < 3) {
     const alreadyIn = new Set([exclude, ...results.map(p => p.slug)]);
     const { data } = await db
@@ -99,7 +98,7 @@ export default async function handler(req, res) {
 
   // Strip query-string and hash before extracting slug (handles UTM params, referral codes, etc.)
   const cleanPropertyUrl = propertyUrl ? propertyUrl.split('?')[0].split('#')[0] : null;
-  const propertySlug = cleanPropertyUrl
+  let propertySlug = cleanPropertyUrl
     ? cleanPropertyUrl.replace(/https?:\/\/[^/]+\/property\//, '').replace(/\/$/, '') || null
     : null;
 
@@ -128,6 +127,26 @@ export default async function handler(req, res) {
     propertyRegion = prop?.region || null;
     propertyPartner = prop?.partner || null;
     resolvedCountry = prop?.country || resolvedCountry;
+  }
+
+  // Fallback: if propertyUrl was absent or malformed, recover the correct slug
+  // via a title lookup so the gallery link is never broken
+  if (!propertySlug && propertyTitle) {
+    const db = getDb();
+    const { data: prop } = await db
+      .from('properties')
+      .select('slug, city, price, img, country, region, partner')
+      .eq('title', propertyTitle)
+      .single();
+    if (prop) {
+      propertySlug = prop.slug;
+      propertyCity = propertyCity || prop.city || null;
+      propertyPrice = propertyPrice || (prop.price ? Number(prop.price) : null);
+      propertyImg = propertyImg || prop.img || null;
+      propertyRegion = propertyRegion || prop.region || null;
+      propertyPartner = propertyPartner || prop.partner || null;
+      resolvedCountry = resolvedCountry || prop.country || null;
+    }
   }
 
   // ── CRM ──────────────────────────────────────────────────────────────────────
@@ -204,13 +223,13 @@ export default async function handler(req, res) {
         firstName: firstName || name || undefined,
         propertyTitle: propertyTitle || undefined,
         propertyImg: propertyImg || undefined,
-        driveUrl: galleryUrl,          // ← gallery page, not raw Drive
+        driveUrl: galleryUrl, // ← gallery page, not raw Drive
         propertyUrl: propertyUrl || undefined,
         similarProperties: similarProperties,
         trackingPixelHtml: pixel || undefined,
       }),
       templateName: 'floor-plan',
-      templateProps: { firstName, propertyTitle, driveUrl: galleryUrl, propertyUrl },
+      templateProps: { firstName, propertyTitle, driveUrl: galleryUrl, propertyUrl, propertyImg, propertySlug },
       trigger: 'floor_plan_requested',
       notes: `Floor plan unlock for ${propertyTitle}`,
       contactId: contact?.id || null,
@@ -245,7 +264,7 @@ export default async function handler(req, res) {
           unsubscribeUrl: unsubUrl,
         }),
         templateName: 'nurture-floor-plan',
-        templateProps: { firstName, propertyTitle, propertyUrl, location: locationLabel },
+        templateProps: { firstName, propertyTitle, propertyUrl, propertyImg, propertySlug, location: locationLabel },
         trigger: 'floor_plan_nurture',
         notes: `Floor plan follow-up — 24h after request for ${propertyTitle}`,
         contactId: contact?.id || null,
