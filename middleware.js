@@ -68,12 +68,14 @@ export function middleware(request) {
   if (!request.cookies.has('cop_currency')) {
     const country = request.geo?.country || '';
     const currency = currencyForCountry(country);
-    response.cookies.set('cop_currency', currency, {
-      maxAge: 86400,     // refresh daily so it stays current
-      sameSite: 'lax',
-      path: '/',
-      httpOnly: false,   // must be readable by client-side JS
-    });
+    if (currency) {
+      response.cookies.set('cop_currency', currency, {
+        maxAge: 86400,     // refresh daily so it stays current
+        sameSite: 'lax',
+        path: '/',
+        httpOnly: false,   // must be readable by client-side JS
+      });
+    }
   }
 
   return response;
