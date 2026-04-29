@@ -51,7 +51,7 @@ export async function getServerSideProps({ params, query }) {
   const supabase = getSupabase();
   const { data: prop } = await supabase
     .from('properties')
-    .select('slug, title, img, photos, documents, country, city, region, price, currency, beds, size')
+    .select('slug, title, img, photos, extra_photos, documents, country, city, region, price, currency, beds, size')
     .eq('slug', slug)
     .single();
 
@@ -71,12 +71,14 @@ export default function GalleryPage({ name, email, property }) {
     ? property.photos
     : property.img ? [property.img] : [];
 
-  const documents = Array.isArray(property.documents) ? property.documents : [];
+  const extras    = Array.isArray(property.extra_photos) ? property.extra_photos : [];
+  const documents = Array.isArray(property.documents)    ? property.documents    : [];
 
-  // Slides: photos first, then documents, then enquiry
-  // Each slide is { url, type: 'photo' | 'document' }
+  // Slides: hero photos → brochure extras → floor plans/docs → enquiry
+  // type: 'photo' | 'extra' | 'document'
   const slides = [
-    ...photos.map(url => ({ url, type: 'photo' })),
+    ...photos.map(url    => ({ url, type: 'photo' })),
+    ...extras.map(url    => ({ url, type: 'extra' })),
     ...documents.map(url => ({ url, type: 'document' })),
   ];
 
@@ -160,9 +162,12 @@ export default function GalleryPage({ name, email, property }) {
     }
   };
 
-  const isEnquiry = index === enquiryIndex;
+  const isEnquiry    = index === enquiryIndex;
   const isPrevEnquiry = prev === enquiryIndex;
-  const isDocument = !isEnquiry && slides[index]?.type === 'document';
+  const currentType  = !isEnquiry ? slides[index]?.type : null;
+  const isDocument   = currentType === 'document';
+  const isExtra      = currentType === 'extra';
+  const isNonPhoto   = isEnquiry || isDocument || isExtra; // hide property info overlay
 
   return (
     <>
@@ -183,9 +188,11 @@ export default function GalleryPage({ name, email, property }) {
 
         {/* ── SLIDES ── */}
         {slides.map((slide, i) => {
-          const isCurrent = index === i;
+          const isCurrent  = index === i;
           const isPrevSlide = prev === i;
-          const isDoc = slide.type === 'document';
+          const isDoc   = slide.type === 'document';
+          const isExtr  = slide.type === 'extra';
+          const isPhoto = slide.type === 'photo';
           return (
             <div
               key={slide.url}
@@ -194,17 +201,21 @@ export default function GalleryPage({ name, email, property }) {
                 opacity: isCurrent ? 1 : isPrevSlide ? 1 : 0,
                 zIndex: isCurrent ? 2 : isPrevSlide ? 1 : 0,
                 transition: isCurrent ? 'opacity 0.55s ease' : 'none',
-                background: isDoc ? '#0A1520' : '#0F1D2A',
+                background: '#0A1520',
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={slide.url}
-                alt={`${property.title} — ${isDoc ? 'document' : 'photo'} ${i + 1}`}
-                style={isDoc ? s.slideImgDoc : s.slideImg}
+                alt={`${property.title} — ${isDoc ? 'document' : isExtr ? 'extra' : 'photo'} ${i + 1}`}
+                style={isDoc ? s.slideImgDoc : isExtr ? s.slideImgExtra : s.slideImg}
               />
-              {/* gradient only on photos */}
-              {!isDoc && <div style={s.gradient} />}
+              {/* gradient only on full-bleed photos */}
+              {isPhoto && <div style={s.gradient} />}
+              {/* extra photos label */}
+              {isExtr && (
+                <div style={s.extraLabel}>Additional Photos</div>
+              )}
               {/* document label */}
               {isDoc && (
                 <div style={s.docLabel}>Floor Plan &amp; Documents</div>
@@ -319,10 +330,10 @@ export default function GalleryPage({ name, email, property }) {
         {/* ── PROPERTY INFO (bottom left, photo slides only) ── */}
         <div style={{
           ...s.info,
-          opacity: isEnquiry || isDocument ? 0 : 1,
-          transform: isEnquiry || isDocument ? 'translateY(8px)' : 'translateY(0)',
+          opacity: isNonPhoto ? 0 : 1,
+          transform: isNonPhoto ? 'translateY(8px)' : 'translateY(0)',
           transition: 'opacity 0.4s ease, transform 0.4s ease',
-          pointerEvents: isEnquiry || isDocument ? 'none' : 'auto',
+          pointerEvents: isNonPhoto ? 'none' : 'auto',
         }}>
           {location && <p style={s.infoLocation}>{location.toUpperCase()}</p>}
           <h1 style={s.infoTitle}>{property.title}</h1>
@@ -469,12 +480,29 @@ const s = {
     objectFit: 'cover', objectPosition: 'center',
     display: 'block',
   },
+  // Extra (brochure) photos — contained with generous padding so they stay smaller
+  slideImgExtra: {
+    position: 'absolute', inset: 0,
+    width: '100%', height: '100%',
+    objectFit: 'contain', objectPosition: 'center',
+    display: 'block',
+    padding: '72px 22% 88px',
+  },
+  extraLabel: {
+    position: 'absolute', top: 80, left: '50%',
+    transform: 'translateX(-50%)',
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 9, fontWeight: 600, letterSpacing: '0.26em',
+    textTransform: 'uppercase', color: 'rgba(201,168,76,0.65)',
+    zIndex: 10, whiteSpace: 'nowrap',
+  },
+  // Floor plans / documents — contained with moderate padding
   slideImgDoc: {
     position: 'absolute', inset: 0,
     width: '100%', height: '100%',
     objectFit: 'contain', objectPosition: 'center',
     display: 'block',
-    padding: '60px 40px 80px',
+    padding: '72px 10% 88px',
   },
   docLabel: {
     position: 'absolute', top: 80, left: '50%',

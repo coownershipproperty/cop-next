@@ -49,13 +49,14 @@ function extractFolderId(driveUrl) {
   return m ? m[1] : null;
 }
 
-function isPhoto(name) {
-  return /^photo[-_]/i.test(name);
-}
-
-function isDocument(name, mimeType) {
-  if (mimeType === 'application/pdf') return true;
-  return /screenshot|floor|plan|brochure|spec|info|layout|document|floorplan/i.test(name);
+// Classification by filename prefix:
+//   photo-*   → full-bleed hero photos
+//   extra-*   → brochure/secondary photos (contained, smaller display)
+//   anything else → floor plans & documents (contained)
+function classifyFile(name) {
+  if (/^photo[-_]/i.test(name)) return 'photo';
+  if (/^extra[-_]/i.test(name)) return 'extra';
+  return 'document';
 }
 
 function downloadBuffer(url, auth) {
@@ -132,6 +133,7 @@ async function main() {
     console.log(`   Found ${files.length} files in Drive`);
 
     const photoUrls = [];
+    const extraUrls = [];
     const docUrls   = [];
 
     for (const file of files) {
@@ -143,8 +145,9 @@ async function main() {
         continue;
       }
 
-      const classify = isPhoto(file.name) ? 'photo' : 'document';
-      process.stdout.write(`   ${classify === 'photo' ? '📷' : '📄'}  ${file.name} → `);
+      const classify = classifyFile(file.name);
+      const icon = classify === 'photo' ? '📷' : classify === 'extra' ? '🖼 ' : '📄';
+      process.stdout.write(`   ${icon}  ${file.name} → `);
 
       // Download from Drive
       let buffer, contentType;
@@ -172,25 +175,24 @@ async function main() {
       }
 
       const { data: { publicUrl } } = sb.storage.from(STORAGE_BUCKET).getPublicUrl(path);
-      if (classify === 'photo') {
-        photoUrls.push(publicUrl);
-      } else {
-        docUrls.push(publicUrl);
-      }
+      if (classify === 'photo')         photoUrls.push(publicUrl);
+      else if (classify === 'extra')    extraUrls.push(publicUrl);
+      else                              docUrls.push(publicUrl);
       console.log(`✅`);
     }
 
     // Update Supabase DB
     const updates = {};
-    if (photoUrls.length > 0) updates.photos = photoUrls;
-    if (docUrls.length > 0)   updates.documents = docUrls;
+    if (photoUrls.length > 0) updates.photos       = photoUrls;
+    if (extraUrls.length > 0) updates.extra_photos  = extraUrls;
+    if (docUrls.length > 0)   updates.documents     = docUrls;
 
     if (Object.keys(updates).length > 0) {
       const { error: dbErr } = await sb.from('properties').update(updates).eq('slug', prop.slug);
       if (dbErr) {
         console.log(`   ❌  DB update failed: ${dbErr.message}`);
       } else {
-        console.log(`   ✅  Saved: ${photoUrls.length} photos, ${docUrls.length} documents`);
+        console.log(`   ✅  Saved: ${photoUrls.length} photos, ${extraUrls.length} extras, ${docUrls.length} documents`);
       }
     } else {
       console.log(`   ⚠️  No files to update`);
