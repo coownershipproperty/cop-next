@@ -94,7 +94,7 @@ async function getSimilarProperties(propertySlug, propertyCountry, propertyCity,
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { name, email, propertyTitle, driveUrl, propertyUrl, propertyCountry } = req.body;
+  const { name, email, phone, propertyTitle, driveUrl, propertyUrl, propertyCountry } = req.body;
   if (!email || !driveUrl) return res.status(400).json({ error: 'Missing fields' });
 
   // Rate limit: max 5 unlock requests per email per 5 minutes
@@ -158,7 +158,7 @@ export default async function handler(req, res) {
   let emailSend = null;
 
   try {
-    contact = await upsertContact({ email, firstName, lastName, source: 'floor_plan' });
+    contact = await upsertContact({ email, firstName, lastName, phone, source: 'floor_plan' });
 
     if (contact) {
       // +10 points for requesting floor plans (high-intent action)
