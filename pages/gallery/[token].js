@@ -287,6 +287,15 @@ export default function GalleryPage({ name, email, property }) {
           }
         </div>
 
+        {/* ── I'M INTERESTED BUTTON ── */}
+        {!isEnquiry && (
+          <div style={s.interestedWrap}>
+            <button style={s.interestedBtn} onClick={() => goTo(enquiryIndex, 1)}>
+              I'm Interested
+            </button>
+          </div>
+        )}
+
         {/* ── DOT INDICATORS ── */}
         <div style={s.dots}>
           {Array.from({ length: totalSlides }).map((_, i) => (
@@ -422,9 +431,23 @@ const s = {
     color: 'rgba(255,255,255,0.55)',
   },
 
+  // Interested button
+  interestedWrap: {
+    position: 'absolute', bottom: 68, left: '50%',
+    transform: 'translateX(-50%)', zIndex: 10,
+  },
+  interestedBtn: {
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 10, fontWeight: 600, letterSpacing: '0.22em',
+    textTransform: 'uppercase', color: '#0F1D2A',
+    background: '#C9A84C', border: 'none',
+    padding: '10px 28px', cursor: 'pointer',
+    whiteSpace: 'nowrap',
+  },
+
   // Dot indicators
   dots: {
-    position: 'absolute', bottom: 28, left: '50%',
+    position: 'absolute', bottom: 22, left: '50%',
     transform: 'translateX(-50%)',
     display: 'flex', gap: 6, alignItems: 'center', zIndex: 10,
   },
