@@ -55,19 +55,23 @@ export default async function handler(req, res) {
   const propBySlug = {};
   for (const p of properties || []) propBySlug[p.slug] = p;
 
+  const testFirstName = 'David';
+  const userToken = Buffer.from(JSON.stringify({ n: testFirstName, e: testEmail })).toString('base64url');
+
   const toPropertyObj = (slug) => {
     const p = propBySlug[slug];
     if (!p) return null;
     const parts = [p.city, p.region, p.country].filter(Boolean);
     const location = [...new Set(parts)].join(', ');
     return {
-      slug:     p.slug,
-      title:    p.title,
-      price:    formatPrice(p.price, p.currency),
-      beds:     p.beds || 0,
-      size:     p.size || 0,
-      imageUrl: p.img || '',
+      slug:       p.slug,
+      title:      p.title,
+      price:      formatPrice(p.price, p.currency),
+      beds:       p.beds || 0,
+      size:       p.size || 0,
+      imageUrl:   p.img || '',
       location,
+      galleryUrl: `https://co-ownership-property.com/gallery/${p.slug}?t=${userToken}`,
     };
   };
 
@@ -76,7 +80,7 @@ export default async function handler(req, res) {
 
   const html = await render(
     PersonalisedNewsletterEmail({
-      firstName:           'David',
+      firstName:           testFirstName,
       primaryProperties:   primaryProps,
       fallbackProperties:  fallbackProps,
       unsubscribeUrl:      `https://co-ownership-property.com/unsubscribe?email=${encodeURIComponent(testEmail)}`,

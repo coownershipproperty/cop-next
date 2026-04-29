@@ -13,6 +13,7 @@ interface Property {
   size: number;
   imageUrl: string;
   location?: string;
+  galleryUrl?: string; // pre-computed gallery link with user token
 }
 
 interface PersonalisedNewsletterEmailProps {
@@ -71,11 +72,13 @@ function PropertyCard({ p }: { p: Property }) {
   const mailBody = encodeURIComponent(`Hi,\n\nI'm interested in ${p.title} and would like to find out more.\n\nThank you`);
   const mailHref = `mailto:${enquiryEmail}?subject=${mailSubj}&body=${mailBody}`;
   const waHref   = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
+  // Gallery URL if available, otherwise fall back to property listing
+  const primaryHref = p.galleryUrl || `${base}/property/${p.slug}`;
 
   return (
     <Section style={card}>
-      {/* Hero image — full bleed */}
-      <Link href={`${base}/property/${p.slug}`} style={{ display: 'block' }}>
+      {/* Hero image — links to gallery */}
+      <Link href={primaryHref} style={{ display: 'block' }}>
         <Img src={p.imageUrl} alt={p.title} width="560" style={cardImg} />
       </Link>
 
@@ -99,8 +102,8 @@ function PropertyCard({ p }: { p: Property }) {
           {p.price}&ensp;<span style={perShare}>per share</span>
         </Text>
 
-        {/* Primary CTA — full width */}
-        <Link href={`${base}/property/${p.slug}`} style={viewBtn}>View Property →</Link>
+        {/* Primary CTA — full width, goes to gallery */}
+        <Link href={primaryHref} style={viewBtn}>View Gallery →</Link>
 
         {/* Secondary contact — text links */}
         <Text style={contactLine}>

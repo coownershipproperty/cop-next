@@ -79,21 +79,27 @@ export default async function handler(req, res) {
         const contact   = contactById[sendRow.contact_id] || {};
         const firstName = contact.first_name || 'there';
 
+        // User token for gallery URLs (name + email pre-fills the enquiry form)
+        const userToken = Buffer.from(JSON.stringify({
+          n: firstName !== 'there' ? firstName : '',
+          e: sendRow.email,
+        })).toString('base64url');
+
         // Build property objects for the template
         const toPropertyObj = (slug) => {
           const p = propBySlug[slug];
           if (!p) return null;
           const parts = [p.city, p.region, p.country].filter(Boolean);
-          // Deduplicate location parts (city and region are often the same)
           const location = [...new Set(parts)].join(', ');
           return {
-            slug:     p.slug,
-            title:    p.title,
-            price:    formatPrice(p.price, p.currency),
-            beds:     p.beds || 0,
-            size:     p.size || 0,
-            imageUrl: p.img || '',
+            slug:       p.slug,
+            title:      p.title,
+            price:      formatPrice(p.price, p.currency),
+            beds:       p.beds || 0,
+            size:       p.size || 0,
+            imageUrl:   p.img || '',
             location,
+            galleryUrl: `https://co-ownership-property.com/gallery/${p.slug}?t=${userToken}`,
           };
         };
 
