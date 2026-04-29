@@ -273,7 +273,7 @@ export default function GalleryPage({ name, email, property }) {
           <h1 style={s.infoTitle}>{property.title}</h1>
           {priceStr && (
             <p style={s.infoPrice}>
-              From {priceStr}
+              {priceStr}
               <span style={s.infoPriceSub}> per share</span>
             </p>
           )}
@@ -379,12 +379,12 @@ const s = {
   },
   navLogo: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.8)',
+    fontSize: 15, fontWeight: 300, color: 'rgba(255,255,255,0.8)',
     letterSpacing: '0.28em', textTransform: 'uppercase', textDecoration: 'none',
   },
   navLink: {
     fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 10, fontWeight: 500, color: '#C9A84C',
+    fontSize: 11, fontWeight: 500, color: '#C9A84C',
     letterSpacing: '0.18em', textTransform: 'uppercase', textDecoration: 'none',
   },
 
@@ -396,22 +396,22 @@ const s = {
   },
   infoLocation: {
     fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 10, fontWeight: 500, letterSpacing: '0.22em',
-    color: '#C9A84C', margin: '0 0 10px',
+    fontSize: 12, fontWeight: 500, letterSpacing: '0.22em',
+    color: '#C9A84C', margin: '0 0 12px',
   },
   infoTitle: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: 28, fontWeight: 300, color: '#fff',
-    margin: '0 0 10px', lineHeight: 1.25, maxWidth: 520,
+    fontSize: 36, fontWeight: 300, color: '#fff',
+    margin: '0 0 12px', lineHeight: 1.2, maxWidth: 580,
   },
   infoPrice: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: 18, fontWeight: 300, color: 'rgba(255,255,255,0.85)',
+    fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.9)',
     margin: 0,
   },
   infoPriceSub: {
     fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 11, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em',
+    fontSize: 13, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em',
   },
 
   // Counter
