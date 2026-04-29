@@ -328,13 +328,13 @@ export default function GalleryPage({ name, email, property }) {
             {index > 0 && (
               <div
                 onClick={goPrev}
-                style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', zIndex: 5 }}
+                style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', zIndex: 5, cursor: 'pointer' }}
               />
             )}
             {index < totalSlides - 1 && (
               <div
                 onClick={goNext}
-                style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', zIndex: 5 }}
+                style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', zIndex: 5, cursor: 'pointer' }}
               />
             )}
           </>
@@ -404,18 +404,20 @@ export default function GalleryPage({ name, email, property }) {
         button:focus { outline: none; }
         .gallery-interested {
           font-family: 'Jost', Arial, sans-serif;
-          font-size: 9px;
+          font-size: 10px;
           font-weight: 500;
-          letter-spacing: 0.28em;
+          letter-spacing: 0.26em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.85);
-          background: transparent;
-          border: 1px solid rgba(201,168,76,0.55);
-          padding: 11px 32px;
+          color: rgba(255,255,255,0.92);
+          background: rgba(15,29,42,0.45);
+          border: 1px solid rgba(201,168,76,0.75);
+          padding: 13px 36px;
           cursor: pointer;
           white-space: nowrap;
           transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease;
-          backdrop-filter: blur(4px);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          box-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
         .gallery-interested:hover {
           background: #C9A84C;
