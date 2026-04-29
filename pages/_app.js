@@ -3,6 +3,7 @@ import { Playfair_Display, Nunito_Sans } from 'next/font/google';
 import { useEffect } from 'react';
 import Script from 'next/script';
 import { trackConversion } from '@/lib/gtag';
+import { Analytics } from '@vercel/analytics/react';
 
 const GA_ID = 'G-83RBNEXX4E';
 const GADS_ID = 'AW-4882418749';
@@ -91,6 +92,7 @@ export default function App({ Component, pageProps }) {
       )}
 
       <Component {...pageProps} />
+      <Analytics />
 
       {/* ── WhatsApp floating button (mobile only) ── */}
       <a
