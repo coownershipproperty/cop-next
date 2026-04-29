@@ -9,20 +9,44 @@ function getSupabase() {
   );
 }
 
-export async function getServerSideProps({ params }) {
-  let decoded;
+export async function getServerSideProps({ params, query }) {
+  const raw = params.token; // could be a base64 token OR a pretty slug
+  let name = null, email = null, slug = null, title = null;
+
+  // ── Try legacy base64url / base64 token ──────────────────────────────────
+  let decoded = null;
   try {
-    decoded = JSON.parse(Buffer.from(params.token, 'base64url').toString('utf-8'));
-  } catch {
+    decoded = JSON.parse(Buffer.from(raw, 'base64url').toString('utf-8'));
+    if (!decoded || !decoded.e || !decoded.s) decoded = null;
+  } catch {}
+  if (!decoded) {
     try {
-      decoded = JSON.parse(Buffer.from(params.token, 'base64').toString('utf-8'));
-    } catch {
-      return { notFound: true };
+      decoded = JSON.parse(Buffer.from(raw, 'base64').toString('utf-8'));
+      if (!decoded || !decoded.e || !decoded.s) decoded = null;
+    } catch {}
+  }
+
+  if (decoded) {
+    // Legacy format — redirect to pretty URL so the browser shows a clean address
+    ({ n: name, e: email, s: slug, t: title } = decoded);
+    if (slug && email) {
+      const userToken = Buffer.from(JSON.stringify({ n: name || '', e: email })).toString('base64url');
+      const destination = `/gallery/${slug}?t=${userToken}`;
+      return { redirect: { destination, permanent: false } };
+    }
+  } else {
+    // New pretty-URL format — raw IS the property slug; user info in ?t= param
+    slug = raw;
+    if (query.t) {
+      try {
+        const u = JSON.parse(Buffer.from(query.t, 'base64url').toString('utf-8'));
+        name  = u.n || null;
+        email = u.e || null;
+      } catch {}
     }
   }
 
-  const { n: name, e: email, s: slug, t: title } = decoded || {};
-  if (!email || !slug) return { notFound: true };
+  if (!slug) return { notFound: true };
 
   const supabase = getSupabase();
   const { data: prop } = await supabase
@@ -31,11 +55,13 @@ export async function getServerSideProps({ params }) {
     .eq('slug', slug)
     .single();
 
+  if (!prop) return { notFound: true };
+
   return {
     props: {
-      name: name || null,
-      email,
-      property: prop || { slug, title: title || '', img: null, photos: [] },
+      name:     name  || null,
+      email:    email || null,
+      property: prop,
     },
   };
 }
@@ -295,6 +321,24 @@ export default function GalleryPage({ name, email, property }) {
             : <>{index + 1} <span style={{ color: 'rgba(255,255,255,0.3)', margin: '0 4px' }}>/</span> {totalSlides}</>
           }
         </div>
+
+        {/* ── CLICK ZONES (left half = prev, right half = next) ── */}
+        {!isEnquiry && (
+          <>
+            {index > 0 && (
+              <div
+                onClick={goPrev}
+                style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', zIndex: 5, cursor: 'w-resize' }}
+              />
+            )}
+            {index < totalSlides - 1 && (
+              <div
+                onClick={goNext}
+                style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', zIndex: 5, cursor: 'e-resize' }}
+              />
+            )}
+          </>
+        )}
 
         {/* ── I'M INTERESTED BUTTON ── */}
         {!isEnquiry && (

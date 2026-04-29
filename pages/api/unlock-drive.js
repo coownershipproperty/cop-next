@@ -193,14 +193,11 @@ export default async function handler(req, res) {
     console.error('[CRM] unlock-drive write failed:', e.message);
   }
 
-  // ── Generate gallery URL ──────────────────────────────────────────────────
-  const galleryToken = Buffer.from(JSON.stringify({
-    n: name  || '',
-    e: email,
-    s: propertySlug   || '',
-    t: propertyTitle  || '',
-  })).toString('base64url');
-  const galleryUrl = `https://co-ownership-property.com/gallery/${galleryToken}`;
+  // ── Generate gallery URL (pretty slug + compact user token) ─────────────
+  const userToken  = Buffer.from(JSON.stringify({ n: name || '', e: email })).toString('base64url');
+  const galleryUrl = propertySlug
+    ? `https://co-ownership-property.com/gallery/${propertySlug}?t=${userToken}`
+    : `https://co-ownership-property.com/gallery/${userToken}`; // fallback if no slug
 
   // ── Fetch similar properties for email ────────────────────────────────────
   const rawSimilar = await getSimilarProperties(propertySlug, resolvedCountry, propertyCity, propertyPrice);
