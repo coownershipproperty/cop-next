@@ -255,15 +255,20 @@ export default async function handler(req, res) {
       console.error('[Mail] nurture-floor-plan queue failed:', e.message);
     }
 
-    // Team notification (always immediate)
+    // ── Team notification (always immediate) ─────────────────────────────────────
+    const propUrlLine = propertyUrl
+      ? `<p><strong>Property URL:</strong> <a href="${propertyUrl}">${propertyUrl}</a></p>`
+      : '';
     await sendTeamNotification({
       subject: `Floor Plan Request — ${name || email}`,
       html: `
         <h2>Floor Plan / Photo Request</h2>
-        <p><strong>Property:</strong> ${propertyTitle}${propertyUrl ? ` — <a href="${propertyUrl}">${propertyUrl}</a>` : ''}</p>
+        <p><strong>Property:</strong> ${propertyTitle}</p>
+        ${propUrlLine}
         <p><strong>Name:</strong> ${name || 'Not provided'}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p>Drive link sent: <a href="${driveUrl}">${driveUrl}</a></p>
+        <p><strong>Gallery sent to lead:</strong> <a href="${galleryUrl}">${galleryUrl}</a></p>
+        <p><strong>Raw Drive folder:</strong> <a href="${driveUrl}">${driveUrl}</a></p>
       `,
     });
 
