@@ -202,6 +202,8 @@ export default function GalleryPage({ name, email, property }) {
                 zIndex: isCurrent ? 2 : isPrevSlide ? 1 : 0,
                 transition: isCurrent ? 'opacity 0.55s ease' : 'none',
                 background: '#0A1520',
+                // flex-centre for contained slides so images never upscale
+                ...(isDoc || isExtr ? { display: 'flex', alignItems: 'center', justifyContent: 'center' } : {}),
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -480,13 +482,13 @@ const s = {
     objectFit: 'cover', objectPosition: 'center',
     display: 'block',
   },
-  // Extra (brochure) photos — contained with generous padding so they stay smaller
+  // Extra (brochure) photos — flex-centered, never upscaled beyond natural size
   slideImgExtra: {
-    position: 'absolute', inset: 0,
-    width: '100%', height: '100%',
-    objectFit: 'contain', objectPosition: 'center',
     display: 'block',
-    padding: '72px 22% 88px',
+    maxWidth: '60%',
+    maxHeight: 'calc(100% - 160px)',
+    width: 'auto',
+    height: 'auto',
   },
   extraLabel: {
     position: 'absolute', top: 80, left: '50%',
@@ -496,13 +498,13 @@ const s = {
     textTransform: 'uppercase', color: 'rgba(201,168,76,0.65)',
     zIndex: 10, whiteSpace: 'nowrap',
   },
-  // Floor plans / documents — contained with moderate padding
+  // Floor plans / documents — flex-centered, never upscaled beyond natural size
   slideImgDoc: {
-    position: 'absolute', inset: 0,
-    width: '100%', height: '100%',
-    objectFit: 'contain', objectPosition: 'center',
     display: 'block',
-    padding: '72px 10% 88px',
+    maxWidth: '80%',
+    maxHeight: 'calc(100% - 160px)',
+    width: 'auto',
+    height: 'auto',
   },
   docLabel: {
     position: 'absolute', top: 80, left: '50%',
