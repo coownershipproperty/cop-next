@@ -328,13 +328,13 @@ export default function GalleryPage({ name, email, property }) {
             {index > 0 && (
               <div
                 onClick={goPrev}
-                style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', zIndex: 5, cursor: 'w-resize' }}
+                style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', zIndex: 5 }}
               />
             )}
             {index < totalSlides - 1 && (
               <div
                 onClick={goNext}
-                style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', zIndex: 5, cursor: 'e-resize' }}
+                style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', zIndex: 5 }}
               />
             )}
           </>
@@ -343,7 +343,7 @@ export default function GalleryPage({ name, email, property }) {
         {/* ── I'M INTERESTED BUTTON ── */}
         {!isEnquiry && (
           <div style={s.interestedWrap}>
-            <button style={s.interestedBtn} onClick={() => goTo(enquiryIndex, 1)}>
+            <button className="gallery-interested" onClick={() => goTo(enquiryIndex, 1)}>
               I'm Interested
             </button>
           </div>
@@ -402,6 +402,26 @@ export default function GalleryPage({ name, email, property }) {
         input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
         input:focus, textarea:focus { outline: none; border-color: rgba(201,168,76,0.6) !important; }
         button:focus { outline: none; }
+        .gallery-interested {
+          font-family: 'Jost', Arial, sans-serif;
+          font-size: 9px;
+          font-weight: 500;
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.85);
+          background: transparent;
+          border: 1px solid rgba(201,168,76,0.55);
+          padding: 11px 32px;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+          backdrop-filter: blur(4px);
+        }
+        .gallery-interested:hover {
+          background: #C9A84C;
+          border-color: #C9A84C;
+          color: #0F1D2A;
+        }
         @media (max-width: 640px) {
           .info-title { font-size: 22px !important; }
           .e-title { font-size: 28px !important; }
