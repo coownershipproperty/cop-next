@@ -53,7 +53,7 @@ export default function GalleryPage({ name, email, property }) {
   const [prev, setPrev] = useState(null);
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = back
   const [animating, setAnimating] = useState(false);
-  const [formState, setFormState] = useState({ phone: '', message: '' });
+  const [formState, setFormState] = useState({ name: name || '', email: email || '', phone: '', message: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -108,7 +108,8 @@ export default function GalleryPage({ name, email, property }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name, email,
+          name: formState.name,
+          email: formState.email,
           phone: formState.phone,
           message: formState.message,
           propertySlug: property.slug,
@@ -188,19 +189,27 @@ export default function GalleryPage({ name, email, property }) {
                   Add your number and one of our specialists will be in touch within a few hours.
                 </p>
 
-                <div style={s.prefilled}>
-                  <div style={s.prefilledItem}>
-                    <span style={s.prefilledLabel}>Name</span>
-                    <span style={s.prefilledValue}>{name || '—'}</span>
-                  </div>
-                  <div style={s.prefilledDivider} />
-                  <div style={s.prefilledItem}>
-                    <span style={s.prefilledLabel}>Email</span>
-                    <span style={s.prefilledValue}>{email}</span>
-                  </div>
-                </div>
-
                 <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 420 }}>
+                  <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
+                    <div style={{ flex: 1 }}>
+                      <label style={s.fieldLabel}>Name</label>
+                      <input
+                        type="text"
+                        value={formState.name}
+                        onChange={e => setFormState(p => ({ ...p, name: e.target.value }))}
+                        style={s.input}
+                      />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <label style={s.fieldLabel}>Email</label>
+                      <input
+                        type="email"
+                        value={formState.email}
+                        onChange={e => setFormState(p => ({ ...p, email: e.target.value }))}
+                        style={s.input}
+                      />
+                    </div>
+                  </div>
                   <div style={s.fieldWrap}>
                     <label style={s.fieldLabel}>
                       Phone number <span style={{ color: '#C9A84C' }}>*</span>
@@ -479,7 +488,8 @@ const s = {
   enquiryInner: {
     position: 'absolute', inset: 0,
     display: 'flex', flexDirection: 'column',
-    alignItems: 'flex-start', justifyContent: 'center',
+    alignItems: 'center', justifyContent: 'center',
+    textAlign: 'center',
     padding: '80px 10vw 60px',
     overflowY: 'auto',
   },
@@ -499,11 +509,11 @@ const s = {
     color: 'rgba(255,255,255,0.4)', margin: '0 0 20px',
     textTransform: 'uppercase',
   },
-  eRule: { width: 32, height: 1, background: '#C9A84C', margin: '0 0 22px' },
+  eRule: { width: 32, height: 1, background: '#C9A84C', margin: '0 auto 22px' },
   eSub: {
     fontFamily: "'Jost', Arial, sans-serif",
     fontSize: 13, color: 'rgba(255,255,255,0.4)',
-    lineHeight: 1.75, margin: '0 0 28px', maxWidth: 380,
+    lineHeight: 1.75, margin: '0 0 28px', maxWidth: 380, textAlign: 'center',
   },
 
   // Pre-filled identity
@@ -531,7 +541,7 @@ const s = {
   },
 
   // Form
-  fieldWrap: { width: '100%', maxWidth: 420, marginBottom: 16 },
+  fieldWrap: { width: '100%', maxWidth: 420, marginBottom: 16, textAlign: 'left' },
   fieldLabel: {
     display: 'block', fontFamily: "'Jost', Arial, sans-serif",
     fontSize: 10, fontWeight: 500, letterSpacing: '0.16em',
@@ -551,7 +561,7 @@ const s = {
     fontSize: 12, color: '#ff8080', margin: '0 0 12px',
   },
   submitBtn: {
-    display: 'block', width: '100%', maxWidth: 420,
+    display: 'block', width: '100%', maxWidth: 420, margin: '0 auto',
     padding: '15px 24px',
     background: '#C9A84C', border: 'none', cursor: 'pointer',
     fontFamily: "'Jost', Arial, sans-serif",
