@@ -8,39 +8,11 @@ import ExpertForm from '@/components/ExpertForm';
 import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
+import { FEATURED_PROPERTY_SLUGS } from '@/lib/featured-properties';
 
 import { useState, useRef, useEffect } from 'react';
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
-
-const FEATURED_SLUGS = [
-  'apricale-italy-3-bed-villa-with-infinity-pool',
-  'mouans-sartoux-france-7-bed-villa-with-sea-views',
-  'fayence-france-6-bed-villa-with-pool',
-  'marbella-spain-4-bed-villa-with-sea-views',
-  'eze-france-2-bed-apartment-with-pool',
-  'palm-springs-california-5-bed-house-with-fireplace',
-  '6th-arrondissement-paris-france-2-bed-apartment-with-fireplace',
-  'cala-tarida-spain-3-bed-villa-with-pool',
-  'menaggio-italy-2-bed-apartment-with-pool',
-  'chamonix-mont-blanc-france-4-bed-house-with-mountain-views',
-  'castiglioncello-del-trinoro-si-italy-4-bed-house',
-  'santanyi-spain-5-bed-finca-with-pool',
-  'breckenridge-colorado-4-bed-house-with-mountain-views',
-  'morzine-france-2-bed-apartment-with-mountain-views',
-  'domaso-italy-2-bed-penthouse-with-infinity-pool',
-  'london-england-3-bed-house',
-  'brickell-miami-florida-luxury-2-bed-apartment-with-pool',
-  'menorca-spain-4-bed-house-with-pool-3',
-  'vallauris-france-3-bed-penthouse-with-pool',
-  'malibu-california-3-bed-house-with-beach-access',
-  '7th-arrondissement-paris-france-3-bed-apartment',
-  'aspen-colorado-4-bed-house-ski-inski-out',
-  'menorca-spain-4-bed-house-with-pool',
-  'florence-italy-2-bed-apartment',
-  'costa-de-la-luz-spain-4-bed-house-with-sea-views',
-  'sa-rapita-spain-3-bed-villa-with-sea-views',
-];
 
 export async function getStaticProps() {
   const supabase = createClient(
@@ -52,10 +24,10 @@ export async function getStaticProps() {
   const { data: rows } = await supabase
     .from('properties')
     .select('slug, title, img, region, country, price, currency, beds, size')
-    .in('slug', FEATURED_SLUGS);
+    .in('slug', FEATURED_PROPERTY_SLUGS);
 
   const bySlug = Object.fromEntries((rows || []).map(p => [p.slug, p]));
-  const featuredProps = FEATURED_SLUGS
+  const featuredProps = FEATURED_PROPERTY_SLUGS
     .map(slug => bySlug[slug])
     .filter(Boolean)
     .map(p => ({
