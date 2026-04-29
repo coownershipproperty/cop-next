@@ -34,7 +34,9 @@ const C = {
   border: '#E8E3DC',
 };
 
-const base = 'https://co-ownership-property.com';
+const base            = 'https://co-ownership-property.com';
+const whatsappNumber  = '447901002763';
+const enquiryEmail    = 'hello@co-ownership-property.com';
 
 // ── Sample / preview data ──────────────────────────────────────────────────────
 const samplePrimary: Property[] = [
@@ -137,39 +139,13 @@ export default function PersonalisedNewsletterEmail({
               {destLabel ? `PROPERTIES IN ${destLabel.toUpperCase()}` : 'YOUR PROPERTY PICKS'}
             </Heading>
             <Hr style={goldBar} />
-            {primaryProperties.map((p, i) => (
-              <Section key={i} style={card}>
-                <Link href={`${base}/property/${p.slug}`}>
-                  <Img src={p.imageUrl} alt={p.title} width="552" style={cardImg} />
-                </Link>
-                <Section style={cardContent}>
-                  {p.location && <Text style={locationLabel}>{p.location}</Text>}
-                  <Heading style={cardTitle}>{p.title}</Heading>
-                  <Text style={cardStats}>
-                    🛏&ensp;{p.beds} BEDS{p.size ? ` | ${p.size} M²` : ''}
-                  </Text>
-                  <Hr style={cardDivider} />
-                  <Row>
-                    <Column style={{ verticalAlign: 'middle' }}>
-                      <Text style={cardPrice}>{p.price}</Text>
-                    </Column>
-                    <Column style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
-                      <Link href={`${base}/property/${p.slug}`} style={viewProp}>VIEW PROPERTY →</Link>
-                    </Column>
-                  </Row>
-                </Section>
-              </Section>
-            ))}
-          </Container>
-        </Section>
-
-        {hasFallback && (
-          <Section style={{ backgroundColor: C.cream, paddingTop: 32, paddingBottom: 8 }}>
-            <Container style={wrap}>
-              <Text style={eyebrow}>You Might Also Like</Text>
-              <Heading style={sectionHeading}>MORE TO EXPLORE</Heading>
-              <Hr style={goldBar} />
-              {fallbackProperties.map((p, i) => (
+            {primaryProperties.map((p, i) => {
+              const waMsg     = encodeURIComponent(`Hi, I saw ${p.title} on Co-Ownership Property and I'd love to find out more.`);
+              const mailSubj  = encodeURIComponent(`Enquiry: ${p.title}`);
+              const mailBody  = encodeURIComponent(`Hi,\n\nI'm interested in ${p.title} and would like to find out more.\n\nThank you`);
+              const mailHref  = `mailto:${enquiryEmail}?subject=${mailSubj}&body=${mailBody}`;
+              const waHref    = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
+              return (
                 <Section key={i} style={card}>
                   <Link href={`${base}/property/${p.slug}`}>
                     <Img src={p.imageUrl} alt={p.title} width="552" style={cardImg} />
@@ -189,9 +165,69 @@ export default function PersonalisedNewsletterEmail({
                         <Link href={`${base}/property/${p.slug}`} style={viewProp}>VIEW PROPERTY →</Link>
                       </Column>
                     </Row>
+                    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={{ marginTop: 12 }}>
+                      <tbody><tr>
+                        <td style={{ width: '50%', paddingRight: 5 }}>
+                          <Link href={mailHref} style={emailBtn}>Email Enquiry</Link>
+                        </td>
+                        <td style={{ width: '50%', paddingLeft: 5 }}>
+                          <Link href={waHref} style={waBtn}>WhatsApp</Link>
+                        </td>
+                      </tr></tbody>
+                    </table>
                   </Section>
                 </Section>
-              ))}
+              );
+            })}
+          </Container>
+        </Section>
+
+        {hasFallback && (
+          <Section style={{ backgroundColor: C.cream, paddingTop: 32, paddingBottom: 8 }}>
+            <Container style={wrap}>
+              <Text style={eyebrow}>You Might Also Like</Text>
+              <Heading style={sectionHeading}>MORE TO EXPLORE</Heading>
+              <Hr style={goldBar} />
+              {fallbackProperties.map((p, i) => {
+                const waMsg     = encodeURIComponent(`Hi, I saw ${p.title} on Co-Ownership Property and I'd love to find out more.`);
+                const mailSubj  = encodeURIComponent(`Enquiry: ${p.title}`);
+                const mailBody  = encodeURIComponent(`Hi,\n\nI'm interested in ${p.title} and would like to find out more.\n\nThank you`);
+                const mailHref  = `mailto:${enquiryEmail}?subject=${mailSubj}&body=${mailBody}`;
+                const waHref    = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
+                return (
+                  <Section key={i} style={card}>
+                    <Link href={`${base}/property/${p.slug}`}>
+                      <Img src={p.imageUrl} alt={p.title} width="552" style={cardImg} />
+                    </Link>
+                    <Section style={cardContent}>
+                      {p.location && <Text style={locationLabel}>{p.location}</Text>}
+                      <Heading style={cardTitle}>{p.title}</Heading>
+                      <Text style={cardStats}>
+                        🛏&ensp;{p.beds} BEDS{p.size ? ` | ${p.size} M²` : ''}
+                      </Text>
+                      <Hr style={cardDivider} />
+                      <Row>
+                        <Column style={{ verticalAlign: 'middle' }}>
+                          <Text style={cardPrice}>{p.price}</Text>
+                        </Column>
+                        <Column style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
+                          <Link href={`${base}/property/${p.slug}`} style={viewProp}>VIEW PROPERTY →</Link>
+                        </Column>
+                      </Row>
+                      <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={{ marginTop: 12 }}>
+                        <tbody><tr>
+                          <td style={{ width: '50%', paddingRight: 5 }}>
+                            <Link href={mailHref} style={emailBtn}>Email Enquiry</Link>
+                          </td>
+                          <td style={{ width: '50%', paddingLeft: 5 }}>
+                            <Link href={waHref} style={waBtn}>WhatsApp</Link>
+                          </td>
+                        </tr></tbody>
+                      </table>
+                    </Section>
+                  </Section>
+                );
+              })}
             </Container>
           </Section>
         )}
@@ -281,3 +317,5 @@ const footLinks: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif"
 const footLink: React.CSSProperties = { color: 'rgba(255,255,255,0.5)', textDecoration: 'none' };
 const footDivider: React.CSSProperties = { borderColor: 'rgba(255,255,255,0.08)', margin: '28px 0' };
 const footFine: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", color: 'rgba(255,255,255,0.3)', fontSize: 12, fontWeight: 300, textAlign: 'center' as const, margin: '6px 0 0', lineHeight: '1.8', letterSpacing: '0.04em' };
+const emailBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 10, fontWeight: 400, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.navy, backgroundColor: C.gold, textDecoration: 'none', padding: '10px 0', display: 'block', textAlign: 'center' as const };
+const waBtn: React.CSSProperties    = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 10, fontWeight: 400, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.white, backgroundColor: '#25D366', textDecoration: 'none', padding: '10px 0', display: 'block', textAlign: 'center' as const };
