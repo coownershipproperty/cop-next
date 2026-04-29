@@ -51,7 +51,7 @@ export async function getServerSideProps({ params, query }) {
   const supabase = getSupabase();
   const { data: prop } = await supabase
     .from('properties')
-    .select('slug, title, img, photos, country, city, region, price, currency, beds, size')
+    .select('slug, title, img, photos, documents, country, city, region, price, currency, beds, size')
     .eq('slug', slug)
     .single();
 
@@ -71,9 +71,17 @@ export default function GalleryPage({ name, email, property }) {
     ? property.photos
     : property.img ? [property.img] : [];
 
-  // Total slides = photos + 1 enquiry slide
-  const totalSlides = photos.length + 1;
-  const enquiryIndex = photos.length;
+  const documents = Array.isArray(property.documents) ? property.documents : [];
+
+  // Slides: photos first, then documents, then enquiry
+  // Each slide is { url, type: 'photo' | 'document' }
+  const slides = [
+    ...photos.map(url => ({ url, type: 'photo' })),
+    ...documents.map(url => ({ url, type: 'document' })),
+  ];
+
+  const totalSlides = slides.length + 1; // +1 for enquiry
+  const enquiryIndex = slides.length;
 
   const [index, setIndex] = useState(0);
   const [prev, setPrev] = useState(null);
@@ -154,6 +162,7 @@ export default function GalleryPage({ name, email, property }) {
 
   const isEnquiry = index === enquiryIndex;
   const isPrevEnquiry = prev === enquiryIndex;
+  const isDocument = !isEnquiry && slides[index]?.type === 'document';
 
   return (
     <>
@@ -173,22 +182,33 @@ export default function GalleryPage({ name, email, property }) {
       >
 
         {/* ── SLIDES ── */}
-        {photos.map((url, i) => {
+        {slides.map((slide, i) => {
           const isCurrent = index === i;
           const isPrevSlide = prev === i;
+          const isDoc = slide.type === 'document';
           return (
             <div
-              key={url}
+              key={slide.url}
               style={{
                 ...s.slide,
                 opacity: isCurrent ? 1 : isPrevSlide ? 1 : 0,
                 zIndex: isCurrent ? 2 : isPrevSlide ? 1 : 0,
                 transition: isCurrent ? 'opacity 0.55s ease' : 'none',
+                background: isDoc ? '#0A1520' : '#0F1D2A',
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={url} alt={`${property.title} — photo ${i + 1}`} style={s.slideImg} />
-              <div style={s.gradient} />
+              <img
+                src={slide.url}
+                alt={`${property.title} — ${isDoc ? 'document' : 'photo'} ${i + 1}`}
+                style={isDoc ? s.slideImgDoc : s.slideImg}
+              />
+              {/* gradient only on photos */}
+              {!isDoc && <div style={s.gradient} />}
+              {/* document label */}
+              {isDoc && (
+                <div style={s.docLabel}>Floor Plan &amp; Documents</div>
+              )}
             </div>
           );
         })}
@@ -299,10 +319,10 @@ export default function GalleryPage({ name, email, property }) {
         {/* ── PROPERTY INFO (bottom left, photo slides only) ── */}
         <div style={{
           ...s.info,
-          opacity: isEnquiry ? 0 : 1,
-          transform: isEnquiry ? 'translateY(8px)' : 'translateY(0)',
+          opacity: isEnquiry || isDocument ? 0 : 1,
+          transform: isEnquiry || isDocument ? 'translateY(8px)' : 'translateY(0)',
           transition: 'opacity 0.4s ease, transform 0.4s ease',
-          pointerEvents: isEnquiry ? 'none' : 'auto',
+          pointerEvents: isEnquiry || isDocument ? 'none' : 'auto',
         }}>
           {location && <p style={s.infoLocation}>{location.toUpperCase()}</p>}
           <h1 style={s.infoTitle}>{property.title}</h1>
@@ -448,6 +468,21 @@ const s = {
     width: '100%', height: '100%',
     objectFit: 'cover', objectPosition: 'center',
     display: 'block',
+  },
+  slideImgDoc: {
+    position: 'absolute', inset: 0,
+    width: '100%', height: '100%',
+    objectFit: 'contain', objectPosition: 'center',
+    display: 'block',
+    padding: '60px 40px 80px',
+  },
+  docLabel: {
+    position: 'absolute', top: 80, left: '50%',
+    transform: 'translateX(-50%)',
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 9, fontWeight: 600, letterSpacing: '0.26em',
+    textTransform: 'uppercase', color: '#C9A84C',
+    zIndex: 10, whiteSpace: 'nowrap',
   },
   gradient: {
     position: 'absolute', inset: 0,
