@@ -235,21 +235,21 @@ export default function GalleryPage({ name, email, property }) {
           transition: isEnquiry ? 'opacity 0.55s ease' : 'none',
           overflowY: 'auto',
         }}>
-          <div style={s.enquiryInner}>
+          <div style={s.enquiryInner} className="gallery-enquiry-inner">
             {!submitted ? (
               <>
-                <p style={s.eEyebrow}>Private Enquiry</p>
-                <h2 style={s.eTitle}>
+                <p style={s.eEyebrow} className="gallery-e-eyebrow">Private Enquiry</p>
+                <h2 style={s.eTitle} className="e-title">
                   <em>I want to find<br />out more</em>
                 </h2>
-                <p style={s.eProperty}>{property.title}</p>
+                <p style={s.eProperty} className="gallery-e-property">{property.title}</p>
                 <div style={s.eRule} />
-                <p style={s.eSub}>
+                <p style={s.eSub} className="gallery-e-sub">
                   Add your number and one of our specialists will be in touch within a few hours.
                 </p>
 
                 <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 420 }}>
-                  <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
+                  <div className="gallery-form-row" style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
                     <div style={{ flex: 1 }}>
                       <label style={s.fieldLabel}>Name</label>
                       <input
@@ -282,7 +282,7 @@ export default function GalleryPage({ name, email, property }) {
                       required
                     />
                   </div>
-                  <div style={s.fieldWrap}>
+                  <div className="gallery-msg-wrap" style={s.fieldWrap}>
                     <label style={s.fieldLabel}>
                       Message <span style={{ color: 'rgba(255,255,255,0.25)', fontWeight: 300 }}>(optional)</span>
                     </label>
@@ -320,27 +320,27 @@ export default function GalleryPage({ name, email, property }) {
         </div>
 
         {/* ── NAV BAR ── */}
-        <nav style={s.nav}>
-          <a href="https://co-ownership-property.com" style={s.navLogo}>
+        <nav style={s.nav} className="gallery-nav">
+          <a href="https://co-ownership-property.com" style={s.navLogo} className="gallery-nav-logo">
             Co-Ownership Property
           </a>
-          <a href={`https://co-ownership-property.com/property/${property.slug}/`} style={s.navLink}>
+          <a href={`https://co-ownership-property.com/property/${property.slug}/`} style={s.navLink} className="gallery-nav-link">
             View Listing →
           </a>
         </nav>
 
         {/* ── PROPERTY INFO (bottom left, photo slides only) ── */}
-        <div style={{
+        <div className="gallery-info" style={{
           ...s.info,
           opacity: isNonPhoto ? 0 : 1,
           transform: isNonPhoto ? 'translateY(8px)' : 'translateY(0)',
           transition: 'opacity 0.4s ease, transform 0.4s ease',
           pointerEvents: isNonPhoto ? 'none' : 'auto',
         }}>
-          {location && <p style={s.infoLocation}>{location.toUpperCase()}</p>}
-          <h1 style={s.infoTitle}>{property.title}</h1>
+          {location && <p style={s.infoLocation} className="gallery-info-location">{location.toUpperCase()}</p>}
+          <h1 style={s.infoTitle} className="info-title">{property.title}</h1>
           {priceStr && (
-            <p style={s.infoPrice}>
+            <p style={s.infoPrice} className="gallery-info-price">
               {priceStr}
               <span style={s.infoPriceSub}> per share</span>
             </p>
@@ -383,7 +383,7 @@ export default function GalleryPage({ name, email, property }) {
         )}
 
         {/* ── DOT INDICATORS ── */}
-        <div style={s.dots}>
+        <div style={s.dots} className="gallery-dots">
           {Array.from({ length: totalSlides }).map((_, i) => (
             <button
               key={i}
@@ -458,8 +458,42 @@ export default function GalleryPage({ name, email, property }) {
           color: #0F1D2A;
         }
         @media (max-width: 640px) {
-          .info-title { font-size: 22px !important; }
-          .e-title { font-size: 28px !important; }
+          /* Nav */
+          .gallery-nav { padding: 0 18px !important; height: 52px !important; }
+          .gallery-nav-logo { font-size: 10px !important; letter-spacing: 0.16em !important; }
+          .gallery-nav-link { font-size: 10px !important; letter-spacing: 0.12em !important; }
+
+          /* Photo info overlay — compact & full-width */
+          .gallery-info { right: 16px !important; padding-left: 20px !important; bottom: 104px !important; }
+          .gallery-info-location { font-size: 9px !important; letter-spacing: 0.18em !important; margin-bottom: 6px !important; }
+          .info-title {
+            font-size: 17px !important;
+            line-height: 1.3 !important;
+            margin-bottom: 0 !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+          }
+          .gallery-info-price { display: none !important; }
+
+          /* Interested button */
+          .gallery-interested { font-size: 9px !important; padding: 11px 28px !important; letter-spacing: 0.22em !important; }
+
+          /* Enquiry slide */
+          .gallery-enquiry-inner { padding: 52px 20px 72px !important; justify-content: flex-start !important; }
+          .gallery-e-eyebrow { font-size: 9px !important; margin-bottom: 10px !important; }
+          .e-title { font-size: 24px !important; margin-bottom: 14px !important; }
+          .gallery-e-property { font-size: 9px !important; margin-bottom: 12px !important; letter-spacing: 0.1em !important; }
+          .gallery-e-sub { font-size: 12px !important; margin-bottom: 16px !important; line-height: 1.6 !important; }
+
+          /* Form: stack name+email vertically, hide message */
+          .gallery-form-row { flex-direction: column !important; gap: 0 !important; margin-bottom: 0 !important; }
+          .gallery-form-row > div { margin-bottom: 12px !important; }
+          .gallery-msg-wrap { display: none !important; }
+
+          /* Dots: tighter on mobile */
+          .gallery-dots { gap: 4px !important; bottom: 14px !important; }
         }
       `}</style>
     </>
