@@ -19,7 +19,7 @@ interface Property {
 interface PersonalisedNewsletterEmailProps {
   firstName?: string;
   primaryProperties?: Property[];
-  fallbackProperties?: Property[];
+  fallbackProperties?: Property[]; // kept for backward compat, merged into primary
   unsubscribeUrl?: string;
 }
 
@@ -121,16 +121,16 @@ function PropertyCard({ p }: { p: Property }) {
 export default function PersonalisedNewsletterEmail({
   firstName = 'there',
   primaryProperties = samplePrimary,
-  fallbackProperties = sampleFallback,
+  fallbackProperties = [],
   unsubscribeUrl = `${base}/unsubscribe`,
 }: PersonalisedNewsletterEmailProps) {
+  // Merge primary + any fallback into one flat list (fallback_slugs is now always [])
   const allProps = [...primaryProperties, ...fallbackProperties];
-  const hasFallback = fallbackProperties.length > 0;
 
-  const destinations = [...new Set(primaryProperties.map(p => p.location?.split(',')[0]).filter(Boolean))];
-  const destLabel = destinations.slice(0, 2).join(' & ');
+  const destinations = [...new Set(allProps.map(p => p.location?.split(',')[0]).filter(Boolean))];
+  const destLabel = destinations.slice(0, 3).join(', ');
 
-  const previewText = `${firstName}, we've selected ${allProps.length} properties based on your interests${destLabel ? ` in ${destLabel}` : ''}.`;
+  const previewText = `${firstName !== 'there' ? firstName + ', ' : ''}${allProps.length} properties selected based on your interests${destLabel ? ` — ${destLabel}` : ''}.`;
 
   return (
     <Html lang="en">
@@ -186,7 +186,7 @@ export default function PersonalisedNewsletterEmail({
           </Container>
         </Section>
 
-        {/* ── Primary properties ── */}
+        {/* ── All properties — one unified section ── */}
         <Section style={{ backgroundColor: C.cream, paddingBottom: 8 }}>
           <Container style={wrap}>
             <Text style={eyebrow}>Selected For You</Text>
@@ -194,21 +194,9 @@ export default function PersonalisedNewsletterEmail({
               {destLabel ? `Properties in ${destLabel}` : 'Your Property Picks'}
             </Heading>
             <Hr style={goldBar} />
-            {primaryProperties.map((p, i) => <PropertyCard key={i} p={p} />)}
+            {allProps.map((p, i) => <PropertyCard key={i} p={p} />)}
           </Container>
         </Section>
-
-        {/* ── Fallback properties ── */}
-        {hasFallback && (
-          <Section style={{ backgroundColor: C.cream, paddingTop: 32, paddingBottom: 8 }}>
-            <Container style={wrap}>
-              <Text style={eyebrow}>You Might Also Like</Text>
-              <Heading style={sectionHeading}>More To Explore</Heading>
-              <Hr style={goldBar} />
-              {fallbackProperties.map((p, i) => <PropertyCard key={i} p={p} />)}
-            </Container>
-          </Section>
-        )}
 
         {/* ── Browse CTA ── */}
         <Section style={{ backgroundColor: C.cream, paddingBottom: 64, paddingTop: 24 }}>
