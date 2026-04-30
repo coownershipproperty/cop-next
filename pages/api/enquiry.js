@@ -165,9 +165,10 @@ export default async function handler(req, res) {
 
       lead = await createLead({
         contactId:     contact.id,
-        propertyTitle: property || null,
-        message:       message  || null,
-        budget:        budget   || null,
+        propertyTitle: property     || null,
+        mainRegion:    destination  || null,
+        message:       message      || null,
+        budget:        budget       || null,
       });
 
       const subject = `We received your enquiry${property ? ` — ${property}` : ''}`;

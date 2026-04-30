@@ -1,6 +1,12 @@
+import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, logActivity, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { sendTeamNotification } from '@/lib/resend';
+
+function getDb() {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -17,6 +23,28 @@ export default async function handler(req, res) {
   const firstName = nameParts[0] || null;
   const lastName  = nameParts.slice(1).join(' ') || null;
 
+  // ── Look up property region from DB ──────────────────────────────────────
+  let resolvedRegion = null;
+  let resolvedCity   = null;
+  let resolvedSlug   = propertySlug || null;
+  try {
+    const db = getDb();
+    let prop = null;
+    if (propertySlug) {
+      const { data } = await db.from('properties').select('slug, region, city').eq('slug', propertySlug).single();
+      prop = data;
+    }
+    if (!prop && propertyTitle) {
+      const { data } = await db.from('properties').select('slug, region, city').eq('title', propertyTitle).single();
+      prop = data;
+    }
+    if (prop) {
+      resolvedSlug   = prop.slug   || resolvedSlug;
+      resolvedRegion = prop.region || null;
+      resolvedCity   = prop.city   || null;
+    }
+  } catch (_) {}
+
   // ── CRM ───────────────────────────────────────────────────────────────────
   try {
     const contact = await upsertContact({
@@ -31,8 +59,10 @@ export default async function handler(req, res) {
 
       await createLead({
         contactId:     contact.id,
-        propertySlug:  propertySlug  || null,
-        propertyTitle: propertyTitle || null,
+        propertySlug:  resolvedSlug   || null,
+        propertyTitle: propertyTitle  || null,
+        mainRegion:    resolvedRegion || null,
+        subregion:     resolvedCity   || null,
       });
 
       await logActivity({
