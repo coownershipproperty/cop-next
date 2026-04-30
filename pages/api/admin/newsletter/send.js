@@ -116,12 +116,13 @@ export default async function handler(req, res) {
           })
         );
 
-        // Build a short region string from the first 2 unique regions in this send
-        const sendRegions = [...new Set(
-          [...primaryProps, ...fallbackProps]
-            .map(p => p.regionTag)
-            .filter(Boolean)
-        )].slice(0, 2).join(' & ');
+        // Build a short region string: "California & Mallorca" or "California, Mallorca & Ibiza"
+        const regionList = [...new Set(
+          [...primaryProps, ...fallbackProps].map(p => p.regionTag).filter(Boolean)
+        )].slice(0, 3);
+        const sendRegions = regionList.length > 1
+          ? regionList.slice(0, -1).join(', ') + ' & ' + regionList[regionList.length - 1]
+          : regionList[0] || '';
         const subject = firstName !== 'there'
           ? (sendRegions ? `${firstName} — ${sendRegions}` : `${firstName}, properties selected for you`)
           : (sendRegions ? `Properties in ${sendRegions}` : 'Your personalised property selection');

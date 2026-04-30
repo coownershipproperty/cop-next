@@ -127,8 +127,12 @@ export default function PersonalisedNewsletterEmail({
   const heroProps      = allProps.slice(0, 2);
   const secondaryProps = allProps.slice(2, 6);
 
-  const regions   = [...new Set(allProps.map(p => p.regionTag || p.location?.split(',')[0]).filter(Boolean))];
-  const destShort = regions.slice(0, 3).join(', ');
+  const regions = [...new Set(allProps.map(p => p.regionTag || p.location?.split(',')[0]).filter(Boolean))];
+  const top3    = regions.slice(0, 3);
+  // "California & Mallorca" or "California, Mallorca & Ibiza"
+  const destShort = top3.length > 1
+    ? top3.slice(0, -1).join(', ') + ' & ' + top3[top3.length - 1]
+    : top3[0] || '';
 
   const introLine = firstName !== 'there'
     ? `${firstName} — ${allProps.length} homes${destShort ? ` in ${destShort}` : ''}, matched for you`
