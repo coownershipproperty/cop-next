@@ -24,20 +24,20 @@ interface PersonalisedNewsletterEmailProps {
 }
 
 const C = {
-  navy:   '#1E3448',
-  navy60: '#6B8A9E',
-  gold:   '#C9A84C',
-  cream:  '#F7F4EE',
-  white:  '#FFFFFF',
-  border: '#E8E3DC',
+  navy:    '#1E3448',
+  navy80:  '#243d56',
+  navy60:  '#6B8A9E',
+  gold:    '#C9A84C',
+  cream:   '#F7F4EE',
+  white:   '#FFFFFF',
 };
 
 const base           = 'https://co-ownership-property.com';
 const whatsappNumber = '447901002763';
 const enquiryEmail   = 'hello@co-ownership-property.com';
 
-// ── Gold divider helper ───────────────────────────────────────────────────────
-function GoldLine({ width = 28 }: { width?: number }) {
+// ── Gold rule helper ──────────────────────────────────────────────────────────
+function GoldRule({ width = 28 }: { width?: number }) {
   return (
     <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
       <tbody><tr><td align="center">
@@ -51,7 +51,18 @@ function GoldLine({ width = 28 }: { width?: number }) {
   );
 }
 
-// ── Hero card (properties 1 & 2 — full width, 300px image) ───────────────────
+// ── Full-width gold separator (header → body divider) ─────────────────────────
+function GoldBorder() {
+  return (
+    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
+      <tbody><tr>
+        <td style={{ backgroundColor: C.gold, height: 2, lineHeight: '2px', fontSize: '1px' }}>&nbsp;</td>
+      </tr></tbody>
+    </table>
+  );
+}
+
+// ── Hero card (properties 1 & 2) ──────────────────────────────────────────────
 function HeroCard({ p }: { p: Property }) {
   const waMsg    = encodeURIComponent(`Hi, I saw ${p.title} on Co-Ownership Property and I'd love to find out more.`);
   const mailSub  = encodeURIComponent(`Enquiry: ${p.title}`);
@@ -68,7 +79,7 @@ function HeroCard({ p }: { p: Property }) {
       <Section style={heroBody}>
         {p.regionTag && <Text style={regionPill}>{p.regionTag}</Text>}
         <Heading style={heroTitle}><em>{p.title}</em></Heading>
-        <GoldLine width={28} />
+        <GoldRule width={28} />
         <Text style={heroPrice}>
           {p.price}&ensp;<span style={perShare}>per share</span>
         </Text>
@@ -83,7 +94,7 @@ function HeroCard({ p }: { p: Property }) {
   );
 }
 
-// ── Secondary card (properties 3–6 — full width, slightly compact) ────────────
+// ── Secondary card (properties 3–6) ──────────────────────────────────────────
 function SecondaryCard({ p }: { p: Property }) {
   const href = p.galleryUrl || `${base}/property/${p.slug}`;
 
@@ -95,7 +106,7 @@ function SecondaryCard({ p }: { p: Property }) {
       <Section style={secondaryBody}>
         {p.regionTag && <Text style={regionPill}>{p.regionTag}</Text>}
         <Heading style={secondaryTitle}><em>{p.title}</em></Heading>
-        <GoldLine width={22} />
+        <GoldRule width={22} />
         <Text style={secondaryPrice}>
           {p.price}&ensp;<span style={{ ...perShare, fontSize: 9 }}>per share</span>
         </Text>
@@ -105,7 +116,7 @@ function SecondaryCard({ p }: { p: Property }) {
   );
 }
 
-// ── Main ───────────────────────────────────────────────────────────────────────
+// ── Main ──────────────────────────────────────────────────────────────────────
 export default function PersonalisedNewsletterEmail({
   firstName = 'there',
   primaryProperties = [],
@@ -137,15 +148,18 @@ export default function PersonalisedNewsletterEmail({
         {/* ── Header ── */}
         <Section style={header}>
           <Container style={wrap}>
-            <GoldLine width={36} />
-            <Text style={wordmarkCOP}>C · O · P</Text>
+            <GoldRule width={36} />
+            <Text style={wordmarkCOP}>COP</Text>
             <Text style={wordmarkSub}>Co-Ownership Property</Text>
-            <GoldLine width={36} />
+            <GoldRule width={36} />
           </Container>
         </Section>
 
+        {/* ── Full-width gold line separating header from body ── */}
+        <GoldBorder />
+
         {/* ── Intro ── */}
-        <Section style={{ backgroundColor: C.cream }}>
+        <Section style={{ backgroundColor: C.navy }}>
           <Container style={wrap}>
             <Section style={{ padding: '32px 0 24px', textAlign: 'center' as const }}>
               <Text style={introStyle}>{introLine}</Text>
@@ -155,7 +169,7 @@ export default function PersonalisedNewsletterEmail({
         </Section>
 
         {/* ── Hero properties (1 & 2) ── */}
-        <Section style={{ backgroundColor: C.cream }}>
+        <Section style={{ backgroundColor: C.navy, paddingBottom: 0 }}>
           <Container style={wrap}>
             {heroProps.map((p, i) => <HeroCard key={i} p={p} />)}
           </Container>
@@ -163,7 +177,7 @@ export default function PersonalisedNewsletterEmail({
 
         {/* ── Secondary properties (3–6, single column) ── */}
         {secondaryProps.length > 0 && (
-          <Section style={{ backgroundColor: C.cream }}>
+          <Section style={{ backgroundColor: C.navy, paddingBottom: 0 }}>
             <Container style={wrap}>
               {secondaryProps.map((p, i) => <SecondaryCard key={i} p={p} />)}
             </Container>
@@ -171,7 +185,7 @@ export default function PersonalisedNewsletterEmail({
         )}
 
         {/* ── Reply nudge ── */}
-        <Section style={{ backgroundColor: C.cream, padding: '12px 0 52px' }}>
+        <Section style={{ backgroundColor: C.navy, padding: '12px 0 52px' }}>
           <Container style={wrap}>
             <Text style={replyNudge}>Anything catch your eye? Just reply to this email.</Text>
           </Container>
@@ -181,7 +195,7 @@ export default function PersonalisedNewsletterEmail({
         <Section style={footer}>
           <Container style={wrap}>
             <Text style={footLogo}>Co-Ownership Property</Text>
-            <GoldLine width={32} />
+            <GoldRule width={32} />
             <Text style={footLinks}>
               <Link href={base} style={footLink}>Website</Link>
               {'  ·  '}
@@ -204,7 +218,7 @@ export default function PersonalisedNewsletterEmail({
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const body: React.CSSProperties = {
-  backgroundColor: C.cream,
+  backgroundColor: C.navy,
   margin: 0,
   padding: 0,
   fontFamily: "'Jost', 'Helvetica Neue', Arial, sans-serif",
@@ -216,9 +230,9 @@ const header: React.CSSProperties = { backgroundColor: C.navy, padding: '36px 0 
 const wordmarkCOP: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: C.white,
-  fontSize: 32,
+  fontSize: 38,
   fontWeight: 300,
-  letterSpacing: '0.22em',
+  letterSpacing: '0.3em',
   textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
   margin: '18px 0 6px',
@@ -226,7 +240,7 @@ const wordmarkCOP: React.CSSProperties = {
 };
 const wordmarkSub: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.42)',
+  color: 'rgba(255,255,255,0.4)',
   fontSize: 7,
   fontWeight: 300,
   letterSpacing: '0.38em',
@@ -241,7 +255,7 @@ const introStyle: React.CSSProperties = {
   fontSize: 24,
   fontWeight: 300,
   fontStyle: 'italic',
-  color: C.navy,
+  color: C.white,
   margin: '0 0 24px',
   lineHeight: '1.35',
   textAlign: 'center' as const,
@@ -319,7 +333,7 @@ const perShare: React.CSSProperties = {
   textTransform: 'uppercase' as const,
 };
 
-// Gold CTA buttons
+// Buttons
 const goldBtn: React.CSSProperties = {
   display: 'block',
   backgroundColor: C.gold,
@@ -334,11 +348,7 @@ const goldBtn: React.CSSProperties = {
   padding: '15px 24px',
   marginBottom: 18,
 };
-const goldBtnSm: React.CSSProperties = {
-  ...goldBtn,
-  padding: '13px 24px',
-  marginBottom: 0,
-};
+const goldBtnSm: React.CSSProperties = { ...goldBtn, padding: '13px 24px', marginBottom: 0 };
 
 const contactLine: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
@@ -357,14 +367,14 @@ const replyNudge: React.CSSProperties = {
   fontSize: 17,
   fontStyle: 'italic',
   fontWeight: 300,
-  color: C.navy60,
+  color: 'rgba(255,255,255,0.5)',
   textAlign: 'center' as const,
   margin: '12px 0 0',
 };
 
 // Footer
 const footer: React.CSSProperties = {
-  backgroundColor: C.navy,
+  backgroundColor: '#111f2e',
   padding: '44px 0 36px',
   borderTop: `2px solid ${C.gold}`,
 };
