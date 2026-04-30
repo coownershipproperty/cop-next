@@ -142,10 +142,11 @@ export default function PersonalisedNewsletterEmail({
           .logo-full { display: block !important; }
           .logo-cop  { display: none  !important; }
           @media only screen and (max-width: 480px) {
-            .logo-full { display: none  !important; }
-            .logo-cop  { display: block !important; }
+            .logo-full   { display: none  !important; }
+            .logo-cop    { display: block !important; }
             .prop-section { background-color: #F7F4EE !important; }
             .prop-nudge   { background-color: #F7F4EE !important; }
+            .intro-text   { color: #1E3448 !important; }
           }
         `}</style>
       </Head>
@@ -170,10 +171,10 @@ export default function PersonalisedNewsletterEmail({
         <GoldBorder />
 
         {/* ── Intro ── */}
-        <Section style={{ backgroundColor: C.navy }}>
+        <Section className="prop-section" style={{ backgroundColor: C.navy }}>
           <Container style={wrap}>
             <Section style={{ padding: '32px 0 24px', textAlign: 'center' as const }}>
-              <Text style={introStyle}>{introLine}</Text>
+              <Text className="intro-text" style={introStyle}>{introLine}</Text>
               <Hr style={goldBar} />
             </Section>
           </Container>
