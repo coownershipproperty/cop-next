@@ -982,10 +982,14 @@ function filterLeads() {
       return (b.lead_updated||'')>(a.lead_updated||'')?1:-1;
     });
     const best = leads[0];
+    const _all_regions    = [...new Set(leads.map(l=>l.main_region).filter(Boolean))];
+    const _all_subregions = [...new Set(leads.map(l=>l.subregion).filter(Boolean))];
     return {
       ...best,
       _lead_count: leads.length,
       _all_lead_ids: leads.map(l=>l.lead_id),
+      _all_regions,
+      _all_subregions,
       _total_emails_sent: leads.reduce((s,l)=>s+(l.emails_sent||0),0),
       _total_opens: leads.reduce((s,l)=>s+(l.total_opens||0),0),
     };
@@ -1007,8 +1011,8 @@ function filterLeads() {
       </td>
       <td class="lt-muted">${l.phone?`<a href="tel:${esc(l.phone)}" onclick="event.stopPropagation()" style="color:var(--text);text-decoration:none">${esc(l.phone)}</a>`:'—'}</td>
       <td>${badge(l.status)}</td>
-      <td>${esc(l.main_region||'')}</td>
-      <td class="lt-muted">${esc(l.subregion||'—')}</td>
+      <td>${l._all_regions.length?l._all_regions.map(r=>esc(r)).join('<span style="color:var(--text3);margin:0 3px">/</span>'):'—'}</td>
+      <td class="lt-muted">${l._all_subregions.length?l._all_subregions.map(r=>esc(r)).join('<span style="color:var(--text3);margin:0 3px">/</span>'):'—'}</td>
       <td class="lt-muted">${esc(regionToCountry(l.main_region)||l.country||'—')}</td>
       <td>${l.budget_min?'€'+Number(l.budget_min).toLocaleString():'<span class="lt-muted">—</span>'}</td>
       <td class="lt-muted">${esc(l.timeframe||'—')}</td>
@@ -1114,7 +1118,7 @@ async function selectLead(lid, cid) {
       </div>`:''}
       <div class="ld-grid">
         <div class="ld-field"><label>Property</label><span>${esc(lead?.property_title||'—')}</span></div>
-        <div class="ld-field"><label>Region</label><span>${esc(lead?.main_region||'—')}${lead?.subregion&&lead.subregion!==lead.main_region?`<span style="color:var(--text3);font-size:12px;margin-left:6px">(${esc(lead.subregion)})</span>`:''}</span></div>
+        <div class="ld-field"><label>Region</label><span>${(()=>{const rs=[...new Set(contactLeads.map(l=>l.main_region).filter(Boolean))];const ss=[...new Set(contactLeads.map(l=>l.subregion).filter(Boolean))];return (rs.length?rs.join(' / '):'—')+(ss.length?`<span style="color:var(--text3);font-size:12px;margin-left:6px">(${ss.join(', ')})</span>`:'');})()}</span></div>
         <div class="ld-field"><label>Budget</label><span>${lead?.budget_min?'€'+Number(lead.budget_min).toLocaleString():'—'}</span></div>
         <div class="ld-field"><label>Timeframe</label><span>${esc(lead?.timeframe||'—')}</span></div>
         <div class="ld-field"><label>Phone</label><span>${lead?.phone?`<a href="tel:${esc(lead.phone)}" style="color:var(--text)">${esc(lead.phone)}</a>`:'—'}</span></div>
