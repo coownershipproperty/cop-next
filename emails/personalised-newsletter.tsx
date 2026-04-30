@@ -161,6 +161,7 @@ export default function PersonalisedNewsletterEmail({
             <Text className="logo-full" style={wordmarkFull}>Co-Ownership Property</Text>
             {/* Mobile: COP only */}
             <Text className="logo-cop" style={wordmarkCOP}>COP</Text>
+            <Text style={headerTagline}>Your weekly edit of the world's finest co-ownership</Text>
             <GoldRule width={36} />
           </Container>
         </Section>
@@ -249,6 +250,19 @@ const wordmarkFull: React.CSSProperties = {
   textAlign: 'center' as const,
   margin: '18px 0 18px',
   lineHeight: 1,
+};
+
+// Header tagline
+const headerTagline: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  color: 'rgba(255,255,255,0.52)',
+  fontSize: 13,
+  fontWeight: 300,
+  fontStyle: 'italic',
+  letterSpacing: '0.04em',
+  textAlign: 'center' as const,
+  margin: '10px 0 16px',
+  lineHeight: 1.4,
 };
 
 // Mobile only: condensed "COP"
