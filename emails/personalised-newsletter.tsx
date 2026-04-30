@@ -139,6 +139,12 @@ export default function PersonalisedNewsletterEmail({
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+          .logo-full { display: block !important; }
+          .logo-cop  { display: none  !important; }
+          @media only screen and (max-width: 480px) {
+            .logo-full { display: none  !important; }
+            .logo-cop  { display: block !important; }
+          }
         `}</style>
       </Head>
       <Preview>{introLine}</Preview>
@@ -149,8 +155,10 @@ export default function PersonalisedNewsletterEmail({
         <Section style={header}>
           <Container style={wrap}>
             <GoldRule width={36} />
-            <Text style={wordmarkCOP}>COP</Text>
-            <Text style={wordmarkSub}>Co-Ownership Property</Text>
+            {/* Desktop: full name */}
+            <Text className="logo-full" style={wordmarkFull}>Co-Ownership Property</Text>
+            {/* Mobile: COP only */}
+            <Text className="logo-cop" style={wordmarkCOP}>COP</Text>
             <GoldRule width={36} />
           </Container>
         </Section>
@@ -225,28 +233,34 @@ const body: React.CSSProperties = {
 };
 const wrap: React.CSSProperties = { maxWidth: 560, margin: '0 auto', padding: '0 20px' };
 
-// Header
-const header: React.CSSProperties = { backgroundColor: C.navy, padding: '36px 0 32px' };
-const wordmarkCOP: React.CSSProperties = {
+// Header — same dark shade as footer for visual unity
+const header: React.CSSProperties = { backgroundColor: '#111f2e', padding: '36px 0 32px' };
+
+// Desktop: full "Co-Ownership Property" — same style as footer wordmark but slightly larger
+const wordmarkFull: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: C.white,
-  fontSize: 38,
+  fontSize: 22,
   fontWeight: 300,
   letterSpacing: '0.3em',
   textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  margin: '18px 0 6px',
+  margin: '18px 0 18px',
   lineHeight: 1,
 };
-const wordmarkSub: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.4)',
-  fontSize: 7,
+
+// Mobile only: condensed "COP"
+const wordmarkCOP: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  color: C.white,
+  fontSize: 34,
   fontWeight: 300,
-  letterSpacing: '0.38em',
+  letterSpacing: '0.3em',
   textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  margin: '0 0 18px',
+  margin: '18px 0 18px',
+  lineHeight: 1,
+  display: 'none',
 };
 
 // Intro
