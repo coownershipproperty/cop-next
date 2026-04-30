@@ -245,7 +245,7 @@ export default function GalleryPage({ name, email, property }) {
                 <p style={s.eProperty} className="gallery-e-property">{property.title}</p>
                 <div style={s.eRule} className="gallery-e-rule" />
                 <p style={s.eSub} className="gallery-e-sub">
-                  Add your number and one of our specialists will be in touch within a few hours.
+                  Leave your details and one of our specialists will reach out within a few hours.
                 </p>
 
                 {/* Mobile-only compact heading */}
