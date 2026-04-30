@@ -249,7 +249,7 @@ export default function GalleryPage({ name, email, property }) {
                 </p>
 
                 {/* Mobile-only compact heading */}
-                <p className="gallery-mobile-heading" style={{ display: 'none' }}>Speak with a specialist</p>
+                <p className="gallery-mobile-heading" style={{ display: 'none' }}>I want to know more</p>
 
                 <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 420 }}>
                   <div className="gallery-form-row" style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
