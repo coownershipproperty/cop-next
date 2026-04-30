@@ -248,6 +248,9 @@ export default function GalleryPage({ name, email, property }) {
                   Add your number and one of our specialists will be in touch within a few hours.
                 </p>
 
+                {/* Mobile-only compact heading */}
+                <p className="gallery-mobile-heading" style={{ display: 'none' }}>Speak with a specialist</p>
+
                 <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 420 }}>
                   <div className="gallery-form-row" style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
                     <div style={{ flex: 1 }}>
@@ -398,8 +401,8 @@ export default function GalleryPage({ name, email, property }) {
           ))}
         </div>
 
-        {/* ── PREV ARROW ── */}
-        {index > 0 && (
+        {/* ── PREV ARROW ── (hidden on enquiry slide to avoid overlapping form) */}
+        {index > 0 && !isEnquiry && (
           <button style={{ ...s.arrow, left: 0 }} onClick={goPrev} aria-label="Previous">
             <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
               <path d="M9 1L1 9L9 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -463,23 +466,32 @@ export default function GalleryPage({ name, email, property }) {
           .gallery-nav-logo { font-size: 10px !important; letter-spacing: 0.16em !important; }
           .gallery-nav-link { font-size: 10px !important; letter-spacing: 0.12em !important; }
 
-          /* Photo info overlay — location only, no title or price */
-          .gallery-info { right: 16px !important; padding-left: 20px !important; bottom: 104px !important; }
-          .gallery-info-location { font-size: 9px !important; letter-spacing: 0.18em !important; margin-bottom: 0 !important; }
-          .info-title { display: none !important; }
-          .gallery-info-price { display: none !important; }
+          /* Photo info overlay — completely hidden on mobile */
+          .gallery-info { display: none !important; }
 
           /* Interested button */
           .gallery-interested { font-size: 9px !important; padding: 11px 28px !important; letter-spacing: 0.22em !important; }
 
-          /* Enquiry slide — fields + button only, no surrounding text */
-          .gallery-enquiry-inner { padding: 80px 24px 72px !important; justify-content: center !important; }
+          /* Enquiry slide — compact heading + fields + button only */
+          .gallery-enquiry-inner { padding: 68px 24px 72px !important; justify-content: center !important; }
           .gallery-e-eyebrow { display: none !important; }
           .e-title { display: none !important; }
           .gallery-e-property { display: none !important; }
           .gallery-e-rule { display: none !important; }
           .gallery-e-sub { display: none !important; }
           .gallery-form-note { display: none !important; }
+          .gallery-mobile-heading {
+            display: block !important;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 22px;
+            font-weight: 300;
+            font-style: italic;
+            color: #fff;
+            text-align: center;
+            margin: 0 0 28px;
+            letter-spacing: 0.02em;
+            line-height: 1.3;
+          }
 
           /* Form: stack name+email vertically, hide message */
           .gallery-form-row { flex-direction: column !important; gap: 0 !important; margin-bottom: 0 !important; }
