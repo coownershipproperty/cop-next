@@ -144,6 +144,8 @@ export default function PersonalisedNewsletterEmail({
           @media only screen and (max-width: 480px) {
             .logo-full { display: none  !important; }
             .logo-cop  { display: block !important; }
+            .prop-section { background-color: #F7F4EE !important; }
+            .prop-nudge   { background-color: #F7F4EE !important; }
           }
         `}</style>
       </Head>
@@ -177,7 +179,7 @@ export default function PersonalisedNewsletterEmail({
         </Section>
 
         {/* ── Hero properties (1 & 2) ── */}
-        <Section style={{ backgroundColor: C.navy, paddingBottom: 0 }}>
+        <Section className="prop-section" style={{ backgroundColor: C.navy, paddingBottom: 0 }}>
           <Container style={wrap}>
             {heroProps.map((p, i) => <HeroCard key={i} p={p} />)}
           </Container>
@@ -185,7 +187,7 @@ export default function PersonalisedNewsletterEmail({
 
         {/* ── Secondary properties (3–6, single column) ── */}
         {secondaryProps.length > 0 && (
-          <Section style={{ backgroundColor: C.navy, paddingBottom: 0 }}>
+          <Section className="prop-section" style={{ backgroundColor: C.navy, paddingBottom: 0 }}>
             <Container style={wrap}>
               {secondaryProps.map((p, i) => <SecondaryCard key={i} p={p} />)}
             </Container>
@@ -193,7 +195,7 @@ export default function PersonalisedNewsletterEmail({
         )}
 
         {/* ── Reply nudge ── */}
-        <Section style={{ backgroundColor: C.navy, padding: '12px 0 52px' }}>
+        <Section className="prop-nudge" style={{ backgroundColor: C.navy, padding: '12px 0 52px' }}>
           <Container style={wrap}>
             <Text style={replyNudge}>Anything catch your eye? Just reply to this email.</Text>
           </Container>
@@ -375,13 +377,13 @@ const contactLine: React.CSSProperties = {
 };
 const contactLink: React.CSSProperties = { color: C.navy60, textDecoration: 'none' };
 
-// Reply nudge
+// Reply nudge — navy60 works on both cream (mobile) and navy (desktop) backgrounds
 const replyNudge: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: 17,
   fontStyle: 'italic',
   fontWeight: 300,
-  color: 'rgba(255,255,255,0.5)',
+  color: C.navy60,
   textAlign: 'center' as const,
   margin: '12px 0 0',
 };
