@@ -243,7 +243,7 @@ export default function GalleryPage({ name, email, property }) {
                   <em>I want to find<br />out more</em>
                 </h2>
                 <p style={s.eProperty} className="gallery-e-property">{property.title}</p>
-                <div style={s.eRule} />
+                <div style={s.eRule} className="gallery-e-rule" />
                 <p style={s.eSub} className="gallery-e-sub">
                   Add your number and one of our specialists will be in touch within a few hours.
                 </p>
@@ -298,7 +298,7 @@ export default function GalleryPage({ name, email, property }) {
                   <button type="submit" style={s.submitBtn} disabled={submitting}>
                     {submitting ? 'Sending…' : "I'm Interested — Get In Touch"}
                   </button>
-                  <p style={s.formNote}>No obligation · We respond within a few hours</p>
+                  <p style={s.formNote} className="gallery-form-note">No obligation · We respond within a few hours</p>
                 </form>
               </>
             ) : (
@@ -463,29 +463,23 @@ export default function GalleryPage({ name, email, property }) {
           .gallery-nav-logo { font-size: 10px !important; letter-spacing: 0.16em !important; }
           .gallery-nav-link { font-size: 10px !important; letter-spacing: 0.12em !important; }
 
-          /* Photo info overlay — compact & full-width */
+          /* Photo info overlay — location only, no title or price */
           .gallery-info { right: 16px !important; padding-left: 20px !important; bottom: 104px !important; }
-          .gallery-info-location { font-size: 9px !important; letter-spacing: 0.18em !important; margin-bottom: 6px !important; }
-          .info-title {
-            font-size: 17px !important;
-            line-height: 1.3 !important;
-            margin-bottom: 0 !important;
-            display: -webkit-box !important;
-            -webkit-line-clamp: 2 !important;
-            -webkit-box-orient: vertical !important;
-            overflow: hidden !important;
-          }
+          .gallery-info-location { font-size: 9px !important; letter-spacing: 0.18em !important; margin-bottom: 0 !important; }
+          .info-title { display: none !important; }
           .gallery-info-price { display: none !important; }
 
           /* Interested button */
           .gallery-interested { font-size: 9px !important; padding: 11px 28px !important; letter-spacing: 0.22em !important; }
 
-          /* Enquiry slide */
-          .gallery-enquiry-inner { padding: 52px 20px 72px !important; justify-content: flex-start !important; }
-          .gallery-e-eyebrow { font-size: 9px !important; margin-bottom: 10px !important; }
-          .e-title { font-size: 24px !important; margin-bottom: 14px !important; }
-          .gallery-e-property { font-size: 9px !important; margin-bottom: 12px !important; letter-spacing: 0.1em !important; }
-          .gallery-e-sub { font-size: 12px !important; margin-bottom: 16px !important; line-height: 1.6 !important; }
+          /* Enquiry slide — fields + button only, no surrounding text */
+          .gallery-enquiry-inner { padding: 80px 24px 72px !important; justify-content: center !important; }
+          .gallery-e-eyebrow { display: none !important; }
+          .e-title { display: none !important; }
+          .gallery-e-property { display: none !important; }
+          .gallery-e-rule { display: none !important; }
+          .gallery-e-sub { display: none !important; }
+          .gallery-form-note { display: none !important; }
 
           /* Form: stack name+email vertically, hide message */
           .gallery-form-row { flex-direction: column !important; gap: 0 !important; margin-bottom: 0 !important; }
