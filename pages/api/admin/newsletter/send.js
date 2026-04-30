@@ -99,6 +99,7 @@ export default async function handler(req, res) {
             size:       p.size || 0,
             imageUrl:   p.img || '',
             location,
+            regionTag:  p.region || p.city || null,
             galleryUrl: `https://co-ownership-property.com/gallery/${p.slug}?t=${userToken}`,
           };
         };
@@ -115,11 +116,19 @@ export default async function handler(req, res) {
           })
         );
 
+        // Build a short region string from the first 2 unique regions in this send
+        const sendRegions = [...new Set(
+          [...primaryProps, ...fallbackProps]
+            .map(p => p.regionTag)
+            .filter(Boolean)
+        )].slice(0, 2).join(' & ');
+        const subject = firstName !== 'there'
+          ? (sendRegions ? `${firstName} — ${sendRegions}` : `${firstName}, properties selected for you`)
+          : (sendRegions ? `Properties in ${sendRegions}` : 'Your personalised property selection');
+
         await sendHtml({
           to:      sendRow.email,
-          subject: firstName !== 'there'
-            ? `${firstName}, properties selected for you`
-            : 'Your personalised property selection',
+          subject,
           html,
           from:    'Co-Ownership Property <info@co-ownership-property.com>',
           replyTo: 'info@co-ownership-property.com',

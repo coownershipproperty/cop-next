@@ -71,6 +71,7 @@ export default async function handler(req, res) {
       size:       p.size || 0,
       imageUrl:   p.img || '',
       location,
+      regionTag:  p.region || p.city || null,
       galleryUrl: `https://co-ownership-property.com/gallery/${p.slug}?t=${userToken}`,
     };
   };
