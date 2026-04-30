@@ -142,13 +142,14 @@ export default function PersonalisedNewsletterEmail({
     <Html lang="en">
       <Head>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
           .logo-full { display: block !important; }
           .logo-cop  { display: none  !important; }
           @media only screen and (max-width: 480px) {
-              .prop-section { background-color: #F7F4EE !important; }
-            .prop-nudge   { background-color: #F7F4EE !important; }
-            .intro-text   { color: #1E3448 !important; }
+            .prop-section  { background-color: #F7F4EE !important; }
+            .prop-nudge    { background-color: #F7F4EE !important; }
+            .intro-text    { color: #1E3448 !important; }
+            .wordmark-text { font-size: 18px !important; }
           }
         `}</style>
       </Head>
@@ -160,7 +161,7 @@ export default function PersonalisedNewsletterEmail({
         <Section style={header}>
           <Container style={wrap}>
             <GoldRule width={36} />
-            <Text style={wordmarkFull}>Co-Ownership Property</Text>
+            <Text className="wordmark-text" style={wordmarkFull}>Co-Ownership Property</Text>
             <Text style={headerTagline}>Your weekly edit of the world's finest co-ownership</Text>
             <GoldRule width={36} />
           </Container>
@@ -300,14 +301,14 @@ const goldBar: React.CSSProperties = {
 // Region pill
 const regionPill: React.CSSProperties = {
   display: 'inline-block',
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 11,
-  fontWeight: 500,
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 8,
+  fontWeight: 600,
   letterSpacing: '0.22em',
   textTransform: 'uppercase' as const,
   color: C.navy,
   backgroundColor: C.gold,
-  padding: '4px 12px',
+  padding: '3px 10px',
   margin: '0 0 14px',
   lineHeight: 1,
 };
@@ -356,11 +357,11 @@ const secondaryPrice: React.CSSProperties = {
 
 // Shared
 const perShare: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 13,
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
   fontWeight: 400,
   color: C.navy60,
-  letterSpacing: '0.12em',
+  letterSpacing: '0.1em',
   textTransform: 'uppercase' as const,
 };
 
@@ -369,9 +370,9 @@ const goldBtn: React.CSSProperties = {
   display: 'block',
   backgroundColor: C.gold,
   color: C.navy,
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 13,
-  fontWeight: 500,
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 600,
   letterSpacing: '0.22em',
   textTransform: 'uppercase' as const,
   textDecoration: 'none',
@@ -382,8 +383,8 @@ const goldBtn: React.CSSProperties = {
 const goldBtnSm: React.CSSProperties = { ...goldBtn, padding: '13px 24px', marginBottom: 0 };
 
 const contactLine: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 13,
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
   fontWeight: 400,
   letterSpacing: '0.14em',
   textTransform: 'uppercase' as const,
@@ -421,11 +422,10 @@ const footLogo: React.CSSProperties = {
   margin: '0 0 18px',
 };
 const footLinks: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 13,
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
   fontWeight: 300,
-  letterSpacing: '0.14em',
-  textTransform: 'uppercase' as const,
+  letterSpacing: '0.1em',
   textAlign: 'center' as const,
   margin: '12px 0 4px',
   color: 'rgba(255,255,255,.35)',
@@ -433,9 +433,9 @@ const footLinks: React.CSSProperties = {
 const footLink: React.CSSProperties  = { color: 'rgba(255,255,255,.45)', textDecoration: 'none' };
 const footDivider: React.CSSProperties = { borderColor: 'rgba(255,255,255,.07)', margin: '20px 0' };
 const footFine: React.CSSProperties  = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontFamily: "'Jost', Arial, sans-serif",
   color: 'rgba(255,255,255,.28)',
-  fontSize: 13,
+  fontSize: 10,
   fontWeight: 300,
   textAlign: 'center' as const,
   margin: '4px 0 0',
