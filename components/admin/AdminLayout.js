@@ -3,6 +3,52 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
+const s = {
+  root: { minHeight: '100vh', background: '#F5F2EC', fontFamily: '"Nunito Sans", sans-serif' },
+  nav: {
+    background: '#2C4A5E',
+    position: 'sticky', top: 0, zIndex: 30,
+    boxShadow: '0 1px 8px rgba(44,74,94,0.15)',
+  },
+  navInner: {
+    maxWidth: 1280, margin: '0 auto', padding: '0 24px',
+    height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+  },
+  brand: {
+    fontSize: 15, fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px',
+    textDecoration: 'none', fontFamily: '"Playfair Display", serif',
+  },
+  navLinks: { display: 'flex', alignItems: 'center', gap: 6 },
+  navLink: {
+    fontSize: 13, color: 'rgba(255,255,255,0.75)', textDecoration: 'none',
+    padding: '6px 12px', borderRadius: 6, transition: 'all 0.15s',
+  },
+  navLinkActive: {
+    fontSize: 13, color: '#ffffff', textDecoration: 'none',
+    padding: '6px 12px', borderRadius: 6, background: 'rgba(255,255,255,0.12)',
+    fontWeight: 600,
+  },
+  navRight: { display: 'flex', alignItems: 'center', gap: 12 },
+  viewSite: {
+    fontSize: 12, color: '#C9A84C', textDecoration: 'none',
+    padding: '5px 10px', border: '1px solid rgba(201,168,76,0.4)',
+    borderRadius: 6, fontWeight: 600,
+  },
+  divider: { width: 1, height: 20, background: 'rgba(255,255,255,0.2)' },
+  email: { fontSize: 12, color: 'rgba(255,255,255,0.5)' },
+  signOut: {
+    fontSize: 12, color: 'rgba(255,255,255,0.6)', background: 'none',
+    border: 'none', cursor: 'pointer', padding: '4px 8px', borderRadius: 4,
+  },
+  main: { maxWidth: 1280, margin: '0 auto', padding: '32px 24px' },
+  loading: {
+    minHeight: '100vh', background: '#F5F2EC',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    fontFamily: '"Nunito Sans", sans-serif',
+  },
+  loadingText: { fontSize: 14, color: '#8a9aaa' },
+}
+
 export default function AdminLayout({ children }) {
   const router = useRouter()
   const [user, setUser] = useState(null)
@@ -33,40 +79,36 @@ export default function AdminLayout({ children }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-        <div className="text-sm text-stone-400">Loading…</div>
+      <div style={s.loading}>
+        <div style={s.loadingText}>Loading…</div>
       </div>
     )
   }
 
+  const isProperties = router.pathname === '/admin' || router.pathname.startsWith('/admin/property')
+
   return (
-    <div className="min-h-screen bg-stone-50">
-      <nav className="bg-white border-b border-stone-200 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link href="/admin" className="text-sm font-semibold text-stone-800 tracking-tight">
-              COP Admin
-            </Link>
-            <Link
-              href="/admin"
-              className={`text-sm ${router.pathname === '/admin' ? 'text-stone-800 font-medium' : 'text-stone-500 hover:text-stone-700'}`}
-            >
+    <div style={s.root}>
+      <nav style={s.nav}>
+        <div style={s.navInner}>
+          <div style={s.navLinks}>
+            <Link href="/admin" style={s.brand}>COP Admin</Link>
+            <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.2)', margin: '0 6px' }} />
+            <Link href="/admin" style={isProperties ? s.navLinkActive : s.navLink}>
               Properties
             </Link>
           </div>
-          <div className="flex items-center gap-4">
-            <Link href="/our-homes" target="_blank" className="text-xs text-stone-400 hover:text-stone-600">
+          <div style={s.navRight}>
+            <Link href="/our-homes" target="_blank" style={s.viewSite}>
               View site ↗
             </Link>
-            <div className="h-4 w-px bg-stone-200" />
-            <span className="text-xs text-stone-400">{user?.email}</span>
-            <button onClick={signOut} className="text-xs text-stone-400 hover:text-stone-600">
-              Sign out
-            </button>
+            <div style={s.divider} />
+            <span style={s.email}>{user?.email}</span>
+            <button onClick={signOut} style={s.signOut}>Sign out</button>
           </div>
         </div>
       </nav>
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main style={s.main}>
         {children}
       </main>
     </div>
