@@ -141,9 +141,9 @@ export default function PropertyPage({ property: p, similar }) {
   const heroImg = p.images[0] || '/images/placeholder.jpg';
   // Use photos array (gallery uploads) as the authoritative total; fall back to total_images field
   const galleryTotal = Array.isArray(p.photos) && p.photos.length > 0
-    ? p.photos.length
+    ? p.photos.length + (Array.isArray(p.extra_photos) ? p.extra_photos.length : 0)
     : (p.total_images || p.images.length);
-  // Show total gallery count (all photos in drive, including ones visible on page)
+  // Show total gallery count (all photos + brochure extras unlocked in the gallery)
   const missingCount = galleryTotal;
   const descParas = p.description ? p.description.split('\n').filter(Boolean) : [];
   const descVisible = descExpanded ? descParas : descParas.slice(0, 2);
