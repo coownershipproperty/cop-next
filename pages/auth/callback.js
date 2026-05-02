@@ -6,20 +6,35 @@ export default function AuthCallback() {
   const router = useRouter()
 
   useEffect(() => {
-    // Supabase appends the auth code to the URL — exchangeCodeForSession handles it
-    supabase.auth.exchangeCodeForSession(window.location.href).then(({ error }) => {
-      if (error) {
-        console.error('Auth error:', error)
-        router.replace('/admin/login?error=1')
-      } else {
-        router.replace('/admin')
-      }
-    })
+    // Supabase magic links put tokens in the URL hash (#access_token=...)
+    // The client SDK processes these automatically on init — we just need to wait
+    const check = async () => {
+      // Short wait for SDK to process hash tokens
+      await new Promise(r => setTimeout(r, 300))
+      let { data: { session } } = await supabase.auth.getSession()
+      if (session) { router.replace('/admin'); return }
+
+      // Listen for auth state change as fallback
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_IN' && session) {
+          subscription.unsubscribe()
+          router.replace('/admin')
+        }
+      })
+
+      // Final timeout fallback
+      setTimeout(async () => {
+        const { data: { session } } = await supabase.auth.getSession()
+        subscription.unsubscribe()
+        router.replace(session ? '/admin' : '/admin/login?error=1')
+      }, 3000)
+    }
+    check()
   }, [])
 
   return (
-    <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-      <p className="text-sm text-stone-400">Signing you in…</p>
+    <div style={{ minHeight: '100vh', background: '#fafaf9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <p style={{ fontSize: '14px', color: '#a8a29e' }}>Signing you in…</p>
     </div>
   )
 }
