@@ -4,13 +4,85 @@ import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 
-const inputCls = 'w-full border border-stone-200 rounded-lg px-3 py-2 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white'
-const labelCls = 'block text-xs font-medium text-stone-500 mb-1 uppercase tracking-wide'
+// ─── shared style tokens ───────────────────────────────────────────────────────
+const C = {
+  blue: '#2C4A5E', blueLight: '#3a5f78',
+  gold: '#C9A84C', cream: '#F5F2EC',
+  text: '#1a2533', muted: '#5a6a7a', faint: '#8a9aaa',
+  border: '#e8e0d4', bg: '#faf9f7',
+  white: '#ffffff',
+  green: '#065f46', greenBg: '#ecfdf5', greenBorder: '#a7f3d0',
+  red: '#dc2626', redBg: '#fef2f2',
+}
 
-function Section({ title, children }) {
+const input = {
+  width: '100%',
+  border: `1px solid ${C.border}`,
+  borderRadius: 8,
+  padding: '9px 12px',
+  fontSize: 13,
+  color: C.text,
+  background: C.white,
+  outline: 'none',
+  boxSizing: 'border-box',
+  fontFamily: '"Nunito Sans", sans-serif',
+  transition: 'border-color 0.15s',
+}
+
+const label = {
+  display: 'block',
+  fontSize: 11,
+  fontWeight: 700,
+  color: C.faint,
+  marginBottom: 5,
+  textTransform: 'uppercase',
+  letterSpacing: '0.6px',
+}
+
+function Field({ l, children }) {
   return (
-    <div className="bg-white border border-stone-200 rounded-xl p-5">
-      <h2 className="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-4">{title}</h2>
+    <div>
+      <label style={label}>{l}</label>
+      {children}
+    </div>
+  )
+}
+
+function Card({ title, children }) {
+  return (
+    <div style={{
+      background: C.white,
+      border: `1px solid ${C.border}`,
+      borderRadius: 12,
+      padding: '20px 22px',
+      boxShadow: '0 1px 4px rgba(44,74,94,0.04)',
+    }}>
+      {title && (
+        <h2 style={{
+          fontSize: 11,
+          fontWeight: 700,
+          color: C.faint,
+          textTransform: 'uppercase',
+          letterSpacing: '0.8px',
+          margin: '0 0 18px',
+          paddingBottom: 12,
+          borderBottom: `1px solid ${C.border}`,
+        }}>
+          {title}
+        </h2>
+      )}
+      {children}
+    </div>
+  )
+}
+
+function Grid({ cols, gap, children }) {
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: `repeat(${cols}, 1fr)`,
+      gap: gap || 14,
+    }}>
       {children}
     </div>
   )
@@ -122,222 +194,395 @@ export default function PropertyEdit() {
   if (!form) {
     return (
       <AdminLayout>
-        <div className="flex items-center justify-center py-20">
-          <p className="text-sm text-stone-400">Loading property…</p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 0' }}>
+          <p style={{ fontSize: 14, color: C.faint }}>Loading property…</p>
         </div>
       </AdminLayout>
     )
   }
 
+  const saveBtn = {
+    background: saveState === 'saved' ? C.green : C.blue,
+    color: C.white,
+    border: 'none',
+    borderRadius: 10,
+    padding: '10px 22px',
+    fontSize: 14,
+    fontWeight: 600,
+    cursor: saveState === 'saving' ? 'not-allowed' : 'pointer',
+    opacity: saveState === 'saving' ? 0.7 : 1,
+    transition: 'background 0.2s',
+    fontFamily: '"Nunito Sans", sans-serif',
+    letterSpacing: '0.2px',
+  }
+
   return (
     <AdminLayout>
-      {/* Breadcrumb + header */}
-      <div className="flex items-center gap-2 text-sm text-stone-500 mb-6">
-        <Link href="/admin" className="hover:text-stone-700">Properties</Link>
+      {/* Breadcrumb */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: C.faint, marginBottom: 24 }}>
+        <Link href="/admin" style={{ color: C.faint, textDecoration: 'none' }}
+          onMouseEnter={e => e.target.style.color = C.blue}
+          onMouseLeave={e => e.target.style.color = C.faint}
+        >
+          Properties
+        </Link>
         <span>/</span>
-        <span className="text-stone-700 font-medium truncate max-w-xs">{property.title}</span>
+        <span style={{ color: C.muted, fontWeight: 500, maxWidth: 400, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {property.title}
+        </span>
       </div>
 
-      <div className="flex items-start justify-between mb-8 gap-4">
-        <div className="min-w-0">
-          <h1 className="text-xl font-semibold text-stone-800 leading-snug">{property.title}</h1>
-          <div className="flex items-center gap-3 mt-1">
-            <span className="text-sm text-stone-400">{slug}</span>
-            <Link href={`/property/${slug}`} target="_blank" className="text-xs text-stone-400 hover:text-stone-600 underline underline-offset-2">
+      {/* Page header */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 32, gap: 16 }}>
+        <div style={{ minWidth: 0 }}>
+          <h1 style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: C.blue,
+            fontFamily: '"Playfair Display", serif',
+            margin: '0 0 6px',
+            lineHeight: 1.3,
+          }}>
+            {property.title}
+          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 12, color: C.faint, fontFamily: 'monospace' }}>{slug}</span>
+            <Link
+              href={`/property/${slug}`}
+              target="_blank"
+              style={{ fontSize: 12, color: C.gold, textDecoration: 'none', fontWeight: 600 }}
+            >
               View on site ↗
             </Link>
           </div>
         </div>
-        <div className="flex items-center gap-3 shrink-0">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
           {saveMsg && (
-            <span className={`text-xs ${saveState === 'error' ? 'text-red-500' : 'text-emerald-600'}`}>
+            <span style={{
+              fontSize: 13, fontWeight: 500,
+              color: saveState === 'error' ? C.red : C.green,
+              background: saveState === 'error' ? C.redBg : C.greenBg,
+              padding: '6px 12px', borderRadius: 8,
+            }}>
               {saveMsg}
             </span>
           )}
           <button
             onClick={handleSave}
             disabled={saveState === 'saving'}
-            className="bg-stone-800 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-stone-700 disabled:opacity-50 transition-colors"
+            style={saveBtn}
+            onMouseEnter={e => { if (saveState === 'idle') e.target.style.background = C.blueLight }}
+            onMouseLeave={e => { if (saveState === 'idle') e.target.style.background = C.blue }}
           >
-            {saveState === 'saving' ? 'Saving…' : saveState === 'saved' ? 'Saved ✓' : 'Save changes'}
+            {saveState === 'saving' ? 'Saving…' : saveState === 'saved' ? '✓ Saved' : 'Save changes'}
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left: form fields */}
-        <div className="lg:col-span-2 space-y-6">
-          <Section title="Listing info">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2">
-                <label className={labelCls}>Title</label>
-                <input className={inputCls} value={form.title} onChange={e => set('title', e.target.value)} />
-              </div>
-              <div>
-                <label className={labelCls}>Status</label>
-                <select className={inputCls} value={form.status} onChange={e => set('status', e.target.value)}>
-                  <option value="for_sale">For sale</option>
-                  <option value="sold">Sold</option>
-                  <option value="hidden">Hidden</option>
-                </select>
-              </div>
-              <div>
-                <label className={labelCls}>Property type</label>
-                <select className={inputCls} value={form.property_type} onChange={e => set('property_type', e.target.value)}>
-                  <option value="">—</option>
-                  <option value="apartment">Apartment</option>
-                  <option value="villa">Villa</option>
-                  <option value="house">House</option>
-                  <option value="chalet">Chalet</option>
-                  <option value="townhouse">Townhouse</option>
-                  <option value="finca">Finca</option>
-                  <option value="penthouse">Penthouse</option>
-                </select>
-              </div>
-              <div>
-                <label className={labelCls}>Style</label>
-                <input className={inputCls} placeholder="garden / terrace / modern…" value={form.property_style} onChange={e => set('property_style', e.target.value)} />
-              </div>
-              <div>
-                <label className={labelCls}>Partner URL</label>
-                <input className={inputCls} placeholder="https://…" value={form.partner_url} onChange={e => set('partner_url', e.target.value)} />
-              </div>
-            </div>
-          </Section>
+      {/* Two-column layout */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 20, alignItems: 'start' }}>
 
-          <Section title="Pricing & specs">
-            <div className="grid grid-cols-4 gap-4">
-              <div className="col-span-2">
-                <label className={labelCls}>Price</label>
-                <input type="number" className={inputCls} value={form.price} onChange={e => set('price', e.target.value)} />
+        {/* Left column */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+
+          {/* Listing info */}
+          <Card title="Listing info">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <Field l="Title">
+                <input style={input} value={form.title} onChange={e => set('title', e.target.value)}
+                  onFocus={e => e.target.style.borderColor = C.blue}
+                  onBlur={e => e.target.style.borderColor = C.border}
+                />
+              </Field>
+              <Grid cols={2}>
+                <Field l="Status">
+                  <select style={input} value={form.status} onChange={e => set('status', e.target.value)}>
+                    <option value="for_sale">For sale</option>
+                    <option value="sold">Sold</option>
+                    <option value="hidden">Hidden</option>
+                  </select>
+                </Field>
+                <Field l="Property type">
+                  <select style={input} value={form.property_type} onChange={e => set('property_type', e.target.value)}>
+                    <option value="">—</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="villa">Villa</option>
+                    <option value="house">House</option>
+                    <option value="chalet">Chalet</option>
+                    <option value="townhouse">Townhouse</option>
+                    <option value="finca">Finca</option>
+                    <option value="penthouse">Penthouse</option>
+                  </select>
+                </Field>
+                <Field l="Style">
+                  <input style={input} placeholder="garden / terrace / modern…" value={form.property_style}
+                    onChange={e => set('property_style', e.target.value)}
+                    onFocus={e => e.target.style.borderColor = C.blue}
+                    onBlur={e => e.target.style.borderColor = C.border}
+                  />
+                </Field>
+                <Field l="Partner URL">
+                  <input style={input} placeholder="https://…" value={form.partner_url}
+                    onChange={e => set('partner_url', e.target.value)}
+                    onFocus={e => e.target.style.borderColor = C.blue}
+                    onBlur={e => e.target.style.borderColor = C.border}
+                  />
+                </Field>
+              </Grid>
+            </div>
+          </Card>
+
+          {/* Pricing & specs */}
+          <Card title="Pricing & specs">
+            <Grid cols={4}>
+              <div style={{ gridColumn: 'span 2' }}>
+                <Field l="Price">
+                  <input type="number" style={input} value={form.price}
+                    onChange={e => set('price', e.target.value)}
+                    onFocus={e => e.target.style.borderColor = C.blue}
+                    onBlur={e => e.target.style.borderColor = C.border}
+                  />
+                </Field>
               </div>
-              <div>
-                <label className={labelCls}>Currency</label>
-                <select className={inputCls} value={form.currency} onChange={e => set('currency', e.target.value)}>
+              <Field l="Currency">
+                <select style={input} value={form.currency} onChange={e => set('currency', e.target.value)}>
                   <option value="EUR">EUR</option>
                   <option value="USD">USD</option>
                   <option value="GBP">GBP</option>
                   <option value="SEK">SEK</option>
                 </select>
-              </div>
+              </Field>
               <div />
-              <div>
-                <label className={labelCls}>Beds</label>
-                <input type="number" className={inputCls} value={form.beds} onChange={e => set('beds', e.target.value)} />
-              </div>
-              <div>
-                <label className={labelCls}>Baths</label>
-                <input type="number" className={inputCls} value={form.baths} onChange={e => set('baths', e.target.value)} />
-              </div>
-            </div>
-          </Section>
+              <Field l="Beds">
+                <input type="number" style={input} value={form.beds}
+                  onChange={e => set('beds', e.target.value)}
+                  onFocus={e => e.target.style.borderColor = C.blue}
+                  onBlur={e => e.target.style.borderColor = C.border}
+                />
+              </Field>
+              <Field l="Baths">
+                <input type="number" style={input} value={form.baths}
+                  onChange={e => set('baths', e.target.value)}
+                  onFocus={e => e.target.style.borderColor = C.blue}
+                  onBlur={e => e.target.style.borderColor = C.border}
+                />
+              </Field>
+            </Grid>
+          </Card>
 
-          <Section title="Location">
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <label className={labelCls}>City</label>
-                <input className={inputCls} value={form.city} onChange={e => set('city', e.target.value)} />
-              </div>
-              <div>
-                <label className={labelCls}>Region</label>
-                <input className={inputCls} value={form.region} onChange={e => set('region', e.target.value)} />
-              </div>
-              <div>
-                <label className={labelCls}>Country</label>
-                <input className={inputCls} value={form.country} onChange={e => set('country', e.target.value)} />
-              </div>
-              <div>
-                <label className={labelCls}>Latitude</label>
-                <input type="number" step="any" className={inputCls} value={form.lat} onChange={e => set('lat', e.target.value)} />
-              </div>
-              <div>
-                <label className={labelCls}>Longitude</label>
-                <input type="number" step="any" className={inputCls} value={form.lng} onChange={e => set('lng', e.target.value)} />
-              </div>
-            </div>
-          </Section>
+          {/* Location */}
+          <Card title="Location">
+            <Grid cols={3}>
+              <Field l="City">
+                <input style={input} value={form.city}
+                  onChange={e => set('city', e.target.value)}
+                  onFocus={e => e.target.style.borderColor = C.blue}
+                  onBlur={e => e.target.style.borderColor = C.border}
+                />
+              </Field>
+              <Field l="Region">
+                <input style={input} value={form.region}
+                  onChange={e => set('region', e.target.value)}
+                  onFocus={e => e.target.style.borderColor = C.blue}
+                  onBlur={e => e.target.style.borderColor = C.border}
+                />
+              </Field>
+              <Field l="Country">
+                <input style={input} value={form.country}
+                  onChange={e => set('country', e.target.value)}
+                  onFocus={e => e.target.style.borderColor = C.blue}
+                  onBlur={e => e.target.style.borderColor = C.border}
+                />
+              </Field>
+              <Field l="Latitude">
+                <input type="number" step="any" style={input} value={form.lat}
+                  onChange={e => set('lat', e.target.value)}
+                  onFocus={e => e.target.style.borderColor = C.blue}
+                  onBlur={e => e.target.style.borderColor = C.border}
+                />
+              </Field>
+              <Field l="Longitude">
+                <input type="number" step="any" style={input} value={form.lng}
+                  onChange={e => set('lng', e.target.value)}
+                  onFocus={e => e.target.style.borderColor = C.blue}
+                  onBlur={e => e.target.style.borderColor = C.border}
+                />
+              </Field>
+            </Grid>
+          </Card>
 
-          <Section title="Description">
+          {/* Description */}
+          <Card title="Description">
             <textarea
-              rows={10}
-              className={`${inputCls} resize-y font-mono text-xs leading-relaxed`}
+              rows={12}
+              style={{
+                ...input,
+                resize: 'vertical',
+                fontFamily: '"Courier New", monospace',
+                fontSize: 12,
+                lineHeight: 1.7,
+              }}
               value={form.description}
               onChange={e => set('description', e.target.value)}
               placeholder="Property description — use **bold** for key terms…"
+              onFocus={e => e.target.style.borderColor = C.blue}
+              onBlur={e => e.target.style.borderColor = C.border}
             />
-            <p className="text-xs text-stone-400 mt-1">{form.description.length} chars</p>
-          </Section>
+            <p style={{ fontSize: 11, color: C.faint, marginTop: 6 }}>{form.description.length} characters</p>
+          </Card>
 
-          <Section title="Amenities">
-            <input className={inputCls} value={form.amenities} onChange={e => set('amenities', e.target.value)} placeholder="Pool, Sea view, Air conditioning…" />
-            <p className="text-xs text-stone-400 mt-1">Comma-separated</p>
+          {/* Amenities */}
+          <Card title="Amenities">
+            <input
+              style={input}
+              value={form.amenities}
+              onChange={e => set('amenities', e.target.value)}
+              placeholder="Pool, Sea view, Air conditioning…"
+              onFocus={e => e.target.style.borderColor = C.blue}
+              onBlur={e => e.target.style.borderColor = C.border}
+            />
+            <p style={{ fontSize: 11, color: C.faint, marginTop: 5 }}>Comma-separated list</p>
             {form.amenities && (
-              <div className="flex flex-wrap gap-1.5 mt-3">
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 12 }}>
                 {form.amenities.split(',').map(a => a.trim()).filter(Boolean).map(a => (
-                  <span key={a} className="bg-stone-100 text-stone-600 text-xs px-2.5 py-1 rounded-full border border-stone-200">{a}</span>
+                  <span key={a} style={{
+                    background: '#f0ede8',
+                    color: C.muted,
+                    fontSize: 12, fontWeight: 500,
+                    padding: '4px 10px',
+                    borderRadius: 20,
+                    border: `1px solid ${C.border}`,
+                  }}>
+                    {a}
+                  </span>
                 ))}
               </div>
             )}
-          </Section>
+          </Card>
         </div>
 
-        {/* Right: images */}
-        <div className="space-y-6">
-          <Section title="Hero image">
-            {property.img
-              ? <img src={property.img} alt="Hero" className="w-full aspect-[4/3] object-cover rounded-lg border border-stone-200" />
-              : <div className="w-full aspect-[4/3] bg-stone-100 rounded-lg flex items-center justify-center text-stone-400 text-xs">No hero image</div>
-            }
-            <p className="text-xs text-stone-400 mt-1.5">Used on listing cards</p>
-          </Section>
+        {/* Right column */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
 
-          <Section title={`Gallery (${property.images?.length || 0} visible)`}>
-            <div className="grid grid-cols-3 gap-2">
+          {/* Hero image */}
+          <Card title="Hero image">
+            {property.img
+              ? <img src={property.img} alt="Hero" style={{
+                  width: '100%', aspectRatio: '4/3', objectFit: 'cover',
+                  borderRadius: 8, border: `1px solid ${C.border}`,
+                }} />
+              : <div style={{
+                  width: '100%', aspectRatio: '4/3', background: '#f0ede8',
+                  borderRadius: 8, display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', color: C.faint, fontSize: 12,
+                }}>
+                  No hero image
+                </div>
+            }
+            <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>Used on listing cards</p>
+          </Card>
+
+          {/* Gallery */}
+          <Card title={`Gallery (${property.images?.length || 0} visible)`}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
               {(property.images || []).map((url, i) => (
-                <img key={i} src={url} alt="" className="aspect-square object-cover rounded-lg border border-stone-200" />
+                <img key={i} src={url} alt="" style={{
+                  aspectRatio: '1', objectFit: 'cover',
+                  borderRadius: 6, border: `1px solid ${C.border}`,
+                  width: '100%',
+                }} />
               ))}
             </div>
-            <p className="text-xs text-stone-400 mt-1.5">Shown before unlock</p>
-          </Section>
+            <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>Shown before unlock</p>
+          </Card>
 
-          <Section title={`All photos (${property.photos?.length || 0})`}>
-            <div className="grid grid-cols-4 gap-1.5">
+          {/* All photos */}
+          <Card title={`All photos (${property.photos?.length || 0})`}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
               {(property.photos || []).slice(0, 8).map((url, i) => (
-                <img key={i} src={url} alt="" className="aspect-square object-cover rounded border border-stone-200" />
+                <img key={i} src={url} alt="" style={{
+                  aspectRatio: '1', objectFit: 'cover',
+                  borderRadius: 5, border: `1px solid ${C.border}`,
+                  width: '100%',
+                }} />
               ))}
               {(property.photos?.length || 0) > 8 && (
-                <div className="aspect-square bg-stone-100 rounded border border-stone-200 flex items-center justify-center text-xs text-stone-500">
+                <div style={{
+                  aspectRatio: '1', background: '#f0ede8',
+                  borderRadius: 5, border: `1px solid ${C.border}`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 11, color: C.muted, fontWeight: 600,
+                }}>
                   +{property.photos.length - 8}
                 </div>
               )}
             </div>
-            <p className="text-xs text-stone-400 mt-1.5">Full unlocked gallery</p>
-          </Section>
+            <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>Full unlocked gallery</p>
+          </Card>
 
-          <Section title={`Brochure / extras (${extraPhotos.length})`}>
+          {/* Brochure / extras */}
+          <Card title={`Brochure / extras (${extraPhotos.length})`}>
             {extraPhotos.length > 0 && (
-              <div className="grid grid-cols-3 gap-2 mb-3">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6, marginBottom: 12 }}>
                 {extraPhotos.map((url, i) => (
-                  <div key={i} className="relative group">
-                    <img src={url} alt="" className="aspect-square object-cover rounded-lg border border-stone-200" />
+                  <div key={i} style={{ position: 'relative' }}
+                    onMouseEnter={e => e.currentTarget.querySelector('button').style.display = 'flex'}
+                    onMouseLeave={e => e.currentTarget.querySelector('button').style.display = 'none'}
+                  >
+                    <img src={url} alt="" style={{
+                      aspectRatio: '1', objectFit: 'cover',
+                      borderRadius: 6, border: `1px solid ${C.border}`,
+                      width: '100%', display: 'block',
+                    }} />
                     <button
                       onClick={() => removePhoto(url)}
-                      className="absolute top-1 right-1 bg-black/70 text-white text-xs w-5 h-5 rounded-full items-center justify-center hidden group-hover:flex"
-                    >×</button>
+                      style={{
+                        display: 'none',
+                        position: 'absolute', top: 4, right: 4,
+                        background: 'rgba(0,0,0,0.7)', color: '#fff',
+                        border: 'none', borderRadius: '50%',
+                        width: 22, height: 22,
+                        alignItems: 'center', justifyContent: 'center',
+                        cursor: 'pointer', fontSize: 14, fontWeight: 700,
+                      }}
+                    >
+                      ×
+                    </button>
                   </div>
                 ))}
               </div>
             )}
-            <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={handleUpload} className="hidden" />
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleUpload}
+              style={{ display: 'none' }}
+            />
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading}
-              className="w-full border border-dashed border-stone-300 rounded-lg py-3 text-sm text-stone-500 hover:border-stone-400 hover:text-stone-700 disabled:opacity-50 transition-colors"
+              style={{
+                width: '100%',
+                border: `2px dashed ${uploading ? C.border : C.gold}`,
+                borderRadius: 8,
+                padding: '12px',
+                fontSize: 13,
+                fontWeight: 600,
+                color: uploading ? C.faint : C.gold,
+                background: 'transparent',
+                cursor: uploading ? 'not-allowed' : 'pointer',
+                transition: 'all 0.15s',
+                fontFamily: '"Nunito Sans", sans-serif',
+              }}
+              onMouseEnter={e => { if (!uploading) e.target.style.background = '#fffbeb' }}
+              onMouseLeave={e => { if (!uploading) e.target.style.background = 'transparent' }}
             >
               {uploading ? 'Uploading…' : '+ Upload brochure screenshots'}
             </button>
-            <p className="text-xs text-stone-400 mt-1.5">Remember to Save after uploading</p>
-          </Section>
+            <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>Remember to Save after uploading</p>
+          </Card>
         </div>
       </div>
     </AdminLayout>
