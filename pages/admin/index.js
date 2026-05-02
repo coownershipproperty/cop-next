@@ -3,10 +3,10 @@ import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 
-const STATUS_COLORS = {
-  for_sale: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  sold: 'bg-stone-100 text-stone-500 border-stone-200',
-  hidden: 'bg-amber-50 text-amber-700 border-amber-200',
+const STATUS = {
+  for_sale: { label: 'For sale', bg: '#ecfdf5', color: '#065f46', border: '#a7f3d0' },
+  sold: { label: 'Sold', bg: '#f3f4f6', color: '#6b7280', border: '#d1d5db' },
+  hidden: { label: 'Hidden', bg: '#fffbeb', color: '#92400e', border: '#fcd34d' },
 }
 
 export default function AdminIndex() {
@@ -42,29 +42,50 @@ export default function AdminIndex() {
     setFiltered(result)
   }, [properties, search, partnerFilter, statusFilter])
 
+  const inputStyle = {
+    border: '1px solid #e8e0d4',
+    borderRadius: 10,
+    padding: '9px 14px',
+    fontSize: 13,
+    color: '#1a2533',
+    background: '#ffffff',
+    outline: 'none',
+    fontFamily: '"Nunito Sans", sans-serif',
+  }
+
   return (
     <AdminLayout>
-      <div className="flex items-center justify-between mb-6">
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
         <div>
-          <h1 className="text-xl font-semibold text-stone-800">Properties</h1>
-          <p className="text-sm text-stone-500 mt-0.5">
+          <h1 style={{
+            fontSize: 22,
+            fontWeight: 700,
+            color: '#2C4A5E',
+            fontFamily: '"Playfair Display", serif',
+            margin: 0,
+          }}>
+            Properties
+          </h1>
+          <p style={{ fontSize: 13, color: '#8a9aaa', marginTop: 4 }}>
             {loading ? 'Loading…' : `${filtered.length} listing${filtered.length !== 1 ? 's' : ''}`}
           </p>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3 mb-6">
+      {/* Filters */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 28 }}>
         <input
           type="search"
           placeholder="Search title, city, country…"
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="border border-stone-200 rounded-lg px-3 py-2 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 w-64 bg-white"
+          style={{ ...inputStyle, width: 260 }}
         />
         <select
           value={partnerFilter}
           onChange={e => setPartnerFilter(e.target.value)}
-          className="border border-stone-200 rounded-lg px-3 py-2 text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white"
+          style={inputStyle}
         >
           <option value="">All partners</option>
           {partners.map(p => <option key={p} value={p}>{p}</option>)}
@@ -72,7 +93,7 @@ export default function AdminIndex() {
         <select
           value={statusFilter}
           onChange={e => setStatusFilter(e.target.value)}
-          className="border border-stone-200 rounded-lg px-3 py-2 text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white"
+          style={inputStyle}
         >
           <option value="">All statuses</option>
           <option value="for_sale">For sale</option>
@@ -81,70 +102,149 @@ export default function AdminIndex() {
         </select>
       </div>
 
+      {/* Grid */}
       {loading ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+          gap: 16,
+        }}>
           {[...Array(8)].map((_, i) => (
-            <div key={i} className="bg-white border border-stone-200 rounded-xl overflow-hidden animate-pulse">
-              <div className="aspect-[4/3] bg-stone-100" />
-              <div className="p-3 space-y-2">
-                <div className="h-3 bg-stone-100 rounded w-3/4" />
-                <div className="h-3 bg-stone-100 rounded w-1/2" />
+            <div key={i} style={{
+              background: '#ffffff',
+              border: '1px solid #e8e0d4',
+              borderRadius: 12,
+              overflow: 'hidden',
+            }}>
+              <div style={{ paddingTop: '75%', background: '#f0ede8' }} />
+              <div style={{ padding: 14 }}>
+                <div style={{ height: 12, background: '#f0ede8', borderRadius: 4, marginBottom: 8, width: '75%' }} />
+                <div style={{ height: 12, background: '#f0ede8', borderRadius: 4, width: '50%' }} />
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filtered.map(p => (
-            <Link
-              key={p.slug}
-              href={`/admin/property/${p.slug}`}
-              className="bg-white border border-stone-200 rounded-xl overflow-hidden hover:border-stone-300 hover:shadow-sm transition-all group"
-            >
-              <div className="aspect-[4/3] bg-stone-100 overflow-hidden relative">
-                {p.img ? (
-                  <img
-                    src={p.img}
-                    alt={p.title}
-                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-stone-300 text-xs">No image</div>
-                )}
-                {p.partner && (
-                  <span className="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-0.5 rounded-full backdrop-blur-sm">
-                    {p.partner}
-                  </span>
-                )}
-                {p.extra_photos?.length === 0 && p.partner === 'myne' && (
-                  <span className="absolute top-2 right-2 bg-amber-500 text-white text-xs px-2 py-0.5 rounded-full">
-                    No brochure
-                  </span>
-                )}
-              </div>
-              <div className="p-3">
-                <p className="text-sm font-medium text-stone-800 leading-snug line-clamp-2">{p.title}</p>
-                <div className="flex items-center justify-between mt-2">
-                  <span className="text-xs text-stone-500">
-                    {p.beds}bd · {p.price?.toLocaleString()} {p.currency}
-                  </span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full border ${STATUS_COLORS[p.status] || STATUS_COLORS.for_sale}`}>
-                    {p.status}
-                  </span>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+          gap: 16,
+        }}>
+          {filtered.map(p => {
+            const st = STATUS[p.status] || STATUS.for_sale
+            return (
+              <Link
+                key={p.slug}
+                href={`/admin/property/${p.slug}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <div style={{
+                  background: '#ffffff',
+                  border: '1px solid #e8e0d4',
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  transition: 'transform 0.15s, box-shadow 0.15s',
+                  cursor: 'pointer',
+                }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(44,74,94,0.12)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
+                >
+                  {/* Image */}
+                  <div style={{ position: 'relative', paddingTop: '75%', background: '#f0ede8' }}>
+                    {p.img ? (
+                      <img
+                        src={p.img}
+                        alt={p.title}
+                        style={{
+                          position: 'absolute', inset: 0,
+                          width: '100%', height: '100%', objectFit: 'cover',
+                        }}
+                      />
+                    ) : (
+                      <div style={{
+                        position: 'absolute', inset: 0,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: '#bdb5aa', fontSize: 12,
+                      }}>
+                        No image
+                      </div>
+                    )}
+                    {p.partner && (
+                      <span style={{
+                        position: 'absolute', top: 8, left: 8,
+                        background: 'rgba(44,74,94,0.85)',
+                        color: '#ffffff',
+                        fontSize: 11, fontWeight: 600,
+                        padding: '3px 8px', borderRadius: 20,
+                        backdropFilter: 'blur(4px)',
+                      }}>
+                        {p.partner}
+                      </span>
+                    )}
+                    {p.extra_photos?.length === 0 && p.partner === 'myne' && (
+                      <span style={{
+                        position: 'absolute', top: 8, right: 8,
+                        background: '#C9A84C',
+                        color: '#ffffff',
+                        fontSize: 11, fontWeight: 600,
+                        padding: '3px 8px', borderRadius: 20,
+                      }}>
+                        No brochure
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div style={{ padding: '12px 14px 14px' }}>
+                    <p style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: '#1a2533',
+                      lineHeight: 1.4,
+                      margin: '0 0 8px',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}>
+                      {p.title}
+                    </p>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: 12, color: '#8a9aaa' }}>
+                        {p.beds}bd · {p.price?.toLocaleString()} {p.currency}
+                      </span>
+                      <span style={{
+                        fontSize: 11, fontWeight: 600,
+                        padding: '3px 8px', borderRadius: 20,
+                        background: st.bg, color: st.color,
+                        border: `1px solid ${st.border}`,
+                      }}>
+                        {st.label}
+                      </span>
+                    </div>
+                    {p.total_images > 0 && (
+                      <p style={{ fontSize: 11, color: '#bdb5aa', marginTop: 6 }}>
+                        {p.total_images} photos
+                      </p>
+                    )}
+                  </div>
                 </div>
-                {p.total_images > 0 && (
-                  <p className="text-xs text-stone-400 mt-1">{p.total_images} photos</p>
-                )}
-              </div>
-            </Link>
-          ))}
+              </Link>
+            )
+          })}
         </div>
       )}
 
       {!loading && filtered.length === 0 && (
-        <div className="text-center py-20 text-stone-400">
-          <p className="text-lg">No properties found</p>
-          <p className="text-sm mt-1">Try adjusting your search</p>
+        <div style={{ textAlign: 'center', padding: '80px 0', color: '#8a9aaa' }}>
+          <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>No properties found</p>
+          <p style={{ fontSize: 14 }}>Try adjusting your search or filters</p>
         </div>
       )}
     </AdminLayout>
