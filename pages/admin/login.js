@@ -29,46 +29,134 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 flex items-center justify-center">
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-10">
-          <div className="text-2xl font-semibold text-stone-800 tracking-tight">COP Admin</div>
-          <p className="text-sm text-stone-500 mt-1">Co-Ownership Properties</p>
+    <div style={{
+      minHeight: '100vh',
+      background: '#F5F2EC',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontFamily: '"Nunito Sans", sans-serif',
+      padding: '24px',
+    }}>
+      <div style={{ width: '100%', maxWidth: 400 }}>
+
+        {/* Logo / Brand */}
+        <div style={{ textAlign: 'center', marginBottom: 40 }}>
+          <div style={{
+            fontSize: 28,
+            fontWeight: 700,
+            color: '#2C4A5E',
+            fontFamily: '"Playfair Display", serif',
+            letterSpacing: '-0.5px',
+          }}>
+            COP Admin
+          </div>
+          <p style={{ fontSize: 14, color: '#8a9aaa', marginTop: 6 }}>
+            Co-Ownership Properties
+          </p>
         </div>
 
         {sent ? (
-          <div className="bg-white border border-stone-200 rounded-xl p-8 text-center shadow-sm">
-            <div className="text-3xl mb-4">✉️</div>
-            <p className="text-stone-700 font-medium">Check your inbox</p>
-            <p className="text-stone-500 text-sm mt-2">
-              We sent a magic link to <span className="font-medium text-stone-700">{email}</span>
+          <div style={{
+            background: '#ffffff',
+            border: '1px solid #e8e0d4',
+            borderRadius: 16,
+            padding: '40px 32px',
+            textAlign: 'center',
+            boxShadow: '0 4px 24px rgba(44,74,94,0.08)',
+          }}>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>✉️</div>
+            <p style={{ fontSize: 16, fontWeight: 600, color: '#1a2533', marginBottom: 8 }}>
+              Check your inbox
+            </p>
+            <p style={{ fontSize: 14, color: '#5a6a7a', lineHeight: 1.6 }}>
+              We sent a magic link to{' '}
+              <span style={{ fontWeight: 600, color: '#2C4A5E' }}>{email}</span>
             </p>
             <button
               onClick={() => setSent(false)}
-              className="mt-6 text-sm text-stone-400 hover:text-stone-600 underline underline-offset-2"
+              style={{
+                marginTop: 24,
+                fontSize: 13,
+                color: '#8a9aaa',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'underline',
+              }}
             >
               Use a different email
             </button>
           </div>
         ) : (
-          <form onSubmit={handleLogin} className="bg-white border border-stone-200 rounded-xl p-8 shadow-sm">
-            <div className="mb-5">
-              <label className="block text-sm font-medium text-stone-700 mb-1.5">Email</label>
+          <form
+            onSubmit={handleLogin}
+            style={{
+              background: '#ffffff',
+              border: '1px solid #e8e0d4',
+              borderRadius: 16,
+              padding: '40px 32px',
+              boxShadow: '0 4px 24px rgba(44,74,94,0.08)',
+            }}
+          >
+            <div style={{ marginBottom: 20 }}>
+              <label style={{
+                display: 'block',
+                fontSize: 13,
+                fontWeight: 600,
+                color: '#2C4A5E',
+                marginBottom: 8,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Email address
+              </label>
               <input
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                className="w-full border border-stone-200 rounded-lg px-3 py-2.5 text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:border-transparent"
+                style={{
+                  width: '100%',
+                  border: '1px solid #e8e0d4',
+                  borderRadius: 10,
+                  padding: '11px 14px',
+                  fontSize: 14,
+                  color: '#1a2533',
+                  outline: 'none',
+                  background: '#faf9f7',
+                  boxSizing: 'border-box',
+                  transition: 'border-color 0.15s',
+                }}
+                onFocus={e => e.target.style.borderColor = '#2C4A5E'}
+                onBlur={e => e.target.style.borderColor = '#e8e0d4'}
               />
             </div>
-            {error && <p className="text-red-500 text-xs mb-4">{error}</p>}
+
+            {error && (
+              <p style={{ fontSize: 13, color: '#dc2626', marginBottom: 16 }}>{error}</p>
+            )}
+
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-stone-800 text-white rounded-lg py-2.5 text-sm font-medium hover:bg-stone-700 disabled:opacity-50 transition-colors"
+              style={{
+                width: '100%',
+                background: loading ? '#8a9aaa' : '#2C4A5E',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: 10,
+                padding: '12px 20px',
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: loading ? 'not-allowed' : 'pointer',
+                transition: 'background 0.2s',
+                letterSpacing: '0.3px',
+              }}
+              onMouseEnter={e => { if (!loading) e.target.style.background = '#3a5f78' }}
+              onMouseLeave={e => { if (!loading) e.target.style.background = '#2C4A5E' }}
             >
-              {loading ? 'Sending…' : 'Send magic link'}
+              {loading ? 'Sending…' : 'Send magic link →'}
             </button>
           </form>
         )}
