@@ -402,7 +402,7 @@ export default function GalleryPage({ name, email, property }) {
         </div>
 
         {/* ── PREV ARROW ── (hidden on enquiry slide to avoid overlapping form) */}
-        {index > 0 && !isEnquiry && (
+        {index > 0 && (
           <button style={{ ...s.arrow, left: 0 }} onClick={goPrev} aria-label="Previous">
             <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
               <path d="M9 1L1 9L9 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
