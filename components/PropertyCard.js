@@ -9,30 +9,22 @@ const BedIcon = () => (
     <path d="M2 20V10a2 2 0 012-2h16a2 2 0 012 2v10M2 14h20M7 10V8a1 1 0 011-1h8a1 1 0 011 1v2"/>
   </svg>
 );
-
 const SizeIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
     <rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v18"/>
   </svg>
 );
-
 const HeartIcon = ({ filled }) => (
-  <svg viewBox="0 0 24 24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
-    style={{ width: 16, height: 16 }}>
-    <path
-      d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
-      fill={filled ? '#C9A84C' : 'none'}
-      stroke={filled ? '#C9A84C' : '#2C4A5E'}
-    />
+  <svg viewBox="0 0 24 24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}>
+    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
+      fill={filled ? '#C9A84C' : 'none'} stroke={filled ? '#C9A84C' : '#2C4A5E'} />
   </svg>
 );
-
 const ChevronLeft = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{width:16,height:16}}>
     <polyline points="15 18 9 12 15 6"/>
   </svg>
 );
-
 const ChevronRight = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{width:16,height:16}}>
     <polyline points="9 18 15 12 9 6"/>
@@ -41,12 +33,13 @@ const ChevronRight = () => (
 
 const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
 
-// Round to nearest 1,000 → "204,000", "1,235,000" etc.
 function formatApprox(amount) {
   return (Math.round(amount / 1_000) * 1_000).toLocaleString('en-GB');
 }
 
-export default function PropertyCard({ property: p }) {
+// priority: true for the first 3 cards on a destination page — disables lazy loading
+// so Google's LCP score sees real content immediately.
+export default function PropertyCard({ property: p, priority = false }) {
   const href = `/property/${p.slug}`;
   const [fav, setFav] = useState(false);
   const [slide, setSlide] = useState(0);
@@ -58,62 +51,33 @@ export default function PropertyCard({ property: p }) {
     return onFavsChange((slugs) => setFav(slugs.includes(p.slug)));
   }, [p.slug]);
 
-  // Reset carousel when property changes
   useEffect(() => { setSlide(0); }, [p.slug]);
 
-  // Slide 1 = p.img (hero — always reliable, confirmed migrated).
-  // images[0] (gallery-0) is always a visual duplicate of hero.jpg — skip it.
-  // Slides 2-3 = images[1] and images[2] (genuine different Supabase Storage photos).
-  // lh3.googleusercontent.com URLs are private Drive links — exclude from carousel.
   const heroImg = p.img || null;
   const supabaseExtras = (p.images || [])
     .slice(1)
     .filter(url => url && !url.includes('lh3.googleusercontent.com'))
     .slice(0, 2);
   const imgSlides = [heroImg, ...supabaseExtras].filter(Boolean);
+
   const hasLock = !!p.driveUrl;
   const totalSlides = imgSlides.length + (hasLock ? 1 : 0);
   const isLockSlide = hasLock && slide >= imgSlides.length;
 
-  // How many photos the user can't see (same calc as property detail page)
   const totalImgs = p.totalImages || imgSlides.length;
   const missingCount = totalImgs > imgSlides.length ? totalImgs - imgSlides.length : null;
 
-  function goTo(idx, e) {
-    if (e) e.stopPropagation();
-    setSlide(idx);
-  }
-
-  function prev(e) {
-    e.stopPropagation();
-    setSlide(i => Math.max(0, i - 1));
-  }
-
-  function next(e) {
-    e.stopPropagation();
-    setSlide(i => Math.min(totalSlides - 1, i + 1));
-  }
-
-  function handleToggleFav(e) {
-    e.stopPropagation();
-    setFav(toggleFav(p.slug));
-  }
-
-  function handleLockClick(e) {
-    e.stopPropagation();
-    setUnlockOpen(true);
-  }
-
-  function handleCardClick() {
-    if (!isLockSlide) window.location.href = href;
-  }
+  function goTo(idx, e) { if (e) e.stopPropagation(); setSlide(idx); }
+  function prev(e) { e.stopPropagation(); setSlide(i => Math.max(0, i - 1)); }
+  function next(e) { e.stopPropagation(); setSlide(i => Math.min(totalSlides - 1, i + 1)); }
+  function handleToggleFav(e) { e.stopPropagation(); setFav(toggleFav(p.slug)); }
+  function handleLockClick(e) { e.stopPropagation(); setUnlockOpen(true); }
+  function handleCardClick() { if (!isLockSlide) window.location.href = href; }
 
   const fromCurrency = p.currency || 'EUR';
   const priceFormatted = p.price
     ? `${CURRENCY_SYM[fromCurrency] || fromCurrency}${p.price.toLocaleString('en-GB')}`
     : null;
-
-  // Converted price in visitor's local currency (null while loading or if same currency)
   const convertedAmount = p.price ? convertPrice(p.price, fromCurrency, cx) : null;
   const convertedSym = cx ? (CURRENCY_SYMBOLS[cx.currency] || cx.currency) : null;
   const priceDisplay = convertedAmount != null
@@ -130,8 +94,6 @@ export default function PropertyCard({ property: p }) {
         style={isLockSlide ? { cursor: 'default' } : {}}
       >
         <div className="prop-img-wrap">
-
-          {/* ── Photo slides ── */}
           {imgSlides.map((src, i) => (
             <div
               key={i}
@@ -148,11 +110,13 @@ export default function PropertyCard({ property: p }) {
                 quality={90}
                 className="prop-img"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                // priority=true on slide 0 of the first 3 cards disables lazy loading,
+                // which improves Largest Contentful Paint (Core Web Vitals).
+                priority={priority && i === 0}
               />
             </div>
           ))}
 
-          {/* ── Lock slide (4th position) — same wording as listing page ── */}
           {hasLock && (
             <div
               className="prop-carousel-slide prop-carousel-lock"
@@ -164,19 +128,15 @@ export default function PropertyCard({ property: p }) {
                 <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
-                {missingCount && (
-                  <span className="pp-lock-title">You&apos;re missing {missingCount} photos</span>
-                )}
+                {missingCount && <span className="pp-lock-title">You&apos;re missing {missingCount} photos</span>}
                 <span className="pp-lock-sub">Unlock the full gallery &amp; floor plans — free</span>
                 <span className="pp-lock-cta-btn">Unlock Now →</span>
               </div>
             </div>
           )}
 
-          {/* ── Badge ── */}
           {p.label && <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>}
 
-          {/* ── Heart ── */}
           <button
             className={`prop-heart${fav ? ' active' : ''}`}
             onClick={handleToggleFav}
@@ -185,7 +145,6 @@ export default function PropertyCard({ property: p }) {
             <HeartIcon filled={fav} />
           </button>
 
-          {/* ── Arrows ── */}
           {totalSlides > 1 && slide > 0 && (
             <button className="prop-carousel-arrow prop-carousel-arrow-l" onClick={prev} aria-label="Previous photo">
               <ChevronLeft />
@@ -196,8 +155,6 @@ export default function PropertyCard({ property: p }) {
               <ChevronRight />
             </button>
           )}
-
-          {/* ── Dots ── */}
           {totalSlides > 1 && (
             <div className="prop-carousel-dots">
               {Array.from({ length: totalSlides }).map((_, i) => (
@@ -209,24 +166,17 @@ export default function PropertyCard({ property: p }) {
               ))}
             </div>
           )}
-
-        </div>{/* end prop-img-wrap */}
+        </div>
 
         <div className="prop-body">
           <h3 className="prop-title">{p.title}</h3>
-
           {(p.beds > 0 || p.size > 0) && (
             <div className="prop-stats">
-              {p.beds > 0 && (
-                <span className="prop-stat"><BedIcon />{p.beds} Bed{p.beds > 1 ? 's' : ''}</span>
-              )}
+              {p.beds > 0 && <span className="prop-stat"><BedIcon />{p.beds} Bed{p.beds > 1 ? 's' : ''}</span>}
               {p.beds > 0 && p.size > 0 && <span className="prop-stat-sep" />}
-              {p.size > 0 && (
-                <span className="prop-stat"><SizeIcon />{p.size} m²</span>
-              )}
+              {p.size > 0 && <span className="prop-stat"><SizeIcon />{p.size} m²</span>}
             </div>
           )}
-
           {priceDisplay && (
             <p className="prop-price" title={convertedAmount != null ? `Listed at ${priceFormatted}` : undefined}>
               {priceDisplay}
