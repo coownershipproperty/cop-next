@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
+import { render } from '@react-email/components';
 import FloorPlanEmail from '@/emails/floor-plan';
 import NurtureFloorPlan from '@/emails/nurture-floor-plan';
 import * as React from 'react';
@@ -250,32 +251,104 @@ export default async function handler(req, res) {
       });
     }
 
-    // ── Nurture follow-up — 24h after floor plan request ─────────────────────
+    // ── Nurture follow-up — batched, 24h after first floor plan request ───────
+    // Rules:
+    //   1. Skip entirely if contact already has a phone number (already a qualified lead)
+    //   2. If a pending nurture already exists for this contact, merge the new property in
+    //      (deduplicated by slug) and re-render rather than creating a second email
+    //   3. Otherwise create a fresh entry scheduled for 24h from now
     try {
-      const sendAfter = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-      const locationLabel = [propertyRegion, resolvedCountry].filter(Boolean).join(', ');
+      const db = getDb();
       const unsubUrl = `https://co-ownership-property.com/unsubscribe/?email=${encodeURIComponent(email)}`;
-      await queueEmail({
-        autoSend:     true,
-        sendAfter,
-        to:           email,
-        toName:       name || null,
-        subject:      `Still thinking about ${propertyTitle}?`,
-        template:     React.createElement(NurtureFloorPlan, {
-          firstName:     firstName     || name || undefined,
-          propertyTitle: propertyTitle || undefined,
-          propertyImg:   propertyImg   || undefined,
-          propertyUrl:   propertyUrl   || undefined,
-          location:      locationLabel || undefined,
-          unsubscribeUrl: unsubUrl,
-        }),
-        templateName:  'nurture-floor-plan',
-        templateProps: { firstName, propertyTitle, propertyUrl, propertyImg, propertySlug, location: locationLabel },
-        trigger:       'floor_plan_nurture',
-        notes:         `Floor plan follow-up — 24h after request for ${propertyTitle}`,
-        contactId:     contact?.id || null,
-        sequenceType:  'floor-plan-nurture',
-      });
+
+      // ── Rule 1: skip if they've already given us their number ──────────────
+      if (contact?.id) {
+        const { data: contactRecord } = await db
+          .from('contacts')
+          .select('phone')
+          .eq('id', contact.id)
+          .single();
+
+        if (!contactRecord?.phone) {
+          const locationLabel = [propertyRegion, resolvedCountry].filter(Boolean).join(', ');
+          const newProp = {
+            slug:     propertySlug  || null,
+            title:    propertyTitle || null,
+            img:      propertyImg   || null,
+            url:      propertyUrl   || null,
+            location: locationLabel || null,
+          };
+
+          // ── Rule 2: merge into existing pending nurture if one exists ────────
+          const { data: existing } = await db
+            .from('email_queue')
+            .select('id, template_props')
+            .eq('contact_id', contact.id)
+            .eq('sequence_type', 'floor-plan-nurture')
+            .eq('status', 'pending')
+            .maybeSingle();
+
+          if (existing) {
+            const existingProps = existing.template_props || {};
+
+            // Normalise legacy single-property format → array
+            let properties = existingProps.properties || [];
+            if (!existingProps.properties && existingProps.propertySlug) {
+              properties = [{
+                slug:     existingProps.propertySlug  || null,
+                title:    existingProps.propertyTitle || null,
+                img:      existingProps.propertyImg   || null,
+                url:      existingProps.propertyUrl   || null,
+                location: existingProps.location      || null,
+              }];
+            }
+
+            // Add new property only if not already listed
+            if (!properties.some(p => p.slug && p.slug === propertySlug)) {
+              properties.push(newProp);
+            }
+
+            const updatedSubject = properties.length === 1
+              ? `Still thinking about ${properties[0].title}?`
+              : `Still thinking about these properties?`;
+
+            const updatedHtml = await render(React.createElement(NurtureFloorPlan, {
+              firstName:      firstName || name || undefined,
+              properties,
+              unsubscribeUrl: unsubUrl,
+            }));
+
+            await db.from('email_queue').update({
+              template_props: { firstName, properties },
+              subject:        updatedSubject,
+              html:           updatedHtml,
+            }).eq('id', existing.id);
+
+          } else {
+            // ── Rule 3: no existing nurture — create a fresh one ───────────────
+            const sendAfter = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+
+            await queueEmail({
+              autoSend:      true,
+              sendAfter,
+              to:            email,
+              toName:        name || null,
+              subject:       `Still thinking about ${propertyTitle}?`,
+              template:      React.createElement(NurtureFloorPlan, {
+                firstName:      firstName || name || undefined,
+                properties:     [newProp],
+                unsubscribeUrl: unsubUrl,
+              }),
+              templateName:  'nurture-floor-plan',
+              templateProps: { firstName, properties: [newProp] },
+              trigger:       'floor_plan_nurture',
+              notes:         `Floor plan follow-up — 24h after request for ${propertyTitle}`,
+              contactId:     contact?.id || null,
+              sequenceType:  'floor-plan-nurture',
+            });
+          }
+        }
+      }
     } catch (e) {
       console.error('[Mail] nurture-floor-plan queue failed:', e.message);
     }
