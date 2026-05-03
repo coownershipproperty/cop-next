@@ -448,8 +448,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
                 <th onclick="sortLeads('budget_min')">Budget <span class="lt-sort" id="sort-budget_min"></span></th>
                 <th onclick="sortLeads('timeframe')">Timeframe <span class="lt-sort" id="sort-timeframe"></span></th>
                 <th onclick="sortLeads('source')">Source <span class="lt-sort" id="sort-source"></span></th>
-                <th onclick="sortLeads('lead_created')">Enquiry date <span class="lt-sort" id="sort-lead_created"></span></th>
-                <th onclick="sortLeads('lead_updated')">Last updated <span class="lt-sort" id="sort-lead_updated">▼</span></th>
+                <th onclick="sortLeads('contact_created')">First seen <span class="lt-sort" id="sort-contact_created"></span></th>
+                <th onclick="sortLeads('last_activity')">Last activity <span class="lt-sort" id="sort-last_activity">▼</span></th>
                 <th>Emails / Opens</th>
               </tr>
             </thead>
@@ -937,10 +937,10 @@ async function loadDashboard() {
 }
 
 // ─── Leads ────────────────────────────────────────────────
-let sortCol = 'lead_updated', sortDir = -1;
+let sortCol = 'last_activity', sortDir = -1;
 
 async function loadLeads() {
-  const { data, error } = await db.from('lead_pipeline').select('*').not('email','ilike','%@co-ownership-property.com').order('lead_updated',{ascending:false});
+  const { data, error } = await db.from('lead_pipeline').select('*').not('email','ilike','%@co-ownership-property.com').order('last_activity',{ascending:false});
   if(error) { console.error('Leads error:', error); }
   allLeads = data || [];
   // Populate region filter
@@ -984,12 +984,18 @@ function filterLeads() {
     const best = leads[0];
     const _all_regions    = [...new Set(leads.map(l=>l.main_region).filter(Boolean))];
     const _all_subregions = [...new Set(leads.map(l=>l.subregion).filter(Boolean))];
+    // first_seen = earliest contact_created across all leads (same contact, but be safe)
+    const _first_seen = leads.map(l=>l.contact_created).filter(Boolean).sort()[0] || null;
+    // last_activity = most recent of last_activity, lead_updated across all leads
+    const _last_activity = leads.map(l=>l.last_activity||l.lead_updated).filter(Boolean).sort().reverse()[0] || null;
     return {
       ...best,
       _lead_count: leads.length,
       _all_lead_ids: leads.map(l=>l.lead_id),
       _all_regions,
       _all_subregions,
+      _first_seen,
+      last_activity: _last_activity,
       _total_emails_sent: leads.reduce((s,l)=>s+(l.emails_sent||0),0),
       _total_opens: leads.reduce((s,l)=>s+(l.total_opens||0),0),
     };
@@ -1017,8 +1023,8 @@ function filterLeads() {
       <td>${l.budget_min?'€'+Number(l.budget_min).toLocaleString():'<span class="lt-muted">—</span>'}</td>
       <td class="lt-muted">${esc(l.timeframe||'—')}</td>
       <td class="lt-muted">${esc(l.source||'—')}</td>
-      <td class="lt-muted">${l.lead_created?new Date(l.lead_created).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'—'}</td>
-      <td class="lt-muted">${l.lead_updated?new Date(l.lead_updated).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'—'}</td>
+      <td class="lt-muted">${l._first_seen?new Date(l._first_seen).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'—'}</td>
+      <td class="lt-muted">${l.last_activity?new Date(l.last_activity).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'—'}</td>
       <td class="lt-muted">${l._total_emails_sent} / ${l._total_opens}</td>
     </tr>`).join('');
 }
