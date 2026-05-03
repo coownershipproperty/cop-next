@@ -580,29 +580,31 @@ const s = {
 
   // Property info
   info: {
-    position: 'absolute', bottom: 120, right: 36,
-    textAlign: 'right', zIndex: 10,
-    maxWidth: 460,
+    position: 'absolute', bottom: 88, left: 0,
+    padding: '0 0 0 24px',
+    maxWidth: 210,
+    zIndex: 10,
     pointerEvents: 'none',
   },
   infoLocation: {
     fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 11, fontWeight: 500, letterSpacing: '0.22em',
-    color: '#C9A84C', margin: '0 0 8px',
+    fontSize: 9, fontWeight: 600, letterSpacing: '0.2em',
+    color: '#C9A84C', margin: '0 0 6px',
+    textTransform: 'uppercase',
   },
   infoTitle: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: 28, fontWeight: 300, color: '#fff',
-    margin: '0 0 8px', lineHeight: 1.2,
+    fontSize: 18, fontWeight: 300, color: '#fff',
+    margin: '0 0 6px', lineHeight: 1.25,
   },
   infoPrice: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.9)',
+    fontSize: 15, fontWeight: 300, color: 'rgba(255,255,255,0.85)',
     margin: 0,
   },
   infoPriceSub: {
     fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 13, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em',
+    fontSize: 10, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.06em',
   },
 
   // Counter
