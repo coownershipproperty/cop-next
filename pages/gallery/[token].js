@@ -51,7 +51,7 @@ export async function getServerSideProps({ params, query }) {
   const supabase = getSupabase();
   const { data: prop } = await supabase
     .from('properties')
-    .select('slug, title, img, photos, extra_photos, documents, country, city, region, price, currency, beds, size')
+    .select('slug, title, img, images, photos, extra_photos, documents, country, city, region, price, currency, beds, size')
     .eq('slug', slug)
     .single();
 
@@ -69,6 +69,8 @@ export async function getServerSideProps({ params, query }) {
 export default function GalleryPage({ name, email, property }) {
   const photos = Array.isArray(property.photos) && property.photos.length > 0
     ? property.photos
+    : Array.isArray(property.images) && property.images.length > 0
+    ? property.images
     : property.img ? [property.img] : [];
 
   const extras    = Array.isArray(property.extra_photos) ? property.extra_photos : [];
