@@ -6,9 +6,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="footer-brand">
           <div className="footer-logo-text">Co-Ownership<br />Properties</div>
-          <p className="footer-tagline">
-            The independent guide to luxury fractional ownership across Europe &amp; the USA.
-          </p>
+
         </div>
 
         {/* Discover */}
