@@ -206,6 +206,11 @@ export default function GalleryPage({ name, email, property }) {
                 ...(isDoc || isExtr ? { display: 'flex', alignItems: 'center', justifyContent: 'center' } : {}),
               }}
             >
+              {/* blurred background fill for photo slides — avoids black bars with contain */}
+              {isPhoto && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={slide.url} aria-hidden="true" alt="" style={s.slideImgBg} />
+              )}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={slide.url}
@@ -519,7 +524,15 @@ const s = {
   slideImg: {
     position: 'absolute', inset: 0,
     width: '100%', height: '100%',
-    objectFit: 'cover', objectPosition: 'center',
+    objectFit: 'contain', objectPosition: 'center',
+    display: 'block',
+  },
+  slideImgBg: {
+    position: 'absolute', inset: 0,
+    width: '100%', height: '100%',
+    objectFit: 'cover',
+    filter: 'blur(28px) brightness(0.45)',
+    transform: 'scale(1.12)',
     display: 'block',
   },
   // Extra (brochure) photos — flex-centered, never upscaled beyond natural size
