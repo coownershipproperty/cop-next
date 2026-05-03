@@ -564,8 +564,8 @@ const s = {
   nav: {
     position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10,
     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-    padding: '0 32px', height: 68,
-    background: 'linear-gradient(to bottom, rgba(10,20,32,0.7) 0%, transparent 100%)',
+    padding: '0 28px', height: 60,
+    background: 'linear-gradient(to bottom, rgba(10,20,32,0.75) 0%, transparent 100%)',
   },
   navLogo: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
@@ -580,19 +580,20 @@ const s = {
 
   // Property info
   info: {
-    position: 'absolute', bottom: 80, left: 0, right: '38%',
-    padding: '0 0 0 36px', zIndex: 10,
+    position: 'absolute', bottom: 120, right: 36,
+    textAlign: 'right', zIndex: 10,
+    maxWidth: 460,
     pointerEvents: 'none',
   },
   infoLocation: {
     fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 12, fontWeight: 500, letterSpacing: '0.22em',
-    color: '#C9A84C', margin: '0 0 12px',
+    fontSize: 11, fontWeight: 500, letterSpacing: '0.22em',
+    color: '#C9A84C', margin: '0 0 8px',
   },
   infoTitle: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: 32, fontWeight: 300, color: '#fff',
-    margin: '0 0 10px', lineHeight: 1.2, maxWidth: 520,
+    fontSize: 28, fontWeight: 300, color: '#fff',
+    margin: '0 0 8px', lineHeight: 1.2,
   },
   infoPrice: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
@@ -606,10 +607,10 @@ const s = {
 
   // Counter
   counter: {
-    position: 'absolute', bottom: 80, right: 36, zIndex: 10,
+    position: 'absolute', bottom: 26, left: 32, zIndex: 10,
     fontFamily: "'Jost', Arial, sans-serif",
-    fontSize: 12, fontWeight: 300, letterSpacing: '0.12em',
-    color: 'rgba(255,255,255,0.55)',
+    fontSize: 11, fontWeight: 300, letterSpacing: '0.12em',
+    color: 'rgba(255,255,255,0.45)',
   },
 
   // Interested button
