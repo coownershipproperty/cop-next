@@ -75,6 +75,54 @@ const DEST_FILTERS = {
   "lake-tahoe-fractional-ownership-properties":     { country: "USA", cities: ["Truckee","South Lake Tahoe","Olympic Valley","Incline Village","Homewood","Tahoma","Tahoe City"] },
 };
 
+// ── Parent map for breadcrumb hierarchy ──────────────────────────────────────
+const PARENT = {
+  // France
+  "french-alps-fractional-ownership-properties":      "france-fractional-ownership-properties",
+  "south-of-france-fractional-ownership-properties":  "france-fractional-ownership-properties",
+  "paris-fractional-ownership-properties":             "france-fractional-ownership-properties",
+  // Spain — islands
+  "balearics-fractional-ownership-properties":         "spain-fractional-ownership-properties",
+  "mallorca-fractional-ownership-properties":          "spain-fractional-ownership-properties",
+  "ibiza-fractional-ownership-properties":             "spain-fractional-ownership-properties",
+  "menorca-fractional-ownership-properties":           "spain-fractional-ownership-properties",
+  "canary-islands-fractional-ownership-properties":    "spain-fractional-ownership-properties",
+  // Spain — costas
+  "costa-del-sol-fractional-ownership-properties":     "spain-fractional-ownership-properties",
+  "costa-blanca-fractional-ownership-properties":      "spain-fractional-ownership-properties",
+  "costa-de-la-luz-fractional-ownership-properties":   "spain-fractional-ownership-properties",
+  "spanish-costas-fractional-ownership-properties":    "spain-fractional-ownership-properties",
+  "barcelona-fractional-ownership-for-sale":           "spain-fractional-ownership-properties",
+  "madrid-fractional-ownership-properties":            "spain-fractional-ownership-properties",
+  "pyrenees-mountains-fractional-ownership-properties":"spain-fractional-ownership-properties",
+  // Italy
+  "sardinia-fractional-ownership-properties":          "italy-fractional-ownership-properties",
+  "lake-como-fractional-ownership-properties":         "italy-fractional-ownership-properties",
+  "italian-lakes-fractional-ownership-properties":     "italy-fractional-ownership-properties",
+  "liguria-fractional-ownership-properties":           "italy-fractional-ownership-properties",
+  // UK
+  "london-fractional-ownership-properties":            "england-fractional-ownership-properties",
+  // USA — states
+  "california-fractional-ownership-properties":        "usa-fractional-ownership-properties",
+  "colorado-fractional-ownership-properties":          "usa-fractional-ownership-properties",
+  "florida-fractional-ownership-properties":           "usa-fractional-ownership-properties",
+  "utah-fractional-ownership-properties":              "usa-fractional-ownership-properties",
+  // USA — cities
+  "aspen-fractional-ownership":                        "colorado-fractional-ownership-properties",
+  "vail-fractional-ownership":                         "colorado-fractional-ownership-properties",
+  "breckenridge-fractional-ownership":                 "colorado-fractional-ownership-properties",
+  "park-city-fractional-ownership-2":                  "utah-fractional-ownership-properties",
+  "miami-fractional-ownership":                        "florida-fractional-ownership-properties",
+  "brickell-fractional-ownership-miami":               "florida-fractional-ownership-properties",
+  "florida-keys-fractional-ownership":                 "florida-fractional-ownership-properties",
+  "30a-fractional-ownership-emerald-coast-co-ownership-beach-homes": "florida-fractional-ownership-properties",
+  "newport-beach-fractional-ownership":                "california-fractional-ownership-properties",
+  "malibu-santa-barbara-fractional-ownership":         "california-fractional-ownership-properties",
+  "napa-sonoma-fractional-ownership-wine-country-estates": "california-fractional-ownership-properties",
+  "lake-tahoe-fractional-ownership-properties":        "california-fractional-ownership-properties",
+  "palm-springs-fractional-ownership-desert-modern-luxury": "california-fractional-ownership-properties",
+};
+
 // ── Related destinations — clusters show parent+siblings, pillars show clusters ──
 const RELATED = {
   // Spain — Balearics cluster
@@ -158,20 +206,77 @@ function destLabel(slug) {
 
 function matchesFilter(prop, filter) {
   for (const [key, val] of Object.entries(filter)) {
-    // Map plural filter keys to singular property fields
     const propKey = key === 'cities' ? 'city' : key === 'regions' ? 'region' : key;
     const propVal = (prop[propKey] || '').trim();
-    if (!propVal) return false; // empty field never matches a filter
+    if (!propVal) return false;
     if (key === 'regions') {
       if (!val.some(v => propVal.toLowerCase().includes(v.toLowerCase()))) return false;
     } else if (key === 'cities') {
       if (!val.some(v => propVal.toLowerCase() === v.toLowerCase() || propVal.toLowerCase().includes(v.toLowerCase()))) return false;
     } else {
-      // Exact or contains match — but propVal must be non-empty (checked above)
       if (!propVal.toLowerCase().includes(val.toLowerCase())) return false;
     }
   }
   return true;
+}
+
+// ── Decode common HTML entities ───────────────────────────────────────────────
+function decodeEntities(str) {
+  return str
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code)))
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&nbsp;/g, ' ');
+}
+
+// ── Strip HTML tags from a string ─────────────────────────────────────────────
+function stripTags(str) {
+  return decodeEntities(str.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
+}
+
+// ── Extract FAQPage items from raw HTML ───────────────────────────────────────
+// Looks for <section class="dest-faq-sec"> → <div class="dest-faq-list"> → nested <section class="dest-sec">
+// Each nested section: <h2> = question, <p>s = answer
+function extractFaqItems(html) {
+  const items = [];
+  try {
+    // Find dest-faq-list content
+    const listMatch = html.match(/<div[^>]*class="dest-faq-list"[^>]*>([\s\S]*)/);
+    if (!listMatch) return items;
+    const listContent = listMatch[1];
+
+    // Split on opening dest-sec tags — each chunk is one FAQ entry
+    const chunks = listContent.split(/<section[^>]*class="dest-sec[^"]*"[^>]*>/);
+    for (const chunk of chunks.slice(1)) { // skip first empty piece
+      const h2Match = chunk.match(/<h2[^>]*>([\s\S]*?)<\/h2>/);
+      if (!h2Match) continue;
+      const question = stripTags(h2Match[1]);
+      if (!question) continue;
+
+      // Collect all <p> text as the answer
+      const pMatches = [...chunk.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/g)];
+      const answerParts = pMatches.map(m => stripTags(m[1])).filter(Boolean);
+      if (!answerParts.length) continue;
+
+      // Trim answer to ~500 chars for schema (Google recommends concise answers)
+      const answer = answerParts.join(' ').slice(0, 500).replace(/\s+$/, '');
+      items.push({ question, answer });
+    }
+  } catch (e) {
+    // Never break the page build — return whatever we have
+  }
+  return items.slice(0, 6); // Google renders up to ~5 FAQ rich results
+}
+
+// ── Build breadcrumb items array ──────────────────────────────────────────────
+function buildBreadcrumbs(slug, title) {
+  const BASE = 'https://co-ownership-property.com';
+  const crumbs = [{ name: 'Home', item: `${BASE}/` }];
+  const parentSlug = PARENT[slug];
+  if (parentSlug) {
+    crumbs.push({ name: destLabel(parentSlug), item: `${BASE}/${parentSlug}/` });
+  }
+  crumbs.push({ name: title, item: `${BASE}/${slug}/` });
+  return crumbs;
 }
 
 export async function getStaticPaths() {
@@ -188,8 +293,6 @@ export async function getStaticProps({ params }) {
   const { slug } = params;
   const contentPath = path.join(process.cwd(), 'content', 'destinations', `${slug}.html`);
 
-  // If this slug has no destination content file, treat it as a blog post URL
-  // and redirect — catches any old WordPress root-level blog post links
   if (!fs.existsSync(contentPath)) {
     return {
       redirect: { destination: `/blog/${slug}/`, permanent: true },
@@ -203,7 +306,7 @@ export async function getStaticProps({ params }) {
   const metaMatch = rawHtml.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']/);
   const metaDesc = metaMatch ? metaMatch[1] : '';
 
-  // Extract unique body content (hero + SEO sections only)
+  // Extract body content
   let bodyMatch = rawHtml.match(/<body[^>]*>([\s\S]*?)<\/body>/);
   let body = bodyMatch ? bodyMatch[1] : '';
 
@@ -214,22 +317,19 @@ export async function getStaticProps({ params }) {
   body = body.replace(/<section[^>]*class="newsletter-section"[^>]*>[\s\S]*?<\/section>/g, '');
   body = body.replace(/<section[^>]*id="speak-to-expert"[^>]*>[\s\S]*?<\/section>/g, '');
   body = body.replace(/<footer\b[^>]*>[\s\S]*?<\/footer>/g, '');
-  // Remove the empty property grid section (we'll inject our own)
   body = body.replace(/<section[^>]*class="props-sec"[^>]*>[\s\S]*?<\/section>/g, '');
-  // Remove mid-page CTA (we keep it but move it - actually keep it)
 
   // Filter properties for this destination
   const allProps = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
   const filter = DEST_FILTERS[slug] || null;
   const matchedProps = filter ? allProps.filter(p => matchesFilter(p, filter)) : [];
 
-  // Split body: hero section (before mid-cta) and rest (mid-cta onwards)
+  // Split body at mid-CTA
   const splitMarkers = ['class="dest-mid-cta"', 'class="dest-mid-cta ', 'id="dest-mid-cta"'];
   let splitIdx = -1;
   for (const marker of splitMarkers) {
     const idx = body.indexOf(marker);
     if (idx > 0) {
-      // Find the opening < of this element
       splitIdx = body.lastIndexOf('<', idx);
       break;
     }
@@ -238,28 +338,81 @@ export async function getStaticProps({ params }) {
   let heroHtml = splitIdx > 0 ? body.slice(0, splitIdx).trim() : body.trim();
   let restHtml = splitIdx > 0 ? body.slice(splitIdx).trim() : '';
 
-  // ── Clean up staging content ──────────────────────────────────
-  // Remove 'Which country are you interested in?'
+  // Clean up staging content
   restHtml = restHtml.replace(/<section[^>]*><div[^>]*><h3>Which country are you interested in\?<\/h3><\/div><\/section>/g, '');
-  // Remove the entire staging 'Also Explore / Explore More' section — replaced by our own
   restHtml = restHtml.replace(/<section[^>]*class="[^"]*dest-explore[^"]*"[^>]*>[\s\S]*?<\/section>/g, '');
-  // Shorten FAQ title
   restHtml = restHtml.replace(/<h2([^>]*)>[^<]*?—\s*Frequently Asked Questions<\/h2>/g, '<h2$1>Frequently Asked Questions</h2>');
-  // Fix staging image URLs
   restHtml = restHtml.replace(/https:\/\/staging\.co-ownership-property\.com\//g, 'https://co-ownership-property.com/');
-  // Fix newsletter CTA — "#contact" doesn't exist; point to the Newsletter section
   restHtml = restHtml.replace(/href="#contact"/g, 'href="#newsletter"');
   heroHtml = heroHtml.replace(/href="#contact"/g, 'href="#newsletter"');
-  
+
   // Build related destinations list
   const related = (RELATED[slug] || []).map(s => ({ slug: s, label: destLabel(s) }));
 
+  // ── SEO extras ────────────────────────────────────────────────────────────
+  // FAQ items for FAQPage schema (extracted from the raw HTML before body processing)
+  const faqItems = extractFaqItems(rawHtml);
+
+  // OG image: use the first matched property's hero image, or fall back to generic
+  const FALLBACK_OG = 'https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg';
+  const ogImage = matchedProps.find(p => p.img)?.img || FALLBACK_OG;
+
   return {
-    props: { slug, title, metaDesc, heroHtml, restHtml, properties: matchedProps, related },
+    props: { slug, title, metaDesc, heroHtml, restHtml, properties: matchedProps, related, faqItems, ogImage },
   };
 }
 
-export default function DestinationPage({ slug, title, metaDesc, heroHtml, restHtml, properties, related }) {
+export default function DestinationPage({ slug, title, metaDesc, heroHtml, restHtml, properties, related, faqItems, ogImage }) {
+  const canonicalUrl = `https://co-ownership-property.com/${slug}/`;
+  const breadcrumbItems = buildBreadcrumbs(slug, title);
+
+  // Build schema array — always include BreadcrumbList and WebPage; add FAQPage if items exist
+  const schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbItems.map((crumb, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "name": crumb.name,
+        "item": crumb.item,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": title,
+      "description": metaDesc,
+      "url": canonicalUrl,
+      "image": ogImage,
+      "inLanguage": "en",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Co-Ownership Property",
+        "url": "https://co-ownership-property.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://co-ownership-property.com/wp-content/uploads/MAIN-LOGO-COP.svg",
+        },
+      },
+    },
+  ];
+
+  if (faqItems.length > 0) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(({ question, answer }) => ({
+        "@type": "Question",
+        "name": question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": answer,
+        },
+      })),
+    });
+  }
+
   return (
     <>
       <Head>
@@ -267,48 +420,50 @@ export default function DestinationPage({ slug, title, metaDesc, heroHtml, restH
         <meta name="description" content={metaDesc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href={`https://co-ownership-property.com/${slug}/`} />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={metaDesc} />
-        <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
-        <meta property="og:url" content={`https://co-ownership-property.com/${slug}/`} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={metaDesc} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://co-ownership-property.com/" },
-            { "@type": "ListItem", "position": 2, "name": title, "item": `https://co-ownership-property.com/${slug}/` },
-          ]
-        }) }} />
+        <meta name="twitter:image" content={ogImage} />
+        {schemas.map((schema, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
       </Head>
       <Header />
 
-      {/* Hero section (from staging) */}
+      {/* Hero section */}
       <div dangerouslySetInnerHTML={{ __html: heroHtml }} />
 
-      {/* Property grid — full-width cream background */}
+      {/* Property grid */}
       <div className="dest-props-section">
-      <div className="homes-grid-wrap">
-        {properties.length > 0 ? (
-          <div className="homes-grid" id="homes-grid">
-            {properties.map(p => <PropertyCard key={p.id} property={p} />)}
-          </div>
-        ) : (
-          <div className="no-props">
-            <p>No properties currently listed for this destination. <a href="/our-homes/">Browse all properties</a> or <a href="/contact">contact us</a> for upcoming listings.</p>
-          </div>
-        )}
+        <div className="homes-grid-wrap">
+          {properties.length > 0 ? (
+            <div className="homes-grid" id="homes-grid">
+              {properties.map(p => <PropertyCard key={p.id} property={p} />)}
+            </div>
+          ) : (
+            <div className="no-props">
+              <p>No properties currently listed for this destination. <a href="/our-homes/">Browse all properties</a> or <a href="/contact">contact us</a> for upcoming listings.</p>
+            </div>
+          )}
+        </div>
       </div>
-      </div>{/* end dest-props-section */}
 
-      {/* Rest of page: CTA, SEO content, related locations */}
+      {/* Rest of page */}
       <div dangerouslySetInnerHTML={{ __html: restHtml }} />
 
-      {/* Also Explore — smart related destinations, no arrows */}
+      {/* Also Explore */}
       {related && related.length > 0 && (
         <section className="dest-also-explore">
           <p className="dest-also-label">Also Explore</p>
