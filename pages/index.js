@@ -5,8 +5,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import fs from 'fs';
-import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 import { FEATURED_PROPERTY_SLUGS } from '@/lib/featured-properties';
 
@@ -47,14 +45,18 @@ export async function getStaticProps() {
     .from('properties')
     .select('*', { count: 'exact', head: true });
 
-  // Latest 3 blog posts (still from file — posts aren't in Supabase)
-  const allPosts = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'posts.json'), 'utf-8'));
-  const latestPosts = allPosts.slice(0, 3).map(p => ({
+  // Latest 3 blog posts from Supabase
+  const { data: postRows } = await supabase
+    .from('posts')
+    .select('slug, title, excerpt, date, hero_image, category')
+    .order('date', { ascending: false })
+    .limit(3);
+  const latestPosts = (postRows || []).map(p => ({
     slug: p.slug,
     title: p.title,
-    excerpt: p.excerpt || p.subtitle || '',
-    dateFormatted: p.dateFormatted || '',
-    heroImage: p.heroImage || '',
+    excerpt: p.excerpt || '',
+    dateFormatted: p.date ? new Date(p.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase() : '',
+    heroImage: p.hero_image || '',
     category: p.category || '',
   }));
 
