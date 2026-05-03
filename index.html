@@ -1,0 +1,2285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COP CRM</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sidebar:#1c1917;
+  --sidebar-hover:#292524;
+  --sidebar-active:#3d2e08;
+  --gold:#c9993a;
+  --gold-light:#e8c97a;
+  --bg:#f5f4f1;
+  --card:#ffffff;
+  --border:rgba(0,0,0,0.08);
+  --text:#1c1917;
+  --text2:#6b6560;
+  --text3:#a09890;
+  --danger:#dc2626;
+  --success:#16a34a;
+  --warning:#d97706;
+  --info:#2563eb;
+  --radius:10px;
+  --shadow:0 1px 3px rgba(0,0,0,0.08);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;height:100vh;overflow:hidden}
+
+/* Gate */
+#gate{position:fixed;inset:0;background:#1c1917;display:flex;align-items:center;justify-content:center;z-index:999}
+.gate-box{background:#292524;border:1px solid rgba(201,153,58,0.3);border-radius:16px;padding:40px;width:340px;text-align:center}
+.gate-logo{font-size:22px;font-weight:700;color:#e8c97a;letter-spacing:-0.5px;margin-bottom:6px}
+.gate-sub{font-size:13px;color:#a09890;margin-bottom:28px}
+.gate-box input{width:100%;padding:10px 14px;background:#1c1917;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#f5f4f1;font-size:14px;outline:none;font-family:inherit;letter-spacing:2px;text-align:center}
+.gate-box input:focus{border-color:rgba(201,153,58,0.5)}
+.gate-box button{width:100%;margin-top:12px;padding:10px;background:var(--gold);border:none;border-radius:8px;color:#1c1917;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.gate-box button:hover{background:var(--gold-light)}
+.gate-error{color:#f87171;font-size:12px;margin-top:8px}
+
+/* Layout */
+#app{display:flex;height:100vh}
+#sidebar{width:220px;background:var(--sidebar);display:flex;flex-direction:column;flex-shrink:0;padding:0 0 16px}
+#main{flex:1;overflow-y:auto;min-width:0}
+
+/* Sidebar */
+.sidebar-brand{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.sidebar-brand .name{font-size:15px;font-weight:700;color:var(--gold-light);letter-spacing:-0.3px}
+.sidebar-brand .sub{font-size:10px;color:#6b6560;margin-top:1px}
+.sidebar-section{padding:16px 10px 4px;font-size:10px;color:#4b4540;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;margin:1px 8px;border-radius:7px;cursor:pointer;color:#a09890;font-size:13px;transition:all 0.1s}
+.nav-item:hover{background:var(--sidebar-hover);color:#e8e6e3}
+.nav-item.active{background:var(--sidebar-active);color:var(--gold-light)}
+.nav-item svg{width:15px;height:15px;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--gold);color:#1c1917;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px}
+.sidebar-footer{margin-top:auto;padding:12px 18px;font-size:11px;color:#4b4540}
+.live-dot{display:inline-block;width:6px;height:6px;background:#22c55e;border-radius:50%;margin-right:5px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* Page header */
+.page-header{padding:24px 28px 0;display:flex;align-items:center;justify-content:space-between}
+.page-title{font-size:20px;font-weight:600;color:var(--text);letter-spacing:-0.3px}
+.page-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.header-actions{display:flex;gap:8px}
+.btn{padding:7px 14px;border-radius:7px;font-size:12px;cursor:pointer;font-family:inherit;border:1px solid var(--border);background:var(--card);color:var(--text);font-weight:500}
+.btn:hover{background:var(--bg)}
+.btn-primary{background:var(--gold);border-color:var(--gold);color:#1c1917}
+.btn-primary:hover{background:var(--gold-light);border-color:var(--gold-light)}
+
+/* Content padding */
+.content{padding:20px 28px 40px}
+
+/* KPI cards */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.blue::before{background:var(--info)}
+.kpi-card.gold::before{background:var(--gold)}
+.kpi-card.green::before{background:var(--success)}
+.kpi-card.red::before{background:var(--danger)}
+.kpi-label{font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:0.3px}
+.kpi-value{font-size:28px;font-weight:700;color:var(--text);margin:4px 0 2px;letter-spacing:-1px}
+.kpi-sub{font-size:11px;color:var(--text3)}
+.kpi-sub.up{color:var(--success)}
+.kpi-sub.down{color:var(--danger)}
+
+/* Charts */
+.chart-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px}
+.chart-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.chart-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.chart-sub{font-size:11px;color:var(--text3);margin-bottom:14px}
+.chart-wrap{position:relative}
+
+/* Table */
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{text-align:left;padding:8px 12px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.3px;border-bottom:1px solid var(--border)}
+.data-table td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:#fafaf8}
+.data-table td.muted{color:var(--text3)}
+
+/* Status badges */
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.badge-new{background:#EFF6FF;color:#1D4ED8}
+.badge-contacted{background:#FFFBEB;color:#92400E}
+.badge-replied{background:#ECFDF5;color:#065F46}
+.badge-hot{background:#FEF2F2;color:#991B1B}
+.badge-qualified{background:#F0FDF4;color:#166534}
+.badge-passive{background:#F9FAFB;color:#4B5563}
+.badge-registered{background:#F5F3FF;color:#5B21B6}
+.badge-reserved{background:#ECFDF5;color:#064E3B}
+.badge-transferred{background:#F5F3FF;color:#4C1D95}
+.badge-won{background:#DCFCE7;color:#14532D}
+.badge-lost{background:#FEF2F2;color:#7F1D1D}
+
+/* Leads table view */
+.leads-table-layout{display:flex;flex-direction:column;height:calc(100vh - 64px);overflow:hidden}
+.leads-table-header{padding:12px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--card);flex-shrink:0}
+.leads-table-title{font-size:15px;font-weight:600;color:var(--text);letter-spacing:-0.3px;white-space:nowrap}
+.leads-table-count{font-size:11px;color:var(--text3);white-space:nowrap;margin-right:auto}
+.lt-filter{padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;background:var(--bg);color:var(--text);outline:none;font-family:inherit;height:32px}
+.lt-filter:focus{border-color:rgba(201,153,58,0.5)}
+.leads-table-wrap{flex:1;overflow:auto}
+.leads-table{width:100%;border-collapse:collapse;font-size:12px}
+.leads-table thead th{position:sticky;top:0;background:var(--card);text-align:left;padding:8px 14px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;border-bottom:2px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none;z-index:1}
+.leads-table thead th:hover{color:var(--text)}
+.leads-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;max-width:200px}
+.leads-table tbody tr:hover td{background:var(--bg);cursor:pointer}
+.leads-table tbody tr.lt-active td{background:#FEF9EC}
+.lt-name{font-weight:500;color:var(--text)}
+.lt-email{font-size:10px;color:var(--text3);margin-top:2px}
+.lt-muted{color:var(--text3)!important}
+.lt-sort{font-size:9px;margin-left:2px;opacity:0.6}
+/* Slide-in detail panel */
+.lead-detail-panel{position:fixed;top:0;right:0;width:500px;height:100vh;background:var(--card);border-left:1px solid var(--border);z-index:200;transform:translateX(100%);transition:transform 0.22s ease;overflow:hidden;display:flex;flex-direction:column;box-shadow:-6px 0 28px rgba(0,0,0,0.13)}
+.lead-detail-panel.open{transform:translateX(0)}
+.ldp-topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--card)}
+.ldp-close-btn{background:none;border:1px solid var(--border);border-radius:6px;width:26px;height:26px;cursor:pointer;color:var(--text3);font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center}
+.ldp-close-btn:hover{background:var(--bg);color:var(--text)}
+.leads-detail{flex:1;overflow-y:auto;padding:0}
+.no-lead{display:flex;align-items:center;justify-content:center;height:200px;color:var(--text3);font-size:13px}
+
+/* Lead detail */
+.lead-detail-header{padding:20px 22px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+.ld-avatar{width:44px;height:44px;border-radius:50%;background:#FEF3C7;color:#92400E;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.ld-name{font-size:16px;font-weight:600;color:var(--text)}
+.ld-email{font-size:12px;color:var(--text3);margin-top:1px}
+.ld-status-wrap{margin-left:auto}
+.ld-status-select{padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;background:var(--bg);color:var(--text);cursor:pointer;outline:none;font-family:inherit}
+.lead-detail-body{padding:18px 22px}
+.ld-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--bg);border-radius:8px;padding:12px 14px;margin-bottom:16px}
+.ld-field label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.3px;display:block}
+.ld-field span{font-size:12px;color:var(--text);margin-top:1px;display:block}
+.ld-message{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:12px;color:var(--text2);font-style:italic;grid-column:1/-1}
+.section-title{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin:16px 0 8px}
+.activity-row{display:flex;gap:9px;padding:7px 0;border-bottom:1px solid var(--border)}
+.act-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.act-body{flex:1;min-width:0}
+.act-title{font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.act-snip{font-size:11px;color:var(--text2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.act-foot{display:flex;align-items:center;gap:7px;margin-top:2px}
+.act-date{font-size:10px;color:var(--text3)}
+.act-link{font-size:10px;color:var(--info);text-decoration:none}
+.act-link:hover{text-decoration:underline}
+.note-card{background:var(--bg);border-radius:7px;padding:9px 11px;margin-bottom:7px}
+.note-card p{font-size:12px;color:var(--text);line-height:1.5}
+.note-card small{font-size:10px;color:var(--text3);margin-top:4px;display:block}
+.note-form textarea{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;background:var(--card);color:var(--text);resize:vertical;min-height:56px;outline:none;font-family:inherit}
+.note-form textarea:focus{border-color:rgba(0,0,0,0.2)}
+.note-form .btn{margin-top:6px}
+
+/* Email history in lead detail */
+.email-hist-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.email-hist-row:last-child{border-bottom:none}
+.eh-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px}
+.eh-icon.sent{background:#D1FAE5;color:#065F46}
+.eh-icon.pending{background:#FEF3C7;color:#92400E}
+.eh-icon.scheduled{background:#EFF6FF;color:#1D4ED8}
+.eh-icon.cancelled{background:#F3F4F6;color:#9CA3AF}
+.eh-icon.rejected{background:#FEE2E2;color:#991B1B}
+.eh-body{flex:1;min-width:0}
+.eh-subject{font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eh-meta{display:flex;align-items:center;gap:6px;margin-top:2px}
+.eh-tpl{font-size:10px;color:var(--text3)}
+.eh-when{font-size:10px;font-weight:600}
+.eh-when.sent{color:#059669}
+.eh-when.scheduled{color:#2563EB}
+.eh-when.pending{color:#D97706}
+.eh-when.cancelled,.eh-when.rejected{color:var(--text3)}
+
+/* Attention table */
+.attention-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.attention-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.attention-row:last-child{border-bottom:none}
+.at-name{flex:1;font-size:12px;font-weight:500;color:var(--text)}
+.at-prop{font-size:11px;color:var(--text3)}
+.at-days{font-size:11px;color:var(--danger);font-weight:600;white-space:nowrap}
+.at-btn{padding:4px 8px;font-size:10px;border:1px solid var(--border);border-radius:5px;background:var(--card);cursor:pointer;color:var(--text);font-family:inherit}
+
+/* Loading / empty states */
+.loading-state{text-align:center;padding:40px;color:var(--text3);font-size:13px}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Attention count badge pulse */
+.pulse{animation:badgepulse 2s ease-in-out infinite}
+@keyframes badgepulse{0%,100%{opacity:1}50%{opacity:0.6}}
+
+/* Email Queue Tabs */
+.queue-tab{background:none;border:none;padding:8px 16px;font-size:12px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;letter-spacing:0.04em}
+.queue-tab:hover{color:var(--text1)}
+.queue-tab.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:600}
+
+/* Email Queue */
+.queue-layout{display:flex;height:calc(100vh - 64px);overflow:hidden}
+.queue-list-pane{width:400px;flex-shrink:0;border-right:1px solid var(--border);overflow-y:auto;background:var(--card)}
+.queue-preview-pane{flex:1;overflow-y:auto;background:var(--bg);display:flex;flex-direction:column}
+.queue-pane-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;background:var(--card)}
+.queue-pane-title{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px}
+.queue-item{padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s}
+.queue-item:hover{background:var(--bg)}
+.queue-item.active{background:#FEF9EC;border-left:3px solid var(--gold)}
+.qi-meta{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px}
+.qi-to{font-size:12px;font-weight:600;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qi-time{font-size:10px;color:var(--text3);flex-shrink:0;white-space:nowrap}
+.qi-subject{font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.qi-tags{display:flex;gap:4px;flex-wrap:wrap}
+.qi-tag{font-size:10px;padding:1px 5px;border-radius:3px;background:var(--bg);color:var(--text3);border:1px solid var(--border)}
+.queue-empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:13px}
+.queue-preview-body{flex:1;padding:20px;min-height:0}
+.queue-preview-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:14px;font-size:12px}
+.queue-preview-meta-row{display:flex;gap:8px;padding:3px 0}
+.qpm-label{color:var(--text3);width:60px;flex-shrink:0}
+.qpm-value{color:var(--text);flex:1}
+.queue-preview-iframe-wrap{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;flex:1}
+.queue-preview-iframe-wrap iframe{width:100%;height:600px;border:none;display:block}
+.queue-actions{padding:14px 16px;border-top:1px solid var(--border);background:var(--card);display:flex;gap:8px;align-items:center;flex-shrink:0}
+.queue-status-bar{padding:8px 16px;background:var(--bg);border-top:1px solid var(--border);font-size:11px;color:var(--text3);flex-shrink:0}
+.badge-pending{background:#FFFBEB;color:#92400E}
+.badge-sent{background:#ECFDF5;color:#065F46}
+.badge-rejected{background:#FEF2F2;color:#991B1B}
+.badge-scheduled{background:#EFF6FF;color:#1D4ED8}
+.badge-overdue{background:#FEF9EC;color:#92400E}
+.sched-group-label{padding:8px 16px 4px;font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--text3);background:var(--bg);border-bottom:1px solid var(--border)}
+.qi-when{font-size:10px;font-weight:600;padding:1px 6px;border-radius:3px;white-space:nowrap;flex-shrink:0}
+.qi-when-soon{background:#FEF9EC;color:#92400E}
+.qi-when-future{background:#EFF6FF;color:#1D4ED8}
+
+/* Gmail integration */
+.gmail-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:7px;margin-bottom:4px}
+.gmail-bar-disconnected{background:#FFF7ED;border-color:#FED7AA}
+.gmail-status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.gmail-bar button{margin-left:auto;padding:4px 10px;font-size:11px;border:1px solid rgba(0,0,0,0.1);border-radius:5px;background:#fff;cursor:pointer;font-family:inherit;color:var(--text)}
+.gmail-bar button:hover{background:var(--bg)}
+.gmail-thread{border:1px solid var(--border);border-radius:8px;margin-bottom:7px;overflow:hidden;background:var(--card)}
+.gmail-thread-header{display:flex;gap:10px;padding:10px 12px;cursor:pointer;align-items:flex-start}
+.gmail-thread-header:hover{background:var(--bg)}
+.gmail-thread-info{flex:1;min-width:0}
+.gmail-subject{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gmail-from{font-size:11px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gmail-snip{font-size:11px;color:var(--text2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gmail-thread-meta{flex-shrink:0;text-align:right;min-width:60px}
+.gmail-date{font-size:10px;color:var(--text3)}
+.gmail-count{font-size:10px;color:var(--text3);margin-top:2px}
+.gmail-thread-body{border-top:1px solid var(--border)}
+.gmail-msg{padding:12px 14px;border-bottom:1px solid var(--border)}
+.gmail-msg:last-child{border-bottom:none}
+.gmail-msg-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.gmail-msg-from{font-size:11px;font-weight:600;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gmail-msg-date{font-size:10px;color:var(--text3);flex-shrink:0}
+.gmail-msg-body{font-size:12px;color:var(--text2);line-height:1.55;max-height:220px;overflow-y:auto;word-break:break-word}
+.gmail-msg-body img{max-width:100%;height:auto}
+.gmail-msg-body a{color:var(--info)}
+.gmail-empty{font-size:12px;color:var(--text3);padding:12px 0}
+.gmail-connect-prompt{text-align:center;padding:20px 16px;background:var(--bg);border-radius:8px}
+.gmail-connect-prompt p{font-size:12px;color:var(--text3);margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<!-- Password Gate -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">COP CRM</div>
+    <div class="gate-sub">Co-Ownership Properties</div>
+    <input type="password" id="gate-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPass()" />
+    <button onclick="checkPass()">Enter</button>
+    <div class="gate-error" id="gate-error"></div>
+  </div>
+</div>
+
+<!-- Main App -->
+<div id="app" style="display:none">
+  <!-- Sidebar -->
+  <nav id="sidebar">
+    <div class="sidebar-brand">
+      <div class="name">COP CRM</div>
+      <div class="sub">Co-Ownership Properties</div>
+    </div>
+    <div class="sidebar-section">Menu</div>
+    <div class="nav-item active" onclick="showView('dashboard')" id="nav-dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-item" onclick="showView('leads')" id="nav-leads">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      Leads
+      <span class="nav-badge" id="badge-leads">—</span>
+    </div>
+    <div class="nav-item" onclick="showView('attention')" id="nav-attention">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Needs Attention
+      <span class="nav-badge pulse" id="badge-attention" style="background:#dc2626;color:#fff">—</span>
+    </div>
+    <div class="nav-item" onclick="showView('queue')" id="nav-queue">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Emails
+      <span class="nav-badge" id="badge-queue" style="display:none;background:#d97706;color:#fff">0</span>
+    </div>
+    <div class="nav-item" onclick="showView('scheduled')" id="nav-scheduled">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Scheduled
+      <span class="nav-badge" id="badge-scheduled" style="display:none;background:#2563eb;color:#fff">0</span>
+    </div>
+    <div class="nav-item" onclick="showView('newsletters')" id="nav-newsletters">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Newsletters
+    </div>
+    <div class="sidebar-footer">
+      <span class="live-dot"></span>Live data
+      <div id="gmail-sidebar-bar" class="gmail-bar gmail-bar-disconnected" style="margin-top:10px">
+        <div class="gmail-status-dot" id="gmail-dot" style="background:#f97316"></div>
+        <span id="gmail-sidebar-label" style="font-size:11px;color:var(--text3)">Gmail not connected</span>
+        <button onclick="connectGmail()">Connect</button>
+      </div>
+      <button id="gmail-scan-btn" onclick="scanGmailEnquiries()" style="display:none;width:100%;margin-top:6px;padding:6px 10px;background:rgba(201,153,58,0.15);border:1px solid rgba(201,153,58,0.3);border-radius:7px;color:var(--gold);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;align-items:center;justify-content:center;gap:5px">⚡ Scan enquiry emails</button>
+      <div id="gmail-scan-status" style="font-size:11px;color:var(--text3);margin-top:4px;display:none"></div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <div id="main">
+    <!-- Dashboard -->
+    <div id="view-dashboard">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Dashboard</div>
+          <div class="page-sub" id="dash-date"></div>
+        </div>
+      </div>
+      <div class="content">
+        <!-- KPIs -->
+        <div class="kpi-grid">
+          <div class="kpi-card blue"><div class="kpi-label">Total Leads</div><div class="kpi-value" id="kpi-total">—</div><div class="kpi-sub" id="kpi-total-sub">Loading...</div></div>
+          <div class="kpi-card gold"><div class="kpi-label">New This Week</div><div class="kpi-value" id="kpi-week">—</div><div class="kpi-sub" id="kpi-week-sub">Loading...</div></div>
+          <div class="kpi-card red"><div class="kpi-label">Hot Leads</div><div class="kpi-value" id="kpi-hot">—</div><div class="kpi-sub">Require follow-up</div></div>
+          <div class="kpi-card green"><div class="kpi-label">Won Deals</div><div class="kpi-value" id="kpi-won">—</div><div class="kpi-sub" id="kpi-conv">Conversion rate</div></div>
+        </div>
+
+        <!-- Charts row 1 -->
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="chart-title">Leads by property</div>
+            <div class="chart-sub">Top 12 properties generating the most enquiries</div>
+            <div class="chart-wrap"><canvas id="chart-properties" height="220"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Pipeline status</div>
+            <div class="chart-sub">Current spread across stages</div>
+            <div class="chart-wrap"><canvas id="chart-status" height="220"></canvas></div>
+          </div>
+        </div>
+
+        <!-- Charts row 2 -->
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="chart-title">New leads over time</div>
+            <div class="chart-sub">Weekly new enquiries for the past year</div>
+            <div class="chart-wrap"><canvas id="chart-timeline" height="180"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Leads by region</div>
+            <div class="chart-sub">Which destinations generate the most interest</div>
+            <div class="chart-wrap"><canvas id="chart-regions" height="180"></canvas></div>
+          </div>
+        </div>
+
+        <!-- Charts row 3 -->
+        <div class="chart-grid-3">
+          <div class="chart-card">
+            <div class="chart-title">Lead sources</div>
+            <div class="chart-sub">Where your leads come from</div>
+            <div class="chart-wrap"><canvas id="chart-sources" height="180"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Buyer countries</div>
+            <div class="chart-sub">Where buyers are based</div>
+            <div class="chart-wrap"><canvas id="chart-countries" height="180"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Budget distribution</div>
+            <div class="chart-sub">Budget ranges across active leads</div>
+            <div class="chart-wrap"><canvas id="chart-budget" height="180"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leads CRM -->
+    <div id="view-leads" style="display:none">
+      <div class="leads-table-layout">
+        <div class="leads-table-header">
+          <span class="leads-table-title">All Leads</span>
+          <span class="leads-table-count" id="leads-count"></span>
+          <input type="text" id="lead-search" class="lt-filter" placeholder="Search name, email, region..." oninput="filterLeads()" style="width:210px" />
+          <select id="lead-status" class="lt-filter" onchange="filterLeads()">
+            <option value="">All statuses</option>
+            <option value="new_lead">New lead</option>
+            <option value="contacted">Contacted</option>
+            <option value="lead_replied">Replied</option>
+            <option value="hot_lead">Hot lead</option>
+            <option value="qualified">Qualified</option>
+            <option value="passive_interest">Passive interest</option>
+            <option value="registered">Registered</option>
+            <option value="reservation_confirmed">Reservation confirmed</option>
+            <option value="transferred_to_partner">Transferred</option>
+            <option value="won">Won</option>
+            <option value="lost">Lost</option>
+          </select>
+          <select id="lead-region" class="lt-filter" onchange="filterLeads()">
+            <option value="">All regions</option>
+          </select>
+        </div>
+        <div class="leads-table-wrap">
+          <table class="leads-table" id="leads-table">
+            <thead>
+              <tr>
+                <th onclick="sortLeads('name')">Name <span class="lt-sort" id="sort-name"></span></th>
+                <th onclick="sortLeads('phone')">Phone <span class="lt-sort" id="sort-phone"></span></th>
+                <th onclick="sortLeads('status')">Status <span class="lt-sort" id="sort-status"></span></th>
+                <th onclick="sortLeads('main_region')">Region <span class="lt-sort" id="sort-main_region"></span></th>
+                <th onclick="sortLeads('subregion')">Subregion <span class="lt-sort" id="sort-subregion"></span></th>
+                <th onclick="sortLeads('country')">Country <span class="lt-sort" id="sort-country"></span></th>
+                <th onclick="sortLeads('budget_min')">Budget <span class="lt-sort" id="sort-budget_min"></span></th>
+                <th onclick="sortLeads('timeframe')">Timeframe <span class="lt-sort" id="sort-timeframe"></span></th>
+                <th onclick="sortLeads('source')">Source <span class="lt-sort" id="sort-source"></span></th>
+                <th onclick="sortLeads('contact_created')">First seen <span class="lt-sort" id="sort-contact_created"></span></th>
+                <th onclick="sortLeads('last_activity')">Last activity <span class="lt-sort" id="sort-last_activity">▼</span></th>
+                <th>Emails / Opens</th>
+              </tr>
+            </thead>
+            <tbody id="leads-tbody"><tr><td colspan="12" style="text-align:center;padding:40px;color:var(--text3)"><div class="spinner" style="margin:0 auto 8px"></div>Loading leads...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Slide-in detail panel -->
+      <div class="lead-detail-panel" id="lead-detail-panel">
+        <div class="ldp-topbar">
+          <span style="font-size:13px;font-weight:600;color:var(--text)" id="ldp-title">Lead detail</span>
+          <button class="ldp-close-btn" onclick="closeLeadDetail()">✕</button>
+        </div>
+        <div class="leads-detail" id="leads-detail">
+          <div class="no-lead">Select a lead to view details</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Needs Attention -->
+    <div id="view-attention" style="display:none">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Needs Attention</div>
+          <div class="page-sub">Leads that have gone quiet — contacted but no reply in 7+ days</div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="attention-card">
+          <div id="attention-list"><div class="loading-state"><div class="spinner"></div><br>Loading...</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scheduled Emails -->
+    <div id="view-scheduled" style="display:none">
+      <div class="page-header" style="padding-bottom:16px">
+        <div>
+          <div class="page-title">Scheduled Emails</div>
+          <div class="page-sub">Upcoming sequence emails — preview and approve early, or cancel</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn" onclick="loadScheduled()">↻ Refresh</button>
+        </div>
+      </div>
+      <div class="queue-layout">
+        <div class="queue-list-pane">
+          <div class="queue-pane-header">
+            <span class="queue-pane-title" id="sched-list-title">Loading…</span>
+          </div>
+          <div id="sched-list-body"></div>
+        </div>
+        <div class="queue-preview-pane" id="sched-preview-pane">
+          <div class="queue-pane-header">
+            <span class="queue-pane-title">Preview</span>
+          </div>
+          <div class="queue-preview-body" id="sched-preview-body">
+            <div class="queue-empty" style="margin-top:60px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="opacity:0.3;margin-bottom:10px"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <div>Select an email to preview</div>
+            </div>
+          </div>
+          <div class="queue-actions" id="sched-actions" style="display:none">
+            <button class="btn btn-primary" onclick="approveScheduled()" id="btn-sched-approve">✓ Send Now</button>
+            <button class="btn" style="border-color:#dc2626;color:#dc2626" onclick="cancelScheduled()" id="btn-sched-cancel">✕ Cancel</button>
+            <span id="sched-action-msg" style="font-size:11px;color:var(--text3);margin-left:8px"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Queue -->
+    <div id="view-queue" style="display:none">
+      <div class="page-header" style="padding-bottom:12px">
+        <div>
+          <div class="page-title">Emails</div>
+          <div class="page-sub">Sent history, pending approvals, and scheduled</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn" onclick="loadQueue()">↻ Refresh</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:0">
+        <button class="queue-tab" id="qtab-sent" onclick="setQueueTab('sent')">Sent</button>
+        <button class="queue-tab" id="qtab-pending" onclick="setQueueTab('pending')">Pending <span id="qtab-pending-count" style="font-size:10px;opacity:0.7"></span></button>
+        <button class="queue-tab" id="qtab-rejected" onclick="setQueueTab('rejected')">Rejected</button>
+      </div>
+      <div class="queue-layout">
+        <!-- Left: email list -->
+        <div class="queue-list-pane">
+          <div class="queue-pane-header">
+            <span class="queue-pane-title" id="queue-list-title">Loading…</span>
+          </div>
+          <div id="queue-campaign-bar" style="display:none;padding:10px 14px;background:#fffbeb;border-bottom:1px solid #fde68a;gap:10px;align-items:center">
+            <span id="queue-campaign-label" style="font-size:12px;color:#92400e;flex:1"></span>
+            <button class="btn btn-primary" id="btn-send-campaign" onclick="sendCampaign()" style="font-size:11px;padding:5px 14px">🚀 Send All</button>
+            <span id="queue-campaign-msg" style="font-size:11px;color:var(--text3)"></span>
+          </div>
+          <div id="queue-list-body"></div>
+        </div>
+        <!-- Right: preview + actions -->
+        <div class="queue-preview-pane" id="queue-preview-pane">
+          <div class="queue-pane-header">
+            <span class="queue-pane-title">Preview</span>
+          </div>
+          <div class="queue-preview-body" id="queue-preview-body">
+            <div class="queue-empty" style="margin-top:60px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="opacity:0.3;margin-bottom:10px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <div>Select an email to preview</div>
+            </div>
+          </div>
+          <div class="queue-actions" id="queue-actions" style="display:none">
+            <button class="btn btn-primary" onclick="approveEmail()" id="btn-approve">✓ Approve &amp; Send</button>
+            <button class="btn" style="border-color:#dc2626;color:#dc2626" onclick="rejectEmail()" id="btn-reject">✕ Reject</button>
+            <span id="queue-action-msg" style="font-size:11px;color:var(--text3);margin-left:8px"></span>
+          </div>
+          <div class="queue-status-bar" id="queue-status-bar" style="display:none"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletters -->
+    <div id="view-newsletters" style="display:none">
+      <div class="page-header" style="padding-bottom:12px">
+        <div>
+          <div class="page-title">Newsletters</div>
+          <div class="page-sub">Personalised property campaigns sent to leads</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" onclick="prepareNewsletter()">+ Prepare Campaign</button>
+          <button class="btn" onclick="loadNewsletters()">↻ Refresh</button>
+        </div>
+      </div>
+      <div class="queue-layout">
+        <div class="queue-list-pane">
+          <div class="queue-pane-header">
+            <span class="queue-pane-title" id="nl-list-title">Campaigns</span>
+          </div>
+          <div id="nl-list-body"><div class="queue-empty" style="margin-top:40px">Loading…</div></div>
+        </div>
+        <div class="queue-preview-pane" id="nl-preview-pane">
+          <div class="queue-pane-header">
+            <span class="queue-pane-title">Campaign Detail</span>
+          </div>
+          <div class="queue-preview-body" id="nl-preview-body">
+            <div class="queue-empty" style="margin-top:60px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="opacity:0.3;margin-bottom:10px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <div>Select a campaign to preview</div>
+            </div>
+          </div>
+          <div class="queue-actions" id="nl-actions" style="display:none">
+            <button class="btn btn-primary" onclick="sendNewsletter()" id="btn-nl-send">🚀 Send Campaign</button>
+            <span id="nl-action-msg" style="font-size:11px;color:var(--text3);margin-left:8px"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Config ───────────────────────────────────────────────
+const PASS = 'cop2026'; // Change this password
+const SUPABASE_URL = 'https://iotzzoxyckpyatzqcjbo.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MDE5OTEsImV4cCI6MjA5MjA3Nzk5MX0.6B_iQk8bqwFLkeB8Nl1qpiZRdXfRLPzw1Pea4Uxyrwo';
+const CRM_SECRET  = 'f93d35a23ace3573bf97df8748f30f4262fd0e42'; // must match CRM_SECRET env var in Vercel
+const API_URL     = 'https://co-ownership-property.com/api/email-queue/';
+
+// ─── Init ─────────────────────────────────────────────────
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let allLeads = [], currentLeadId = null;
+
+const STATUS_LABELS = {
+  new_lead:'New lead', contacted:'Contacted', lead_replied:'Replied',
+  hot_lead:'Hot lead', qualified:'Qualified', passive_interest:'Passive interest',
+  registered:'Registered', reservation_confirmed:'Reserved',
+  transferred_to_partner:'Transferred', won:'Won', lost:'Lost'
+};
+const STATUS_CLASS = {
+  new_lead:'badge-new', contacted:'badge-contacted', lead_replied:'badge-replied',
+  hot_lead:'badge-hot', qualified:'badge-qualified', passive_interest:'badge-passive',
+  registered:'badge-registered', reservation_confirmed:'badge-reserved',
+  transferred_to_partner:'badge-transferred', won:'badge-won', lost:'badge-lost'
+};
+const ACT_STYLE = {
+  email:{bg:'#DBEAFE',c:'#1D4ED8',l:'E'},
+  email_sent:{bg:'#FEF3C7',c:'#92400E',l:'S'},
+  email_opened:{bg:'#D1FAE5',c:'#065F46',l:'O'},
+  enquiry_submitted:{bg:'#EDE9FE',c:'#5B21B6',l:'Q'},
+  floor_plan_requested:{bg:'#F3F4F6',c:'#4B5563',l:'F'}
+};
+
+// ─── Auth ─────────────────────────────────────────────────
+function checkPass() {
+  const v = document.getElementById('gate-pass').value;
+  if(v === PASS || sessionStorage.getItem('cop-auth') === '1') {
+    sessionStorage.setItem('cop-auth','1');
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    init();
+  } else {
+    document.getElementById('gate-error').textContent = 'Incorrect password';
+  }
+}
+if(sessionStorage.getItem('cop-auth') === '1') {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+}
+
+// ─── Utils ────────────────────────────────────────────────
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function ini(n){if(!n)return'?';const p=n.trim().split(' ');return(p[0][0]+(p[1]?.[0]||'')).toUpperCase();}
+function fmt(d){if(!d)return'';return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+function daysAgo(d){return Math.floor((Date.now()-new Date(d))/86400000);}
+function badge(status){return `<span class="badge ${STATUS_CLASS[status]||''}">${STATUS_LABELS[status]||status}</span>`;}
+function regionToCountry(region){
+  if(!region) return '';
+  const MAP={
+    'French Alps':'France','Portes du Soleil':'France',"Côte d'Azur":'France','Paris':'France',
+    'Burgundy':'France','Provence':'France','Loire Valley':'France','Normandy':'France',
+    'Brittany':'France','Bordeaux':'France','Languedoc':'France',
+    'Ibiza':'Spain','Mallorca':'Spain','Menorca':'Spain','Formentera':'Spain',
+    'Costa del Sol':'Spain','Costa Blanca':'Spain','Costa Brava':'Spain',
+    'Canary Islands':'Spain','Pyrenees':'Spain','Barcelona':'Spain','Madrid':'Spain',
+    'Valencia':'Spain','Marbella':'Spain','Sotogrande':'Spain','Lanzarote':'Spain',
+    'Estepona':'Spain','Alicante':'Spain',
+    'Tuscany':'Italy','Liguria':'Italy','Italian Lakes':'Italy','Amalfi Coast':'Italy',
+    'Sardinia':'Italy','Sicily':'Italy','Umbria':'Italy','Piedmont':'Italy',
+    'Florence':'Italy','Venice':'Italy','Rome':'Italy','Milan':'Italy',
+    'Florida':'USA','California':'USA','New York':'USA','Texas':'USA',
+    'Hawaii':'USA','Colorado':'USA','Utah':'USA','Miami':'USA',
+    'Park City':'USA','Malibu':'USA','Santa Barbara':'USA',
+    'Algarve':'Portugal','Lisbon':'Portugal','Porto':'Portugal',
+    'Madeira':'Portugal','Alentejo':'Portugal',
+    'Vorarlberg':'Austria','Tyrol':'Austria','Salzburg':'Austria',
+    'Vienna':'Austria','Kitzbühel':'Austria',
+    'Istria':'Croatia','Dalmatia':'Croatia','Dubrovnik':'Croatia','Split':'Croatia',
+    'Bavaria':'Germany','Berlin':'Germany','Munich':'Germany','Baltic Sea':'Germany',
+    'Swiss Alps':'Switzerland','Geneva':'Switzerland','Zurich':'Switzerland',
+    'Verbier':'Switzerland','Zermatt':'Switzerland','Gstaad':'Switzerland',
+    'Santorini':'Greece','Mykonos':'Greece','Athens':'Greece','Crete':'Greece',
+    'London':'UK','Cotswolds':'UK','Cornwall':'UK','Scotland':'UK',
+    'Tokyo':'Japan','Kyoto':'Japan','Hokkaido':'Japan',
+    'Phuket':'Thailand','Koh Samui':'Thailand','Bangkok':'Thailand',
+    'Riviera Maya':'Mexico','Los Cabos':'Mexico','Puerto Vallarta':'Mexico',
+    'Dubai':'UAE',
+  };
+  const parts = region.split(';').map(r=>r.trim()).filter(Boolean);
+  const countries = [...new Set(parts.map(r=>MAP[r]||'').filter(Boolean))];
+  return countries.join('; ');
+}
+
+// ─── Router ───────────────────────────────────────────────
+function showView(view) {
+  ['dashboard','leads','attention','queue','scheduled','newsletters'].forEach(v => {
+    document.getElementById('view-'+v).style.display = v===view ? 'block' : 'none';
+    document.getElementById('nav-'+v)?.classList.toggle('active', v===view);
+  });
+  if(view==='leads') loadLeads();
+  if(view==='attention') loadAttention();
+  if(view==='queue') { setQueueTab(activeQueueTab || 'sent'); }
+  if(view==='scheduled') loadScheduled();
+  if(view==='newsletters') loadNewsletters();
+}
+
+// ─── Charts store ─────────────────────────────────────────
+const charts = {};
+function makeChart(id, type, labels, data, opts={}, extraOpts={}) {
+  if(charts[id]) charts[id].destroy();
+  const ctx = document.getElementById(id);
+  if(!ctx) return;
+  const horizontal = extraOpts.indexAxis === 'y';
+  charts[id] = new Chart(ctx.getContext('2d'), {
+    type,
+    data: { labels, datasets:[{ data, ...opts }] },
+    options: {
+      responsive:true, maintainAspectRatio:true,
+      ...(horizontal ? {indexAxis:'y'} : {}),
+      plugins:{ legend:{ display: type==='doughnut', position:'right', labels:{ font:{size:11}, boxWidth:10, padding:8 } } },
+      scales: type!=='doughnut' ? {
+        x:{ grid:{display: horizontal ? false : 'rgba(0,0,0,0.05)'}, ticks:{font:{size:10},maxRotation:horizontal?0:35} },
+        y:{ grid:{color: horizontal ? 'rgba(0,0,0,0.05)' : undefined, display: horizontal ? true : false}, ticks:{font:{size:10}} }
+      } : undefined
+    }
+  });
+}
+
+const CHART_COLORS = ['#c9993a','#2563eb','#16a34a','#dc2626','#9333ea','#0891b2','#ea580c','#84cc16','#f43f5e','#6366f1','#14b8a6','#f97316'];
+
+// ─── Dashboard ────────────────────────────────────────────
+async function loadDashboard() {
+  document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  try {
+    const weekAgo = new Date(Date.now()-7*86400000).toISOString();
+    const twoWeeksAgo = new Date(Date.now()-14*86400000).toISOString();
+
+    // Use lead_pipeline view for all lead queries (consistent with other views)
+    const [
+      {count:total}, {count:weekCount}, {count:hot}, {count:won}, {count:prevWeek}
+    ] = await Promise.all([
+      db.from('lead_pipeline').select('*',{count:'exact',head:true}),
+      db.from('lead_pipeline').select('*',{count:'exact',head:true}).gte('lead_created',weekAgo),
+      db.from('lead_pipeline').select('*',{count:'exact',head:true}).eq('status','hot_lead'),
+      db.from('lead_pipeline').select('*',{count:'exact',head:true}).eq('status','won'),
+      db.from('lead_pipeline').select('*',{count:'exact',head:true}).gte('lead_created',twoWeeksAgo).lt('lead_created',weekAgo),
+    ]);
+
+    // KPIs
+    document.getElementById('kpi-total').textContent = total||0;
+    document.getElementById('kpi-week').textContent = weekCount||0;
+    document.getElementById('kpi-hot').textContent = hot||0;
+    document.getElementById('kpi-won').textContent = won||0;
+    const weekDiff = (weekCount||0)-(prevWeek||0);
+    document.getElementById('kpi-total-sub').textContent = `${total||0} total enquiries`;
+    document.getElementById('kpi-week-sub').innerHTML = weekDiff>=0
+      ? `<span class="up">+${weekDiff} vs last week</span>`
+      : `<span class="down">${weekDiff} vs last week</span>`;
+    document.getElementById('kpi-conv').textContent = total ? `${(((won||0)/total)*100).toFixed(1)}% conversion` : '';
+    document.getElementById('badge-leads').textContent = total||0;
+  } catch(e) {
+    console.error('KPI load error:', e);
+    ['kpi-total','kpi-week','kpi-hot','kpi-won'].forEach(id=>{document.getElementById(id).textContent='—';});
+  }
+
+  try {
+    // Load all lead data for charts in one query
+    const {data:ld, error} = await db.from('lead_pipeline')
+      .select('property_title,status,lead_created,main_region,source,country,budget_min')
+      .limit(2000);
+
+    if(error) throw error;
+    const rows = ld || [];
+
+    // Property chart
+    const propMap = {};
+    rows.forEach(r=>{ if(r.property_title) propMap[r.property_title]=(propMap[r.property_title]||0)+1; });
+    const propData = Object.entries(propMap).sort((a,b)=>b[1]-a[1]).slice(0,12);
+    makeChart('chart-properties','bar',
+      propData.map(([k])=>k.length>38?k.slice(0,36)+'…':k),
+      propData.map(([,v])=>v),
+      { backgroundColor:CHART_COLORS[0], borderRadius:4 }
+    );
+
+    // Status doughnut
+    const statusMap = {};
+    rows.forEach(r=>{ if(r.status) statusMap[r.status]=(statusMap[r.status]||0)+1; });
+    const statusEntries = Object.entries(statusMap).sort((a,b)=>b[1]-a[1]);
+    makeChart('chart-status','doughnut',
+      statusEntries.map(([k])=>STATUS_LABELS[k]||k),
+      statusEntries.map(([,v])=>v),
+      { backgroundColor:CHART_COLORS, borderWidth:0, hoverOffset:4 }
+    );
+
+    // Timeline — group by day, past 365 days
+    // Filter out bulk-import batches: any timestamp shared by 5+ leads is a migration, not organic
+    const tsFreq = {};
+    rows.forEach(r=>{ if(r.lead_created) tsFreq[r.lead_created]=(tsFreq[r.lead_created]||0)+1; });
+    const cutoff = new Date(Date.now() - 365*86400000).toISOString().slice(0,10);
+    const dayMap = {};
+    rows.forEach(r=>{
+      if(!r.lead_created) return;
+      if(tsFreq[r.lead_created] >= 5) return; // bulk import — skip
+      const k = r.lead_created.slice(0,10);
+      if(k < cutoff) return;
+      dayMap[k]=(dayMap[k]||0)+1;
+    });
+    // Aggregate to weekly buckets (Mon–Sun ISO weeks)
+    const weekMap = {};
+    Object.entries(dayMap).forEach(([k,v])=>{
+      const d = new Date(k+'T12:00:00Z');
+      // Get Monday of the week
+      const day = d.getDay(), diff = (day===0?-6:1-day);
+      const mon = new Date(d); mon.setDate(d.getDate()+diff);
+      const wk = mon.toISOString().slice(0,10);
+      weekMap[wk] = (weekMap[wk]||0) + v;
+    });
+    const weekEntries = Object.entries(weekMap).sort((a,b)=>a[0]<b[0]?-1:1);
+    // 4-week rolling average
+    const wkMA = weekEntries.map((_,i,arr)=>{
+      const win = arr.slice(Math.max(0,i-3),i+1).map(([,v])=>v);
+      return Math.round((win.reduce((s,v)=>s+v,0)/win.length)*10)/10;
+    });
+    // Labels: show "Mon DD" for first week of each month, blank otherwise
+    let lastMonth = -1;
+    const wkDisplay = weekEntries.map(([k])=>{
+      const d = new Date(k+'T12:00:00Z');
+      const m = d.getMonth();
+      if(m !== lastMonth){ lastMonth=m; return d.toLocaleDateString('en-GB',{month:'short'}); }
+      return '';
+    });
+    if(charts['chart-timeline']) charts['chart-timeline'].destroy();
+    charts['chart-timeline'] = new Chart(document.getElementById('chart-timeline').getContext('2d'),{
+      type:'bar',
+      data:{
+        labels: weekEntries.map(([k])=>k),
+        datasets:[
+          { type:'bar', data:weekEntries.map(([,v])=>v),
+            backgroundColor:'rgba(201,153,58,0.5)',
+            borderColor:'rgba(201,153,58,0.8)',
+            borderWidth:1, borderRadius:3,
+            barPercentage:0.7, categoryPercentage:0.85 }
+        ]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:true,
+        interaction:{ mode:'index', intersect:false },
+        plugins:{
+          legend:{ display:false },
+          tooltip:{ callbacks:{
+            title: items => {
+              const d = new Date(items[0].label+'T12:00:00Z');
+              const end = new Date(d); end.setDate(d.getDate()+6);
+              return `Week of ${d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})}`;
+            },
+            label: item => `${item.raw} lead${item.raw!==1?'s':''}`
+          }}
+        },
+        scales:{
+          x:{ grid:{display:false}, border:{display:false},
+            ticks:{ font:{size:10}, color:'#a09890', maxRotation:0,
+              callback(v,i){ return wkDisplay[i]||null; }
+            }
+          },
+          y:{ grid:{color:'rgba(0,0,0,0.04)'}, border:{display:false},
+            ticks:{ font:{size:10}, color:'#a09890', precision:0 },
+            beginAtZero:true
+          }
+        }
+      }
+    });
+
+    // Region horizontal bar
+    const regMap = {};
+    rows.forEach(r=>{ if(r.main_region) regMap[r.main_region]=(regMap[r.main_region]||0)+1; });
+    const regData = Object.entries(regMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    makeChart('chart-regions','bar',
+      regData.map(([k])=>k),
+      regData.map(([,v])=>v),
+      { backgroundColor:CHART_COLORS[1], borderRadius:4 },
+      { indexAxis:'y' }
+    );
+
+    // Source doughnut
+    const srcMap = {};
+    rows.forEach(r=>{ if(r.source) srcMap[r.source]=(srcMap[r.source]||0)+1; });
+    const srcData = Object.entries(srcMap).sort((a,b)=>b[1]-a[1]);
+    makeChart('chart-sources','doughnut',
+      srcData.map(([k])=>k),
+      srcData.map(([,v])=>v),
+      { backgroundColor:CHART_COLORS, borderWidth:0, hoverOffset:4 }
+    );
+
+    // Country bar
+    const ctryMap = {};
+    rows.forEach(r=>{ if(r.country) ctryMap[r.country]=(ctryMap[r.country]||0)+1; });
+    const ctryData = Object.entries(ctryMap).sort((a,b)=>b[1]-a[1]).slice(0,8);
+    makeChart('chart-countries','bar',
+      ctryData.map(([k])=>k),
+      ctryData.map(([,v])=>v),
+      { backgroundColor:CHART_COLORS[2], borderRadius:4 }
+    );
+
+    // Budget distribution
+    const budgetBuckets = {'< €100k':0,'€100–200k':0,'€200–400k':0,'€400–700k':0,'€700k+':0};
+    rows.forEach(r=>{
+      const b = Number(r.budget_min);
+      if(!b) return;
+      if(b<100000) budgetBuckets['< €100k']++;
+      else if(b<200000) budgetBuckets['€100–200k']++;
+      else if(b<400000) budgetBuckets['€200–400k']++;
+      else if(b<700000) budgetBuckets['€400–700k']++;
+      else budgetBuckets['€700k+']++;
+    });
+    makeChart('chart-budget','bar',
+      Object.keys(budgetBuckets),
+      Object.values(budgetBuckets),
+      { backgroundColor:CHART_COLORS[3], borderRadius:4 }
+    );
+  } catch(e) {
+    console.error('Chart load error:', e);
+  }
+}
+
+// ─── Leads ────────────────────────────────────────────────
+let sortCol = 'last_activity', sortDir = -1;
+
+async function loadLeads() {
+  const { data, error } = await db.from('lead_pipeline').select('*').not('email','ilike','%@co-ownership-property.com').order('last_activity',{ascending:false});
+  if(error) { console.error('Leads error:', error); }
+  allLeads = data || [];
+  // Populate region filter
+  const regions = [...new Set(allLeads.map(l=>l.main_region).filter(Boolean))].sort();
+  const rSel = document.getElementById('lead-region');
+  regions.forEach(r=>{ const o=document.createElement('option'); o.value=r; o.textContent=r; rSel.appendChild(o); });
+  filterLeads();
+}
+
+function sortLeads(col) {
+  if(sortCol===col) sortDir*=-1; else { sortCol=col; sortDir=-1; }
+  document.querySelectorAll('.lt-sort').forEach(el=>el.textContent='');
+  const el=document.getElementById('sort-'+col);
+  if(el) el.textContent=sortDir===-1?'▼':'▲';
+  filterLeads();
+}
+
+function filterLeads() {
+  const q = (document.getElementById('lead-search').value||'').toLowerCase();
+  const s = document.getElementById('lead-status').value;
+  const r = document.getElementById('lead-region').value;
+  let filtered = allLeads.filter(l => {
+    const mq = !q||(l.name||'').toLowerCase().includes(q)||(l.email||'').toLowerCase().includes(q)||(l.phone||'').toLowerCase().includes(q)||(l.main_region||'').toLowerCase().includes(q)||(l.subregion||'').toLowerCase().includes(q)||(l.country||'').toLowerCase().includes(q);
+    return mq && (!s||l.status===s) && (!r||l.main_region===r);
+  });
+  // Group by contact — one row per person, best lead wins
+  const contactMap = {};
+  filtered.forEach(l => {
+    const cid = l.contact_id;
+    if(!contactMap[cid]) contactMap[cid] = [];
+    contactMap[cid].push(l);
+  });
+  let grouped = Object.values(contactMap).map(leads => {
+    // Score: prefer leads with region, subregion, budget
+    leads.sort((a,b)=>{
+      const sa=(a.main_region?2:0)+(a.subregion?1:0)+(a.budget_min?1:0);
+      const sb=(b.main_region?2:0)+(b.subregion?1:0)+(b.budget_min?1:0);
+      if(sb!==sa) return sb-sa;
+      return (b.lead_updated||'')>(a.lead_updated||'')?1:-1;
+    });
+    const best = leads[0];
+    const _all_regions    = [...new Set(leads.map(l=>l.main_region).filter(Boolean))];
+    const _all_subregions = [...new Set(leads.map(l=>l.subregion).filter(Boolean))];
+    // first_seen = earliest contact_created across all leads (same contact, but be safe)
+    const _first_seen = leads.map(l=>l.contact_created).filter(Boolean).sort()[0] || null;
+    // last_activity = most recent of last_activity, lead_updated across all leads
+    const _last_activity = leads.map(l=>l.last_activity||l.lead_updated).filter(Boolean).sort().reverse()[0] || null;
+    return {
+      ...best,
+      _lead_count: leads.length,
+      _all_lead_ids: leads.map(l=>l.lead_id),
+      _all_regions,
+      _all_subregions,
+      _first_seen,
+      last_activity: _last_activity,
+      _total_emails_sent: leads.reduce((s,l)=>s+(l.emails_sent||0),0),
+      _total_opens: leads.reduce((s,l)=>s+(l.total_opens||0),0),
+    };
+  });
+  // Sort grouped contacts
+  grouped.sort((a,b)=>{
+    let av=a[sortCol]??'', bv=b[sortCol]??'';
+    if(sortCol==='budget_min'){av=Number(av)||0;bv=Number(bv)||0;}
+    return av<bv?-sortDir:av>bv?sortDir:0;
+  });
+  document.getElementById('leads-count').textContent = `${grouped.length} contact${grouped.length!==1?'s':''}`;
+  const tbody = document.getElementById('leads-tbody');
+  if(!grouped.length){tbody.innerHTML='<tr><td colspan="12" style="text-align:center;padding:32px;color:var(--text3)">No leads found</td></tr>';return;}
+  tbody.innerHTML = grouped.map(l=>`
+    <tr class="${l._all_lead_ids.includes(currentLeadId)?'lt-active':''}" onclick="selectLead('${l.lead_id}','${l.contact_id}')">
+      <td style="min-width:160px">
+        <div class="lt-name">${esc(l.name||'Unknown')}${l._lead_count>1?` <span style="background:rgba(201,153,58,0.15);color:var(--gold);border-radius:4px;font-size:10px;padding:1px 5px;font-weight:600;margin-left:4px">${l._lead_count}</span>`:''}</div>
+        <div class="lt-email">${esc(l.email||'')}</div>
+      </td>
+      <td class="lt-muted">${l.phone?`<a href="tel:${esc(l.phone)}" onclick="event.stopPropagation()" style="color:var(--text);text-decoration:none">${esc(l.phone)}</a>`:'—'}</td>
+      <td>${badge(l.status)}</td>
+      <td>${l._all_regions.length?l._all_regions.map(r=>esc(r)).join('<span style="color:var(--text3);margin:0 3px">/</span>'):'—'}</td>
+      <td class="lt-muted">${l._all_subregions.length?l._all_subregions.map(r=>esc(r)).join('<span style="color:var(--text3);margin:0 3px">/</span>'):'—'}</td>
+      <td class="lt-muted">${esc(regionToCountry(l.main_region)||l.country||'—')}</td>
+      <td>${l.budget_min?'€'+Number(l.budget_min).toLocaleString():'<span class="lt-muted">—</span>'}</td>
+      <td class="lt-muted">${esc(l.timeframe||'—')}</td>
+      <td class="lt-muted">${esc(l.source||'—')}</td>
+      <td class="lt-muted">${l._first_seen?new Date(l._first_seen).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'—'}</td>
+      <td class="lt-muted">${l.last_activity?new Date(l.last_activity).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'—'}</td>
+      <td class="lt-muted">${l._total_emails_sent} / ${l._total_opens}</td>
+    </tr>`).join('');
+}
+
+function closeLeadDetail() {
+  document.getElementById('lead-detail-panel').classList.remove('open');
+  currentLeadId = null;
+  filterLeads();
+}
+
+async function selectLead(lid, cid) {
+  currentLeadId = lid;
+  currentGmailEmail = null;
+  filterLeads();
+  const panel = document.getElementById('lead-detail-panel');
+  panel.classList.add('open');
+  const det = document.getElementById('leads-detail');
+  det.innerHTML = '<div class="no-lead"><div class="spinner" style="border:2px solid var(--border);border-top-color:var(--gold);width:20px;height:20px"></div></div>';
+  const lead = allLeads.find(l=>l.lead_id===lid);
+  // All leads for this contact (sorted by date)
+  const contactLeads = allLeads.filter(l=>l.contact_id===cid).sort((a,b)=>(b.lead_created||'')>(a.lead_created||'')?1:-1);
+  const ldpTitle = document.getElementById('ldp-title');
+  if(ldpTitle) ldpTitle.textContent = lead?.name || lead?.email || 'Lead detail';
+  const [{data:acts},{data:notes},{data:emailHist}] = await Promise.all([
+    db.from('activities').select('*').eq('lead_id',lid).order('created_at',{ascending:false}),
+    db.from('notes').select('*').eq('lead_id',lid).order('created_at',{ascending:false}),
+    db.from('email_queue').select('id,subject,template_name,status,sent_at,send_after,sequence_type,created_at').eq('contact_id',cid).order('created_at',{ascending:false})
+  ]);
+  const statusOpts = Object.entries(STATUS_LABELS).map(([v,l])=>`<option value="${v}"${v===lead?.status?' selected':''}>${l}</option>`).join('');
+  // Email history section
+  const ehIcon = {sent:'✓',pending:'⏳',scheduled:'📅',cancelled:'—',rejected:'✕'};
+  const emailHistHtml = (emailHist||[]).length ? (emailHist||[]).map(e=>{
+    const s = e.status||'pending';
+    const ico = ehIcon[s]||'•';
+    let whenStr = '';
+    let whenClass = s;
+    if(s==='sent' && e.sent_at) whenStr = 'Sent '+fmt(e.sent_at);
+    else if(s==='pending' && e.send_after) {
+      const d = new Date(e.send_after);
+      const diff = Math.round((d-Date.now())/86400000);
+      whenStr = diff<=0 ? 'Ready to send' : diff===1 ? 'In 1 day' : `In ${diff} days`;
+      whenClass = 'scheduled';
+    } else if(s==='pending') whenStr = 'Awaiting approval';
+    else if(s==='cancelled') whenStr = 'Cancelled';
+    else if(s==='rejected') whenStr = 'Rejected';
+    const seqLabel = e.sequence_type ? `<span style="background:rgba(201,153,58,0.12);color:var(--gold);font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;text-transform:uppercase;letter-spacing:.3px">${e.sequence_type}</span>` : '';
+    return `<div class="email-hist-row">
+      <div class="eh-icon ${s}">${ico}</div>
+      <div class="eh-body">
+        <div class="eh-subject">${esc(e.subject||'(no subject)')}</div>
+        <div class="eh-meta">
+          <span class="eh-tpl">${esc(e.template_name||'')}</span>
+          ${seqLabel}
+          <span class="eh-when ${whenClass}">${whenStr}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('') : '<div style="color:var(--text3);font-size:12px;padding:8px 0">No emails yet</div>';
+
+  const actsHtml = (acts||[]).length ? (acts||[]).map(a=>{
+    const st = ACT_STYLE[a.type]||{bg:'#F3F4F6',c:'#4B5563',l:'?'};
+    const meta = a.metadata||{};
+    const tid = meta.thread_id||'';
+    return `<div class="activity-row">
+      <div class="act-dot" style="background:${st.bg};color:${st.c}">${st.l}</div>
+      <div class="act-body">
+        <div class="act-title">${esc(a.description||'')}</div>
+        ${meta.snippet?`<div class="act-snip">${esc(meta.snippet)}</div>`:''}
+        <div class="act-foot">
+          <span class="act-date">${fmt(a.created_at)}</span>
+          ${tid?`<a href="https://mail.google.com/mail/#all/${tid}" class="act-link" target="_blank">Open in Gmail</a>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('') : '<div style="color:var(--text3);font-size:12px;padding:8px 0">No activities yet</div>';
+  const notesHtml = (notes||[]).map(n=>`<div class="note-card"><p>${esc(n.body)}</p><small>${esc(n.created_by||'')}${n.created_by?' · ':''}${fmt(n.created_at)}</small></div>`).join('');
+  det.innerHTML = `
+    <div class="lead-detail-header">
+      <div class="ld-avatar">${ini(lead?.name)}</div>
+      <div>
+        <div class="ld-name">${esc(lead?.name||'Unknown')}</div>
+        <div class="ld-email">${esc(lead?.email||'')}</div>
+        <div style="margin-top:5px">${badge(lead?.status)}</div>
+      </div>
+      <div class="ld-status-wrap">
+        <select class="ld-status-select" onchange="updateStatus('${lid}',this.value)">${statusOpts}</select>
+      </div>
+    </div>
+    <div class="lead-detail-body">
+      ${contactLeads.length>1?`<div style="background:#FEF9EC;border:1px solid rgba(201,153,58,0.25);border-radius:8px;padding:10px 12px;margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">${contactLeads.length} Leads for this contact</div>
+        ${contactLeads.map(cl=>`<div onclick="selectLead('${cl.lead_id}','${cl.contact_id}')" style="display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;border-top:1px solid rgba(201,153,58,0.12)">
+          <span style="flex:1;font-size:12px;color:${cl.lead_id===lid?'var(--gold)':'var(--text)'};font-weight:${cl.lead_id===lid?600:400}">${esc(cl.property_title||cl.subregion||cl.main_region||'Lead')} <span style="color:var(--text3)">(${cl.source||'unknown'})</span></span>
+          ${badge(cl.status)}
+          <span style="font-size:11px;color:var(--text3)">${cl.lead_created?new Date(cl.lead_created).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'2-digit'}):'—'}</span>
+        </div>`).join('')}
+      </div>`:''}
+      <div class="ld-grid">
+        <div class="ld-field"><label>Property</label><span>${esc(lead?.property_title||'—')}</span></div>
+        <div class="ld-field"><label>Region</label><span>${(()=>{const rs=[...new Set(contactLeads.map(l=>l.main_region).filter(Boolean))];const ss=[...new Set(contactLeads.map(l=>l.subregion).filter(Boolean))];return (rs.length?rs.join(' / '):'—')+(ss.length?`<span style="color:var(--text3);font-size:12px;margin-left:6px">(${ss.join(', ')})</span>`:'');})()}</span></div>
+        <div class="ld-field"><label>Budget</label><span>${lead?.budget_min?'€'+Number(lead.budget_min).toLocaleString():'—'}</span></div>
+        <div class="ld-field"><label>Timeframe</label><span>${esc(lead?.timeframe||'—')}</span></div>
+        <div class="ld-field"><label>Phone</label><span>${lead?.phone?`<a href="tel:${esc(lead.phone)}" style="color:var(--text)">${esc(lead.phone)}</a>`:'—'}</span></div>
+        <div class="ld-field"><label>Country</label><span>${esc(regionToCountry(lead?.main_region)||lead?.country||'—')}</span></div>
+        <div class="ld-field"><label>Source</label><span>${esc(lead?.source||'—')}</span></div>
+        <div class="ld-field"><label>Emails sent / opens</label><span>${lead?.emails_sent??0} / ${lead?.total_opens??0}</span></div>
+        ${lead?.message?`<div class="ld-message">"${esc(lead.message)}"</div>`:''}
+      </div>
+      <div class="section-title">Emails (${(emailHist||[]).length})</div>
+      ${emailHistHtml}
+      <div class="section-title" style="margin-top:18px">Activity (${(acts||[]).length})</div>
+      ${actsHtml}
+      <div class="section-title" style="margin-top:18px">Notes</div>
+      ${notesHtml}
+      <div class="note-form" style="margin-top:10px">
+        <textarea id="note-text" placeholder="Add a note..."></textarea>
+        <button class="btn" onclick="addNote('${lid}','${cid}')">Add note</button>
+      </div>
+      ${lead?.email ? `
+      <div class="section-title" style="margin-top:18px">
+        Email Conversations
+        <a href="https://mail.google.com/mail/#search/${encodeURIComponent(lead.email)}" class="act-link" target="_blank" style="margin-left:8px;text-transform:none;font-weight:400">Open in Gmail ↗</a>
+      </div>
+      <div id="gmail-threads"></div>
+      ` : ''}
+    </div>`;
+  // Load Gmail threads if email exists
+  if(lead?.email) {
+    currentGmailEmail = lead.email;
+    loadGmailThreads(lead.email);
+  }
+}
+
+async function updateStatus(lid, status) {
+  await db.from('leads').update({status, updated_at:new Date().toISOString()}).eq('id',lid);
+  const l = allLeads.find(x=>x.lead_id===lid);
+  if(l){l.status=status;filterLeads();}
+}
+
+async function addNote(lid, cid) {
+  const el = document.getElementById('note-text');
+  const body = el.value.trim();
+  if(!body) return;
+  el.disabled = true;
+  await db.from('notes').insert({contact_id:cid, lead_id:lid, body, created_by:'David'});
+  el.disabled = false;
+  selectLead(lid, cid);
+}
+
+// ─── Needs Attention ──────────────────────────────────────
+async function loadAttention() {
+  const cutoff = new Date(Date.now()-7*86400000).toISOString();
+  const {data} = await db.from('lead_pipeline').select('*')
+    .in('status',['contacted','lead_replied','hot_lead'])
+    .or(`last_email_sent.lt.${cutoff},last_email_sent.is.null`)
+    .order('lead_updated',{ascending:true})
+    .limit(50);
+  const list = document.getElementById('attention-list');
+  document.getElementById('badge-attention').textContent = (data||[]).length;
+  if(!data?.length){list.innerHTML='<div class="loading-state">No leads need attention right now</div>';return;}
+  list.innerHTML = (data||[]).map(l=>{
+    const days = l.last_email_sent ? daysAgo(l.last_email_sent) : daysAgo(l.lead_created);
+    return `<div class="attention-row">
+      <div>
+        <div class="at-name">${esc(l.name||l.email||'Unknown')}</div>
+        <div class="at-prop">${esc(l.property_title||'')} ${badge(l.status)}</div>
+      </div>
+      <div class="at-days">${days}d silent</div>
+      <button class="at-btn" onclick="goToLead('${l.lead_id}','${l.contact_id}')">View lead</button>
+    </div>`;
+  }).join('');
+}
+
+function goToLead(lid, cid) {
+  showView('leads');
+  if(!allLeads.length) {
+    loadLeads().then(()=>selectLead(lid,cid));
+  } else {
+    selectLead(lid,cid);
+  }
+}
+
+// ─── Realtime ─────────────────────────────────────────────
+function subscribeRealtime() {
+  db.channel('crm-leads')
+    .on('postgres_changes',{event:'*',schema:'public',table:'leads'},payload=>{
+      if(payload.eventType==='INSERT') {
+        // Refresh leads and dashboard badge
+        db.from('leads').select('*',{count:'exact',head:true}).then(({count})=>{
+          document.getElementById('badge-leads').textContent = count||0;
+          document.getElementById('kpi-total').textContent = count||0;
+        });
+        allLeads = []; // force reload on next visit
+      }
+    })
+    .subscribe();
+}
+
+// ─── Gmail Integration ────────────────────────────────────
+const GMAIL_CLIENT_ID = '4464630046-jtg9vlnfen2or1u6nhli8h352qanluvl.apps.googleusercontent.com';
+const GMAIL_SCOPE = 'https://www.googleapis.com/auth/gmail.readonly';
+let gmailToken = null;
+let tokenClient = null;
+let currentGmailEmail = null;
+
+function initGmailTokenClient() {
+  if(tokenClient) return;
+  if(typeof google === 'undefined' || !google.accounts) {
+    setTimeout(initGmailTokenClient, 500);
+    return;
+  }
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: GMAIL_CLIENT_ID,
+    scope: GMAIL_SCOPE,
+    callback: (resp) => {
+      if(resp.error) { console.error('Gmail auth error:', resp); return; }
+      gmailToken = resp.access_token;
+      updateGmailSidebarUI(true);
+      if(currentGmailEmail) loadGmailThreads(currentGmailEmail);
+    }
+  });
+}
+
+function connectGmail() {
+  initGmailTokenClient();
+  if(!tokenClient) { setTimeout(connectGmail, 600); return; }
+  tokenClient.requestAccessToken({prompt:''});
+}
+
+function updateGmailSidebarUI(connected) {
+  const bar = document.getElementById('gmail-sidebar-bar');
+  const dot = document.getElementById('gmail-dot');
+  const lbl = document.getElementById('gmail-sidebar-label');
+  const btn = bar?.querySelector('button');
+  const scanBtn = document.getElementById('gmail-scan-btn');
+  if(!bar) return;
+  if(connected) {
+    bar.classList.remove('gmail-bar-disconnected');
+    if(dot) dot.style.background = '#22c55e';
+    if(lbl) lbl.textContent = 'Gmail connected';
+    if(btn) { btn.textContent = 'Disconnect'; btn.onclick = disconnectGmail; }
+    if(scanBtn) scanBtn.style.display = 'inline-flex';
+  } else {
+    bar.classList.add('gmail-bar-disconnected');
+    if(dot) dot.style.background = '#f97316';
+    if(lbl) lbl.textContent = 'Gmail not connected';
+    if(btn) { btn.textContent = 'Connect'; btn.onclick = connectGmail; }
+    if(scanBtn) scanBtn.style.display = 'none';
+  }
+}
+
+function disconnectGmail() {
+  if(gmailToken) google.accounts.oauth2.revoke(gmailToken);
+  gmailToken = null;
+  updateGmailSidebarUI(false);
+  const threads = document.getElementById('gmail-threads');
+  if(threads) renderGmailConnectPrompt(threads);
+}
+
+// ─── Gmail Enquiry Scanner ────────────────────────────────────
+async function scanGmailEnquiries() {
+  if(!gmailToken) { alert('Connect Gmail first'); return; }
+  const statusEl = document.getElementById('gmail-scan-status');
+  const btn = document.getElementById('gmail-scan-btn');
+  btn.disabled = true; btn.textContent = '⏳ Scanning...';
+  statusEl.style.display = 'block';
+  statusEl.textContent = 'Searching Gmail for enquiry emails…';
+  try {
+    // Search for enquiry notification emails (Elementor form)
+    const queries = [
+      'label:COP-Enquiry',
+      'subject:"COP Enquiry" from:email@co-ownership-property.com',
+      'subject:"Domosno Enquiry"',
+      '"Maximum Budget" "Page URL" site:co-ownership-property.com'
+    ];
+    const allThreadIds = new Set();
+    for(const q of queries) {
+      const r = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/threads?q=${encodeURIComponent(q)}&maxResults=500`, {
+        headers:{Authorization:`Bearer ${gmailToken}`}
+      });
+      if(!r.ok) continue;
+      const d = await r.json();
+      (d.threads||[]).forEach(t=>allThreadIds.add(t.id));
+    }
+    statusEl.textContent = `Found ${allThreadIds.size} threads — reading messages…`;
+    if(!allThreadIds.size) {
+      statusEl.textContent = 'No enquiry emails found. Try connecting the email that receives form notifications.';
+      btn.disabled=false; btn.textContent='⚡ Scan enquiry emails'; return;
+    }
+    // Fetch full message body for each thread (first message = original enquiry)
+    const updates = []; // {email, phone, budget_min, budget_max}
+    let processed = 0;
+    for(const tid of allThreadIds) {
+      try {
+        const r = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/threads/${tid}?format=full`, {
+          headers:{Authorization:`Bearer ${gmailToken}`}
+        });
+        if(!r.ok) continue;
+        const thread = await r.json();
+        // Look through messages for the form notification (usually first or last)
+        for(const msg of (thread.messages||[])) {
+          const body = extractGmailBody(msg);
+          if(!body) continue;
+          // Check if it looks like an Elementor enquiry
+          if(!body.includes('Page URL') && !body.includes('Maximum Budget') && !body.includes('co-ownership-property.com')) continue;
+          const parsed = parseEnquiryEmail(body);
+          if(parsed.email) updates.push(parsed);
+          break; // only need first matching message per thread
+        }
+        processed++;
+        if(processed % 10 === 0) statusEl.textContent = `Read ${processed}/${allThreadIds.size} threads…`;
+      } catch(e) { /* skip */ }
+    }
+    statusEl.textContent = `Parsed ${updates.length} contacts — writing to database…`;
+    // Write updates to Supabase
+    let phones=0, budgets=0;
+    for(const u of updates) {
+      if(!u.email) continue;
+      // Find contact by email
+      const {data:contacts} = await db.from('contacts').select('id').eq('email',u.email.toLowerCase()).limit(1);
+      const contact = contacts?.[0];
+      if(!contact) continue;
+      // Update phone on contact if missing
+      if(u.phone) {
+        const {data:cur} = await db.from('contacts').select('phone').eq('id',contact.id).single();
+        if(!cur?.phone) {
+          await db.from('contacts').update({phone:u.phone}).eq('id',contact.id);
+          phones++;
+        }
+      }
+      // Update budget on all leads for this contact if missing
+      if(u.budget_min != null || u.budget_max != null) {
+        const {data:leads} = await db.from('leads').select('id,budget_min').eq('contact_id',contact.id);
+        for(const lead of (leads||[])) {
+          if(lead.budget_min == null) {
+            await db.from('leads').update({budget_min:u.budget_min,budget_max:u.budget_max,updated_at:new Date().toISOString()}).eq('id',lead.id);
+            budgets++;
+          }
+        }
+      }
+    }
+    statusEl.innerHTML = `✅ Done — <strong>${phones}</strong> phones & <strong>${budgets}</strong> budgets updated. <a href="#" onclick="location.reload()">Reload</a> to see changes.`;
+    allLeads = []; // force reload
+  } catch(e) {
+    statusEl.textContent = `Error: ${e.message}`;
+    console.error('Scan error:', e);
+  }
+  btn.disabled=false; btn.textContent='⚡ Scan enquiry emails';
+}
+
+function extractGmailBody(msg) {
+  // Recursively find text/plain part
+  function findPart(part) {
+    if(!part) return null;
+    if(part.mimeType==='text/plain' && part.body?.data) {
+      return atob(part.body.data.replace(/-/g,'+').replace(/_/g,'/'));
+    }
+    if(part.parts) {
+      for(const p of part.parts) { const r=findPart(p); if(r) return r; }
+    }
+    // fallback: body data directly
+    if(part.body?.data) {
+      try { return atob(part.body.data.replace(/-/g,'+').replace(/_/g,'/')); } catch(e) {}
+    }
+    return null;
+  }
+  return findPart(msg.payload) || '';
+}
+
+function parseEnquiryEmail(body) {
+  const result = {email:null, phone:null, budget_min:null, budget_max:null};
+  // Email
+  const emailMatch = body.match(/\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b/);
+  if(emailMatch) result.email = emailMatch[0].toLowerCase();
+  // Phone — look for international numbers
+  const phoneMatch = body.match(/(?:Tel|Phone|Mobile|Mob|Number)?[:\s]*(\+?[\d\s\-\(\)]{7,18})/i);
+  if(phoneMatch) {
+    const p = phoneMatch[1].replace(/\s+/g,' ').trim();
+    if(p.replace(/\D/g,'').length >= 7) result.phone = p;
+  }
+  // Budget — "Maximum Budget:: 100,000-200,000€" or "€100k – €200k" or "100-200k"
+  const budgetLine = body.match(/(?:maximum budget|budget)[:\s*]+([^\n\r]{3,40})/i);
+  if(budgetLine) {
+    const bStr = budgetLine[1].replace(/,/g,'').toLowerCase();
+    const nums = [...bStr.matchAll(/(\d+)(?:k|000)?/g)].map(m=>parseInt(m[1])*(bStr.includes('k')||parseInt(m[1])<1000?1000:1));
+    if(nums.length>=2) { result.budget_min=Math.min(...nums); result.budget_max=Math.max(...nums); }
+    else if(nums.length===1) { result.budget_max=nums[0]; result.budget_min=0; }
+    // "Under €100k"
+    if(/under|less than/i.test(bStr)) { result.budget_min=0; }
+    // "Over €500k"
+    if(/over|more than|above/i.test(bStr) && nums.length>=1) { result.budget_min=nums[0]; result.budget_max=null; }
+  }
+  return result;
+}
+
+async function loadGmailThreads(email) {
+  const container = document.getElementById('gmail-threads');
+  if(!container) return;
+  if(!gmailToken) { renderGmailConnectPrompt(container); return; }
+  container.innerHTML = '<div class="loading-state" style="padding:20px 0"><div class="spinner"></div><br>Loading emails...</div>';
+  try {
+    const q = encodeURIComponent(`from:${email} OR to:${email}`);
+    const r = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/threads?q=${q}&maxResults=10`, {
+      headers: { Authorization: `Bearer ${gmailToken}` }
+    });
+    if(r.status === 401) { gmailToken = null; updateGmailSidebarUI(false); renderGmailConnectPrompt(container); return; }
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    const data = await r.json();
+    const threads = data.threads || [];
+    if(!threads.length) { container.innerHTML = '<div class="gmail-empty">No email conversations found with this lead.</div>'; return; }
+    // Load thread metadata in parallel
+    const details = await Promise.all(threads.slice(0,8).map(t =>
+      fetch(`https://gmail.googleapis.com/gmail/v1/users/me/threads/${t.id}?format=metadata&metadataHeaders=Subject&metadataHeaders=From&metadataHeaders=To&metadataHeaders=Date`, {
+        headers: { Authorization: `Bearer ${gmailToken}` }
+      }).then(r => r.json())
+    ));
+    container.innerHTML = details.map(t => renderThreadCard(t)).join('');
+  } catch(e) {
+    console.error('Gmail error:', e);
+    container.innerHTML = `<div class="gmail-empty" style="color:var(--danger)">Could not load emails: ${esc(e.message)}</div>`;
+  }
+}
+
+function renderGmailConnectPrompt(container) {
+  container.innerHTML = `<div class="gmail-connect-prompt">
+    <p>Connect your Gmail account to see live email conversations with this lead.</p>
+    <button class="btn btn-primary" onclick="connectGmail()">Connect Gmail</button>
+  </div>`;
+}
+
+function getHdr(headers, name) {
+  return (headers||[]).find(h=>h.name.toLowerCase()===name.toLowerCase())?.value||'';
+}
+
+function fmtGmailDate(dateStr) {
+  if(!dateStr) return '';
+  try {
+    const d = new Date(dateStr), now = new Date();
+    if(d.toDateString()===now.toDateString()) return d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    const opts = {day:'numeric',month:'short'};
+    if(d.getFullYear()!==now.getFullYear()) opts.year='numeric';
+    return d.toLocaleDateString('en-GB',opts);
+  } catch(e){return dateStr;}
+}
+
+function renderThreadCard(thread) {
+  const msgs = thread.messages||[];
+  const last = msgs[msgs.length-1];
+  const hdrs = last?.payload?.headers||[];
+  const subject = getHdr(hdrs,'Subject')||'(no subject)';
+  const from = getHdr(hdrs,'From');
+  const date = getHdr(hdrs,'Date');
+  const count = msgs.length;
+  const tid = thread.id;
+  const snip = last?.snippet||'';
+  return `<div class="gmail-thread">
+    <div class="gmail-thread-header" onclick="expandThread('${tid}')">
+      <div class="gmail-thread-info">
+        <div class="gmail-subject">${esc(subject)}</div>
+        <div class="gmail-from">${esc(from)}</div>
+        <div class="gmail-snip">${esc(snip)}</div>
+      </div>
+      <div class="gmail-thread-meta">
+        <div class="gmail-date">${fmtGmailDate(date)}</div>
+        <div class="gmail-count">${count} msg${count!==1?'s':''}</div>
+      </div>
+    </div>
+    <div class="gmail-thread-body" id="gbody-${tid}" style="display:none"></div>
+  </div>`;
+}
+
+async function expandThread(tid) {
+  const body = document.getElementById(`gbody-${tid}`);
+  if(!body) return;
+  if(body.style.display!=='none'){body.style.display='none';return;}
+  body.style.display='block';
+  if(body.dataset.loaded==='1') return;
+  body.innerHTML='<div class="loading-state" style="padding:12px"><div class="spinner" style="width:14px;height:14px;border-width:1.5px"></div></div>';
+  try {
+    const r = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/threads/${tid}?format=full`,{
+      headers:{Authorization:`Bearer ${gmailToken}`}
+    });
+    const t = await r.json();
+    body.innerHTML=(t.messages||[]).map(m=>renderMessage(m)).join('');
+    body.dataset.loaded='1';
+  } catch(e){
+    body.innerHTML=`<div style="color:var(--danger);font-size:11px;padding:10px">Failed to load thread: ${esc(e.message)}</div>`;
+  }
+}
+
+function renderMessage(msg) {
+  const hdrs = msg.payload?.headers||[];
+  const from = getHdr(hdrs,'From');
+  const date = getHdr(hdrs,'Date');
+  const body = extractEmailBody(msg.payload);
+  return `<div class="gmail-msg">
+    <div class="gmail-msg-header">
+      <span class="gmail-msg-from">${esc(from)}</span>
+      <span class="gmail-msg-date">${fmtGmailDate(date)}</span>
+    </div>
+    <div class="gmail-msg-body">${body||esc(msg.snippet||'(empty)')}</div>
+  </div>`;
+}
+
+function extractEmailBody(payload) {
+  if(!payload) return '';
+  const decode = (data) => { try{return atob(data.replace(/-/g,'+').replace(/_/g,'/'))}catch(e){return''} };
+  if(payload.body?.data) {
+    const raw = decode(payload.body.data);
+    return payload.mimeType==='text/html' ? sanitizeEmailHtml(raw) : esc(raw).replace(/\n/g,'<br>');
+  }
+  if(payload.parts) {
+    const html = payload.parts.find(p=>p.mimeType==='text/html');
+    if(html?.body?.data) return sanitizeEmailHtml(decode(html.body.data));
+    const txt = payload.parts.find(p=>p.mimeType==='text/plain');
+    if(txt?.body?.data) return esc(decode(txt.body.data)).replace(/\n/g,'<br>');
+    for(const part of payload.parts){const r=extractEmailBody(part);if(r)return r;}
+  }
+  return '';
+}
+
+function sanitizeEmailHtml(html) {
+  if(!html) return '';
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  div.querySelectorAll('script,style,link,meta,base,iframe,form').forEach(el=>el.remove());
+  div.querySelectorAll('a').forEach(a=>{a.target='_blank';a.rel='noopener noreferrer';});
+  div.querySelectorAll('[style]').forEach(el=>{
+    // Strip potentially dangerous inline styles
+    const s=el.getAttribute('style');
+    el.setAttribute('style',s.replace(/expression|javascript|vbscript/gi,''));
+  });
+  return div.innerHTML;
+}
+
+// ─── Email Queue ──────────────────────────────────────────
+let queueEmails = [];
+let activeQueueId = null;
+
+function fmtRelative(d) {
+  if(!d) return '';
+  const secs = Math.floor((Date.now() - new Date(d)) / 1000);
+  if(secs < 60)  return 'just now';
+  if(secs < 3600) return `${Math.floor(secs/60)}m ago`;
+  if(secs < 86400) return `${Math.floor(secs/3600)}h ago`;
+  return `${Math.floor(secs/86400)}d ago`;
+}
+
+async function loadQueueBadge() {
+  try {
+    const { count } = await db.from('email_queue')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'pending');
+    const badge = document.getElementById('badge-queue');
+    if(count > 0) {
+      badge.textContent = count;
+      badge.style.display = '';
+    } else {
+      badge.style.display = 'none';
+    }
+  } catch(e) { /* silent */ }
+}
+
+let activeQueueTab = 'sent';
+
+function setQueueTab(tab) {
+  activeQueueTab = tab;
+  document.querySelectorAll('.queue-tab').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('qtab-' + tab);
+  if(el) el.classList.add('active');
+  activeQueueId = null;
+  clearQueuePreview();
+  loadQueue();
+}
+
+async function loadQueue() {
+  const statusFilter = activeQueueTab || 'sent';
+  document.getElementById('queue-list-title').textContent = 'Loading…';
+  document.getElementById('queue-list-body').innerHTML = '<div class="loading-state"><div class="spinner"></div><br>Loading…</div>';
+  document.getElementById('queue-campaign-bar').style.display = 'none';
+
+  try {
+    const sortCol = statusFilter === 'sent' ? 'sent_at' : 'created_at';
+    const { data, error } = await db
+      .from('email_queue')
+      .select('id, created_at, sent_at, status, to_email, to_name, subject, template_name, trigger, notes, sequence_type')
+      .eq('status', statusFilter)
+      .order(sortCol, { ascending: false })
+      .limit(500);
+
+    if(error) throw error;
+    queueEmails = data || [];
+
+    const count = queueEmails.length;
+    const labelMap = { sent: 'sent', pending: 'pending approval', rejected: 'rejected' };
+    const statusLabel = labelMap[statusFilter] || statusFilter;
+    document.getElementById('queue-list-title').textContent = `${count} email${count!==1?'s':''} — ${statusLabel}`;
+
+    // Update pending count badge in tab
+    if(statusFilter !== 'pending') {
+      const { count: pendingCount } = await db.from('email_queue')
+        .select('*', { count: 'exact', head: true }).eq('status', 'pending');
+      const el = document.getElementById('qtab-pending-count');
+      if(el) el.textContent = pendingCount > 0 ? `(${pendingCount})` : '';
+    }
+
+    if(count === 0) {
+      document.getElementById('queue-list-body').innerHTML =
+        `<div class="queue-empty">No ${statusLabel} emails</div>`;
+      clearQueuePreview();
+      return;
+    }
+
+    // On pending tab: detect campaigns (sequence_type = 'new-listings-*') and show campaign bar
+    if(statusFilter === 'pending') {
+      const campaigns = {};
+      queueEmails.forEach(e => {
+        if(e.sequence_type && e.sequence_type.startsWith('new-listings-')) {
+          if(!campaigns[e.sequence_type]) campaigns[e.sequence_type] = 0;
+          campaigns[e.sequence_type]++;
+        }
+      });
+      const campaignKeys = Object.keys(campaigns);
+      if(campaignKeys.length > 0) {
+        // Show the most recent campaign
+        const latestCampaign = campaignKeys.sort().reverse()[0];
+        const camCount = campaigns[latestCampaign];
+        const barEl = document.getElementById('queue-campaign-bar');
+        barEl.style.display = 'flex';
+        barEl.dataset.campaignId = latestCampaign;
+        document.getElementById('queue-campaign-label').textContent =
+          `📣 Campaign "${latestCampaign}" — ${camCount} emails pending`;
+        document.getElementById('queue-campaign-msg').textContent = '';
+        document.getElementById('btn-send-campaign').disabled = false;
+        document.getElementById('btn-send-campaign').textContent = `🚀 Send All ${camCount}`;
+      }
+    }
+
+    document.getElementById('queue-list-body').innerHTML = queueEmails.map(e => {
+      const displayTime = statusFilter === 'sent' ? fmtRelative(e.sent_at || e.created_at) : fmtRelative(e.created_at);
+      const isCampaign = e.sequence_type && e.sequence_type.startsWith('new-listings-');
+      return `
+      <div class="queue-item${isCampaign ? ' qi-campaign' : ''}" id="qi-${esc(e.id)}" onclick="selectQueueItem('${esc(e.id)}')">
+        <div class="qi-meta">
+          <span class="qi-to">${esc(e.to_name || e.to_email)}</span>
+          <span class="qi-time">${displayTime}</span>
+        </div>
+        <div class="qi-subject">${esc(e.subject)}</div>
+        <div class="qi-tags">
+          ${e.template_name ? `<span class="qi-tag">${esc(e.template_name)}</span>` : ''}
+          ${isCampaign ? `<span class="qi-tag" style="background:rgba(201,153,58,0.15);color:var(--gold)">campaign</span>` : (e.trigger ? `<span class="qi-tag">${esc(e.trigger)}</span>` : '')}
+        </div>
+      </div>`;
+    }).join('');
+
+    // Auto-select first
+    if(count > 0 && !activeQueueId) selectQueueItem(queueEmails[0].id);
+    else if(activeQueueId) {
+      const still = queueEmails.find(e => e.id === activeQueueId);
+      if(!still) clearQueuePreview();
+    }
+  } catch(e) {
+    document.getElementById('queue-list-body').innerHTML =
+      `<div class="queue-empty">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+async function sendCampaign() {
+  const barEl = document.getElementById('queue-campaign-bar');
+  const campaignId = barEl.dataset.campaignId;
+  if(!campaignId) return;
+  if(!confirm(`Send all pending emails for campaign "${campaignId}" to your subscribers? This cannot be undone.`)) return;
+
+  const btn = document.getElementById('btn-send-campaign');
+  const msg = document.getElementById('queue-campaign-msg');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  msg.textContent = '';
+
+  try {
+    const res = await fetch(`https://co-ownership-property.com/api/admin/send-campaign`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${CRM_SECRET}` },
+      body: JSON.stringify({ campaignId }),
+    });
+    const json = await res.json();
+    if(!res.ok || !json.ok) throw new Error(json.error || 'Send failed');
+    msg.textContent = `✓ ${json.sent} emails sent!`;
+    msg.style.color = 'var(--success)';
+    setTimeout(() => loadQueue(), 2000);
+  } catch(e) {
+    msg.textContent = '✗ ' + e.message;
+    msg.style.color = 'var(--danger)';
+    btn.disabled = false;
+    btn.textContent = '🚀 Retry';
+  }
+}
+
+async function selectQueueItem(id) {
+  activeQueueId = id;
+  // Highlight selected
+  document.querySelectorAll('.queue-item').forEach(el => el.classList.remove('active'));
+  const selected = document.getElementById('qi-' + id);
+  if(selected) selected.classList.add('active');
+
+  document.getElementById('queue-preview-body').innerHTML =
+    '<div class="queue-empty" style="margin-top:60px"><div class="spinner"></div><br>Loading preview…</div>';
+  document.getElementById('queue-actions').style.display = 'none';
+  document.getElementById('queue-status-bar').style.display = 'none';
+
+  try {
+    const { data, error } = await db
+      .from('email_queue')
+      .select('id, subject, html, to_email, to_name, template_name, trigger, notes, status, created_at, sent_at, rejected_at')
+      .eq('id', id)
+      .single();
+
+    if(error || !data) throw new Error(error?.message || 'Not found');
+
+    const statusBadgeClass = { pending: 'badge-pending', sent: 'badge-sent', rejected: 'badge-rejected' }[data.status] || '';
+
+    document.getElementById('queue-preview-body').innerHTML = `
+      <div class="queue-preview-meta">
+        <div class="queue-preview-meta-row"><span class="qpm-label">To</span><span class="qpm-value">${esc(data.to_name ? data.to_name + ' <' + data.to_email + '>' : data.to_email)}</span></div>
+        <div class="queue-preview-meta-row"><span class="qpm-label">Subject</span><span class="qpm-value"><strong>${esc(data.subject)}</strong></span></div>
+        <div class="queue-preview-meta-row"><span class="qpm-label">Template</span><span class="qpm-value">${esc(data.template_name || '—')}</span></div>
+        <div class="queue-preview-meta-row"><span class="qpm-label">Trigger</span><span class="qpm-value">${esc(data.trigger || '—')}</span></div>
+        ${data.notes ? `<div class="queue-preview-meta-row"><span class="qpm-label">Notes</span><span class="qpm-value">${esc(data.notes)}</span></div>` : ''}
+        <div class="queue-preview-meta-row"><span class="qpm-label">Status</span><span class="qpm-value"><span class="badge ${statusBadgeClass}">${esc(data.status)}</span></span></div>
+      </div>
+      <div class="queue-preview-iframe-wrap">
+        <iframe id="email-preview-frame" sandbox="allow-same-origin"></iframe>
+      </div>`;
+
+    // Set srcdoc via JS to avoid HTML-attribute quote-escaping issues
+    const frame = document.getElementById('email-preview-frame');
+    if (frame) frame.srcdoc = data.html || '<p style="padding:20px;color:#999">No HTML preview available</p>';
+
+    const isPending = data.status === 'pending';
+    const actionsEl = document.getElementById('queue-actions');
+    const statusBarEl = document.getElementById('queue-status-bar');
+
+    if(isPending) {
+      actionsEl.style.display = 'flex';
+      statusBarEl.style.display = 'none';
+      document.getElementById('queue-action-msg').textContent = '';
+    } else {
+      actionsEl.style.display = 'none';
+      statusBarEl.style.display = '';
+      const sentInfo = data.sent_at ? ` · Sent ${fmt(data.sent_at)}` : (data.rejected_at ? ` · Rejected ${fmt(data.rejected_at)}` : '');
+      statusBarEl.textContent = `Status: ${data.status}${sentInfo}`;
+    }
+  } catch(e) {
+    document.getElementById('queue-preview-body').innerHTML =
+      `<div class="queue-empty">Error loading preview: ${esc(e.message)}</div>`;
+  }
+}
+
+function clearQueuePreview() {
+  activeQueueId = null;
+  document.getElementById('queue-preview-body').innerHTML =
+    '<div class="queue-empty" style="margin-top:60px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="opacity:0.3;margin-bottom:10px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><div>Select an email to preview</div></div>';
+  document.getElementById('queue-actions').style.display = 'none';
+  document.getElementById('queue-status-bar').style.display = 'none';
+}
+
+async function approveEmail() {
+  if(!activeQueueId) return;
+  const btn = document.getElementById('btn-approve');
+  const msg = document.getElementById('queue-action-msg');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  msg.textContent = '';
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${CRM_SECRET}` },
+      body: JSON.stringify({ action: 'approve', id: activeQueueId }),
+    });
+    const json = await res.json();
+    if(!res.ok || !json.ok) throw new Error(json.error || 'Send failed');
+    msg.textContent = `✓ Sent to ${json.to}`;
+    msg.style.color = 'var(--success)';
+    // Remove from list, load next
+    queueEmails = queueEmails.filter(e => e.id !== activeQueueId);
+    const listEl = document.getElementById('qi-' + activeQueueId);
+    if(listEl) listEl.remove();
+    activeQueueId = null;
+    if(queueEmails.length > 0) selectQueueItem(queueEmails[0].id);
+    else clearQueuePreview();
+    loadQueueBadge();
+    document.getElementById('queue-list-title').textContent =
+      `${queueEmails.length} email${queueEmails.length!==1?'s':''} — pending`;
+  } catch(e) {
+    msg.textContent = '✗ ' + e.message;
+    msg.style.color = 'var(--danger)';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✓ Approve & Send';
+  }
+}
+
+async function rejectEmail() {
+  if(!activeQueueId) return;
+  if(!confirm('Reject this email? It will not be sent.')) return;
+  const btn = document.getElementById('btn-reject');
+  const msg = document.getElementById('queue-action-msg');
+  btn.disabled = true;
+  btn.textContent = 'Rejecting…';
+  try {
+    // Update directly via Supabase for reject (no API key needed)
+    const { error } = await db.from('email_queue').update({
+      status: 'rejected',
+      rejected_at: new Date().toISOString(),
+    }).eq('id', activeQueueId);
+    if(error) throw new Error(error.message);
+    // Remove from pending list
+    queueEmails = queueEmails.filter(e => e.id !== activeQueueId);
+    const listEl = document.getElementById('qi-' + activeQueueId);
+    if(listEl) listEl.remove();
+    activeQueueId = null;
+    if(queueEmails.length > 0) selectQueueItem(queueEmails[0].id);
+    else clearQueuePreview();
+    loadQueueBadge();
+    document.getElementById('queue-list-title').textContent =
+      `${queueEmails.length} email${queueEmails.length!==1?'s':''} — pending`;
+  } catch(e) {
+    msg.textContent = '✗ ' + e.message;
+    msg.style.color = 'var(--danger)';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✕ Reject';
+  }
+}
+
+// ─── Scheduled Emails ─────────────────────────────────────
+let schedEmails = [];
+let activeSchedId = null;
+
+function fmtSendAfter(d) {
+  if (!d) return '';
+  const diff = new Date(d) - Date.now();
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor(diff / 3600000);
+  if (diff < 0)         return 'Overdue';
+  if (hours < 24)       return `In ${hours}h`;
+  if (days === 1)       return 'Tomorrow';
+  if (days <= 14)       return `In ${days} days`;
+  return new Date(d).toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+}
+
+function schedGroupLabel(sequenceType) {
+  const labels = {
+    'welcome':       '✉ Welcome sequence',
+    'nurture':       '🌱 Nurture sequence',
+    're-engagement': '💬 Re-engagement',
+  };
+  return labels[sequenceType] || sequenceType || 'Other';
+}
+
+async function loadScheduledBadge() {
+  try {
+    const now = new Date().toISOString();
+    const { count } = await db.from('email_queue')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'pending')
+      .not('send_after', 'is', null)
+      .gt('send_after', now);
+    const badge = document.getElementById('badge-scheduled');
+    if (count > 0) { badge.textContent = count; badge.style.display = ''; }
+    else { badge.style.display = 'none'; }
+  } catch(e) { /* silent */ }
+}
+
+async function loadScheduled() {
+  document.getElementById('sched-list-title').textContent = 'Loading…';
+  document.getElementById('sched-list-body').innerHTML = '<div class="loading-state"><div class="spinner"></div><br>Loading…</div>';
+
+  try {
+    const { data, error } = await db
+      .from('email_queue')
+      .select('id, created_at, status, to_email, to_name, subject, template_name, trigger, notes, send_after, sequence_type')
+      .eq('status', 'pending')
+      .not('send_after', 'is', null)
+      .order('send_after', { ascending: true })
+      .limit(200);
+
+    if (error) throw error;
+    schedEmails = data || [];
+
+    const count = schedEmails.length;
+    document.getElementById('sched-list-title').textContent = `${count} scheduled email${count !== 1 ? 's' : ''}`;
+
+    if (count === 0) {
+      document.getElementById('sched-list-body').innerHTML = '<div class="queue-empty">No scheduled emails</div>';
+      clearSchedPreview();
+      return;
+    }
+
+    // Group by sequence_type
+    const groups = {};
+    schedEmails.forEach(e => {
+      const g = e.sequence_type || 'other';
+      if (!groups[g]) groups[g] = [];
+      groups[g].push(e);
+    });
+
+    let html = '';
+    for (const [type, items] of Object.entries(groups)) {
+      html += `<div class="sched-group-label">${esc(schedGroupLabel(type))} (${items.length})</div>`;
+      html += items.map(e => {
+        const when = fmtSendAfter(e.send_after);
+        const isOverdue = new Date(e.send_after) < Date.now();
+        const whenClass = isOverdue ? 'qi-when qi-when-soon' : (new Date(e.send_after) - Date.now() < 86400000 * 3 ? 'qi-when qi-when-soon' : 'qi-when qi-when-future');
+        return `<div class="queue-item" id="si-${esc(e.id)}" onclick="selectSchedItem('${esc(e.id)}')">
+          <div class="qi-meta">
+            <span class="qi-to">${esc(e.to_name ? e.to_name + ' <' + e.to_email + '>' : e.to_email)}</span>
+            <span class="${whenClass}">${esc(when)}</span>
+          </div>
+          <div class="qi-subject">${esc(e.subject)}</div>
+          <div class="qi-tags">
+            ${e.template_name ? `<span class="qi-tag">${esc(e.template_name)}</span>` : ''}
+            ${e.send_after ? `<span class="qi-tag">${new Date(e.send_after).toLocaleDateString('en-GB', {day:'numeric',month:'short'})}</span>` : ''}
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    document.getElementById('sched-list-body').innerHTML = html;
+    if (count > 0 && !activeSchedId) selectSchedItem(schedEmails[0].id);
+  } catch(e) {
+    document.getElementById('sched-list-body').innerHTML = `<div class="queue-empty">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+async function selectSchedItem(id) {
+  activeSchedId = id;
+  document.querySelectorAll('.queue-item').forEach(el => el.classList.remove('active'));
+  const selected = document.getElementById('si-' + id);
+  if (selected) selected.classList.add('active');
+
+  document.getElementById('sched-preview-body').innerHTML =
+    '<div class="queue-empty" style="margin-top:60px"><div class="spinner"></div><br>Loading preview…</div>';
+  document.getElementById('sched-actions').style.display = 'none';
+
+  try {
+    const { data, error } = await db
+      .from('email_queue')
+      .select('id, subject, html, to_email, to_name, template_name, trigger, notes, status, created_at, send_after, sequence_type')
+      .eq('id', id)
+      .single();
+
+    if (error || !data) throw new Error(error?.message || 'Not found');
+
+    const when = fmtSendAfter(data.send_after);
+    const sendDate = data.send_after ? new Date(data.send_after).toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' }) : '—';
+
+    document.getElementById('sched-preview-body').innerHTML = `
+      <div class="queue-preview-meta">
+        <div class="queue-preview-meta-row"><span class="qpm-label">To</span><span class="qpm-value">${esc(data.to_name ? data.to_name + ' <' + data.to_email + '>' : data.to_email)}</span></div>
+        <div class="queue-preview-meta-row"><span class="qpm-label">Subject</span><span class="qpm-value"><strong>${esc(data.subject)}</strong></span></div>
+        <div class="queue-preview-meta-row"><span class="qpm-label">Sequence</span><span class="qpm-value">${esc(schedGroupLabel(data.sequence_type))}</span></div>
+        <div class="queue-preview-meta-row"><span class="qpm-label">Scheduled</span><span class="qpm-value"><strong>${esc(sendDate)}</strong> <span style="color:var(--text3);font-weight:normal">(${esc(when)})</span></span></div>
+        ${data.notes ? `<div class="queue-preview-meta-row"><span class="qpm-label">Notes</span><span class="qpm-value">${esc(data.notes)}</span></div>` : ''}
+      </div>
+      <div class="queue-preview-iframe-wrap">
+        <iframe id="sched-preview-frame" sandbox="allow-same-origin"></iframe>
+      </div>`;
+
+    const frame = document.getElementById('sched-preview-frame');
+    if (frame) frame.srcdoc = data.html || '<p style="padding:20px;color:#999">No preview available</p>';
+
+    document.getElementById('sched-actions').style.display = 'flex';
+    document.getElementById('sched-action-msg').textContent = '';
+  } catch(e) {
+    document.getElementById('sched-preview-body').innerHTML = `<div class="queue-empty">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+function clearSchedPreview() {
+  activeSchedId = null;
+  document.getElementById('sched-preview-body').innerHTML =
+    '<div class="queue-empty" style="margin-top:60px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="opacity:0.3;margin-bottom:10px"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><div>Select an email to preview</div></div>';
+  document.getElementById('sched-actions').style.display = 'none';
+}
+
+async function approveScheduled() {
+  if (!activeSchedId) return;
+  const btn = document.getElementById('btn-sched-approve');
+  const msg = document.getElementById('sched-action-msg');
+  btn.disabled = true; btn.textContent = 'Sending…'; msg.textContent = '';
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${CRM_SECRET}` },
+      body: JSON.stringify({ action: 'approve', id: activeSchedId }),
+    });
+    const json = await res.json();
+    if (!res.ok || !json.ok) throw new Error(json.error || 'Send failed');
+    msg.textContent = `✓ Sent to ${json.to}`;
+    msg.style.color = 'var(--success)';
+    schedEmails = schedEmails.filter(e => e.id !== activeSchedId);
+    const listEl = document.getElementById('si-' + activeSchedId);
+    if (listEl) listEl.remove();
+    activeSchedId = null;
+    if (schedEmails.length > 0) selectSchedItem(schedEmails[0].id);
+    else clearSchedPreview();
+    loadScheduledBadge();
+    document.getElementById('sched-list-title').textContent = `${schedEmails.length} scheduled email${schedEmails.length !== 1 ? 's' : ''}`;
+  } catch(e) {
+    msg.textContent = '✗ ' + e.message;
+    msg.style.color = 'var(--danger)';
+  } finally {
+    btn.disabled = false; btn.textContent = '✓ Send Now';
+  }
+}
+
+async function cancelScheduled() {
+  if (!activeSchedId) return;
+  if (!confirm('Cancel this scheduled email? It will not be sent.')) return;
+  const btn = document.getElementById('btn-sched-cancel');
+  const msg = document.getElementById('sched-action-msg');
+  btn.disabled = true; btn.textContent = 'Cancelling…';
+  try {
+    const { error } = await db.from('email_queue').update({
+      status: 'cancelled',
+    }).eq('id', activeSchedId);
+    if (error) throw new Error(error.message);
+    schedEmails = schedEmails.filter(e => e.id !== activeSchedId);
+    const listEl = document.getElementById('si-' + activeSchedId);
+    if (listEl) listEl.remove();
+    activeSchedId = null;
+    if (schedEmails.length > 0) selectSchedItem(schedEmails[0].id);
+    else clearSchedPreview();
+    loadScheduledBadge();
+    document.getElementById('sched-list-title').textContent = `${schedEmails.length} scheduled email${schedEmails.length !== 1 ? 's' : ''}`;
+  } catch(e) {
+    msg.textContent = '✗ ' + e.message;
+    msg.style.color = 'var(--danger)';
+  } finally {
+    btn.disabled = false; btn.textContent = '✕ Cancel';
+  }
+}
+
+// ─── Boot ─────────────────────────────────────────────────
+function init() {
+  loadDashboard();
+  subscribeRealtime();
+  loadQueueBadge();
+  loadScheduledBadge();
+  // Start loading GIS token client in background
+  setTimeout(initGmailTokenClient, 1000);
+}
+
+// Auto-login if already authenticated
+if(sessionStorage.getItem('cop-auth')==='1') init();
+
+// ─── Newsletters ──────────────────────────────────────────
+let nlActiveCampaignId = null;
+let nlSendsCache = [];
+
+async function loadNewsletters() {
+  document.getElementById('nl-list-title').textContent = 'Campaigns';
+  document.getElementById('nl-list-body').innerHTML = '<div class="queue-empty" style="margin-top:40px">Loading…</div>';
+  document.getElementById('nl-actions').style.display = 'none';
+  try {
+    const { data, error } = await db
+      .from('newsletter_campaigns')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    renderNlList(data || []);
+  } catch(e) {
+    document.getElementById('nl-list-body').innerHTML = '<div class="queue-empty" style="color:#dc2626">Error: ' + esc(e.message) + '</div>';
+  }
+}
+
+function renderNlList(campaigns) {
+  const el = document.getElementById('nl-list-body');
+  if (!campaigns.length) {
+    el.innerHTML = '<div class="queue-empty" style="margin-top:40px">No campaigns yet.<br>Click &quot;+ Prepare Campaign&quot; to start.</div>';
+    return;
+  }
+  el.innerHTML = campaigns.map(c => {
+    const statusColor = c.status === 'sent' ? '#16a34a' : c.status === 'draft' ? '#d97706' : '#6b7280';
+    const date = c.sent_at
+      ? new Date(c.sent_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})
+      : new Date(c.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+    return '<div class="queue-item" onclick="selectNlCampaign(\'' + esc(c.id) + '\')" id="nl-item-' + esc(c.id) + '">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'
+      + '<span style="font-weight:600;font-size:13px">' + esc(c.name) + '</span>'
+      + '<span style="font-size:10px;font-weight:700;color:' + statusColor + ';text-transform:uppercase">' + esc(c.status) + '</span>'
+      + '</div>'
+      + '<div style="font-size:11px;color:var(--text3)">'
+      + (c.total_recipients || 0) + ' recipients · ' + (c.status==='sent' ? 'Sent' : 'Created') + ' ' + date
+      + '</div></div>';
+  }).join('');
+}
+
+async function selectNlCampaign(campaignId) {
+  nlActiveCampaignId = campaignId;
+  document.querySelectorAll('#nl-list-body .queue-item').forEach(el => el.classList.remove('active'));
+  const item = document.getElementById('nl-item-' + campaignId);
+  if (item) item.classList.add('active');
+  document.getElementById('nl-preview-body').innerHTML = '<div class="queue-empty" style="margin-top:40px">Loading…</div>';
+  document.getElementById('nl-actions').style.display = 'none';
+  try {
+    const { data: campaign } = await db.from('newsletter_campaigns').select('*').eq('id', campaignId).single();
+    const { data: sends } = await db.from('newsletter_sends').select('*').eq('campaign_id', campaignId).order('created_at');
+    renderNlDetail(campaign, sends || []);
+  } catch(e) {
+    document.getElementById('nl-preview-body').innerHTML = '<div class="queue-empty" style="color:#dc2626">Error: ' + esc(e.message) + '</div>';
+  }
+}
+
+function renderNlDetail(campaign, sends) {
+  const statusColor = campaign.status === 'sent' ? '#16a34a' : campaign.status === 'draft' ? '#d97706' : '#6b7280';
+  const pendingCount = sends.filter(s => s.status === 'pending').length;
+  const sentCount = sends.filter(s => s.status === 'sent').length;
+  const failedCount = sends.filter(s => s.status === 'failed').length;
+  let html = '<div class="queue-preview-meta" style="margin-bottom:16px">'
+    + '<div class="queue-preview-meta-row"><span class="qpm-label">Campaign</span><span class="qpm-value"><strong>' + esc(campaign.name) + '</strong></span></div>'
+    + '<div class="queue-preview-meta-row"><span class="qpm-label">Status</span><span class="qpm-value"><strong style="color:' + statusColor + '">' + esc(campaign.status.toUpperCase()) + '</strong></span></div>'
+    + '<div class="queue-preview-meta-row"><span class="qpm-label">Recipients</span><span class="qpm-value">' + (campaign.total_recipients || 0) + ' total · ' + pendingCount + ' pending · ' + sentCount + ' sent · ' + failedCount + ' failed</span></div>'
+    + (campaign.sent_at ? '<div class="queue-preview-meta-row"><span class="qpm-label">Sent at</span><span class="qpm-value">' + new Date(campaign.sent_at).toLocaleString('en-GB') + '</span></div>' : '')
+    + '</div>';
+  if (!sends.length) {
+    html += '<div class="queue-empty">No sends in this campaign.</div>';
+  } else {
+    html += '<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)">Recipients (' + sends.length + ')</div>';
+    nlSendsCache = sends;
+    html += sends.map(function(s, i) {
+      const sColor = s.status === 'sent' ? '#16a34a' : s.status === 'failed' ? '#dc2626' : '#d97706';
+      const pCount = (s.primary_slugs || []).length;
+      const fCount = (s.fallback_slugs || []).length;
+      return '<div style="padding:10px 12px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px;background:var(--card);cursor:pointer" data-nl-idx="' + i + '" onclick="selectNlRecipient(+this.dataset.nlIdx)">'
+        + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'
+        + '<span style="font-size:12px;font-weight:600">' + esc(s.email) + '</span>'
+        + '<span style="font-size:10px;font-weight:700;color:' + sColor + ';text-transform:uppercase">' + esc(s.status) + '</span>'
+        + '</div>'
+        + '<div style="font-size:11px;color:var(--text3)">' + pCount + ' primary' + (fCount ? ' + ' + fCount + ' fallback' : '') + ' properties'
+        + (s.error ? ' <span style="color:#dc2626">· Error: ' + esc(s.error) + '</span>' : '')
+        + ' <span style="color:var(--gold)">→ preview</span></div></div>';
+    }).join('');
+  }
+  document.getElementById('nl-preview-body').innerHTML = html;
+  if (campaign.status === 'draft' && pendingCount > 0) {
+    document.getElementById('nl-actions').style.display = 'flex';
+    document.getElementById('btn-nl-send').textContent = '🚀 Send to ' + pendingCount + ' people';
+    document.getElementById('nl-action-msg').textContent = '';
+  } else {
+    document.getElementById('nl-actions').style.display = 'none';
+  }
+}
+
+async function selectNlRecipient(i) {
+  const s = nlSendsCache[i];
+  if (!s) return;
+  const primarySlugs = s.primary_slugs || [];
+  const fallbackSlugs = s.fallback_slugs || [];
+  const allSlugs = [...new Set([...primarySlugs, ...fallbackSlugs])];
+  document.getElementById('nl-preview-body').innerHTML = '<div style="padding:20px;color:var(--text3)">Loading…</div>';
+  document.getElementById('nl-actions').style.display = 'none';
+  let props = {};
+  if (allSlugs.length) {
+    try {
+      const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/properties/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
+        body: JSON.stringify({ slugs: allSlugs }),
+      });
+      const result = await resp.json();
+      (result.properties || []).forEach(function(p) { props[p.slug] = p; });
+    } catch(e) { console.error('property fetch error', e); }
+  }
+  const sym = { EUR: '€', GBP: '£', USD: '$', CHF: 'CHF ' };
+  function card(p) {
+    if (!p) return '';
+    const img = p.img || (p.images && p.images.length ? p.images[0] : '');
+    const price = p.price ? (sym[p.currency] || '') + Number(p.price).toLocaleString('en-GB') : 'POA';
+    const loc = [p.region, p.city].filter(Boolean).join(' · ');
+    const imgEl = img
+      ? '<img src="' + img + '" style="width:90px;height:65px;object-fit:cover;border-radius:5px;flex-shrink:0">'
+      : '<div style="width:90px;height:65px;background:var(--bg);border-radius:5px;flex-shrink:0"></div>';
+    return '<div style="display:flex;gap:10px;padding:10px;border:1px solid var(--border);border-radius:7px;margin-bottom:8px;background:var(--card)">'
+      + imgEl
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-size:12px;font-weight:600;margin-bottom:3px;line-height:1.3">' + esc(p.title || p.slug) + '</div>'
+      + '<div style="font-size:11px;color:var(--text3)">' + esc(loc) + '</div>'
+      + '<div style="font-size:12px;color:var(--gold);font-weight:700;margin-top:3px">' + price + '</div>'
+      + '</div></div>';
+  }
+  let html = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)">'
+    + '<button onclick="selectNlCampaign(nlActiveCampaignId)" style="background:none;border:1px solid var(--border);border-radius:5px;cursor:pointer;font-size:12px;color:var(--text2);padding:4px 8px">← Back</button>'
+    + '<div><div style="font-size:13px;font-weight:600">' + esc(s.email) + '</div>'
+    + '<div style="font-size:11px;color:var(--text3)">' + primarySlugs.length + ' primary · ' + fallbackSlugs.length + ' You Might Also Like</div></div>'
+    + '</div>';
+  if (primarySlugs.length) {
+    html += '<div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Primary matches</div>';
+    html += primarySlugs.map(function(slug) { return card(props[slug]); }).join('');
+  }
+  if (fallbackSlugs.length) {
+    html += '<div style="font-size:11px;font-weight:700;color:var(--text2);margin:12px 0 8px;text-transform:uppercase;letter-spacing:.05em">You Might Also Like</div>';
+    html += fallbackSlugs.map(function(slug) { return card(props[slug]); }).join('');
+  }
+  if (!primarySlugs.length && !fallbackSlugs.length) {
+    html += '<div style="color:var(--text3);font-size:12px;padding:20px 0">No properties matched.</div>';
+  }
+  document.getElementById('nl-preview-body').innerHTML = html;
+}
+
+async function prepareNewsletter() {
+  const name = prompt('Campaign name (e.g. "May 2026 Personalised"):');
+  if (!name || !name.trim()) return;
+  const btn = document.querySelector('[onclick="prepareNewsletter()"]');
+  btn.disabled = true; btn.textContent = 'Preparing…';
+  try {
+    const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/prepare/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
+      body: JSON.stringify({ name: name.trim() }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || 'Prepare failed');
+    await loadNewsletters();
+    if (data.campaignId) selectNlCampaign(data.campaignId);
+  } catch(e) {
+    alert('Error: ' + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = '+ Prepare Campaign';
+  }
+}
+
+async function sendNewsletter() {
+  if (!nlActiveCampaignId) return;
+  if (!confirm('Send this campaign now? This will email all pending recipients.')) return;
+  const btn = document.getElementById('btn-nl-send');
+  const msg = document.getElementById('nl-action-msg');
+  btn.disabled = true; btn.textContent = 'Sending…'; msg.textContent = '';
+  try {
+    const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/send/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
+      body: JSON.stringify({ campaignId: nlActiveCampaignId }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || 'Send failed');
+    msg.textContent = '✓ Sent ' + data.sent + ', failed ' + data.failed;
+    await selectNlCampaign(nlActiveCampaignId);
+    loadNewsletters();
+  } catch(e) {
+    msg.textContent = 'Error: ' + e.message;
+    btn.disabled = false; btn.textContent = '🚀 Send Campaign';
+  }
+}
+</script>
+</body>
+</html>
