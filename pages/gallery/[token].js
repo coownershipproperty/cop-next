@@ -84,7 +84,7 @@ export default function GalleryPage({ name, email, property }) {
   // type: 'photo' | 'extra' | 'document'
   const slides = [
     ...photos.map(url    => ({ url, type: 'photo' })),
-    ...extras.map(url    => ({ url, type: 'extra' })),
+    ...extras.map(url    => ({ url, type: extrasArePrimary ? 'photo' : 'extra' })),
     ...documents.map(url => ({ url, type: 'document' })),
   ];
 
