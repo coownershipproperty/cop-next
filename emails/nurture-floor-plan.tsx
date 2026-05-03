@@ -12,13 +12,18 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
+interface NurtureProperty {
+  slug?:     string | null;
+  title?:    string | null;
+  img?:      string | null;
+  url?:      string | null;
+  location?: string | null;
+}
+
 interface NurtureFloorPlanProps {
-  firstName?:     string;
-  propertyTitle?: string;
-  propertyImg?:   string;
-  propertyUrl?:   string;
-  location?:      string;   // e.g. "Côte d'Azur, France"
-  price?:         string;   // e.g. "€389,000"
+  firstName?:      string;
+  /** Array of properties the contact has unlocked. Replaces single-property props. */
+  properties?:     NurtureProperty[];
   unsubscribeUrl?: string;
 }
 
@@ -37,18 +42,30 @@ const enquiryEmail   = 'hello@co-ownership-property.com';
 
 export default function NurtureFloorPlan({
   firstName,
-  propertyTitle,
-  propertyImg,
-  propertyUrl,
-  location,
-  price,
+  properties = [],
   unsubscribeUrl = '{{unsubscribe_url}}',
 }: NurtureFloorPlanProps) {
-  const waMsg = encodeURIComponent(`Hi, I requested the floor plan for ${propertyTitle} and I'd love to find out more.`);
-  const mailSubject = encodeURIComponent(`Enquiry: ${propertyTitle}`);
-  const mailBody    = encodeURIComponent(`Hi,\n\nI recently requested the floor plan for ${propertyTitle} and I have a few questions.\n\nThank you`);
-  const mailHref    = `mailto:${enquiryEmail}?subject=${mailSubject}&body=${mailBody}`;
-  const waHref      = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
+  const isMulti = properties.length > 1;
+
+  // For single-property: use first item for subject-line copy and WA/mail hrefs
+  const primary = properties[0] || {};
+  const primaryTitle = primary.title || '';
+
+  const waMsg      = isMulti
+    ? encodeURIComponent(`Hi, I've been looking at a few properties on Co-Ownership Property and I'd love to find out more.`)
+    : encodeURIComponent(`Hi, I requested the floor plan for ${primaryTitle} and I'd love to find out more.`);
+  const mailSubject = isMulti
+    ? encodeURIComponent(`Enquiry about co-ownership properties`)
+    : encodeURIComponent(`Enquiry: ${primaryTitle}`);
+  const mailBody    = isMulti
+    ? encodeURIComponent(`Hi,\n\nI've been looking at a few properties on Co-Ownership Property and I have some questions.\n\nThank you`)
+    : encodeURIComponent(`Hi,\n\nI recently requested the floor plan for ${primaryTitle} and I have a few questions.\n\nThank you`);
+  const mailHref = `mailto:${enquiryEmail}?subject=${mailSubject}&body=${mailBody}`;
+  const waHref   = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
+
+  const previewText = isMulti
+    ? `You've been exploring ${properties.length} properties — here's a recap`
+    : `You requested the floor plans for ${primaryTitle} — here's a closer look`;
 
   return (
     <Html lang="en">
@@ -61,11 +78,12 @@ export default function NurtureFloorPlan({
             .main-head  { font-size: 28px !important; }
             .body-text  { font-size: 15px !important; }
             .btn-row td { display: block !important; width: 100% !important; padding: 0 0 8px 0 !important; }
+            .card-img   { height: 200px !important; }
           }
         `}</style>
       </Head>
 
-      <Preview>You requested the floor plans for {propertyTitle} — here's a closer look</Preview>
+      <Preview>{previewText}</Preview>
 
       <Body style={s.body}>
 
@@ -86,92 +104,159 @@ export default function NurtureFloorPlan({
           </Container>
         </Section>
 
-        {/* ── HERO IMAGE ── */}
-        {propertyImg && (
-          <Section style={{ backgroundColor: C.navy, padding: 0, margin: 0 }}>
-            <Container style={{ maxWidth: 600, margin: '0 auto', padding: 0 }}>
-              {propertyUrl ? (
-                <Link href={propertyUrl} style={{ display: 'block', lineHeight: '0' }}>
-                  <Img
-                    src={propertyImg}
-                    alt={propertyTitle || 'Property'}
-                    width="600"
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      maxWidth: '600px',
-                      height: '340px',
-                      objectFit: 'cover',
-                    }}
-                    className="hero-img"
-                  />
-                </Link>
-              ) : (
-                <Img
-                  src={propertyImg}
-                  alt={propertyTitle || 'Property'}
-                  width="600"
-                  style={{
-                    display: 'block',
-                    width: '100%',
-                    maxWidth: '600px',
-                    height: '340px',
-                    objectFit: 'cover',
-                  }}
-                  className="hero-img"
-                />
-              )}
-            </Container>
-          </Section>
-        )}
+        {/* ══════════════════════════════════════════════════════════════════
+            SINGLE-PROPERTY LAYOUT — hero image + property title band
+        ══════════════════════════════════════════════════════════════════ */}
+        {!isMulti && (
+          <>
+            {/* ── HERO IMAGE ── */}
+            {primary.img && (
+              <Section style={{ backgroundColor: C.navy, padding: 0, margin: 0 }}>
+                <Container style={{ maxWidth: 600, margin: '0 auto', padding: 0 }}>
+                  {primary.url ? (
+                    <Link href={primary.url} style={{ display: 'block', lineHeight: '0' }}>
+                      <Img
+                        src={primary.img}
+                        alt={primaryTitle || 'Property'}
+                        width="600"
+                        style={{ display: 'block', width: '100%', maxWidth: '600px', height: '340px', objectFit: 'cover' }}
+                        className="hero-img"
+                      />
+                    </Link>
+                  ) : (
+                    <Img
+                      src={primary.img}
+                      alt={primaryTitle || 'Property'}
+                      width="600"
+                      style={{ display: 'block', width: '100%', maxWidth: '600px', height: '340px', objectFit: 'cover' }}
+                      className="hero-img"
+                    />
+                  )}
+                </Container>
+              </Section>
+            )}
 
-        {/* ── PROPERTY IDENTITY BAND ── */}
-        <Section style={{ backgroundColor: C.white, padding: '28px 0 0' }}>
-          <Container style={s.wrap}>
-            {location && (
-              <Text style={s.locationLabel}>{location.toUpperCase()}</Text>
-            )}
-            <table width="100%" cellPadding="0" cellSpacing="0" role="presentation"><tbody><tr><td>
-              <table width="24" cellPadding="0" cellSpacing="0" role="presentation"><tbody><tr>
-                <td style={{ backgroundColor: C.gold, height: 1, lineHeight: '1px', fontSize: '1px' }}>&nbsp;</td>
-              </tr></tbody></table>
-            </td></tr></tbody></table>
-            {propertyTitle && (
-              <Text style={s.propTitle} className="prop-title">{propertyTitle}</Text>
-            )}
-            {price && (
-              <Text style={s.priceText}>{price} <span style={{ fontSize: 11, color: C.navy60, letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>per share</span></Text>
-            )}
-            <Hr style={s.divider} />
-          </Container>
-        </Section>
+            {/* ── PROPERTY IDENTITY BAND ── */}
+            <Section style={{ backgroundColor: C.white, padding: '28px 0 0' }}>
+              <Container style={s.wrap}>
+                {primary.location && (
+                  <Text style={s.locationLabel}>{primary.location.toUpperCase()}</Text>
+                )}
+                <table width="100%" cellPadding="0" cellSpacing="0" role="presentation"><tbody><tr><td>
+                  <table width="24" cellPadding="0" cellSpacing="0" role="presentation"><tbody><tr>
+                    <td style={{ backgroundColor: C.gold, height: 1, lineHeight: '1px', fontSize: '1px' }}>&nbsp;</td>
+                  </tr></tbody></table>
+                </td></tr></tbody></table>
+                {primaryTitle && (
+                  <Text style={s.propTitle} className="prop-title">{primaryTitle}</Text>
+                )}
+                <Hr style={s.divider} />
+              </Container>
+            </Section>
+          </>
+        )}
 
         {/* ── BODY COPY ── */}
         <Section style={{ backgroundColor: C.white }}>
           <Container style={s.wrapBody}>
             <Text style={s.greeting}>Hi {firstName || 'there'},</Text>
 
-            <Text style={s.bodyText} className="body-text">
-              You recently requested the floor plans and extra photos for{' '}
-              <strong style={{ color: C.navy }}>{propertyTitle}</strong>.
-              We hope they gave you a clearer picture of what's on offer.
-            </Text>
+            {!isMulti ? (
+              <>
+                <Text style={s.bodyText} className="body-text">
+                  You recently requested the floor plans and extra photos for{' '}
+                  <strong style={{ color: C.navy }}>{primaryTitle}</strong>.
+                  We hope they gave you a clearer picture of what's on offer.
+                </Text>
+                <Text style={s.bodyText} className="body-text">
+                  If you have questions about the property, the co-ownership structure, or how the buying process works — we're here. No obligation, no pressure.
+                </Text>
+                {primary.url && (
+                  <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={{ marginBottom: 28 }}>
+                    <tbody><tr><td align="center">
+                      <Link href={primary.url} style={s.viewBtn}>View Property</Link>
+                    </td></tr></tbody>
+                  </table>
+                )}
+              </>
+            ) : (
+              <>
+                <Text style={s.bodyText} className="body-text">
+                  You've been exploring a few properties on Co-Ownership Property — here's a quick recap of everything you've unlocked.
+                </Text>
+                <Text style={s.bodyText} className="body-text">
+                  Any questions about a property, the co-ownership structure, or how the buying process works — we're here. No obligation, no pressure.
+                </Text>
 
-            <Text style={s.bodyText} className="body-text">
-              If you have questions about the property, the co-ownership structure, or how the buying process works — we're here. No obligation, no pressure.
-            </Text>
-
-            {/* CTA – View Property */}
-            {propertyUrl && (
-              <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={{ marginBottom: 28 }}>
-                <tbody><tr><td align="center">
-                  <Link href={propertyUrl} style={s.viewBtn}>View Property</Link>
-                </td></tr></tbody>
-              </table>
+                {/* ── PROPERTY CARDS ── */}
+                {properties.map((prop, i) => (
+                  <table
+                    key={prop.slug || i}
+                    width="100%"
+                    cellPadding="0"
+                    cellSpacing="0"
+                    role="presentation"
+                    style={{ marginBottom: 24, borderBottom: `1px solid ${C.border}`, paddingBottom: 24 }}
+                  >
+                    <tbody>
+                      {/* Image */}
+                      {prop.img && (
+                        <tr>
+                          <td style={{ padding: 0, lineHeight: 0 }}>
+                            {prop.url ? (
+                              <Link href={prop.url} style={{ display: 'block', lineHeight: 0 }}>
+                                <Img
+                                  src={prop.img}
+                                  alt={prop.title || 'Property'}
+                                  width="552"
+                                  style={{ display: 'block', width: '100%', height: '240px', objectFit: 'cover' }}
+                                  className="card-img"
+                                />
+                              </Link>
+                            ) : (
+                              <Img
+                                src={prop.img}
+                                alt={prop.title || 'Property'}
+                                width="552"
+                                style={{ display: 'block', width: '100%', height: '240px', objectFit: 'cover' }}
+                                className="card-img"
+                              />
+                            )}
+                          </td>
+                        </tr>
+                      )}
+                      {/* Location label */}
+                      {prop.location && (
+                        <tr>
+                          <td style={{ paddingTop: 16 }}>
+                            <Text style={{ ...s.locationLabel, margin: 0 }}>{prop.location.toUpperCase()}</Text>
+                          </td>
+                        </tr>
+                      )}
+                      {/* Title */}
+                      {prop.title && (
+                        <tr>
+                          <td>
+                            <Text style={{ ...s.cardTitle }}>{prop.title}</Text>
+                          </td>
+                        </tr>
+                      )}
+                      {/* View button */}
+                      {prop.url && (
+                        <tr>
+                          <td style={{ paddingTop: 4 }}>
+                            <Link href={prop.url} style={s.cardBtn}>View Property →</Link>
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                ))}
+              </>
             )}
 
-            {/* Enquiry buttons */}
-            <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" className="btn-row">
+            {/* Enquiry buttons — always shown */}
+            <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" className="btn-row" style={{ marginTop: isMulti ? 8 : 0 }}>
               <tbody><tr>
                 <td style={{ width: '50%', paddingRight: 6 }}>
                   <Link href={mailHref} style={s.emailBtn}>Email Enquiry</Link>
@@ -231,10 +316,10 @@ const s: Record<string, React.CSSProperties> = {
     margin: 0, padding: 0,
     fontFamily: "'Jost', 'Helvetica Neue', Arial, sans-serif",
   },
-  wrap: { maxWidth: 600, margin: '0 auto', padding: '0 20px' },
+  wrap:     { maxWidth: 600, margin: '0 auto', padding: '0 20px' },
   wrapBody: { maxWidth: 600, margin: '0 auto', padding: '8px 24px 40px' },
 
-  header: { backgroundColor: C.navy, padding: '48px 0 40px' },
+  header:   { backgroundColor: C.navy, padding: '48px 0 40px' },
   wordmark: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
     color: C.white, fontSize: 22, fontWeight: 300,
@@ -253,10 +338,16 @@ const s: Record<string, React.CSSProperties> = {
     fontSize: 30, fontWeight: 400, color: C.navy,
     margin: '12px 0 8px', lineHeight: '1.25', letterSpacing: '0.01em',
   },
-  priceText: {
+  cardTitle: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: 22, fontWeight: 500, color: C.navy,
-    margin: '0 0 0', lineHeight: '1.3',
+    fontSize: 22, fontWeight: 400, color: C.navy,
+    margin: '8px 0 4px', lineHeight: '1.3', letterSpacing: '0.01em',
+  },
+  cardBtn: {
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 10, fontWeight: 500, letterSpacing: '0.18em',
+    textTransform: 'uppercase', color: C.gold,
+    textDecoration: 'none',
   },
   divider: { borderColor: C.border, margin: '20px 0 0' },
 
@@ -301,7 +392,7 @@ const s: Record<string, React.CSSProperties> = {
     fontSize: 12, color: C.navy60, margin: 0,
   },
 
-  footer: { backgroundColor: C.navy, padding: '48px 0 40px', borderTop: `2px solid ${C.gold}` },
+  footer:   { backgroundColor: C.navy, padding: '48px 0 40px', borderTop: `2px solid ${C.gold}` },
   footLogo: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
     color: C.white, fontSize: 19, fontWeight: 300,
