@@ -403,7 +403,7 @@ export default function GalleryPage({ name, email, property }) {
 
         {/* ── PREV ARROW ── (hidden on enquiry slide to avoid overlapping form) */}
         {index > 0 && (
-          <button style={{ ...s.arrow, left: 0 }} onClick={goPrev} aria-label="Previous">
+          <button style={{ ...s.arrow, left: 0 }} className={isEnquiry ? 'gallery-prev-enquiry' : ''} onClick={goPrev} aria-label="Previous">
             <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
               <path d="M9 1L1 9L9 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -500,6 +500,9 @@ export default function GalleryPage({ name, email, property }) {
 
           /* Dots: tighter on mobile */
           .gallery-dots { gap: 4px !important; bottom: 14px !important; }
+
+          /* Prev arrow: shift further left on enquiry slide so it clears the email field */
+          .gallery-prev-enquiry { left: -14px !important; }
         }
       `}</style>
     </>
