@@ -138,7 +138,7 @@ export default function PropertyPage({ property: p, similar }) {
   const [descExpanded, setDescExpanded] = useState(false);
   const cx = useCurrency();
   const [amenExpanded, setAmenExpanded] = useState(false);
-  const heroImg = p.images[0] || '/images/placeholder.jpg';
+  const heroImg = p.img || p.images?.[0] || '/images/placeholder.jpg';
   // Use photos array (gallery uploads) as the authoritative total; fall back to total_images field
   const galleryTotal = Array.isArray(p.photos) && p.photos.length > 0
     ? p.photos.length + (Array.isArray(p.extra_photos) ? p.extra_photos.length : 0)
