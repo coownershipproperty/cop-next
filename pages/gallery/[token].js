@@ -167,7 +167,7 @@ export default function GalleryPage({ name, email, property }) {
   const currentType  = !isEnquiry ? slides[index]?.type : null;
   const isDocument   = currentType === 'document';
   const isExtra      = currentType === 'extra';
-  const isNonPhoto   = isEnquiry || isDocument || isExtra; // hide property info overlay
+  const isNonPhoto   = isEnquiry || isDocument || isExtra || index !== 0; // hide property info overlay
 
   return (
     <>
