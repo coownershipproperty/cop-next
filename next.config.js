@@ -312,7 +312,6 @@ nextConfig.redirects = async () => [
   { source: '/property/heber-city-ut-5-bed-villa/', destination: '/property/heber-city-ut-5-bed-house/', permanent: true },
   { source: '/property/heber-city-ut-5-bed-villa-with-mountain-views/', destination: '/property/heber-city-ut-5-bed-house-with-hot-tub/', permanent: true },
   { source: '/property/heringsdorf-germany-1-bed-apartment-with-lake-views/', destination: '/property/heringsdorf-germany-1-bed-apartment-with-sauna/', permanent: true },
-  { source: '/property/higueron-spain-3-bed-villa-with-sea-views/', destination: '/property/higueron-spain-3-bed-apartment-with-sea-views/', permanent: true },
   { source: '/property/higueron-spain-3-bed-villa-with-sea-views-2/', destination: '/property/higueron-spain-3-bed-villa-with-sea-views/', permanent: true },
   { source: '/property/hilton-head-island-sc-4-bed-villa/', destination: '/property/hilton-head-island-sc-4-bed-house-with-pool/', permanent: true },
   { source: '/property/hilton-head-island-sc-5-bed-villa/', destination: '/property/hilton-head-island-sc-5-bed-house-with-pool/', permanent: true },
