@@ -67,13 +67,24 @@ export async function getServerSideProps({ params, query }) {
 }
 
 export default function GalleryPage({ name, email, property }) {
-  const extras    = Array.isArray(property.extra_photos) ? property.extra_photos : [];
+  const rawImages = Array.isArray(property.images) ? property.images : [];
+
+  // When photos is empty we fall back to images (MYNE properties).
+  // In that case the MYNE workflow also uploads those same renders as the first
+  // N items of extra_photos — skip them to avoid showing the same images twice.
+  const usingImagesFallback =
+    (!Array.isArray(property.photos) || property.photos.length === 0) &&
+    rawImages.length > 0;
 
   const photos = Array.isArray(property.photos) && property.photos.length > 0
     ? property.photos
-    : Array.isArray(property.images) && property.images.length > 0
-    ? property.images
+    : rawImages.length > 0
+    ? rawImages
     : property.img ? [property.img] : [];
+
+  const extrasRaw = Array.isArray(property.extra_photos) ? property.extra_photos : [];
+  const extras    = usingImagesFallback ? extrasRaw.slice(rawImages.length) : extrasRaw;
+
   const documents = Array.isArray(property.documents)    ? property.documents    : [];
 
   // Slides: hero photos → brochure extras → floor plans/docs → enquiry
@@ -777,3 +788,4 @@ const s = {
     textTransform: 'uppercase', color: '#C9A84C', textDecoration: 'none',
   },
 };
+
