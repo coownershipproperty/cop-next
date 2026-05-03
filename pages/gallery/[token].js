@@ -67,13 +67,17 @@ export async function getServerSideProps({ params, query }) {
 }
 
 export default function GalleryPage({ name, email, property }) {
+  const extras    = Array.isArray(property.extra_photos) ? property.extra_photos : [];
+  const extrasArePrimary = extras.length > 0 && !(Array.isArray(property.photos) && property.photos.length > 0);
+
+  // When extras exist and photos is empty (e.g. MYNE), skip images fallback to avoid duplicates
   const photos = Array.isArray(property.photos) && property.photos.length > 0
     ? property.photos
+    : extrasArePrimary
+    ? []
     : Array.isArray(property.images) && property.images.length > 0
     ? property.images
     : property.img ? [property.img] : [];
-
-  const extras    = Array.isArray(property.extra_photos) ? property.extra_photos : [];
   const documents = Array.isArray(property.documents)    ? property.documents    : [];
 
   // Slides: hero photos → brochure extras → floor plans/docs → enquiry
@@ -216,8 +220,8 @@ export default function GalleryPage({ name, email, property }) {
               />
               {/* gradient only on full-bleed photos */}
               {isPhoto && <div style={s.gradient} />}
-              {/* extra photos label */}
-              {isExtr && (
+              {/* extra photos label — hidden when extras serve as primary gallery */}
+              {isExtr && !extrasArePrimary && (
                 <div style={s.extraLabel}>Additional Photos</div>
               )}
               {/* document label */}
