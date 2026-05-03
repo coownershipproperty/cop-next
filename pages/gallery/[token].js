@@ -206,11 +206,6 @@ export default function GalleryPage({ name, email, property }) {
                 ...(isDoc || isExtr ? { display: 'flex', alignItems: 'center', justifyContent: 'center' } : {}),
               }}
             >
-              {/* blurred background fill for photo slides — avoids black bars with contain */}
-              {isPhoto && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={slide.url} aria-hidden="true" alt="" style={s.slideImgBg} />
-              )}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={slide.url}
@@ -527,14 +522,7 @@ const s = {
     objectFit: 'contain', objectPosition: 'center',
     display: 'block',
   },
-  slideImgBg: {
-    position: 'absolute', inset: 0,
-    width: '100%', height: '100%',
-    objectFit: 'cover',
-    filter: 'blur(28px) brightness(0.45)',
-    transform: 'scale(1.12)',
-    display: 'block',
-  },
+
   // Extra (brochure) photos — flex-centered, never upscaled beyond natural size
   slideImgExtra: {
     display: 'block',
@@ -569,7 +557,7 @@ const s = {
   },
   gradient: {
     position: 'absolute', inset: 0,
-    background: 'linear-gradient(to top, rgba(10,20,32,0.88) 0%, rgba(10,20,32,0.45) 40%, rgba(10,20,32,0.12) 70%, rgba(10,20,32,0.25) 100%)',
+    background: 'linear-gradient(to top, rgba(10,20,32,0.92) 0%, rgba(10,20,32,0.55) 30%, rgba(10,20,32,0.0) 60%)',
   },
 
   // Nav
@@ -592,8 +580,8 @@ const s = {
 
   // Property info
   info: {
-    position: 'absolute', bottom: 76, left: 0, right: '40%',
-    padding: '0 0 0 40px', zIndex: 10,
+    position: 'absolute', bottom: 80, left: 0, right: '38%',
+    padding: '0 0 0 36px', zIndex: 10,
     pointerEvents: 'none',
   },
   infoLocation: {
@@ -603,8 +591,8 @@ const s = {
   },
   infoTitle: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: 36, fontWeight: 300, color: '#fff',
-    margin: '0 0 12px', lineHeight: 1.2, maxWidth: 580,
+    fontSize: 32, fontWeight: 300, color: '#fff',
+    margin: '0 0 10px', lineHeight: 1.2, maxWidth: 520,
   },
   infoPrice: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
