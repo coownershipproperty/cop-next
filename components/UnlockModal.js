@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { trackConversion } from '@/lib/gtag';
+import { track } from '@vercel/analytics';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 
 export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, propertyCountry, onClose }) {
@@ -21,6 +22,10 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
         trackConversion('generate_lead', 'Lead', {
           event_category: 'floor_plan_unlock',
           property_title: propertyTitle,
+        });
+        track('photos_unlocked', {
+          property: propertyTitle,
+          country: propertyCountry || 'unspecified',
         });
       }
       setStatus(r.ok ? 'done' : 'error');
