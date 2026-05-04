@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 import { trackConversion } from '@/lib/gtag';
+import { track } from '@vercel/analytics';
 
 // ── Destination tree ────────────────────────────────────────────────────────
 const DEST_TREE = [
@@ -185,6 +186,11 @@ export default function ExpertForm({ property }) {
           event_category: 'enquiry',
           destination: destStr || 'unspecified',
           budget,
+        });
+        track('enquiry_submitted', {
+          source: 'expert_form',
+          destination: destStr || 'unspecified',
+          budget: budget || 'unspecified',
         });
       } else {
         setStatus('error');
