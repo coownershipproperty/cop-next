@@ -17,8 +17,20 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'No slug in payload' });
     }
 
-    await res.revalidate(`/property/${slug}`);
-    return res.json({ revalidated: true, slug });
+    const target = req.body?.table || req.body?.type || req.body?.entity;
+    const explicitPaths = Array.isArray(req.body?.paths) ? req.body.paths : [];
+    const paths = explicitPaths.filter(path => typeof path === 'string' && path.startsWith('/'));
+
+    if (target === 'posts' || target === 'post' || target === 'blog') {
+      paths.push('/all-our-blog', '/all-our-blog/', `/blog/${slug}`, `/blog/${slug}/`, '/');
+    } else {
+      paths.push(`/property/${slug}`, `/property/${slug}/`, '/our-homes', '/our-homes/', '/');
+    }
+
+    const uniquePaths = [...new Set(paths)];
+    await Promise.all(uniquePaths.map(path => res.revalidate(path)));
+
+    return res.json({ revalidated: true, slug, paths: uniquePaths });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
