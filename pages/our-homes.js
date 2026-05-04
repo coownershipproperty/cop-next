@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
+import { track } from '@vercel/analytics';
 
 /** Fisher-Yates shuffle — runs once at build time for a stable random order */
 function shuffle(arr) {
@@ -233,6 +234,12 @@ export default function OurHomes({ allProperties }) {
           maxPrice: alertMaxPrice || null,
         }),
       });
+      if (r.ok) {
+        track('property_alert_saved', {
+          regions: alertRegions.length > 0 ? alertRegions.join(', ') : 'All',
+          max_price: alertMaxPrice || 'unspecified',
+        });
+      }
       setAlertStatus(r.ok ? 'done' : 'error');
     } catch { setAlertStatus('error'); }
   }
