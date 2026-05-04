@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
+import destinationFaqs from '@/lib/destination-faqs.json';
 
 // ─── Destination → property filter map ───────────────────────────────────────
 const DEST_FILTERS = {
@@ -283,7 +284,24 @@ function formatPrice(price, currency) {
   return `${sym}${rounded.toLocaleString('en-GB')}`;
 }
 
-// ── FAQ extraction ────────────────────────────────────────────────────────────
+// ── Strip nested section by class (handles nested <section> tags) ─────────────
+function removeSectionByClass(html, cls) {
+  const re = new RegExp(`<section[^>]*class="[^"]*${cls}[^"]*"[^>]*>`);
+  const start = html.search(re);
+  if (start === -1) return html;
+  let depth = 0, i = start;
+  while (i < html.length) {
+    if (html.slice(i, i + 8) === '<section') depth++;
+    if (html.slice(i, i + 10) === '</section>') {
+      depth--;
+      if (depth === 0) return html.slice(0, start) + html.slice(i + 10);
+    }
+    i++;
+  }
+  return html;
+}
+
+// ── FAQ items for schema markup (reads from JSON data, falls back to HTML) ────
 function extractFaqItems(html) {
   const items = [];
   try {
@@ -433,13 +451,21 @@ export async function getStaticProps({ params }) {
   restHtml = restHtml.replace(/href="#contact"/g, 'href="#newsletter"');
   heroHtml = heroHtml.replace(/href="#contact"/g, 'href="#newsletter"');
 
+  // Strip old dest-faq-sec block (replaced by JSON-driven FAQ component)
+  restHtml = removeSectionByClass(restHtml, 'dest-faq-sec');
+
   // Inject internal links into content
   restHtml = injectInternalLinks(restHtml, slug);
 
   const related = (RELATED[slug] || []).map(s => ({ slug: s, label: destLabel(s) }));
 
-  // SEO: FAQ schema
-  const faqItems = extractFaqItems(rawHtml);
+  // FAQ data from JSON (accurate, SEO-rich content for all 48 destinations)
+  const faqData = destinationFaqs[slug] || null;
+
+  // SEO: FAQ schema items (from JSON data if available, else fallback to HTML extraction)
+  const faqItems = faqData
+    ? faqData.items.slice(0, 8).map(item => ({ question: item.q, answer: stripTags(item.a).slice(0, 500) }))
+    : extractFaqItems(rawHtml);
 
   // SEO: OG image from first matched property
   const FALLBACK_OG = 'https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg';
@@ -457,8 +483,8 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       slug, title, metaDesc, heroHtml, restHtml,
-      properties: matchedProps, related, faqItems, ogImage,
-      minPrice, minCurrency,
+      properties: matchedProps, related, faqItems, faqData,
+      ogImage, minPrice, minCurrency,
     },
   };
 }
@@ -466,8 +492,8 @@ export async function getStaticProps({ params }) {
 // ─── Page component ───────────────────────────────────────────────────────────
 export default function DestinationPage({
   slug, title, metaDesc, heroHtml, restHtml,
-  properties, related, faqItems, ogImage,
-  minPrice, minCurrency,
+  properties, related, faqItems, faqData,
+  ogImage, minPrice, minCurrency,
 }) {
   const canonicalUrl = `https://co-ownership-property.com/${slug}/`;
   const breadcrumbItems = buildBreadcrumbs(slug, title);
@@ -671,6 +697,24 @@ export default function DestinationPage({
 
       {/* Rest of editorial content (internal links injected at build time) */}
       <div dangerouslySetInnerHTML={{ __html: restHtml }} />
+
+      {/* ── FAQ section — rendered from destination-faqs.json using homepage design ── */}
+      {faqData && faqData.items && faqData.items.length > 0 && (
+        <section className="faq-section">
+          <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 3rem' }}>
+            <p className="faq-eyebrow">Questions &amp; Answers</p>
+            <h2 className="faq-heading">{faqData.title}</h2>
+            <div className="faq-list">
+              {faqData.items.map((item, i) => (
+                <details key={i} className="faq-item">
+                  <summary className="faq-q"><span>{item.q}</span></summary>
+                  <div className="faq-a" dangerouslySetInnerHTML={{ __html: item.a }} />
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Also Explore */}
       {related && related.length > 0 && (
