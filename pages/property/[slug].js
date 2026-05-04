@@ -3,6 +3,7 @@ import NextImage from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { trackConversion, fbqEvent } from '@/lib/gtag';
+import { track } from '@vercel/analytics';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import Header from '@/components/Header';
@@ -99,6 +100,11 @@ function EnquiryForm({ propertyTitle, propertyUrl }) {
           event_category: 'property_enquiry',
           property_title: propertyTitle,
         });
+        track('enquiry_submitted', {
+          source: 'property_page',
+          property: propertyTitle,
+          url: propertyUrl,
+        });
       }
       setStatus(r.ok ? 'done' : 'error');
     } catch { setStatus('error'); }
@@ -171,7 +177,12 @@ export default function PropertyPage({ property: p, similar }) {
   }, [p.slug]);
 
   function toggleSave() {
-    setSaved(toggleFav(p.slug));
+    const nowSaved = toggleFav(p.slug);
+    setSaved(nowSaved);
+    track(nowSaved ? 'favourite_added' : 'favourite_removed', {
+      property: p.title,
+      slug: p.slug,
+    });
   }
   // Mobile carousel: up to 3 photos + lock panel as last slide
   const mobileSlides = [
