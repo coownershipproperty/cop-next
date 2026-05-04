@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { trackConversion } from '@/lib/gtag';
+import { track } from '@vercel/analytics';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 
 export default function Newsletter() {
@@ -26,6 +27,7 @@ export default function Newsletter() {
         setStatus('success');
         setMsg('Thank you for subscribing!');
         trackConversion('sign_up', 'Lead', { method: 'newsletter' });
+        track('newsletter_signup', {});
       } else {
         setStatus('error');
         setMsg('Something went wrong. Please try again.');
