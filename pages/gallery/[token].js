@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { track } from '@vercel/analytics';
 import { createClient } from '@supabase/supabase-js';
 
 function getSupabase() {
@@ -166,7 +167,14 @@ export default function GalleryPage({ name, email, property }) {
           propertyUrl: `https://co-ownership-property.com/property/${property.slug}/`,
         }),
       });
-      if (res.ok) setSubmitted(true);
+      if (res.ok) {
+        setSubmitted(true);
+        track('enquiry_submitted', {
+          source: 'gallery_page',
+          property: property.title,
+          slug: property.slug,
+        });
+      }
       else setError('Something went wrong — please try again.');
     } catch {
       setError('Something went wrong — please try again.');
