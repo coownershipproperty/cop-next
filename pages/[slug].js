@@ -233,6 +233,23 @@ function destLabel(slug) {
     .trim();
 }
 
+// Same cluster map as our-homes — keeps region labels consistent across the site
+const FRANCE_CLUSTERS = [
+  { label: 'Paris',           regions: ['Paris'] },
+  { label: 'South of France', regions: ["Côte d'Azur"] },
+  { label: 'French Alps',     regions: ['French Alps', 'Portes du Soleil'] },
+];
+
+/** Returns the display label for a property's region, applying France clusters */
+function getRegionLabel(p) {
+  if (p.country === 'France' && p.region) {
+    for (const c of FRANCE_CLUSTERS) {
+      if (c.regions.includes(p.region)) return c.label;
+    }
+  }
+  return p.region || p.city || null;
+}
+
 function matchesFilter(prop, filter) {
   for (const [key, val] of Object.entries(filter)) {
     const propKey = key === 'cities' ? 'city' : key === 'regions' ? 'region' : key;
@@ -458,13 +475,13 @@ export default function DestinationPage({
   // ── Filter state ──────────────────────────────────────────────────────────
   const [activeFilter, setActiveFilter] = useState(null);
 
-  // Derive unique region/city values from the property list for filter chips
+  // Derive unique region display labels (applies France cluster mapping)
   const filterOptions = useMemo(() => {
     if (properties.length < 4) return [];
     const counts = {};
     for (const p of properties) {
-      const val = p.region || p.city;
-      if (val?.trim()) counts[val] = (counts[val] || 0) + 1;
+      const label = getRegionLabel(p);
+      if (label?.trim()) counts[label] = (counts[label] || 0) + 1;
     }
     const regions = Object.keys(counts).filter(r => counts[r] >= 1);
     if (regions.length < 2) return [];
@@ -472,7 +489,7 @@ export default function DestinationPage({
   }, [properties]);
 
   const displayedProperties = activeFilter
-    ? properties.filter(p => (p.region || p.city) === activeFilter)
+    ? properties.filter(p => getRegionLabel(p) === activeFilter)
     : properties;
 
   // ── Schemas ───────────────────────────────────────────────────────────────
@@ -544,45 +561,16 @@ export default function DestinationPage({
           />
         ))}
         <style>{`
-          /* ── Property count + filter chips ── */
-          .dest-props-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            padding: 20px 0 12px;
-          }
+          /* ── Property count strip ── */
           .dest-props-count {
             font-size: 14px;
             color: #777;
-            margin: 0;
+            margin: 0 0 20px;
+            padding-top: 20px;
           }
           .dest-props-count strong {
             color: #2C4A5E;
             font-weight: 600;
-          }
-          .dest-filter-chips {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-          }
-          .dest-chip {
-            padding: 5px 14px;
-            border-radius: 20px;
-            border: 1px solid #2C4A5E;
-            background: transparent;
-            color: #2C4A5E;
-            font-size: 13px;
-            cursor: pointer;
-            transition: background 0.18s, color 0.18s;
-            font-family: inherit;
-            line-height: 1.5;
-          }
-          .dest-chip:hover,
-          .dest-chip.active {
-            background: #2C4A5E;
-            color: #fff;
           }
           .dest-chip-clear {
             background: none;
@@ -609,41 +597,48 @@ export default function DestinationPage({
       {/* Hero */}
       <div dangerouslySetInnerHTML={{ __html: heroHtml }} />
 
+      {/* ── Filter bar — same design as Our Homes, shown when ≥2 region options ── */}
+      {properties.length > 0 && filterOptions.length >= 2 && (
+        <div className="filter-bar">
+          <div className="filter-row">
+            <span className="filter-label">Area</span>
+            <div className="filter-scroll-outer">
+              <div className="filter-scroll-wrap">
+                <button
+                  className={`filter-btn${!activeFilter ? ' active' : ''}`}
+                  onClick={() => setActiveFilter(null)}
+                >All</button>
+                {filterOptions.map(region => (
+                  <button
+                    key={region}
+                    className={`filter-btn${activeFilter === region ? ' active' : ''}`}
+                    onClick={() => setActiveFilter(region)}
+                  >{region}</button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Property grid */}
       <div className="dest-props-section">
         <div className="homes-grid-wrap">
 
-          {/* Count + price + filter chips */}
+          {/* Count + price */}
           {properties.length > 0 && (
-            <div className="dest-props-meta">
-              <p className="dest-props-count">
-                {activeFilter ? (
-                  <>{displayedProperties.length} of {properties.length} {properties.length === 1 ? 'property' : 'properties'}</>
-                ) : (
-                  <>
-                    {properties.length} {properties.length === 1 ? 'property' : 'properties'}
-                    {minPrice && (
-                      <> &middot; from <strong>{formatPrice(minPrice, minCurrency)}</strong></>
-                    )}
-                  </>
-                )}
-              </p>
-              {filterOptions.length >= 2 && (
-                <div className="dest-filter-chips">
-                  <button
-                    className={`dest-chip${!activeFilter ? ' active' : ''}`}
-                    onClick={() => setActiveFilter(null)}
-                  >All</button>
-                  {filterOptions.map(region => (
-                    <button
-                      key={region}
-                      className={`dest-chip${activeFilter === region ? ' active' : ''}`}
-                      onClick={() => setActiveFilter(region)}
-                    >{region}</button>
-                  ))}
-                </div>
+            <p className="dest-props-count">
+              {activeFilter ? (
+                <>{displayedProperties.length} of {properties.length} {properties.length === 1 ? 'property' : 'properties'}</>
+              ) : (
+                <>
+                  {properties.length} {properties.length === 1 ? 'property' : 'properties'}
+                  {minPrice && (
+                    <> &middot; from <strong>{formatPrice(minPrice, minCurrency)}</strong></>
+                  )}
+                </>
               )}
-            </div>
+            </p>
           )}
 
           {displayedProperties.length > 0 ? (
