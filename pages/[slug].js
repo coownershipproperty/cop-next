@@ -706,7 +706,7 @@ export default function DestinationPage({
             <h2 className="faq-heading">{faqData.title}</h2>
             <div className="faq-list">
               {faqData.items.map((item, i) => (
-                <details key={i} className="faq-item">
+                <details key={i} className="faq-item" style={{counterIncrement:'none'}}>
                   <summary className="faq-q"><span>{item.q}</span></summary>
                   <div className="faq-a" dangerouslySetInnerHTML={{ __html: item.a }} />
                 </details>
