@@ -340,9 +340,6 @@ export default function GalleryPage({ name, email, property }) {
           <a href="https://co-ownership-property.com" style={s.navLogo} className="gallery-nav-logo">
             Co-Ownership Property
           </a>
-          <a href={`https://co-ownership-property.com/property/${property.slug}/`} style={s.navLink} className="gallery-nav-link">
-            View Listing →
-          </a>
         </nav>
 
         {/* ── PROPERTY INFO (bottom left, photo slides only) ── */}
@@ -788,4 +785,3 @@ const s = {
     textTransform: 'uppercase', color: '#C9A84C', textDecoration: 'none',
   },
 };
-
