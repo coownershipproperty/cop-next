@@ -266,7 +266,7 @@ export default function GalleryPage({ name, email, property }) {
                 <p style={s.eProperty} className="gallery-e-property">{property.title}</p>
                 <div style={s.eRule} className="gallery-e-rule" />
                 <p style={s.eSub} className="gallery-e-sub">
-                  Leave your details and one of our specialists will reach out within a few hours.
+                  Leave your details and we'll be in touch.
                 </p>
 
                 {/* Mobile-only compact heading */}
@@ -322,16 +322,15 @@ export default function GalleryPage({ name, email, property }) {
                   <button type="submit" style={s.submitBtn} disabled={submitting}>
                     {submitting ? 'Sending…' : "I'm Interested — Get In Touch"}
                   </button>
-                  <p style={s.formNote} className="gallery-form-note">No obligation · We respond within a few hours</p>
+                  <p style={s.formNote} className="gallery-form-note">No obligation · We'll be in touch soon</p>
                 </form>
               </>
             ) : (
               <div style={{ textAlign: 'center', maxWidth: 480 }}>
                 <div style={s.successIcon}>✓</div>
-                <h2 style={s.successTitle}>We'll be in touch shortly</h2>
+                <h2 style={s.successTitle}>Thank you — we'll be in touch</h2>
                 <p style={s.successSub}>
-                  Thank you{firstName ? `, ${firstName}` : ''}. One of our specialists will reach out about{' '}
-                  <span style={{ color: '#C9A84C' }}>{property.title}</span> within a few hours.
+                  {firstName ? `${firstName}, your` : 'Your'} enquiry has been received. We'll be in touch shortly.
                 </p>
                 <a href={`https://co-ownership-property.com/property/${property.slug}/`} style={s.successLink}>
                   View the full listing →
