@@ -1,6 +1,10 @@
 {
   "crons": [
     {
+      "path": "/api/process-email-queue",
+      "schedule": "* * * * *"
+    },
+    {
       "path": "/api/refresh-rates",
       "schedule": "0 6 * * *"
     },
