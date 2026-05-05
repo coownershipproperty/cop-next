@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, logActivity, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
-import { sendTeamNotification } from '@/lib/resend';
+import { sendHtml, sendTeamNotification } from '@/lib/resend';
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
 const DYLAN_REPLY = 'dylan@co-ownership-property.com';
@@ -131,17 +131,19 @@ export default async function handler(req, res) {
     });
   } catch (e) { console.error('[Mail] team notification failed:', e.message); }
 
-  // ── Queue auto-reply (processed by /api/process-email-queue cron) ─────────
+  // ── Auto-reply: send directly (deduplication + follow-up) ─────────────────
   try {
     const since = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString();
     const { data: prev } = await db.from('email_queue')
       .select('id, template_props')
       .eq('to_email', email)
       .eq('trigger', 'gallery_autoreply')
+      .eq('status', 'sent')
       .gte('created_at', since)
       .order('created_at', { ascending: false });
 
     const alreadySentForThisProperty = (prev || []).some(r => r.template_props?.propertySlug === resolvedSlug);
+
     if (!alreadySentForThisProperty) {
       const prevReply = prev?.[0] || null;
       const isFollowUp = !!prevReply;
@@ -152,6 +154,10 @@ export default async function handler(req, res) {
         ? followUpHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl, prevPropertyTitle: prevReply.template_props?.propertyTitle })
         : firstReplyHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl });
 
+      // Send immediately — reliable, no cron dependency
+      await sendHtml({ to: email, subject, html, from: DYLAN_FROM, replyTo: DYLAN_REPLY });
+
+      // Log to email_queue for audit trail
       await db.from('email_queue').insert({
         to_email:       email,
         to_name:        name || null,
@@ -159,11 +165,11 @@ export default async function handler(req, res) {
         html,
         trigger:        'gallery_autoreply',
         template_props: { propertyTitle, propertySlug: resolvedSlug, propertyUrl, from: DYLAN_FROM, replyTo: DYLAN_REPLY },
-        status:         'pending',
-        send_after:     new Date(Date.now() + 30 * 1000).toISOString(),
+        status:         'sent',
+        sent_at:        new Date().toISOString(),
       });
     }
-  } catch (e) { console.error('[Queue] auto-reply queue failed:', e.message); }
+  } catch (e) { console.error('[Mail] auto-reply failed:', e.message); }
 
   return res.status(200).json({ ok: true });
 }
