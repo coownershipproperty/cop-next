@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "@/styles/locale-pages.css";
 import { Playfair_Display, Nunito_Sans } from 'next/font/google';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';

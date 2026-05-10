@@ -1,10 +1,45 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { getFavSlugs, onFavsChange } from '@/lib/favs';
+import { localeFromPath, t, SUPPORTED_LOCALES, localizedPath } from '@/lib/i18n';
+
+// Per-locale nav link tables. Slugs intentionally differ per locale (Spanish
+// keyword research wants /es/como-funciona/, French wants /fr/comment-ca-marche/,
+// etc.). Adding a new locale = add an entry here.
+const NAV_LINKS = {
+  en: [
+    { href: '/',              labelKey: 'nav.home' },
+    { href: '/our-homes',    labelKey: 'nav.our_homes' },
+    { href: '/how-it-works', labelKey: 'nav.how_it_works' },
+    { href: '/about-us',     labelKey: 'nav.about_us' },
+    { href: '/all-our-blog', labelKey: 'nav.blog' },
+    { href: '/favourites',   labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
+    { href: '/contact',      labelKey: 'nav.contact' },
+  ],
+  es: [
+    { href: '/es/',                  labelKey: 'nav.home' },
+    { href: '/es/propiedades/',      labelKey: 'nav.our_homes' },
+    { href: '/es/como-funciona/',    labelKey: 'nav.how_it_works' },
+    { href: '/es/quienes-somos/',    labelKey: 'nav.about_us' },
+    { href: '/es/blog/',             labelKey: 'nav.blog' },
+    { href: '/favourites',           labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
+    { href: '/es/contacto/',         labelKey: 'nav.contact' },
+  ],
+  fr: [
+    { href: '/fr/',                  labelKey: 'nav.home' },
+    { href: '/fr/proprietes/',       labelKey: 'nav.our_homes' },
+    { href: '/fr/comment-ca-marche/', labelKey: 'nav.how_it_works' },
+    { href: '/fr/a-propos/',         labelKey: 'nav.about_us' },
+    { href: '/fr/blog/',             labelKey: 'nav.blog' },
+    { href: '/favourites',           labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
+    { href: '/fr/contact/',          labelKey: 'nav.contact' },
+  ],
+};
 
 export default function Header() {
   const router = useRouter();
-  const path = router.pathname;
+  const path = router.asPath || router.pathname;
+  const locale = localeFromPath(path);
   const [menuOpen, setMenuOpen] = useState(false);
   const [favCount, setFavCount] = useState(0);
 
@@ -29,15 +64,8 @@ export default function Header() {
     return onFavsChange((slugs) => setFavCount(slugs.length));
   }, []);
 
-  const navLinks = [
-    { href: '/',              label: 'Home' },
-    { href: '/our-homes',    label: 'Our Homes' },
-    { href: '/how-it-works', label: 'How It Works' },
-    { href: '/about-us',     label: 'About Us' },
-    { href: '/all-our-blog', label: 'Our Blog' },
-    { href: '/favourites',   label: 'My Favourites', extra: 'cop-nav-favourites', badge: true },
-    { href: '/contact',      label: 'Contact' },
-  ];
+  const navLinks = NAV_LINKS[locale] || NAV_LINKS.en;
+  const homeHref = locale === 'en' ? '/' : `/${locale}/`;
 
   return (
     <>
@@ -54,8 +82,8 @@ export default function Header() {
 
         {/* Logo — centred on mobile via CSS */}
         <div className="cop-logo">
-          <a href="/" className="cop-logo-link">
-            <img src="/images/cop-logo.svg" alt="Co-Ownership Property" className="logo-dark" />
+          <a href={homeHref} className="cop-logo-link">
+            <img src="/images/cop-logo.svg" alt={t('site.brand', locale)} className="logo-dark" />
           </a>
         </div>
 
@@ -64,18 +92,21 @@ export default function Header() {
 
         {/* Nav — desktop: absolute centre; mobile: left drawer */}
         <nav className={`cop-nav${menuOpen ? ' active' : ''}`} id="cop-nav">
-          {navLinks.map(({ href, label, extra, badge }) => {
-            const isActive = path === href || (href !== '/' && path.startsWith(href));
+          {navLinks.map(({ href, labelKey, extra, badge }) => {
+            const isActive = path === href || (href !== homeHref && path.startsWith(href.replace(/\/$/, '')));
             const cls = [extra, isActive ? 'cop-nav-active' : ''].filter(Boolean).join(' ') || undefined;
             return (
               <a key={href} href={href} className={cls} onClick={() => setMenuOpen(false)}>
-                {label}
+                {t(labelKey, locale)}
                 {badge && favCount > 0 && (
                   <span className="cop-fav-badge">{favCount}</span>
                 )}
               </a>
             );
           })}
+
+          {/* Language switcher — minimal, low-prominence by design */}
+          <LanguageSwitcher currentLocale={locale} currentPath={path} />
         </nav>
       </header>
 
@@ -89,4 +120,33 @@ export default function Header() {
       )}
     </>
   );
+}
+
+function LanguageSwitcher({ currentLocale, currentPath }) {
+  // Strip locale prefix to get canonical English path for ROUTE_MAP lookup.
+  const englishPath = stripLocalePrefix(currentPath, currentLocale);
+
+  return (
+    <div className="cop-lang-switcher" aria-label="Language">
+      {SUPPORTED_LOCALES.map((loc) => {
+        if (loc === currentLocale) {
+          return <span key={loc} className="cop-lang-current">{loc.toUpperCase()}</span>;
+        }
+        // Try to find the equivalent localised path; fall back to locale home.
+        const target = localizedPath(englishPath, loc) || (loc === 'en' ? '/' : `/${loc}/`);
+        return (
+          <a key={loc} href={target} className="cop-lang-link" hrefLang={loc}>
+            {loc.toUpperCase()}
+          </a>
+        );
+      })}
+    </div>
+  );
+}
+
+function stripLocalePrefix(path, locale) {
+  if (locale === 'en') return path;
+  if (path.startsWith(`/${locale}/`)) return path.slice(locale.length + 1) || '/';
+  if (path === `/${locale}`) return '/';
+  return path;
 }

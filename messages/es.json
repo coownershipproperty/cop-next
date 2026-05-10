@@ -1,0 +1,42 @@
+{
+  "site": {
+    "brand": "Co-Ownership Property",
+    "tagline": "Independiente. Imparcial. Experto."
+  },
+  "nav": {
+    "home": "Inicio",
+    "our_homes": "Propiedades",
+    "how_it_works": "Cómo funciona",
+    "about_us": "Quiénes somos",
+    "blog": "Blog",
+    "favourites": "Mis favoritos",
+    "contact": "Contacto"
+  },
+  "footer": {
+    "discover_heading": "Descubre",
+    "destinations_heading": "Destinos",
+    "company_heading": "Empresa",
+    "support_heading": "Soporte",
+    "all_properties": "Todas las propiedades",
+    "about_cop": "Sobre COP",
+    "saved_properties": "Propiedades guardadas",
+    "get_in_touch": "Contacta con nosotros",
+    "faq": "Preguntas frecuentes",
+    "rights_reserved": "Todos los derechos reservados."
+  },
+  "common": {
+    "language_switcher_label": "Idioma",
+    "view_property": "Ver propiedad",
+    "from_price": "Desde",
+    "per_share": "por fracción 1/8",
+    "currency_eur": "EUR"
+  },
+  "homepage": {
+    "title_tag": "Copropiedad de lujo en España — Propiedad fraccionada en segunda residencia | COP",
+    "meta_description": "Descubre propiedades en copropiedad y propiedad fraccionada en Mallorca, Ibiza, Costa del Sol y otros destinos. Plataforma independiente que reúne a los principales operadores europeos.",
+    "hero_h1": "Su segunda residencia de lujo, por una fracción del precio",
+    "hero_subhead": "Una selección curada de viviendas en copropiedad por toda Europa. Independientes. Imparciales. Todos los operadores en un solo lugar.",
+    "hero_cta_primary": "Ver propiedades",
+    "hero_cta_secondary": "Cómo funciona"
+  }
+}

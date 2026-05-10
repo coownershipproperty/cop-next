@@ -1,0 +1,42 @@
+{
+  "site": {
+    "brand": "Co-Ownership Property",
+    "tagline": "Independent. Unbiased. Expert."
+  },
+  "nav": {
+    "home": "Home",
+    "our_homes": "Our Homes",
+    "how_it_works": "How It Works",
+    "about_us": "About Us",
+    "blog": "Our Blog",
+    "favourites": "My Favourites",
+    "contact": "Contact"
+  },
+  "footer": {
+    "discover_heading": "Discover",
+    "destinations_heading": "Destinations",
+    "company_heading": "Company",
+    "support_heading": "Support",
+    "all_properties": "All Properties",
+    "about_cop": "About COP",
+    "saved_properties": "Saved Properties",
+    "get_in_touch": "Get in Touch",
+    "faq": "FAQ",
+    "rights_reserved": "All rights reserved."
+  },
+  "common": {
+    "language_switcher_label": "Language",
+    "view_property": "View Property",
+    "from_price": "From",
+    "per_share": "per 1/8 share",
+    "currency_eur": "EUR"
+  },
+  "homepage": {
+    "title_tag": "Co-Ownership Property — Luxury Fractional Ownership Across Europe",
+    "meta_description": "Discover luxury co-ownership and fractional ownership properties across Spain, France, Italy and beyond. Independent, unbiased aggregator of Europe's leading co-ownership operators.",
+    "hero_h1": "Own a holiday home in Europe — for a fraction of the price",
+    "hero_subhead": "Browse curated co-ownership properties across Spain, France, Italy and more. Independent. Unbiased. One place for all the leading operators.",
+    "hero_cta_primary": "See properties",
+    "hero_cta_secondary": "How it works"
+  }
+}

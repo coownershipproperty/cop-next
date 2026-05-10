@@ -1,0 +1,42 @@
+{
+  "site": {
+    "brand": "Co-Ownership Property",
+    "tagline": "Indépendant. Impartial. Expert."
+  },
+  "nav": {
+    "home": "Accueil",
+    "our_homes": "Propriétés",
+    "how_it_works": "Comment ça marche",
+    "about_us": "À propos",
+    "blog": "Blog",
+    "favourites": "Mes favoris",
+    "contact": "Contact"
+  },
+  "footer": {
+    "discover_heading": "Découvrir",
+    "destinations_heading": "Destinations",
+    "company_heading": "Société",
+    "support_heading": "Support",
+    "all_properties": "Toutes les propriétés",
+    "about_cop": "À propos de COP",
+    "saved_properties": "Propriétés sauvegardées",
+    "get_in_touch": "Nous contacter",
+    "faq": "FAQ",
+    "rights_reserved": "Tous droits réservés."
+  },
+  "common": {
+    "language_switcher_label": "Langue",
+    "view_property": "Voir la propriété",
+    "from_price": "À partir de",
+    "per_share": "par part 1/8",
+    "currency_eur": "EUR"
+  },
+  "homepage": {
+    "title_tag": "Copropriété résidence secondaire — Maison de vacances en co-ownership | COP",
+    "meta_description": "Devenez copropriétaire d'une résidence secondaire de luxe en Espagne, France ou Italie. Plateforme indépendante regroupant les principaux opérateurs de copropriété européens.",
+    "hero_h1": "Devenez copropriétaire d'une résidence secondaire de luxe",
+    "hero_subhead": "Une sélection curatée de maisons de vacances en copropriété à travers l'Europe. Indépendant. Impartial. Tous les opérateurs réunis.",
+    "hero_cta_primary": "Voir les propriétés",
+    "hero_cta_secondary": "Comment ça marche"
+  }
+}

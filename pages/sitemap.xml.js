@@ -4,30 +4,57 @@ import { createClient } from '@supabase/supabase-js';
 
 const BASE = 'https://co-ownership-property.com';
 
-// Priority / changefreq config per route type
-const STATIC_PAGES = [
-  { url: '/',            priority: '1.0', changefreq: 'daily'   },
-  { url: '/our-homes/',  priority: '0.9', changefreq: 'daily'   },
-  { url: '/how-it-works/', priority: '0.8', changefreq: 'monthly' },
-  { url: '/about-us/',   priority: '0.7', changefreq: 'monthly' },
-  { url: '/all-our-blog/', priority: '0.8', changefreq: 'daily' },
-  { url: '/contact/',    priority: '0.6', changefreq: 'monthly' },
-  { url: '/buying-a-co-ownership-property-faqs/', priority: '0.7', changefreq: 'monthly' },
-  { url: '/staying-in-my-co-ownership-property-faqs/', priority: '0.6', changefreq: 'monthly' },
-  { url: '/our-mission/', priority: '0.5', changefreq: 'monthly' },
-  { url: '/ownership/',   priority: '0.5', changefreq: 'monthly' },
+// ── English static pages ──────────────────────────────────────────────────
+const STATIC_PAGES_EN = [
+  { url: '/',                                            priority: '1.0', changefreq: 'daily',   alternates: { en: '/', es: '/es/', fr: '/fr/' } },
+  { url: '/our-homes/',                                  priority: '0.9', changefreq: 'daily'   },
+  { url: '/how-it-works/',                               priority: '0.8', changefreq: 'monthly', alternates: { en: '/how-it-works/', es: '/es/como-funciona/', fr: '/fr/comment-ca-marche/' } },
+  { url: '/about-us/',                                   priority: '0.7', changefreq: 'monthly' },
+  { url: '/all-our-blog/',                               priority: '0.8', changefreq: 'daily'   },
+  { url: '/contact/',                                    priority: '0.6', changefreq: 'monthly' },
+  { url: '/buying-a-co-ownership-property-faqs/',        priority: '0.7', changefreq: 'monthly' },
+  { url: '/staying-in-my-co-ownership-property-faqs/',   priority: '0.6', changefreq: 'monthly' },
+  { url: '/our-mission/',                                priority: '0.5', changefreq: 'monthly' },
+  { url: '/ownership/',                                  priority: '0.5', changefreq: 'monthly' },
   // /favourites/ intentionally excluded — noindex personal page
+];
+
+// ── Spanish locale static pages ───────────────────────────────────────────
+const STATIC_PAGES_ES = [
+  { url: '/es/',                priority: '0.9', changefreq: 'daily'   },
+  { url: '/es/copropiedad/',    priority: '0.9', changefreq: 'monthly' }, // pillar — high priority
+  // Pages added as they ship:
+  // { url: '/es/como-funciona/',  priority: '0.8', changefreq: 'monthly' },
+  // { url: '/es/propiedades/',    priority: '0.8', changefreq: 'daily'   },
+  // { url: '/es/blog/copropiedad-vs-multipropiedad/', priority: '0.7', changefreq: 'monthly' },
+];
+
+// ── French locale static pages ────────────────────────────────────────────
+const STATIC_PAGES_FR = [
+  { url: '/fr/',                                       priority: '0.9', changefreq: 'daily'   },
+  { url: '/fr/copropriete-residence-secondaire/',     priority: '0.9', changefreq: 'monthly' }, // pillar — high priority
+  // Pages added as they ship:
+  // { url: '/fr/comment-ca-marche/',                   priority: '0.8', changefreq: 'monthly' },
+  // { url: '/fr/proprietes/',                          priority: '0.8', changefreq: 'daily'   },
+  // { url: '/fr/blog/copropriete-vs-multipropriete/',  priority: '0.7', changefreq: 'monthly' },
+  // { url: '/fr/blog/acheter-residence-secondaire-a-plusieurs/', priority: '0.7', changefreq: 'monthly' },
 ];
 
 function xmlEscape(str) {
   return str.replace(/&/g, '&amp;').replace(/'/g, '&apos;').replace(/"/g, '&quot;').replace(/>/g, '&gt;').replace(/</g, '&lt;');
 }
 
-function urlEntry(loc, priority, changefreq, lastmod) {
+// Single URL entry with optional <xhtml:link> alternates for hreflang.
+function urlEntry(loc, priority, changefreq, lastmod, alternates) {
+  const altLinks = alternates
+    ? Object.entries(alternates).map(([locale, path]) =>
+        `\n    <xhtml:link rel="alternate" hreflang="${locale}" href="${xmlEscape(BASE + path)}" />`
+      ).join('')
+    : '';
   return `  <url>
     <loc>${xmlEscape(loc)}</loc>
     <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
+    <priority>${priority}</priority>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}${altLinks}
   </url>`;
 }
 
@@ -56,8 +83,14 @@ export async function getServerSideProps({ res }) {
   const today = new Date().toISOString().split('T')[0];
 
   const urls = [
-    // Static pages
-    ...STATIC_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
+    // English static pages (with hreflang alternates where available)
+    ...STATIC_PAGES_EN.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq, null, p.alternates)),
+
+    // Spanish locale pages
+    ...STATIC_PAGES_ES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
+
+    // French locale pages
+    ...STATIC_PAGES_FR.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
 
     // Destination pages
     ...destSlugs.map(slug =>
@@ -75,8 +108,9 @@ export async function getServerSideProps({ res }) {
     ),
   ];
 
+  // xmlns:xhtml namespace required for the <xhtml:link> alternate tags.
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls.join('\n')}
 </urlset>`;
 

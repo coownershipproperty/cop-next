@@ -1,11 +1,71 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import { createClient } from '@supabase/supabase-js';
 import { FEATURED_PROPERTY_SLUGS } from '@/lib/featured-properties';
+import { localeFromPath } from '@/lib/i18n';
+
+// Locale-aware UI strings for the blog template chrome (sidebar, back link,
+// related-posts heading, etc.). The post body itself is rendered from the
+// locale-specific content_{es,fr} column where available, falling back to
+// the English content for posts that haven't been translated yet.
+const COPY = {
+  en: {
+    featured_heading: 'Featured Homes',
+    featured_from: 'From',
+    browse_all_homes: 'Browse all homes',
+    quick_links_heading: 'Quick Links',
+    ql_browse: 'Browse all properties',
+    ql_how: 'How co-ownership works',
+    ql_more: 'More articles',
+    ql_contact: 'Speak to COP',
+    related_eyebrow: 'Similar Posts',
+    related_heading: 'More from Co-Ownership Property',
+    back_link: '← Back to Blog',
+  },
+  es: {
+    featured_heading: 'Propiedades destacadas',
+    featured_from: 'Desde',
+    browse_all_homes: 'Ver todas las propiedades',
+    quick_links_heading: 'Enlaces rápidos',
+    ql_browse: 'Ver todas las propiedades',
+    ql_how: 'Cómo funciona la copropiedad',
+    ql_more: 'Más artículos',
+    ql_contact: 'Habla con COP',
+    related_eyebrow: 'Publicaciones relacionadas',
+    related_heading: 'Más de Co-Ownership Property',
+    back_link: '← Volver al blog',
+  },
+  fr: {
+    featured_heading: 'Propriétés en vedette',
+    featured_from: 'À partir de',
+    browse_all_homes: 'Voir toutes les propriétés',
+    quick_links_heading: 'Liens rapides',
+    ql_browse: 'Voir toutes les propriétés',
+    ql_how: 'Comment fonctionne la copropriété',
+    ql_more: "Plus d'articles",
+    ql_contact: 'Parler à COP',
+    related_eyebrow: 'Articles similaires',
+    related_heading: 'Plus de Co-Ownership Property',
+    back_link: '← Retour au blog',
+  },
+};
+
+function useLocaleFromCookie(initialFromRouter) {
+  const [locale, setLocale] = useState(initialFromRouter);
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const m = document.cookie.match(/(?:^|; )cop_locale=(en|es|fr)/);
+    if (m && m[1] !== locale) setLocale(m[1]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return locale;
+}
 
 function getSupabase() {
   return createClient(
@@ -156,17 +216,26 @@ export async function getStaticProps({ params }) {
     } catch (_) { return { notFound: true }; }
   }
 
-  // Normalise field names
+  // Normalise field names — preserve _es/_fr translation columns alongside
+  // the English originals so the page can swap based on the visitor's locale.
   const post = {
     slug:          postRow.slug,
     title:         postRow.title,
+    title_es:      postRow.title_es || null,
+    title_fr:      postRow.title_fr || null,
     category:      postRow.category,
     date:          postRow.date,
     dateFormatted: postRow.date_formatted,
     subtitle:      postRow.subtitle,
+    subtitle_es:   postRow.subtitle_es || null,
+    subtitle_fr:   postRow.subtitle_fr || null,
     excerpt:       postRow.excerpt,
+    excerpt_es:    postRow.excerpt_es || null,
+    excerpt_fr:    postRow.excerpt_fr || null,
     heroImage:     postRow.hero_image,
     content:       postRow.content || '',
+    content_es:    postRow.content_es || null,
+    content_fr:    postRow.content_fr || null,
   };
 
   // Legacy imported posts can contain inline two-column grids; tag them so CSS can stack them on mobile.
@@ -210,12 +279,14 @@ export async function getStaticProps({ params }) {
 
   const { data: featuredRows } = await supabase
     .from('properties')
-    .select('slug, title, img, price, currency, city, region, country')
+    .select('slug, title, title_es, title_fr, img, price, currency, city, region, country')
     .in('slug', FEATURED_PROPERTY_SLUGS);
 
   const featuredProperties = pickSidebarProperties(featuredRows, post).map(p => ({
     slug: p.slug,
     title: p.title,
+    title_es: p.title_es || null,
+    title_fr: p.title_fr || null,
     img: p.img,
     price: formatPropertyPrice(p.price, p.currency),
     location: formatPropertyLocation(p),
@@ -225,19 +296,29 @@ export async function getStaticProps({ params }) {
 }
 
 export default function BlogPost({ post, relatedPosts = [], featuredProperties = [] }) {
+  const router = useRouter();
+  const locale = useLocaleFromCookie(localeFromPath(router.asPath || router.pathname));
+  const t = COPY[locale] || COPY.en;
+
+  // Pick the localised version of each post field; fall back to English.
+  const title    = post[`title_${locale}`]    || post.title;
+  const subtitle = post[`subtitle_${locale}`] || post.subtitle;
+  const excerpt  = post[`excerpt_${locale}`]  || post.excerpt;
+  const content  = post[`content_${locale}`]  || post.content;
+
   const canonicalUrl = `https://co-ownership-property.com/blog/${post.slug}/`;
   const visibleRelatedPosts = relatedPosts.slice(0, 3);
 
   return (
     <>
       <Head>
-        <title>{`${post.title} | Co-Ownership Property`}</title>
-        <meta name="description" content={post.excerpt || post.subtitle || post.title} />
+        <title>{`${title} | Co-Ownership Property`}</title>
+        <meta name="description" content={excerpt || subtitle || title} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={canonicalUrl} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt || post.subtitle} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={excerpt || subtitle} />
         {post.heroImage && <meta property="og:image" content={post.heroImage} />}
         <meta property="og:type" content="article" />
         <meta property="og:url" content={canonicalUrl} />
@@ -245,8 +326,8 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "headline": post.title,
-          "description": post.excerpt || post.subtitle || '',
+          "headline": title,
+          "description": excerpt || subtitle || '',
           "image": post.heroImage || '',
           "url": canonicalUrl,
           "datePublished": post.date || '',
@@ -269,8 +350,8 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
       <div className="bh-header">
         <div className="bh-header-inner">
           {post.category && <p className="bh-cat">{post.category}</p>}
-          <h1 className="bh-title">{post.title}</h1>
-          {post.subtitle && <p className="bh-sub">{post.subtitle}</p>}
+          <h1 className="bh-title">{title}</h1>
+          {subtitle && <p className="bh-sub">{subtitle}</p>}
           {post.dateFormatted && <p className="bh-date">{post.dateFormatted}</p>}
         </div>
       </div>
@@ -281,7 +362,7 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
           <div className="bh-image">
             <Image
               src={post.heroImage}
-              alt={post.title}
+              alt={title}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 1200px"
@@ -296,50 +377,53 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
         <main className="blog-main">
           <article
             className="blog-article"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: content }}
           />
         </main>
 
         <aside className="blog-sidebar" aria-label="Article sidebar">
           {featuredProperties.length > 0 && (
             <section className="bsb-section">
-              <h2 className="bsb-heading">Featured Homes</h2>
-              {featuredProperties.map(property => (
-                <a key={property.slug} href={`/property/${property.slug}/`} className="bsb-prop-card">
-                  <span className="bsb-prop-img-wrap">
-                    <Image
-                      src={property.img}
-                      alt={property.title}
-                      fill
-                      sizes="320px"
-                      style={{ objectFit: 'cover' }}
-                    />
-                  </span>
-                  <span className="bsb-prop-body">
-                    {property.location && <span className="bsb-prop-loc">{property.location}</span>}
-                    <span className="bsb-prop-title">{property.title}</span>
-                    {property.price && <span className="bsb-prop-price">From {property.price}</span>}
-                  </span>
-                </a>
-              ))}
-              <a className="bsb-view-all" href="/our-homes/">Browse all homes</a>
+              <h2 className="bsb-heading">{t.featured_heading}</h2>
+              {featuredProperties.map(property => {
+                const propTitle = property[`title_${locale}`] || property.title;
+                return (
+                  <a key={property.slug} href={`/property/${property.slug}/`} className="bsb-prop-card">
+                    <span className="bsb-prop-img-wrap">
+                      <Image
+                        src={property.img}
+                        alt={propTitle}
+                        fill
+                        sizes="320px"
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </span>
+                    <span className="bsb-prop-body">
+                      {property.location && <span className="bsb-prop-loc">{property.location}</span>}
+                      <span className="bsb-prop-title">{propTitle}</span>
+                      {property.price && <span className="bsb-prop-price">{t.featured_from} {property.price}</span>}
+                    </span>
+                  </a>
+                );
+              })}
+              <a className="bsb-view-all" href="/our-homes/">{t.browse_all_homes}</a>
             </section>
           )}
 
           <section className="bsb-section">
-            <h2 className="bsb-heading">Quick Links</h2>
-            <a className="bsb-dest-link" href="/our-homes/">Browse all properties <span>→</span></a>
-            <a className="bsb-dest-link" href="/how-it-works/">How co-ownership works <span>→</span></a>
-            <a className="bsb-dest-link" href="/all-our-blog/">More articles <span>→</span></a>
-            <a className="bsb-dest-link" href="/contact/">Speak to COP <span>→</span></a>
+            <h2 className="bsb-heading">{t.quick_links_heading}</h2>
+            <a className="bsb-dest-link" href="/our-homes/">{t.ql_browse} <span>→</span></a>
+            <a className="bsb-dest-link" href={locale === 'es' ? '/es/copropiedad/' : locale === 'fr' ? '/fr/copropriete-residence-secondaire/' : '/how-it-works/'}>{t.ql_how} <span>→</span></a>
+            <a className="bsb-dest-link" href="/all-our-blog/">{t.ql_more} <span>→</span></a>
+            <a className="bsb-dest-link" href="/contact/">{t.ql_contact} <span>→</span></a>
           </section>
         </aside>
       </div>
 
       {visibleRelatedPosts.length > 0 && (
         <section className="blog-related">
-          <p className="blog-related-eyebrow">Similar Posts</p>
-          <h2>More from Co-Ownership Property</h2>
+          <p className="blog-related-eyebrow">{t.related_eyebrow}</p>
+          <h2>{t.related_heading}</h2>
           <div className="blog-related-grid">
             {visibleRelatedPosts.map(related => (
               <a key={related.slug} href={`/blog/${related.slug}/`} className="blog-related-card">
@@ -369,7 +453,7 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
 
       {/* Breadcrumb back */}
       <div className="blog-back-wrap">
-        <a href="/all-our-blog/" className="blog-back-link">← Back to Blog</a>
+        <a href="/all-our-blog/" className="blog-back-link">{t.back_link}</a>
       </div>
 
       <Newsletter />
