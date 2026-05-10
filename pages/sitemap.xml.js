@@ -9,9 +9,9 @@ const STATIC_PAGES_EN = [
   { url: '/',                                            priority: '1.0', changefreq: 'daily',   alternates: { en: '/', es: '/es/', fr: '/fr/' } },
   { url: '/our-homes/',                                  priority: '0.9', changefreq: 'daily'   },
   { url: '/how-it-works/',                               priority: '0.8', changefreq: 'monthly', alternates: { en: '/how-it-works/', es: '/es/como-funciona/', fr: '/fr/comment-ca-marche/' } },
-  { url: '/about-us/',                                   priority: '0.7', changefreq: 'monthly' },
+  { url: '/about-us/',                                   priority: '0.7', changefreq: 'monthly', alternates: { en: '/about-us/', es: '/es/quienes-somos/', fr: '/fr/a-propos/' } },
   { url: '/all-our-blog/',                               priority: '0.8', changefreq: 'daily'   },
-  { url: '/contact/',                                    priority: '0.6', changefreq: 'monthly' },
+  { url: '/contact/',                                    priority: '0.6', changefreq: 'monthly', alternates: { en: '/contact/', es: '/es/contacto/', fr: '/fr/contact/' } },
   { url: '/buying-a-co-ownership-property-faqs/',        priority: '0.7', changefreq: 'monthly' },
   { url: '/staying-in-my-co-ownership-property-faqs/',   priority: '0.6', changefreq: 'monthly' },
   { url: '/our-mission/',                                priority: '0.5', changefreq: 'monthly' },
@@ -22,9 +22,11 @@ const STATIC_PAGES_EN = [
 // ── Spanish locale static pages ───────────────────────────────────────────
 const STATIC_PAGES_ES = [
   { url: '/es/',                priority: '0.9', changefreq: 'daily'   },
-  { url: '/es/copropiedad/',    priority: '0.9', changefreq: 'monthly' }, // pillar — high priority
-  // Pages added as they ship:
-  // { url: '/es/como-funciona/',  priority: '0.8', changefreq: 'monthly' },
+  { url: '/es/copropiedad/',    priority: '0.9', changefreq: 'monthly' }, // pillar
+  { url: '/es/como-funciona/',  priority: '0.8', changefreq: 'monthly' },
+  { url: '/es/quienes-somos/',  priority: '0.7', changefreq: 'monthly' },
+  { url: '/es/contacto/',       priority: '0.6', changefreq: 'monthly' },
+  // Coming soon:
   // { url: '/es/propiedades/',    priority: '0.8', changefreq: 'daily'   },
   // { url: '/es/blog/copropiedad-vs-multipropiedad/', priority: '0.7', changefreq: 'monthly' },
 ];
@@ -32,9 +34,11 @@ const STATIC_PAGES_ES = [
 // ── French locale static pages ────────────────────────────────────────────
 const STATIC_PAGES_FR = [
   { url: '/fr/',                                       priority: '0.9', changefreq: 'daily'   },
-  { url: '/fr/copropriete-residence-secondaire/',     priority: '0.9', changefreq: 'monthly' }, // pillar — high priority
-  // Pages added as they ship:
-  // { url: '/fr/comment-ca-marche/',                   priority: '0.8', changefreq: 'monthly' },
+  { url: '/fr/copropriete-residence-secondaire/',     priority: '0.9', changefreq: 'monthly' }, // pillar
+  { url: '/fr/comment-ca-marche/',                    priority: '0.8', changefreq: 'monthly' },
+  { url: '/fr/a-propos/',                             priority: '0.7', changefreq: 'monthly' },
+  { url: '/fr/contact/',                              priority: '0.6', changefreq: 'monthly' },
+  // Coming soon:
   // { url: '/fr/proprietes/',                          priority: '0.8', changefreq: 'daily'   },
   // { url: '/fr/blog/copropriete-vs-multipropriete/',  priority: '0.7', changefreq: 'monthly' },
   // { url: '/fr/blog/acheter-residence-secondaire-a-plusieurs/', priority: '0.7', changefreq: 'monthly' },
