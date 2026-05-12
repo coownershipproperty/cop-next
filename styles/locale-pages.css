@@ -46,14 +46,27 @@
 
 @media (max-width: 900px) {
   .cop-lang-switcher {
-    margin-left: 0;
-    padding-left: 0;
+    /* Inside the mobile drawer the switcher needs to be a full-width flex
+       row so justify-content has space to distribute. inline-flex shrinks
+       to the content and would leave the chips stuck to whichever edge. */
+    display: flex !important;
+    width: 100%;
+    margin: 1.5rem 0 0;
+    padding: 0;
     border-left: 0;
-    margin-top: 1.5rem;
     justify-content: center;
+    gap: 0.6rem;
   }
   .cop-lang-link,
-  .cop-lang-current { font-size: 0.95rem; padding: 0.5rem 0.85rem; }
+  .cop-lang-current {
+    /* Even chip sizing so EN/ES/FR don't drift apart visually when one is
+       highlighted (gold background) and the others are plain text. */
+    flex: 0 0 auto;
+    min-width: 4rem;
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.85rem;
+  }
 }
 
 /* ── Pillar / long-form article pages (/es/copropiedad/, /fr/copropriete-…/) */
