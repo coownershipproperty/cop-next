@@ -34,13 +34,14 @@
 /* Visually muted state used when a locale has no equivalent page to switch to;
    tooltip explains why. No hover effect — it isn't clickable. */
 .cop-lang-link.cop-lang-unavailable {
-  color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.4);
   cursor: not-allowed;
   text-decoration: line-through;
+  text-decoration-color: rgba(255,255,255,0.6);
 }
 .cop-lang-link.cop-lang-unavailable:hover {
   background: transparent;
-  color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.4);
 }
 
 @media (max-width: 900px) {

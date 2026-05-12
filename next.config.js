@@ -823,4 +823,18 @@ nextConfig.headers = async () => [
   },
 ];
 
+// Locale wrappers for the blog: /es/blog/* and /fr/blog/* render the same
+// underlying components as /all-our-blog and /blog/[slug], but the components
+// detect the locale from router.asPath and render translated content.
+nextConfig.rewrites = async () => [
+  { source: '/es/blog/',          destination: '/all-our-blog/' },
+  { source: '/es/blog',           destination: '/all-our-blog' },
+  { source: '/fr/blog/',          destination: '/all-our-blog/' },
+  { source: '/fr/blog',           destination: '/all-our-blog' },
+  { source: '/es/blog/:slug/',    destination: '/blog/:slug/' },
+  { source: '/es/blog/:slug',     destination: '/blog/:slug' },
+  { source: '/fr/blog/:slug/',    destination: '/blog/:slug/' },
+  { source: '/fr/blog/:slug',     destination: '/blog/:slug' },
+];
+
 module.exports = nextConfig;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.cop.gitlockcleaner</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/sh</string>
+        <string>/Users/didiolsson/code/cop-next/scripts/cleanup-git-locks.sh</string>
+    </array>
+
+    <!-- Run every 30 seconds -->
+    <key>StartInterval</key>
+    <integer>30</integer>
+
+    <!-- Run once at load time too -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Where launchd writes the script's stdout/stderr if anything goes wrong -->
+    <key>StandardOutPath</key>
+    <string>/tmp/cop-gitlockcleaner.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/cop-gitlockcleaner.err.log</string>
+</dict>
+</plist>

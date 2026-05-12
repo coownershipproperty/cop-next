@@ -240,7 +240,7 @@ export async function getStaticProps({ params }) {
   // Related posts: prefer same category, then fill with recent posts.
   const { data: categoryRelatedRows } = await supabase
     .from('posts')
-    .select('slug, title, category, date_formatted, hero_image')
+    .select('slug, title, title_es, title_fr, category, date_formatted, hero_image')
     .eq('published', true)
     .neq('slug', params.slug)
     .eq('category', post.category)
@@ -253,7 +253,7 @@ export async function getStaticProps({ params }) {
     const usedSlugs = new Set([params.slug, ...relatedRows.map(p => p.slug)]);
     const { data: fallbackRows } = await supabase
       .from('posts')
-      .select('slug, title, category, date_formatted, hero_image')
+      .select('slug, title, title_es, title_fr, category, date_formatted, hero_image')
       .eq('published', true)
       .neq('slug', params.slug)
       .order('date', { ascending: false })
@@ -266,7 +266,7 @@ export async function getStaticProps({ params }) {
   }
 
   const relatedPosts = relatedRows.map(p => ({
-    slug: p.slug, title: p.title, category: p.category,
+    slug: p.slug, title: p.title, title_es: p.title_es || null, title_fr: p.title_fr || null, category: p.category,
     dateFormatted: p.date_formatted, heroImage: p.hero_image,
   }));
 
@@ -299,7 +299,11 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
   const excerpt  = post[`excerpt_${locale}`]  || post.excerpt;
   const content  = post[`content_${locale}`]  || post.content;
 
-  const canonicalUrl = `https://co-ownership-property.com/blog/${post.slug}/`;
+  // Canonical URL is per-locale so search engines treat /blog/<slug>,
+  // /es/blog/<slug> and /fr/blog/<slug> as separate language variants
+  // rather than duplicate content.
+  const blogPathPrefix = locale === 'en' ? '/blog' : `/${locale}/blog`;
+  const canonicalUrl = `https://co-ownership-property.com${blogPathPrefix}/${post.slug}/`;
   const visibleRelatedPosts = relatedPosts.slice(0, 3);
 
   return (
@@ -405,10 +409,10 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
 
           <section className="bsb-section">
             <h2 className="bsb-heading">{t.quick_links_heading}</h2>
-            <a className="bsb-dest-link" href="/our-homes/">{t.ql_browse} <span>→</span></a>
+            <a className="bsb-dest-link" href={locale === 'es' ? '/es/propiedades/' : locale === 'fr' ? '/fr/proprietes/' : '/our-homes/'}>{t.ql_browse} <span>→</span></a>
             <a className="bsb-dest-link" href={locale === 'es' ? '/es/copropiedad/' : locale === 'fr' ? '/fr/copropriete-residence-secondaire/' : '/how-it-works/'}>{t.ql_how} <span>→</span></a>
-            <a className="bsb-dest-link" href="/all-our-blog/">{t.ql_more} <span>→</span></a>
-            <a className="bsb-dest-link" href="/contact/">{t.ql_contact} <span>→</span></a>
+            <a className="bsb-dest-link" href={locale === 'es' ? '/es/blog/' : locale === 'fr' ? '/fr/blog/' : '/all-our-blog/'}>{t.ql_more} <span>→</span></a>
+            <a className="bsb-dest-link" href={locale === 'es' ? '/es/contacto/' : locale === 'fr' ? '/fr/contact/' : '/contact/'}>{t.ql_contact} <span>→</span></a>
           </section>
         </aside>
       </div>
@@ -419,13 +423,13 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
           <h2>{t.related_heading}</h2>
           <div className="blog-related-grid">
             {visibleRelatedPosts.map(related => (
-              <a key={related.slug} href={`/blog/${related.slug}/`} className="blog-related-card">
+              <a key={related.slug} href={`${locale === 'en' ? '/blog' : `/${locale}/blog`}/${related.slug}/`} className="blog-related-card">
                 <span className="blog-related-img">
                   {related.heroImage
                     ? (
                       <Image
                         src={related.heroImage}
-                        alt={related.title}
+                        alt={related[`title_${locale}`] || related.title}
                         fill
                         sizes="(max-width: 900px) 100vw, 33vw"
                         style={{ objectFit: 'cover' }}
@@ -436,7 +440,7 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
                 </span>
                 <span className="blog-related-body">
                   {related.category && <span className="blog-related-cat">{related.category}</span>}
-                  <span className="blog-related-title">{related.title}</span>
+                  <span className="blog-related-title">{related[`title_${locale}`] || related.title}</span>
                 </span>
               </a>
             ))}
@@ -446,7 +450,7 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
 
       {/* Breadcrumb back */}
       <div className="blog-back-wrap">
-        <a href="/all-our-blog/" className="blog-back-link">{t.back_link}</a>
+        <a href={locale === 'es' ? '/es/blog/' : locale === 'fr' ? '/fr/blog/' : '/all-our-blog/'} className="blog-back-link">{t.back_link}</a>
       </div>
 
       <Newsletter />
