@@ -4,59 +4,132 @@ import { createClient } from '@supabase/supabase-js';
 
 const BASE = 'https://co-ownership-property.com';
 
-// ── English static pages ──────────────────────────────────────────────────
-const STATIC_PAGES_EN = [
-  { url: '/',                                            priority: '1.0', changefreq: 'daily',   alternates: { en: '/', es: '/es/', fr: '/fr/' } },
-  { url: '/our-homes/',                                  priority: '0.9', changefreq: 'daily',   alternates: { en: '/our-homes/', es: '/es/propiedades/', fr: '/fr/proprietes/' } },
-  { url: '/how-it-works/',                               priority: '0.8', changefreq: 'monthly', alternates: { en: '/how-it-works/', es: '/es/como-funciona/', fr: '/fr/comment-ca-marche/' } },
-  { url: '/about-us/',                                   priority: '0.7', changefreq: 'monthly', alternates: { en: '/about-us/', es: '/es/quienes-somos/', fr: '/fr/a-propos/' } },
-  { url: '/all-our-blog/',                               priority: '0.8', changefreq: 'daily'   },
-  { url: '/contact/',                                    priority: '0.6', changefreq: 'monthly', alternates: { en: '/contact/', es: '/es/contacto/', fr: '/fr/contact/' } },
-  { url: '/buying-a-co-ownership-property-faqs/',        priority: '0.7', changefreq: 'monthly' },
-  { url: '/staying-in-my-co-ownership-property-faqs/',   priority: '0.6', changefreq: 'monthly' },
-  { url: '/our-mission/',                                priority: '0.5', changefreq: 'monthly' },
-  { url: '/ownership/',                                  priority: '0.5', changefreq: 'monthly' },
+// ──────────────────────────────────────────────────────────────────────────
+// PAGE GROUPS — pages that exist in two or three locales. Each group emits
+// one <url> per locale that's defined, and every entry carries the full
+// hreflang set (reciprocal alternates) so Google treats them as siblings
+// rather than near-duplicates.
+// ──────────────────────────────────────────────────────────────────────────
+const PAGE_GROUPS = [
+  {
+    en: '/',
+    es: '/es/',
+    fr: '/fr/',
+    priority: '1.0',
+    changefreq: 'daily',
+  },
+  {
+    en: '/our-homes/',
+    es: '/es/propiedades/',
+    fr: '/fr/proprietes/',
+    priority: '0.9',
+    changefreq: 'daily',
+  },
+  {
+    en: '/how-it-works/',
+    es: '/es/como-funciona/',
+    fr: '/fr/comment-ca-marche/',
+    priority: '0.8',
+    changefreq: 'monthly',
+  },
+  {
+    en: '/about-us/',
+    es: '/es/quienes-somos/',
+    fr: '/fr/a-propos/',
+    priority: '0.7',
+    changefreq: 'monthly',
+  },
+  {
+    en: '/contact/',
+    es: '/es/contacto/',
+    fr: '/fr/contact/',
+    priority: '0.6',
+    changefreq: 'monthly',
+  },
+  {
+    en: '/all-our-blog/',
+    es: '/es/blog/',
+    fr: '/fr/blog/',
+    priority: '0.8',
+    changefreq: 'daily',
+  },
+  {
+    en: '/buying-a-co-ownership-property-faqs/',
+    es: '/es/comprar-copropiedad-preguntas-frecuentes/',
+    fr: '/fr/acheter-copropriete-questions-frequentes/',
+    priority: '0.7',
+    changefreq: 'monthly',
+  },
+  {
+    en: '/staying-in-my-co-ownership-property-faqs/',
+    es: '/es/disfrutar-copropiedad-preguntas-frecuentes/',
+    fr: '/fr/profiter-copropriete-questions-frequentes/',
+    priority: '0.6',
+    changefreq: 'monthly',
+  },
+];
+
+// ──────────────────────────────────────────────────────────────────────────
+// LOCALE-ONLY pages — pillar content commissioned per-language for SEO,
+// with no direct English equivalent. No hreflang alternates emitted.
+// ──────────────────────────────────────────────────────────────────────────
+const LOCALE_ONLY_PAGES = [
+  // Spanish pillar + SEO posts
+  { url: '/es/copropiedad/',                          priority: '0.9',  changefreq: 'monthly' },
+  { url: '/es/blog/copropiedad-vs-multipropiedad/',   priority: '0.85', changefreq: 'monthly' },
+  { url: '/es/blog/guia-comprar-copropiedad-espana/', priority: '0.85', changefreq: 'monthly' },
+  // French pillar + SEO posts
+  { url: '/fr/copropriete-residence-secondaire/',                priority: '0.9',  changefreq: 'monthly' },
+  { url: '/fr/blog/acheter-residence-secondaire-a-plusieurs/',   priority: '0.85', changefreq: 'monthly' },
+  { url: '/fr/blog/copropriete-vs-multipropriete/',              priority: '0.8',  changefreq: 'monthly' },
+];
+
+// ──────────────────────────────────────────────────────────────────────────
+// English-only pages that don't have locale variants (yet).
+// ──────────────────────────────────────────────────────────────────────────
+const EN_ONLY_PAGES = [
+  { url: '/our-mission/',  priority: '0.5', changefreq: 'monthly' },
+  { url: '/ownership/',    priority: '0.5', changefreq: 'monthly' },
   // /favourites/ intentionally excluded — noindex personal page
 ];
 
-// ── Spanish locale static pages ───────────────────────────────────────────
-const STATIC_PAGES_ES = [
-  { url: '/es/',                priority: '0.9', changefreq: 'daily'   },
-  { url: '/es/copropiedad/',    priority: '0.9', changefreq: 'monthly' }, // pillar
-  { url: '/es/como-funciona/',  priority: '0.8', changefreq: 'monthly' },
-  { url: '/es/quienes-somos/',  priority: '0.7', changefreq: 'monthly' },
-  { url: '/es/contacto/',       priority: '0.6', changefreq: 'monthly' },
-  { url: '/es/blog/copropiedad-vs-multipropiedad/', priority: '0.8', changefreq: 'monthly' }, // featured-snippet target
-  { url: '/es/propiedades/',                        priority: '0.9',  changefreq: 'daily'   }, // localised listings
-  { url: '/es/destinos/mallorca/',                  priority: '0.85', changefreq: 'weekly' }, // top destination
-  { url: '/es/destinos/ibiza/',                     priority: '0.85', changefreq: 'weekly' }, // top destination
-  // Coming soon:
-  // { url: '/es/blog/guia-comprar-copropiedad-espana/', priority: '0.7', changefreq: 'monthly' },
+// ──────────────────────────────────────────────────────────────────────────
+// Destinations — only Mallorca and Ibiza exist in ES/FR. Other English
+// destinations stay English-only.
+// ──────────────────────────────────────────────────────────────────────────
+const DESTINATION_GROUPS = [
+  {
+    en: '/destinations/mallorca/',
+    es: '/es/destinos/mallorca/',
+    fr: '/fr/destinations/mallorque/',
+    priority: '0.85',
+    changefreq: 'weekly',
+  },
+  {
+    en: '/destinations/ibiza/',
+    es: '/es/destinos/ibiza/',
+    fr: '/fr/destinations/ibiza/',
+    priority: '0.85',
+    changefreq: 'weekly',
+  },
 ];
 
-// ── French locale static pages ────────────────────────────────────────────
-const STATIC_PAGES_FR = [
-  { url: '/fr/',                                              priority: '0.9', changefreq: 'daily'   },
-  { url: '/fr/copropriete-residence-secondaire/',            priority: '0.9', changefreq: 'monthly' }, // pillar
-  { url: '/fr/comment-ca-marche/',                           priority: '0.8', changefreq: 'monthly' },
-  { url: '/fr/a-propos/',                                    priority: '0.7', changefreq: 'monthly' },
-  { url: '/fr/contact/',                                     priority: '0.6', changefreq: 'monthly' },
-  { url: '/fr/blog/acheter-residence-secondaire-a-plusieurs/', priority: '0.85', changefreq: 'monthly' }, // Prello orphan — highest-value FR target
-  { url: '/fr/blog/copropriete-vs-multipropriete/',          priority: '0.8', changefreq: 'monthly' }, // featured-snippet target
-  { url: '/fr/proprietes/',                                  priority: '0.9',  changefreq: 'daily'   }, // localised listings
-  { url: '/fr/destinations/mallorque/',                      priority: '0.85', changefreq: 'weekly' }, // top destination FR
-  { url: '/fr/destinations/ibiza/',                          priority: '0.85', changefreq: 'weekly' }, // top destination FR
-];
-
+// ──────────────────────────────────────────────────────────────────────────
+// Helpers
+// ──────────────────────────────────────────────────────────────────────────
 function xmlEscape(str) {
-  return str.replace(/&/g, '&amp;').replace(/'/g, '&apos;').replace(/"/g, '&quot;').replace(/>/g, '&gt;').replace(/</g, '&lt;');
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/'/g, '&apos;')
+    .replace(/"/g, '&quot;')
+    .replace(/>/g, '&gt;')
+    .replace(/</g, '&lt;');
 }
 
-// Single URL entry with optional <xhtml:link> alternates for hreflang.
 function urlEntry(loc, priority, changefreq, lastmod, alternates) {
   const altLinks = alternates
-    ? Object.entries(alternates).map(([locale, path]) =>
-        `\n    <xhtml:link rel="alternate" hreflang="${locale}" href="${xmlEscape(BASE + path)}" />`
+    ? Object.entries(alternates).map(([locale, p]) =>
+        `\n    <xhtml:link rel="alternate" hreflang="${locale}" href="${xmlEscape(BASE + p)}" />`
       ).join('')
     : '';
   return `  <url>
@@ -66,6 +139,21 @@ function urlEntry(loc, priority, changefreq, lastmod, alternates) {
   </url>`;
 }
 
+// Emit one <url> per locale defined in the group. Every entry carries the
+// same hreflang set so all variants point to each other.
+function emitGroup(group, lastmod) {
+  const alternates = {};
+  for (const locale of ['en', 'es', 'fr']) {
+    if (group[locale]) alternates[locale] = group[locale];
+  }
+  return Object.keys(alternates).map(locale =>
+    urlEntry(`${BASE}${group[locale]}`, group.priority, group.changefreq, lastmod, alternates)
+  );
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Sitemap
+// ──────────────────────────────────────────────────────────────────────────
 export async function getServerSideProps({ res }) {
   const cwd = process.cwd();
 
@@ -79,41 +167,67 @@ export async function getServerSideProps({ res }) {
     .select('slug, date_added')
     .order('date_added', { ascending: false });
 
-  // Blog posts
+  // Blog posts (from static JSON for stability)
   const posts = JSON.parse(fs.readFileSync(path.join(cwd, 'lib', 'posts.json'), 'utf-8'));
 
-  // Destination slugs
+  // English destination slugs (other than mallorca/ibiza which are in DESTINATION_GROUPS)
   const destDir = path.join(cwd, 'content', 'destinations');
   const destSlugs = fs.readdirSync(destDir)
     .filter(f => f.endsWith('.html'))
-    .map(f => f.replace('.html', ''));
+    .map(f => f.replace('.html', ''))
+    .filter(slug => slug !== 'mallorca' && slug !== 'ibiza');
 
   const today = new Date().toISOString().split('T')[0];
 
   const urls = [
-    // English static pages (with hreflang alternates where available)
-    ...STATIC_PAGES_EN.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq, null, p.alternates)),
+    // Locale-paired static pages
+    ...PAGE_GROUPS.flatMap(g => emitGroup(g)),
 
-    // Spanish locale pages
-    ...STATIC_PAGES_ES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
+    // English-only static pages
+    ...EN_ONLY_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
 
-    // French locale pages
-    ...STATIC_PAGES_FR.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
+    // Locale-only pillar + SEO content (no hreflang alternates)
+    ...LOCALE_ONLY_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
 
-    // Destination pages
+    // Destinations that have all three locales (Mallorca, Ibiza)
+    ...DESTINATION_GROUPS.flatMap(g => emitGroup(g)),
+
+    // English-only destinations
     ...destSlugs.map(slug =>
-      urlEntry(`${BASE}/${slug}/`, '0.8', 'weekly')
+      urlEntry(`${BASE}/destinations/${slug}/`, '0.8', 'weekly')
     ),
 
-    // Property pages — from Supabase (always reflects current slugs)
-    ...(properties || []).map(p =>
-      urlEntry(`${BASE}/property/${p.slug}/`, '0.7', 'weekly', p.date_added ? p.date_added.split('T')[0] : today)
-    ),
+    // Property detail pages — emit EN / ES / FR with reciprocal hreflang
+    ...(properties || []).flatMap(p => {
+      const altset = {
+        en: `/property/${p.slug}/`,
+        es: `/es/propiedades/${p.slug}/`,
+        fr: `/fr/proprietes/${p.slug}/`,
+      };
+      const lastmod = p.date_added ? p.date_added.split('T')[0] : today;
+      return [
+        urlEntry(`${BASE}${altset.en}`, '0.7', 'weekly', lastmod, altset),
+        urlEntry(`${BASE}${altset.es}`, '0.7', 'weekly', lastmod, altset),
+        urlEntry(`${BASE}${altset.fr}`, '0.7', 'weekly', lastmod, altset),
+      ];
+    }),
 
-    // Blog posts
-    ...posts.map(p =>
-      urlEntry(`${BASE}/blog/${p.slug}/`, '0.6', 'never', p.date || today)
-    ),
+    // Blog posts — emit EN / ES / FR with reciprocal hreflang. Bodies are
+    // translated for the top-9 most-recent; the rest serve EN content under
+    // localised chrome + translated title/excerpt, which is enough for
+    // indexing and signals the page exists in the visitor's language.
+    ...posts.flatMap(p => {
+      const altset = {
+        en: `/blog/${p.slug}/`,
+        es: `/es/blog/${p.slug}/`,
+        fr: `/fr/blog/${p.slug}/`,
+      };
+      return [
+        urlEntry(`${BASE}${altset.en}`, '0.6', 'never', p.date || today, altset),
+        urlEntry(`${BASE}${altset.es}`, '0.6', 'never', p.date || today, altset),
+        urlEntry(`${BASE}${altset.fr}`, '0.6', 'never', p.date || today, altset),
+      ];
+    }),
   ];
 
   // xmlns:xhtml namespace required for the <xhtml:link> alternate tags.
