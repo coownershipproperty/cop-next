@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { getFavSlugs, onFavsChange } from '@/lib/favs';
-import { localeFromPath, t, SUPPORTED_LOCALES, localizedPath } from '@/lib/i18n';
+import { localeFromPath, t, SUPPORTED_LOCALES, localizedPath, canonicalEnglishKey } from '@/lib/i18n';
 
 // Per-locale nav link tables. Slugs intentionally differ per locale (Spanish
 // keyword research wants /es/como-funciona/, French wants /fr/comment-ca-marche/,
@@ -127,8 +127,10 @@ export default function Header() {
 }
 
 function LanguageSwitcher({ currentLocale, currentPath }) {
-  // Strip locale prefix to get canonical English path for ROUTE_MAP lookup.
-  const englishPath = stripLocalePrefix(currentPath, currentLocale);
+  // Resolve the canonical English ROUTE_MAP key. We try a reverse lookup
+  // first (so /fr/proprietes/ correctly maps to /our-homes), and fall back
+  // to a naive prefix strip for any page that lives outside ROUTE_MAP.
+  const englishPath = canonicalEnglishKey(currentPath) || stripLocalePrefix(currentPath, currentLocale);
 
   // Tooltip shown when a target locale has no equivalent page for the user
   // to switch to (e.g. clicking ES on an English-only blog post).
