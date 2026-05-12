@@ -17,12 +17,19 @@ export default function AdminIndex() {
   const [partnerFilter, setPartnerFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
   const [partners, setPartners] = useState([])
+  // Sort options:
+  //   'newest'      — date_added DESC (default; matches the SQL order)
+  //   'oldest'      — date_added ASC
+  //   'price_desc'  — most expensive first
+  //   'price_asc'   — cheapest first
+  //   'title_asc'   — alphabetical
+  const [sortBy, setSortBy] = useState('newest')
 
   useEffect(() => {
     supabase
       .from('properties')
-      .select('slug,title,city,country,price,currency,beds,status,partner,img,extra_photos,total_images')
-      .order('date_added', { ascending: false })
+      .select('slug,title,city,country,price,currency,beds,status,partner,img,extra_photos,total_images,date_added,created_at')
+      .order('date_added', { ascending: false, nullsFirst: false })
       .then(({ data }) => {
         setProperties(data || [])
         setPartners([...new Set((data || []).map(p => p.partner).filter(Boolean))])
@@ -39,8 +46,27 @@ export default function AdminIndex() {
     )
     if (partnerFilter) result = result.filter(p => p.partner === partnerFilter)
     if (statusFilter) result = result.filter(p => p.status === statusFilter)
-    setFiltered(result)
-  }, [properties, search, partnerFilter, statusFilter])
+
+    // Apply sort. The clone keeps the source array stable so subsequent
+    // changes don't re-sort an already-sorted slice.
+    const sorted = [...result]
+    const dateVal = (p) => p.date_added || p.created_at || ''
+    if (sortBy === 'newest')      sorted.sort((a, b) => dateVal(b).localeCompare(dateVal(a)))
+    if (sortBy === 'oldest')      sorted.sort((a, b) => dateVal(a).localeCompare(dateVal(b)))
+    if (sortBy === 'price_desc')  sorted.sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0))
+    if (sortBy === 'price_asc')   sorted.sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0))
+    if (sortBy === 'title_asc')   sorted.sort((a, b) => (a.title || '').localeCompare(b.title || ''))
+
+    setFiltered(sorted)
+  }, [properties, search, partnerFilter, statusFilter, sortBy])
+
+  // Format a date as "8 May" / "26 Apr" — short, locale-stable.
+  const formatAddedDate = (value) => {
+    if (!value) return null
+    const d = new Date(value)
+    if (Number.isNaN(d.getTime())) return null
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+  }
 
   const inputStyle = {
     border: '1px solid #e8e0d4',
@@ -99,6 +125,18 @@ export default function AdminIndex() {
           <option value="for_sale">For sale</option>
           <option value="sold">Sold</option>
           <option value="hidden">Hidden</option>
+        </select>
+        <select
+          value={sortBy}
+          onChange={e => setSortBy(e.target.value)}
+          style={inputStyle}
+          title="Sort order"
+        >
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="price_desc">Price: high to low</option>
+          <option value="price_asc">Price: low to high</option>
+          <option value="title_asc">Title: A → Z</option>
         </select>
       </div>
 
@@ -228,11 +266,26 @@ export default function AdminIndex() {
                         {st.label}
                       </span>
                     </div>
-                    {p.total_images > 0 && (
-                      <p style={{ fontSize: 11, color: '#bdb5aa', marginTop: 6 }}>
-                        {p.total_images} photos
-                      </p>
-                    )}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: 6,
+                      gap: 8,
+                    }}>
+                      <span style={{ fontSize: 11, color: '#bdb5aa' }}>
+                        {p.total_images > 0 ? `${p.total_images} photos` : ''}
+                      </span>
+                      {formatAddedDate(p.date_added || p.created_at) && (
+                        <span style={{
+                          fontSize: 11,
+                          color: '#8a9aaa',
+                          fontWeight: 600,
+                        }}>
+                          Added {formatAddedDate(p.date_added || p.created_at)}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </Link>
