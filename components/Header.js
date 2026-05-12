@@ -130,14 +130,37 @@ function LanguageSwitcher({ currentLocale, currentPath }) {
   // Strip locale prefix to get canonical English path for ROUTE_MAP lookup.
   const englishPath = stripLocalePrefix(currentPath, currentLocale);
 
+  // Tooltip shown when a target locale has no equivalent page for the user
+  // to switch to (e.g. clicking ES on an English-only blog post).
+  const NOT_AVAILABLE_LABEL = {
+    en: 'Not yet available in English',
+    es: 'Aún no disponible en español',
+    fr: 'Pas encore disponible en français',
+  };
+
   return (
     <div className="cop-lang-switcher" aria-label="Language">
       {SUPPORTED_LOCALES.map((loc) => {
         if (loc === currentLocale) {
           return <span key={loc} className="cop-lang-current">{loc.toUpperCase()}</span>;
         }
-        // Try to find the equivalent localised path; fall back to locale home.
-        const target = localizedPath(englishPath, loc) || (loc === 'en' ? '/' : `/${loc}/`);
+        // Only render a real link if there's an explicit translation for this
+        // page. Otherwise render a visually-muted span — better than
+        // silently dumping the visitor onto the locale homepage, which is a
+        // completely different context.
+        const target = localizedPath(englishPath, loc);
+        if (!target) {
+          return (
+            <span
+              key={loc}
+              className="cop-lang-link cop-lang-unavailable"
+              title={NOT_AVAILABLE_LABEL[loc]}
+              aria-disabled="true"
+            >
+              {loc.toUpperCase()}
+            </span>
+          );
+        }
         return (
           <a key={loc} href={target} className="cop-lang-link" hrefLang={loc}>
             {loc.toUpperCase()}

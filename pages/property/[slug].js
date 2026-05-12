@@ -94,18 +94,16 @@ const COPY = {
   },
 };
 
-// Detect locale from cookie (set by middleware) on mount. The page is statically
-// pre-rendered in English; the locale-aware text swap happens after hydration
-// to keep static caching intact for SEO crawlers.
+// Locale comes from URL path only — never from a cookie. The canonical
+// /property/<slug>/ URL is English; Spanish/French versions live at
+// /es/propiedades/<slug>/ and /fr/proprietes/<slug>/ via the locale-prefixed
+// wrappers, which pass forceLocale in.
+//
+// Cookie-based detection was removed because a stale cookie (from an earlier
+// session or the old geo-redirect) silently rendered Spanish content on the
+// English URL.
 function useLocaleFromCookie(initialFromRouter) {
-  const [locale, setLocale] = useState(initialFromRouter);
-  useEffect(() => {
-    if (typeof document === 'undefined') return;
-    const m = document.cookie.match(/(?:^|; )cop_locale=(en|es|fr)/);
-    if (m && m[1] !== locale) setLocale(m[1]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  return locale;
+  return initialFromRouter;
 }
 
 function getSupabase() {

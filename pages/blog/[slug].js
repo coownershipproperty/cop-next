@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -56,16 +55,10 @@ const COPY = {
   },
 };
 
-function useLocaleFromCookie(initialFromRouter) {
-  const [locale, setLocale] = useState(initialFromRouter);
-  useEffect(() => {
-    if (typeof document === 'undefined') return;
-    const m = document.cookie.match(/(?:^|; )cop_locale=(en|es|fr)/);
-    if (m && m[1] !== locale) setLocale(m[1]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  return locale;
-}
+// Locale is derived from the URL path only — never from a cookie. A page at
+// /blog/<slug>/ is the canonical English version regardless of any cookie
+// value left over from the visitor's earlier browsing. Spanish/French blog
+// posts live at /es/blog/<slug>/ and /fr/blog/<slug>/ respectively.
 
 function getSupabase() {
   return createClient(
@@ -297,7 +290,7 @@ export async function getStaticProps({ params }) {
 
 export default function BlogPost({ post, relatedPosts = [], featuredProperties = [] }) {
   const router = useRouter();
-  const locale = useLocaleFromCookie(localeFromPath(router.asPath || router.pathname));
+  const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
 
   // Pick the localised version of each post field; fall back to English.
