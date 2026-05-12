@@ -13,6 +13,13 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import { t } from '@/lib/i18n';
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function interp(s: string, vars?: Record<string, string>) {
+  if (!s || !vars) return s;
+  return s.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? vars[k] : `{${k}}`));
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface NurtureDay14Props {
@@ -20,6 +27,7 @@ interface NurtureDay14Props {
   propertyTitle?: string;
   propertyUrl?: string;
   unsubscribeUrl?: string;
+  locale?: 'en' | 'es' | 'fr';
 }
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
@@ -34,34 +42,31 @@ const C = {
 
 const base = 'https://co-ownership-property.com';
 
-const faqs = [
-  {
-    n: '1',
-    title: 'What exactly do I own?',
-    body:  'You own a legal deeded share of the property, registered in your name. This is a genuine real-estate asset — not a timeshare or points-based scheme.',
-  },
-  {
-    n: '2',
-    title: 'What if I want to sell my share?',
-    body:  'You can sell at any time on the open market, just like any other property. There are no lock-in periods and no restrictions on resale.',
-  },
-  {
-    n: '3',
-    title: 'Are there hidden costs?',
-    body:  'Running costs — maintenance, insurance, management — are shared equally between owners and are fully disclosed upfront. There are no surprises.',
-  },
-];
-
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function NurtureDay14({
   firstName,
   propertyTitle,
   propertyUrl,
   unsubscribeUrl = '#',
+  locale = 'en',
 }: NurtureDay14Props) {
+  const tr = (key: string, vars?: Record<string, string>) => {
+    const v = t(`emails.${key}`, locale);
+    return vars ? interp(v, vars) : v;
+  };
+
+  const htmlLang = tr('common.html_lang') || 'en';
+  const localePath = locale === 'en' ? '' : `/${locale}`;
+  const pt = propertyTitle || '';
+
+  const faqs = [
+    { n: '1', title: tr('nurture_day14.faq1_title'), body: tr('nurture_day14.faq1_body') },
+    { n: '2', title: tr('nurture_day14.faq2_title'), body: tr('nurture_day14.faq2_body') },
+    { n: '3', title: tr('nurture_day14.faq3_title'), body: tr('nurture_day14.faq3_body') },
+  ];
 
   return (
-    <Html lang="en">
+    <Html lang={htmlLang}>
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -73,7 +78,7 @@ export default function NurtureDay14({
         `}</style>
       </Head>
 
-      <Preview>Still thinking it over? Here's what other buyers wanted to know first.</Preview>
+      <Preview>{tr('nurture_day14.preview')}</Preview>
 
       <Body style={body}>
 
@@ -91,15 +96,11 @@ export default function NurtureDay14({
           <Container style={wrap}>
             <Section style={{ padding: '52px 0 0' }}>
 
-              <Heading style={mainHeading}>
-                A Few Things Worth Knowing Before You Decide
-              </Heading>
+              <Heading style={mainHeading}>{tr('nurture_day14.main_heading')}</Heading>
               <Hr style={goldBar} />
 
-              <Text style={bodyText}>Hi {firstName},</Text>
-              <Text style={bodyText}>
-                I know buying a share in a property is a significant decision, and it's not one to rush. I wanted to share a few things that often help people feel more confident before they take the next step.
-              </Text>
+              <Text style={bodyText}>{tr('nurture_day14.greeting', { firstName: firstName || '' })}</Text>
+              <Text style={bodyText}>{tr('nurture_day14.intro_body')}</Text>
 
             </Section>
           </Container>
@@ -130,9 +131,7 @@ export default function NurtureDay14({
         <Section style={{ backgroundColor: C.cream }}>
           <Container style={wrap}>
             <Section style={{ padding: '8px 0 40px' }}>
-              <Text style={bodyText}>
-                If you'd like to talk it through, just reply to this email. No obligation — genuinely.
-              </Text>
+              <Text style={bodyText}>{tr('nurture_day14.closing_body')}</Text>
             </Section>
           </Container>
         </Section>
@@ -141,32 +140,30 @@ export default function NurtureDay14({
         <Section style={{ backgroundColor: C.cream, paddingBottom: 32 }}>
           <Container style={wrap}>
             <Hr style={{ borderColor: C.border, margin: '0 0 28px' }} />
-            <Text style={signOffBody}>
-              If any of these resonate, or if you have a destination in mind that we haven't listed, reply to this email — our team typically responds within minutes.
-            </Text>
+            <Text style={signOffBody}>{tr('nurture_day14.signoff_body')}</Text>
             <Hr style={goldRule} />
-            <Text style={signOffName}>The Co-Ownership Property Team</Text>
+            <Text style={signOffName}>{tr('common.team_signoff')}</Text>
             <Text style={signOffSite}>co-ownership-property.com</Text>
           </Container>
         </Section>
 
         {/* ── PROPERTY LINK ── */}
-        <Section style={{ backgroundColor: C.cream, paddingBottom: 24 }}>
-          <Container style={wrap}>
-            <Text style={propLinkText}>
-              <Link href={propertyUrl} style={propLink}>
-                Or view {propertyTitle} one more time →
-              </Link>
-            </Text>
-          </Container>
-        </Section>
+        {propertyUrl && propertyTitle && (
+          <Section style={{ backgroundColor: C.cream, paddingBottom: 24 }}>
+            <Container style={wrap}>
+              <Text style={propLinkText}>
+                <Link href={propertyUrl} style={propLink}>
+                  {tr('nurture_day14.view_again', { propertyTitle: pt })}
+                </Link>
+              </Text>
+            </Container>
+          </Section>
+        )}
 
         {/* ── QUIET CLOSE ── */}
         <Section style={{ backgroundColor: C.cream, paddingBottom: 56 }}>
           <Container style={wrap}>
-            <Text style={quietClose}>
-              If now isn't the right time, that's completely fine. We'll be here when you're ready.
-            </Text>
+            <Text style={quietClose}>{tr('nurture_day14.quiet_close')}</Text>
           </Container>
         </Section>
 
@@ -176,20 +173,18 @@ export default function NurtureDay14({
             <Text style={footLogo}>Co-Ownership Property</Text>
             <Section style={footGoldRule} />
             <Text style={footLinks}>
-              <Link href={`${base}/our-homes/`} style={footLink}>Properties</Link>
+              <Link href={`${base}${localePath}/our-homes/`} style={footLink}>{tr('common.footer_our_homes')}</Link>
               {'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
+              <Link href={`${base}${localePath}/how-it-works/`} style={footLink}>{tr('common.footer_how_it_works')}</Link>
               {'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Our Blog</Link>
+              <Link href={`${base}${localePath}/all-our-blog/`} style={footLink}>{tr('common.footer_blog')}</Link>
               {'  ·  '}
-              <Link href={unsubscribeUrl} style={footLink}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={footLink}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
             <Hr style={footDivider} />
+            <Text style={footFine}>{tr('nurture_day14.footer_fine_print')}</Text>
             <Text style={footFine}>
-              You're receiving this email because you enquired about a co-ownership property.
-            </Text>
-            <Text style={footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>

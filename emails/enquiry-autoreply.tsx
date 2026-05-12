@@ -15,6 +15,7 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import { t } from '@/lib/i18n';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface MatchingProperty {
@@ -36,7 +37,11 @@ interface EnquiryAutoreplyProps {
   budget?: string;
   matchingProperties?: MatchingProperty[];
   trackingPixelHtml?: string;
+  locale?: 'en' | 'es' | 'fr';
 }
+
+const interp = (s: string, vars: Record<string, string>): string =>
+  s.replace(/\{(\w+)\}/g, (_, k) => (vars[k] != null ? vars[k] : `{${k}}`));
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
 const C = {
@@ -62,6 +67,7 @@ export default function EnquiryAutoreply({
   budget,
   matchingProperties = [],
   trackingPixelHtml,
+  locale = 'en',
 }: EnquiryAutoreplyProps) {
 
   // Split property title at em dash for location / name display
@@ -69,12 +75,18 @@ export default function EnquiryAutoreply({
   const propLocation = dashIdx > -1 ? propertyTitle?.slice(0, dashIdx).trim() : null;
   const propName     = dashIdx > -1 ? propertyTitle?.slice(dashIdx + 1).trim() : propertyTitle;
 
+  const tr = (key: string, vars?: Record<string, string>) => {
+    const v = t(`emails.${key}`, locale);
+    return vars ? interp(v, vars) : v;
+  };
+  const htmlLang = tr('common.html_lang') || 'en';
+
   const previewText = propertyTitle
-    ? `We've received your enquiry about ${propertyTitle} and will be in touch shortly.`
-    : "We've received your enquiry and will be in touch shortly.";
+    ? tr('enquiry_autoreply.preview_property', { propertyTitle })
+    : tr('enquiry_autoreply.preview_general');
 
   return (
-    <Html lang="en">
+    <Html lang={htmlLang}>
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -103,12 +115,14 @@ export default function EnquiryAutoreply({
         <Section style={heroSection}>
           <Container style={wrapBody}>
             <Text style={greeting}>
-              {firstName ? `Dear ${firstName},` : 'Dear Friend,'}
+              {firstName
+                ? tr('enquiry_autoreply.greeting_name', { firstName })
+                : tr('enquiry_autoreply.greeting_no_name')}
             </Text>
             <Text style={introText}>
               {propertyTitle
-                ? "Thank you for your interest. We've received your enquiry and will be in touch shortly."
-                : "Thank you for getting in touch. We've received your message and will be in touch shortly."}
+                ? tr('enquiry_autoreply.intro_property')
+                : tr('enquiry_autoreply.intro_general')}
             </Text>
           </Container>
         </Section>
@@ -117,18 +131,18 @@ export default function EnquiryAutoreply({
         {!propertyTitle && (destination || budget) && (
           <Section style={summarySection}>
             <Container style={wrapBody}>
-              <Text style={summaryEyebrow}>Your enquiry details</Text>
+              <Text style={summaryEyebrow}>{tr('enquiry_autoreply.summary_eyebrow')}</Text>
               <Section style={goldRuleCenter} />
               <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 20 }}>
                 {destination && (
                   <tr>
-                    <td style={summaryLabel}>Destination</td>
+                    <td style={summaryLabel}>{tr('enquiry_autoreply.summary_destination')}</td>
                     <td style={summaryValue}>{destination}</td>
                   </tr>
                 )}
                 {budget && (
                   <tr>
-                    <td style={summaryLabel}>Budget</td>
+                    <td style={summaryLabel}>{tr('enquiry_autoreply.summary_budget')}</td>
                     <td style={summaryValue}>{budget}</td>
                   </tr>
                 )}
@@ -178,22 +192,22 @@ export default function EnquiryAutoreply({
           <Container style={wrapBody}>
             {driveUrl ? (
               <>
-                <Text style={ctaLabel}>Your exclusive access</Text>
+                <Text style={ctaLabel}>{tr('enquiry_autoreply.cta_label_drive')}</Text>
                 <Section style={{ textAlign: 'center' as const }}>
                   <Button href={driveUrl} style={ctaButtonNavy}>
-                    View Floor Plans &amp; Gallery
+                    {tr('enquiry_autoreply.cta_button_drive')}
                   </Button>
                 </Section>
                 <Text style={ctaSubLink}>
-                  <Link href={`${base}/our-homes/`} style={subtleLink}>Browse Our Homes →</Link>
+                  <Link href={`${base}/our-homes/`} style={subtleLink}>{tr('enquiry_autoreply.cta_browse_link')}</Link>
                 </Text>
               </>
             ) : (
               <>
-                <Text style={ctaLabel}>In the meantime</Text>
+                <Text style={ctaLabel}>{tr('enquiry_autoreply.cta_label_no_drive')}</Text>
                 <Section style={{ textAlign: 'center' as const }}>
                   <Button href={`${base}/our-homes/`} style={ctaButtonGold}>
-                    Browse Our Homes
+                    {tr('enquiry_autoreply.cta_button_no_drive')}
                   </Button>
                 </Section>
               </>
@@ -206,10 +220,10 @@ export default function EnquiryAutoreply({
           <Container style={wrapBody}>
             <Hr style={thinDivider} />
             <Text style={replyText}>
-              Have more questions? Simply reply to this email — we're always happy to help.
+              {tr('enquiry_autoreply.reply_text')}
             </Text>
             <Hr style={goldAccentRule} />
-            <Text style={signoffName}>The Co-Ownership Property Team</Text>
+            <Text style={signoffName}>{tr('common.team_signoff')}</Text>
             <Text style={signoffSite}>
               <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
             </Text>
@@ -220,7 +234,7 @@ export default function EnquiryAutoreply({
         {matchingProperties.length > 0 && (
           <Section style={similarSection}>
             <Container style={wrap}>
-              <Text style={sectionEyebrow}>Available Now</Text>
+              <Text style={sectionEyebrow}>{tr('enquiry_autoreply.section_available_now')}</Text>
               <Hr style={goldBarLeft} />
               {matchingProperties.map((p, i) => (
                 <Section key={i} style={propCard}>
@@ -251,12 +265,12 @@ export default function EnquiryAutoreply({
                       </Link>
                       {(p.beds > 0 || p.size > 0) && (
                         <Text style={cardStats}>
-                          {p.beds > 0 ? `${p.beds} Beds` : ''}{p.beds > 0 && p.size > 0 ? ' · ' : ''}{p.size > 0 ? `${p.size} m²` : ''}
+                          {p.beds > 0 ? `${p.beds} ${tr('common.card_beds')}` : ''}{p.beds > 0 && p.size > 0 ? ' · ' : ''}{p.size > 0 ? `${p.size} m²` : ''}
                         </Text>
                       )}
                       {p.price && <Text style={cardPrice}>{p.price}</Text>}
                       <Link href={`${base}/property/${p.slug}`} style={viewPropLink}>
-                        View Property →
+                        {tr('common.card_view_property')}
                       </Link>
                     </Column>
                   </Row>
@@ -272,20 +286,20 @@ export default function EnquiryAutoreply({
             <Text style={footLogo}>Co-Ownership Property</Text>
             <Section style={footGoldRule} />
             <Text style={footLinks}>
-              <Link href={base} style={footLink}>Website</Link>
+              <Link href={base} style={footLink}>{tr('common.footer_website')}</Link>
               {'  ·  '}
-              <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
+              <Link href={`${base}/our-homes/`} style={footLink}>{tr('common.footer_our_homes')}</Link>
               {'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
+              <Link href={`${base}/how-it-works/`} style={footLink}>{tr('common.footer_how_it_works')}</Link>
               {'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Blog</Link>
+              <Link href={`${base}/all-our-blog/`} style={footLink}>{tr('common.footer_blog')}</Link>
             </Text>
             <Hr style={footDivider} />
             <Text style={footFine}>
-              You're receiving this email because you submitted an enquiry on co-ownership-property.com.
+              {tr('enquiry_autoreply.footer_fine_print')}
             </Text>
             <Text style={footFine}>
-              <Link href="{{unsubscribe_url}}" style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href="{{unsubscribe_url}}" style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>

@@ -7,6 +7,7 @@ import EnquiryAutoreply from '@/emails/enquiry-autoreply';
 import NurtureDay3  from '@/emails/nurture-day3';
 import NurtureDay7  from '@/emails/nurture-day7';
 import NurtureDay14 from '@/emails/nurture-day14';
+import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import * as React from 'react';
 
 function daysFromNow(n) {
@@ -139,8 +140,15 @@ async function getMatchingProperties(destination, budget) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { name, email, phone, message, property, url, destination, budget } = req.body;
+  const { name, email, phone, message, property, url, destination, budget, locale: rawLocale } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
+
+  // Locale handling — validates against SUPPORTED_LOCALES, falls back to default ('en')
+  const locale = SUPPORTED_LOCALES.includes(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+  const subjectKey = property
+    ? 'emails.enquiry_autoreply.subject_property'
+    : 'emails.enquiry_autoreply.subject_general';
+  const subjectLine = t(subjectKey, locale).replace('{propertyTitle}', property || '');
 
   // Rate limit: max 3 enquiries from same email in 5 minutes
   const { limited } = await checkRateLimit(email, 'enquiry');
@@ -157,7 +165,7 @@ export default async function handler(req, res) {
   let emailSend = null;
 
   try {
-    contact = await upsertContact({ email, firstName, lastName, phone, source: 'website_enquiry' });
+    contact = await upsertContact({ email, firstName, lastName, phone, source: 'website_enquiry', locale });
 
     if (contact) {
       // +20 points for submitting an enquiry
@@ -171,12 +179,11 @@ export default async function handler(req, res) {
         budget:        budget       || null,
       });
 
-      const subject = `We received your enquiry${property ? ` — ${property}` : ''}`;
       emailSend = await createEmailSend({
         contactId:     contact.id,
         leadId:        lead?.id || null,
         type:          'enquiry_auto',
-        subject,
+        subject:       subjectLine,
         toEmail:       email,
         propertyTitle: property || null,
         propertyUrl:   url     || null,
@@ -264,7 +271,7 @@ export default async function handler(req, res) {
       autoSend:      true,
       to:            email,
       toName:        name || null,
-      subject:       `We received your enquiry${property ? ` — ${property}` : ''}`,
+      subject:       subjectLine,
       template:      React.createElement(EnquiryAutoreply, {
         firstName:          firstName    || name || undefined,
         propertyTitle:      property     || undefined,
@@ -275,9 +282,10 @@ export default async function handler(req, res) {
         budget:             budget       || undefined,
         matchingProperties: matchingProperties,
         trackingPixelHtml:  pixel        || undefined,
+        locale,
       }),
       templateName:  'enquiry-autoreply',
-      templateProps: { firstName, propertyTitle: property, propertyUrl: url },
+      templateProps: { firstName, propertyTitle: property, propertyUrl: url, locale },
       trigger:       'enquiry_submitted',
       notes:         `Auto-reply for enquiry${property ? ` about ${property}` : ''}`,
       contactId:     contact?.id || null,
@@ -316,16 +324,19 @@ export default async function handler(req, res) {
       propertyTitle: property  || undefined,
       propertyUrl:   url       || undefined,
       unsubscribeUrl,
+      locale,
     };
 
     // Day 3
     try {
       await queueEmail({
         to:           email,
-        subject:      `Still thinking about ${property ? property.split('—')[1]?.trim() || property : 'the property'}?`,
+        subject:      property
+          ? t('emails.nurture_day3.subject_property', locale).replace('{propertyTitle}', property)
+          : t('emails.nurture_day3.subject_general', locale),
         template:     React.createElement(NurtureDay3, nurtureProps),
         templateName:  'nurture-day3',
-        templateProps: { firstName, propertyTitle: property, propertyUrl: url },
+        templateProps: { firstName, propertyTitle: property, propertyUrl: url, locale },
         trigger:       'enquiry_submitted',
         notes:         `Nurture sequence — Day 3${property ? ` for ${property}` : ''}`,
         contactId:     contact?.id || null,
@@ -339,12 +350,18 @@ export default async function handler(req, res) {
 
     // Day 7
     try {
+      // Extract destination from property title for subject + template
+      const day7Destination = property && property.includes(',')
+        ? property.split(',')[1]?.trim().split('—')[0]?.trim()
+        : null;
       await queueEmail({
         to:           email,
-        subject:      `What the market says about ${property ? (property.split(',')[1]?.trim().split('—')[0]?.trim() || 'this destination') : 'this destination'}`,
-        template:     React.createElement(NurtureDay7, nurtureProps),
+        subject:      day7Destination
+          ? t('emails.nurture_day7.subject', locale).replace('{destinationName}', day7Destination)
+          : t('emails.nurture_day7.subject_general', locale),
+        template:     React.createElement(NurtureDay7, { ...nurtureProps, destinationName: day7Destination || undefined }),
         templateName:  'nurture-day7',
-        templateProps: { firstName, propertyTitle: property, propertyUrl: url },
+        templateProps: { firstName, propertyTitle: property, propertyUrl: url, locale },
         trigger:       'enquiry_submitted',
         notes:         `Nurture sequence — Day 7${property ? ` for ${property}` : ''}`,
         contactId:     contact?.id || null,
@@ -360,10 +377,10 @@ export default async function handler(req, res) {
     try {
       await queueEmail({
         to:           email,
-        subject:      'Your co-ownership questions, answered',
+        subject:      t('emails.nurture_day14.subject', locale),
         template:     React.createElement(NurtureDay14, nurtureProps),
         templateName:  'nurture-day14',
-        templateProps: { firstName, propertyTitle: property, propertyUrl: url },
+        templateProps: { firstName, propertyTitle: property, propertyUrl: url, locale },
         trigger:       'enquiry_submitted',
         notes:         `Nurture sequence — Day 14${property ? ` for ${property}` : ''}`,
         contactId:     contact?.id || null,

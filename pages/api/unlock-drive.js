@@ -5,6 +5,7 @@ import { queueEmail, sendTeamNotification } from '@/lib/resend';
 import { render } from '@react-email/components';
 import FloorPlanEmail from '@/emails/floor-plan';
 import NurtureFloorPlan from '@/emails/nurture-floor-plan';
+import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import * as React from 'react';
 
 function getDb() {
@@ -95,8 +96,13 @@ async function getSimilarProperties(propertySlug, propertyCountry, propertyCity,
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { name, email, phone, propertyTitle, driveUrl, propertyUrl, propertyCountry } = req.body;
+  const { name, email, phone, propertyTitle, driveUrl, propertyUrl, propertyCountry, locale: rawLocale } = req.body;
   if (!email || !driveUrl) return res.status(400).json({ error: 'Missing fields' });
+
+  // Resolve locale — only accept supported values, default to English
+  const locale = SUPPORTED_LOCALES.includes(rawLocale) ? rawLocale : DEFAULT_LOCALE;
+  const subjectPrefix = t('emails.floor_plan.subject_prefix', locale);
+  const subjectLine = `${subjectPrefix} ${propertyTitle}`;
 
   // Rate limit: max 5 unlock requests per email per 5 minutes
   const { limited } = await checkRateLimit(email, 'unlock', 5 * 60 * 1000, 5);
@@ -159,7 +165,7 @@ export default async function handler(req, res) {
   let emailSend = null;
 
   try {
-    contact = await upsertContact({ email, firstName, lastName, phone, source: 'floor_plan' });
+    contact = await upsertContact({ email, firstName, lastName, phone, source: 'floor_plan', locale });
 
     if (contact) {
       // +10 points for requesting floor plans (high-intent action)
@@ -177,7 +183,7 @@ export default async function handler(req, res) {
       emailSend = await createEmailSend({
         contactId:     contact.id,
         type:          'floor_plan',
-        subject:       `Floor Plans & More Photos — ${propertyTitle}`,
+        subject:       subjectLine,
         toEmail:       email,
         propertyTitle: propertyTitle || null,
         propertyUrl:   propertyUrl   || null,
@@ -196,9 +202,12 @@ export default async function handler(req, res) {
 
   // ── Generate gallery URL (pretty slug + compact user token) ─────────────
   const userToken  = Buffer.from(JSON.stringify({ n: name || '', e: email })).toString('base64url');
+  // Carry locale forward in the URL so the gallery page + any subsequent
+  // gallery-enquiry auto-reply stay in the same language as the original email
+  const localeParam = locale && locale !== 'en' ? `&lang=${locale}` : '';
   const galleryUrl = propertySlug
-    ? `https://co-ownership-property.com/gallery/${propertySlug}?t=${userToken}`
-    : `https://co-ownership-property.com/gallery/${userToken}`; // fallback if no slug
+    ? `https://co-ownership-property.com/gallery/${propertySlug}?t=${userToken}${localeParam}`
+    : `https://co-ownership-property.com/gallery/${userToken}${localeParam ? `?${localeParam.slice(1)}` : ''}`; // fallback if no slug
 
   // ── Fetch similar properties for email ────────────────────────────────────
   const rawSimilar = await getSimilarProperties(propertySlug, resolvedCountry, propertyCity, propertyPrice);
@@ -225,7 +234,7 @@ export default async function handler(req, res) {
       autoSend:      true,
       to:            email,
       toName:        name || null,
-      subject:       `Floor Plans & More Photos — ${propertyTitle}`,
+      subject:       subjectLine,
       template:      React.createElement(FloorPlanEmail, {
         firstName:         firstName     || name || undefined,
         propertyTitle:     propertyTitle || undefined,
@@ -234,9 +243,10 @@ export default async function handler(req, res) {
         propertyUrl:       propertyUrl   || undefined,
         similarProperties: similarProperties,
         trackingPixelHtml: pixel         || undefined,
+        locale,
       }),
       templateName:  'floor-plan',
-      templateProps: { firstName, propertyTitle, driveUrl: galleryUrl, propertyUrl, propertyImg, propertySlug },
+      templateProps: { firstName, propertyTitle, driveUrl: galleryUrl, propertyUrl, propertyImg, propertySlug, locale },
       trigger:       'floor_plan_requested',
       notes:         `Floor plan unlock for ${propertyTitle}`,
       contactId:     contact?.id || null,

@@ -251,12 +251,13 @@ function EnquiryForm({ propertyTitle, propertyUrl, locale }) {
 }
 
 /* ── Main page ── */
-export default function PropertyPage({ property: p, similar }) {
+export default function PropertyPage({ property: p, similar, forceLocale = null }) {
   const router = useRouter();
-  // Initial guess: locale from URL path (handles direct /es/property/ landings
-  // for future routing). Cookie hook below overrides for the common case
-  // where visitor arrived from /es/ or /fr/ to /property/[slug].
-  const locale = useLocaleFromCookie(localeFromPath(router.asPath || router.pathname));
+  // forceLocale wins for SSG'd /es/propiedades/[slug] and /fr/proprietes/[slug]
+  // wrappers — those pages know their locale at build time. For the canonical
+  // /property/[slug] route, fall back to URL path detection then cookie.
+  const detected = useLocaleFromCookie(localeFromPath(router.asPath || router.pathname));
+  const locale = forceLocale || detected;
   const t = COPY[locale] || COPY.en;
   const localeNumberFmt = locale === 'es' ? 'es-ES' : locale === 'fr' ? 'fr-FR' : 'en-GB';
 
@@ -316,7 +317,14 @@ export default function PropertyPage({ property: p, similar }) {
   const metaDesc = p.price
     ? `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership at ${fmt(p.price, p.currency)}. Real deeded ownership, own only what you use.`
     : `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership. Real deeded ownership, own only what you use.`;
-  const canonicalUrl = `https://co-ownership-property.com/property/${p.slug}/`;
+  // Canonical URL per locale — wrapper routes pass forceLocale so each
+  // /es/propiedades/{slug}/ and /fr/proprietes/{slug}/ has its own canonical.
+  const canonicalPath = locale === 'es'
+    ? `/es/propiedades/${p.slug}/`
+    : locale === 'fr'
+      ? `/fr/proprietes/${p.slug}/`
+      : `/property/${p.slug}/`;
+  const canonicalUrl = `https://co-ownership-property.com${canonicalPath}`;
   const ogImage = p.img && p.img.startsWith('http') ? p.img : `https://co-ownership-property.com${p.img}`;
 
   return (

@@ -16,12 +16,16 @@ const NAV_LINKS = {
     { href: '/favourites',   labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
     { href: '/contact',      labelKey: 'nav.contact' },
   ],
+  // Spanish + French nav: each locale has its own listings URL (better SEO than
+  // a single shared URL with cookie-based content swap). The wrapper pages at
+  // /es/propiedades/ and /fr/proprietes/ render the same OurHomes component
+  // with locale forced.
   es: [
     { href: '/es/',                  labelKey: 'nav.home' },
     { href: '/es/propiedades/',      labelKey: 'nav.our_homes' },
     { href: '/es/como-funciona/',    labelKey: 'nav.how_it_works' },
     { href: '/es/quienes-somos/',    labelKey: 'nav.about_us' },
-    { href: '/es/blog/',             labelKey: 'nav.blog' },
+    { href: '/all-our-blog/',        labelKey: 'nav.blog' },
     { href: '/favourites',           labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
     { href: '/es/contacto/',         labelKey: 'nav.contact' },
   ],
@@ -30,7 +34,7 @@ const NAV_LINKS = {
     { href: '/fr/proprietes/',       labelKey: 'nav.our_homes' },
     { href: '/fr/comment-ca-marche/', labelKey: 'nav.how_it_works' },
     { href: '/fr/a-propos/',         labelKey: 'nav.about_us' },
-    { href: '/fr/blog/',             labelKey: 'nav.blog' },
+    { href: '/all-our-blog/',        labelKey: 'nav.blog' },
     { href: '/favourites',           labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
     { href: '/fr/contact/',          labelKey: 'nav.contact' },
   ],

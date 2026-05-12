@@ -1,8 +1,44 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import UnlockModal from '@/components/UnlockModal';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
+import { localeFromPath, propertyHref } from '@/lib/i18n';
+
+// Locale-aware UI strings. Property titles themselves come from translated DB
+// columns (title_es / title_fr) — see localizedTitle() helper in the page that
+// uses this card. The strings here are just chrome (Bed/Beds counter, "View
+// Property" CTA, gallery-lock messaging).
+const COPY = {
+  en: {
+    bed_singular: 'Bed', bed_plural: 'Beds',
+    view_property: 'View Property →',
+    fav_add: 'Add to favourites', fav_remove: 'Remove from favourites',
+    prev_photo: 'Previous photo', next_photo: 'Next photo',
+    missing_photos: (n) => `You're missing ${n} photos`,
+    unlock_sub: 'Unlock the full gallery & floor plans — free',
+    unlock_now: 'Unlock Now →',
+  },
+  es: {
+    bed_singular: 'Dormitorio', bed_plural: 'Dormitorios',
+    view_property: 'Ver propiedad →',
+    fav_add: 'Añadir a favoritos', fav_remove: 'Quitar de favoritos',
+    prev_photo: 'Foto anterior', next_photo: 'Siguiente foto',
+    missing_photos: (n) => `Te faltan ${n} fotos`,
+    unlock_sub: 'Desbloquea la galería completa y los planos — gratis',
+    unlock_now: 'Desbloquear ahora →',
+  },
+  fr: {
+    bed_singular: 'Chambre', bed_plural: 'Chambres',
+    view_property: 'Voir la propriété →',
+    fav_add: 'Ajouter aux favoris', fav_remove: 'Retirer des favoris',
+    prev_photo: 'Photo précédente', next_photo: 'Photo suivante',
+    missing_photos: (n) => `Il vous manque ${n} photos`,
+    unlock_sub: 'Débloquez la galerie complète et les plans — gratuit',
+    unlock_now: 'Débloquer maintenant →',
+  },
+};
 
 const BedIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -33,14 +69,23 @@ const ChevronRight = () => (
 
 const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
 
-function formatApprox(amount) {
-  return (Math.round(amount / 1_000) * 1_000).toLocaleString('en-GB');
+function formatApprox(amount, fmtLocale = 'en-GB') {
+  return (Math.round(amount / 1_000) * 1_000).toLocaleString(fmtLocale);
 }
 
 // priority: true for the first 3 cards on a destination page — disables lazy loading
 // so Google's LCP score sees real content immediately.
 export default function PropertyCard({ property: p, priority = false }) {
-  const href = `/property/${p.slug}`;
+  const router = useRouter();
+  const locale = localeFromPath(router.asPath || router.pathname);
+  const t = COPY[locale] || COPY.en;
+  const localeNumberFmt = locale === 'es' ? 'es-ES' : locale === 'fr' ? 'fr-FR' : 'en-GB';
+  const title = p[`title_${locale}`] || p.title;
+
+  // Locale-aware URL so click-through from /es/propiedades/ lands on
+  // /es/propiedades/{slug}/ rather than the English /property/{slug}/.
+  // Critical for SEO: Google needs distinct URLs per language.
+  const href = propertyHref(p.slug, locale);
   const [fav, setFav] = useState(false);
   const [slide, setSlide] = useState(0);
   const [unlockOpen, setUnlockOpen] = useState(false);
@@ -76,12 +121,12 @@ export default function PropertyCard({ property: p, priority = false }) {
 
   const fromCurrency = p.currency || 'EUR';
   const priceFormatted = p.price
-    ? `${CURRENCY_SYM[fromCurrency] || fromCurrency}${p.price.toLocaleString('en-GB')}`
+    ? `${CURRENCY_SYM[fromCurrency] || fromCurrency}${p.price.toLocaleString(localeNumberFmt)}`
     : null;
   const convertedAmount = p.price ? convertPrice(p.price, fromCurrency, cx) : null;
   const convertedSym = cx ? (CURRENCY_SYMBOLS[cx.currency] || cx.currency) : null;
   const priceDisplay = convertedAmount != null
-    ? `~${convertedSym}${formatApprox(convertedAmount)}`
+    ? `~${convertedSym}${formatApprox(convertedAmount, localeNumberFmt)}`
     : priceFormatted;
 
   return (
@@ -90,7 +135,7 @@ export default function PropertyCard({ property: p, priority = false }) {
         className="prop-card"
         onClick={handleCardClick}
         role="link"
-        aria-label={p.title}
+        aria-label={title}
         style={isLockSlide ? { cursor: 'default' } : {}}
       >
         <div className="prop-img-wrap">
@@ -105,7 +150,7 @@ export default function PropertyCard({ property: p, priority = false }) {
             >
               <Image
                 src={src}
-                alt={`${p.title} — photo ${i + 1}`}
+                alt={`${title} — photo ${i + 1}`}
                 fill
                 quality={90}
                 className="prop-img"
@@ -128,9 +173,9 @@ export default function PropertyCard({ property: p, priority = false }) {
                 <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
-                {missingCount && <span className="pp-lock-title">You&apos;re missing {missingCount} photos</span>}
-                <span className="pp-lock-sub">Unlock the full gallery &amp; floor plans — free</span>
-                <span className="pp-lock-cta-btn">Unlock Now →</span>
+                {missingCount && <span className="pp-lock-title">{t.missing_photos(missingCount)}</span>}
+                <span className="pp-lock-sub">{t.unlock_sub}</span>
+                <span className="pp-lock-cta-btn">{t.unlock_now}</span>
               </div>
             </div>
           )}
@@ -140,18 +185,18 @@ export default function PropertyCard({ property: p, priority = false }) {
           <button
             className={`prop-heart${fav ? ' active' : ''}`}
             onClick={handleToggleFav}
-            aria-label={fav ? 'Remove from favourites' : 'Add to favourites'}
+            aria-label={fav ? t.fav_remove : t.fav_add}
           >
             <HeartIcon filled={fav} />
           </button>
 
           {totalSlides > 1 && slide > 0 && (
-            <button className="prop-carousel-arrow prop-carousel-arrow-l" onClick={prev} aria-label="Previous photo">
+            <button className="prop-carousel-arrow prop-carousel-arrow-l" onClick={prev} aria-label={t.prev_photo}>
               <ChevronLeft />
             </button>
           )}
           {totalSlides > 1 && slide < totalSlides - 1 && (
-            <button className="prop-carousel-arrow prop-carousel-arrow-r" onClick={next} aria-label="Next photo">
+            <button className="prop-carousel-arrow prop-carousel-arrow-r" onClick={next} aria-label={t.next_photo}>
               <ChevronRight />
             </button>
           )}
@@ -169,10 +214,10 @@ export default function PropertyCard({ property: p, priority = false }) {
         </div>
 
         <div className="prop-body">
-          <h3 className="prop-title">{p.title}</h3>
+          <h3 className="prop-title">{title}</h3>
           {(p.beds > 0 || p.size > 0) && (
             <div className="prop-stats">
-              {p.beds > 0 && <span className="prop-stat"><BedIcon />{p.beds} Bed{p.beds > 1 ? 's' : ''}</span>}
+              {p.beds > 0 && <span className="prop-stat"><BedIcon />{p.beds} {p.beds > 1 ? t.bed_plural : t.bed_singular}</span>}
               {p.beds > 0 && p.size > 0 && <span className="prop-stat-sep" />}
               {p.size > 0 && <span className="prop-stat"><SizeIcon />{p.size} m²</span>}
             </div>
@@ -182,13 +227,13 @@ export default function PropertyCard({ property: p, priority = false }) {
               {priceDisplay}
             </p>
           )}
-          <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>View Property →</a>
+          <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>{t.view_property}</a>
         </div>
       </article>
 
       {unlockOpen && (
         <UnlockModal
-          propertyTitle={p.title}
+          propertyTitle={title}
           driveUrl={p.driveUrl}
           propertyCountry={p.country || null}
           onClose={() => setUnlockOpen(false)}

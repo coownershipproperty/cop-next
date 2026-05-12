@@ -15,6 +15,13 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import { t } from '@/lib/i18n';
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function interp(s: string, vars?: Record<string, string>) {
+  if (!s || !vars) return s;
+  return s.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? vars[k] : `{${k}}`));
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface FeaturedProperty {
@@ -31,6 +38,7 @@ interface Welcome3Props {
   firstName?: string;
   properties?: FeaturedProperty[];
   unsubscribeUrl?: string;
+  locale?: 'en' | 'es' | 'fr';
 }
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
@@ -81,9 +89,20 @@ export default function Welcome3({
   firstName,
   properties = sampleProperties,
   unsubscribeUrl = '{{unsubscribe_url}}',
+  locale = 'en',
 }: Welcome3Props) {
+  const tr = (key: string, vars?: Record<string, string>) => {
+    const v = t(`emails.${key}`, locale);
+    return vars ? interp(v, vars) : v;
+  };
+
+  const htmlLang = tr('common.html_lang') || 'en';
+  const localePath = locale === 'en' ? '' : `/${locale}`;
+  const bedsLabel = tr('common.card_beds') || 'BEDS';
+  const viewPropertyText = tr('common.card_view_property') || 'View Property →';
+
   return (
-    <Html lang="en">
+    <Html lang={htmlLang}>
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -95,7 +114,7 @@ export default function Welcome3({
         `}</style>
       </Head>
 
-      <Preview>A few properties we think you'll love.</Preview>
+      <Preview>{tr('welcome_3.preview')}</Preview>
 
       <Body style={body}>
 
@@ -112,15 +131,13 @@ export default function Welcome3({
         <Section style={{ backgroundColor: C.white }}>
           <Container style={wrapBody}>
 
-            <Text style={greeting}>Hi {firstName},</Text>
+            <Text style={greeting}>{tr('welcome_3.greeting', { firstName: firstName || '' })}</Text>
 
-            <Heading style={mainHeading}>Handpicked for You This Week</Heading>
+            <Heading style={mainHeading}>{tr('welcome_3.main_heading')}</Heading>
 
             <Hr style={goldRule} />
 
-            <Text style={bodyText}>
-              Now that you know how co-ownership works, here are a few properties we think are worth a look. These are some of our current favourites — a mix of destinations and price points.
-            </Text>
+            <Text style={bodyText}>{tr('welcome_3.intro_body')}</Text>
 
           </Container>
         </Section>
@@ -134,7 +151,7 @@ export default function Welcome3({
                 <Row>
                   <Column style={cardImgCol}>
                     {p.imageUrl ? (
-                      <Link href={`${base}/property/${p.slug}`}>
+                      <Link href={`${base}${localePath}/property/${p.slug}`}>
                         <Img
                           src={p.imageUrl}
                           alt={p.title}
@@ -153,11 +170,11 @@ export default function Welcome3({
                       {p.title.includes('—') ? p.title.split('—')[1]?.trim() : p.title}
                     </Heading>
                     <Text style={cardStats}>
-                      {p.beds} BEDS{p.size ? <>&ensp;|&ensp;{p.size} M²</> : null}
+                      {p.beds} {bedsLabel}{p.size ? <>&ensp;|&ensp;{p.size} M²</> : null}
                     </Text>
                     <Text style={cardPrice}>{p.price}</Text>
-                    <Link href={`${base}/property/${p.slug}`} style={viewPropLink}>
-                      View Property →
+                    <Link href={`${base}${localePath}/property/${p.slug}`} style={viewPropLink}>
+                      {viewPropertyText}
                     </Link>
                   </Column>
                 </Row>
@@ -172,20 +189,18 @@ export default function Welcome3({
           <Container style={wrapBody}>
 
             <Section style={{ margin: '8px 0 32px', textAlign: 'center' as const }}>
-              <Button href={`${base}/our-homes/`} style={ctaBtn}>
-                BROWSE ALL 333+ PROPERTIES
+              <Button href={`${base}${localePath}/our-homes/`} style={ctaBtn}>
+                {tr('welcome_3.cta_button')}
               </Button>
             </Section>
 
-            <Text style={bodyText}>
-              If anything catches your eye — or if you have questions about any of them — just reply to this email. We're always happy to talk through the details.
-            </Text>
+            <Text style={bodyText}>{tr('welcome_3.closing_body')}</Text>
 
             <Hr style={goldRule} />
 
-            <Text style={signoffName}>The Co-Ownership Property Team</Text>
+            <Text style={signoffName}>{tr('common.team_signoff')}</Text>
             <Text style={signoffSite}>
-              <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
+              <Link href={`${base}${localePath}`} style={signoffLink}>co-ownership-property.com</Link>
             </Text>
 
           </Container>
@@ -197,20 +212,18 @@ export default function Welcome3({
             <Text style={footLogo}>Co-Ownership Property</Text>
             <Section style={footGoldRule} />
             <Text style={footLinks}>
-              <Link href={base} style={footLink}>Website</Link>
+              <Link href={`${base}${localePath}`} style={footLink}>{tr('common.footer_website')}</Link>
               {'  ·  '}
-              <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
+              <Link href={`${base}${localePath}/our-homes/`} style={footLink}>{tr('common.footer_our_homes')}</Link>
               {'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
+              <Link href={`${base}${localePath}/how-it-works/`} style={footLink}>{tr('common.footer_how_it_works')}</Link>
               {'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Blog</Link>
+              <Link href={`${base}${localePath}/all-our-blog/`} style={footLink}>{tr('common.footer_blog')}</Link>
             </Text>
             <Hr style={footDivider} />
+            <Text style={footFine}>{tr('welcome_3.footer_fine_print')}</Text>
             <Text style={footFine}>
-              You're receiving this email because you signed up at co-ownership-property.com
-            </Text>
-            <Text style={footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>

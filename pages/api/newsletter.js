@@ -4,6 +4,7 @@ import { queueEmail, sendTeamNotification, addToAudience } from '@/lib/resend';
 import Welcome1 from '@/emails/welcome-1';
 import Welcome2 from '@/emails/welcome-2';
 import Welcome3 from '@/emails/welcome-3';
+import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import * as React from 'react';
 
 const base = 'https://co-ownership-property.com';
@@ -17,8 +18,11 @@ function daysFromNow(n) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { email } = req.body;
+  const { email, locale: rawLocale } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
+
+  // Locale handling — validates against SUPPORTED_LOCALES, falls back to default ('en')
+  const locale = SUPPORTED_LOCALES.includes(rawLocale) ? rawLocale : DEFAULT_LOCALE;
 
   // Rate limit: max 3 submissions from same email in 5 minutes
   const { limited } = await checkRateLimit(email, 'newsletter');
@@ -27,7 +31,7 @@ export default async function handler(req, res) {
   // CRM: upsert contact + log activity
   let contact = null;
   try {
-    contact = await upsertContact({ email, source: 'newsletter' });
+    contact = await upsertContact({ email, source: 'newsletter', locale });
     if (contact) {
       await logActivity({
         contactId: contact.id,
@@ -67,10 +71,10 @@ export default async function handler(req, res) {
     await queueEmail({
       autoSend:     true,
       to:           email,
-      subject:      "Welcome — you're on the list",
-      template:     React.createElement(Welcome1, { unsubscribeUrl }),
+      subject:      t('emails.welcome_1.subject', locale),
+      template:     React.createElement(Welcome1, { unsubscribeUrl, locale }),
       templateName:  'welcome-1',
-      templateProps: { email },
+      templateProps: { email, locale },
       trigger:       'newsletter_signup',
       notes:         'Welcome sequence — Day 0',
       contactId,
@@ -84,10 +88,10 @@ export default async function handler(req, res) {
   try {
     await queueEmail({
       to:           email,
-      subject:      'How co-ownership actually works — and why it\'s not a timeshare',
-      template:     React.createElement(Welcome2, { unsubscribeUrl }),
+      subject:      t('emails.welcome_2.subject', locale),
+      template:     React.createElement(Welcome2, { unsubscribeUrl, locale }),
       templateName:  'welcome-2',
-      templateProps: { email },
+      templateProps: { email, locale },
       trigger:       'newsletter_signup',
       notes:         'Welcome sequence — Day 3',
       contactId,
@@ -102,10 +106,10 @@ export default async function handler(req, res) {
   try {
     await queueEmail({
       to:           email,
-      subject:      'The destinations our readers are watching right now',
-      template:     React.createElement(Welcome3, { unsubscribeUrl }),
+      subject:      t('emails.welcome_3.subject', locale),
+      template:     React.createElement(Welcome3, { unsubscribeUrl, locale }),
       templateName:  'welcome-3',
-      templateProps: { email },
+      templateProps: { email, locale },
       trigger:       'newsletter_signup',
       notes:         'Welcome sequence — Day 7',
       contactId,

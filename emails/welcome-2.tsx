@@ -12,11 +12,19 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import { t } from '@/lib/i18n';
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function interp(s: string, vars?: Record<string, string>) {
+  if (!s || !vars) return s;
+  return s.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? vars[k] : `{${k}}`));
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Welcome2Props {
   firstName?: string;
   unsubscribeUrl?: string;
+  locale?: 'en' | 'es' | 'fr';
 }
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
@@ -35,9 +43,18 @@ const base = 'https://co-ownership-property.com';
 export default function Welcome2({
   firstName,
   unsubscribeUrl = '{{unsubscribe_url}}',
+  locale = 'en',
 }: Welcome2Props) {
+  const tr = (key: string, vars?: Record<string, string>) => {
+    const v = t(`emails.${key}`, locale);
+    return vars ? interp(v, vars) : v;
+  };
+
+  const htmlLang = tr('common.html_lang') || 'en';
+  const localePath = locale === 'en' ? '' : `/${locale}`;
+
   return (
-    <Html lang="en">
+    <Html lang={htmlLang}>
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -49,7 +66,7 @@ export default function Welcome2({
         `}</style>
       </Head>
 
-      <Preview>How co-ownership actually works — and why it's not a timeshare.</Preview>
+      <Preview>{tr('welcome_2.preview')}</Preview>
 
       <Body style={body}>
 
@@ -66,80 +83,64 @@ export default function Welcome2({
         <Section style={{ backgroundColor: C.white }}>
           <Container style={wrapBody}>
 
-            <Text style={greeting}>Hi {firstName},</Text>
+            <Text style={greeting}>{tr('welcome_2.greeting', { firstName: firstName || '' })}</Text>
 
-            <Heading style={mainHeading}>
-              Co-Ownership Is Real Ownership — Here's How It Works
-            </Heading>
+            <Heading style={mainHeading}>{tr('welcome_2.main_heading')}</Heading>
 
             <Hr style={goldRule} />
 
             {/* 01 */}
             <Section style={numberedSection}>
               <Text style={goldNumber}>01</Text>
-              <Text style={sectionTitle}>You Own a Legal Share</Text>
-              <Text style={bodyText}>
-                When you buy through a co-ownership scheme, you receive a deeded, legally recognised fractional share of the property — typically between 1/8 and 1/2. This ownership is registered and protected in the same way as any other property purchase.
-              </Text>
+              <Text style={sectionTitle}>{tr('welcome_2.item01_title')}</Text>
+              <Text style={bodyText}>{tr('welcome_2.item01_body')}</Text>
             </Section>
 
             {/* 02 */}
             <Section style={numberedSection}>
               <Text style={goldNumber}>02</Text>
-              <Text style={sectionTitle}>Guaranteed Usage Time</Text>
-              <Text style={bodyText}>
-                Each share comes with an allocated number of weeks per year, proportional to the size of your stake. Usage is typically managed through a rota system, ensuring fair and flexible access across all owners throughout the year.
-              </Text>
+              <Text style={sectionTitle}>{tr('welcome_2.item02_title')}</Text>
+              <Text style={bodyText}>{tr('welcome_2.item02_body')}</Text>
             </Section>
 
             {/* 03 */}
             <Section style={numberedSection}>
               <Text style={goldNumber}>03</Text>
-              <Text style={sectionTitle}>Shared Running Costs</Text>
-              <Text style={bodyText}>
-                Maintenance, management fees, and running costs are split equally between all owners. This means you benefit from a premium, fully managed property at a fraction of what it would cost to own — and maintain — outright.
-              </Text>
+              <Text style={sectionTitle}>{tr('welcome_2.item03_title')}</Text>
+              <Text style={bodyText}>{tr('welcome_2.item03_body')}</Text>
             </Section>
 
             {/* 04 */}
             <Section style={numberedSection}>
               <Text style={goldNumber}>04</Text>
-              <Text style={sectionTitle}>You Can Sell Whenever You Choose</Text>
-              <Text style={bodyText}>
-                There are no lock-in periods and no membership to cancel. If you decide to sell your share — whether in a year or a decade — you can do so on the open market, just like any other property. Any capital growth is yours to keep.
-              </Text>
+              <Text style={sectionTitle}>{tr('welcome_2.item04_title')}</Text>
+              <Text style={bodyText}>{tr('welcome_2.item04_body')}</Text>
             </Section>
 
             <Hr style={divider} />
 
             {/* FAQ: timeshare question */}
-            <Text style={faqLabel}>The most common question we get:</Text>
+            <Text style={faqLabel}>{tr('welcome_2.faq_label')}</Text>
 
             <Section style={quoteBlock}>
-              <Text style={quoteText}>
-                "Is this just a timeshare?"
-              </Text>
+              <Text style={quoteText}>{tr('welcome_2.quote')}</Text>
             </Section>
 
-            <Text style={bodyText}>
-              It's genuinely different — and the distinction matters. A timeshare gives you the right to use a property for a fixed period each year; you don't own anything, you can rarely sell your stake freely, and the whole arrangement is tied to a membership or points system that can be altered by the operator.
-            </Text>
+            <Text style={bodyText}>{tr('welcome_2.faq_body_1')}</Text>
 
-            <Text style={bodyText}>
-              Co-ownership is deeded property ownership. You hold a registered legal title to a share of the property itself. You can sell your share on the open market to any buyer you choose, at any time. There are no points, no memberships, and no annual fees beyond the actual cost of running the home.
-            </Text>
+            <Text style={bodyText}>{tr('welcome_2.faq_body_2')}</Text>
 
             <Hr style={goldRule} />
 
             <Section style={{ margin: '28px 0' }}>
-              <Button href={`${base}/how-it-works/`} style={ctaBtn}>
-                SEE HOW IT WORKS IN DETAIL
+              <Button href={`${base}${localePath}/how-it-works/`} style={ctaBtn}>
+                {tr('welcome_2.cta_button')}
               </Button>
             </Section>
 
-            <Text style={signoffName}>The Co-Ownership Property Team</Text>
+            <Text style={signoffName}>{tr('common.team_signoff')}</Text>
             <Text style={signoffSite}>
-              <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
+              <Link href={`${base}${localePath}`} style={signoffLink}>co-ownership-property.com</Link>
             </Text>
 
           </Container>
@@ -151,20 +152,18 @@ export default function Welcome2({
             <Text style={footLogo}>Co-Ownership Property</Text>
             <Section style={footGoldRule} />
             <Text style={footLinks}>
-              <Link href={base} style={footLink}>Website</Link>
+              <Link href={`${base}${localePath}`} style={footLink}>{tr('common.footer_website')}</Link>
               {'  ·  '}
-              <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
+              <Link href={`${base}${localePath}/our-homes/`} style={footLink}>{tr('common.footer_our_homes')}</Link>
               {'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
+              <Link href={`${base}${localePath}/how-it-works/`} style={footLink}>{tr('common.footer_how_it_works')}</Link>
               {'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Blog</Link>
+              <Link href={`${base}${localePath}/all-our-blog/`} style={footLink}>{tr('common.footer_blog')}</Link>
             </Text>
             <Hr style={footDivider} />
+            <Text style={footFine}>{tr('welcome_2.footer_fine_print')}</Text>
             <Text style={footFine}>
-              You're receiving this email because you signed up at co-ownership-property.com
-            </Text>
-            <Text style={footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>

@@ -10,6 +10,13 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import { t } from '@/lib/i18n';
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function interp(s: string, vars?: Record<string, string>) {
+  if (!s || !vars) return s;
+  return s.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? vars[k] : `{${k}}`));
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface NurtureDay3Props {
@@ -17,6 +24,7 @@ interface NurtureDay3Props {
   propertyTitle?: string;
   propertyUrl?: string;
   unsubscribeUrl?: string;
+  locale?: 'en' | 'es' | 'fr';
 }
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
@@ -37,9 +45,19 @@ export default function NurtureDay3({
   propertyTitle,
   propertyUrl,
   unsubscribeUrl = '{{unsubscribe_url}}',
+  locale = 'en',
 }: NurtureDay3Props) {
+  const tr = (key: string, vars?: Record<string, string>) => {
+    const v = t(`emails.${key}`, locale);
+    return vars ? interp(v, vars) : v;
+  };
+
+  const htmlLang = tr('common.html_lang') || 'en';
+  const localePath = locale === 'en' ? '' : `/${locale}`;
+  const pt = propertyTitle || '';
+
   return (
-    <Html lang="en">
+    <Html lang={htmlLang}>
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -51,7 +69,7 @@ export default function NurtureDay3({
         `}</style>
       </Head>
 
-      <Preview>Just checking in — any questions about {propertyTitle}?</Preview>
+      <Preview>{propertyTitle ? tr('nurture_day3.preview', { propertyTitle: pt }) : tr('nurture_day3.preview_general')}</Preview>
 
       <Body style={body}>
 
@@ -68,46 +86,56 @@ export default function NurtureDay3({
         <Section style={{ backgroundColor: C.white }}>
           <Container style={wrapBody}>
 
-            <Text style={greeting}>Hi {firstName},</Text>
+            <Text style={greeting}>{tr('nurture_day3.greeting', { firstName: firstName || '' })}</Text>
 
-            <Text style={bodyText}>
-              I wanted to follow up on your enquiry about{' '}
-              <strong style={{ color: C.navy }}>{propertyTitle}</strong>.
-            </Text>
+            {propertyTitle ? (
+              <Text style={bodyText}>
+                {(() => {
+                  // Render intro with bolded property title
+                  const tmpl = tr('nurture_day3.intro_body_with_property');
+                  const parts = tmpl.split('{propertyTitle}');
+                  return (
+                    <>
+                      {parts[0]}
+                      <strong style={{ color: C.navy }}>{propertyTitle}</strong>
+                      {parts[1] || ''}
+                    </>
+                  );
+                })()}
+              </Text>
+            ) : (
+              <Text style={bodyText}>{tr('nurture_day3.intro_body_general')}</Text>
+            )}
 
-            <Text style={bodyText}>
-              If you have any questions — about the property itself, how co-ownership works, the buying process, or anything else — I'm happy to help. There's no obligation and no sales pressure.
-            </Text>
+            <Text style={bodyText}>{tr('nurture_day3.offer_body')}</Text>
 
-            <Text style={bodyText}>A few things people often ask at this stage:</Text>
+            <Text style={bodyText}>{tr('nurture_day3.questions_intro')}</Text>
 
             <Section style={questionsBlock}>
               <Text style={questionItem}>
-                <em>What's included in the purchase price?</em>
+                <em>{tr('nurture_day3.question1')}</em>
               </Text>
               <Text style={questionItem}>
-                <em>How is usage time divided between owners?</em>
+                <em>{tr('nurture_day3.question2')}</em>
               </Text>
               <Text style={questionItem}>
-                <em>Can I sell my share later if I change my mind?</em>
+                <em>{tr('nurture_day3.question3')}</em>
               </Text>
             </Section>
 
-            <Text style={bodyText}>
-              Reply to this email with any questions and I'll get back to you personally.
-            </Text>
+            <Text style={bodyText}>{tr('nurture_day3.reply_body')}</Text>
 
             <Hr style={goldRule} />
 
-            <Text style={signoffName}>The Co-Ownership Property Team</Text>
+            <Text style={signoffName}>{tr('common.team_signoff')}</Text>
             <Text style={signoffSite}>
-              <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
+              <Link href={`${base}${localePath}`} style={signoffLink}>co-ownership-property.com</Link>
             </Text>
 
             {propertyUrl && (
               <Text style={smallCta}>
                 <Link href={propertyUrl} style={smallCtaLink}>
-                  View {propertyTitle} again →
+                  {tr('nurture_day3.view_again', { propertyTitle: pt })}
                 </Link>
               </Text>
             )}
@@ -121,20 +149,18 @@ export default function NurtureDay3({
             <Text style={footLogo}>Co-Ownership Property</Text>
             <Section style={footGoldRule} />
             <Text style={footLinks}>
-              <Link href={base} style={footLink}>Website</Link>
+              <Link href={`${base}${localePath}`} style={footLink}>{tr('common.footer_website')}</Link>
               {'  ·  '}
-              <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
+              <Link href={`${base}${localePath}/our-homes/`} style={footLink}>{tr('common.footer_our_homes')}</Link>
               {'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
+              <Link href={`${base}${localePath}/how-it-works/`} style={footLink}>{tr('common.footer_how_it_works')}</Link>
               {'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Blog</Link>
+              <Link href={`${base}${localePath}/all-our-blog/`} style={footLink}>{tr('common.footer_blog')}</Link>
             </Text>
             <Hr style={footDivider} />
+            <Text style={footFine}>{tr('nurture_day3.footer_fine_print')}</Text>
             <Text style={footFine}>
-              You're receiving this email because you submitted an enquiry on co-ownership-property.com.
-            </Text>
-            <Text style={footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>

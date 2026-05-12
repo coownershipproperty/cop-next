@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -7,6 +8,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import { track } from '@vercel/analytics';
+import { localeFromPath } from '@/lib/i18n';
 
 /** Fisher-Yates shuffle — runs once at build time for a stable random order */
 function shuffle(arr) {
@@ -26,7 +28,7 @@ export async function getStaticProps() {
 
   const { data: raw, error } = await supabase
     .from('properties')
-    .select('slug, title, img, images, total_images, drive_url, price, currency, country, region, city, beds, size, status, property_type');
+    .select('slug, title, title_es, title_fr, img, images, total_images, drive_url, price, currency, country, region, city, beds, size, status, property_type');
 
   if (error) {
     console.error('Supabase error (our-homes):', error);
@@ -36,6 +38,10 @@ export async function getStaticProps() {
   const allProperties = shuffle((raw || []).map(p => ({
     slug:     p.slug,
     title:    p.title,
+    // Translated titles flow straight through; PropertyCard picks the right
+    // one based on its own locale detection (router or cookie).
+    title_es: p.title_es || null,
+    title_fr: p.title_fr || null,
     img:      p.img,
     images:      (p.images || []).slice(0, 3),
     totalImages: p.total_images || 0,
@@ -78,9 +84,214 @@ function franceCluserLabel(region) {
   return null;
 }
 
+// Locale-aware UI strings for the listings page (filters, sort, results count,
+// alert modal). Keeps a single URL (/our-homes/) — locale is detected from the
+// cop_locale cookie set by middleware (or from the URL path if the visitor
+// lands directly on a locale-prefixed route in future).
+const COPY = {
+  en: {
+    title_tag: 'All Our Homes | Co-Ownership Property',
+    meta_desc: 'Browse all our luxury co-ownership properties worldwide. Filter by destination, region and price.',
+    eyebrow: 'Worldwide Collection',
+    h1: 'All Our Homes',
+    sub: "Handpicked luxury co-ownership properties across Europe, the USA and beyond — find the home that's right for you.",
+    label_country: 'Country', label_region: 'Region', label_sort: 'Sort',
+    all: 'All', other: 'Other',
+    sort_default: 'Default', sort_asc: 'Price ↑ Low', sort_desc: 'Price ↓ High',
+    clear: '✕ Clear', clear_filters: 'Clear filters',
+    get_alerts: 'Get property alerts',
+    showing: 'Showing', of: 'of',
+    property_singular: 'property', property_plural: 'properties',
+    load_more: (n) => `Load more (${n} remaining)`,
+    no_results: 'No properties match your filters.',
+    alert_eye: 'Property Alerts',
+    alert_heading: 'Be the first to know',
+    alert_sub: "Tell us what you're looking for. The moment a new matching property is added to the site, you'll be the first to know.",
+    alert_destinations: 'Destinations', alert_optional: '(optional)',
+    alert_max_budget: 'Max Budget', alert_any_budget: 'Any budget',
+    alert_under_100: 'Under €100,000', alert_up_to: 'Up to', alert_over_1m: '€1,000,000+',
+    alert_name_ph: 'Your name (optional)', alert_email_ph: 'Your email address *',
+    alert_save: 'Save Alert →', alert_saving: 'Saving…',
+    alert_saved: 'Alert saved!',
+    alert_saved_msg: "We'll email you at",
+    alert_saved_msg_2: 'as soon as a matching property is listed.',
+    alert_error: 'Something went wrong. Please try again.',
+    country_spain: 'Spain', country_france: 'France', country_usa: 'USA', country_italy: 'Italy',
+    // Region/country labels for the dynamic filter chips. Keys are the raw
+    // English values stored in the DB; values are the displayed translations.
+    // English locale uses identity (returns the key itself).
+    region_labels: {},
+    // Country headers in the alert-modal destination tree.
+    alert_dest_countries: {
+      Spain: 'Spain', France: 'France', Italy: 'Italy', USA: 'USA',
+      'United Kingdom': 'United Kingdom', Other: 'Other',
+    },
+    alert_dest_children: {},
+  },
+  es: {
+    title_tag: 'Todas nuestras propiedades | Co-Ownership Property',
+    meta_desc: 'Explora todas nuestras propiedades en copropiedad de lujo. Filtra por destino, región y precio.',
+    eyebrow: 'Colección mundial',
+    h1: 'Todas nuestras propiedades',
+    sub: 'Propiedades en copropiedad de lujo curadas a mano por Europa, EE. UU. y más allá — encuentra la que es perfecta para ti.',
+    label_country: 'País', label_region: 'Región', label_sort: 'Ordenar',
+    all: 'Todas', other: 'Otros',
+    sort_default: 'Por defecto', sort_asc: 'Precio ↑ Bajo', sort_desc: 'Precio ↓ Alto',
+    clear: '✕ Limpiar', clear_filters: 'Limpiar filtros',
+    get_alerts: 'Recibir alertas',
+    showing: 'Mostrando', of: 'de',
+    property_singular: 'propiedad', property_plural: 'propiedades',
+    load_more: (n) => `Ver más (${n} restantes)`,
+    no_results: 'Ninguna propiedad coincide con tus filtros.',
+    alert_eye: 'Alertas de propiedades',
+    alert_heading: 'Sé el primero en enterarte',
+    alert_sub: 'Cuéntanos lo que buscas. En cuanto añadamos una propiedad que coincida, serás el primero en saberlo.',
+    alert_destinations: 'Destinos', alert_optional: '(opcional)',
+    alert_max_budget: 'Presupuesto máximo', alert_any_budget: 'Cualquier presupuesto',
+    alert_under_100: 'Menos de €100.000', alert_up_to: 'Hasta', alert_over_1m: '€1.000.000+',
+    alert_name_ph: 'Tu nombre (opcional)', alert_email_ph: 'Tu correo electrónico *',
+    alert_save: 'Guardar alerta →', alert_saving: 'Guardando…',
+    alert_saved: '¡Alerta guardada!',
+    alert_saved_msg: 'Te avisaremos en',
+    alert_saved_msg_2: 'en cuanto añadamos una propiedad que coincida.',
+    alert_error: 'Algo salió mal. Inténtalo de nuevo.',
+    country_spain: 'España', country_france: 'Francia', country_usa: 'EE. UU.', country_italy: 'Italia',
+    region_labels: {
+      // France
+      'Paris': 'París',
+      'South of France': 'Sur de Francia',
+      "Côte d'Azur": 'Costa Azul',
+      'French Alps': 'Alpes franceses',
+      'Portes du Soleil': 'Portes du Soleil',
+      // Spain
+      'Mallorca': 'Mallorca', 'Ibiza': 'Ibiza', 'Menorca': 'Menorca', 'Formentera': 'Formentera',
+      'Costa del Sol': 'Costa del Sol', 'Costa Blanca': 'Costa Blanca', 'Costa de la Luz': 'Costa de la Luz',
+      'Madrid': 'Madrid', 'Barcelona': 'Barcelona', 'Baqueira': 'Baqueira',
+      'Tenerife': 'Tenerife', 'Canary Islands': 'Islas Canarias',
+      // Italy
+      'Italian Lakes': 'Lagos italianos', 'Lake Como': 'Lago de Como', 'Lake Garda': 'Lago de Garda',
+      'Lago Maggiore': 'Lago Mayor', 'Liguria': 'Liguria', 'Sardinia': 'Cerdeña',
+      // USA states
+      'California': 'California', 'Colorado': 'Colorado', 'Florida': 'Florida', 'Utah': 'Utah',
+      // UK
+      'London': 'Londres', 'England': 'Inglaterra',
+      // Countries appearing as region chips when "Other" is selected
+      'Austria': 'Austria', 'Croatia': 'Croacia', 'Germany': 'Alemania',
+      'Mexico': 'México', 'Portugal': 'Portugal', 'Sweden': 'Suecia',
+    },
+    alert_dest_countries: {
+      Spain: 'España', France: 'Francia', Italy: 'Italia', USA: 'EE. UU.',
+      'United Kingdom': 'Reino Unido', Other: 'Otros',
+    },
+    alert_dest_children: {
+      'Mallorca': 'Mallorca', 'Ibiza': 'Ibiza', 'Menorca': 'Menorca',
+      'Costa del Sol': 'Costa del Sol', 'Costa Blanca': 'Costa Blanca',
+      'Barcelona': 'Barcelona', 'Canary Islands': 'Islas Canarias',
+      'South of France': 'Sur de Francia', 'French Alps': 'Alpes franceses', 'Paris': 'París',
+      'Italian Lakes': 'Lagos italianos', 'Sardinia': 'Cerdeña', 'Liguria': 'Liguria',
+      'Colorado': 'Colorado', 'Florida': 'Florida', 'California': 'California', 'Utah': 'Utah',
+      'London': 'Londres', 'England': 'Inglaterra',
+      'Austria': 'Austria', 'Croatia': 'Croacia', 'Germany': 'Alemania',
+      'Mexico': 'México', 'Portugal': 'Portugal', 'Sweden': 'Suecia',
+    },
+  },
+  fr: {
+    title_tag: 'Toutes nos propriétés | Co-Ownership Property',
+    meta_desc: 'Parcourez toutes nos propriétés en copropriété de luxe. Filtrez par destination, région et prix.',
+    eyebrow: 'Collection mondiale',
+    h1: 'Toutes nos propriétés',
+    sub: "Propriétés en copropriété de luxe sélectionnées à la main à travers l'Europe, les États-Unis et au-delà — trouvez celle qui vous convient.",
+    label_country: 'Pays', label_region: 'Région', label_sort: 'Trier',
+    all: 'Toutes', other: 'Autre',
+    sort_default: 'Par défaut', sort_asc: 'Prix ↑ Bas', sort_desc: 'Prix ↓ Haut',
+    clear: '✕ Effacer', clear_filters: 'Effacer les filtres',
+    get_alerts: 'Recevoir des alertes',
+    showing: 'Affichage de', of: 'sur',
+    property_singular: 'propriété', property_plural: 'propriétés',
+    load_more: (n) => `Voir plus (${n} restantes)`,
+    no_results: 'Aucune propriété ne correspond à vos filtres.',
+    alert_eye: 'Alertes propriétés',
+    alert_heading: 'Soyez le premier informé',
+    alert_sub: "Dites-nous ce que vous cherchez. Dès qu'une propriété correspondante est ajoutée, vous serez le premier au courant.",
+    alert_destinations: 'Destinations', alert_optional: '(optionnel)',
+    alert_max_budget: 'Budget maximum', alert_any_budget: 'Tout budget',
+    alert_under_100: 'Moins de 100 000 €', alert_up_to: "Jusqu'à", alert_over_1m: '1 000 000 €+',
+    alert_name_ph: 'Votre nom (optionnel)', alert_email_ph: 'Votre adresse email *',
+    alert_save: "Enregistrer l'alerte →", alert_saving: 'Enregistrement…',
+    alert_saved: 'Alerte enregistrée !',
+    alert_saved_msg: 'Nous vous enverrons un email à',
+    alert_saved_msg_2: "dès qu'une propriété correspondante est ajoutée.",
+    alert_error: "Une erreur s'est produite. Veuillez réessayer.",
+    country_spain: 'Espagne', country_france: 'France', country_usa: 'États-Unis', country_italy: 'Italie',
+    region_labels: {
+      // France
+      'Paris': 'Paris',
+      'South of France': 'Sud de la France',
+      "Côte d'Azur": "Côte d'Azur",
+      'French Alps': 'Alpes françaises',
+      'Portes du Soleil': 'Portes du Soleil',
+      // Spain
+      'Mallorca': 'Majorque', 'Ibiza': 'Ibiza', 'Menorca': 'Minorque', 'Formentera': 'Formentera',
+      'Costa del Sol': 'Costa del Sol', 'Costa Blanca': 'Costa Blanca', 'Costa de la Luz': 'Costa de la Luz',
+      'Madrid': 'Madrid', 'Barcelona': 'Barcelone', 'Baqueira': 'Baqueira',
+      'Tenerife': 'Tenerife', 'Canary Islands': 'Îles Canaries',
+      // Italy
+      'Italian Lakes': 'Lacs italiens', 'Lake Como': 'Lac de Côme', 'Lake Garda': 'Lac de Garde',
+      'Lago Maggiore': 'Lac Majeur', 'Liguria': 'Ligurie', 'Sardinia': 'Sardaigne',
+      // USA states
+      'California': 'Californie', 'Colorado': 'Colorado', 'Florida': 'Floride', 'Utah': 'Utah',
+      // UK
+      'London': 'Londres', 'England': 'Angleterre',
+      // Countries appearing as region chips when "Other" is selected
+      'Austria': 'Autriche', 'Croatia': 'Croatie', 'Germany': 'Allemagne',
+      'Mexico': 'Mexique', 'Portugal': 'Portugal', 'Sweden': 'Suède',
+    },
+    alert_dest_countries: {
+      Spain: 'Espagne', France: 'France', Italy: 'Italie', USA: 'États-Unis',
+      'United Kingdom': 'Royaume-Uni', Other: 'Autre',
+    },
+    alert_dest_children: {
+      'Mallorca': 'Majorque', 'Ibiza': 'Ibiza', 'Menorca': 'Minorque',
+      'Costa del Sol': 'Costa del Sol', 'Costa Blanca': 'Costa Blanca',
+      'Barcelona': 'Barcelone', 'Canary Islands': 'Îles Canaries',
+      'South of France': 'Sud de la France', 'French Alps': 'Alpes françaises', 'Paris': 'Paris',
+      'Italian Lakes': 'Lacs italiens', 'Sardinia': 'Sardaigne', 'Liguria': 'Ligurie',
+      'Colorado': 'Colorado', 'Florida': 'Floride', 'California': 'Californie', 'Utah': 'Utah',
+      'London': 'Londres', 'England': 'Angleterre',
+      'Austria': 'Autriche', 'Croatia': 'Croatie', 'Germany': 'Allemagne',
+      'Mexico': 'Mexique', 'Portugal': 'Portugal', 'Sweden': 'Suède',
+    },
+  },
+};
+
+// Helper: translate a raw region value to the active locale's display label.
+// Falls back to the raw value when no translation exists (e.g. brand-new
+// regions added after this map was last updated).
+function regionLabel(r, t) {
+  return (t.region_labels && t.region_labels[r]) || r;
+}
+
 const PAGE_SIZE = 24;
 
-export default function OurHomes({ allProperties }) {
+// The page renders the locale derived from its URL — no cookie magic, so the
+// English /our-homes/ stays English for English visitors regardless of which
+// locale they previously visited. Locale-specific listings live at separate
+// URLs: /es/propiedades/ and /fr/proprietes/ each render this same component
+// via thin wrapper pages that pass `forceLocale`.
+
+export default function OurHomes({ allProperties, forceLocale, canonicalPath = '/our-homes/' }) {
+  const router = useRouter();
+  // forceLocale wins (set by /es/propiedades/ and /fr/proprietes/ wrappers).
+  // Otherwise derive from URL path — /our-homes/ always returns 'en'.
+  const locale = forceLocale || localeFromPath(router.asPath || router.pathname);
+  const t = COPY[locale] || COPY.en;
+  // Maps internal English country keys to localised display labels for the
+  // top-row filter buttons. Keys (e.g. 'France') are still used to filter
+  // properties — only the displayed label changes.
+  const COUNTRY_LABELS = {
+    Spain: t.country_spain, France: t.country_france, USA: t.country_usa, Italy: t.country_italy,
+  };
+
   const [countries,    setCountries]    = useState([]); // [] = All; array of selected countries
   const [regions,      setRegions]      = useState([]); // [] = all; array of selected region labels
   const [sort,         setSort]         = useState('default');
@@ -252,25 +463,26 @@ export default function OurHomes({ allProperties }) {
   return (
     <>
       <Head>
-        <title>All Our Homes | Co-Ownership Property</title>
-        <meta name="description" content="Browse all our luxury co-ownership properties worldwide. Filter by destination, region and price." />
+        <title>{t.title_tag}</title>
+        <meta name="description" content={t.meta_desc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://co-ownership-property.com/our-homes/" />
-        <meta property="og:title" content="Browse 333+ Luxury Co-Ownership Properties | Co-Ownership Property" />
-        <meta property="og:description" content="Browse luxury fractional ownership properties across Spain, France, Italy, the USA and more. Filter by destination and price." />
+        <link rel="canonical" href={`https://co-ownership-property.com${canonicalPath}`} />
+        <meta property="og:title" content={t.title_tag} />
+        <meta property="og:description" content={t.meta_desc} />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
-        <meta property="og:url" content="https://co-ownership-property.com/our-homes/" />
+        <meta property="og:url" content={`https://co-ownership-property.com${canonicalPath}`} />
         <meta property="og:type" content="website" />
+        <meta property="og:locale" content={locale === 'es' ? 'es_ES' : locale === 'fr' ? 'fr_FR' : 'en_GB'} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
 
       {/* Hero */}
       <section className="page-hero">
-        <span className="page-hero-eyebrow">Worldwide Collection</span>
-        <h1>All Our Homes</h1>
-        <p className="page-hero-sub">Handpicked luxury co-ownership properties across Europe, the USA and beyond — find the home that&apos;s right for you.</p>
+        <span className="page-hero-eyebrow">{t.eyebrow}</span>
+        <h1>{t.h1}</h1>
+        <p className="page-hero-sub">{t.sub}</p>
       </section>
 
       {/* ── Filter bar ── */}
@@ -278,13 +490,13 @@ export default function OurHomes({ allProperties }) {
 
         {/* Row 1 — Country (multi-select) */}
         <div className="filter-row">
-          <span className="filter-label">Country</span>
+          <span className="filter-label">{t.label_country}</span>
           <div className="filter-scroll-outer">
             <div className="filter-scroll-wrap">
               <button
                 className={`filter-btn${countries.length === 0 ? ' active' : ''}`}
                 onClick={() => toggleCountryAndReset('')}
-              >All</button>
+              >{t.all}</button>
 
               {TOP_COUNTRIES.map(c => (
                 <button
@@ -292,14 +504,14 @@ export default function OurHomes({ allProperties }) {
                   className={`filter-btn${countries.includes(c) ? ' active' : ''}`}
                   onClick={() => toggleCountryAndReset(c)}
                 >
-                  {COUNTRY_FLAGS[c]} {c}
+                  {COUNTRY_FLAGS[c]} {COUNTRY_LABELS[c] || c}
                 </button>
               ))}
 
               <button
                 className={`filter-btn${countries.includes('OTHER') ? ' active' : ''}`}
                 onClick={() => toggleCountryAndReset('OTHER')}
-              >🌐 Other</button>
+              >🌐 {t.other}</button>
             </div>
           </div>
         </div>
@@ -308,7 +520,7 @@ export default function OurHomes({ allProperties }) {
         {showRegionRow && (
           <div className="filter-row">
             <span className="filter-label">
-              {countries.length === 1 && countries[0] === 'OTHER' ? 'Country' : 'Region'}
+              {countries.length === 1 && countries[0] === 'OTHER' ? t.label_country : t.label_region}
             </span>
             <div className="filter-scroll-outer">
               <div className="filter-scroll-wrap">
@@ -318,14 +530,14 @@ export default function OurHomes({ allProperties }) {
                     className={`filter-btn${regions.includes(r) ? ' active' : ''}`}
                     onClick={() => toggleRegionAndReset(r)}
                   >
-                    {COUNTRY_FLAGS[r] ? `${COUNTRY_FLAGS[r]} ` : ''}{r}
+                    {COUNTRY_FLAGS[r] ? `${COUNTRY_FLAGS[r]} ` : ''}{regionLabel(r, t)}
                   </button>
                 ))}
                 {hasOtherRegions && (
                   <button
                     className={`filter-btn${regions.includes('OTHER') ? ' active' : ''}`}
                     onClick={() => toggleRegionAndReset('OTHER')}
-                  >Other</button>
+                  >{t.other}</button>
                 )}
               </div>
             </div>
@@ -334,10 +546,10 @@ export default function OurHomes({ allProperties }) {
 
         {/* Row 3 — Sort + Clear + CTA */}
         <div className="filter-row">
-          <span className="filter-label">Sort</span>
+          <span className="filter-label">{t.label_sort}</span>
           <div className="filter-scroll-outer">
             <div className="filter-scroll-wrap">
-              {[['default','Default'],['asc','Price ↑ Low'],['desc','Price ↓ High']].map(([val, label]) => (
+              {[['default', t.sort_default],['asc', t.sort_asc],['desc', t.sort_desc]].map(([val, label]) => (
                 <button
                   key={val}
                   className={`filter-btn sort-btn${sort === val ? ' active' : ''}`}
@@ -345,20 +557,20 @@ export default function OurHomes({ allProperties }) {
                 >{label}</button>
               ))}
               {hasActiveFilters && (
-                <button className="clear-btn" onClick={clearAll}>✕ Clear</button>
+                <button className="clear-btn" onClick={clearAll}>{t.clear}</button>
               )}
               <button
                 className="save-alert-btn desktop-only-cta"
                 onClick={() => setAlertOpen(true)}
-                title="Get emailed when new matching properties are listed"
-              >Get property alerts</button>
+                title={t.get_alerts}
+              >{t.get_alerts}</button>
             </div>
           </div>
         </div>
 
         {/* Mobile: CTAs on their own centred row */}
         <div className="filter-cta-row">
-          <button className="save-alert-btn" onClick={() => setAlertOpen(true)}>Get property alerts</button>
+          <button className="save-alert-btn" onClick={() => setAlertOpen(true)}>{t.get_alerts}</button>
         </div>
 
       </div>{/* end filter-bar */}
@@ -369,7 +581,7 @@ export default function OurHomes({ allProperties }) {
         {/* Results count */}
         <div className="results-bar">
           <p className="results-count">
-            Showing <strong>{visible.length}</strong> of <strong>{filtered.length}</strong> {filtered.length === 1 ? 'property' : 'properties'}
+            {t.showing} <strong>{visible.length}</strong> {t.of} <strong>{filtered.length}</strong> {filtered.length === 1 ? t.property_singular : t.property_plural}
           </p>
         </div>
 
@@ -383,15 +595,15 @@ export default function OurHomes({ allProperties }) {
               {hasMore && (
                 <div className="load-more-wrap">
                   <button className="load-more-btn" onClick={() => setPage(p => p + 1)}>
-                    Load more ({filtered.length - visible.length} remaining)
+                    {t.load_more(filtered.length - visible.length)}
                   </button>
                 </div>
               )}
             </>
           ) : (
             <div className="no-results">
-              <p>No properties match your filters.</p>
-              <button className="clear-btn" onClick={clearAll}>Clear filters</button>
+              <p>{t.no_results}</p>
+              <button className="clear-btn" onClick={clearAll}>{t.clear_filters}</button>
             </div>
           )}
         </div>
@@ -410,19 +622,19 @@ export default function OurHomes({ allProperties }) {
             {alertStatus === 'done' ? (
               <div className="ul-success">
                 <div className="ul-tick">✓</div>
-                <h3>Alert saved!</h3>
-                <p>We&apos;ll email you at <strong>{alertEmail}</strong> as soon as a matching property is listed.</p>
+                <h3>{t.alert_saved}</h3>
+                <p>{t.alert_saved_msg} <strong>{alertEmail}</strong> {t.alert_saved_msg_2}</p>
               </div>
             ) : (
               <>
-                <p className="ul-eye">Property Alerts</p>
-                <h3>Be the first to know</h3>
-                <p className="ul-sub">Tell us what you&apos;re looking for. The moment a new matching property is added to the site, you&apos;ll be the first to know.</p>
+                <p className="ul-eye">{t.alert_eye}</p>
+                <h3>{t.alert_heading}</h3>
+                <p className="ul-sub">{t.alert_sub}</p>
 
                 <form onSubmit={submitAlert} className="ul-form">
 
                   {/* Destinations */}
-                  <div className="alert-field-label">Destinations <span style={{color:'#9EAFBC',fontWeight:300}}>(optional)</span></div>
+                  <div className="alert-field-label">{t.alert_destinations} <span style={{color:'#9EAFBC',fontWeight:300}}>{t.alert_optional}</span></div>
                   <div className="alert-dest-wrap">
                     {[
                       { country: 'Spain',           children: ['Mallorca','Ibiza','Menorca','Costa del Sol','Costa Blanca','Barcelona','Canary Islands'] },
@@ -442,7 +654,7 @@ export default function OurHomes({ allProperties }) {
                             onChange={() => toggleAlertRegion(country)}
                           />
                           <span className="alert-check-box" />
-                          <span className="alert-check-label">{country}</span>
+                          <span className="alert-check-label">{(t.alert_dest_countries && t.alert_dest_countries[country]) || country}</span>
                         </label>
                         {/* Region rows — indented */}
                         {children.map(child => (
@@ -454,7 +666,7 @@ export default function OurHomes({ allProperties }) {
                               onChange={() => toggleAlertRegion(child)}
                             />
                             <span className="alert-check-box" />
-                            <span className="alert-check-label">{child}</span>
+                            <span className="alert-check-label">{(t.alert_dest_children && t.alert_dest_children[child]) || child}</span>
                           </label>
                         ))}
                       </div>
@@ -463,38 +675,38 @@ export default function OurHomes({ allProperties }) {
 
                   {/* Budget */}
                   <div className="alert-field">
-                    <div className="alert-field-label">Max Budget <span style={{color:'#9EAFBC',fontWeight:300}}>(optional)</span></div>
+                    <div className="alert-field-label">{t.alert_max_budget} <span style={{color:'#9EAFBC',fontWeight:300}}>{t.alert_optional}</span></div>
                     <select value={alertMaxPrice} onChange={e => setAlertMaxPrice(e.target.value)} className="alert-select" style={{width:'100%'}}>
-                      <option value="">Any budget</option>
-                      <option value="100000">Under €100,000</option>
-                      <option value="200000">Up to €200,000</option>
-                      <option value="350000">Up to €350,000</option>
-                      <option value="500000">Up to €500,000</option>
-                      <option value="750000">Up to €750,000</option>
-                      <option value="1000000">Up to €1,000,000</option>
-                      <option value="9999999">€1,000,000+</option>
+                      <option value="">{t.alert_any_budget}</option>
+                      <option value="100000">{t.alert_under_100}</option>
+                      <option value="200000">{t.alert_up_to} €200,000</option>
+                      <option value="350000">{t.alert_up_to} €350,000</option>
+                      <option value="500000">{t.alert_up_to} €500,000</option>
+                      <option value="750000">{t.alert_up_to} €750,000</option>
+                      <option value="1000000">{t.alert_up_to} €1,000,000</option>
+                      <option value="9999999">{t.alert_over_1m}</option>
                     </select>
                   </div>
 
                   {/* Name + Email */}
                   <input
                     type="text"
-                    placeholder="Your name (optional)"
+                    placeholder={t.alert_name_ph}
                     value={alertName}
                     onChange={e => setAlertName(e.target.value)}
                   />
                   <input
                     type="email"
-                    placeholder="Your email address *"
+                    placeholder={t.alert_email_ph}
                     value={alertEmail}
                     onChange={e => setAlertEmail(e.target.value)}
                     required
                   />
 
                   <button type="submit" disabled={alertStatus === 'sending'}>
-                    {alertStatus === 'sending' ? 'Saving…' : 'Save Alert →'}
+                    {alertStatus === 'sending' ? t.alert_saving : t.alert_save}
                   </button>
-                  {alertStatus === 'error' && <p className="ul-err">Something went wrong. Please try again.</p>}
+                  {alertStatus === 'error' && <p className="ul-err">{t.alert_error}</p>}
                 </form>
               </>
             )}

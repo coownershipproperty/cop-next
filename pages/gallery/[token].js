@@ -13,6 +13,9 @@ function getSupabase() {
 export async function getServerSideProps({ params, query }) {
   const raw = params.token; // could be a base64 token OR a pretty slug
   let name = null, email = null, slug = null, title = null;
+  // Locale comes in via ?lang=es / ?lang=fr — preserved from the original email link
+  const langParam = typeof query.lang === 'string' ? query.lang : null;
+  const locale = ['en', 'es', 'fr'].includes(langParam) ? langParam : 'en';
 
   // ── Try legacy base64url / base64 token ──────────────────────────────────
   let decoded = null;
@@ -32,7 +35,8 @@ export async function getServerSideProps({ params, query }) {
     ({ n: name, e: email, s: slug, t: title } = decoded);
     if (slug && email) {
       const userToken = Buffer.from(JSON.stringify({ n: name || '', e: email })).toString('base64url');
-      const destination = `/gallery/${slug}?t=${userToken}`;
+      const langSuffix = locale !== 'en' ? `&lang=${locale}` : '';
+      const destination = `/gallery/${slug}?t=${userToken}${langSuffix}`;
       return { redirect: { destination, permanent: false } };
     }
   } else {
@@ -63,11 +67,12 @@ export async function getServerSideProps({ params, query }) {
       name:     name  || null,
       email:    email || null,
       property: prop,
+      locale,
     },
   };
 }
 
-export default function GalleryPage({ name, email, property }) {
+export default function GalleryPage({ name, email, property, locale = 'en' }) {
   const rawImages = Array.isArray(property.images) ? property.images : [];
 
   // When photos is empty we fall back to images (MYNE properties).
@@ -165,6 +170,7 @@ export default function GalleryPage({ name, email, property }) {
           propertySlug: property.slug,
           propertyTitle: property.title,
           propertyUrl: `https://co-ownership-property.com/property/${property.slug}/`,
+          locale,
         }),
       });
       if (res.ok) {

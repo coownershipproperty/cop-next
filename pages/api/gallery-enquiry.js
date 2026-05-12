@@ -2,12 +2,23 @@ import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, logActivity, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { sendHtml, sendTeamNotification } from '@/lib/resend';
+import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
 const DYLAN_REPLY = 'dylan@co-ownership-property.com';
 const DYLAN_PHOTO = 'https://co-ownership-property.com/images/dylan-olsson.jpg';
 
-const SIGNATURE = `
+function tr(key, locale, vars) {
+  let v = t(`emails.gallery_enquiry.${key}`, locale);
+  if (vars) {
+    v = v.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? vars[k] : `{${k}}`));
+  }
+  return v;
+}
+
+function signatureHtml(locale) {
+  const role = tr('signoff_role', locale);
+  return `
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:32px;padding-top:24px;border-top:1px solid #e0e0e0;">
   <tr>
     <td width="108" valign="top" style="padding-right:18px;">
@@ -17,7 +28,7 @@ const SIGNATURE = `
     </td>
     <td valign="middle">
       <p style="margin:0 0 3px;font-family:Georgia,serif;font-size:18px;font-weight:700;color:#1E3448;">Dylan Olsson</p>
-      <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:11px;color:#999;letter-spacing:0.08em;text-transform:uppercase;">Co-Founder &nbsp;·&nbsp; Co-Ownership Property</p>
+      <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:11px;color:#999;letter-spacing:0.08em;text-transform:uppercase;">${role}</p>
       <p style="margin:0 0 4px;font-family:Arial,sans-serif;font-size:13px;color:#555;">+44 7901 002763</p>
       <p style="margin:0 0 4px;font-family:Arial,sans-serif;font-size:13px;color:#555;">dylan@co-ownership-property.com</p>
       <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;">
@@ -26,43 +37,55 @@ const SIGNATURE = `
     </td>
   </tr>
 </table>`;
+}
 
-function emailShell(body) {
+function emailShell(body, locale) {
+  const htmlLang = locale || 'en';
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="${htmlLang}">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#2a2a2a;line-height:1.7;">
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
-    <tr><td style="padding:36px 32px 40px;">${body}${SIGNATURE}</td></tr>
+    <tr><td style="padding:36px 32px 40px;">${body}${signatureHtml(locale)}</td></tr>
   </table>
 </body>
 </html>`;
 }
 
-function firstReplyHtml({ firstName, propertyTitle, propertyUrl }) {
-  const name = firstName || 'there';
+function firstReplyHtml({ firstName, propertyTitle, propertyUrl, locale }) {
+  const greeting = firstName ? tr('greeting_name', locale, { firstName }) : tr('greeting_no_name', locale);
   const propLink = propertyUrl
     ? `<a href="${propertyUrl}" style="color:#1E3448;text-decoration:underline;">${propertyTitle}</a>`
     : `<strong>${propertyTitle}</strong>`;
+  const intro    = tr('first_intro',  locale, { propertyLink: propLink });
+  const offer    = tr('first_offer',  locale);
+  const close    = tr('first_close',  locale);
+  const signName = tr('signoff_name', locale);
   return emailShell(`
-    <p style="margin:0 0 20px;">Hi ${name},</p>
-    <p style="margin:0 0 20px;">Thanks for your interest in the ${propLink}!</p>
-    <p style="margin:0 0 20px;">I'd love to connect you with the specialist team behind it — before I do, do you have any questions I can pass along to them about the property or the co-ownership model?</p>
-    <p style="margin:0 0 32px;">Once I hear back I'll make the introduction straight away.</p>
-    <p style="margin:0;">Dylan</p>`);
+    <p style="margin:0 0 20px;">${greeting}</p>
+    <p style="margin:0 0 20px;">${intro}</p>
+    <p style="margin:0 0 20px;">${offer}</p>
+    <p style="margin:0 0 32px;">${close}</p>
+    <p style="margin:0;">${signName}</p>`, locale);
 }
 
-function followUpHtml({ firstName, propertyTitle, propertyUrl, prevPropertyTitle }) {
-  const name = firstName || 'there';
+function followUpHtml({ firstName, propertyTitle, propertyUrl, prevPropertyTitle, locale }) {
+  const greeting = firstName ? tr('greeting_name', locale, { firstName }) : tr('greeting_no_name', locale);
   const propLink = propertyUrl
     ? `<a href="${propertyUrl}" style="color:#1E3448;text-decoration:underline;">${propertyTitle}</a>`
     : `<strong>${propertyTitle}</strong>`;
+  const intro = prevPropertyTitle
+    ? tr('followup_intro_with_prev', locale, { propertyLink: propLink, prevPropertyTitle })
+    : tr('followup_intro_no_prev',   locale, { propertyLink: propLink });
+  const offer    = tr('followup_offer',  locale);
+  const close    = tr('followup_close',  locale);
+  const signName = tr('signoff_name',    locale);
   return emailShell(`
-    <p style="margin:0 0 20px;">Hi ${name},</p>
-    <p style="margin:0 0 20px;">I also saw you enquired about the ${propLink}${prevPropertyTitle ? ` — alongside the ${prevPropertyTitle}` : ''}.</p>
-    <p style="margin:0 0 20px;">Same goes — do you have any questions I can pass along to the team about this one?</p>
-    <p style="margin:0 0 32px;">Happy to make both introductions at once if that's helpful.</p>
-    <p style="margin:0;">Dylan</p>`);
+    <p style="margin:0 0 20px;">${greeting}</p>
+    <p style="margin:0 0 20px;">${intro}</p>
+    <p style="margin:0 0 20px;">${offer}</p>
+    <p style="margin:0 0 32px;">${close}</p>
+    <p style="margin:0;">${signName}</p>`, locale);
 }
 
 function getDb() {
@@ -73,8 +96,11 @@ function getDb() {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { name, email, phone, message, propertySlug, propertyTitle, propertyUrl } = req.body;
+  const { name, email, phone, message, propertySlug, propertyTitle, propertyUrl, locale: rawLocale } = req.body;
   if (!email || !phone) return res.status(400).json({ error: 'Missing required fields' });
+
+  // Validate locale — defaults to 'en' for unknown values
+  let locale = SUPPORTED_LOCALES.includes(rawLocale) ? rawLocale : DEFAULT_LOCALE;
 
   const { limited } = await checkRateLimit(email, 'gallery_enquiry', 10 * 60 * 1000, 3);
   if (limited) return res.status(429).json({ error: 'Too many requests. Please try again later.' });
@@ -100,9 +126,24 @@ export default async function handler(req, res) {
     if (prop) { resolvedSlug = prop.slug || resolvedSlug; resolvedRegion = prop.region; resolvedCity = prop.city; }
   } catch (_) {}
 
+  // If no locale came in from the form, fall back to the contact's stored preference
+  // (set on a previous form submission). Falls through to 'en' if unknown.
+  if (!SUPPORTED_LOCALES.includes(rawLocale)) {
+    try {
+      const { data: existing } = await db
+        .from('contacts')
+        .select('locale')
+        .eq('email', (email || '').toLowerCase().trim())
+        .single();
+      if (existing?.locale && SUPPORTED_LOCALES.includes(existing.locale)) {
+        locale = existing.locale;
+      }
+    } catch (_) { /* no contact yet — stay with default */ }
+  }
+
   // ── CRM ───────────────────────────────────────────────────────────────────
   try {
-    const contact = await upsertContact({ email, firstName, lastName, phone: phone || null, source: 'gallery_enquiry' });
+    const contact = await upsertContact({ email, firstName, lastName, phone: phone || null, source: 'gallery_enquiry', locale });
     if (contact) {
       await incrementScore(contact.id, 20);
       await createLead({ contactId: contact.id, propertySlug: resolvedSlug, propertyTitle, mainRegion: resolvedRegion, subregion: resolvedCity });
@@ -147,12 +188,11 @@ export default async function handler(req, res) {
     if (!alreadySentForThisProperty) {
       const prevReply = prev?.[0] || null;
       const isFollowUp = !!prevReply;
-      const subject = isFollowUp
-        ? `Also — ${propertyTitle || propertySlug}`
-        : `Your enquiry — ${propertyTitle || propertySlug}`;
+      const subjectKey = isFollowUp ? 'subject_followup' : 'subject_first';
+      const subject    = tr(subjectKey, locale, { propertyTitle: propertyTitle || propertySlug });
       const html = isFollowUp
-        ? followUpHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl, prevPropertyTitle: prevReply.template_props?.propertyTitle })
-        : firstReplyHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl });
+        ? followUpHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl, prevPropertyTitle: prevReply.template_props?.propertyTitle, locale })
+        : firstReplyHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl, locale });
 
       // Send immediately — reliable, no cron dependency
       await sendHtml({ to: email, subject, html, from: DYLAN_FROM, replyTo: DYLAN_REPLY });

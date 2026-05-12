@@ -31,13 +31,13 @@ const FOOTER_LINKS = {
       { href: '/es/propiedades/',     label: 'Todas las propiedades' },
       { href: '/es/como-funciona/',   label: 'Cómo funciona' },
       { href: '/es/quienes-somos/',   label: 'Quiénes somos' },
-      { href: '/es/blog/',            label: 'Blog' },
+      { href: '/all-our-blog/',       label: 'Blog' },
       { href: '/favourites/',         label: '♥ Mis favoritos' },
     ],
     company: [
       { href: '/es/quienes-somos/',   label: 'Sobre COP' },
       { href: '/es/como-funciona/',   label: 'Cómo funciona' },
-      { href: '/es/blog/',            label: 'Blog' },
+      { href: '/all-our-blog/',       label: 'Blog' },
       { href: '/es/contacto/',        label: 'Contacto' },
     ],
     support: [
@@ -51,13 +51,13 @@ const FOOTER_LINKS = {
       { href: '/fr/proprietes/',         label: 'Toutes les propriétés' },
       { href: '/fr/comment-ca-marche/',  label: 'Comment ça marche' },
       { href: '/fr/a-propos/',           label: 'À propos' },
-      { href: '/fr/blog/',               label: 'Blog' },
+      { href: '/all-our-blog/',          label: 'Blog' },
       { href: '/favourites/',            label: '♥ Mes favoris' },
     ],
     company: [
       { href: '/fr/a-propos/',           label: 'À propos de COP' },
       { href: '/fr/comment-ca-marche/',  label: 'Comment ça marche' },
-      { href: '/fr/blog/',               label: 'Blog' },
+      { href: '/all-our-blog/',          label: 'Blog' },
       { href: '/fr/contact/',            label: 'Contact' },
     ],
     support: [

@@ -15,6 +15,7 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import { t } from '@/lib/i18n';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface SimilarProperty {
@@ -34,7 +35,12 @@ interface FloorPlanEmailProps {
   propertyUrl?: string;
   similarProperties?: SimilarProperty[];
   trackingPixelHtml?: string;
+  locale?: 'en' | 'es' | 'fr';
 }
+
+// Small interpolation helper so t() values can contain {placeholders}.
+const interp = (s: string, vars: Record<string, string>): string =>
+  s.replace(/\{(\w+)\}/g, (_, k) => (vars[k] != null ? vars[k] : `{${k}}`));
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
 const C = {
@@ -58,6 +64,7 @@ export default function FloorPlanEmail({
   propertyUrl,
   similarProperties = [],
   trackingPixelHtml,
+  locale = 'en',
 }: FloorPlanEmailProps) {
 
   // Split property title at em dash for location / property name display
@@ -65,8 +72,15 @@ export default function FloorPlanEmail({
   const propLocation = dashIdx > -1 ? propertyTitle?.slice(0, dashIdx).trim() : null;
   const propName     = dashIdx > -1 ? propertyTitle?.slice(dashIdx + 1).trim() : propertyTitle;
 
+  // Localised strings (fall back to English if locale not supported).
+  const tr = (key: string, vars?: Record<string, string>) => {
+    const v = t(`emails.${key}`, locale);
+    return vars ? interp(v, vars) : v;
+  };
+  const htmlLang = tr('common.html_lang') || 'en';
+
   return (
-    <Html lang="en">
+    <Html lang={htmlLang}>
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -78,7 +92,7 @@ export default function FloorPlanEmail({
         `}</style>
       </Head>
 
-      <Preview>Your floor plans and gallery for {propertyTitle} are ready.</Preview>
+      <Preview>{tr('floor_plan.preview', { propertyTitle: propertyTitle || '' })}</Preview>
 
       <Body style={body}>
 
@@ -94,10 +108,9 @@ export default function FloorPlanEmail({
         {/* ── HERO INTRO ── */}
         <Section style={heroSection}>
           <Container style={wrapBody}>
-            <Text style={greeting}>Dear {firstName},</Text>
+            <Text style={greeting}>{tr('floor_plan.greeting', { firstName: firstName || 'there' })}</Text>
             <Text style={introText}>
-              Thank you for your interest. As requested, we've put together the complete photo collection
-              and floor plans for the property below.
+              {tr('floor_plan.intro')}
             </Text>
           </Container>
         </Section>
@@ -130,15 +143,15 @@ export default function FloorPlanEmail({
         {/* ── CTA ── */}
         <Section style={ctaSection}>
           <Container style={wrapBody}>
-            <Text style={ctaLabel}>Your exclusive access</Text>
+            <Text style={ctaLabel}>{tr('floor_plan.cta_label')}</Text>
             <Section style={{ textAlign: 'center' as const }}>
               <Button href={driveUrl ?? base} style={ctaButton}>
-                View Gallery &amp; Floor Plans
+                {tr('floor_plan.cta_button')}
               </Button>
             </Section>
             {propertyUrl && (
               <Text style={ctaSubLink}>
-                <Link href={propertyUrl} style={subtleLink}>View property listing →</Link>
+                <Link href={propertyUrl} style={subtleLink}>{tr('floor_plan.view_listing_link')}</Link>
               </Text>
             )}
           </Container>
@@ -149,10 +162,10 @@ export default function FloorPlanEmail({
           <Container style={wrapBody}>
             <Hr style={thinDivider} />
             <Text style={replyText}>
-              Questions about this property? Simply reply to this email — we typically respond within a few hours.
+              {tr('common.questions_reply_text')}
             </Text>
             <Hr style={goldAccentRule} />
-            <Text style={signoffName}>The Co-Ownership Property Team</Text>
+            <Text style={signoffName}>{tr('common.team_signoff')}</Text>
             <Text style={signoffSite}>
               <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
             </Text>
@@ -164,7 +177,7 @@ export default function FloorPlanEmail({
           <Section style={similarSection}>
             <Container style={wrap}>
 
-              <Text style={sectionEyebrow}>You May Also Like</Text>
+              <Text style={sectionEyebrow}>{tr('common.section_you_may_also_like')}</Text>
               <Hr style={goldBarLeft} />
 
               {similarProperties.map((p, i) => (
@@ -183,7 +196,7 @@ export default function FloorPlanEmail({
                         </Link>
                       ) : (
                         <Section style={cardImgPlaceholder}>
-                          <Text style={{ margin: 0, color: C.navy60, fontSize: 13 }}>No image</Text>
+                          <Text style={{ margin: 0, color: C.navy60, fontSize: 13 }}>{tr('common.card_no_image')}</Text>
                         </Section>
                       )}
                     </Column>
@@ -195,11 +208,11 @@ export default function FloorPlanEmail({
                         {p.title.split('—')[1]?.trim() ?? p.title}
                       </Heading>
                       <Text style={cardStats}>
-                        {p.beds} Beds{p.size ? <>&ensp;·&ensp;{p.size} m²</> : null}
+                        {p.beds} {tr('common.card_beds')}{p.size ? <>&ensp;·&ensp;{p.size} m²</> : null}
                       </Text>
                       <Text style={cardPrice}>{p.price}</Text>
                       <Link href={`${base}/property/${p.slug}`} style={viewPropLink}>
-                        View Property →
+                        {tr('common.card_view_property')}
                       </Link>
                     </Column>
                   </Row>
@@ -216,20 +229,20 @@ export default function FloorPlanEmail({
             <Text style={footLogo}>Co-Ownership Property</Text>
             <Section style={footGoldRule} />
             <Text style={footLinks}>
-              <Link href={base} style={footLink}>Website</Link>
+              <Link href={base} style={footLink}>{tr('common.footer_website')}</Link>
               {'  ·  '}
-              <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
+              <Link href={`${base}/our-homes/`} style={footLink}>{tr('common.footer_our_homes')}</Link>
               {'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
+              <Link href={`${base}/how-it-works/`} style={footLink}>{tr('common.footer_how_it_works')}</Link>
               {'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Blog</Link>
+              <Link href={`${base}/all-our-blog/`} style={footLink}>{tr('common.footer_blog')}</Link>
             </Text>
             <Hr style={footDivider} />
             <Text style={footFine}>
-              You're receiving this email because you requested floor plans on co-ownership-property.com.
+              {tr('floor_plan.footer_fine_print')}
             </Text>
             <Text style={footFine}>
-              <Link href="{{unsubscribe_url}}" style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href="{{unsubscribe_url}}" style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>

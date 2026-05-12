@@ -15,6 +15,13 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import { t } from '@/lib/i18n';
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function interp(s: string, vars?: Record<string, string>) {
+  if (!s || !vars) return s;
+  return s.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? vars[k] : `{${k}}`));
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface MarketInsight {
@@ -39,6 +46,7 @@ interface NurtureDay7Props {
   marketInsights?: MarketInsight[];
   relatedProperties?: RelatedProperty[];
   unsubscribeUrl?: string;
+  locale?: 'en' | 'es' | 'fr';
 }
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
@@ -86,10 +94,21 @@ export default function NurtureDay7({
   relatedProperties = sampleProperties,
   marketInsights = sampleInsights,
   unsubscribeUrl = '#',
+  locale = 'en',
 }: NurtureDay7Props) {
+  const tr = (key: string, vars?: Record<string, string>) => {
+    const v = t(`emails.${key}`, locale);
+    return vars ? interp(v, vars) : v;
+  };
+
+  const htmlLang = tr('common.html_lang') || 'en';
+  const localePath = locale === 'en' ? '' : `/${locale}`;
+  const dn = destinationName || '';
+  const bedsLabel = tr('common.card_beds') || 'Beds';
+  const viewPropertyText = tr('common.card_view_property') || 'View Property →';
 
   return (
-    <Html lang="en">
+    <Html lang={htmlLang}>
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -101,7 +120,7 @@ export default function NurtureDay7({
         `}</style>
       </Head>
 
-      <Preview>What's the {destinationName} market really like right now?</Preview>
+      <Preview>{destinationName ? tr('nurture_day7.preview', { destinationName: dn }) : tr('nurture_day7.preview_general')}</Preview>
 
       <Body style={body}>
 
@@ -119,21 +138,13 @@ export default function NurtureDay7({
           <Container style={wrap}>
             <Section style={{ padding: '52px 0 40px' }}>
 
-              <Text style={eyebrow}>Destination Insight</Text>
-              <Heading style={heroHeading}>
-                What You Should Know About {destinationName}
-              </Heading>
+              <Text style={eyebrow}>{tr('nurture_day7.eyebrow_intro')}</Text>
+              <Heading style={heroHeading}>{tr('nurture_day7.main_heading', { destinationName: dn })}</Heading>
               <Hr style={goldBar} />
 
-              <Text style={bodyText}>
-                Hi {firstName},
-              </Text>
-              <Text style={bodyText}>
-                {destinationName} has become one of the most sought-after destinations for co-ownership in Europe — and for good reason. The combination of year-round sunshine, world-class infrastructure and strong rental demand makes it a rare market where lifestyle and investment genuinely align.
-              </Text>
-              <Text style={bodyText}>
-                We've pulled together a few market insights that may help you understand what owning a share here really looks like right now.
-              </Text>
+              <Text style={bodyText}>{tr('nurture_day7.greeting', { firstName: firstName || '' })}</Text>
+              <Text style={bodyText}>{tr('nurture_day7.intro_body_1', { destinationName: dn })}</Text>
+              <Text style={bodyText}>{tr('nurture_day7.intro_body_2')}</Text>
 
             </Section>
           </Container>
@@ -160,7 +171,7 @@ export default function NurtureDay7({
           <Container style={wrap}>
             <Section style={{ padding: '44px 0 8px' }}>
 
-              <Text style={eyebrow}>Properties Available in {destinationName}</Text>
+              <Text style={eyebrow}>{tr('nurture_day7.eyebrow_properties', { destinationName: dn })}</Text>
               <Hr style={goldBar} />
 
               {relatedProperties.map((p, i) => (
@@ -168,7 +179,7 @@ export default function NurtureDay7({
                   <Row>
                     {/* Image column */}
                     <Column style={hCardImgCol}>
-                      <Link href={`${base}/property/${p.slug}`}>
+                      <Link href={`${base}${localePath}/property/${p.slug}`}>
                         <Section style={hCardImgPlaceholder}> </Section>
                       </Link>
                     </Column>
@@ -176,14 +187,14 @@ export default function NurtureDay7({
                     <Column style={hCardContent}>
                       <Text style={hCardLocation}>{p.location}</Text>
                       <Text style={hCardTitle}>{p.title}</Text>
-                      <Text style={hCardStats}>{p.beds} Beds&emsp;|&emsp;{p.size} m²</Text>
+                      <Text style={hCardStats}>{p.beds} {bedsLabel}&emsp;|&emsp;{p.size} m²</Text>
                       <Row style={{ marginTop: 12 }}>
                         <Column>
                           <Text style={hCardPrice}>{p.price}</Text>
                         </Column>
                         <Column style={{ textAlign: 'right' as const, verticalAlign: 'middle' }}>
-                          <Link href={`${base}/property/${p.slug}`} style={viewLink}>
-                            View Property →
+                          <Link href={`${base}${localePath}/property/${p.slug}`} style={viewLink}>
+                            {viewPropertyText}
                           </Link>
                         </Column>
                       </Row>
@@ -200,8 +211,8 @@ export default function NurtureDay7({
         <Section style={{ backgroundColor: C.cream, paddingBottom: 56 }}>
           <Container style={wrap}>
             <Section style={{ textAlign: 'center' as const }}>
-              <Button href={`${base}/our-homes/?destination=${destinationName.toLowerCase()}`} style={ctaBtn}>
-                Browse All {destinationName} Properties
+              <Button href={`${base}${localePath}/our-homes/${destinationName ? `?destination=${destinationName.toLowerCase()}` : ''}`} style={ctaBtn}>
+                {destinationName ? tr('nurture_day7.cta_button', { destinationName: dn }) : tr('nurture_day7.cta_button_general')}
               </Button>
             </Section>
           </Container>
@@ -211,11 +222,9 @@ export default function NurtureDay7({
         <Section style={{ backgroundColor: C.cream, paddingBottom: 48 }}>
           <Container style={wrap}>
             <Hr style={{ borderColor: C.border, margin: '0 0 28px' }} />
-            <Text style={signOffBody}>
-              If any of these resonate, or if you have a destination in mind that we haven't listed, reply to this email — our team typically responds within minutes.
-            </Text>
+            <Text style={signOffBody}>{tr('nurture_day7.closing_body')}</Text>
             <Hr style={goldRule} />
-            <Text style={signOffName}>The Co-Ownership Property Team</Text>
+            <Text style={signOffName}>{tr('common.team_signoff')}</Text>
             <Text style={signOffSite}>co-ownership-property.com</Text>
           </Container>
         </Section>
@@ -226,20 +235,18 @@ export default function NurtureDay7({
             <Text style={footLogo}>Co-Ownership Property</Text>
             <Section style={footGoldRule} />
             <Text style={footLinks}>
-              <Link href={`${base}/our-homes/`} style={footLink}>Properties</Link>
+              <Link href={`${base}${localePath}/our-homes/`} style={footLink}>{tr('common.footer_our_homes')}</Link>
               {'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
+              <Link href={`${base}${localePath}/how-it-works/`} style={footLink}>{tr('common.footer_how_it_works')}</Link>
               {'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Our Blog</Link>
+              <Link href={`${base}${localePath}/all-our-blog/`} style={footLink}>{tr('common.footer_blog')}</Link>
               {'  ·  '}
-              <Link href={unsubscribeUrl} style={footLink}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={footLink}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
             <Hr style={footDivider} />
+            <Text style={footFine}>{tr('nurture_day7.footer_fine_print')}</Text>
             <Text style={footFine}>
-              You're receiving this email because you enquired about a co-ownership property.
-            </Text>
-            <Text style={footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>

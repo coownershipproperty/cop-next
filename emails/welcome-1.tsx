@@ -12,11 +12,19 @@ import {
   Text,
 } from '@react-email/components';
 import * as React from 'react';
+import { t } from '@/lib/i18n';
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function interp(s: string, vars?: Record<string, string>) {
+  if (!s || !vars) return s;
+  return s.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? vars[k] : `{${k}}`));
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface Welcome1Props {
   firstName?: string;
   unsubscribeUrl?: string;
+  locale?: 'en' | 'es' | 'fr';
 }
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
@@ -35,9 +43,20 @@ const base = 'https://co-ownership-property.com';
 export default function Welcome1({
   firstName,
   unsubscribeUrl = '{{unsubscribe_url}}',
+  locale = 'en',
 }: Welcome1Props) {
+  const tr = (key: string, vars?: Record<string, string>) => {
+    const v = t(`emails.${key}`, locale);
+    return vars ? interp(v, vars) : v;
+  };
+
+  const htmlLang = tr('common.html_lang') || 'en';
+
+  // Localized URL prefix — '' for English, '/es' or '/fr' for other locales
+  const localePath = locale === 'en' ? '' : `/${locale}`;
+
   return (
-    <Html lang="en">
+    <Html lang={htmlLang}>
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
@@ -49,7 +68,7 @@ export default function Welcome1({
         `}</style>
       </Head>
 
-      <Preview>Welcome — here's what to expect from us.</Preview>
+      <Preview>{tr('welcome_1.preview')}</Preview>
 
       <Body style={body}>
 
@@ -67,39 +86,39 @@ export default function Welcome1({
           <Container style={wrapBody}>
 
             <Hr style={goldRule} />
-            <Text style={eyebrow}>Welcome</Text>
+            <Text style={eyebrow}>{tr('welcome_1.eyebrow')}</Text>
 
             <Heading style={heroHeading}>
-              <em>{firstName ? `Welcome, ${firstName}` : 'Welcome to the newsletter'}</em>
+              <em>{firstName
+                ? tr('welcome_1.heading_with_name', { firstName })
+                : tr('welcome_1.heading_without_name')}</em>
             </Heading>
 
-            <Text style={bodyText}>
-              You're in. Here's what to expect from us:
+            <Text style={bodyText}>{tr('welcome_1.intro')}</Text>
+
+            <Text style={listItem}>
+              <strong style={{ color: C.navy }}>{tr('welcome_1.item1_label')}</strong> — {tr('welcome_1.item1_body')}
             </Text>
 
             <Text style={listItem}>
-              <strong style={{ color: C.navy }}>Weekly handpicked properties</strong> — a curated selection of what's caught our eye, from mountain chalets to coastal villas.
+              <strong style={{ color: C.navy }}>{tr('welcome_1.item2_label')}</strong> — {tr('welcome_1.item2_body')}
             </Text>
 
             <Text style={listItem}>
-              <strong style={{ color: C.navy }}>Destination guides &amp; market insights</strong> — honest, practical information on the places and properties we feature.
-            </Text>
-
-            <Text style={listItem}>
-              <strong style={{ color: C.navy }}>No sales pressure, ever</strong> — reply to any email and a real person will get back to you.
+              <strong style={{ color: C.navy }}>{tr('welcome_1.item3_label')}</strong> — {tr('welcome_1.item3_body')}
             </Text>
 
             <Hr style={goldRule} />
 
             <Section style={{ margin: '28px 0' }}>
-              <Button href={`${base}/our-homes/`} style={ctaBtn}>
-                BROWSE OUR HOMES
+              <Button href={`${base}${localePath}/our-homes/`} style={ctaBtn}>
+                {tr('welcome_1.cta_button')}
               </Button>
             </Section>
 
-            <Text style={signoffName}>The Co-Ownership Property Team</Text>
+            <Text style={signoffName}>{tr('common.team_signoff')}</Text>
             <Text style={signoffSite}>
-              <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
+              <Link href={`${base}${localePath}`} style={signoffLink}>co-ownership-property.com</Link>
             </Text>
 
           </Container>
@@ -111,20 +130,18 @@ export default function Welcome1({
             <Text style={footLogo}>Co-Ownership Property</Text>
             <Section style={footGoldRule} />
             <Text style={footLinks}>
-              <Link href={base} style={footLink}>Website</Link>
+              <Link href={`${base}${localePath}`} style={footLink}>{tr('common.footer_website')}</Link>
               {'  ·  '}
-              <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
+              <Link href={`${base}${localePath}/our-homes/`} style={footLink}>{tr('common.footer_our_homes')}</Link>
               {'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
+              <Link href={`${base}${localePath}/how-it-works/`} style={footLink}>{tr('common.footer_how_it_works')}</Link>
               {'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Blog</Link>
+              <Link href={`${base}${localePath}/all-our-blog/`} style={footLink}>{tr('common.footer_blog')}</Link>
             </Text>
             <Hr style={footDivider} />
+            <Text style={footFine}>{tr('welcome_1.footer_fine_print')}</Text>
             <Text style={footFine}>
-              You're receiving this email because you signed up at co-ownership-property.com
-            </Text>
-            <Text style={footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>

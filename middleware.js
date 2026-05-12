@@ -42,25 +42,6 @@ function currencyForCountry(country) {
   return null; // everywhere else — show original price
 }
 
-// ── Country → preferred locale ──────────────────────────────────────────────
-// Spanish-speaking countries → 'es'; French-speaking countries → 'fr'.
-// Everywhere else falls through to English (no redirect).
-const SPANISH_COUNTRIES = new Set([
-  'ES','MX','AR','CO','CL','PE','VE','EC','GT','CU','BO','DO','HN','PY','SV','NI','CR','PA','UY','PR',
-]);
-const FRENCH_COUNTRIES = new Set([
-  // Pure-French markets plus dominantly-French Switzerland (geo signal is
-  // approximate — visitors can override via the language switcher).
-  'FR','BE','LU','MC','CH',
-]);
-
-function localeForCountry(country) {
-  if (!country) return null;
-  if (SPANISH_COUNTRIES.has(country)) return 'es';
-  if (FRENCH_COUNTRIES.has(country)) return 'fr';
-  return null;
-}
-
 export function middleware(request) {
   const ua = request.headers.get('user-agent') || '';
 
@@ -84,8 +65,8 @@ export function middleware(request) {
   const pathname = url.pathname;
 
   // ── Explicit locale override via ?locale= URL param ─────────────────────────
-  // ?locale=en pins the visitor to English permanently and prevents future
-  // geo-redirects. Used by the language switcher.
+  // ?locale=en|es|fr — used by the language switcher to remember the visitor's
+  // choice (purely for the language-switcher widget; we no longer geo-redirect).
   const explicitLocale = url.searchParams.get('locale');
   if (explicitLocale && ['en','es','fr'].includes(explicitLocale)) {
     const r = NextResponse.next();
@@ -93,29 +74,10 @@ export function middleware(request) {
     return r;
   }
 
-  // ── Locale geo-redirect (homepage only, first visit only) ───────────────────
-  // We only redirect the bare English homepage ('/'), only if the visitor
-  // doesn't already have a cop_locale cookie, and only if their country maps
-  // to a supported locale. We intentionally do NOT redirect deep pages — that
-  // would harm SEO and break shared links.
-  if (
-    pathname === '/' &&
-    !request.cookies.has('cop_locale') &&
-    request.method === 'GET'
-  ) {
-    const country = request.geo?.country || '';
-    const wantedLocale = localeForCountry(country);
-    if (wantedLocale) {
-      url.pathname = `/${wantedLocale}/`;
-      const redirect = NextResponse.redirect(url, 307);
-      redirect.cookies.set('cop_locale', wantedLocale, {
-        maxAge: 60*60*24*365, // remember for a year
-        path: '/',
-        sameSite: 'lax',
-      });
-      return redirect;
-    }
-  }
+  // NOTE: No geo-redirect by design. Visitors land on whichever URL they
+  // clicked (e.g. from Google) — if they clicked the English page from Spain,
+  // they stay on the English page. Locale is only changed when they
+  // explicitly use the language switcher.
 
   // ── Currency geo-detection ─────────────────────────────────────────────────
   // Set cop_currency cookie once per visitor based on their country.

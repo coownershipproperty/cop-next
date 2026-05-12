@@ -7,7 +7,7 @@ const BASE = 'https://co-ownership-property.com';
 // ── English static pages ──────────────────────────────────────────────────
 const STATIC_PAGES_EN = [
   { url: '/',                                            priority: '1.0', changefreq: 'daily',   alternates: { en: '/', es: '/es/', fr: '/fr/' } },
-  { url: '/our-homes/',                                  priority: '0.9', changefreq: 'daily'   },
+  { url: '/our-homes/',                                  priority: '0.9', changefreq: 'daily',   alternates: { en: '/our-homes/', es: '/es/propiedades/', fr: '/fr/proprietes/' } },
   { url: '/how-it-works/',                               priority: '0.8', changefreq: 'monthly', alternates: { en: '/how-it-works/', es: '/es/como-funciona/', fr: '/fr/comment-ca-marche/' } },
   { url: '/about-us/',                                   priority: '0.7', changefreq: 'monthly', alternates: { en: '/about-us/', es: '/es/quienes-somos/', fr: '/fr/a-propos/' } },
   { url: '/all-our-blog/',                               priority: '0.8', changefreq: 'daily'   },
@@ -26,22 +26,26 @@ const STATIC_PAGES_ES = [
   { url: '/es/como-funciona/',  priority: '0.8', changefreq: 'monthly' },
   { url: '/es/quienes-somos/',  priority: '0.7', changefreq: 'monthly' },
   { url: '/es/contacto/',       priority: '0.6', changefreq: 'monthly' },
+  { url: '/es/blog/copropiedad-vs-multipropiedad/', priority: '0.8', changefreq: 'monthly' }, // featured-snippet target
+  { url: '/es/propiedades/',                        priority: '0.9',  changefreq: 'daily'   }, // localised listings
+  { url: '/es/destinos/mallorca/',                  priority: '0.85', changefreq: 'weekly' }, // top destination
+  { url: '/es/destinos/ibiza/',                     priority: '0.85', changefreq: 'weekly' }, // top destination
   // Coming soon:
-  // { url: '/es/propiedades/',    priority: '0.8', changefreq: 'daily'   },
-  // { url: '/es/blog/copropiedad-vs-multipropiedad/', priority: '0.7', changefreq: 'monthly' },
+  // { url: '/es/blog/guia-comprar-copropiedad-espana/', priority: '0.7', changefreq: 'monthly' },
 ];
 
 // ── French locale static pages ────────────────────────────────────────────
 const STATIC_PAGES_FR = [
-  { url: '/fr/',                                       priority: '0.9', changefreq: 'daily'   },
-  { url: '/fr/copropriete-residence-secondaire/',     priority: '0.9', changefreq: 'monthly' }, // pillar
-  { url: '/fr/comment-ca-marche/',                    priority: '0.8', changefreq: 'monthly' },
-  { url: '/fr/a-propos/',                             priority: '0.7', changefreq: 'monthly' },
-  { url: '/fr/contact/',                              priority: '0.6', changefreq: 'monthly' },
-  // Coming soon:
-  // { url: '/fr/proprietes/',                          priority: '0.8', changefreq: 'daily'   },
-  // { url: '/fr/blog/copropriete-vs-multipropriete/',  priority: '0.7', changefreq: 'monthly' },
-  // { url: '/fr/blog/acheter-residence-secondaire-a-plusieurs/', priority: '0.7', changefreq: 'monthly' },
+  { url: '/fr/',                                              priority: '0.9', changefreq: 'daily'   },
+  { url: '/fr/copropriete-residence-secondaire/',            priority: '0.9', changefreq: 'monthly' }, // pillar
+  { url: '/fr/comment-ca-marche/',                           priority: '0.8', changefreq: 'monthly' },
+  { url: '/fr/a-propos/',                                    priority: '0.7', changefreq: 'monthly' },
+  { url: '/fr/contact/',                                     priority: '0.6', changefreq: 'monthly' },
+  { url: '/fr/blog/acheter-residence-secondaire-a-plusieurs/', priority: '0.85', changefreq: 'monthly' }, // Prello orphan — highest-value FR target
+  { url: '/fr/blog/copropriete-vs-multipropriete/',          priority: '0.8', changefreq: 'monthly' }, // featured-snippet target
+  { url: '/fr/proprietes/',                                  priority: '0.9',  changefreq: 'daily'   }, // localised listings
+  { url: '/fr/destinations/mallorque/',                      priority: '0.85', changefreq: 'weekly' }, // top destination FR
+  { url: '/fr/destinations/ibiza/',                          priority: '0.85', changefreq: 'weekly' }, // top destination FR
 ];
 
 function xmlEscape(str) {
