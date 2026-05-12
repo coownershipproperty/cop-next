@@ -45,27 +45,47 @@
 }
 
 @media (max-width: 900px) {
-  .cop-lang-switcher {
-    /* Inside the mobile drawer the switcher needs to be a full-width flex
-       row so justify-content has space to distribute. inline-flex shrinks
-       to the content and would leave the chips stuck to whichever edge. */
+  /* Scoped under .cop-nav so we win specificity against the drawer's
+     `.cop-nav a { ... !important }` block in globals.css. Without this
+     scoping the <a> chips (non-current locales) inherit drawer styling —
+     full-width, left-aligned, white text, bottom border — and look like
+     regular nav rows, while the <span> for the active locale keeps the
+     chip look. The visible result was "only FR shows up" on FR pages. */
+  .cop-nav .cop-lang-switcher {
     display: flex !important;
     width: 100%;
     margin: 1.5rem 0 0;
-    padding: 0;
+    padding: 1rem 0 0;
+    border-top: 1px solid rgba(201,168,76,0.12);
     border-left: 0;
     justify-content: center;
     gap: 0.6rem;
   }
-  .cop-lang-link,
-  .cop-lang-current {
-    /* Even chip sizing so EN/ES/FR don't drift apart visually when one is
-       highlighted (gold background) and the others are plain text. */
-    flex: 0 0 auto;
+  .cop-nav .cop-lang-switcher .cop-lang-link,
+  .cop-nav .cop-lang-switcher .cop-lang-current {
+    flex: 0 0 auto !important;
+    width: auto !important;
     min-width: 4rem;
-    text-align: center;
-    font-size: 0.95rem;
-    padding: 0.5rem 0.85rem;
+    padding: 0.5rem 0.85rem !important;
+    text-align: center !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.06em !important;
+    border-bottom: none !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .cop-nav .cop-lang-switcher .cop-lang-link {
+    color: rgba(255,255,255,0.7) !important;
+    background: transparent !important;
+  }
+  .cop-nav .cop-lang-switcher .cop-lang-current {
+    color: #fff !important;
+    background: rgba(201,168,76,0.85) !important;
+  }
+  .cop-nav .cop-lang-switcher .cop-lang-link.cop-lang-unavailable {
+    color: rgba(255,255,255,0.4) !important;
   }
 }
 
