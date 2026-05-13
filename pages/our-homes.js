@@ -28,7 +28,7 @@ export async function getStaticProps() {
 
   const { data: raw, error } = await supabase
     .from('properties')
-    .select('slug, title, title_es, title_fr, img, images, total_images, drive_url, price, currency, country, region, city, beds, size, status, property_type');
+    .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, country, region, city, beds, size, status, property_type');
 
   if (error) {
     console.error('Supabase error (our-homes):', error);
@@ -42,6 +42,7 @@ export async function getStaticProps() {
     // one based on its own locale detection (router or cookie).
     title_es: p.title_es || null,
     title_fr: p.title_fr || null,
+    title_de: p.title_de || null,
     img:      p.img,
     images:      (p.images || []).slice(0, 3),
     totalImages: p.total_images || 0,
@@ -260,6 +261,73 @@ const COPY = {
       'London': 'Londres', 'England': 'Angleterre',
       'Austria': 'Autriche', 'Croatia': 'Croatie', 'Germany': 'Allemagne',
       'Mexico': 'Mexique', 'Portugal': 'Portugal', 'Sweden': 'Suède',
+    },
+  },
+  de: {
+    title_tag: 'Alle unsere Immobilien | Co-Ownership Property',
+    meta_desc: 'Stöbern Sie durch alle unsere Luxus-Miteigentumsimmobilien. Filtern Sie nach Reiseziel, Region und Preis.',
+    eyebrow: 'Weltweite Auswahl',
+    h1: 'Alle unsere Immobilien',
+    sub: 'Sorgfältig ausgewählte Luxus-Ferienimmobilien im Miteigentum in ganz Europa, den USA und darüber hinaus — finden Sie das Zuhause, das zu Ihnen passt.',
+    label_country: 'Land', label_region: 'Region', label_sort: 'Sortieren',
+    all: 'Alle', other: 'Sonstige',
+    sort_default: 'Standard', sort_asc: 'Preis ↑ Niedrig', sort_desc: 'Preis ↓ Hoch',
+    clear: '✕ Zurücksetzen', clear_filters: 'Filter zurücksetzen',
+    get_alerts: 'Benachrichtigungen erhalten',
+    showing: 'Anzeige von', of: 'von',
+    property_singular: 'Immobilie', property_plural: 'Immobilien',
+    load_more: (n) => `Weitere anzeigen (noch ${n})`,
+    no_results: 'Keine Immobilien entsprechen Ihren Filtern.',
+    alert_eye: 'Immobilien-Benachrichtigungen',
+    alert_heading: 'Erfahren Sie es als Erste(r)',
+    alert_sub: 'Teilen Sie uns mit, wonach Sie suchen. Sobald eine passende Immobilie hinzugefügt wird, informieren wir Sie als Erste(n).',
+    alert_destinations: 'Reiseziele', alert_optional: '(optional)',
+    alert_max_budget: 'Maximalbudget', alert_any_budget: 'Beliebiges Budget',
+    alert_under_100: 'Unter 100.000 €', alert_up_to: 'Bis zu', alert_over_1m: 'Über 1.000.000 €',
+    alert_name_ph: 'Ihr Name (optional)', alert_email_ph: 'Ihre E-Mail-Adresse *',
+    alert_save: 'Benachrichtigung speichern →', alert_saving: 'Wird gespeichert…',
+    alert_saved: 'Benachrichtigung gespeichert!',
+    alert_saved_msg: 'Wir senden Ihnen eine E-Mail an',
+    alert_saved_msg_2: ', sobald eine passende Immobilie verfügbar ist.',
+    alert_error: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
+    country_spain: 'Spanien', country_france: 'Frankreich', country_usa: 'USA', country_italy: 'Italien',
+    region_labels: {
+      // France
+      'Paris': 'Paris',
+      'South of France': 'Südfrankreich',
+      "Côte d'Azur": "Côte d'Azur",
+      'French Alps': 'Französische Alpen',
+      'Portes du Soleil': 'Portes du Soleil',
+      // Spain
+      'Mallorca': 'Mallorca', 'Ibiza': 'Ibiza', 'Menorca': 'Menorca', 'Formentera': 'Formentera',
+      'Costa del Sol': 'Costa del Sol', 'Costa Blanca': 'Costa Blanca', 'Costa de la Luz': 'Costa de la Luz',
+      'Madrid': 'Madrid', 'Barcelona': 'Barcelona', 'Baqueira': 'Baqueira',
+      'Tenerife': 'Teneriffa', 'Canary Islands': 'Kanarische Inseln',
+      // Italy
+      'Italian Lakes': 'Italienische Seen', 'Lake Como': 'Comer See', 'Lake Garda': 'Gardasee',
+      'Lago Maggiore': 'Lago Maggiore', 'Liguria': 'Ligurien', 'Sardinia': 'Sardinien',
+      // USA states
+      'California': 'Kalifornien', 'Colorado': 'Colorado', 'Florida': 'Florida', 'Utah': 'Utah',
+      // UK
+      'London': 'London', 'England': 'England',
+      // Countries appearing as region chips when "Other" is selected
+      'Austria': 'Österreich', 'Croatia': 'Kroatien', 'Germany': 'Deutschland',
+      'Mexico': 'Mexiko', 'Portugal': 'Portugal', 'Sweden': 'Schweden',
+    },
+    alert_dest_countries: {
+      Spain: 'Spanien', France: 'Frankreich', Italy: 'Italien', USA: 'USA',
+      'United Kingdom': 'Vereinigtes Königreich', Other: 'Sonstige',
+    },
+    alert_dest_children: {
+      'Mallorca': 'Mallorca', 'Ibiza': 'Ibiza', 'Menorca': 'Menorca',
+      'Costa del Sol': 'Costa del Sol', 'Costa Blanca': 'Costa Blanca',
+      'Barcelona': 'Barcelona', 'Canary Islands': 'Kanarische Inseln',
+      'South of France': 'Südfrankreich', 'French Alps': 'Französische Alpen', 'Paris': 'Paris',
+      'Italian Lakes': 'Italienische Seen', 'Sardinia': 'Sardinien', 'Liguria': 'Ligurien',
+      'Colorado': 'Colorado', 'Florida': 'Florida', 'California': 'Kalifornien', 'Utah': 'Utah',
+      'London': 'London', 'England': 'England',
+      'Austria': 'Österreich', 'Croatia': 'Kroatien', 'Germany': 'Deutschland',
+      'Mexico': 'Mexiko', 'Portugal': 'Portugal', 'Sweden': 'Schweden',
     },
   },
 };
