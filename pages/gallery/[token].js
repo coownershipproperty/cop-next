@@ -547,6 +547,8 @@ const s = {
     width: '100%', height: '100%',
     objectFit: 'contain', objectPosition: 'center',
     display: 'block',
+    // Very subtle brightness lift so photos pop slightly over the dark frame
+    filter: 'brightness(1.04) saturate(1.04)',
   },
 
   // Extra (brochure) photos — flex-centered, never upscaled beyond natural size
@@ -582,8 +584,12 @@ const s = {
     zIndex: 10, whiteSpace: 'nowrap',
   },
   gradient: {
-    position: 'absolute', inset: 0,
-    background: 'linear-gradient(to top, rgba(10,20,32,0.92) 0%, rgba(10,20,32,0.55) 30%, rgba(10,20,32,0.0) 60%)',
+    // Just enough bottom darkening to keep the page-counter + "I'm interested"
+    // CTA legible over light photos — but no broad navy wash any more.
+    position: 'absolute', left: 0, right: 0, bottom: 0,
+    height: '22%',
+    background: 'linear-gradient(to top, rgba(10,20,32,0.55) 0%, rgba(10,20,32,0.0) 100%)',
+    pointerEvents: 'none',
   },
 
   // Nav
@@ -591,7 +597,8 @@ const s = {
     position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10,
     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
     padding: '0 28px', height: 60,
-    background: 'linear-gradient(to bottom, rgba(10,20,32,0.75) 0%, transparent 100%)',
+    // Lighter top fade — just enough to keep the logo readable
+    background: 'linear-gradient(to bottom, rgba(10,20,32,0.40) 0%, transparent 100%)',
   },
   navLogo: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
