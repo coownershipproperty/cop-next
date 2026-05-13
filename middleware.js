@@ -43,6 +43,18 @@ function currencyForCountry(country) {
 }
 
 export function middleware(request) {
+  const url = new URL(request.url);
+  const pathname = url.pathname;
+
+  // ── API routes bypass the bot filter entirely ─────────────────────────────
+  // Vercel's cron runner, Resend webhooks, and our own internal scripts all
+  // hit /api/* and would otherwise get caught by node/curl/axios patterns
+  // below. Auth on API routes is the API's own responsibility (Bearer token,
+  // cron header, etc.) — middleware should never 403 them.
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next();
+  }
+
   const ua = request.headers.get('user-agent') || '';
 
   // Always allow legitimate search engines / social crawlers — they must see
@@ -60,9 +72,6 @@ export function middleware(request) {
   if (BOT_PATTERNS.some(p => p.test(ua))) {
     return new NextResponse(null, { status: 403 });
   }
-
-  const url = new URL(request.url);
-  const pathname = url.pathname;
 
   // ── Explicit locale override via ?locale= URL param ─────────────────────────
   // ?locale=en|es|fr — used by the language switcher to remember the visitor's
