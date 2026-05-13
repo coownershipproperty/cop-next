@@ -95,6 +95,9 @@ export default function PropertyEdit() {
   const [property, setProperty] = useState(null)
   const [form, setForm] = useState(null)
   const [extraPhotos, setExtraPhotos] = useState([])
+  const [gallery, setGallery] = useState([])   // pre-unlock gallery (images)
+  const [photos, setPhotos] = useState([])     // full unlocked gallery (photos)
+  const [dragIdx, setDragIdx] = useState(null) // { list: 'gallery'|'photos'|'extras', i }
   const [saveState, setSaveState] = useState('idle')
   const [saveMsg, setSaveMsg] = useState('')
   const [uploading, setUploading] = useState(false)
@@ -107,6 +110,8 @@ export default function PropertyEdit() {
         if (!data) return
         setProperty(data)
         setExtraPhotos(data.extra_photos || [])
+        setGallery(data.images || [])
+        setPhotos(data.photos || [])
         setForm({
           title: data.title || '',
           status: data.status || 'for_sale',
@@ -132,6 +137,40 @@ export default function PropertyEdit() {
     setForm(prev => ({ ...prev, [field]: value }))
   }
 
+  // ── Drag-and-drop reorder helpers ────────────────────────────────────────
+  function reorder(list, fromIdx, toIdx) {
+    if (fromIdx === toIdx) return list
+    const next = [...list]
+    const [moved] = next.splice(fromIdx, 1)
+    next.splice(toIdx, 0, moved)
+    return next
+  }
+  function handleDragStart(list, i) { setDragIdx({ list, i }) }
+  function handleDragEnd() { setDragIdx(null) }
+  function handleDrop(list, toIdx) {
+    if (!dragIdx || dragIdx.list !== list) return
+    if (list === 'gallery') setGallery(g => reorder(g, dragIdx.i, toIdx))
+    if (list === 'photos')  setPhotos(p => reorder(p, dragIdx.i, toIdx))
+    if (list === 'extras')  setExtraPhotos(e => reorder(e, dragIdx.i, toIdx))
+    setDragIdx(null)
+  }
+  // Reusable card style for any draggable thumbnail
+  function dragProps(list, i) {
+    const isDragging = dragIdx?.list === list && dragIdx.i === i
+    return {
+      draggable: true,
+      onDragStart: () => handleDragStart(list, i),
+      onDragEnd: handleDragEnd,
+      onDragOver: e => { e.preventDefault() },
+      onDrop: e => { e.preventDefault(); handleDrop(list, i) },
+      style: {
+        cursor: 'grab',
+        opacity: isDragging ? 0.3 : 1,
+        transition: 'opacity 120ms',
+      }
+    }
+  }
+
   async function handleSave() {
     setSaveState('saving')
     const amenitiesArray = form.amenities.split(',').map(s => s.trim()).filter(Boolean)
@@ -152,8 +191,11 @@ export default function PropertyEdit() {
       lat: form.lat ? Number(form.lat) : null,
       lng: form.lng ? Number(form.lng) : null,
       amenities: amenitiesArray,
+      images: gallery,
+      photos: photos,
+      img: gallery[0] || property.img,   // hero follows the first gallery slot
       extra_photos: extraPhotos,
-      total_images: (property.photos?.length || 0) + extraPhotos.length,
+      total_images: photos.length + extraPhotos.length,
     }).eq('slug', slug)
 
     if (error) {
@@ -482,74 +524,88 @@ export default function PropertyEdit() {
             <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>Used on listing cards</p>
           </Card>
 
-          {/* Gallery */}
-          <Card title={`Gallery (${property.images?.length || 0} visible)`}>
+          {/* Gallery — drag to reorder. First image becomes hero on listing cards. */}
+          <Card title={`Gallery (${gallery.length} visible)`}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
-              {(property.images || []).map((url, i) => (
-                <img key={i} src={url} alt="" style={{
-                  aspectRatio: '1', objectFit: 'cover',
-                  borderRadius: 6, border: `1px solid ${C.border}`,
-                  width: '100%',
-                }} />
-              ))}
-            </div>
-            <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>Shown before unlock</p>
-          </Card>
-
-          {/* All photos */}
-          <Card title={`All photos (${property.photos?.length || 0})`}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
-              {(property.photos || []).slice(0, 8).map((url, i) => (
-                <img key={i} src={url} alt="" style={{
-                  aspectRatio: '1', objectFit: 'cover',
-                  borderRadius: 5, border: `1px solid ${C.border}`,
-                  width: '100%',
-                }} />
-              ))}
-              {(property.photos?.length || 0) > 8 && (
-                <div style={{
-                  aspectRatio: '1', background: '#f0ede8',
-                  borderRadius: 5, border: `1px solid ${C.border}`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 11, color: C.muted, fontWeight: 600,
-                }}>
-                  +{property.photos.length - 8}
-                </div>
-              )}
-            </div>
-            <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>Full unlocked gallery</p>
-          </Card>
-
-          {/* Brochure / extras */}
-          <Card title={`Brochure / extras (${extraPhotos.length})`}>
-            {extraPhotos.length > 0 && (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6, marginBottom: 12 }}>
-                {extraPhotos.map((url, i) => (
-                  <div key={i} style={{ position: 'relative' }}
-                    onMouseEnter={e => e.currentTarget.querySelector('button').style.display = 'flex'}
-                    onMouseLeave={e => e.currentTarget.querySelector('button').style.display = 'none'}
-                  >
+              {gallery.map((url, i) => {
+                const dp = dragProps('gallery', i)
+                return (
+                  <div key={url + i} {...dp} title="Drag to reorder">
                     <img src={url} alt="" style={{
                       aspectRatio: '1', objectFit: 'cover',
                       borderRadius: 6, border: `1px solid ${C.border}`,
                       width: '100%', display: 'block',
                     }} />
-                    <button
-                      onClick={() => removePhoto(url)}
-                      style={{
-                        display: 'none',
-                        position: 'absolute', top: 4, right: 4,
-                        background: 'rgba(0,0,0,0.7)', color: '#fff',
-                        border: 'none', borderRadius: '50%',
-                        width: 22, height: 22,
-                        alignItems: 'center', justifyContent: 'center',
-                        cursor: 'pointer', fontSize: 14, fontWeight: 700,
-                      }}
-                    >
-                      ×
-                    </button>
+                    <p style={{
+                      fontSize: 10, color: i === 0 ? C.gold : C.faint,
+                      fontWeight: i === 0 ? 700 : 500,
+                      textAlign: 'center', margin: '4px 0 0',
+                    }}>{i === 0 ? '★ HERO' : `Slot ${i + 1}`}</p>
                   </div>
-                ))}
+                )
+              })}
+            </div>
+            <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>
+              Shown before unlock. Drag to reorder — slot 1 becomes hero on listing cards.
+            </p>
+          </Card>
+
+          {/* All photos — drag to reorder */}
+          <Card title={`All photos (${photos.length})`}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
+              {photos.map((url, i) => {
+                const dp = dragProps('photos', i)
+                return (
+                  <div key={url + i} {...dp} title={`#${i + 1} — drag to reorder`}>
+                    <img src={url} alt="" style={{
+                      aspectRatio: '1', objectFit: 'cover',
+                      borderRadius: 5, border: `1px solid ${C.border}`,
+                      width: '100%', display: 'block',
+                    }} />
+                  </div>
+                )
+              })}
+            </div>
+            <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>
+              Full unlocked gallery. Drag any photo to reorder.
+            </p>
+          </Card>
+
+          {/* Brochure / extras — draggable + removable */}
+          <Card title={`Brochure / extras (${extraPhotos.length})`}>
+            {extraPhotos.length > 0 && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6, marginBottom: 12 }}>
+                {extraPhotos.map((url, i) => {
+                  const dp = dragProps('extras', i)
+                  return (
+                    <div key={url + i} {...dp}
+                      style={{ ...dp.style, position: 'relative' }}
+                      onMouseEnter={e => { const b = e.currentTarget.querySelector('button'); if (b) b.style.display = 'flex' }}
+                      onMouseLeave={e => { const b = e.currentTarget.querySelector('button'); if (b) b.style.display = 'none' }}
+                      title={`#${i + 1} — drag to reorder`}
+                    >
+                      <img src={url} alt="" style={{
+                        aspectRatio: '1', objectFit: 'cover',
+                        borderRadius: 6, border: `1px solid ${C.border}`,
+                        width: '100%', display: 'block', pointerEvents: 'none',
+                      }} />
+                      <button
+                        onClick={() => removePhoto(url)}
+                        style={{
+                          display: 'none',
+                          position: 'absolute', top: 4, right: 4,
+                          background: 'rgba(0,0,0,0.7)', color: '#fff',
+                          border: 'none', borderRadius: '50%',
+                          width: 22, height: 22,
+                          alignItems: 'center', justifyContent: 'center',
+                          cursor: 'pointer', fontSize: 14, fontWeight: 700,
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  )
+                })}
               </div>
             )}
             <input
