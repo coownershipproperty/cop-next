@@ -147,11 +147,44 @@ export default function PropertyEdit() {
   }
   function handleDragStart(list, i) { setDragIdx({ list, i }) }
   function handleDragEnd() { setDragIdx(null) }
-  function handleDrop(list, toIdx) {
-    if (!dragIdx || dragIdx.list !== list) return
-    if (list === 'gallery') setGallery(g => reorder(g, dragIdx.i, toIdx))
-    if (list === 'photos')  setPhotos(p => reorder(p, dragIdx.i, toIdx))
-    if (list === 'extras')  setExtraPhotos(e => reorder(e, dragIdx.i, toIdx))
+  function handleDrop(targetList, toIdx) {
+    if (!dragIdx) return
+    const fromList = dragIdx.list
+    const fromIdx = dragIdx.i
+
+    // Same-list reorder (move)
+    if (fromList === targetList) {
+      if (targetList === 'gallery') setGallery(g => reorder(g, fromIdx, toIdx))
+      if (targetList === 'photos')  setPhotos(p => reorder(p, fromIdx, toIdx))
+      if (targetList === 'extras')  setExtraPhotos(e => reorder(e, fromIdx, toIdx))
+      setDragIdx(null)
+      return
+    }
+
+    // Cross-list SWAP between gallery ↔ photos only (extras stays separate)
+    const allowed = new Set(['gallery', 'photos'])
+    if (!(allowed.has(fromList) && allowed.has(targetList))) {
+      setDragIdx(null)
+      return
+    }
+    const fromArr = fromList === 'gallery' ? gallery : photos
+    const toArr   = targetList === 'gallery' ? gallery : photos
+    const fromUrl = fromArr[fromIdx]
+    const toUrl   = toArr[toIdx]
+    if (!fromUrl || !toUrl) { setDragIdx(null); return }
+
+    const swapInArr = (arr, idx, newUrl) => {
+      const next = [...arr]
+      next[idx] = newUrl
+      return next
+    }
+    // Put target's URL into source position
+    if (fromList === 'gallery') setGallery(g => swapInArr(g, fromIdx, toUrl))
+    else                        setPhotos(p => swapInArr(p, fromIdx, toUrl))
+    // Put source's URL into target position
+    if (targetList === 'gallery') setGallery(g => swapInArr(g, toIdx, fromUrl))
+    else                          setPhotos(p => swapInArr(p, toIdx, fromUrl))
+
     setDragIdx(null)
   }
   // Reusable card style for any draggable thumbnail
@@ -546,11 +579,11 @@ export default function PropertyEdit() {
               })}
             </div>
             <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>
-              Shown before unlock. Drag to reorder — slot 1 becomes hero on listing cards.
+              Shown before unlock. Drag to reorder, or drag a photo here from <em>All photos</em> below to swap. Slot 1 is the hero on listing cards.
             </p>
           </Card>
 
-          {/* All photos — drag to reorder */}
+          {/* All photos — drag to reorder, or drag UP to Gallery to swap */}
           <Card title={`All photos (${photos.length})`}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
               {photos.map((url, i) => {
@@ -567,7 +600,7 @@ export default function PropertyEdit() {
               })}
             </div>
             <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>
-              Full unlocked gallery. Drag any photo to reorder.
+              Full unlocked gallery. Drag to reorder, or drag a photo up into <em>Gallery</em> to swap it with one of the 3 visible slots.
             </p>
           </Card>
 
