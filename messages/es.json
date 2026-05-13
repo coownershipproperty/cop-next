@@ -197,5 +197,26 @@
       "closing_body": "Si alguna le llama la atención — o si tiene preguntas sobre cualquiera de ellas — basta con responder a este correo. Siempre estaremos encantados de comentar los detalles.",
       "footer_fine_print": "Recibe este correo porque se suscribió en co-ownership-property.com"
     }
+  },
+  "favourites": {
+    "meta_title": "Mis favoritos | Co-Ownership Property",
+    "meta_description": "Tus propiedades en copropiedad guardadas en Co-Ownership Property.",
+    "eyebrow": "Propiedades guardadas",
+    "heading_prefix": "Mis",
+    "heading_em": "Favoritos",
+    "subheading": "Propiedades que has guardado para más tarde. Haz clic en una tarjeta para ver los detalles o hablar con un experto sobre cualquier vivienda.",
+    "empty_heading": "Aún no tienes propiedades guardadas",
+    "empty_subtext": "Explora nuestra colección y toca el icono del corazón en cualquier propiedad para guardarla aquí.",
+    "browse_button": "Ver propiedades",
+    "loading": "Cargando tus propiedades guardadas…",
+    "count_one": "{count} propiedad guardada",
+    "count_other": "{count} propiedades guardadas",
+    "clear_button": "Borrar todas",
+    "clear_confirm": "¿Eliminar todas las propiedades guardadas?",
+    "remove_aria": "Eliminar de favoritos",
+    "view_button": "Ver propiedad →",
+    "sold_badge": "Vendida",
+    "bed_one": "{count} dormitorio",
+    "bed_other": "{count} dormitorios"
   }
 }

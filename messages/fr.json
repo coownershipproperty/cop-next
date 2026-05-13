@@ -197,5 +197,26 @@
       "closing_body": "Si l'une d'elles vous intéresse — ou si vous avez des questions sur l'une d'entre elles — répondez simplement à cet email. Nous sommes toujours ravis d'en discuter les détails.",
       "footer_fine_print": "Vous recevez cet email parce que vous vous êtes inscrit(e) sur co-ownership-property.com"
     }
+  },
+  "favourites": {
+    "meta_title": "Mes favoris | Co-Ownership Property",
+    "meta_description": "Vos propriétés en copropriété enregistrées sur Co-Ownership Property.",
+    "eyebrow": "Propriétés enregistrées",
+    "heading_prefix": "Mes",
+    "heading_em": "Favoris",
+    "subheading": "Propriétés que vous avez enregistrées pour plus tard. Cliquez sur une carte pour voir les détails ou parler à un expert au sujet d'une propriété.",
+    "empty_heading": "Aucune propriété enregistrée pour le moment",
+    "empty_subtext": "Parcourez notre collection et touchez l'icône en forme de cœur sur une propriété pour l'enregistrer ici.",
+    "browse_button": "Voir les propriétés",
+    "loading": "Chargement de vos propriétés enregistrées…",
+    "count_one": "{count} propriété enregistrée",
+    "count_other": "{count} propriétés enregistrées",
+    "clear_button": "Tout effacer",
+    "clear_confirm": "Supprimer toutes les propriétés enregistrées ?",
+    "remove_aria": "Retirer des favoris",
+    "view_button": "Voir la propriété →",
+    "sold_badge": "Vendue",
+    "bed_one": "{count} chambre",
+    "bed_other": "{count} chambres"
   }
 }

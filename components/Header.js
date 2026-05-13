@@ -26,7 +26,7 @@ const NAV_LINKS = {
     { href: '/es/como-funciona/',    labelKey: 'nav.how_it_works' },
     { href: '/es/quienes-somos/',    labelKey: 'nav.about_us' },
     { href: '/es/blog/',             labelKey: 'nav.blog' },
-    { href: '/favourites',           labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
+    { href: '/es/favoritos/',        labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
     { href: '/es/contacto/',         labelKey: 'nav.contact' },
   ],
   fr: [
@@ -35,7 +35,7 @@ const NAV_LINKS = {
     { href: '/fr/comment-ca-marche/', labelKey: 'nav.how_it_works' },
     { href: '/fr/a-propos/',         labelKey: 'nav.about_us' },
     { href: '/fr/blog/',             labelKey: 'nav.blog' },
-    { href: '/favourites',           labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
+    { href: '/fr/favoris/',          labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
     { href: '/fr/contact/',          labelKey: 'nav.contact' },
   ],
 };

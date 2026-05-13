@@ -197,5 +197,26 @@
       "closing_body": "If anything catches your eye — or if you have questions about any of them — just reply to this email. We're always happy to talk through the details.",
       "footer_fine_print": "You're receiving this email because you signed up at co-ownership-property.com"
     }
+  },
+  "favourites": {
+    "meta_title": "My Favourites | Co-Ownership Property",
+    "meta_description": "Your saved co-ownership properties on Co-Ownership Property.",
+    "eyebrow": "Saved Properties",
+    "heading_prefix": "My",
+    "heading_em": "Favourites",
+    "subheading": "Properties you've saved for later. Click a card to view details or speak to an expert about any home.",
+    "empty_heading": "No Saved Properties Yet",
+    "empty_subtext": "Browse our collection and tap the heart icon on any property to save it here.",
+    "browse_button": "Browse Properties",
+    "loading": "Loading your saved properties…",
+    "count_one": "{count} saved property",
+    "count_other": "{count} saved properties",
+    "clear_button": "Clear all",
+    "clear_confirm": "Remove all saved properties?",
+    "remove_aria": "Remove from favourites",
+    "view_button": "View Property →",
+    "sold_badge": "Sold",
+    "bed_one": "{count} Bed",
+    "bed_other": "{count} Beds"
   }
 }

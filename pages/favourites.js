@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import { FAV_KEY, FAV_EVENT, getFavSlugs, toggleFav, onFavsChange } from '@/lib/favs';
+import { t, propertyHref, DEFAULT_LOCALE } from '@/lib/i18n';
 
 function getSupabase() {
   return createClient(
@@ -16,6 +17,14 @@ function getSupabase() {
 }
 
 const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
+
+// Locale → BCP-47 tag for Number.toLocaleString price formatting (Spanish
+// uses dots as thousand separators, French uses thin spaces, English commas).
+const LOCALE_TAG = { en: 'en-GB', es: 'es-ES', fr: 'fr-FR' };
+
+// Locale → href for the "Browse Properties" empty-state CTA. Each locale's
+// own properties index keeps the visitor in their language stream.
+const BROWSE_HREF = { en: '/our-homes/', es: '/es/propiedades/', fr: '/fr/proprietes/' };
 
 const BedIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{width:14,height:14}}>
@@ -33,11 +42,26 @@ const HeartFilledIcon = () => (
   </svg>
 );
 
-export default function Favourites() {
+/**
+ * Favourites page renderer.
+ *
+ * Accepts a `locale` prop so the same component powers /favourites,
+ * /es/favoritos and /fr/favoris. The favourites themselves live in
+ * localStorage under a single key and are shared across locales — saving
+ * a property on the English site shows up in the Spanish favourites and
+ * vice versa, which matches user expectation.
+ */
+export default function Favourites({ locale = DEFAULT_LOCALE }) {
   // null = not yet hydrated; [] = hydrated but empty; [...] = has slugs
   const [slugs, setSlugs]       = useState(null);
   const [props, setProps]       = useState([]);
   const [loading, setLoading]   = useState(false);
+
+  const tr = (key, vars) => {
+    let s = t(`favourites.${key}`, locale);
+    if (vars) Object.entries(vars).forEach(([k, v]) => { s = s.replace(`{${k}}`, v); });
+    return s;
+  };
 
   // On mount: read localStorage and subscribe to changes
   useEffect(() => {
@@ -74,19 +98,20 @@ export default function Favourites() {
   }
 
   function clearAll() {
-    if (!confirm('Remove all saved properties?')) return;
+    if (!confirm(tr('clear_confirm'))) return;
     localStorage.removeItem(FAV_KEY);
     window.dispatchEvent(new CustomEvent(FAV_EVENT, { detail: [] }));
   }
 
   const hydrated = slugs !== null;
   const isEmpty  = hydrated && slugs.length === 0;
+  const numberLocale = LOCALE_TAG[locale] || LOCALE_TAG.en;
 
   return (
     <>
       <Head>
-        <title>My Favourites | Co-Ownership Property</title>
-        <meta name="description" content="Your saved co-ownership properties on Co-Ownership Property." />
+        <title>{tr('meta_title')}</title>
+        <meta name="description" content={tr('meta_description')} />
         <meta name="robots" content="noindex, nofollow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -94,9 +119,9 @@ export default function Favourites() {
       <Header />
 
       <section className="page-hero">
-        <span className="page-hero-eyebrow">Saved Properties</span>
-        <h1>My <em>Favourites</em></h1>
-        <p className="page-hero-sub">Properties you&apos;ve saved for later. Click a card to view details or speak to an expert about any home.</p>
+        <span className="page-hero-eyebrow">{tr('eyebrow')}</span>
+        <h1>{tr('heading_prefix')} <em>{tr('heading_em')}</em></h1>
+        <p className="page-hero-sub">{tr('subheading')}</p>
       </section>
 
       <section className="fav-sec">
@@ -109,16 +134,16 @@ export default function Favourites() {
           {isEmpty && (
             <div className="fav-empty">
               <div className="fav-empty-icon">&#9825;</div>
-              <h2>No Saved Properties Yet</h2>
-              <p>Browse our collection and tap the heart icon on any property to save it here.</p>
-              <a href="/our-homes/" className="btn-gold">Browse Properties</a>
+              <h2>{tr('empty_heading')}</h2>
+              <p>{tr('empty_subtext')}</p>
+              <a href={BROWSE_HREF[locale] || BROWSE_HREF.en} className="btn-gold">{tr('browse_button')}</a>
             </div>
           )}
 
           {/* Loading spinner while fetching */}
           {hydrated && !isEmpty && loading && props.length === 0 && (
             <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}>
-              Loading your saved properties…
+              {tr('loading')}
             </div>
           )}
 
@@ -127,16 +152,20 @@ export default function Favourites() {
             <>
               <div className="fav-header">
                 <p className="fav-count">
-                  <strong>{slugs.length}</strong> saved propert{slugs.length === 1 ? 'y' : 'ies'}
+                  {tr(slugs.length === 1 ? 'count_one' : 'count_other', { count: `<strong>${slugs.length}</strong>` })
+                    .split(/(<strong>\d+<\/strong>)/)
+                    .map((part, i) => part.startsWith('<strong>')
+                      ? <strong key={i}>{part.replace(/<\/?strong>/g, '')}</strong>
+                      : <span key={i}>{part}</span>)}
                 </p>
-                <button className="clear-favs-btn" onClick={clearAll}>Clear all</button>
+                <button className="clear-favs-btn" onClick={clearAll}>{tr('clear_button')}</button>
               </div>
               <div className="fav-grid">
                 {props.map((p) => {
-                  const propUrl  = `/property/${p.slug}`;
+                  const propUrl  = propertyHref(p.slug, locale);
                   const imgSrc   = p.img || (p.images && p.images[0]) || '/images/placeholder.jpg';
                   const price    = p.price
-                    ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString('en-GB')}`
+                    ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString(numberLocale)}`
                     : null;
                   const location = [p.city, p.region, p.country].filter(Boolean).join(', ');
 
@@ -150,11 +179,11 @@ export default function Favourites() {
                     >
                       <div className="prop-img-wrap">
                         <Image src={imgSrc} alt={p.title} fill quality={90} className="prop-img" loading="lazy" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-                        {p.status === 'sold' && <span className="prop-badge sold">Sold</span>}
+                        {p.status === 'sold' && <span className="prop-badge sold">{tr('sold_badge')}</span>}
                         <button
                           className="prop-heart active"
                           onClick={e => { e.stopPropagation(); remove(p.slug); }}
-                          aria-label="Remove from favourites"
+                          aria-label={tr('remove_aria')}
                         >
                           <HeartFilledIcon />
                         </button>
@@ -164,13 +193,17 @@ export default function Favourites() {
                         <h3 className="prop-title">{p.title}</h3>
                         {(p.beds > 0 || p.size > 0) && (
                           <div className="prop-stats">
-                            {p.beds > 0 && <span className="prop-stat"><BedIcon />{p.beds} Bed{p.beds > 1 ? 's' : ''}</span>}
+                            {p.beds > 0 && (
+                              <span className="prop-stat">
+                                <BedIcon />{tr(p.beds === 1 ? 'bed_one' : 'bed_other', { count: p.beds })}
+                              </span>
+                            )}
                             {p.beds > 0 && p.size > 0 && <span className="prop-stat-sep" />}
                             {p.size > 0 && <span className="prop-stat"><SizeIcon />{p.size} m²</span>}
                           </div>
                         )}
                         {price && <p className="prop-price">{price}</p>}
-                        <a href={propUrl} className="prop-view-btn" onClick={e => e.stopPropagation()}>View Property →</a>
+                        <a href={propUrl} className="prop-view-btn" onClick={e => e.stopPropagation()}>{tr('view_button')}</a>
                       </div>
                     </article>
                   );
