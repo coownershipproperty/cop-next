@@ -103,8 +103,17 @@ export default function PropertyEdit() {
   const [uploading, setUploading] = useState(false)        // brochure uploads
   const [uploadingPhotos, setUploadingPhotos] = useState(false)  // all-photos uploads
   const [uploadProgress, setUploadProgress] = useState('')  // "3 / 8" etc
+  const [previewUrl, setPreviewUrl] = useState(null)  // lightbox state
   const fileInputRef = useRef(null)
   const photosInputRef = useRef(null)
+
+  // Close lightbox on Escape
+  useEffect(() => {
+    if (!previewUrl) return
+    const onKey = (e) => { if (e.key === 'Escape') setPreviewUrl(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [previewUrl])
 
   useEffect(() => {
     if (!slug) return
@@ -190,8 +199,9 @@ export default function PropertyEdit() {
 
     setDragIdx(null)
   }
-  // Reusable card style for any draggable thumbnail
-  function dragProps(list, i) {
+  // Reusable card style for any draggable thumbnail.
+  // Click → opens lightbox preview of the URL.
+  function dragProps(list, i, url) {
     const isDragging = dragIdx?.list === list && dragIdx.i === i
     return {
       draggable: true,
@@ -199,6 +209,11 @@ export default function PropertyEdit() {
       onDragEnd: handleDragEnd,
       onDragOver: e => { e.preventDefault() },
       onDrop: e => { e.preventDefault(); handleDrop(list, i) },
+      onClick: e => {
+        // ignore clicks that bubbled up from the remove × button
+        if (e.target?.tagName === 'BUTTON') return
+        if (url) setPreviewUrl(url)
+      },
       style: {
         cursor: 'grab',
         opacity: isDragging ? 0.3 : 1,
@@ -606,7 +621,7 @@ export default function PropertyEdit() {
           <Card title={`Gallery (${gallery.length} visible)`}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
               {gallery.map((url, i) => {
-                const dp = dragProps('gallery', i)
+                const dp = dragProps('gallery', i, url)
                 return (
                   <div key={url + i} {...dp} title="Drag to reorder">
                     <img src={url} alt="" style={{
@@ -632,7 +647,7 @@ export default function PropertyEdit() {
           <Card title={`All photos (${photos.length})`}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
               {photos.map((url, i) => {
-                const dp = dragProps('photos', i)
+                const dp = dragProps('photos', i, url)
                 return (
                   <div key={url + i} {...dp}
                     style={{ ...dp.style, position: 'relative' }}
@@ -704,7 +719,7 @@ export default function PropertyEdit() {
             {extraPhotos.length > 0 && (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6, marginBottom: 12 }}>
                 {extraPhotos.map((url, i) => {
-                  const dp = dragProps('extras', i)
+                  const dp = dragProps('extras', i, url)
                   return (
                     <div key={url + i} {...dp}
                       style={{ ...dp.style, position: 'relative' }}
@@ -769,6 +784,48 @@ export default function PropertyEdit() {
           </Card>
         </div>
       </div>
+
+      {/* Lightbox preview — click any thumbnail to open, Esc or backdrop to close */}
+      {previewUrl && (
+        <div
+          onClick={() => setPreviewUrl(null)}
+          style={{
+            position: 'fixed', inset: 0,
+            background: 'rgba(20, 32, 47, 0.92)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            zIndex: 9999, padding: 32,
+            cursor: 'zoom-out',
+          }}
+        >
+          <img
+            src={previewUrl}
+            alt="Preview"
+            onClick={e => e.stopPropagation()}
+            style={{
+              maxWidth: '95vw', maxHeight: '92vh',
+              objectFit: 'contain',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+              borderRadius: 4,
+              cursor: 'default',
+            }}
+          />
+          <button
+            onClick={() => setPreviewUrl(null)}
+            style={{
+              position: 'absolute', top: 20, right: 20,
+              width: 40, height: 40,
+              background: 'rgba(255,255,255,0.15)',
+              color: '#fff', border: 'none', borderRadius: '50%',
+              fontSize: 22, fontWeight: 300, cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              lineHeight: 1,
+            }}
+            aria-label="Close preview"
+          >
+            ×
+          </button>
+        </div>
+      )}
     </AdminLayout>
   )
 }
