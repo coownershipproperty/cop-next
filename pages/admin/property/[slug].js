@@ -102,6 +102,7 @@ export default function PropertyEdit() {
   const [saveMsg, setSaveMsg] = useState('')
   const [uploading, setUploading] = useState(false)        // brochure uploads
   const [uploadingPhotos, setUploadingPhotos] = useState(false)  // all-photos uploads
+  const [uploadProgress, setUploadProgress] = useState('')  // "3 / 8" etc
   const fileInputRef = useRef(null)
   const photosInputRef = useRef(null)
 
@@ -243,42 +244,63 @@ export default function PropertyEdit() {
     }
   }
 
-  // Shared uploader. target = 'extras' (default) → goes into extra_photos
-  //                    target = 'photos'           → appended to photos[]
-  async function uploadFiles(files, target) {
-    if (!files.length) return []
-    const { data: { session } } = await supabase.auth.getSession()
-    const formData = new FormData()
-    formData.append('slug', slug)
-    formData.append('target', target)
-    files.forEach(f => formData.append('files', f))
-
-    const res = await fetch('/api/admin/upload-photo', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${session.access_token}` },
-      body: formData,
-    })
-    const { urls } = await res.json()
-    return urls || []
+  // Upload files ONE AT A TIME so we don't hit Vercel's 4.5MB request-body
+  // limit when the user picks several high-res phone photos.
+  // setter: state setter to append each newly-uploaded URL to.
+  async function uploadFilesSequential(files, target, setter, setBusy) {
+    if (!files.length) return
+    setBusy(true)
+    let succeeded = 0
+    let failed = 0
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      for (let i = 0; i < files.length; i++) {
+        setUploadProgress(`${i + 1} / ${files.length}`)
+        const formData = new FormData()
+        formData.append('slug', slug)
+        formData.append('target', target)
+        formData.append('files', files[i])
+        try {
+          const res = await fetch('/api/admin/upload-photo', {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${session.access_token}` },
+            body: formData,
+          })
+          if (!res.ok) {
+            console.error('[upload] HTTP', res.status, await res.text())
+            failed++
+            continue
+          }
+          const { urls } = await res.json()
+          if (urls && urls.length) {
+            setter(prev => [...prev, ...urls])
+            succeeded++
+          } else {
+            failed++
+          }
+        } catch (err) {
+          console.error('[upload] file', i, 'failed:', err)
+          failed++
+        }
+      }
+      if (failed > 0) {
+        alert(`Uploaded ${succeeded} of ${files.length}. ${failed} failed — check your connection and try the failures again.`)
+      }
+    } finally {
+      setBusy(false)
+      setUploadProgress('')
+    }
   }
 
   async function handleUpload(e) {
     const files = Array.from(e.target.files || [])
-    if (!files.length) return
-    setUploading(true)
-    const urls = await uploadFiles(files, 'extras')
-    setExtraPhotos(prev => [...prev, ...urls])
-    setUploading(false)
+    await uploadFilesSequential(files, 'extras', setExtraPhotos, setUploading)
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
   async function handleUploadPhotos(e) {
     const files = Array.from(e.target.files || [])
-    if (!files.length) return
-    setUploadingPhotos(true)
-    const urls = await uploadFiles(files, 'photos')
-    setPhotos(prev => [...prev, ...urls])
-    setUploadingPhotos(false)
+    await uploadFilesSequential(files, 'photos', setPhotos, setUploadingPhotos)
     if (photosInputRef.current) photosInputRef.current.value = ''
   }
 
@@ -669,7 +691,7 @@ export default function PropertyEdit() {
                 letterSpacing: '0.08em',
               }}
             >
-              {uploadingPhotos ? 'Uploading…' : '+ Upload more photos'}
+              {uploadingPhotos ? `Uploading ${uploadProgress}…` : '+ Upload more photos'}
             </button>
 
             <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>
@@ -741,7 +763,7 @@ export default function PropertyEdit() {
               onMouseEnter={e => { if (!uploading) e.target.style.background = '#fffbeb' }}
               onMouseLeave={e => { if (!uploading) e.target.style.background = 'transparent' }}
             >
-              {uploading ? 'Uploading…' : '+ Upload brochure screenshots'}
+              {uploading ? `Uploading ${uploadProgress}…` : '+ Upload brochure screenshots'}
             </button>
             <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>Remember to Save after uploading</p>
           </Card>
