@@ -21,8 +21,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const SRC = path.join(__dirname, 'audit-output', 'faq-source.json');
-const OUT = path.join(__dirname, 'audit-output', 'faq-replacements.json');
+// Reads faq-source.json and any faq-source-batch*.json siblings so each
+// batch of FAQs lives in its own reviewable file. Later files override
+// earlier slugs if duplicated.
+const SRC_DIR = path.join(__dirname, 'audit-output');
+const OUT = path.join(SRC_DIR, 'faq-replacements.json');
+const SRC_FILES = fs.readdirSync(SRC_DIR)
+  .filter(f => f === 'faq-source.json' || /^faq-source-batch\d+\.json$/.test(f))
+  .sort();
 
 const Q_STYLE = 'margin:0 0 10px;font-family:Playfair Display,serif;font-size:17px;font-weight:600;color:#143047;';
 const A_STYLE = 'margin:0;font-family:Nunito Sans,sans-serif;font-size:15px;color:#143047;line-height:1.7;';
@@ -42,10 +48,15 @@ function cardFor(qa) {
   `</div>`;
 }
 
-const src = JSON.parse(fs.readFileSync(SRC, 'utf-8'));
+const merged = {};
+for (const file of SRC_FILES) {
+  const data = JSON.parse(fs.readFileSync(path.join(SRC_DIR, file), 'utf-8'));
+  for (const [slug, qas] of Object.entries(data)) merged[slug] = qas;
+}
 const out = {};
-for (const [slug, qas] of Object.entries(src)) {
+for (const [slug, qas] of Object.entries(merged)) {
   out[slug] = qas.map(cardFor).join('');
 }
 fs.writeFileSync(OUT, JSON.stringify(out, null, 2));
-console.log(`Wrote ${OUT} with ${Object.keys(out).length} replacements`);
+console.log(`Read ${SRC_FILES.length} source files, ${Object.keys(merged).length} unique slugs`);
+console.log(`Wrote ${OUT}`);
