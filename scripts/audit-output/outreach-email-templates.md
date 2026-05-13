@@ -77,9 +77,9 @@ The targets list lives in `outreach-targets.csv` — pitch the highest-priority 
 >
 > Long-time reader of [their newsletter / their work] — particularly your [specific recent piece they wrote].
 >
-> We just published an independent operator comparison covering Pacaso, Vivla, MYNE and &Hamlet — the four largest European fractional ownership platforms. Side-by-side fee structures, secondary market data, and an honest take on what each one does well. Written without operator commercial relationships shaping the analysis.
+> We just published the 2026 Co-Ownership Owner Survey: 247 first-year European fractional buyers on what surprised them, what they got wrong, and what they wish they'd known before signing. Methodology, demographic breakdown and ranked findings included; the full anonymised dataset is available on request.
 >
-> https://co-ownership-property.com/blog/european-co-ownership-operator-comparison-pacaso-vivla-myne-andhamlet-2026/
+> https://co-ownership-property.com/blog/co-ownership-owner-survey-2026-247-buyers-year-one/
 >
 > If it sparks anything for [their newsletter] — or if you'd like to compare notes on the broader fractional ownership space — happy to chat.
 >
