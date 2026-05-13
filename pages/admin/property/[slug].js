@@ -100,8 +100,10 @@ export default function PropertyEdit() {
   const [dragIdx, setDragIdx] = useState(null) // { list: 'gallery'|'photos'|'extras', i }
   const [saveState, setSaveState] = useState('idle')
   const [saveMsg, setSaveMsg] = useState('')
-  const [uploading, setUploading] = useState(false)
+  const [uploading, setUploading] = useState(false)        // brochure uploads
+  const [uploadingPhotos, setUploadingPhotos] = useState(false)  // all-photos uploads
   const fileInputRef = useRef(null)
+  const photosInputRef = useRef(null)
 
   useEffect(() => {
     if (!slug) return
@@ -241,14 +243,14 @@ export default function PropertyEdit() {
     }
   }
 
-  async function handleUpload(e) {
-    const files = Array.from(e.target.files || [])
-    if (!files.length) return
-    setUploading(true)
-
+  // Shared uploader. target = 'extras' (default) → goes into extra_photos
+  //                    target = 'photos'           → appended to photos[]
+  async function uploadFiles(files, target) {
+    if (!files.length) return []
     const { data: { session } } = await supabase.auth.getSession()
     const formData = new FormData()
     formData.append('slug', slug)
+    formData.append('target', target)
     files.forEach(f => formData.append('files', f))
 
     const res = await fetch('/api/admin/upload-photo', {
@@ -257,13 +259,34 @@ export default function PropertyEdit() {
       body: formData,
     })
     const { urls } = await res.json()
+    return urls || []
+  }
+
+  async function handleUpload(e) {
+    const files = Array.from(e.target.files || [])
+    if (!files.length) return
+    setUploading(true)
+    const urls = await uploadFiles(files, 'extras')
     setExtraPhotos(prev => [...prev, ...urls])
     setUploading(false)
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
+  async function handleUploadPhotos(e) {
+    const files = Array.from(e.target.files || [])
+    if (!files.length) return
+    setUploadingPhotos(true)
+    const urls = await uploadFiles(files, 'photos')
+    setPhotos(prev => [...prev, ...urls])
+    setUploadingPhotos(false)
+    if (photosInputRef.current) photosInputRef.current.value = ''
+  }
+
   function removePhoto(url) {
     setExtraPhotos(prev => prev.filter(u => u !== url))
+  }
+  function removeFromPhotos(url) {
+    setPhotos(prev => prev.filter(u => u !== url))
   }
 
   if (!form) {
@@ -583,24 +606,74 @@ export default function PropertyEdit() {
             </p>
           </Card>
 
-          {/* All photos — drag to reorder, or drag UP to Gallery to swap */}
+          {/* All photos — drag to reorder, or drag UP to Gallery to swap. Upload more. */}
           <Card title={`All photos (${photos.length})`}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 5 }}>
               {photos.map((url, i) => {
                 const dp = dragProps('photos', i)
                 return (
-                  <div key={url + i} {...dp} title={`#${i + 1} — drag to reorder`}>
+                  <div key={url + i} {...dp}
+                    style={{ ...dp.style, position: 'relative' }}
+                    onMouseEnter={e => { const b = e.currentTarget.querySelector('button'); if (b) b.style.display = 'flex' }}
+                    onMouseLeave={e => { const b = e.currentTarget.querySelector('button'); if (b) b.style.display = 'none' }}
+                    title={`#${i + 1} — drag to reorder`}
+                  >
                     <img src={url} alt="" style={{
                       aspectRatio: '1', objectFit: 'cover',
                       borderRadius: 5, border: `1px solid ${C.border}`,
-                      width: '100%', display: 'block',
+                      width: '100%', display: 'block', pointerEvents: 'none',
                     }} />
+                    <button
+                      onClick={() => removeFromPhotos(url)}
+                      style={{
+                        display: 'none',
+                        position: 'absolute', top: 3, right: 3,
+                        background: 'rgba(0,0,0,0.7)', color: '#fff',
+                        border: 'none', borderRadius: '50%',
+                        width: 20, height: 20,
+                        alignItems: 'center', justifyContent: 'center',
+                        cursor: 'pointer', fontSize: 13, fontWeight: 700,
+                      }}
+                      title="Remove from gallery"
+                    >
+                      ×
+                    </button>
                   </div>
                 )
               })}
             </div>
+
+            <input
+              ref={photosInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleUploadPhotos}
+              style={{ display: 'none' }}
+            />
+            <button
+              onClick={() => photosInputRef.current?.click()}
+              disabled={uploadingPhotos}
+              style={{
+                marginTop: 12,
+                width: '100%',
+                padding: '10px 12px',
+                background: '#fff',
+                color: C.gold,
+                border: `1px dashed ${C.gold}`,
+                borderRadius: 6,
+                cursor: uploadingPhotos ? 'wait' : 'pointer',
+                fontSize: 12,
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+              }}
+            >
+              {uploadingPhotos ? 'Uploading…' : '+ Upload more photos'}
+            </button>
+
             <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>
-              Full unlocked gallery. Drag to reorder, or drag a photo up into <em>Gallery</em> to swap it with one of the 3 visible slots.
+              Full unlocked gallery. Drag to reorder, or drag a photo up into <em>Gallery</em> to swap it with one of the 3 visible slots. Hover any photo to remove it. Remember to Save after uploading.
             </p>
           </Card>
 

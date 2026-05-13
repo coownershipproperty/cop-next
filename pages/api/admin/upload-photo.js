@@ -30,6 +30,10 @@ export default async function handler(req, res) {
   const slug = fields.slug?.[0]
   if (!slug) return res.status(400).json({ error: 'Missing slug' })
 
+  // target = 'extras' (default, for brochure screenshots) or 'photos' (for full gallery)
+  const target = fields.target?.[0] === 'photos' ? 'photos' : 'extras'
+  const filePrefix = target === 'photos' ? 'photo' : 'extra'
+
   const uploadedUrls = []
   const timestamp = Date.now()
   const fileList = Array.isArray(files.files) ? files.files : [files.files].filter(Boolean)
@@ -37,7 +41,7 @@ export default async function handler(req, res) {
   for (let i = 0; i < fileList.length; i++) {
     const file = fileList[i]
     const ext = (file.originalFilename || 'photo.jpg').split('.').pop()
-    const path = `${slug}/extra-${timestamp}-${i}.${ext}`
+    const path = `${slug}/${filePrefix}-${timestamp}-${i}.${ext}`
     const buffer = fs.readFileSync(file.filepath)
 
     const { error } = await serviceSupabase.storage
