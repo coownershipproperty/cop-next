@@ -42,6 +42,17 @@ const COPY = {
     msg_error: "Une erreur s'est produite. Veuillez réessayer.",
     msg_network: 'Erreur réseau. Veuillez réessayer.',
   },
+  de: {
+    heading: 'Erfahren Sie es als Erste(r)',
+    subtitle: 'Werden Sie Teil unserer Community und erhalten Sie exklusive Immobilien sowie Reiseziel-Analysen direkt in Ihr Postfach.',
+    placeholder: 'Ihre E-Mail-Adresse',
+    button_idle: 'Newsletter abonnieren',
+    button_sending: 'Wird gesendet…',
+    button_success: 'Abonniert!',
+    msg_success: 'Vielen Dank für Ihr Abonnement!',
+    msg_error: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
+    msg_network: 'Netzwerkfehler. Bitte versuchen Sie es erneut.',
+  },
 };
 
 export default function Newsletter() {

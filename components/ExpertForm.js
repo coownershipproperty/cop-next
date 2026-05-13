@@ -85,6 +85,32 @@ const COPY = {
     msg_network: 'Erreur réseau. Veuillez réessayer.',
     required: '*',
   },
+  de: {
+    eyebrow: 'Kontakt aufnehmen',
+    heading_pre: 'Sprechen Sie mit',
+    heading_em: 'einem Experten',
+    sub: 'Sagen Sie uns, wonach Sie suchen, und einer unserer Miteigentums-Spezialisten meldet sich innerhalb von 24 Stunden bei Ihnen.',
+    name_label: 'Name',
+    name_placeholder: 'Ihr vollständiger Name',
+    email_label: 'E-Mail',
+    email_placeholder: 'ihre@email.com',
+    phone_label: 'Telefon',
+    phone_placeholder: '+49 oder +1…',
+    budget_label: 'Ungefähres Budget',
+    budget_select: 'Bereich auswählen',
+    destinations_label: 'Interessante Reiseziele',
+    destinations_placeholder: 'Reiseziele auswählen…',
+    message_label: 'Nachricht',
+    message_placeholder: 'Erzählen Sie uns vom Reiseziel, Immobilientyp oder allem, was Ihnen wichtig ist…',
+    btn_idle: 'Anfrage senden',
+    btn_sending: 'Wird gesendet…',
+    btn_success: 'Gesendet!',
+    msg_validation: 'Bitte geben Sie Ihren Namen und Ihre E-Mail-Adresse ein.',
+    msg_success: 'Vielen Dank! Wir melden uns innerhalb von 24 Stunden bei Ihnen.',
+    msg_error: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
+    msg_network: 'Netzwerkfehler. Bitte versuchen Sie es erneut.',
+    required: '*',
+  },
 };
 
 // ── Locale-specific destination tree ─────────────────────────────────────────
@@ -125,6 +151,17 @@ const DEST_TREES = {
     { country: 'Royaume-Uni',    children: ['Londres', 'Angleterre'] },
     { country: 'Autre',          children: ['Autriche', 'Croatie', 'Allemagne', 'Mexique', 'Portugal', 'Suède'] },
   ],
+  de: [
+    { country: 'Spanien',        children: ['Mallorca', 'Ibiza', 'Menorca', 'Balearen', 'Costa del Sol', 'Costa Blanca', 'Costa de la Luz', 'Spanische Costas', 'Barcelona', 'Madrid', 'Kanarische Inseln', 'Pyrenäen'] },
+    { country: 'Frankreich',     children: ['Südfrankreich', 'Französische Alpen', 'Paris'] },
+    { country: 'Italien',        children: ['Italienische Seen', 'Comer See', 'Gardasee', 'Ligurien', 'Sardinien'] },
+    { country: 'USA — Colorado', children: ['Aspen', 'Breckenridge', 'Vail'] },
+    { country: 'USA — Florida',  children: ['Miami', 'Brickell', 'Florida Keys', '30A Emerald Coast'] },
+    { country: 'USA — Kalifornien', children: ['Malibu & Santa Barbara', 'Newport Beach', 'Napa & Sonoma', 'Lake Tahoe', 'Palm Springs'] },
+    { country: 'USA — Utah',     children: ['Park City'] },
+    { country: 'Vereinigtes Königreich', children: ['London', 'England'] },
+    { country: 'Sonstige',       children: ['Österreich', 'Kroatien', 'Deutschland', 'Mexiko', 'Portugal', 'Schweden'] },
+  ],
 };
 
 // ── Locale-specific budget options ───────────────────────────────────────────
@@ -156,6 +193,15 @@ const BUDGET_OPTIONS = {
     { value: '500-750k',   label: '500 000 € – 750 000 €' },
     { value: '750k-1m',    label: '750 000 € – 1 000 000 €' },
     { value: '1m-plus',    label: '1 000 000 €+' },
+  ],
+  de: [
+    { value: 'under-100k', label: 'Unter 100.000 €' },
+    { value: '100-200k',   label: '100.000 € – 200.000 €' },
+    { value: '200-350k',   label: '200.000 € – 350.000 €' },
+    { value: '350-500k',   label: '350.000 € – 500.000 €' },
+    { value: '500-750k',   label: '500.000 € – 750.000 €' },
+    { value: '750k-1m',    label: '750.000 € – 1.000.000 €' },
+    { value: '1m-plus',    label: '1.000.000 €+' },
   ],
 };
 

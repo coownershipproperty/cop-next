@@ -66,16 +66,36 @@ const FOOTER_LINKS = {
       { href: '/favourites/',                  label: 'Propriétés sauvegardées' },
     ],
   },
+  de: {
+    discover: [
+      { href: '/de/immobilien/',          label: 'Alle Ferienimmobilien' },
+      { href: '/de/so-funktionierts/',    label: 'So funktioniert\'s' },
+      { href: '/de/ueber-uns/',           label: 'Über uns' },
+      { href: '/de/blog/',                label: 'Blog' },
+      { href: '/de/favoriten/',           label: '♥ Meine Favoriten' },
+    ],
+    company: [
+      { href: '/de/ueber-uns/',           label: 'Über COP' },
+      { href: '/de/so-funktionierts/',    label: 'So funktioniert\'s' },
+      { href: '/de/blog/',                label: 'Blog' },
+      { href: '/de/kontakt/',             label: 'Kontakt' },
+    ],
+    support: [
+      { href: '/de/kontakt/',                                       label: 'Kontakt aufnehmen' },
+      { href: '/de/ferienimmobilie-kaufen-haeufige-fragen/',        label: 'Häufige Fragen' },
+      { href: '/de/favoriten/',                                     label: 'Gespeicherte Immobilien' },
+    ],
+  },
 };
 
 // Destinations are shared (language-prefixed paths can come later).
 const DESTINATIONS = [
-  { href: '/spain-fractional-ownership-properties/',    label: { en: 'Spain',    es: 'España',  fr: 'Espagne'  } },
-  { href: '/france-fractional-ownership-properties/',   label: { en: 'France',   es: 'Francia', fr: 'France'   } },
-  { href: '/italy-fractional-ownership-properties/',    label: { en: 'Italy',    es: 'Italia',  fr: 'Italie'   } },
-  { href: '/usa-fractional-ownership-properties/',      label: { en: 'USA',      es: 'EE. UU.', fr: 'États-Unis' } },
-  { href: '/portugal-fractional-ownership-properties/', label: { en: 'Portugal', es: 'Portugal',fr: 'Portugal' } },
-  { href: '/austria-fractional-ownership-properties/',  label: { en: 'Austria',  es: 'Austria', fr: 'Autriche' } },
+  { href: '/spain-fractional-ownership-properties/',    label: { en: 'Spain',    es: 'España',  fr: 'Espagne',     de: 'Spanien' } },
+  { href: '/france-fractional-ownership-properties/',   label: { en: 'France',   es: 'Francia', fr: 'France',      de: 'Frankreich' } },
+  { href: '/italy-fractional-ownership-properties/',    label: { en: 'Italy',    es: 'Italia',  fr: 'Italie',      de: 'Italien' } },
+  { href: '/usa-fractional-ownership-properties/',      label: { en: 'USA',      es: 'EE. UU.', fr: 'États-Unis',  de: 'USA' } },
+  { href: '/portugal-fractional-ownership-properties/', label: { en: 'Portugal', es: 'Portugal',fr: 'Portugal',    de: 'Portugal' } },
+  { href: '/austria-fractional-ownership-properties/',  label: { en: 'Austria',  es: 'Austria', fr: 'Autriche',    de: 'Österreich' } },
 ];
 
 export default function Footer() {
