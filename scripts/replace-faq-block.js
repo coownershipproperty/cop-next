@@ -79,8 +79,23 @@ function findFaqRange(html) {
   let start = m ? m.index : -1;
   if (start === -1) {
     const m2 = html.match(FAQ_HEADING_RE);
-    if (!m2) return null;
-    start = m2.index;
+    if (!m2) {
+      // Final fallback: walk back from any "Frequently Asked Questions" h2
+      // and find the nearest opening tag containing "Common Questions" within
+      // the preceding 500 chars (catches the splitting-portfolio variant
+      // which uses <div>Common Questions</div> instead of the eyebrow <p>).
+      const m3 = html.match(/<h2[^>]*>\s*Frequently Asked Questions\s*<\/h2>/i);
+      if (!m3) return null;
+      const back = html.lastIndexOf('Common Questions', m3.index);
+      if (back === -1 || m3.index - back > 500) {
+        start = m3.index;
+      } else {
+        const openTag = html.lastIndexOf('<', back);
+        start = openTag !== -1 ? openTag : back;
+      }
+    } else {
+      start = m2.index;
+    }
   }
   // Walk back to the nearest <div opener if we matched the heading directly.
   // (Eyebrow wrapper is already at a <div boundary so this is a no-op there.)
