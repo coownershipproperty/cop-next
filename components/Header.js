@@ -38,6 +38,15 @@ const NAV_LINKS = {
     { href: '/fr/favoris/',          labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
     { href: '/fr/contact/',          labelKey: 'nav.contact' },
   ],
+  de: [
+    { href: '/de/',                    labelKey: 'nav.home' },
+    { href: '/de/immobilien/',         labelKey: 'nav.our_homes' },
+    { href: '/de/so-funktionierts/',   labelKey: 'nav.how_it_works' },
+    { href: '/de/ueber-uns/',          labelKey: 'nav.about_us' },
+    { href: '/de/blog/',               labelKey: 'nav.blog' },
+    { href: '/de/favoriten/',          labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
+    { href: '/de/kontakt/',            labelKey: 'nav.contact' },
+  ],
 };
 
 export default function Header() {

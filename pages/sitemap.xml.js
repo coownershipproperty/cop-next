@@ -15,6 +15,7 @@ const PAGE_GROUPS = [
     en: '/',
     es: '/es/',
     fr: '/fr/',
+    de: '/de/',
     priority: '1.0',
     changefreq: 'daily',
   },
@@ -22,6 +23,7 @@ const PAGE_GROUPS = [
     en: '/our-homes/',
     es: '/es/propiedades/',
     fr: '/fr/proprietes/',
+    de: '/de/immobilien/',
     priority: '0.9',
     changefreq: 'daily',
   },
@@ -29,6 +31,7 @@ const PAGE_GROUPS = [
     en: '/how-it-works/',
     es: '/es/como-funciona/',
     fr: '/fr/comment-ca-marche/',
+    de: '/de/so-funktionierts/',
     priority: '0.8',
     changefreq: 'monthly',
   },
@@ -36,6 +39,7 @@ const PAGE_GROUPS = [
     en: '/about-us/',
     es: '/es/quienes-somos/',
     fr: '/fr/a-propos/',
+    de: '/de/ueber-uns/',
     priority: '0.7',
     changefreq: 'monthly',
   },
@@ -43,6 +47,7 @@ const PAGE_GROUPS = [
     en: '/contact/',
     es: '/es/contacto/',
     fr: '/fr/contact/',
+    de: '/de/kontakt/',
     priority: '0.6',
     changefreq: 'monthly',
   },
@@ -50,6 +55,7 @@ const PAGE_GROUPS = [
     en: '/all-our-blog/',
     es: '/es/blog/',
     fr: '/fr/blog/',
+    de: '/de/blog/',
     priority: '0.8',
     changefreq: 'daily',
   },
@@ -57,6 +63,7 @@ const PAGE_GROUPS = [
     en: '/buying-a-co-ownership-property-faqs/',
     es: '/es/comprar-copropiedad-preguntas-frecuentes/',
     fr: '/fr/acheter-copropriete-questions-frequentes/',
+    de: '/de/ferienimmobilie-kaufen-haeufige-fragen/',
     priority: '0.7',
     changefreq: 'monthly',
   },
@@ -64,6 +71,7 @@ const PAGE_GROUPS = [
     en: '/staying-in-my-co-ownership-property-faqs/',
     es: '/es/disfrutar-copropiedad-preguntas-frecuentes/',
     fr: '/fr/profiter-copropriete-questions-frequentes/',
+    de: '/de/aufenthalt-ferienimmobilie-haeufige-fragen/',
     priority: '0.6',
     changefreq: 'monthly',
   },
@@ -82,6 +90,8 @@ const LOCALE_ONLY_PAGES = [
   { url: '/fr/copropriete-residence-secondaire/',                priority: '0.9',  changefreq: 'monthly' },
   { url: '/fr/blog/acheter-residence-secondaire-a-plusieurs/',   priority: '0.85', changefreq: 'monthly' },
   { url: '/fr/blog/copropriete-vs-multipropriete/',              priority: '0.8',  changefreq: 'monthly' },
+  // German pillar — added in 1e0424e plan; SEO posts to follow once written
+  { url: '/de/miteigentum-ferienimmobilie/',                     priority: '0.9',  changefreq: 'monthly' },
 ];
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -197,22 +207,24 @@ export async function getServerSideProps({ res }) {
       urlEntry(`${BASE}/destinations/${slug}/`, '0.8', 'weekly')
     ),
 
-    // Property detail pages — emit EN / ES / FR with reciprocal hreflang
+    // Property detail pages — emit EN / ES / FR / DE with reciprocal hreflang
     ...(properties || []).flatMap(p => {
       const altset = {
         en: `/property/${p.slug}/`,
         es: `/es/propiedades/${p.slug}/`,
         fr: `/fr/proprietes/${p.slug}/`,
+        de: `/de/immobilien/${p.slug}/`,
       };
       const lastmod = p.date_added ? p.date_added.split('T')[0] : today;
       return [
         urlEntry(`${BASE}${altset.en}`, '0.7', 'weekly', lastmod, altset),
         urlEntry(`${BASE}${altset.es}`, '0.7', 'weekly', lastmod, altset),
         urlEntry(`${BASE}${altset.fr}`, '0.7', 'weekly', lastmod, altset),
+        urlEntry(`${BASE}${altset.de}`, '0.7', 'weekly', lastmod, altset),
       ];
     }),
 
-    // Blog posts — emit EN / ES / FR with reciprocal hreflang. Bodies are
+    // Blog posts — emit EN / ES / FR / DE with reciprocal hreflang. Bodies are
     // translated for the top-9 most-recent; the rest serve EN content under
     // localised chrome + translated title/excerpt, which is enough for
     // indexing and signals the page exists in the visitor's language.
@@ -221,11 +233,13 @@ export async function getServerSideProps({ res }) {
         en: `/blog/${p.slug}/`,
         es: `/es/blog/${p.slug}/`,
         fr: `/fr/blog/${p.slug}/`,
+        de: `/de/blog/${p.slug}/`,
       };
       return [
         urlEntry(`${BASE}${altset.en}`, '0.6', 'never', p.date || today, altset),
         urlEntry(`${BASE}${altset.es}`, '0.6', 'never', p.date || today, altset),
         urlEntry(`${BASE}${altset.fr}`, '0.6', 'never', p.date || today, altset),
+        urlEntry(`${BASE}${altset.de}`, '0.6', 'never', p.date || today, altset),
       ];
     }),
   ];
