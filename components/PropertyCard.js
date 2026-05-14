@@ -180,7 +180,12 @@ export default function PropertyCard({ property: p, priority = false }) {
             </div>
           )}
 
-          {p.label && <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>}
+          {/* Sold-out badge takes priority over any p.label custom badge */}
+          {p.status && String(p.status).toLowerCase().includes('sold') ? (
+            <span className="prop-badge prop-badge-sold-out">Sold Out</span>
+          ) : p.label ? (
+            <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>
+          ) : null}
 
           <button
             className={`prop-heart${fav ? ' active' : ''}`}

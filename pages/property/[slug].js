@@ -496,6 +496,9 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
                 return p.price ? fmt(p.price, fromCcy, localeNumberFmt) : null;
               })()}
             </span>
+            {p.status && String(p.status).toLowerCase().includes('sold') && (
+              <span className="pp-badge pp-badge-sold-out">Sold Out</span>
+            )}
             <span className="pp-badge">{t.cobadge}</span>
           </div>
 

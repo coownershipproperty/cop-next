@@ -4147,6 +4147,47 @@ h1,h2,h3{font-family:'Playfair Display',serif;font-weight:400}
 
 .prop-badge.waitlist{background:var(--blue-60);color:#fff}
 
+/* ── SOLD OUT badge — premium, prominent, not tacky red ──────────────── */
+/* Card position (top-left over photo): bigger, deeper navy, gold hairline */
+.prop-badge-sold-out{
+  position:absolute;
+  top:14px;
+  left:14px;
+  padding:0.42rem 0.95rem;
+  font-size:0.74rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+  font-family:'Nunito Sans',sans-serif;
+  background:#143047;
+  color:#fff;
+  border:1px solid rgba(201,168,76,0.50);
+  box-shadow:0 2px 12px -4px rgba(0,0,0,0.30);
+  z-index:5;
+}
+
+/* Detail page (in price row, inline next to cobadge) */
+.pp-badge.pp-badge-sold-out{
+  background:#143047 !important;
+  color:#fff !important;
+  border:1px solid rgba(201,168,76,0.50) !important;
+  font-weight:800 !important;
+  letter-spacing:0.18em !important;
+  padding:0.42rem 0.95rem !important;
+  font-size:0.74rem !important;
+  text-transform:uppercase !important;
+}
+
+/* Slightly dim the listing card image when sold so the badge dominates */
+.prop-card:has(.prop-badge-sold-out) .prop-img-wrap::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(20,48,71,0.18);
+  pointer-events:none;
+  z-index:2;
+}
+
 /* Remove heart — replace with remove button */
         .prop-remove{position:absolute;top:12px;right:12px;width:36px;height:36px;background:rgba(255,255,255,0.92);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:transform 0.2s,background 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 
