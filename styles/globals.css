@@ -6004,10 +6004,13 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-lb img{max-width:90vw;max-height:92vh;object-fit:contain}
 .pp-lb-close{position:fixed;top:18px;right:24px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;line-height:1;color:#fff;background:rgba(20,48,71,.55);border:1px solid rgba(255,255,255,.18);border-radius:50%;cursor:pointer;z-index:10101;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background 180ms ease}
 .pp-lb-close:hover{background:rgba(201,168,76,.95);border-color:rgba(201,168,76,.95)}
-.pp-lb-prev,.pp-lb-next{position:fixed;top:50%;transform:translateY(-50%);width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:3rem;line-height:1;color:#fff;background:rgba(20,48,71,.55);border:1px solid rgba(255,255,255,.18);border-radius:50%;cursor:pointer;padding:0;opacity:.95;z-index:10101;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background 180ms ease,transform 180ms ease,opacity 180ms ease}
-.pp-lb-prev{left:24px}.pp-lb-next{right:24px}
-.pp-lb-prev:hover,.pp-lb-next:hover{background:rgba(201,168,76,.95);border-color:rgba(201,168,76,.95);opacity:1;transform:translateY(-50%) scale(1.06)}
-@media(max-width:600px){.pp-lb-prev,.pp-lb-next{width:52px;height:52px;font-size:2.4rem}.pp-lb-prev{left:12px}.pp-lb-next{right:12px}}
+.pp-lb-prev,.pp-lb-next{position:fixed;top:50%;transform:translateY(-50%);width:56px;height:56px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.92);background:rgba(0,0,0,.32);border:1px solid rgba(255,255,255,.20);border-radius:9999px;cursor:pointer;padding:0;z-index:10101;backdrop-filter:blur(10px) saturate(1.1);-webkit-backdrop-filter:blur(10px) saturate(1.1);box-shadow:0 4px 24px rgba(0,0,0,.25);transition:color 220ms ease,border-color 220ms ease,background 220ms ease,transform 220ms ease}
+.pp-lb-prev{left:32px}.pp-lb-next{right:32px}
+.pp-lb-prev svg,.pp-lb-next svg{display:block;transition:transform 220ms ease}
+.pp-lb-prev:hover,.pp-lb-next:hover{color:#C9A84C;border-color:#C9A84C;background:rgba(0,0,0,.45)}
+.pp-lb-prev:hover svg{transform:translateX(-2px)}
+.pp-lb-next:hover svg{transform:translateX(2px)}
+@media(max-width:600px){.pp-lb-prev,.pp-lb-next{width:44px;height:44px}.pp-lb-prev{left:14px}.pp-lb-next{right:14px}.pp-lb-prev svg,.pp-lb-next svg{width:18px;height:18px}}
 .pp-lb-count{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);color:rgba(201,168,76,.55);font-family:'Nunito Sans',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;z-index:10101}
 
 /* ── Unlock modal ── */
@@ -6148,7 +6151,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   background:transparent!important;
 }
 
-/* ── Amenities: refined editorial grid ── */
+/* ── Amenities: editorial 3-column list, no chips, hairline accents ── */
 .pp-amenities { margin-bottom: 48px; }
 .pp-amenity-list {
   list-style: none;
@@ -6156,49 +6159,50 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   margin: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  column-gap: 56px;
+  row-gap: 0;
 }
-@media (max-width: 1024px) { .pp-amenity-list { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px)  { .pp-amenity-list { grid-template-columns: 1fr; } }
+@media (max-width: 1024px) { .pp-amenity-list { grid-template-columns: repeat(2, 1fr); column-gap: 40px; } }
+@media (max-width: 560px)  { .pp-amenity-list { grid-template-columns: 1fr; column-gap: 0; } }
 
 .pp-amenity-item {
-  position: relative;
   display: flex;
   align-items: center;
-  padding: 16px 18px 16px 22px;
-  background: #FAF8F2;                       /* warm cream tint */
-  border: 1px solid #EDE6D6;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.18);   /* hairline gold-tinted divider */
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 500;
-  color: #2C4A5E;                            /* navy text */
-  letter-spacing: 0.005em;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #2C4A5E;                                       /* navy text */
+  letter-spacing: 0.01em;
   line-height: 1.4;
-  transition: background 220ms ease, border-color 220ms ease, color 220ms ease, transform 220ms ease;
+  transition: color 220ms ease;
 }
-/* Gold left accent bar — defines the chip without using a bullet */
-.pp-amenity-item::before {
+.pp-amenity-item:hover { color: #C9A84C; }
+
+/* Replace the dot with a tiny refined gold check */
+.pp-amenity-dot {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  position: relative;
+}
+.pp-amenity-dot::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 14px;
-  bottom: 14px;
-  width: 3px;
-  background: #C9A84C;
-  transition: width 220ms ease, background 220ms ease;
+  top: 4px;
+  width: 8px;
+  height: 4px;
+  border-left: 1.5px solid #C9A84C;
+  border-bottom: 1.5px solid #C9A84C;
+  transform: rotate(-45deg);
+  transform-origin: left top;
 }
-.pp-amenity-item:hover {
-  background: #FFF;
-  border-color: #C9A84C;
-  color: #143047;
-  transform: translateY(-1px);
-}
-.pp-amenity-item:hover::before {
-  width: 4px;
-}
-
-/* The tiny dot used by the React component is now hidden — the accent bar replaces it */
-.pp-amenity-dot { display: none; }
 
 /* hide extras by default on all screen sizes */
 .pp-amenity-extra { display: none; }

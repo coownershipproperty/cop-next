@@ -624,8 +624,16 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
         const isLockSlide = lightbox >= lbImages.length;
         return (
           <div className="pp-lb" onClick={() => setLightbox(null)}>
-            <button className="pp-lb-close" onClick={() => setLightbox(null)}>×</button>
-            <button className="pp-lb-prev" onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + total) % total); }}>‹</button>
+            <button className="pp-lb-close" onClick={() => setLightbox(null)} aria-label="Close">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+                <path d="M6 6l12 12M18 6L6 18"/>
+              </svg>
+            </button>
+            <button className="pp-lb-prev" onClick={e => { e.stopPropagation(); setLightbox((lightbox - 1 + total) % total); }} aria-label="Previous photo">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 6 9 12 15 18"/>
+              </svg>
+            </button>
             {isLockSlide ? (
               <div className="pp-lb-lock" onClick={e => { e.stopPropagation(); setLightbox(null); setShowUnlock(true); }}>
                 <div className="pp-lb-lock-blur" style={{ backgroundImage: `url('${heroImg}')` }} />
@@ -639,7 +647,11 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             ) : (
               <img src={lbImages[lightbox]} alt={local.title} onClick={e => e.stopPropagation()} />
             )}
-            <button className="pp-lb-next" onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % total); }}>›</button>
+            <button className="pp-lb-next" onClick={e => { e.stopPropagation(); setLightbox((lightbox + 1) % total); }} aria-label="Next photo">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 6 15 12 9 18"/>
+              </svg>
+            </button>
             <span className="pp-lb-count">{lightbox + 1} / {total}</span>
           </div>
         );
