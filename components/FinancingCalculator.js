@@ -14,13 +14,10 @@ const COPY = {
     label_share: 'Ownership',
     label_down: 'Down Payment',
     label_rate: 'Interest Rate',
-    label_term: 'Loan Type',
     share_one_eighth: '1/8 share',
     share_one_fourth: '1/4 share',
     share_one_half: '1/2 share',
     share_full: 'Full ownership',
-    term_io: 'Interest-only (10 yr)',
-    term_amort: '30-year amortising',
     monthly_label: (share) => `${share} ownership financing`,
     per_month: '/month',
     note: 'Estimates only — final terms depend on the lender and your credit profile.',
@@ -36,13 +33,10 @@ const COPY = {
     label_share: 'Propiedad',
     label_down: 'Entrada',
     label_rate: 'Tipo de interés',
-    label_term: 'Tipo de préstamo',
     share_one_eighth: '1/8 de propiedad',
     share_one_fourth: '1/4 de propiedad',
     share_one_half: '1/2 propiedad',
     share_full: 'Propiedad completa',
-    term_io: 'Solo intereses (10 años)',
-    term_amort: 'Amortizado 30 años',
     monthly_label: (share) => `Financiación de ${share}`,
     per_month: '/mes',
     note: 'Solo estimación — las condiciones finales dependen del prestamista y de tu perfil crediticio.',
@@ -58,13 +52,10 @@ const COPY = {
     label_share: 'Propriété',
     label_down: 'Apport',
     label_rate: 'Taux d\'intérêt',
-    label_term: 'Type de prêt',
     share_one_eighth: '1/8 de la propriété',
     share_one_fourth: '1/4 de la propriété',
     share_one_half: '1/2 propriété',
     share_full: 'Propriété complète',
-    term_io: 'In fine (10 ans)',
-    term_amort: 'Amortissable 30 ans',
     monthly_label: (share) => `Financement de ${share}`,
     per_month: '/mois',
     note: 'Estimation indicative — les conditions définitives dépendent du prêteur et de votre profil.',
@@ -80,13 +71,10 @@ const COPY = {
     label_share: 'Eigentum',
     label_down: 'Eigenkapital',
     label_rate: 'Zinssatz',
-    label_term: 'Kreditart',
     share_one_eighth: '1/8-Anteil',
     share_one_fourth: '1/4-Anteil',
     share_one_half: '1/2-Anteil',
     share_full: 'Volles Eigentum',
-    term_io: 'Endfällig (10 Jahre)',
-    term_amort: '30 Jahre annuitätisch',
     monthly_label: (share) => `${share}-Finanzierung`,
     per_month: '/Monat',
     note: 'Nur Schätzung — die endgültigen Konditionen hängen vom Kreditgeber und Ihrer Bonität ab.',
@@ -127,30 +115,27 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
   const t = COPY[locale] || COPY.en;
 
   const [shareKey, setShareKey] = useState('one_eighth');  // one_eighth | one_fourth | one_half | full
-  const [downPct, setDownPct]   = useState(30);            // 10 | 20 | 30 | 40 | 50
-  const [ratePct, setRatePct]   = useState(6.5);           // 3.0–9.0
-  const [term, setTerm]         = useState('io');          // 'io' (interest-only 10y) | 'amort' (30y amortising)
+  const [downPct, setDownPct]   = useState(30);            // 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100
+  const [ratePct, setRatePct]   = useState(6.5);           // 0.0–10.0
 
   // Display-share label
   const shareLabel = t[`share_${shareKey}`];
 
-  // Loan math
+  // Loan math — interest-only (matches Pacaso's behaviour)
   const downAmount = sharePrice * (downPct / 100);
   const loanAmount = sharePrice - downAmount;
   const monthlyRate = (ratePct / 100) / 12;
   const monthlyPayment = useMemo(() => {
-    if (loanAmount <= 0) return 0;
-    if (monthlyRate <= 0) {
-      // 0% edge case
-      return term === 'amort' ? loanAmount / (30 * 12) : 0;
-    }
-    if (term === 'amort') {
-      const n = 30 * 12;
-      return (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
-    }
-    // interest-only
+    if (loanAmount <= 0 || monthlyRate <= 0) return 0;
     return loanAmount * monthlyRate;
-  }, [loanAmount, monthlyRate, term]);
+  }, [loanAmount, monthlyRate]);
+
+  function bumpRate(delta) {
+    setRatePct(prev => {
+      const next = Math.round((prev + delta) * 10) / 10;
+      return Math.max(0, Math.min(10, next));
+    });
+  }
 
   function handleCtaClick(e) {
     e.preventDefault();
@@ -179,7 +164,7 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
           </button>
         </div>
 
-        {/* Right — calculator card */}
+        {/* Right — calculator card (white) */}
         <div className="cop-fin-right">
           <div className="cop-fin-card">
             <h3 className="cop-fin-card-h">{t.calc_heading}</h3>
@@ -207,43 +192,35 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
                   value={downPct}
                   onChange={e => setDownPct(Number(e.target.value))}
                 >
-                  <option value={10}>10%</option>
-                  <option value={20}>20%</option>
-                  <option value={30}>30%</option>
-                  <option value={40}>40%</option>
-                  <option value={50}>50%</option>
+                  {[30, 40, 50, 60, 70, 80, 90, 100].map(v => (
+                    <option key={v} value={v}>{v}%</option>
+                  ))}
                 </select>
                 <p className="cop-fin-helper">{formatMoney(downAmount, currency, locale)}</p>
               </div>
             </div>
 
-            <div className="cop-fin-row cop-fin-row-rate">
-              <div className="cop-fin-field cop-fin-field-rate">
-                <label className="cop-fin-label">
-                  {t.label_rate}: <span className="cop-fin-rate-val">{ratePct.toFixed(2)}%</span>
-                </label>
+            {/* Rate slider with -/+ */}
+            <div className="cop-fin-rate-block">
+              <label className="cop-fin-label">
+                {t.label_rate}: <span className="cop-fin-rate-val">{ratePct.toFixed(2)}%</span>
+              </label>
+              <div className="cop-fin-rate-controls">
                 <input
                   type="range"
-                  min="3"
-                  max="9"
+                  min="0"
+                  max="10"
                   step="0.1"
                   value={ratePct}
                   onChange={e => setRatePct(Number(e.target.value))}
                   className="cop-fin-range"
                   aria-label={t.label_rate}
+                  style={{
+                    background: `linear-gradient(to right, ${C.gold} 0%, ${C.gold} ${ratePct * 10}%, #e8e0d4 ${ratePct * 10}%, #e8e0d4 100%)`,
+                  }}
                 />
-              </div>
-
-              <div className="cop-fin-field cop-fin-field-term">
-                <label className="cop-fin-label">{t.label_term}</label>
-                <select
-                  className="cop-fin-input"
-                  value={term}
-                  onChange={e => setTerm(e.target.value)}
-                >
-                  <option value="io">{t.term_io}</option>
-                  <option value="amort">{t.term_amort}</option>
-                </select>
+                <button type="button" className="cop-fin-btn" onClick={() => bumpRate(-0.1)} aria-label="Decrease rate">−</button>
+                <button type="button" className="cop-fin-btn" onClick={() => bumpRate(+0.1)} aria-label="Increase rate">+</button>
               </div>
             </div>
 
@@ -334,29 +311,28 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
         }
         .cop-fin-cta:hover { opacity: 0.92; transform: translateY(-1px); }
 
-        /* Right column — calculator card */
+        /* Right column — calculator card (WHITE) */
         .cop-fin-card {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid ${C.border};
+          background: ${C.white};
           padding: 36px 32px;
+          color: ${C.navy};
         }
         .cop-fin-card-h {
           font-family: 'Playfair Display', Georgia, serif;
           font-size: 22px;
           font-weight: 400;
-          color: ${C.white};
+          color: ${C.navy};
           margin: 0 0 24px;
         }
         .cop-fin-row {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 18px;
-          margin-bottom: 18px;
+          margin-bottom: 22px;
         }
         @media (max-width: 480px) {
           .cop-fin-row { grid-template-columns: 1fr; }
         }
-        .cop-fin-row-rate { align-items: end; }
         .cop-fin-label {
           display: block;
           font-family: 'Nunito Sans', Arial, sans-serif;
@@ -364,22 +340,24 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
           font-weight: 700;
           letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.6);
+          color: ${C.muted};
           margin-bottom: 8px;
         }
         .cop-fin-rate-val {
           color: ${C.gold};
           font-weight: 700;
+          letter-spacing: 0;
         }
         .cop-fin-input {
           width: 100%;
-          background: rgba(255,255,255,0.08);
-          color: ${C.white};
-          border: 1px solid ${C.border};
+          background: ${C.cream};
+          color: ${C.navy};
+          border: 1px solid #e8e0d4;
           border-radius: 0;
           padding: 10px 12px;
           font-family: 'Nunito Sans', Arial, sans-serif;
           font-size: 14px;
+          font-weight: 600;
           appearance: none;
           background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23C9A84C' d='M6 8L0 0h12z'/></svg>");
           background-repeat: no-repeat;
@@ -391,15 +369,26 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
         .cop-fin-helper {
           font-family: 'Nunito Sans', Arial, sans-serif;
           font-size: 12px;
-          color: rgba(255,255,255,0.5);
+          color: ${C.muted};
           margin: 6px 0 0;
         }
+
+        /* Rate block: full-width slider + adjacent buttons */
+        .cop-fin-rate-block {
+          margin-bottom: 22px;
+        }
+        .cop-fin-rate-controls {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-top: 4px;
+        }
         .cop-fin-range {
-          width: 100%;
+          flex: 1;
           -webkit-appearance: none;
           appearance: none;
           height: 4px;
-          background: rgba(255,255,255,0.15);
+          background: #e8e0d4;
           border-radius: 0;
           outline: none;
           cursor: pointer;
@@ -412,27 +401,50 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
           background: ${C.gold};
           border-radius: 50%;
           cursor: pointer;
+          border: 2px solid ${C.white};
+          box-shadow: 0 1px 4px rgba(0,0,0,0.2);
         }
         .cop-fin-range::-moz-range-thumb {
           width: 18px;
           height: 18px;
           background: ${C.gold};
           border-radius: 50%;
-          border: none;
+          border: 2px solid ${C.white};
+          box-shadow: 0 1px 4px rgba(0,0,0,0.2);
           cursor: pointer;
         }
+        .cop-fin-btn {
+          width: 32px;
+          height: 32px;
+          background: ${C.cream};
+          color: ${C.navy};
+          border: 1px solid #e8e0d4;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 1;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          transition: background 150ms ease, border-color 150ms ease;
+        }
+        .cop-fin-btn:hover { background: ${C.gold}; color: ${C.white}; border-color: ${C.gold}; }
+        .cop-fin-btn:active { transform: translateY(1px); }
+
+        /* Result band */
         .cop-fin-result {
           display: flex;
           justify-content: space-between;
           align-items: baseline;
           padding: 22px 0 18px;
-          border-top: 1px solid ${C.border};
-          margin-top: 16px;
+          border-top: 1px solid #e8e0d4;
+          margin-top: 8px;
         }
         .cop-fin-result-label {
           font-family: 'Nunito Sans', Arial, sans-serif;
           font-size: 13px;
-          color: rgba(255,255,255,0.7);
+          color: ${C.muted};
           margin: 0;
         }
         .cop-fin-result-amount {
@@ -444,16 +456,17 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
         }
         .cop-fin-result-per {
           font-size: 14px;
-          color: rgba(255,255,255,0.5);
+          color: ${C.muted};
           font-family: 'Nunito Sans', Arial, sans-serif;
           margin-left: 4px;
         }
         .cop-fin-note {
           font-family: 'Nunito Sans', Arial, sans-serif;
           font-size: 11px;
-          color: rgba(255,255,255,0.4);
-          margin: 12px 0 0;
+          color: ${C.muted};
+          margin: 4px 0 0;
           line-height: 1.55;
+          font-style: italic;
         }
       `}</style>
     </section>
