@@ -6151,7 +6151,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   background:transparent!important;
 }
 
-/* ── Amenities: editorial 3-column list, no chips, hairline accents ── */
+/* ── Amenities: clean cream chip grid (no left bar, no tick) ── */
 .pp-amenities { margin-bottom: 48px; }
 .pp-amenity-list {
   list-style: none;
@@ -6159,50 +6159,34 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   margin: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 56px;
-  row-gap: 0;
+  column-gap: 14px;
+  row-gap: 14px;
 }
-@media (max-width: 1024px) { .pp-amenity-list { grid-template-columns: repeat(2, 1fr); column-gap: 40px; } }
-@media (max-width: 560px)  { .pp-amenity-list { grid-template-columns: 1fr; column-gap: 0; } }
+@media (max-width: 1024px) { .pp-amenity-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .pp-amenity-list { grid-template-columns: 1fr; } }
 
 .pp-amenity-item {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(201, 168, 76, 0.18);   /* hairline gold-tinted divider */
+  padding: 16px 20px;
+  background: #F5F2EC;                                  /* cream */
+  border: 1px solid rgba(201, 168, 76, 0.22);           /* subtle gold-tinted hairline all around */
   font-family: 'Nunito Sans', sans-serif;
   font-size: 0.95rem;
-  font-weight: 400;
+  font-weight: 600;
   color: #2C4A5E;                                       /* navy text */
   letter-spacing: 0.01em;
   line-height: 1.4;
-  transition: color 220ms ease;
+  transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
 }
-.pp-amenity-item:hover { color: #C9A84C; }
+.pp-amenity-item:hover {
+  background: #FFFFFF;
+  border-color: #C9A84C;
+  color: #C9A84C;
+}
 
-/* Replace the dot with a tiny refined gold check */
-.pp-amenity-dot {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  border-radius: 0;
-  position: relative;
-}
-.pp-amenity-dot::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 4px;
-  width: 8px;
-  height: 4px;
-  border-left: 1.5px solid #C9A84C;
-  border-bottom: 1.5px solid #C9A84C;
-  transform: rotate(-45deg);
-  transform-origin: left top;
-}
+/* No tick — text-only chips */
+.pp-amenity-dot { display: none; }
 
 /* hide extras by default on all screen sizes */
 .pp-amenity-extra { display: none; }
