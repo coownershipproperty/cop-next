@@ -606,3 +606,39 @@ The EU pages need more work because each requires a new §B zone breakdown that 
 - Phase 4 (24 EU regions): 12–18 days editorial
 
 **Total: ~32–48 working days** for the complete rebuild. The owner can ship after Phase 0+1 and start seeing measurable improvements (correct rendering, improved internal linking, no more generic heroes) inside the first week.
+
+
+---
+
+## ADDENDUM (post-France-pillar review)
+
+### Editorial principle: don't lock content to current inventory
+
+When writing destination editorial, NEVER frame a sentence as "this is what COP currently offers in [destination]" with named towns or property types. Inventory rotates; pages don't.
+
+WRONG (locks the page to a snapshot of today's inventory):
+- "COP focuses on luxury ski chalets in Courchevel, Méribel and Portes du Soleil."
+- "Our French portfolio includes villas in Cap-Ferrat, Antibes, and Saint-Tropez."
+- "We currently have 8 properties in the Mallorca region."
+
+RIGHT (general/aspirational, doesn't date):
+- "COP curates co-ownership properties across France's most established second-home regions — alpine chalets in the major ski domains, villas along the Mediterranean, and central Paris apartments."
+- "Browse the listings on this page to see what's currently available, or join our updates list for new properties as they launch."
+- "Our [country] inventory rotates as new properties come to market."
+
+ALWAYS OK (these are destination editorial, not inventory claims):
+- §B "Where to own" zone breakdowns describing what each region/town is like
+- Naming Megève / Méribel / Cap-Ferrat as places a buyer might consider
+- Comparison tables with example price ranges (illustrative, not promises)
+
+### Fix applied (2026-05-14)
+
+All 4 pillar FAQ entries that listed specific cities as "what COP offers" were rewritten to use the rotation language above:
+- france — Q11
+- spain — Q9
+- italy — Q9
+- usa — Q8
+
+### Apply this principle to all future rewrites
+
+Spain, Italy, USA, Portugal, Croatia, Austria, Germany, Sweden, Mexico, England — when their FAQ JSON is reviewed, apply the same rewrite if they list specific cities/types as inventory.

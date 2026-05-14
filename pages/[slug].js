@@ -376,6 +376,23 @@ function slugifyHeading(text) {
     .slice(0, 60);
 }
 
+// Inject the TOC HTML right after the mid-CTA closing tag in restHtml so the
+// reading flow is: mid-CTA → TOC → §A. Falls back to prepending if no mid-CTA.
+function injectTocAfterMidCta(restHtml, tocH2s) {
+  const tocHtml = `<nav class="dest-toc" aria-label="On this page"><p class="dest-toc-label">On this page</p><ol>${
+    tocH2s.map(h => `<li><a href="#${h.id}">${h.text}</a></li>`).join('')
+  }</ol></nav>`;
+  // Find the closing </div> of the dest-mid-cta block. Mid-CTA pattern is
+  // <div class="dest-mid-cta"><div class="dest-mid-cta-inner">…</div></div>
+  const ctaCloseRe = /<\/div>\s*<\/div>\s*(?=<section)/;
+  const m = restHtml.search(ctaCloseRe);
+  if (m === -1) return tocHtml + restHtml;
+  // Move past the matched closing pattern
+  const idx = restHtml.search(/<section/);
+  if (idx === -1) return tocHtml + restHtml;
+  return restHtml.slice(0, idx) + tocHtml + restHtml.slice(idx);
+}
+
 function injectHeadingIds(html) {
   const used = new Set();
   const toc = [];
@@ -851,15 +868,17 @@ export default function DestinationPage({
             .dest-breadcrumbs { padding: 14px 1.5rem 0; }
           }
 
-          /* ── Table of Contents ── (long pages only) */
+          /* ── Table of Contents ── (long pages only) — sits right after the
+             navy mid-CTA at the top of the editorial body */
           .dest-toc {
-            max-width: 880px;
-            margin: 36px auto 8px;
-            padding: 24px 28px;
-            background: #F5F2EC;
-            border-left: 3px solid #C9A84C;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 36px 3rem 28px;
+            background: #fff;
+            border-bottom: 1px solid rgba(201,168,76,0.20);
             font-family: 'Nunito Sans', Arial, sans-serif;
           }
+          @media (max-width: 768px) { .dest-toc { padding: 28px 1.5rem 24px; } }
           .dest-toc-label {
             font-size: 11px;
             font-weight: 700;
@@ -1099,22 +1118,15 @@ export default function DestinationPage({
         </aside>
       )}
 
-      {/* Table of contents — shown on long pages (>5k words or 4+ H2 sections) */}
-      {showToc && tocH2s.length > 0 && (
-        <nav className="dest-toc" aria-label="On this page">
-          <p className="dest-toc-label">On this page</p>
-          <ol>
-            {tocH2s.map(h => (
-              <li key={h.id}>
-                <a href={`#${h.id}`}>{h.text}</a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      )}
-
-      {/* Rest of editorial content (internal links injected at build time) */}
-      <article className="dest-article" dangerouslySetInnerHTML={{ __html: restHtml }} />
+      {/* Rest of editorial content (internal links injected at build time).
+          The TOC is rendered as the FIRST element of the editorial body via
+          a build-time inject below, so the natural reading flow is:
+          property grid → mid-CTA → TOC → §A onwards. */}
+      <article className="dest-article" dangerouslySetInnerHTML={{
+        __html: showToc && tocH2s.length > 0
+          ? injectTocAfterMidCta(restHtml, tocH2s)
+          : restHtml
+      }} />
 
       {/* ── Cluster grid: "Regions in {Country}" — pillar pages link down to all clusters ── */}
       {children && children.length > 0 && (
