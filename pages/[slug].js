@@ -958,13 +958,17 @@ export default function DestinationPage({
             border-bottom-color: #C9A84C;
           }
 
-          /* ── Cluster grid: "Regions in {Country}" — shown below restHtml on pillar pages ── */
+          /* ── Cluster grid: "Regions in {Country}" — cream-band style so it
+             flows with the editorial sections instead of breaking out as a
+             foreign navy block. */
           .dest-cluster-down {
-            max-width: 1200px;
-            margin: 48px auto 32px;
-            padding: 36px 32px;
-            background: #143047;
-            color: #fff;
+            background: #F5F2EC;
+            padding: 72px 3rem;
+            color: #2C4A5E;
+          }
+          .dest-cluster-down-inner {
+            max-width: 1100px;
+            margin: 0 auto;
           }
           .dest-cluster-down-eyebrow {
             font-family: 'Nunito Sans', Arial, sans-serif;
@@ -973,42 +977,54 @@ export default function DestinationPage({
             letter-spacing: 0.22em;
             text-transform: uppercase;
             color: #C9A84C;
-            margin: 0 0 8px;
+            margin: 0 0 12px;
           }
           .dest-cluster-down-h2 {
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: 30px;
+            font-size: clamp(1.7rem, 3.2vw, 2.2rem);
             font-weight: 400;
-            color: #fff;
-            margin: 0 0 22px;
+            color: #2C4A5E;
+            margin: 0 0 28px;
+            line-height: 1.2;
           }
           .dest-cluster-down-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
+            gap: 12px;
           }
           @media (max-width: 900px) { .dest-cluster-down-grid { grid-template-columns: repeat(2, 1fr); } }
           @media (max-width: 560px) { .dest-cluster-down-grid { grid-template-columns: 1fr; } }
           .dest-cluster-down-tile {
-            display: block;
-            padding: 16px 18px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.10);
-            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            background: #fff;
+            border: 1px solid rgba(201, 168, 76, 0.20);
+            color: #2C4A5E;
             text-decoration: none;
             font-family: 'Nunito Sans', Arial, sans-serif;
             font-size: 15px;
-            font-weight: 600;
-            transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            transition: border-color 180ms ease, color 180ms ease, transform 220ms ease;
           }
           .dest-cluster-down-tile:hover {
-            background: rgba(201,168,76,0.10);
             border-color: #C9A84C;
             color: #C9A84C;
+            transform: translateX(2px);
           }
           .dest-cluster-down-tile-arrow {
-            float: right;
-            opacity: 0.6;
+            color: #C9A84C;
+            opacity: 0.7;
+            margin-left: 12px;
+            transition: opacity 180ms ease;
+          }
+          .dest-cluster-down-tile:hover .dest-cluster-down-tile-arrow {
+            opacity: 1;
+          }
+          @media (max-width: 768px) {
+            .dest-cluster-down { padding: 50px 1.5rem; }
           }
         `}</style>
       </Head>
@@ -1131,15 +1147,17 @@ export default function DestinationPage({
       {/* ── Cluster grid: "Regions in {Country}" — pillar pages link down to all clusters ── */}
       {children && children.length > 0 && (
         <section className="dest-cluster-down" aria-label={`Regions in ${destLabel(slug)}`}>
-          <p className="dest-cluster-down-eyebrow">Explore</p>
-          <h2 className="dest-cluster-down-h2">Regions in {destLabel(slug)}</h2>
-          <div className="dest-cluster-down-grid">
-            {children.map(c => (
-              <a key={c.slug} href={`/${c.slug}/`} className="dest-cluster-down-tile">
-                {c.label}
-                <span className="dest-cluster-down-tile-arrow">→</span>
-              </a>
-            ))}
+          <div className="dest-cluster-down-inner">
+            <p className="dest-cluster-down-eyebrow">Explore</p>
+            <h2 className="dest-cluster-down-h2">Regions in {destLabel(slug)}</h2>
+            <div className="dest-cluster-down-grid">
+              {children.map(c => (
+                <a key={c.slug} href={`/${c.slug}/`} className="dest-cluster-down-tile">
+                  {c.label}
+                  <span className="dest-cluster-down-tile-arrow">→</span>
+                </a>
+              ))}
+            </div>
           </div>
         </section>
       )}
