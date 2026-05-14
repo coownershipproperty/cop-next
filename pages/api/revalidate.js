@@ -29,6 +29,13 @@ export default async function handler(req, res) {
 
     if (target === 'posts' || target === 'post' || target === 'blog') {
       paths.push('/all-our-blog', '/all-our-blog/', `/blog/${slug}`, `/blog/${slug}/`, '/');
+    } else if (target === 'destination' || target === 'destinations') {
+      // Destination editorial pages — rewrites land in content/destinations/<slug>.html
+      // but Vercel edge caches the rendered output, so a content-only change needs
+      // an explicit revalidate to bust the cache without a full Vercel rebuild.
+      paths.push(`/${slug}`, `/${slug}/`);
+      // Also revalidate the DE mirror if it exists.
+      paths.push(`/de/destinationen/${slug}`, `/de/destinationen/${slug}/`);
     } else {
       paths.push(`/property/${slug}`, `/property/${slug}/`, '/our-homes', '/our-homes/', '/');
     }

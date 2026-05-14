@@ -58,10 +58,14 @@ export default async function handler(req, res) {
     .filter(Boolean);
 
   // ── 2. Fetch all subscriber contacts ─────────────────────────────────────
+  // Exclude anyone tagged 'unsubscribed' or whose email has been anonymised
+  // to the @deleted.local placeholder (GDPR erasure pattern).
   const { data: subscribers, error: subErr } = await db
     .from('contacts')
     .select('id, email, first_name, last_name')
-    .not('email', 'is', null);
+    .not('email', 'is', null)
+    .not('email', 'like', '%@deleted.local')
+    .not('tags', 'cs', '{unsubscribed}');
 
   if (subErr) {
     return res.status(500).json({ error: 'Failed to fetch subscribers', detail: subErr.message });

@@ -62,12 +62,15 @@ export default async function handler(req, res) {
     const propBySlug = {};
     for (const p of properties || []) propBySlug[p.slug] = p;
 
-    // Prefetch contact first names
+    // Prefetch contact first names — skip anyone tagged 'unsubscribed' or whose
+    // email has been anonymised to the @deleted.local GDPR-erasure placeholder.
     const contactIds = sends.map(s => s.contact_id);
     const { data: contacts } = await db
       .from('contacts')
-      .select('id, first_name')
-      .in('id', contactIds);
+      .select('id, first_name, email, tags')
+      .in('id', contactIds)
+      .not('email', 'like', '%@deleted.local')
+      .not('tags', 'cs', '{unsubscribed}');
 
     const contactById = {};
     for (const c of contacts || []) contactById[c.id] = c;
