@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
+import HreflangLinks from '@/components/HreflangLinks';
 import destinationFaqs from '@/lib/destination-faqs.json';
 
 // ─── Destination → property filter map ───────────────────────────────────────
@@ -556,6 +557,23 @@ export async function getStaticProps({ params }) {
     aggLng = +(propsWithCoords.reduce((s, p) => s + parseFloat(p.lng), 0) / propsWithCoords.length).toFixed(4);
   }
 
+  // ── Hreflang locales: which language versions of this destination exist? ──
+  // Build the list at build time by checking which mirror files exist.
+  const hreflangLocales = [{ locale: 'en', path: `/${slug}/` }];
+  const dePath = path.join(process.cwd(), 'content', 'destinations', 'de', `${slug}.html`);
+  if (fs.existsSync(dePath)) {
+    hreflangLocales.push({ locale: 'de', path: `/de/destinationen/${slug}/` });
+  }
+  // Future-proof for ES/FR when those destination directories ship.
+  const esPath = path.join(process.cwd(), 'content', 'destinations', 'es', `${slug}.html`);
+  if (fs.existsSync(esPath)) {
+    hreflangLocales.push({ locale: 'es', path: `/es/destinos/${slug}/` });
+  }
+  const frPath = path.join(process.cwd(), 'content', 'destinations', 'fr', `${slug}.html`);
+  if (fs.existsSync(frPath)) {
+    hreflangLocales.push({ locale: 'fr', path: `/fr/destinations/${slug}/` });
+  }
+
   return {
     props: {
       slug, title, metaDesc, heroHtml, restHtml,
@@ -565,6 +583,7 @@ export async function getStaticProps({ params }) {
       aggLat, aggLng,
       toc, restWordCount,
       breadcrumbItems: buildBreadcrumbs(slug, destLabel(slug)),
+      hreflangLocales,
     },
   };
 }
@@ -578,6 +597,7 @@ export default function DestinationPage({
   aggLat, aggLng,
   toc, restWordCount,
   breadcrumbItems: breadcrumbItemsProp,
+  hreflangLocales,
 }) {
   const canonicalUrl = `https://co-ownership-property.com/${slug}/`;
   const breadcrumbItems = breadcrumbItemsProp || buildBreadcrumbs(slug, title);
@@ -681,6 +701,29 @@ export default function DestinationPage({
     });
   }
 
+  // RealEstateAgent — entity-recognition signal for property-related search,
+  // helps COP show up in branded + service-type queries (e.g. "fractional ownership agency France")
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": "Co-Ownership Property",
+    "url": "https://co-ownership-property.com",
+    "logo": "https://co-ownership-property.com/wp-content/uploads/MAIN-LOGO-COP.svg",
+    "image": "https://co-ownership-property.com/wp-content/uploads/MAIN-LOGO-COP.svg",
+    "description": "Co-Ownership Property (COP) is a curated marketplace for deeded fractional ownership of luxury second homes worldwide — Europe, the United States, Mexico — held in purpose-built LLC structures with full professional management.",
+    "areaServed": [
+      { "@type": "Country", "name": "France" },
+      { "@type": "Country", "name": "Spain" },
+      { "@type": "Country", "name": "Italy" },
+      { "@type": "Country", "name": "United States" },
+      { "@type": "Country", "name": "Portugal" },
+      { "@type": "Country", "name": "Mexico" },
+    ],
+    "sameAs": [
+      "https://co-ownership-property.com",
+    ],
+  });
+
   // Article schema for the long-form editorial body — gives Google a clearer
   // "this is editorial content" signal than the e-commerce property grid above.
   if ((restWordCount || 0) > 1500) {
@@ -719,6 +762,13 @@ export default function DestinationPage({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={canonicalUrl} />
+        {/* Hreflang — emits one tag per locale that actually has a destination file */}
+        {(hreflangLocales || []).map(({ locale, path: lpath }) => (
+          <link key={locale} rel="alternate" hrefLang={locale}
+            href={`https://co-ownership-property.com${lpath}`} />
+        ))}
+        <link rel="alternate" hrefLang="x-default"
+          href={`https://co-ownership-property.com/${slug}/`} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={metaDesc} />
         <meta property="og:image" content={ogImage} />

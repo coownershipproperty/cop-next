@@ -104,25 +104,35 @@ const EN_ONLY_PAGES = [
 ];
 
 // ──────────────────────────────────────────────────────────────────────────
-// Destinations — only Mallorca and Ibiza exist in ES/FR. Other English
-// destinations stay English-only.
+// Destinations with dedicated ES/FR equivalents — Mallorca and Ibiza have
+// hand-written ES/FR pages at /es/destinos/<slug>/ and /fr/destinations/<slug>/.
+// The EN form is the standard destination pillar at /<slug>/.
+// (Other locale-paired hreflang for EN+DE is handled by the destSlugs loop.)
 // ──────────────────────────────────────────────────────────────────────────
-const DESTINATION_GROUPS = [
+const DESTINATION_ES_FR_GROUPS = [
   {
-    en: '/destinations/mallorca/',
+    en: '/mallorca-fractional-ownership-properties/',
     es: '/es/destinos/mallorca/',
     fr: '/fr/destinations/mallorque/',
-    priority: '0.85',
+    de: '/de/destinationen/mallorca-fractional-ownership-properties/',
+    priority: '0.9',
     changefreq: 'weekly',
   },
   {
-    en: '/destinations/ibiza/',
+    en: '/ibiza-fractional-ownership-properties/',
     es: '/es/destinos/ibiza/',
     fr: '/fr/destinations/ibiza/',
-    priority: '0.85',
+    de: '/de/destinationen/ibiza-fractional-ownership-properties/',
+    priority: '0.9',
     changefreq: 'weekly',
   },
 ];
+// Slugs handled by the dedicated ES/FR groups above — skip these in the
+// destSlugs loop to avoid double-emission.
+const DEST_ES_FR_HANDLED_SLUGS = new Set([
+  'mallorca-fractional-ownership-properties',
+  'ibiza-fractional-ownership-properties',
+]);
 
 // ──────────────────────────────────────────────────────────────────────────
 // Helpers
@@ -153,7 +163,7 @@ function urlEntry(loc, priority, changefreq, lastmod, alternates) {
 // same hreflang set so all variants point to each other.
 function emitGroup(group, lastmod) {
   const alternates = {};
-  for (const locale of ['en', 'es', 'fr']) {
+  for (const locale of ['en', 'es', 'fr', 'de']) {
     if (group[locale]) alternates[locale] = group[locale];
   }
   return Object.keys(alternates).map(locale =>
@@ -180,12 +190,29 @@ export async function getServerSideProps({ res }) {
   // Blog posts (from static JSON for stability)
   const posts = JSON.parse(fs.readFileSync(path.join(cwd, 'lib', 'posts.json'), 'utf-8'));
 
-  // English destination slugs (other than mallorca/ibiza which are in DESTINATION_GROUPS)
+  // English destination slugs — all 48 destination HTML files at the root level
+  // (URL pattern is /<slug>/, e.g. /france-fractional-ownership-properties/).
   const destDir = path.join(cwd, 'content', 'destinations');
   const destSlugs = fs.readdirSync(destDir)
     .filter(f => f.endsWith('.html'))
-    .map(f => f.replace('.html', ''))
-    .filter(slug => slug !== 'mallorca' && slug !== 'ibiza');
+    .map(f => f.replace('.html', ''));
+
+  // German destination mirrors at content/destinations/de/<slug>.html
+  // (URL pattern is /de/destinationen/<slug>/).
+  const destDirDe = path.join(cwd, 'content', 'destinations', 'de');
+  const destSlugsDeSet = new Set(
+    fs.existsSync(destDirDe)
+      ? fs.readdirSync(destDirDe).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
+      : []
+  );
+
+  // Pillar slugs get higher priority + more frequent crawl signal
+  const PILLAR_SLUGS = new Set([
+    'spain-fractional-ownership-properties',
+    'france-fractional-ownership-properties',
+    'italy-fractional-ownership-properties',
+    'usa-fractional-ownership-properties',
+  ]);
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -199,13 +226,27 @@ export async function getServerSideProps({ res }) {
     // Locale-only pillar + SEO content (no hreflang alternates)
     ...LOCALE_ONLY_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
 
-    // Destinations that have all three locales (Mallorca, Ibiza)
-    ...DESTINATION_GROUPS.flatMap(g => emitGroup(g)),
+    // Destinations with dedicated ES/FR pages (Mallorca, Ibiza)
+    ...DESTINATION_ES_FR_GROUPS.flatMap(g => emitGroup(g, today)),
 
-    // English-only destinations
-    ...destSlugs.map(slug =>
-      urlEntry(`${BASE}/destinations/${slug}/`, '0.8', 'weekly')
-    ),
+    // All other destinations — emit EN at root (/<slug>/) and DE mirror if it
+    // exists (/de/destinationen/<slug>/) with reciprocal hreflang.
+    // Pillars get higher priority (0.9); regions/cities get 0.8.
+    ...destSlugs
+      .filter(slug => !DEST_ES_FR_HANDLED_SLUGS.has(slug))
+      .flatMap(slug => {
+        const priority = PILLAR_SLUGS.has(slug) ? '0.9' : '0.8';
+        const hasDe = destSlugsDeSet.has(slug);
+        const altset = { en: `/${slug}/` };
+        if (hasDe) altset.de = `/de/destinationen/${slug}/`;
+        const out = [
+          urlEntry(`${BASE}/${slug}/`, priority, 'weekly', today, altset),
+        ];
+        if (hasDe) {
+          out.push(urlEntry(`${BASE}/de/destinationen/${slug}/`, priority, 'weekly', today, altset));
+        }
+        return out;
+      }),
 
     // Property detail pages — emit EN / ES / FR / DE with reciprocal hreflang
     ...(properties || []).flatMap(p => {
