@@ -6148,35 +6148,58 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   background:transparent!important;
 }
 
-/* ── Amenities: luxury design ── */
+/* ── Amenities: refined editorial grid ── */
 .pp-amenities { margin-bottom: 48px; }
 .pp-amenity-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--border);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
+@media (max-width: 1024px) { .pp-amenity-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .pp-amenity-list { grid-template-columns: 1fr; } }
+
 .pp-amenity-item {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 20px 14px 0;
-  border-bottom: 1px solid var(--border);
+  padding: 16px 18px 16px 22px;
+  background: #FAF8F2;                       /* warm cream tint */
+  border: 1px solid #EDE6D6;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: .875rem;
-  font-weight: 400;
-  color: #4a5568;
-  letter-spacing: 0.01em;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #2C4A5E;                            /* navy text */
+  letter-spacing: 0.005em;
+  line-height: 1.4;
+  transition: background 220ms ease, border-color 220ms ease, color 220ms ease, transform 220ms ease;
 }
-.pp-amenity-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+/* Gold left accent bar — defines the chip without using a bullet */
+.pp-amenity-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
   background: #C9A84C;
-  flex-shrink: 0;
+  transition: width 220ms ease, background 220ms ease;
 }
+.pp-amenity-item:hover {
+  background: #FFF;
+  border-color: #C9A84C;
+  color: #143047;
+  transform: translateY(-1px);
+}
+.pp-amenity-item:hover::before {
+  width: 4px;
+}
+
+/* The tiny dot used by the React component is now hidden — the accent bar replaces it */
+.pp-amenity-dot { display: none; }
+
 /* hide extras by default on all screen sizes */
 .pp-amenity-extra { display: none; }
 .pp-amenities.expanded .pp-amenity-extra { display: flex; }

@@ -137,17 +137,6 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
     });
   }
 
-  function handleCtaClick(e) {
-    e.preventDefault();
-    if (typeof onCtaClick === 'function') return onCtaClick();
-    // Default: scroll to the on-page enquiry form (the right-column form on /property/[slug]/)
-    const el = document.querySelector('input[name="email"], #enquiry-form, [data-enquiry-form]');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      if (el.tagName === 'INPUT') el.focus();
-    }
-  }
-
   return (
     <section className="cop-fin">
       <div className="cop-fin-inner">
@@ -159,9 +148,6 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
           </h2>
           <p className="cop-fin-sub">{t.sub}</p>
           <p className="cop-fin-body">{t.body}</p>
-          <button type="button" className="cop-fin-cta" onClick={handleCtaClick}>
-            {t.cta}
-          </button>
         </div>
 
         {/* Right — calculator card (white) */}
