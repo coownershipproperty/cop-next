@@ -1,12 +1,22 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getFavSlugs, onFavsChange } from '@/lib/favs';
+
+const LANGUAGES = [
+  { code: 'en', label: 'EN', name: 'English' },
+  { code: 'es', label: 'ES', name: 'Español' },
+  { code: 'fr', label: 'FR', name: 'Français' },
+  { code: 'de', label: 'DE', name: 'Deutsch' },
+];
 
 export default function Header() {
   const router = useRouter();
   const path = router.pathname;
+  const locale = router.locale || 'en';
   const [menuOpen, setMenuOpen] = useState(false);
   const [favCount, setFavCount] = useState(0);
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef(null);
 
   // Close menu on route change
   useEffect(() => {
@@ -28,6 +38,21 @@ export default function Header() {
     setFavCount(getFavSlugs().length);
     return onFavsChange((slugs) => setFavCount(slugs.length));
   }, []);
+
+  // Close language dropdown on outside click
+  useEffect(() => {
+    if (!langOpen) return;
+    const handler = (e) => {
+      if (langRef.current && !langRef.current.contains(e.target)) setLangOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [langOpen]);
+
+  const switchLocale = (code) => {
+    setLangOpen(false);
+    router.push(router.asPath, router.asPath, { locale: code });
+  };
 
   const navLinks = [
     { href: '/',              label: 'Home' },
@@ -57,6 +82,34 @@ export default function Header() {
           <a href="/" className="cop-logo-link">
             <img src="/images/cop-logo.svg" alt="Co-Ownership Property" className="logo-dark" />
           </a>
+        </div>
+
+        {/* Language switcher */}
+        <div className="cop-lang" ref={langRef}>
+          <button
+            className="cop-lang-toggle"
+            aria-expanded={langOpen}
+            aria-label="Select language"
+            onClick={() => setLangOpen((o) => !o)}
+          >
+            {LANGUAGES.find((l) => l.code === locale)?.label ?? 'EN'}
+            <span className="cop-lang-arrow" aria-hidden="true">▾</span>
+          </button>
+          {langOpen && (
+            <ul className="cop-lang-dropdown" role="listbox">
+              {LANGUAGES.map((lang) => (
+                <li key={lang.code} role="option" aria-selected={lang.code === locale}>
+                  <button
+                    className={lang.code === locale ? 'active' : ''}
+                    onClick={() => switchLocale(lang.code)}
+                  >
+                    <span className="cop-lang-code">{lang.label}</span>
+                    <span className="cop-lang-name">{lang.name}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         {/* Invisible spacer keeps logo centred on mobile */}

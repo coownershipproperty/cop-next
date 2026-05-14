@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
+  i18n: {
+    locales: ['en', 'es', 'fr', 'de'],
+    defaultLocale: 'en',
+  },
   // Fallback public values so cop-crm builds succeed without env vars configured.
   // NEXT_PUBLIC_ (anon) keys — safe to embed; already shipped to the browser.
   env: {
