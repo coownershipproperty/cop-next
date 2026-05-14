@@ -14,6 +14,8 @@ const COPY = {
     label_share: 'Ownership',
     label_down: 'Down Payment',
     label_rate: 'Interest Rate',
+    helper_share: 'Share price',
+    helper_down: 'Your down payment',
     share_one_eighth: '1/8 share',
     share_one_fourth: '1/4 share',
     share_one_half: '1/2 share',
@@ -33,6 +35,8 @@ const COPY = {
     label_share: 'Propiedad',
     label_down: 'Entrada',
     label_rate: 'Tipo de interés',
+    helper_share: 'Precio por participación',
+    helper_down: 'Tu entrada',
     share_one_eighth: '1/8 de propiedad',
     share_one_fourth: '1/4 de propiedad',
     share_one_half: '1/2 propiedad',
@@ -52,6 +56,8 @@ const COPY = {
     label_share: 'Propriété',
     label_down: 'Apport',
     label_rate: 'Taux d\'intérêt',
+    helper_share: 'Prix par part',
+    helper_down: 'Votre apport',
     share_one_eighth: '1/8 de la propriété',
     share_one_fourth: '1/4 de la propriété',
     share_one_half: '1/2 propriété',
@@ -71,6 +77,8 @@ const COPY = {
     label_share: 'Eigentum',
     label_down: 'Eigenkapital',
     label_rate: 'Zinssatz',
+    helper_share: 'Anteilspreis',
+    helper_down: 'Ihre Anzahlung',
     share_one_eighth: '1/8-Anteil',
     share_one_fourth: '1/4-Anteil',
     share_one_half: '1/2-Anteil',
@@ -168,7 +176,10 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
                   <option value="one_half">{t.share_one_half}</option>
                   <option value="full">{t.share_full}</option>
                 </select>
-                <p className="cop-fin-helper">{formatMoney(sharePrice, currency, locale)}</p>
+                <p className="cop-fin-helper">
+                  <span className="cop-fin-helper-label">{t.helper_share}</span>
+                  <span className="cop-fin-helper-val">{formatMoney(sharePrice, currency, locale)}</span>
+                </p>
               </div>
 
               <div className="cop-fin-field">
@@ -182,7 +193,10 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
                     <option key={v} value={v}>{v}%</option>
                   ))}
                 </select>
-                <p className="cop-fin-helper">{formatMoney(downAmount, currency, locale)}</p>
+                <p className="cop-fin-helper">
+                  <span className="cop-fin-helper-label">{t.helper_down}</span>
+                  <span className="cop-fin-helper-val">{formatMoney(downAmount, currency, locale)}</span>
+                </p>
               </div>
             </div>
 
@@ -251,12 +265,14 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
         }
         .cop-fin-h1 {
           font-family: 'Playfair Display', Georgia, serif;
-          font-size: 30px;
+          font-size: 42px;
           font-weight: 400;
-          line-height: 1.2;
-          margin: 0 0 12px;
+          line-height: 1.15;
+          letter-spacing: -0.005em;
+          margin: 0 0 14px;
           color: ${C.white};
         }
+        @media (max-width: 560px) { .cop-fin-h1 { font-size: 34px; } }
         .cop-fin-h1 em {
           font-style: italic;
           color: ${C.gold};
@@ -267,15 +283,16 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
           font-size: 15px;
           font-weight: 600;
           color: ${C.gold};
-          margin: 0 0 14px;
+          margin: 0 0 16px;
         }
         .cop-fin-body {
           font-family: 'Nunito Sans', Arial, sans-serif;
-          font-size: 14px;
-          line-height: 1.7;
-          color: rgba(255,255,255,0.85);
-          margin: 0 0 22px;
+          font-size: 16.5px;
+          line-height: 1.72;
+          color: rgba(255,255,255,0.88);
+          margin: 0 0 24px;
         }
+        @media (max-width: 560px) { .cop-fin-body { font-size: 15.5px; } }
         .cop-fin-cta {
           display: inline-block;
           font-family: 'Nunito Sans', Arial, sans-serif;
@@ -348,10 +365,26 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
         }
         .cop-fin-input:focus { outline: 1px solid ${C.gold}; }
         .cop-fin-helper {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 10px;
           font-family: 'Nunito Sans', Arial, sans-serif;
-          font-size: 12px;
+          margin: 8px 0 0;
+          padding: 6px 0 0;
+        }
+        .cop-fin-helper-label {
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
           color: ${C.muted};
-          margin: 6px 0 0;
+        }
+        .cop-fin-helper-val {
+          font-size: 14px;
+          font-weight: 700;
+          color: ${C.navy};
+          letter-spacing: 0;
         }
 
         /* Rate block: full-width slider + adjacent buttons */
@@ -413,33 +446,41 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
         .cop-fin-btn:hover { background: ${C.gold}; color: ${C.white}; border-color: ${C.gold}; }
         .cop-fin-btn:active { transform: translateY(1px); }
 
-        /* Result band */
+        /* Result band — stacked feature panel for clean alignment */
         .cop-fin-result {
           display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-          padding: 22px 0 18px;
-          border-top: 1px solid #e8e0d4;
-          margin-top: 8px;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 6px;
+          padding: 22px 22px 24px;
+          background: ${C.navy};
+          color: ${C.white};
+          margin-top: 22px;
         }
         .cop-fin-result-label {
           font-family: 'Nunito Sans', Arial, sans-serif;
-          font-size: 13px;
-          color: ${C.muted};
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: ${C.gold};
           margin: 0;
         }
         .cop-fin-result-amount {
           font-family: 'Playfair Display', Georgia, serif;
-          font-size: 30px;
+          font-size: 38px;
           font-weight: 400;
-          color: ${C.gold};
+          line-height: 1;
+          color: ${C.white};
           margin: 0;
         }
         .cop-fin-result-per {
           font-size: 14px;
-          color: ${C.muted};
+          color: rgba(255,255,255,0.65);
           font-family: 'Nunito Sans', Arial, sans-serif;
-          margin-left: 4px;
+          margin-left: 6px;
+          letter-spacing: 0;
         }
         .cop-fin-note {
           font-family: 'Nunito Sans', Arial, sans-serif;
