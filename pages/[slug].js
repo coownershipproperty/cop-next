@@ -363,6 +363,37 @@ function buildMetaDesc(slug, properties, existingDesc) {
   return `${count} co-ownership ${count === 1 ? 'property' : 'properties'} in ${name} from ${priceStr}. Real deeded ownership — not timeshare. Luxury homes at a fraction of the cost.`;
 }
 
+// ── Heading ID injection + TOC extraction ────────────────────────────────────
+// Adds id="..." to every <h2>/<h3> in restHtml (slugified from heading text)
+// so we get anchor links + a TOC nav. Also returns the harvested headings.
+function slugifyHeading(text) {
+  return text
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '') // strip accents
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 60);
+}
+
+function injectHeadingIds(html) {
+  const used = new Set();
+  const toc = [];
+  const out = html.replace(/<(h2|h3)([^>]*)>([\s\S]*?)<\/\1>/g, (full, tag, attrs, inner) => {
+    // Skip if already has an id
+    if (/\sid\s*=/i.test(attrs)) return full;
+    const text = stripTags(inner);
+    if (!text) return full;
+    let id = slugifyHeading(text);
+    if (!id) return full;
+    let unique = id, n = 2;
+    while (used.has(unique)) { unique = `${id}-${n++}`; }
+    used.add(unique);
+    toc.push({ level: tag === 'h2' ? 2 : 3, id: unique, text });
+    return `<${tag}${attrs} id="${unique}">${inner}</${tag}>`;
+  });
+  return { html: out, toc };
+}
+
 // ── Internal link injection ───────────────────────────────────────────────────
 // Injects one hyperlink per related destination into content text nodes.
 // Skips text inside existing <a> tags to avoid nesting.
@@ -475,6 +506,14 @@ export async function getStaticProps({ params }) {
   // Inject internal links into content
   restHtml = injectInternalLinks(restHtml, slug);
 
+  // Auto-add id="..." to H2/H3 in restHtml so we get anchor links + TOC navigation
+  const headingResult = injectHeadingIds(restHtml);
+  restHtml = headingResult.html;
+  const toc = headingResult.toc;
+
+  // Word count of the editorial body — used to decide TOC visibility + Article schema
+  const restWordCount = stripTags(restHtml).split(/\s+/).filter(Boolean).length;
+
   const related = (RELATED[slug] || []).map(s => ({ slug: s, label: destLabel(s) }));
 
   // ── Pillar/cluster hierarchy (built from PARENT map) ────────────────────────
@@ -524,6 +563,8 @@ export async function getStaticProps({ params }) {
       ogImage, minPrice, minCurrency,
       parent, children,
       aggLat, aggLng,
+      toc, restWordCount,
+      breadcrumbItems: buildBreadcrumbs(slug, destLabel(slug)),
     },
   };
 }
@@ -535,9 +576,14 @@ export default function DestinationPage({
   ogImage, minPrice, minCurrency,
   parent, children,
   aggLat, aggLng,
+  toc, restWordCount,
+  breadcrumbItems: breadcrumbItemsProp,
 }) {
   const canonicalUrl = `https://co-ownership-property.com/${slug}/`;
-  const breadcrumbItems = buildBreadcrumbs(slug, title);
+  const breadcrumbItems = breadcrumbItemsProp || buildBreadcrumbs(slug, title);
+  // Show TOC sidebar on long pages (>5k words restHtml or 4+ H2 headings)
+  const tocH2s = (toc || []).filter(h => h.level === 2);
+  const showToc = (restWordCount || 0) > 5000 || tocH2s.length >= 4;
 
   // ── Filter state ──────────────────────────────────────────────────────────
   const [activeFilter, setActiveFilter] = useState(null);
@@ -635,6 +681,36 @@ export default function DestinationPage({
     });
   }
 
+  // Article schema for the long-form editorial body — gives Google a clearer
+  // "this is editorial content" signal than the e-commerce property grid above.
+  if ((restWordCount || 0) > 1500) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": metaDesc,
+      "image": ogImage,
+      "wordCount": restWordCount,
+      "inLanguage": "en",
+      "mainEntityOfPage": canonicalUrl,
+      "url": canonicalUrl,
+      "author": {
+        "@type": "Organization",
+        "name": "Co-Ownership Property",
+        "url": "https://co-ownership-property.com",
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Co-Ownership Property",
+        "url": "https://co-ownership-property.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://co-ownership-property.com/wp-content/uploads/MAIN-LOGO-COP.svg",
+        },
+      },
+    });
+  }
+
   return (
     <>
       <Head>
@@ -688,6 +764,97 @@ export default function DestinationPage({
             text-underline-offset: 2px;
           }
           .dest-inline-link:hover { opacity: 0.75; }
+
+          /* ── Visible breadcrumbs (also rendered as JSON-LD BreadcrumbList) ── */
+          .dest-breadcrumbs {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 18px 3rem 0;
+            font-family: 'Nunito Sans', Arial, sans-serif;
+          }
+          .dest-breadcrumbs ol {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+          }
+          .dest-breadcrumbs li {
+            font-size: 12px;
+            color: #6B8A9E;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+          }
+          .dest-breadcrumbs a {
+            color: #6B8A9E;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color 180ms ease, border-color 180ms ease;
+          }
+          .dest-breadcrumbs a:hover { color: #C9A84C; border-bottom-color: #C9A84C; }
+          .dest-breadcrumb-sep { margin: 0 8px; color: #C9A84C; opacity: 0.6; }
+          .dest-breadcrumbs li[aria-current="page"], .dest-breadcrumbs span[aria-current="page"] {
+            color: #2C4A5E;
+          }
+          @media (max-width: 768px) {
+            .dest-breadcrumbs { padding: 14px 1.5rem 0; }
+          }
+
+          /* ── Table of Contents ── (long pages only) */
+          .dest-toc {
+            max-width: 880px;
+            margin: 36px auto 8px;
+            padding: 24px 28px;
+            background: #F5F2EC;
+            border-left: 3px solid #C9A84C;
+            font-family: 'Nunito Sans', Arial, sans-serif;
+          }
+          .dest-toc-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.20em;
+            text-transform: uppercase;
+            color: #6B8A9E;
+            margin: 0 0 14px;
+          }
+          .dest-toc ol {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            counter-reset: toc;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 24px;
+          }
+          @media (max-width: 700px) { .dest-toc ol { grid-template-columns: 1fr; } }
+          .dest-toc li {
+            counter-increment: toc;
+            font-size: 14px;
+            line-height: 1.4;
+          }
+          .dest-toc li::before {
+            content: counter(toc, decimal-leading-zero);
+            display: inline-block;
+            width: 26px;
+            color: #C9A84C;
+            font-weight: 700;
+            font-size: 11px;
+          }
+          .dest-toc a {
+            color: #2C4A5E;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+            transition: color 180ms ease, border-color 180ms ease;
+          }
+          .dest-toc a:hover { color: #C9A84C; border-bottom-color: #C9A84C; }
+
+          /* Smooth scrolling for in-page anchor jumps */
+          html { scroll-behavior: smooth; }
+          .dest-article :target {
+            scroll-margin-top: 88px;
+          }
 
           /* ── Cluster card: "Part of {Country}" — shown above restHtml on cluster pages ── */
           .dest-cluster-up {
@@ -779,6 +946,24 @@ export default function DestinationPage({
 
       <Header />
 
+      {/* Visible breadcrumbs — uses the BreadcrumbList structured data */}
+      <nav className="dest-breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          {breadcrumbItems.map((crumb, i) => (
+            <li key={i}>
+              {i < breadcrumbItems.length - 1 ? (
+                <>
+                  <a href={crumb.item.replace('https://co-ownership-property.com', '')}>{crumb.name}</a>
+                  <span className="dest-breadcrumb-sep">›</span>
+                </>
+              ) : (
+                <span aria-current="page">{crumb.name}</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+
       {/* Hero */}
       <div dangerouslySetInnerHTML={{ __html: heroHtml }} />
 
@@ -864,8 +1049,22 @@ export default function DestinationPage({
         </aside>
       )}
 
+      {/* Table of contents — shown on long pages (>5k words or 4+ H2 sections) */}
+      {showToc && tocH2s.length > 0 && (
+        <nav className="dest-toc" aria-label="On this page">
+          <p className="dest-toc-label">On this page</p>
+          <ol>
+            {tocH2s.map(h => (
+              <li key={h.id}>
+                <a href={`#${h.id}`}>{h.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+
       {/* Rest of editorial content (internal links injected at build time) */}
-      <div dangerouslySetInnerHTML={{ __html: restHtml }} />
+      <article className="dest-article" dangerouslySetInnerHTML={{ __html: restHtml }} />
 
       {/* ── Cluster grid: "Regions in {Country}" — pillar pages link down to all clusters ── */}
       {children && children.length > 0 && (

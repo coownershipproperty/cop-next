@@ -4482,18 +4482,138 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 .dest-sec.white{background:var(--white)}
 .dest-inner{max-width:900px;margin:0 auto}
 .dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
-.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
-.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
-.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.9rem,3.8vw,2.6rem);font-weight:400;color:var(--text-dark);margin-bottom:1.4rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.45rem;font-weight:500;color:var(--text-dark);margin:2.2rem 0 0.7rem;line-height:1.25}
+.dest-sec p{font-size:1.18rem;color:#3d556a;line-height:1.72;margin-bottom:1.25rem;font-weight:400}
 .dest-sec strong{color:var(--text-dark);font-weight:700}
 .dest-sec em{font-style:italic}
 .dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
 .dest-sec a:hover{color:var(--blue)}
-.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.4rem 1.5rem;color:#3d556a;font-size:1.18rem;line-height:1.72}
+.dest-sec ul li,.dest-sec ol li{margin-bottom:0.5rem}
 .dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
 .dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
 .dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
-.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.6rem;margin:2rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.35rem;line-height:1.45;color:var(--text-dark)}
+
+/* ── Destination editorial: callout boxes ─────────────────────────────── */
+/* Used for stat/data summary callouts inline in the editorial body. */
+.dest-callout{
+  position:relative;
+  background:#fff;
+  border-left:4px solid var(--warm-gold);
+  padding:1.4rem 1.8rem;
+  margin:2.4rem 0;
+  font-family:"Nunito Sans",sans-serif;
+  font-size:1.08rem;
+  line-height:1.7;
+  color:var(--text-dark);
+  box-shadow:0 1px 0 rgba(0,0,0,0.04), 0 8px 24px -12px rgba(20,48,71,0.08);
+}
+.dest-sec.cream .dest-callout{background:#fff}
+.dest-sec.white .dest-callout{background:var(--cream-bg)}
+.dest-callout strong{display:block;font-family:"Nunito Sans",sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--warm-gold);margin-bottom:0.55rem}
+.dest-callout a{color:var(--warm-gold);font-weight:600;border-bottom:1px solid transparent;transition:border-color 180ms ease}
+.dest-callout a:hover{border-bottom-color:var(--warm-gold)}
+
+/* ── Destination editorial: comparison table ─────────────────────────── */
+.dest-compare-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  margin:2rem 0 2.4rem;
+  font-family:"Nunito Sans",sans-serif;
+  font-size:1rem;
+  background:#fff;
+  box-shadow:0 1px 0 rgba(0,0,0,0.04), 0 14px 36px -18px rgba(20,48,71,0.10);
+}
+.dest-compare-table thead th{
+  background:var(--text-dark);
+  color:#fff;
+  padding:1rem 1.2rem;
+  text-align:left;
+  font-size:0.74rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  font-weight:700;
+  border-bottom:2px solid var(--warm-gold);
+}
+.dest-compare-table tbody td{
+  padding:1rem 1.2rem;
+  border-bottom:1px solid #ebe5d8;
+  color:var(--text-dark);
+  font-size:1rem;
+  line-height:1.55;
+  vertical-align:top;
+}
+.dest-compare-table tbody td:first-child{
+  font-weight:700;
+  color:var(--text-dark);
+  width:30%;
+  background:rgba(245,242,236,0.55);
+}
+.dest-compare-table tbody tr:last-child td{border-bottom:none}
+.dest-compare-table tbody tr:hover td{background:rgba(201,168,76,0.06)}
+.dest-compare-table tbody tr:hover td:first-child{background:rgba(201,168,76,0.10)}
+.dest-compare-table tbody td strong{color:var(--text-dark);font-weight:700}
+
+/* ── Destination editorial: H3 with subtle gold rule above ───────────── */
+.dest-sec h3{
+  position:relative;
+  padding-top:1.6rem;
+}
+.dest-sec h3::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:32px;
+  height:2px;
+  background:var(--warm-gold);
+}
+.dest-sec h3:first-child{padding-top:0}
+.dest-sec h3:first-child::before{display:none}
+
+/* ── Destination editorial: drop cap on first paragraph after H2 ─────── */
+.dest-sec h2 + p::first-letter{
+  font-family:"Playfair Display",serif;
+  font-size:4.2rem;
+  line-height:0.85;
+  float:left;
+  padding:0.45rem 0.7rem 0 0;
+  color:var(--warm-gold);
+  font-weight:400;
+}
+
+/* ── Destination editorial: "Best for:" line as styled tag ───────────── */
+.dest-sec p strong:only-child,
+.dest-sec p > strong:first-child:not(:only-child){
+  /* leave it alone — handled inline */
+}
+
+/* ── Destination editorial: bullet lists with gold marker ────────────── */
+.dest-sec ul{list-style:none;padding-left:0;margin-left:0}
+.dest-sec ul li{position:relative;padding-left:1.6rem}
+.dest-sec ul li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0.65rem;
+  width:8px;
+  height:8px;
+  background:var(--warm-gold);
+  transform:rotate(45deg);
+}
+
+/* ── Destination editorial: better section spacing for breathing room ── */
+.dest-sec{padding:96px 3rem}
+.dest-inner{max-width:880px;margin:0 auto}
+.dest-sec h2 + p,
+.dest-sec h2 + ul,
+.dest-sec h2 + ol{margin-top:0.4rem}
+.dest-sec h3 + p,
+.dest-sec h3 + ul{margin-top:0.6rem}
+
 /* Explore More */
 .dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
 .dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
