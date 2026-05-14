@@ -574,6 +574,17 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             </div>
           )}
 
+          {/* Financing calculator — Pacaso-partner properties only.
+              Sits between Location and Similar Properties so visitors see it
+              after the spec/location facts but before browsing alternatives. */}
+          {p.partner === 'pacaso' && Number(p.price) > 0 && (
+            <FinancingCalculator
+              sharePrice={Number(p.price)}
+              currency={p.currency || 'USD'}
+              locale={locale}
+            />
+          )}
+
           {similar.length > 0 && (
             <div className="pp-similar">
               <h2 className="pp-heading">{t.similar_heading(p.country)}</h2>
@@ -606,16 +617,6 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
         </div>
 
       </div>{/* /pp-content */}
-
-      {/* Financing calculator — Pacaso-partner properties only.
-          MYNE / Vivla / And-Hamlet listings don't have a financing path yet. */}
-      {p.partner === 'pacaso' && Number(p.price) > 0 && (
-        <FinancingCalculator
-          sharePrice={Number(p.price)}
-          currency={p.currency || 'USD'}
-          locale={locale}
-        />
-      )}
 
       {lightbox !== null && (() => {
         const lbImages = p.images.slice(0, 3);

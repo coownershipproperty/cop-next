@@ -239,40 +239,36 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
       </div>
 
       <style jsx>{`
+        /* Sits inline inside the property page's left column.
+           Stacks pitch above the white calculator card. */
         .cop-fin {
           background: ${C.navy};
-          padding: 80px 24px;
+          padding: 40px 32px;
           color: ${C.white};
+          margin: 32px 0;
         }
         .cop-fin-inner {
-          max-width: 1280px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: 1fr 1.15fr;
-          gap: 80px;
-          align-items: center;
-        }
-        @media (max-width: 900px) {
-          .cop-fin { padding: 56px 20px; }
-          .cop-fin-inner { grid-template-columns: 1fr; gap: 40px; }
+          display: flex;
+          flex-direction: column;
+          gap: 28px;
         }
 
-        /* Left column */
+        /* Pitch block */
         .cop-fin-eyebrow {
           font-family: 'Nunito Sans', Arial, sans-serif;
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 700;
           letter-spacing: 0.22em;
           text-transform: uppercase;
           color: ${C.gold};
-          margin: 0 0 18px;
+          margin: 0 0 14px;
         }
         .cop-fin-h1 {
           font-family: 'Playfair Display', Georgia, serif;
-          font-size: 44px;
+          font-size: 30px;
           font-weight: 400;
-          line-height: 1.15;
-          margin: 0 0 18px;
+          line-height: 1.2;
+          margin: 0 0 12px;
           color: ${C.white};
         }
         .cop-fin-h1 em {
@@ -282,30 +278,29 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
         }
         .cop-fin-sub {
           font-family: 'Nunito Sans', Arial, sans-serif;
-          font-size: 18px;
+          font-size: 15px;
           font-weight: 600;
           color: ${C.gold};
-          margin: 0 0 18px;
+          margin: 0 0 14px;
         }
         .cop-fin-body {
           font-family: 'Nunito Sans', Arial, sans-serif;
-          font-size: 15px;
-          line-height: 1.75;
+          font-size: 14px;
+          line-height: 1.7;
           color: rgba(255,255,255,0.85);
-          margin: 0 0 28px;
-          max-width: 520px;
+          margin: 0 0 22px;
         }
         .cop-fin-cta {
           display: inline-block;
           font-family: 'Nunito Sans', Arial, sans-serif;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 700;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: ${C.navy};
           background: ${C.gold};
           border: none;
-          padding: 16px 32px;
+          padding: 14px 28px;
           cursor: pointer;
           transition: opacity 180ms ease, transform 180ms ease;
         }
