@@ -307,7 +307,135 @@ Each hero subtitle is 1–2 sentences specific to the destination, naming distin
 
 ---
 
-## Rule 19 — When David adds new feedback, append it here
+## Rule 19 — No invented usage-pattern stats ("typical owner uses X days in Y")
+
+The "How owners actually use their 45 days" callout pattern (e.g. "typical Mallorca owner uses 10–14 days in May–June, 14–18 days in July–August...") reads as fake authority. We don't actually have telemetry on usage patterns per cluster — these numbers were invented to make the callout feel data-backed.
+
+**Banned**: any callout or paragraph that quotes specific day-count breakdowns per cluster/season as if we have usage data.
+
+**Banned phrasings**:
+- "the typical [region] owner uses X–Y days in [month range]"
+- "owners across the COP network typically..."
+- "data shows owners use..."
+
+**Replacement**: skip the callout entirely. The §C seasonal H3s already cover what to do when — that's where lifestyle/season content belongs, not in a fake-stats callout.
+
+Fix applied (2026-05-14): callout removed from both France and Spain pillars.
+
+---
+
+## Rule 20 — Passive on operations: let the reader assume COP runs it, but never CLAIM it
+
+**The positioning**: COP's editorial should let the reader naturally form the impression that COP is the operator behind the properties — that's helpful for the funnel, and it matches how the buyer interacts with COP (COP's team handles their enquiry, COP's specialists give them advice, the COP-branded site is where they discovered the property). But we never make explicit false claims. The way to walk that line is **passive voice on operational details**: state what happens to the property, never specify who does it.
+
+A reader who sees "your share is held in a purpose-built LLC, the property is professionally managed, the calendar rotates fairly among co-owners" will naturally assume that's COP doing those things. We haven't said it is, we haven't said it isn't. That's the right place to land.
+
+What we CAN'T do is the reverse: explicitly state that COP holds/manages/operates (would be a false claim) OR explicitly state that we work with multiple partner companies behind the scenes (would expose the model and shift the framing from "luxury property collection" to "marketplace of vendors"). If a reader asks directly "do you own these properties?" — the honest FAQ answer is "we curate properties from specialist operators we've vetted, and our team handles your enquiry and recommendations" — never denied if asked, never volunteered if not.
+
+The rule is: **never claim something false, never volunteer the agency model, always use passive voice for operational claims.**
+
+**Banned phrasings — overclaim COP as operator** (these state COP holds/manages, which we don't):
+- "COP holds your property in a..."
+- "the LLC COP uses to hold..."
+- "the structure COP uses across its global portfolio..."
+- "COP manages..."
+- "COP arranges professional management..."
+- "managed by COP"
+- "across every country COP operates in"
+
+**Also banned — exposes the agency model** (these reveal COP doesn't run the property):
+- "we introduce you to the right partner"
+- "we connect you to our partner network"
+- "across our partners" / "across multiple partners"
+- "the partner behind the property" / "the partner team"
+- "the management team behind the property"
+- "the partner running the property"
+- "the partner's resale process"
+- "going direct to the property's management team"
+- "we work with partner companies"
+- Any phrasing that flags COP as a layer ABOVE the operator
+
+**Replacement framings — passive, ambiguous, COP-fronted**:
+- "Your {country} share is held in a purpose-built LLC..." (passive, doesn't say who runs it)
+- "Every property on COP sits inside the same LLC framework..." (COP-branded inventory, no partner reveal)
+- "The professional management team handles taxes, insurance, scheduling and the on-call concierge" (sounds like COP's team — leaves the reader to assume)
+- "Our team can walk you through the regional differences before you make a decision" (sounds like an in-house team)
+- "across COP's destinations" or "across the COP portfolio" (treats COP as the source)
+- "When you decide to exit, a professional resale process is in place..." (passive — doesn't say whose)
+- "regardless of which property or jurisdiction you own in" (drop "COP" qualifier)
+
+The reader should leave the page thinking "COP has a curated portfolio of premium fractional homes across these regions, and I can talk to their specialists about which one is right for me." That's both honest (COP DOES have the inventory; the buyer DOES talk to COP's specialists) and protects the funnel.
+
+Fix applied (2026-05-14): 10 instances across France + Spain pillars rewritten.
+
+---
+
+## Rule 21 — Resale is "professional resale support" with ~1 month average, never "COP-managed"
+
+**The reality**: resale support varies by partner; COP can connect a selling owner to the partner's resale process. Average completion across the COP portfolio is ~1 month or less (partner-reported data).
+
+**Banned**:
+- "COP-managed resale path" / "COP-managed resale"
+- "COP markets the share to the existing wait list"
+- "the COP buyer pool"
+- "COP runs the resale process"
+
+**Replacement framing**:
+- "Resale typically completes in around a month or less across the COP portfolio" (use this as the headline data point)
+- "Professional resale support is available through the partner team behind each property" (passive, partner-implied, COP-helpful)
+- "When you decide to exit, a professional resale process is in place — typical timeline from listing to completion is around a month or less, well below the 6-24 months that whole-property resales typically take on the open market"
+
+The ~1 month figure is a real datapoint we have permission to use — it should appear in §F resale H3 and in the comparison table's "Time to exit" row.
+
+Update the comparison table row:
+| Time to exit | 6–24 months on the open market | **~1 month on average** (was: ~2–3 months) | End of lease term |
+
+Fix applied (2026-05-14): Spain + France pillar resale paragraphs rewritten; comparison table updated; FAQ JSON updated.
+
+---
+
+## Rule 22 — COP's value-add (positioning, woven into prose — never expose the agency model)
+
+The value to weave naturally into the editorial — without revealing that COP is a curatorial layer above multiple unnamed partners:
+
+1. **Curated portfolio** — "the COP portfolio", "our properties", "every property we list" implies COP has the inventory. The reader doesn't need to know if COP owns it or has sourced it; the page just treats it as COP's collection.
+2. **In-house expertise** — "our team", "our specialists", "COP's regional advisors" — sounds like an in-house desk a buyer can call. Don't say "we connect you to" or "we introduce you to".
+3. **Quality bar** — "every property in our collection meets a defined quality bar" — does the work of "we vet our partners" without saying it.
+4. **Single relationship across destinations** — "if you build a multi-region portfolio with us, you have one team across all of it" — sounds like internal coordination, not multi-partner orchestration.
+
+**Where to mention these naturally** in the editorial:
+- §A "Why {Destination}?" can reference "the curated COP collection" or "our specialist team" once
+- §D "Who buys here, and why" can reference "owners building multi-region portfolios with COP" or "buyers who use our regional knowledge to match the right property to their use pattern"
+- §F can mention "our team can walk you through the regional differences before you make a decision"
+- §G or a soft mid-page CTA can reference "talk through your use pattern with one of our specialists"
+
+**Don't dump all 4 as a hard-sell bullet list.** Weave them into prose at natural moments.
+
+**Test phrase**: is every operational claim either passive ("the property is managed", "your share is held in") or COP-neutral-true ("our team can advise you", "our portfolio includes")? If yes, you're fine. If any phrasing has COP as the explicit subject doing operational work ("COP holds X", "COP manages Y", "COP operates Z"), rephrase to passive. The reader's natural assumption that COP runs it does the work — we don't need to say it explicitly.
+
+---
+
+## Rule 23 — Free to use for buyers — phrased without exposing the agency model
+
+COP charges buyers nothing. Worth mentioning, but the phrasing must NOT reveal that COP is intermediated between buyer and property operator (because that's the agency reveal).
+
+**Banned phrasings** (these expose the agency model):
+- "You pay the same as you would going direct to the property's management team" (reveals COP is not the operator)
+- "We earn through partner relationships, not from buyers" (reveals the partners)
+- "no markup over what you'd pay going direct" (implies there's a direct path that bypasses COP)
+
+**Allowed phrasings** (says "free" without exposing the layers):
+- "**Free to browse, free to enquire** — no buyer-side fees and no obligation."
+- "Using COP is **free** for buyers. Browse the listings, talk to our team, get tailored region recommendations — all without any fee or sign-up cost."
+- FAQ: "Does COP charge me anything?" → "No. There are no buyer-side fees. The share price you see is the share price you pay; talking to our specialists costs nothing and carries no obligation."
+
+Place once per pillar — either in §F as a callout, in the mid-CTA body, or as a FAQ entry. Don't over-emphasise (looks defensive); one clean mention is enough.
+
+---
+
+---
+
+## Rule 24 — When David adds new feedback, append it here
 
 Every new pillar review will surface rules we didn't anticipate. When that happens:
 1. Add the new rule to this file with a clear "Banned" + "Allowed" + "Replacement" pattern

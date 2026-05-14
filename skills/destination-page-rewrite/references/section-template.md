@@ -149,11 +149,7 @@ Four seasonal H3s, each 300–400 words. Each season grounds in: weather (Celsiu
   <div class="dest-inner">
     <h2>A year in your {Destination} co-ownership home</h2>
 
-    <p>[Optional 80-word intro on owner usage patterns. Can include "How owners actually use their 45 days" callout.]</p>
-
-    <div class="dest-callout">
-      <strong>How owners actually use their 45 days:</strong> [destination-specific usage breakdown across the 4 seasons.]
-    </div>
+    <p>[Optional 80-word intro on owner usage patterns — calendar fairness, peak-vs-shoulder, multi-region thinking. DO NOT include a "How owners actually use their 45 days" callout with invented day-count breakdowns per cluster — that pattern was retired (see editorial-rules.md Rule 19).]</p>
 
     <h3>Spring (March–May)</h3>
     <p>[Weather in °C (°F), what the destination looks like in spring, named events (e.g. Cannes Film Festival, Roland-Garros), best activities for owners with peak-season alternatives. 350 words.]</p>
