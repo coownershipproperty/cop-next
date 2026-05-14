@@ -1162,8 +1162,10 @@ export default function DestinationPage({
         </section>
       )}
 
-      {/* Also Explore */}
-      {related && related.length > 0 && (
+      {/* Also Explore — hidden on pillar pages (children.length > 0), because
+          the "Regions in {Country}" cluster nav above already covers that role.
+          Shown on cluster/region/city pages where it serves siblings + parent. */}
+      {related && related.length > 0 && (!children || children.length === 0) && (
         <section className="dest-also-explore">
           <p className="dest-also-label">Also Explore</p>
           <div className="dest-also-links">
