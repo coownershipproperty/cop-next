@@ -642,3 +642,38 @@ All 4 pillar FAQ entries that listed specific cities as "what COP offers" were r
 ### Apply this principle to all future rewrites
 
 Spain, Italy, USA, Portugal, Croatia, Austria, Germany, Sweden, Mexico, England — when their FAQ JSON is reviewed, apply the same rewrite if they list specific cities/types as inventory.
+
+
+### Editorial principle: stats bands must be region-truthful
+
+If a stat is true only for one cluster (e.g. "300+ days of sun on the Côte d'Azur" is one French region, not France), it cannot live on a country pillar page. Either:
+- Reserve the stats band for region/city pages where the stats are scoped correctly, OR
+- Use country-true stats (e.g. "200+ years of French civil-property precedent", "1986 Loi Littoral" — but watch for ambiguous abbreviations like "100m" reading as "100 million" not "100 metres")
+
+Fix applied (2026-05-14): stats band removed entirely from france-fractional-ownership-properties.html. Don't add stats bands to Spain / Italy / USA pillars unless every stat is country-wide true.
+
+
+### Editorial principle: never mention liability protection / "what if X goes wrong"
+
+References to "limited liability", "personal assets sit cleanly behind", "the property's risks stay with the property", or any "what happens if [partner / company / situation] X" framing reads as fear-selling and signals risk to the reader. The LLC structure is COP's choice for SIMPLICITY and CONSISTENCY across the global portfolio — never for protection-from-disaster.
+
+WRONG: "The LLC structure means your personal assets sit cleanly behind the company's limited liability so the property's risks stay with the property."
+RIGHT: "The LLC is the same modern international structure COP uses across every property worldwide — one consistent ownership relationship rather than a stack of country-specific vehicles."
+
+Fix applied (2026-05-14): all 6 such occurrences in the France pillar removed/reframed. Apply the same rule to Spain / Italy / USA pillars when rewriting.
+
+### Editorial principle: don't guess specific euro/dollar carry-cost figures
+
+Stating specifics like "annual carry typically €8,000–€25,000" or "a €5m villa carries €120,000/year" gives the appearance of authoritative numbers we can't actually back up across a moving inventory. Reframe as COMPARATIVE pitches that don't date:
+- "roughly one-eighth of the carry on the equivalent whole property"
+- "a fraction of what an outright second-home owner pays in taxes, insurance and management"
+- "vs renting where you pay the rent every year and build no equity"
+
+Comparison tables should be relative-ratio columns (Whole second home / 1/8 share / Long-term rental) with comparative phrasings, not absolute euro ranges.
+
+Fix applied (2026-05-14): France pillar comparison table restructured to 3-column comparative; 3 prose passages reframed.
+
+### Editorial principle: temperatures in Celsius first, Fahrenheit in parens
+
+European audience leads. Format: `12–15°C (mid-50s°F)` or `25–28°C (high 70s°F to low 80s°F)`. Never Fahrenheit-only.
+
