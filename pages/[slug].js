@@ -172,6 +172,13 @@ const RELATED = {
 
 // ── Keywords to recognise in content per destination slug ────────────────────
 const DEST_KEYWORDS = {
+  // Country pillars — added so the other 47 destinations auto-link to the four
+  // highest-volume pages. "USA" is matched word-bounded so "USA" won't link
+  // when it's already inside an existing href like "/usa-fractional…".
+  "spain-fractional-ownership-properties":  ["Spain"],
+  "france-fractional-ownership-properties": ["France"],
+  "italy-fractional-ownership-properties":  ["Italy"],
+  "usa-fractional-ownership-properties":    ["United States", "the USA", "USA"],
   "french-alps-fractional-ownership-properties": ["French Alps", "Alps", "Chamonix", "Courchevel", "Méribel", "Megève", "Val d'Isère"],
   "south-of-france-fractional-ownership-properties": ["South of France", "Côte d'Azur", "Riviera", "Provence"],
   "paris-fractional-ownership-properties": ["Paris"],
@@ -284,21 +291,32 @@ function formatPrice(price, currency) {
   return `${sym}${rounded.toLocaleString('en-GB')}`;
 }
 
-// ── Strip nested section by class (handles nested <section> tags) ─────────────
+// ── Strip nested section by class ────────────────────────────────────────────
+// Walks <section>/</section> tokens (not chars — substring-on-attrs caused false
+// matches before). On unbalanced source HTML (legacy WP migration left a couple
+// of files with an open <section class="dest-faq-sec"> that never closes at its
+// own depth) we strip from the marker through end-of-input, which is safer than
+// returning the original untouched and leaking the orphan FAQ block live.
 function removeSectionByClass(html, cls) {
-  const re = new RegExp(`<section[^>]*class="[^"]*${cls}[^"]*"[^>]*>`);
-  const start = html.search(re);
+  const openClsRe = new RegExp(`<section[^>]*class="[^"]*${cls}[^"]*"[^>]*>`);
+  const start = html.search(openClsRe);
   if (start === -1) return html;
-  let depth = 0, i = start;
-  while (i < html.length) {
-    if (html.slice(i, i + 8) === '<section') depth++;
-    if (html.slice(i, i + 10) === '</section>') {
+
+  const sectionTokenRe = /<section[\s>][^>]*>|<\/section>/gi;
+  sectionTokenRe.lastIndex = start;
+  let depth = 0, m;
+  while ((m = sectionTokenRe.exec(html)) !== null) {
+    if (m[0].startsWith('</')) {
       depth--;
-      if (depth === 0) return html.slice(0, start) + html.slice(i + 10);
+      if (depth === 0) {
+        return html.slice(0, start) + html.slice(m.index + m[0].length);
+      }
+    } else {
+      depth++;
     }
-    i++;
   }
-  return html;
+  // Unbalanced — strip from marker to end of input rather than leak the block.
+  return html.slice(0, start);
 }
 
 // ── FAQ items for schema markup (reads from JSON data, falls back to HTML) ────
@@ -459,6 +477,17 @@ export async function getStaticProps({ params }) {
 
   const related = (RELATED[slug] || []).map(s => ({ slug: s, label: destLabel(s) }));
 
+  // ── Pillar/cluster hierarchy (built from PARENT map) ────────────────────────
+  // Pillar  = a slug that has children but no parent (Spain, France, Italy, USA, plus
+  //           California/Florida/Colorado/Utah which are USA child-pillars)
+  // Cluster = a slug that has a parent (every region/city below a country)
+  const parentSlug = PARENT[slug] || null;
+  const parent = parentSlug ? { slug: parentSlug, label: destLabel(parentSlug) } : null;
+  const children = Object.entries(PARENT)
+    .filter(([childSlug, p]) => p === slug)
+    .map(([childSlug]) => ({ slug: childSlug, label: destLabel(childSlug) }))
+    .sort((a, b) => a.label.localeCompare(b.label));
+
   // FAQ data from JSON (accurate, SEO-rich content for all 48 destinations)
   const faqData = destinationFaqs[slug] || null;
 
@@ -480,11 +509,21 @@ export async function getStaticProps({ params }) {
   const minPrice = minPriceProp?.price || null;
   const minCurrency = minPriceProp?.currency || 'EUR';
 
+  // ── TouristDestination geo coordinates aggregated from matched properties ───
+  let aggLat = null, aggLng = null;
+  const propsWithCoords = matchedProps.filter(p => p.lat && p.lng);
+  if (propsWithCoords.length) {
+    aggLat = +(propsWithCoords.reduce((s, p) => s + parseFloat(p.lat), 0) / propsWithCoords.length).toFixed(4);
+    aggLng = +(propsWithCoords.reduce((s, p) => s + parseFloat(p.lng), 0) / propsWithCoords.length).toFixed(4);
+  }
+
   return {
     props: {
       slug, title, metaDesc, heroHtml, restHtml,
       properties: matchedProps, related, faqItems, faqData,
       ogImage, minPrice, minCurrency,
+      parent, children,
+      aggLat, aggLng,
     },
   };
 }
@@ -494,6 +533,8 @@ export default function DestinationPage({
   slug, title, metaDesc, heroHtml, restHtml,
   properties, related, faqItems, faqData,
   ogImage, minPrice, minCurrency,
+  parent, children,
+  aggLat, aggLng,
 }) {
   const canonicalUrl = `https://co-ownership-property.com/${slug}/`;
   const breadcrumbItems = buildBreadcrumbs(slug, title);
@@ -562,6 +603,38 @@ export default function DestinationPage({
     });
   }
 
+  // TouristDestination — gives Google a destination-specific entity to surface
+  // in destination-search rich results.
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "TouristDestination",
+    "name": destLabel(slug),
+    "description": metaDesc,
+    "url": canonicalUrl,
+    "image": ogImage,
+    ...(aggLat != null && aggLng != null ? {
+      "geo": { "@type": "GeoCoordinates", "latitude": aggLat, "longitude": aggLng }
+    } : {}),
+    "touristType": ["Fractional ownership buyers", "Second-home owners", "Vacation-home buyers"],
+  });
+
+  // ItemList — wraps the property grid so each listed property gets indexed as
+  // a RealEstateListing. Capped at 20 to keep schema payload manageable.
+  if (properties.length > 0) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListOrder": "https://schema.org/ItemListUnordered",
+      "numberOfItems": properties.length,
+      "itemListElement": properties.slice(0, 20).map((p, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "url": `https://co-ownership-property.com/property/${p.slug}/`,
+        "name": p.title,
+      })),
+    });
+  }
+
   return (
     <>
       <Head>
@@ -615,6 +688,92 @@ export default function DestinationPage({
             text-underline-offset: 2px;
           }
           .dest-inline-link:hover { opacity: 0.75; }
+
+          /* ── Cluster card: "Part of {Country}" — shown above restHtml on cluster pages ── */
+          .dest-cluster-up {
+            max-width: 1100px;
+            margin: 28px auto 12px;
+            padding: 14px 20px;
+            background: #F5F2EC;
+            border-left: 3px solid #C9A84C;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: 'Nunito Sans', Arial, sans-serif;
+          }
+          .dest-cluster-up-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #6B8A9E;
+            margin: 0;
+          }
+          .dest-cluster-up-link {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2C4A5E;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 180ms ease, color 180ms ease;
+          }
+          .dest-cluster-up-link:hover {
+            color: #C9A84C;
+            border-bottom-color: #C9A84C;
+          }
+
+          /* ── Cluster grid: "Regions in {Country}" — shown below restHtml on pillar pages ── */
+          .dest-cluster-down {
+            max-width: 1200px;
+            margin: 48px auto 32px;
+            padding: 36px 32px;
+            background: #143047;
+            color: #fff;
+          }
+          .dest-cluster-down-eyebrow {
+            font-family: 'Nunito Sans', Arial, sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #C9A84C;
+            margin: 0 0 8px;
+          }
+          .dest-cluster-down-h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 30px;
+            font-weight: 400;
+            color: #fff;
+            margin: 0 0 22px;
+          }
+          .dest-cluster-down-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+          }
+          @media (max-width: 900px) { .dest-cluster-down-grid { grid-template-columns: repeat(2, 1fr); } }
+          @media (max-width: 560px) { .dest-cluster-down-grid { grid-template-columns: 1fr; } }
+          .dest-cluster-down-tile {
+            display: block;
+            padding: 16px 18px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.10);
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Nunito Sans', Arial, sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+          }
+          .dest-cluster-down-tile:hover {
+            background: rgba(201,168,76,0.10);
+            border-color: #C9A84C;
+            color: #C9A84C;
+          }
+          .dest-cluster-down-tile-arrow {
+            float: right;
+            opacity: 0.6;
+          }
         `}</style>
       </Head>
 
@@ -695,8 +854,34 @@ export default function DestinationPage({
         </div>
       </div>
 
+      {/* ── Cluster card: "Part of {Country}" — links up the pillar/cluster hierarchy ── */}
+      {parent && (
+        <aside className="dest-cluster-up" aria-label={`Part of ${parent.label}`}>
+          <p className="dest-cluster-up-eyebrow">Part of</p>
+          <a href={`/${parent.slug}/`} className="dest-cluster-up-link">
+            {parent.label} fractional ownership →
+          </a>
+        </aside>
+      )}
+
       {/* Rest of editorial content (internal links injected at build time) */}
       <div dangerouslySetInnerHTML={{ __html: restHtml }} />
+
+      {/* ── Cluster grid: "Regions in {Country}" — pillar pages link down to all clusters ── */}
+      {children && children.length > 0 && (
+        <section className="dest-cluster-down" aria-label={`Regions in ${destLabel(slug)}`}>
+          <p className="dest-cluster-down-eyebrow">Explore</p>
+          <h2 className="dest-cluster-down-h2">Regions in {destLabel(slug)}</h2>
+          <div className="dest-cluster-down-grid">
+            {children.map(c => (
+              <a key={c.slug} href={`/${c.slug}/`} className="dest-cluster-down-tile">
+                {c.label}
+                <span className="dest-cluster-down-tile-arrow">→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── FAQ section — rendered from destination-faqs.json using homepage design ── */}
       {faqData && faqData.items && faqData.items.length > 0 && (

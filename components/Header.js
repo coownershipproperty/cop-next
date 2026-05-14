@@ -1,7 +1,45 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { getFavSlugs, onFavsChange } from '@/lib/favs';
-import { localeFromPath, t, SUPPORTED_LOCALES, localizedPath, canonicalEnglishKey } from '@/lib/i18n';
+import { localeFromPath, t, SUPPORTED_LOCALES, localizedPath, canonicalEnglishKey, PROPERTY_URL_PREFIX } from '@/lib/i18n';
+
+// Per-locale URL prefixes for dynamic-route page families. Used by the
+// language switcher to translate the current URL when no static ROUTE_MAP
+// entry exists (property/{slug}/, blog/{slug}/, destinationen/{slug}/, etc.).
+const DYNAMIC_URL_FAMILIES = [
+  {
+    family: 'property',
+    prefixes: { en: '/property/', es: '/es/propiedades/', fr: '/fr/proprietes/', de: '/de/immobilien/' },
+  },
+  {
+    family: 'blog',
+    prefixes: { en: '/blog/', es: '/es/blog/', fr: '/fr/blog/', de: '/de/blog/' },
+  },
+  {
+    family: 'destinations',
+    prefixes: { en: '/', es: '/', fr: '/fr/destinations/', de: '/de/destinationen/' },
+    // Note: EN destinations live at root /{slug}/ via pages/[slug].js, so
+    // EN/ES cross-locale is not 1:1 unless an ES wrapper exists. Treat
+    // missing prefix as "no translation".
+    enFamily: 'root',
+  },
+];
+
+function detectDynamicFamily(path, currentLocale) {
+  for (const fam of DYNAMIC_URL_FAMILIES) {
+    const prefix = fam.prefixes[currentLocale];
+    if (!prefix) continue;
+    // Match prefix at start; the rest is the slug (+ optional trailing /)
+    if (currentLocale === 'en' && fam.family === 'destinations') continue; // EN destinations are root-level, ambiguous
+    if (path.startsWith(prefix)) {
+      const slug = path.slice(prefix.length).replace(/\/$/, '');
+      if (slug && !slug.includes('/')) {
+        return { family: fam.family, slug, prefixes: fam.prefixes };
+      }
+    }
+  }
+  return null;
+}
 
 // Per-locale nav link tables. Slugs intentionally differ per locale (Spanish
 // keyword research wants /es/como-funciona/, French wants /fr/comment-ca-marche/,
@@ -136,9 +174,14 @@ export default function Header() {
 }
 
 function LanguageSwitcher({ currentLocale, currentPath }) {
-  // Resolve the canonical English ROUTE_MAP key. We try a reverse lookup
-  // first (so /fr/proprietes/ correctly maps to /our-homes), and fall back
-  // to a naive prefix strip for any page that lives outside ROUTE_MAP.
+  // For dynamic-route pages (property / blog / destinations) we can build
+  // cross-locale URLs from per-locale prefix maps without needing an entry
+  // in ROUTE_MAP. Check this first.
+  const dyn = detectDynamicFamily(currentPath, currentLocale);
+
+  // Otherwise resolve the canonical English ROUTE_MAP key. We try a reverse
+  // lookup first (so /fr/proprietes/ correctly maps to /our-homes), and fall
+  // back to a naive prefix strip for any page that lives outside ROUTE_MAP.
   const englishPath = canonicalEnglishKey(currentPath) || stripLocalePrefix(currentPath, currentLocale);
 
   // Tooltip shown when a target locale has no equivalent page for the user
@@ -147,7 +190,20 @@ function LanguageSwitcher({ currentLocale, currentPath }) {
     en: 'Not yet available in English',
     es: 'Aún no disponible en español',
     fr: 'Pas encore disponible en français',
+    de: 'Noch nicht auf Deutsch verfügbar',
   };
+
+  function targetForLocale(loc) {
+    if (dyn) {
+      const prefix = dyn.prefixes[loc];
+      if (!prefix) return null;
+      // For destinations the EN equivalent is at /{slug}/ (root level) —
+      // skip cross-link to EN until we add a wrapper there.
+      if (dyn.family === 'destinations' && loc === 'en') return null;
+      return `${prefix}${dyn.slug}/`;
+    }
+    return localizedPath(englishPath, loc);
+  }
 
   return (
     <div className="cop-lang-switcher" aria-label="Language">
@@ -155,11 +211,7 @@ function LanguageSwitcher({ currentLocale, currentPath }) {
         if (loc === currentLocale) {
           return <span key={loc} className="cop-lang-current">{loc.toUpperCase()}</span>;
         }
-        // Only render a real link if there's an explicit translation for this
-        // page. Otherwise render a visually-muted span — better than
-        // silently dumping the visitor onto the locale homepage, which is a
-        // completely different context.
-        const target = localizedPath(englishPath, loc);
+        const target = targetForLocale(loc);
         if (!target) {
           return (
             <span

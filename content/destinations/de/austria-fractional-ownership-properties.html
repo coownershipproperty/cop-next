@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Austria Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Explore Austria fractional ownership chalets and apartments in Tyrol, Salzburg, and Vorarlberg. Own a share in a luxury alpine property with ski‑in access, panoramic views, and managed co‑ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Austria Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Austria?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Austria Fractional Ownership — Alpine Living at a Fraction of the Price</h2>
+<p><strong>Austria fractional ownership</strong> gives you documented co-ownership of a luxury Alpine property — from ski-in chalets in Tyrol to elegant mountain apartments in Salzburg — for a fraction of the cost of buying outright. With a standard 1/8 share, you receive approximately six to seven weeks of personal use per year (around 45 days), your co-ownership interest is formally documented, and full rights to resell, inherit, or gift your share. This is not a timeshare — it is genuine real estate ownership, registered under Austrian property law at the <em>property ownership records</em> . For UK buyers navigating the post-Brexit 90-day Schengen limit, Austria fractional ownership offers the most practical and financially sensible route to owning a second home in the Alps.</p>
+<p>Austria combines world-class skiing, breathtaking mountain scenery, excellent road and rail infrastructure, and a deep cultural heritage — from Mozart&#8217;s Salzburg to Vienna&#8217;s imperial grandeur. Whether you dream of a ski chalet above Kitzbühel, a mountain lodge in the Zillertal, or an alpine retreat near the Arlberg, fractional co-ownership makes it genuinely achievable. Browse our Austria fractional ownership properties below and discover how you could own a share of one of Europe&#8217;s most spectacular alpine destinations.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Austria Fractional Ownership Is the Smart Way to Own an Alpine Second Home</h2>
+<p><strong>Austria fractional ownership</strong> has become one of the most compelling alpine property opportunities in Europe for buyers who want genuine real estate ownership in the mountains without the full financial commitment of buying outright. Austria sits at the very heart of Europe&#8217;s great skiing culture — home to legendary resorts, some of the most consistently reliable snowfall on the continent, and a year-round  that extends far beyond winter. From the glaciers of the Ötztal and the vast ski circuits of the Skiwelt to the boutique valleys of Salzburg and the dramatic peaks of Vorarlberg, Austria offers an extraordinary depth of alpine experience. Yet the cost of whole ownership in Austria&#8217;s most desirable resort villages has risen sharply over the past decade, making fractional co-ownership an increasingly attractive and practical alternative.</p>
+<p>For UK buyers in particular, Austria fractional ownership solves a very real challenge. Since Brexit, British nationals are subject to the 90-day Schengen rule — a maximum of 90 days in any 180-day rolling period across all Schengen countries combined. Buying a whole property in Austria means paying 100% of the purchase price and 100% of the ongoing running costs — maintenance, insurance, Austrian property taxes, management — for a home you can only legally occupy for roughly three months a year. <strong>Fractional ownership</strong> aligns your financial commitment precisely with your actual usage: a 1/8 share gives you approximately <strong>45 days per year</strong>, which fits comfortably within the Schengen limit while providing all the rights and benefits of genuine property ownership. Your name appears on the Austrian property ownership records, and you hold full resale rights, inheritance rights, and real equity participation.</p>
+<p>Unlike a timeshare — which offers only usage rights with no property title, no real equity, and notoriously poor resale options — Austria fractional ownership is structured as a genuine deeded property purchase. You buy a legally registered fraction of a real asset. If the property appreciates in value, your share appreciates proportionally. You can sell your fraction on the open market, pass it to your children through inheritance, or gift it as you choose. A professional management company handles all day-to-day operations: maintenance, cleaning, insurance, local taxes, scheduling, and property upkeep. When you arrive at your Austrian chalet or apartment, it is fully prepared, heated, and ready for you.</p>
+<p>Austria also has exceptional connectivity for international buyers. Innsbruck Airport links directly to the UK with year-round and seasonal services. Salzburg Airport is one of the most snow-reliable gateways in the Alps, with regular direct flights from the UK throughout the ski season and beyond. Munich Airport, just over an hour&#8217;s drive from many Tyrolean resorts, offers a vast network of year-round international connections. Once in Austria, the country&#8217;s motorway and rail network puts most major ski areas within a 30-to-90-minute drive from these airports. Austria fractional ownership delivers access to a truly world-class alpine destination — on terms that match your actual lifestyle and budget.</p>
+<p>Austria&#8217;s appeal extends well beyond skiing. Summers in the Austrian Alps are breathtaking — hiking trails through wildflower meadows, mountain biking on the same slopes used for winter skiing, lake swimming in turquoise alpine lakes, and cycling through valley floors lined with traditional timber farmhouses. The Austrian  is one of Europe&#8217;s most complete four-season experiences. A fractional ownership property in Austria gives you access to this lifestyle across multiple seasons, with your 45-day annual allowance split across weeks you choose, including summer, Christmas, and peak ski season. Buyers exploring <a href="/french-alps-fractional-ownership-properties/">French Alps fractional ownership</a> will find that Austria often offers an equally compelling or superior alpine experience — particularly for families who want a quieter, more authentically European mountain setting.</p>
+<p>The Austrian property market is stable and investor-friendly. Austria has consistently low inflation, a strong rule of law, transparent property registration through the property ownership records system, and a long tradition of protecting property rights for international buyers. The country&#8217;s tourism economy is robust and diversified — Austria receives over 40 million overnight stays in winter alone — supporting property values in the key resort regions of Tyrol, Salzburg, and Vorarlberg. Austria fractional ownership gives you access to this stable, high-quality market at a fraction of the capital commitment required for whole ownership. Buyers comparing similar options can also look at <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees fractional ownership</a> for a different mountain character, or <a href="/italy-fractional-ownership-properties/">Italy fractional ownership</a> for a warmer Mediterranean counterpart to an alpine portfolio.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Austria Fractional Ownership — Regions &amp; Alpine Destinations</h2>
+<p>Austria fractional ownership opportunities span the country&#8217;s most celebrated alpine regions, from the legendary ski resorts of Tyrol to the cultural valleys of Salzburg and the dramatic terrain of Vorarlberg. Each region has its own distinct character, snow record, and lifestyle offering — and fractional co-ownership means you can access premium chalets and apartments in areas where whole-ownership prices have become prohibitive for a second home. Below are the four key regions where Austria fractional ownership demand is strongest.</p>
+<h3>Tyrol — Austria Fractional Ownership in the Heart of the Alps</h3>
+<p>Tyrol is Austria&#8217;s most celebrated ski region and the epicentre of Austria fractional ownership demand. The province encompasses some of the world&#8217;s most famous ski destinations: Kitzbühel, St. Anton am Arlberg, Ischgl, Sölden, Mayrhofen, and the vast Skiwelt circuit — the largest interconnected ski area in Austria. Tyrol&#8217;s resorts receive excellent and reliable snowfall from November through to April, with high-altitude skiing available even longer on the Stubai and Hintertux glaciers. A 1/8 fractional share in a Tyrolean property gives you <strong>documented co-ownership</strong> of a chalet or apartment in one of Europe&#8217;s most iconic alpine landscapes, with full rights to sell, inherit, and benefit from any appreciation in value. Innsbruck Airport provides direct access from the UK, and the motorway network puts most Tyrolean resorts within a 45-to-90-minute transfer. Summer in Tyrol is equally compelling: hiking, cycling, and mountain biking through scenery that rivals any destination in Europe. Austria fractional ownership in Tyrol suits buyers who want world-class skiing combined with a genuine four-season mountain home.</p>
+<h3>Salzburg Land — Austria Fractional Ownership with Culture &amp; Peaks</h3>
+<p>The province of Salzburg combines world-class skiing with extraordinary cultural depth, making it one of the most distinctive regions for Austria fractional ownership. The Salzburg region is home to the Skicircus Saalbach-Hinterglemm-Leogang-Fieberbrunn — one of the largest and most varied ski areas in the Alps — as well as the charming resorts of Bad Gastein, Zell am See, and Kaprun, where glacier skiing extends the season well into summer. Salzburg Airport is one of Europe&#8217;s best alpine gateways, with direct UK flights throughout the ski season and beyond. The city of Salzburg itself — birthplace of Mozart, home of the Salzburg Festival, and one of Europe&#8217;s most architecturally beautiful cities — is within easy driving distance of most Salzburg Land resort villages. Austria fractional ownership in this region gives buyers both a premium ski base and proximity to one of Europe&#8217;s great cultural cities. Properties range from traditional alpine chalets with panoramic mountain views to modern ski apartments with ski-room access and underground parking. The combination of consistent snow, excellent lift infrastructure, and genuine cultural enrichment makes Salzburg Land one of the most complete Austria fractional ownership destinations.</p>
+<h3>Vorarlberg — Austria Fractional Ownership on the Arlberg</h3>
+<p>Vorarlberg is Austria&#8217;s westernmost province and home to the legendary Arlberg ski area — widely regarded as the birthplace of Alpine skiing and one of the most prestigious resort destinations in the world. Lech, Zürs, and Stuben sit on the Vorarlberg side of the Arlberg massif, attracting a discerning international clientele that includes royalty, heads of state, and sophisticated lifestyle buyers from across Europe and beyond. Austria fractional ownership in Vorarlberg places you in an exceptionally prestigious and exclusive setting. Properties in the Arlberg command among the highest valuations in the Austrian Alps, making fractional co-ownership the most practical route to genuine documented co-ownership in this area. Vorarlberg also benefits from excellent access via Zurich Airport (90 minutes) and Innsbruck Airport (under two hours), with direct rail connections from Germany and Switzerland. Beyond Arlberg, the Bregenzerwald valley offers a softer, more pastoral alpine experience with traditional Vorarlberg timber architecture, excellent hiking, and a thriving regional food culture. Austria fractional ownership in Vorarlberg suits buyers who want access to the very highest tier of the alpine property market through co-ownership.</p>
+<h3>Styria &amp; Carinthia — Austria Fractional Ownership for Lakes &amp; Year-Round Living</h3>
+<p>Styria and Carinthia represent a different dimension of Austria fractional ownership — one defined as much by summer lakes, verdant valleys, and thermal wellness as by winter skiing. Carinthia&#8217;s lakes region is one of Austria&#8217;s best-kept secrets: the Wörthersee, Millstätter See, and Ossiacher See offer crystal-clear warm-water swimming, sailing, and lakeside living in a spectacular mountain setting. Styria, Austria&#8217;s &#8220;green heart,&#8221; combines gentle rolling hills, world-class wine production (particularly around the town of Gamlitz), and the beautifully preserved city of Graz — a UNESCO World Heritage Site and one of Austria&#8217;s most liveable cities. Austria fractional ownership in Styria and Carinthia suits buyers who want a genuine four-season retreat: skiing at Bad Kleinkirchheim or the Dachstein in winter; swimming, hiking, and cycling in summer; and the extraordinary thermal and wellness culture that this region has developed over centuries. Properties range from lakeside villas to rural farmhouses and mountain lodges. This is Austria fractional ownership for buyers who want something beyond the standard ski resort formula — a truly personal, year-round alpine home with depth and character.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Austria Fractional Ownership Works</h2>
+<p><strong>Austria fractional ownership</strong> is structured as a genuine property purchase — not a timeshare, not a holiday club, and not a points-based scheme. You buy a legally registered fraction of a real Austrian property, typically a 1/8 share, and your ownership is recorded on the Austrian property ownership records. The process is transparent, legally robust, and designed to give every co-owner the same protections and rights as a sole purchaser. Here is how the <a href="/co-ownership-buying-process/">co-ownership buying process</a> works in Austria.</p>
+<h3>Browse Austria Fractional Ownership Properties</h3>
+<p>Start by exploring the available Austria fractional ownership listings on this page. Each property includes detailed descriptions, professional photography, location information, and share pricing. You can filter by region, property type, and budget to find the home that best matches your alpine lifestyle. Our team at <a href="/">Co-Ownership Property</a> acts as a buyer&#8217;s agency — working on your behalf, not the seller&#8217;s — to ensure you find the right Austrian property at the right price.</p>
+<h3>Legal Review &amp; Austria Fractional Ownership Due Diligence</h3>
+<p>Once you identify a property, an independent Austrian lawyer (<em>Rechtsanwalt</em>) conducts full legal due diligence. This includes verifying the title entry on the property ownership records, checking for any encumbrances or charges, reviewing the co-ownership agreement (<em>Miteigentumsvertrag</em>), and confirming that all building regulations, permits, and planning approvals are in order. The co-ownership structure is established through a legally binding agreement that governs usage scheduling, maintenance obligations, decision-making, and exit provisions. Everything is documented and reviewed before you commit to purchase.</p>
+<h3>Purchase &amp; Registration of Your Austria Fractional Ownership Share</h3>
+<p>The purchase is completed before an Austrian notary (<em>Notar</em>), and the transfer of your fractional share is formally recorded at the property ownership records. <strong>Your name appears on the land register</strong> alongside the other co-owners, each holding their legally registered fractional share. This is identical in legal substance to any standard Austrian property purchase — the only difference is that multiple buyers share ownership of the same property. You receive a certified extract from the property ownership records confirming your Austria fractional ownership stake.</p>
+<h3>Enjoy &amp; Manage Your Austria Fractional Ownership Property</h3>
+<p>After completion, a professional management company takes over all day-to-day operations: cleaning, maintenance, insurance, Austrian property taxes, garden and pool care, ski room servicing, and usage scheduling. A fair rotation system ensures all co-owners access peak periods — prime ski weeks, Christmas, Easter, and premium summer weeks — equitably over time. When you arrive, your Austria fractional ownership property is fully prepared, heated, and ready for your stay. Learn more about <a href="/the-running-costs-of-a-fractional-ownership-property/">the running costs of a fractional ownership property</a>.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Austria Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p><strong>Austria fractional ownership</strong> combines genuine lifestyle benefits with sound investment fundamentals in one of Europe&#8217;s most stable and desirable property markets. Austria&#8217;s alpine real estate — particularly in the core resort regions of Tyrol, Salzburg, and Vorarlberg — has demonstrated consistent long-term value resilience. The country&#8217;s limited supply of new-build property in established resort villages, combined with sustained international demand from buyers across Germany, Switzerland, the UK, the Netherlands, and increasingly from the Middle East and Asia, has created a market where quality alpine real estate holds its value well. When you purchase a 1/8 fractional share, you participate in this value story proportionally — if the property appreciates, your share appreciates. This is a fundamental distinction from a timeshare, where there is no equity, no appreciation, and no meaningful resale market.</p>
+<p>The financial efficiency of Austria fractional ownership is compelling. Rather than committing hundreds of thousands of euros to a property you use for a few weeks each year, you invest a proportional fraction of the purchase price for proportional use. Running costs — including maintenance, building insurance, Austrian property taxes (Grundsteuer), management fees, and utilities — are shared equally among co-owners, typically reducing your annual outlay to a fraction of what sole ownership would require. For a detailed breakdown of what to expect, see our guide to <a href="/the-running-costs-of-a-fractional-ownership-property/">fractional ownership running costs</a>.</p>
+<p>Rental income from unused weeks is possible for some Austria fractional ownership properties, but this is not guaranteed and depends on the specific property, its location, the co-ownership agreement, and Austrian tourism and rental licensing regulations. In high-demand resort areas, rental demand during peak ski weeks can be strong. However, the rental position varies significantly by property — some are actively managed for rental when co-owners are not in residence, while others are designated for personal use only. Always confirm the specific rental arrangement for any property before purchase. We present the opportunity honestly and never make guarantees about income.</p>
+<p>Beyond the investment case, Austria fractional ownership delivers a lifestyle that is genuinely extraordinary. Austrian alpine culture is unlike anywhere else in Europe — a deep connection between the land, the seasons, and a way of life that has been refined over centuries. In winter, you wake to fresh snow on the peaks, step into your ski boots in a warm chalet, and spend your mornings carving through some of the best-groomed pistes in the world. In the afternoon, you return to a property that is warm, comfortable, and distinctly yours. Evenings in Austrian resort villages offer traditional Stuben restaurants, craft beer culture, lively après-ski, and some of the most satisfying food in the Alps — from wiener schnitzel and Tiroler Gröstl to the extraordinary cheese and charcuterie traditions of the Vorarlberg Bregenzerwald.</p>
+<p>For families, Austria fractional ownership creates a generational asset. Children grow up with the experience of Austrian alpine life — ski school in Tyrol, summer hiking in Salzburg Land, the cultural experience of Salzburg and Innsbruck — and because your share is inheritable, the property can pass through the family. Professional couples value the hassle-free management model: your Austrian mountain home is managed year-round, maintained to a high standard, and ready for you whenever you choose to use it. For lifestyle investors who want a property that is both personally enjoyable and financially considered, Austria fractional ownership offers a rare and genuine combination of both.</p>
+<p>Buyers who want to build a broader fractional portfolio can compare Austria fractional ownership against <a href="/french-alps-fractional-ownership-properties/">French Alps fractional ownership</a> for a different alpine culture, or consider <a href="/portugal-fractional-ownership-properties/">Portugal fractional ownership</a> for a contrasting beach and sunshine destination to balance the alpine experience.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><span class="dest-explore-card">All Co-Ownership Destinations</span><a href="/french-alps-fractional-ownership-properties/" class="dest-explore-card">French Alps Fractional Ownership &rarr;</a><a href="/pyrenees-mountains-fractional-ownership-properties/" class="dest-explore-card">Pyrenees Fractional Ownership &rarr;</a><a href="/italy-fractional-ownership-properties/" class="dest-explore-card">Italy Fractional Ownership &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What Is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Austria Fractional Ownership — FAQs</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What is Austria fractional ownership and how does it differ from buying a whole property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Austria fractional ownership means purchasing a legally registered share — typically 1/8 — of an Austrian property alongside a small group of co-owners. Your ownership interest is documented through a legally structured property company, and you receive a certified land register extract confirming your name and your fractional interest in the property. The key difference from whole ownership is that you pay a proportional fraction of the purchase price and share all running costs with the other co-owners. In exchange, you receive approximately six to seven weeks of personal use per year — around 45 days. You hold the same legal rights as a sole owner: you can sell your share, pass it to your children through inheritance, gift it, or benefit from any appreciation in property value. The property is professionally managed, so you never need to worry about maintenance, cleaning, or scheduling. For most buyers who would use their Austrian mountain home for less than three months annually, fractional co-ownership is a far more financially efficient structure than buying outright. To understand more about the concept, read our guide on <a href="/what-is-fractional-ownership/">what is fractional ownership</a>.</p></div></details><details class="dest-faq-item"><summary><h3>Is Austria fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — they are fundamentally different, both legally and financially. A timeshare provides only usage rights for a fixed period each year. You do not own any part of the property, you hold no genuine equity stake in the property or land register, you have no real estate equity, and resale is typically extremely difficult or commercially punitive. Austria fractional ownership is a genuine property purchase. Your fractional share is registered at the Austrian property ownership records, you hold real equity that participates in any market appreciation, and you have full rights to sell, inherit, or gift your share. This is not a marketing distinction — it is a legal and financial reality. The co-ownership agreement governing your Austria fractional ownership is a binding legal document that protects all co-owners&#8217; interests, unlike timeshare contracts which primarily protect the developer. Austria fractional ownership is real estate ownership, structured for proportional use. For a full explanation of <a href="/co-ownership-explained/">co-ownership and how it differs from timeshare</a>, see our dedicated guide.</p></div></details><details class="dest-faq-item"><summary><h3>How much time do I get with an Austria fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard 1/8 Austria fractional ownership share provides approximately six to seven weeks of personal use per year — around 45 days on average. Usage is allocated through a fair rotation system managed by the professional management company, ensuring all co-owners access peak periods equitably over time. In Austria&#8217;s context, peak periods include the prime ski weeks of January and February, Christmas and New Year, the February half-term school holiday, Easter, and premium summer weeks in July and August. A rotation system ensures no single co-owner is locked out of peak seasons year after year — instead, high-demand weeks are distributed fairly across all owners over a multi-year cycle. The 45-day annual allocation fits comfortably within the 90-day Schengen limit that applies to UK nationals post-Brexit, making Austria fractional ownership a natural fit for British buyers. If you want more time in Austria, some properties offer shares of 1/4 or larger, providing proportionally more weeks.</p></div></details><details class="dest-faq-item"><summary><h3>How does Austria fractional ownership work for UK buyers after Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Since Brexit, UK nationals are classified as third-country nationals within the Schengen zone, which includes Austria. British citizens can spend a maximum of 90 days in any 180-day rolling period across all Schengen countries combined — not 90 days per country. For anyone who owns a whole property in Austria, this creates a significant financial imbalance: you pay 100% of the costs but can only legally occupy the property for roughly three months. Austria fractional ownership resolves this precisely: a 1/8 share gives you approximately 45 days per year, which fits within the 90-day Schengen limit while keeping your costs proportional to your usage. Your legal property rights are unaffected by the Schengen rule — the limitation applies to your physical presence, not to your ownership, resale rights, inheritance rights, or equity participation. Austria fractional ownership is widely regarded as the most practical and financially efficient structure for British buyers who want a genuine second home in the Austrian Alps.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Austria fractional ownership property when I am not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Austria fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The ongoing costs of Austria fractional ownership are shared proportionally among all co-owners and are significantly lower than sole ownership. Typical expenses include: Austrian property tax (Grundsteuer), building and contents insurance, professional management fees, utilities, garden and terrace maintenance, snow clearance and heating maintenance, ski room upkeep, cleaning between stays, and a reserve fund for capital expenditure such as appliance replacements or building repairs. As a 1/8 co-owner, you pay one-eighth of all these costs, which typically amounts to a modest annual sum compared to the total cost of whole ownership. The management company provides transparent annual budgets and regular financial reporting, so you always know exactly what you are paying and why. For a detailed breakdown of typical fractional ownership running costs across different property types and regions, visit our <a href="/the-running-costs-of-a-fractional-ownership-property/">running costs guide</a>.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Austria fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — full resale rights are a defining feature of Austria fractional ownership. Because your share is registered on the property ownership records, you own a genuine real estate asset that can be sold on the open market at any time, subject to the terms of your co-ownership agreement. Many Austria fractional ownership agreements include a right of first refusal clause, giving existing co-owners the opportunity to purchase your share before it is offered on the open market. If no existing co-owner wishes to purchase, you are free to sell to any third-party buyer through a standard Austrian property transaction, completed before a notary. If the property has appreciated in value since your purchase, you benefit from that appreciation proportionally on your share. This is a critical and fundamental distinction from timeshare, where resale is typically impossible or results in significant financial losses. Austria fractional ownership provides genuine liquidity and exit flexibility.</p></div></details><details class="dest-faq-item"><summary><h3>What types of properties are available through Austria fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Austria fractional ownership covers a wide range of property types with no restrictions on style or location. Available properties include traditional Tyrolean chalets with ski-in access and panoramic mountain views, modern alpine apartments in managed resort complexes, lakeside villas in Carinthia and Salzburg Land, mountain lodges in rural valley settings, and contemporary ski-in ski-out apartments in Vorarlberg&#8217;s most prestigious resort villages. The co-ownership model applies equally to chalets, apartments, villas, and country estates. Around 95% of Austria fractional ownership properties are offered as 1/8 shares, though some more exclusive homes may offer 1/4 or 1/2 shares for buyers who want more annual time. Whether you envision a ski chalet above the Kitzbühel pistes, a lakeside villa on the Wörthersee, or a traditional Salzburg farmhouse, Austria fractional ownership can accommodate your vision.</p></div></details><details class="dest-faq-item"><summary><h3>How do I start the process of buying an Austria fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The first step is to browse the available Austria fractional ownership listings on this page and identify properties that match your budget, location preferences, and lifestyle vision. Once you find a property of interest, contact our team at Co-Ownership Property. We act as a buyer&#8217;s agency — working exclusively on your behalf, not the seller&#8217;s — and can provide detailed property information, arrange viewings either in person or virtually, and guide you through every step of the purchase process. We will connect you with an independent Austrian lawyer who specialises in co-ownership transactions, explain the legal structure and co-ownership agreement in full, and ensure you understand all costs, timelines, and obligations before committing. The entire process from initial enquiry to completion at the notary typically takes between four and eight weeks, depending on the complexity of the transaction and the speed of legal due diligence. For a full step-by-step overview, read our guide to the <a href="/co-ownership-buying-process/">co-ownership buying process</a>.</p></div></details><details class="dest-faq-item"><summary><h3>Is Austria fractional ownership a good investment compared to other European mountain destinations?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Austria fractional ownership offers a particularly strong investment profile within the European alpine property market. Austria&#8217;s property market is characterised by stability, a robust legal framework, transparent land registration through the property ownership records, and a diversified tourism economy that supports year-round demand. Unlike some ski destinations that depend almost entirely on winter snowfall for their appeal, Austria&#8217;s major resort regions attract visitors in both summer and winter, supporting more consistent property demand and values. Austria&#8217;s proximity to Germany, Switzerland, and the broader central European market creates a large domestic and near-European buyer pool that reinforces property values even during periods of weaker international demand. Buyers comparing Austria with <a href="/french-alps-fractional-ownership-properties/">French Alps fractional ownership</a>, <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees fractional ownership</a>, or US options like <a href="/colorado-fractional-ownership-properties/">Colorado fractional ownership</a> will find Austria&#8217;s combination of stability, accessibility, and alpine quality difficult to beat.</p></div></details><details class="dest-faq-item"><summary><h3>Can I pass my Austria fractional ownership share to my children?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — inheritance rights are a key feature of fractional ownership. Because your share is held on the Austrian property ownership records, it is treated as a real property asset under Austrian inheritance law (Erbrecht). You can include your share in your will, and upon your passing it transfers to your designated beneficiaries in accordance with applicable inheritance procedures. Your children — or any other beneficiary — inherit all the same rights you held: usage, resale, rental eligibility, and equity participation. Many families view Austria fractional ownership as an opportunity to create a generational alpine asset — a mountain home that children and grandchildren grow up using and eventually inherit. It is advisable to take specialist cross-border estate planning advice if you are a UK resident with Austrian property, as succession rules differ between the two jurisdictions. For a broader understanding of the benefits of fractional ownership as a long-term family asset, see our guide on the <a href="/benefits-of-fractional-ownership-for-second-homes/">benefits of fractional ownership for second homes</a>.</p></div></details><details class="dest-faq-item"><summary><h3>What happens if I want to leave my Austria fractional ownership arrangement?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Because Austria fractional ownership is co-ownership interest holdership, you have full flexibility to exit your arrangement at any time by selling your share. The co-ownership agreement will include clear exit provisions: most agreements give existing co-owners a right of first refusal, and if no existing co-owner wishes to purchase, you are free to sell on the open market through a standard Austrian property transaction at the notary. Some co-ownership agreements also include provisions for a collective sale — where all co-owners agree to sell the entire property if a majority or unanimous decision is reached — giving you multiple exit routes simultaneously. Unlike timeshare, where exit is often impossible or financially punitive, Austria fractional ownership provides genuine liquidity, a transparent exit process, and real financial flexibility. This is one of the key reasons why Austria fractional ownership is considered genuine real estate ownership, rather than the commercially exploitative structure of timeshare products.</p></div></details></div></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A Week in Your Austria Co-Ownership Property</h2>
+<h3>Winter in the Tyrol: First Tracks and Après-Ski Culture</h3>
+<p>Austrian winter fractional ownership rewards early planning and strategic timing. Allocate your annual days across peak snow season — December through March — to experience authentic Alpine life that transforms entire mountain communities. Your 1/8 ownership share, approximately 45 annual days, fits perfectly into winter&#8217;s three-month window, allowing multiple week-long stays across the season.</p>
+<p>Winter mornings in Tyrolean properties begin before sunrise. Fresh powder means first tracks: Austrian ski culture celebrates the opening bell at mountain restaurants where guides gather before dawn lift access. Properties in established ski communities — Söll, Sölden, St. Anton — sit steps from lift access. Austrian ski food culture deserves special attention: mid-morning breaks mean warming schnitzel and goulash at mountain huts. Kaiserschmarrn, a caramelised pancake dessert, appears on every menu. Après-ski defines Austrian winter culture as much as skiing itself. Söll&#8217;s legendary après scene transforms mountain villages into open-air gathering spaces. Sölden maintains more refined cocktail lounges. St. Anton balances both extremes. Your co-ownership property becomes a social hub — guests and fellow members congregate around property fireplaces, creating the community experience that motivates fractional ownership decisions.</p>
+<h3>Summer in Austria: Hiking, Lakes, and Cultural Access</h3>
+<p>Summer completely transforms Austrian Alpine properties, leveraging your remaining annual days across June–September. Snow melts by late May, revealing hiking networks that crisscross every valley. Properties in Tyrol and Salzburg regions put you within reach of Austria&#8217;s most celebrated trails: the Zillertal hikes connecting valley villages, the Ötztal glacier trails for adventurous hikers. Austrian lakes appear throughout — the Achensee (largest lake in Tyrol), smaller Alpine lakes rewarding hiking efforts with mountain vistas, and Vorarlberg properties placing you near Lake Constance shared between Austria, Switzerland, and Germany.</p>
+<p>Cultural access differentiates Austrian summer from other Alpine regions. Salzburg — birthplace of Mozart and location of The Sound of Music — sits 90 minutes from most Tyrolean properties. The summer festival, among Europe&#8217;s most prestigious, transforms the city each July–August. Fractional ownership properties in the Salzburg region provide direct access; properties in Tyrol make day trips feasible by train. Attending opera in a historic Austrian festival building creates summer experiences unavailable anywhere else on Earth.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Austrian Alpine Property Values Keep Rising</h2>
+<p>Austrian Alpine property appreciation stems from regulatory scarcity that is structural rather than cyclical. Unlike some European mountain regions permitting development on every suitable slope, Austria enforces strict planning controls in protected zones. Tyrol and Vorarlberg particularly restrict new construction above certain elevations and in critical environmental areas. Environmental protection laws prevent development in avalanche zones, water source areas, and wildlife corridors. Properties in established communities sit within permitted development zones — but expansion zones are either fully developed or permanently protected. This creates functional supply limits: no new Alpine villages can appear, and existing established communities cannot meaningfully expand.</p>
+<p>Austrian Alps benefit from the rare combination of world-class winter skiing and summer hiking. Winter tourism sustains communities through three months of peak visitation. Summer hiking tourism adds three more months of high-visitation revenue. Christmas markets transform cities December–January beyond pure ski season. These shoulder-season tourism waves, absent in single-season mountain economies, support year-round restaurant, hotel, and service infrastructure. Property values appreciate alongside stable, diversified economies rather than boom-bust cycles that plague single-season destinations.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Austria Fractional Ownership — Practical Buyer Information</h2>
+<h3>Legal Framework and Annual Costs</h3>
+<p>Austrian fractional ownership utilises the GmbH structure (equivalent to limited liability companies in common law jurisdictions), which provides strong legal protections: member liability limited to capital contributions, management separated from ownership, and professional governance structures. Austrian capital gains tax applies to property share sales if held less than 10 years (30% rate). If held longer than 10 years, capital gains remain tax-free — a holding period aligned with most fractional ownership strategies. Annual property tax (Grundsteuer) applies at 0.1–0.5% of assessed property value depending on municipality. Austria abolished wealth tax in 1997, eliminating annual net worth taxes that burden some European property owners.</p>
+<h3>UK and International Buyers</h3>
+<p>British fractional ownership buyers maintain flexible access to Austrian properties. The Schengen area permits 90-day stays within any 180-day period — covering most fractional ownership annual entitlements without formal visa requirements. A 1/8 share of approximately 45 days per year fits comfortably within this limit and allows the split between winter ski weeks and summer hiking weeks that makes Austrian co-ownership so appealing. Austria&#8217;s excellent private healthcare system, accessible through annual travel insurance, eliminates the NHS-dependency concern some UK buyers raise about European property ownership. Many British fractional owners split their 45 annual days: three weeks winter (ski season, New Year), two weeks summer (hiking, lakes, Salzburg festival), distributing across both seasons to maximise the exceptional year-round Austrian lifestyle.</p></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

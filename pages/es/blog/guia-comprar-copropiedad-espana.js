@@ -19,13 +19,13 @@ export default function GuiaComprarCopropiedadEspana() {
     <>
       <Head>
         <title>Guía para comprar copropiedad en España [2026]: modelo legal, fiscalidad, proceso y destinos</title>
-        <meta name="description" content="Guía completa 2026 para comprar copropiedad de segunda residencia en España: modelo SL, ITP, IBI, IRNR, proceso paso a paso, destinos premium, due diligence y diferencias con la multipropiedad." />
+        <meta name="description" content="Guía completa 2026 para comprar copropiedad de segunda residencia en España: modelo LLC, ITP, IBI, IRNR, proceso paso a paso, destinos premium, due diligence y diferencias con la multipropiedad." />
         <link rel="canonical" href={canonicalUrl} />
         <HreflangLinks englishPath="/es/blog/guia-comprar-copropiedad-espana" />
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="es_ES" />
         <meta property="og:title" content="Guía para comprar copropiedad en España [2026]" />
-        <meta property="og:description" content="Modelo legal SL, fiscalidad real, proceso de compra, destinos premium, riesgos y diferencias con la multipropiedad. Guía completa 2026." />
+        <meta property="og:description" content="Modelo legal LLC, fiscalidad real, proceso de compra, destinos premium, riesgos y diferencias con la multipropiedad. Guía completa 2026." />
         <meta property="og:url" content={canonicalUrl} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           '@context': 'https://schema.org',
@@ -42,12 +42,12 @@ export default function GuiaComprarCopropiedadEspana() {
           '@type': 'FAQPage',
           mainEntity: [
             { '@type': 'Question', name: '¿Cuánto cuesta comprar una copropiedad en España en 2026?', acceptedAnswer: { '@type': 'Answer', text: 'El precio de una participación de 1/8 oscila habitualmente entre los 100.000 € (apartamentos costeros y de montaña) y los 700.000 € (villas premium en Mallorca, Ibiza o Sotogrande). El precio refleja una octava parte del valor de mercado del inmueble, más una prima de gestión y mobiliario llave en mano que suele añadir entre un 8 % y un 15 %. A esto hay que sumar el ITP (entre el 6 % y el 10 % según comunidad autónoma), notario y registro (en torno al 1-1,5 %), y la primera cuota anual de gastos compartidos.' } },
-            { '@type': 'Question', name: '¿Cómo se estructura legalmente la copropiedad en España?', acceptedAnswer: { '@type': 'Answer', text: 'A través de una Sociedad Limitada (SL) constituida con la vivienda como único activo. La SL figura como titular registral del inmueble en el Registro de la Propiedad. Las participaciones sociales se dividen en ocho partes iguales y cada copropietario adquiere las suyas mediante escritura ante notario. Los estatutos sociales regulan el calendario de uso, los costes compartidos y las normas de cesión o venta. Es propiedad inmobiliaria real, amparada por el Código Civil y la Ley de Sociedades de Capital.' } },
-            { '@type': 'Question', name: '¿Qué impuestos paga un copropietario en España?', acceptedAnswer: { '@type': 'Answer', text: 'En la compra: ITP (Impuesto de Transmisiones Patrimoniales) entre el 6 % y el 10 % según la comunidad autónoma, más gastos notariales y registrales. Durante la tenencia: cuota proporcional del IBI (lo paga la SL y se reparte entre copropietarios), IRPF si eres residente fiscal en España (imputación de rentas inmobiliarias sobre el valor catastral) o IRNR si eres no residente. En la venta: tributación de la plusvalía en IRPF o IRNR según residencia fiscal, más plusvalía municipal sobre la transmisión de las participaciones.' } },
-            { '@type': 'Question', name: '¿Cuánto tiempo lleva el proceso de compra?', acceptedAnswer: { '@type': 'Answer', text: 'El proceso estándar dura entre cuatro y seis semanas desde la reserva inicial hasta la firma de la escritura. Las fases típicas son: (1) reserva con depósito, (2) due diligence legal y fiscal sobre la SL y el inmueble, (3) firma del contrato privado de compraventa de participaciones, (4) firma de la escritura ante notario y entrega del calendario de uso. Algunos operadores ofrecen plazos más cortos cuando el inmueble ya está estructurado y solo quedan participaciones disponibles.' } },
-            { '@type': 'Question', name: '¿Es la copropiedad lo mismo que la multipropiedad o el timeshare?', acceptedAnswer: { '@type': 'Answer', text: 'No. La multipropiedad o timeshare te da solo un derecho de uso por semanas concretas durante un número limitado de años, sin titularidad real del inmueble, regulado por la Ley 4/2012 de aprovechamiento por turno. La copropiedad te convierte en titular registral de una fracción real de la vivienda a través de una SL, con escritura pública, inscripción en el Registro de la Propiedad y derechos plenos de propiedad: revalorización, herencia, venta en mercado secundario activo. Son figuras jurídicas y económicas completamente distintas.' } },
-            { '@type': 'Question', name: '¿Puedo vender mi parte cuando quiera?', acceptedAnswer: { '@type': 'Answer', text: 'Sí. La venta de la fracción se formaliza con escritura ante notario y suele resolverse en uno a tres meses. Los estatutos sociales suelen prever un derecho de adquisición preferente para los otros copropietarios, pero si no lo ejercen, puedes vender libremente al mercado abierto. Los operadores profesionales mantienen una lista de espera de compradores interesados y gestionan la reventa por una comisión típica del 5 al 8 %. En zonas premium en España, las plusvalías sobre la fracción suelen seguir al mercado inmobiliario subyacente.' } },
-            { '@type': 'Question', name: '¿Qué pasa si un copropietario no paga su parte de los gastos?', acceptedAnswer: { '@type': 'Answer', text: 'Los estatutos sociales contemplan los impagos. La SL puede activar el procedimiento previsto — habitualmente una llamada formal, un recargo, y en última instancia la ejecución forzosa de las participaciones del moroso conforme a la Ley de Sociedades de Capital. En la práctica, en plataformas profesionales con copropietarios cualificados, los impagos son extremadamente raros. La gestión profesional incluye también seguros que cubren contingencias mayores.' } },
+            { '@type': 'Question', name: '¿Cómo se estructura legalmente la copropiedad en España?', acceptedAnswer: { '@type': 'Answer', text: 'A través de una LLC (Limited Liability Company) constituida específicamente para el inmueble — la misma estructura utilizada de forma homogénea en toda nuestra cartera internacional. La LLC figura como titular registral del inmueble en el Registro de la Propiedad. Los derechos en la LLC se dividen en ocho membership interests iguales y cada copropietario adquiere el suyo mediante escritura ante notario. El operating agreement regula el calendario de uso, los costes compartidos y las normas de cesión o venta. Es propiedad inmobiliaria real, amparada por el marco general del Código Civil.' } },
+            { '@type': 'Question', name: '¿Qué impuestos paga un copropietario en España?', acceptedAnswer: { '@type': 'Answer', text: 'En la compra: ITP (Impuesto de Transmisiones Patrimoniales) entre el 6 % y el 10 % según la comunidad autónoma, más gastos notariales y registrales. Durante la tenencia: cuota proporcional del IBI (lo paga la LLC y se reparte entre copropietarios), IRPF si eres residente fiscal en España (imputación de rentas inmobiliarias sobre el valor catastral) o IRNR si eres no residente. En la venta: tributación de la plusvalía en IRPF o IRNR según residencia fiscal, más plusvalía municipal sobre la transmisión del membership interest.' } },
+            { '@type': 'Question', name: '¿Cuánto tiempo lleva el proceso de compra?', acceptedAnswer: { '@type': 'Answer', text: 'El proceso estándar dura entre cuatro y seis semanas desde la reserva inicial hasta la firma de la escritura. Las fases típicas son: (1) reserva con depósito, (2) due diligence legal y fiscal sobre la LLC y el inmueble, (3) firma del contrato privado de compraventa del membership interest, (4) firma de la escritura ante notario y entrega del calendario de uso. Algunos operadores ofrecen plazos más cortos cuando el inmueble ya está estructurado y solo quedan participaciones disponibles.' } },
+            { '@type': 'Question', name: '¿Es la copropiedad lo mismo que la multipropiedad o el timeshare?', acceptedAnswer: { '@type': 'Answer', text: 'No. La multipropiedad o timeshare te da solo un derecho de uso por semanas concretas durante un número limitado de años, sin titularidad real del inmueble, regulado por la Ley 4/2012 de aprovechamiento por turno. La copropiedad te convierte en titular registral de una fracción real de la vivienda a través de una LLC, con escritura pública, inscripción en el Registro de la Propiedad y derechos plenos de propiedad: revalorización, herencia, venta en mercado secundario activo. Son figuras jurídicas y económicas completamente distintas.' } },
+            { '@type': 'Question', name: '¿Puedo vender mi parte cuando quiera?', acceptedAnswer: { '@type': 'Answer', text: 'Sí. La venta del membership interest se formaliza con escritura ante notario y suele resolverse en uno a tres meses. El operating agreement de la LLC suele prever un derecho de adquisición preferente para los otros copropietarios, pero si no lo ejercen, puedes vender libremente al mercado abierto. Los operadores profesionales mantienen una lista de espera de compradores interesados y gestionan la reventa por una comisión típica del 5 al 8 %. En zonas premium en España, las plusvalías sobre la fracción suelen seguir al mercado inmobiliario subyacente.' } },
+            { '@type': 'Question', name: '¿Qué pasa si un copropietario no paga su parte de los gastos?', acceptedAnswer: { '@type': 'Answer', text: 'El operating agreement contempla los impagos. La LLC puede activar el procedimiento previsto — habitualmente una llamada formal, un recargo, y en última instancia la ejecución forzosa del membership interest del moroso. En la práctica, en plataformas profesionales con copropietarios cualificados, los impagos son extremadamente raros. La gestión profesional incluye también seguros que cubren contingencias mayores.' } },
           ],
         }) }} />
       </Head>
@@ -66,17 +66,17 @@ export default function GuiaComprarCopropiedadEspana() {
         <main className="blog-main">
           <article className="blog-article">
 
-            <p>Comprar una segunda residencia en España nunca ha sido más caro — y, paradójicamente, nunca ha sido más fácil para quienes ya no la quieren entera. Los precios prime en Mallorca, Ibiza, Sotogrande, Marbella y la Costa Brava se han disparado un 30-50 % desde 2020, mientras la mayoría de los propietarios extranjeros que firmaron antes del boom utilizan su vivienda menos de cuatro semanas al año. La <strong>copropiedad</strong> — comprar una fracción real (típicamente 1/8) de una propiedad premium a través de una Sociedad Limitada — ha pasado de ser un experimento de nicho a la forma seria de entrar en el mercado prime español sin las cargas de la plena propiedad.</p>
+            <p>Comprar una segunda residencia en España nunca ha sido más caro — y, paradójicamente, nunca ha sido más fácil para quienes ya no la quieren entera. Los precios prime en Mallorca, Ibiza, Sotogrande, Marbella y la Costa Brava se han disparado un 30-50 % desde 2020, mientras la mayoría de los propietarios extranjeros que firmaron antes del boom utilizan su vivienda menos de cuatro semanas al año. La <strong>copropiedad</strong> — comprar una fracción real (típicamente 1/8) de una propiedad premium a través de una LLC (Limited Liability Company) — ha pasado de ser un experimento de nicho a la forma seria de entrar en el mercado prime español sin las cargas de la plena propiedad.</p>
 
-            <p>Esta guía cubre <strong>todo lo que importa</strong> antes de firmar: el modelo legal de la SL, los impuestos reales que pagarás en la compra, durante la tenencia y al vender, el proceso de cuatro a seis semanas desde la reserva hasta las llaves, los destinos que merecen el dinero en 2026, cómo distinguir una operación seria de las imitaciones del modelo de multipropiedad, y los errores que hemos visto a compradores cometer.</p>
+            <p>Esta guía cubre <strong>todo lo que importa</strong> antes de firmar: el modelo legal de la LLC, los impuestos reales que pagarás en la compra, durante la tenencia y al vender, el proceso de cuatro a seis semanas desde la reserva hasta las llaves, los destinos que merecen el dinero en 2026, cómo distinguir una operación seria de las imitaciones del modelo de multipropiedad, y los errores que hemos visto a compradores cometer.</p>
 
             <h2>Qué es la copropiedad en España hoy</h2>
 
-            <p>La copropiedad inmobiliaria moderna en España es <strong>propiedad fraccional registrada</strong>. No es alquiler. No es <em>aprovechamiento por turno</em>. No es un club de propietarios. Es titularidad inmobiliaria real, dividida entre típicamente ocho personas o familias, cada una propietaria de una octava parte del inmueble a través de las participaciones de una Sociedad Limitada propietaria de la vivienda.</p>
+            <p>La copropiedad inmobiliaria moderna en España es <strong>propiedad fraccional registrada</strong>. No es alquiler. No es <em>aprovechamiento por turno</em>. No es un club de propietarios. Es titularidad inmobiliaria real, dividida entre típicamente ocho personas o familias, cada una propietaria de una octava parte del inmueble a través del membership interest en una LLC propietaria de la vivienda.</p>
 
             <p>El producto, como tal, se ha profesionalizado en España desde 2022, popularizado por operadores como los líderes del mercado europeo. Hoy hay catálogos consolidados de viviendas premium en copropiedad en Mallorca, Ibiza, Menorca, Costa Brava, Costa del Sol, Sotogrande, Baqueira, Madrid centro, Marbella y otras zonas prime. Los precios por fracción de 1/8 oscilan entre los 100.000 € (apartamentos de montaña, costa más asequible) y los 700.000 € (villas frente al mar en Mallorca, fincas de Ibiza, residencias de Sotogrande).</p>
 
-            <p style={{fontSize:'1.18rem', borderLeft:'4px solid #C9A84C', paddingLeft:'1.25rem', margin:'2rem 0', color:'#2C4A5E'}}>El concepto, en una frase: <strong>compras una octava parte real de una propiedad premium, registrada a tu nombre vía SL, con derecho a uso de unas seis semanas al año y todos los costes compartidos proporcionalmente entre los ocho copropietarios.</strong></p>
+            <p style={{fontSize:'1.18rem', borderLeft:'4px solid #C9A84C', paddingLeft:'1.25rem', margin:'2rem 0', color:'#2C4A5E'}}>El concepto, en una frase: <strong>compras una octava parte real de una propiedad premium, registrada a tu nombre vía LLC, con derecho a uso de unas seis semanas al año y todos los costes compartidos proporcionalmente entre los ocho copropietarios.</strong></p>
 
             <h2>Para quién tiene sentido — y para quién no</h2>
 
@@ -99,25 +99,21 @@ export default function GuiaComprarCopropiedadEspana() {
               <li>Buscas alquilar como inversión: el modelo está pensado para uso propio, no para rentabilidad por alquiler.</li>
             </ul>
 
-            <h2>El modelo legal en España: la Sociedad Limitada</h2>
+            <h2>El modelo legal: la LLC, estructura única en toda la cartera</h2>
 
-            <p>El modelo estándar profesional en España es la <strong>SL propietaria del inmueble</strong>. Funciona así:</p>
+            <p>El modelo utilizado de forma homogénea en toda nuestra cartera internacional —en España, Francia, Italia, Portugal y Estados Unidos— es la <strong>LLC (Limited Liability Company) propietaria del inmueble</strong>. Funciona así:</p>
 
             <ol>
-              <li>Se constituye una Sociedad Limitada cuyo objeto social es la titularidad y gestión del inmueble.</li>
-              <li>La SL adquiere la vivienda y figura como titular registral en el Registro de la Propiedad.</li>
-              <li>El capital social de la SL se divide en ocho participaciones iguales (1/8 = 12,5 %).</li>
-              <li>Cada copropietario compra sus participaciones mediante <strong>escritura pública ante notario</strong>.</li>
-              <li>Los estatutos sociales — equivalentes funcionales del acuerdo de copropiedad — regulan el calendario de uso, los costes compartidos, las reglas de venta y cesión, y los mecanismos de resolución de conflictos.</li>
+              <li>Se constituye una LLC cuyo único objeto es la titularidad y gestión del inmueble concreto.</li>
+              <li>La LLC adquiere la vivienda y figura como titular registral en el Registro de la Propiedad.</li>
+              <li>Los derechos en la LLC se dividen en ocho <em>membership interests</em> iguales (1/8 = 12,5 %).</li>
+              <li>Cada copropietario compra su membership interest mediante <strong>escritura pública ante notario</strong>.</li>
+              <li>El operating agreement de la LLC — el equivalente funcional del acuerdo de copropiedad — regula el calendario de uso, los costes compartidos, las reglas de venta y cesión, y los mecanismos de resolución de conflictos.</li>
             </ol>
 
-            <p>El amparo legal viene de dos códigos:</p>
-            <ul>
-              <li><strong>Código Civil, artículos 392-406</strong>: regulación general de la comunidad de bienes.</li>
-              <li><strong>Real Decreto Legislativo 1/2010, Ley de Sociedades de Capital</strong>: regulación de la SL como vehículo de tenencia.</li>
-            </ul>
+            <p>El amparo legal en España se apoya, además, en el <strong>Código Civil, artículos 392-406</strong>, que regula con carácter general la titularidad compartida sobre bienes y al que el operating agreement de la LLC se ajusta cuando la fracción se ejerce sobre un inmueble situado en territorio español.</p>
 
-            <p>Esta doble protección — registral y societaria — es lo que diferencia la copropiedad seria de las imitaciones que recuerdan al modelo de la multipropiedad. La escritura pública ante notario y la inscripción registral son innegociables. Si una propuesta no incluye ambas, no es copropiedad.</p>
+            <p>Esta doble protección — registral y societaria a través de la LLC — es lo que diferencia la copropiedad seria de las imitaciones que recuerdan al modelo de la multipropiedad. La escritura pública ante notario y la inscripción registral son innegociables. Si una propuesta no incluye ambas, no es copropiedad.</p>
 
             <h2>Lo que vas a pagar: precio, impuestos y gastos</h2>
 
@@ -127,17 +123,17 @@ export default function GuiaComprarCopropiedadEspana() {
 
             <p><strong>Precio de la fracción</strong>. Una octava parte del valor de mercado del inmueble más una prima por la gestión profesional, el mobiliario llave en mano y la curaduría. La prima suele añadir entre un 8 % y un 15 % al precio nominal de fracción, lo que en operadores serios se compensa con la calidad del servicio (interiorismo, equipamiento, gestión post-venta).</p>
 
-            <p><strong>Impuesto de Transmisiones Patrimoniales (ITP)</strong>. Es el impuesto autonómico que grava la transmisión de las participaciones de la SL cuando ya está constituida. El tipo varía por comunidad autónoma — desde el 6 % en algunas zonas hasta el 10-11 % en Cataluña, Baleares, Valencia y otras autonomías con tipo alto. En operaciones de obra nueva donde la SL adquiere por primera vez, puede aplicarse IVA (10 % vivienda) más AJD en lugar del ITP.</p>
+            <p><strong>Impuesto de Transmisiones Patrimoniales (ITP)</strong>. Es el impuesto autonómico que grava la transmisión del membership interest en la LLC cuando ya está constituida (régimen de transmisión de participaciones en sociedades con predominio inmobiliario). El tipo varía por comunidad autónoma — desde el 6 % en algunas zonas hasta el 10-11 % en Cataluña, Baleares, Valencia y otras autonomías con tipo alto. En operaciones de obra nueva donde la LLC adquiere por primera vez, puede aplicarse IVA (10 % vivienda) más AJD en lugar del ITP.</p>
 
-            <p><strong>Notario y Registro</strong>. La escritura pública de compra de participaciones y la modificación registral de la SL suelen sumar entre el 0,8 % y el 1,5 % del valor de la fracción.</p>
+            <p><strong>Notario y Registro</strong>. La escritura pública de compra del membership interest y la inscripción correspondiente suelen sumar entre el 0,8 % y el 1,5 % del valor de la fracción.</p>
 
-            <p><strong>Asesoramiento legal independiente</strong> (opcional pero recomendado). Un abogado especializado para revisar la nota simple del inmueble, los estatutos de la SL, las cuentas anuales de la SL y el contrato privado antes de la escritura suele cobrar entre 1.500 € y 3.500 € en operaciones estándar.</p>
+            <p><strong>Asesoramiento legal independiente</strong> (opcional pero recomendado). Un abogado especializado para revisar la nota simple del inmueble, el operating agreement de la LLC, las cuentas anuales de la LLC y el contrato privado antes de la escritura suele cobrar entre 1.500 € y 3.500 € en operaciones estándar.</p>
 
             <h3>Durante la tenencia</h3>
 
             <p><strong>Cuota anual de gastos compartidos</strong>. Cubre mantenimiento del inmueble, jardinería, piscina, limpieza, seguros, IBI, tasa de basuras, suministros, gestión profesional y reservas para imprevistos. En propiedades premium se sitúa típicamente entre los 5.000 € y los 12.000 € por fracción al año, según destino y nivel del inmueble.</p>
 
-            <p><strong>IBI (Impuesto sobre Bienes Inmuebles)</strong>. Lo paga la SL como titular registral y se reparte proporcionalmente entre copropietarios — habitualmente incluido en la cuota anual.</p>
+            <p><strong>IBI (Impuesto sobre Bienes Inmuebles)</strong>. Lo paga la LLC como titular registral y se reparte proporcionalmente entre copropietarios — habitualmente incluido en la cuota anual.</p>
 
             <p><strong>Tributación personal por uso</strong>. Aquí depende crucialmente de tu residencia fiscal:</p>
             <ul>
@@ -152,7 +148,7 @@ export default function GuiaComprarCopropiedadEspana() {
 
             <p><strong>Plusvalía en IRPF/IRNR</strong>. Tributas sobre la diferencia entre el precio de venta de tus participaciones y el precio de adquisición. Tipo en IRPF (residentes): escalado del 19 al 28 % según el importe de la ganancia. Tipo en IRNR (no residentes): 19 % UE/EEE, 24 % resto.</p>
 
-            <p><strong>Plusvalía municipal</strong>. La transmisión de participaciones de SL cuyo activo principal es un inmueble urbano puede generar plusvalía municipal por el tiempo transcurrido desde la adquisición. Es un impuesto local que se calcula sobre el valor catastral.</p>
+            <p><strong>Plusvalía municipal</strong>. La transmisión de un membership interest en una LLC cuyo activo principal es un inmueble urbano puede generar plusvalía municipal por el tiempo transcurrido desde la adquisición. Es un impuesto local que se calcula sobre el valor catastral.</p>
 
             <p><strong>Retención IRNR para no residentes</strong>. Si vendes siendo no residente fiscal en España, el comprador está obligado a retener un 3 % del precio de venta y depositarlo en Hacienda. Es un anticipo de tu IRNR final.</p>
 
@@ -160,31 +156,31 @@ export default function GuiaComprarCopropiedadEspana() {
 
             <p>El proceso estándar desde el primer interés hasta la entrega de llaves dura entre cuatro y seis semanas. Las fases:</p>
 
-            <p><strong>Semana 1 — Selección y reserva.</strong> Visita virtual o presencial, revisión del dossier completo (estatutos, calendario de uso disponible, cuentas anuales de la SL, nota simple del Registro), y firma de la reserva con depósito refundible (típicamente 5.000-10.000 €).</p>
+            <p><strong>Semana 1 — Selección y reserva.</strong> Visita virtual o presencial, revisión del dossier completo (operating agreement, calendario de uso disponible, cuentas anuales de la LLC, nota simple del Registro), y firma de la reserva con depósito refundible (típicamente 5.000-10.000 €).</p>
 
-            <p><strong>Semanas 2-3 — Due diligence.</strong> Tu abogado revisa la SL — titularidad registral del inmueble, estatutos, eventuales cargas, situación fiscal, último informe de auditoría, contratos de gestión vigentes. Negociación de cualquier punto pendiente en el contrato privado de compraventa de participaciones.</p>
+            <p><strong>Semanas 2-3 — Due diligence.</strong> Tu abogado revisa la LLC — titularidad registral del inmueble, operating agreement, eventuales cargas, situación fiscal, último informe de auditoría, contratos de gestión vigentes. Negociación de cualquier punto pendiente en el contrato privado de compraventa del membership interest.</p>
 
             <p><strong>Semana 4 — Contrato privado.</strong> Firma del contrato privado de compraventa entre vendedor (sea el operador en compras primarias, sea otro copropietario en secundario) y comprador. Suele incluir un segundo depósito del 10 % del precio.</p>
 
-            <p><strong>Semanas 5-6 — Notario y entrega.</strong> Firma de la escritura pública ante notario español. Pago del saldo restante. Inscripción de la transmisión en los libros de la SL. Entrega del manual de copropietario, accesos digitales al calendario de reservas, y llaves físicas si tu primera estancia es inmediata.</p>
+            <p><strong>Semanas 5-6 — Notario y entrega.</strong> Firma de la escritura pública ante notario español. Pago del saldo restante. Inscripción de la transmisión en el registro de miembros de la LLC. Entrega del manual de copropietario, accesos digitales al calendario de reservas, y llaves físicas si tu primera estancia es inmediata.</p>
 
-            <p>Algunos operadores ofrecen plazos más cortos — tres semanas — cuando el inmueble ya está estructurado en SL y la documentación está al día. Otras operaciones primarias en obra nueva pueden alargarse a ocho semanas.</p>
+            <p>Algunos operadores ofrecen plazos más cortos — tres semanas — cuando el inmueble ya está estructurado en una LLC y la documentación está al día. Otras operaciones primarias en obra nueva pueden alargarse a ocho semanas.</p>
 
             <h2>Due diligence: los diez puntos que hay que verificar</h2>
 
             <p>Antes de firmar, asegúrate de que tienes claros estos diez puntos. Una operación seria los responde con documentación. Una operación dudosa los esquiva.</p>
 
             <ol>
-              <li><strong>Nota simple del Registro de la Propiedad</strong>: la SL debe figurar como titular registral del inmueble, sin cargas relevantes (más allá de hipotecas razonables si las hay).</li>
-              <li><strong>Estatutos sociales actualizados de la SL</strong>: deben incluir tu derecho de uso, las reglas de calendario, los costes compartidos, el régimen de cesión y venta, y los mecanismos de resolución de conflictos.</li>
+              <li><strong>Nota simple del Registro de la Propiedad</strong>: la LLC debe figurar como titular registral del inmueble, sin cargas relevantes (más allá de hipotecas razonables si las hay).</li>
+              <li><strong>Operating agreement actualizado de la LLC</strong>: debe incluir tu derecho de uso, las reglas de calendario, los costes compartidos, el régimen de cesión y venta, y los mecanismos de resolución de conflictos.</li>
               <li><strong>Modelo de escritura pública de compra de participaciones</strong>: la escritura, no un contrato privado de adhesión.</li>
-              <li><strong>Cuentas anuales de la SL</strong> de los últimos dos ejercicios, depositadas en el Registro Mercantil.</li>
+              <li><strong>Cuentas anuales de la LLC</strong> de los últimos dos ejercicios.</li>
               <li><strong>Presupuesto anual de gastos compartidos</strong> detallado: mantenimiento, gestión, seguros, IBI, suministros, reservas. Histórico real, no solo proyección.</li>
               <li><strong>Calendario de uso actual y mecanismo de asignación</strong>: cómo se reparten las semanas, cómo se reservan las semanas estrella (Navidad, Semana Santa, agosto), qué pasa si dos copropietarios piden la misma fecha.</li>
               <li><strong>Operador y empresa gestora</strong>: identidad, trayectoria, propiedades gestionadas, equipo, oficinas físicas. Pide referencias de copropietarios actuales.</li>
               <li><strong>Mercado secundario y reventa</strong>: número de reventas históricas de la plataforma, plazo medio, comisión cobrada, plusvalías observadas.</li>
               <li><strong>Seguros del inmueble</strong>: cobertura del continente, contenido, responsabilidad civil, eventos catastróficos.</li>
-              <li><strong>Cláusula de salida en los estatutos</strong>: cómo puedes vender, derecho de adquisición preferente, plazos, comisiones, posibilidad de cesión a familiares.</li>
+              <li><strong>Cláusula de salida en el operating agreement</strong>: cómo puedes vender, derecho de adquisición preferente, plazos, comisiones, posibilidad de cesión a familiares.</li>
             </ol>
 
             <h2>Los destinos premium en España para 2026</h2>
@@ -215,10 +211,10 @@ export default function GuiaComprarCopropiedadEspana() {
 
             <ul>
               <li>La <strong>multipropiedad</strong> (formalmente <em>aprovechamiento por turno</em>, regulada por la Ley 4/2012, antes conocida como timeshare o tiempo compartido) te da solo un derecho de uso por semanas concretas durante un periodo limitado de años, sin titularidad real del inmueble. No es propiedad inmobiliaria. No se inscribe a tu favor en el Registro de la Propiedad. El mercado secundario está prácticamente muerto.</li>
-              <li>La <strong>copropiedad</strong> te convierte en titular registral de una fracción real del inmueble a través de la SL, con escritura pública ante notario, inscripción registral, revalorización paralela al mercado inmobiliario subyacente, herencia plena, mercado secundario activo y todos los demás atributos de la propiedad inmobiliaria.</li>
+              <li>La <strong>copropiedad</strong> te convierte en titular registral de una fracción real del inmueble a través de la LLC, con escritura pública ante notario, inscripción registral, revalorización paralela al mercado inmobiliario subyacente, herencia plena, mercado secundario activo y todos los demás atributos de la propiedad inmobiliaria.</li>
             </ul>
 
-            <p>El test práctico al firmar: si te ofrecen "puntos", "semanas", "afiliación a un club", "derecho de uso", "membresía", o un "contrato privado" en lugar de escritura pública de compra de participaciones de SL inscrita en el Registro de la Propiedad — es multipropiedad, sea cual sea el nombre comercial. La copropiedad seria nunca evita la escritura notarial ni la inscripción registral.</p>
+            <p>El test práctico al firmar: si te ofrecen "puntos", "semanas", "afiliación a un club", "derecho de uso", "membresía simbólica", o un "contrato privado" en lugar de escritura pública de compra de un membership interest en una LLC titular registral del inmueble — es multipropiedad, sea cual sea el nombre comercial. La copropiedad seria nunca evita la escritura notarial ni la inscripción registral.</p>
 
             <p>Para el desglose detallado, hemos publicado una guía dedicada: <a href="/es/blog/copropiedad-vs-multipropiedad/">copropiedad vs. multipropiedad: las diferencias que importan</a>.</p>
 
@@ -227,7 +223,7 @@ export default function GuiaComprarCopropiedadEspana() {
             <p>A diferencia de la multipropiedad, vender tu fracción es relativamente sencillo. Los pasos:</p>
 
             <ol>
-              <li><strong>Notificación al operador</strong>. Los estatutos suelen exigir comunicar tu intención de vender al gestor o al órgano de administración de la SL.</li>
+              <li><strong>Notificación al operador</strong>. El operating agreement suele exigir comunicar tu intención de vender al gestor o al órgano de administración de la LLC.</li>
               <li><strong>Derecho de adquisición preferente</strong>. Los otros copropietarios suelen disponer de un plazo (típicamente 30 días) para ejercer su derecho preferente de compra al precio acordado con el tercero.</li>
               <li><strong>Búsqueda de comprador</strong>. Si los copropietarios renuncian, el operador suele activar su lista de compradores interesados — operadores serios mantienen waiting lists de cientos de compradores en zonas premium.</li>
               <li><strong>Valoración</strong>. La valoración se hace conforme al precio de mercado de la fracción, que en zonas premium suele seguir al inmobiliario subyacente. Las primeras reventas observadas en España (2023-2025) muestran plusvalías medias del orden del 10 % sobre el precio inicial.</li>
@@ -242,7 +238,7 @@ export default function GuiaComprarCopropiedadEspana() {
 
             <p><strong>Subestimar las cuotas anuales.</strong> Los gastos compartidos no son opcionales. Si tu presupuesto está al límite y dejas de pagar tu cuota, los estatutos activan procedimientos que pueden llevar a la ejecución forzosa de tus participaciones. Asegúrate de que la cuota anual es cómoda dentro de tu presupuesto.</p>
 
-            <p><strong>No verificar la inscripción registral.</strong> Pide siempre la nota simple actualizada del Registro de la Propiedad. La SL debe figurar como titular registral. Si la documentación habla de un "contrato de gestión" o "afiliación" en lugar de titularidad registral, no es copropiedad.</p>
+            <p><strong>No verificar la inscripción registral.</strong> Pide siempre la nota simple actualizada del Registro de la Propiedad. La LLC debe figurar como titular registral. Si la documentación habla de un "contrato de gestión" o "afiliación" en lugar de titularidad registral, no es copropiedad.</p>
 
             <p><strong>Comprar en un operador sin historial de reventas.</strong> El test definitivo de un mercado secundario sano es la frecuencia y los plazos medios de reventa. Pide datos reales — número de reventas históricas, plazo medio, plusvalías observadas. Un operador serio responde con cifras.</p>
 
@@ -261,14 +257,14 @@ export default function GuiaComprarCopropiedadEspana() {
             <h3>¿Qué pasa con la Golden Visa española?</h3>
             <p>La Golden Visa española terminó en 2025. Aun así, comprar copropiedad en España no impide acceder a otros visados (visado de trabajo a distancia, visado de no lucrativo) si cumples los requisitos. Para una visión actualizada de las opciones, consulta nuestro <a href="/es/blog/sotogrande-property-co-ownership-after-golden-visa-ends/">análisis del mercado post-Golden Visa</a>.</p>
 
-            <h3>¿La SL puede hipotecarse?</h3>
-            <p>Técnicamente sí, pero los modelos profesionales serios trabajan sin hipoteca sobre la SL. Si los estatutos no prohíben la hipoteca, podrían contraerse deudas que afecten a tu fracción. Pide siempre que los estatutos prohíban expresamente el endeudamiento sin acuerdo unánime de los copropietarios.</p>
+            <h3>¿La LLC puede hipotecarse?</h3>
+            <p>Técnicamente sí, pero los modelos profesionales serios trabajan sin hipoteca sobre la LLC. Si el operating agreement no prohíbe la hipoteca, podrían contraerse deudas que afecten a tu fracción. Pide siempre que el operating agreement prohíba expresamente el endeudamiento sin acuerdo unánime de los copropietarios.</p>
 
             <h3>¿Puedo dejar mi fracción a mis hijos?</h3>
-            <p>Sí. Las participaciones de la SL son bienes muebles transmisibles por herencia conforme al Código Civil. La sucesión tributa en el Impuesto sobre Sucesiones y Donaciones según la comunidad autónoma del causante o del heredero. En varias autonomías (Madrid, Andalucía, Baleares) las bonificaciones son significativas para herederos directos.</p>
+            <p>Sí. El membership interest en la LLC es un derecho transmisible por herencia. La sucesión tributa en el Impuesto sobre Sucesiones y Donaciones según la comunidad autónoma del causante o del heredero. En varias autonomías (Madrid, Andalucía, Baleares) las bonificaciones son significativas para herederos directos.</p>
 
             <h3>¿Qué ocurre si el operador quiebra?</h3>
-            <p>Tu titularidad de las participaciones de la SL no se ve afectada por la situación del operador gestor. La SL es una sociedad independiente con su propio activo (el inmueble). Si el operador quebrara, los copropietarios pueden contratar un nuevo gestor mediante acuerdo. Es exactamente la misma protección que tendrías como propietario único contratando una empresa de gestión.</p>
+            <p>Tu titularidad del membership interest en la LLC no se ve afectada por la situación del operador gestor. La LLC es una sociedad independiente con su propio activo (el inmueble). Si el operador quebrara, los copropietarios pueden contratar un nuevo gestor mediante acuerdo. Es exactamente la misma protección que tendrías como propietario único contratando una empresa de gestión.</p>
 
             <h3>¿Cuánto se ha revalorizado la copropiedad en España?</h3>
             <p>Las primeras reventas profesionales en España (2023-2025) muestran plusvalías medias del orden del 8-12 % sobre el precio inicial de la fracción. Esta cifra sigue al mercado inmobiliario subyacente — Mallorca subió un 9,8 % en 2025, Costa Brava un 12 %, Sotogrande un 10 % de media. La copropiedad mantiene el componente patrimonial de la propiedad plena con un capital inmovilizado siete veces menor.</p>

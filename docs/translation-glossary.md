@@ -29,8 +29,9 @@ The glossary captures three things per locale: the **primary term** (always used
 - `acquérir une quote-part`
 
 **Legal vehicle**:
-- `SCI` (Société Civile Immobilière)
-- `parts sociales`
+- `LLC` (Limited Liability Company) — the standard COP-wide structure across France, Spain, Italy, Portugal and the US. Use `LLC` or `société à responsabilité limitée (LLC)` on first mention in French copy, then `LLC` thereafter.
+- `membership interest` — the COP-wide term for what each co-owner holds in the LLC
+- `operating agreement` — the LLC's governing document (replaces French `statuts` in COP terminology)
 - `acte authentique chez le notaire`
 - `cadastre` (land registry)
 
@@ -83,8 +84,9 @@ The glossary captures three things per locale: the **primary term** (always used
 - `compartir una segunda residencia`
 
 **Legal vehicle**:
-- `SL` (Sociedad Limitada)
-- `participaciones sociales`
+- `LLC` (Limited Liability Company) — the standard COP-wide structure across Spain, France, Italy, Portugal and the US. Use `LLC` directly in Spanish copy.
+- `membership interest` — the COP-wide term for what each co-owner holds in the LLC
+- `operating agreement` — the LLC's governing document
 - `escritura ante notario`
 - `Registro de la Propiedad`
 

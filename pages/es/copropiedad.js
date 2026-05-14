@@ -56,7 +56,7 @@ export default function CopropiedadPillar() {
                   name: '¿Cómo se estructura legalmente la copropiedad en España?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'La estructura más común en España es una Sociedad Limitada (SL) que es titular registral de la vivienda. Cada copropietario adquiere participaciones de la SL proporcionales a su fracción (típicamente 1/8). El Código Civil español (Artículo 392 y siguientes) regula la copropiedad como figura jurídica.',
+                    text: 'La estructura utilizada de forma homogénea en toda nuestra cartera internacional es una LLC (Limited Liability Company) constituida específicamente para el inmueble — en España como en Francia, Italia, Portugal o Estados Unidos. La LLC es titular registral de la vivienda y cada copropietario adquiere un membership interest proporcional a su fracción (típicamente 1/8). El Código Civil español (Artículo 392 y siguientes) regula la copropiedad como figura jurídica subyacente.',
                   },
                 },
                 {
@@ -64,7 +64,7 @@ export default function CopropiedadPillar() {
                   name: '¿Qué impuestos pago al comprar una fracción?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'En la compra de participaciones de una SL se paga el Impuesto sobre Transmisiones Patrimoniales (ITP) sobre el valor de las participaciones, no sobre el inmueble entero. Anualmente, el copropietario asume su parte proporcional del IBI (impuesto local) y, si es no residente, del IRPF de no residentes.',
+                    text: 'En la compra de un membership interest en una LLC a la que se aplica el régimen de sociedades con predominio inmobiliario, se paga el Impuesto sobre Transmisiones Patrimoniales (ITP) sobre el valor del membership interest, no sobre el inmueble entero. Anualmente, el copropietario asume su parte proporcional del IBI (impuesto local) y, si es no residente, del IRPF de no residentes.',
                   },
                 },
                 {
@@ -245,30 +245,35 @@ export default function CopropiedadPillar() {
 
           {/* 4. Legal model ─────────────────────────────────────────────── */}
           <section id="legal">
-            <h2>4. Modelo legal en España: la SL y sus alternativas</h2>
+            <h2>4. Modelo legal: la LLC, estructura única en toda la cartera</h2>
             <p>
-              El modelo más utilizado en España para articular la copropiedad de viviendas es
-              la <strong>Sociedad Limitada (SL)</strong>. Funciona así:
+              El modelo utilizado de forma homogénea en toda nuestra cartera internacional —
+              en España, Francia, Italia, Portugal y Estados Unidos — es la <strong>LLC
+              (Limited Liability Company)</strong> constituida específicamente para el
+              inmueble. Funciona así:
             </p>
             <ul>
-              <li>Se constituye una SL cuyo único activo es la vivienda.</li>
-              <li>La SL es titular registral del inmueble en el Registro de la Propiedad.</li>
-              <li>Las participaciones de la SL se dividen en 8 partes iguales (o en el número de fracciones que tenga la propiedad).</li>
-              <li>Cada copropietario adquiere las participaciones correspondientes a su fracción —típicamente 1/8 = 12,5% de las participaciones de la SL.</li>
-              <li>La compra de participaciones se formaliza ante notario y se inscribe en el Registro Mercantil.</li>
+              <li>Se constituye una LLC cuyo único activo es la vivienda.</li>
+              <li>La LLC es titular registral del inmueble en el Registro de la Propiedad.</li>
+              <li>Los derechos en la LLC se dividen en 8 <em>membership interests</em> iguales (o en el número de fracciones que tenga la propiedad).</li>
+              <li>Cada copropietario adquiere el membership interest correspondiente a su fracción — típicamente 1/8 = 12,5% de los intereses de la LLC.</li>
+              <li>La compra del membership interest se formaliza ante notario y se inscribe debidamente.</li>
             </ul>
             <p>
-              <strong>¿Por qué la SL y no la copropiedad directa proindiviso?</strong> Porque
-              la SL aísla la propiedad del riesgo personal de cada copropietario, simplifica la
-              transferencia de fracciones, formaliza claramente los derechos de uso a través
-              de los estatutos sociales, y resulta fiscalmente más eficiente en la mayoría de
-              los casos. Existen alternativas (proindiviso clásico, comunidad de bienes,
-              SC/SCP), pero la SL es el estándar profesional.
+              <strong>¿Por qué la LLC y no la copropiedad directa proindiviso?</strong> Porque
+              la LLC aísla la propiedad del riesgo personal de cada copropietario (limita la
+              responsabilidad al membership interest), simplifica la transferencia de
+              fracciones, formaliza claramente los derechos de uso a través del operating
+              agreement, ofrece coherencia jurídica de un país a otro, y resulta fiscalmente
+              eficiente en la mayoría de los casos. Las figuras tradicionales del Código Civil
+              español para titularidad compartida pueden funcionar entre familiares cercanos,
+              pero carecen de la protección de responsabilidad y de la gobernanza estructurada
+              que ofrece una LLC profesional.
             </p>
             <p>
               Las decisiones importantes (vender la propiedad, hacer reformas estructurales)
-              requieren mayoría cualificada de copropietarios, según los estatutos. La gestión
-              ordinaria está delegada al operador.
+              requieren mayoría cualificada de miembros, según el operating agreement. La
+              gestión ordinaria está delegada al operador.
             </p>
           </section>
 

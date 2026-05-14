@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweden  Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Explore sweden Fractional Ownership Properties for a luxurious holiday home without the hassle of full ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Sweden  Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Sweden?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Sweden Fractional Ownership — Scandinavian Living, Genuinely Yours</h2>
+<p><strong>Sweden fractional ownership</strong> gives buyers across the UK and Europe a legally deeded route into one of Scandinavia&#8217;s most beautiful and distinctive property markets — not a timeshare, not a holiday club, but a genuine 1/8 share held through a legally structured property company. Each share delivers approximately 45 days of personal use per year, with professional management handling everything from maintenance and insurance to cleaning and seasonal preparation.</p>
+<p>For UK buyers working within their 90-day EU allowance post-Brexit, Sweden fractional ownership aligns almost perfectly with that limit — making it one of the most practical co-ownership structures available. Whether you are drawn to a lakeside retreat in Dalarna, a coastal summer house on the Bohuslän shore, or an apartment in Stockholm&#8217;s vibrant archipelago, deeded fractional property ownership lets you hold a real second home in Sweden for a fraction of the cost of sole ownership. Browse our Sweden properties below and find the co-ownership home that fits your life.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose Sweden Fractional Ownership?</h2>
+<p>Sweden fractional ownership occupies a unique position in the European co-ownership market. Sweden is not an obvious destination for international property buyers — and that is precisely its appeal. The country offers extraordinary natural beauty across four genuinely distinct seasons, a legal system that provides transparent and robust property rights, a culture that deeply values the outdoor second home (the famous <em>sommarstuga</em> or summer cottage), and a level of peace, space, and wilderness that is almost impossible to find elsewhere in Europe at a comparable cost. For buyers who have tired of over-touristed Mediterranean hotspots, Sweden fractional ownership offers something genuinely different: space, silence, clarity, and the kind of restorative natural environment that modern buyers are actively seeking.</p>
+<p>The legal framework for Sweden fractional ownership is clear and well-established. Ownership is registered at a legally structured Swedish property company. You are not purchasing a club membership, a points allocation, or usage rights — you hold a legally documented co-ownership interest in a real Swedish property. This distinction matters enormously: genuine co-ownership is <strong>not a timeshare</strong> in any sense. Your share can be sold on the open market, passed to your heirs, or used as security for lending, subject to individual lender criteria. The legal protections afforded to property owners under Swedish law are among the strongest and most transparent in Europe, and the purchase process — conducted through a licensed Swedish estate agent (mäklare) with a notarised transfer — is familiar, structured, and professionally managed from start to finish.</p>
+<p>For UK buyers in particular, the post-Brexit 90-day EU rule creates a natural ceiling on time spent in Sweden within any twelve-month period. A standard 1/8 Sweden fractional ownership share delivering approximately <strong>45 days per share</strong> per year fits almost exactly within that limit, making co-ownership the most rational and legally aligned property structure for British buyers who want a permanent base in Scandinavia without the complexity and cost of sole ownership. The practical advantages extend beyond visa considerations: professional management removes the burden of maintaining a remote Swedish property across the winter months, handling everything from pipe lagging and snow clearance to annual inspections and insurance renewals, so you arrive to a home that is fully prepared regardless of the season.</p>
+<p>Sweden&#8217;s four-season appeal is genuinely distinctive and sets it apart from purely summer destinations like <a href="/croatia-fractional-ownership-properties/">Croatia</a> or the <a href="/portugal-fractional-ownership-properties/">Portugal</a> coast. Summer brings long days of almost perpetual daylight in the northern regions, ideal for sailing, kayaking, wild swimming, hiking, and the classic Scandinavian summer cottage experience on the archipelago. Autumn offers dramatic foliage across the Swedish forests, alongside excellent fishing and hunting seasons. Winter transforms the landscape into a pristine white world with skiing, cross-country trails, ice fishing, and the extraordinary experience of the northern lights in the far north. Spring arrives with a particular intensity after the long Nordic winter — wildflowers emerging from the forest floor, migratory birds returning, and lakes thawing into perfect reflective mirrors. Sweden fractional ownership delivers access to all four of these experiences within a single property holding, making it one of the most seasonally versatile co-ownership destinations in Europe.</p>
+<p>The cost dynamics of Sweden fractional ownership also deserve consideration. Swedish second home prices, particularly for traditional timber houses on lakes or the coast, have risen substantially over the past decade as domestic demand has intensified. For international buyers, sole ownership of a quality Swedish second home now represents a significant capital commitment. Co-ownership — purchasing a 1/8 share in a fully managed property — provides access to the same quality and the same addresses at a fraction of the outright cost, while still holding a deeded property right that participates in the Swedish market. Rental income from unused weeks is possible on a case-by-case basis, subject to the specific terms of the co-ownership agreement and any applicable local licensing rules, but we are transparent that this is not guaranteed and is always a secondary consideration to the primary benefit of personal use and documented co-ownership. For a full overview of how <a href="/co-ownership-buying-process/">co-ownership buying</a> works from search to title registration, our dedicated guide covers every stage of the process.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Sweden Fractional Ownership — Areas &amp; Regions</h2>
+<p>Sweden&#8217;s geography spans more than 1,500 kilometres from its southernmost tip to the Arctic north, encompassing pine forests, granite archipelagos, glacial lakes, ski mountains, and one of Europe&#8217;s most beautiful capital cities. Sweden fractional ownership properties span this range — from coastal summer houses on the Bohuslän coast to lakeside retreats in Dalarna and urban apartments in Stockholm. Here is a guide to the key regions and what each offers the co-ownership buyer.</p>
+<h3>Stockholm &amp; the Archipelago — Sweden Fractional Ownership</h3>
+<p>Stockholm is one of the most architecturally beautiful capitals in Europe, spread across fourteen islands where Lake Mälaren meets the Baltic Sea. The city&#8217;s unique setting means that the line between urban living and island escape is genuinely blurred — from central Gamla Stan, the archipelago&#8217;s 30,000 islands stretch away to the east, many of them home to historic summer houses and contemporary villas accessible by ferry. Sweden fractional ownership in the Stockholm archipelago is the most internationally sought-after segment of the market, combining the culture, gastronomy, and infrastructure of a world-class capital with immediate access to wild, car-free island living.</p>
+<p>For buyers who visit Stockholm for business as well as leisure — it is a leading tech and design capital — the archipelago co-ownership model is particularly compelling. Your share in a Stockholm archipelago property delivers summers of sailing, wild swimming, and island foraging alongside winters in the city&#8217;s extraordinary Nordic design scene, restaurant culture, and cultural programme. Sweden fractional ownership in this region suits the buyer who wants both worlds: urban capital and genuine wilderness, within thirty minutes of each other.</p>
+<h3>Dalarna — Sweden Fractional Ownership</h3>
+<p>Dalarna is Sweden&#8217;s heartland — a region of deep pine forests, mirror-still lakes, and the traditional red-painted timber farmhouses (falurött) that have become iconic symbols of Swedish rural life. This is where Sweden&#8217;s folk traditions are most vividly preserved, where midsummer celebrations draw people from across the country, and where the landscape reaches a particular quality of stillness that makes it one of the most restorative environments in Europe. Sweden fractional ownership in Dalarna most commonly takes the form of traditional Swedish lakeside houses — wooden properties set directly on the water&#8217;s edge, with private jetties, sauna houses, and unobstructed views across forested lakes.</p>
+<p>The region is also home to Sälen and Idre, two of Sweden&#8217;s most established ski resorts, making Dalarna a genuinely four-season co-ownership destination. In summer, the lakes are warm enough for swimming and the forests are dense with wild berries and mushrooms. In winter, the snow is reliable and the cross-country trail networks are among the best in Scandinavia. Dalarna Sweden fractional ownership suits buyers who want the classic, authentic Swedish countryside experience alongside year-round outdoor activity.</p>
+<h3>Bohuslän Coast — Sweden Fractional Ownership</h3>
+<p>The Bohuslän coast north of Gothenburg is Sweden&#8217;s most celebrated coastal landscape — a rugged, wave-smoothed granite archipelago of skerries, sea stacks, and fishing villages that stretches from Gothenburg to the Norwegian border. Towns like Fjällbacka, Smögen, Hamburgsund, and Grebbestad are beloved by Swedes and increasingly discovered by international visitors for their extraordinary natural beauty, their seafood culture, and their character as working harbours that retain an authentic Scandinavian fishing village identity. Sweden fractional ownership on the Bohuslän coast most commonly takes the form of archipelago houses or coastal cottages — properties set among the rocks with private access to the sea, views across the skerries, and proximity to kayaking, sailing, and lobster fishing.</p>
+<p>The Bohuslän coast is a peak summer destination — July and August on the west coast are among the most social and vibrant in Sweden, with the harbours packed with pleasure boats and the outdoor fish restaurants running at full capacity. Sweden fractional ownership on this coast is ideal for buyers whose primary motivation is the classic Scandinavian summer experience: long evenings on granite rocks, freshly cooked crayfish, and the unique clarity of Nordic coastal light.</p>
+<h3>Åre &amp; the Swedish Mountains — Sweden Fractional Ownership</h3>
+<p>Åre is Sweden&#8217;s premier ski resort and one of Scandinavia&#8217;s most established mountain destinations — a purpose-built mountain town in the Jämtland region with reliable snow from November through April, an impressive vertical drop, and a well-developed après-ski and restaurant culture that attracts buyers from across Europe. Unlike many Alpine resorts, Åre has retained a genuine community character rather than becoming an exclusively tourist settlement: local businesses, cultural events, and a year-round outdoor activity programme (including mountain biking, hiking, and kayaking in summer) make it a true four-season destination. Sweden fractional ownership in Åre and the broader Swedish mountain region is the natural choice for buyers who love skiing and mountain living but want an alternative to <a href="/french-alps-fractional-ownership-properties/">French Alps</a> or <a href="/austria-fractional-ownership-properties/">Austrian</a> properties.</p>
+<p>Åre Sweden fractional ownership properties typically take the form of timber ski chalets or contemporary mountain lodges — well-insulated, beautifully designed Nordic interiors with open fires, underfloor heating, and ski-in/ski-out access where available. The Scandinavian design aesthetic at its finest is perhaps best experienced here: the interplay of raw timber, natural stone, and carefully considered light against a mountain landscape that is dramatic in winter and lush and green in summer.</p>
+<h3>Gotland &amp; the Baltic Islands — Sweden Fractional Ownership</h3>
+<p>Gotland, Sweden&#8217;s largest island, is one of the best-kept secrets in European travel — a mediaeval walled city (Visby, a UNESCO World Heritage Site), limestone landscapes unlike anywhere else in Sweden, sandy beaches, a thriving arts and food culture, and a summer season that draws Sweden&#8217;s most discerning visitors. Gotland Sweden fractional ownership is a niche but genuinely rewarding segment of the market: properties here combine the island&#8217;s extraordinary historical character with modern Scandinavian interior design, often within converted farmhouses or period buildings in the countryside surrounding Visby. The island&#8217;s compact size means that cycling is the primary mode of transport, the beaches are never more than a short ride away, and the pace of life is genuinely unhurried.</p>
+<p>Sweden fractional ownership on Gotland suits buyers who are looking for something genuinely distinctive — a Baltic island with a mediaeval soul and a contemporary arts scene, accessible by a three-hour ferry from Stockholm or a short flight from several Swedish cities. For buyers considering island co-ownership across Europe, Gotland is a compelling alternative to better-known island destinations like <a href="/sardinia-fractional-ownership-properties/">Sardinia</a> or the <a href="/balearics-fractional-ownership-properties/">Balearics</a>.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Sweden Fractional Ownership Works</h2>
+<p>Sweden fractional ownership is structured as a genuine property purchase — <strong>not a timeshare</strong>, not a holiday club, and not a points-based scheme. You purchase a legally registered fraction of a real Swedish property, with your co-ownership rights documented through a legally structured Swedish property company. Swedish property law provides clear protections for all co-owners, and the purchase process is managed by a licensed Swedish estate agent (mäklare) whose professional obligations run to the buyer as well as the seller. Here is how the <a href="/co-ownership-buying-process/">co-ownership buying process</a> works in practice.</p>
+<h3>Browse Sweden Fractional Ownership Properties</h3>
+<p>Start by exploring the available Sweden fractional ownership listings on this page. Each property is presented with detailed descriptions, professional photography, regional information, and co-ownership share pricing. You can filter by region, property type, and lifestyle preference to identify the properties that best match your requirements. Our team at <a href="/about-us/">Co-Ownership Property</a> acts as a buyer&#8217;s agency — our role is to work on your behalf, not the seller&#8217;s — to ensure you find the right Sweden co-ownership property at the right price.</p>
+<h3>Legal Due Diligence &amp; Sweden Fractional Ownership Review</h3>
+<p>Once you identify a property of interest, an independent Swedish property lawyer conducts comprehensive due diligence. This includes verifying the title at Swedish property ownership records, checking for any encumbrances, mortgages, or restrictions on the property, reviewing the co-ownership agreement (which governs usage scheduling, maintenance obligations, decision-making processes, and exit provisions), and confirming compliance with all planning and environmental regulations. The co-ownership legal structure is fully documented before any commitment is made, ensuring every buyer enters the transaction with complete information and full legal protection.</p>
+<h3>Purchase &amp; Title Registration of Your Sweden Fractional Ownership Share</h3>
+<p>Completion of a Sweden fractional ownership purchase follows the standard Swedish property conveyancing process. The transfer deed (<em>köpebrev</em>) is executed and registered at Swedish property ownership records, with your ownership share recorded in your name on the title register. You receive official confirmation of your title entry — proof that your Sweden fractional ownership is a real, deeded property right rather than a contractual usage arrangement. Applicable taxes (stämpelskatt — stamp duty) and registration fees are calculated by your lawyer before completion, with no surprises at the closing stage.</p>
+<h3>Enjoy &amp; Manage Your Sweden Fractional Ownership Property</h3>
+<p>Once the purchase completes, a professional management company takes over all operational responsibility for the property. Your personal weeks — approximately <strong>45 days per share</strong> for a 1/8 Sweden fractional ownership share — are allocated through a fair rotation system, typically determined at the start of each calendar year. The management team handles seasonal preparation (including winterisation and spring reopening), cleaning between stays, maintenance and repairs, insurance administration, and all statutory requirements. You arrive to a property that is fully prepared for your arrival, clean, warm, and operational, regardless of the season or how remote the location.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Sweden Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>Sweden fractional ownership sits at a genuinely interesting intersection of lifestyle quality, financial prudence, and long-term property market participation. The Swedish second home market has experienced substantial price appreciation over the past two decades, driven by intense domestic demand for the <em>sommarstuga</em> and the structural limitation on new lakeside and coastal development created by Sweden&#8217;s strict shoreline protection laws (strandskyddslagen). This restriction on new supply along the most desirable waterfronts creates a structural underpinning for values in the segments where Sweden fractional ownership is most active — the very properties that are hardest to replace are the ones most worth holding.</p>
+<p>The lifestyle case for Sweden fractional ownership is equally compelling. Owning a fraction of a Swedish property — whether a lakeside timber house in Dalarna, a granite archipelago cottage outside Stockholm, a coastal summer house on the Bohuslän shore, or a ski chalet near Åre — is not simply a property transaction. It is access to a way of life: the extended Scandinavian summer evening, the silence of a northern forest, the ritual of the weekly sauna followed by a plunge into a cold lake, the particular quality of Nordic light that photographers and artists travel from around the world to experience. These are experiences that cannot be replicated by hotel stays or short-let rentals, and they are experiences that only become genuinely available through ownership — the sense that this place is yours, that you belong here, that you will return again and again across the years and the seasons.</p>
+<p>Sweden fractional ownership also aligns well with the values and priorities that define the modern second home buyer. Sweden consistently ranks among the world&#8217;s happiest countries, with world-class healthcare, an outstanding education system, low crime, and a national culture that prioritises wellbeing, outdoor living, and sustainable land use. Spending time in Sweden — particularly in the countryside and on the coast — has a demonstrable restorative effect that buyers often describe as transformative: the ability to genuinely switch off from professional and urban pressures in a way that no amount of productivity optimisation can replicate. This is the lifestyle argument for Sweden fractional ownership, and it is one that resonates powerfully with professional buyers aged 35–60 who have the means to own but want the ownership experience to feel different from what they already have at home.</p>
+<p>From an investment and legal perspective, Sweden fractional ownership benefits from Sweden&#8217;s strong institutional and legal infrastructure. <strong>documented co-ownership</strong> — recorded at Sweden&#8217;s highly reliable property administration system — provides a level of title security that ranks among the highest in Europe. Swedish property law is clear on the rights of co-owners (samägande), with the Co-ownership Act (Samäganderättslagen) establishing the legal framework for jointly owned property, including the right of any co-owner to apply for a court-ordered sale if co-owners cannot reach agreement. This statutory framework — while rarely invoked in a well-structured co-ownership arrangement — provides a meaningful backstop protection for every co-owner&#8217;s rights. It means you are never trapped in a co-ownership arrangement against your will, and your investment is always accessible to you as a liquid, transferable asset.</p>
+<p>For buyers comparing Sweden fractional ownership with similar opportunities elsewhere in Europe — with <a href="/germany-fractional-ownership-properties/">Germany</a>, with <a href="/austria-fractional-ownership-properties/">Austria</a>, or with the <a href="/french-alps-fractional-ownership-properties/">French Alps</a> — Sweden offers a distinct and genuinely underserved proposition: extraordinary natural beauty, very high legal standards, strong cultural identity, and a second home market that has historically been dominated by domestic buyers and is now, for the first time, attracting serious international interest. Early entry into an emerging international co-ownership market, backed by one of Europe&#8217;s most robust legal systems, is a compelling strategic position for the discerning fractional property buyer.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Sweden Fractional Ownership &amp; Related Destinations</h2><div class="dest-explore-grid"><span class="dest-explore-card">All Co-Ownership Destinations</span><a href="/germany-fractional-ownership-properties/" class="dest-explore-card">Germany Fractional Ownership &rarr;</a><a href="/austria-fractional-ownership-properties/" class="dest-explore-card">Austria Fractional Ownership &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a><a href="/croatia-fractional-ownership-properties/" class="dest-explore-card">Croatia Fractional Ownership &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Sweden Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly is Sweden fractional ownership and is it the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Sweden fractional ownership is the purchase of a legally defined share — typically a 1/8 share — in a real Swedish property, with your ownership recorded at a legally structured Swedish property company. You are a co-ownership interest holder. This is fundamentally and completely different from a timeshare. A timeshare conveys usage rights, not property ownership — your name is not on a title register, you hold no transferable asset, and your ability to exit the arrangement is typically contractually constrained and practically very difficult.</p>
+<p>Sweden fractional ownership gives you a real legal interest in the property: you can sell your share on the open market at any time, you can pass it to your heirs under your will, and your rights are governed by Swedish property law (including the Co-ownership Act, Samäganderättslagen) rather than a commercial operator&#8217;s terms and conditions. The timeshare industry has a well-documented history of aggressive sales tactics, opaque ongoing fees, and extremely poor exit options. Sweden fractional ownership — genuine co-ownership — is the structural and legal opposite in every meaningful respect. Sweden fractional ownership is a real property asset; a timeshare is not.</p></div></details><details class="dest-faq-item"><summary><h3>How many days can I use my Sweden fractional ownership property each year?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard 1/8 Sweden fractional ownership share entitles each co-owner to approximately 45 days of personal use per year — equivalent to roughly six to seven weeks. This is calculated on the basis of the usable year divided equally across eight co-owners. The specific weeks you receive in each calendar year are determined through a fair rotation system, typically established at the start of each year, ensuring that over time every co-owner experiences different seasons and different times of the year.</p>
+<p>Some Sweden fractional ownership arrangements also allow co-owners to swap weeks with each other by mutual agreement, or to carry forward unused days subject to the specific terms of the co-ownership agreement. Your weeks are allocated in advance — typically for the full calendar year — giving you the predictability to make travel arrangements and plan your time in Sweden without last-minute uncertainty. The co-ownership agreement you receive at purchase will set out the exact scheduling mechanism for the specific property you are buying.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK buyers own property in Sweden after Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — UK buyers can own property in Sweden without restriction. Sweden imposes no nationality restrictions on property ownership, and the Brexit changes to the UK&#8217;s relationship with the European Union do not affect the ability of British nationals to buy, own, or sell property in Sweden. The purchase process, the legal framework, and the title registration at Swedish property ownership records are equally open to UK buyers as to EU citizens and Swedish nationals.</p>
+<p>What Brexit does affect is the ability of UK nationals to spend time in Sweden: as citizens of a non-EU country, UK nationals are subject to the Schengen Area&#8217;s 90-day rule, which limits stays to 90 days in any 180-day period across the Schengen Area as a whole. This is precisely where Sweden fractional ownership aligns so well with the practical realities of post-Brexit travel: a 1/8 share delivering approximately 45 days of personal use per year sits comfortably within that 90-day window, making co-ownership one of the most practical and legally aligned property ownership structures for UK buyers who want a permanent Swedish base.</p></div></details><details class="dest-faq-item"><summary><h3>How does ownership work legally in Sweden — how is it registered?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Sweden fractional Your co-ownership interest is formally documented through a legally structured Swedish property company. Your ownership share is recorded on the property&#8217;s title register (fastighetsregistret) in your name, giving you a legally recognised and publicly recorded property right that is enforceable under Swedish law.</p>
+<p>The transfer of ownership is conducted through a licensed Swedish estate agent (mäklare) who has professional legal obligations to all parties in the transaction, including the buyer. The purchase deed (köpebrev) is executed and then registered at Swedish property ownership records, typically within a few weeks of completion. This process is identical to any other Swedish residential property transaction — there is nothing novel or experimental about Sweden fractional ownership from a legal perspective; it is simply an application of well-established Swedish property law to a co-ownership structure.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Sweden fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — resale rights are a defining and non-negotiable feature of deeded Sweden fractional ownership. Because your 1/8 share is registered at Swedish property ownership records, it is a transferable legal property interest that can be sold to any willing buyer through a standard Swedish property sale process. You are not dependent on a commercial operator&#8217;s buyback programme, you are not subject to a lock-in period imposed by the structure itself, and you do not require the permission of a third party to sell. Your exit from Sweden fractional ownership is, in principle, clear and professionally managed — involving a licensed mäklare, a purchase deed, and a registration at Swedish property ownership records.</p>
+<p>In practice, most co-ownership agreements include a right of first refusal for existing co-owners — meaning you should first offer your share to the other owners before listing it on the open market. This is standard good practice in co-ownership structures and is designed to ensure that the group of co-owners retains some influence over who joins the ownership. If none of the existing co-owners wish to purchase, you are free to sell on the open market at a price that reflects current Swedish property values.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Sweden fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The ongoing costs of Sweden fractional ownership are proportional to your share and typically include your portion of the annual management fee, buildings and contents insurance, property taxes (fastighetsavgift — Sweden&#8217;s property fee, which is relatively modest), and any maintenance or repair costs that arise over the year. For lakeside or coastal properties, additional costs may include boat and dock maintenance, septic system servicing, and seasonal winterisation and opening. These costs are divided equally across all co-owners, making them substantially lower per person than the equivalent cost for a sole owner.</p>
+<p>Co-owners should also be aware of Swedish income tax obligations if rental income is received from unused weeks, and the potential application of Swedish capital gains tax (kapitalvinstskatt) on disposal of the share. Sweden has tax treaties with the UK, Germany, and most other European countries that typically prevent double taxation, but we strongly recommend taking independent tax advice — both in Sweden and in your country of residence — before purchasing. Co-Ownership Property does not provide tax advice but can refer buyers to advisers experienced in Swedish property and co-ownership taxation.</p></div></details><details class="dest-faq-item"><summary><h3>Who manages the Sweden fractional ownership property when I&#8217;m not there?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Each Sweden fractional ownership property is managed by a professional property management company on behalf of all co-owners. Given the demands of maintaining a Swedish property through the winter months — which can involve heavy snowfall, extreme temperatures, potential pipe freezing, and the need for specialist winterisation — professional management is not simply a convenience but a genuine necessity. The management company handles: seasonal opening and closing of the property, regular maintenance and inspection throughout the year, cleaning and preparation before each occupancy, insurance administration, payment of utility bills and property fees, and liaison with local tradespeople for any repairs.</p>
+<p>Management costs are shared equally across all co-owners and are set out in the co-ownership agreement. The co-owners collectively have the right to replace the management company if the service is not satisfactory, typically by majority vote — giving you a meaningful governance right rather than simply accepting whatever a third party imposes. When evaluating any Sweden fractional ownership property, reviewing the management company&#8217;s track record and the terms of the management agreement is an important part of the due diligence process.</p></div></details><details class="dest-faq-item"><summary><h3>Can I earn rental income from my Sweden fractional ownership weeks?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>In some cases, yes — but we are always transparent that rental income is not guaranteed and is always a secondary consideration in Sweden fractional ownership. The possibility of renting unused weeks depends on several factors: the specific terms of the co-ownership agreement (which may or may not permit rental to third parties), the applicable Swedish planning and rental licensing requirements (which vary by municipality and property type), and the practical rental market for the specific property and location.</p>
+<p>Sweden does have a generally permissive approach to private residential letting compared to some other European countries — there are no equivalent restrictions to, for example, the strict 90-day short-let cap in London or the complex licensing requirements in the <a href="/balearics-fractional-ownership-properties/">Balearics</a>. However, the primary case for Sweden fractional ownership is personal use and documented co-ownership, not rental yield. We never market Sweden co-ownership on the basis of projected rental income, and we encourage buyers to approach any income possibility as a potential bonus rather than a financial plan.</p></div></details><details class="dest-faq-item"><summary><h3>What happens to my Sweden fractional ownership share when I die?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Because Sweden fractional ownership is a deeded property right registered at Swedish property ownership records, your share forms part of your estate on death and passes to your heirs under the terms of your will or, in the absence of a valid will, under the applicable inheritance laws. Your beneficiaries inherit a real property interest — not a contractual right — and can choose to hold it as a co-owner in their own name, sell it to a third party, or offer it to the existing co-owners under any right of first refusal in the agreement.</p>
+<p>For UK buyers, the interaction of Swedish succession law (which applies to real property located in Sweden) with UK inheritance law requires careful estate planning. Sweden has specific rules about how property located in Sweden passes on death, and these may interact in complex ways with your existing will, any trust structures you have in place, and the inheritance tax position in your country of residence. We strongly recommend taking specialist legal advice on this before purchasing Sweden fractional ownership, and keeping your will updated to explicitly address your Swedish property interest.</p></div></details><details class="dest-faq-item"><summary><h3>What types of properties are available for Sweden fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Sweden fractional ownership spans a genuinely diverse range of property types, reflecting the extraordinary variety of the Swedish landscape and the country&#8217;s strong second home culture. In the countryside and lake regions, the classic format is the Swedish timber house (typically built in the iconic Falun red or natural timber finishes) set directly on a lake, with a private jetty, a wood-fired sauna, and direct access to the water. These properties are deeply embedded in Swedish cultural identity and represent the quintessential Swedish second home experience.</p>
+<p>In the archipelago regions around Stockholm and on the Bohuslän coast, Sweden fractional ownership properties typically take the form of island or coastal cottages and villas — granite rock settings, sea views, boat access to neighbouring islands. In the mountain regions (Åre, Sälen, Idre), ski chalets and mountain lodges dominate — well-insulated, Nordic-designed properties with open fires and direct access to the ski area. In Gotland and on other Swedish islands, converted farmhouses, historic stone buildings, and contemporary villas all feature. The range is wide: Sweden fractional ownership is not limited to any single property type or format, and the listings on this page reflect current available stock across multiple regions and property categories.</p></div></details><details class="dest-faq-item"><summary><h3>How does Sweden fractional ownership compare to renting a holiday home in Sweden?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The comparison between Sweden fractional ownership and holiday rental is one that every prospective buyer should consider honestly. Holiday rentals in Sweden — particularly premium lakeside houses and archipelago properties — are expensive, particularly during the peak summer weeks when demand from domestic buyers is at its highest. A week in a good-quality Swedish summer house in a sought-after location can cost thousands of pounds or euros during July, and the best properties are booked months or years in advance. Over a ten-year horizon of regular visits, the cumulative cost of holiday rental at this level is very significant.</p>
+<p>Sweden fractional ownership, by contrast, provides the same access — or better — for a capital investment that remains yours as a transferable asset, participating in the Swedish property market. The cost of your stays is not a recurring cash outflow but an allocation of your ownership rights in a real asset. Beyond the financial comparison, there is a qualitative dimension that buyers consistently describe as decisive: the difference between staying somewhere and having somewhere. A holiday rental is always someone else&#8217;s property; a Sweden fractional ownership share is yours — furnished to your taste, familiar, predictable, and available to you year after year without the uncertainty of availability or the escalation of rental prices.</p></div></details><details class="dest-faq-item"><summary><h3>How do I get started with Sweden fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Getting started with Sweden fractional ownership is straightforward. The first step is to browse the available properties using the listings on this page, filtering by region, property type, and lifestyle preference to identify the Sweden co-ownership properties that best match your requirements. Once you have identified one or more properties of interest, the next step is to arrange a consultation with our team at <a href="/">Co-Ownership Property</a> — we act as a buyer&#8217;s agency, meaning our role is to help you find and secure the right property, not to sell you a specific one.</p>
+<p>Before committing to any Sweden fractional ownership purchase, we strongly recommend instructing an independent Swedish property lawyer to review the co-ownership agreement, the title register at Swedish property ownership records, and any other legal documents associated with the property. Legal costs for a fractional purchase in Sweden are comparable to those for a standard Swedish residential transaction, and the investment in independent legal advice is essential. We also recommend taking tax advice from a specialist with experience in Swedish property and international co-ownership before completing. Use the contact form below to start your Sweden fractional ownership journey — we are happy to answer questions at any stage, with no obligation, and our team is experienced in guiding buyers from first enquiry through to completion.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

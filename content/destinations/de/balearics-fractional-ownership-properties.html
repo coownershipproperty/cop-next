@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balearics Fractional Ownership properties | Co-Ownership Property</title>
+    <meta name="description" content="Discover premium co-ownership properties in the Balearic Islands including Ibiza, Menorca &amp; Mallorca. Luxury villas &amp; apartments available through fractional ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Balearics Fractional Ownership properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Balearics?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Balearics Fractional Ownership — Own a Piece of the Mediterranean&#8217;s Most Coveted Islands</h2>
+<p><strong>Balearics fractional ownership</strong> is the most intelligent way to secure a genuine stake in one of Europe&#8217;s most desirable archipelagos — without bearing the full cost of sole ownership. Through a <strong>1/8 share model</strong> you receive your name through the property structure (the Spanish <em>property ownership records</em>), full inheritance and resale rights, and approximately 6–7 weeks per year in your own home. This is real, co-ownership interest holdership — not a timeshare, not a club membership, not usage rights.</p>
+<p>For UK buyers navigating the post-Brexit 90-day EU limit, Balearics co-ownership is the most practical and cost-efficient route to owning a Mediterranean holiday home across Mallorca, Menorca, Ibiza, and Formentera. Browse our Balearics properties below and discover shared ownership on the islands on your own terms.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Balearics Fractional Ownership Makes Sense</h2>
+<p><strong>Balearics fractional ownership</strong> has become the defining route for discerning buyers who want genuine ownership in one of Europe&#8217;s most exclusive property markets. Stretching across the western Mediterranean, the Balearic Islands — <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a>, <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a>, <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a>, and <a href="/formentera-fractional-ownership/" class="bal-il">Formentera</a> — represent a rare combination of natural beauty, world-class infrastructure, and robust long-term property values. Balearics co-ownership allows you to enter this market at a fraction of the outright purchase cost, while retaining every legal and financial attribute of real property ownership: your name on the deed, your share on the land registry, your asset to sell or pass on.</p>
+<p>The islands enjoy an enviable climate — over 300 days of sunshine per year, genuinely mild winters, and warm Mediterranean summers that stretch generously from May through October. For lifestyle buyers, this is a year-round destination that rewards visits in every season. Spring brings wildflowers across <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a>&#8216;s rural interior and quiet coves ideal for early-season swimming. High summer delivers the full Mediterranean spectacle — crystalline water, vibrant beach clubs, and long golden evenings. Autumn is arguably the most underrated season: warm seas, uncrowded restaurants, and a local pace of life that peak summer visitors rarely experience. Even winter has its pleasures — <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a>&#8216;s almond blossom season in January and February draws visitors from across Europe for good reason.</p>
+<p>Connectivity from the UK is exceptional. Direct flights from London Heathrow, Gatwick, Stansted, Luton, Manchester, Birmingham, Bristol, Edinburgh, and dozens of regional airports reach Palma de Mallorca in under two and a half hours. <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> is similarly served, and <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a> is reachable in around two hours from many UK airports, particularly during the peak season. This ease of access is one of the key reasons the Balearic Islands consistently rank among the most sought-after destinations for British second-home buyers — and why Balearics fractional property ownership represents such a compelling proposition for families who want to maximise their time in the sun without maximising their outgoings.</p>
+<p>Beyond lifestyle appeal, <strong>Balearics fractional ownership</strong> addresses a structural shift in how UK buyers approach European second homes in the post-Brexit era. British passport holders are now limited to a combined 90 days across all Schengen Area countries per 180-day rolling period. For the overwhelming majority of UK buyers, sole ownership of a Balearics property represents a significant financial commitment — purchase costs, annual running costs, management, maintenance — for a property that can only legally be used for 90 days in total across all EU countries combined. A standard 1/8 share delivering approximately 6–7 weeks (42–49 days) per year is therefore not just financially efficient; it is precisely calibrated to the modern British buyer&#8217;s realistic usage. Balearics co-ownership removes the guilt and the cost of weeks left empty, and replaces it with a model that works.</p>
+<p>Professional property management is integral to every Balearics co-ownership arrangement and forms an essential part of why the model works so smoothly in practice. A dedicated management company handles all maintenance and repairs, professional cleaning before and after every stay, local Spanish tax compliance (IBI, rubbish collection levies), building and contents insurance, utility management, and the annual scheduling of usage weeks across all eight co-owners. When you arrive at your Balearics fractional ownership property, everything is in order — the pool is clean, the beds are made, the kitchen is stocked to your preferences. When you leave, there is nothing to worry about. This is Balearics shared ownership that genuinely delivers on its promise.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Balearics Fractional Ownership — Islands &amp; Key Areas</h2>
+<p>The four main Balearic Islands each offer a profoundly different lifestyle and property character, and <strong>Balearics fractional ownership</strong> spans all of them. Whether you are drawn to the cosmopolitan sophistication of <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a>&#8216;s southwest coast, the unspoilt UNESCO-protected coves of <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a>, the electric creative energy of <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a>, or the barefoot exclusivity of <a href="/formentera-fractional-ownership/" class="bal-il">Formentera</a>, there is a Balearics co-ownership opportunity to match your vision of a Mediterranean holiday home.</p>
+<h3><a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> Fractional Ownership</h3>
+<p><a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> is the jewel of Balearics fractional property ownership and the most diverse of the four islands. From the golden beaches of the island&#8217;s south and the dramatic Serra de Tramuntana mountain range in the northwest — a UNESCO World Heritage Site — to the chic marina villages of the southwest coast, <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> delivers extraordinary variety within a single destination. The southwest is the most established zone for Balearics fractional real estate: <a href="/andratx-fractional-ownership-properties-co-ownership-property/" class="bal-il">Andratx</a> and Port d&#8217;Andratx offer dramatic cliff-backed scenery and a sophisticated yachting village atmosphere; <a href="/santa-ponsa-fractional-ownership-properties/" class="bal-il">Santa Ponsa</a> combines excellent beaches with easy access to Palma. To the north, <a href="/pollenca-port-de-pollenca-fractional-ownership-properties/" class="bal-il">Pollença and Port de Pollença</a> appeal to those seeking a quieter, more cultured atmosphere — the weekly Sunday market, the Calvari steps, and the pine-fringed bay are hallmarks of one of the island&#8217;s most beloved corners. <a href="/alcudia-port-dalcudia-fractional-ownership-properties/" class="bal-il">Alcúdia and Port d&#8217;Alcúdia</a> offer family-friendly beaches and Roman heritage, while <a href="/santanyi-fractional-ownership-properties/" class="bal-il">Santanyí</a> in the south combines traditional village life with access to some of the island&#8217;s most photographed coves. Palma itself deserves special mention — a world-class European city with a magnificent Gothic cathedral, a thriving food scene, designer boutiques, and a marina that hums with energy year-round. <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca fractional ownership</a> is available across all of these areas, with properties spanning villas, townhouses, and apartments.</p>
+<h3><a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a> Fractional Ownership</h3>
+<p>Designated a UNESCO Biosphere Reserve, <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a> occupies a unique position in the Balearics fractional ownership landscape. Where <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> offers scale and variety and <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> offers glamour, <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a> offers something rarer: genuine, unhurried Mediterranean tranquillity in a landscape that has been actively protected from overdevelopment. The island is home to over 100 beaches, many accessible only on foot or by boat — horseshoe coves of turquoise water flanked by limestone cliffs and pine forest. Mahón, the island&#8217;s capital, sits at the head of one of Europe&#8217;s finest natural harbours and combines elegant Georgian architecture (a legacy of British rule) with a thriving local food culture. Ciutadella, the former capital on the western tip, is a beautifully preserved baroque city with a cathedral, noble palaces, and an exceptional local restaurant scene. The island&#8217;s Bronze Age heritage — talayotic settlements, taulas, and navetes — adds a layer of cultural depth unique among the Balearics. For buyers seeking <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca fractional ownership</a>, the island represents the purest expression of what the Mediterranean once was — and still is.</p>
+<h3><a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> Fractional Ownership</h3>
+<p><a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a>&#8216;s global reputation for nightlife and music culture sits alongside a sophisticated, design-led property market that makes the island one of the most compelling destinations for Balearics fractional real estate. The south and west of the island — Playa d&#8217;en Bossa, San Antonio, Sant Josep — deliver the full summer energy experience, while the island&#8217;s north and interior offer a dramatically different character. The hills above Santa Eulària, the bohemian village of Santa Gertrudis, the rural lanes around San Carlos with their famous hippie market — this is a quieter, more contemplative <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> that appeals to families, designers, and lifestyle buyers seeking privacy and beauty without sacrificing the island&#8217;s inherent vibrancy. Ibiza Town itself — Eivissa — is a UNESCO World Heritage Site, its Dalt Vila (upper town) a remarkably preserved medieval fortress with views across the bay to <a href="/formentera-fractional-ownership/" class="bal-il">Formentera</a>. <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza fractional ownership</a> appeals to those who want to own a piece of one of Europe&#8217;s most internationally iconic destinations.</p>
+<h3><a href="/formentera-fractional-ownership/" class="bal-il">Formentera</a> Fractional Ownership</h3>
+<p>The smallest, most exclusive, and least developed of the Balearic Islands, <a href="/formentera-fractional-ownership/" class="bal-il">Formentera</a> occupies a special place in the Balearics fractional ownership market. Accessible only by ferry from <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> — a 30-minute journey — the island&#8217;s very inaccessibility is part of its charm. Strict planning regulations mean that almost no new development is permitted, and the island has retained a quality of untouched natural beauty that is almost impossible to find elsewhere in the western Mediterranean. The beaches — Es Pujols, Ses Illetes, Playa de Migjorn — are genuinely Caribbean in character, with shallow turquoise water over white sand extending for kilometres. The island is flat, pine-scented, and almost entirely free of mass tourism. For those seeking the pinnacle of understated luxury in Balearics fractional real estate, <a href="/formentera-fractional-ownership/" class="bal-il">Formentera</a> is unmatched.</p>
+<h3>Palma de Mallorca — City Fractional Ownership</h3>
+<p>Palma de Mallorca deserves standalone recognition as a city destination for Balearics co-ownership buyers. Beyond its role as the islands&#8217; main transport hub, Palma is a genuinely world-class European city — one that Travel + Leisure and Condé Nast Traveller have repeatedly placed among Europe&#8217;s finest urban destinations. The old city, centred on the magnificent 13th-century La Seu Cathedral and the adjacent Almudaina Palace, is a labyrinth of atmospheric lanes, independent boutiques, and outstanding restaurants. The Passeig del Born is Palma&#8217;s elegant answer to Las Ramblas. The marina and waterfront district have been transformed over the past decade into one of the Mediterranean&#8217;s most desirable urban-coastal zones. For Balearics fractional property ownership buyers who value city culture alongside beach proximity — and who want to visit in February as comfortably as in August — <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> and Palma in particular offer a compelling year-round proposition.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Balearics Fractional Ownership Works</h2>
+<p><strong>Balearics fractional ownership</strong> is built on a clear, legally robust framework that delivers all the benefits of owning a Mediterranean property without the complexity, cost, and burden of sole ownership. Here is precisely how Balearics co-ownership is structured — and why it works so well for buyers from the UK and across Europe.</p>
+<h3>documented co-ownership through a legally structured property company</h3>
+<p>Every Balearics fractional ownership purchase is structured as genuine co-ownership under Spanish property law. Your name — alongside up to seven other co-owners — is registered on the <em>property ownership records</em> (Spanish Ownership Documentation) as a fractional co-owner of the property. You hold a legally defined share of the property title. This is emphatically not a timeshare — there is no points system, no resort club, no usage rights that expire or diminish. Your fractional title is a real property asset governed by Spanish property law, with all the protections, rights, and obligations that entails. The legal structure used for Balearics co-ownership is well-established, transparent, and fully recognised by Spanish courts and lenders. Many buyers find this the single most reassuring aspect of the model: it is simply co-ownership of a real property, formalised on the land registry, exactly as you would expect of any other real estate purchase.</p>
+<h3>Your 1/8 Share — Weeks, Rights and Flexibility</h3>
+<p>The standard Balearics fractional ownership structure is a 1/8 share, granting approximately 6–7 weeks of usage per year — around 45 days. Some properties on the platform offer larger fractional shares, up to 1/4 or in some cases 1/2, for buyers who want more time in a particular location. Usage weeks are allocated through a structured annual scheduling system operated by the professional management company. The scheduling process is designed to be fair and transparent: peak weeks — July, August, and key holiday periods — are distributed on a rotating priority basis so that every co-owner receives equitable access to high-demand slots over time. You book your weeks in advance, receive confirmation, and that time is guaranteed. There is no competing with other guests, no points to redeem, no availability uncertainty. Your Balearics fractional ownership weeks are yours.</p>
+<h3>Professional Full-Service Property Management</h3>
+<p>All Balearics co-ownership properties are managed end-to-end by specialist professional property management companies with deep local knowledge and experience. Management services cover: thorough professional cleaning before and after every stay; all maintenance and repair work; building and contents insurance; Spanish local taxes including IBI (Impuesto sobre Bienes Inmuebles) and the municipal rubbish collection levy; utility management including electricity, water, and internet; and co-ordination of any capital improvements agreed by the co-ownership group. Your annual cost of ownership is your proportional 1/8 share of these combined overheads — a figure that is disclosed fully and transparently before you purchase. For most buyers, the annual running cost of a Balearics fractional ownership share is substantially lower than the cost of renting a comparable property for the same number of weeks, while delivering the added benefit of capital ownership and long-term asset value.</p>
+<h3>Resale, Inheritance &amp; Rental Income Rights</h3>
+<p>Your Balearics fractional ownership share is a transferable property asset. You may sell your share at any time on the open market — through our platform, via a specialist fractional ownership broker, or independently. The sale is completed through a standard Spanish property conveyancing process with a notary, and Spanish capital gains tax applies to any gain. Your share may also be bequeathed through your estate under Spanish inheritance law — it is, after all, a registered property asset. Regarding rental income: some Balearics co-ownership holders do generate income by renting out unused weeks. However, the Balearic Islands regional government has implemented some of Spain&#8217;s strictest short-term rental licensing regulations, particularly in <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> and <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a>. Rental licensing availability varies by property, municipality, and current regional legislation. Always confirm the rental licensing position of a specific property before purchasing if rental income is part of your decision-making.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Balearics Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>The Balearic Islands property market is one of the most fundamentally sound in Europe from a long-term investment perspective. Demand across all four islands — but particularly in premium zones of <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> and <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> — consistently outstrips supply. This structural imbalance is underpinned by strict planning regulations that severely limit new development, particularly in coastal and rural areas. The result is a market in which the supply of quality properties is effectively capped while international demand — from the UK, Germany, Scandinavia, and beyond — continues to grow. For buyers considering <strong>Balearics fractional real estate</strong> as a long-term investment, these fundamentals provide a context that few European markets can match.</p>
+<p>From a pure lifestyle standpoint, Balearics co-ownership is about far more than the weeks you spend in the property. It is about the rhythm of island life becoming genuinely yours. Families who own a fractional share in the Balearics build a relationship with a place across years and decades — children grow up knowing these beaches, these villages, these restaurants. The familiarity of returning to your own home — rather than a different rental each year — creates a quality of experience that is difficult to quantify but immediately felt. Parents arrive to a property that meets their exact preferences; children run to the pool they already know. This is the lifestyle dividend of Balearics fractional ownership, and it is one of the most compelling arguments for the model.</p>
+<p>For couples and independent travellers, the Balearic Islands offer an extraordinary range of experiences across every week of the season. <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a>&#8216;s culinary scene has undergone a remarkable transformation over the past decade — the island now boasts multiple Michelin-starred restaurants, a thriving local market culture, and a farm-to-table movement anchored in exceptional local produce: Tramuntana olive oil, Sobrassada, Mahón cheese from <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a>, <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a>&#8216;s extraordinary seafood. Cycling in <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a>&#8216;s Tramuntana has become a world-class sport tourism phenomenon. <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a>&#8216;s protected <em>Camí de Cavalls</em> coastal trail encircles the entire island on foot or horseback. <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a>&#8216;s art galleries and cultural calendar extend well beyond the summer season. <a href="/formentera-fractional-ownership/" class="bal-il">Formentera</a>&#8216;s snorkelling in the Posidonia oceanica seagrass meadows — a UNESCO-protected marine ecosystem — is among the finest in the Mediterranean. Your 6–7 weeks of Balearics fractional ownership usage, distributed intelligently across the year, gives you access to all of this.</p>
+<p>Seasonality across the Balearics is broadly favourable for year-round usage. High summer from late June through early September delivers peak Mediterranean conditions and the full social energy of the islands — particularly relevant for <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> and the busier beach resorts of <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a>. Late May and early June, and September through mid-October, offer the classic shoulder-season combination: warm seas (the Mediterranean retains heat well into autumn), uncrowded beaches, easier restaurant reservations, and lower airfares. November through February is the quietest period — but <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> especially remains well-served by direct flights, and Palma in winter is a genuinely appealing city break destination with a mild climate, excellent hotels, and a cultural calendar that continues year-round.</p>
+<p>It is also worth noting that Balearics fractional ownership compares extremely favourably with the alternative of renting. A quality private villa rental in <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> or <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> for two to three weeks in peak season can represent a substantial annual expense — with nothing to show for it at year&#8217;s end. With <strong>Balearics co-ownership</strong>, that same or lower annual outlay (your 1/8 share of running costs, plus any mortgage servicing on your share) delivers not only the weeks in the property but also a registered property asset, long-term capital exposure, resale rights, and the financial and emotional satisfaction of genuinely owning a piece of the Mediterranean. That is a fundamentally different value proposition, and it is why Balearics fractional ownership continues to attract buyers who have previously dismissed the Balearics as financially out of reach.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Discover More Balearics Fractional Ownership Destinations</h2></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Balearics Fractional Ownership — FAQs</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly is Balearics fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Balearics fractional ownership is a legally structured form of property co-ownership in which multiple buyers — typically eight — each purchase an equal fractional share of a property. Each co-owner is registered on the Spanish <em>property ownership records</em> (Ownership Documentation) as a genuine fractional title holder. This means you own a real fraction of a real asset, with all the legal protections, resale rights, and inheritance rights that come with registered Spanish property ownership. It is categorically different from a timeshare: there is no resort club, no membership that can be revoked, no points system, and no usage rights that diminish over time. Your Balearics fractional ownership share is a property asset — straightforward, transparent, and legally robust.</p></div></details><details class="dest-faq-item"><summary><h3>How is usage time allocated in Balearics fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard 1/8 share in Balearics co-ownership provides approximately 6–7 weeks of usage per year — around 45 days. Usage allocation is managed by the professional management company through a structured annual scheduling process. Peak season slots — particularly July and August in the Balearics — are distributed on a rotating priority basis, so every co-owner receives equitable access to high-demand periods over the years. You book your weeks in advance and receive confirmed reservation for those dates. There is no uncertainty, no availability competition, and no points to manage. Your Balearics fractional ownership weeks are reserved, confirmed, and yours to use or — in some cases — to lend to family and friends.</p></div></details><details class="dest-faq-item"><summary><h3>Is Balearics fractional ownership a good investment?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The Balearic Islands property market has demonstrated consistent long-term capital resilience, driven by structural undersupply, strict planning restrictions on new coastal and rural development, and sustained high demand from UK, German, Scandinavian, and international buyers. <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> and <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> in particular have seen sustained interest across market cycles. Balearics fractional real estate allows buyers to access this market at a fraction of the outright purchase cost, securing genuine documented co-ownership and long-term capital exposure without the full financial commitment of sole ownership. We do not publish specific yield or growth figures as these vary by property, island, and time period — but the structural dynamics of the Balearics market are consistently well-regarded by experienced property investors.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Balearics fractional ownership weeks?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Some co-owners do choose to rent out unused weeks from their Balearics fractional ownership share, and this can generate rental income. However, it is essential to understand the regulatory context: the Balearic Islands regional government has implemented some of the strictest short-term tourist rental licensing regulations in Spain. <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> and <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> in particular have placed significant restrictions on new tourist rental licences, and availability of a licence varies considerably by property, municipality, and property type. Always verify the specific rental licensing status of a property with our team before purchasing if generating rental income is part of your decision-making.</p></div></details><details class="dest-faq-item"><summary><h3>How is Balearics fractional ownership different from a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The difference is fundamental. A timeshare grants you a contractual right to use a property or resort facility for a defined period — you own no fraction of the underlying property, have no stake in its capital value, and typically pay ongoing annual fees to a resort management company. Balearics fractional ownership is the opposite: you purchase a deeded fractional title through a legally structured property company. You hold a legally defined share of the property itself — an asset you can sell, inherit, and benefit from if the property increases in value. There are no resort membership fees, no points to redeem, and no risk of the usage right being revoked. Your Balearics co-ownership share is a genuine property investment, not a holiday product.</p></div></details><details class="dest-faq-item"><summary><h3>What are the running costs of Balearics fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Annual running costs for Balearics fractional ownership are shared proportionally across all co-owners. Your 1/8 share means you pay one-eighth of the property&#8217;s total annual costs — typically covering professional management fees, cleaning services, building and contents insurance, local Spanish taxes (IBI and the rubbish collection levy), utility standing charges (electricity, water, internet), and any maintenance or repair costs incurred during the year. These costs are fully disclosed in advance and typically reviewed annually. We do not publish specific figures as they vary by property and island, but full cost transparency is a core commitment of the co-ownership process. Many buyers find that the annual running cost of their Balearics fractional ownership share is significantly lower than the cost of renting a comparable property for the same number of weeks.</p></div></details><details class="dest-faq-item"><summary><h3>Can I pass my Balearics fractional ownership share to my children?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. Because Balearics fractional ownership is structured as genuine co-ownership through a legally structured property company, your fractional share is a legal property asset that forms part of your estate. It can be bequeathed to your heirs through your will in the same way as any other property you own. Spanish inheritance law applies, and international private law may also be relevant depending on your domicile and nationality. It is strongly advisable to take specialist Spanish legal and estate planning advice to ensure the most efficient and tax-effective transfer of your Balearics fractional property share to your heirs. Many buyers regard this inheritance right as one of the most important distinguishing features of fractional ownership compared to timeshare.</p></div></details><details class="dest-faq-item"><summary><h3>How do I sell my Balearics fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Selling a Balearics fractional ownership share is a straightforward process, governed by standard Spanish property conveyancing law. As a registered co-owner through a legally structured property company, you hold a legally transferable property asset. You may sell your share at any time — through our platform, via a specialist fractional ownership resale agent, or independently. The sale is completed before a Spanish notary, with a transfer deed (<em>escritura</em>) signed by buyer and seller and subsequently documented through a legally structured property company in the buyer&#8217;s name. Spanish capital gains tax (<em>Plusvalía</em> and IRPF/IRNR as applicable) will apply to any gain realised on the sale. We recommend engaging a Spanish property solicitor to manage the process on your behalf.</p></div></details><details class="dest-faq-item"><summary><h3>Which Balearic Island is best for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The best Balearic Island for fractional ownership depends entirely on your lifestyle priorities and what you want from your Mediterranean co-ownership property. <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a> offers the widest range of options — from cosmopolitan Palma to peaceful rural fincas, from world-class beach resorts to mountain villages — and is the most established market for Balearics fractional real estate. <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a> appeals strongly to buyers seeking authentic, UNESCO-protected tranquillity away from mass tourism. <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a> is ideal for those who value a creative, design-led, internationally connected island lifestyle. <a href="/formentera-fractional-ownership/" class="bal-il">Formentera</a> is the most exclusive and understated option. We would be delighted to discuss which island best matches your requirements — please use the enquiry form below.</p></div></details><details class="dest-faq-item"><summary><h3>Is Balearics fractional ownership right for UK buyers post-Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Balearics fractional ownership is one of the most intelligently calibrated solutions available to British buyers following Brexit. Under the Schengen rules that now apply to UK passport holders, you are limited to 90 days in all Schengen Area countries combined per 180-day rolling period. A standard 1/8 Balearics co-ownership share delivering approximately 6–7 weeks (42–49 days) per year sits well within this limit — making optimal use of your available days without exceeding the threshold. It eliminates the financial and emotional cost of sole ownership: no paying for 52 weeks of running costs while only being able to legally use 13. Balearics fractional ownership is the model that the post-Brexit landscape was made for, and it is why the platform has seen sustained interest from UK buyers across all four islands.</p></div></details><details class="dest-faq-item"><summary><h3>What types of properties are available through Balearics fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Balearics fractional ownership is available across a broad range of property types — villas with private pools, contemporary apartments, traditional fincas, townhouses in historic village centres, and coastal properties with direct sea access. Properties span all four main islands: <a href="/mallorca-fractional-ownership-properties/" class="bal-il">Mallorca</a>, <a href="/menorca-fractional-ownership-properties/" class="bal-il">Menorca</a>, <a href="/ibiza-fractional-ownership-properties/" class="bal-il">Ibiza</a>, and <a href="/formentera-fractional-ownership/" class="bal-il">Formentera</a>. We do not restrict our Balearics co-ownership listings to a single property type — our goal is to match buyers to properties that suit their lifestyle, whether that means a beachfront apartment, a hilltop villa, or a restored country estate. Browse the listings above to see the full current selection of Balearics fractional ownership properties.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

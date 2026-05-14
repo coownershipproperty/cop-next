@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utah Fractional Ownership properties | Co-Ownership Property</title>
+    <meta name="description" content="Discover sophisticated fractional ownership opportunities in Utah&#039;s premier ski resorts. Park City, Deer Valley &amp; Alta mountain retreats.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Utah Fractional Ownership properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Utah?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Utah Fractional Ownership — The World&#8217;s Greatest Snow, Genuine Ownership</h2>
+<p><strong>Utah fractional ownership</strong> gives you a legally recorded, deeded stake in one of the world&#8217;s finest mountain destinations — owning a <strong>1/8 share</strong> of a fully managed ski chalet, mountain lodge, or alpine retreat in Park City, Deer Valley, Sundance, or beyond, with approximately <strong>45 days of personal use per year</strong>. This is genuine deeded real property ownership — not a timeshare, not a points club, and not a usage-rights arrangement.</p>
+<p>For UK buyers and international second-home seekers, Utah&#8217;s fractional co-ownership model delivers the legendary Wasatch  on your own terms — without the full financial commitment of sole ownership, and with complete professional management handling every aspect of the property between visits. Browse our Utah properties below and discover what mountain co-ownership at its finest looks like.</p>
+<p>5
+
+7
+
+494 m2<a href="/property/mayflower-mountain-utah-5-bed-skyridge-retreat-with-views-theater/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 4<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-6-bed-chalet-with-fire-pit/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-6-bed-chalet-with-fire-pit/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-6-bed-chalet-with-fire-pit/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-6-bed-chalet-with-fire-pit/">Park City, Utah | 6-Bed Chalet With Fire Pit</a>
+$810,000
+Elevated mountain living with stunning views and modern design defines this spacious 6-bedroom, 5-bathroom Park City retreat spanning 5,500 sq ft (511 m²). This <a href="/property/park-city-utah-6-bed-chalet-with-fire-pit/" class="unit_more_x"> &#8230;</a>
+Elevated mountain living with stunning views and modern design defines this spacious 6-bedroom, 5-bathroom Park City retreat spanning 5,500 sq ft (511 m²). This <a href="/property/park-city-utah-6-bed-chalet-with-fire-pit/" class="unit_more_x"> &#8230;</a>
+
+
+6
+
+5
+
+511 m2<a href="/property/park-city-utah-6-bed-chalet-with-fire-pit/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 4<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-5-bed-estate-golden-way/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-5-bed-estate-golden-way/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-5-bed-estate-golden-way/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-5-bed-estate-golden-way/">Park City, Utah | 5-Bed Estate Golden Way</a>
+$950,000
+Discover exceptional space in this impressive 5-bedroom, 5-bathroom Park City estate spanning 6,102 sq ft (567 m²). This substantial property offers one of the  <a href="/property/park-city-utah-5-bed-estate-golden-way/" class="unit_more_x"> &#8230;</a>
+Discover exceptional space in this impressive 5-bedroom, 5-bathroom Park City estate spanning 6,102 sq ft (567 m²). This substantial property offers one of the  <a href="/property/park-city-utah-5-bed-estate-golden-way/" class="unit_more_x"> &#8230;</a>
+
+
+5
+
+5
+
+567 m2<a href="/property/park-city-utah-5-bed-estate-golden-way/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 4<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-5-bed-chalet-norfolk-avenue/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-5-bed-chalet-norfolk-avenue/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-5-bed-chalet-norfolk-avenue/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-5-bed-chalet-norfolk-avenue/">Park City, Utah | 5-Bed Chalet Norfolk Avenue</a>
+$960,000
+Experience Park City living in this spacious 5-bedroom, 6-bathroom retreat spanning 4,342 sq ft (403 m²). This generous property offers ample accommodations wit <a href="/property/park-city-utah-5-bed-chalet-norfolk-avenue/" class="unit_more_x"> &#8230;</a>
+Experience Park City living in this spacious 5-bedroom, 6-bathroom retreat spanning 4,342 sq ft (403 m²). This generous property offers ample accommodations wit <a href="/property/park-city-utah-5-bed-chalet-norfolk-avenue/" class="unit_more_x"> &#8230;</a>
+
+
+5
+
+6
+
+403 m2<a href="/property/park-city-utah-5-bed-chalet-norfolk-avenue/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 4<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-4-bed-chalet-empire-avenue/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-4-bed-chalet-empire-avenue/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-4-bed-chalet-empire-avenue/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-4-bed-chalet-empire-avenue/">Park City, Utah | 4-Bed Chalet Empire Avenue</a>
+$799,000
+Discover Old Town luxury in this well-appointed 4-bedroom, 5-bathroom Park City retreat spanning 3,197 sq ft (297 m²). This spacious property offers generous ac <a href="/property/park-city-utah-4-bed-chalet-empire-avenue/" class="unit_more_x"> &#8230;</a>
+Discover Old Town luxury in this well-appointed 4-bedroom, 5-bathroom Park City retreat spanning 3,197 sq ft (297 m²). This spacious property offers generous ac <a href="/property/park-city-utah-4-bed-chalet-empire-avenue/" class="unit_more_x"> &#8230;</a>
+
+
+4
+
+5
+
+297 m2<a href="/property/park-city-utah-4-bed-chalet-empire-avenue/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 3<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-5-bed-chalet-on-empire-avenue/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-5-bed-chalet-on-empire-avenue/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-5-bed-chalet-on-empire-avenue/">Park City, Utah | 5-Bed Chalet On Empire Avenue</a>
+$770,000
+Discover mountain luxury in this spacious 5-bedroom, 6-bathroom Park City estate spanning 5,093 sq ft (473 m²). This exceptional property offers generous accomm <a href="/property/park-city-utah-5-bed-chalet-on-empire-avenue/" class="unit_more_x"> &#8230;</a>
+Discover mountain luxury in this spacious 5-bedroom, 6-bathroom Park City estate spanning 5,093 sq ft (473 m²). This exceptional property offers generous accomm <a href="/property/park-city-utah-5-bed-chalet-on-empire-avenue/" class="unit_more_x"> &#8230;</a>
+
+
+5
+
+6
+
+473 m2<a href="/property/park-city-utah-5-bed-chalet-on-empire-avenue/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 4<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-5-bed-estate-with-360-views/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-5-bed-estate-with-360-views/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-5-bed-estate-with-360-views/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-5-bed-estate-with-360-views/">Park City, Utah | 5-Bed Estate With 360 Views</a>
+$850,000
+Located in sought-after Old Town, this exceptional 5-bedroom, 8-bathroom Park City retreat spanning 4,920 sq ft (457 m²) offers both laidback living and high-th <a href="/property/park-city-utah-5-bed-estate-with-360-views/" class="unit_more_x"> &#8230;</a>
+Located in sought-after Old Town, this exceptional 5-bedroom, 8-bathroom Park City retreat spanning 4,920 sq ft (457 m²) offers both laidback living and high-th <a href="/property/park-city-utah-5-bed-estate-with-360-views/" class="unit_more_x"> &#8230;</a>
+
+
+5
+
+8
+
+457 m2<a href="/property/park-city-utah-5-bed-estate-with-360-views/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 4<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-5-bed-chalet-with-elevator/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-5-bed-chalet-with-elevator/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-5-bed-chalet-with-elevator/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-5-bed-chalet-with-elevator/">Park City, Utah | 5-Bed Chalet With Elevator</a>
+$1,000,000
+Experience luxury mountain living in this exceptional 5-bedroom, 7-bathroom Park City retreat spanning 3,857 sq ft (358 m²). This impressive property features s <a href="/property/park-city-utah-5-bed-chalet-with-elevator/" class="unit_more_x"> &#8230;</a>
+Experience luxury mountain living in this exceptional 5-bedroom, 7-bathroom Park City retreat spanning 3,857 sq ft (358 m²). This impressive property features s <a href="/property/park-city-utah-5-bed-chalet-with-elevator/" class="unit_more_x"> &#8230;</a>
+
+
+5
+
+7
+
+358 m2<a href="/property/park-city-utah-5-bed-chalet-with-elevator/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 4<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-ridgeline-vista-townhouse/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-ridgeline-vista-townhouse/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-ridgeline-vista-townhouse/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-ridgeline-vista-townhouse/">Park City, Utah | Ridgeline Vista Townhouse</a>
+$739,000
+Discover an outstanding opportunity to co-own a beautifully designed mountain townhouse in the highly sought-after Canyons Village area of Park City. Located at <a href="/property/park-city-utah-ridgeline-vista-townhouse/" class="unit_more_x"> &#8230;</a>
+Discover an outstanding opportunity to co-own a beautifully designed mountain townhouse in the highly sought-after Canyons Village area of Park City. Located at <a href="/property/park-city-utah-ridgeline-vista-townhouse/" class="unit_more_x"> &#8230;</a>
+
+
+5
+
+6
+
+353 m2<a href="/property/park-city-utah-ridgeline-vista-townhouse/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 4<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-aerie-retreat-mountain-residence/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-aerie-retreat-mountain-residence/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-aerie-retreat-mountain-residence/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-aerie-retreat-mountain-residence/">Park City, Utah | Aerie Retreat Mountain Residence</a>
+$810,000
+Nestled in the exclusive Aerie enclave of Park City, this striking mountain residence offers a sublime blend of luxury, versatility and tranquil alpine living.  <a href="/property/park-city-utah-aerie-retreat-mountain-residence/" class="unit_more_x"> &#8230;</a>
+Nestled in the exclusive Aerie enclave of Park City, this striking mountain residence offers a sublime blend of luxury, versatility and tranquil alpine living.  <a href="/property/park-city-utah-aerie-retreat-mountain-residence/" class="unit_more_x"> &#8230;</a>
+
+
+6
+
+5
+
+511 m2<a href="/property/park-city-utah-aerie-retreat-mountain-residence/" target="_self" class="unit_details_x">details</a>
+<i class="fas fa-camera"></i> 3<i class="fas fa-map-marker-alt"></i><a href="/property_city/park-city/">Park City</a>
+<a href="/property/park-city-utah-ridgeline-chalet-townhouse/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-ridgeline-chalet-townhouse/" target="_self">
+
+</a>
+<a href="/property/park-city-utah-ridgeline-chalet-townhouse/" target="_self">
+
+</a>
+
+
+Previous
+
+
+
+Next
+
+<a href="/property/park-city-utah-ridgeline-chalet-townhouse/">Park City, UTAH | Ridgeline Chalet Townhouse</a>
+$500,000
+Situated in the vibrant heart of Canyons Village ski resort, the Ridgeline Chalet Townhouse offers an exceptional mountain home with direct ski‑in/ski‑out acces <a href="/property/park-city-utah-ridgeline-chalet-townhouse/" class="unit_more_x"> &#8230;</a>
+Situated in the vibrant heart of Canyons Village ski resort, the Ridgeline Chalet Townhouse offers an exceptional mountain home with direct ski‑in/ski‑out acces <a href="/property/park-city-utah-ridgeline-chalet-townhouse/" class="unit_more_x"> &#8230;</a>
+
+
+5
+
+5
+
+277 m2<a href="/property/park-city-utah-ridgeline-chalet-townhouse/" target="_self" class="unit_details_x">details</a>WHY UTAH</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose Utah Fractional Ownership?</h2>
+<p>Utah fractional ownership has earned a devoted following among mountain second-home buyers for a reason that is simultaneously simple and compelling: Utah has the best snow in the world. The claim is not marketing rhetoric — it is a meteorological reality. The Wasatch Mountains of northern Utah receive an average of 500 inches of snowfall per season, and the unique geography of the Great Basin creates conditions that produce some of the lightest, driest powder snow found anywhere on the planet. The US Ski Team trains here. Multiple Olympic and World Cup champions have come from these mountains. <a href="/park-city-fractional-ownership-2/">Park City</a> hosted the 2002 Winter Olympic Games. The snow — and the skiing it produces — is genuinely exceptional, and it underpins the entire case for Utah fractional property as a lifestyle investment.</p>
+<p>Beyond the skiing, Utah fractional ownership opens access to one of the most diverse outdoor landscapes in the United States. Within a two-to-three-hour drive of Park City, buyers can visit five of America&#8217;s most celebrated national parks — Zion, Bryce Canyon, Arches, Canyonlands, and Capitol Reef — a concentration of natural wonder found nowhere else in the country. This combination of world-class skiing in winter and extraordinary desert and canyon landscapes in spring, summer, and autumn makes Utah a genuinely <strong>four-season fractional ownership destination</strong> in a way that purely ski-focused resorts cannot match.</p>
+<p>Utah fractional property is structured as genuine deeded co-ownership. Each buyer acquires a legally recorded fractional interest in the property — most commonly a <strong>1/8 share</strong> — with their name, or the name of a trust or LLC, recorded on the county deed. This is <strong>not a timeshare</strong>. A timeshare conveys a right-to-use without any ownership of the underlying real property. Utah fractional ownership conveys a genuine property interest with the same legal standing as any other form of real estate ownership in the state — including the right to sell independently, inherit, gift, and benefit from any appreciation in the property&#8217;s market value.</p>
+<p>For UK buyers, Utah fractional ownership is particularly well-positioned post-Brexit. The United States is outside the Schengen Area, so the 90-day-in-180-day restriction that now limits British nationals in EU ski destinations — the <a href="/french-alps-fractional-ownership-properties/">French Alps</a>, <a href="/austria-fractional-ownership-properties/">Austrian Alps</a>, and other European mountain destinations — simply does not apply in Utah. Under the ESTA visa waiver programme, UK citizens can visit the US for up to 90 consecutive days per trip, with longer stays possible under the B-2 visitor visa. This makes Utah fractional property an increasingly attractive mountain alternative for British buyers who want the freedom to visit multiple times per season without reference to a Schengen calendar.</p>
+<p>The economics of Utah fractional co-ownership compare very favourably to sole ownership. Prime ski-adjacent properties in Park City and Deer Valley command significant prices — the markets here are among the most expensive in the mountain West. Rather than bearing the full acquisition cost, property taxes, HOA fees, insurance, management, and maintenance as a sole owner, each co-owner in a fractional arrangement bears only their proportional share. For a <strong>1/8 share</strong>, that means one-eighth of all ongoing costs, with all of the benefit of a fully managed, expertly maintained mountain property available for approximately 45 days per year. Professional management companies handle everything from pre-arrival preparation and snowploughing to year-round maintenance and transparent financial reporting.</p>
+<p>Utah&#8217;s mountain resort towns — particularly Park City — have a vitality and permanence that goes well beyond a seasonal ski destination. Park City has a year-round population, a genuine arts and culture scene anchored by the Sundance Film Festival (the world&#8217;s largest independent film festival, held annually in January), a thriving food and drink culture, outstanding mountain biking and hiking infrastructure, and an international buyer base that includes significant numbers of buyers from the UK, Europe, Australia, and Canada. This international character makes Utah fractional ownership feel cosmopolitan and well-connected despite being deep in the Rocky Mountain West.</p>
+<p>Usage of a Utah fractional property is managed through a rotating calendar. The most common structure provides approximately <strong>45 days of personal use per year</strong> for a 1/8 share, allocated across two or more separate stays. The rotation ensures that over time, every co-owner accesses different seasons — peak ski weeks in January and February, the Sundance Festival period, spring skiing in March and April, and summer and autumn wilderness seasons. The management company administers the schedule, handles swap requests, and coordinates all arrival and departure logistics, leaving co-owners free to simply arrive and enjoy.</p>
+<p>Utah fractional ownership also benefits from a practical advantage that European mountain destinations cannot match: the absence of post-Brexit travel restrictions. Since January 2021, UK nationals visiting Schengen-area countries — including France, Austria, Italy, and Switzerland — are subject to a 90-day-in-180-day limit across the entire zone. This means a British buyer with a 1/8 fractional interest in a French Alps chalet and a Spanish beach property cannot simply add both sets of stays together: all Schengen time is pooled and capped. Utah&#8217;s position outside the Schengen Area means co-owners can spend their full allocation freely — multiple ski trips in a single season, a summer visit, and a winter return — without reference to a European travel calendar. For UK buyers who want to maximise the value of their mountain fractional ownership, the freedom that Utah provides is not a minor technical advantage. It is a genuinely transformative difference in how the lifestyle can be lived.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Utah Fractional Ownership — Areas &amp; Resort Towns</h2>
+<p>Utah&#8217;s fractional ownership market is concentrated primarily in the Wasatch Mountains north of Salt Lake City, with a growing presence in the state&#8217;s extraordinary southern canyon country. From world-class ski resorts to dramatic red-rock landscapes, Utah fractional property spans a wider range of environments than almost any other American mountain state.</p>
+<h3><a href="/park-city-fractional-ownership-2/">Park City</a> — Utah Fractional Ownership</h3>
+<p>Park City is the epicentre of Utah fractional ownership — a former silver-mining town turned world-class ski resort that hosted the 2002 Winter Olympic Games and has never looked back. Park City Mountain Resort, the largest ski resort in the United States by acreage, offers over 7,300 acres of terrain across 41 lifts, connected to the Canyons Village area to create an enormous and varied mountain. The town itself is a vibrant, year-round community with a nationally celebrated Main Street lined with restaurants, galleries, boutiques, and entertainment venues. <strong>45 days per year</strong> in Park City — through a 1/8 fractional ownership share — gives co-owners access to peak ski weeks, the extraordinary Sundance Film Festival in January, mountain biking and hiking trails in summer, and the warm community atmosphere that makes this one of America&#8217;s most liveable mountain towns.</p>
+<p>Park City is 35 minutes from Salt Lake City International Airport — one of the most important factors for international buyers. Delta, American, United, and British Airways all operate direct transatlantic services into SLC, with connections from London Heathrow and other major hubs. The drive from the airport to most Park  takes under 40 minutes, making it one of the most logistically accessible mountain resort destinations in the world. Utah fractional property in Park City is sought after precisely because it combines extraordinary skiing with urban connectivity and community depth that many other resort towns lack.</p>
+<h3>Deer Valley — Utah Fractional Ownership</h3>
+<p>Deer Valley is Utah fractional ownership at its most refined. The resort is ski-only — no snowboarders — and is consistently ranked among the top ski resorts in North America for grooming quality, service standards, and overall experience. The mountain&#8217;s 2,026 acres of impeccably maintained terrain, exceptional on-mountain dining, and valet ski-check service create an environment of effortless luxury that is genuinely different from any other resort in the country. Deer Valley&#8217;s commitment to limiting daily ticket sales to preserve quality of experience means that the mountain never feels overcrowded. <strong>Deeded fractional ownership</strong> in Deer Valley places co-owners at the heart of this carefully curated world for their allocated share of the year.</p>
+<p>The Deer Valley base villages — Snow Park and Silver Lake — offer slopeside accommodation ranging from intimate ski chalets to expansive mountain residences. In summer, Deer Valley operates as a music venue (hosting the Utah Symphony&#8217;s outdoor season) and a mountain biking destination, with lift-accessed trails that attract cyclists from across the western United States. Utah fractional property in Deer Valley is particularly sought after by buyers who prioritise quality and exclusivity over terrain scale — and who are willing to pay a premium for the resort&#8217;s uncompromising approach to guest experience.</p>
+<h3>Sundance Mountain Resort — Utah Fractional Ownership</h3>
+<p>Sundance Mountain Resort — founded and long associated with Robert Redford — occupies a singular position in the Utah fractional ownership landscape: an intimate, authentically artistic mountain retreat set against the dramatic backdrop of Mount Timpanogos in Provo Canyon. The resort&#8217;s ethos of art, nature, and community creates an atmosphere quite unlike the larger, more commercialised Park City resorts. The mountain itself offers 450 acres of skiing across 42 runs, but it is the surrounding experience — the outdoor amphitheatre, the spa, the organic farm-to-table dining, and the year-round arts programming — that defines the Sundance character. <strong>Utah fractional co-ownership</strong> at Sundance attracts buyers who value authenticity and artistic culture alongside exceptional skiing.</p>
+<p>Sundance is 50 miles south of Salt Lake City, accessible via Provo Canyon Road — a drive that is itself one of the most spectacular in Utah, winding past the 11,750-foot Mount Timpanogos and alongside the Provo River. For buyers who want a quieter, more reflective mountain fractional experience, away from the crowds of Park City and the price premium of Deer Valley, Sundance represents a compelling alternative with its own strong identity and loyal year-round following.</p>
+<h3>Moab &amp; Southern Utah — Fractional Ownership</h3>
+<p>Moab is Utah fractional ownership for a completely different type of buyer — those drawn not to powder skiing but to the extraordinary red-rock landscape of the Colorado Plateau. Gateway to both Arches National Park and Canyonlands National Park, Moab sits in one of the most dramatically beautiful desert environments on earth, where red sandstone arches, sheer canyon walls, and the winding Colorado River create a landscape that has drawn adventurers, artists, and naturalists for generations. <strong>Mountain biking, hiking, white-water rafting, rock climbing, and off-road driving</strong> are the defining activities here, and the season runs from March through November when the canyon country is at its most accessible and magical.</p>
+<p>Utah fractional property in Moab represents a fundamentally different lifestyle proposition from the Wasatch ski resorts — one focused on outdoor adventure, natural wonder, and quiet immersion in an iconic American landscape. The emergence of a small but growing luxury property market in and around Moab has made fractional co-ownership here both viable and attractive for buyers who want regular access to Southern Utah&#8217;s national parks without the administrative burden of sole ownership. Properties typically range from contemporary desert homes to boutique ranch-style retreats within driving distance of the parks.</p>
+<h3>St George &amp; Zion — Utah Fractional Ownership</h3>
+<p>St George, in Utah&#8217;s southwest corner, offers a third distinct flavour of Utah fractional ownership — a warm, sun-drenched city set in red-rock terrain, surrounded by some of Utah&#8217;s most spectacular scenery and positioned as the gateway to Zion National Park, one of the most visited national parks in the United States. With over 300 days of sunshine per year, St George provides year-round usability that Utah&#8217;s northern ski resorts cannot match — making it an increasingly attractive fractional co-ownership destination for buyers who want the Utah landscape without seasonal limitations.</p>
+<p><strong>Golf, hiking, cycling, and rock climbing</strong> dominate the outdoor activity calendar in the St George area, with over 40 golf courses within an hour&#8217;s drive and trail networks that connect directly into Zion&#8217;s extraordinary canyon system. St George is served by St George Regional Airport and is a four-hour drive from Las Vegas, making it accessible for international buyers flying into a major US hub. Utah fractional property in the St George and Zion corridor appeals particularly to buyers looking for a warm-weather second-home alternative to the ski-focused northern Wasatch resorts — one that delivers genuine outdoor adventure in a completely different but equally stunning Utah landscape.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Utah Fractional Ownership Works</h2>
+<p>Utah fractional ownership operates as genuine <strong>deeded real property co-ownership</strong>. Each buyer acquires a legally recorded fractional interest in the property through the standard Utah real estate conveyancing process. A purchase contract is signed, a title search and title insurance are obtained, and on completion the deed is recorded at the relevant county recorder&#8217;s office — Summit County for Park City and Deer Valley properties, Utah County for Sundance, Grand County for Moab properties, and Washington County for the St George area. The buyer&#8217;s name, or the name of a trust or LLC chosen for tax and estate planning purposes, appears on the recorded deed in exactly the same way as any other Utah property purchase.</p>
+<p>The legal relationship between co-owners is governed by a co-ownership agreement — typically structured as a tenancy-in-common agreement or an LLC operating agreement where the property is held through a limited liability company. This document sets out the usage schedule, the cost-sharing arrangement, the process for selling or transferring a fractional interest, the governance structure for decisions about the property, and the mechanism for resolving disputes. A carefully drafted co-ownership agreement is the legal backbone of the arrangement — it protects every co-owner&#8217;s investment, provides operational clarity for the management company, and establishes a fair and transparent framework for all parties.</p>
+<p>Usage allocation follows a rotating calendar. A <strong>1/8 share</strong> provides approximately 45 days of personal use per year, typically allocated as two or more separate stays. The rotation ensures that over a multi-year cycle, every co-owner accesses different seasons — core ski season weeks in January and February, Sundance Festival time, spring skiing in March, and summer mountain and wilderness seasons. The management company administers the calendar, handles swap requests between co-owners, and manages all arrival and departure logistics. There are no fixed weeks — the system is designed to be fair, flexible, and genuinely suited to the realities of modern international travel schedules.</p>
+<p>Utah property law governs fractional co-ownership as standard real property — not as a timeshare product. The <strong>right of first refusal</strong> is a standard clause in most Utah co-ownership agreements, giving existing co-owners the opportunity to match any third-party offer before the departing owner lists their share externally. This protects the cohesion of the ownership group and provides an orderly mechanism for ownership transitions that preserves the quality and character of the co-ownership arrangement over time.</p>
+<p>For overseas buyers — including those from the UK, Europe, Australia, and Canada — two key pieces of US tax legislation are relevant. <strong>FIRPTA</strong> (the Foreign Investment in Real Property Tax Act) requires that when a foreign person sells US real property, a percentage of the gross sale price is withheld at the point of transaction as an advance against any tax liability. This withholding is reconciled through the seller&#8217;s US tax filing. Utah has a flat state income tax rate, and property taxes are assessed annually by the county. A US attorney with international real estate experience and a qualified US tax professional are strongly recommended for all overseas buyers completing a Utah fractional ownership purchase — the process is well-established and manageable with the right professional support.</p>
+<p>Ongoing costs are shared proportionally among co-owners in line with their fractional interest. For a 1/8 share, each co-owner bears one-eighth of: annual property taxes, HOA fees (which may be substantial in resort communities with shared amenity facilities), homeowners insurance, professional management fees, routine maintenance and cleaning costs, and reserve fund contributions for longer-term capital expenditure. The management company provides regular financial statements to all co-owners, ensuring complete transparency. All costs are known in advance and divided fairly — one of the practical advantages of Utah fractional co-ownership that sole owners simply cannot access.</p>
+<p>Resale of a Utah fractional share follows the standard real estate process. The share is listed and marketed through the management company, a co-ownership specialist, or a local real estate agent. Proceeds are paid to the departing co-owner after FIRPTA withholding (for overseas sellers) and agreed closing costs. Inheritance follows standard US estate procedure through a will or trust structure, with the inheriting party stepping into the same ownership position and rights as the original co-owner. Utah fractional ownership is a genuine, transferable real property asset — not a consumable product that depreciates to zero.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Utah Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>Utah fractional ownership combines lifestyle aspiration with sound property ownership in a way that few mountain destinations can match. The lifestyle case is extraordinary: consider waking to fresh Wasatch powder on a January morning in Park City — light, dry, effortless snow that skiers describe as unlike anything available in Europe or elsewhere in North America — and skiing down to the resort base for a morning run before the lifts are busy. Consider the Sundance Film Festival in January, when Park City&#8217;s Main Street becomes one of the most culturally alive streets in America, with world premieres, panel discussions, and social energy that is genuinely exceptional. Consider mountain biking on the Mid-Mountain Trail above Park City in July, with views across Summit County to the Uinta Mountains, followed by dinner in one of the town&#8217;s exceptional restaurants. <strong>Utah delivers across all four seasons</strong>, and fractional co-ownership is what makes this lifestyle financially viable as an annual commitment.</p>
+<p>The investment context for Utah fractional property is genuinely strong. Park City and Deer Valley operate in what is structurally a constrained market — the land within resort boundaries and along the most desirable ski-adjacent corridors is finite, and demand from both domestic and international buyers has consistently grown over the past decade. Utah&#8217;s broader economic performance, population growth (among the fastest of any US state), and growing reputation as a technology and business hub — the Wasatch Front from Salt Lake City to Provo is sometimes called the Silicon Slopes — support the long-term fundamentals of the residential property market. We do not position Utah fractional ownership as a guaranteed financial product and never invent yield projections, but the structural factors supporting property values in the Wasatch resort markets are robust.</p>
+<p>Rental income from unused fractional weeks is possible in Utah — particularly in Park City, where the short-term rental market is active and peak ski weeks command strong daily rates. However, rental income is never guaranteed and is always subject to the specific co-ownership agreement, applicable HOA rules, and local short-term rental licensing requirements. Park City has enacted short-term rental regulations that vary by zoning and property type. <strong>Rental income is case-by-case</strong> — always verify the specific position for the property under consideration before factoring rental income into the financial picture.</p>
+<p>Comparing Utah fractional ownership to other mountain co-ownership destinations reveals a distinctive profile. <a href="/colorado-fractional-ownership-properties/">Colorado fractional ownership</a> — in <a href="/aspen-fractional-ownership/">Aspen</a>, <a href="/vail-fractional-ownership/">Vail</a>, and <a href="/breckenridge-fractional-ownership/">Breckenridge</a> — offers world-class skiing with more diverse resort town characters. The <a href="/french-alps-fractional-ownership-properties/">French Alps</a> offer larger linked ski areas but post-Brexit travel restrictions for UK buyers. <a href="/austria-fractional-ownership-properties/">Austria</a> offers charming alpine village culture but with the same Schengen constraints. Utah sits in a unique position: the world&#8217;s best snow quality, two of the finest resorts in North America (Park City Mountain and Deer Valley), strong year-round lifestyle offer, and full freedom from post-Brexit Schengen restrictions. For UK buyers who want the finest mountain co-ownership experience available without the travel calendar limitations of European destinations, Utah is the most compelling option on the market.</p>
+<p>Access to Utah from the UK is more straightforward than many buyers assume. Salt Lake City International Airport completed a major expansion in 2023, making it one of the finest airport facilities in the western United States. Delta Air Lines operates a daily non-stop service from London Heathrow to Salt Lake City, with a flight time of approximately ten hours. American and United Airlines offer connections through their hubs, and the network of domestic connections from Salt Lake City makes it an excellent base for buyers who also visit other US destinations. The drive from SLC Airport to Park City takes under 40 minutes — a connection time that compares very favourably with many European ski destinations where airport-to-resort travel can take two to three hours by road or multiple train and bus changes.</p>
+<p>Buyers exploring <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> options alongside Utah might also consider the complementary appeal of <a href="/florida-fractional-ownership-properties/">Florida fractional ownership</a> for winter sun and , or <a href="/california-fractional-ownership-properties/">California fractional ownership</a> for Pacific coast living year-round. The capital efficiency of fractional co-ownership — acquiring a proportional share rather than an entire property — makes multi-destination co-ownership financially accessible for a far wider range of buyers than traditional sole second-home ownership allows. Utah fractional ownership is an ideal anchor for a multi-destination co-ownership portfolio, providing a world-class mountain base that functions beautifully in every season.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/usa-fractional-ownership-properties/" class="dest-explore-card">USA Fractional Ownership &rarr;</a><a href="/colorado-fractional-ownership-properties/" class="dest-explore-card">Colorado Fractional Ownership &rarr;</a><a href="/florida-fractional-ownership-properties/" class="dest-explore-card">Florida Fractional Ownership &rarr;</a><a href="/french-alps-fractional-ownership-properties/" class="dest-explore-card">French Alps Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Utah Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly do I own with Utah fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>With Utah fractional ownership, you own a legally recorded, deeded fractional interest in real property — most commonly a <strong>1/8 share</strong>. Your name, or that of your chosen legal entity such as a trust or LLC, appears on the county deed of record in exactly the same way as any other Utah property purchase. This gives you the full bundle of property ownership rights: the right to use the property during your allocated time each year, the right to sell your share independently on the open market at whatever price a willing buyer will pay, the right to pass your share to heirs through a will or trust, and the right to benefit proportionally from any appreciation in the property&#8217;s market value.</p>
+<p>This is the fundamental difference between Utah fractional ownership and a timeshare. A timeshare conveys a right-to-use — typically under a long-term licence or membership agreement — without any ownership of the underlying real property. The timeshare developer retains title. When the licence ends or the timeshare company fails, the user walks away with nothing of capital value. Utah fractional co-ownership is the legal opposite: a genuine property interest that functions identically to any other form of real estate ownership in the state, with all the legal protections and transferability that entails.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use a Utah fractional property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The most common fractional interest is a 1/8 share, which provides approximately <strong>45 days of personal use per year</strong>. This is usually structured as two or more separate stays, allocated through a rotating calendar that ensures all co-owners access different seasons over time. A 1/4 share provides approximately 90 days; a 1/2 share approximately 180 days. The rotation is designed to be fair — no co-owner receives permanently inferior allocation, and over a multi-year cycle all owners will access peak ski weeks, Sundance Festival time, spring skiing, and summer mountain seasons.</p>
+<p>The management company administers the scheduling calendar, handles swap requests between co-owners, and coordinates arrival and departure logistics. Most co-ownership agreements include mechanisms for owners to exchange weeks with each other — allowing the flexibility to trade a summer week for a peak ski week in a given year if personal circumstances require it. The system is designed to accommodate the real-world variability of family and professional schedules while remaining fundamentally fair to all co-owners.</p></div></details><details class="dest-faq-item"><summary><h3>Is Utah fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — and this distinction matters legally and financially. A timeshare involves the sale of a right-to-use rather than ownership of the real property itself. The timeshare company retains title to the asset; the &#8220;owner&#8221; merely has a contractual right to use a property during a specified period each year. Utah fractional ownership involves the sale of a deeded real property interest — your name on the county deed, with the complete legal standing of a Utah property owner.</p>
+<p>The practical implications are significant. A Utah fractional share can be sold at market price at any time, mortgaged, insured as a real property asset, inherited, and held within a tax-efficient legal structure. A timeshare resale is notoriously difficult and often achieves well below the original purchase price. Utah fractional co-ownership is a real estate transaction governed by Utah property law — not a consumer product governed by hospitality or timeshare regulations. The two have almost nothing in common beyond the concept of shared use of a property.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK buyers purchase Utah fractional ownership properties?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. There are no restrictions on foreign nationals owning real property in Utah. UK buyers can purchase Utah fractional property as individuals, through a UK trust, through a US LLC, or through a family trust structure — each with different tax and estate planning implications that are worth discussing with a qualified US attorney and tax professional before completing the purchase.</p>
+<p>The significant advantage for UK buyers post-Brexit is that Utah is in the United States — outside the Schengen Area entirely. The 90-day-in-180-day restriction that now constrains British nationals at European ski destinations does not apply to Utah. Under the ESTA visa waiver programme, UK citizens can visit the US for up to 90 consecutive days per trip. This means a 1/8 share&#8217;s annual allocation of approximately 45 days can be structured as multiple trips — a ski week in January, another in March, a summer visit in July — without any of the Schengen calendar constraints that now affect UK buyers at destinations in France, Austria, Italy, or Switzerland. FIRPTA withholding applies on any future sale, and a qualified US tax professional will manage this efficiently.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Utah fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Ongoing costs are shared proportionally among co-owners. For a <strong>1/8 share</strong>, you bear one-eighth of: annual property taxes (assessed by the county), HOA fees (which can be significant in resort communities where fees reflect the cost of amenity facilities, ski-in access maintenance, and building management), homeowners insurance, professional management fees, routine maintenance and cleaning costs, and contributions to the property&#8217;s reserve fund for longer-term capital expenditure.</p>
+<p>Utah has a flat state income tax rate, and property taxes are assessed annually at the county level. Management companies provide regular financial statements to all co-owners, ensuring full transparency. There are no hidden fees. In most cases, co-owners find the total annual carrying cost of their fractional share to be substantially lower than the equivalent cost of hotel or rental accommodation in Park City or Deer Valley during comparable periods — while simultaneously building equity in a real property asset in one of the world&#8217;s most sought-after mountain markets.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Utah fractional property when I&#8217;m not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Rental income from unused fractional weeks is possible in Utah — Park City in particular has an active short-term rental market, and peak ski weeks can command strong daily rates. However, rental income is never guaranteed and is always subject to three conditions: the co-ownership agreement must explicitly permit rental of unused weeks; the property must comply with applicable local short-term rental licensing requirements and any HOA rules; and rental activity must be coordinated through the management company.</p>
+<p><strong>Rental income is case-by-case</strong> and must be verified for the specific property. Park City has enacted short-term rental regulations that vary by property type, zoning, and HOA rules. We strongly recommend discussing rental possibilities directly with the management company before purchase, and treating rental income as a potential benefit rather than a guaranteed return. Never purchase a fractional interest based primarily on projected rental income — the lifestyle and ownership value should stand on their own.</p></div></details><details class="dest-faq-item"><summary><h3>How does the buying process work for Utah fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The purchase of a Utah fractional share follows the same pathway as any Utah real estate transaction, adapted for the co-ownership structure. After selecting a property and reviewing all co-ownership documentation with your own qualified US attorney, you sign a purchase contract, pay a deposit, and the title company initiates a title search and title insurance process. On completion, the deed is recorded at the relevant county recorder&#8217;s office.</p>
+<p>The process typically takes four to eight weeks from offer acceptance to deed recording. It can be completed remotely for overseas buyers through power of attorney arrangements, so you do not need to be physically present in Utah to complete the purchase. Key advisers for overseas buyers include a Utah-licensed real estate attorney, a US tax professional familiar with FIRPTA, and possibly a financial adviser to review the purchase vehicle options. Once completed, the management company will contact you to set up your owner profile and begin the scheduling process for your first stay.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Utah fractional share if I want to exit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. As a deeded property interest, a Utah fractional share can be sold at any time. The co-ownership agreement will typically include a <strong>right of first refusal</strong>, giving existing co-owners the opportunity to match any third-party offer before the share is listed externally. If no co-owner exercises the right, the departing owner can sell to any willing buyer at market price. The management company, co-ownership specialists, or local real estate agents can assist with the listing and sale process.</p>
+<p>The resale value of a Utah fractional share reflects movements in the underlying property market — as with any real estate asset, values can move in either direction. FIRPTA withholding will apply to overseas sellers, with the withholding reconciled through a US tax filing. Inheritance follows standard US estate procedure: a Utah fractional share can be left to heirs through a US will or held within a trust structure, with the inheriting party stepping into the same ownership position and rights as the original co-owner.</p></div></details><details class="dest-faq-item"><summary><h3>Is Park City or Deer Valley better for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p><a href="/park-city-fractional-ownership-2/">Park City</a> and Deer Valley serve different buyer profiles within Utah fractional ownership. Park City Mountain Resort offers the largest ski terrain in the US, a vibrant town with year-round energy, the Sundance Film Festival, outstanding mountain biking and hiking infrastructure, and a wider range of property types across a broader price spectrum. It is ideal for buyers who want a comprehensive  across all seasons and a genuine community to belong to, rather than purely a ski resort experience.</p>
+<p>Deer Valley is Utah&#8217;s most prestigious and exclusive ski resort — ski-only, immaculately groomed, with limited daily ticket sales to preserve quality. It consistently receives among the highest ski resort satisfaction ratings in North America. For buyers who prioritise the purity of the ski experience, the resort&#8217;s personal service standards, and the exclusivity of the environment above all else, Deer Valley is likely the better choice. Properties within Deer Valley&#8217;s ski area command a premium that reflects the resort&#8217;s reputation and physical constraints. Both destinations deliver outstanding Utah fractional ownership — the choice comes down to whether town vitality and terrain scale or quiet exclusivity and service excellence matters most.</p></div></details><details class="dest-faq-item"><summary><h3>How does Utah fractional ownership compare to Colorado?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Utah fractional ownership and <a href="/colorado-fractional-ownership-properties/">Colorado fractional ownership</a> are the two premier mountain co-ownership markets in the United States. Colorado offers a greater diversity of resort towns — Aspen&#8217;s cultural glamour, Vail&#8217;s legendary Back Bowls, Breckenridge&#8217;s accessible pricing and authentic Main Street — spread across a larger state with multiple distinct mountain ranges. Utah, by contrast, concentrates its mountain excellence into a tighter geography anchored by Park City and Deer Valley, with the added advantage of the world&#8217;s finest snow quality.</p>
+<p>In terms of access from the UK, both states are similarly convenient — direct flights to Salt Lake City and Denver both operate year-round from London. Utah has the edge on snow quality and the specific world-class credentials of Deer Valley, while Colorado wins on variety and resort-town diversity. For buyers who prioritise the finest possible powder skiing and the year-round lifestyle appeal of a single exceptional mountain town, Utah is frequently the right choice. For those who want multiple resort options within driving distance, Colorado&#8217;s greater geographical spread has an advantage. Both represent outstanding Utah or Colorado fractional ownership investments for the right buyer.</p></div></details><details class="dest-faq-item"><summary><h3>Is Utah fractional ownership a good investment?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Utah fractional ownership represents the acquisition of a deeded real property interest in one of the most dynamic and supply-constrained resort real estate markets in the United States. Park City and Deer Valley operate in a market with genuine limitations on developable land within resort boundaries, strong and growing domestic demand from a wealthier US population prioritising lifestyle experiences, and a growing international buyer base. Utah&#8217;s broader economy — one of the fastest-growing states in the country — further supports the long-term property market fundamentals.</p>
+<p>We do not position Utah fractional ownership as a financial investment product and never invent projected returns. Property values can move in either direction. What we consistently observe is that Utah fractional co-ownership delivers lifestyle value that compares favourably to spending the equivalent money on hotel stays in Park City or Deer Valley over the same number of years — while also building a transferable, inheritable real property asset in one of the world&#8217;s premier mountain markets. For the right buyer, Utah fractional ownership is both an exceptional lifestyle decision and a rational long-term allocation of capital. It is one of the most compelling mountain co-ownership opportunities available to international buyers today.</p></div></details></div></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A Week in Your Utah Co-Ownership Property</h2>
+
+<h3>Winter: Skiing, Dining, and Festival Season</h3>
+
+<p>Deer Valley Resort offers skiing without snowboarders—a distinction that shapes the entire mountain experience. The no-snowboard policy maintains consistent snow quality on pistes and ensures skier-only gliding patterns across grooming-maintained runs. The resort&#8217;s ownership model prioritizes skier experience over maximizing activity diversity, resulting in exceptional piste quality, efficient lift systems, and slopes designed specifically for skis rather than mixed-discipline usage.</p>
+
+<p>Slope-side lunch facilities operate at Deer Valley with sophistication uncommon at North American ski resorts. Mid-mountain restaurants serve prepared cuisine rather than cafeteria offerings, allowing guests to continue skiing directly from lunch without returning to base areas.</p>
+
+<p>Park City&#8217;s Historic Main Street provides evening atmosphere distinct from ski resort entertainment districts. Locally-owned restaurants, galleries, and bars occupy historic commercial buildings rather than destination-specific venues. The street maintains genuine community character alongside visitor infrastructure, hosting both locals conducting daily life and visitors seeking cultural experience.</p>
+
+<p>Sundance Film Festival in January transforms Park City into a cultural destination. The festival attracts filmmakers, industry professionals, and cinema-engaged audiences from globally. Properties with access to festival events benefit from premium usage rates and heightened occupancy demand during this concentrated three-week period.</p>
+
+<h3>Summer: Mountain Biking and National Park Access</h3>
+
+<p>Summer transforms Deer Valley&#8217;s ski trails into single-track mountain biking terrain. The elevation change traversed during winter skiing creates diverse trail networks serving mountain bikers from beginners to professionals. Park City area hosts some of North America&#8217;s most developed mountain bike infrastructure, with marked trails, bike parks, and rental facilities supporting all skill levels.</p>
+
+<p>Moab sits three hours away and offers access to Arches and Canyonlands National Parks—landscapes of geological drama and color that define American Southwest environments. Day trips from Park  reach Moab&#8217;s hiking trailheads, restaurants, and lodging within reasonable driving distance, expanding summer activity options significantly beyond mountain biking.</p>
+
+<p>Salt Lake City, 30 minutes north, provides urban dining, museums, performance venues, and cultural institutions serving Park . Weekend excursions to the city capitalize on established restaurants, galleries, and events without requiring overnight stays, making cultural and culinary experiences accessible components of property usage.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Utah Fractional Ownership — Investment and Lifestyle in Detail</h2>
+
+<h3>Park City and Deer Valley Performance Track Record</h3>
+
+<p>Park City and Deer Valley represent among the strongest-performing residential real estate segments in the United States. The region has sustained appreciation during multiple economic cycles, driven by consistent demand from national and international buyers seeking year-round mountain property. Unlike many ski resort markets that experience seasonal volatility, Park City maintains stable demand across seasons, driven by skiing, mountain biking, summer festivals, and lifestyle appeal independent of snow conditions.</p>
+
+<p>The residential market has appreciated steadily despite economic downturns, positioning properties as both lifestyle assets and equity-building investments. Appreciation rates outpace general US real estate indices in most years, reflecting supply scarcity and consistent demand from affluent buyers prioritizing location and amenities.</p>
+
+<h3>Snow Quality and the &#8220;Greatest Snow on Earth&#8221; Designation</h3>
+
+<p>Utah&#8217;s &#8220;greatest snow on earth&#8221; designation derives from measurable atmospheric conditions rather than marketing convention. The region&#8217;s elevation, latitude, and proximity to the Great Salt Lake create specific meteorological patterns producing snow with ideal density and preservation characteristics. The snow typically contains lower moisture content than coastal mountain ranges, maintaining consistent base and surface conditions longer into spring season. This snow quality metric provides genuine skiing advantage extending season length and maintaining piste conditions superior to many competing North American resorts.</p>
+
+<h3>Limited Slope-Adjacent Real Estate and Supply Constraints</h3>
+
+<p>Slope-adjacent residential real estate near Park City and Deer Valley has become exceptionally scarce. The original development patterns established dense residential placement immediately adjacent to skiing terrain. Subsequent environmental protections and planning restrictions have limited new construction in ski-in/ski-out positions. Existing slope-adjacent properties remain rare and expensive, with limited turnover occurring annually. This supply constraint directly supports values, as lifestyle-focused buyers prioritize proximity to skiing above all other considerations.</p>
+
+<h3>Olympic Legacy and International Recognition</h3>
+
+<p>The 2002 Winter Olympics elevated Park City&#8217;s global profile substantially. The event infrastructure development—roads, hotels, facilities—improved transportation and accommodation for visiting international buyers. Major hospitality brands including St Regis, Montage, and Stein Eriksen Lodge selected Deer Valley and Park City as locations for flagship properties, bringing five-star standards to the region. The Olympics reinforced Park City as a destination of international caliber, not merely a regional ski resort.</p>
+
+<h3>Operating Cost Structure and Fractional Ownership Economics</h3>
+
+<p>Park  incur annual running costs ranging from $18,000 to $35,000, reflecting mountain real estate maintenance requirements, seasonal property management, mountain utilities, and regional service costs. Each 1/8 co-owner&#8217;s annual share totals $2,250 to $4,375, providing fractional ownership participation in premium  at manageable annual cost levels.</p>
+
+<p>Traditional ownership of equivalent properties requires assuming full operating cost burden—particularly significant given mountain region service costs and specialized maintenance requirements. Fractional ownership distributes these costs across co-owners, reducing individual burden while providing professional management expertise and economies of scale impossible for individual owners to achieve.</p>
+
+<h3>Sundance Film Festival and Peak Occupancy Demand</h3>
+
+<p>Sundance Film Festival generates extraordinary occupancy demand in Park City during January&#8217;s three-week festival period. Hotel rates increase tenfold, and rental properties command premium daily rates reflecting festival-driven demand. Properties positioned for fractional ownership benefit from managed rental programs capturing premium festival-season revenues while ensuring owner usage preservation through scheduling coordination.</p>
+
+<p>Festival-season revenues contribute substantially to annual property economics, offsetting operating costs and supporting appreciation potential through occupancy-driven income. The predictable annual spike in demand creates financial performance advantages distinguishing Park  from resort markets lacking concentrated events generating peak-season premium rates.</p>
+
+<h3>Short-Term Rental Market Strength</h3>
+
+<p>Among US ski resort markets, Park City ranks among the strongest for short-term rental demand and rate achievement. Professional management programs capture weekend bookings during winter season and summer season mountain biking activity. The combination of skiing demand, festival events, and summer activities creates relatively balanced seasonal demand patterns compared to single-season-dependent resorts.</p>
+
+<p>Fractional ownership structures with professional management monetize rental potential systematically while ensuring scheduled owner usage. The rental revenue component directly reduces individual owner operating cost burden, effectively subsidizing personal usage through professional management of unscheduled periods.</p></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

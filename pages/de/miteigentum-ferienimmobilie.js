@@ -58,7 +58,7 @@ export default function MiteigentumFerienimmobiliePillar() {
                   name: 'Welche Steuern fallen beim Kauf eines Anteils an?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Bei einem Anteilskauf über eine bestehende Holdinggesellschaft (SL, SCI, Srl, Lda) fällt typischerweise keine zusätzliche Grunderwerbsteuer im Land der Immobilie an, da die Steuer beim ursprünglichen Erwerb durch die Gesellschaft bereits gezahlt wurde. In Deutschland kann je nach Holding-Struktur die Vermögensbewertung für Erbschaft- und Schenkungsteuer relevant sein.',
+                    text: 'Bei einem Anteilskauf über eine bestehende LLC (Limited Liability Company), die die Immobilie hält, fällt typischerweise keine zusätzliche Grunderwerbsteuer im Land der Immobilie an, da die Steuer beim ursprünglichen Erwerb durch die LLC bereits gezahlt wurde. In Deutschland kann je nach LLC-Struktur die Vermögensbewertung für Erbschaft- und Schenkungsteuer relevant sein.',
                   },
                 },
                 {
@@ -158,13 +158,14 @@ export default function MiteigentumFerienimmobiliePillar() {
                 Unterschrift benötigt wird.
               </li>
               <li>
-                <strong>Eintritt in die Holdinggesellschaft.</strong> Wenn die Immobilie
-                bereits in einer Holdinggesellschaft (spanische SL, italienische Srl,
-                portugiesische Lda, französische SCI, deutsche GmbH oder ähnliche Struktur im
-                Land der Immobilie) gehalten wird, erwirbt der Miteigentümer die Anteile, die
-                seinem Bruchteil entsprechen. Falls nicht, wird die Gesellschaft im Kaufprozess
-                gegründet. Der Anteilskauf wird vor einem <strong>Notar</strong> in einer
-                öffentlichen Urkunde formalisiert.
+                <strong>Eintritt in die LLC.</strong> Die Immobilie wird in einer eigens
+                gegründeten <strong>LLC (Limited Liability Company)</strong> gehalten —
+                derselben Struktur, die einheitlich über das gesamte globale Portfolio hinweg
+                verwendet wird, in jedem Markt gleich. Der Miteigentümer erwirbt den
+                Mitgliedschaftsanteil (membership interest), der seinem Bruchteil entspricht.
+                Falls die LLC für eine neue Immobilie noch nicht existiert, wird sie im
+                Kaufprozess gegründet. Der Anteilskauf wird vor einem <strong>Notar</strong>
+                in einer öffentlichen Urkunde formalisiert.
               </li>
               <li>
                 <strong>Eintritt in die Verwaltungsstruktur.</strong> Nach dem Notartermin
@@ -257,59 +258,55 @@ export default function MiteigentumFerienimmobiliePillar() {
           <section id="rechtlich">
             <h2>4. Rechtliches Modell: BGB, GmbH und ausländische SPV</h2>
             <p>
-              Die rechtliche Struktur des Miteigentums hängt vom Land der Immobilie ab. Die
-              gängigsten Strukturen, denen ein deutscher Käufer begegnen wird:
+              Die rechtliche Struktur des Miteigentums ist über das gesamte globale Portfolio
+              hinweg einheitlich: Jede Immobilie wird in einer eigens gegründeten
+              <strong> LLC (Limited Liability Company)</strong> gehalten, unabhängig vom Land der
+              Immobilie — Spanien, Frankreich, Italien, Portugal, Österreich oder USA. Die LLC
+              hält 100% des Grundbucheintrags der Immobilie, und jeder der typischerweise acht
+              Miteigentümer hält einen gleichen Mitgliedschaftsanteil
+              (<em>membership interest</em>) an dieser LLC.
+            </p>
+            <p>
+              Die LLC-Struktur bietet mehrere praktische Vorteile, die für deutsche Käufer
+              relevant sind:
             </p>
             <ul>
               <li>
-                <strong>Spanische SL (Sociedad de Responsabilidad Limitada).</strong> Die
-                dominante Struktur für Co-Ownership-Immobilien in Spanien (Mallorca, Ibiza,
-                Costa del Sol, Costa Brava). Die SL hält die Immobilie zu 100%, die
-                Miteigentümer halten Geschäftsanteile (participaciones sociales) entsprechend
-                ihrem Bruchteil. Der Anteilskauf erfolgt vor einem spanischen Notar. Die SL
-                zahlt jährlich IBI (Grundsteuer) und etwaige IRNR-Steuer auf imputiertes
-                Einkommen.
+                <strong>Konsistenz über Länder hinweg.</strong> Egal ob die Immobilie auf
+                Mallorca, am Comer See, an der Algarve, in Tirol oder an der Côte d'Azur liegt
+                — die rechtliche Struktur ist identisch. Sie verstehen ein Modell und können
+                es überall anwenden.
               </li>
               <li>
-                <strong>Französische SCI (Société Civile Immobilière).</strong> Die typische
-                Struktur in Frankreich. Die SCI ist einkommensteuertransparent — Einkünfte und
-                Verluste fließen anteilig auf die Miteigentümer (associés). Bei Anteilsübertragung
-                fallen droits d'enregistrement von etwa 5% an, deutlich weniger als die 5–7%
-                Notargebühren bei Direktimmobilienkauf.
+                <strong>Klare Haftungsbeschränkung.</strong> Ihre Haftung ist auf Ihre
+                Beteiligung an der LLC begrenzt. Persönliche Risiken aus Immobilienbetrieb
+                (z. B. Schäden, Personenverletzungen) werden durch die LLC abgeschirmt.
               </li>
               <li>
-                <strong>Italienische Srl (Società a responsabilità limitata).</strong> Die
-                Standardstruktur in Italien (Gardasee, Comer See, Toskana, Sardinien). Die
-                Übertragung von Anteilen unterliegt der imposta di registro mit variablen
-                Sätzen je nach Strukturierung.
+                <strong>Vereinfachter Wiederverkauf.</strong> Bei einem Verkauf übertragen Sie
+                Ihren Mitgliedschaftsanteil an der LLC, nicht direktes Eigentum an der
+                Immobilie. Das spart die vollen Notargebühren und Grunderwerbsteuern, die bei
+                einem klassischen Immobilienverkauf anfallen würden.
               </li>
               <li>
-                <strong>Portugiesische Lda (Sociedade por Quotas).</strong> Die Struktur für
-                Portugal (Algarve). Übertragungen unterliegen IMT (Grunderwerbsteuer) auf den
-                Anteilswert sowie Stempelsteuer.
+                <strong>Cleanere Nachfolgeplanung.</strong> Mitgliedschaftsanteile lassen sich
+                über mehrere Jurisdiktionen hinweg sauberer vererben als Direkteigentum an
+                Immobilien in jeweils unterschiedlichen Ländern. Für deutsche Käufer ist die
+                Bewertung im Sinne der deutschen Erbschaft- und Schenkungsteuer mit dem
+                Steuerberater zu klären.
               </li>
               <li>
-                <strong>Österreichische GmbH.</strong> Die typische Struktur in Österreich
-                (Tirol, Salzburger Land). Beachten Sie das Tiroler Grundverkehrsgesetz, das
-                Zweitwohnsitz-Erwerb durch Nicht-EU-Käufer einschränkt — für deutsche
-                EU-Käufer in der Regel kein Hindernis.
-              </li>
-              <li>
-                <strong>Deutsche GmbH oder Bruchteilseigentum nach BGB.</strong> Bei
-                deutschen Inlandsimmobilien (Sylt, Ostsee, Nordsee, bayerische Seen) wird in
-                der Regel entweder eine eigens gegründete GmbH oder klassisches
-                Bruchteilseigentum nach <em>§§ 1008 ff. BGB</em> eingesetzt. Bei direktem
-                Bruchteilseigentum sind alle Miteigentümer im Grundbuch eingetragen — das
-                bietet maximale rechtliche Klarheit, erfordert aber eine ausgefeilte
-                Miteigentümervereinbarung.
+                <strong>Transparente Verwaltung.</strong> Die LLC zahlt selbst die laufenden
+                Steuern und Kosten der Immobilie (Grundsteuer, IBI/IMU/IMT, Versicherung etc.).
+                Sie als Mitglied haben es nur mit den persönlichen steuerlichen Folgen Ihres
+                LLC-Anteils in Ihrem Wohnsitzland zu tun.
               </li>
             </ul>
             <p>
-              In allen Fällen wird die Holdinggesellschaft selbst durch eine
-              <strong> Miteigentümervereinbarung</strong> (Co-Ownership Agreement) ergänzt, die
-              detailliert regelt: Buchungssystem, Saisonrotation, Vorkaufsrecht der bestehenden
-              Miteigentümer, Verkaufsverfahren, Streitbeilegung, Verwaltungsentscheidungen und
-              Reservebudget.
+              Die LLC selbst wird durch eine <strong>Miteigentümervereinbarung</strong>
+              (Operating Agreement / Co-Ownership Agreement) ergänzt, die detailliert regelt:
+              Buchungssystem, Saisonrotation, Vorkaufsrecht der bestehenden Miteigentümer,
+              Verkaufsverfahren, Streitbeilegung, Verwaltungsentscheidungen und Reservebudget.
             </p>
           </section>
 
@@ -368,11 +365,11 @@ export default function MiteigentumFerienimmobiliePillar() {
 
             <h3>Beim Kauf</h3>
             <p>
-              Wenn Sie einen Anteil an einer bestehenden Holdinggesellschaft (SL, SCI, Srl,
-              Lda) erwerben, fällt typischerweise <strong>keine zusätzliche Grunderwerbsteuer
+              Wenn Sie einen Mitgliedschaftsanteil an einer bestehenden LLC erwerben, die die
+              Immobilie hält, fällt typischerweise <strong>keine zusätzliche Grunderwerbsteuer
               im Land der Immobilie</strong> an, da diese beim ursprünglichen Erwerb durch die
-              Gesellschaft bereits gezahlt wurde. Sie zahlen nur die Anteilsübertragungssteuer,
-              die deutlich niedriger ist.
+              LLC bereits gezahlt wurde. Sie zahlen nur die Anteilsübertragungssteuer, die
+              deutlich niedriger ist.
             </p>
             <p>
               Beim Direktkauf einer deutschen Inlandsimmobilie (z. B. Sylt) im
@@ -507,8 +504,8 @@ export default function MiteigentumFerienimmobiliePillar() {
             <p>
               Die <strong>Côte d'Azur</strong> (Cannes, Saint-Tropez, Mougins) und die
               <strong> französischen Alpen</strong> (Megève, Chamonix, Courchevel,
-              Val d'Isère) sind klassisch. Die meisten Anbieter strukturieren über französische
-              SCI-Gesellschaften.
+              Val d'Isère) sind klassisch. Wie überall im Portfolio strukturieren wir auch in
+              Frankreich über eine eigens gegründete LLC, die die Immobilie hält.
             </p>
           </section>
 

@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portugal  Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Explore Portugal Fractional Ownership Properties for a luxurious holiday home without the hassle of full ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Portugal  Fractional Ownership Properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Portugal?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Portugal Fractional Ownership — Atlantic Coast Living at a Fraction of the Price</h2>
+<p><strong>Portugal fractional ownership</strong> gives you documented co-ownership of a stunning Portuguese property — from golden Algarve villas to historic Lisbon apartments — at a fraction of the cost of buying outright. With a standard 1/8 share, you receive approximately six to seven weeks of personal use per year (around 45 days), your co-ownership interest is formally documented, and full rights to resell, inherit, or gift your share. This is not a timeshare — it is genuine real estate ownership registered with the Portuguese Ownership Documentation (<em>property ownership records do Registo Predial</em>). For UK buyers navigating the post-Brexit 90-day Schengen limit, Portugal fractional ownership offers the most practical route to enjoying a second home in one of Europe&#8217;s most desirable countries.</p>
+<p>Portugal combines year-round sunshine, a low cost of living, world-class golf, exceptional cuisine, and one of the safest environments in Europe — all just a two-to-three-hour flight from the UK. Whether you dream of a beachfront villa in the Algarve, a character apartment in Lisbon&#8217;s historic quarters, or a vineyard estate in the Douro Valley, fractional co-ownership makes it achievable. Browse our <strong>Portugal fractional ownership</strong> properties below and discover how you could own a share of this extraordinary country.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Portugal Fractional Ownership Is the Smart Way to Own a Second Home</h2>
+<p><strong>Portugal fractional ownership</strong> has emerged as one of the most compelling property opportunities in Europe for buyers who want genuine real estate ownership without the full financial burden of buying outright. Portugal consistently ranks among the top destinations for international property buyers, and it is easy to understand why: over 300 days of sunshine per year, a coastline stretching more than 1,700 kilometres, a remarkably low cost of living compared to northern Europe, and an infrastructure that blends modern convenience with centuries of culture and heritage. The country offers everything from the world-famous golf resorts of the Algarve to the cosmopolitan energy of Lisbon, the terraced wine valleys of the Douro, and the wild surf beaches of the Silver Coast.</p>
+<p>For UK buyers in particular, Portugal fractional ownership solves a very real problem. Since Brexit, British nationals are limited to 90 days within any 180-day rolling period across the entire Schengen zone. Owning a whole property in Portugal means paying full running costs — maintenance, insurance, taxes, management — for a home you can only legally occupy for roughly three months of the year. <strong>Fractional ownership</strong> aligns your financial commitment with your actual usage: a 1/8 share gives you approximately 45 days per year, which fits comfortably within the Schengen allowance while providing all the benefits of genuine property ownership. Your co-ownership interest is formally documented, registered with the <strong>property ownership records do Registo Predial</strong>, and you hold full resale rights, inheritance rights, and equity participation.</p>
+<p>Unlike a timeshare — which provides only usage rights with no real equity, no property title, and limited resale options — Portugal fractional ownership is structured as a deeded property transaction. You purchase a legally registered fraction of a real asset. If the property appreciates in value, your share appreciates proportionally. You can sell your share on the open market, pass it to your children through inheritance, or gift it as you choose. A professional management company handles all day-to-day maintenance, cleaning, insurance, and scheduling, so your property is always ready when you arrive.</p>
+<p>Portugal also benefits from excellent international connectivity. Direct flights from the UK reach Faro in under three hours, Lisbon in around two and a half hours, and Porto in just over two hours. The country&#8217;s modern motorway network makes it easy to explore once you arrive. Whether you are looking for beach living, city culture, mountain retreats, or vineyard landscapes, Portugal fractional ownership gives you access to one of Europe&#8217;s most rewarding countries — on terms that make financial and lifestyle sense. Buyers considering similar options in <a href="/spain-fractional-ownership-properties/">Spain fractional ownership</a> or <a href="/france-fractional-ownership-properties/">France fractional ownership</a> will find that Portugal offers a particularly attractive combination of value, climate, and quality of life.</p>
+<p>The cultural richness of Portugal adds another dimension to fractional ownership here. From the haunting melodies of Fado music in Lisbon to the vibrant contemporary art scene in Porto, from centuries-old azulejo tile work adorning churches and railway stations to the cutting-edge architecture of the MAAT museum on the Tagus, Portugal offers an extraordinary depth of experience. Portugal fractional ownership allows you to immerse yourself in this culture repeatedly, year after year, building genuine connections with local communities, favourite restaurants, and seasonal traditions.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Portugal Fractional Ownership — Areas &#038; Neighbourhoods</h2>
+<p>Portugal fractional ownership opportunities span the entire country, from the sun-drenched beaches of the south to the cultural capitals of the centre and north. Each region offers a distinct character, climate, and lifestyle — and fractional co-ownership means you can access premium properties in areas where whole-ownership prices would be prohibitive for a holiday home. Below are the five key regions where Portugal fractional ownership is most established and where buyer demand is strongest.</p>
+<h3>The Algarve — Portugal Fractional Ownership by the Coast</h3>
+<p>The Algarve is Portugal&#8217;s most famous coastal region and the epicentre of <strong>Portugal fractional ownership</strong> demand. Stretching across the entire southern coast, the Algarve offers dramatic cliff-backed beaches, world-renowned golf courses including Quinta do Lago, Vale do Lobo, and Vilamoura, and a microclimate that delivers over 300 days of sunshine. Properties range from contemporary villas with private pools in the Golden Triangle (Almancil, Quinta do Lago, Vale do Lobo) to traditional townhouses in Lagos, Tavira, and Albufeira.</p>
+<p>A 1/8 fractional share in the Algarve gives you documented co-ownership of property in one of Europe&#8217;s most established resort regions. Faro Airport is served by direct flights from across the UK, with transfer times under an hour to most Algarve destinations. Rental potential exists for unused weeks, though this varies by property and must be confirmed individually. The official tourism portal is <a href="https://visitalgarve.pt/en/" target="_blank" rel="noopener">visitalgarve.pt</a>. For buyers comparing coastal destinations, the Algarve offers a compelling alternative to the <a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a> or <a href="/costa-blanca-fractional-ownership-properties/">Costa Blanca</a> in Spain.</p>
+<h3>Lisbon &#038; Cascais — City &#038; Coast Portugal Fractional Ownership</h3>
+<p>Lisbon is one of Europe&#8217;s most vibrant capitals — a city of cobbled streets, Art Nouveau architecture, world-class restaurants, and a thriving cultural scene. <strong>Portugal fractional ownership</strong> in Lisbon gives you access to beautifully restored apartments in historic neighbourhoods like Chiado, Príncipe Real, Alfama, and Santos. The city blends old-world charm with contemporary style and offers an exceptional quality of life at a fraction of the cost of London or Paris. The official city guide is <a href="https://www.visitlisboa.com/en" target="_blank" rel="noopener">visitlisboa.com</a>.</p>
+<p>Just 30 minutes west of Lisbon, the Cascais-Estoril coastline offers a more relaxed seaside alternative with elegant villas, sandy beaches, and a prestigious marina. The Linha de Cascais rail link connects Cascais to central Lisbon in under 40 minutes, making it possible to enjoy both city culture and coastal relaxation. Portugal fractional ownership in this area suits buyers who want versatility — a property that functions as a city base, a beach retreat, and a sound investment simultaneously. Lisbon also serves as a gateway to the <a href="/beach-lifestyle/"></a> and the <a href="/city-lifestyle/"></a> that fractional ownership enables.</p>
+<h3>The Silver Coast — Portugal Fractional Ownership for Surf &#038; Heritage</h3>
+<p>The Silver Coast (<em>Costa de Prata</em>) stretches north of Lisbon along Portugal&#8217;s Atlantic seaboard and is rapidly gaining attention from international property buyers. Towns like Peniche, Nazaré, Óbidos, Ericeira, and São Martinho do Porto combine dramatic Atlantic scenery with medieval heritage, world-class surf breaks, and authentic Portuguese village life. <strong>Portugal fractional ownership</strong> on the Silver Coast appeals to buyers who prefer undiscovered coastline over established resort areas.</p>
+<p>Property values on the Silver Coast are generally more accessible than the Algarve or Lisbon, making fractional co-ownership an exceptionally efficient route to owning a Portuguese coastal home. The region is within easy driving distance of Lisbon Airport (under 90 minutes for most locations) and offers an increasingly sophisticated dining and cultural scene. Nazaré has become famous for its record-breaking waves, while Óbidos is one of Portugal&#8217;s most picturesque walled medieval towns. A 1/8 share in a Silver Coast property provides documented co-ownership with full resale and inheritance rights, managed professionally so your home is always ready when you visit.</p>
+<h3>Porto &#038; the Douro Valley — Northern Portugal Fractional Ownership</h3>
+<p>Porto is Portugal&#8217;s second city and one of Europe&#8217;s most rewarding urban destinations. The UNESCO-listed Ribeira district, the iconic port wine cellars of Vila Nova de Gaia, and the dramatic Douro River gorge give Porto a character that is entirely its own. <strong>Portugal fractional ownership</strong> in Porto means owning a share of a restored granite townhouse or a contemporary apartment in neighbourhoods like Foz do Douro, Cedofeita, or Bonfim. Direct flights from the UK serve Porto Airport year-round.</p>
+<p>Inland from Porto, the Douro Valley is a UNESCO World Heritage landscape of terraced vineyards, quintas (wine estates), and river scenery that rivals anything in Europe. Portugal fractional ownership in the Douro is ideal for wine lovers and those who want a rural retreat with cultural depth. Properties range from converted quintas with pools to modern vineyard lodges. The valley is accessible from Porto in around 90 minutes by car or by a scenic river cruise. This region appeals to buyers who have explored <a href="/italian-lakes-fractional-ownership-properties/">Italian Lakes fractional ownership</a> and want a similar lakeside-and-vineyard combination with a distinctly Portuguese character.</p>
+<h3>The Alentejo — Rural Portugal Fractional Ownership</h3>
+<p>The Alentejo is Portugal&#8217;s largest and most unspoilt region — a vast landscape of rolling plains, cork oak forests, whitewashed hilltop villages, and a rugged Atlantic coastline. Towns like Évora (a UNESCO World Heritage Site), Comporta, Melides, and Grândola have become some of the most sought-after addresses in Portugal, attracting design-conscious buyers and lifestyle seekers. <strong>Portugal fractional ownership</strong> in the Alentejo offers access to converted farmhouses (montes), contemporary villas, and boutique estates.</p>
+<p>The Alentejo coast (the Vicentine Coast Natural Park) is one of Europe&#8217;s last undeveloped stretches of Atlantic shoreline, with wild beaches, dune systems, and limited construction that protect its natural beauty. The region is under two hours from Lisbon and benefits from an exceptional food and wine culture. A 1/8 fractional share in an Alentejo property gives you documented co-ownership of a home in a region that many consider Portugal&#8217;s best-kept secret. The official tourism portal is <a href="https://www.visitalentejo.pt/en/" target="_blank" rel="noopener">visitalentejo.pt</a>. Portugal fractional ownership in the Alentejo is the ideal choice for buyers who value space, tranquillity, and authentic rural character over resort-style living.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Portugal Fractional Ownership Works</h2>
+<p><strong>Portugal fractional ownership</strong> is structured as a genuine property purchase — not a timeshare, not a holiday club, and not a points-based scheme. You buy a legally registered fraction of a real property, typically a 1/8 share, and your ownership rights are documented through a properly structured property company. The process is transparent, legally robust, and designed to give every co-owner the same protections as a sole purchaser. Here is how the <a href="/co-ownership-buying-process/">co-ownership buying process</a> works in Portugal.</p>
+<h3>Browse Portugal Fractional Ownership Properties</h3>
+<p>Start by exploring available Portugal fractional ownership listings on this page. Each property includes detailed descriptions, professional photography, location information, and share pricing. Filter by region, property type, or budget to find the home that matches your lifestyle. Our team at <a href="/">Co-Ownership Property</a> acts as a buyer&#8217;s agency — we work on your behalf, not the seller&#8217;s, to ensure you find the right property at the right price.</p>
+<h3>Legal Review &#038; Portugal Fractional Ownership Due Diligence</h3>
+<p>Once you identify a property, an independent Portuguese solicitor (<em>advogado</em>) conducts full legal due diligence. This includes verifying the title at the Ownership Documentation, checking for liens, charges, or encumbrances, reviewing the co-ownership agreement, and ensuring the property meets all building and planning regulations. The co-ownership structure is established through a legally binding agreement that governs usage scheduling, maintenance obligations, decision-making, and exit provisions. Everything is documented before you commit.</p>
+<h3>Purchase &#038; Registration of Your Portugal Fractional Ownership Share</h3>
+<p>The purchase is completed at a Portuguese notary (<em>notário</em>), and the sale is formally documented through the property structure. <strong>Your co-ownership interest is formally documented</strong> alongside the other co-owners, each holding their registered fractional share. This follows a clear, professionally managed process — the only difference is that multiple buyers share the same property. You receive a formal ownership documentation and full documentation of your Portugal fractional ownership stake.</p>
+<h3>Enjoy &#038; Manage Your Portugal Fractional Ownership Property</h3>
+<p>After completion, a professional management company takes care of all day-to-day operations: cleaning, maintenance, insurance, local taxes, garden care, pool servicing, and usage scheduling. A fair rotation system ensures all co-owners access peak periods (summer, Christmas, Easter) equitably over time. When you arrive, your Portugal fractional ownership property is cleaned, prepared, and ready. You receive regular updates and transparent reporting on all costs and maintenance. Learn more about <a href="/the-running-costs-of-a-fractional-ownership-property/">the running costs of a fractional ownership property</a>.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Portugal Fractional Ownership — Investment &#038; Lifestyle</h2>
+<p><strong>Portugal fractional ownership</strong> combines lifestyle benefits with genuine investment potential in one of Europe&#8217;s most dynamic property markets. Portugal has experienced sustained property value growth over the past decade, driven by international demand, limited coastal supply, favourable tax regimes, and the country&#8217;s consistently high global rankings for quality of life, safety, and climate. When you purchase a 1/8 fractional share, you participate in this growth proportionally — if the property appreciates, your share appreciates. This is a fundamental difference from timeshare, where there is no equity, no appreciation, and no meaningful resale market.</p>
+<p>The financial efficiency of Portugal fractional ownership is compelling. Instead of committing hundreds of thousands of euros to a property you use for a few weeks each year, you invest a proportional amount for proportional use. Running costs — including maintenance, insurance, property tax (IMI), condominium fees, and management — are shared equally among co-owners, typically reducing your annual outlay to a fraction of what sole ownership would cost. Many Portugal fractional ownership properties are mortgage-eligible, and some co-owners choose to finance their share, further improving the capital efficiency of the investment. For a detailed breakdown of typical expenses, see our guide to <a href="/the-running-costs-of-a-fractional-ownership-property/">fractional ownership running costs</a>.</p>
+<p>Rental income from unused weeks is possible for some Portugal fractional ownership properties, but <strong>this is not guaranteed</strong> and depends on the specific property, its location, the co-ownership agreement, and Portuguese rental licensing requirements. Some properties are registered for short-term rental (Alojamento Local) and generate income when co-owners are not in residence; others are purely for personal use. Always confirm the rental position for any specific property before purchase.</p>
+<p>Beyond the numbers, Portugal fractional ownership delivers a lifestyle that is genuinely difficult to replicate. Portugal offers some of the best food in Europe — from fresh Atlantic seafood to Michelin-starred restaurants in Lisbon and Porto. The country&#8217;s wine regions (Douro, Alentejo, Dão, Vinho Verde) produce world-class wines at remarkably accessible prices. Golf enthusiasts have access to dozens of championship courses, particularly in the Algarve and the Lisbon coast. Surfers, hikers, cyclists, and sailors all find world-class conditions throughout the country.</p>
+<p>For families, Portugal fractional ownership creates a generational asset. Your children grow up with memories of Portuguese summers, and because your share is inheritable, the property can pass through the family. Professional couples benefit from the hassle-free management model — you simply book your weeks, arrive, and enjoy. Whether you are drawn to the golf and beach culture of the Algarve, the urban energy of Lisbon, or the vineyard landscapes of the Douro, Portugal fractional ownership puts a genuine Portuguese second home within reach. Buyers who want to explore other European options can also compare with <a href="/croatia-fractional-ownership-properties/">Croatia fractional ownership</a> or <a href="/italy-fractional-ownership-properties/">Italy fractional ownership</a> for a broader perspective.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Portugal Fractional Ownership — FAQs</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What is Portugal fractional ownership and how does it differ from buying a whole property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p><strong>Portugal fractional ownership</strong> means purchasing a legally registered share — typically 1/8 — of a Portuguese property alongside a small group of co-owners. Your ownership interest is documented through a legally structured property company(Portuguese Ownership Documentation), and you receive formal documentation confirming your co-ownership interest. The key difference from whole ownership is that you pay a proportional fraction of the purchase price and share all running costs with the other co-owners. In exchange, you receive approximately six to seven weeks of personal use per year — around 45 days. You hold the same legal rights as a sole owner: you can sell your share, pass it to your children through inheritance, gift it, or use it as collateral. The property is professionally managed, so you never have to worry about maintenance, cleaning, or scheduling. For most buyers who use their Portuguese home for less than three months annually, fractional ownership is a far more financially efficient structure than buying outright.</p></div></details><details class="dest-faq-item"><summary><h3>Is Portugal fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — they are fundamentally different, legally, financially, and structurally. <strong>A timeshare provides only usage rights</strong> for a fixed period each year. You do not own any part of the property, you hold no genuine equity in the underlying property, no transferable asset, and resale is typically extremely difficult or impossible. Portugal fractional ownership is a genuine property purchase. Your fractional share is registered at the Portuguese Ownership Documentation, you hold real equity that appreciates with the market, and you have full rights to sell, inherit, or gift your share. This is not a marketing distinction — it is a legal and financial reality. To understand the full difference, read our guide on <a href="/what-is-fractional-ownership/">what is fractional ownership</a>.</p></div></details><details class="dest-faq-item"><summary><h3>How much time do I get with a Portugal fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard 1/8 Portugal fractional ownership share provides approximately six to seven weeks of personal use per year — around 45 days on average. Usage is allocated through a fair rotation system managed by the professional management company, ensuring all co-owners access peak periods (summer holidays, Christmas, Easter, school half-terms) equitably over time. The management company coordinates all scheduling, and many properties offer an online booking platform for selecting your preferred weeks. If you want more time in Portugal, shares of 1/4 or larger are available on certain properties, providing proportionally more weeks. The 45-day allocation fits comfortably within the 90-day Schengen limit that applies to UK nationals post-Brexit, making fractional ownership an ideal structure for British buyers.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Portugal fractional ownership property when I am not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Portugal fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The ongoing costs of Portugal fractional ownership are shared proportionally among all co-owners and are significantly lower than sole ownership. Typical expenses include: property tax (IMI — Imposto Municipal sobre Imóveis), building and contents insurance, condominium fees (if applicable), professional management fees, utilities, garden and pool maintenance, cleaning between stays, and a reserve fund for capital expenditure (repairs, replacements, upgrades). As a 1/8 co-owner, you pay one-eighth of all these costs, which typically amounts to a fraction of what sole ownership would require. The management company provides transparent annual budgets and regular financial reporting, so you always know exactly what you are paying. For a detailed breakdown, visit our guide to <a href="/the-running-costs-of-a-fractional-ownership-property/">the running costs of a fractional ownership property</a>.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Portugal fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — full resale rights are a defining feature of Portugal fractional ownership. Because your share is held through a legally structured property company at the Portuguese Ownership Documentation, you own a genuine real estate asset that can be sold on the open market at any time. The resale process is professionally managed: your buyer&#8217;s solicitor conducts due diligence, the sale is completed at a notary, and ownership transfers on the Ownership Documentation. Some co-ownership agreements include a right of first refusal clause, giving existing co-owners the opportunity to purchase your share before it goes to the open market. If the property has appreciated in value, you benefit from that appreciation proportionally. This is a critical distinction from timeshare, where resale is typically impossible or results in significant losses.</p></div></details><details class="dest-faq-item"><summary><h3>How does Portugal fractional ownership work for UK buyers after Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Since Brexit, UK nationals are classified as third-country nationals within the Schengen zone, which includes Portugal. This means British citizens can spend a maximum of 90 days in any 180-day rolling period across all Schengen countries combined. For anyone who owns a whole property in Portugal, this creates a significant mismatch — you pay 100% of the costs but can only use the home for roughly three months. Portugal fractional ownership elegantly resolves this: a 1/8 share gives you approximately 45 days per year, which fits comfortably within the 90-day limit while keeping your costs proportional to your usage. You still own genuine Portuguese property with all the rights of any EU owner — the Schengen limit applies to your physical presence, not to your property rights or legal ownership. <strong>Fractional ownership is widely regarded as the most practical model for British buyers</strong> who want a second home in Portugal post-Brexit.</p></div></details><details class="dest-faq-item"><summary><h3>What types of properties are available through Portugal fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Portugal fractional ownership covers a wide range of property types with no restrictions on style, size, or location. Available properties include contemporary beachfront villas with private pools in the Algarve, restored historic apartments in Lisbon&#8217;s Chiado and Alfama districts, vineyard estates (quintas) in the Douro Valley, traditional townhouses in Porto&#8217;s Ribeira, modern penthouses in Cascais, and rural farmhouses (montes) in the Alentejo. The co-ownership model applies equally to apartments, villas, townhouses, and country estates. Around 95% of properties are offered as 1/8 shares, though some larger or more exclusive homes may offer 1/4 or 1/2 shares for buyers who want more time. Whether you envision a golf villa, a surf-side apartment, a city pied-à-terre, or a wine-country retreat, Portugal fractional ownership can accommodate your preferences.</p></div></details><details class="dest-faq-item"><summary><h3>How do I start the process of buying a Portugal fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The first step is to browse the available Portugal fractional ownership listings on this page and identify properties that interest you. Once you find a property that matches your budget, location preferences, and lifestyle, contact our team at <a href="/">Co-Ownership Property</a>. We act as a buyer&#8217;s agency — working on your behalf, not the seller&#8217;s — and can provide detailed information, arrange viewings (in person or virtual), and guide you through every step of the purchase process. We will connect you with an independent Portuguese solicitor who specialises in co-ownership transactions, explain the legal structure and co-ownership agreement, and help you understand all costs, timelines, and obligations. The entire process from initial enquiry to completion at the notary typically takes four to eight weeks, depending on the complexity of the transaction. Read our full guide to the <a href="/co-ownership-buying-process/">co-ownership buying process</a> for a step-by-step overview.</p></div></details><details class="dest-faq-item"><summary><h3>Is Portugal fractional ownership a good investment compared to other European destinations?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Portugal fractional ownership offers a particularly attractive investment profile within the European property landscape. Portugal has experienced sustained property value growth, driven by strong international demand, limited coastal supply, a favourable tax environment, and the country&#8217;s consistent high rankings for quality of life, safety, and climate. The cost of entry for fractional ownership in Portugal is generally more accessible than comparable destinations in <a href="/south-of-france-fractional-ownership-properties/">the South of France</a> or <a href="/italian-lakes-fractional-ownership-properties/">the Italian Lakes</a>, while offering similar lifestyle appeal. Portugal also benefits from a transparent legal system, strong property rights protections, and an established notarial and land registry framework that gives international buyers confidence.</p></div></details><details class="dest-faq-item"><summary><h3>What happens if I want to leave my Portugal fractional ownership arrangement?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Because Portugal fractional ownership is co-ownership interest holdership, you have full flexibility to exit at any time by selling your share. The co-ownership agreement typically includes clear exit provisions: most agreements give existing co-owners a right of first refusal (the opportunity to buy your share before it goes to the open market), and if no co-owner wishes to purchase, you are free to sell on the open market through a standard Portuguese property transaction. The sale is completed at a notary and the new owner&#8217;s name replaces yours through the property structure. Some agreements also include provisions for a collective sale — where all co-owners agree to sell the entire property if a majority or unanimous decision is reached. This gives you multiple exit routes: sell your share individually, sell to an existing co-owner, or participate in a whole-property sale. Unlike timeshare, where exit is often impossible or financially punitive, Portugal fractional ownership provides genuine liquidity and flexibility.</p></div></details><details class="dest-faq-item"><summary><h3>Can I pass my Portugal fractional ownership share to my children?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — inheritance rights are a key feature of fractional ownership. Because your share is held through a legally structured property company, your co-ownership interest can be included in your estate. You can include your share in your will, and upon your passing, it transfers to your designated beneficiaries in accordance with applicable inheritance procedures. Your children (or any other beneficiary) inherit all the same rights you held: usage, resale, rental, and equity participation. Many families view Portugal fractional ownership as a way to create a generational family asset — a Portuguese holiday home that children and grandchildren grow up using and eventually inherit. It is advisable to take specialist cross-border estate planning advice if you are a UK resident with Portuguese property, as succession law differs between jurisdictions. For a broader understanding, see our guide on the <a href="/benefits-of-fractional-ownership-for-second-homes/">benefits of fractional ownership for second homes</a>.</p></div></details></div></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A Week in Your Portugal Co-Ownership Property</h2>
+<h3>Algarve Days: Coastal Relaxation and Golf</h3>
+<p>Picture yourself waking to Atlantic breezes on your Algarve terrace. Your morning ritual begins with coffee overlooking golden cliffs and turquoise waters. With your 1/8 fractional ownership — approximately 45 days annually — you can experience Portugal&#8217;s most celebrated coastal lifestyle without the burden of full ownership maintenance.</p>
+<p>The Algarve mornings are yours to command. You might start with a session at one of the region&#8217;s 40+ championship golf courses, including Vale do Lobo and Quinta do Lago, where courses nestle between sea cliffs and pine forests. After golf, your afternoon unfolds at a leisurely Portuguese pace. Beach clubs at Praia da Falésia and Meia Praia offer sun loungers, fresh seafood, and Atlantic views. The water temperature runs warmest June through September, but shoulder seasons — April, May, September, October — deliver the best weather with fewer crowds. Your 45 annual days distribute perfectly across these optimal windows, maximising your Mediterranean experience.</p>
+<h3>Lisbon Days: Culture, History, and Urban Energy</h3>
+<p>Swap coastal tranquillity for Lisbon&#8217;s electric atmosphere by allocating some of your annual days to the capital. Only 250 kilometres north of the Algarve, Lisbon offers a completely different Portugal experience within the same co-ownership portfolio opportunity. Walking the historic neighbourhoods of Alfama and Bairro Alto, discovering hidden staircases and street art, is followed by a midday visit to the Jerónimos Monastery or the contemporary MAAT Museum on the Tagus riverfront. Lisbon dining represents Portugal&#8217;s culinary evolution: Michelin-starred establishments sit near hole-in-wall tascas serving caldo verde for €3. Your 45 annual days mean you&#8217;ll experience multiple seasons in the capital, watching chestnuts roast in autumn and gardens bloom in spring.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Portugal Property Values Keep Rising</h2>
+<p>Portugal&#8217;s residential property market has experienced one of the strongest appreciation cycles in Europe over the past decade. The Non-Habitual Resident programme, established in 2009, attracted a significant wave of international buyers and long-stay residents who discovered the country&#8217;s lifestyle quality and brought both capital and demand to the property market. While the NHR regime has been modified in subsequent years, its legacy in terms of establishing Lisbon, Porto, and the Algarve as serious destinations for international buyers has been lasting and structural.</p>
+<p>Supply in the most desirable Portugal locations is genuinely constrained. The Algarve&#8217;s most sought-after areas — the stretch between Vilamoura and Lagos — have limited remaining development land, and planning protections on the coastal strip ensure that new supply is absorbed quickly by demand. In Lisbon&#8217;s historic districts, renovation stock rather than new-build dominates the market, which means quality is controlled by the existing building stock rather than developer decisions. Algarve coastal properties have appreciated at rates consistently above the broader Portuguese market, driven by sustained demand from Northern European buyers who recognise the combination of climate quality, accessibility, and relative value per square metre compared to equivalent Mediterranean destinations.</p>
+<p>Portugal&#8217;s position at the intersection of Northern and Southern Europe, its extraordinary geographic diversity, and the depth and quality of its tourism infrastructure create a property demand profile that is both deep and diverse. France receives more international tourists annually than any other country in the world — but Portugal&#8217;s per-capita visitor intensity is comparable, and its accommodation of lifestyle buyers rather than transit tourists creates sustained property demand.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Portugal Fractional Ownership — Practical Buyer Information</h2>
+<h3>Property Taxes and Running Costs</h3>
+<p>IMI (Imposto Municipal sobre Imóveis) is Portugal&#8217;s annual property tax, typically 0.3–0.8% of property value depending on municipality. For a €500,000 property, expect €1,500–€4,000 in annual IMI. Fractional ownership LLC structures pass IMI costs through management fees. Stamp duty (Imposto do Selo) applies to LLC share transfers at a 0.8% rate, substantially lower than property transfer taxes that would apply to direct ownership.</p>
+<p>Running costs — community fees, maintenance, property management, utilities and insurance — are divided equally among co-owners at one-eighth each. In Portugal, total annual running costs for a quality coastal property typically range from €8,000 to €15,000, meaning each co-owner&#8217;s annual share is approximately €1,000 to €1,875. This compares very favourably with the cost of renting equivalent accommodation for 45 days on the Algarve&#8217;s open market, particularly in peak season when rental rates for comparable properties can reach €2,000 to €4,000 per week.</p>
+<h3>UK Buyers and Post-Brexit Considerations</h3>
+<p>British fractional ownership buyers maintain flexible access to Portuguese properties. The Schengen area permits 90 days tourism stay within any 180-day rolling period. A 1/8 share — approximately 45 days per year — fits within this limit and allows for multiple shorter visits across the year. Portugal&#8217;s warm relationship with British buyers (historically the largest foreign buyer group in the Algarve) means professional services, legal support, and even local medical facilities frequently operate in English. Many of our UK co-owners in Portuguese properties split their 45 days across winter (escaping the UK&#8217;s cold months in mild Algarve), spring (wildflowers and uncrowded beaches), and summer — making this one of the most genuinely year-round co-ownership destinations we offer.</p></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

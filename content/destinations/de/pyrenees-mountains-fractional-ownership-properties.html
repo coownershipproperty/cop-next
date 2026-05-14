@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyrenees Mountains fractional ownership properties | Co-Ownership Property</title>
+    <meta name="description" content="Discover premium co-ownership properties in the Pyrenees including Baqueira-Beret, Candanchú &amp; Formigal. Affordable luxury ski chalets available through fractional ownership.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Pyrenees Mountains fractional ownership properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Pyrenees?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h2>Pyrenees Mountains Fractional Ownership — Own a Luxury Ski Chalet for a Fraction of the Cost</h2>
+<p><strong>Pyrenees Mountains fractional ownership</strong> offers one of the smartest routes into Spanish alpine living — a genuine, deeded 1/8 share in a luxury ski chalet, mountain apartment, or year-round retreat, registered in your name through a legally structured property company. This is real property ownership, not a timeshare, not a holiday club, not usage rights — you hold a legal stake in the asset with full resale and inheritance rights. With a 1/8 share you typically enjoy around six to seven weeks per year, roughly 45 days, spread across ski season, spring hiking, and the warm Pyrenean summer. For UK buyers travelling post-Brexit, the 90-day EU rule makes fractional co-ownership the most practical model for extended time in the mountains — your ownership weeks fall inside a defined, managed schedule that keeps you well within legal limits.</p>
+<p>Professional management takes care of everything between your visits — maintenance, insurance, cleaning, local taxes, and booking coordination — so you arrive to a pristine mountain home every time. Browse our Pyrenees Mountains properties below and discover how fractional co-ownership brings world-class alpine living within reach.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Why Pyrenees Mountains Fractional Ownership Makes Sense</h2>
+<p>The Spanish Pyrenees stretch across Aragon, Catalonia, and Navarre, forming a dramatic mountain chain that rivals the French Alps for scenery and surpasses them for value. <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees Mountains fractional ownership</a> gives you deeded access to this extraordinary landscape without the financial burden of sole ownership — and without the legal ambiguity of a timeshare or holiday club arrangement.</p>
+<p>The Pyrenees offer something genuinely rare: a four-season destination. Winter brings deep powder and world-class piste skiing at resorts including Baqueira-Beret, Formigal-Panticosa, and Candanchú. Spring and autumn turn the valleys into a hiker&#8217;s paradise, with long-distance trails threading through national parks and medieval villages. Summer delivers warm, clear days perfect for cycling, white-water rafting, and wildflower walks — and temperatures far cooler than Spain&#8217;s sizzling coasts. This year-round usability means your six to seven weeks of fractional ownership time can be spread meaningfully across the seasons, giving you the  you want without the compromises.</p>
+<p>From a co-ownership perspective, the Pyrenees deliver strong fundamentals. Property demand in the key ski resorts has remained resilient, driven partly by a domestic Spanish buyer base that values mountain retreats, and partly by growing international interest from French, British, and Scandinavian buyers. A 1/8 share in a premium <a href="/mountain-lifestyle/"></a> property gives you all the rights of a full owner — documented co-ownership, your name on the land registry, legal resale rights, and inheritance rights you can pass to your family — for a fraction of the capital outlay. Professional management handles every operational detail, from snow-season maintenance and heating schedules to summer cleaning rotas and local tax returns.</p>
+<p>For UK buyers, the post-Brexit 90-day EU rule makes <a href="/spain-fractional-ownership-properties/">Spain fractional ownership</a> the most sensible structure for an alpine second home. Rather than arriving at a full-ownership villa you can only use for 90 days every 180, your fractional weeks are carefully scheduled — typically 45 days per year in a structured rotation — making the most of your legal allowance without any ambiguity. Compare this with the traditional timeshare model, where usage rights are often shared across a large pool of buyers with no deeded interest, no resale value, and no inheritance rights. Pyrenees Mountains fractional co-ownership is the opposite in every respect: genuine freehold or equivalent ownership, full transparency, and a real asset on your balance sheet.</p>
+<p>Rental income from unused weeks is possible for some co-owners at certain Pyrenees properties, though this is not guaranteed and depends on the specific property, its management model, and local licensing rules — confirm directly with the provider before purchase. Whether or not you rent, the core value proposition of Pyrenees fractional ownership is clear: world-class mountain living, deeded and legally protected, at a price that makes real sense for smart second-home buyers.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Pyrenees Mountains Fractional Ownership — Areas &amp; Neighbourhoods</h2>
+<h3>Baqueira-Beret — Pyrenees Fractional Ownership in the Aran Valley</h3>
+<p>Baqueira-Beret is Spain&#8217;s premier ski resort, nestled in the Aran Valley in the heart of the Catalan Pyrenees. With over 160km of marked pistes, a long and reliable snow season, and an international reputation for high-end après-ski, it is the most sought-after location for Pyrenees Mountains fractional ownership in the alpine category. The village of Vielha, a short drive away, provides services, restaurants, and a charming old town throughout the year. Baqueira-Beret properties — chalets, ski apartments, and luxury mountain lodges — attract buyers who want genuinely elite mountain property co-ownership. Visit the official resort at <a href="https://www.baqueira.es/en" target="_blank" rel="noopener noreferrer">baqueira.es</a>.</p>
+<h3>Formigal &amp; Panticosa — Aragonese Pyrenees Fractional Property</h3>
+<p>In the Aragonese Pyrenees, Formigal and Panticosa form a twin-resort area popular with Spanish families and increasingly attractive to international buyers exploring <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees fractional ownership</a>. Formigal is the larger resort, with 165km of runs spread across four valleys and a lively après-ski scene. Panticosa is quieter and more intimate, set around a beautiful natural spa valley. The surrounding landscape — including Hecho, Ansó, and the Ordesa National Park — provides outstanding summer hiking and cycling. See the resort at <a href="https://www.formigal-panticosa.com" target="_blank" rel="noopener noreferrer">formigal-panticosa.com</a>.</p>
+<h3>Candanchú &amp; Astún — Western Pyrenees Fractional Ownership</h3>
+<p>Candanchú and Astún sit at the western end of the Spanish Pyrenees, close to the French border and the historic Camino de Santiago route. These resorts have a loyal following among Spanish skiers and offer excellent snow reliability thanks to their high altitude and north-facing orientation. The nearby town of Jaca — one of Aragon&#8217;s most important medieval cities — provides year-round cultural life, gastronomy, and infrastructure that makes Candanchú and Astún ideal for four-season Pyrenees Mountains co-ownership. Summer visitors find Jaca an excellent base for exploring the Hecho and Ansó valleys and the Pyrenean piedmont.</p>
+<h3>Cerler &amp; Benasque Valley — High Pyrenees Mountain Co-Ownership</h3>
+<p>The Benasque Valley in Aragon is home to Cerler ski resort and the Posets-Maladeta Natural Park, which contains Aneto — the highest peak in the Pyrenees. This area attracts serious mountain lovers: trekkers, alpinists, trail runners, and skiers who want both resort access and genuine wilderness. Benasque village is one of the most characterful mountain towns in Spain, with medieval architecture, excellent restaurants, and a relaxed pace of life. <strong>Pyrenees Mountains fractional ownership</strong> in the Cerler-Benasque area is ideal for buyers who want a genuine alpine retreat rather than a pure ski-resort property — the summer season here is arguably as compelling as winter.</p>
+<h3>La Molina &amp; Masella — Catalan Pyrenees Fractional Property</h3>
+<p>In the Catalan Pyrenees, La Molina and Masella together form the Alp 2500 ski area — Spain&#8217;s oldest ski resort combined with one of its most modern. The area&#8217;s proximity to Barcelona (around two hours&#8217; drive) makes it highly attractive for city professionals and international buyers seeking <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees fractional property</a> within easy reach of an international hub. The Cerdanya valley below is famous for its microclimate — one of the sunniest in the Pyrenees — and has long been a retreat for Barcelona&#8217;s affluent families. Year-round appeal is strong, with summer cycling, golf, and rural tourism complementing the winter ski season.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>How Pyrenees Mountains Fractional Ownership Works</h2>
+<h3>Select Your Pyrenees Property</h3>
+<p>Browse available Pyrenees Mountains fractional ownership listings — chalets, ski apartments, and mountain retreats across the key Spanish ski resorts. <a href="/co-ownership-buying-process/">Learn about the buying process</a> and speak with our team to find the right property and share size for your needs.</p>
+<h3>Legal Purchase &amp; documented co-ownership</h3>
+<p>Your purchase is handled by a qualified Spanish notary. Your 1/8 share — or whichever fraction you purchase — is registered in your name through a legally structured property company (property ownership records). This is co-ownership interest holdership, legally identical in structure to buying a whole property, but at a proportionate fraction of the cost. Full resale rights and inheritance rights are included from day one. This is the fundamental distinction between <a href="/co-ownership-explained/">co-ownership</a> and a timeshare — you own real property.</p>
+<h3>Scheduled Usage &amp; Professional Management</h3>
+<p>With a 1/8 share you receive approximately six to seven weeks per year, typically around 45 days. Usage is scheduled to ensure every co-owner gets fair access across the ski season, school holidays, and summer months. Between visits, a professional management company handles all maintenance, cleaning, insurance, local taxes, and booking coordination. For UK buyers, your scheduled weeks sit comfortably within the post-Brexit 90-day EU rule — making Pyrenees fractional property co-ownership the most practical model for regular mountain visits.</p>
+<h3>Ongoing Costs, Resale &amp; Inheritance</h3>
+<p>Co-owners share the annual running costs of the property — management fees, insurance, maintenance, and local taxes — proportionate to their share. <a href="/the-running-costs-of-a-fractional-ownership-property/">Running costs</a> are transparent and agreed upfront. When you choose to sell, your fractional share can be resold on the open market. You can also pass your share to heirs through normal inheritance — it is a real property asset, treated in every legal respect the same as a whole property.</p>
+<p>Unlike timeshare, which typically provides usage rights over a fixed period with no documented co-ownership and little or no resale value, <strong>Pyrenees Mountains fractional ownership</strong> is structured as genuine freehold co-ownership. Each co-owner holds a registered deed, not a contract for usage. The legal framework in Spain is well-established and protects all co-owners equally. The <a href="/what-is-fractional-ownership/">fractional ownership model</a> has grown significantly in Europe precisely because buyers understand the difference — and choose genuine co-ownership for its transparency, security, and real asset value.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Pyrenees Mountains Fractional Ownership — Investment &amp; Lifestyle</h2>
+<p>The Spanish Pyrenees have historically been undervalued compared to their French counterparts, but that gap has been narrowing. <strong>Pyrenees Mountains fractional ownership</strong> gives you a position in a market that combines genuine lifestyle appeal — skiing, hiking, gastronomy, and culture — with solid long-term property fundamentals. The key ski resorts, particularly Baqueira-Beret and Formigal, have a strong domestic buyer base and a growing international profile that underpins demand.</p>
+<p>The lifestyle case is powerful. The Spanish Pyrenees offer skiing that is genuinely world-class — Baqueira-Beret attracts the Spanish royal family and the country&#8217;s most prominent families year after year. The food culture is extraordinary: Aragon and Navarre are renowned for their cuisine, with tapas traditions, local cured meats, and an emerging fine-dining scene in towns like Jaca, Ainsa, and Vielha. The Catalan Pyrenees bring their own cultural richness, with Romanesque churches, medieval market towns, and one of Europe&#8217;s most distinctive regional identities.</p>
+<p>For buyers comparing the Pyrenees to other European mountain destinations, the <a href="/french-alps-fractional-ownership-properties/">French Alps</a> offer comparable skiing but at significantly higher property prices, especially in established resorts like Courchevel or Megève. The Spanish Pyrenees deliver comparable snow quality and resort infrastructure at a considerably more accessible price point — one reason why <strong>Pyrenees fractional co-ownership</strong> often attracts buyers who have looked at the Alps and found them financially out of reach for full ownership, even at a fractional level.</p>
+<p>Year-round usability amplifies the investment case. Unlike a pure ski property that sits empty for eight months of the year, a Pyrenean mountain retreat earns its keep in every season. Spring hiking and cycling, summer walks, climbing, and cool temperatures, autumn wild mushroom foraging and hunting culture, and winter skiing — all within a single property that you own as a deeded asset. This four-season appeal makes the Pyrenees one of the most practical mountain destinations for <a href="/benefits-of-fractional-ownership-for-second-homes/">fractional second-home ownership</a> in Europe.</p>
+<p>It is worth noting that rental income from unused fractional weeks is possible at some Pyrenees properties, though not guaranteed. Rental licensing in Spain varies by autonomous community and by municipality — the rules in Catalonia, Aragon, and Navarre differ from each other and are subject to change. Always confirm the rental position for a specific property before purchase, and do not base your buying decision on projected rental returns. The core value of Pyrenees Mountains co-ownership lies in the quality of the asset, the documented co-ownership structure, and the lifestyle it delivers — not rental yield speculation.</p>
+<p>As a <strong>fractional property investment</strong>, the Pyrenees mountains offer something increasingly rare: a luxury mountain destination where documented co-ownership at a meaningful fraction of the whole-ownership cost is still achievable. Whether you are comparing with the <a href="/austria-fractional-ownership-properties/">Austrian Alps</a>, evaluating coastal alternatives like <a href="/costa-blanca-fractional-ownership-properties/">Costa Blanca fractional ownership</a>, or looking at mountain options across Europe, the Spanish Pyrenees represent compelling value for buyers who want quality, authenticity, and genuine property rights in a world-class mountain environment.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Pyrenees Mountains Fractional Ownership Destinations</h2><div class="dest-explore-grid"><span class="dest-explore-card">Spain Fractional Ownership</span><a href="/french-alps-fractional-ownership-properties/" class="dest-explore-card">French Alps Fractional Ownership &rarr;</a><a href="/austria-fractional-ownership-properties/" class="dest-explore-card">Austria Fractional Ownership &rarr;</a><a href="/balearics-fractional-ownership-properties/" class="dest-explore-card">Balearics Fractional Ownership &rarr;</a><a href="/costa-blanca-fractional-ownership-properties/" class="dest-explore-card">Costa Blanca Fractional Ownership &rarr;</a><a href="/costa-de-la-luz-fractional-ownership-properties/" class="dest-explore-card">Costa de la Luz Fractional Ownership &rarr;</a><a href="/canary-islands-fractional-ownership-properties/" class="dest-explore-card">Canary Islands Fractional Ownership &rarr;</a><a href="/madrid-fractional-ownership-properties/" class="dest-explore-card">Madrid Fractional Ownership &rarr;</a><a href="/colorado-fractional-ownership-properties/" class="dest-explore-card">Colorado Fractional Ownership &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What Is Fractional Ownership? &rarr;</a><span class="dest-explore-card">All Co-Ownership Destinations</span></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Pyrenees Mountains Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly is Pyrenees Mountains fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p><strong>Pyrenees Mountains fractional ownership</strong> is genuine co-ownership of a real property — a ski chalet, mountain apartment, or alpine retreat — in which you hold a legally registered share, typically 1/8, in your own name through a legally structured property company. It is not a timeshare, not a holiday club, and not a licence to use. You are a genuine co-owner with full resale rights, inheritance rights, and a proportionate share in the property&#8217;s value. You receive approximately six to seven weeks of usage per year, managed by a professional company that handles everything between your visits.</p></div></details><details class="dest-faq-item"><summary><h3>How is fractional ownership different from timeshare in the Pyrenees?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The difference is fundamental. A timeshare typically provides usage rights over a set period, with no documented co-ownership, no genuine equity stake in the underlying property, no resale value on the open market, and no inheritance rights. <strong>Pyrenees fractional ownership</strong> is the opposite: you hold a registered deed, your name is on the land registry, you own a real asset that can be resold or inherited, and your share has genuine market value. The legal framework is the same as buying a whole property in Spain, applied proportionately to your fraction. See our full guide on <a href="/what-is-fractional-ownership/">what is fractional ownership</a>.</p></div></details><details class="dest-faq-item"><summary><h3>How many weeks per year does a 1/8 share in a Pyrenees property give me?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A 1/8 share in a Pyrenees Mountains fractional ownership property typically gives you around six to seven weeks per year, approximately 45 days. These weeks are scheduled by the management company to ensure fair access for all co-owners across different seasons — including peak ski weeks, school holiday periods, and summer months. Some properties offer flexible scheduling systems; others use a fixed annual rotation. The exact allocation will be defined in the co-ownership agreement for your specific property.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK buyers use a Pyrenees fractional property after Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. UK buyers are subject to the post-Brexit 90-day rule, which limits visits to EU countries to 90 days in any 180-day period. <strong>Pyrenees Mountains fractional ownership</strong> is one of the most practical solutions to this — your annual usage is already approximately 45 days in scheduled weeks, which fits comfortably within the 90-day limit. Rather than owning a whole property you can legally only visit for three months, you own a defined fractional share with a managed schedule designed to maximise your time in the mountains without breaching the rule. Learn more about <a href="/co-ownership-explained/">co-ownership explained</a>.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Pyrenees fractional property co-ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Co-owners share the annual running costs of the property in proportion to their share. These typically include management fees, property insurance, maintenance and repairs, local property taxes (IBI), utilities (when shared), and any communal community fees. For a 1/8 share, you pay one-eighth of all these costs. Costs are agreed transparently upfront and set out in the co-ownership agreement. See our guide to <a href="/the-running-costs-of-a-fractional-ownership-property/">fractional ownership running costs</a> for a detailed breakdown of what to expect.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Pyrenees fractional ownership weeks?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Rental income from unused fractional weeks is possible at some Pyrenees , but it is not guaranteed and not universal. Rental licensing in Spain varies significantly by region — Catalonia, Aragon, and Navarre all have their own regulations, and individual municipalities may impose additional restrictions. Do not make your buying decision based on assumed rental income. Always confirm the rental position for the specific property before purchase. Where rental is permitted, the management company typically handles bookings and provides income statements.</p></div></details><details class="dest-faq-item"><summary><h3>What types of property are available for Pyrenees fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p><strong>Pyrenees Mountains fractional ownership</strong> properties include ski chalets, mountain apartments, rural casas, and luxury alpine lodges across the key Spanish ski resorts and mountain valleys. Properties vary significantly in style, size, and location — from ski-in ski-out apartments at Baqueira-Beret to traditional Aragonese stone farmhouses in the Hecho valley, and from modern resort apartments at Formigal to luxury chalets above Benasque. There are no restrictions on property type — co-ownership applies across the full spectrum of mountain real estate available in the Pyrenees.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Pyrenees fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. Your fractional share is a registered property asset and can be resold on the open market, just like any other real property in Spain. You are not locked in — you can sell your 1/8 share independently, without needing all co-owners to agree to sell the whole property. The process is managed through a Spanish notary, and the sale is documented through the property ownership structure in the normal way. This is one of the most important distinctions between <strong>Pyrenees fractional co-ownership</strong> and timeshare, where resale is typically difficult or impossible. See our guide to the <a href="/co-ownership-buying-process/">co-ownership buying process</a>.</p></div></details><details class="dest-faq-item"><summary><h3>How does professional management work for Pyrenees ?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Each <strong>Pyrenees Mountains fractional ownership</strong> property is managed by a professional management company that coordinates usage schedules, maintenance, cleaning, insurance, local tax payments, and any rental bookings. When you arrive at your property, it is prepared and ready to use. When you leave, the management team handles everything until your next visit. You receive regular updates and transparent reporting on costs and maintenance. This management structure is what allows fractional co-ownership to work seamlessly for busy buyers who want the benefits of a mountain second home without the time burden of managing it themselves.</p></div></details><details class="dest-faq-item"><summary><h3>How do I start the process of buying a Pyrenees fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The first step is to browse the available <strong>Pyrenees Mountains fractional ownership</strong> listings on this page and identify properties that interest you. Our team at <a href="/">Co-Ownership Property</a> acts as a buyer&#8217;s agency — we work on your behalf, not the seller&#8217;s. We can discuss your requirements, explain the legal structure in detail, arrange viewings, and guide you through the purchase process from initial enquiry to completed deed. Use the enquiry form below or contact us directly to get started.</p></div></details></div></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

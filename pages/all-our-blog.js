@@ -17,7 +17,7 @@ export async function getStaticProps() {
 
   const { data: rows } = await supabase
     .from('posts')
-    .select('slug, title, title_es, title_fr, category, date, date_formatted, excerpt, excerpt_es, excerpt_fr, hero_image')
+    .select('slug, title, title_es, title_fr, title_de, category, date, date_formatted, excerpt, excerpt_es, excerpt_fr, excerpt_de, hero_image')
     .eq('published', true)
     .order('date', { ascending: false });
 
@@ -41,12 +41,14 @@ export async function getStaticProps() {
     title:         p.title,
     title_es:      p.title_es || null,
     title_fr:      p.title_fr || null,
+    title_de:      p.title_de || null,
     category:      p.category,
     date:          p.date,
     dateFormatted: p.date_formatted || p.dateFormatted,
     excerpt:       p.excerpt,
     excerpt_es:    p.excerpt_es || null,
     excerpt_fr:    p.excerpt_fr || null,
+    excerpt_de:    p.excerpt_de || null,
     heroImage:     p.hero_image || p.heroImage,
   }));
 
@@ -106,6 +108,23 @@ const COPY = {
     read_article: "Lire l'article →",
     blog_path_prefix: '/fr/blog',
     categories: ['Tous', 'Propriétés & Destinations', 'Notions de Copropriété', 'Analyses de Marché', 'Juridique & Fiscal', 'IA & Technologie'],
+  },
+  de: {
+    title_tag: 'Unser Blog | Co-Ownership Property',
+    meta_desc: 'Analysen, Ratgeber und Marktdaten zu Luxus-Miteigentum, Ferienimmobilien im Bruchteilseigentum und dem Zweitwohnsitzmarkt in Europa und den USA.',
+    og_title: 'Co-Ownership Property Blog — Einblicke ins Miteigentum',
+    og_desc: 'Reiseziel-Ratgeber, Marktanalysen und Erfahrungen echter Miteigentümer. Neue Beiträge jede Woche.',
+    eyebrow: 'Analysen & Ratgeber',
+    h1_a: 'Unser',
+    h1_b: 'Blog',
+    sub: 'Marktintelligenz, Käufer-Ratgeber und Reiseziel-Analysen für anspruchsvolle Zweitwohnsitz-Käufer.',
+    topics_label: 'Themen',
+    article_singular: 'Beitrag',
+    article_plural: 'Beiträge',
+    in_category: (cat) => ` in ${cat}`,
+    read_article: 'Artikel lesen →',
+    blog_path_prefix: '/de/blog',
+    categories: ['Alle', 'Immobilien & Reiseziele', 'Miteigentum-Grundlagen', 'Marktanalysen', 'Recht & Steuern', 'KI & Technologie'],
   },
 };
 
