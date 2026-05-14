@@ -13,6 +13,7 @@ import Newsletter from '@/components/Newsletter';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
 import ExpertForm from '@/components/ExpertForm';
 import UnlockModal from '@/components/UnlockModal';
+import FinancingCalculator from '@/components/FinancingCalculator';
 import { localeFromPath } from '@/lib/i18n';
 
 // ── Locale-specific UI copy ────────────────────────────────────────────────
@@ -605,6 +606,16 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
         </div>
 
       </div>{/* /pp-content */}
+
+      {/* Financing calculator — Pacaso-partner properties only.
+          MYNE / Vivla / And-Hamlet listings don't have a financing path yet. */}
+      {p.partner === 'pacaso' && Number(p.price) > 0 && (
+        <FinancingCalculator
+          sharePrice={Number(p.price)}
+          currency={p.currency || 'USD'}
+          locale={locale}
+        />
+      )}
 
       {lightbox !== null && (() => {
         const lbImages = p.images.slice(0, 3);
