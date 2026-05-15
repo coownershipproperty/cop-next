@@ -273,6 +273,10 @@ img {
   width: 100%;
   height: 100%;
 }
+/* Native-language label — shown only inside the drawer (luxury pattern);
+   hidden on the desktop 2x2 flag grid. */
+.cop-lang-label { display: none; }
+.cop-lang-switcher-desktop .cop-lang-label { display: none; }
 @media (max-width: 1024px) {
   .cop-lang-switcher-desktop { display: none; }
 }
@@ -469,54 +473,77 @@ img {
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the drawer — compact 2x2 flag grid
-               in the bottom-left of the drawer, NOT full-width. Matches the
-               desktop aesthetic at drawer scale. */
+            /* Language switcher inside the drawer — luxury inline row of
+               native-language names with hairline gold dot separators.
+               Same pattern Aman, Belmond, Mandarin Oriental, Rosewood and
+               most luxury hospitality brands use in their nav drawers. */
             .cop-nav .cop-lang-switcher {
                 box-sizing: border-box;
-                margin: 1.4rem 2rem 1rem;
-                padding: 1.2rem 0 0;
+                margin: 1.4rem 2rem 1.6rem;
+                padding: 1.4rem 0 0;
                 border-top: 1px solid rgba(201,168,76,0.22);
-                display: grid !important;
-                grid-template-columns: 44px 44px;
-                grid-template-rows: 28px 28px;
-                grid-auto-flow: row;
+                display: flex !important;
+                flex-direction: row;
+                flex-wrap: wrap;
                 gap: 0;
-                width: max-content;
-                align-items: stretch;
-                justify-items: stretch;
+                align-items: center;
+                justify-content: flex-start;
+                width: auto;
+            }
+            /* Hide the flag SVG inside the drawer — text-only layout */
+            .cop-nav .cop-flag { display: none !important; }
+            /* Show the native-language label */
+            .cop-nav .cop-lang-label {
+                display: inline !important;
             }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current,
             .cop-nav .cop-lang-unavailable {
-                display: block !important;
-                position: relative;
-                width: 44px !important;
-                height: 28px !important;
+                display: inline-flex !important;
+                align-items: center;
+                height: auto !important;
+                width: auto !important;
                 min-width: 0 !important;
                 padding: 0 !important;
                 margin: 0 !important;
                 border: none !important;
                 border-radius: 0 !important;
                 background: transparent !important;
-                box-sizing: border-box;
-                overflow: hidden;
-                opacity: 0.55;
-                transition: opacity 0.2s ease;
+                box-shadow: none !important;
+                box-sizing: content-box;
+                overflow: visible;
+                font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+                font-size: 0.7rem !important;
+                font-weight: 500;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: rgba(255,255,255,0.55) !important;
+                transition: color 0.2s ease;
             }
-            .cop-nav .cop-lang-switcher > *:nth-child(odd) {
-                border-right: 1px solid rgba(201,168,76,0.30) !important;
+            /* Hairline gold dot between items */
+            .cop-nav .cop-lang-switcher > * + * {
+                margin-left: 0 !important;
             }
-            .cop-nav .cop-lang-switcher > *:nth-child(-n+2) {
-                border-bottom: 1px solid rgba(201,168,76,0.30) !important;
+            .cop-nav .cop-lang-switcher > * + *::before {
+                content: '·';
+                display: inline-block;
+                margin: 0 0.7rem;
+                color: rgba(201,168,76,0.55);
+                font-size: 0.8rem;
+                font-weight: 400;
             }
-            .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
+            .cop-nav .cop-lang-link:hover {
+                color: var(--warm-gold) !important;
+            }
             .cop-nav .cop-lang-current {
-                opacity: 1 !important;
+                color: var(--warm-gold) !important;
+                font-weight: 700 !important;
                 cursor: default;
-                box-shadow: inset 0 0 0 1.5px rgba(201,168,76,0.85);
             }
-            .cop-nav .cop-lang-unavailable { opacity: 0.25 !important; }
+            .cop-nav .cop-lang-unavailable {
+                color: rgba(255,255,255,0.20) !important;
+                cursor: not-allowed;
+            }
             /* Hairline internal grid lines */
             .cop-nav .cop-lang-switcher > *:nth-child(odd) {
                 border-right: 1px solid rgba(201,168,76,0.22) !important;
@@ -4695,54 +4722,77 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the drawer — compact 2x2 flag grid
-               in the bottom-left of the drawer, NOT full-width. Matches the
-               desktop aesthetic at drawer scale. */
+            /* Language switcher inside the drawer — luxury inline row of
+               native-language names with hairline gold dot separators.
+               Same pattern Aman, Belmond, Mandarin Oriental, Rosewood and
+               most luxury hospitality brands use in their nav drawers. */
             .cop-nav .cop-lang-switcher {
                 box-sizing: border-box;
-                margin: 1.4rem 2rem 1rem;
-                padding: 1.2rem 0 0;
+                margin: 1.4rem 2rem 1.6rem;
+                padding: 1.4rem 0 0;
                 border-top: 1px solid rgba(201,168,76,0.22);
-                display: grid !important;
-                grid-template-columns: 44px 44px;
-                grid-template-rows: 28px 28px;
-                grid-auto-flow: row;
+                display: flex !important;
+                flex-direction: row;
+                flex-wrap: wrap;
                 gap: 0;
-                width: max-content;
-                align-items: stretch;
-                justify-items: stretch;
+                align-items: center;
+                justify-content: flex-start;
+                width: auto;
+            }
+            /* Hide the flag SVG inside the drawer — text-only layout */
+            .cop-nav .cop-flag { display: none !important; }
+            /* Show the native-language label */
+            .cop-nav .cop-lang-label {
+                display: inline !important;
             }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current,
             .cop-nav .cop-lang-unavailable {
-                display: block !important;
-                position: relative;
-                width: 44px !important;
-                height: 28px !important;
+                display: inline-flex !important;
+                align-items: center;
+                height: auto !important;
+                width: auto !important;
                 min-width: 0 !important;
                 padding: 0 !important;
                 margin: 0 !important;
                 border: none !important;
                 border-radius: 0 !important;
                 background: transparent !important;
-                box-sizing: border-box;
-                overflow: hidden;
-                opacity: 0.55;
-                transition: opacity 0.2s ease;
+                box-shadow: none !important;
+                box-sizing: content-box;
+                overflow: visible;
+                font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+                font-size: 0.7rem !important;
+                font-weight: 500;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: rgba(255,255,255,0.55) !important;
+                transition: color 0.2s ease;
             }
-            .cop-nav .cop-lang-switcher > *:nth-child(odd) {
-                border-right: 1px solid rgba(201,168,76,0.30) !important;
+            /* Hairline gold dot between items */
+            .cop-nav .cop-lang-switcher > * + * {
+                margin-left: 0 !important;
             }
-            .cop-nav .cop-lang-switcher > *:nth-child(-n+2) {
-                border-bottom: 1px solid rgba(201,168,76,0.30) !important;
+            .cop-nav .cop-lang-switcher > * + *::before {
+                content: '·';
+                display: inline-block;
+                margin: 0 0.7rem;
+                color: rgba(201,168,76,0.55);
+                font-size: 0.8rem;
+                font-weight: 400;
             }
-            .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
+            .cop-nav .cop-lang-link:hover {
+                color: var(--warm-gold) !important;
+            }
             .cop-nav .cop-lang-current {
-                opacity: 1 !important;
+                color: var(--warm-gold) !important;
+                font-weight: 700 !important;
                 cursor: default;
-                box-shadow: inset 0 0 0 1.5px rgba(201,168,76,0.85);
             }
-            .cop-nav .cop-lang-unavailable { opacity: 0.25 !important; }
+            .cop-nav .cop-lang-unavailable {
+                color: rgba(255,255,255,0.20) !important;
+                cursor: not-allowed;
+            }
             /* Hairline internal grid lines */
             .cop-nav .cop-lang-switcher > *:nth-child(odd) {
                 border-right: 1px solid rgba(201,168,76,0.22) !important;

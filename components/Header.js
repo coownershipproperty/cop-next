@@ -227,8 +227,16 @@ const FLAG_SVGS = {
 
 const LOCALE_NAMES = { en: 'English', es: 'Español', fr: 'Français', de: 'Deutsch' };
 
+// Render both a flag and the native locale name. CSS shows only the flag on
+// desktop (where the 2x2 grid uses full-bleed flags) and only the text label
+// on mobile/drawer (where luxury brands universally use native-language text).
 function Flag({ loc }) {
-  return <span className="cop-flag">{FLAG_SVGS[loc]}</span>;
+  return (
+    <>
+      <span className="cop-flag">{FLAG_SVGS[loc]}</span>
+      <span className="cop-lang-label">{LOCALE_NAMES[loc]}</span>
+    </>
+  );
 }
 
 function LanguageSwitcher({ currentLocale, currentPath, desktopOnly = false }) {
