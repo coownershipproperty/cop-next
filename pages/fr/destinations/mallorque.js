@@ -85,7 +85,7 @@ export default function MallorqueFR({ properties }) {
               <div className="explainer-num">02</div>
               <div className="explainer-divider"></div>
               <h3>Andratx et Port d'Andratx</h3>
-              <p>Le sud-ouest exclusif. Vues spectaculaires sur la mer et la Sierra de Tramuntana. Pas de tourisme de masse. C'est ici que se concentrent les propriétés haut de gamme de l'île. Idéal pour les copropriétaires recherchant la discrétion.</p>
+              <p>Le sud-ouest exclusif. Vues spectaculaires sur la mer et la Sierra de Tramuntana. Pas de tourisme de masse. C'est ici que se concentrent les biens haut de gamme de l'île. Idéal pour les copropriétaires recherchant la discrétion.</p>
             </div>
             <div className="explainer-item">
               <div className="explainer-num">03</div>
@@ -117,8 +117,8 @@ export default function MallorqueFR({ properties }) {
 
       <section className="our-homes-section">
         <div className="results-bar" style={{padding:'2rem 1.5rem 1rem'}}>
-          <h2 style={{margin:0, fontFamily:'var(--font-playfair, Georgia, serif)', fontSize:'clamp(1.5rem, 3vw, 2rem)', color:'#2C4A5E', textAlign:'center'}}>Propriétés disponibles à Mallorque</h2>
-          <p className="results-count" style={{textAlign:'center', marginTop:'0.5rem'}}>{properties.length} {properties.length === 1 ? 'propriété disponible' : 'propriétés disponibles'} en copropriété</p>
+          <h2 style={{margin:0, fontFamily:'var(--font-playfair, Georgia, serif)', fontSize:'clamp(1.5rem, 3vw, 2rem)', color:'#2C4A5E', textAlign:'center'}}>Biens disponibles à Mallorque</h2>
+          <p className="results-count" style={{textAlign:'center', marginTop:'0.5rem'}}>{properties.length} {properties.length === 1 ? 'bien disponible' : 'biens disponibles'} en copropriété</p>
         </div>
 
         <div className="homes-grid-wrap">
@@ -128,7 +128,7 @@ export default function MallorqueFR({ properties }) {
             </div>
           ) : (
             <div className="no-results" style={{padding:'3rem 1rem'}}>
-              <p>Aucune propriété disponible à Mallorque pour le moment. <a href="#newsletter">Inscrivez-vous</a> pour être prévenu des nouvelles annonces.</p>
+              <p>Aucun bien disponible à Mallorque pour le moment. <a href="#newsletter">Inscrivez-vous</a> pour être prévenu des nouvelles annonces.</p>
             </div>
           )}
         </div>
@@ -141,7 +141,7 @@ export default function MallorqueFR({ properties }) {
         </div>
         <ul className="faq-list">
           <li className="faq-item"><details><summary><h3>Combien coûte une quote-part à Mallorque ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>La fourchette typique pour une quote-part de 1/8 à Mallorque en 2026 : <strong>100 000 € pour des appartements à Palma</strong>, <strong>jusqu'à 500 000 € pour des villas premium à Andratx, Son Vida ou Deià</strong>. Les villas avec piscine dans les zones intermédiaires comme Pollensa ou Cala d'Or se situent entre 180 000 et 280 000 € la quote-part.</p></div></details></li>
-          <li className="faq-item"><details><summary><h3>Comment est-ce structuré juridiquement ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Le modèle professionnel utilise une LLC (Limited Liability Company) constituée spécifiquement pour le bien — la même structure utilisée de manière homogène à travers notre portefeuille international. Vous acquérez un membership interest dans cette LLC devant notaire, ce qui vous confère la propriété légale de votre quote-part. La LLC est inscrite comme propriétaire au Registre de la Propriété de Mallorque. L'operating agreement fixe le calendrier d'usage, les frais et les règles de revente.</p></div></details></li>
+          <li className="faq-item"><details><summary><h3>Comment est-ce structuré juridiquement ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Le modèle professionnel utilise une LLC (Limited Liability Company) constituée spécifiquement pour le bien — la même structure utilisée de manière homogène à travers notre portefeuille international. Vous acquérez un membership interest dans cette LLC devant notaire, ce qui vous confère le bien légale de votre quote-part. La LLC est inscrite comme propriétaire au Registre de la Bien de Mallorque. L'operating agreement fixe le calendrier d'usage, les frais et les règles de revente.</p></div></details></li>
           <li className="faq-item"><details><summary><h3>Quelle fiscalité pour un acheteur français ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>À l'achat : ITP (droits d'enregistrement) de 1 à 1,5% sur la valeur des parts (régime espagnol pour SL non purement immobilière). Annuellement : IBI municipal payé par la SL et réparti au prorata, plus impôt sur le revenu des non-résidents (IRNR) en Espagne — convention fiscale franco-espagnole évite la double imposition. Côté français : votre quote-part entre dans votre patrimoine IFI au prorata.</p></div></details></li>
           <li className="faq-item"><details><summary><h3>Puis-je louer ma semaine quand je ne l'utilise pas ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>À Mallorque, la location de vacances est strictement réglementée : il faut une licence touristique spécifique délivrée par le gouvernement balear. Certains opérateurs de copropriété gèrent cet aspect — demandez avant de signer. Sans licence, la location de vacances n'est pas légale aux Baléares et expose à des amendes importantes.</p></div></details></li>
           <li className="faq-item"><details><summary><h3>Est-ce le bon moment pour acheter à Mallorque ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Les prix à Mallorque ont augmenté d'environ 35% entre 2019 et 2025 selon les principaux indices immobiliers. La demande étrangère (allemande, britannique, française, scandinave) reste très forte et l'offre de neuf est limitée par le moratoire des licences. Tendance : prix stables ou en hausse modérée dans les zones premium. La copropriété donne accès à ce marché à une fraction du coût.</p></div></details></li>

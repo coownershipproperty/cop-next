@@ -63,7 +63,7 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
         <main className="blog-main">
           <article className="blog-article">
 
-            <p><strong>Acheter une résidence secondaire à plusieurs n'est plus l'idée bizarre que c'était il y a dix ans.</strong> Avec des prix immobiliers qui ont flambé de 30 à 50 % dans les destinations les plus prisées entre 2017 et 2022 — Côte d'Azur, Alpes, Provence, Mallorca — la propriété intégrale d'une maison de vacances est devenue inaccessible pour la majorité des familles qui pouvaient encore l'envisager il y a peu. Acheter à plusieurs est la réponse rationnelle : vous gardez la qualité du bien et la valeur patrimoniale, vous divisez le coût et l'entretien, et vous n'utilisez la maison que la durée où vous y allez réellement de toute façon.</p>
+            <p><strong>Acheter une résidence secondaire à plusieurs n'est plus l'idée bizarre que c'était il y a dix ans.</strong> Avec des prix immobiliers qui ont flambé de 30 à 50 % dans les destinations les plus prisées entre 2017 et 2022 — Côte d'Azur, Alpes, Provence, Mallorca — le bien intégrale d'une maison de vacances est devenue inaccessible pour la majorité des familles qui pouvaient encore l'envisager il y a peu. Acheter à plusieurs est la réponse rationnelle : vous gardez la qualité du bien et la valeur patrimoniale, vous divisez le coût et l'entretien, et vous n'utilisez la maison que la durée où vous y allez réellement de toute façon.</p>
 
             <p>Mais « acheter à plusieurs » recouvre plusieurs réalités juridiques très différentes. Ce guide explique exactement quels modèles existent en 2026, lequel choisir selon votre situation, et les pièges à éviter.</p>
 
@@ -140,7 +140,7 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
             <p>Pour un groupe d'acquéreurs dispersé géographiquement, ou pour un bien situé hors de France, le modèle LLC est devenu la référence du marché professionnel.</p>
 
             <h2 id="copropriete">4. La copropriété de résidence secondaire (modèle 1/8)</h2>
-            <p>La copropriété professionnelle de résidence secondaire — popularisée en Europe depuis 2018-2020 — applique exactement ce modèle LLC à grande échelle. Un opérateur sélectionne une propriété, constitue une LLC dédiée, et vend 8 membership interests égaux. Chaque acquéreur reçoit 1/8 du bien et 45 nuits d'usage par an, gérées via un calendrier rotatif équitable.</p>
+            <p>La copropriété professionnelle de résidence secondaire — popularisée en Europe depuis 2018-2020 — applique exactement ce modèle LLC à grande échelle. Un opérateur sélectionne un bien, constitue une LLC dédiée, et vend 8 membership interests égaux. Chaque acquéreur reçoit 1/8 du bien et 45 nuits d'usage par an, gérées via un calendrier rotatif équitable.</p>
             <p><strong>Différence clé avec un montage entre proches :</strong> tout est géré pour vous. Sélection du bien, montage juridique, ameublement, entretien, ménage entre séjours, calendrier, fiscalité — l'opérateur prend tout en charge en échange de frais de gestion. Vous arrivez, profitez, repartez.</p>
             <p>C'est le modèle utilisé par les opérateurs internationaux qui figurent sur Co-Ownership Property. C'est aussi le modèle que <em>Prello</em> avait popularisé en France avant sa cessation d'activité en septembre 2024 — mais d'autres opérateurs européens continuent d'opérer ce modèle de manière saine et durable.</p>
             <p><strong>Idéal si :</strong> vous voulez une résidence secondaire haut de gamme sans aucune charge mentale ; vous n'avez pas 7 amis fiables avec qui acheter ; vous valorisez la professionnalisation de la gestion ; le bien est dans un pays différent du vôtre.</p>
@@ -205,10 +205,10 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
             <h3>Peut-on louer notre résidence secondaire à plusieurs ?</h3>
             <p>Oui, sous réserve de l'operating agreement. La location partielle (semaines inutilisées) génère des revenus qui couvrent souvent les frais courants. Vérifiez la réglementation locale (déclaration de meublé de tourisme, autorisation de la mairie dans certaines zones tendues).</p>
 
-            <p style={{marginTop: '3rem'}}><strong>Vous voulez explorer les propriétés disponibles dès maintenant en copropriété professionnelle ?</strong> Nous présentons des résidences secondaires en copropriété en Espagne, en France, en Italie, au Portugal et au-delà — avec la structure juridique LLC, la gestion incluse, et un calendrier d'usage géré.</p>
+            <p style={{marginTop: '3rem'}}><strong>Vous voulez explorer les biens disponibles dès maintenant en copropriété professionnelle ?</strong> Nous présentons des résidences secondaires en copropriété en Espagne, en France, en Italie, au Portugal et au-delà — avec la structure juridique LLC, la gestion incluse, et un calendrier d'usage géré.</p>
 
             <p style={{marginTop: '1.5rem'}}>
-              <a href="/our-homes/" className="cop-cta-primary">Voir les propriétés en copropriété &rarr;</a>
+              <a href="/our-homes/" className="cop-cta-primary">Voir les biens en copropriété &rarr;</a>
             </p>
 
           </article>
@@ -219,7 +219,7 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
             <h2 className="bsb-heading">Liens rapides</h2>
             <a className="bsb-dest-link" href="/fr/copropriete-residence-secondaire/">Le guide pillar de la copropriété <span>→</span></a>
             <a className="bsb-dest-link" href="/fr/comment-ca-marche/">Comment ça marche en 4 étapes <span>→</span></a>
-            <a className="bsb-dest-link" href="/our-homes/">Voir les propriétés disponibles <span>→</span></a>
+            <a className="bsb-dest-link" href="/our-homes/">Voir les biens disponibles <span>→</span></a>
             <a className="bsb-dest-link" href="/fr/contact/">Parler à un expert <span>→</span></a>
           </section>
         </aside>

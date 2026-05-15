@@ -65,7 +65,7 @@ export default function IbizaFR({ properties }) {
         <div className="sec-inner">
           <h2 style={{textAlign:'center', fontSize:'clamp(1.6rem, 3vw, 2.2rem)', marginBottom:'2rem'}}>Les meilleures zones d'Ibiza pour la copropriété</h2>
           <div className="explainer-grid">
-            <div className="explainer-item"><div className="explainer-num">01</div><div className="explainer-divider"></div><h3>Santa Eulalia et Es Canar</h3><p>L'est familial et élégant. Meilleur équilibre entre tranquillité et services. Propriétés de luxe avec vue mer. Zone préférée des acheteurs cherchant une destination paisible mais culturellement vivante.</p></div>
+            <div className="explainer-item"><div className="explainer-num">01</div><div className="explainer-divider"></div><h3>Santa Eulalia et Es Canar</h3><p>L'est familial et élégant. Meilleur équilibre entre tranquillité et services. Biens de luxe avec vue mer. Zone préférée des acheteurs cherchant une destination paisible mais culturellement vivante.</p></div>
             <div className="explainer-item"><div className="explainer-num">02</div><div className="explainer-divider"></div><h3>San José et Cala Vadella</h3><p>Le sud-ouest exclusif. Criques spectaculaires, couchers de soleil mondialement célèbres. C'est ici que se trouvent les villas les plus impressionnantes et discrètes de l'île. Marché limité, demande très forte.</p></div>
             <div className="explainer-item"><div className="explainer-num">03</div><div className="explainer-divider"></div><h3>San Juan et Portinatx</h3><p>Le nord préservé. Criques cachées, marchés artisanaux, ambiance bohème raffinée. Offre très limitée mais grande valeur patrimoniale. Pour qui cherche l'Ibiza la moins commerciale.</p></div>
             <div className="explainer-item"><div className="explainer-num">04</div><div className="explainer-divider"></div><h3>Roca Llisa et Cap Martinet</h3><p>Communautés fermées avec golf et beach club. Sécurité et services maximaux. Les prix les plus élevés de l'île, mais l'infrastructure la plus complète pour une résidence secondaire.</p></div>
@@ -77,14 +77,14 @@ export default function IbizaFR({ properties }) {
 
       <section className="our-homes-section">
         <div className="results-bar" style={{padding:'2rem 1.5rem 1rem'}}>
-          <h2 style={{margin:0, fontFamily:'var(--font-playfair, Georgia, serif)', fontSize:'clamp(1.5rem, 3vw, 2rem)', color:'#2C4A5E', textAlign:'center'}}>Propriétés disponibles à Ibiza</h2>
-          <p className="results-count" style={{textAlign:'center', marginTop:'0.5rem'}}>{properties.length} {properties.length === 1 ? 'propriété disponible' : 'propriétés disponibles'} en copropriété</p>
+          <h2 style={{margin:0, fontFamily:'var(--font-playfair, Georgia, serif)', fontSize:'clamp(1.5rem, 3vw, 2rem)', color:'#2C4A5E', textAlign:'center'}}>Biens disponibles à Ibiza</h2>
+          <p className="results-count" style={{textAlign:'center', marginTop:'0.5rem'}}>{properties.length} {properties.length === 1 ? 'bien disponible' : 'biens disponibles'} en copropriété</p>
         </div>
         <div className="homes-grid-wrap">
           {properties.length > 0 ? (
             <div className="homes-grid">{properties.map(p => <PropertyCard key={p.slug} property={p} />)}</div>
           ) : (
-            <div className="no-results" style={{padding:'3rem 1rem'}}><p>Aucune propriété disponible à Ibiza pour le moment. <a href="#newsletter">Inscrivez-vous</a> pour être prévenu des nouvelles annonces.</p></div>
+            <div className="no-results" style={{padding:'3rem 1rem'}}><p>Aucun bien disponible à Ibiza pour le moment. <a href="#newsletter">Inscrivez-vous</a> pour être prévenu des nouvelles annonces.</p></div>
           )}
         </div>
       </section>

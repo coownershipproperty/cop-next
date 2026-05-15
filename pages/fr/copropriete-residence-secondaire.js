@@ -21,7 +21,7 @@ export default function CoproprieteResidenceSecondairePillar() {
         <title>Copropriété résidence secondaire : le guide complet 2026 (LLC, fiscalité, achat)</title>
         <meta
           name="description"
-          content="Tout savoir sur la copropriété de résidence secondaire en 2026 : fonctionnement, structure LLC, fiscalité (IFI, plus-value), différences avec la multipropriété, achat sécurisé."
+          content="Tout savoir sur la copropriété de résidence secondaire en 2026 : fonctionnement, structure LLC, fiscalité (IFI, plus-value), différences avec la multibien, achat sécurisé."
         />
         <link rel="canonical" href="https://co-ownership-property.com/fr/copropriete-residence-secondaire/" />
         <HreflangLinks englishPath="/fr/copropriete-residence-secondaire" />
@@ -43,7 +43,7 @@ export default function CoproprieteResidenceSecondairePillar() {
                   name: 'Qu\'est-ce que la copropriété de résidence secondaire ?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Il s\'agit d\'un modèle où plusieurs acquéreurs deviennent copropriétaires d\'une maison de vacances. Chaque copropriétaire détient typiquement 1/8 de la propriété via une LLC (Limited Liability Company) constituée spécifiquement pour ce bien, et bénéficie d\'environ 45 nuits par an d\'usage exclusif. Vous êtes véritablement propriétaire — pas locataire, pas en multipropriété.',
+                    text: 'Il s\'agit d\'un modèle où plusieurs acquéreurs deviennent copropriétaires d\'une maison de vacances. Chaque copropriétaire détient typiquement 1/8 de le bien via une LLC (Limited Liability Company) constituée spécifiquement pour ce bien, et bénéficie d\'environ 45 nuits par an d\'usage exclusif. Vous êtes véritablement propriétaire — pas locataire, pas en multibien.',
                   },
                 },
                 {
@@ -95,7 +95,7 @@ export default function CoproprieteResidenceSecondairePillar() {
             <h1>Copropriété de résidence secondaire : le guide complet</h1>
             <p className="cop-pillar-lead">
               La <strong>copropriété de résidence secondaire</strong> — aussi appelée{' '}
-              <em>co-ownership</em> ou <em>propriété fractionnée</em> — permet à plusieurs
+              <em>co-ownership</em> ou <em>bien fractionnée</em> — permet à plusieurs
               acquéreurs de devenir véritablement copropriétaires d'une maison de vacances de
               luxe pour une fraction du prix. Ce guide explique comment ça marche, comment
               c'est structuré juridiquement, quelle fiscalité s'applique, et comment acheter
@@ -124,7 +124,7 @@ export default function CoproprieteResidenceSecondairePillar() {
             <ol>
               <li><a href="#definition">Qu'est-ce que la copropriété de résidence secondaire ?</a></li>
               <li><a href="#fonctionnement">Comment ça marche en pratique</a></li>
-              <li><a href="#multipropriete">Copropriété vs. multipropriété : la vraie différence</a></li>
+              <li><a href="#multipropriete">Copropriété vs. multibien : la vraie différence</a></li>
               <li><a href="#sci">La LLC : la structure juridique en détail</a></li>
               <li><a href="#operateur">Et si l'opérateur disparaît ?</a></li>
               <li><a href="#couts">Coûts d'acquisition et frais annuels</a></li>
@@ -142,15 +142,15 @@ export default function CoproprieteResidenceSecondairePillar() {
             <p>
               La <strong>copropriété de résidence secondaire</strong> est un modèle dans lequel
               plusieurs acquéreurs achètent ensemble une maison de vacances et se répartissent
-              proportionnellement la propriété, l'usage et les coûts. Le modèle dominant en
-              Europe et en France divise la propriété en <strong>8 quotes-parts égales</strong>{' '}
+              proportionnellement le bien, l'usage et les coûts. Le modèle dominant en
+              Europe et en France divise le bien en <strong>8 quotes-parts égales</strong>{' '}
               (chacune appelée <em>1/8</em> ou <em>part</em>), chaque copropriétaire détenant
               au minimum 1/8 — ce qui donne droit à environ <strong>45 nuits par an</strong>{' '}
               d'usage exclusif.
             </p>
             <p>
-              C'est de la <strong>vraie propriété</strong> — pas un droit d'usage temporaire,
-              pas une location, pas une multipropriété. Le bien est inscrit au cadastre au nom
+              C'est de la <strong>vrai bien</strong> — pas un droit d'usage temporaire,
+              pas une location, pas une multibien. Le bien est inscrit au cadastre au nom
               de la LLC dont vous êtes membre pour votre quote-part. Votre intérêt se
               transmet par succession, se vend sur un marché secondaire, et bénéficie de
               l'éventuelle plus-value du bien immobilier.
@@ -168,7 +168,7 @@ export default function CoproprieteResidenceSecondairePillar() {
             <ol className="cop-pillar-steps">
               <li>
                 <strong>Choix du bien.</strong> Vous parcourez les biens disponibles. Sur COP,
-                vous trouverez des propriétés en copropriété de plusieurs opérateurs européens
+                vous trouverez des biens en copropriété de plusieurs opérateurs européens
                 en un seul endroit, avec filtres par destination, prix, nombre de chambres et
                 équipements.
               </li>
@@ -199,9 +199,9 @@ export default function CoproprieteResidenceSecondairePillar() {
             </ol>
           </section>
 
-          {/* 3. Vs multipropriété ───────────────────────────────────────── */}
+          {/* 3. Vs multibien ───────────────────────────────────────── */}
           <section id="multipropriete">
-            <h2>3. Copropriété vs. multipropriété : la vraie différence</h2>
+            <h2>3. Copropriété vs. multibien : la vraie différence</h2>
             <p>
               C'est <em>la</em> question que tout acquéreur français se pose, et c'est
               important d'y répondre clairement parce que les deux figures sont
@@ -212,13 +212,13 @@ export default function CoproprieteResidenceSecondairePillar() {
                 <tr>
                   <th></th>
                   <th>Copropriété (résidence secondaire)</th>
-                  <th>Multipropriété (timeshare)</th>
+                  <th>Multibien (timeshare)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Statut juridique</td>
-                  <td>Propriété immobilière réelle (via LLC)</td>
+                  <td>Bien immobilière réelle (via LLC)</td>
                   <td>Droit d'usage / contrat d'adhésion</td>
                 </tr>
                 <tr>
@@ -254,7 +254,7 @@ export default function CoproprieteResidenceSecondairePillar() {
               </tbody>
             </table>
             <p>
-              La <strong>multipropriété</strong> a laissé un mauvais souvenir en France
+              La <strong>multibien</strong> a laissé un mauvais souvenir en France
               (Directive 2008/122/CE adoptée pour réguler les abus, jurisprudence cassant des
               centaines de contrats). La copropriété de résidence secondaire est une figure
               juridique distincte, structurée par une LLC qui détient véritablement le bien
@@ -262,7 +262,7 @@ export default function CoproprieteResidenceSecondairePillar() {
             </p>
             <p>
               Pour aller plus loin : <a href="/fr/blog/copropriete-vs-multipropriete/">Copropriété
-              vs. multipropriété : les vraies différences</a>.
+              vs. multibien : les vraies différences</a>.
             </p>
           </section>
 
@@ -289,9 +289,9 @@ export default function CoproprieteResidenceSecondairePillar() {
               bien ensemble, mais elle est notoirement instable : « nul n'est tenu de rester
               dans l'indivision » (art. 815), tout indivisaire peut demander le partage à tout
               moment, et la gestion ordinaire requiert l'accord de la majorité des 2/3. La LLC
-              corrige tous ces problèmes : la propriété est stable, la gouvernance est claire
+              corrige tous ces problèmes : le bien est stable, la gouvernance est claire
               dans l'operating agreement, et la sortie d'un copropriétaire se fait par cession
-              du membership interest sans toucher la propriété sous-jacente. La LLC offre
+              du membership interest sans toucher le bien sous-jacente. La LLC offre
               également une protection de la responsabilité personnelle et une cohérence
               juridique d'un pays à l'autre — un atout majeur pour un acquéreur qui détient
               plusieurs biens dans différentes juridictions.
@@ -333,7 +333,7 @@ export default function CoproprieteResidenceSecondairePillar() {
               <li>
                 <strong>Un autre opérateur peut reprendre la gestion.</strong> Les membres
                 de la LLC peuvent voter pour désigner un nouveau gérant ou un nouveau
-                prestataire de services. Le bien et la propriété ne sont pas en danger.
+                prestataire de services. Le bien et le bien ne sont pas en danger.
               </li>
               <li>
                 <strong>Les copropriétaires peuvent aussi décider de vendre.</strong> Si les
@@ -343,7 +343,7 @@ export default function CoproprieteResidenceSecondairePillar() {
               </li>
             </ul>
             <p>
-              Sur COP, nous indiquons clairement la structure juridique de chaque propriété
+              Sur COP, nous indiquons clairement la structure juridique de chaque bien
               que nous présentons et les garanties associées. C'est pour cela que la due
               diligence préalable à l'achat — examen de l'operating agreement, du règlement
               intérieur, du contrat de gestion — est essentielle.
@@ -447,7 +447,7 @@ export default function CoproprieteResidenceSecondairePillar() {
               <li><strong>Operating agreement de la LLC et règlement intérieur.</strong> Demandez-les. Un avocat ou notaire devrait les relire.</li>
               <li><strong>Calendrier de jouissance.</strong> Algorithme de rotation pour les semaines de haute saison ? Comment sont gérées les demandes en concurrence ?</li>
               <li><strong>Frais.</strong> Détail complet, projection sur 3-5 ans, mécanisme de révision.</li>
-              <li><strong>Antécédents de l'opérateur.</strong> Combien de propriétés en portefeuille ? Depuis quand ? Avis vérifiables ?</li>
+              <li><strong>Antécédents de l'opérateur.</strong> Combien de biens en portefeuille ? Depuis quand ? Avis vérifiables ?</li>
               <li><strong>Revente.</strong> Mécanisme, commission, garantie de rachat éventuelle.</li>
               <li><strong>Dépendance à l'opérateur.</strong> Que se passe-t-il en cas de cessation d'activité ? La LLC est-elle juridiquement autonome ?</li>
             </ul>
@@ -506,7 +506,7 @@ export default function CoproprieteResidenceSecondairePillar() {
 
             <h3>L'achat me rend-il résident fiscal du pays où se trouve le bien ?</h3>
             <p>
-              Non. La détention d'une quote-part de propriété ne crée pas de résidence
+              Non. La détention d'une quote-part de bien ne crée pas de résidence
               fiscale. La résidence fiscale est déterminée par les critères de l'article 4 B
               du CGI (foyer, séjour principal, activité, intérêts économiques) et par la
               convention fiscale applicable.
@@ -523,14 +523,14 @@ export default function CoproprieteResidenceSecondairePillar() {
 
           {/* CTA ──────────────────────────────────────────────────────────── */}
           <section className="cop-pillar-cta">
-            <h2>Explorez les propriétés disponibles</h2>
+            <h2>Explorez les biens disponibles</h2>
             <p>
-              Découvrez les propriétés en copropriété disponibles dès maintenant à Mallorca,
+              Découvrez les biens en copropriété disponibles dès maintenant à Mallorca,
               Ibiza, en Provence, en Toscane et au-delà. Filtrez par prix, nombre de chambres
               et destination.
             </p>
             <p>
-              <a href="/our-homes/" className="cop-cta-primary">Voir toutes les propriétés</a>
+              <a href="/our-homes/" className="cop-cta-primary">Voir tous les biens</a>
               <a href="/fr/contact/" className="cop-cta-secondary">Parler à un conseiller</a>
             </p>
           </section>

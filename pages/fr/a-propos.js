@@ -62,7 +62,7 @@ export default function APropos() {
           <p className="eyebrow">Qui sommes-nous</p>
           <h2>Une agence pour la <em>copropriété</em> premium</h2>
           <p>Depuis 2022, Co-Ownership Property se consacre exclusivement aux résidences secondaires en copropriété premium dans les destinations les plus prisées au monde.</p>
-          <p>Agissant à 100% du côté de l'acheteur, nous collaborons uniquement avec les opérateurs les plus réputés, transparents et professionnellement gérés en Europe et aux États-Unis. Nous ne sommes liés à aucune plateforme ni promoteur en particulier. Si une propriété ne répond pas à nos standards, elle n'apparaît pas sur ce site.</p>
+          <p>Agissant à 100% du côté de l'acheteur, nous collaborons uniquement avec les opérateurs les plus réputés, transparents et professionnellement gérés en Europe et aux États-Unis. Nous ne sommes liés à aucune plateforme ni promoteur en particulier. Si un bien ne répond pas à nos standards, elle n'apparaît pas sur ce site.</p>
         </div>
       </section>
 
@@ -78,7 +78,7 @@ export default function APropos() {
               </div>
               <h3>David Olsson</h3>
               <span className="team-role">Fondateur</span>
-              <p className="team-bio">Plus de 20 ans à vendre des propriétés premium de ski dans plus de 40 stations alpines françaises. David a vu le marché se transformer alors que les clients qui pouvaient autrefois acheter étaient progressivement écartés. Il a fondé COP en 2022 parce qu'il croyait que les propriétés exceptionnelles devaient appartenir à ceux qui les aiment — pas seulement à ceux qui peuvent se les offrir intégralement.</p>
+              <p className="team-bio">Plus de 20 ans à vendre des biens premium de ski dans plus de 40 stations alpines françaises. David a vu le marché se transformer alors que les clients qui pouvaient autrefois acheter étaient progressivement écartés. Il a fondé COP en 2022 parce qu'il croyait que les biens exceptionnelles devaient appartenir à ceux qui les aiment — pas seulement à ceux qui peuvent se les offrir intégralement.</p>
             </div>
             <div className="team-card">
               <div className="team-photo">
@@ -111,7 +111,7 @@ export default function APropos() {
             <div className="story-text">
               <p className="eyebrow">Pourquoi nous avons commencé</p>
               <h2>Un marché qui laissait <em>des gens de côté</em></h2>
-              <p>David a passé plus de deux décennies à vendre des propriétés premium dans les Alpes françaises. Au début, les taux hypothécaires français étaient inférieurs à 2%, les durées s'étendaient à 25 ans, et les prix dans les stations alpines — bien que jamais bon marché — gardaient un rapport raisonnable avec ceux de Paris. Acheter une propriété de ski était une aspiration réaliste pour une famille de cadres.</p>
+              <p>David a passé plus de deux décennies à vendre des biens premium dans les Alpes françaises. Au début, les taux hypothécaires français étaient inférieurs à 2%, les durées s'étendaient à 25 ans, et les prix dans les stations alpines — bien que jamais bon marché — gardaient un rapport raisonnable avec ceux de Paris. Acheter un bien de ski était une aspiration réaliste pour une famille de cadres.</p>
               <p>Ce monde a progressivement disparu. Entre 2017 et 2022, les prix dans les stations les plus convoitées ont augmenté de 30 à 50%, dépassant dans certaines zones les prix au mètre carré parisiens. Le chalet à Méribel, l'appartement à Chamonix — étaient devenus le territoire des acheteurs comptant.</p>
               <blockquote>Les clients avec qui je travaillais depuis des années voulaient toujours acheter — ils ne pouvaient simplement plus se le permettre. Ils étaient simplement écartés par les prix.
                 <span className="quote-attr">David Olsson — Fondateur</span>
@@ -127,10 +127,10 @@ export default function APropos() {
             <div className="story-text">
               <p className="eyebrow">La solution</p>
               <h2>Une meilleure façon de <em>posséder</em></h2>
-              <p>Là où une propriété alpine entière nécessite désormais plus de 800 000 €, une quote-part fractionnée met la vraie propriété à portée à partir d'environ 100 000 €. Vous possédez une part enregistrée d'une propriété premium, elle prend de la valeur avec le marché, et vous décidez quand vendre.</p>
-              <p>Une seule quote-part de 1/8 vous donne six semaines d'usage par an — 45 jours. Le propriétaire moyen d'une résidence secondaire utilise sa propriété seulement 35 jours par an, donc une quote-part dépasse déjà l'usage personnel typique.</p>
-              <p>Et rien ne vous empêche d'aller plus loin : achetez deux quotes-parts de la même propriété, ou combinez une quote-part dans un chalet alpin avec une autre dans une villa à Ibiza. Les propriétés fonctionnent indépendamment, la structure de propriété est la même, et votre calendrier vous appartient.</p>
-              <blockquote>La résidence secondaire moyenne reste vide 330 jours par an. Une quote-part vous donne plus de temps dans une propriété exceptionnelle — pour une fraction du coût.</blockquote>
+              <p>Là où un bien alpine entière nécessite désormais plus de 800 000 €, une quote-part fractionnée met la vrai bien à portée à partir d'environ 100 000 €. Vous possédez une part enregistrée d'un bien premium, elle prend de la valeur avec le marché, et vous décidez quand vendre.</p>
+              <p>Une seule quote-part de 1/8 vous donne six semaines d'usage par an — 45 jours. Le propriétaire moyen d'une résidence secondaire utilise son bien seulement 35 jours par an, donc une quote-part dépasse déjà l'usage personnel typique.</p>
+              <p>Et rien ne vous empêche d'aller plus loin : achetez deux quotes-parts de la même bien, ou combinez une quote-part dans un chalet alpin avec une autre dans une villa à Ibiza. Les biens fonctionnent indépendamment, la structure de bien est la même, et votre calendrier vous appartient.</p>
+              <blockquote>La résidence secondaire moyenne reste vide 330 jours par an. Une quote-part vous donne plus de temps dans un bien exceptionnelle — pour une fraction du coût.</blockquote>
             </div>
             <div className="story-img">
               <Image src="/wp-content/uploads/2025/11/ibiza-villa.jpg" alt="Villa à Ibiza avec piscine" fill quality={90} style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
@@ -165,14 +165,14 @@ export default function APropos() {
               <div className="testi-name">Harry et Nicole</div>
               <span className="testi-loc">La Plagne, Alpes françaises</span>
               <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <p className="testi-quote">Posséder un chez-soi dans les Alpes françaises avait toujours été un rêve. La copropriété offrait la solution parfaite — tous les avantages d'une maison de montagne de luxe sans le stress et le coût de gérer une propriété entière. Notre fils peut maintenant inviter ses amis du collège à skier aux vacances. Cela a vraiment fait de notre rêve une réalité.</p>
+              <p className="testi-quote">Posséder un chez-soi dans les Alpes françaises avait toujours été un rêve. La copropriété offrait la solution parfaite — tous les avantages d'une maison de montagne de luxe sans le stress et le coût de gérer un bien entier. Notre fils peut maintenant inviter ses amis du collège à skier aux vacances. Cela a vraiment fait de notre rêve une réalité.</p>
             </div>
             <div className="testi-card">
               <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Young-couple-from-LA-review-about-Lake-Tahoe-property.jpg" alt="Mateo et Anne" fill style={{objectFit:"cover"}} sizes="90px" /></div>
               <div className="testi-name">Mateo et Anne</div>
               <span className="testi-loc">Lac Tahoe, Californie</span>
               <div className="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <p className="testi-quote">Nous montons de Los Angeles à Tahoe chaque été depuis des années, mais ne pouvions justifier une maison entière. Ce modèle de propriété nous a semblé la voie médiane parfaite. Nous possédons enfin un morceau de cette terre sans la culpabilité d'un emprunt sous-utilisé. Transparent dès le premier jour — nous ne pourrions être plus heureux.</p>
+              <p className="testi-quote">Nous montons de Los Angeles à Tahoe chaque été depuis des années, mais ne pouvions justifier une maison entière. Ce modèle de bien nous a semblé la voie médiane parfaite. Nous possédons enfin un morceau de cette terre sans la culpabilité d'un emprunt sous-utilisé. Transparent dès le premier jour — nous ne pourrions être plus heureux.</p>
             </div>
             <div className="testi-card">
               <div className="testi-photo"><Image src="/wp-content/uploads/2026/02/Family-swimming-in-Mallorca-300x300.jpg" alt="Jan et famille" fill style={{objectFit:"cover"}} sizes="90px" /></div>

@@ -154,7 +154,7 @@ function PropCarousel({ items, propertyCount }) {
                   <div className="pc-img-wrap pc-viewall-img">
                     <div className="pc-viewall-inner">
                       <span className="pc-viewall-count">{propertyCount}</span>
-                      <span className="pc-viewall-label">Propriétés</span>
+                      <span className="pc-viewall-label">Biens</span>
                       <a href="/our-homes/" className="pc-viewall-btn" onClick={e => e.stopPropagation()}>Tout voir →</a>
                     </div>
                   </div>
@@ -203,7 +203,7 @@ function PropCarousel({ items, propertyCount }) {
                         {sym}{p.price.toLocaleString('fr-FR')}
                       </span>
                     )}
-                    <a href={`/property/${p.slug}`} className="pc-panel-btn" onClick={e => e.stopPropagation()}>Voir la propriété →</a>
+                    <a href={`/property/${p.slug}`} className="pc-panel-btn" onClick={e => e.stopPropagation()}>Voir le bien →</a>
                   </div>
                 ) : (
                   <div className="pc-caption">
@@ -278,7 +278,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
 
         <div className="hero-bottom">
           <div className="hero-ctas">
-            <a href="/our-homes" className="hero-cta-primary">Voir les propriétés &rarr;</a>
+            <a href="/our-homes" className="hero-cta-primary">Voir les biens &rarr;</a>
             <a href="/fr/copropriete-residence-secondaire/" className="hero-cta-secondary">Comment ça marche</a>
           </div>
         </div>
@@ -318,10 +318,10 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
       {/* ===== INTRODUCTION SECTION ===== */}
       <section className="intro-section">
         <p className="intro-text">
-          Découvrez le monde de la copropriété de luxe. Des villas méditerranéennes baignées de soleil aux appartements urbains élégants, des domaines viticoles aux refuges alpins, chaque propriété vous semble naturellement vôtre.
+          Découvrez le monde de la copropriété de luxe. Des villas méditerranéennes baignées de soleil aux appartements urbains élégants, des domaines viticoles aux refuges alpins, chaque bien vous semble naturellement vôtre.
         </p>
         <p className="intro-subtext">
-          Chaque bien est soigneusement sélectionné, magnifiquement conçu et géré par des professionnels. Bien plus qu'une propriété : une porte ouverte sur des paysages intemporels, des trésors culturels et des moments inoubliables en famille.
+          Chaque bien est soigneusement sélectionné, magnifiquement conçu et géré par des professionnels. Bien plus qu'un bien : une porte ouverte sur des paysages intemporels, des trésors culturels et des moments inoubliables en famille.
         </p>
       </section>
 
@@ -329,27 +329,27 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
       <section className="explainer-section">
         <div className="explainer-intro">
           <h2>Qu'est-ce que la copropriété de résidence secondaire ?</h2>
-          <p>La copropriété de résidence secondaire — aussi appelée <em>co-ownership</em> en France — vous permet d'acheter une part légale d'une propriété de vacances haut de gamme et d'en profiter pleinement, comme si elle vous appartenait entièrement. Une vraie alternative à l'achat seul, qui rend la résidence secondaire de luxe accessible à plusieurs acquéreurs partageant la même vision.</p>
+          <p>La copropriété de résidence secondaire — aussi appelée <em>co-ownership</em> en France — vous permet d'acheter une part légale d'un bien de vacances haut de gamme et d'en profiter pleinement, comme si elle vous appartenait entièrement. Une vraie alternative à l'achat seul, qui rend la résidence secondaire de luxe accessible à plusieurs acquéreurs partageant la même vision.</p>
         </div>
         <div className="explainer-grid">
           <div className="explainer-item">
             <div className="explainer-num">01</div>
             <div className="explainer-divider"></div>
             <h3>Vous êtes copropriétaire légal</h3>
-            <p>Vous achetez <strong>1/8 d'une propriété</strong>. C'est une <strong>vraie propriété, enregistrée à votre nom</strong>, avec toutes les protections légales. Nos propriétés sont conçues pour <strong>prendre de la valeur</strong>, vous offrant les avantages de l'investissement immobilier. Vous avez toute flexibilité pour <strong>revendre votre quote-part quand vous voulez</strong> — vous fixez le prix, nous trouvons l'acquéreur.</p>
+            <p>Vous achetez <strong>1/8 d'un bien</strong>. C'est une <strong>vrai bien, enregistrée à votre nom</strong>, avec toutes les protections légales. Nos biens sont conçues pour <strong>prendre de la valeur</strong>, vous offrant les avantages de l'investissement immobilier. Vous avez toute flexibilité pour <strong>revendre votre quote-part quand vous voulez</strong> — vous fixez le prix, nous trouvons l'acquéreur.</p>
             <p className="explainer-stat">Les quotes-parts se revendent en moins d'un mois en moyenne.</p>
           </div>
           <div className="explainer-item">
             <div className="explainer-num">02</div>
             <div className="explainer-divider"></div>
             <h3>Usage garanti</h3>
-            <p><strong>Vos semaines vous appartiennent.</strong> Un calendrier équitable et structuré garantit que chaque copropriétaire profite de ses dates sans concurrence — <strong>haute saison incluse.</strong> Pas de multipropriété, pas de points, pas de compromis. Vous vous sentez chez vous : vous arrivez et <strong>vos affaires y sont, tout est prêt, la propriété est entièrement gérée</strong> pour que vous puissiez simplement en profiter.</p>
+            <p><strong>Vos semaines vous appartiennent.</strong> Un calendrier équitable et structuré garantit que chaque copropriétaire profite de ses dates sans concurrence — <strong>haute saison incluse.</strong> Pas de multibien, pas de points, pas de compromis. Vous vous sentez chez vous : vous arrivez et <strong>vos affaires y sont, tout est prêt, le bien est entièrement gérée</strong> pour que vous puissiez simplement en profiter.</p>
           </div>
           <div className="explainer-item">
             <div className="explainer-num">03</div>
             <div className="explainer-divider"></div>
             <h3>Frais partagés</h3>
-            <p>Entretien, frais de gestion et coûts courants sont <strong>répartis équitablement entre les copropriétaires.</strong> Sur de nombreuses propriétés, lorsque vous ne l'utilisez pas, elle peut être <strong>louée — générant des revenus</strong> qui compensent encore vos coûts. <strong>Nous nous occupons de tout.</strong></p>
+            <p>Entretien, frais de gestion et coûts courants sont <strong>répartis équitablement entre les copropriétaires.</strong> Sur de nombreuses biens, lorsque vous ne l'utilisez pas, elle peut être <strong>louée — générant des revenus</strong> qui compensent encore vos coûts. <strong>Nous nous occupons de tout.</strong></p>
           </div>
           <div className="explainer-item">
             <div className="explainer-num">04</div>
@@ -380,7 +380,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
         <PropCarousel items={featuredProps} propertyCount={propertyCount} />
 
         <div className="pc-browse-all">
-          <a href="/our-homes/" className="pc-browse-btn">Voir les {propertyCount} propriétés &rarr;</a>
+          <a href="/our-homes/" className="pc-browse-btn">Voir les {propertyCount} biens &rarr;</a>
         </div>
       </section>
 
@@ -417,7 +417,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">France</div>
               <p className="dest-info-desc">Des rivages ensoleillés de la Côte d'Azur aux pistes de ski des Alpes françaises et à l'élégance intemporelle de Paris, la France est l'adresse la plus convoitée d'Europe pour la copropriété.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -429,7 +429,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Espagne</div>
               <p className="dest-info-desc">L'Espagne combine plages de classe mondiale, culture vibrante et soleil toute l'année à Majorque, Ibiza, sur la Costa del Sol et au-delà — le tout à un rapport qualité-prix remarquable pour les copropriétaires exigeants.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -441,7 +441,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Italie</div>
               <p className="dest-info-desc">Les paysages extraordinaires de l'Italie — des eaux limpides du lac de Côme aux villages anciens de Ligurie et aux collines toscanes — en font une favorite éternelle des copropriétaires exigeants.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -453,7 +453,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Portugal</div>
               <p className="dest-info-desc">De la côte dorée de l'Algarve aux élégants boulevards de Lisbonne et à la beauté préservée de la Côte d'Argent, le Portugal est l'une des destinations les plus excitantes d'Europe pour la copropriété de luxe.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -465,7 +465,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Autriche</div>
               <p className="dest-info-desc">La splendeur alpine de l'Autriche — des stations de ski de classe mondiale du Tyrol au charme impérial de Vienne — en fait l'une des destinations européennes les plus gratifiantes pour la copropriété de luxe.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -477,7 +477,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Angleterre</div>
               <p className="dest-info-desc">Londres reste l'une des grandes villes du monde pour l'immobilier de luxe — des hôtels particuliers de Mayfair aux appartements en bord de Tamise — tandis que la campagne anglaise offre des refuges idylliques pour les copropriétaires exigeants.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -489,7 +489,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Suède</div>
               <p className="dest-info-desc">Les paysages spectaculaires de la Suède — de l'archipel de Stockholm aux régions des lacs forestiers du nord — offrent un cadre uniquement paisible pour la copropriété de luxe, loin des foules.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -501,7 +501,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Allemagne</div>
               <p className="dest-info-desc">Des Alpes bavaroises et des rives du lac de Constance aux capitales culturelles de Berlin et Munich, l'Allemagne offre un éventail attractif d'opportunités immobilières de luxe pour les copropriétaires.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -513,7 +513,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Croatie</div>
               <p className="dest-info-desc">La côte adriatique à couper le souffle de la Croatie, ses eaux cristallines et ses villes fortifiées historiques comme Dubrovnik en font l'une des destinations méditerranéennes les plus convoitées pour la copropriété de luxe.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -525,7 +525,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">États-Unis</div>
               <p className="dest-info-desc">De la culture du surf en Californie aux pistes de ski du Colorado et au glamour côtier de la Floride, le marché immobilier de luxe américain offre des opportunités extraordinaires pour les copropriétaires internationaux.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -537,7 +537,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Mexique</div>
               <p className="dest-info-desc">Des rivages turquoise de la Riviera Maya au glamour pacifique de Los Cabos, le Mexique offre un luxe extraordinaire à une valeur exceptionnelle — ce qui en fait l'un des marchés de copropriété les plus excitants du monde.</p>
-              <a href="/our-homes/" className="dest-explore-btn">Voir les propriétés</a>
+              <a href="/our-homes/" className="dest-explore-btn">Voir les biens</a>
             </div>
           </div>
 
@@ -612,47 +612,47 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
 
           <details className="faq-item">
             <summary className="faq-q"><span>Qu'est-ce que la copropriété (ou co-ownership) d'une résidence secondaire ?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>La copropriété de résidence secondaire signifie que vous et un petit nombre d'autres copropriétaires achetez chacun une quote-part enregistrée d'une propriété de luxe entièrement gérée. Vous possédez une véritable fraction de la maison — typiquement 1/8 — et contrairement à la multipropriété, vous détenez une véritable propriété immobilière. Cela combine la fierté et les avantages financiers de la propriété immobilière réelle avec la facilité d'un hôtel cinq étoiles, à une fraction du coût d'achat complet.</p></div>
+            <div className="faq-a"><p>La copropriété de résidence secondaire signifie que vous et un petit nombre d'autres copropriétaires achetez chacun une quote-part enregistrée d'un bien de luxe entièrement gérée. Vous possédez une véritable fraction de la maison — typiquement 1/8 — et contrairement à la multibien, vous détenez une véritable bien immobilière. Cela combine la fierté et les avantages financiers de le bien immobilière réelle avec la facilité d'un hôtel cinq étoiles, à une fraction du coût d'achat complet.</p></div>
           </details>
 
           <details className="faq-item">
-            <summary className="faq-q"><span>En quoi la copropriété est-elle différente de la multipropriété&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>Contrairement à la multipropriété, la copropriété vous donne une véritable part de l'acte de propriété — vous bénéficiez donc de toute appréciation de valeur et pouvez revendre votre quote-part sur le marché libre quand vous voulez. Comme il s'agit de propriétés de luxe dans des emplacements très demandés, les prix augmentent typiquement avec le temps. Pas de club d'adhérents, pas de système de points, pas de verrouillage contractuel à long terme. Vous êtes un véritable propriétaire avec tous les droits légaux sur votre fraction.</p></div>
+            <summary className="faq-q"><span>En quoi la copropriété est-elle différente de la multibien&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
+            <div className="faq-a"><p>Contrairement à la multibien, la copropriété vous donne une véritable part de l'acte de bien — vous bénéficiez donc de toute appréciation de valeur et pouvez revendre votre quote-part sur le marché libre quand vous voulez. Comme il s'agit de biens de luxe dans des emplacements très demandés, les prix augmentent typiquement avec le temps. Pas de club d'adhérents, pas de système de points, pas de verrouillage contractuel à long terme. Vous êtes un véritable propriétaire avec tous les droits légaux sur votre fraction.</p></div>
           </details>
 
           <details className="faq-item">
             <summary className="faq-q"><span>Que comprend le prix d'achat&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>Votre prix d'achat couvre votre quote-part enregistrée de la propriété ainsi que tout le mobilier, la décoration intérieure et l'équipement. Beaucoup de nos maisons sont décorées par des professionnels selon un standard clé en main, donc prêtes à habiter dès le premier jour. Les coûts récurrents — entretien, assurance, gestion immobilière, taxes locales — sont partagés proportionnellement entre tous les copropriétaires, maintenant les frais individuels très bas.</p></div>
+            <div className="faq-a"><p>Votre prix d'achat couvre votre quote-part enregistrée de le bien ainsi que tout le mobilier, la décoration intérieure et l'équipement. Beaucoup de nos maisons sont décorées par des professionnels selon un standard clé en main, donc prêtes à habiter dès le premier jour. Les coûts récurrents — entretien, assurance, gestion immobilière, taxes locales — sont partagés proportionnellement entre tous les copropriétaires, maintenant les frais individuels très bas.</p></div>
           </details>
 
           <details className="faq-item">
             <summary className="faq-q"><span>Comment le temps d'usage est-il réparti entre les copropriétaires&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>Chaque quote-part de 1/8 vous donne 45 jours — environ six semaines — soit 1/8 de l'année. Chaque propriété a un calendrier d'usage clair qui tourne équitablement pour que tous les copropriétaires bénéficient d'accès en haute saison au fil du temps. De nombreux opérateurs proposent aussi une plateforme de réservation numérique pour échanger, prolonger ou troquer des semaines avec d'autres copropriétaires en toute flexibilité.</p></div>
+            <div className="faq-a"><p>Chaque quote-part de 1/8 vous donne 45 jours — environ six semaines — soit 1/8 de l'année. Chaque bien a un calendrier d'usage clair qui tourne équitablement pour que tous les copropriétaires bénéficient d'accès en haute saison au fil du temps. De nombreux opérateurs proposent aussi une plateforme de réservation numérique pour échanger, prolonger ou troquer des semaines avec d'autres copropriétaires en toute flexibilité.</p></div>
           </details>
 
           <details className="faq-item">
             <summary className="faq-q"><span>Puis-je louer mes semaines lorsque je ne les utilise pas&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>Dans de nombreux cas, oui. Beaucoup de nos propriétés permettent aux copropriétaires de placer leurs semaines non utilisées dans un programme de location géré. La société de gestion s'occupe de la sélection des locataires, de l'arrivée, du ménage et de l'entretien, tandis que les revenus locatifs vous reviennent. Cela peut compenser significativement vos frais annuels et, dans des destinations populaires, même générer un retour net.</p></div>
+            <div className="faq-a"><p>Dans de nombreux cas, oui. Beaucoup de nos biens permettent aux copropriétaires de placer leurs semaines non utilisées dans un programme de location géré. La société de gestion s'occupe de la sélection des locataires, de l'arrivée, du ménage et de l'entretien, tandis que les revenus locatifs vous reviennent. Cela peut compenser significativement vos frais annuels et, dans des destinations populaires, même générer un retour net.</p></div>
           </details>
 
           <details className="faq-item">
-            <summary className="faq-q"><span>Qui gère la propriété au quotidien&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
+            <summary className="faq-q"><span>Qui gère le bien au quotidien&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
             <div className="faq-a"><p>Chaque maison sur notre plateforme est confiée à une société de gestion immobilière professionnelle. Elle s'occupe de tout : entretien régulier, ménage, jardinage, entretien de la piscine, réparations urgentes. Vous arrivez à une maison impeccable de qualité hôtelière à chaque visite — sans lever le petit doigt.</p></div>
           </details>
 
           <details className="faq-item">
             <summary className="faq-q"><span>Puis-je revendre ma quote-part plus tard&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>Absolument. Comme vous détenez une quote-part enregistrée, vous pouvez la revendre à tout moment sur le marché libre — comme n'importe quelle autre propriété. Si la maison s'est valorisée, vous bénéficiez de cette croissance proportionnellement à votre part. Notre équipe peut aussi vous aider à la revente via notre réseau d'acquéreurs qualifiés.</p></div>
+            <div className="faq-a"><p>Absolument. Comme vous détenez une quote-part enregistrée, vous pouvez la revendre à tout moment sur le marché libre — comme n'importe quelle autre bien. Si la maison s'est valorisée, vous bénéficiez de cette croissance proportionnellement à votre part. Notre équipe peut aussi vous aider à la revente via notre réseau d'acquéreurs qualifiés.</p></div>
           </details>
 
           <details className="faq-item">
-            <summary className="faq-q"><span>Quelles destinations et types de propriétés proposez-vous&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>Nous sélectionnons des résidences en copropriété de luxe à travers l'Europe et les États-Unis, dont la France, l'Espagne, l'Italie, le Portugal, l'Autriche, l'Angleterre et plusieurs destinations américaines. Les propriétés vont des villas côtières et appartements parisiens aux chalets alpins et fermes toscanes. Chaque maison est sélectionnée à la main pour son emplacement, sa qualité de construction et son attrait de mode de vie.</p></div>
+            <summary className="faq-q"><span>Quelles destinations et types de biens proposez-vous&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
+            <div className="faq-a"><p>Nous sélectionnons des résidences en copropriété de luxe à travers l'Europe et les États-Unis, dont la France, l'Espagne, l'Italie, le Portugal, l'Autriche, l'Angleterre et plusieurs destinations américaines. Les biens vont des villas côtières et appartements parisiens aux chalets alpins et fermes toscanes. Chaque maison est sélectionnée à la main pour son emplacement, sa qualité de construction et son attrait de mode de vie.</p></div>
           </details>
 
           <details className="faq-item">
             <summary className="faq-q"><span>La copropriété est-elle un bon investissement&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>La copropriété vous permet d'accéder à une propriété de grande valeur à une fraction du coût d'achat complet, libérant du capital pour d'autres investissements. Vous bénéficiez de l'appréciation potentielle, de revenus locatifs possibles, et de la valeur personnelle d'une résidence secondaire de luxe — tout en partageant les coûts avec d'autres copropriétaires. C'est de plus en plus reconnu comme l'une des façons les plus financièrement sensées de posséder une résidence secondaire.</p></div>
+            <div className="faq-a"><p>La copropriété vous permet d'accéder à un bien de grande valeur à une fraction du coût d'achat complet, libérant du capital pour d'autres investissements. Vous bénéficiez de l'appréciation potentielle, de revenus locatifs possibles, et de la valeur personnelle d'une résidence secondaire de luxe — tout en partageant les coûts avec d'autres copropriétaires. C'est de plus en plus reconnu comme l'une des façons les plus financièrement sensées de posséder une résidence secondaire.</p></div>
           </details>
 
           <details className="faq-item">

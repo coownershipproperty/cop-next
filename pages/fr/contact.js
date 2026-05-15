@@ -26,7 +26,7 @@ export default function ContactFR() {
       <section className="page-hero">
         <p className="eyebrow">Nous sommes là pour aider</p>
         <h1>Nous <em>contacter</em></h1>
-        <p className="subtitle">Questions sur la copropriété, sur une propriété en particulier, ou simplement envie de comprendre comment tout cela fonctionne ? Nous vous donnerons des réponses directes — sans pression commerciale.</p>
+        <p className="subtitle">Questions sur la copropriété, sur un bien en particulier, ou simplement envie de comprendre comment tout cela fonctionne ? Nous vous donnerons des réponses directes — sans pression commerciale.</p>
       </section>
 
       <section className="trust-sec">
@@ -47,7 +47,7 @@ export default function ContactFR() {
             <div className="trust-card">
               <div className="trust-icon">&#x2713;</div>
               <h3>Sans pression, sans engagement</h3>
-              <p>Nous posons des questions, vous orientons vers les bonnes propriétés, et laissons la décision entièrement entre vos mains. Nous sommes indépendants — pas liés à une plateforme ou un promoteur.</p>
+              <p>Nous posons des questions, vous orientons vers les bonnes biens, et laissons la décision entièrement entre vos mains. Nous sommes indépendants — pas liés à une plateforme ou un promoteur.</p>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function ContactFR() {
             </a>
             <a href="/fr/copropriete-residence-secondaire/" className="link-card">
               <span className="link-cat">La comparaison</span>
-              <span className="link-title">Copropriété vs. acheter la propriété entière</span>
+              <span className="link-title">Copropriété vs. acheter le bien entier</span>
               <span className="link-desc">Usage, coûts, plus-value et sortie — présentés côte à côte sans marketing.</span>
               <span className="link-arrow">Voir la comparaison &rarr;</span>
             </a>
