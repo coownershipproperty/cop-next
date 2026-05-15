@@ -519,28 +519,26 @@ img {
             }
 
             /* Expanded flag picker — horizontal row of 4 full-bleed flags
-               below the LANGUAGE toggle. Show flags (not text) here per
-               the design spec. flex-grow:1 makes the dark band stretch to
-               fill the remaining drawer height (so on tall mobile screens
-               where there's empty drawer below, the panel doesn't appear
-               to "cut off"). align-content:start keeps flag tiles at the
-               top of that stretched panel. */
+               below the LANGUAGE toggle. No background tint, no "panel"
+               feel — just the flag tiles inline within the drawer. The
+               IDIOMA toggle's gold-tinted active state already signals the
+               picker is open, so a separate dark band is redundant and
+               either gets "cut off" or "too long" depending on screen
+               height. Tiles sit naturally in drawer color. */
             .cop-nav .cop-lang-switcher {
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 1.4rem 2rem 2rem;
-                background: rgba(0,0,0,0.18);
+                padding: 1.2rem 2rem 1.6rem;
+                background: transparent;
                 border-bottom: none;
                 display: grid !important;
                 grid-template-columns: repeat(4, 1fr);
                 grid-auto-rows: 30px;
                 gap: 0.8rem;
                 align-items: stretch;
-                align-content: start;
                 justify-items: stretch;
-                flex: 1 0 auto;
-                flex-grow: 1;
+                flex: 0 0 auto;
             }
             /* Show flag SVGs inside the expanded picker */
             .cop-nav .cop-flag { display: block !important; }
@@ -4786,28 +4784,26 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
             }
 
             /* Expanded flag picker — horizontal row of 4 full-bleed flags
-               below the LANGUAGE toggle. Show flags (not text) here per
-               the design spec. flex-grow:1 makes the dark band stretch to
-               fill the remaining drawer height (so on tall mobile screens
-               where there's empty drawer below, the panel doesn't appear
-               to "cut off"). align-content:start keeps flag tiles at the
-               top of that stretched panel. */
+               below the LANGUAGE toggle. No background tint, no "panel"
+               feel — just the flag tiles inline within the drawer. The
+               IDIOMA toggle's gold-tinted active state already signals the
+               picker is open, so a separate dark band is redundant and
+               either gets "cut off" or "too long" depending on screen
+               height. Tiles sit naturally in drawer color. */
             .cop-nav .cop-lang-switcher {
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 1.4rem 2rem 2rem;
-                background: rgba(0,0,0,0.18);
+                padding: 1.2rem 2rem 1.6rem;
+                background: transparent;
                 border-bottom: none;
                 display: grid !important;
                 grid-template-columns: repeat(4, 1fr);
                 grid-auto-rows: 30px;
                 gap: 0.8rem;
                 align-items: stretch;
-                align-content: start;
                 justify-items: stretch;
-                flex: 1 0 auto;
-                flex-grow: 1;
+                flex: 0 0 auto;
             }
             /* Show flag SVGs inside the expanded picker */
             .cop-nav .cop-flag { display: block !important; }
