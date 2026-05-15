@@ -469,20 +469,20 @@ img {
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the drawer — 2x2 quadrant grid
-               matching the desktop aesthetic. Hairline gold dividers, no
-               outer box, active locale shown by gold text only. */
+            /* Language switcher inside the drawer — compact 2x2 flag grid
+               in the bottom-left of the drawer, NOT full-width. Matches the
+               desktop aesthetic at drawer scale. */
             .cop-nav .cop-lang-switcher {
-                width: 100%;
                 box-sizing: border-box;
-                margin: 1.2rem 0 0;
-                padding: 1.2rem 2rem 0.6rem;
+                margin: 1.4rem 2rem 1rem;
+                padding: 1.2rem 0 0;
                 border-top: 1px solid rgba(201,168,76,0.22);
                 display: grid !important;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr;
+                grid-template-columns: 44px 44px;
+                grid-template-rows: 28px 28px;
                 grid-auto-flow: row;
                 gap: 0;
+                width: max-content;
                 align-items: stretch;
                 justify-items: stretch;
             }
@@ -491,8 +491,8 @@ img {
             .cop-nav .cop-lang-unavailable {
                 display: block !important;
                 position: relative;
-                height: 56px;
-                width: 100% !important;
+                width: 44px !important;
+                height: 28px !important;
                 min-width: 0 !important;
                 padding: 0 !important;
                 margin: 0 !important;
@@ -501,14 +501,20 @@ img {
                 background: transparent !important;
                 box-sizing: border-box;
                 overflow: hidden;
-                opacity: 0.6;
+                opacity: 0.55;
                 transition: opacity 0.2s ease;
+            }
+            .cop-nav .cop-lang-switcher > *:nth-child(odd) {
+                border-right: 1px solid rgba(201,168,76,0.30) !important;
+            }
+            .cop-nav .cop-lang-switcher > *:nth-child(-n+2) {
+                border-bottom: 1px solid rgba(201,168,76,0.30) !important;
             }
             .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
             .cop-nav .cop-lang-current {
                 opacity: 1 !important;
                 cursor: default;
-                box-shadow: inset 0 0 0 2px rgba(201,168,76,0.85);
+                box-shadow: inset 0 0 0 1.5px rgba(201,168,76,0.85);
             }
             .cop-nav .cop-lang-unavailable { opacity: 0.25 !important; }
             /* Hairline internal grid lines */
@@ -4689,20 +4695,20 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the drawer — 2x2 quadrant grid
-               matching the desktop aesthetic. Hairline gold dividers, no
-               outer box, active locale shown by gold text only. */
+            /* Language switcher inside the drawer — compact 2x2 flag grid
+               in the bottom-left of the drawer, NOT full-width. Matches the
+               desktop aesthetic at drawer scale. */
             .cop-nav .cop-lang-switcher {
-                width: 100%;
                 box-sizing: border-box;
-                margin: 1.2rem 0 0;
-                padding: 1.2rem 2rem 0.6rem;
+                margin: 1.4rem 2rem 1rem;
+                padding: 1.2rem 0 0;
                 border-top: 1px solid rgba(201,168,76,0.22);
                 display: grid !important;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr;
+                grid-template-columns: 44px 44px;
+                grid-template-rows: 28px 28px;
                 grid-auto-flow: row;
                 gap: 0;
+                width: max-content;
                 align-items: stretch;
                 justify-items: stretch;
             }
@@ -4711,8 +4717,8 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
             .cop-nav .cop-lang-unavailable {
                 display: block !important;
                 position: relative;
-                height: 56px;
-                width: 100% !important;
+                width: 44px !important;
+                height: 28px !important;
                 min-width: 0 !important;
                 padding: 0 !important;
                 margin: 0 !important;
@@ -4721,14 +4727,20 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 background: transparent !important;
                 box-sizing: border-box;
                 overflow: hidden;
-                opacity: 0.6;
+                opacity: 0.55;
                 transition: opacity 0.2s ease;
+            }
+            .cop-nav .cop-lang-switcher > *:nth-child(odd) {
+                border-right: 1px solid rgba(201,168,76,0.30) !important;
+            }
+            .cop-nav .cop-lang-switcher > *:nth-child(-n+2) {
+                border-bottom: 1px solid rgba(201,168,76,0.30) !important;
             }
             .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
             .cop-nav .cop-lang-current {
                 opacity: 1 !important;
                 cursor: default;
-                box-shadow: inset 0 0 0 2px rgba(201,168,76,0.85);
+                box-shadow: inset 0 0 0 1.5px rgba(201,168,76,0.85);
             }
             .cop-nav .cop-lang-unavailable { opacity: 0.25 !important; }
             /* Hairline internal grid lines */
