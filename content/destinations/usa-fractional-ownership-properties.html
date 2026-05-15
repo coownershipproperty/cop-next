@@ -1,1079 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USA Fractional Ownership Properties | Co-Ownership Property</title>
-    <meta name="description" content="Own a 1/8th share of luxury homes in Aspen, Malibu, Miami &amp; Lake Tahoe. Deeded co-ownership, not a timeshare. Explore USA vacation homes now.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-        <style>
-        /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
-
-/* ── CSS Variables ── */
-:root {
-    /* === Primary palette (use these in new work) === */
-    --blue:         #2C4A5E;
-    --cream:        #F5F2EC;
-    --gold:         #C9A84C;
-    --white:        #FFFFFF;
-    --text:         #1a2533;
-    --muted:        #5a6a7a;
-    --border:       #e8e0d4;
-    --max:          1400px;
-
-    /* === Legacy aliases (keep for existing templates) === */
-    --warm-gold:    #C9A84C;
-    --cream-bg:     #F5F2EC;
-    --cream-light:  #FAF8F5;
-    --text-dark:    #2C4A5E;
-    --text-light:   rgba(255,255,255,0.85);
-    --text-muted:   #5a6a7a;
-    --gray-border:  #e8e0d4;
-    --blue-80:      #4A6A7E;
-    --blue-60:      #6B8A9E;
-    --blue-40:      #9EAFBC;
-    --blue-20:      #C5CED5;
-    --transition:   0.3s ease;
-}
-
-/* ── Base reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-button { font-family: inherit; cursor: pointer; }
-        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
-        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
-        a{color:inherit;text-decoration:none;transition:color var(--transition)}
-        img{display:block;max-width:100%;height:auto}
-
-                /* ===== SITE-WIDE HEADER ===== */
-        .cop-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 3rem;
-            height: 80px;
-            box-sizing: border-box;
-            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .admin-bar .cop-header { top: 32px; }
-
-        /* Logo */
-        .cop-logo { flex-shrink: 0; }
-        .cop-logo a { display: block; }
-        .cop-logo img { height: 54px; width: auto; display: block; }
-
-
-        /* Nav — absolutely centred between logo and hamburger */
-        .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0;
-            align-items: center;
-        }
-        .cop-nav a {
-            color: rgba(44,74,94,0.8);
-            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.84rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.4rem 1.4rem;
-            white-space: nowrap;
-            transition: color 0.25s ease;
-            text-decoration: none;
-        }
-        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
-
-        /* Gold underline on hover / active */
-        .cop-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 1.4rem; right: 1.4rem;
-            height: 1px;
-            background: rgba(201,168,76,1);
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.28s ease;
-        }
-        .cop-nav a:hover,
-        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
-        .cop-nav a:hover::after,
-        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
-
-
-        /* Favourites — heart prefix */
-        .cop-nav a.cop-nav-favourites::before {
-            content: '\2665\00a0\00a0';
-            font-size: 0.75rem;
-            color: rgba(201,168,76,1);
-            opacity: 0.75;
-            letter-spacing: 0;
-        }
-
-        /* Hamburger */
-        .cop-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-        .cop-hamburger span {
-            width: 22px; height: 1.5px;
-            background: rgba(44,74,94,0.8);
-            transition: all 0.28s ease;
-            transform-origin: center;
-            display: block;
-        }
-        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        /* ===== MOBILE (<768px) ===== */
-        @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
-            .cop-nav {
-                position: fixed;
-                top: 80px; left: 0; right: 0;
-                transform: none;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.97);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
-                z-index: 9998;
-            }
-            .admin-bar .cop-nav { top: 112px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
-            .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
-                width: 100%;
-                text-align: center;
-                border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
-                box-sizing: border-box;
-            }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
-        }
-
-        /* ===== HERO ===== */
-        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
-        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
-        .page-hero>*{position:relative;z-index:1}
-        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
-        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
-        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
-
-        /* ===== PROPERTY GRID ===== */
-        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
-        .props-inner{max-width:1400px;margin:0 auto}
-        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .props-count strong{color:var(--text-dark);font-weight:700}
-        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
-        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
-        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
-        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
-        .prop-card:hover .prop-img{transform:scale(1.04)}
-        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
-        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
-        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
-        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
-        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
-        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
-        .prop-stat{display:flex;align-items:center;gap:0.35rem}
-        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
-        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
-        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
-        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
-        .prop-card:hover .prop-view{color:var(--warm-gold)}
-        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
-        /* Show more button */
-        .prop-card.hidden{display:none}
-        .show-more-wrap{text-align:center;margin-top:2.5rem}
-        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
-        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-        /* Mid-page CTA */
-        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
-        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-        .dest-mid-cta > *{position:relative;z-index:1}
-        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
-        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
-        .dest-cta-btn-gold:hover{background:#b8963e}
-        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
-        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-
-        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
-        
-.dest-sec{padding:80px 3rem}
-.dest-sec.cream{background:var(--cream-bg)}
-.dest-sec.white{background:var(--white)}
-.dest-inner{max-width:900px;margin:0 auto}
-.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
-.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
-.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
-.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
-.dest-sec strong{color:var(--text-dark);font-weight:700}
-.dest-sec em{font-style:italic}
-.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
-.dest-sec a:hover{color:var(--blue)}
-.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
-.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
-.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
-.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
-.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
-/* Explore More */
-.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
-.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
-.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
-.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
-.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
-/* FAQ */
-.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
-.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
-.dest-faq-list{counter-reset:faq}
-.dest-faq-item{border-top:1px solid var(--warm-gold)}
-.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
-.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
-.dest-faq-item summary::-webkit-details-marker{display:none}
-.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
-.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
-details[open] .dest-faq-chevron{transform:rotate(-135deg)}
-.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
-.dest-faq-answer p{margin-bottom:0.8rem}
-@media(max-width:768px){
-    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
-    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-        /* ===== CTAs ===== */
-                /* ===== NEWSLETTER SIGNUP ===== */
-        .newsletter-section {
-            background: var(--white);
-            position: relative;
-            padding: 100px 3rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 400;
-            color: var(--text-dark);
-        }
-        .newsletter-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 620px;
-            margin: 0 auto;
-        }
-        .newsletter-form input {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border: 1px solid #ddd;
-            background: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-        .newsletter-form input::placeholder { color: var(--text-muted); }
-        .newsletter-form input:focus { border-color: var(--warm-gold); }
-        .newsletter-btn {
-            background: var(--blue);
-            color: var(--white);
-            border: 2px solid var(--blue);
-            padding: 0.9rem 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            font-family: 'Nunito Sans', sans-serif;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
-        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
-        .newsletter-form-msg {
-            margin-top: 1rem;
-            font-size: 0.88rem;
-            min-height: 1.4em;
-        }
-        .newsletter-form-msg.success { color: #4a9e6e; }
-        .newsletter-form-msg.error   { color: #c0392b; }
-
-        @media (max-width: 640px) {
-            .newsletter-section { padding: 70px 1.5rem; }
-            .newsletter-heading { font-size: 2rem; }
-            .newsletter-form { flex-direction: column; }
-        }
-                /* ===== EXPERT FORM SECTION ===== */
-        .expert-section {
-            background: var(--blue);
-            padding: 100px 3rem;
-            position: relative;
-            overflow: hidden;
-            scroll-margin-top: 90px;
-        }
-        .expert-section::after {
-            content: '';
-            position: absolute;
-            top: 28px; left: 28px; right: 28px; bottom: 28px;
-            border: 1px solid rgba(201,168,76,0.15);
-            pointer-events: none;
-        }
-        .expert-section > * { position: relative; z-index: 1; }
-
-        .expert-inner {
-            max-width: 820px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .expert-eyebrow {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--warm-gold);
-            margin-bottom: 1.2rem;
-        }
-        .expert-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-        .expert-heading em { font-style: italic; color: var(--warm-gold); }
-        .expert-sub {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-        .expert-form { text-align: left; }
-        .expert-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .expert-form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-        .expert-form-field.full { grid-column: 1 / -1; }
-        .expert-form-field label {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.85);
-        }
-        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
-
-        .expert-form-field input,
-        .expert-form-field select,
-        .expert-form-field textarea {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.85rem 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-        .expert-form-field input:focus,
-        .expert-form-field select:focus,
-        .expert-form-field textarea:focus {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .expert-form-field input::placeholder,
-        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-        .expert-form-field select option { background: var(--blue); color: var(--white); }
-        .expert-form-field textarea { resize: vertical; min-height: 110px; }
-
-        /* ── Multi-select destination dropdown ── */
-        .dest-multiselect {
-            position: relative;
-            width: 100%;
-        }
-        .dest-trigger {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.65rem 1rem;
-            min-height: 46px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            transition: border-color 0.2s;
-            position: relative;
-        }
-        .dest-trigger::after {
-            content: '';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            width: 7px; height: 7px;
-            border-right: 1.5px solid rgba(255,255,255,0.5);
-            border-bottom: 1.5px solid rgba(255,255,255,0.5);
-            transform: translateY(-60%) rotate(45deg);
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-        .dest-multiselect.open .dest-trigger::after {
-            transform: translateY(-30%) rotate(-135deg);
-        }
-        .dest-trigger:hover,
-        .dest-multiselect.open .dest-trigger {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .dest-placeholder {
-            color: rgba(255,255,255,0.25);
-            pointer-events: none;
-        }
-        .dest-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-        .dest-tag-x {
-            cursor: pointer;
-            font-size: 0.85rem;
-            line-height: 1;
-            opacity: 0.6;
-            transition: opacity 0.15s;
-        }
-        .dest-tag-x:hover { opacity: 1; }
-
-        .dest-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0; right: 0;
-            background: #1e3a4f;
-            border: 1px solid rgba(201,168,76,0.3);
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 50;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .dest-multiselect.open .dest-dropdown { display: block; }
-
-        .dest-option {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .dest-option:hover { background: rgba(201,168,76,0.1); }
-        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
-
-        .dest-check {
-            width: 16px; height: 16px;
-            border: 1.5px solid rgba(201,168,76,0.4);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s, border-color 0.15s;
-        }
-        .dest-option.selected .dest-check {
-            background: var(--warm-gold);
-            border-color: var(--warm-gold);
-        }
-        .dest-check::after {
-            content: '';
-            width: 4px; height: 8px;
-            border-right: 2px solid #1a2a3a;
-            border-bottom: 2px solid #1a2a3a;
-            transform: rotate(45deg) translateY(-1px);
-            opacity: 0;
-        }
-        .dest-option.selected .dest-check::after { opacity: 1; }
-
-        /* Scrollbar for dropdown */
-        .dest-dropdown::-webkit-scrollbar { width: 5px; }
-        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
-        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
-
-        /* Submit area */
-        .expert-submit { margin-top: 1.5rem; text-align: center; }
-        .expert-submit-btn {
-            background: var(--warm-gold);
-            color: #fff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border: none;
-            padding: 1rem 3rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            max-width: 320px;
-        }
-        .expert-submit-btn:hover { background: #b8963e; }
-        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
-        .expert-form-msg {
-            margin-top: 1.2rem;
-            font-size: 0.88rem;
-            text-align: center;
-            min-height: 1.4em;
-        }
-        .expert-form-msg.success { color: #7ed8a3; }
-        .expert-form-msg.error   { color: #f08080; }
-
-        @media (max-width: 640px) {
-            .expert-form-grid { grid-template-columns: 1fr; }
-            .expert-heading { font-size: 2rem; }
-            .expert-section { padding: 70px 1.5rem; }
-        }
-
-        /* ===== FOOTER ===== */
-        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
-        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
-        .footer-logo img{height:35px;margin-bottom:1rem}
-        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
-        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.6rem}
-        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
-        .footer-col a:hover{color:var(--warm-gold)}
-        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal{display:flex;gap:2rem}
-        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal a:hover{color:var(--warm-gold)}
-
-        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){
-            .page-hero{padding:130px 1.5rem 50px}
-            .props-sec{padding:50px 1.5rem}
-            .props-grid{grid-template-columns:1fr;gap:1.5rem}
-            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>USA Fractional Ownership Properties | Co-Ownership Property</title>
+  <meta name="description" content="Co-ownership properties in the United States from COP — deeded fractional ownership in California, Colorado, Florida, the Carolinas Lowcountry and the Southwest. Fully managed, 6–7 weeks of personal use a year, real equity in some of America's most established second-home markets.">
 </head>
 <body>
-    <header class="cop-header scrolled" id="cop-header">
-    <div class="cop-logo">
-        <a href="/">
-            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
-        </a>
+
+<section class="page-hero">
+  <p class="eyebrow">United States · North America</p>
+  <h1>USA Fractional Ownership <em>Properties</em></h1>
+  <p class="subtitle">From a Newport Beach modernist on the Pacific to an Aspen ski-in chalet on Ajax Mountain, a Brickell penthouse over Biscayne Bay and a Lowcountry oceanfront on Kiawah — fractional ownership in the United States means a deeded share of America's deepest second-home market, six to seven weeks of personal use a year, and a fully managed home waiting whenever you arrive.</p>
+</section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>America's most coveted addresses, accessible through co-ownership.</h2>
+    <p>Fully managed villas, beach houses, ski chalets and city apartments across <strong>California</strong>, <strong>the Rocky Mountain West</strong>, <strong>Florida</strong>, <strong>the Carolinas Lowcountry</strong> and <strong>the Southwest</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of the most mature and internationally-traded second-home market in the world.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
     </div>
-    <nav class="cop-nav" id="cop-nav">
-        <a href="/" class="cop-nav-active">Home</a>
-        <a href="/our-homes/">Our Homes</a>
-        <a href="/how-it-works/">How It Works</a>
-        <a href="/about-us">About Us</a>
-        <a href="/all-our-blog/">Our Blog</a>
-        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
-        <a href="/contact">Contact</a>
-    </nav>
-    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-    </button>
-</header>
+  </div>
+</div>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <p class="eyebrow">Co-Ownership Properties</p>
-        <h1>USA Fractional Ownership Properties</h1>
-        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
-    </section>
+<section class="dest-sec cream"><div class="dest-inner">
 
-    <!-- PROPERTY GRID -->
-    <section class="props-sec">
-        <div class="props-inner">
-                        <div class="no-props">
-                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
-            </div>
-                    </div>
-    </section>
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1FatMEoX4Iv01yn7w5nDJq8vupbb8zgYd" alt="An Aspen ski chalet on Ajax Mountain, with stone walls, deep wooden balconies and the Elk Range rising behind" loading="lazy" />
+  <figcaption>An Aspen chalet on the lower Ajax slopes, the Elk Range running south toward Independence Pass.</figcaption>
+</figure>
 
-    <!-- MID-PAGE CTA -->
-    <div class="dest-mid-cta">
-        <p>Ready to find your property in USA?</p>
-        <div class="dest-mid-cta-btns">
-            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
-            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
-        </div>
-    </div>
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership in the United States?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership in the United States means buying a deeded 1/8 share of a luxury second home — a Newport Beach villa, an Aspen chalet, a Miami penthouse or a Kiawah Lowcountry house — held in a purpose-built LLC alongside seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
 
-    <!-- SEO CONTENT (rendered as styled sections) -->
-        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>USA Fractional Ownership — Deeded Second Homes Across America&#8217;s Finest Destinations</h2>
-<p>USA fractional ownership gives you a legally recorded, <strong>deeded stake</strong> in one of America&#8217;s most sought-after vacation properties — owning a <strong>1/8 share</strong> of a fully managed ski chalet, beachfront villa, or city residence in destinations ranging from Aspen and Vail to Miami and Malibu, with approximately <strong>45 days of personal use per year</strong>. This is genuine co-ownership of real US property — not a timeshare, not a points club, and not a right-to-use arrangement — with your name on the American property deed and all the legal protections that entails.</p>
-<p>For UK buyers and international second-home seekers, USA fractional ownership provides the most practical pathway to owning a slice of American lifestyle — the mountain resorts of <a href="/colorado-fractional-ownership-properties/">Colorado</a>, the beaches of <a href="/florida-fractional-ownership-properties/">Florida</a>, the Pacific Coast glamour of <a href="/california-fractional-ownership-properties/">California</a>, and the canyon country of <a href="/utah-fractional-ownership-properties/">Utah</a> — with professional management handling every operational detail between visits. Browse our USA fractional ownership properties below and discover what deeded American co-ownership at the highest level truly means.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose USA Fractional Ownership?</h2>
-<p>USA fractional ownership represents one of the most compelling entry points into American real estate that exists for both domestic and international buyers. The United States offers an extraordinary breadth of lifestyle environments that no single European or Asian market can match: world-class ski resorts in <a href="/colorado-fractional-ownership-properties/">Colorado</a> and <a href="/utah-fractional-ownership-properties/">Utah</a>, year-round beach living in <a href="/florida-fractional-ownership-properties/">Florida</a> and <a href="/california-fractional-ownership-properties/">California</a>, sophisticated city culture in New York and Chicago, and the magical desert landscape of the American Southwest. Through deeded fractional co-ownership, buyers can own a genuine, legally registered share of premium American property at a fraction of the full acquisition cost without the operational complexity of sole ownership.</p>
-<p>The structural case for USA fractional ownership is powerful. America&#8217;s most desirable vacation property markets — <a href="/aspen-fractional-ownership/">Aspen</a>, <a href="/vail-fractional-ownership/">Vail</a>, <a href="/breckenridge-fractional-ownership/">Breckenridge</a>, <a href="/miami-fractional-ownership/">Miami</a>, <a href="/lake-tahoe-fractional-ownership-properties/">Lake Tahoe</a>, <a href="/park-city-fractional-ownership-2/">Park City</a> — feature exceptional properties that regularly command values beyond what most second-home buyers can commit to outright. A fractional ownership structure changes this equation fundamentally: buyers acquire a <strong>deeded 1/8 share</strong> registered at the county recorder&#8217;s office, giving them the same legal standing as any full property owner — the right to use, the right to sell, the right to bequeath the asset, and the right to benefit from any appreciation in the underlying asset value. This is not a lease, a licence, or a membership — it is documented real property ownership under US state law.</p>
-<p>USA fractional ownership also fits the reality of modern international lifestyle exceptionally well. Most buyers — whether from the UK, Europe, or elsewhere — can realistically use an American vacation property for four to six weeks per year. A full sole-ownership purchase at Aspen or Malibu prices brings with it an enormous capital outlay, ongoing costs, and operational complexity for a property that will sit empty for the majority of the year. Fractional co-ownership aligns the cost structure with the actual usage pattern, distributes the operational burden across co-owners, and provides a professional management framework that makes cross-border ownership genuinely workable. For UK buyers navigating the US immigration landscape, the B-2 visitor visa allows stays of up to six months, making USA fractional ownership&#8217;s typical <strong>45 days of personal use</strong> completely compatible with standard visitor arrangements.</p>
-<p>Beyond the purely financial logic, USA fractional ownership delivers something more difficult to quantify: genuine access to the American lifestyle that defines some of the world&#8217;s most extraordinary vacation experiences. Morning ski runs on champagne powder in the Rockies, afternoons on pristine white-sand beaches on the Gulf Coast, evenings in world-class restaurants in Miami&#8217;s South Beach — these are not simulated experiences through a club membership or a points system. They are the lived reality of property ownership in some of America&#8217;s most exceptional environments, experienced on your own schedule, in a property that is genuinely yours. That authenticity is what separates USA fractional ownership from every alternative model in the market, and what makes the deeded co-ownership structure so compelling for discerning second-home buyers worldwide.</p>
-<p>The USA fractional ownership market has also matured significantly in legal and structural terms over the past decade. Established operators now offer sophisticated co-ownership agreements, transparent cost structures, independent property management, and clear exit mechanisms — all of which give buyers the confidence to commit to this model at a high level. Whether you are drawn to the mountains, the coast, the desert, or the city, USA fractional ownership offers a credible, legally robust, and genuinely lifestyle-enhancing pathway to American property ownership that simply did not exist at this level of quality a generation ago.</p>
-<p>The timing of USA fractional ownership decisions is also worth understanding from a market cycle perspective. American resort property markets — particularly the top ski and beach destinations — have historically been resilient through economic cycles, supported by the inelastic global demand from high-net-worth buyers who continue to prioritise lifestyle assets even in periods of broader economic uncertainty. The post-pandemic period in particular demonstrated this resilience dramatically, with resort markets like Aspen, Jackson Hole, and Miami Beach experiencing unprecedented price appreciation as buyers recalibrated their lifestyle priorities and committed to owning second homes rather than simply renting them intermittently. USA fractional ownership provides an accessible entry point into these markets at any point in the cycle — the fractional price point is lower than full ownership, but the exposure to the market&#8217;s long-term trajectory is equivalent on a per-share basis.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>USA Fractional Ownership — Regions &amp; Destinations</h2>
-<p>USA fractional ownership spans an extraordinary range of environments — from the snow-capped peaks of the Rocky Mountains to the sun-drenched shores of the Pacific and Atlantic coasts. Each region has its own property market dynamics, seasonal rhythm, lifestyle proposition, and legal framework. Understanding which part of America speaks to you is the most important first step in any USA fractional ownership journey.</p>
-<h3>Colorado &amp; Utah — America&#8217;s Mountain Crown</h3>
-<p>The Rocky Mountain states offer the pinnacle of USA fractional ownership for buyers drawn to . <a href="/colorado-fractional-ownership-properties/">Colorado</a> is home to the world&#8217;s most celebrated ski resorts — <a href="/aspen-fractional-ownership/">Aspen</a>, <a href="/vail-fractional-ownership/">Vail</a>, and <a href="/breckenridge-fractional-ownership/">Breckenridge</a> — where ski-in/ski-out chalets and mountain lodges command extraordinary prices that make fractional co-ownership the most practical entry point. <a href="/utah-fractional-ownership-properties/">Utah</a> offers <a href="/park-city-fractional-ownership-2/">Park City</a> — host of the Sundance Film Festival and gateway to the Wasatch Mountains — alongside extraordinary landscapes from Zion to Bryce Canyon. Both states offer a four-season proposition: world-class skiing in winter, and hiking, mountain biking, fly fishing, and whitewater rafting through spring, summer, and fall. USA fractional ownership in the Rockies provides roughly <strong>45 days of annual use</strong> across both peak ski season and summer months, structured to give co-owners genuine access to both seasons.</p>
-<h3>California — Pacific Glamour &amp; Year-Round Living</h3>
-<p><a href="/california-fractional-ownership-properties/">California</a> represents the most internationally recognised USA fractional ownership destination — a state of extraordinary lifestyle breadth where Pacific Ocean beachfront, desert luxury, and world-class wine country all exist within a few hours of each other. Malibu, Santa Barbara, and the Monterey Peninsula offer cliff-top estates and beachside villas that rank among the most coveted residential real estate on the planet. The Napa Valley and Sonoma wine country provide an entirely different proposition: vineyard estates and Californian ranch properties surrounded by rolling hills and Michelin-starred restaurants. In the desert, Palm Springs offers mid-century modern architecture, year-round sunshine, and a thriving cultural scene. California&#8217;s year-round mild climate makes it particularly suited to fractional ownership — there is no single off season that leaves a property sitting idle, and co-owners can time their visits to personal preference rather than seasonal constraint.</p>
-<h3>Florida — Sunshine State Beach &amp; City Living</h3>
-<p><a href="/florida-fractional-ownership-properties/">Florida</a> is America&#8217;s most popular domestic vacation destination and a USA fractional ownership market of remarkable depth and variety. <a href="/miami-fractional-ownership/">Miami</a> — and specifically Miami Beach and South Beach — offers an urban  unlike anywhere else in the United States: Art Deco architecture, world-class nightlife, Wynwood&#8217;s gallery district, and direct Atlantic Ocean frontage. Beyond Miami, the Gulf Coast&#8217;s Naples and Sarasota offer a more tranquil luxury beach experience, while the Florida Keys provide an entirely unique island proposition. Florida&#8217;s year-round warmth makes it particularly appealing for buyers from the UK and northern Europe, who can escape winter months in genuine subtropical comfort. USA fractional ownership in Florida typically provides access across the full calendar year, giving co-owners the flexibility to use their weeks when the contrast with home is most valuable.</p>
-<h3>Lake Tahoe — Alpine Lake Living on the Nevada Border</h3>
-<p><a href="/lake-tahoe-fractional-ownership-properties/">Lake Tahoe</a> sits at 6,225 feet on the border of California and Nevada, forming one of the most dramatically beautiful natural environments in the United States. Crystal-clear waters ringed by the Sierra Nevada mountains create a setting that is spectacular in every season: world-class skiing at Heavenly, Northstar, and Squaw Valley in winter; sailing, paddleboarding, kayaking, and hiking in summer. The North Shore offers a quieter, more residential character with lakefront estates, while the South Shore combines casino entertainment with mountain adventure. USA fractional ownership at Lake Tahoe provides access to a genuinely four-season destination — the lakes and mountains here rival the <a href="/italian-lakes-fractional-ownership-properties/">Italian Lakes</a> and <a href="/austria-fractional-ownership-properties/">Austrian</a> alpine destinations, but with America&#8217;s distinctive spaciousness and year-round accessibility.</p>
-<h3>Mexico — Caribbean Coast Fractional Ownership</h3>
-<p>For buyers whose North American lifestyle ambitions extend beyond the US border, <a href="/mexico-fractional-ownership-properties/">Mexico</a> offers a natural extension of the USA fractional ownership proposition — Caribbean and Pacific coastline destinations including Los Cabos, the Riviera Maya, and Puerto Vallarta, where world-class beachfront properties are available at price points significantly below their US equivalents. Mexico&#8217;s fideicomiso trust structure provides international buyers with secure, legally recognised property rights, and the co-ownership model translates directly to the Mexican market with the same deeded, registered ownership framework. The proximity to US hubs — Los Cabos is under three hours from Los Angeles, Cancun under three hours from Miami — makes Mexico a genuinely connected part of the North American fractional ownership universe.</p>
-<h3>Beyond the Clusters — The Full North American Opportunity</h3>
-<p>USA fractional ownership is not limited to the most prominent resort markets. The Pacific Northwest, the Texas Hill Country, the Carolinas&#8217; Outer Banks, Maine&#8217;s rugged coastline, and the Hamptons on Long Island all provide highly sought coastal and rural environments with strong lifestyle credentials and established co-ownership frameworks. As the market continues to mature, new destinations are opening up that offer exceptional quality at more accessible price points. For buyers comparing USA fractional ownership with European alternatives such as <a href="/france-fractional-ownership-properties/">France</a>, <a href="/spain-fractional-ownership-properties/">Spain</a>, or <a href="/italy-fractional-ownership-properties/">Italy</a>, the USA offers unmatched geographic diversity and the security of the world&#8217;s most developed legal system for property rights.</p>
-<p>Beyond the headline markets, <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> is increasingly popular in emerging second-home destinations. The Great Smoky Mountains in Tennessee and North Carolina draw buyers seeking a quieter, four-season retreat — a rustic cabin or mountain lodge where every owner enjoys full autumn leaf-peeping season, winter snowfalls, and summer hiking on the Appalachian Trail. The Texas Hill Country has also matured as a lifestyle market, with San Antonio and Fredericksburg anchoring a growing cluster of vineyard estates and ranch-style properties that combine Western heritage with refined modern living. Meanwhile, the Pacific Northwest — particularly around Bend, Oregon, and the Columbia River Gorge — is attracting buyers who want dramatic volcanic landscapes, world-class cycling, and proximity to Portland, all without the full purchase cost of an outright buy. Fractional ownership across these emerging areas typically follows the same <strong>deeded 1/8 share</strong> structure as the major markets, ensuring the same legal protections regardless of location. As the USA second-home market broadens, co-ownership is expanding beyond its traditional coastal and ski strongholds, giving international buyers genuinely diverse lifestyle options at a fraction of the full property cost.</p>
-<p>Choosing the right area for your <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> investment requires thinking about more than just property prices. Consider the seasonality of your preferred activities — ski markets like <a href="/aspen-fractional-ownership/">Aspen</a> and <a href="/vail-fractional-ownership/">Vail</a> are busiest November through March, while coastal markets in <a href="/florida-fractional-ownership-properties/">Florida</a> and <a href="/california-fractional-ownership-properties/">California</a> offer year-round warmth. Think about flight routes from your home country — <a href="/miami-fractional-ownership/">Miami</a> and Los Angeles have extensive transatlantic connections, while mountain resort towns require a connecting flight. Consider the lifestyle you want week to week: urban walkability in cities like Miami or San Francisco, versus the wide-open ranch and wilderness experience of Colorado or Utah. Our team can help you map your lifestyle priorities to the right state and micro-market before you review specific properties.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How USA Fractional Ownership Works</h2>
-<p>USA fractional ownership operates as genuine co-ownership of American real property, structured and documented under the property law of the relevant state. There is no special statute or legal category called fractional ownership — this is simply real estate ownership in the fullest legal sense, with a co-ownership agreement governing how co-owners share usage, costs, and governance. Each owner holds a <strong>deeded fractional interest</strong> — typically one-eighth (1/8) — that is recorded at the county recorder&#8217;s office in the county where the property is located, exactly as any full property purchase would be.</p>
-<p>The acquisition process follows the standard US real estate transaction framework. Once a property and share are identified, the buyer enters into a purchase agreement and pays a deposit — typically 10–15% of the fractional purchase price. A title company conducts a title search to confirm clean ownership, and the transaction closes through an escrow agent. At closing, the deed is executed and recorded at the county recorder&#8217;s office, confirming the buyer&#8217;s ownership interest in the public land record. The buyer receives a copy of the deed and the co-ownership agreement, which governs the ongoing management and usage of the property. The entire process typically takes 30–60 days from signed purchase agreement to recorded deed, and can be completed remotely for international buyers with appropriate power of attorney arrangements.</p>
-<p>The co-ownership agreement is the central governance document of any USA fractional ownership structure. It defines the usage calendar — how the 52 weeks of the year are allocated across eight co-owners — the annual operating budget, the cost-sharing arrangements, the decision-making process for major expenditures, and the rules governing resale and transfer of shares. Most established operators provide co-ownership agreements drafted by specialist real estate attorneys that address all these elements in detail, and that include provisions for orderly exit if a co-owner wishes to sell their share. Some agreements include a <strong>right of first refusal</strong> giving existing co-owners the first opportunity to purchase any share that comes to market — a provision that many buyers find reassuring as it helps ensure ownership remains among parties who have agreed to the same governance framework.</p>
-<p>The legal structures used for USA fractional ownership vary by operator and state, but two frameworks predominate. The simpler approach — direct tenancy in common (TIC) — records each fractional interest directly on the deed in the co-owners&#8217; individual names. The alternative — an <strong>LLC (Limited Liability Company)</strong> structure — involves each co-owner holding a membership interest in an LLC that holds the property deed. The LLC approach offers certain administrative advantages including easier transfer of shares and cleaner governance through the operating agreement, and is often preferred by operators managing multiple co-owners across multiple properties. Both approaches provide equivalent security of ownership, and both result in legally registered interests in American real property.</p>
-<p>Day-to-day management of USA fractional ownership properties is handled by a professional property management company appointed by and accountable to the co-owners. The management company coordinates housekeeping and maintenance between visits, manages the usage calendar and booking system, handles all utility and service contracts, prepares the annual financial reporting for cost-sharing purposes, and serves as the primary point of contact for any operational issues that arise. High-quality management is the operational foundation of a successful USA fractional ownership experience — it is what allows co-owners from the UK or Europe to own American property with genuine confidence that it is being professionally cared for in their absence.</p>
-<p>For international buyers, the USA fractional ownership process involves some additional considerations. Foreign buyers of US real property are subject to <strong>FIRPTA</strong> (Foreign Investment in Real Property Tax Act) withholding at the time of sale — typically 15% of the gross sale price withheld at closing, which is applied against any actual capital gains tax liability. Annual property ownership for foreign nationals generates US tax reporting obligations, typically handled by a US accountant or tax adviser who files the necessary returns. Property taxes — levied by the county rather than the federal government — are typically handled through the property management arrangement and shared pro-rata among co-owners. These additional administrative requirements are manageable with proper professional support, and the leading USA fractional ownership operators have well-established processes for guiding international buyers through them.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>USA Fractional Ownership — Investment &amp; Lifestyle</h2>
-<p>USA fractional ownership sits at the intersection of two powerful motivations: the desire for an exceptional lifestyle experience in America&#8217;s finest vacation destinations, and the desire for a sound long-term property investment in the world&#8217;s most transparent and liquid real estate market. Understanding both dimensions clearly — and their relationship to each other — is essential for anyone considering USA fractional ownership as part of their broader wealth management and lifestyle strategy.</p>
-<p>From a lifestyle perspective, USA fractional ownership delivers something that no hotel, rental platform, or membership club can replicate: a genuine sense of place and belonging in a destination you own. When you own a deeded 1/8 share of a ski chalet in <a href="/aspen-fractional-ownership/">Aspen</a>, you are not a guest — you are an owner. The property is furnished to your taste or to a high standard by the operator, stocked and prepared before your arrival, and cared for as your own home. Over multiple visits each year, you build familiarity with the destination, relationships with local restaurants and guides, and the kind of deep local knowledge that only comes from genuine ownership. This sense of having a home in America — not just a reservation — is what most USA fractional co-owners cite as the defining advantage of ownership over even the best hotel or villa rental experience.</p>
-<p>The investment dimension of USA fractional ownership deserves careful analysis. America&#8217;s premier resort and coastal property markets have demonstrated remarkable long-term capital appreciation — markets like Aspen, Malibu, and Miami Beach have produced property value growth over multiple decades that has significantly outpaced broader US real estate averages. This appreciation reflects structural factors: permanently constrained supply in the most desirable locations, sustained and growing global demand from high-net-worth buyers, and the enduring strength of the US dollar as a reserve currency. These structural drivers suggest continued long-term value support for the highest-quality USA fractional ownership locations, though buyers should approach any property acquisition with a long-term horizon and appropriate professional advice.</p>
-<p>Rental income from unused weeks is a realistic possibility for some USA fractional ownership structures, but should not be relied upon as a primary investment thesis. Some co-ownership operators allow owners to make their allocated weeks available for short-term rental through approved platforms or the operator&#8217;s own rental programme. The economics vary considerably by destination — premium ski weeks in Aspen or Vail can command very strong nightly rates, while off-peak periods generate more modest returns. Rental income is always case-by-case, property-specific, and subject to the terms of the co-ownership agreement and local short-term rental regulations, which in some resort markets have become increasingly restrictive. The correct frame for rental income in USA fractional ownership is: a potential contribution to running costs, not a guaranteed yield.</p>
-<p>Annual running costs for USA fractional ownership properties typically include property taxes levied by the county, insurance, HOA or community fees where applicable, property management fees, and routine maintenance and servicing. These costs are shared equally among co-owners, so each 1/8 share owner pays one-eighth of the total annual operating budget. This shared cost structure is one of the most compelling financial advantages of USA fractional ownership — the running costs of a premium American property are distributed across eight co-owners rather than falling entirely on a sole owner who uses the property for only a fraction of the year. Transparency of running costs — <strong>detailed annual budgets</strong> prepared by the management company and shared with all co-owners — is a hallmark of professionally structured USA fractional ownership.</p>
-<p>For buyers comparing USA fractional ownership with European alternatives — <a href="/france-fractional-ownership-properties/">France fractional ownership</a>, <a href="/spain-fractional-ownership-properties/">Spain</a>, or <a href="/italy-fractional-ownership-properties/">Italy</a> — the USA offers some distinct advantages: an extremely well-developed legal system for property rights, a highly liquid secondary market for premium real estate, complete absence of Schengen residency restrictions for non-EU buyers, and access to lifestyle experiences that exist nowhere in Europe. USA fractional ownership is the right choice for buyers whose American dream is specific, genuine, and central to their lifestyle vision.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/colorado-fractional-ownership-properties/" class="dest-explore-card">Colorado Fractional Ownership &rarr;</a><a href="/florida-fractional-ownership-properties/" class="dest-explore-card">Florida Fractional Ownership &rarr;</a><a href="/california-fractional-ownership-properties/" class="dest-explore-card">California Fractional Ownership &rarr;</a><a href="/utah-fractional-ownership-properties/" class="dest-explore-card">Utah Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>USA Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly do I own with USA fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>With USA fractional ownership, you own a legally recorded fractional interest in American real property — most commonly a <strong>1/8 share</strong> (12.5%) of the property and all associated land. Your ownership is documented in a deed that is recorded at the county recorder&#8217;s office, exactly as any full property purchase would be. You are named on the public land record as a property owner in the United States. This gives you all the legal rights of property ownership: the right to use the property during your allocated time, the right to sell your share on the open market, the right to bequeath it through your estate, and the right to benefit from any increase in the property&#8217;s value over time.</p>
-<p>This is fundamentally different from a timeshare, which is a contractual right to use a property during specified periods — not a property ownership interest. With USA fractional ownership, you own real American real estate. With a timeshare, you own a contract. The legal, financial, and lifestyle implications of that distinction are enormous, and it is the central reason why deeded USA fractional ownership has grown in credibility and popularity as the timeshare model has declined.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use my USA fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>As a 1/8 share owner, you are entitled to use the property for approximately <strong>45 days per year</strong> — the equivalent of six to seven weeks of personal use. The specific allocation of weeks is governed by the co-ownership agreement and the usage calendar managed by the property management company. Most operators use a rotating calendar system that ensures fair allocation of peak-season weeks across all co-owners on an annual basis. Some operators allow owners to trade, rent, or donate unused weeks within the co-ownership arrangement, subject to the terms of the agreement.</p>
-<p>For international buyers, 45 days of annual use in the United States is fully compatible with standard B-2 visitor visa arrangements, which allow stays of up to 6 months (180 days). Unlike EU destinations where UK buyers face the post-Brexit 90-day Schengen limit, the United States imposes no equivalent restriction on property owners visiting their American homes — though buyers should always take professional immigration advice specific to their individual circumstances.</p></div></details><details class="dest-faq-item"><summary><h3>How does USA fractional ownership differ from a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The distinction is fundamental: <strong>timeshare is not property ownership</strong> — it is a contractual right to use a resort unit for a specified period each year, typically for a fixed term, with no ownership of the underlying real estate. USA fractional ownership, by contrast, is documented real property ownership. You hold a deeded fractional interest registered in your name at the county recorder&#8217;s office. You own an undivided share of an actual property and the land it sits on.</p>
-<p>The practical implications of this difference are significant: fractional owners benefit from any appreciation in the property&#8217;s value, can sell their share on the open market to any buyer at any price, and can bequeath their ownership interest through their estate. Timeshare holders typically cannot benefit from property appreciation, face severely restricted resale markets, and hold a contractual right that may expire or be subject to resort management decisions.</p>
-<p>From a financial perspective, the historical resale outcomes are dramatically different. Quality USA fractional ownership properties in premium markets have demonstrated genuine long-term capital appreciation. Timeshares are widely known to have poor resale value and are frequently given away or abandoned at significant financial loss to the original purchaser. These facts are why deeded co-ownership has grown rapidly as the timeshare model has declined.</p></div></details><details class="dest-faq-item"><summary><h3>What are the tax implications of USA fractional ownership for UK and international buyers?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>USA fractional ownership carries several tax considerations for international buyers that require proper professional advice. At the point of sale, foreign buyers are subject to <strong>FIRPTA</strong> (Foreign Investment in Real Property Tax Act) withholding — the buyer&#8217;s agent withholds 15% of the gross sales price at closing and remits it to the IRS as a withholding on any potential capital gain. This is a withholding mechanism, not an additional tax — if the actual capital gain is less than the amount withheld, the seller can file a US tax return to claim a refund. If rental income is generated from the property during ownership, this is also subject to US taxation and reporting requirements.</p>
-<p>Annual property taxes are levied by the county and are typically 0.5–2% of assessed value per year, shared pro-rata among co-owners. For a 1/8 share owner, this represents one-eighth of the total annual property tax bill. For UK buyers, the USA and UK have a comprehensive double taxation treaty that provides relief on income and capital gains — professional cross-border tax advice is essential to ensure you structure your USA fractional ownership correctly from the outset.</p>
-<p>For buyers considering an LLC structure for their fractional ownership, the tax treatment of the LLC also requires professional advice — the transparency of the LLC for US and home-country tax purposes depends on elections made at formation and must be coordinated carefully with specialist advisers on both sides of the Atlantic.</p></div></details><details class="dest-faq-item"><summary><h3>Which USA destination is best for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The best USA fractional ownership destination depends entirely on your lifestyle priorities, travel patterns, and the type of experience you are seeking. For mountain and ski enthusiasts, <a href="/colorado-fractional-ownership-properties/">Colorado</a> — specifically Aspen and Vail — and <a href="/utah-fractional-ownership-properties/">Utah&#8217;s Park City</a> represent the gold standard of North American ski resort living, with ski-in/ski-out access, world-class dining, and exceptional four-season utility. For beach and warmth seekers, <a href="/florida-fractional-ownership-properties/">Florida</a> offers year-round sunshine, white-sand beaches, and no state income tax. For Pacific Coast living, <a href="/california-fractional-ownership-properties/">California</a> provides the most internationally glamorous American lifestyle proposition.</p>
-<p>From a pure investment perspective, Aspen and Miami Beach have historically produced the strongest long-term capital appreciation of any US vacation market, driven by permanently constrained supply and relentlessly growing global demand. <a href="/lake-tahoe-fractional-ownership-properties/">Lake Tahoe</a> and Park City represent strong second-tier markets with excellent lifestyle credentials. The most important factor is which specific property, operator, and co-ownership structure gives you the best combination of personal utility, cost transparency, and legal security.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my USA fractional ownership property during unused weeks?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Rental income from unused weeks is permitted in many USA fractional ownership structures but is not guaranteed or universal. Whether rental is permitted — and under what conditions — depends on the terms of the specific co-ownership agreement, the property management arrangement, and local short-term rental regulations. In most resort markets, the co-ownership operator will manage an optional rental programme through which unused weeks can be made available to third-party renters, with revenue distributed to the owner after platform and management fees.</p>
-<p>It is important to note that rental regulation in the US varies significantly by municipality and county. Some resort markets — including certain ski towns in Colorado and vacation communities in Florida — have enacted restrictions on short-term rental permits that can affect the viability of rental programmes. Always confirm the specific rental permissions and restrictions applicable to any property before making rental income a material part of your investment rationale.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing running costs of USA fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Annual running costs for USA fractional ownership properties vary by destination, property size, and management arrangement, but typically include: property taxes (shared pro-rata, typically 0.5–2% of assessed value annually); property insurance; HOA or condominium association fees where applicable; property management fees covering housekeeping, maintenance coordination, and administration; utilities and consumables; and a capital reserve contribution for future major maintenance or improvement works. These costs are split equally among co-owners, so a 1/8 share owner pays one-eighth of the total annual budget.</p>
-<p>In concrete terms, annual running costs for a quality USA fractional ownership property in a tier-one resort market might range from $8,000 to $25,000 per year for a 1/8 share — representing excellent value when benchmarked against the cost of renting equivalent accommodation for 45 days in the same destination. The co-ownership model fundamentally changes the cost structure of premium American vacation property access, making it genuinely affordable to own rather than merely rent at high seasonal cost.</p>
-<p>Transparency of running costs is a critical quality indicator when evaluating USA fractional ownership operators. Reputable operators provide detailed annual budgets before purchase, maintain a capital reserve fund for maintenance, and distribute audited financial accounts to all co-owners each year. If a prospective operator cannot or will not provide this level of financial transparency before you commit, that is a significant red flag.</p></div></details><details class="dest-faq-item"><summary><h3>How do I sell my USA fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Selling a USA fractional ownership share follows a process similar to selling any real property interest — the share can be listed for sale on the open market, marketed through specialist fractional ownership brokers, or offered to existing co-owners if the co-ownership agreement includes a <strong>right of first refusal</strong> clause. The sale is documented through a purchase agreement and closes through a title company and escrow agent, with the deed transfer recorded at the county recorder&#8217;s office. The process is legally identical to selling any US real property interest.</p>
-<p>The liquidity of the secondary market for USA fractional ownership shares varies by destination and operator. Shares in well-maintained properties in high-demand markets — Aspen, Miami, Malibu — typically attract buyer interest relatively quickly. For foreign sellers, FIRPTA withholding applies at the time of sale, with any overpayment refunded after filing. Professional advice from a US real estate attorney and cross-border tax adviser is recommended before listing.</p>
-<p>Buyers should evaluate the exit provisions of any co-ownership agreement carefully before purchasing, including any restrictions on who may purchase a share, any approval processes required from existing co-owners, and any pre-emption rights that might affect pricing or timing of a future sale.</p></div></details><details class="dest-faq-item"><summary><h3>Can I pass my USA fractional ownership to family members or through my estate?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — because USA fractional ownership is genuine deeded real property, the ownership interest can be transferred to family members, gifted, or bequeathed through a will or estate plan, subject to the terms of the co-ownership agreement and applicable US and home-country estate planning rules. This is one of the most significant distinguishing features between deeded fractional ownership and timeshare — timeshares are frequently non-transferable or subject to resort company approval, while USA fractional ownership shares are transferable property rights governed by standard real estate law.</p>
-<p>For US estate planning, an interest in American real property owned by a foreign national is subject to US federal estate tax on death — currently at rates up to 40% on US situs assets above a relatively low exemption threshold for non-domiciliaries. This can be mitigated through appropriate planning, including holding the interest through a non-US trust or foreign corporation structure, though such structures have their own complexities. Cross-border estate planning advice from a specialist who understands both US and UK estate tax rules is essential before acquiring USA fractional ownership property.</p>
-<p>The co-ownership agreement will typically specify whether transfers to family members require co-owner approval, and whether the transferee is bound by the same terms and obligations as the original owner. Understanding these provisions in advance ensures there are no surprises when succession planning becomes relevant.</p></div></details><details class="dest-faq-item"><summary><h3>How does USA fractional ownership compare to European fractional ownership destinations?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>USA fractional ownership and European fractional ownership share the same fundamental model — deeded co-ownership of real property with structured usage, professional management, and shared running costs — but differ in several important respects. The US real estate legal system is among the most developed in the world for property rights, with highly transparent title insurance systems, professional escrow processes, and well-established secondary markets in most resort locations. <a href="/france-fractional-ownership-properties/">France</a>, <a href="/spain-fractional-ownership-properties/">Spain</a>, and <a href="/italy-fractional-ownership-properties/">Italy</a> all have their own robust legal frameworks, but the processes differ and require country-specific expertise.</p>
-<p>For UK buyers post-Brexit, USA fractional ownership carries a specific advantage over EU destinations: there are no equivalent Schengen 90-day restrictions limiting how frequently you can visit your American property. UK holders of the B-2 visitor visa can stay in the US for up to 6 months at a time, and the typical 45-day fractional ownership usage sits very comfortably within this framework. By contrast, UK buyers visiting a property in <a href="/french-alps-fractional-ownership-properties/">the French Alps</a> or <a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a> are subject to the 90-day-in-any-180-day Schengen restriction, which complicates usage planning.</p>
-<p>The choice between USA and European fractional ownership ultimately comes down to lifestyle orientation. The USA offers unmatched geographic diversity within a single country, with English as the working language and a cultural familiarity that many British buyers find immediately comfortable. European destinations offer Mediterranean sunshine, proximity from UK airports, and a lifestyle tradition that speaks powerfully to buyers with family or cultural connections to France, Spain, or Italy. USA fractional ownership is the right choice when America is genuinely where you want to be.</p></div></details><details class="dest-faq-item"><summary><h3>Do I need a US visa to own USA fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Owning property in the United States does not automatically grant any visa or immigration status. UK citizens can visit the US under the Visa Waiver Program (ESTA) for up to 90 days per visit, or apply for a B-2 visitor visa which allows stays of up to 6 months. Neither form of admission is affected by property ownership — the 45 days of personal use typical of a 1/8 share USA fractional ownership sits well within either framework, and can be structured as a single visit or multiple shorter visits depending on personal preference and travel patterns.</p>
-<p>The US immigration authorities are alert to individuals who appear to be living in the country outside the terms of their visa admission. Visitors on ESTA or B-2 visas who spend very extensive periods in the US may face questions about their immigration status. For buyers whose lifestyle ambitions include extended US stays beyond the fractional ownership allocation, specific immigration advice about E-2 investor visas or other appropriate pathways is recommended.</p>
-<p>The absence of EU-equivalent residency restrictions is a genuine advantage of USA fractional ownership for UK buyers — there is no Schengen 90-day cap that limits total annual time in the country across multiple visits. USA fractional ownership&#8217;s 45-day personal allocation can be used in a flexible, multi-visit pattern without the administrative complexity that post-Brexit Schengen rules impose on European fractional ownership usage.</p></div></details><details class="dest-faq-item"><summary><h3>What should I look for when choosing a USA fractional ownership operator?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Choosing the right USA fractional ownership operator is one of the most important decisions in the entire acquisition process. The operator — the company that has structured the co-ownership, selected and acquired the property, drafted the co-ownership agreement, and appointed the property management company — is the foundation of your entire ownership experience. Key factors to evaluate include: the legal robustness of the co-ownership structure (has it been established by specialist US real estate attorneys?); the quality and independence of the property management; the fairness and transparency of the usage calendar and booking system; the clarity of the annual cost structure and financial reporting; and the operator&#8217;s track record of managing co-ownership properties through the full ownership lifecycle including resale.</p>
-<p>Before committing to any USA fractional ownership purchase, buyers should review the full co-ownership agreement with a specialist US real estate attorney, understand the complete cost structure including all management fees and capital reserve contributions, verify the title insurance commitment, and speak with existing co-owners on comparable properties managed by the same operator if possible. References and track record matter enormously in a market where the quality differential between operators is significant.</p>
-<p>USA fractional ownership at its best is a genuinely excellent way to own premium American property — but the quality of the experience depends heavily on the quality of the operator and the legal framework they have established. Invest appropriate time and professional resource in due diligence before signing, and you will be in the best possible position to enjoy your USA fractional ownership for many years to come.</p></div></details><details class="dest-faq-item"><summary><h3>Is USA fractional ownership a good investment compared to buying outright?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>USA fractional ownership is not designed to replace outright ownership for buyers who genuinely need a full-time vacation home or who want unlimited access to their American property. Rather, it is specifically designed for buyers who will realistically use an American property for four to seven weeks per year and want the quality, legal security, and lifestyle authenticity of true ownership — rather than the operational complexity and capital commitment of sole ownership on one hand, or the impermanence of rental on the other.</p>
-<p>On a pure cost-per-day-used basis, USA fractional ownership typically compares very favourably with both sole ownership (where the full capital cost and running expenses are borne by a single owner using the property for perhaps 40-50 days per year) and premium villa rental (where daily rates in top ski and beach destinations can exceed $2,000–$5,000 per night during peak season). The fractional model captures the capital appreciation of genuine property ownership while distributing the costs across usage patterns that actually reflect how most second-home buyers use their properties in practice.</p>
-<p>For buyers who can commit to a full sole-ownership purchase and genuinely want unlimited access — or who intend to use the property as a long-term rental investment — outright ownership may be more appropriate. For those who want quality access, legal ownership, and manageable costs aligned to realistic usage, USA fractional ownership consistently offers the superior overall value proposition. The conversation with a specialist adviser about your specific circumstances, financial position, and lifestyle requirements will quickly clarify which approach is right for you.</p></div></details><details class="dest-faq-item"><summary><h3>What happens if one co-owner stops paying their share of running costs?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>This is one of the most important practical risk questions in any USA fractional ownership evaluation, and the answer lies almost entirely in the quality of the co-ownership agreement and the operator&#8217;s governance framework. In a properly structured USA fractional ownership arrangement, the co-ownership agreement will include clear provisions for what happens if a co-owner defaults on their obligations — typically a combination of suspension of usage rights, a right for the other co-owners to pursue the defaulting owner for their share of costs through standard legal process, and in some structures a forced-sale provision that enables the defaulting share to be sold to recover outstanding amounts.</p>
-<p>Some operators mitigate this risk further by holding a maintenance reserve fund contributed by all co-owners, which can cover short-term shortfalls while any dispute with a defaulting owner is resolved. Others manage the capital reserve at the property level, ensuring that routine maintenance and major works are pre-funded regardless of individual co-owner circumstances. The existence and adequacy of these protections is one of the most important due diligence questions to raise with any prospective USA fractional ownership operator before committing.</p>
-<p>The practical reality is that defaults among co-owners of premium USA fractional ownership properties are relatively rare — the buyers who invest in high-quality co-ownership properties tend to be financially stable individuals for whom the annual running costs represent a modest proportion of their overall wealth. Nevertheless, understanding the protection mechanisms in advance gives buyers the confidence to commit to the model, and evaluating the quality of those protections is an important part of the operator due diligence process.</p></div></details><details class="dest-faq-item"><summary><h3>How do I get started with USA fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Getting started with USA fractional ownership begins with clarity about your lifestyle vision — which American destinations genuinely excite you, what property type suits your lifestyle best, how many weeks per year you realistically intend to use the property, and what budget you have available for both the initial acquisition and ongoing annual running costs. The clearer you are about these parameters from the outset, the more efficiently you can evaluate the available inventory and identify the specific property and share that represents the best fit for your needs.</p>
-<p>The next step is engaging with a specialist co-ownership adviser — ideally one with specific expertise in USA fractional ownership and familiarity with the leading operators in each market. A good adviser will help you understand the available inventory, evaluate the quality of different co-ownership structures, identify any red flags in operator due diligence, and navigate the legal and financial aspects of the acquisition with appropriate professional support on both the US and home-country sides. The <a href="/co-ownership-buying-process/">co-ownership buying process</a> is well-established and, with the right guidance, straightforward — but it benefits enormously from experienced specialist support throughout.</p>
-<p>The team at Co-Ownership Property works exclusively with buyers seeking premium fractional co-ownership opportunities across the USA and internationally. We can introduce you to the leading USA fractional ownership operators, help you evaluate specific properties and structures, and connect you with the specialist legal and financial advisers you will need to complete a USA fractional ownership acquisition with confidence. Start the conversation by browsing our current USA fractional ownership listings above, or reach out directly to discuss your specific requirements with our team.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK or European buyers get a US mortgage or financing for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Traditional US residential mortgages are generally not available for <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> properties because most high-street lenders require whole ownership of a single property. However, this does not mean financing is impossible. Some specialist lenders, private banks, and wealth management firms offer portfolio lending or foreign national loan products that can be structured around a fractional interest in a US property held via an LLC or co-ownership agreement. Seller financing — where the property management company or selling party provides an instalment arrangement — is also available on certain listings. Many buyers from the UK and Europe also find that releasing equity from an existing property at home, or using a SIPP or investment portfolio, provides a cleaner and faster route to funding their share. The <strong>lower entry price</strong> of a 1/8 share relative to full ownership often means the total purchase sum is achievable without institutional lending at all. Our team can introduce you to advisers who specialise in cross-border property financing and help you identify the most practical route based on your personal financial situation.</p></div></details><details class="dest-faq-item"><summary><h3>What happens if I want to sell my fractional ownership share in the USA?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Because <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> involves a genuine deeded interest recorded at the county level, your share can be resold in the same way as any real property interest — through a real estate agent, via the management company&#8217;s internal resale programme, or privately. The co-ownership agreement typically includes a <strong>right of first refusal</strong> clause, which means existing co-owners have the opportunity to buy your share before it is offered to the general market. This protects the integrity of the ownership group and can accelerate the resale process. Listing your share through the property manager&#8217;s network often reaches buyers who are specifically seeking entry into an established, professionally managed co-ownership — making the resale market more liquid than many buyers expect. From a tax standpoint, any capital gain realised on the sale of a US property interest by a foreign national is subject to <strong>FIRPTA</strong> (the Foreign Investment in Real Property Tax Act), which requires the buyer to withhold a percentage of the sale price and remit it to the IRS on the seller&#8217;s behalf. A US tax adviser can help you structure the sale efficiently and claim any applicable treaty benefits. Overall, the resale process for fractional ownership in the USA is straightforward provided the original purchase documents are in order and the co-ownership agreement has been properly structured.</p>
-<p>If market conditions have changed and you are not ready to sell, most <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> agreements also allow owners to transfer their usage weeks to family members or, where the property permits, to rent unused time. This flexibility ensures that your ownership adapts to life changes — relocation, family growth, changing travel habits — without forcing a premature sale. Speak with our team or your legal adviser about the specific provisions in your co-ownership agreement before making any decisions about transfer or resale.</p></div></details></div></div></section>    
-    <!-- CTAs -->
-        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
-    <section class="newsletter-section" id="newsletter">
-        <h2 class="newsletter-heading">Be The First To Know</h2>
-        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
-        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
-            <input type="email" name="email" placeholder="Enter your email address" required>
-            <button type="submit" class="newsletter-btn">Join Newsletter</button>
-        </form>
-        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
-    </section>
-        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
-    <section class="expert-section" id="speak-to-expert">
-        <div class="expert-inner">
-            <p class="expert-eyebrow">Get in Touch</p>
-            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
-            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+<h2>Why the United States?</h2>
 
-            <form class="expert-form" id="expert-enquiry-form" novalidate>
-                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
-                    <div class="expert-form-field">
-                        <label for="ef-name">Name <span>*</span></label>
-                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-email">Email Address <span>*</span></label>
-                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-phone">Phone Number <span>*</span></label>
-                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label>Destinations</label>
-                        <div class="dest-multiselect" id="dest-multiselect">
-                            <div class="dest-trigger" id="dest-trigger">
-                                <span class="dest-placeholder">Select destinations</span>
-                            </div>
-                            <div class="dest-dropdown" id="dest-dropdown">
-                                                                <div class="dest-option" data-value="France">
-                                    <span class="dest-check"></span>
-                                    🇫🇷 France                                </div>
-                                                                <div class="dest-option" data-value="Spain">
-                                    <span class="dest-check"></span>
-                                    🇪🇸 Spain                                </div>
-                                                                <div class="dest-option" data-value="Italy">
-                                    <span class="dest-check"></span>
-                                    🇮🇹 Italy                                </div>
-                                                                <div class="dest-option" data-value="USA">
-                                    <span class="dest-check"></span>
-                                    🇺🇸 USA                                </div>
-                                                                <div class="dest-option" data-value="Portugal">
-                                    <span class="dest-check"></span>
-                                    🇵🇹 Portugal                                </div>
-                                                                <div class="dest-option" data-value="Austria">
-                                    <span class="dest-check"></span>
-                                    🇦🇹 Austria                                </div>
-                                                                <div class="dest-option" data-value="England">
-                                    <span class="dest-check"></span>
-                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
-                                                                <div class="dest-option" data-value="Sweden">
-                                    <span class="dest-check"></span>
-                                    🇸🇪 Sweden                                </div>
-                                                                <div class="dest-option" data-value="Germany">
-                                    <span class="dest-check"></span>
-                                    🇩🇪 Germany                                </div>
-                                                                <div class="dest-option" data-value="Croatia">
-                                    <span class="dest-check"></span>
-                                    🇭🇷 Croatia                                </div>
-                                                                <div class="dest-option" data-value="Mexico">
-                                    <span class="dest-check"></span>
-                                    🇲🇽 Mexico                                </div>
-                                                            </div>
-                        </div>
-                        <input type="hidden" name="destination" id="ef-destination">
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-budget">Budget Range</label>
-                        <select id="ef-budget" name="budget">
-                            <option value="" disabled selected>Select a budget</option>
-                            <option>Under €100,000</option>
-                            <option>€100,000 – €200,000</option>
-                            <option>€200,000 – €350,000</option>
-                            <option>€350,000 – €500,000</option>
-                            <option>€500,000 – €750,000</option>
-                            <option>€750,000 – €1,000,000</option>
-                            <option>Over €1,000,000</option>
-                        </select>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-message">Message</label>
-                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
-                    </div>
-                </div>
-                <div class="expert-submit">
-                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
-                    <p class="expert-form-msg" id="expert-form-msg"></p>
-                </div>
-            </form>
-        </div>
-    </section>
+<p>The United States is, by every measure that matters to a fractional buyer, the <strong>deepest, most diverse and most internationally-traded second-home market in the world</strong>. The country's combination of geographic scale, climate variety, legal predictability and established financial infrastructure gives it a structural depth no other single jurisdiction can match. Within one passport, one currency, one income-tax framework and one body of property law, an owner can hold a Pacific-coast villa, a Rocky Mountain ski chalet, a sub-tropical Atlantic-coast apartment, a Lowcountry oceanfront and a Sonoran Desert resort house — and operate the whole portfolio under the same legal vehicle and the same management standard. No other country in the world delivers that range of distinct propositions inside a single national framework.</p>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
-            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
-            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
-            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
-            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
-        </div>
-        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
-    </footer>
+<p>Your American share is held inside a <strong>purpose-built LLC</strong> alongside seven other co-owners. The LLC is the native American legal vehicle for shared property ownership — there is two centuries of corporate-law precedent behind it, every state recognises and enforces it, and Delaware in particular has built an entire legal industry around making LLC governance predictable, transparent and resaleable. The same LLC framework used here is used across every COP property worldwide — France, Spain, Italy, the United Kingdom and elsewhere — so the international owner who adds an American share to a European one deals with <strong>one consistent ownership structure</strong> rather than a stack of jurisdiction-specific arrangements. The LLC's title to the property is recorded with the relevant county recorder; your share is recorded as an LLC membership interest; resale is faster than a full title conveyance because what changes hands is a corporate-law transfer rather than a recorded deed.</p>
 
-    <script>
-        /* ── Shared header JS ──────────────────────────────────────── */
-(function () {
-    var header = document.getElementById('cop-header');
-    var btn    = document.getElementById('cop-hamburger');
-    var nav    = document.getElementById('cop-nav');
-    if (!header || !btn || !nav) return;
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and seven other owners hold equal membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
+</div>
 
+<p>Every property in the COP collection meets a defined quality bar — the property itself, the location, the management standard — and the United States' particular advantage in the global second-home set is the <strong>density and the diversity of distinct propositions</strong> available inside that bar. <strong>California</strong> alone contains more first-tier second-home markets than most countries in the world: the surf-modernist villas of Newport Beach and Malibu, the wine-country compounds of Napa and Sonoma, the alpine lakefront of Lake Tahoe, the mid-century-modern desert houses of Palm Springs and the celebrity privacy of Carmel and Santa Barbara — all reachable from one another by a single in-state flight or a long scenic drive. <strong>Colorado and the Rocky Mountain West</strong> hold the deepest ski-resort cluster in the world: Aspen, Vail, Beaver Creek, Breckenridge, Telluride, plus Park City in Utah and Jackson Hole in Wyoming. <strong>Florida</strong> delivers the longest mature beach coastline in the United States with Miami, Brickell, the Florida Keys, the 30A stretch of the Gulf Coast and the Naples/Marco Island gulf. <strong>The Carolinas Lowcountry</strong> — Kiawah, Charleston, Hilton Head — is one of the most architecturally distinctive coastal regions in the country. And the <strong>Southwest</strong> — Scottsdale, Sedona, Lake Tahoe's Nevada side, Santa Fe — gives owners access to the desert-and-mountain American interior at price points that compare favourably to the coastal headliners.</p>
 
-    // Mobile hamburger toggle
-    btn.addEventListener('click', function () {
-        nav.classList.toggle('active');
-        btn.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-            nav.classList.remove('active');
-            btn.classList.remove('open');
-        });
-    });
-}());
-        /* ── Newsletter form (shared partial) ──────────────────────── */
-(function() {
-    var form = document.getElementById('cop-newsletter-form');
-    if (!form) return;
-    var msg = document.getElementById('newsletter-form-msg');
+<p>It is worth setting the United States in its global second-home context. <strong>France</strong> offers the most concentrated luxury alpine cluster in Europe and the Côte d'Azur's coastal pedigree, but at a price-to-quality ratio that has steepened sharply over the past decade. <strong>Spain</strong> delivers Europe's most international second-home volume and the deepest multilingual professional-services infrastructure for non-resident owners, but cannot match the United States for first-tier ski destinations or for the scale of California's coast. <strong>Italy</strong> has the most heritage-protected coastal stock in Europe and the deepest cultural envelope, but with materially higher legal-and-tax complexity than the American framework. <strong>Switzerland</strong> covers the alpine offer at the high end with restrictions on foreign ownership that the US does not impose. <strong>Mexico and the Caribbean</strong> offer warm-water alternatives at lower price points but with less developed legal-and-management infrastructure for international owners. None of these comparisons makes the US categorically "better" — the right answer depends on the buyer's priorities — but they help frame why the American second-home market remains the global benchmark for scale, depth, regulatory predictability and exit liquidity.</p>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var emailInput = form.querySelector('input[type="email"]');
-        var btn = form.querySelector('.newsletter-btn');
-        if (!emailInput.value) return;
+<p>The third structural argument for the United States is the <strong>diversity of usable lifestyles</strong> available inside the country. A family with a 1/8 share at <a href="https://www.aspensnowmass.com/" target="_blank" rel="noopener">Aspen</a> can use the same managed-portfolio relationship to add a winter-sun share in Florida and a summer share at Newport Beach — three completely distinct propositions, three architectural traditions, three climate zones, all inside the United States, all in dollars, all under one consistent LLC structure. An owner with a Brickell apartment can be on the 30A Gulf Coast within a 90-minute flight, in the Florida Keys within two hours by car, and on a coast-to-coast flight to California in five hours. A British or Dutch couple looking for a winter ski base, a summer beach base and a spring-and-autumn city base does not need to assemble three separate ownership structures across three jurisdictions; the same LLC framework can hold all three positions inside the United States. The American Airlines / Delta / United domestic networks make multi-state ownership genuinely practical in a way that owning across three European countries simply cannot match.</p>
 
-        btn.disabled = true;
-        btn.textContent = 'Subscribing\u2026';
-        msg.className = 'newsletter-form-msg';
-        msg.textContent = '';
+<p>For a co-ownership buyer thinking strategically rather than just emotionally, the United States' combination of <strong>scale, infrastructure and legal predictability</strong> matters more than the headline glamour. The Newport Beach villa your share is in sits on a coast where the buildable land was already capped by California Coastal Commission regulations a generation ago, and the existing oceanfront stock is essentially the stock that will exist for the rest of the century. The Aspen chalet is in a town whose strict <strong>growth-management plan</strong> has held the developable footprint of the resort to a fixed envelope since the 1970s. The Kiawah Lowcountry house is on a barrier island whose <strong>Heritage Preserve covenants</strong> protect the maritime forest and dune systems from contemporary build-outs. The Park City house is in a resort that has been zoned for resort-residential use for fifty years and whose ski-base inventory is finite. These are not assets that depend on interest-rate cycles to hold their value; they depend on the unchanging facts that California remains California, Aspen remains Aspen, and the underlying land is not making more of itself.</p>
 
-        var data = new FormData();
-        data.append('action', 'cop_newsletter_subscribe');
-        data.append('email', emailInput.value);
+<p>One under-discussed advantage that becomes obvious once you actually start using an American second home is the depth of the country's <strong>professional-services infrastructure for non-resident owners</strong>. Decades of international buyer interest in California, Florida and the major resort towns have built up an ecosystem of multilingual lawyers, property managers, tax specialists and concierge services in every significant second-home region. The local management companies in Aspen, Vail, Newport Beach, Miami and Kiawah operate in <strong>English, Spanish, Mandarin and the major European languages</strong> as a matter of routine, with deep operating histories and bench depth that smaller jurisdictions cannot match. The county-recorder system gives ownership documentary clarity through public-record property registers that are searchable online; the IRS's <strong>FIRPTA framework</strong> for non-resident property-related income is well-understood by every American real-estate attorney working in the second-home space; and the practical mechanics of holding US property as a non-resident through an LLC structure are now sufficiently routine that they require no special expertise. None of this is glamorous, but it is the kind of infrastructure that determines whether owning a second home from another country is a pleasure or a chore.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'newsletter-form-msg success';
-                msg.textContent = res.data || 'Thank you for subscribing!';
-                form.reset();
-                btn.textContent = 'Subscribed!';
-            } else {
-                msg.className = 'newsletter-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Join Newsletter';
-            }
-        })
-        .catch(function() {
-            msg.className = 'newsletter-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Join Newsletter';
-        });
-    });
-})();
-        /* ── Multi-select destination dropdown (shared partial) ────── */
-(function() {
-    var wrap     = document.getElementById('dest-multiselect');
-    var trigger  = document.getElementById('dest-trigger');
-    var dropdown = document.getElementById('dest-dropdown');
-    var hidden   = document.getElementById('ef-destination');
-    if (!wrap || !trigger || !dropdown || !hidden) return;
+<p>The fourth structural advantage worth naming is the <strong>transport infrastructure</strong> that makes an American second home practically usable rather than just nominally owned. The US operates the world's largest commercial-aviation network — <a href="https://www.faa.gov/" target="_blank" rel="noopener">the FAA</a>'s domestic system carries close to a billion passenger trips per year — and every significant second-home cluster sits within easy reach of a major hub airport. <strong>California</strong>: <a href="https://www.flylax.com/" target="_blank" rel="noopener">LAX</a> for the Los Angeles basin, <a href="https://www.flysfo.com/" target="_blank" rel="noopener">SFO</a> for Napa-Sonoma and the Bay Area, <a href="https://www.sandiegoairport.com/" target="_blank" rel="noopener">SAN</a> for the southern coast, <strong>SNA (John Wayne)</strong> for Newport Beach, <strong>PSP (Palm Springs)</strong> for the desert. <strong>Colorado</strong>: <a href="https://www.flydenver.com/" target="_blank" rel="noopener">Denver International (DEN)</a> with regional connections to <strong>ASE (Aspen)</strong>, <strong>EGE (Eagle/Vail)</strong>, <strong>HDN (Hayden/Steamboat)</strong>, <strong>MTJ (Montrose/Telluride)</strong>. <strong>Florida</strong>: <a href="https://www.miami-airport.com/" target="_blank" rel="noopener">Miami (MIA)</a>, <strong>Fort Lauderdale (FLL)</strong>, <strong>Orlando (MCO)</strong>, <strong>Tampa (TPA)</strong>, <strong>Pensacola (PNS)</strong> for 30A. <strong>The Carolinas</strong>: <a href="https://iflychs.com/" target="_blank" rel="noopener">Charleston (CHS)</a>, <strong>Hilton Head (HHH)</strong>, <strong>Savannah (SAV)</strong>. <strong>Utah / Mountain West</strong>: <a href="https://slcairport.com/" target="_blank" rel="noopener">Salt Lake City (SLC)</a> for Park City, <strong>Jackson Hole (JAC)</strong> for the Tetons. International owners coming from London, Frankfurt, Paris or Amsterdam can reach LAX, MIA or DEN in under <strong>11 hours nonstop</strong>, with the major American hubs offering 100+ daily transatlantic services in season.</p>
 
-    var placeholder = trigger.querySelector('.dest-placeholder');
-    var selected = [];
+</div></section>
 
-    function render() {
-        /* Remove old tags */
-        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+<section class="dest-sec white"><div class="dest-inner">
 
-        if (selected.length === 0) {
-            placeholder.style.display = '';
-        } else {
-            placeholder.style.display = 'none';
-            selected.forEach(function(val) {
-                var tag = document.createElement('span');
-                tag.className = 'dest-tag';
-                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
-                trigger.insertBefore(tag, placeholder);
-            });
-        }
+<h2>Where to own in the United States</h2>
 
-        /* Update hidden field */
-        hidden.value = selected.join('; ');
+<p>The United States second-home market is best understood through <strong>five distinct geographies</strong>, each with its own architecture, climate, season and culture. The pages dedicated to each cluster — linked at the end of this section — go deeper on individual towns and zones; what follows is the country-level orientation that helps a reader narrow from "the United States" to a region. There are, of course, American second-home destinations beyond these five (the Hamptons and Long Island; the Maine and Massachusetts coast; Hawaii; the Pacific Northwest; Sun Valley Idaho; Big Sky Montana) and we are happy to discuss them with buyers whose interests run that direction. But the supply story for fractional ownership in the United States is concentrated in the five clusters below: <strong>California</strong>, <strong>the Rocky Mountain West</strong>, <strong>Florida</strong>, <strong>the Carolinas Lowcountry</strong>, and <strong>the Southwest</strong>.</p>
 
-        /* Update option highlights */
-        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
-            if (selected.indexOf(opt.dataset.value) !== -1) {
-                opt.classList.add('selected');
-            } else {
-                opt.classList.remove('selected');
-            }
-        });
-    }
+<h3>California</h3>
 
-    /* Toggle dropdown */
-    trigger.addEventListener('click', function(e) {
-        /* If clicking a tag X, remove that item */
-        if (e.target.classList.contains('dest-tag-x')) {
-            var val = e.target.dataset.val;
-            selected = selected.filter(function(v) { return v !== val; });
-            render();
-            e.stopPropagation();
-            return;
-        }
-        wrap.classList.toggle('open');
-    });
+<p><a href="https://www.visitcalifornia.com/" target="_blank" rel="noopener">California</a> is, by every meaningful metric, the <strong>single most important second-home state in the United States</strong> for international buyers. Within the state's 1,300-kilometre Pacific coastline and its inland mountain-and-desert geography sit more first-tier luxury second-home markets than most entire countries can muster. The major sub-zones for international fractional buyers cluster across four distinct geographies: the <strong>Southern California coast</strong> (Newport Beach, Laguna Beach, Malibu, Santa Barbara, Carmel-by-the-Sea); <strong>Wine Country</strong> (Napa Valley, Sonoma, Healdsburg); <strong>the Sierra Nevada and Lake Tahoe</strong> (Truckee, Tahoma, North Lake Tahoe, Olympic Valley); and the <strong>desert resorts</strong> (Palm Springs, La Quinta, Indian Wells, Rancho Mirage). All four sit within a 90-minute domestic flight of one another or a single-day drive — and an owner with a California share has access to a portfolio of climates and lifestyles that a single non-American jurisdiction would need three or four properties to deliver.</p>
 
-    /* Click an option */
-    dropdown.addEventListener('click', function(e) {
-        var opt = e.target.closest('.dest-option');
-        if (!opt) return;
-        var val = opt.dataset.value;
-        var idx = selected.indexOf(val);
-        if (idx === -1) {
-            selected.push(val);
-        } else {
-            selected.splice(idx, 1);
-        }
-        render();
-        e.stopPropagation();
-    });
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1Sd8pkOdcPgIOp1lmWBdsb--wTMaRw3wN" alt="A Lake Tahoe house at Tahoma on the California west shore, with pine forest and the lake stretching south toward Emerald Bay" loading="lazy" />
+  <figcaption>A Lake Tahoe house at Tahoma, the West Shore looking south toward Emerald Bay and Desolation Wilderness.</figcaption>
+</figure>
 
-    /* Close on outside click */
-    document.addEventListener('click', function(e) {
-        if (!wrap.contains(e.target)) {
-            wrap.classList.remove('open');
-        }
-    });
-})();
+<p>The <strong>Southern California coast</strong> is the anchor of the proposition. <a href="https://www.visitnewportbeach.com/" target="_blank" rel="noopener">Newport Beach</a> — and specifically the <strong>peninsula and Balboa Island</strong> sub-zones — is the most internationally recognised yacht-and-villa community in the western US, with the country's largest small-boat harbour, the <strong>Newport Beach Tennis Club</strong>, the <strong>Pelican Hill</strong> resort and a year-round Mediterranean-equivalent climate. <a href="https://www.visitmalibu.com/" target="_blank" rel="noopener">Malibu</a> stretches 27 miles north along the Pacific Coast Highway from Pacific Palisades, with the legendary <strong>Carbon Beach</strong>, <strong>Paradise Cove</strong> and <strong>Point Dume</strong> sub-zones holding the most architecturally significant coastal villa stock anywhere on the US Pacific. <strong>Laguna Beach</strong>, between Newport and San Diego, is the artistic cove-town alternative — <strong>Laguna's Three Arch Bay</strong> and <strong>Emerald Bay</strong> are among the most exclusive private gated communities on the coast. <strong>Santa Barbara</strong> and <strong>Montecito</strong> further north combine Spanish-Colonial Revival architecture with the privacy that has long made Montecito the most discreet ultra-high-end community in California. <strong>Carmel-by-the-Sea</strong> and the <strong>Pebble Beach / 17-Mile Drive</strong> stretch on the Monterey Peninsula give owners access to one of the most photographed stretches of coastline on the planet plus three of the world's great championship golf courses.</p>
 
-/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
-(function() {
-    var form = document.getElementById('expert-enquiry-form');
-    if (!form) return;
-    var btn = form.querySelector('.expert-submit-btn');
-    var msg = document.getElementById('expert-form-msg');
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/10HLlNAFtIOGHltRHqTrMcsDZob6ArMzX" alt="A Palm Springs mid-century-modern villa with private pool, palm grove and the San Jacinto mountains rising behind" loading="lazy" />
+  <figcaption>A Palm Springs mid-century-modern villa, the San Jacinto range rising sharply behind the desert valley.</figcaption>
+</figure>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.textContent = 'Sending\u2026';
-        msg.className = 'expert-form-msg';
-        msg.textContent = '';
+<p><strong>Wine Country</strong> works to a different rhythm and a different building typology. The <a href="https://www.visitnapavalley.com/" target="_blank" rel="noopener">Napa Valley</a> stretches 30 miles from the city of Napa north through <strong>Yountville, Oakville, Rutherford, St Helena</strong> and <strong>Calistoga</strong> — each town with its own appellation, its own restaurant scene and its own architectural language of stone-and-redwood compounds set back from the valley floor. <a href="https://www.sonomacounty.com/" target="_blank" rel="noopener">Sonoma County</a> to the west is the lower-density, more agricultural alternative — <strong>Healdsburg, Sonoma Plaza, Glen Ellen</strong> and the <strong>Russian River Valley</strong> sub-zones — with vineyards interspersed with redwood forest and a more deliberately understated luxury aesthetic. The <strong>Sierra Nevada and Lake Tahoe</strong> are California's mountain counterpart: <strong>Tahoma, Sunnyside, Tahoe City</strong> and the West Shore for the quieter California-side experience; <strong>Truckee and Olympic Valley</strong> for the ski-base communities; the <strong>Northstar</strong> resort for the more recently developed inventory. Lake Tahoe runs across the California-Nevada border, and the Nevada side around <strong>Incline Village</strong> is treated separately in the Southwest cluster below. Finally, the <strong>desert resorts</strong> — <a href="https://www.visitpalmsprings.com/" target="_blank" rel="noopener">Palm Springs</a>, <strong>La Quinta, Indian Wells, Rancho Mirage</strong> — give California a winter-sun proposition unlike anything elsewhere in the state, with the famous <strong>mid-century-modern</strong> architectural inheritance and the year-round outdoor-living climate that has made the desert one of the country's most enduringly popular winter-second-home regions.</p>
 
-        var data = new FormData();
-        data.append('action', 'cop_expert_enquiry');
-        data.append('nonce',       form.querySelector('[name="nonce"]').value);
-        data.append('name',        form.querySelector('[name="name"]').value);
-        data.append('email',       form.querySelector('[name="email"]').value);
-        data.append('phone',       form.querySelector('[name="phone"]').value);
-        data.append('destination', form.querySelector('[name="destination"]').value);
-        data.append('budget',      form.querySelector('[name="budget"]').value);
-        data.append('message',     form.querySelector('[name="message"]').value);
+<p>The international buyer mix in California is the <strong>most diverse of any American region</strong>: long-established Canadian (Vancouver and Toronto in particular), British, Dutch, German, Swiss, Australian and Mexican cohorts, with a fast-growing Korean, Chinese and Indian presence on the south coast and in Wine Country. Climate-wise the coastal stretches run <strong>10–18°C (50s–60s°F)</strong> in winter to <strong>22–26°C (low to high 70s°F)</strong> in summer (the Pacific keeps coastal summers cool); the desert resorts run <strong>15–24°C (60s–70s°F)</strong> in winter to <strong>35–43°C (high 90s°F to 110°F)</strong> in summer (the desert is a winter destination, essentially closed by July); the Sierra runs <strong>−5°C to 5°C (mid-20s°F to 40s°F)</strong> in winter with reliable snow and <strong>15–25°C (60s–70s°F)</strong> in summer. <strong>Best for:</strong> design-led couples and families who want the most diverse single-state second-home portfolio in the world, who value the architectural pedigree of California's coastal modernism and Wine Country compounds, and who want access to four genuinely distinct climates and lifestyles inside a single American flight market.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'expert-form-msg success';
-                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
-                form.reset();
-                btn.textContent = 'Sent!';
-                /* Clear destination tags */
-                var wrap = document.getElementById('dest-multiselect');
-                if (wrap) {
-                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-                    var ph = wrap.querySelector('.dest-placeholder');
-                    if (ph) ph.style.display = '';
-                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
-                }
-            } else {
-                msg.className = 'expert-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Send Enquiry';
-            }
-        })
-        .catch(function() {
-            msg.className = 'expert-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Send Enquiry';
-        });
-    });
-})();
-        // Show more properties
-        var showMoreBtn = document.getElementById('dest-show-more');
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', function() {
-                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
-                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
-            });
-        }
-    </script>
+<h3>The Rocky Mountain West</h3>
+
+<p>The Rocky Mountain West is the United States' <strong>serious alpine cluster</strong> and one of the deepest concentrations of luxury ski-resort property in the world. The geography spans three states — <strong>Colorado, Utah and Wyoming</strong> — and the major resorts cluster along the high spine of the Continental Divide. The principal sub-zones for international buyers are <strong>Aspen, Vail, Beaver Creek, Breckenridge, Telluride and Steamboat in Colorado</strong>; <strong>Park City in Utah</strong> (which hosted the 2002 Winter Olympics and is bidding for 2034); and <strong>Jackson Hole in Wyoming</strong>. Each resort has its own distinct character, its own architectural inheritance and its own buyer demographic, and the choice between them is one of the more meaningful sub-decisions an alpine buyer will make.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1qYr5gjw5sY1sJogz5qL9-Tj8pxsuRQMu" alt="A Vail Village ski chalet with stone facade, deep balconies and the Gore Range visible across the valley" loading="lazy" />
+  <figcaption>A Vail chalet in Lionshead, the Gore Range visible across the valley toward Beaver Creek.</figcaption>
+</figure>
+
+<p><a href="https://www.aspensnowmass.com/" target="_blank" rel="noopener">Aspen</a> is the most internationally branded American ski resort and consistently the highest-priced second-home market in the country. The <strong>Aspen Mountain (Ajax)</strong> sub-zone is the historic Victorian-era town centre, with mining-era gold-rush architecture restored to luxury standard; <strong>Snowmass</strong> is the larger family-friendly resort eight miles down-valley; <strong>Aspen Highlands</strong> and <strong>Buttermilk</strong> are the two smaller Aspen-area resorts. The Aspen valley's strict growth-management plan has held the developable footprint to its 1970s envelope, which is the principal reason for the supply scarcity that keeps prices structurally high. <a href="https://www.vail.com/" target="_blank" rel="noopener">Vail</a> 100 miles west of Denver is the largest single-mountain ski resort in the United States, with the architecturally controlled <strong>Vail Village</strong> and <strong>Lionshead</strong> base areas reproducing a Bavarian-village aesthetic to high standard. <a href="https://www.beavercreek.com/" target="_blank" rel="noopener">Beaver Creek</a>, ten miles west of Vail, is the more residential and more discreet sister resort. <a href="https://www.breckenridge.com/" target="_blank" rel="noopener">Breckenridge</a> is the historic gold-rush town turned ski resort, with the largest restored Victorian downtown of any Colorado resort and the Tenmile Range as its backdrop. <a href="https://www.telluride.com/" target="_blank" rel="noopener">Telluride</a> in the southern San Juans is the most isolated and most architecturally distinctive — a National Historic Landmark mining town in a box canyon, with the <strong>Mountain Village</strong> ski-base community above. <a href="https://www.steamboat.com/" target="_blank" rel="noopener">Steamboat Springs</a> in the northern Routt County is the working ranch town with the second-largest ski mountain in Colorado.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1EitZErg0Qc0FZd7UkNCStK_YqKKHs5Zl" alt="A Park City ski-in chalet in the Empire Pass area of Deer Valley, with stone walls and timber balconies overlooking the resort" loading="lazy" />
+  <figcaption>A Park City chalet in the Empire Pass area of Deer Valley, looking down across the resort to Park City Mountain.</figcaption>
+</figure>
+
+<p><a href="https://www.parkcitymountain.com/" target="_blank" rel="noopener">Park City</a>, Utah, is the alpine cluster's other anchor and the closest world-class ski resort to a major international airport — <strong>Salt Lake City (SLC) is 35 minutes away</strong>, with nonstop service from London, Frankfurt, Amsterdam, Paris and most major US hubs. The Park City area contains three connected resorts: <strong>Park City Mountain</strong> (the largest single ski area in the United States after the 2015 merger with Canyons Village), <strong>Deer Valley</strong> (skiers-only, with the highest service standard of any American ski resort) and the upcoming <strong>Mayflower / Deer Valley East</strong> expansion. The <strong>Old Town Park City</strong> sub-zone preserves the Victorian mining-era streetscape; the <strong>Deer Valley</strong> base areas (Silver Lake, Empire Pass, Snow Park) host the architecturally controlled chalet-and-condominium luxury inventory. <a href="https://www.jacksonhole.com/" target="_blank" rel="noopener">Jackson Hole</a> in Wyoming sits at the southern end of the Greater Yellowstone Ecosystem, with <strong>Jackson Hole Mountain Resort</strong> at Teton Village offering some of the most demanding terrain in North America and the town of <strong>Jackson</strong> 12 miles to the east anchoring the residential market. The valley's privacy, the proximity to <a href="https://www.nps.gov/grte/" target="_blank" rel="noopener">Grand Teton National Park</a> and <a href="https://www.nps.gov/yell/" target="_blank" rel="noopener">Yellowstone</a>, and the absence of state income tax (Wyoming has no income tax — relevant for owners considering long-term US tax planning) have made Jackson the most discreet of the high-end American mountain resorts.</p>
+
+<p>The owner mix across the Rocky Mountain West is a deep mix of <strong>American (Texan, Californian, East Coast) and international (British, Mexican, Brazilian, Canadian, Australian)</strong> cohorts, with strong recent growth from the Middle East and Asia. The Texan presence in Aspen, Vail and Telluride is the largest single American out-of-state cohort. Climate-wise, daytime winter temperatures around the major villages run <strong>−10°C to 0°C (low teens°F to low 30s°F)</strong>; summer in the same valleys runs <strong>10–25°C (50s–70s°F)</strong> with the dry mountain air that makes alpine summers so usable. The Rockies are also serious summer destinations — Aspen Music Festival, Vail Dance Festival, Jackson's Grand Teton Music Festival, the long alpine hiking and fly-fishing seasons — which makes a Mountain West share more genuinely year-round than first-time alpine buyers tend to expect. <strong>Best for:</strong> serious skiing families who want the deepest concentration of world-class ski resorts in any single country, who value the architectural-controlled village stock of Vail/Beaver Creek/Park City, and who recognise that the same valleys deliver an exceptional summer in addition to the headline winter season.</p>
+
+<h3>Florida</h3>
+
+<p><a href="https://www.visitflorida.com/" target="_blank" rel="noopener">Florida</a> is the United States' most-developed warm-weather second-home state and the largest sub-tropical second-home market in North America. The state's coastline runs to <strong>1,350 miles</strong> — the longest in the contiguous US — with three distinct sub-coasts that matter for fractional buyers: the <strong>Atlantic east coast</strong> (Miami, Miami Beach, Brickell, Fort Lauderdale, Palm Beach, Vero Beach), the <strong>Gulf Coast</strong> (Naples, Marco Island, Sanibel-Captiva, the 30A stretch in the panhandle, Pensacola), and the <strong>Florida Keys</strong> (Key Largo, Islamorada, Marathon, Key West). Each sub-coast has its own climate, its own architectural inheritance and its own buyer profile.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1aE7H66Gk-qFY62So4H57TZuPHr6TjH8j" alt="A Miami Beach apartment with a private terrace overlooking the Atlantic, palm-lined boardwalk visible below" loading="lazy" />
+  <figcaption>A Miami Beach apartment terrace looking east across the Atlantic, the Art Deco district to the south.</figcaption>
+</figure>
+
+<p><a href="https://www.miamiandbeaches.com/" target="_blank" rel="noopener">Miami</a> is the international anchor of the proposition — Latin America's de-facto second-home capital, the financial hub of the Caribbean, and one of the most internationally-traded property markets in the United States. The principal sub-zones for fractional buyers are <strong>Brickell</strong> (the central business district turned high-rise residential, with the Underline and the Brickell City Centre), <strong>Miami Beach</strong> (Art Deco district from 5th to 23rd, the South of Fifth ultra-luxury enclave, the Mid-Beach hotel-residence stretch from 41st to 63rd), <strong>Sunny Isles Beach</strong> (the high-rise oceanfront strip at the northern county line), <strong>Bal Harbour</strong> (the most discreet of the Miami beach communities), <strong>Coconut Grove</strong> (the leafy bayfront village south of downtown), <strong>Coral Gables</strong> (the Mediterranean-revival garden community west of the city) and <strong>Key Biscayne</strong> (the island enclave east of downtown across the Rickenbacker Causeway). The international buyer base on Miami is the most globally diverse of any American city — Argentine, Brazilian, Venezuelan, Colombian, Mexican, Russian, French, Italian, German and a fast-growing Middle Eastern and Asian presence. Year-round Miami runs <strong>20–32°C (68–90°F)</strong> with a long humid summer (June through October) and a reliably warm dry winter (November through March) that has been the structural reason for the city's second-home appeal for a century.</p>
+
+<p>The <strong>Gulf Coast</strong> works to a different rhythm. <a href="https://www.naplesgov.com/" target="_blank" rel="noopener">Naples</a> in the southwest is the country-club-and-yacht-harbour anchor — quieter than Miami, more residential, with a higher concentration of permanent retirees alongside the seasonal owner base. <strong>Marco Island</strong> just south is the more compact resort-island alternative. The <strong>Sanibel and Captiva</strong> islands further north are the shell-collecting, more old-Florida environment. The <strong>30A stretch</strong> of the Panhandle Gulf — Rosemary Beach, Alys Beach, WaterColor, Seaside, Watersound, Inlet Beach — is the most architecturally distinctive Gulf Coast destination, with the New Urbanist planned communities of the late 1980s and 90s now matured into one of the most consistently high-design beach environments in the United States. The <strong>Florida Keys</strong> close the state to the south — <a href="https://fla-keys.com/" target="_blank" rel="noopener">Key Largo, Islamorada, Marathon and Key West</a> — with the chain stretching 113 miles into the Caribbean from the southern tip of mainland Florida. The Keys' tropical reef-and-flats fishing, the 7-mile bridge and the historic conch-house architecture of Key West give this stretch a different proposition again — closer in feel to the British Caribbean than to the rest of Florida.</p>
+
+<p>The international buyer mix in Florida runs on a north-south axis: Latin America anchors Miami; Northeastern US (New York, Boston, Philadelphia) anchors Naples and Palm Beach; the Midwest and Southern US (Atlanta, Nashville, Memphis, Birmingham) anchors the 30A Panhandle Gulf; and an unusually high European share (British, Dutch, German, Swiss) populates the Keys. Florida's <strong>no-state-income-tax status</strong> is a meaningful long-term consideration for owners thinking about the multi-decade horizon. Climate runs <strong>15–25°C (60s–70s°F)</strong> in winter on Miami south, <strong>20–30°C (70s–80s°F)</strong> in summer, with the Gulf Coast slightly cooler in summer due to onshore Gulf breezes and the Keys running 2–3°C warmer than mainland Miami year-round. Hurricane season runs June through November and is a real factor in property management — every fractional property in Florida operates with hurricane-readiness protocols built into the management agreement. <strong>Best for:</strong> warm-water owners who want the most international buyer mix in any American second-home region, who value the year-round usability of the south Florida climate, and who appreciate the choice between Miami's cosmopolitan density, the Gulf Coast's quieter residential rhythm and the Keys' tropical-island distance from the mainland.</p>
+
+<h3>The Carolinas Lowcountry</h3>
+
+<p>The <strong>Carolinas Lowcountry</strong> — the Atlantic coast running from Wilmington NC south through Myrtle Beach and the Grand Strand, then through <a href="https://www.charlestoncvb.com/" target="_blank" rel="noopener">Charleston</a>, the <strong>Sea Islands</strong> (Kiawah, Seabrook, Edisto, Hilton Head, Daufuskie), and down to <a href="https://www.visitsavannah.com/" target="_blank" rel="noopener">Savannah</a> Georgia — is one of the most architecturally distinct and ecologically protected coastal regions in the United States. The geography is unique: a network of <strong>tidal salt marshes</strong>, <strong>maritime forests</strong> of live oak and palmetto, and barrier islands separated from the mainland by saltwater creeks. The architectural inheritance is equally distinct — Charleston's <strong>Greek Revival and Federal-style townhouses</strong> on the historic peninsula are among the finest concentrations of pre-Civil-War urban architecture in the United States, and the Sea Island resort communities have evolved a region-specific architectural vocabulary of <strong>shingle, tabby, oyster-shell stucco and deep wraparound porches</strong> that is unmistakably Lowcountry.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1bEKAnqB-GOSkWk9aE1atYkZEs-W5xYqY" alt="A Kiawah Island oceanfront home with a wraparound porch, framed by live oaks draped in Spanish moss" loading="lazy" />
+  <figcaption>A Kiawah Island house, the Atlantic across the dunes and live-oak maritime forest behind.</figcaption>
+</figure>
+
+<p><strong>Kiawah Island</strong>, 25 miles south of Charleston, is the anchor of the Lowcountry resort proposition. The island runs ten miles along the Atlantic with five distinct beach-side neighbourhoods — <strong>The Settlement, West Beach, East Beach, the Sanctuary</strong> and the recently developed <strong>Cassique</strong> — held together by the Heritage Preserve covenants that protect the maritime forest, the salt-marsh creeks and the dune system from contemporary build-outs. Kiawah is home to the <strong>2021 PGA Championship</strong> Ocean Course and four other championship golf courses, and the resort's architectural review board enforces a region-specific design code that has kept the building stock visually coherent across forty years. <strong>Seabrook Island</strong> immediately west is the quieter, more residential Lowcountry alternative — same maritime-forest setting, slightly older buyer demographic, equestrian-oriented community life. <strong>Isle of Palms and Sullivan's Island</strong>, north of Charleston, are the more historic beach-cottage communities — the <a href="https://www.iop.net/" target="_blank" rel="noopener">Isle of Palms</a> beachfront retains a small-town summer-house feel, and Sullivan's Island's Civil War battery-and-bunker history is preserved across its central inland strip. <strong>Daufuskie Island</strong>, accessible only by boat, is the most isolated of the Sea Islands. <strong>Hilton Head Island</strong> further south in South Carolina is the largest of the resort islands — anchored on Sea Pines, Palmetto Dunes, Shipyard and Hilton Head Plantation — with a more developed and more golf-and-tennis-tourism oriented character. Across the state line in Georgia, <a href="https://www.gostatewide.com/" target="_blank" rel="noopener">Savannah</a> is the Lowcountry's cultural capital — the historic squares, the Forsyth Park area and the Victorian District holding some of the most architecturally significant urban property in the American South.</p>
+
+<p>The international buyer mix in the Lowcountry is more domestically anchored than the other clusters — primarily East Coast (New York, Boston, Philadelphia, DC, Charlotte, Atlanta) and Midwest (Chicago, Cincinnati, Cleveland) cohorts, with a meaningful British, German and Canadian presence concentrated on Kiawah and Hilton Head. The Lowcountry's <strong>cultural depth</strong> is one of the under-discussed advantages — the <strong>Spoleto Festival USA</strong> in Charleston, the <strong>Charleston Wine + Food Festival</strong>, the historic-restaurant scene around <strong>Husk, FIG, McCrady's</strong>, the <strong>Gibbes Museum of Art</strong> and the <strong>Charleston Museum</strong> all give cultural-enthusiast owners a deep base for repeated short stays. Climate runs <strong>5–15°C (40s–60s°F)</strong> in winter (the Lowcountry is the southernmost stretch of the US coast that genuinely has a winter — palms grow but frost happens), warming to <strong>26–33°C (80s–90s°F)</strong> in summer with the famous Lowcountry humidity. Sea temperatures stay above <strong>20°C (68°F)</strong> from late May through mid-October. <strong>Best for:</strong> design-led families who want the United States' most architecturally distinct coastal region, the protected-island setting of Kiawah and the Sea Islands, and the proximity to Charleston as one of the great small American cities for culture, food and architecture.</p>
+
+<h3>The Southwest</h3>
+
+<p>The <strong>American Southwest</strong> is the continental US's desert-and-mountain interior, and one of the most architecturally distinctive and climatically distinct second-home regions in the country. The principal sub-zones for fractional buyers cluster across <strong>Arizona</strong> (Scottsdale, Sedona, Carefree/Cave Creek), <strong>Nevada</strong> (Lake Tahoe's Nevada side around Incline Village, plus Henderson outside Las Vegas), and the high-desert pockets of <strong>New Mexico</strong> (Santa Fe, Taos). The shared geography is the high desert: cool nights even in summer, dry crisp daytime air, low humidity, and dramatic landscape (Sonoran Desert saguaro forest in southern Arizona, red-rock canyon country around Sedona, the alpine basin of Lake Tahoe in northern Nevada).</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/12u7-AZpl0duYr1GWUVEuCxMyMmdxLAsb" alt="A Scottsdale desert home with a private pool, framed by saguaros and the McDowell Mountains rising behind" loading="lazy" />
+  <figcaption>A Scottsdale desert home, saguaros across the property and the McDowell Mountains rising behind.</figcaption>
+</figure>
+
+<p><a href="https://www.experiencescottsdale.com/" target="_blank" rel="noopener">Scottsdale</a>, Arizona, is the largest of the Southwest second-home markets. The principal sub-zones cluster across <strong>North Scottsdale</strong> (the desert-foothills villas around Pinnacle Peak, Troon and DC Ranch — the most internationally branded address in the city), <strong>Central Scottsdale</strong> (the older arts-district properties around Old Town and Scottsdale Fashion Square), and <strong>South Scottsdale</strong> (the more recent development closer to Tempe and the Phoenix metro). The region's golf-and-resort ecosystem is the deepest in the United States — <strong>Troon North, Desert Mountain, the Phoenician, the Boulders</strong> — with year-round golf weather (apart from the brutal July-August heat) the structural reason for the desert's long-running second-home appeal. <strong>Sedona</strong>, two hours north of Scottsdale, sits in the <strong>red-rock country</strong> of Oak Creek Canyon — a smaller, more spiritual-tourism oriented community at higher elevation (4,300 feet) where summer temperatures stay manageable and the dramatic landscape gives the area a different character from the Phoenix-basin desert. <strong>Carefree and Cave Creek</strong> just north of Scottsdale are the quieter, more old-Western alternatives. The <strong>Lake Tahoe Nevada side</strong> — anchored on <strong>Incline Village</strong> on the north shore — offers the same alpine lake as the California side but inside Nevada's state-tax-friendly jurisdiction (no state income tax) and with a more resort-residential character around Diamond Peak ski area and Lakeshore Boulevard.</p>
+
+<p>The international buyer mix in the Southwest is heavily Canadian (the desert resorts have been the Canadian winter-sun benchmark for fifty years), with strong British, Mexican and German presence and a fast-growing Asian share particularly around Scottsdale. The Southwest's <strong>winter-sun proposition</strong> is the principal commercial driver — daytime December-February temperatures in Scottsdale run <strong>18–22°C (high 60s°F)</strong> with consistent sunshine (Phoenix averages 300+ sunny days per year), making the desert one of the most reliably warm winter destinations in North America. Summers in the desert are punishing — <strong>40–47°C (105–115°F)</strong> in Phoenix in July-August — and the desert is essentially closed for that quarter, which structures the use pattern around the cooler eight months of the year. The Lake Tahoe Nevada side runs colder, with <strong>−5°C to 5°C (mid-20s°F to 40s°F)</strong> in winter (snow reliable, ski-base usability) and <strong>15–25°C (60s–70s°F)</strong> in summer. <strong>Best for:</strong> warm-weather owners who want the deepest concentration of golf-and-resort communities in the United States, the architectural distinctness of mid-century desert modernism (in Palm Springs's Californian sister market) and Scottsdale's contemporary villa stock, and the practical benefit of state-tax-friendly Nevada for owners thinking about long-term US tax planning.</p>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>A year in your American co-ownership home</h2>
+
+<p>Spreading <strong>45 days of use</strong> across a calendar year is itself a skill — and one of the unsung benefits of owning across multiple American regions through one portfolio is that you can <strong>match the season to the property</strong> rather than the property to the date. The United States is unusually well-suited to this kind of multi-region thinking because the country's geography — from the sub-tropical Florida Keys to the alpine Tetons — means there is essentially always somewhere in your portfolio that is at its best in any given month. Below is a country-level walk through the year, with the particular weeks that owners across the COP network return to most often. The pattern is broadly the same across all <strong>eight co-owners</strong> of a given property, with the calendar mechanics ensuring every owner gets a <strong>fair allocation of peak weeks</strong> across a multi-year cycle. Owners who are flexible enough to use shoulder weeks (rather than competing for August on the California coast or February in Aspen) consistently report a <strong>higher use-quality</strong> from their share than those who insist on peak.</p>
+
+<h3>Spring (March–May)</h3>
+
+<p>American spring is a cluster-by-cluster proposition. The <strong>desert resorts</strong> in Arizona and California are at their peak — <strong>March in Scottsdale and Palm Springs</strong> brings the wildflower super-bloom across the Sonoran and Mojave, and the daytime weather window of <strong>20–28°C (low 70s°F to low 80s°F)</strong> is the structural reason these markets command their highest weekly rates between mid-February and late April. The <strong>Major League Baseball Cactus League spring training</strong> in greater Phoenix (15 teams, all in the Phoenix metro) brings the high-spending visitor influx that makes March the desert's commercial peak. <strong>April</strong> is the working agricultural peak across <strong>Wine Country</strong>: Napa and Sonoma run their bud-break and bloom weeks, the valley restaurants reopen at full capacity, and the slow agricultural calendar between the spring and the late-summer harvest gives owners the most contemplative use window of the year.</p>
+
+<p><strong>May</strong> brings the seasonal pivot. The <strong>Rocky Mountain ski resorts</strong> close their lifts in early-to-mid April (Aspen and Vail typically close around April 20; Park City around April 14; Jackson Hole around April 6) and the alpine valleys enter their <strong>mud season</strong> through May — the only genuinely off-month of the year for Rockies owners. <strong>The Carolinas Lowcountry</strong> reach their springtime peak: the live-oak canopy in Charleston and on Kiawah is at its full leaf, the dogwood and azalea blooms across the historic peninsula, the <strong>Spoleto Festival USA</strong> opens in late May and runs into June. <strong>The California coast</strong> runs <strong>15–20°C (high 50s°F to high 60s°F)</strong> in May with the Pacific still cold enough that beach use is restricted to the shoreline rather than the water, but the long evening light and the open spring restaurant calendar make Newport, Malibu and Santa Barbara some of the most rewarding May destinations in the country. The <strong>Florida Keys</strong> still run reliable beach weather through early May before humidity settles in for the summer.</p>
+
+<h3>Summer (June–August)</h3>
+
+<p>The American summer pattern divides cleanly across the clusters. <strong>The California coast</strong> is at its full season — Newport, Malibu and Santa Barbara run their busiest July-August window, with the cool Pacific keeping beach temperatures in the comfortable <strong>22–26°C (low to high 70s°F)</strong> band even when inland California is over 35°C. <strong>The Carolinas Lowcountry</strong> reaches its peak — Kiawah and Charleston run their busiest summer weeks around the <strong>June–July</strong> window, with sea temperatures above <strong>26°C (78°F)</strong> through August. <strong>Florida</strong> divides into two halves: south Florida (Miami, the Keys) is hot and humid (<strong>28–33°C / 82–92°F</strong>) with afternoon thunderstorms and the start of <strong>hurricane season</strong> from June 1, which structures owner use toward shorter trips and earlier-summer windows; the panhandle Gulf Coast (30A, Naples, Marco) runs slightly cooler and is the more genuinely beach-usable summer Florida.</p>
+
+<p><strong>The Rocky Mountain West</strong> is the unsung American summer destination. <strong>July and August</strong> in Aspen, Vail, Telluride, Park City and Jackson Hole are the cultural-and-outdoor peak — the <strong>Aspen Music Festival</strong> runs all summer, the <strong>Vail Dance Festival</strong> in late July, the <strong>Grand Teton Music Festival</strong> in Jackson, the <strong>Telluride Bluegrass Festival</strong> in June. Daytime mountain temperatures run <strong>20–28°C (70s°F to low 80s°F)</strong> with the dry mountain air that makes alpine summers genuinely delightful — the long alpine hiking and fly-fishing seasons in <a href="https://www.nps.gov/grte/" target="_blank" rel="noopener">Grand Teton</a> and <a href="https://www.nps.gov/yell/" target="_blank" rel="noopener">Yellowstone</a> National Parks anchor the summer use pattern for Wyoming owners. <strong>The desert Southwest</strong> is essentially closed in summer — Phoenix and Palm Springs run <strong>40–47°C (105°F+)</strong>, and the desert resorts are quiet. <strong>Wine Country</strong> in Napa-Sonoma runs warm and pleasant, with the slow ramp toward the August-September harvest the central rhythm of the year.</p>
+
+<h3>Autumn (September–November)</h3>
+
+<p>For many seasoned American-property owners, <strong>autumn is the favourite</strong>. <strong>September on the California coast</strong> is the locals' month — the Pacific has finally warmed, the August school-holiday crowds are gone within ten days of the new term starting, and the long Indian-summer light through October is the most photogenic California gets all year. The <strong>Wine Country harvest</strong> — the <strong>vendange</strong> in American usage, the <strong>crush</strong> — runs through September and October across Napa, Sonoma, Healdsburg and the Russian River; owners who care about wine increasingly time at least one stay around the harvest. <strong>The Rocky Mountain West in autumn</strong> is at its visual peak: the <strong>aspen groves</strong> across Colorado, Utah and Wyoming turn gold from late September through mid-October, and the high-country trails are at their most photographed. The mountain valleys sit between the summer cultural calendar and the winter ski season — quiet, golden, with the restaurant scene running on a relaxed shoulder-season rhythm.</p>
+
+<p><strong>October and November in Florida</strong> mark the seasonal shift from summer to winter mode. Hurricane season runs through November 30 but the worst statistical period is mid-August through mid-October; from November the south Florida winter-residential migration begins in earnest. <strong>The Carolinas Lowcountry in October</strong> is at its agricultural-calendar best — sea temperatures still above <strong>22°C (72°F)</strong>, daytime air <strong>22–28°C (70s°F to low 80s°F)</strong>, the <strong>Charleston Wine + Food Festival</strong> in November bringing the cultural calendar to its autumn peak. <strong>Miami</strong> begins filling again from late October as the Northeastern US winter-residential migration starts — daytime temperatures stay reliably in the <strong>22–28°C (70s°F to low 80s°F)</strong> band, and the city runs at a markedly more cosmopolitan rhythm than its summer baseline. <strong>The desert resorts</strong> reopen for their seven-month season from mid-October — Scottsdale and Palm Springs run their busiest autumn weeks from late October through Thanksgiving, and the November temperature window of <strong>22–26°C (low to high 70s°F)</strong> is one of the most consistently pleasant climate windows anywhere in the country.</p>
+
+<h3>Winter (December–February)</h3>
+
+<p>Winter is, for the majority of American co-ownership owners, <strong>the moment the Rockies and the warm-weather shares earn their place</strong>. The lifts open in Aspen, Vail, Park City and Jackson Hole from <strong>late November</strong>; <strong>Christmas and New Year</strong> is the highest-demand fortnight of the year, with chalet calendars in the major resorts booked many months ahead; <strong>January</strong> is the quietest month of the season but with the most reliable cold-and-snow conditions; the <strong>President's Day weekend</strong> in mid-February brings the second peak; and the <strong>school-spring-break</strong> weeks across late February and March are the season's third peak. Owners who use their alpine week around <strong>late January or early February</strong> get the best of the cold-and-deep window, with shorter lift queues than the holidays.</p>
+
+<p><strong>The American winter-sun destinations</strong> reach their peak in winter. <strong>Florida</strong> from December through February runs reliably in the <strong>20–26°C (high 60s°F to high 70s°F)</strong> band on Miami south and the Keys, with <strong>15–22°C (high 50s°F to low 70s°F)</strong> on the Gulf Coast and 30A. The <strong>Northeastern US winter-residential migration</strong> swells south Florida's population every winter — Miami and Palm Beach run at their cosmopolitan-cultural best between December and March, with the <strong>Art Basel Miami Beach</strong> in early December, the <strong>Miami International Boat Show</strong> in February and the <strong>Miami Open tennis</strong> in March anchoring the winter cultural calendar. <strong>The desert resorts</strong> hit their absolute peak between January and March — Palm Springs runs the <strong>Modernism Week</strong> in February, the <strong>Coachella Music Festival</strong> in April, and the <strong>BNP Paribas Open tennis</strong> in Indian Wells in March; Scottsdale runs the <strong>WM Phoenix Open</strong> golf in February (the highest-attendance golf tournament in the world) and the <strong>Barrett-Jackson</strong> classic-car auction in January. <strong>The Carolinas Lowcountry</strong> in winter is mild and quiet — daytime temperatures around <strong>10–17°C (50s–60s°F)</strong>, the historic-Charleston cultural calendar running through the winter on a quieter schedule, and the live-oak canopy keeping the visual character of the city year-round.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Who buys in the United States, and why</h2>
+
+<p>The international buyer mix in American fractional ownership is the <strong>most globally diverse of any second-home market in the world</strong>. <strong>Canadian buyers</strong> have anchored the desert and California winter markets for fifty years and remain the largest single foreign cohort across Palm Springs, Scottsdale and the south Florida coast. <strong>British buyers</strong> are the second-largest international cohort, concentrated in Aspen, Vail, Newport Beach, Charleston and the Florida Keys. <strong>Mexican buyers</strong> are the largest single Latin-American cohort and dominate Miami, San Diego, Scottsdale and the south Texas markets. <strong>Brazilian, Argentine, Venezuelan and Colombian buyers</strong> form a substantial and growing Miami-anchored cohort. <strong>European buyers</strong> — Dutch, German, Swiss, French — are concentrated on Newport Beach, Aspen, Vail, the Lowcountry and the Keys. <strong>Asian buyers</strong> — Chinese, Korean, Indian, Japanese — are the fastest-growing cohort and concentrate on the California coast, Scottsdale and Park City.</p>
+
+<p>The <strong>age-and-life-stage profile</strong> is in some respects more relevant than the nationality breakdown. The largest single buyer cohort across the American portfolio is in the <strong>50–70 age band</strong> — owners whose primary income is established, whose children are at university or beyond (which gives them more calendar flexibility than the working-family cohort), and whose long-run thinking on the second home runs to the <strong>next 20–25 years</strong>. The second-largest cohort is the <strong>40–55 age band</strong> — typically dual-income professional couples with school-age children, who use their share around school holidays and value the operational simplicity of a fully managed property. The third and fastest-growing cohort is the <strong>65–80 age band</strong> — empty-nesters and recent retirees for whom the cultural-and-climate optionality of a multi-region American portfolio is the central appeal.</p>
+
+<p>American co-ownership tends to suit a small number of well-defined buyer profiles:</p>
+<ul>
+  <li><strong>Skiing families choosing Aspen, Vail or Park City</strong> — buyers who treat the Rockies as their winter base, who use the major resorts' deep cultural-and-festival calendars in summer, and who increasingly add a complementary warm-weather share elsewhere in the US to cover the shoulder seasons.</li>
+  <li><strong>Beach-loving families choosing California, Florida or the Carolinas</strong> — buyers who want the year-round usability of the warm-water US coastline, the architectural distinctness of the various coastal regions, and the family-friendly proposition of the major resort communities.</li>
+  <li><strong>Wine-and-food sophisticates choosing Wine Country or the Lowcountry</strong> — buyers who use the seasonal agricultural calendar as the framing of their year, who value the density of restaurants-and-vineyards within an hour's drive, and who treat the regional cultural infrastructure (Napa's wine scene, Charleston's restaurant scene) as a permanent neighbour.</li>
+  <li><strong>Cultural enthusiasts choosing Charleston, Santa Fe or Carmel</strong> — buyers for whom repeated short stays through the year, timed around festivals, exhibitions and the cultural calendar, are the central use pattern. The historic American cities and small-town cultural centres reward this multi-trip pattern more than they reward any single long stay.</li>
+  <li><strong>Winter-sun owners choosing Scottsdale, Palm Springs or Florida</strong> — buyers who need a reliable December-through-March warm-weather base, who value the deep golf-and-resort infrastructure of the desert and the Florida coast, and who want the operational simplicity of a managed property to handle the seven-or-eight-month dormant period.</li>
+  <li><strong>Multi-region American portfolios</strong> — increasingly, owners who add a Rockies winter share to a Carolinas summer share, or a Wine Country spring-and-autumn share to a Florida winter share, using the same LLC framework and the same management relationship to access two completely distinct American propositions through the year.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Airports and ground access by region</h3>
+
+<p>The American gateway airport system covers every regional second-home cluster from the major Northern European, Latin American and Asian hubs. <strong>For California</strong>: <a href="https://www.flylax.com/" target="_blank" rel="noopener">Los Angeles International (LAX)</a> is the principal long-haul gateway — 35 minutes from Newport Beach, 45 from Malibu, 25 from Pasadena; <a href="https://www.flysfo.com/" target="_blank" rel="noopener">San Francisco International (SFO)</a> serves Napa-Sonoma (90 minutes north) and the Bay Area; <a href="https://www.sandiegoairport.com/" target="_blank" rel="noopener">San Diego (SAN)</a> serves the southern coast; <strong>John Wayne (SNA)</strong> serves Newport Beach directly; <strong>Palm Springs (PSP)</strong> is 15 minutes from the desert resorts; <strong>Reno-Tahoe (RNO)</strong> serves the Lake Tahoe region. <strong>For the Rocky Mountain West</strong>: <a href="https://www.flydenver.com/" target="_blank" rel="noopener">Denver International (DEN)</a> with 200+ daily transcontinental connections and the regional flights to <strong>Aspen (ASE)</strong>, <strong>Eagle/Vail (EGE)</strong>, <strong>Hayden/Steamboat (HDN)</strong>, <strong>Montrose/Telluride (MTJ)</strong>; <a href="https://slcairport.com/" target="_blank" rel="noopener">Salt Lake City (SLC)</a> is 35 minutes from Park City and the closest major-airport-to-ski-resort combination in the United States; <strong>Jackson Hole (JAC)</strong> for the Tetons. <strong>For Florida</strong>: <a href="https://www.miami-airport.com/" target="_blank" rel="noopener">Miami (MIA)</a> with 100+ Latin American and 30+ European nonstop services; <strong>Fort Lauderdale (FLL)</strong> as the lower-cost Miami alternative; <strong>Orlando (MCO)</strong> for central Florida; <strong>Tampa (TPA)</strong> for the central Gulf Coast; <strong>Pensacola (PNS)</strong> for 30A; <strong>Key West (EYW)</strong> for the Keys. <strong>For the Carolinas Lowcountry</strong>: <a href="https://iflychs.com/" target="_blank" rel="noopener">Charleston (CHS)</a> with growing transatlantic service; <strong>Hilton Head (HHH)</strong>; <strong>Savannah (SAV)</strong>. <strong>For the Southwest</strong>: <a href="https://www.skyharbor.com/" target="_blank" rel="noopener">Phoenix Sky Harbor (PHX)</a> for Scottsdale; <strong>Tucson (TUS)</strong> for the southern Arizona desert; <strong>Reno (RNO)</strong> for the Lake Tahoe Nevada side; <strong>Las Vegas (LAS)</strong> for the southern Nevada interior.</p>
+
+<p>The American domestic-aviation network is the densest in the world — over 2,000 daily flights between the major hubs and the resort airports — and the practical reality for a multi-region American owner is that flying coast-to-coast or hub-to-resort takes <strong>2 to 6 hours door-to-door</strong>. For international owners, the major American hubs offer the deepest concentration of nonstop transatlantic and transpacific service of any country, with London-LAX, Frankfurt-MIA, Paris-DEN, Amsterdam-JFK, Tokyo-LAX and Singapore-SFO running multiple daily nonstops in season. The 5–11-hour transatlantic and trans-Pacific commitments are the principal practical constraint on multi-region American ownership for European or Asian buyers, but the use pattern around 6–7 weeks per year scales naturally to 3–5 stays per year of 8–14 days each — the 12-hour return commitment becomes meaningfully more justifiable when the stay is two weeks rather than four days.</p>
+
+<h3>Whole-property vs 1/8 share: the comparison</h3>
+
+<p>The comparison that matters to a fractional buyer is not "what does an American villa cost?" but "what does buying a share of an American villa do to my capital, my annual carry, my use, and my exit path versus the realistic alternatives?". The three honest alternatives for someone considering an American second home are: own the whole property; own a 1/8 share through COP; or rent each time you visit. The table below sets the three side by side in <strong>structural rather than absolute</strong> terms — specific figures vary by property and by year, but the ratios are the part of the picture that matters when you are deciding which structure to use.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full taxes, insurance, management, maintenance</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 6–10)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">3–18 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average across the COP portfolio</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>What the table makes visible is that the most-cited American-property complaints — empty house, high running costs regardless of use, complex multi-state tax exposure, slow resale in a softening market — are not features of <em>American property</em> per se. They are features of the <em>whole-ownership structure</em>, and they go away as soon as you flip to a fractional share. The 1/8 share gives you something the rental column cannot give you (<strong>equity</strong>) and something the whole-ownership column cannot give you (<strong>proportional carry and managed operations</strong>) at the same time. <strong>The practical effect</strong> for the international owner is that an American second home that has historically been a complex, time-consuming proposition becomes a simple managed asset that delivers six to seven weeks of use a year against approximately <strong>1/8</strong> of the whole-property cost.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual service charge on a COP-listed American property covers the full operational stack: <strong>state and local property tax, federal/state income tax filings on any rental income, insurance (including hurricane and flood where relevant), professional management, the on-call concierge, the cleaning and linen service between owner stays, regular maintenance, the gardener and landscaper, the pool service where relevant, the security system and the management of utilities</strong>. It is, on a per-share basis, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — and one of the under-appreciated advantages of the model is that the per-property running costs are spread across eight owners rather than borne entirely by one. What the service charge does not cover is <strong>large capital improvements</strong> (a roof rebuild, an HVAC replacement, an extension to the property — these are voted on by the owners and funded proportionally when they happen), <strong>personal-use additions</strong> (an owner who wants additional in-stay services beyond the standard concierge package pays for those directly), and <strong>damage caused by owner stays</strong> (the management company assesses and charges back). The service charge structure is intentionally a <strong>simple, predictable annual cost</strong> rather than a series of one-off invoices through the year — which is one of the operational simplifications that makes an American fractional share notably easier to live with than a whole-ownership equivalent.</p>
+
+<h3>What you actually own</h3>
+
+<p>You own a <strong>1/8 membership interest in the LLC that owns the property</strong>. The LLC's title to the property is recorded with the relevant <strong>county recorder</strong> (the standard American property-record system), with the operating agreement defining each owner's proportional rights to use, income, expenses and capital appreciation. Your share is <strong>transferable</strong> (you can sell it through the supported resale process), <strong>inheritable</strong> (your share passes through your estate to your heirs under the same rules as any other LLC interest), and <strong>appreciates with the underlying property</strong> (a 25% rise in the American property's value over five years is a 25% rise in your share's value too). It is real, recorded property equity in your name — the same kind of asset as a sole-ownership American villa, just structured to match the way affluent international buyers actually use a second home.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works in the United States</h2>
+
+<p>Every property in the COP collection — including all American properties — is held in a <strong>purpose-built LLC</strong> with eight equal membership interests. The structure is deliberately the same across every country and every property: one consistent ownership model whether your share is in the United States, Italy, France, Spain or elsewhere. For the international owner, this is the operational advantage that becomes more valuable the longer you own — and especially valuable for the meaningful proportion of owners who go on to add a second share in another market.</p>
+
+<h3>How the LLC structure holds American property</h3>
+
+<p>The LLC is the legal owner of the American property — the freehold title (or the equivalent state-specific deeded interest) is registered in the LLC's name with the relevant county recorder. The eight owners hold equal membership interests in the LLC and share proportionally in the rights to use the property, in the proportional appreciation of the underlying real estate, and in the proportional contribution to the operating costs. The LLC's operating agreement defines the calendar mechanics (how the 52 weeks are allocated across the eight owners and how peak weeks rotate), the financial mechanics (how the annual service charge is set, what it covers, what is voted on separately), the management arrangement (the appointment of a professional management company and the standards it operates to), and the resale mechanics (how a member exits and how their interest is transferred). LLCs are the native American legal vehicle for shared property ownership — there is two centuries of corporate-law precedent, every state recognises and enforces the structure, and Delaware in particular has built a deep legal infrastructure around making LLC governance predictable and transparent. Many of COP's American holding entities are Delaware LLCs for that reason.</p>
+
+<h3>American property tax and the service charge</h3>
+
+<p>American property taxation operates at the <strong>state and county level</strong> rather than nationally — the federal government does not levy a property tax on real estate, but every state and county does. Rates and assessment methodologies vary substantially between jurisdictions: <strong>California</strong>'s Proposition 13 caps the annual reassessment increase but resets to market value on transfer; <strong>Florida</strong>, <strong>Texas</strong>, <strong>Tennessee</strong>, <strong>Wyoming</strong> and <strong>Nevada</strong> have no state income tax (a meaningful long-term consideration for owners thinking about overall US tax exposure); <strong>South Carolina</strong> offers favourable property tax treatment for primary residences but second-home owners pay at a higher rate. For COP-listed American properties, all property tax filings are handled by the LLC and recovered through the annual service charge — owners do not deal with the American county or state tax systems directly. The <strong>FIRPTA</strong> framework (Foreign Investment in Real Property Tax Act) applies to non-US owners on the sale of US real estate; the LLC structure simplifies the practical mechanics significantly because what is being sold on resale is a corporate-law transfer of a membership interest rather than a recorded deed transfer subject to FIRPTA withholding. Specialist American tax counsel handles every aspect of the LLC's tax filings and reporting.</p>
+
+<h3>Inheritance and transfer</h3>
+
+<p>American inheritance law operates at the state level for real estate, with significant variation between jurisdictions on probate, estate tax exposure and forced heirship rules. The federal estate tax exempts the first $13.6 million of estate value (2024 figure, adjusted annually) — meaning the vast majority of American second-home owners face no federal estate tax exposure on their share. State estate tax exposure varies: most states have no state-level estate tax; some (Massachusetts, Oregon, New York, Hawaii) do. For non-US owners, the LLC structure simplifies the practical mechanics significantly: the underlying American real estate stays inside the LLC, and what passes through the owner's estate is the <strong>LLC membership interest</strong> — a corporate-law asset that can be transferred to heirs without triggering the full American probate process at every generation. This is one of the under-appreciated structural advantages of holding American property inside a modern LLC rather than directly in personal name.</p>
+
+<h3>The professional management model and how the calendar works</h3>
+
+<p>Every COP-listed American property is operated by a professional management team responsible for the full operational stack: tax filings (federal, state, county), insurance (including hurricane and flood where relevant), the on-call concierge, the cleaning and linen turnaround between owner stays, the gardener, the pool service, the security, the utilities. The annual calendar rotates the <strong>52 weeks across the eight owners</strong> on a fair-rotation basis — every owner gets a proportional share of peak weeks (Christmas/New Year in Aspen and Park City, Spring Break across the warm-weather destinations, Independence Day on the California coast, Labor Day in the Lowcountry) across a multi-year cycle, and the rotation mechanics are set out transparently in the LLC operating agreement. Owners typically receive their preferred weeks well in advance and can swap with other owners through a structured exchange when their plans change. The use pattern across owners settles on roughly <strong>45 days a year</strong>; how those days are spread is the owner's decision within the calendar slot they have been allocated.</p>
+
+<h3>Resale: how to exit, typical timelines</h3>
+
+<p>When an owner decides to sell, a <strong>professional resale process</strong> is in place. The resale path connects the exiting owner to the existing pool of buyers familiar with the model — owners on the waiting list for the specific property, owners across the portfolio looking to expand or relocate, and the broader pool of buyers actively shopping COP-listed American properties. <strong>Resale typically completes in around a month or less across the COP portfolio</strong>, well below the <strong>3–18 months</strong> that whole-property American resales typically take on the open market in normal conditions (and longer in softer markets) — and a meaningful fraction of that whole-property timeline goes toward carrying costs (property tax, insurance, management, the empty-house cost) that simply do not apply to a 1/8 share in a managed structure. The mechanical reason the LLC resale path is faster is that you are transferring a membership interest in an LLC rather than triggering a full title conveyance through a county recorder — a more direct administrative action, fewer transaction-cost layers, and a pre-existing pool of buyers who have already done their due diligence on the underlying property and the management arrangement.</p>
+
+<div class="dest-callout">
+  <strong>Free to browse, free to enquire.</strong> Using COP is free for buyers — no fees, no sign-up cost, no obligation. Talk to our specialists about which American region best fits your use pattern, or browse the listings and join the updates list for new properties as they come to market.
+</div>
+
+<p>The full mechanics of fractional ownership across all jurisdictions — usage calendars, exit procedures, rental income treatment, insurance, the transfer on death, the relationship with the management company — are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>. For specific American property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market.</p>
+
+<h3>Your ownership at a glance</h3>
+<ul>
+  <li><strong>Real, deeded equity in your name</strong> — your 1/8 share is recorded with the relevant American county recorder, transferable, inheritable, and it appreciates with the underlying property.</li>
+  <li><strong>Consistent international structure</strong> — your American share sits inside the same purpose-built LLC framework used for every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.</li>
+  <li><strong>Fully managed throughout</strong> — the professional management team handles property tax filings, insurance, maintenance, scheduling, linen, the on-call concierge. You arrive, the property is ready.</li>
+  <li><strong>Supported resale through the COP owner network</strong> — when you decide to exit, the supported resale path typically clears in around a month or less, well below the 3–18 months that whole-property American sales take on the open market.</li>
+  <li><strong>Designed for international portfolios</strong> — the LLC model means owning across multiple COP destinations becomes one consolidated relationship rather than juggling country-specific vehicles.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Still deciding which American region?</h2>
+
+<p>If your use pattern centres on <strong>winter snow and the mountain calendar</strong>, the <strong>Rocky Mountain West</strong> — Aspen, Vail, Park City, Jackson Hole — is the answer. The combination of the deepest concentration of world-class ski resorts in any single country, the architecturally controlled village stock, the proximity to Denver and Salt Lake City as international gateways, and the genuinely usable summer season makes the Rockies the most year-round of the American second-home regions. If you are choosing a single American share and skiing is a serious part of your life, this is the cluster. The trade-off is real: the Rockies' main commercial seasons are December through March (ski) and June through September (summer cultural-and-outdoor), with mud season in May and early November the only genuinely off-months — but for skiing families that pattern is the central appeal.</p>
+
+<p>If your use pattern centres on <strong>warm-water beaches and year-round outdoor living</strong>, <strong>California</strong>, <strong>Florida</strong> and <strong>the Carolinas Lowcountry</strong> are the three serious choices. California's Pacific coast gives you the cool-summer architectural-design pedigree of Newport, Malibu and Santa Barbara, with Wine Country and the desert resorts as in-state alternatives. Florida gives you the longest mature US beach coastline, the international-cosmopolitan density of Miami, the more residential rhythm of Naples and the Gulf Coast, and the tropical-island distance of the Keys. The Carolinas Lowcountry — Kiawah, Charleston, Hilton Head — gives you the most architecturally distinctive American coastal region, the protected barrier-island setting, and the Charleston cultural infrastructure as a permanent neighbour. The choice between them is genuinely a buyer's lifestyle preference rather than a quality differentiator. Our team can walk you through the regional differences before you make a decision.</p>
+
+<p>If your use pattern centres on <strong>winter sun and the desert lifestyle</strong>, the <strong>Southwest</strong> — Scottsdale, Palm Springs, Sedona — is the natural anchor. The desert resorts have been the Canadian and Northern US winter-sun benchmark for fifty years for good reason: 300+ sunny days per year, the deepest concentration of golf-and-resort communities in the United States, the architectural-modernist heritage of mid-century desert design, and a year-round price-to-quality ratio that is meaningfully more accessible than the coastal headliners. The trade-off is the brutal summer (essentially closed June through September) and the seasonal-residential character of the towns. The Lake Tahoe Nevada side gives owners a colder-climate alternative inside a state-tax-friendly jurisdiction.</p>
+
+<p>Whichever way the decision goes, the deeper exploration starts on the cluster pages:</p>
+<ul>
+  <li><a href="/california-fractional-ownership-properties/">Explore California →</a></li>
+  <li><a href="/colorado-fractional-ownership-properties/">Explore Colorado and the Rockies →</a></li>
+  <li><a href="/florida-fractional-ownership-properties/">Explore Florida →</a></li>
+  <li><a href="/utah-fractional-ownership-properties/">Explore Utah and the Mountain West →</a></li>
+</ul>
+
+<p>If you would like to talk through <strong>which American region best fits your family's actual use pattern</strong> — rather than the brochure version of it — <a href="#newsletter">join our list</a> and we will be in touch with relevant new-property alerts and an introduction to the team.</p>
+
+</div></section>
+
 </body>
 </html>
