@@ -192,10 +192,9 @@ img {
   font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 .cop-lang-switcher-desktop {
-  /* Desktop language switcher: 2x2 grid (EN | ES / FR | DE).
-     Luxury aesthetic — NO outer box, just hairline gold dividers
-     between cells, matching the thin gold dividers between nav links.
-     Saves ~50% horizontal space vs a 4-wide row. */
+  /* Desktop language switcher: 2x2 grid of flag icons (EN|ES / FR|DE).
+     Pushed flush to the right edge of the viewport — margin-right offsets
+     the header's own padding so the switcher hugs the actual edge. */
   display: grid !important;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -203,61 +202,78 @@ img {
   gap: 0;
   flex-shrink: 0;
   margin-left: auto;
-  margin-right: 0;
+  /* Negative margin offsets the header's 1.2rem right padding so the
+     switcher sits visually flush with the right viewport edge (only
+     ~4px of breathing room remains — the user wanted it "completely to
+     the right"). */
+  margin-right: -0.95rem;
   padding: 0;
-  /* No outer box — just hairline internal grid lines for the quadrant feel */
   border: none;
   border-radius: 0;
   overflow: visible;
   line-height: 1;
   align-self: center;
 }
-/* Each cell is a flex container so text centres in its quadrant. */
+/* Each cell holds one flag, centred. Inactive flags slightly desaturated
+   so the active flag pops without needing a coloured background. */
 .cop-lang-switcher-desktop > .cop-lang-link,
 .cop-lang-switcher-desktop > .cop-lang-current,
 .cop-lang-switcher-desktop > .cop-lang-unavailable {
   display: flex !important;
   align-items: center;
   justify-content: center;
-  min-width: 38px;
-  height: 22px;
-  padding: 0 0.7rem;
+  width: 44px;
+  height: 26px;
+  padding: 4px 8px;
   margin: 0;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
   border-radius: 0;
-  /* Reset whatever the default .cop-lang-current paints — we draw the
-     divider lines and the active state separately below. */
   border: none !important;
   background: transparent !important;
   box-sizing: border-box;
-  color: rgba(44,74,94,0.55);
-  transition: color 0.2s ease;
-}
-.cop-header.scrolled .cop-lang-switcher-desktop > .cop-lang-link,
-.cop-header.scrolled .cop-lang-switcher-desktop > .cop-lang-unavailable {
-  color: rgba(44,74,94,0.55);
+  cursor: pointer;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+  opacity: 0.55;
+  filter: saturate(0.7);
 }
 .cop-lang-switcher-desktop > .cop-lang-link:hover {
-  color: var(--warm-gold);
+  opacity: 1;
+  filter: saturate(1);
 }
 /* Hairline internal dividers — left column gets right border, top row
    gets bottom border. Soft gold so they sit naturally next to the rest
    of the nav's gold accents. */
 .cop-lang-switcher-desktop > *:nth-child(odd) {
-  border-right: 1px solid rgba(201,168,76,0.32) !important;
+  border-right: 1px solid rgba(201,168,76,0.30) !important;
 }
 .cop-lang-switcher-desktop > *:nth-child(-n+2) {
-  border-bottom: 1px solid rgba(201,168,76,0.32) !important;
+  border-bottom: 1px solid rgba(201,168,76,0.30) !important;
 }
-/* Active language cell: just gold text, no fill — keeps it editorial
-   rather than the chunky filled "tag" look. The gold-tint dividers and
-   the bold gold letterforms are enough to indicate the active locale. */
+/* Active locale: full-saturation flag + faint gold halo behind so it
+   reads as selected without being shouty. */
 .cop-lang-switcher-desktop > .cop-lang-current {
-  background: transparent !important;
-  color: var(--warm-gold) !important;
-  font-weight: 700;
+  opacity: 1 !important;
+  filter: saturate(1) !important;
+  background: rgba(201,168,76,0.10) !important;
+  cursor: default;
+}
+.cop-lang-switcher-desktop > .cop-lang-unavailable {
+  opacity: 0.25 !important;
+  filter: saturate(0.4) grayscale(0.3) !important;
+  cursor: not-allowed;
+}
+/* The flag SVG itself — sized down inside the cell with subtle rounded
+   corners and a hairline gold border so it reads as a discrete object. */
+.cop-flag {
+  display: inline-block;
+  line-height: 0;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.cop-flag svg {
+  display: block;
+  width: 22px;
+  height: auto;
 }
 @media (max-width: 1024px) {
   .cop-lang-switcher-desktop { display: none; }
@@ -478,20 +494,22 @@ img {
                 display: flex !important;
                 align-items: center;
                 justify-content: center;
-                height: 38px;
+                height: 44px;
                 width: 100% !important;
                 min-width: 0 !important;
-                padding: 0 !important;
+                padding: 8px !important;
                 margin: 0 !important;
-                font-size: 0.78rem !important;
-                font-weight: 500;
-                letter-spacing: 0.14em !important;
-                text-align: center !important;
                 border: none !important;
                 border-radius: 0 !important;
                 background: transparent !important;
                 box-sizing: border-box;
+                opacity: 0.6;
+                transition: opacity 0.2s ease;
             }
+            .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
+            .cop-nav .cop-lang-current { opacity: 1 !important; background: rgba(201,168,76,0.10) !important; cursor: default; }
+            .cop-nav .cop-lang-unavailable { opacity: 0.25 !important; }
+            .cop-nav .cop-flag svg { width: 28px; height: auto; }
             /* Hairline internal grid lines */
             .cop-nav .cop-lang-switcher > *:nth-child(odd) {
                 border-right: 1px solid rgba(201,168,76,0.22) !important;
@@ -4697,20 +4715,22 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 display: flex !important;
                 align-items: center;
                 justify-content: center;
-                height: 38px;
+                height: 44px;
                 width: 100% !important;
                 min-width: 0 !important;
-                padding: 0 !important;
+                padding: 8px !important;
                 margin: 0 !important;
-                font-size: 0.78rem !important;
-                font-weight: 500;
-                letter-spacing: 0.14em !important;
-                text-align: center !important;
                 border: none !important;
                 border-radius: 0 !important;
                 background: transparent !important;
                 box-sizing: border-box;
+                opacity: 0.6;
+                transition: opacity 0.2s ease;
             }
+            .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
+            .cop-nav .cop-lang-current { opacity: 1 !important; background: rgba(201,168,76,0.10) !important; cursor: default; }
+            .cop-nav .cop-lang-unavailable { opacity: 0.25 !important; }
+            .cop-nav .cop-flag svg { width: 28px; height: auto; }
             /* Hairline internal grid lines */
             .cop-nav .cop-lang-switcher > *:nth-child(odd) {
                 border-right: 1px solid rgba(201,168,76,0.22) !important;

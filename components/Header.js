@@ -183,6 +183,52 @@ export default function Header() {
   );
 }
 
+// Inline SVG flag icons. Tiny, consistent-rendering, no extra deps.
+// Each flag is in a 60-wide viewBox so the inline `width` controls its
+// rendered size; the wrapper sets that to ~24px for the desktop grid.
+const FLAG_SVGS = {
+  en: (
+    // Union Jack (Great Britain). Standard 60×30 ratio.
+    <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <clipPath id="cop-flag-en-t"><path d="M30,15 h30 v15 z v-15 h-30 z h-30 v-15 z v15 h30 z" /></clipPath>
+      <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
+      <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#cop-flag-en-t)" stroke="#C8102E" strokeWidth="4" />
+      <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10" />
+      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6" />
+    </svg>
+  ),
+  es: (
+    // Spain — simplified red/yellow/red (drop the coat of arms at this size)
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="60" height="40" fill="#AA151B" />
+      <rect y="10" width="60" height="20" fill="#F1BF00" />
+    </svg>
+  ),
+  fr: (
+    // France — tricolore (blue, white, red) vertical
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="20" height="40" fill="#002395" />
+      <rect x="20" width="20" height="40" fill="#fff" />
+      <rect x="40" width="20" height="40" fill="#ED2939" />
+    </svg>
+  ),
+  de: (
+    // Germany — black, red, yellow horizontal
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect width="60" height="40" fill="#000" />
+      <rect y="13.33" width="60" height="13.33" fill="#DD0000" />
+      <rect y="26.67" width="60" height="13.34" fill="#FFCE00" />
+    </svg>
+  ),
+};
+
+const LOCALE_NAMES = { en: 'English', es: 'Español', fr: 'Français', de: 'Deutsch' };
+
+function Flag({ loc }) {
+  return <span className="cop-flag">{FLAG_SVGS[loc]}</span>;
+}
+
 function LanguageSwitcher({ currentLocale, currentPath, desktopOnly = false }) {
   // For dynamic-route pages (property / blog / destinations) we can build
   // cross-locale URLs from per-locale prefix maps without needing an entry
@@ -219,7 +265,11 @@ function LanguageSwitcher({ currentLocale, currentPath, desktopOnly = false }) {
     <div className={`cop-lang-switcher${desktopOnly ? ' cop-lang-switcher-desktop' : ''}`} aria-label="Language">
       {SUPPORTED_LOCALES.map((loc) => {
         if (loc === currentLocale) {
-          return <span key={loc} className="cop-lang-current">{loc.toUpperCase()}</span>;
+          return (
+            <span key={loc} className="cop-lang-current" aria-label={LOCALE_NAMES[loc]} aria-current="true">
+              <Flag loc={loc} />
+            </span>
+          );
         }
         const target = targetForLocale(loc);
         if (!target) {
@@ -228,15 +278,16 @@ function LanguageSwitcher({ currentLocale, currentPath, desktopOnly = false }) {
               key={loc}
               className="cop-lang-link cop-lang-unavailable"
               title={NOT_AVAILABLE_LABEL[loc]}
+              aria-label={LOCALE_NAMES[loc] + ' — ' + NOT_AVAILABLE_LABEL[loc]}
               aria-disabled="true"
             >
-              {loc.toUpperCase()}
+              <Flag loc={loc} />
             </span>
           );
         }
         return (
-          <a key={loc} href={target} className="cop-lang-link" hrefLang={loc}>
-            {loc.toUpperCase()}
+          <a key={loc} href={target} className="cop-lang-link" hrefLang={loc} aria-label={LOCALE_NAMES[loc]} title={LOCALE_NAMES[loc]}>
+            <Flag loc={loc} />
           </a>
         );
       })}
