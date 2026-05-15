@@ -148,14 +148,17 @@ img {
 
 .cop-header.scrolled .cop-logo img.logo-dark  { display: block; }
 
-/* Nav — absolutely centred between logo and hamburger */
+/* Nav — flex-grow so it fills the space between logo and lang switcher,
+   then internally centers its links. OVERLAP-PROOF: the nav physically
+   can't push into the logo because logo is also a flex item. */
         .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            flex: 1 1 auto;
+            min-width: 0;
             display: flex;
             gap: 0;
             align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
         }
 
 .cop-nav a {
@@ -184,17 +187,12 @@ img {
   font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 .cop-lang-switcher-desktop {
-  position: absolute;
-  right: 3rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 5;
+  /* Right-anchored flex item, doesn't compete with centered nav for space */
+  flex-shrink: 0;
+  margin-left: 1.5rem;
 }
 @media (max-width: 1024px) {
   .cop-lang-switcher-desktop { display: none; }
-}
-@media (max-width: 1280px) {
-  .cop-lang-switcher-desktop { right: 1.5rem; }
 }
 .cop-lang-link,
 .cop-lang-current {
@@ -4379,14 +4377,17 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         .cop-logo img { height: 54px; width: auto; display: block; }
 
 
-        /* Nav — absolutely centred between logo and hamburger */
+        /* Nav — flex-grow so it fills the space between logo and lang switcher,
+   then internally centers its links. OVERLAP-PROOF: the nav physically
+   can't push into the logo because logo is also a flex item. */
         .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            flex: 1 1 auto;
+            min-width: 0;
             display: flex;
             gap: 0;
             align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
         }
         .cop-nav a {
             color: rgba(44,74,94,0.8);
