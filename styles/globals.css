@@ -115,7 +115,9 @@ img {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1.2rem 1.8rem;
+            /* Tighter right padding so the 2x2 lang switcher sits closer
+               to the viewport edge — more space for the centred nav. */
+            padding: 1.2rem 1.2rem 1.2rem 1.8rem;
             height: 80px;
             box-sizing: border-box;
             transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
@@ -188,12 +190,10 @@ img {
   font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 .cop-lang-switcher-desktop {
-  /* Desktop language switcher: 2x2 grid (EN | ES / FR | DE) rather than a
-     single horizontal row — saves ~50% horizontal space so the nav has
-     more breathing room. The 4 cells look like a single bordered box
-     divided into quadrants. !important on display because the parent
-     class .cop-lang-switcher also sets display:flex (same specificity)
-     and load order is browser-dependent. */
+  /* Desktop language switcher: 2x2 grid (EN | ES / FR | DE).
+     Luxury aesthetic — NO outer box, just hairline gold dividers
+     between cells, matching the thin gold dividers between nav links.
+     Saves ~50% horizontal space vs a 4-wide row. */
   display: grid !important;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -201,48 +201,59 @@ img {
   gap: 0;
   flex-shrink: 0;
   margin-left: auto;
-  margin-right: 0.2rem;
+  margin-right: 0;
   padding: 0;
-  border: 1px solid rgba(201,168,76,0.28);
-  border-radius: 2px;
-  overflow: hidden;
+  /* No outer box — just hairline internal grid lines for the quadrant feel */
+  border: none;
+  border-radius: 0;
+  overflow: visible;
   line-height: 1;
   align-self: center;
 }
-/* Each cell sits inside the grid as a flex container so the text is
-   centered both horizontally and vertically inside its quadrant. */
+/* Each cell is a flex container so text centres in its quadrant. */
 .cop-lang-switcher-desktop > .cop-lang-link,
 .cop-lang-switcher-desktop > .cop-lang-current,
 .cop-lang-switcher-desktop > .cop-lang-unavailable {
   display: flex !important;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
+  min-width: 38px;
   height: 22px;
-  padding: 0 0.55rem;
+  padding: 0 0.7rem;
   margin: 0;
-  font-size: 0.74rem;
-  letter-spacing: 0.10em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   border-radius: 0;
-  /* Reset border/background that the default .cop-lang-current adds —
-     we paint the grid lines and the active-cell tint separately below. */
+  /* Reset whatever the default .cop-lang-current paints — we draw the
+     divider lines and the active state separately below. */
   border: none !important;
-  background: transparent;
+  background: transparent !important;
   box-sizing: border-box;
+  color: rgba(44,74,94,0.55);
+  transition: color 0.2s ease;
 }
-/* Grid divider lines — vertical between the 2 columns, horizontal between
-   the 2 rows. Achieved by giving cells 1 & 3 (left column) a right border
-   and cells 1 & 2 (top row) a bottom border. */
+.cop-header.scrolled .cop-lang-switcher-desktop > .cop-lang-link,
+.cop-header.scrolled .cop-lang-switcher-desktop > .cop-lang-unavailable {
+  color: rgba(44,74,94,0.55);
+}
+.cop-lang-switcher-desktop > .cop-lang-link:hover {
+  color: var(--warm-gold);
+}
+/* Hairline internal dividers — left column gets right border, top row
+   gets bottom border. Soft gold so they sit naturally next to the rest
+   of the nav's gold accents. */
 .cop-lang-switcher-desktop > *:nth-child(odd) {
-  border-right: 1px solid rgba(201,168,76,0.28) !important;
+  border-right: 1px solid rgba(201,168,76,0.32) !important;
 }
 .cop-lang-switcher-desktop > *:nth-child(-n+2) {
-  border-bottom: 1px solid rgba(201,168,76,0.28) !important;
+  border-bottom: 1px solid rgba(201,168,76,0.32) !important;
 }
-/* Active language cell: subtle gold tint behind, gold text, no extra
-   border (the grid borders are already there). */
+/* Active language cell: just gold text, no fill — keeps it editorial
+   rather than the chunky filled "tag" look. The gold-tint dividers and
+   the bold gold letterforms are enough to indicate the active locale. */
 .cop-lang-switcher-desktop > .cop-lang-current {
-  background: rgba(201,168,76,0.16) !important;
+  background: transparent !important;
   color: var(--warm-gold) !important;
   font-weight: 700;
 }
