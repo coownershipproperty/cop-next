@@ -123,9 +123,7 @@ img {
         }
 
 .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: #FFFFFF;
             box-shadow: 0 2px 32px rgba(44,74,94,0.13);
             border-bottom: 1px solid rgba(201,168,76,0.18);
         }
@@ -479,10 +477,15 @@ img {
         .hero-content {
             position: relative;
             z-index: 3;
-            padding: 0 3rem 8rem;
+            /* top padding clears the 80px fixed header + ~30px breathing room
+               so the H1 (which grows taller on FR/ES/DE translations) cannot
+               push up into the header band. */
+            padding: 110px 3rem 4rem;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            /* center vertically — long H1s grow symmetrically rather than
+               overflowing upward into the header zone like flex-end did. */
+            justify-content: center;
             flex: 1;
         }
 
@@ -2452,7 +2455,9 @@ footer {
             }
 
             .hero-content {
-                padding: 0 1.5rem 3rem;
+                /* mobile: clear the mobile header (~72px) + breathing room
+                   so the translated H1 doesn't sit flush against the bar. */
+                padding: 96px 1.5rem 2.5rem;
             }
 
             .hero-heading {
@@ -4429,9 +4434,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
             border-bottom: 1px solid rgba(201,168,76,0.18);
         }
         .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: #FFFFFF;
             box-shadow: 0 2px 32px rgba(44,74,94,0.13);
             border-bottom: 1px solid rgba(201,168,76,0.18);
         }
