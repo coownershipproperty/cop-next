@@ -184,12 +184,14 @@ export default function Header() {
 }
 
 // Inline SVG flag icons. Tiny, consistent-rendering, no extra deps.
-// Each flag is in a 60-wide viewBox so the inline `width` controls its
-// rendered size; the wrapper sets that to ~24px for the desktop grid.
+// preserveAspectRatio="none" lets each flag fill its grid cell exactly
+// rather than leaving empty bars when the cell ratio differs from the
+// flag's natural ratio. At small sizes the slight stretching reads as
+// clean, full-bleed colour bars.
 const FLAG_SVGS = {
   en: (
     // Union Jack (Great Britain). Standard 60×30 ratio.
-    <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
       <clipPath id="cop-flag-en-t"><path d="M30,15 h30 v15 z v-15 h-30 z h-30 v-15 z v15 h30 z" /></clipPath>
       <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
       <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
@@ -200,14 +202,14 @@ const FLAG_SVGS = {
   ),
   es: (
     // Spain — simplified red/yellow/red (drop the coat of arms at this size)
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
       <rect width="60" height="40" fill="#AA151B" />
       <rect y="10" width="60" height="20" fill="#F1BF00" />
     </svg>
   ),
   fr: (
     // France — tricolore (blue, white, red) vertical
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
       <rect width="20" height="40" fill="#002395" />
       <rect x="20" width="20" height="40" fill="#fff" />
       <rect x="40" width="20" height="40" fill="#ED2939" />
@@ -215,7 +217,7 @@ const FLAG_SVGS = {
   ),
   de: (
     // Germany — black, red, yellow horizontal
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
       <rect width="60" height="40" fill="#000" />
       <rect y="13.33" width="60" height="13.33" fill="#DD0000" />
       <rect y="26.67" width="60" height="13.34" fill="#FFCE00" />
