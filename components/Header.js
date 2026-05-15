@@ -53,11 +53,9 @@ function detectDynamicFamily(path, currentLocale) {
 // Per-locale nav link tables. Slugs intentionally differ per locale (Spanish
 // keyword research wants /es/como-funciona/, French wants /fr/comment-ca-marche/,
 // etc.). Adding a new locale = add an entry here.
-// Note: HOME is intentionally NOT in the nav — the COP logo IS the home
-// link (universal pattern on luxury sites). The "home" message key still
-// exists for the mobile drawer / accessibility / footer use.
 const NAV_LINKS = {
   en: [
+    { href: '/',             labelKey: 'nav.home' },
     { href: '/our-homes',    labelKey: 'nav.our_homes' },
     { href: '/how-it-works', labelKey: 'nav.how_it_works' },
     { href: '/about-us',     labelKey: 'nav.about_us' },
@@ -66,6 +64,7 @@ const NAV_LINKS = {
     { href: '/contact',      labelKey: 'nav.contact' },
   ],
   es: [
+    { href: '/es/',                  labelKey: 'nav.home' },
     { href: '/es/propiedades/',      labelKey: 'nav.our_homes' },
     { href: '/es/como-funciona/',    labelKey: 'nav.how_it_works' },
     { href: '/es/quienes-somos/',    labelKey: 'nav.about_us' },
@@ -74,6 +73,7 @@ const NAV_LINKS = {
     { href: '/es/contacto/',         labelKey: 'nav.contact' },
   ],
   fr: [
+    { href: '/fr/',                  labelKey: 'nav.home' },
     { href: '/fr/proprietes/',       labelKey: 'nav.our_homes' },
     { href: '/fr/comment-ca-marche/', labelKey: 'nav.how_it_works' },
     { href: '/fr/a-propos/',         labelKey: 'nav.about_us' },
@@ -82,6 +82,7 @@ const NAV_LINKS = {
     { href: '/fr/contact/',          labelKey: 'nav.contact' },
   ],
   de: [
+    { href: '/de/',                    labelKey: 'nav.home' },
     { href: '/de/immobilien/',         labelKey: 'nav.our_homes' },
     { href: '/de/so-funktionierts/',   labelKey: 'nav.how_it_works' },
     { href: '/de/ueber-uns/',          labelKey: 'nav.about_us' },

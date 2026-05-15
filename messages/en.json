@@ -5,12 +5,12 @@
   },
   "nav": {
     "home": "Home",
-    "our_homes": "Homes",
+    "our_homes": "Our Homes",
     "how_it_works": "How It Works",
-    "about_us": "About",
+    "about_us": "About Us",
     "blog": "Blog",
-    "favourites": "Favourites",
-    "contact": "Contact"
+    "favourites": "My Favourites",
+    "contact": "Contact Us"
   },
   "footer": {
     "discover_heading": "Discover",
