@@ -115,10 +115,10 @@ img {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            /* Tighter symmetric padding — logo and lang switcher sit closer
-               to their respective viewport edges; nav has room to spread
-               and HOME sits close to the COP logo. */
-            padding: 1.2rem;
+            /* Asymmetric padding — left side keeps 1.2rem so the COP logo
+               doesn't hug the edge, right side is 0 so the 2x2 flag grid
+               sits flush against the right viewport edge. */
+            padding: 1.2rem 0 1.2rem 1.2rem;
             height: 80px;
             box-sizing: border-box;
             transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
@@ -202,11 +202,10 @@ img {
   gap: 0;
   flex-shrink: 0;
   margin-left: auto;
-  /* Negative margin fully offsets the header's right padding so the
-     flag box is flush against the right viewport edge — only ~1px of
-     breathing room remains (matching the 1px gold divider gap between
-     adjacent flags). */
-  margin-right: -1.15rem;
+  /* Header has padding-right:0 on the right so the flag box's right edge
+     is the right edge of the viewport. The 1px gap between flags is the
+     only visible separation. */
+  margin-right: 0;
   padding: 0;
   border: none;
   border-radius: 0;
