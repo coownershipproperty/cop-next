@@ -520,24 +520,27 @@ img {
 
             /* Expanded flag picker — horizontal row of 4 full-bleed flags
                below the LANGUAGE toggle. Show flags (not text) here per
-               the design spec. */
+               the design spec. flex-grow:1 makes the dark band stretch to
+               fill the remaining drawer height (so on tall mobile screens
+               where there's empty drawer below, the panel doesn't appear
+               to "cut off"). align-content:start keeps flag tiles at the
+               top of that stretched panel. */
             .cop-nav .cop-lang-switcher {
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                /* Generous bottom padding so the flag picker doesn't feel
-                   cut off — flag tiles have proper breathing room below
-                   them before the panel ends. */
                 padding: 1.4rem 2rem 2rem;
                 background: rgba(0,0,0,0.18);
-                /* No bottom border — let the dark band fade naturally
-                   into the drawer instead of an awkward hairline cut */
                 border-bottom: none;
                 display: grid !important;
                 grid-template-columns: repeat(4, 1fr);
+                grid-auto-rows: 30px;
                 gap: 0.8rem;
                 align-items: stretch;
+                align-content: start;
                 justify-items: stretch;
+                flex: 1 0 auto;
+                flex-grow: 1;
             }
             /* Show flag SVGs inside the expanded picker */
             .cop-nav .cop-flag { display: block !important; }
@@ -4784,24 +4787,27 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
             /* Expanded flag picker — horizontal row of 4 full-bleed flags
                below the LANGUAGE toggle. Show flags (not text) here per
-               the design spec. */
+               the design spec. flex-grow:1 makes the dark band stretch to
+               fill the remaining drawer height (so on tall mobile screens
+               where there's empty drawer below, the panel doesn't appear
+               to "cut off"). align-content:start keeps flag tiles at the
+               top of that stretched panel. */
             .cop-nav .cop-lang-switcher {
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                /* Generous bottom padding so the flag picker doesn't feel
-                   cut off — flag tiles have proper breathing room below
-                   them before the panel ends. */
                 padding: 1.4rem 2rem 2rem;
                 background: rgba(0,0,0,0.18);
-                /* No bottom border — let the dark band fade naturally
-                   into the drawer instead of an awkward hairline cut */
                 border-bottom: none;
                 display: grid !important;
                 grid-template-columns: repeat(4, 1fr);
+                grid-auto-rows: 30px;
                 gap: 0.8rem;
                 align-items: stretch;
+                align-content: start;
                 justify-items: stretch;
+                flex: 1 0 auto;
+                flex-grow: 1;
             }
             /* Show flag SVGs inside the expanded picker */
             .cop-nav .cop-flag { display: block !important; }
