@@ -202,10 +202,9 @@ img {
   gap: 0;
   flex-shrink: 0;
   margin-left: auto;
-  /* Header has padding-right:0 on the right so the flag box's right edge
-     is the right edge of the viewport. The 1px gap between flags is the
-     only visible separation. */
-  margin-right: 0;
+  /* 1px gap to the right viewport edge — matches the 1px gold divider
+     between adjacent flag cells, so the spacing reads as consistent. */
+  margin-right: 1px;
   padding: 0;
   border: none;
   border-radius: 0;
