@@ -163,16 +163,76 @@ img {
             font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
             font-size: 0.84rem;
             font-weight: 400;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.13em;
             text-transform: uppercase;
             position: relative;
-            padding: 0.4rem 1.4rem;
+            padding: 0.4rem 1.05rem;
             white-space: nowrap;
             transition: color 0.25s ease;
             text-decoration: none;
         }
 
 .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+/* ── Language switcher — compact, low-prominence cluster on the right ──── */
+/* Sits inside .cop-nav after the regular links. The DIV breaks the
+   `.cop-nav a + a` left-border chain naturally, so no extra reset needed. */
+.cop-lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-left: 1.2rem;
+  padding-left: 1.2rem;
+  border-left: 1px solid rgba(201,168,76,0.30);
+  font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+.cop-lang-link,
+.cop-lang-current {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  padding: 0.32rem 0.55rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.18s ease, background 0.18s ease;
+  color: rgba(255,255,255,0.55);
+}
+.cop-header.scrolled .cop-lang-link,
+.cop-header.scrolled .cop-lang-current {
+  color: rgba(44,74,94,0.55);
+}
+.cop-lang-link:hover {
+  color: var(--warm-gold);
+}
+.cop-lang-current {
+  color: var(--warm-gold);
+  font-weight: 700;
+  background: rgba(201,168,76,0.12);
+  border-radius: 2px;
+}
+.cop-lang-unavailable {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+.cop-lang-unavailable:hover { color: inherit; }
+/* Override the cop-nav a+a left-border for items inside the switcher */
+.cop-lang-switcher .cop-lang-link + .cop-lang-link,
+.cop-lang-switcher .cop-lang-link + .cop-lang-current,
+.cop-lang-switcher .cop-lang-current + .cop-lang-link {
+  border-left: none;
+}
+
+/* Tighter breakpoint: switch to hamburger earlier so the desktop nav doesn't
+   overlap with the logo on mid-sized screens (1100–1280px). */
+@media (max-width: 1180px) {
+  .cop-nav a {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.10em;
+  }
+  .cop-lang-switcher { margin-left: 0.8rem; padding-left: 0.8rem; }
+  .cop-lang-link, .cop-lang-current { padding: 0.32rem 0.42rem; font-size: 0.70rem; }
+}
 
 /* Gold underline on hover / active */
         .cop-nav a::after {
