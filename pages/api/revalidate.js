@@ -36,6 +36,14 @@ export default async function handler(req, res) {
       paths.push(`/${slug}`, `/${slug}/`);
       // Also revalidate the DE mirror if it exists.
       paths.push(`/de/destinationen/${slug}`, `/de/destinationen/${slug}/`);
+    } else if (target === 'home' || target === 'homepage' || target === 'all') {
+      // Bust the homepage + main static pages. Use when shipping a CSS/header
+      // change that affects the chrome of every page but Vercel keeps serving
+      // stale HTML referencing the previous CSS hash.
+      paths.push('/', '/our-homes/', '/all-our-blog/', '/how-it-works/', '/about-us/', '/contact/');
+      paths.push('/es/', '/es/propiedades/', '/es/blog/', '/es/como-funciona/', '/es/quienes-somos/', '/es/contacto/');
+      paths.push('/fr/', '/fr/proprietes/', '/fr/blog/', '/fr/comment-ca-marche/', '/fr/a-propos/', '/fr/contact/');
+      paths.push('/de/', '/de/immobilien/', '/de/blog/', '/de/so-funktionierts/', '/de/ueber-uns/', '/de/kontakt/');
     } else {
       paths.push(`/property/${slug}`, `/property/${slug}/`, '/our-homes', '/our-homes/', '/');
     }
