@@ -17,15 +17,24 @@ const DYNAMIC_URL_FAMILIES = [
   },
   {
     family: 'destinations',
-    prefixes: { en: '/', es: '/', fr: '/fr/destinations/', de: '/de/destinationen/' },
-    // Note: EN destinations live at root /{slug}/ via pages/[slug].js, so
-    // EN/ES cross-locale is not 1:1 unless an ES wrapper exists. Treat
-    // missing prefix as "no translation".
+    // EN destinations live at root /{slug}/ via pages/[slug].js (handled below
+    // via the enFamily flag so it doesn't accidentally match every URL).
+    // ES destinations live under /es/destinos/{slug}/ — only a couple exist so far
+    // (mallorca, ibiza), every other slug 404s. Same for FR.
+    // DE mirrors live at /de/destinationen/{slug}/ for every EN destination.
+    prefixes: { en: '/', es: '/es/destinos/', fr: '/fr/destinations/', de: '/de/destinationen/' },
     enFamily: 'root',
   },
 ];
 
+// Locale homepages — must never be misdetected as a single-segment dynamic-route
+// page. Without this guard, the destinations-family `en: '/'` prefix would match
+// `/es/` and decide the slug is "es", routing FR/DE links to /fr/destinations/es/
+// (404). Block these explicitly.
+const LOCALE_ROOT_PATHS = new Set(['/', '/es/', '/fr/', '/de/']);
+
 function detectDynamicFamily(path, currentLocale) {
+  if (LOCALE_ROOT_PATHS.has(path)) return null;
   for (const fam of DYNAMIC_URL_FAMILIES) {
     const prefix = fam.prefixes[currentLocale];
     if (!prefix) continue;
