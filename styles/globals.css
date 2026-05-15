@@ -334,42 +334,29 @@ img {
 
 .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-@media (max-width:768px) {
-            /* Keep header fixed (sticky) — do NOT set position:relative */
-            .cop-header,
-            .cop-header.scrolled {
-                background: rgba(26,51,71,0.99) !important;
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-                border-bottom: none;
-                padding: 0.9rem 1.5rem;
-            }
-            /* Hamburger on left */
+/* ── Hamburger breakpoint at 1180px ─────────────────────────────────────
+   Below 1180px there's not enough horizontal room for the full desktop
+   nav (logo + 6 main links + 4 language pills + padding ≈ 1000px minimum).
+   Switch to hamburger + drawer at this width — same pattern Aman / Belmond /
+   Sotheby's use for luxury hospitality sites. ───────────────────────── */
+@media (max-width:1180px) {
+            /* Hamburger on left (visible from 1180px down) */
             .cop-hamburger {
                 display: flex;
                 order: -1;
                 position: relative;
                 z-index: 10001;
             }
-            .cop-hamburger span { background: rgba(255,255,255,0.9) !important; }
-            /* Logo absolutely centred */
-            .cop-logo {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 0;
-            }
             .cop-header-spacer { display: block; width: 30px; flex-shrink: 0; }
-            /* White logo on dark header */
-            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 38px; }
+            /* Force-hide the desktop language switcher at this breakpoint */
+            .cop-lang-switcher-desktop { display: none !important; }
 
-            /* ── Left-side drawer ── */
+            /* ── Cop-nav becomes a left-side drawer ── */
             .cop-nav {
                 position: fixed;
                 top: 0; left: 0; bottom: 0;
                 width: 75vw;
-                max-width: 300px;
+                max-width: 320px;
                 transform: translateX(-100%);
                 flex-direction: column;
                 align-items: flex-start;
@@ -378,15 +365,16 @@ img {
                 transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
                 z-index: 10000;
                 overflow-y: auto;
-                /* reset desktop absolute positioning */
+                margin-left: 0;
                 right: auto;
                 max-height: none;
                 overflow: visible;
                 overflow-y: auto;
+                flex: none;
             }
             .cop-nav.active { transform: translateX(0); }
             .cop-nav a {
-                font-size: 0.82rem !important;
+                font-size: 0.85rem !important;
                 letter-spacing: 0.18em;
                 padding: 1rem 2rem !important;
                 width: 100%;
@@ -405,8 +393,7 @@ img {
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the mobile drawer — bigger touch targets,
-               full-width row at the bottom of the menu list */
+            /* Language switcher inside the drawer — bigger touch targets */
             .cop-nav .cop-lang-switcher {
                 width: 100%;
                 padding: 1.4rem 2rem 0;
@@ -422,11 +409,7 @@ img {
                 letter-spacing: 0.12em !important;
             }
 
-            /* Belt-and-suspenders: ensure the desktop-only language switcher is
-               REALLY hidden on mobile (so it never leaks at the top) */
-            .cop-lang-switcher-desktop { display: none !important; }
-
-            /* Overlay behind drawer — must be BELOW header (9999) so nav links stay clickable */
+            /* Overlay behind drawer */
             .cop-nav-overlay {
                 position: fixed;
                 inset: 0;
@@ -434,8 +417,31 @@ img {
                 z-index: 9998;
                 cursor: pointer;
             }
+}
 
-            /* Press bar on mobile: show logos, hide "As Featured In" label */
+@media (max-width:768px) {
+            /* Phone-specific: dark header background, centered logo, white logo */
+            .cop-header,
+            .cop-header.scrolled {
+                background: rgba(26,51,71,0.99) !important;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+                border-bottom: none;
+                padding: 0.9rem 1.5rem;
+            }
+            .cop-hamburger span { background: rgba(255,255,255,0.9) !important; }
+            /* Logo absolutely centred (phone only) */
+            .cop-logo {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 0;
+            }
+            /* White logo on dark header (phone only) */
+            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 38px; }
+
+            /* Press bar on phone: show logos, hide "As Featured In" label */
             .press-bar-header { display: none; }
         }
 
@@ -4487,42 +4493,29 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
         /* ===== MOBILE (<768px) ===== */
-        @media (max-width:768px) {
-            /* Keep header fixed (sticky) — do NOT set position:relative */
-            .cop-header,
-            .cop-header.scrolled {
-                background: rgba(26,51,71,0.99) !important;
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-                border-bottom: none;
-                padding: 0.9rem 1.5rem;
-            }
-            /* Hamburger on left */
+        /* ── Hamburger breakpoint at 1180px ─────────────────────────────────────
+   Below 1180px there's not enough horizontal room for the full desktop
+   nav (logo + 6 main links + 4 language pills + padding ≈ 1000px minimum).
+   Switch to hamburger + drawer at this width — same pattern Aman / Belmond /
+   Sotheby's use for luxury hospitality sites. ───────────────────────── */
+@media (max-width:1180px) {
+            /* Hamburger on left (visible from 1180px down) */
             .cop-hamburger {
                 display: flex;
                 order: -1;
                 position: relative;
                 z-index: 10001;
             }
-            .cop-hamburger span { background: rgba(255,255,255,0.9) !important; }
-            /* Logo absolutely centred */
-            .cop-logo {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 0;
-            }
             .cop-header-spacer { display: block; width: 30px; flex-shrink: 0; }
-            /* White logo on dark header */
-            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 38px; }
+            /* Force-hide the desktop language switcher at this breakpoint */
+            .cop-lang-switcher-desktop { display: none !important; }
 
-            /* ── Left-side drawer ── */
+            /* ── Cop-nav becomes a left-side drawer ── */
             .cop-nav {
                 position: fixed;
                 top: 0; left: 0; bottom: 0;
                 width: 75vw;
-                max-width: 300px;
+                max-width: 320px;
                 transform: translateX(-100%);
                 flex-direction: column;
                 align-items: flex-start;
@@ -4531,15 +4524,16 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
                 z-index: 10000;
                 overflow-y: auto;
-                /* reset desktop absolute positioning */
+                margin-left: 0;
                 right: auto;
                 max-height: none;
                 overflow: visible;
                 overflow-y: auto;
+                flex: none;
             }
             .cop-nav.active { transform: translateX(0); }
             .cop-nav a {
-                font-size: 0.82rem !important;
+                font-size: 0.85rem !important;
                 letter-spacing: 0.18em;
                 padding: 1rem 2rem !important;
                 width: 100%;
@@ -4558,8 +4552,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the mobile drawer — bigger touch targets,
-               full-width row at the bottom of the menu list */
+            /* Language switcher inside the drawer — bigger touch targets */
             .cop-nav .cop-lang-switcher {
                 width: 100%;
                 padding: 1.4rem 2rem 0;
@@ -4575,11 +4568,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 letter-spacing: 0.12em !important;
             }
 
-            /* Belt-and-suspenders: ensure the desktop-only language switcher is
-               REALLY hidden on mobile (so it never leaks at the top) */
-            .cop-lang-switcher-desktop { display: none !important; }
-
-            /* Overlay behind drawer — must be BELOW header (9999) so nav links stay clickable */
+            /* Overlay behind drawer */
             .cop-nav-overlay {
                 position: fixed;
                 inset: 0;
@@ -4587,8 +4576,31 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 z-index: 9998;
                 cursor: pointer;
             }
+}
 
-            /* Press bar on mobile: show logos, hide "As Featured In" label */
+@media (max-width:768px) {
+            /* Phone-specific: dark header background, centered logo, white logo */
+            .cop-header,
+            .cop-header.scrolled {
+                background: rgba(26,51,71,0.99) !important;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+                border-bottom: none;
+                padding: 0.9rem 1.5rem;
+            }
+            .cop-hamburger span { background: rgba(255,255,255,0.9) !important; }
+            /* Logo absolutely centred (phone only) */
+            .cop-logo {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 0;
+            }
+            /* White logo on dark header (phone only) */
+            .cop-header .cop-logo img { filter: brightness(0) invert(1); height: 38px; }
+
+            /* Press bar on phone: show logos, hide "As Featured In" label */
             .press-bar-header { display: none; }
         }
 
