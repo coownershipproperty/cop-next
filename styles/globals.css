@@ -115,10 +115,7 @@ img {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            /* Tighter symmetric padding — logo and lang switcher sit closer
-               to their respective viewport edges; nav has room to spread
-               and HOME sits close to the COP logo. */
-            padding: 1.2rem;
+            padding: 1.2rem 1.8rem;
             height: 80px;
             box-sizing: border-box;
             transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
@@ -126,7 +123,9 @@ img {
         }
 
 .cop-header.scrolled {
-            background: #FFFFFF;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 2px 32px rgba(44,74,94,0.13);
             border-bottom: 1px solid rgba(201,168,76,0.18);
         }
@@ -162,8 +161,7 @@ img {
             align-items: center;
             justify-content: flex-start;
             flex-wrap: nowrap;
-            /* Tight gap to logo — HOME sits close, no wasted dead space */
-            margin-left: 0.4rem;
+            margin-left: 1.2rem;
         }
 
 .cop-nav a {
@@ -171,10 +169,10 @@ img {
             font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
             font-size: 0.84rem;
             font-weight: 400;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.13em;
             text-transform: uppercase;
             position: relative;
-            padding: 0.4rem 0.85rem;
+            padding: 0.4rem 1.05rem;
             white-space: nowrap;
             transition: color 0.25s ease;
             text-decoration: none;
@@ -192,88 +190,14 @@ img {
   font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 .cop-lang-switcher-desktop {
-  /* Desktop language switcher: 2x2 grid of flag icons (EN|ES / FR|DE).
-     Pushed flush to the right edge of the viewport — margin-right offsets
-     the header's own padding so the switcher hugs the actual edge. */
-  display: grid !important;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-auto-flow: row;
-  gap: 0;
+  /* margin-left:auto pushes the languages to the right edge of the header.
+     As viewport shrinks, this auto-margin collapses BEFORE the nav has to
+     compress — so the empty gap between nav and languages closes first,
+     then the languages slide left to sit next to the nav. The logo never
+     moves; nav compresses last. */
   flex-shrink: 0;
   margin-left: auto;
-  /* Negative margin fully offsets the header's right padding so the
-     flag box is flush against the right viewport edge — only ~1px of
-     breathing room remains (matching the 1px gold divider gap between
-     adjacent flags). */
-  margin-right: -1.15rem;
-  padding: 0;
-  border: none;
-  border-radius: 0;
-  overflow: visible;
-  line-height: 1;
-  align-self: center;
-}
-/* Each cell holds one full-bleed flag — flag fills the cell completely,
-   no padding, no inner border. The grid dividers separate the cells. */
-.cop-lang-switcher-desktop > .cop-lang-link,
-.cop-lang-switcher-desktop > .cop-lang-current,
-.cop-lang-switcher-desktop > .cop-lang-unavailable {
-  display: block !important;
-  position: relative;
-  width: 48px;
-  height: 30px;
-  padding: 0 !important;
-  margin: 0;
-  border-radius: 0;
-  border: none !important;
-  background: transparent !important;
-  box-sizing: border-box;
-  cursor: pointer;
-  overflow: hidden;
-  transition: opacity 0.2s ease, filter 0.2s ease;
-  opacity: 0.55;
-  filter: saturate(0.75);
-}
-.cop-lang-switcher-desktop > .cop-lang-link:hover {
-  opacity: 1;
-  filter: saturate(1);
-}
-/* Hairline internal dividers — left column gets right border, top row
-   gets bottom border. */
-.cop-lang-switcher-desktop > *:nth-child(odd) {
-  border-right: 1px solid rgba(201,168,76,0.30) !important;
-}
-.cop-lang-switcher-desktop > *:nth-child(-n+2) {
-  border-bottom: 1px solid rgba(201,168,76,0.30) !important;
-}
-/* Active locale: full saturation + inset gold ring sits on top of the
-   flag (a faint background tint wouldn't show through a full-bleed flag). */
-.cop-lang-switcher-desktop > .cop-lang-current {
-  opacity: 1 !important;
-  filter: saturate(1) !important;
-  cursor: default;
-  box-shadow: inset 0 0 0 1.5px rgba(201,168,76,0.85);
-}
-.cop-lang-switcher-desktop > .cop-lang-unavailable {
-  opacity: 0.25 !important;
-  filter: saturate(0.4) grayscale(0.3) !important;
-  cursor: not-allowed;
-}
-/* Flag fills its parent cell exactly — no inner border, no padding. */
-.cop-flag {
-  display: block;
-  width: 100%;
-  height: 100%;
-  line-height: 0;
-  border: none;
-  border-radius: 0;
-  overflow: hidden;
-}
-.cop-flag svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+  padding-left: 0.8rem;
 }
 @media (max-width: 1024px) {
   .cop-lang-switcher-desktop { display: none; }
@@ -410,14 +334,15 @@ img {
 
 .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* ── Hamburger breakpoint at 1280px ─────────────────────────────────────
-   1180px wasn't enough — CONTACT US still overlapped the 2x2 lang switcher
-   around 1200–1240px because each nav link's effective width (text + 0.85rem
-   padding either side + 1px divider) is ~95–110px depending on the label.
-   At 1280px breakpoint, full nav shows only when there's genuinely room
-   for all 7 links + lang grid + comfortable gaps. Below 1280px → hamburger
-   drawer. ────────────────────────────────────────────────────────────── */
-@media (max-width:1280px) {
+/* ── Hamburger breakpoint at 1400px ─────────────────────────────────────
+   With 7 main nav links (HOME, OUR HOMES, HOW IT WORKS, ABOUT US, BLOG,
+   MY FAVOURITES, CONTACT US) plus 4 language pills, the minimum width for
+   a non-overlapping desktop nav is around 1400px (logo 150 + 7 nav × 100
+   + 4 lang × 55 + padding 100 + gaps ≈ 1170, plus comfortable breathing
+   room). Below 1400px → hamburger drawer takes over. Only ~1440px MacBook
+   and wider desktops get the full nav — same pattern Aman / Belmond /
+   Sotheby's use for their nav-heavy luxury sites. ───────────────────── */
+@media (max-width:1400px) {
             /* Hamburger on left (visible from 1180px down) */
             .cop-hamburger {
                 display: flex;
@@ -471,68 +396,46 @@ img {
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the drawer — 2x2 quadrant grid
-               matching the desktop aesthetic. Hairline gold dividers, no
-               outer box, active locale shown by gold text only. */
+            /* Language switcher inside the drawer — clean row of equally-sized
+               pills at the bottom of the menu, with a gold-rule top divider */
             .cop-nav .cop-lang-switcher {
                 width: 100%;
                 box-sizing: border-box;
-                margin: 1.2rem 0 0;
-                padding: 1.2rem 2rem 0.6rem;
+                padding: 1.6rem 2rem 0.8rem;
+                margin-top: 0.6rem;
                 border-top: 1px solid rgba(201,168,76,0.22);
-                display: grid !important;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr;
-                grid-auto-flow: row;
-                gap: 0;
-                align-items: stretch;
-                justify-items: stretch;
+                gap: 0.5rem;
+                justify-content: flex-start;
+                align-items: center;
+                display: flex;
             }
             .cop-nav .cop-lang-link,
-            .cop-nav .cop-lang-current,
-            .cop-nav .cop-lang-unavailable {
-                display: block !important;
-                position: relative;
-                height: 56px;
-                width: 100% !important;
-                min-width: 0 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border: none !important;
-                border-radius: 0 !important;
-                background: transparent !important;
-                box-sizing: border-box;
-                overflow: hidden;
-                opacity: 0.6;
-                transition: opacity 0.2s ease;
-            }
-            .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
             .cop-nav .cop-lang-current {
-                opacity: 1 !important;
-                cursor: default;
-                box-shadow: inset 0 0 0 2px rgba(201,168,76,0.85);
+                font-size: 0.85rem !important;
+                padding: 0.55rem 0.85rem !important;
+                letter-spacing: 0.14em !important;
+                border-radius: 2px;
+                width: auto !important;
+                display: inline-block !important;
+                text-align: center !important;
+                border-bottom: none !important;
+                min-width: 44px;
             }
-            .cop-nav .cop-lang-unavailable { opacity: 0.25 !important; }
-            /* Hairline internal grid lines */
-            .cop-nav .cop-lang-switcher > *:nth-child(odd) {
-                border-right: 1px solid rgba(201,168,76,0.22) !important;
-            }
-            .cop-nav .cop-lang-switcher > *:nth-child(-n+2) {
-                border-bottom: 1px solid rgba(201,168,76,0.22) !important;
-            }
-            /* Active locale: gold text, no fill */
             .cop-nav .cop-lang-current {
+                background: rgba(201,168,76,0.18) !important;
+                border: 1px solid rgba(201,168,76,0.40) !important;
                 color: var(--warm-gold) !important;
-                font-weight: 700 !important;
             }
             .cop-nav .cop-lang-link {
                 color: rgba(255,255,255,0.62) !important;
+                background: transparent !important;
             }
             .cop-nav .cop-lang-link:hover {
                 color: var(--warm-gold) !important;
+                background: rgba(201,168,76,0.08) !important;
             }
             .cop-nav .cop-lang-unavailable {
-                color: rgba(255,255,255,0.25) !important;
+                opacity: 0.30;
                 cursor: not-allowed;
             }
 
@@ -576,35 +479,21 @@ img {
         .hero-content {
             position: relative;
             z-index: 3;
-            /* top padding clears the 80px fixed header + ~16px breathing room
-               so the H1 (which grows taller on FR/ES/DE translations) cannot
-               push up into the header band. Bottom padding kept tight so
-               long-translation H1 + CTAs never exceed 100vh. */
-            padding: 96px 3rem 1.5rem;
+            padding: 0 3rem 8rem;
             display: flex;
             flex-direction: column;
-            /* center vertically — long H1s grow symmetrically rather than
-               overflowing upward into the header zone like flex-end did.
-               min-height:0 ensures flex children shrink if needed instead
-               of overflowing the hero's 100vh box. */
-            justify-content: center;
+            justify-content: flex-end;
             flex: 1;
-            min-height: 0;
         }
 
 .hero-heading {
             font-family: 'Playfair Display', serif;
-            /* Responsive H1 — scales down on narrower viewports so the
-               longer FR/ES/DE translations don't push the CTAs out of
-               100vh. Caps at 4.2rem on wide desktops where EN looks great. */
-            font-size: clamp(2.4rem, 3.6vw + 0.4rem, 4.2rem);
+            font-size: 4.2rem;
             font-weight: 400;
             color: var(--white);
-            line-height: 1.18;
-            /* Widen max-width on narrower viewports so longer translations
-               wrap to fewer lines and don't push the CTAs out of 100vh. */
-            max-width: min(720px, 90%);
-            margin-bottom: 1.5rem;
+            line-height: 1.25;
+            max-width: 52%;
+            margin-bottom: 3rem;
         }
 
 /* "Your window to the" — same rhythm, italic, slightly softer */
@@ -2563,9 +2452,7 @@ footer {
             }
 
             .hero-content {
-                /* mobile: clear the mobile header (~72px) + breathing room
-                   so the translated H1 doesn't sit flush against the bar. */
-                padding: 96px 1.5rem 2.5rem;
+                padding: 0 1.5rem 3rem;
             }
 
             .hero-heading {
@@ -4542,7 +4429,9 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
             border-bottom: 1px solid rgba(201,168,76,0.18);
         }
         .cop-header.scrolled {
-            background: #FFFFFF;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 2px 32px rgba(44,74,94,0.13);
             border-bottom: 1px solid rgba(201,168,76,0.18);
         }
@@ -4634,14 +4523,15 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
         /* ===== MOBILE (<768px) ===== */
-        /* ── Hamburger breakpoint at 1280px ─────────────────────────────────────
-   1180px wasn't enough — CONTACT US still overlapped the 2x2 lang switcher
-   around 1200–1240px because each nav link's effective width (text + 0.85rem
-   padding either side + 1px divider) is ~95–110px depending on the label.
-   At 1280px breakpoint, full nav shows only when there's genuinely room
-   for all 7 links + lang grid + comfortable gaps. Below 1280px → hamburger
-   drawer. ────────────────────────────────────────────────────────────── */
-@media (max-width:1280px) {
+        /* ── Hamburger breakpoint at 1400px ─────────────────────────────────────
+   With 7 main nav links (HOME, OUR HOMES, HOW IT WORKS, ABOUT US, BLOG,
+   MY FAVOURITES, CONTACT US) plus 4 language pills, the minimum width for
+   a non-overlapping desktop nav is around 1400px (logo 150 + 7 nav × 100
+   + 4 lang × 55 + padding 100 + gaps ≈ 1170, plus comfortable breathing
+   room). Below 1400px → hamburger drawer takes over. Only ~1440px MacBook
+   and wider desktops get the full nav — same pattern Aman / Belmond /
+   Sotheby's use for their nav-heavy luxury sites. ───────────────────── */
+@media (max-width:1400px) {
             /* Hamburger on left (visible from 1180px down) */
             .cop-hamburger {
                 display: flex;
@@ -4695,68 +4585,46 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the drawer — 2x2 quadrant grid
-               matching the desktop aesthetic. Hairline gold dividers, no
-               outer box, active locale shown by gold text only. */
+            /* Language switcher inside the drawer — clean row of equally-sized
+               pills at the bottom of the menu, with a gold-rule top divider */
             .cop-nav .cop-lang-switcher {
                 width: 100%;
                 box-sizing: border-box;
-                margin: 1.2rem 0 0;
-                padding: 1.2rem 2rem 0.6rem;
+                padding: 1.6rem 2rem 0.8rem;
+                margin-top: 0.6rem;
                 border-top: 1px solid rgba(201,168,76,0.22);
-                display: grid !important;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr;
-                grid-auto-flow: row;
-                gap: 0;
-                align-items: stretch;
-                justify-items: stretch;
+                gap: 0.5rem;
+                justify-content: flex-start;
+                align-items: center;
+                display: flex;
             }
             .cop-nav .cop-lang-link,
-            .cop-nav .cop-lang-current,
-            .cop-nav .cop-lang-unavailable {
-                display: block !important;
-                position: relative;
-                height: 56px;
-                width: 100% !important;
-                min-width: 0 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border: none !important;
-                border-radius: 0 !important;
-                background: transparent !important;
-                box-sizing: border-box;
-                overflow: hidden;
-                opacity: 0.6;
-                transition: opacity 0.2s ease;
-            }
-            .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
             .cop-nav .cop-lang-current {
-                opacity: 1 !important;
-                cursor: default;
-                box-shadow: inset 0 0 0 2px rgba(201,168,76,0.85);
+                font-size: 0.85rem !important;
+                padding: 0.55rem 0.85rem !important;
+                letter-spacing: 0.14em !important;
+                border-radius: 2px;
+                width: auto !important;
+                display: inline-block !important;
+                text-align: center !important;
+                border-bottom: none !important;
+                min-width: 44px;
             }
-            .cop-nav .cop-lang-unavailable { opacity: 0.25 !important; }
-            /* Hairline internal grid lines */
-            .cop-nav .cop-lang-switcher > *:nth-child(odd) {
-                border-right: 1px solid rgba(201,168,76,0.22) !important;
-            }
-            .cop-nav .cop-lang-switcher > *:nth-child(-n+2) {
-                border-bottom: 1px solid rgba(201,168,76,0.22) !important;
-            }
-            /* Active locale: gold text, no fill */
             .cop-nav .cop-lang-current {
+                background: rgba(201,168,76,0.18) !important;
+                border: 1px solid rgba(201,168,76,0.40) !important;
                 color: var(--warm-gold) !important;
-                font-weight: 700 !important;
             }
             .cop-nav .cop-lang-link {
                 color: rgba(255,255,255,0.62) !important;
+                background: transparent !important;
             }
             .cop-nav .cop-lang-link:hover {
                 color: var(--warm-gold) !important;
+                background: rgba(201,168,76,0.08) !important;
             }
             .cop-nav .cop-lang-unavailable {
-                color: rgba(255,255,255,0.25) !important;
+                opacity: 0.30;
                 cursor: not-allowed;
             }
 
