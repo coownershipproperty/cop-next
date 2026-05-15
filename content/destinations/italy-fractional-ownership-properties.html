@@ -1,351 +1,1075 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Italy Fractional Ownership Properties | Co-Ownership Property</title>
-  <meta name="description" content="Co-ownership properties in Italy from COP — deeded fractional ownership on the Italian Lakes, the Riviera, Sardinia, in Tuscany and across the Dolomites. Fully managed, 6–7 weeks of personal use a year, real equity in some of Europe's most supply-constrained second-home regions.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Italy Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Explore Italy fractional ownership as a cost-effective way to own a premium property">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+        
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
 </head>
 <body>
-
-<section class="page-hero">
-  <p class="eyebrow">Italy · Europe</p>
-  <h1>Italy Fractional Ownership <em>Properties</em></h1>
-  <p class="subtitle">From a Lake Como villa with its own jetty to a Costa Smeralda finca above the Gallura coast, a Tuscan podere in Chianti and a Dolomites chalet in Alta Badia — fractional ownership in Italy means a deeded share of some of Europe's most photographed addresses, six to seven weeks of personal use a year, and a fully managed home waiting whenever you arrive.</p>
-</section>
-
-<div class="dest-mid-cta">
-  <div class="dest-mid-cta-inner">
-    <h2>Italy's most coveted addresses, accessible through co-ownership.</h2>
-    <p>Fully managed villas, fincas, apartments and chalets across <strong>the Italian Lakes</strong>, <strong>the Riviera and Liguria</strong>, <strong>Sardinia</strong>, <strong>Tuscany</strong> and <strong>the Dolomites</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of some of Europe's most heritage-protected and supply-constrained second-home markets.</p>
-    <div class="dest-mid-cta-btns">
-      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
-      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
     </div>
-  </div>
-</div>
-
-<section class="dest-sec cream"><div class="dest-inner">
-
-<figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/2100x1400/eca5bbc559/como-essence-6.jpg" alt="A Lake Como villa terrace at Menaggio, with stone balustrade, mature gardens and the lake dropping away toward Bellagio" loading="lazy" />
-  <figcaption>A villa terrace above Menaggio, Lake Como dropping away toward Bellagio and the Grigne range beyond.</figcaption>
-</figure>
-
-<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
-  <h2 itemprop="name">What is fractional ownership in Italy?</h2>
-  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-    <p itemprop="text"><strong>Fractional ownership in Italy means buying a deeded 1/8 share of a luxury second home — a Lake Como villa, a Costa Smeralda compound, a Tuscan podere or a Dolomites chalet — held in a purpose-built LLC alongside seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
-  </div>
-</div>
-
-<h2>Why Italy?</h2>
-
-<p>Italy is, on the metrics that matter to an international second-home buyer, the <strong>most heritage-protected and supply-constrained luxury property market in Europe</strong>. The country's <em>Codice dei beni culturali e del paesaggio</em> places binding national-level protections on coastal, scenic and historic zones — and the regions that matter most to fractional buyers (the Italian Lakes, the Ligurian Riviera, the Costa Smeralda, Tuscany, the Dolomites) are among the most heavily protected in the entire country. The practical consequence is structural: the existing stock of waterfront villas on Como, harbour-front apartments in Portofino, granite compounds above Porto Cervo and stone fincas in Chianti is essentially the stock that will exist for the rest of the century. New build at scale is not coming. That is the central fact a fractional buyer is buying into.</p>
-
-<p>Your Italian share is held inside a <strong>purpose-built LLC</strong> alongside seven other co-owners. This is the same modern international structure used across every property on COP — Italy, France, Spain, the United States, the United Kingdom and elsewhere — rather than a legacy national vehicle that varies country by country. <strong>The practical effect</strong> is that your relationship with the property runs through <strong>one consistent ownership structure</strong> regardless of which property or jurisdiction you own in; resale is faster and lighter because transferring an <strong>LLC membership interest</strong> is a more direct administrative action than triggering a full title conveyance through an Italian notary; and for the meaningful proportion of owners who go on to add a second property in another market, the reward is a <strong>single international portfolio relationship</strong> rather than a stack of jurisdiction-specific arrangements that each behave differently.</p>
-
-<div class="dest-callout">
-  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and seven other owners hold equal membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
-</div>
-
-<p>Every property in the COP collection meets a defined quality bar — the property itself, the location, the management standard — and Italy's particular advantage in the European second-home set is the <strong>density of distinct propositions</strong> available inside that bar. <strong>Lake Como</strong> gives you the most internationally branded freshwater address in Europe, with two centuries of villa-and-garden architecture along a 50-kilometre shoreline of <a href="https://whc.unesco.org/" target="_blank" rel="noopener">UNESCO-relevant cultural significance</a>. <strong>The Italian Riviera</strong> gives you the original Mediterranean Grand Tour coast — Portofino, the Cinque Terre, the Tigullio gulf — at a smaller, more intimate scale than the French Côte d'Azur. <strong>Sardinia</strong>'s Costa Smeralda gives you genuinely Caribbean-grade beach water on the latitude of mainland Italy, in a planning regime that has essentially frozen new construction along the coast since the 1970s. <strong>Tuscany</strong> gives you a working agricultural landscape inside a UNESCO-protected cultural envelope, with the <a href="https://www.uffizi.it/en" target="_blank" rel="noopener">Uffizi</a>, the Venetian palazzi and <a href="https://guide.michelin.com/en/it/restaurants" target="_blank" rel="noopener">Italy's deepest Michelin scene</a> at the centre of it. And the <strong>Dolomites</strong> give you a <a href="https://whc.unesco.org/en/list/1237" target="_blank" rel="noopener">UNESCO World Heritage</a> alpine landscape that European serious skiers consistently rate alongside the highest French and Swiss tier. No single country in Europe — arguably none in the world — packs that many distinct luxury propositions inside one passport and one tax framework.</p>
-
-<p>It is worth setting Italy in its European competitive context. <strong>France</strong> offers comparable architectural pedigree along the Côte d'Azur and matchless legal predictability through the notarial system, but at meaningfully higher entry prices on the prime coastal and alpine markets and without anything equivalent to the Italian Lakes' particular freshwater-villa typology. <strong>Spain</strong> has the largest international second-home volume in Europe and the most developed multilingual professional-services infrastructure, but does not produce villas with the architectural depth of Como or the granite-compound vernacular of the Costa Smeralda. <strong>Switzerland and Austria</strong> cover the alpine offer at the high end but at considerably higher entry prices and, in the Swiss case, with <strong>Lex Koller</strong> restrictions on foreign ownership that the Italian Dolomites do not impose. <strong>Croatia</strong> is increasingly interesting on the Adriatic but the architectural and legal-administrative ecosystem is two decades younger than Italy's. None of these comparisons makes Italy categorically "better" — the right answer depends on the specific buyer's priorities — but they help frame why Italy is consistently the European country where buyers say "I want this exact place, and there is genuinely nothing like it anywhere else".</p>
-
-<p>The third structural argument for Italy is the <strong>density of usable lifestyle modes</strong> available inside the country. A Northern European family with a 1/8 share at <a href="https://www.visitcomo.eu/en/" target="_blank" rel="noopener">Lake Como</a> can use the same managed-portfolio relationship to add a winter share in Alta Badia and a summer share on Sardinia — three completely distinct propositions, three architectural traditions, three culinary cultures, all inside Italy, all in euros, all under one consistent LLC structure. An owner with a Florence apartment can be in the Chianti hills within forty minutes, on the Tuscan coast at Maremma within ninety, and on a high-speed Frecciarossa to Milan or Rome within an hour and a half — Italy's compact geography and its dense rail network mean a single share unlocks far more of the country than its postal address suggests. A British or Dutch couple looking for a freshwater-lake summer base, a winter snow base and a spring-and-autumn cultural-city base does not need to assemble three separate ownership structures across three jurisdictions; the same LLC framework can hold all three positions inside Italy. Few other countries — and none in Europe at Italy's price-to-quality ratio — can match that range.</p>
-
-<p>For a co-ownership buyer thinking strategically rather than just emotionally, Italy's combination of <strong>heritage protection, supply scarcity and lifestyle density</strong> matters more than the headline glamour. The Lake Como villa your share is in sits on a shoreline whose buildable land has been capped by regional planning and the lake's UNESCO buffer-zone protections; the original Belle-Époque garden villas of Cernobbio and Tremezzo are essentially the stock of villas that will exist for the rest of the century. The Costa Smeralda compound is in a region whose <strong>Piano Paesaggistico Regionale</strong> effectively prohibits new coastal construction within two kilometres of the shoreline. The Tuscan podere is in a working agricultural landscape protected by national-park and UNESCO-cultural designations across the Val d'Orcia. The Dolomites chalet sits inside a UNESCO World Heritage area whose strict alpine planning controls preserve traditional villages from the contemporary-glass-and-steel rebuilds you find in some of the higher French alpine resorts. These are not assets that depend on interest-rate cycles to hold their value; they depend on the unchanging facts that Italy remains Italy and that the country's protective frameworks remain in place.</p>
-
-<p>One under-discussed advantage that becomes obvious once you actually start using an Italian second home is the depth of the country's <strong>regional culinary and cultural infrastructure</strong>. Italy is the only country in the world with a UNESCO-recognised tradition of regional gastronomy where the difference between <strong>Ligurian, Lombard, Sardinian, Tuscan and Tyrolean cooking</strong> is genuinely a difference of countries within a country — and where each of those regions has its own celebrated Michelin scene, its own protected wine appellations (Chianti Classico, Brunello di Montalcino, Barolo, Prosecco, Vermentino di Gallura, Lugana), its own oil and cheese geographies, and its own market and festival calendar that returning owners learn to time their stays around. An Italian second home is a different kind of asset partly because it gives the owner repeated and increasingly knowledgeable access to one of the world's deepest regional cultures.</p>
-
-<p>The fourth structural advantage worth naming is the <strong>transport infrastructure</strong> that makes an Italian second home practically usable rather than just nominally owned. Italy operates one of Europe's densest high-speed rail networks — <a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener">Trenitalia's Frecciarossa</a> and <a href="https://www.italotreno.com/en" target="_blank" rel="noopener">Italo</a> connect Milan to Rome in under three hours, Milan to Florence in 1 hour 40, Rome to Naples in 1 hour 10 — and the country's airport system covers every regional second-home cluster from major Northern European hubs. The <strong>Milan-Malpensa (MXP)</strong> and <strong>Milan-Linate (LIN)</strong> gateways sit within an hour of Lake Como and Lake Maggiore; <strong>Bergamo (BGY)</strong> and <strong>Verona (VRN)</strong> serve Lake Garda; <strong>Genoa (GOA)</strong> and <strong>Nice (NCE)</strong> on the French side both serve the Riviera; <strong>Olbia (OLB)</strong> and <strong>Cagliari (CAG)</strong> serve Sardinia with sixty-plus European cities direct in summer; <strong>Pisa (PSA)</strong>, <strong>Florence (FLR)</strong> and <strong>Bologna (BLQ)</strong> serve Tuscany; <strong>Venice-Marco Polo (VCE)</strong> and <strong>Innsbruck (INN)</strong> on the Austrian side serve the eastern Dolomites. Owners coming from London, Amsterdam or Frankfurt can reach most Italian second-home clusters in under <strong>three hours door-to-door</strong>, which is the precondition for the high-frequency, short-stay use pattern that fractional ownership rewards.</p>
-
-</div></section>
-
-<section class="dest-sec white"><div class="dest-inner">
-
-<h2>Where to own in Italy</h2>
-
-<p>Italy's second-home market is best understood through <strong>five distinct geographies</strong>, each with its own architecture, climate, season and culture. The pages dedicated to each cluster — linked at the end of this section — go deeper on individual towns and zones; what follows is the country-level orientation that helps a reader narrow from "Italy" to a region. There are, of course, Italian second-home destinations beyond these five (the Amalfi Coast and Capri; the Puglian masseria belt around Ostuni and Lecce; the Sicilian coast at Taormina and Noto; the Umbrian and Marche hill towns) and we are happy to discuss them with buyers whose interests run that direction. But the supply story for fractional ownership in Italy is concentrated in the five clusters below: <strong>the Italian Lakes</strong>, <strong>the Italian Riviera and Liguria</strong>, <strong>Sardinia</strong>, <strong>Tuscany and the central hills</strong>, and <strong>the Dolomites and South Tyrol</strong>.</p>
-
-<h3>The Italian Lakes</h3>
-
-<p>The <strong>Italian Lakes</strong> — Como, Garda and Maggiore principally, with the smaller Iseo and Lugano alongside — are, by some distance, the <strong>single most internationally branded freshwater second-home market in the world</strong>. The 50-kilometre <a href="https://www.visitcomo.eu/en/" target="_blank" rel="noopener">Lake Como</a> shoreline carries two centuries of villa-and-garden architecture, from the late-18th-century <strong>Villa del Balbianello</strong> and <strong>Villa Carlotta</strong> through to the contemporary lakefront houses still being built within the strict planning envelope. The 160-kilometre <a href="https://www.visitgarda.com/en/" target="_blank" rel="noopener">Lake Garda</a> is the largest of the three, with a Mediterranean microclimate at its southern tip (olives and lemons grow on the shore at Sirmione and Limone) that gives it a longer usable season than either of its sisters. <a href="https://www.illagomaggiore.com/en/" target="_blank" rel="noopener">Lake Maggiore</a> shares its northern shore with Switzerland and carries the same Belle-Époque garden tradition as Como at a smaller scale. All three are within an hour of <strong>Milan-Malpensa</strong> or <strong>Linate</strong> and within a half-day's drive of most of southern Germany, Austria and Switzerland.</p>
-
-<figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/2100x1400/863ff16d22/new_it0677a-i-dolce-domaso-ii_terrace.jpg" alt="A Lake Como villa terrace at Domaso, sun loungers on a stone platform above the water with the lake stretching south toward Bellagio" loading="lazy" />
-  <figcaption>A Lake Como terrace at Domaso, the upper lake opening southward toward Bellagio and Menaggio.</figcaption>
-</figure>
-
-<p><strong>Lake Como</strong> is the anchor of the proposition. The major sub-zones for international buyers cluster on the lake's <strong>middle and upper sections</strong>: <strong>Bellagio</strong> at the point where the three branches meet (the photogenic centre of the lake, the most internationally famous of the lake villages, and a working town with year-round restaurants and shops); <strong>Menaggio and Tremezzo</strong> on the west shore (a quieter, more residential strip with deep-set villa gardens dropping to the water — Villa Carlotta is here); <strong>Varenna and the east shore</strong> (the Lecco-side villages, smaller and less developed, with their own ferry network); <strong>Como town</strong> itself at the southern tip (a serious small Italian city with the lake's main rail link to Milan, a working centre rather than a resort); and <strong>Domaso, Gravedona and the upper north shore</strong> (the windsurfing end of the lake, popular with German and Swiss buyers, with the snow-covered Alps visible from every terrace). The architectural vernacular is specific — pastel-painted stuccoed walls, deep balconies with iron railings, terraced gardens descending to private boathouses, the famous Belle-Époque garden composition of cypress, magnolia and camellia — and it is the kind of building stock that has not been recreated anywhere else in the world.</p>
-
-<figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/2100x1400/929cb732d1/torri-garden-4.jpg" alt="A Lake Garda villa garden at Torri del Benaco, with stone paths through olive and citrus trees down to a private waterfront" loading="lazy" />
-  <figcaption>A Lake Garda garden at Torri del Benaco, olives and lemons running down to the eastern shore.</figcaption>
-</figure>
-
-<p><strong>Lake Garda</strong> works to a different rhythm and a wider price band. The southern shore around <strong>Sirmione, Desenzano and Lazise</strong> has a near-Mediterranean climate — olives, lemons, vines all grow on the shore — and the broader, flatter geography here produces a softer, more agricultural landscape than Como's mountain-clad steep shores. The eastern shore — <strong>Bardolino, Garda, Torri del Benaco, Malcesine</strong> — is the <strong>Riviera degli Olivi</strong>, the olive Riviera, the most consistently planted with vineyards and citrus and the most established for German and Austrian buyers who can drive to the lake in a long day from Munich or Vienna. The northern shore — <strong>Riva del Garda, Limone</strong> — is dramatic alpine territory where the lake narrows between vertical limestone cliffs, with the windsurfing and sailing scene anchored at the top. The western shore — <strong>Salò, Gardone, Limone</strong> — has the Belle-Époque hotel tradition and the most concentrated villa stock. <a href="https://www.illagomaggiore.com/en/" target="_blank" rel="noopener">Lake Maggiore</a>, the third of the major lakes, anchors around <strong>Stresa, Baveno and the Borromean Islands</strong> on the western shore — a quieter, more Belle-Époque-preserved strip with the famous garden villas of <strong>Isola Bella</strong> and <strong>Isola Madre</strong> at its centre — and around <strong>Laveno and the eastern shore</strong> closer to the Swiss border.</p>
-
-<p>The international buyer mix on the lakes is the <strong>most diverse of any Italian region</strong>. Historically German, Austrian and Swiss (the lakes are a half-day's drive from Munich, Stuttgart, Zurich and Vienna), with a long British contingent and a meaningful American presence on Lake Como in particular — partly anchored by the long shadow of the lake's late-2000s star-power moment around Laglio. Northern Italian families from Milan and Brescia have always anchored the year-round residential market. Climate-wise, the lakes run from <strong>3–8°C (high 30s°F to high 40s°F)</strong> in January (Como) or <strong>5–10°C (low 40s°F to 50°F)</strong> on southern Garda, to <strong>26–30°C (high 70s°F to high 80s°F)</strong> in July and August. The usable season runs from late March through early November, with a brief but rewarding cultural-and-Christmas-market window in December. <strong>Best for:</strong> design-led couples and families who want the most internationally photographed freshwater address in Europe, who value the architectural depth of Belle-Époque villa gardens, and who are within a half-day's drive or a short flight of Milan.</p>
-
-<h3>The Italian Riviera and Liguria</h3>
-
-<p>The Italian Riviera — running from the French border at Menton east through <strong>Sanremo, Imperia, Alassio, Loano, Albenga, Finale Ligure, Noli, Genova, Camogli, Portofino, Santa Margherita Ligure, Sestri Levante and the Cinque Terre</strong> — is the original Mediterranean Grand Tour coast and one of the most architecturally distinct in Europe. The geography is severe: <strong>the Apennines drop directly to the sea</strong> along almost the entire length of the coast, producing the famous near-vertical villages of pastel-painted houses stacked above tiny harbours that have made <a href="https://www.turismoinliguria.it/en" target="_blank" rel="noopener">Liguria</a> one of the most photographed regions in Italy. The <strong>Cinque Terre</strong> — Monterosso, Vernazza, Corniglia, Manarola, Riomaggiore — is a <a href="https://www.parconazionale5terre.it/Eindex.php" target="_blank" rel="noopener">UNESCO World Heritage Site</a> and a national park whose protective regime is among the strictest on any Italian coast. New build is essentially impossible across the protected stretches, and the existing stock of harbour-front apartments, pastel-painted village houses and contemporary villas on the green inland hills is the stock that will exist indefinitely.</p>
-
-<figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/2100x1400/b753f8abd9/it0889a-_-villa-mareluce-i-italien-3.jpg" alt="A Ligurian villa above Laigueglia with a private pool overlooking the Italian Riviera, with the Mediterranean stretching toward Imperia" loading="lazy" />
-  <figcaption>A villa above Laigueglia on the Ligurian Riviera di Ponente, the Mediterranean stretching west toward Imperia.</figcaption>
-</figure>
-
-<p>The Riviera divides cleanly into two halves. The <strong>Riviera di Ponente</strong>, west of Genova, runs from the French border down through the larger coastal towns — <strong>Sanremo</strong> (the historic Belle-Époque resort, home to Italy's most famous song festival), <strong>Alassio, Laigueglia, Loano</strong> (the long sandy beaches and the more accessible villa-and-apartment stock), <strong>Finale Ligure and Noli</strong> (the medieval harbour towns increasingly favoured by the design-led buyer). The Riviera di Ponente is broader in geography, with longer beaches, more sun and a slightly less precipitous landscape than the eastern half — and the international buyer base has historically been the strongest here. The <strong>Riviera di Levante</strong>, east of Genova, is the dramatic Riviera most non-Italians picture when they think of the coast: <strong>Camogli</strong> (the perfect pastel harbour, a fishing village turned residential), <strong>Portofino</strong> (the most architecturally photographed harbour in the world), <strong>Santa Margherita Ligure and Rapallo</strong> (the Tigullio gulf's working towns, with the Belle-Époque hotel tradition still alive), <strong>Sestri Levante</strong> (the Bay of Silence and the Bay of Fables, twin coves at the south end of the gulf), <strong>the Cinque Terre</strong> (UNESCO-protected, no cars in the villages, the iconic five), <strong>Portovenere and Lerici</strong> (the Gulf of Poets at the eastern end, where Shelley and Byron and D.H. Lawrence wrote about the coast).</p>
-
-<figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/2100x1400/d83d0abcda/castello-horizon-5.jpg" alt="A Ligurian villa pool at Loano, with the Italian Riviera coastline stretching east toward Genova and the inland Apennines rising behind" loading="lazy" />
-  <figcaption>A Loano pool above the Riviera, the Apennines rising sharply behind the coast.</figcaption>
-</figure>
-
-<p>The international buyer mix on the Ligurian Riviera is anchored by <strong>British, German and Swiss</strong> owners with a long-running tradition of Riviera ownership, with a meaningful French presence on the western Riviera di Ponente closest to the border, and a growing American share concentrated on the Tigullio gulf around Portofino and Santa Margherita. Italian buyers from Milan and Turin have always anchored the year-round residential market — the Riviera is a <strong>weekend coast</strong> for the major northern industrial cities, and the railway from Milano Centrale to Sestri Levante runs in three hours. Climate-wise the Riviera runs <strong>8–13°C (high 40s°F to mid-50s°F)</strong> in winter — meaningfully milder than the Italian Lakes and the inland north — to <strong>26–30°C (high 70s°F to high 80s°F)</strong> in July and August, with the long shoulder seasons (March–May and September–November) that have always been the Riviera's particular gift to its owners. <strong>Best for:</strong> buyers who want the original Mediterranean Riviera architectural tradition at a more intimate scale than the French Côte d'Azur, who value the dense network of small harbour towns and pastel village stocks, and who are within easy reach of Milan, Genova or the French border.</p>
-
-<h3>Sardinia</h3>
-
-<p><a href="https://www.sardegnaturismo.it/en" target="_blank" rel="noopener">Sardinia</a> is the wildest and the most water-distinctive of Italy's major second-home regions. The island sits in the Tyrrhenian Sea 200 kilometres west of the mainland and 12 kilometres south of Corsica, with a climate, a culture, a language (<strong>Sardo</strong>) and an architectural vernacular that are genuinely island-distinct. The Sardinian coastline runs to <strong>1,850 kilometres</strong> — longer than the Italian peninsula's mainland Mediterranean coast — and the water clarity across most of the island matches the Caribbean at its clearest. The legendary <strong>Costa Smeralda</strong> on the north-east coast is the most internationally branded sub-zone, conceived in the early 1960s by the Aga Khan and a small group of investors who deliberately designed it as a low-density, architecturally controlled, ecologically sympathetic resort coast — and the <strong>Piano Paesaggistico Regionale</strong> has effectively prohibited new coastal construction within two kilometres of the shoreline ever since.</p>
-
-<figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/1838x1225/92ba8fab47/it0748a-_-palau-piccolo-anlage.jpg" alt="A Sardinian villa compound at Palau, with stone walls, a private pool and the Maddalena archipelago visible across the strait" loading="lazy" />
-  <figcaption>A villa compound at Palau on the Gallura coast, the Maddalena archipelago across the strait toward Corsica.</figcaption>
-</figure>
-
-<p>The principal Sardinian sub-zones for international buyers cluster on the <strong>north-east coast</strong> — the area collectively called <strong>Gallura</strong>. The Costa Smeralda runs from <strong>Porto Cervo</strong> (the resort's deliberately-designed centre, with the Cala di Volpe lagoon and the marina) through <strong>Porto Rotondo</strong> (the sister resort to the south, more residential), <strong>Pevero, Liscia di Vacca, Romazzino and Cala Granu</strong> (the Costa Smeralda's interior bays and headlands). North of the Costa Smeralda, <strong>Palau and Cannigione</strong> sit on the strait that separates Sardinia from the <strong>Maddalena archipelago</strong> — a national park of seven main islands and dozens of smaller ones whose granite shores produce some of the most extraordinary water in the Mediterranean. The <strong>Gallura interior</strong> — the inland granite plateau between Olbia and Tempio Pausania — preserves the traditional Sardinian <em>stazzi</em>, the stone shepherds' farmhouses that have been increasingly converted into discreet luxury rural retreats. South-west of the Costa Smeralda, the coast around <strong>Porto Istana, San Teodoro and Budoni</strong> is the more accessible and more family-oriented strip; further south, the <strong>Costa Rei</strong> and the <strong>south-east coast around Villasimius</strong> are the quieter and less Aga-Khan-branded alternatives. The west coast around <strong>Alghero</strong> (a Catalan-speaking town with a different cultural inheritance from the rest of the island) and the south around <strong>Chia and Pula</strong> have their own distinct micro-markets.</p>
-
-<p>The Costa Smeralda's planning controls — the Consorzio Costa Smeralda's binding architectural charter dating from 1962, plus Sardinia's regional coastal-protection laws — give the area one of the strictest building regimes in the entire Mediterranean. The result is a coastline where the existing stock of low-slung pink-granite villas, stuccoed compounds with pergolas of bougainvillea and traditional <em>stazzi</em> conversions is the stock that will exist indefinitely. The international buyer mix is anchored by <strong>Italian, Russian, French, British and American</strong> owners, with a meaningful Middle Eastern presence on the Costa Smeralda's most discreet compounds, and a growing Scandinavian share across the wider Gallura. Climate-wise the island runs <strong>10–15°C (50s°F)</strong> in winter to <strong>27–33°C (low 80s°F to low 90s°F)</strong> in July and August, with sea temperatures reaching <strong>24–26°C (mid-70s°F)</strong> through July, August and September. The usable beach window runs from late May through early October, with the shoulder months (April–May and September–early October) consistently the most rewarding for owners with calendar flexibility. <strong>Best for:</strong> buyers who want genuinely Caribbean-grade beach water on Italian latitude, the architectural pedigree of the Costa Smeralda's controlled-development legacy, and a coast where supply is regulatorily frozen and the existing stock is finite and irreplaceable.</p>
-
-<h3>Tuscany and the central hills</h3>
-
-<p><a href="https://www.visittuscany.com/en/" target="_blank" rel="noopener">Tuscany</a> is the working agricultural heart of central Italy and one of the few European regions where a UNESCO-recognised cultural envelope coincides almost exactly with the area that international buyers want to own in. The classic Tuscan second-home zones run from the <strong>Chianti Classico</strong> hills between Florence and Siena (the <em>strada chiantigiana</em> from Florence through <strong>Greve, Panzano, Castellina and Radda</strong> down to Siena is the most-photographed agricultural road in Italy), through the <strong>Val d'Orcia</strong> (a UNESCO World Heritage cultural landscape south of Siena, anchored on <strong>Pienza, Montalcino, Montepulciano and San Quirico</strong>), the <strong>Crete Senesi</strong> (the bare clay-and-cypress landscape east of Siena), the <strong>Maremma coast</strong> (the wilder, agricultural southern Tuscan coast around <strong>Capalbio, Castiglione della Pescaia and Argentario</strong>) and the <strong>Versilia coast</strong> (the polished beach resorts around <strong>Forte dei Marmi</strong> in the north-west, on the Apuan Alps below Carrara). And at the centre, <strong>Florence</strong> itself — the Renaissance city whose centro storico is essentially a UNESCO-protected open-air museum.</p>
-
-<figure class="dest-figure">
-  <img src="https://lh3.googleusercontent.com/d/17kBIz3eRJuOkGoNE0kDMuZ1hwptY17-M" alt="A Florence apartment with classic Tuscan terracotta floors, exposed timber ceiling beams and tall shuttered windows opening over the city" loading="lazy" />
-  <figcaption>A Florence apartment in the centro storico, terracotta floors and exposed-beam ceilings looking over the Renaissance city.</figcaption>
-</figure>
-
-<p>The architectural inheritance is the heart of the proposition. The traditional Tuscan <strong>podere</strong> — a stone farmhouse with terracotta roof tiles, thick walls, deep-set windows, ground-floor stables converted to living space and an upper-floor living room with a fireplace large enough to roast meat in — is the building type that the international buyer most often pictures and most often actually wants. The classic restoration converts the ground-floor stalls to bedrooms or a kitchen, opens the upper rooms to a single living-and-dining space, adds a swimming pool below the house with a view across the vineyards or olives, and restores the <em>fienile</em> (hay barn) into a guest cottage. The architectural rules are strict: in the protected Chianti Classico and Val d'Orcia zones, exterior modifications require regional <strong>Soprintendenza</strong> approval, no swimming pool may be larger than the planning-prescribed maximum, and the materials palette is binding (local stone, terracotta roof tiles, traditional shutters in muted greens or browns). The result is that a restored podere looks unmistakably and authentically Tuscan rather than like a contemporary villa in a Tuscan dress.</p>
-
-<figure class="dest-figure">
-  <img src="https://lh3.googleusercontent.com/d/162pLLPRaEi0sFfzuSdI_ELwzcZXb0DAh" alt="A Tuscan podere at Castiglioncello del Trinoro in the southern Val d'Orcia, with stone walls and a swimming pool overlooking the rolling hills" loading="lazy" />
-  <figcaption>A restored podere at Castiglioncello del Trinoro, the Val d'Orcia rolling south toward Mount Amiata.</figcaption>
-</figure>
-
-<p>Florence and the cities have a quite separate proposition. A <strong>Florence apartment</strong> in the centro storico — typically a piano nobile in a 15th- or 16th-century palazzo, with original terracotta floors, exposed timber ceilings and tall shuttered windows opening onto a narrow medieval street — gives an owner repeated short-stay access to the densest concentration of Renaissance art in the world. The <a href="https://www.uffizi.it/en" target="_blank" rel="noopener">Uffizi</a>, <a href="https://www.galleriaaccademiafirenze.it/en/" target="_blank" rel="noopener">the Accademia</a> (home of Michelangelo's David), the Bargello, the Pitti Palace and the Duomo are all within a 600-metre walk of each other; <a href="https://www.feelflorence.it/en" target="_blank" rel="noopener">the official Florence portal</a> covers the cultural calendar. The Oltrarno on the south bank — Santo Spirito, San Frediano — is the more residential and quietest district. <strong>Siena</strong>, <strong>Lucca</strong> (a small walled Renaissance city in the Tuscan north-west) and <strong>Pisa</strong> all have their own much smaller-scale apartment markets. Wine-and-food owners often choose Tuscany over coastal options for the same reason cultural-city owners do: the <a href="https://www.chianticlassico.com/en/" target="_blank" rel="noopener">Chianti Classico</a>, <a href="https://www.consorziobrunellodimontalcino.it/en/" target="_blank" rel="noopener">Brunello di Montalcino</a> and Vino Nobile di Montepulciano appellations sit within an hour of each other, the central Italian Michelin scene is exceptional, and the agricultural calendar gives the same property a fundamentally different character in May, in September and in December.</p>
-
-<p>The international buyer mix in Tuscany is the most internationally diverse outside the Costa Smeralda, with strong <strong>British, German, American and Dutch</strong> contingents and a meaningful Belgian and Scandinavian share. Climate-wise the inland hill country runs <strong>3–10°C (high 30s°F to 50°F)</strong> in winter to <strong>28–34°C (low 80s°F to mid-90s°F)</strong> in July and August; the Maremma and Versilia coasts run slightly warmer in summer and slightly milder in winter; Florence in summer can be intensely hot and is largely abandoned by Florentines in August. The most rewarding usage windows are <strong>April–June</strong> and <strong>September–early November</strong> — the long Tuscan shoulder seasons that the agricultural calendar revolves around. <strong>Best for:</strong> wine-and-food sophisticates, art and Renaissance enthusiasts, and buyers who want a working agricultural landscape inside a UNESCO-protected cultural envelope, with the Florence cultural infrastructure as a permanent neighbour.</p>
-
-<h3>The Dolomites and South Tyrol</h3>
-
-<p>The <a href="https://www.dolomiti.org/en/" target="_blank" rel="noopener">Dolomites</a> are Italy's serious alpine cluster and a <a href="https://whc.unesco.org/en/list/1237" target="_blank" rel="noopener">UNESCO World Heritage Site</a> — and they are notably distinct from the French and Swiss alpine resorts. The geology is unique: pale-grey limestone-and-dolomite peaks that turn pink at sunrise and sunset (the famous <em>enrosadira</em>) and that produce some of the most photographed mountain landscapes in Europe. The architectural inheritance is German-Tyrolean rather than French Savoyard — chalets with deep wooden balconies, stone ground floors and shingled roofs, the older villages built around the church and the working farms rather than around the lift station — and across <strong>South Tyrol (Alto Adige)</strong> in particular, both German and Italian are official languages, the cuisine is closer to Austrian than southern Italian (speck, canederli, schlutzkrapfen, strudel), and the architectural and planning controls preserve the traditional villages from the kind of contemporary-glass-and-concrete rebuilds that dominate some of the higher French resorts.</p>
-
-<figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/2100x1400/50de3f9989/casa-dolomia-4.png" alt="A South Tyrol chalet at Petersberg in the Dolomites, with timber balconies, stone walls and snow-covered peaks rising behind" loading="lazy" />
-  <figcaption>A South Tyrol chalet at Petersberg, the Latemar massif rising behind the village.</figcaption>
-</figure>
-
-<p>The principal Dolomites sub-zones for international buyers cluster around the famous resorts. <a href="https://www.cortina.dolomiti.org/en" target="_blank" rel="noopener">Cortina d'Ampezzo</a> in the Veneto is the most internationally branded — historic Olympic venue, host of the 1956 Winter Olympics and the 2026 Winter Olympics, the resort that defines luxury Italian alpine — set in a wide bowl with the dramatic Tofane and Cristallo massifs rising directly above. <a href="https://www.altabadia.org/en" target="_blank" rel="noopener">Alta Badia</a> in South Tyrol — anchored on <strong>Corvara, San Cassiano and La Villa</strong> — is part of the <strong>Sellaronda</strong>, the legendary day-tour circuit around the Sella massif, and consistently rated among the highest-quality ski domains in Europe by serious skiers. <a href="https://www.valgardena.it/en/" target="_blank" rel="noopener">Val Gardena</a> — Ortisei, Santa Cristina, Selva — is the other Sellaronda anchor, a wider, sunnier valley with the most photographed mountain scenery in the entire Dolomites. <strong>Madonna di Campiglio</strong> in the western Dolomites is the long-favoured Milanese ski resort, with a French-style polished resort feel inside an Italian Trentino setting. The smaller <strong>Brenta Dolomites</strong>, <strong>Plan de Corones (Kronplatz)</strong> and <strong>Val di Fassa</strong> all have their own micro-markets.</p>
-
-<p>The fractional argument in the Dolomites is partly <strong>regulatory and architectural</strong>. Italy has nothing equivalent to <strong>Switzerland's Lex Koller</strong> restrictions on foreign ownership, and the planning regime in South Tyrol in particular preserves the traditional alpine village stock more uniformly than the high French resorts have managed — the result is that for a serious skiing family, the Dolomites offer access to genuine UNESCO World Heritage alpine landscape at price points typically below the comparable French and Swiss tier, with a village architectural inheritance that has not been bulldozed by contemporary build-outs. The valleys are genuinely usable in summer — the Dolomites are one of Europe's great hiking and mountain-biking landscapes, the <strong>Alta Via</strong> long-distance routes run for hundreds of kilometres across the range, and the lower villages run their full restaurant and hospitality season from June through September — which makes a Dolomites share more reliably year-round than most owners initially expect.</p>
-
-<p>The owner mix in the Dolomites is heavily <strong>Italian (Milanese and Veronese families primarily)</strong>, German and Austrian (the South Tyrolean valleys are within a half-day's drive of Munich and Vienna), with a meaningful British presence in Cortina and Alta Badia and a growing American share following the 2026 Olympic exposure. Daytime winter temperatures around the major villages run <strong>minus 8°C to 3°C (high teens°F to high 30s°F)</strong>; summer in the same valleys runs <strong>15–25°C (high 50s°F to high 70s°F)</strong> with the dry mountain air that makes alpine summers so usable. <strong>Best for:</strong> serious skiing families who want access to the UNESCO World Heritage Dolomites and the Sellaronda's legendary inter-connected ski domain, at price points typically below the comparable French and Swiss tier, and who value the German-Tyrolean village architectural inheritance.</p>
-
-</div></section>
-
-<section class="dest-sec cream"><div class="dest-inner">
-
-<h2>A year in your Italian co-ownership home</h2>
-
-<p>Spreading <strong>45 days of use</strong> across a calendar year is itself a skill — and one of the unsung benefits of owning across multiple Italian regions through one portfolio is that you can <strong>match the season to the property</strong> rather than the property to the date. Italy is unusually well-suited to this kind of multi-region thinking because the country's geography — from the alpine Dolomites to the Tyrrhenian island of Sardinia — means there is essentially always somewhere in your portfolio that is at its best in any given month. Below is a country-level walk through the year, with the particular weeks that owners across the COP network return to most often. The pattern is broadly the same across all <strong>eight co-owners</strong> of a given property, with the calendar mechanics ensuring every owner gets a <strong>fair allocation of peak weeks</strong> across a multi-year cycle. Owners who are flexible enough to use shoulder weeks (rather than competing for August on the Italian coast or February in the Dolomites) consistently report a <strong>higher use-quality</strong> from their share than those who insist on peak.</p>
-
-<h3>Spring (March–May)</h3>
-
-<p>Italian spring is, by some measures, the most <strong>under-used of the four seasons</strong> by international buyers — and consequently one of the most rewarding for a fractional owner with calendar flexibility. <strong>March on Lake Garda and the Ligurian Riviera</strong> is already running at <strong>15–19°C (high 50s°F to high 60s°F)</strong> in the day, the lemon trees on the southern Garda shore are in full flower, and the Riviera's olive blossom is beginning to set. The Cinque Terre trails reopen properly in March and run uncrowded through to the end of May — the period when the dry-stone-walled terraces of vines and olives are at their most photogenic. <strong>April</strong> is the working agricultural peak across central Italy: the Chianti and Val d'Orcia in Tuscany run at their photographed best (poppies, broom, wild flowers, lambs in the fields), the Sardinian wildflower season transforms the granite interior, and the Veronese and Brescian wine regions around Lake Garda — Valpolicella, Lugana, Bardolino — work through pruning and bottling.</p>
-
-<p><strong>May</strong> is the month many seasoned Italian-property owners insist on. The Italian Lakes are at their absolute peak — Como's villa gardens fully out, Garda's olive groves silver-green, the lake water still cold enough that the high-summer crowds have not arrived but warm enough on the lower lakes for a brief swim. The Maggiore islands — <strong>Isola Bella, Isola Madre, Isola dei Pescatori</strong> — reopen their gardens for the season. <strong>The Tuscan May</strong> is unmistakable: the Chianti hills full of broom in flower, the Val d'Orcia's wheat fields just turning gold, the Florence cultural calendar at its springtime peak. Sardinia warms enough for the first proper beach use of the year by mid-May, the Costa Smeralda restaurants reopen, and the Maddalena ferries restart their full schedule. <strong>The Dolomites in May</strong> are the locals' favourite alpine season — the lifts mostly closed, the snow line retreating up the high peaks, the lower meadows in full bloom and the alpine huts beginning to reopen for the summer hiking calendar.</p>
-
-<h3>Summer (June–August)</h3>
-
-<p>The Italian summer pattern is well-defined and worth understanding before allocating weeks. <strong>June is the Mediterranean's secret month</strong>: warm enough for swimming (sea temperatures climb past <strong>22°C (72°F)</strong> on the Sardinian and Ligurian coasts by mid-June), the village calendars at their pre-peak best, the long evening light at its softest, and the high-summer crowds still a fortnight away. <strong>July</strong> brings the high season proper — the Italian school holidays begin around the 10th of June — and a noticeable shift in restaurant pace, beach availability and traffic on the coast roads. The Northern European summer holidays begin to stack from mid-July onward; the major coastal resorts in particular reach their <strong>highest-density visitor week</strong> in the seven days either side of <strong>Ferragosto</strong>, the national holiday on the 15th of August.</p>
-
-<p><strong>August in Italy</strong> divides cleanly between coast and inland. The Costa Smeralda, the Ligurian Riviera and the Versilia coast are at their <strong>absolute peak</strong> — and their <strong>most expensive</strong> — with the Porto Cervo marina, Portofino harbour and Forte dei Marmi beach clubs running at full capacity. Restaurant booking windows in the prime resorts stretch to <strong>four to six weeks ahead</strong> in August; villa staff calendars are pre-allocated; the coast roads on the Costa Smeralda between Olbia and Porto Cervo can double end-to-end journey times. The Italian Lakes also reach their peak in August, with Como, Garda and Maggiore running at full restaurant capacity and the ferry network at full schedule. <strong>Florence, Milan and Rome in August</strong>, by contrast, follow the same exodus pattern as Paris — many traditional restaurants close, the central districts empty, and the cities are at their quietest (and paradoxically most pleasant) for a visitor with no work obligations. Florentines abandon the city for the coast or the mountains; the Florence apartment becomes a quietly liveable proposition for a foreign owner. The <strong>Dolomites in summer</strong> — Cortina, Alta Badia, Val Gardena — are an entirely different proposition from winter: hiking, mountain biking, the <a href="https://www.dolomiti.org/en/" target="_blank" rel="noopener">Alta Via routes</a>, the long-distance trail network, the alpine restaurants on the high ridges. Sardinia in August is the Mediterranean island at its visual peak — the water clarity, the warm evenings, the August festival calendar across the Gallura villages.</p>
-
-<h3>Autumn (September–November)</h3>
-
-<p>For many seasoned Italian-property owners, <strong>autumn is the favourite</strong>. <strong>September on the Italian coast and Sardinia</strong> is the locals' month — sea temperatures still <strong>above 23°C (73°F)</strong> through most of the month on the Costa Smeralda and the Riviera, daytime air around <strong>26–28°C (high 70s°F to low 80s°F)</strong>, the August crowds dispersed within ten days of the new school term starting, restaurants taking reservations again the same week you ask. The <strong>vendemmia</strong> — the Italian grape harvest — runs through September and October across <a href="https://www.chianticlassico.com/en/" target="_blank" rel="noopener">Chianti Classico</a>, Brunello, Vino Nobile, Valpolicella, the Veneto Prosecco hills and the Sardinian Vermentino zones; owners who care about wine increasingly time at least one stay around the harvest. Lake Como, Lake Garda and Lake Maggiore enter their long warm shoulder season — daytime air still <strong>20–24°C (high 60s°F to mid-70s°F)</strong>, the villa gardens at their late-summer fullness, the lake ferries on full schedule until late October.</p>
-
-<p><strong>October and November in Italy divide cleanly</strong>. The Mediterranean coast stays mild — daytime highs around <strong>20–24°C (high 60s°F to mid-70s°F)</strong> through October, dropping to <strong>15–18°C (high 50s°F to mid-60s°F)</strong> by mid-November, with swimming generally finished by mid-October but everything else still very much open — while <strong>Florence, Milan and Venice enter their golden cultural months</strong>. The new opera seasons at <a href="https://www.teatroallascala.org/en/" target="_blank" rel="noopener">La Scala in Milan</a> and the Teatro La Fenice in Venice open in October; the Salone del Mobile design week runs in April but the autumn design and art calendars in Milan and Florence are at their busiest; the <a href="https://www.biennale.org/en" target="_blank" rel="noopener">Venice Biennale</a> in art or architecture years runs through November. Tuscany in October and November is at its agricultural-calendar best: the olive harvest (the famously short, intense October-into-early-November olio nuovo window), the truffle season in the Marche and the lower Apennines, the inland village markets, the Chianti hills turning russet and gold. The <strong>Dolomites in October</strong> are the off-season — the lifts mostly closed from late October through mid-December, though the lower valleys (Cortina, Corvara, the Alpe di Siusi) are genuinely usable for autumn walking and the inland restaurants run through the shoulder. <strong>November in Italy</strong> is the quietest month for the international owner — and consequently one of the most rewarding for the owner who values the country emptied of foreign visitors.</p>
-
-<h3>Winter (December–February)</h3>
-
-<p>Winter is, for the majority of Italian co-ownership owners, <strong>the moment the Dolomites and cultural-city shares earn their place</strong>. The lifts open in Cortina, Alta Badia and Val Gardena from <strong>early December</strong>; <strong>Christmas and New Year</strong> is the highest-demand fortnight of the year, with chalet calendars booked many months ahead; <strong>January</strong> is the quietest month of the season but with the most reliable cold-and-snow conditions; the <strong>February school holidays</strong> bring the second peak. Owners who use their alpine week around Easter — typically the first or second week of April rather than late March — get the best of late-season Dolomites skiing.</p>
-
-<p><strong>The Italian cities in winter</strong> are their most secret versions of themselves. December decorated to a high standard with the Florence and Venice Christmas markets; January and February quiet, museum-rich, and rewarding for owners who want the cultural cities without the summer tourist density. The Florence Uffizi, the Venice palazzi, the Milan Pinacoteca di Brera and the Vatican museums in Rome all run at a fraction of their July visitor numbers. <strong>The Italian Lakes in winter</strong> are unexpectedly atmospheric — the lower temperatures (3–9°C / high 30s°F to high 40s°F on Como; slightly milder on southern Garda), the early sunsets across the still water, the Christmas markets in Bellagio, Como town, Sirmione and Stresa, the lakeside restaurants running through the winter on a quieter schedule. <strong>The Ligurian Riviera in winter</strong> is the warmest stretch of the Italian north — <strong>12–16°C (mid-50s°F to low 60s°F)</strong> daytime, the Mediterranean microclimate keeping the lemon trees and bougainvillea alive through the season — and the coast empties of summer crowds to leave the long pastel harbours to the year-round residents and the international owners. Sardinia in winter is dramatic and quiet — the coast empty, the granite interior austere and beautiful, the village restaurants on a winter rhythm but very much open — and the island runs <strong>10–15°C (50s°F)</strong> in January with the long crisp Mediterranean light at its most photogenic.</p>
-
-</div></section>
-
-<section class="dest-sec white"><div class="dest-inner">
-
-<h2>Who buys in Italy, and why</h2>
-
-<p>The international buyer mix in Italian fractional ownership is the <strong>most architecturally and culturally driven of any European market</strong>. Italian property is, more than almost any other European destination, an emotional purchase as well as a financial one — and the buyer base reflects that. <strong>British buyers</strong> have anchored Italian second-home ownership for more than a century (the post-Grand-Tour Anglo-Italian tradition is older than the country itself), and the LLC ownership structure — which uses a corporate vehicle and is <strong>unaffected by the 90-in-180-day Schengen rule</strong> for personal days — is one reason the British presence has held up strongly post-Brexit. <strong>German and Austrian buyers</strong> are the second-largest cohort and dominate the Italian Lakes and the South Tyrol Dolomites in particular — Munich is closer to Lake Garda than to Hamburg, and the South Tyrolean valleys are bilingual German-and-Italian by constitutional right. <strong>Swiss buyers</strong> are a serious and long-established presence on Lake Maggiore, Lake Como and across the Italian Riviera. <strong>French buyers</strong> dominate the western Ligurian Riviera close to the border and have a growing share in Tuscany. <strong>American buyers</strong> are the fastest-growing cohort across all the Italian clusters — drawn to Tuscany for the cultural depth, the Lakes for the Belle-Époque architecture, the Costa Smeralda for the Mediterranean lifestyle, and the Dolomites following the 2026 Winter Olympics exposure. <strong>Scandinavian, Dutch and Belgian</strong> buyers form a meaningful long tail across all regions.</p>
-
-<p>The <strong>age-and-life-stage profile</strong> is in some respects more relevant than the nationality breakdown. The largest single buyer cohort across the Italian portfolio is in the <strong>50–70 age band</strong> — owners whose primary income is established, whose children are at university or beyond (which gives them more calendar flexibility than the working-family cohort), and whose long-run thinking on the second home runs to the <strong>next 20–25 years</strong>. The second-largest cohort is the <strong>40–55 age band</strong> — typically dual-income professional couples with school-age children, who use their share around school holidays and value the operational simplicity of a fully managed property. The third and fastest-growing cohort is the <strong>65–80 age band</strong> — empty-nesters and recent retirees for whom the cultural depth of Italy and the operational simplicity of a managed property are the central appeal.</p>
-
-<p>Italian co-ownership tends to suit a small number of well-defined buyer profiles:</p>
-<ul>
-  <li><strong>Cultural enthusiasts choosing Florence, Venice or the Lakes</strong> — buyers for whom repeated short stays through the year, timed around exhibitions, opera seasons, the spring and autumn cultural calendars and the major art and design weeks, are the central use pattern. The Italian cities and the Lakes reward this multi-trip use pattern more than they reward any single long stay.</li>
-  <li><strong>Skiing families choosing Cortina or Alta Badia</strong> — buyers who treat the Dolomites as their winter base, who use the Sellaronda and the long alpine-village tradition as the central proposition, and who increasingly use the same valley in summer for hiking and the lake-and-mountain agricultural calendar.</li>
-  <li><strong>Beach-loving families choosing Sardinia</strong> — buyers who want the most spectacular Mediterranean water inside an EU country, the architectural pedigree of the Costa Smeralda's controlled-development legacy, and the family-friendly proposition of a low-density coast in a high-quality regulatory environment.</li>
-  <li><strong>Wine-and-food sophisticates choosing Tuscany</strong> — buyers who use the seasonal agricultural calendar as the framing of their year, who value the density of DOCG appellations within an hour's drive of each other, and who treat the Florence cultural infrastructure as a permanent neighbour.</li>
-  <li><strong>Mediterranean traditionalists choosing the Riviera</strong> — buyers who want the original Italian Riviera architectural tradition (pastel-painted village houses, working harbours, Belle-Époque hotel-era ports), at a more intimate scale than the French Côte d'Azur and within easier reach of the major Northern Italian airports.</li>
-  <li><strong>Multi-region Italian portfolios</strong> — increasingly, owners who add a Dolomites winter share to a Tuscan summer share, or a Lakes spring-and-autumn share to a Sardinia summer share, using the same LLC framework and the same management relationship to access two completely distinct Italian propositions through the year.</li>
-</ul>
-
-</div></section>
-
-<section class="dest-sec cream"><div class="dest-inner">
-
-<h2>Practicalities: getting there, what it costs, what you own</h2>
-
-<h3>Airports and ground access by region</h3>
-
-<p>The major Italian gateway airports cluster around the principal second-home regions and almost all have direct service from the major Northern European cities year-round. <strong>For the Lakes and Milan</strong>: <a href="https://www.milanomalpensa-airport.com/en" target="_blank" rel="noopener">Milan-Malpensa (MXP)</a> is the principal long-haul gateway and is 45 minutes from Lake Como; <a href="https://www.milanolinate-airport.com/en" target="_blank" rel="noopener">Milan-Linate (LIN)</a> is the smaller business-traveller airport closer to the city centre; <a href="https://www.milanbergamoairport.it/en/" target="_blank" rel="noopener">Bergamo (BGY)</a> serves Lake Garda and the eastern Lakes from across Europe via low-cost carriers. <strong>For Lake Garda specifically</strong>: <a href="https://www.aeroportoverona.it/en_gb" target="_blank" rel="noopener">Verona (VRN)</a> is 20 minutes from the southern lake shore. <strong>For the Riviera and Liguria</strong>: <a href="https://www.airport.genova.it/en" target="_blank" rel="noopener">Genova-Cristoforo Colombo (GOA)</a> serves the central and eastern Riviera; <strong>Nice Côte d'Azur (NCE)</strong> across the French border serves the western Riviera. <strong>For Sardinia</strong>: <a href="https://www.sogaer.it/en/" target="_blank" rel="noopener">Olbia-Costa Smeralda (OLB)</a> serves the north-east coast with 60-plus European cities direct in summer; <a href="https://www.aeroportodialghero.it/en/" target="_blank" rel="noopener">Alghero (AHO)</a> serves the north-west; <a href="https://www.cagliariairport.it/en/" target="_blank" rel="noopener">Cagliari-Elmas (CAG)</a> serves the south. <strong>For Tuscany</strong>: <a href="https://www.pisa-airport.com/en" target="_blank" rel="noopener">Pisa (PSA)</a> is the principal Tuscan gateway, 70 minutes from Florence; <a href="https://www.aeroporto.firenze.it/en/" target="_blank" rel="noopener">Florence-Peretola (FLR)</a> is closer to the city for short-haul flights; <a href="https://www.bologna-airport.it/en/" target="_blank" rel="noopener">Bologna (BLQ)</a> serves north-east Tuscany and the Romagna coast. <strong>For the Dolomites</strong>: <a href="https://www.veneziaairport.it/en/" target="_blank" rel="noopener">Venice-Marco Polo (VCE)</a> serves the eastern Dolomites and Cortina; <strong>Innsbruck (INN)</strong> on the Austrian side serves the western Dolomites and Alta Badia.</p>
-
-<p>The Italian high-speed rail network is one of the densest in Europe and is genuinely useful for the multi-region Italian owner. The <a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener">Trenitalia Frecciarossa</a> and <a href="https://www.italotreno.com/en" target="_blank" rel="noopener">Italo</a> services run from Milan to Rome in <strong>2 hours 55 minutes</strong>, Milan to Florence in <strong>1 hour 40 minutes</strong>, Milan to Venice in <strong>2 hours 15</strong>, and Florence to Rome in <strong>1 hour 30</strong>. Owners with a Florence apartment and a Milan Linate connection can reach the Lakes within two hours of leaving the apartment; owners with a Dolomites share and a Venice gateway can be in the Cortina valley within two-and-a-half hours of landing. For owners coming from London, Amsterdam, Paris, Frankfurt, Geneva or Zurich, almost every Italian second-home cluster is accessible in <strong>under four hours door-to-door</strong> — the precondition for the high-frequency, short-stay use pattern that fractional ownership rewards.</p>
-
-<h3>Whole-property vs 1/8 share: the comparison</h3>
-
-<p>The comparison that matters to a fractional buyer is not "what does an Italian villa cost?" but "what does buying a share of an Italian villa do to my capital, my annual carry, my use, and my exit path versus the realistic alternatives?". The three honest alternatives for someone considering an Italian second home are: own the whole property; own a 1/8 share through COP; or rent each time you visit. The table below sets the three side by side in <strong>structural rather than absolute</strong> terms — specific figures vary by property and by year, but the ratios are the part of the picture that matters when you are deciding which structure to use.</p>
-
-<table class="dest-compare-table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Whole second home</th>
-      <th>COP 1/8 fractional share</th>
-      <th>Long-term rental</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Upfront commitment</td>
-      <td data-col="Whole second home">Full property value</td>
-      <td data-col="COP 1/8 share">~1/8 of the property value</td>
-      <td data-col="Long-term rental">First/last/deposit only</td>
-    </tr>
-    <tr>
-      <td>Equity in the asset</td>
-      <td data-col="Whole second home">Full appreciation</td>
-      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
-      <td data-col="Long-term rental">None</td>
-    </tr>
-    <tr>
-      <td>Annual carry</td>
-      <td data-col="Whole second home">Full taxes, insurance, management, maintenance</td>
-      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
-      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
-    </tr>
-    <tr>
-      <td>Personal use</td>
-      <td data-col="Whole second home">Up to 52 weeks (most use 6–10)</td>
-      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
-      <td data-col="Long-term rental">Defined by lease</td>
-    </tr>
-    <tr>
-      <td>Operations burden</td>
-      <td data-col="Whole second home">Owner-managed or hired staff</td>
-      <td data-col="COP 1/8 share">Fully included</td>
-      <td data-col="Long-term rental">Landlord-managed</td>
-    </tr>
-    <tr>
-      <td>Time to exit</td>
-      <td data-col="Whole second home">6–24 months on the open market</td>
-      <td data-col="COP 1/8 share">~1 month on average across the COP portfolio</td>
-      <td data-col="Long-term rental">End of lease term</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>What the table makes visible is that the most-cited Italian-property complaints — empty house, high running costs regardless of use, slow resale, layered bureaucratic admin around taxes and insurance — are not features of <em>Italian property</em> per se. They are features of the <em>whole-ownership structure</em>, and they go away as soon as you flip to a fractional share. The 1/8 share gives you something the rental column cannot give you (<strong>equity</strong>) and something the whole-ownership column cannot give you (<strong>proportional carry and managed operations</strong>) at the same time. <strong>The practical effect</strong> for the international owner is that an Italian second home that has historically been a complex, time-consuming proposition becomes a simple managed asset that delivers six to seven weeks of use a year against approximately <strong>1/8</strong> of the whole-property cost.</p>
-
-<h3>What's included in the annual service charge — and what isn't</h3>
-
-<p>The annual service charge on a COP-listed Italian property covers the full operational stack: <strong>property tax (IMU on second homes and any local TARI waste levy), insurance, professional management, the on-call concierge, the cleaning and linen service between owner stays, regular maintenance, the gardener, the pool service where relevant, the security system and the management of utilities</strong>. It is, on a per-share basis, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — and one of the under-appreciated advantages of the model is that the per-property running costs are spread across eight owners rather than borne entirely by one. What the service charge does not cover is <strong>large capital improvements</strong> (a roof rebuild, a major heating-system replacement, an extension to the property — these are voted on by the owners and funded proportionally when they happen), <strong>personal-use additions</strong> (an owner who wants additional in-stay services beyond the standard concierge package pays for those directly), and <strong>damage caused by owner stays</strong> (the management company assesses and charges back). The service charge structure is intentionally a <strong>simple, predictable annual cost</strong> rather than a series of one-off invoices through the year — which is one of the operational simplifications that makes an Italian fractional share notably easier to live with than a whole-ownership equivalent.</p>
-
-<h3>What you actually own</h3>
-
-<p>You own a <strong>1/8 membership interest in the LLC that owns the property</strong>. The LLC's title to the property is recorded with the Italian <strong>Catasto</strong> (cadastral register) and the relevant provincial <strong>Conservatoria dei Registri Immobiliari</strong>, with the operating agreement defining each owner's proportional rights to use, income, expenses and capital appreciation. Your share is <strong>transferable</strong> (you can sell it through the supported resale process), <strong>inheritable</strong> (your share passes through your estate to your heirs under the same rules as any other LLC interest), and <strong>appreciates with the underlying property</strong> (a 25% rise in the Italian villa's value over five years is a 25% rise in your share's value too). It is real, recorded property equity in your name — the same kind of asset as a sole-ownership Italian villa, just structured to match the way affluent international buyers actually use a second home.</p>
-
-</div></section>
-
-<section class="dest-sec white"><div class="dest-inner">
-
-<h2>How fractional ownership works in Italy</h2>
-
-<p>Every property in the COP collection — including all Italian properties — is held in a <strong>purpose-built LLC</strong> with eight equal membership interests. The structure is deliberately the same across every country and every property: one consistent ownership model whether your share is in Italy, France, Spain, the United States or elsewhere. For the international owner, this is the operational advantage that becomes more valuable the longer you own — and especially valuable for the meaningful proportion of owners who go on to add a second share in another market.</p>
-
-<h3>How the LLC structure holds Italian property</h3>
-
-<p>The LLC is the legal owner of the Italian property — the freehold title (the Italian <em>piena proprietà</em>) is registered in the LLC's name with the relevant Conservatoria dei Registri Immobiliari and the Catasto. The eight owners hold equal membership interests in the LLC and share proportionally in the rights to use the property, in the proportional appreciation of the underlying real estate, and in the proportional contribution to the operating costs. The LLC's operating agreement defines the calendar mechanics (how the 52 weeks are allocated across the eight owners and how peak weeks rotate), the financial mechanics (how the annual service charge is set, what it covers, what is voted on separately), the management arrangement (the appointment of a professional management company and the standards it operates to), and the resale mechanics (how a member exits and how their interest is transferred). It is a modern, well-understood corporate structure with two centuries of LLC-and-corporate property-holding precedent across the major Western legal systems — not a bespoke or experimental arrangement.</p>
-
-<h3>Italian property tax: IMU, TARI and the service charge</h3>
-
-<p>Italian second-home tax revolves principally around the <strong>IMU</strong> (Imposta Municipale Unica), the municipal property tax that applies to all second homes (primary residences are generally exempt). The IMU rate is set by each municipality within national bands, and the assessed value (the <em>rendita catastale</em>) is set by the Catasto when the property is registered. The waste levy (<strong>TARI</strong>) and various local administrative charges sit alongside it. Capital gains on Italian property sales by non-resident owners are subject to Italian tax under specific rules, with the LLC structure simplifying the practical mechanics for international owners. For COP-listed Italian properties, IMU and TARI are paid by the LLC and recovered through the annual service charge — owners do not deal with the Italian municipal tax system directly. The Italian property-tax framework is materially less complex than its reputation suggests once an international owner is inside a properly-structured corporate vehicle; the COP service charge is designed precisely to take the tax-and-admin layer off the owner's desk.</p>
-
-<h3>Inheritance and transfer</h3>
-
-<p>Italian inheritance law historically operates a <em>legittima</em> system that reserves portions of a deceased's estate for specified close relatives — broadly comparable to France's <em>réserve héréditaire</em> — but the <strong>2015 EU Succession Regulation</strong> allows owners domiciled in another EU country to elect to have their estate governed by their domicile country's succession law rather than Italian law. For non-EU owners, the LLC structure simplifies the practical mechanics significantly: the underlying Italian real estate stays inside the LLC, and what passes through the owner's estate is the <strong>LLC membership interest</strong> — a corporate asset that can be transferred to heirs without triggering the full Italian title-conveyance process at every generation. This is one of the under-appreciated structural advantages of holding Italian property inside a modern LLC rather than directly in personal name.</p>
-
-<h3>The professional management model and how the calendar works</h3>
-
-<p>Every COP-listed Italian property is operated by a professional management team responsible for the full operational stack: tax filings, insurance, the on-call concierge, the cleaning and linen turnaround between owner stays, the gardener, the pool service, the security, the utilities. The annual calendar rotates the <strong>52 weeks across the eight owners</strong> on a fair-rotation basis — every owner gets a proportional share of peak weeks (Christmas, Easter, August on the coast, mid-February in the Dolomites) across a multi-year cycle, and the rotation mechanics are set out transparently in the LLC operating agreement. Owners typically receive their preferred weeks well in advance and can swap with other owners through a structured exchange when their plans change. The use pattern across owners settles on roughly <strong>45 days a year</strong>; how those days are spread is the owner's decision within the calendar slot they have been allocated.</p>
-
-<h3>Resale: how to exit, typical timelines</h3>
-
-<p>When an owner decides to sell, a <strong>professional resale process</strong> is in place. The resale path connects the exiting owner to the existing pool of buyers familiar with the model — owners on the waiting list for the specific property, owners across the portfolio looking to expand or relocate, and the broader pool of buyers actively shopping COP-listed Italian properties. <strong>Resale typically completes in around a month or less across the COP portfolio</strong>, well below the <strong>6–24 months</strong> that whole-property Italian resales typically take on the open market — and a meaningful fraction of that whole-property timeline goes toward carrying costs (IMU, insurance, management, the empty-house cost) that simply do not apply to a 1/8 share in a managed structure. The mechanical reason the LLC resale path is faster is that you are transferring a membership interest in an LLC rather than triggering a full title conveyance through an Italian notary — a more direct administrative action, fewer transaction-cost layers, and a pre-existing pool of buyers who have already done their due diligence on the underlying property and the management arrangement.</p>
-
-<div class="dest-callout">
-  <strong>Free to browse, free to enquire.</strong> Using COP is free for buyers — no fees, no sign-up cost, no obligation. Talk to our specialists about which Italian region best fits your use pattern, or browse the listings and join the updates list for new properties as they come to market.
-</div>
-
-<p>The full mechanics of fractional ownership across all jurisdictions — usage calendars, exit procedures, rental income treatment, insurance, the transfer on death, the relationship with the management company — are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>. For specific Italian property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market.</p>
-
-<h3>Your ownership at a glance</h3>
-<ul>
-  <li><strong>Real, deeded equity in your name</strong> — your 1/8 share is recorded in Italy's land registers and the Catasto, transferable, inheritable, and it appreciates with the underlying property.</li>
-  <li><strong>Consistent international structure</strong> — your Italian share sits inside the same purpose-built LLC framework used for every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.</li>
-  <li><strong>Fully managed throughout</strong> — the professional management team handles taxes (IMU, TARI), insurance, maintenance, scheduling, linen, the on-call concierge. You arrive, the property is ready.</li>
-  <li><strong>Supported resale through the COP owner network</strong> — when you decide to exit, the supported resale path typically clears in around a month or less, well below the 6–24 months that whole-property Italian sales take on the open market.</li>
-  <li><strong>Designed for international portfolios</strong> — the LLC model means owning across multiple COP destinations becomes one consolidated relationship rather than juggling country-specific vehicles.</li>
-</ul>
-
-</div></section>
-
-<section class="dest-sec cream"><div class="dest-inner">
-
-<h2>Still deciding which Italian region?</h2>
-
-<p>If your use pattern centres on <strong>repeated short stays through the year</strong> rather than two or three long holidays, the <strong>Italian Lakes</strong> and <strong>Tuscany</strong> are the natural anchors. Lake Como, Lake Garda and Lake Maggiore reward the multi-trip use pattern — a March weekend for the gardens reopening, a May fortnight for the high spring, a September week for the warm shoulder, a December weekend for the Christmas-market villages — and the Lakes' proximity to Milan-Malpensa makes them genuinely accessible for owners coming from London, Amsterdam or Frankfurt on short notice. Tuscany works to a slower, more agricultural calendar, but a Florence apartment plus a Chianti or Val d'Orcia podere gives an owner the same multi-trip flexibility across the cultural cities and the agricultural countryside that the Lakes do across freshwater and Belle-Époque garden architecture. Our team can walk you through the regional differences before you make a decision.</p>
-
-<p>If your use pattern centres on <strong>peak summer beach</strong> — three or four weeks in July, August and September, with the rest of the year held mostly in reserve — <strong>Sardinia</strong> is the obvious answer. The Costa Smeralda's combination of Caribbean-grade water quality, strict regulatory protection of the existing villa stock and four decades of low-density resort architecture is genuinely without parallel in the Mediterranean. The trade-off is real: the Sardinian coast's main season is shorter (May through early October) than the Italian Lakes or the Riviera, and a Sardinian share rewards an owner with a clear summer-anchored use pattern more than a year-round one. The Ligurian Riviera is the alternative for buyers who want a Mediterranean coast that runs longer through the year and is within easier reach of Milan and Genova — a different kind of architecture, a different scale, a different rhythm.</p>
-
-<p>If your use pattern centres on <strong>winter snow and the mountain calendar</strong>, the <strong>Dolomites</strong> are the answer. Cortina, Alta Badia, Val Gardena and the Sellaronda give serious skiing families access to one of the highest-quality alpine domains in Europe, inside a UNESCO World Heritage cultural landscape, with the German-Tyrolean village architectural inheritance preserved in a way that the higher French resorts have not always managed. The 2026 Winter Olympics in Cortina and Milan will lift the international profile of the eastern Dolomites further. The Italian Pyrenees do not exist as a serious alpine option (those are in Spain) — for Italian snow, the choice is between the Dolomites and the smaller western-alpine resorts (Madonna di Campiglio, Courmayeur, Bormio), each with its own character. The Dolomites are also genuinely usable in summer — the hiking calendar runs from June through September — which makes a Dolomites share more year-round than first-time alpine buyers tend to assume.</p>
-
-<p>Whichever way the decision goes, the deeper exploration starts on the cluster pages:</p>
-<ul>
-  <li><a href="/italian-lakes-fractional-ownership-properties/">Explore the Italian Lakes →</a></li>
-  <li><a href="/liguria-fractional-ownership-properties/">Explore the Ligurian Riviera →</a></li>
-  <li><a href="/sardinia-fractional-ownership-properties/">Explore Sardinia →</a></li>
-</ul>
-
-<p>If you would like to talk through <strong>which Italian region best fits your family's actual use pattern</strong> — rather than the brochure version of it — <a href="#newsletter">join our list</a> and we will be in touch with relevant new-property alerts and an introduction to the team.</p>
-
-</div></section>
-
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/" class="cop-nav-active">Home</a>
+        <a href="/our-homes/">Our Homes</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us">About Us</a>
+        <a href="/all-our-blog/">Our Blog</a>
+        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
+        <a href="/contact">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Co-Ownership Properties</p>
+        <h1>Italy fractional ownership properties</h1>
+        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+                        <div class="no-props">
+                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            </div>
+                    </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Ready to find your property in Italy?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
+            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT (rendered as styled sections) -->
+        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3>
+<p>For buyers considering an Italian second home, the structural challenge is identical across all three regions: full ownership of a quality property in any of these markets requires committing <strong>€1.5–3 million or more</strong> to a single asset that will typically sit empty for 40+ weeks per year, accumulate annual running costs of €30,000–€60,000+ regardless of use, and demand complex remote management in a country with a notoriously intricate bureaucratic and tax environment. <strong>Italian fractional co-ownership solves this directly:</strong> a 1/8 deeded share aligns your capital, running costs and annual usage weeks to how you actually live — while preserving the same real estate equity and long-term capital appreciation potential as full ownership. Research from <a href="https://www.scenari-immobiliari.it/" target="_blank" rel="noopener"><strong>Scenari Immobiliari</strong></a> and <a href="https://www.nomisma.it/" target="_blank" rel="noopener"><strong>Nomisma</strong></a>, Italy&#8217;s leading residential research firms, consistently shows that second-home buyers across all three of these Italian regions use their properties for an average of just 4–8 weeks per year — precisely the usage profile that makes a 1/8 fractional share the most capital-efficient structure available. The fractional model does not change the property or the experience; it changes the financial structure to match the reality of how affluent international buyers actually live.</p>
+<p>International demand for Italian resort and lifestyle second homes is structurally deep and genuinely diverse. <a href="https://www.engelvoelkers.com/it/en/" target="_blank" rel="noopener"><strong>Engel &amp; Völkers Italy</strong></a>, <a href="https://www.sothebysrealty.it/eng/" target="_blank" rel="noopener"><strong>Italy Sotheby&#8217;s International Realty</strong></a> and <a href="https://www.knightfrank.com/research/topic/italy" target="_blank" rel="noopener"><strong>Knight Frank</strong></a> all report that Italy&#8217;s luxury second-home market is supported by one of the most internationally diversified buyer bases in Europe: German, Swiss and Austrian buyers form the dominant core in the Lakes and northern Liguria; British buyers remain highly active across all three regions despite any post-Brexit friction; American and North American buyers are the fastest-growing segment in Sardinia, Lake Como and the Amalfi-adjacent areas; French buyers are deeply rooted in Ligurian Riviera markets. This multi-nationality buyer diversity — spread across economic cycles, currencies and cultural motivations — provides a natural structural hedge for Italian resort real estate values that single-nationality markets simply cannot replicate. Combined with Italy&#8217;s permanent supply constraints, world-leading cultural cachet and the irreplicable quality of Italian lakefront, Riviera and island real estate, the case for fractional co-ownership here is as strong as anywhere in Europe.</p>
+</div></section><section class="dest-sec white"><div class="dest-inner"><h2>Italy lifestyle: four seasons of la dolce vita</h2>
+<p>Italy is the only European country combining UNESCO World Heritage alpine lake landscapes, a cliff-sculpted Mediterranean riviera of world-famous beauty, a wild and spectacular Mediterranean island with some of Europe&#8217;s finest beaches, three of the world&#8217;s greatest art cities within two hours of its major second-home zones, and the most sophisticated food and wine culture on the planet — all within a country compact enough to be navigated by high-speed rail, regional flight or a few hours of scenic driving. Co-ownership homes in Italy&#8217;s three great second-home regions are not simply places to relax; they are permanent bases for a layered, ever-deepening engagement with one of the world&#8217;s richest civilisations. <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener">Lake Como and Lake Garda</a> place you within an hour of Milan — Europe&#8217;s fashion, design and finance capital — and within minutes of some of the most photographed villa gardens, mountain hiking and freshwater swimming in the world. <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Liguria</a> gives you the Italian Riviera in its most authentic form: Portofino&#8217;s harbour, the painted villages of Cinque Terre tumbling to the sea, the market towns of the inland Ligurian hills and a cuisine — pesto, farinata, trofie al pesto, branzino al sale — that is among Italy&#8217;s most regionally distinct and deeply satisfying. <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a> delivers something else entirely: a genuinely wild, unspoiled island of ancient nuraghi, pink flamingo lagoons, vertiginous granite cliffs and beaches whose water colour rivals the Caribbean at its clearest — yet with a cultural depth and culinary tradition entirely its own, worlds away from generic resort-island tourism.</p>
+<p>Italy&#8217;s connectivity from Northern Europe, the United Kingdom and North America is exceptional and improving. <a href="https://www.milanomalpensa-airport.com/en/" target="_blank" rel="noopener"><strong>Milan Malpensa</strong></a> is 45 minutes from Lake Como and receives nonstop flights from London, New York, Dubai, Tokyo and most major European cities year-round. <a href="https://www.aeroportoverona.it/en_gb/" target="_blank" rel="noopener"><strong>Verona Catullo</strong></a> and <a href="https://www.milanbergamoairport.it/en/" target="_blank" rel="noopener"><strong>Bergamo Orio al Serio</strong></a> serve Lake Garda from across Europe. <a href="https://www.airport.genova.it/en/" target="_blank" rel="noopener"><strong>Genova Cristoforo Colombo</strong></a> is 30 minutes from the Ligurian Riviera with connections from major European hubs; Nice Côte d&#8217;Azur airport is also viable for the eastern Riviera, just 90 minutes from the Tigullio Gulf. <a href="https://www.sogaer.it/en/" target="_blank" rel="noopener"><strong>Olbia Costa Smeralda Airport</strong></a> in Sardinia is one of Italy&#8217;s best-served regional airports in summer, with direct flights from over 60 European cities, and receives year-round connections from Rome and Milan in under an hour. <a href="https://www.aeroportodialghero.it/en/" target="_blank" rel="noopener"><strong>Alghero Fertilia</strong></a> serves northwest Sardinia with flights from major European cities, while <a href="https://www.cagliariairport.it/en/" target="_blank" rel="noopener"><strong>Cagliari Elmas</strong></a> provides access to the south. For discovery and activity planning, the <a href="https://www.italia.it/en" target="_blank" rel="noopener"><strong>official Italy tourism portal</strong></a>, <a href="https://www.tripadvisor.com/Tourism-g187768-Italy-Vacations.html" target="_blank" rel="noopener"><strong>TripAdvisor Italy</strong></a> and <a href="https://www.getyourguide.com/italy-l181/" target="_blank" rel="noopener"><strong>GetYourGuide Italy</strong></a> are excellent starting points for all three regions.</p>
+<p>The Italian Lakes at their most romantic: camellia and wisteria in full bloom on the villa terraces, the mountains still snow-capped above the lake, cycling and hiking in perfect temperatures. Liguria&#8217;s Cinque Terre trails are uncrowded and spectacularly green. Sardinia&#8217;s wildflower season transforms the interior. Strong shoulder-season rental demand across all three regions.</p>
+<p>Sardinia&#8217;s beaches reach their absolute peak — Europe&#8217;s finest water quality, long warm evenings, the Costa Smeralda at its most vibrant. Lake Como and Lake Garda shimmer under long summer days; Bellagio and Sirmione fill with visitors from across the world. Liguria&#8217;s fishing villages are at their most alive. Italy&#8217;s summer is a feast of colour, heat and outdoor living at full intensity.</p>
+<p>Italy&#8217;s finest season for food, wine and atmosphere. The Lakes are bathed in a particular golden light as the hills turn amber and russet. Liguria&#8217;s truffle season and olive harvest begin. Sardinia&#8217;s sea remains warm well into October and beaches empty completely after mid-September. The grape harvest is underway across all regions. Autumn in Italy rewards those who know.</p>
+<p>Milan and the Lakes&#8217; cultural season — La Scala, world-class art exhibitions, Michelin-starred restaurants full of Italians rather than tourists. Liguria&#8217;s mild microclimate makes it Italy&#8217;s most appealing winter coast: lemon trees flowering, coastal paths empty, fish simply grilled. Sardinia in winter is dramatically beautiful — austere, quiet, genuinely unspoiled. All three regions reward the curious winter visitor.</p>
+<p>This four-season usability is the foundation of the Italy fractional co-ownership value proposition. A 1/8 share&#8217;s <strong>6–7 annual weeks</strong> can be deployed with extraordinary strategic flexibility: spring blooms and hiking at <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener">Lake Como</a>, summer beach weeks on <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a>&#8216;s Costa Smeralda, an autumn truffle weekend on the <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Ligurian Riviera</a>, and a winter cultural escape to Milan or Genova. Very few Italian resort second homes sit completely idle regardless of season — and that reliable year-round utility, combined with the rental potential of unused weeks in licensed properties, is precisely what makes Italy such a compelling co-ownership and wealth-preservation market across all three regions.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Key Italy fractional ownership regions</h2>
+<h3>Italian Lakes — Como &amp; Garda</h3>
+<p>Italian Lakes fractional ownership places you at the heart of Europe&#8217;s most celebrated inland water landscape — a glacially sculpted arc of deep, mirror-calm lakes set between the Alps and the Po Valley, lined with centuries of aristocratic villa culture, garden art and a way of life that has captivated writers, composers, industrialists and royalty for two hundred years. <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener"><strong>Lake Como</strong></a> is the most globally recognised and structurally constrained of Italy&#8217;s lakes: a 46km fjord-like ribbon of water flanked by near-vertical mountain slopes that physically prevent any meaningful new lakefront construction. The villages of Bellagio, Varenna, Tremezzo and Menaggio have been essentially unchanged for a century, and the prime lakefront villas lining the central lake — once summer retreats of the Milanese aristocracy — now represent some of the most coveted and irreplicable residential addresses in all of Europe. <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener"><strong>Lake Garda</strong></a>, Italy&#8217;s largest lake, offers a different and in many ways even more versatile experience: the northern Trentino shore is Alpine in character, with dramatic cliffs and a thermal wind system that makes Riva del Garda the wind-sports capital of Central Europe; the central and southern shores transition through olive-grove terraces, medieval villages, Roman ruins at Sirmione and eventually into the gentler, more family-oriented Brescian and Veronese lakefronts where Gardone Riviera and Salò maintain a quieter, more residential elegance.</p>
+<p>Italian Lakes co-ownership properties range from restored nineteenth-century lakefront villas with private boat jetties, terraced gardens and views that stop every first-time visitor completely in their tracks, to contemporary architect-designed apartments in historic palazzi with shared pool terraces cantilevered above the lake surface, to hillside stone case coloniche — traditional farmhouses — converted to a standard of interior quality that belies their rural origins entirely. The combined supply constraint of mountain geography, UNESCO landscape protection, historic preservation orders and regional planning restrictions on lakefront zones creates a real estate environment of near-absolute scarcity that has underpinned consistent long-term price appreciation with remarkable resilience across every economic cycle of the past thirty years. <strong>Typical 1/8 shares sit in the €175,000–€450,000 range</strong> against whole-property prices of €1.4m–€3.6m+. <strong>Best for:</strong> culture lovers, architecture enthusiasts, water sports and sailing families, gastronomes, buyers building long-term northern Italian equity close to Milan.</p>
+<h3>Liguria — the Italian Riviera</h3>
+<p>Liguria fractional ownership opens access to one of the most dramatically beautiful and supply-constrained coastal environments in the Mediterranean — a 350km arc of cliff-edge fishing villages, terraced olive groves and crystal-clear sea stretching from the French border to the Tuscan coast, with no flat land, no room for new development and a UNESCO World Heritage designation that permanently protects the most iconic stretches of coastline from any meaningful change. The Riviera di Levante — the eastern section anchored by <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Portofino</a>, Santa Margherita Ligure, Rapallo and the five painted villages of Cinque Terre — is the crown of the Ligurian coast and one of the most recognisable and beloved landscapes in the world. Portofino itself is a property market of near-absolute scarcity: a tiny promontory of fewer than 500 permanent residents where every building has been frozen by heritage protection for decades, and where the demand from the world&#8217;s wealthiest buyers far exceeds any conceivable supply. The Tigullio Gulf — Santa Margherita, Rapallo, Sestri Levante — offers similar character at more accessible price points, with a complete Italian lifestyle that high-season tourism barely disrupts. The Riviera di Ponente, stretching west toward France via Sanremo, Alassio and Albenga, provides a sunnier, more sheltered and increasingly sought-after alternative with its own deep tradition of international second-home ownership stretching back to the Belle Époque.</p>
+<p>Ligurian co-ownership properties are among the most characterful in Europe: pastel-washed terraced houses with sea-view terraces above the harbour, converted fishing lofts with direct sea access, elegant Liberty-style villas set in terraced gardens above the cliff edge, and contemporary apartments in historic palazzo buildings with panoramic glazing and professional management that delivers a hotel-quality arrival experience. The physical geography of Liguria — cliffs dropping directly to the sea, no coastal plain, mountains immediately behind the coast — creates a supply constraint so permanent it is geological rather than regulatory. There is simply no land on which to build, and that reality underpins the long-term scarcity premium of every existing Ligurian property with sea views. <strong>Typical 1/8 shares sit in the €150,000–€500,000 range</strong> against whole-property prices of €1.2m–€4m+. <strong>Best for:</strong> sailors, walkers, food lovers, architecture admirers, buyers who value authentic Italian village life alongside dramatic natural beauty.</p>
+<p>Sardinia fractional ownership gives you access to Europe&#8217;s most exceptional island — a place of such wild, untouched beauty, so deeply different from the rest of the Mediterranean, that even those who have travelled widely find it genuinely surprising. The <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Costa Smeralda</a> in the northeast — created as Europe&#8217;s most exclusive resort by the Aga Khan consortium in the 1960s and protected ever since by the Consorzio Costa Smeralda&#8217;s stringent architectural and environmental controls — remains the benchmark for Mediterranean luxury real estate: a 55km stretch of pink granite boulders, juniper forests and beaches of extraordinary water quality, where the Emerald Coast&#8217;s famous sea colour (that particular turquoise-to-deep-teal gradient) is the result of exceptionally shallow, silica-rich seabed meeting the deep Mediterranean waters. Porto Cervo, Cala di Volpe, Romazzino and Capriccioli are the defining addresses: a world of discreet elegance that draws royalty, art world figures, fashion dynasties and international finance families year after year, generation after generation. Beyond the Costa Smeralda, Sardinia reveals itself as a far larger and more varied destination: the medieval Spanish-Gothic old town of <a href="https://www.alghero-turismo.it/en" target="_blank" rel="noopener">Alghero</a> on the northwest coast, with its Catalan dialect and coral-coloured old city walls; the silver-sand beaches and turquoise lagoons of Chia and the south coast; the ancient nuraghi stone towers of the interior; and a gastronomic tradition — bottarga, porceddu, mirto liqueur, Vermentino di Gallura, Cannonau di Sardegna — that reflects four thousand years of isolated, intensely local food culture.</p>
+<p>Sardinian co-ownership properties span Costa Smeralda villa compounds set in pineta forests above the sea with private pools, sea-view terraces and direct cove access, to architect-designed contemporary villas on the Gallura granite headlands with panoramic sea views and infinity pools vanishing into the horizon, to beautifully restored stazzi — traditional Sardinian stone farmhouses — in the island&#8217;s quieter inland and coastal valleys. The Gallura Regional Plan, the Consorzio Costa Smeralda&#8217;s charter and Sardinia&#8217;s regional coastal protection laws collectively make this one of the most restrictive development environments in all of Italy — new build on the Costa Smeralda is essentially impossible, and the existing stock of quality villas and compounds is finite and irreplaceable. <strong>Typical 1/8 shares sit in the €150,000–€500,000 range</strong> against whole-property prices of €1.2m–€4m+. <strong>Best for:</strong> beach lovers, families, sailors, buyers seeking the finest sea quality in Europe, investors building equity in Europe&#8217;s most supply-constrained island resort market.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A week in your Italy co-ownership home</h2>
+<p>One of the most compelling things about owning a co-ownership property in Italy is how differently each stay can feel. Italy has enough depth — lakes, coastline, mountains, cities, villages, food, culture, history — that you could spend a week here every season for a lifetime and still be discovering something new. This is what a typical late-spring week at a Lake Como co-ownership villa might look like, arriving on a Sunday afternoon and leaving the following Sunday morning. Adjust the region, the season, and your own pace — and Italy reshapes itself entirely around you.</p>
+<p>You land at <a href="https://www.milanomalpensa-airport.com/en/" target="_blank" rel="noopener">Milan Malpensa</a> mid-afternoon and within 45 minutes you are turning off the SS340 onto the lane that descends to the property. The first glimpse of Lake Como through the trees is never something you fully prepare for — that depth of colour, that stillness, the Alps rising on both sides. <strong>The property is immaculate — shutters opened, fridge stocked, boat moored at the private jetty.</strong> You arranged none of it. You unpack onto the terrace, pour a glass of local Lugana, and sit listening to the silence as the evening light turns the water copper and gold. Tomorrow the lake is waiting.</p>
+<p>Lake Como&#8217;s most spectacular quality is how completely the mountains rise from the water&#8217;s edge. Take the <a href="https://www.funicolarecomo.it/" target="_blank" rel="noopener">Brunate funicular</a> from Como town — a five-minute ascent to a viewpoint 720 metres above the lake, with the city, the lake and the distant Alps laid out beneath you in what feels like the best view in Lombardy. From Brunate, a network of marked hiking paths leads deeper into the hills. <strong>The two-hour loop to San Maurizio and back is manageable for most fitness levels and rewards with panoramas that change at every turn.</strong> Descend to Como in the early afternoon: lunch in the old town, a walk around the <a href="https://www.cattedraledicomo.it/" target="_blank" rel="noopener">Gothic-Romanesque Duomo</a>, and the silk shops on Via Vittorio Emanuele II — Como has been Europe&#8217;s finest silk-producing city for five centuries, and the showrooms here sell to couture houses across the world.</p>
+<p>There is a reason every return visitor to Lake Como puts Bellagio on their list without hesitation. The ferry from the nearest landing stage takes 20 minutes; the walk from the dock up the steep stone stairways into the old town takes five. <strong>Bellagio is one of the most perfectly preserved historic villages in all of Italy</strong> — narrow walled lanes opening onto sudden terraced gardens and lake views, artisan silk and leather shops operating from the same premises for generations, a handful of genuinely outstanding restaurants and the most beautiful hotel terrace in northern Italy at the Grand Hotel Villa Serbelloni. Spend the morning in the <a href="https://www.lakecomotravel.com/" target="_blank" rel="noopener">Villa Melzi gardens</a> — a lakefront Neoclassical park of camellia allées, Japanese garden and an Egyptian-inspired temple — and the afternoon entirely at your own pace among the lanes. Return to the villa for a long, quiet evening dinner on the terrace.</p>
+<p>One of the most compelling practical advantages of a Lake Como co-ownership base is Milan&#8217;s proximity — <strong>45 minutes by road or fast train from Como San Giovanni, 70 minutes from Varenna</strong>. Reserve Thursday for a Milan day: the <a href="https://www.ambrosiana.it/en/" target="_blank" rel="noopener">Biblioteca Ambrosiana</a> and its extraordinary art collection, a morning in the Brera quarter&#8217;s galleries and antique dealers, lunch at a proper Milanese trattoria (osso buco, risotto alla milanese, a carafe of Barbera), and an afternoon in the fashion district or the <a href="https://www.triennale.org/en/" target="_blank" rel="noopener">Triennale design museum</a>. <strong>If the calendar allows, the scale of Duomo cathedral and the reconstructed Santa Maria delle Grazie (Leonardo&#8217;s Last Supper) are among Italy&#8217;s top four or five cultural experiences</strong> and are never wasted on repeat visitors. Return to Como by early evening       for the golden-hour light on the lake that no Milan hotel can replicate.</p>
+<p>Lake Como has a concentration of historic villa gardens unmatched anywhere in Europe — <a href="https://www.villaerba.it/en/" target="_blank" rel="noopener">Villa d&#8217;Este</a> in Cernobbio, <a href="https://www.villacarlotta.it/en/" target="_blank" rel="noopener">Villa Carlotta</a> in Tremezzo, <a href="https://www.comune.como.it/en/" target="_blank" rel="noopener">Villa Olmo</a> in Como — each representing centuries of garden art in the grand Italian tradition. <strong>Villa Carlotta in May is among the top five garden experiences in Europe</strong>: forty varieties of rhododendron and azalea in simultaneous bloom above the lake, Canova sculptures in the orangery, and a terrace view that has been drawing painters since the eighteenth century. Devote the morning to one garden and the afternoon to the one you have been meaning to revisit. End the day on the property&#8217;s own terrace with a Campari soda and the knowledge that tomorrow is the last morning, and it too will be perfect.</p>
+<p>The best last days at Lake Como are unhurried. Rise early while the lake is still completely calm — <strong>the morning light on Como before 8am, the mountains perfectly reflected in the glass-still water, is one of the most quietly beautiful things Italy offers</strong> and it belongs entirely to those who are already there. Take the boat out for an hour with a coffee. Swim from the dock. Sit on the terrace and read. A long final lunch at the village trattoria you discovered on the first day. The packing can wait. Italy rewards those who let time slow down, and Lake Como slows it better than almost anywhere else in the world.</p>
+<p>Return in September and the lakes are at their warmest, the terraces golden, the summer crowds gone. Come in winter for Milan&#8217;s cultural season, the lake deserted and theatrical under low cloud, truffle lunches in the Brianza hills. Swap the Lakes for <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a> in July for the finest beaches in Europe. Come to <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Liguria</a> in April for Cinque Terre without the crowds. <strong>Italy is the only co-ownership destination in this guide where every season in every region rewards a return visit without diminishing returns.</strong> The <a href="https://www.italia.it/en" target="_blank" rel="noopener">official Italy tourism portal</a>, <a href="https://www.getyourguide.com/italy-l181/" target="_blank" rel="noopener">GetYourGuide Italy</a> and <a href="https://www.tripadvisor.com/Tourism-g187768-Italy-Vacations.html" target="_blank" rel="noopener">TripAdvisor Italy</a> cover all three regions across all four seasons in exceptional depth.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Who buys Italy fractional co-ownership?</h2>
+<p>Italy fractional ownership attracts one of the most internationally diverse and culturally motivated buyer profiles in European second-home real estate. Unlike purely lifestyle-driven beach markets, Italy draws buyers for whom the depth of cultural, culinary and historical engagement is as important as the property itself — people who return not just for the sunshine but for the specific texture of a particular place that rewards knowing deeply over many years.</p>
+<p>German, Swiss and Austrian buyers have the longest established tradition of Italian Lakes and Ligurian Riviera second-home ownership — cultural, linguistic and geographic proximity has made northern Italy a natural extension of the Central European second-home market for generations. The Lake Como and Lake Garda waterfronts have historically been described as &#8220;the German Riviera&#8221; in local real estate circles, and the depth of this buyer base provides a structural demand floor that insulates lakefront values across economic cycles. British buyers — despite any post-Brexit friction in the ownership process — remain among the most active international participants in all three Italian regions, drawn by a cultural affinity with Italy that is among the deepest of any northern European nationality. American buyers are the fastest-growing segment in both the Italian Lakes and Sardinia markets: the combination of dollar-denominated wealth, cultural draw and Italy&#8217;s flat-tax regime for new residents (€100,000 per year regardless of foreign income — an extraordinary proposition for high-net-worth American buyers) is accelerating US buyer participation at every price point.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Getting to your Italy co-ownership property</h2>
+<p>Italy&#8217;s connectivity from Northern Europe, the UK and North America is one of the structural advantages of Italian second-home ownership — all three co-ownership regions are within 2–3 hours of most major European cities, and within direct long-haul reach from New York, Toronto, Dubai and Singapore via their gateway airports. The combination of scheduled airline competition, improving high-speed rail infrastructure and Italy&#8217;s excellent autostrada network means that travel to an Italian co-ownership property is rarely a logistical obstacle — particularly for owners who plan their usage weeks to avoid the very peak August gridlock that affects every popular Italian summer destination.</p>
+<p><a href="https://www.milanomalpensa-airport.com/en/" target="_blank" rel="noopener">Milan Malpensa (MXP)</a> is the primary gateway: 45 min to Lake Como, 80 min to Lake Garda&#8217;s western shore. Direct flights from London (multiple daily), Amsterdam, Frankfurt, Zurich, Madrid, Paris, New York JFK, Dubai and 60+ European cities. <a href="https://www.milanbergamoairport.it/en/" target="_blank" rel="noopener">Bergamo Orio al Serio (BGY)</a> serves Como in 60 min with low-cost routes from across Europe. <a href="https://www.aeroportoverona.it/en_gb/" target="_blank" rel="noopener">Verona Catullo (VRN)</a> serves eastern Lake Garda and Sirmione in 30 min. High-speed Frecciarossa trains connect Milan to Como San Giovanni in 37 min and to Desenzano del Garda (Lake Garda south) in 50 min.</p>
+<p><a href="https://www.airport.genova.it/en/" target="_blank" rel="noopener">Genova Cristoforo Colombo (GOA)</a> is 30–45 min from the Riviera di Levante with direct flights from London, Paris, Frankfurt, Amsterdam, Rome and Barcelona. <a href="https://www.nice.aeroport.fr/en" target="_blank" rel="noopener">Nice Côte d&#8217;Azur (NCE)</a> is 90 min from Santa Margherita Ligure and serves as an excellent alternative gateway for the eastern Riviera, with transatlantic connections from North America. <a href="https://www.gva.ch/en/" target="_blank" rel="noopener">Geneva (GVA)</a> is a viable option for Swiss and northern European buyers. The A7 and A10 autostrade provide fast coastal access; <a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener">Trenitalia&#8217;s</a> coastal railway line connects all major Ligurian resorts in a single scenic journey.</p>
+<p><a href="https://www.sogaer.it/en/" target="_blank" rel="noopener">Olbia Costa Smeralda (OLB)</a> serves the northeast coast — 20 min from Porto Cervo and the Costa Smeralda — with direct flights from London Gatwick, London Heathrow, Amsterdam, Frankfurt, Paris, Zurich, Milan, Rome and 60+ European cities in summer; year-round from Rome and Milan. <a href="https://www.aeroportodialghero.it/en/" target="_blank" rel="noopener">Alghero Fertilia (AHO)</a> serves the northwest with low-cost connections from across Europe. <a href="https://www.cagliariairport.it/en/" target="_blank" rel="noopener">Cagliari Elmas (CAG)</a> serves the south. Ferries from Genova, Civitavecchia and Livorno offer a scenic alternative for those travelling with cars or who prefer the overnight crossing from the mainland.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Investment advantages of Italian fractional ownership</h2>
+<p>Beyond the lifestyle case, Italian co‑ownership properties offer a compelling financial structure for buyers used to thinking in portfolio terms. Understanding the investment mechanics helps you evaluate fractional ownership clearly against traditional real estate and alternative vacation solutions such as holiday clubs, destination memberships or straightforward rental — and see why the numbers increasingly favour the fractional model for buyers who will realistically use a property for 6–10 weeks per year across three of Europe&#8217;s most coveted resort destinations.</p>
+<p><strong>Capital efficiency and proportional appreciation:</strong> Your fractional share appreciates proportionally with the full property value. If a prime Lake Como lakefront villa rises 7% in a year, your 1/8 share gains the same 7%, whether you paid €250,000 or €2 million. Instead of locking €2–4 million into a single second home visited for 6 weeks, you deploy €200,000–€500,000 for comparable usage and identical percentage appreciation — freeing capital for other investments, additional co‑owned homes across the <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener">Lakes</a>, <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Liguria</a> or <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a>, or simply keeping your wealth more liquid and diversified. Many buyers build a multi-destination Italian portfolio of fractional shares — a Lake Como villa for spring, a Ligurian clifftop house for early summer, a Sardinian compound for August — that gives them far more collective lifestyle value than a single whole property ever could.</p>
+<p><strong>Strict supply constraints protect long-term values:</strong> All three Italian co-ownership regions operate under some of the most restrictive planning and coastal protection frameworks in Europe. Italy&#8217;s <em>Codice del Paesaggio</em> places binding national-level constraints on development within scenic, coastal and UNESCO-designated zones — and Lake Como, the Ligurian Riviera and the Costa Smeralda are among the most heavily protected areas in the entire country. Regional governments in Lombardy, Liguria and Sardinia have consistently tightened these restrictions over the past decade: Sardinia&#8217;s <em>Piano Paesaggistico Regionale</em> effectively prohibits new coastal construction within two kilometres of the shoreline; Liguria enforces strict height, density and materials controls across the entire Riviera di Levante; and Lake Como&#8217;s UNESCO World Heritage buffer status means any development proposal faces national-level scrutiny before a single permit is issued. <strong>This structural supply constraint is regulatory and essentially permanent</strong> — it gives well-located Italian co-ownership properties a fundamentally different risk profile from European markets where new supply can freely respond to demand.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Italian resort property values keep rising</h2>
+<p>Italy&#8217;s sustained prime resort price growth is not driven by speculation — it is the direct, measurable result of some of Europe&#8217;s most restrictive residential supply environments colliding with structurally rising international demand. Across all three Italian co-ownership clusters, the regulatory picture is strikingly consistent: coastal build bans, UNESCO and landscape protection designations, regional planning moratoriums and strict caps on new accommodation capacity have combined to make meaningful new prime supply essentially impossible. The result is a structural, growing gap between rising demand from an affluent, internationally diversified buyer pool and a near-static inventory of quality lakefront, coastal and resort residential stock. Since 2015, prime prices across all three regions have <strong>risen by 70–80%</strong> — a compound annual growth rate achieved with almost zero meaningful new prime supply entering the market during that period.</p>
+<p>Key regulatory interventions that have directly shaped this price trajectory include: the ongoing enforcement of Sardinia&#8217;s <em>Piano Paesaggistico Regionale</em> preventing all new coastal construction within 2km of the shoreline; Lake Como&#8217;s UNESCO World Heritage buffer zone tightening in 2017 that placed additional national-level constraints on any lakefront development; tightened short-term rental regulations in both Liguria and Lombardy in 2022–2023 reducing the total permitted accommodation pool; and Liguria&#8217;s 2023 introduction of rental caps in the Riviera di Levante&#8217;s most in-demand comuni. Far from being temporary or reversible, these interventions reflect Italy&#8217;s national and regional governments&#8217; long-stated commitment to landscape preservation and sustainable tourism — <strong>the political and regulatory trajectory across all three regions is toward further restriction, not relaxation</strong>. Each new constraint further limits the total supply of quality Italian resort property available to buy, reinforcing the scarcity premium that already-existing assets command.</p>
+
+<p>The COVID dip visible in 2020 proved brief and shallow across all three Italian clusters — within 12 months each market had not only recovered but accelerated, driven by post-pandemic reappraisal of lifestyle priorities among affluent European households who suddenly valued quality of life, outdoor space and proximity to nature far more highly than before. The Ligurian Riviera and Costa Smeralda in particular saw exceptional demand acceleration from 2021 onwards as international buyers — priced out of comparable French Riviera and Côte d&#8217;Azur assets — recognised Italian coastal property as representing extraordinary relative value at similar quality levels. The gap between what buyers want and what Italy&#8217;s three premier resort regions can legally supply has widened every year since, and there is no credible planning or political scenario in which that changes materially in the medium term. For co-ownership buyers, this supply story is perhaps the single most important structural reason to have confidence in long-term Italian resort asset values.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Exit &amp; resale liquidity</h2>
+<p>It is also worth noting that some Italian co-ownership platforms operate internal resale marketplaces — matching exiting owners with new buyers who are already familiar with the model and motivated to enter a specific property in <a href="/italian-lakes-fractional-ownership-properties/" target="_blank" rel="noopener">the Lakes</a>, <a href="/liguria-fractional-ownership-properties/" target="_blank" rel="noopener">Liguria</a> or <a href="/sardinia-fractional-ownership-properties/" target="_blank" rel="noopener">Sardinia</a>. This can dramatically shorten sale timelines versus marketing on the open market and eliminates the full Italian agency and notarial cost structure associated with a first-sale purchase. Others operate planned collective exit horizons, giving all co-owners a clear, pre-agreed timeline for whole-property sale and capital return — typically at a premium to piecemeal individual share sales, since a single whole-property transaction in any of Italy&#8217;s three co-ownership regions commands a wider buyer pool and greater competitive tension than any fractional share sale. Both mechanisms reflect a fundamentally more liquid structure than conventional single-ownership Italian property, and are worth examining carefully — alongside the operator&#8217;s documented resale track record — when evaluating any specific Italian fractional co-ownership opportunity.</p></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Italy fractional ownership: frequently asked questions</h2><div class="dest-faq-list"><section class="dest-sec white"><div class="dest-inner"><h2>Italy Fractional Ownership — Investment in Detail</h2>
+<p>Lake Como has seen significant appreciation driven by extremely limited supply and sustained international demand. Prime lakefront properties have outperformed broader Italian real estate markets consistently across the past two decades, with comparable villa compounds on Lake Como trading at multiples higher than equally positioned properties on Lake Garda or the Ligurian coast. This sustained premium reflects both the lake&#8217;s unmatched cultural cachet and the geological impossibility of new lakefront development — the mountain slopes flanking Como are too steep, too heavily protected and too densely developed to accommodate meaningful new construction anywhere in the central or northern lake zones.</p>
+<p>Italian resort property has demonstrated resilience — cultural capital of Italy sustains interest through economic cycles. Even during the 2008-2012 European property downturn, demand for the very best Lake Como, Portofino and Costa Smeralda properties remained structurally strong from German, Swiss, French and Russian buyers. The scarcity premium of genuinely prime properties — those with exceptional lakefront positions, sunset exposures, private water access or integrated garden terraces — did not weaken. This resilience reflects a fundamental truth: Italy&#8217;s cultural and lifestyle magnetism is not cyclical. Supply constraints are permanent. The buyers who value these properties have the capital to weather market corrections. These structural factors together support a genuine long-term appreciation case that fractional ownership investors can capture with a 1/8 share structure.</p>
+<p>Premium properties across Italy have historically returned 6-8% per year in prime locations, outpacing broader Italian residential market performance and matching or exceeding property appreciation across comparable Alpine lake destinations in Switzerland and Austria. These returns exclude the value creation possible through careful renovation, tenant management and strategic lease structures — opportunities that COP&#8217;s hands-on management platform is specifically designed to unlock. The fractional structure itself amplifies per-pound capital efficiency: a 1/8 share investor capturing 6-8% annual appreciation on a €200,000 entry cost is capturing equity growth rate equivalent to what full-property ownership would generate, but with one-eighth the capital at risk, one-eighth the management burden, and one-eighth the running costs.</p>
+<p>Italy&#8217;s tourism draw — approximately 95 million international visitors per year — creates deep rental demand for quality second homes across all three Italian regions. Lake Como attracts 1.2+ million visits annually from German, Swiss and British visitors (many of whom are repeat returnees and property owners themselves). The Ligurian Riviera draws tourists from across Northern Europe and increasingly from North America and Asia. Sardinia&#8217;s Costa Smeralda is one of the Mediterranean&#8217;s top ten resort destinations by visitor volume and willingness to pay. This tourism intensity, combined with Italy&#8217;s cultural depth, creates a stable rental market for quality co-ownership properties. Unlike many European resort markets, which depend heavily on a narrow seasonal window, Italy&#8217;s attractions — art, food, landscapes, villages — sustain visitor demand across all seasons. A property available for rental in October in Bellagio or November in Porto Cervo will find tenants. This year-round rental optionality makes Italy fractional shares more capital-efficient than purely lifestyle-driven co-ownership in more seasonally constrained locations.</p>
+<hr class="cop-divider"></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Italy Fractional Ownership — Regions in Detail</h2>
+<h3>Lake Como: The Benchmark for Italian Luxury</h3>
+<p>45 minutes from Milan&#8217;s international airports, genuinely accessible for weekend visits. The combination of dramatic pre-Alpine scenery and extraordinary built environment (18th-19th century lakeside villas) creates an environment where geography, history and human endeavour combine to produce the most celebrated inland water landscape in continental Europe. Every return visit to Lake Como — whether your tenth or your fiftieth — reveals new details: the exact colour of the water shifts with season and angle of light; hiking trails in the mountains reveal new viewpoints; village restaurants rotate between old favourites and newly discovered places. This layered depth of experience is foundational to understanding why Lake Como commands premium prices and why fractional ownership here works so effectively for long-term wealth preservation. You are not buying a property; you are buying access to a place of extraordinary human interest and architectural significance. The deeded ownership structure captures that value directly.</p>
+<h3>Lake Garda: Italy&#8217;s Largest Lake</h3>
+<p>Northern end famous for windsurfing, southern end for Sirmione and Roman ruins. Western shore between Salò and Gargnano has most prestigious residential addresses. Lake Garda offers more geographic diversity than Lake Como — the climate shifts from Alpine to Mediterranean as you move from north to south; the village character ranges from mountain resort (Riva del Garda, with its thermal wind patterns that make it Europe&#8217;s premier wind-sports destination) to medieval fishing village to genteel lakeside resort town to rural agricultural valley. This diversity makes Garda accessible for different lifestyle preferences: families seeking water sports and family-friendly villages; couples valuing quieter, more sophisticated settings in places like Salò or Gargnano; walkers and hikers interested in the Alpine trails of the northern shore. A fractional ownership at Lake Garda potentially offers more seasonal flexibility than Lake Como because the range of activities available shifts meaningfully through the year — summer for water sports and swimming, autumn for hiking and food, winter for the cultural season in nearby Brescia and Verona.</p>
+<h3>Liguria — Italian Riviera</h3>
+<p>Cinque Terre, Portofino, Santa Margherita Ligure — 19th century history as European aristocracy&#8217;s destination. The Ligurian coast is the oldest resort destination in the Mediterranean (eclipsed only by the French Côte d&#8217;Azur in terms of historical cachet, and arguably superior in terms of genuine village authenticity). Portofino was already a destination for Italian and European nobility by the 1800s; by the Belle Époque, it was one of Europe&#8217;s most sought-after addresses. This long history of international second-home ownership has created a sophisticated infrastructure of luxury hospitality, fine dining, marina services and property management that is second to none in Italy. Unlike some newly discovered resort destinations (where infrastructure and services are still developing), Liguria has 150+ years of experience delivering at the highest level to discerning international buyers. Genuinely scarce supply in Portofino, Santa Margherita, Lerici — these villages have essentially no new development, fixed populations, and property supply that turns over only when existing owners choose to sell. This means every fractional share purchased here is genuinely capturing a permanent scarcity premium.</p>
+<hr class="cop-divider"></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Italy Fractional Ownership — Practical Buyer Information</h2>
+<p>Each property is held in a purpose-built <strong>limited liability company (LLC)</strong> — the same vehicle used consistently across our global portfolio, in Italy as in France, Spain, Portugal and the United States. The LLC owns the property outright, you and the other co-owners hold equal membership interests, and the structure provides clear liability protection, administrative clarity and ease of transfer. The Italian legal system recognises this form of co-ownership with complete certainty: the LLC is registered as the proprietor with the local notaio, recorded on the property cadastre, and protected with the same certainty as full sole ownership. Your membership interest is a genuine deeded property right — not a timeshare, not a lease, not a club membership.</p>
+<p>The notaio&#8217;s role in Italian property transactions — independent public official, not just a witness. The Italian notary is a government-certified official responsible for validating all aspects of a property transaction: confirming legal title, verifying that the seller has clear right to convey, ensuring all municipal taxes and utility arrears are settled, and registering the new ownership with local authorities. The notary&#8217;s involvement is mandatory, expensive (typically 1,000-3,000 euros for a fractional share purchase) and absolutely essential. It is this notarial certification that gives Italian property ownership its legal certainty. Unlike some Anglo-Saxon property markets that rely on title insurance and conveyancing lawyers, the Italian system puts a government official in the middle of every transaction. This adds cost but provides certainty that ownership is truly clear.</p>
+<p>IMU tax (municipal property tax) on second homes — levied annually on the presumed rental value of the property. For a fractional share, IMU is calculated on 1/8 of the full property&#8217;s assessed rental value, and divided proportionally among all co-owners. For typical premium Italian lake or coastal properties, IMU typically runs 0.4-0.6% per annum of the property&#8217;s market value. This is a genuine ongoing cost that should be factored into the total cost of ownership. Unlike some countries, Italian property tax is not waived for EU citizens or second-home owners — the tax applies equally to all property owners. COP&#8217;s annual management reports detail IMU allocation and payment for each property.</p>
+<p>Italian capital gains tax: no CGT for non-residents who hold 5+ years. If you own a property (either directly or as a fractional share co-owner) for five or more consecutive years, and are not an Italian tax resident at the time of sale, you owe zero capital gains tax on any appreciation. This is one of Europe&#8217;s most owner-friendly CGT regimes and reflects Italy&#8217;s policy of welcoming foreign investment in second homes. For international buyers planning to hold a fractional share for any meaningful period (5+ years), the long-term tax treatment is extremely attractive. This is a major distinction from many other countries where non-residents face punitive CGT rates (Spain, France, Portugal) or where CGT is owed by all owners regardless of residency. The five-year holding period requirement is specific and well-established in Italian tax law, and COP can help clarify your specific situation based on your residency and timeline.</p>
+<p>Running costs divided proportionally among co-owners at one-eighth — property management fees (typically 3-5% of gross rental income, or 800-1,500 euros per year for unfurnished fractional shares), property insurance (split eight ways), utilities (water, electricity, gas, internet — typically 40-80 euros per month per share for unfurnished properties), and maintenance reserves (typically 200-400 euros per year per share). These costs are entirely transparent and detailed in the annual property statements COP provides to all co-owners. For an active rental property, management fees are offset by rental income. For properties held for personal use only, these running costs are genuine ongoing obligations that should be factored into the investment case.</p>
+<p>Independent tax advice strongly recommended — Italian property ownership has specific implications for your personal tax residency, Italian wealth tax exposure (for Italian residents only), currency exposure (if you are not euro-domiciled), and potential complications if you eventually inherit the property to non-EU heirs. The tax treatment of Italian fractional ownership is genuinely complex and country-of-residence specific. Before purchasing any fractional share, working with a tax advisor familiar with your specific circumstances (your country of residence, your citizenship, your broader asset picture) is not optional — it is essential. COP can provide references to English-speaking Italian property tax specialists, but the choice and engagement of tax advice is entirely your responsibility.</p></div></section>    
+    <!-- CTAs -->
+        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Be The First To Know</h2>
+        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Get in Touch</p>
+            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
+            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Name <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Email Address <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Phone Number <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Select destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France                                </div>
+                                                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Spain                                </div>
+                                                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italy                                </div>
+                                                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 USA                                </div>
+                                                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal                                </div>
+                                                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Austria                                </div>
+                                                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
+                                                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Sweden                                </div>
+                                                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Germany                                </div>
+                                                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatia                                </div>
+                                                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexico                                </div>
+                                                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget Range</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Select a budget</option>
+                            <option>Under €100,000</option>
+                            <option>€100,000 – €200,000</option>
+                            <option>€200,000 – €350,000</option>
+                            <option>€350,000 – €500,000</option>
+                            <option>€500,000 – €750,000</option>
+                            <option>€750,000 – €1,000,000</option>
+                            <option>Over €1,000,000</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
+            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
+            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form (shared partial) ──────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing\u2026';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Thank you for subscribing!';
+                form.reset();
+                btn.textContent = 'Subscribed!';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Join Newsletter';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Join Newsletter';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown (shared partial) ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        /* Remove old tags */
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        /* Update hidden field */
+        hidden.value = selected.join('; ');
+
+        /* Update option highlights */
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    /* Toggle dropdown */
+    trigger.addEventListener('click', function(e) {
+        /* If clicking a tag X, remove that item */
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    /* Click an option */
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                form.reset();
+                btn.textContent = 'Sent!';
+                /* Clear destination tags */
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Network error. Please try again.';
+            btn.disabled = false;
+            btn.textContent = 'Send Enquiry';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
 </body>
 </html>

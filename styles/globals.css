@@ -477,26 +477,35 @@ img {
         .hero-content {
             position: relative;
             z-index: 3;
-            /* top padding clears the 80px fixed header + ~30px breathing room
+            /* top padding clears the 80px fixed header + ~16px breathing room
                so the H1 (which grows taller on FR/ES/DE translations) cannot
-               push up into the header band. */
-            padding: 110px 3rem 4rem;
+               push up into the header band. Bottom padding kept tight so
+               long-translation H1 + CTAs never exceed 100vh. */
+            padding: 96px 3rem 1.5rem;
             display: flex;
             flex-direction: column;
             /* center vertically — long H1s grow symmetrically rather than
-               overflowing upward into the header zone like flex-end did. */
+               overflowing upward into the header zone like flex-end did.
+               min-height:0 ensures flex children shrink if needed instead
+               of overflowing the hero's 100vh box. */
             justify-content: center;
             flex: 1;
+            min-height: 0;
         }
 
 .hero-heading {
             font-family: 'Playfair Display', serif;
-            font-size: 4.2rem;
+            /* Responsive H1 — scales down on narrower viewports so the
+               longer FR/ES/DE translations don't push the CTAs out of
+               100vh. Caps at 4.2rem on wide desktops where EN looks great. */
+            font-size: clamp(2.4rem, 3.6vw + 0.4rem, 4.2rem);
             font-weight: 400;
             color: var(--white);
-            line-height: 1.25;
-            max-width: 52%;
-            margin-bottom: 3rem;
+            line-height: 1.18;
+            /* Widen max-width on narrower viewports so longer translations
+               wrap to fewer lines and don't push the CTAs out of 100vh. */
+            max-width: min(720px, 90%);
+            margin-bottom: 1.5rem;
         }
 
 /* "Your window to the" — same rhythm, italic, slightly softer */
