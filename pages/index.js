@@ -272,6 +272,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
       </Head>
       <Header />
 {/* ===== HERO SECTION ===== */}
+{/* cache-bust: lang-switcher flags v2 — 2026-05-15 */}
     <section className="hero">
         <video ref={videoRef} className="hero-video" autoPlay muted loop playsInline preload="auto" fetchPriority="high">
             <source src="/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4" type="video/mp4" />

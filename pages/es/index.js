@@ -266,7 +266,7 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
-
+{/* cache-bust: lang-switcher flags v2 — 2026-05-15 */}
       {/* ===== HERO SECTION ===== */}
       <section className="hero">
         <video ref={videoRef} className="hero-video" autoPlay muted loop playsInline preload="auto" fetchPriority="high">
