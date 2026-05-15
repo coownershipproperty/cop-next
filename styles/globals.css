@@ -174,17 +174,27 @@ img {
 
 .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
 
-/* ── Language switcher — compact, low-prominence cluster on the right ──── */
-/* Sits inside .cop-nav after the regular links. The DIV breaks the
-   `.cop-nav a + a` left-border chain naturally, so no extra reset needed. */
+/* ── Language switcher — desktop: absolute right of header (own track,
+   doesn't compete with the centered nav for space). Mobile: stays inside
+   the open drawer via cop-nav .cop-lang-switcher (no desktop class). ── */
 .cop-lang-switcher {
   display: flex;
   align-items: center;
   gap: 0;
-  margin-left: 1.2rem;
-  padding-left: 1.2rem;
-  border-left: 1px solid rgba(201,168,76,0.30);
   font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+.cop-lang-switcher-desktop {
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+}
+@media (max-width: 1024px) {
+  .cop-lang-switcher-desktop { display: none; }
+}
+@media (max-width: 1280px) {
+  .cop-lang-switcher-desktop { right: 1.5rem; }
 }
 .cop-lang-link,
 .cop-lang-current {
@@ -224,14 +234,13 @@ img {
 
 /* Tighter breakpoint: switch to hamburger earlier so the desktop nav doesn't
    overlap with the logo on mid-sized screens (1100–1280px). */
-@media (max-width: 1180px) {
+@media (max-width: 1280px) {
   .cop-nav a {
-    padding: 0.4rem 0.85rem;
-    font-size: 0.78rem;
+    padding: 0.4rem 0.78rem;
+    font-size: 0.76rem;
     letter-spacing: 0.10em;
   }
-  .cop-lang-switcher { margin-left: 0.8rem; padding-left: 0.8rem; }
-  .cop-lang-link, .cop-lang-current { padding: 0.32rem 0.42rem; font-size: 0.70rem; }
+  .cop-lang-link, .cop-lang-current { padding: 0.30rem 0.42rem; font-size: 0.70rem; }
 }
 
 /* Gold underline on hover / active */

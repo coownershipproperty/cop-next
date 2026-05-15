@@ -141,7 +141,9 @@ export default function Header() {
         {/* Invisible spacer keeps logo centred on mobile */}
         <div className="cop-header-spacer" aria-hidden="true"></div>
 
-        {/* Nav — desktop: absolute centre; mobile: left drawer */}
+        {/* Nav — desktop: absolute centre; mobile: left drawer.
+            Language switcher is OUTSIDE this nav so it doesn't bloat the
+            centered block and push it into the logo on mid-size screens. */}
         <nav className={`cop-nav${menuOpen ? ' active' : ''}`} id="cop-nav">
           {navLinks.map(({ href, labelKey, extra, badge }) => {
             const isActive = path === href || (href !== homeHref && path.startsWith(href.replace(/\/$/, '')));
@@ -155,10 +157,13 @@ export default function Header() {
               </a>
             );
           })}
-
-          {/* Language switcher — minimal, low-prominence by design */}
-          <LanguageSwitcher currentLocale={locale} currentPath={path} />
+          {/* Language switcher inside the drawer when mobile menu is open */}
+          {menuOpen && <LanguageSwitcher currentLocale={locale} currentPath={path} />}
         </nav>
+
+        {/* Language switcher — desktop: absolute right, hidden on mobile */}
+        <LanguageSwitcher currentLocale={locale} currentPath={path} desktopOnly />
+
       </header>
 
       {/* Dark overlay behind drawer — tap to close */}
@@ -173,7 +178,7 @@ export default function Header() {
   );
 }
 
-function LanguageSwitcher({ currentLocale, currentPath }) {
+function LanguageSwitcher({ currentLocale, currentPath, desktopOnly = false }) {
   // For dynamic-route pages (property / blog / destinations) we can build
   // cross-locale URLs from per-locale prefix maps without needing an entry
   // in ROUTE_MAP. Check this first.
@@ -206,7 +211,7 @@ function LanguageSwitcher({ currentLocale, currentPath }) {
   }
 
   return (
-    <div className="cop-lang-switcher" aria-label="Language">
+    <div className={`cop-lang-switcher${desktopOnly ? ' cop-lang-switcher-desktop' : ''}`} aria-label="Language">
       {SUPPORTED_LOCALES.map((loc) => {
         if (loc === currentLocale) {
           return <span key={loc} className="cop-lang-current">{loc.toUpperCase()}</span>;
