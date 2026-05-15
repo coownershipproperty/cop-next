@@ -334,12 +334,15 @@ img {
 
 .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* ── Hamburger breakpoint at 1180px ─────────────────────────────────────
-   Below 1180px there's not enough horizontal room for the full desktop
-   nav (logo + 6 main links + 4 language pills + padding ≈ 1000px minimum).
-   Switch to hamburger + drawer at this width — same pattern Aman / Belmond /
-   Sotheby's use for luxury hospitality sites. ───────────────────────── */
-@media (max-width:1180px) {
+/* ── Hamburger breakpoint at 1400px ─────────────────────────────────────
+   With 7 main nav links (HOME, OUR HOMES, HOW IT WORKS, ABOUT US, BLOG,
+   MY FAVOURITES, CONTACT US) plus 4 language pills, the minimum width for
+   a non-overlapping desktop nav is around 1400px (logo 150 + 7 nav × 100
+   + 4 lang × 55 + padding 100 + gaps ≈ 1170, plus comfortable breathing
+   room). Below 1400px → hamburger drawer takes over. Only ~1440px MacBook
+   and wider desktops get the full nav — same pattern Aman / Belmond /
+   Sotheby's use for their nav-heavy luxury sites. ───────────────────── */
+@media (max-width:1400px) {
             /* Hamburger on left (visible from 1180px down) */
             .cop-hamburger {
                 display: flex;
@@ -393,20 +396,47 @@ img {
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the drawer — bigger touch targets */
+            /* Language switcher inside the drawer — clean row of equally-sized
+               pills at the bottom of the menu, with a gold-rule top divider */
             .cop-nav .cop-lang-switcher {
                 width: 100%;
-                padding: 1.4rem 2rem 0;
+                box-sizing: border-box;
+                padding: 1.6rem 2rem 0.8rem;
                 margin-top: 0.6rem;
-                border-top: 1px solid rgba(201,168,76,0.18);
-                gap: 0.6rem;
+                border-top: 1px solid rgba(201,168,76,0.22);
+                gap: 0.5rem;
                 justify-content: flex-start;
+                align-items: center;
+                display: flex;
             }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current {
-                font-size: 0.95rem !important;
-                padding: 0.55rem 0.9rem !important;
-                letter-spacing: 0.12em !important;
+                font-size: 0.85rem !important;
+                padding: 0.55rem 0.85rem !important;
+                letter-spacing: 0.14em !important;
+                border-radius: 2px;
+                width: auto !important;
+                display: inline-block !important;
+                text-align: center !important;
+                border-bottom: none !important;
+                min-width: 44px;
+            }
+            .cop-nav .cop-lang-current {
+                background: rgba(201,168,76,0.18) !important;
+                border: 1px solid rgba(201,168,76,0.40) !important;
+                color: var(--warm-gold) !important;
+            }
+            .cop-nav .cop-lang-link {
+                color: rgba(255,255,255,0.62) !important;
+                background: transparent !important;
+            }
+            .cop-nav .cop-lang-link:hover {
+                color: var(--warm-gold) !important;
+                background: rgba(201,168,76,0.08) !important;
+            }
+            .cop-nav .cop-lang-unavailable {
+                opacity: 0.30;
+                cursor: not-allowed;
             }
 
             /* Overlay behind drawer */
@@ -4493,12 +4523,15 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
         /* ===== MOBILE (<768px) ===== */
-        /* ── Hamburger breakpoint at 1180px ─────────────────────────────────────
-   Below 1180px there's not enough horizontal room for the full desktop
-   nav (logo + 6 main links + 4 language pills + padding ≈ 1000px minimum).
-   Switch to hamburger + drawer at this width — same pattern Aman / Belmond /
-   Sotheby's use for luxury hospitality sites. ───────────────────────── */
-@media (max-width:1180px) {
+        /* ── Hamburger breakpoint at 1400px ─────────────────────────────────────
+   With 7 main nav links (HOME, OUR HOMES, HOW IT WORKS, ABOUT US, BLOG,
+   MY FAVOURITES, CONTACT US) plus 4 language pills, the minimum width for
+   a non-overlapping desktop nav is around 1400px (logo 150 + 7 nav × 100
+   + 4 lang × 55 + padding 100 + gaps ≈ 1170, plus comfortable breathing
+   room). Below 1400px → hamburger drawer takes over. Only ~1440px MacBook
+   and wider desktops get the full nav — same pattern Aman / Belmond /
+   Sotheby's use for their nav-heavy luxury sites. ───────────────────── */
+@media (max-width:1400px) {
             /* Hamburger on left (visible from 1180px down) */
             .cop-hamburger {
                 display: flex;
@@ -4552,20 +4585,47 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 color: var(--warm-gold) !important;
             }
 
-            /* Language switcher inside the drawer — bigger touch targets */
+            /* Language switcher inside the drawer — clean row of equally-sized
+               pills at the bottom of the menu, with a gold-rule top divider */
             .cop-nav .cop-lang-switcher {
                 width: 100%;
-                padding: 1.4rem 2rem 0;
+                box-sizing: border-box;
+                padding: 1.6rem 2rem 0.8rem;
                 margin-top: 0.6rem;
-                border-top: 1px solid rgba(201,168,76,0.18);
-                gap: 0.6rem;
+                border-top: 1px solid rgba(201,168,76,0.22);
+                gap: 0.5rem;
                 justify-content: flex-start;
+                align-items: center;
+                display: flex;
             }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current {
-                font-size: 0.95rem !important;
-                padding: 0.55rem 0.9rem !important;
-                letter-spacing: 0.12em !important;
+                font-size: 0.85rem !important;
+                padding: 0.55rem 0.85rem !important;
+                letter-spacing: 0.14em !important;
+                border-radius: 2px;
+                width: auto !important;
+                display: inline-block !important;
+                text-align: center !important;
+                border-bottom: none !important;
+                min-width: 44px;
+            }
+            .cop-nav .cop-lang-current {
+                background: rgba(201,168,76,0.18) !important;
+                border: 1px solid rgba(201,168,76,0.40) !important;
+                color: var(--warm-gold) !important;
+            }
+            .cop-nav .cop-lang-link {
+                color: rgba(255,255,255,0.62) !important;
+                background: transparent !important;
+            }
+            .cop-nav .cop-lang-link:hover {
+                color: var(--warm-gold) !important;
+                background: rgba(201,168,76,0.08) !important;
+            }
+            .cop-nav .cop-lang-unavailable {
+                opacity: 0.30;
+                cursor: not-allowed;
             }
 
             /* Overlay behind drawer */
