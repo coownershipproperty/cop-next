@@ -115,7 +115,7 @@ img {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1.2rem 3rem;
+            padding: 1.2rem 1.8rem;
             height: 80px;
             box-sizing: border-box;
             transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
@@ -161,7 +161,7 @@ img {
             align-items: center;
             justify-content: flex-start;
             flex-wrap: nowrap;
-            margin-left: 2.4rem;
+            margin-left: 1.2rem;
         }
 
 .cop-nav a {
@@ -194,10 +194,10 @@ img {
      As viewport shrinks, this auto-margin collapses BEFORE the nav has to
      compress — so the empty gap between nav and languages closes first,
      then the languages slide left to sit next to the nav. The logo never
-     moves; nav compresses last. This is the "unison contraction" pattern. */
+     moves; nav compresses last. */
   flex-shrink: 0;
   margin-left: auto;
-  padding-left: 1.5rem;
+  padding-left: 0.8rem;
 }
 @media (max-width: 1024px) {
   .cop-lang-switcher-desktop { display: none; }
@@ -4456,7 +4456,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
             align-items: center;
             justify-content: flex-start;
             flex-wrap: nowrap;
-            margin-left: 2.4rem;
+            margin-left: 1.2rem;
         }
         .cop-nav a {
             color: rgba(44,74,94,0.8);
