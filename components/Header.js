@@ -97,11 +97,13 @@ export default function Header() {
   const path = router.asPath || router.pathname;
   const locale = localeFromPath(path);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const [favCount, setFavCount] = useState(0);
 
   // Close menu on route change
   useEffect(() => {
     setMenuOpen(false);
+    setLangOpen(false);
   }, [path]);
 
   // Prevent body scroll when menu is open
@@ -162,8 +164,24 @@ export default function Header() {
               </a>
             );
           })}
-          {/* Language switcher inside the drawer when mobile menu is open */}
-          {menuOpen && <LanguageSwitcher currentLocale={locale} currentPath={path} />}
+          {/* In-drawer language toggle — looks like the other nav items but
+              expands a small flag picker below when tapped. */}
+          {menuOpen && (
+            <>
+              <button
+                type="button"
+                className={`cop-nav-lang-toggle${langOpen ? ' open' : ''}`}
+                aria-expanded={langOpen}
+                onClick={() => setLangOpen(prev => !prev)}
+              >
+                {t('nav.language', locale)}
+                <span className="cop-nav-lang-chev" aria-hidden="true">{langOpen ? '−' : '+'}</span>
+              </button>
+              {langOpen && (
+                <LanguageSwitcher currentLocale={locale} currentPath={path} />
+              )}
+            </>
+          )}
         </nav>
 
         {/* Language switcher — desktop: absolute right, hidden on mobile */}
