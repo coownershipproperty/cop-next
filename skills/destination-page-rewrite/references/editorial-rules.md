@@ -401,7 +401,7 @@ The value to weave naturally into the editorial — without revealing that COP i
 1. **Curated portfolio** — "the COP portfolio", "our properties", "every property we list" implies COP has the inventory. The reader doesn't need to know if COP owns it or has sourced it; the page just treats it as COP's collection.
 2. **In-house expertise** — "our team", "our specialists", "COP's regional advisors" — sounds like an in-house desk a buyer can call. Don't say "we connect you to" or "we introduce you to".
 3. **Quality bar** — "every property in our collection meets a defined quality bar" — does the work of "we vet our partners" without saying it.
-4. **Single relationship across destinations** — "if you build a multi-region portfolio with us, you have one team across all of it" — sounds like internal coordination, not multi-partner orchestration.
+4. **Single relationship during search + decision** — "when you're considering properties in different regions, you talk to one team about all of them" — true (COP's advisors cover everything). NOT "one team forever after purchase" — once you buy, the local management team is local to that property. Don't overclaim post-purchase unification.
 
 **Where to mention these naturally** in the editorial:
 - §A "Why {Destination}?" can reference "the curated COP collection" or "our specialist team" once

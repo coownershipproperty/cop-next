@@ -196,18 +196,18 @@ img {
 }
 .cop-lang-link,
 .cop-lang-current {
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.10em;
-  padding: 0.32rem 0.55rem;
+  letter-spacing: 0.12em;
+  padding: 0.42rem 0.65rem;
   text-decoration: none;
   white-space: nowrap;
   transition: color 0.18s ease, background 0.18s ease;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.62);
 }
 .cop-header.scrolled .cop-lang-link,
 .cop-header.scrolled .cop-lang-current {
-  color: rgba(44,74,94,0.55);
+  color: rgba(44,74,94,0.62);
 }
 .cop-lang-link:hover {
   color: var(--warm-gold);
@@ -215,7 +215,8 @@ img {
 .cop-lang-current {
   color: var(--warm-gold);
   font-weight: 700;
-  background: rgba(201,168,76,0.12);
+  background: rgba(201,168,76,0.14);
+  border: 1px solid rgba(201,168,76,0.28);
   border-radius: 2px;
 }
 .cop-lang-unavailable {
@@ -230,15 +231,15 @@ img {
   border-left: none;
 }
 
-/* Tighter breakpoint: switch to hamburger earlier so the desktop nav doesn't
-   overlap with the logo on mid-sized screens (1100–1280px). */
+/* Tighter breakpoint for mid-sized screens (1100–1280px) so 6 main links +
+   prominent language pills fit comfortably without overlap. */
 @media (max-width: 1280px) {
   .cop-nav a {
     padding: 0.4rem 0.78rem;
     font-size: 0.76rem;
     letter-spacing: 0.10em;
   }
-  .cop-lang-link, .cop-lang-current { padding: 0.30rem 0.42rem; font-size: 0.70rem; }
+  .cop-lang-link, .cop-lang-current { padding: 0.36rem 0.52rem; font-size: 0.78rem; }
 }
 
 /* Gold underline on hover / active */
@@ -395,6 +396,27 @@ img {
                 background: rgba(201,168,76,0.1);
                 color: var(--warm-gold) !important;
             }
+
+            /* Language switcher inside the mobile drawer — bigger touch targets,
+               full-width row at the bottom of the menu list */
+            .cop-nav .cop-lang-switcher {
+                width: 100%;
+                padding: 1.4rem 2rem 0;
+                margin-top: 0.6rem;
+                border-top: 1px solid rgba(201,168,76,0.18);
+                gap: 0.6rem;
+                justify-content: flex-start;
+            }
+            .cop-nav .cop-lang-link,
+            .cop-nav .cop-lang-current {
+                font-size: 0.95rem !important;
+                padding: 0.55rem 0.9rem !important;
+                letter-spacing: 0.12em !important;
+            }
+
+            /* Belt-and-suspenders: ensure the desktop-only language switcher is
+               REALLY hidden on mobile (so it never leaks at the top) */
+            .cop-lang-switcher-desktop { display: none !important; }
 
             /* Overlay behind drawer — must be BELOW header (9999) so nav links stay clickable */
             .cop-nav-overlay {
@@ -4524,6 +4546,27 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 background: rgba(201,168,76,0.1);
                 color: var(--warm-gold) !important;
             }
+
+            /* Language switcher inside the mobile drawer — bigger touch targets,
+               full-width row at the bottom of the menu list */
+            .cop-nav .cop-lang-switcher {
+                width: 100%;
+                padding: 1.4rem 2rem 0;
+                margin-top: 0.6rem;
+                border-top: 1px solid rgba(201,168,76,0.18);
+                gap: 0.6rem;
+                justify-content: flex-start;
+            }
+            .cop-nav .cop-lang-link,
+            .cop-nav .cop-lang-current {
+                font-size: 0.95rem !important;
+                padding: 0.55rem 0.9rem !important;
+                letter-spacing: 0.12em !important;
+            }
+
+            /* Belt-and-suspenders: ensure the desktop-only language switcher is
+               REALLY hidden on mobile (so it never leaks at the top) */
+            .cop-lang-switcher-desktop { display: none !important; }
 
             /* Overlay behind drawer — must be BELOW header (9999) so nav links stay clickable */
             .cop-nav-overlay {

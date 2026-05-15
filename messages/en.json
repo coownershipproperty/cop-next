@@ -5,11 +5,11 @@
   },
   "nav": {
     "home": "Home",
-    "our_homes": "Our Homes",
+    "our_homes": "Homes",
     "how_it_works": "How It Works",
-    "about_us": "About Us",
-    "blog": "Our Blog",
-    "favourites": "My Favourites",
+    "about_us": "About",
+    "blog": "Blog",
+    "favourites": "Favourites",
     "contact": "Contact"
   },
   "footer": {
