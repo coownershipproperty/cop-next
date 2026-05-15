@@ -148,17 +148,20 @@ img {
 
 .cop-header.scrolled .cop-logo img.logo-dark  { display: block; }
 
-/* Nav — flex-grow so it fills the space between logo and lang switcher,
-   then internally centers its links. OVERLAP-PROOF: the nav physically
-   can't push into the logo because logo is also a flex item. */
+/* Nav — sits right next to the logo (left-aligned), with the languages
+   pushed to the right via margin-left:auto on .cop-lang-switcher-desktop.
+   As viewport shrinks: the GAP between nav and languages collapses first
+   (languages slide left toward the nav), then nav compresses if needed —
+   logo never moves, everything packs left in unison. */
         .cop-nav {
-            flex: 1 1 auto;
+            flex: 0 1 auto;
             min-width: 0;
             display: flex;
             gap: 0;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             flex-wrap: nowrap;
+            margin-left: 2.4rem;
         }
 
 .cop-nav a {
@@ -187,9 +190,14 @@ img {
   font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 .cop-lang-switcher-desktop {
-  /* Right-anchored flex item, doesn't compete with centered nav for space */
+  /* margin-left:auto pushes the languages to the right edge of the header.
+     As viewport shrinks, this auto-margin collapses BEFORE the nav has to
+     compress — so the empty gap between nav and languages closes first,
+     then the languages slide left to sit next to the nav. The logo never
+     moves; nav compresses last. This is the "unison contraction" pattern. */
   flex-shrink: 0;
-  margin-left: 1.5rem;
+  margin-left: auto;
+  padding-left: 1.5rem;
 }
 @media (max-width: 1024px) {
   .cop-lang-switcher-desktop { display: none; }
@@ -4399,17 +4407,20 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         .cop-logo img { height: 54px; width: auto; display: block; }
 
 
-        /* Nav — flex-grow so it fills the space between logo and lang switcher,
-   then internally centers its links. OVERLAP-PROOF: the nav physically
-   can't push into the logo because logo is also a flex item. */
+        /* Nav — sits right next to the logo (left-aligned), with the languages
+   pushed to the right via margin-left:auto on .cop-lang-switcher-desktop.
+   As viewport shrinks: the GAP between nav and languages collapses first
+   (languages slide left toward the nav), then nav compresses if needed —
+   logo never moves, everything packs left in unison. */
         .cop-nav {
-            flex: 1 1 auto;
+            flex: 0 1 auto;
             min-width: 0;
             display: flex;
             gap: 0;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             flex-wrap: nowrap;
+            margin-left: 2.4rem;
         }
         .cop-nav a {
             color: rgba(44,74,94,0.8);
