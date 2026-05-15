@@ -525,9 +525,14 @@ img {
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 1.2rem 2rem 1.4rem;
+                /* Generous bottom padding so the flag picker doesn't feel
+                   cut off — flag tiles have proper breathing room below
+                   them before the panel ends. */
+                padding: 1.4rem 2rem 2rem;
                 background: rgba(0,0,0,0.18);
-                border-bottom: 1px solid rgba(201,168,76,0.12);
+                /* No bottom border — let the dark band fade naturally
+                   into the drawer instead of an awkward hairline cut */
+                border-bottom: none;
                 display: grid !important;
                 grid-template-columns: repeat(4, 1fr);
                 gap: 0.8rem;
@@ -4784,9 +4789,14 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 1.2rem 2rem 1.4rem;
+                /* Generous bottom padding so the flag picker doesn't feel
+                   cut off — flag tiles have proper breathing room below
+                   them before the panel ends. */
+                padding: 1.4rem 2rem 2rem;
                 background: rgba(0,0,0,0.18);
-                border-bottom: 1px solid rgba(201,168,76,0.12);
+                /* No bottom border — let the dark band fade naturally
+                   into the drawer instead of an awkward hairline cut */
+                border-bottom: none;
                 display: grid !important;
                 grid-template-columns: repeat(4, 1fr);
                 gap: 0.8rem;
