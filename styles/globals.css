@@ -188,14 +188,54 @@ img {
   font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 .cop-lang-switcher-desktop {
-  /* margin-left:auto pushes the languages to the right edge of the header.
-     As viewport shrinks, this auto-margin collapses BEFORE the nav has to
-     compress — so the empty gap between nav and languages closes first,
-     then the languages slide left to sit next to the nav. The logo never
-     moves; nav compresses last. */
+  /* Desktop language switcher: 2x2 grid (EN | ES / FR | DE) rather than a
+     single horizontal row — saves ~50% horizontal space so the nav has
+     more breathing room. The 4 cells look like a single bordered box
+     divided into quadrants. */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0;
   flex-shrink: 0;
   margin-left: auto;
-  padding-left: 0.8rem;
+  margin-right: 0.2rem;
+  padding: 0;
+  border: 1px solid rgba(201,168,76,0.22);
+  border-radius: 2px;
+  overflow: hidden;
+}
+/* Each cell sits inside the grid as a flex container so the text is
+   centered both horizontally and vertically inside its quadrant. */
+.cop-lang-switcher-desktop .cop-lang-link,
+.cop-lang-switcher-desktop .cop-lang-current {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  padding: 0.26rem 0.6rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.10em;
+  border-radius: 0;
+  /* Reset border/background that the default .cop-lang-current adds —
+     we paint the grid lines and the active-cell tint separately below. */
+  border: none;
+  background: transparent;
+}
+/* Grid divider lines — vertical between the 2 columns, horizontal between
+   the 2 rows. Achieved by giving cells 1 & 3 (left column) a right border
+   and cells 1 & 2 (top row) a bottom border. */
+.cop-lang-switcher-desktop > *:nth-child(odd) {
+  border-right: 1px solid rgba(201,168,76,0.22);
+}
+.cop-lang-switcher-desktop > *:nth-child(-n+2) {
+  border-bottom: 1px solid rgba(201,168,76,0.22);
+}
+/* Active language cell: subtle gold tint behind, gold text, no extra
+   border (the grid borders are already there). */
+.cop-lang-switcher-desktop .cop-lang-current {
+  background: rgba(201,168,76,0.14);
+  color: var(--warm-gold);
+  font-weight: 700;
 }
 @media (max-width: 1024px) {
   .cop-lang-switcher-desktop { display: none; }
