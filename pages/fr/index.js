@@ -318,44 +318,44 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
       {/* ===== INTRODUCTION SECTION ===== */}
       <section className="intro-section">
         <p className="intro-text">
-          Découvrez le monde de la copropriété de luxe. Des villas méditerranéennes baignées de soleil aux appartements urbains élégants, des domaines viticoles aux refuges alpins, chaque bien vous semble naturellement vôtre.
+          Découvrez l'univers des biens de prestige en vente fractionnée. Des villas baignées de soleil en Méditerranée aux appartements urbains élégants, des domaines viticoles aux chalets alpins, chaque bien donne naturellement l'impression d'être chez vous.
         </p>
         <p className="intro-subtext">
-          Chaque bien est soigneusement sélectionné, magnifiquement conçu et géré par des professionnels. Bien plus qu'un bien : une porte ouverte sur des paysages intemporels, des trésors culturels et des moments inoubliables en famille.
+          Chaque bien est soigneusement sélectionné, impeccablement aménagé et géré par des professionnels. Plus qu'une façon d'être propriétaire, c'est un accès privilégié à des paysages intemporels, à des trésors culturels et à des moments inoubliables en famille.
         </p>
       </section>
 
       {/* ===== CO-OWNERSHIP EXPLAINER ===== */}
       <section className="explainer-section">
         <div className="explainer-intro">
-          <h2>Qu'est-ce que la copropriété de résidence secondaire ?</h2>
-          <p>La copropriété de résidence secondaire — aussi appelée <em>co-ownership</em> en France — vous permet d'acheter une part légale d'un bien de vacances haut de gamme et d'en profiter pleinement, comme si elle vous appartenait entièrement. Une vraie alternative à l'achat seul, qui rend la résidence secondaire de luxe accessible à plusieurs acquéreurs partageant la même vision.</p>
+          <h2>Qu'est-ce que la copropriété ou la vente fractionnée ?</h2>
+          <p>La copropriété vous permet d'acheter une part d'une résidence secondaire haut de gamme et d'en profiter pleinement, comme vous le feriez avec une résidence qui vous appartient entièrement. Vous accédez au style de vie sans supporter seul le prix d'achat, et ensuite vous partagez les frais avec les autres copropriétaires. Attention : ce n'est pas du « temps partagé ou timeshare » ; votre nom est sur l'acte notarial comme dans une SCI.</p>
         </div>
         <div className="explainer-grid">
           <div className="explainer-item">
             <div className="explainer-num">01</div>
             <div className="explainer-divider"></div>
-            <h3>Vous êtes copropriétaire légal</h3>
-            <p>Vous achetez <strong>1/8 d'un bien</strong>. C'est une <strong>vrai bien, enregistrée à votre nom</strong>, avec toutes les protections légales. Nos biens sont conçues pour <strong>prendre de la valeur</strong>, vous offrant les avantages de l'investissement immobilier. Vous avez toute flexibilité pour <strong>revendre votre quote-part quand vous voulez</strong> — vous fixez le prix, nous trouvons l'acquéreur.</p>
-            <p className="explainer-stat">Les quotes-parts se revendent en moins d'un mois en moyenne.</p>
+            <h3>Vous détenez une part réelle</h3>
+            <p>Vous achetez une part de <strong>1/8 dans un bien de prestige</strong> (maximum 4 parts, puisqu'il y a 8 parts au total et au minimum deux copropriétaires). Il s'agit d'un <strong>bien réel, enregistré</strong> au nom d'une société type SCI ou votre nom figure pour 1/8 ou plus, avec toutes les protections juridiques associées. Nos biens sont sélectionnés pour leur potentiel de valorisation, afin de vous offrir les avantages patrimoniaux de l'immobilier. Vous pouvez <strong>revendre votre part à tout moment</strong> : vous fixez le prix, et vendez sur le marché.</p>
+            <p className="explainer-stat">En moyenne, les parts se revendent en moins d'un mois.</p>
           </div>
           <div className="explainer-item">
             <div className="explainer-num">02</div>
             <div className="explainer-divider"></div>
-            <h3>Usage garanti</h3>
-            <p><strong>Vos semaines vous appartiennent.</strong> Un calendrier équitable et structuré garantit que chaque copropriétaire profite de ses dates sans concurrence — <strong>haute saison incluse.</strong> Pas de multibien, pas de points, pas de compromis. Vous vous sentez chez vous : vous arrivez et <strong>vos affaires y sont, tout est prêt, le bien est entièrement gérée</strong> pour que vous puissiez simplement en profiter.</p>
+            <h3>Un temps d'usage garanti</h3>
+            <p><strong>Vos semaines vous appartiennent.</strong> Un calendrier clair et équitable garantit à chaque copropriétaire son temps d'usage, sans concurrence pour les dates, y compris en haute saison. Vous êtes le seul à utiliser le bien lorsque vous y séjournez. Vous arrivez chez vous : <strong>vos affaires sont là, tout est prêt, et le bien est entièrement géré</strong> pour que vous puissiez simplement en profiter.</p>
           </div>
           <div className="explainer-item">
             <div className="explainer-num">03</div>
             <div className="explainer-divider"></div>
-            <h3>Frais partagés</h3>
-            <p>Entretien, frais de gestion et coûts courants sont <strong>répartis équitablement entre les copropriétaires.</strong> Sur de nombreuses biens, lorsque vous ne l'utilisez pas, elle peut être <strong>louée — générant des revenus</strong> qui compensent encore vos coûts. <strong>Nous nous occupons de tout.</strong></p>
+            <h3>Des frais partagés</h3>
+            <p>L'entretien, les frais de gestion et les coûts courants sont <strong>répartis équitablement entre les copropriétaires</strong> (8 parts). Sur de nombreux biens, les périodes que vous n'utilisez pas peuvent être mises en location, <strong>générant des revenus qui contribuent à compenser vos frais.</strong></p>
           </div>
           <div className="explainer-item">
             <div className="explainer-num">04</div>
             <div className="explainer-divider"></div>
-            <h3>Avantages supplémentaires</h3>
-            <p>La copropriété offre des avantages plus larges — d'une <strong>fiscalité favorable</strong> et d'une <strong>planification successorale simplifiée</strong>, à la flexibilité d'<strong>échanges</strong> avec d'autres copropriétaires de notre portefeuille international.</p>
+            <h3>Des avantages complémentaires</h3>
+            <p>La copropriété offre aussi des avantages plus larges : <strong>traitement fiscal potentiellement favorable</strong>, <strong>transmission simplifiée</strong>, et possibilité d'<strong>échanger des séjours</strong> avec d'autres copropriétaires au sein d'un portefeuille international.</p>
           </div>
         </div>
       </section>
@@ -363,9 +363,9 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
       {/* ===== CTA BAND ===== */}
       <section className="cta-band">
         <p className="cta-band-eyebrow">Co-Ownership Property</p>
-        <h2 className="cta-band-heading">Possédez une part de quelque chose <em>d'extraordinaire</em></h2>
+        <h2 className="cta-band-heading">Devenez propriétaire d'une part dans un lieu <em>d'exception</em></h2>
         <span className="cta-band-rule"></span>
-        <p className="cta-band-sub">D'une villa sur la Côte d'Azur à un chalet à Aspen — la copropriété vous donne une véritable part dans les plus belles maisons du monde, à une fraction du prix.</p>
+        <p className="cta-band-sub">D'une villa sur la Côte d'Azur à un chalet à Aspen, la copropriété vous donne une véritable part dans les plus belles résidences du monde, pour une fraction du coût.</p>
         <div className="cta-band-buttons">
           <a href="#speak-to-expert" className="cta-band-primary">Parler à un expert</a>
           <a href="#newsletter" className="cta-band-secondary">S'abonner à la newsletter</a>
@@ -374,8 +374,8 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
 
       {/* ===== PROPERTIES CAROUSEL ===== */}
       <section className="properties-section" id="properties">
-        <h2 className="section-heading">Acheter une résidence secondaire à plusieurs</h2>
-        <p className="section-subtitle">Une sélection curatée de résidences secondaires en copropriété dans les destinations les plus prisées d'Europe et au-delà — la façon la plus accessible d'acquérir une maison de vacances de rêve.</p>
+        <h2 className="section-heading">Découvrez nos biens de prestige</h2>
+        <p className="section-subtitle">Parcourez notre sélection de biens en copropriété dans les destinations les plus recherchées au monde.</p>
 
         <PropCarousel items={featuredProps} propertyCount={propertyCount} />
 
@@ -546,29 +546,29 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
 
       {/* ===== TESTIMONIALS SECTION ===== */}
       <section className="testimonials-section" id="testimonials">
-        <h2 className="section-heading">Histoires de copropriétaires</h2>
+        <h2 className="section-heading">Témoignages de copropriétaires</h2>
         <div className="testimonials-grid">
           <div className="testimonial-card">
             <Image src="/wp-content/uploads/2026/02/Hedda-testimonial-south-of-France.jpg" alt="Astrid" width={120} height={120} className="testimonial-image" loading="lazy" />
-            <p className="testimonial-quote">«&nbsp;Dès le premier séjour, tout a été d'une simplicité parfaite — comme arriver chez soi avec le confort d'un hôtel. La Provence fait désormais partie de notre rythme. Je n'ai plus à m'occuper de rien.&nbsp;»</p>
+            <p className="testimonial-quote">«&nbsp;Dès le premier séjour, tout a semblé évident : arriver chez soi, avec le confort d'un hôtel. La Provence fait désormais partie de notre rythme. Je n'ai plus à m'occuper de rien.&nbsp;»</p>
             <div className="testimonial-author">Astrid</div>
             <div className="testimonial-location">Mougins, sud de la France</div>
           </div>
           <div className="testimonial-card">
             <Image src="/wp-content/uploads/2026/02/Middle-aged-couple-from-the-UK-with-mountain-and-ski-slopes-behind.-La-Plagne.jpg" alt="Harry et Nicole" width={120} height={120} className="testimonial-image" loading="lazy" />
-            <p className="testimonial-quote">«&nbsp;La copropriété nous a offert le rêve alpin que nous pensions hors de portée. Le processus a été fluide, et notre fils invite désormais ses amis du collège à skier. C'est devenu une vraie maison de famille.&nbsp;»</p>
+            <p className="testimonial-quote">«&nbsp;La copropriété nous a permis d'acquérir un bien à la montagne que nous pensions hors de portée. Le processus a été fluide, et notre fils invite maintenant ses amis à venir skier. C'est devenu une vraie maison de famille.&nbsp;»</p>
             <div className="testimonial-author">Harry et Nicole</div>
             <div className="testimonial-location">La Plagne, Alpes françaises</div>
           </div>
           <div className="testimonial-card">
             <Image src="/wp-content/uploads/2026/02/Young-couple-from-LA-review-about-Lake-Tahoe-property.jpg" alt="Mateo et Anne" width={120} height={120} className="testimonial-image" loading="lazy" />
-            <p className="testimonial-quote">«&nbsp;Nous possédons enfin un morceau de cette terre sans la culpabilité d'un emprunt sous-utilisé. Transparent dès le premier jour — nous ne pourrions être plus heureux. On planifie déjà notre prochaine quote-part en Europe.&nbsp;»</p>
+            <p className="testimonial-quote">«&nbsp;Nous possédons enfin une part de ce bien, sans le poids d'un emprunt pour une maison que nous n'utilisons que sporadiquement (35 jours en moyenne en Europe pour l'utilisation d'une résidence secondaire). Tout a été facile dès le premier jour. Nous sommes ravis, et nous pensons déjà à notre prochaine part en Europe.&nbsp;»</p>
             <div className="testimonial-author">Mateo et Anne</div>
             <div className="testimonial-location">LA, Californie</div>
           </div>
           <div className="testimonial-card">
             <Image src="/wp-content/uploads/2026/02/Family-swimming-in-Mallorca.jpg" alt="Jan et la famille" width={120} height={120} className="testimonial-image" loading="lazy" />
-            <p className="testimonial-quote">«&nbsp;J'ai vendu ma résidence secondaire en France et acheté une villa beaucoup plus belle à Majorque pour le quart du prix. L'équipe a tout géré avec brio — on se sent chez soi à la seconde où l'on franchit la porte.&nbsp;»</p>
+            <p className="testimonial-quote">«&nbsp;J'ai vendu ma résidence secondaire en France et acheté une villa beaucoup plus belle à Majorque pour un quart du prix. L'équipe a tout géré parfaitement. On se sent chez nous dès que l'on pousse la porte.&nbsp;»</p>
             <div className="testimonial-author">Jan et la famille</div>
             <div className="testimonial-location">Majorque, Espagne</div>
           </div>
@@ -577,9 +577,9 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
 
       {/* ===== LATEST POSTS SECTION ===== */}
       <section className="latest-posts-section">
-        <span className="lp-eyebrow">Du blog</span>
-        <h2 className="section-heading">Derniers articles</h2>
-        <p className="lp-subtitle">Guides de destination, analyses de marché et histoires de copropriétaires — publiés régulièrement pour l'acheteur exigeant.</p>
+        <span className="lp-eyebrow">Actualités</span>
+        <h2 className="section-heading">Dernières analyses</h2>
+        <p className="lp-subtitle">Guides de destinations, analyses de marché et témoignages de copropriétaires, pensés pour les acquéreurs exigeants.</p>
 
         <div className="latest-posts-grid">
           {latestPosts.map(post => (
@@ -606,18 +606,18 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
       {/* ===== FAQ SECTION ===== */}
       <section className="faq-section" id="faq">
         <p className="faq-eyebrow">Questions fréquentes</p>
-        <h2 className="faq-heading">Questions <em>fréquemment</em> posées</h2>
-        <p className="faq-subheading">Tout ce qu'il faut savoir sur la copropriété de luxe — et pourquoi c'est la façon la plus intelligente de posséder une résidence secondaire.</p>
+        <h2 className="faq-heading">Questions <em>fréquentes</em></h2>
+        <p className="faq-subheading">Tout ce qu'il faut savoir sur la copropriété de prestige, et pourquoi c'est l'une des façons les plus intelligentes pour acquérir une résidence secondaire.</p>
         <div className="faq-list">
 
           <details className="faq-item">
             <summary className="faq-q"><span>Qu'est-ce que la copropriété (ou co-ownership) d'une résidence secondaire ?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>La copropriété de résidence secondaire signifie que vous et un petit nombre d'autres copropriétaires achetez chacun une quote-part enregistrée d'un bien de luxe entièrement gérée. Vous possédez une véritable fraction de la maison — typiquement 1/8 — et contrairement à la multibien, vous détenez une véritable bien immobilière. Cela combine la fierté et les avantages financiers de le bien immobilière réelle avec la facilité d'un hôtel cinq étoiles, à une fraction du coût d'achat complet.</p></div>
+            <div className="faq-a"><p>La copropriété signifie que vous et un petit nombre d'autres copropriétaires achetez chacun une quote-part enregistrée d'un bien de prestige entièrement géré. Vous possédez une véritable fraction du bien — typiquement 1/8 — et contrairement au timeshare, vous détenez un véritable bien immobilier. Cela combine la fierté et les avantages financiers du bien immobilier réel avec la facilité d'un hôtel cinq étoiles, à une fraction du coût d'achat complet.</p></div>
           </details>
 
           <details className="faq-item">
-            <summary className="faq-q"><span>En quoi la copropriété est-elle différente de la multibien&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
-            <div className="faq-a"><p>Contrairement à la multibien, la copropriété vous donne une véritable part de l'acte de bien — vous bénéficiez donc de toute appréciation de valeur et pouvez revendre votre quote-part sur le marché libre quand vous voulez. Comme il s'agit de biens de luxe dans des emplacements très demandés, les prix augmentent typiquement avec le temps. Pas de club d'adhérents, pas de système de points, pas de verrouillage contractuel à long terme. Vous êtes un véritable propriétaire avec tous les droits légaux sur votre fraction.</p></div>
+            <summary className="faq-q"><span>En quoi la copropriété est-elle différente du timeshare&nbsp;?</span><svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg></summary>
+            <div className="faq-a"><p>Contrairement au timeshare, la copropriété vous donne une véritable part de l'acte notarié — vous bénéficiez donc de toute appréciation de valeur et pouvez revendre votre quote-part sur le marché libre quand vous voulez. Comme il s'agit de biens de luxe dans des emplacements très demandés, les prix augmentent typiquement avec le temps. Pas de club d'adhérents, pas de système de points, pas de verrouillage contractuel à long terme. Vous êtes un véritable propriétaire avec tous les droits légaux sur votre fraction.</p></div>
           </details>
 
           <details className="faq-item">
