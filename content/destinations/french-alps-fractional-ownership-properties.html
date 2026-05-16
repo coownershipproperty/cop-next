@@ -1,1056 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>French Alps Fractional Ownership Properties | Co-Ownership Property</title>
-    <meta name="description" content="Premium fractional ownership properties in the French Alps. Luxury ski chalets in Courchevel, Chamonix &amp; more through co-ownership.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-        <style>
-        /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
-
-/* ── CSS Variables ── */
-:root {
-    /* === Primary palette (use these in new work) === */
-    --blue:         #2C4A5E;
-    --cream:        #F5F2EC;
-    --gold:         #C9A84C;
-    --white:        #FFFFFF;
-    --text:         #1a2533;
-    --muted:        #5a6a7a;
-    --border:       #e8e0d4;
-    --max:          1400px;
-
-    /* === Legacy aliases (keep for existing templates) === */
-    --warm-gold:    #C9A84C;
-    --cream-bg:     #F5F2EC;
-    --cream-light:  #FAF8F5;
-    --text-dark:    #2C4A5E;
-    --text-light:   rgba(255,255,255,0.85);
-    --text-muted:   #5a6a7a;
-    --gray-border:  #e8e0d4;
-    --blue-80:      #4A6A7E;
-    --blue-60:      #6B8A9E;
-    --blue-40:      #9EAFBC;
-    --blue-20:      #C5CED5;
-    --transition:   0.3s ease;
-}
-
-/* ── Base reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-button { font-family: inherit; cursor: pointer; }
-        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
-        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
-        a{color:inherit;text-decoration:none;transition:color var(--transition)}
-        img{display:block;max-width:100%;height:auto}
-
-                /* ===== SITE-WIDE HEADER ===== */
-        .cop-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 3rem;
-            height: 80px;
-            box-sizing: border-box;
-            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .admin-bar .cop-header { top: 32px; }
-
-        /* Logo */
-        .cop-logo { flex-shrink: 0; }
-        .cop-logo a { display: block; }
-        .cop-logo img { height: 54px; width: auto; display: block; }
-
-
-        /* Nav — absolutely centred between logo and hamburger */
-        .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0;
-            align-items: center;
-        }
-        .cop-nav a {
-            color: rgba(44,74,94,0.8);
-            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.84rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.4rem 1.4rem;
-            white-space: nowrap;
-            transition: color 0.25s ease;
-            text-decoration: none;
-        }
-        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
-
-        /* Gold underline on hover / active */
-        .cop-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 1.4rem; right: 1.4rem;
-            height: 1px;
-            background: rgba(201,168,76,1);
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.28s ease;
-        }
-        .cop-nav a:hover,
-        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
-        .cop-nav a:hover::after,
-        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
-
-
-        /* Favourites — heart prefix */
-        .cop-nav a.cop-nav-favourites::before {
-            content: '\2665\00a0\00a0';
-            font-size: 0.75rem;
-            color: rgba(201,168,76,1);
-            opacity: 0.75;
-            letter-spacing: 0;
-        }
-
-        /* Hamburger */
-        .cop-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-        .cop-hamburger span {
-            width: 22px; height: 1.5px;
-            background: rgba(44,74,94,0.8);
-            transition: all 0.28s ease;
-            transform-origin: center;
-            display: block;
-        }
-        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        /* ===== MOBILE (<768px) ===== */
-        @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
-            .cop-nav {
-                position: fixed;
-                top: 80px; left: 0; right: 0;
-                transform: none;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.97);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
-                z-index: 9998;
-            }
-            .admin-bar .cop-nav { top: 112px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
-            .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
-                width: 100%;
-                text-align: center;
-                border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
-                box-sizing: border-box;
-            }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
-        }
-
-        /* ===== HERO ===== */
-        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
-        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
-        .page-hero>*{position:relative;z-index:1}
-        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
-        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
-        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
-
-        /* ===== PROPERTY GRID ===== */
-        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
-        .props-inner{max-width:1400px;margin:0 auto}
-        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .props-count strong{color:var(--text-dark);font-weight:700}
-        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
-        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
-        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
-        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
-        .prop-card:hover .prop-img{transform:scale(1.04)}
-        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
-        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
-        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
-        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
-        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
-        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
-        .prop-stat{display:flex;align-items:center;gap:0.35rem}
-        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
-        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
-        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
-        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
-        .prop-card:hover .prop-view{color:var(--warm-gold)}
-        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
-        /* Show more button */
-        .prop-card.hidden{display:none}
-        .show-more-wrap{text-align:center;margin-top:2.5rem}
-        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
-        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-        /* Mid-page CTA */
-        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
-        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-        .dest-mid-cta > *{position:relative;z-index:1}
-        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
-        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
-        .dest-cta-btn-gold:hover{background:#b8963e}
-        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
-        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-
-        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
-        
-.dest-sec{padding:80px 3rem}
-.dest-sec.cream{background:var(--cream-bg)}
-.dest-sec.white{background:var(--white)}
-.dest-inner{max-width:900px;margin:0 auto}
-.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
-.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
-.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
-.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
-.dest-sec strong{color:var(--text-dark);font-weight:700}
-.dest-sec em{font-style:italic}
-.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
-.dest-sec a:hover{color:var(--blue)}
-.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
-.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
-.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
-.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
-.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
-/* Explore More */
-.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
-.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
-.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
-.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
-.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
-/* FAQ */
-.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
-.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
-.dest-faq-list{counter-reset:faq}
-.dest-faq-item{border-top:1px solid var(--warm-gold)}
-.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
-.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
-.dest-faq-item summary::-webkit-details-marker{display:none}
-.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
-.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
-details[open] .dest-faq-chevron{transform:rotate(-135deg)}
-.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
-.dest-faq-answer p{margin-bottom:0.8rem}
-@media(max-width:768px){
-    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
-    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-        /* ===== CTAs ===== */
-                /* ===== NEWSLETTER SIGNUP ===== */
-        .newsletter-section {
-            background: var(--white);
-            position: relative;
-            padding: 100px 3rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 400;
-            color: var(--text-dark);
-        }
-        .newsletter-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 620px;
-            margin: 0 auto;
-        }
-        .newsletter-form input {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border: 1px solid #ddd;
-            background: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-        .newsletter-form input::placeholder { color: var(--text-muted); }
-        .newsletter-form input:focus { border-color: var(--warm-gold); }
-        .newsletter-btn {
-            background: var(--blue);
-            color: var(--white);
-            border: 2px solid var(--blue);
-            padding: 0.9rem 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            font-family: 'Nunito Sans', sans-serif;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
-        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
-        .newsletter-form-msg {
-            margin-top: 1rem;
-            font-size: 0.88rem;
-            min-height: 1.4em;
-        }
-        .newsletter-form-msg.success { color: #4a9e6e; }
-        .newsletter-form-msg.error   { color: #c0392b; }
-
-        @media (max-width: 640px) {
-            .newsletter-section { padding: 70px 1.5rem; }
-            .newsletter-heading { font-size: 2rem; }
-            .newsletter-form { flex-direction: column; }
-        }
-                /* ===== EXPERT FORM SECTION ===== */
-        .expert-section {
-            background: var(--blue);
-            padding: 100px 3rem;
-            position: relative;
-            overflow: hidden;
-            scroll-margin-top: 90px;
-        }
-        .expert-section::after {
-            content: '';
-            position: absolute;
-            top: 28px; left: 28px; right: 28px; bottom: 28px;
-            border: 1px solid rgba(201,168,76,0.15);
-            pointer-events: none;
-        }
-        .expert-section > * { position: relative; z-index: 1; }
-
-        .expert-inner {
-            max-width: 820px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .expert-eyebrow {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--warm-gold);
-            margin-bottom: 1.2rem;
-        }
-        .expert-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-        .expert-heading em { font-style: italic; color: var(--warm-gold); }
-        .expert-sub {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-        .expert-form { text-align: left; }
-        .expert-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .expert-form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-        .expert-form-field.full { grid-column: 1 / -1; }
-        .expert-form-field label {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.85);
-        }
-        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
-
-        .expert-form-field input,
-        .expert-form-field select,
-        .expert-form-field textarea {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.85rem 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-        .expert-form-field input:focus,
-        .expert-form-field select:focus,
-        .expert-form-field textarea:focus {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .expert-form-field input::placeholder,
-        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-        .expert-form-field select option { background: var(--blue); color: var(--white); }
-        .expert-form-field textarea { resize: vertical; min-height: 110px; }
-
-        /* ── Multi-select destination dropdown ── */
-        .dest-multiselect {
-            position: relative;
-            width: 100%;
-        }
-        .dest-trigger {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.65rem 1rem;
-            min-height: 46px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            transition: border-color 0.2s;
-            position: relative;
-        }
-        .dest-trigger::after {
-            content: '';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            width: 7px; height: 7px;
-            border-right: 1.5px solid rgba(255,255,255,0.5);
-            border-bottom: 1.5px solid rgba(255,255,255,0.5);
-            transform: translateY(-60%) rotate(45deg);
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-        .dest-multiselect.open .dest-trigger::after {
-            transform: translateY(-30%) rotate(-135deg);
-        }
-        .dest-trigger:hover,
-        .dest-multiselect.open .dest-trigger {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .dest-placeholder {
-            color: rgba(255,255,255,0.25);
-            pointer-events: none;
-        }
-        .dest-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-        .dest-tag-x {
-            cursor: pointer;
-            font-size: 0.85rem;
-            line-height: 1;
-            opacity: 0.6;
-            transition: opacity 0.15s;
-        }
-        .dest-tag-x:hover { opacity: 1; }
-
-        .dest-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0; right: 0;
-            background: #1e3a4f;
-            border: 1px solid rgba(201,168,76,0.3);
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 50;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .dest-multiselect.open .dest-dropdown { display: block; }
-
-        .dest-option {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .dest-option:hover { background: rgba(201,168,76,0.1); }
-        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
-
-        .dest-check {
-            width: 16px; height: 16px;
-            border: 1.5px solid rgba(201,168,76,0.4);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s, border-color 0.15s;
-        }
-        .dest-option.selected .dest-check {
-            background: var(--warm-gold);
-            border-color: var(--warm-gold);
-        }
-        .dest-check::after {
-            content: '';
-            width: 4px; height: 8px;
-            border-right: 2px solid #1a2a3a;
-            border-bottom: 2px solid #1a2a3a;
-            transform: rotate(45deg) translateY(-1px);
-            opacity: 0;
-        }
-        .dest-option.selected .dest-check::after { opacity: 1; }
-
-        /* Scrollbar for dropdown */
-        .dest-dropdown::-webkit-scrollbar { width: 5px; }
-        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
-        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
-
-        /* Submit area */
-        .expert-submit { margin-top: 1.5rem; text-align: center; }
-        .expert-submit-btn {
-            background: var(--warm-gold);
-            color: #fff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border: none;
-            padding: 1rem 3rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            max-width: 320px;
-        }
-        .expert-submit-btn:hover { background: #b8963e; }
-        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
-        .expert-form-msg {
-            margin-top: 1.2rem;
-            font-size: 0.88rem;
-            text-align: center;
-            min-height: 1.4em;
-        }
-        .expert-form-msg.success { color: #7ed8a3; }
-        .expert-form-msg.error   { color: #f08080; }
-
-        @media (max-width: 640px) {
-            .expert-form-grid { grid-template-columns: 1fr; }
-            .expert-heading { font-size: 2rem; }
-            .expert-section { padding: 70px 1.5rem; }
-        }
-
-        /* ===== FOOTER ===== */
-        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
-        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
-        .footer-logo img{height:35px;margin-bottom:1rem}
-        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
-        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.6rem}
-        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
-        .footer-col a:hover{color:var(--warm-gold)}
-        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal{display:flex;gap:2rem}
-        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal a:hover{color:var(--warm-gold)}
-
-        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){
-            .page-hero{padding:130px 1.5rem 50px}
-            .props-sec{padding:50px 1.5rem}
-            .props-grid{grid-template-columns:1fr;gap:1.5rem}
-            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>French Alps Fractional Ownership Properties | Co-Ownership Property</title>
+  <meta name="description" content="Co-ownership properties in the French Alps from COP — deeded fractional ownership in Courchevel, Méribel, Val d'Isère, Megève, Chamonix and the Portes du Soleil. Fully managed, 6–7 weeks of personal use a year, real equity in Europe's deepest ski domain.">
 </head>
 <body>
-    <header class="cop-header scrolled" id="cop-header">
-    <div class="cop-logo">
-        <a href="/">
-            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
-        </a>
+
+<section class="page-hero">
+  <p class="eyebrow">French Alps · France · Europe</p>
+  <h1>Fractional Ownership <em>in the French Alps</em></h1>
+  <p class="subtitle">From a slope-side chalet above Courchevel 1850 and a Méribel apartment on the Tougnète flank to a Megève farmhouse on the Mont d'Arbois plateau and a Chamonix duplex with the Aiguille du Midi filling the window — fractional ownership in the French Alps means a deeded share of the largest interconnected ski terrain on the planet, six to seven weeks of personal use a year, and a fully managed mountain home that is open the day the season opens.</p>
+</section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>The world's deepest ski domain, accessible through co-ownership.</h2>
+    <p>Fully managed chalets, apartments and farmhouses across <strong>the Trois Vallées</strong> (Courchevel, Méribel, Val Thorens), <strong>the Espace Killy</strong> (Val d'Isère, Tignes), <strong>Megève</strong>, the <strong>Chamonix-Mont-Blanc valley</strong> and the <strong>Portes du Soleil</strong> (Avoriaz, Morzine, Les Gets). Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of Europe's most established alpine market.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
     </div>
-    <nav class="cop-nav" id="cop-nav">
-        <a href="/" class="cop-nav-active">Home</a>
-        <a href="/our-homes/">Our Homes</a>
-        <a href="/how-it-works/">How It Works</a>
-        <a href="/about-us">About Us</a>
-        <a href="/all-our-blog/">Our Blog</a>
-        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
-        <a href="/contact">Contact</a>
-    </nav>
-    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-    </button>
-</header>
+  </div>
+</div>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <p class="eyebrow">Co-Ownership Properties</p>
-        <h1>French Alps Fractional Ownership Properties</h1>
-        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
-    </section>
+<section class="dest-sec cream"><div class="dest-inner">
 
-    <!-- PROPERTY GRID -->
-    <section class="props-sec">
-        <div class="props-inner">
-                        <div class="no-props">
-                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
-            </div>
-                    </div>
-    </section>
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1flta0GBtvlRYY0a8Er0bVgA1e1YmUf_M" alt="A French Alps apartment in Chamonix-Mont-Blanc, the Mont Blanc massif filling the window" loading="lazy" />
+  <figcaption>A French Alps apartment in Chamonix-Mont-Blanc, the Mont Blanc massif filling the window.</figcaption>
+</figure>
 
-    <!-- MID-PAGE CTA -->
-    <div class="dest-mid-cta">
-        <p>Ready to find your property in French?</p>
-        <div class="dest-mid-cta-btns">
-            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
-            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
-        </div>
-    </div>
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership in the French Alps?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership in the French Alps means buying a deeded 1/8 share of a luxury alpine second home — a slope-side chalet in Courchevel, a Méribel apartment on the Tougnète flank, a Megève farmhouse on the Mont d'Arbois plateau or a Chamonix duplex above the Aiguille du Midi — held in a purpose-built LLC alongside seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
 
-    <!-- SEO CONTENT (rendered as styled sections) -->
-        <section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose French Alps Fractional Ownership?</h2>
-<p>French Alps fractional ownership occupies a singular position in the global mountain property market. No other alpine region combines the scale and variety of terrain, the density of world-class resorts, the quality of French mountain cuisine and culture, and the depth of international property infrastructure that the French Alps deliver. From the foot of Mont Blanc — the highest peak in Western Europe — to the vast interconnected ski domains of the Trois Vallées and the Portes du Soleil, the French Alps contain more skiable terrain, more prestige resort villages, and more consistently exceptional ski conditions than any other mountain range on the continent. For buyers seeking a fraction of the finest mountain property in Europe, this is the destination that sets the standard.</p>
-<p>The case for French Alps fractional co-ownership is built on a combination of lifestyle quality and structural market logic that is difficult to replicate elsewhere. The lifestyle offer is extraordinary: powder skiing on north-facing runs above 3,000 metres in midwinter, the unique social atmosphere of a French ski resort village, the legendary dining culture that turns a mountain lunch into a three-course occasion, the après-ski rituals of vin chaud and raclette that vary subtly but deliciously from resort to resort. Beyond ski season, the French Alps are a summer destination of genuine merit — mountain biking, hiking, via ferrata, paragliding, and white-water rafting on glacial rivers attract a growing community of warm-weather visitors who discover that these valleys and peaks are just as compelling in August as in January.</p>
-<p>For UK buyers in particular, French Alps fractional ownership carries a dimension of practical urgency that has grown more pronounced since Brexit. Since January 2021, British nationals visiting Schengen-area countries — which includes France — are subject to the <strong>90-day-in-180-day limit</strong> across the entire zone. This means that the extended stays in the Alps that UK families previously enjoyed without restriction are now carefully bounded. A <strong>1/8 share</strong> providing approximately 45 days of personal use per year maps almost perfectly onto the practical UK Schengen allocation in a single destination, ensuring that British co-owners can use their full allowance in the finest ski resort in the world without the calendar gymnastics required by whole ownership.</p>
-<p>The property market context for French Alps fractional property is equally compelling. Prime alpine real estate — ski-in ski-out chalets in Courchevel 1850, traditional stone farmhouses converted in Megève, high-altitude contemporary apartments with direct piste access in Val d&#8217;Isère — represents some of the most sought-after and supply-constrained residential property in Europe. The finest resorts have limited developable land, strict architectural heritage protections, and consistent international demand from French, British, Belgian, Scandinavian, and Gulf buyers. This combination of permanent supply constraint and sustained global demand underpins property values in a way that more generic mountain markets cannot match. French Alps fractional co-ownership provides access to exactly this tier of market — not as a compromise, but as the most rational way to secure the finest alpine property available.</p>
-<p>French Alps fractional ownership is structured as genuine deeded real property co-ownership under French law. The purchase is completed through the French notarial system — a <em>compromis de vente</em>, a title search, and registration of the ownership interest in the <em>fichier immobilier</em>. Your name, or that of a legal entity you designate, appears on the <em>acte authentique</em> as a recorded property owner. This is not a holiday club or a vacation lease arrangement. It is a registered real property interest in France, carrying all the legal protections and rights of French property ownership — including the right to sell your share independently, pass it to heirs, and benefit from any appreciation in the underlying property&#8217;s market value.</p>
-<p>Access to the French Alps from the UK is straightforward and genuinely convenient. Eurostar services from London St Pancras reach Paris Gare du Nord in two hours and fifteen minutes; TGV connections from Paris to Chambéry or Grenoble take around three hours, with onward coach or taxi services to most major resorts. Direct flights from London and regional UK airports to Geneva — the primary alpine gateway — operate year-round, with the airport to Chamonix in under an hour and to the Tarentaise Valley resorts in two to two and a half hours. For buyers from continental Europe and beyond, Geneva and Lyon airports offer an equally wide network of connections. French Alps fractional ownership is among the most accessible mountain co-ownership opportunities available to international buyers.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>French Alps Fractional Ownership — Resorts &amp; Valleys</h2>
-<p>French Alps fractional ownership spans some of the most celebrated mountain resort communities in the world. Each valley and resort village has its own character — its own terrain profile, its own social atmosphere, and its own reasons to be the right base for a lifetime of alpine visits. Below are the resorts and areas that consistently attract the most discerning French Alps co-ownership buyers.</p>
-<h3>Chamonix — French Alps Fractional Ownership</h3>
-<p><a href="/french-alps-fractional-ownership-properties/">Chamonix</a> is the most iconic mountain town in the world — the birthplace of alpinism, the home of the Aiguille du Midi cable car, and the gateway to the Vallée Blanche, one of the most spectacular off-piste runs on earth. Nestled in a deep valley beneath the towering north face of Mont Blanc, Chamonix combines some of the most challenging and exhilarating skiing available anywhere with a genuinely year-round, internationally cosmopolitan town character that has no direct equivalent in the Alps. The skiing on the Grands Montets, the Brévent, and the Flégère is demanding, varied, and world-renowned; the Mer de Glace glacier, the Montenvers train, and the Aiguilles Rouges nature reserve extend the outdoor appeal across all seasons. The town itself — with its compact pedestrianised centre, its exceptional restaurants, its independent boutiques, and its permanent community of climbers, skiers, and mountain guides — has a depth and authenticity that purpose-built resort villages often lack. French Alps fractional co-ownership in Chamonix suits buyers who want the most dramatic mountain setting available in France, combined with the infrastructure and lifestyle of a genuine alpine town. The proximity to Geneva Airport — under an hour by road — makes Chamonix one of the most logistically convenient resorts in the entire French Alps for international buyers.</p>
-<h3>Megève — French Alps Fractional Ownership</h3>
-<p>Megève is French Alps fractional ownership at its most refined and aristocratic. Founded in the 1920s as an alternative to St Moritz by the Baroness de Rothschild, Megève retains the air of a village that knows exactly what it is and has chosen exactly how it wants to be — a place of exceptional taste, quiet wealth, and deep-rooted alpine character that sets it apart from the larger, more commercially visible super-resorts. The skiing across the three linked domains of Megève, Saint-Gervais, and Combloux covers more than 400 kilometres of pistes at a variety of altitudes and exposures, suitable for families and confident intermediates as much as for expert skiers. The village itself is exquisite: a medieval centre with cobbled streets, covered arcades, a Baroque church, horse-drawn sleighs in winter, and a level of gastronomic quality that has long attracted the most discerning French and international clientele. Michelin-starred restaurants, exceptional patisseries, fashion boutiques, and an ice rink occupying the central square create a winter atmosphere unlike any other in the Alps. French Alps co-ownership in Megève attracts buyers who want the finest French alpine lifestyle in its most elegantly understated form — and who understand that the most prestigious address in the mountains does not always have the largest ski domain or the most recognisable brand name.</p>
-<h3>Courchevel — French Alps Fractional Ownership</h3>
-<h3>Val d&#8217;Isère &amp; Tignes — French Alps Fractional Ownership</h3>
-<p>Val d&#8217;Isère and Tignes together form the Espace Killy — one of the most celebrated and high-altitude ski domains in Europe, named after Jean-Claude Killy, the Olympic triple gold medallist who is the resort&#8217;s most famous son. The skiing in the Espace Killy is genuinely exceptional: the combination of Val d&#8217;Isère&#8217;s challenging and varied terrain, with its legendary La Face run (venue for multiple World Cup and Olympic races), and Tignes&#8217; high-altitude glacier skiing — which opens as early as June and closes as late as May — creates an ski domain of extraordinary quality, reliability, and season length. Val d&#8217;Isère itself is a characterful resort village with a strong British following, excellent restaurants and bars, and an authentic Savoyard built form that distinguishes it from purely purpose-built resort developments. Tignes offers a different character — more functional, more directly ski-focused, and home to one of the most reliable snow records in France. French Alps fractional co-ownership in the Espace Killy appeals to serious skiers who want guaranteed snow conditions, a long season, and a ski domain that offers more quality terrain per lift pass than almost anywhere else in the world. The village atmosphere of Val d&#8217;Isère provides the lifestyle depth that serious ski buyers also require — bars, restaurants, and a community that has welcomed international visitors for decades.</p>
-<h3>Morzine, Avoriaz &amp; the Portes du Soleil — French Alps Fractional Ownership</h3>
-<p>Morzine and the broader Portes du Soleil domain represent perhaps the most underrated and genuinely accessible French Alps fractional co-ownership opportunity available. Morzine itself is a traditional Savoyard village of genuine character — an authentic farming community that became a ski resort without losing the slate-roofed barns, wooden-shuttered houses, and village church that give it an identity entirely distinct from the purpose-built stations. The Portes du Soleil domain, which Morzine anchors on the French side, is one of the largest ski areas in the world — spanning twelve resorts across France and Switzerland, with 650 kilometres of marked pistes connecting Morzine, Les Gets, Châtel, Morgins, Champéry, and the extraordinary cliff-top village of Avoriaz, reachable only by cable car or horse-drawn sleigh. The range of terrain within the Portes du Soleil is vast: gentle intermediate runs on the French side, challenging expert terrain on the Swiss side (particularly the Chavanette Wall, known to most skiers as the Swiss Wall), and exceptional beginner areas on the Pleney and Chamossière above Morzine itself. In summer, Morzine is one of the premier mountain biking destinations in Europe — the Morzine Bike Park attracts riders from across the continent, and the extensive network of hiking and cycling trails creates a genuine warm-weather season. French Alps fractional property in Morzine offers a combination of authentic village character, extensive ski domain access, strong year-round lifestyle appeal, and more accessible pricing than the prestige Tarentaise Valley resorts — making it particularly attractive for families and buyers entering the French Alps co-ownership market for the first time.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How French Alps Fractional Ownership Works</h2>
-<p>French Alps fractional ownership operates as genuine co-ownership of French real property, completed through the standard French conveyancing system under the supervision of a French notaire. The process is legally identical to any other French property purchase: a <em>compromis de vente</em> (preliminary contract) is signed, a notaire manages the transaction, and on completion the buyer&#8217;s ownership interest is recorded in the national property registry, the <strong><em>fichier immobilier</em></strong>. Your name — or the name of a legal entity you choose for tax and estate planning purposes — appears on the <em>acte authentique</em> (the final notarial deed of sale) as a genuine property owner with all the rights that French property law provides.</p>
-<p>The legal relationship between co-owners of a French Alps fractional property is structured through a purpose-built <strong>limited liability company (LLC)</strong> — the same vehicle used consistently across our global portfolio. The LLC holds the underlying alpine real estate as the registered proprietor, and each co-owner holds an equal membership interest in the LLC rather than a direct fractional interest in the property. This structure is preferred for international buyer groups because it offers genuine flexibility for estate planning, inheritance management, and the transfer of ownership interests without requiring a full notarial property conveyance every time. A French notaire and tax adviser will help co-owners understand how the LLC interfaces with French property law in their individual circumstances and nationalities.</p>
-<p>Usage allocation in French Alps fractional co-ownership follows a rotating annual calendar. A 1/8 share provides approximately <strong>45 days of personal use per year</strong>, typically allocated as two or more separate stays across the ski season and, increasingly, the summer season. The rotation ensures fairness over time — no co-owner permanently holds the most coveted weeks (peak Christmas and New Year period, February half-term, late March powder skiing), but all co-owners access them in sequence across the years. The management company administers the scheduling calendar, handles swap requests between co-owners, and manages all coordination of arrivals, departures, cleaning, property preparation, and on-going maintenance. The system is designed to be flexible in practice while remaining rigorously fair in principle.</p>
-<p>French property law governs French Alps fractional ownership as standard real estate — not as a timeshare product or leisure arrangement. The <strong>right of first refusal</strong> is a standard feature of most French co-ownership agreements — giving existing co-owners the opportunity to match any third-party offer before the departing owner&#8217;s share is listed externally. This protects the cohesion of the ownership group and provides an orderly mechanism for ownership transitions that preserves the quality and character of the arrangement over time. Resale of a French Alps fractional share follows the standard French real estate process, with the ownership interest marketed like any other property interest in France.</p>
-<p>For UK buyers and other non-EU nationals, several French and international tax considerations apply. At acquisition, French <em>droits de mutation</em> (transfer taxes and registration fees) are payable — typically around 7–8% for second-hand properties, lower for new builds in an approved residence de tourisme scheme. Annual property taxes include the <em>taxe foncière</em>, assessed by the commune, and the <em>taxe d&#8217;habitation</em> for secondary residences. On any future sale by a non-resident, French capital gains tax (<em>plus-value immobilière</em>) applies at 19%, plus social charges, with a withholding mechanism applied at the point of transaction. French inheritance tax on French situ assets — including LLC membership interests in property-holding entities — applies to beneficiaries regardless of their country of residence, making estate planning through the appropriate legal structure particularly important for international French Alps co-ownership buyers. A French notaire and a cross-border tax adviser with experience in French alpine property are essential professional advisers for any international buyer.</p>
-<p>Ongoing costs in French Alps fractional co-ownership are shared proportionally among all co-owners. For a 1/8 share, each co-owner bears one-eighth of: annual <em>taxe foncière</em>, building insurance, professional management fees, routine maintenance and cleaning costs, utilities, contributions to the property&#8217;s reserve fund for longer-term capital expenditure, and any applicable <em>charges de copropriété</em> (building management fees for apartment buildings). Management companies provide regular, fully itemised financial statements to all co-owners, ensuring complete transparency over the property&#8217;s running costs. There are no hidden fees — all costs are known and divided fairly from the outset of the arrangement.</p>
-<p>Inheritance of a French Alps fractional share follows French succession law as it applies to French situ real property. For British nationals holding LLC membership interests in their alpine property, the EU Succession Regulation (Brussels IV) may allow them to elect for UK succession law to apply to their worldwide estate — a useful planning tool. A properly structured will, drafted with both French and UK legal advice, ensures that the co-ownership interest passes to chosen heirs as efficiently and as tax-effectively as possible. French Alps fractional ownership is a genuine, transferable real property asset — one that can be held for decades, sold, gifted, or inherited, retaining its character as a registered real property interest throughout its lifetime.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>French Alps Fractional Ownership — Investment &amp; Lifestyle</h2>
-<p>French Alps fractional ownership brings together one of the world&#8217;s finest lifestyle environments and a property market with some of the most resilient structural characteristics available to a mountain property buyer. The lifestyle case is overwhelming in its specificity and depth. Consider waking in a chalet above Megève to a blue-sky powder morning — the kind of day where the snow that fell overnight is knee-deep on the north-facing runs above town, the light is extraordinary in the way that high alpine light always is, and the knowledge that a three-course mountain lunch awaits on the terrace of a restaurant accessible only by ski is not an abstract aspiration but a concrete reality of your morning. Consider the same chalet in July: the valley floor is in full bloom, the hiking trails above the treeline have opened, the smell of pine and cold water replaces the smell of woodsmoke and wax, and Mont Blanc is visible on clear mornings from the upper lifts. French Alps co-ownership is a four-season lifestyle investment of the highest order.</p>
-<p>The investment context for French Alps fractional property is genuinely distinctive. Prime alpine real estate in the Trois Vallées, the Espace Killy, Megève, and Chamonix operates in one of the most supply-constrained property markets in Europe. The finest resorts have strictly limited developable land — Courchevel 1850 and Val d&#8217;Isère have essentially no new development capacity within their core resort perimeters — and architectural heritage protections ensure that the Savoyard character of village buildings is maintained across all new construction. At the same time, demand from a global buyer base — French primary buyers, British second-home buyers, Belgian and Dutch families, Gulf and Russian buyers, American and Australian second-home investors — has been structurally elevated for decades and shows no sign of diminishing. French Alps fractional co-ownership provides access to exactly this tier of the market at a proportionate fraction of the acquisition cost.</p>
-<p>We do not position French Alps fractional ownership as a guaranteed financial product and do not invent yield projections or price appreciation assumptions. Property markets move, and alpine markets are no exception. What we consistently observe is that French Alps fractional property is priced relative to an underlying real estate market with historically robust fundamentals, and that the carrying cost of a fractional share compares very favourably to the equivalent expenditure on hotel accommodation in the French Alps over comparable periods — while building a transferable, inheritable property interest in one of Europe&#8217;s most coveted real estate markets. The financial case is rational; the lifestyle case is transformative.</p>
-<p>Rental income from unused French Alps fractional ownership weeks is possible for some co-owners, particularly in resorts with strong short-term rental markets. The demand for quality chalet and apartment accommodation during peak ski weeks — Christmas, New Year, February half-term, and Easter — is consistently high across the major French Alps resorts, and the French government&#8217;s para-hôtelerie tax regime provides a structured framework for furnished rental income. However, rental income is never guaranteed, is always subject to the specific co-ownership agreement and applicable local regulations, and should never be treated as a baseline financial assumption. Rental income is case-by-case — always verify the specific position for the property under consideration with the management company before purchase.</p>
-<p>Comparing French Alps fractional ownership to other mountain co-ownership destinations provides useful context for buyers considering their options. <a href="/austria-fractional-ownership-properties/">Austrian Alps fractional ownership</a> offers charming Tyrolean village culture and excellent skiing in Arlberg, Kitzbühel, and Zell am See, but within the same Schengen 90-day constraint for UK buyers and with less depth of resort infrastructure than the best French resorts. <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees fractional ownership</a> — shared between France and Spain — offers more accessible pricing and a different mountain character, but smaller ski domains and lower altitude. <a href="/colorado-fractional-ownership-properties/">Colorado fractional ownership</a> provides a US-based mountain alternative free from Schengen constraints, with world-class resorts in Aspen, Vail, and Breckenridge. The French Alps, however, remain the benchmark — the deepest ski terrain, the greatest resort diversity, the finest mountain dining, and the most developed international fractional property infrastructure available to any mountain buyer in Europe.</p>
-<p>For buyers exploring <a href="/france-fractional-ownership-properties/">France fractional ownership</a> more broadly, the French Alps represent the mountain pinnacle of the French co-ownership market. They complement the coastal and city options available elsewhere in France perfectly — <a href="/south-of-france-fractional-ownership-properties/">South of France fractional ownership</a> for Mediterranean summers and <a href="/paris-fractional-ownership-properties/">Paris fractional ownership</a> for year-round city culture. For buyers who want a multi-destination French co-ownership portfolio, the Alps and the South of France together provide an all-season French lifestyle of extraordinary quality — snowsports and mountain air from December to April, Mediterranean sunshine and coastal living from May to September, and Paris as the cultural constant throughout the year.</p>
-<p>The summer dimension of French Alps fractional ownership deserves particular attention, as it is frequently underestimated by buyers approaching the market primarily through a skiing lens. The Chamonix valley in summer is one of the world&#8217;s premier outdoor adventure destinations — the starting point for the Tour du Mont Blanc (one of the most celebrated long-distance hiking routes in Europe), the centre of world-class rock climbing on the granite walls of the Aiguilles Rouges and the Mer de Glace, and a hub for paragliding, mountain biking, and via ferrata accessible from the same lift infrastructure that serves skiers in winter. Megève&#8217;s summer character — flowers, cycling events, outdoor concerts, and exceptional farm-to-table dining at altitude — is equally appealing. Morzine&#8217;s world-class mountain bike park transforms the resort into one of the busiest and most vibrant summer sports destinations in the Alps. French Alps fractional property in the hands of a buyer who uses both winter and summer seasons delivers lifestyle value that is genuinely extraordinary — and that makes the annual allocation of 45 days feel less like a limitation and more like an abundance.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/france-fractional-ownership-properties/" class="dest-explore-card">France Fractional Ownership &rarr;</a><a href="/france-fractional-ownership-properties/" class="dest-explore-card">South of France Fractional Ownership &rarr;</a><a href="/austria-fractional-ownership-properties/" class="dest-explore-card">Austrian Alps Fractional Ownership &rarr;</a><a href="/pyrenees-mountains-fractional-ownership-properties/" class="dest-explore-card">Pyrenees Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>French Alps Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly do I own with French Alps fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>With French Alps fractional ownership, you own a legally recorded real property interest in a French alpine property — most commonly a <strong>1/8 share</strong> of the property. Your ownership is registered in the French national property registry, the <em>fichier immobilier</em>, giving you the same legal standing as any other French property owner. You are a genuine co-owner of the underlying real estate — not a timeshare holder, not a holiday club member, and not the holder of a right-to-use agreement that expires or can be terminated by a third party.</p></div></details><details class="dest-faq-item"><summary><h3>Is French Alps fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — and the distinction is both fundamental and legally important. A timeshare involves the sale of a contractual right to use a property during a specified period each year; the timeshare company retains ownership of the underlying real estate. When a timeshare arrangement ends or the timeshare company fails, the holder walks away with no capital value and no real property interest. French Alps fractional ownership is the legal opposite: a recorded real property interest in French real estate, registered in the national property registry, carrying all the protections and rights of French property law.</p>
-<p>The practical implications are significant. A French Alps fractional ownership share can be sold at market price at any time — it is a real asset that can be mortgaged, insured, inherited, and held within a tax-efficient legal structure. Timeshare resale is notoriously difficult and frequently achieves well below the original purchase price. French Alps co-ownership is a real estate transaction completed through the French notarial system, governed by French property law — not a consumer product governed by timeshare or hospitality industry regulations. The two have almost nothing in common beyond the concept of sharing the use of a property among multiple parties.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use a French Alps fractional property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The most common fractional interest is a <strong>1/8 share</strong>, providing approximately <strong>45 days of personal use per year</strong>. This is typically structured as two or more separate stays — most commonly a block in the core ski season (January to March) and a further stay in either the late ski season (April, where snow conditions permit) or the summer season (July to September). A 1/4 share provides approximately 90 days; a 1/2 share approximately 180 days.</p>
-<p>The rotating calendar is designed to ensure fairness over time — no co-owner permanently holds the most coveted weeks, but all co-owners access them in sequence. The management company administers the booking system, handles swap requests between co-owners, and coordinates arrivals, departures, cleaning, and property preparation. Most French Alps co-ownership agreements include mechanisms for flexible booking — allowing owners to adjust their allocation by arrangement with co-owners when personal circumstances require it. The system is designed to accommodate the real-world variability of family and professional travel schedules while remaining fundamentally equitable.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK buyers purchase French Alps fractional ownership properties?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. There are no restrictions on non-EU nationals owning real property in France. UK buyers can purchase French Alps fractional property as individuals, through the property-holding LLC, through a UK company or trust structure, or through a combination of UK and French legal entities — each with different tax and estate planning implications. A French notaire and a cross-border tax adviser experienced in Franco-British property transactions are strongly recommended.</p>
-<p>Post-Brexit, UK buyers visiting the French Alps are subject to the Schengen Area&#8217;s <strong>90-day-in-180-day rule</strong> — a limit of 90 days across all Schengen countries in any 180-day rolling window. A 1/8 share&#8217;s annual allocation of approximately 45 days fits comfortably within this limit, making French Alps fractional ownership particularly well-suited to UK buyers who want to maximise their Schengen allocation in the world&#8217;s finest ski destination. UK buyers planning stays that approach or exceed 90 days should consider obtaining a French long-stay visa or investigating the conditions for French residency, both of which are possible with advance planning. For UK buyers who also visit other Schengen countries (Spain, Italy, Portugal, Austria), the pooled nature of the 90-day Schengen limit makes careful travel planning essential — French Alps fractional ownership fits most naturally within a travel calendar where the Alps allocation is the primary Schengen commitment.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of French Alps fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Ongoing costs are shared proportionally among all co-owners in line with their fractional interest. For a 1/8 share, each co-owner bears one-eighth of: the annual <em>taxe foncière</em> (assessed by the commune), building insurance, professional management fees, routine maintenance and cleaning costs, utilities, and contributions to the property&#8217;s reserve fund for longer-term capital expenditure. For apartment properties within a <em>copropriété</em> (French apartment building management structure), annual <em>charges de copropriété</em> — covering maintenance of lifts, common areas, and shared building infrastructure — are an additional shared cost. Ski resort properties often attract higher management and maintenance fees than coastal or , reflecting the demands of winter alpine environments on building fabric and systems.</p>
-<p>All costs are transparent and shared proportionally — management companies provide regular itemised financial statements to all co-owners, ensuring no hidden fees. In most cases, co-owners find that the total annual carrying cost of a French Alps fractional share compares very favourably to the equivalent expenditure on chalet rental or hotel accommodation in the same resort during comparable periods — while simultaneously building equity in a real property asset in one of Europe&#8217;s most supply-constrained mountain markets.</p></div></details><details class="dest-faq-item"><summary><h3>What legal structure governs French Alps fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>French Alps fractional co-ownership is structured through a purpose-built <strong>limited liability company (LLC)</strong> — the same vehicle used consistently across our global portfolio. The LLC holds the underlying alpine real estate as the registered proprietor, and each co-owner holds an equal membership interest. The LLC framework is preferred for international buyer groups because it allows ownership interests to be transferred through membership transactions rather than full notarial property conveyances, and provides cleaner mechanisms for estate planning and the management of inheritance across multiple jurisdictions.</p>
-<p>The LLC&#8217;s operating agreement sets out the usage schedule, cost-sharing arrangements, governance procedures, and the mechanism for selling or transferring a membership interest. A well-drafted operating agreement is the legal backbone of the arrangement — it protects every co-owner&#8217;s investment, provides operational clarity for the management company, and establishes a transparent framework for all parties throughout the life of the ownership.</p></div></details><details class="dest-faq-item"><summary><h3>How does the buying process work for French Alps fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The purchase of a French Alps fractional share follows the standard French property conveyancing process, adapted for the co-ownership structure. After selecting a property and reviewing all co-ownership documentation with your own qualified legal adviser, you sign a <em>compromis de vente</em> and pay a deposit (typically 10% of the purchase price). French law provides a statutory ten-day cooling-off period after signing the <em>compromis</em>, during which you can withdraw without penalty. A French notaire then manages the transaction — conducting the title search, preparing the <em>acte authentique</em>, and registering the transfer in the <em>fichier immobilier</em>.</p>
-<p>The total process from signing the <em>compromis</em> to completion and registration typically takes eight to twelve weeks. International buyers can complete the transaction remotely through a <em>procuration</em> (power of attorney), so physical presence in France is not required. Key professional advisers for overseas buyers include a French-qualified notaire (who acts as an independent officer of the state), a cross-border tax adviser experienced in French property, and an independent legal adviser to review the co-ownership documentation.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my French Alps fractional property when I&#8217;m not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>However, rental income is never guaranteed and is always subject to three conditions: the co-ownership agreement must explicitly permit rental of unused weeks; applicable local regulations and any <em>copropriété</em> rules must permit short-term lettings; and rental activity must be coordinated through the management company. Rental income is case-by-case — always verify the specific rental position for the property under consideration with the management company before purchase. Treat rental income as a potential supplementary benefit, never as a baseline financial assumption. The lifestyle and ownership value of French Alps fractional co-ownership should stand entirely on their own merits.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my French Alps fractional share if I want to exit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. As a registered real property interest, a French Alps fractional ownership share can be sold at any time. The co-ownership agreement will typically include a <strong>right of first refusal</strong>, giving existing co-owners the opportunity to match any third-party offer before the departing owner lists their share externally. If no co-owner exercises this right within the specified period, the share can be marketed to any willing buyer at market price through the management company, a co-ownership specialist, or a local estate agent.</p>
-<p>The resale value reflects movements in the underlying French Alps property market. French capital gains tax (<em>plus-value immobilière</em>) applies to any appreciation on sale, with progressive relief available after five years of ownership and full exemption from income tax after twenty-two years (thirty years for social charges). For overseas sellers, a withholding mechanism applies at the point of transaction, with the net proceeds paid after withholding and reconciled through a French tax filing. Inheritance follows French succession law as it applies to French situ assets — a properly structured will, ideally drafted with both French and home-country legal advice, ensures that the co-ownership interest passes to your chosen heirs efficiently.</p></div></details><details class="dest-faq-item"><summary><h3>Which French Alps resort is best for fractional ownership — Chamonix, Megève, Courchevel, or Val d&#8217;Isère?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The right resort for French Alps fractional co-ownership depends entirely on what you want from your mountain ownership. Chamonix offers the most dramatic alpine setting in Europe, the most challenging skiing, and the deepest year-round town character — ideal for serious mountaineers and adventurous skiers who want a genuine alpine community rather than a resort village. Megève provides the most refined and aristocratic French mountain experience — smaller skiing than the Tarentaise Valley giants, but incomparable Savoyard gastronomy, elegant architecture, and a social atmosphere that has attracted the most discerning international buyers for a century.</p>
-<p>Courchevel — particularly Courchevel 1850 — delivers direct access to the Trois Vallées, the world&#8217;s largest linked ski area, with on-mountain dining and resort infrastructure of unmatched quality, and a property market that is among the most prestigious and supply-constrained in Europe. Val d&#8217;Isère and the Espace Killy appeal to serious skiers who want the longest possible season (including summer glacier skiing at Tignes), the most consistent and reliable snow record, and a resort village with genuine character and a strong international community. Morzine and the Portes du Soleil provide the most accessible entry point — extensive terrain, authentic village character, exceptional summer season, and pricing that is more accessible than the Tarentaise Valley resorts. All represent excellent French Alps fractional ownership — the choice comes down to the skiing, the atmosphere, and the lifestyle priorities that matter most to you.</p></div></details><details class="dest-faq-item"><summary><h3>How does French Alps fractional ownership compare to Austrian Alps or Colorado mountain co-ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p><a href="/austria-fractional-ownership-properties/">Austrian Alps fractional ownership</a> — in resorts like St Anton, Kitzbühel, Lech, and Zell am See — offers world-class skiing with a distinctively Tyrolean cultural character: wooden-panelled <em>Stuben</em>, the best <em>Glühwein</em> in the Alps, and a social atmosphere that many buyers prefer to the more internationally visible French resorts. Austria sits within the Schengen Area, so UK buyers face the same 90-day constraint. The main differences are cultural (Austrian village character versus French alpine chic), geographic (the Austrian resorts are generally less high-altitude and have a slightly shorter reliable snow season than the top French resorts), and property market depth (the French Alps have a larger and more liquid international second-home market).</p>
-<p><a href="/colorado-fractional-ownership-properties/">Colorado fractional ownership</a> — in <a href="/aspen-fractional-ownership/">Aspen</a>, <a href="/vail-fractional-ownership/">Vail</a>, and <a href="/breckenridge-fractional-ownership/">Breckenridge</a> — provides a mountain co-ownership alternative entirely free from Schengen constraints for UK buyers, with world-class skiing and well-developed resort infrastructure. For buyers whose Schengen allowance is already heavily committed or who want to avoid EU travel restrictions entirely, Colorado is a compelling alternative. The French Alps, however, remain the global benchmark for alpine skiing, , and the depth of gastronomic and cultural infrastructure that surrounds the ski experience — making French Alps fractional co-ownership the first choice for buyers who prioritise European mountain living above all else.</p></div></details></div></div></section>    
-    <!-- CTAs -->
-        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
-    <section class="newsletter-section" id="newsletter">
-        <h2 class="newsletter-heading">Be The First To Know</h2>
-        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
-        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
-            <input type="email" name="email" placeholder="Enter your email address" required>
-            <button type="submit" class="newsletter-btn">Join Newsletter</button>
-        </form>
-        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
-    </section>
-        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
-    <section class="expert-section" id="speak-to-expert">
-        <div class="expert-inner">
-            <p class="expert-eyebrow">Get in Touch</p>
-            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
-            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+<h2>Why the French Alps?</h2>
 
-            <form class="expert-form" id="expert-enquiry-form" novalidate>
-                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
-                    <div class="expert-form-field">
-                        <label for="ef-name">Name <span>*</span></label>
-                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-email">Email Address <span>*</span></label>
-                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-phone">Phone Number <span>*</span></label>
-                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label>Destinations</label>
-                        <div class="dest-multiselect" id="dest-multiselect">
-                            <div class="dest-trigger" id="dest-trigger">
-                                <span class="dest-placeholder">Select destinations</span>
-                            </div>
-                            <div class="dest-dropdown" id="dest-dropdown">
-                                                                <div class="dest-option" data-value="France">
-                                    <span class="dest-check"></span>
-                                    🇫🇷 France                                </div>
-                                                                <div class="dest-option" data-value="Spain">
-                                    <span class="dest-check"></span>
-                                    🇪🇸 Spain                                </div>
-                                                                <div class="dest-option" data-value="Italy">
-                                    <span class="dest-check"></span>
-                                    🇮🇹 Italy                                </div>
-                                                                <div class="dest-option" data-value="USA">
-                                    <span class="dest-check"></span>
-                                    🇺🇸 USA                                </div>
-                                                                <div class="dest-option" data-value="Portugal">
-                                    <span class="dest-check"></span>
-                                    🇵🇹 Portugal                                </div>
-                                                                <div class="dest-option" data-value="Austria">
-                                    <span class="dest-check"></span>
-                                    🇦🇹 Austria                                </div>
-                                                                <div class="dest-option" data-value="England">
-                                    <span class="dest-check"></span>
-                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
-                                                                <div class="dest-option" data-value="Sweden">
-                                    <span class="dest-check"></span>
-                                    🇸🇪 Sweden                                </div>
-                                                                <div class="dest-option" data-value="Germany">
-                                    <span class="dest-check"></span>
-                                    🇩🇪 Germany                                </div>
-                                                                <div class="dest-option" data-value="Croatia">
-                                    <span class="dest-check"></span>
-                                    🇭🇷 Croatia                                </div>
-                                                                <div class="dest-option" data-value="Mexico">
-                                    <span class="dest-check"></span>
-                                    🇲🇽 Mexico                                </div>
-                                                            </div>
-                        </div>
-                        <input type="hidden" name="destination" id="ef-destination">
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-budget">Budget Range</label>
-                        <select id="ef-budget" name="budget">
-                            <option value="" disabled selected>Select a budget</option>
-                            <option>Under €100,000</option>
-                            <option>€100,000 – €200,000</option>
-                            <option>€200,000 – €350,000</option>
-                            <option>€350,000 – €500,000</option>
-                            <option>€500,000 – €750,000</option>
-                            <option>€750,000 – €1,000,000</option>
-                            <option>Over €1,000,000</option>
-                        </select>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-message">Message</label>
-                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
-                    </div>
-                </div>
-                <div class="expert-submit">
-                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
-                    <p class="expert-form-msg" id="expert-form-msg"></p>
-                </div>
-            </form>
-        </div>
-    </section>
+<p>The French Alps are, by every measurable metric that matters for a serious second-home buyer, the <strong>single deepest ski-and-mountain market in the world</strong>. France contains more lift-served terrain than any other country, with the <strong>three largest connected ski domains</strong> on the planet — the <a href="https://www.les3vallees.com/en" target="_blank" rel="noopener">Trois Vallées</a> (600 km of pistes across Courchevel, Méribel and Val Thorens), <a href="https://www.paradiski.com/en/" target="_blank" rel="noopener">Paradiski</a> (425 km across Les Arcs, La Plagne and Peisey-Vallandry) and the <a href="https://www.portesdusoleil.com/en/" target="_blank" rel="noopener">Portes du Soleil</a> (600 km across twelve resorts straddling the French–Swiss border) — all sitting within a two-hour drive of <a href="https://www.gva.ch/en/" target="_blank" rel="noopener">Geneva airport</a>. The vertical drop in the major domains is European-best (the run from <a href="https://www.valthorens.com/en/" target="_blank" rel="noopener">Val Thorens</a> at <strong>2,300 metres</strong> down to <a href="https://www.st-martin-belleville.com/en/" target="_blank" rel="noopener">Saint-Martin-de-Belleville</a> at <strong>1,400 metres</strong> is a continuous 900-metre descent on snow); the lift infrastructure is the most modern in Europe after the recent waves of capital investment; and the <strong>off-season life</strong> across the major valleys — Megève and Chamonix in particular, where the year-round population is <strong>10,000+</strong> in each — gives an owner a four-season mountain base rather than a winter-only address. Few alpine regions in Europe, and arguably none outside the French Alps, combine that scale of skiable terrain with that depth of professional and residential infrastructure.</p>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
-            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
-            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
-            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
-            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
-        </div>
-        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
-    </footer>
+<p>Your French Alps share is held inside a <strong>purpose-built LLC</strong> alongside seven other co-owners. This is the same modern international structure used across every property on COP — the United States, the United Kingdom, France, Spain, Italy and elsewhere — rather than a legacy national vehicle that varies country by country. <strong>The practical effect</strong> for the international buyer is significant. Your relationship with the alpine property runs through <strong>one consistent ownership structure</strong> regardless of which property or jurisdiction you own in; you own inside the same modern framework whether your share is in Courchevel, Mallorca, the Italian Lakes or California; and resale is faster and lighter because transferring an <strong>LLC membership interest</strong> is a more direct administrative action than triggering a full notarial title conveyance through a French notary. For owners who go on to add a second property in another COP destination — and a meaningful proportion do, often pairing a French Alps share with a summer Mediterranean share — the reward is a <strong>single international portfolio relationship</strong> rather than a stack of jurisdiction-specific arrangements that each behave differently.</p>
 
-    <script>
-        /* ── Shared header JS ──────────────────────────────────────── */
-(function () {
-    var header = document.getElementById('cop-header');
-    var btn    = document.getElementById('cop-hamburger');
-    var nav    = document.getElementById('cop-nav');
-    if (!header || !btn || !nav) return;
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and seven other owners hold equal LLC membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
+</div>
 
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare.
+</div>
 
-    // Mobile hamburger toggle
-    btn.addEventListener('click', function () {
-        nav.classList.toggle('active');
-        btn.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-            nav.classList.remove('active');
-            btn.classList.remove('open');
-        });
-    });
-}());
-        /* ── Newsletter form (shared partial) ──────────────────────── */
-(function() {
-    var form = document.getElementById('cop-newsletter-form');
-    if (!form) return;
-    var msg = document.getElementById('newsletter-form-msg');
+<p>The French Alps' particular advantage inside European alpine markets is the <strong>combination of altitude, planning protection and lift-network scale</strong> that has kept the most desirable inventory genuinely scarce. The high-altitude purpose-built resorts of the Tarentaise valley — Val Thorens at <strong>2,300 metres</strong>, Tignes at <strong>2,100 metres</strong>, Val d'Isère at <strong>1,850 metres</strong>, Courchevel 1850 at the elevation its name advertises — sit above the snow line that climate trends have raised in lower-altitude Alps, which is the reason buyers and tour operators alike have steadily migrated upslope over the past two decades. The traditional villages with <strong>protected building stock</strong> — Megève, Saint-Gervais, Argentière, the old core of Chamonix, Les Gets — operate under strict Plan Local d'Urbanisme rules that have kept new-build to a trickle and pushed restoration of existing chalets onto every available agricultural-conversion plot. The result is that the buildable stock of high-specification French Alps chalets is, in real terms, no longer growing at the rate of demand in the prime addresses — and the existing inventory is held tighter than at any point in the modern era.</p>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var emailInput = form.querySelector('input[type="email"]');
-        var btn = form.querySelector('.newsletter-btn');
-        if (!emailInput.value) return;
+<p>It is worth setting the French Alps in their European competitive context. <strong>The Swiss Alps</strong> offer comparable altitude and lift networks at materially higher entry prices, with restrictive Lex Weber rules that cap second-home permits in many cantons and a notarial system that is heavier than the French equivalent for non-resident transactions. <strong>The Austrian Tyrol</strong> offers exceptional charm at lower altitude but smaller connected domains, and the off-season life in many Tyrolean villages is thinner than in the major French valleys. <strong>The Italian Dolomites</strong> are scenically extraordinary but the lift connections are fragmented across multiple consortia and the off-season infrastructure is concentrated in a smaller number of valleys. <strong>The Pyrenees</strong> offer real value but smaller domains and less internationalised resort towns. None of these comparisons makes the French Alps categorically "better" for every buyer — the right answer depends on the specific use pattern — but they help frame why French alpine destinations remain, by some distance, the <strong>highest-volume international second-home market in the European ski tier</strong>. The broader regional tourism authority (<a href="https://www.auvergnerhonealpes-tourisme.com/en/" target="_blank" rel="noopener">Auvergne-Rhône-Alpes Tourism</a>) and the French <a href="https://www.france.fr/en/" target="_blank" rel="noopener">national tourism board</a> both treat the alpine valleys as the country's single most valuable inbound tourism asset after Paris.</p>
 
-        btn.disabled = true;
-        btn.textContent = 'Subscribing\u2026';
-        msg.className = 'newsletter-form-msg';
-        msg.textContent = '';
+<p>The third structural argument for the French Alps is the <strong>diversity of usable lifestyles</strong> available inside a single region. A Northern European family with a 1/8 share in <a href="https://www.megeve.com/en" target="_blank" rel="noopener">Megève</a> is forty minutes from the lift-served slopes above Mont d'Arbois and an hour from the <a href="https://www.aiguilledumidi-skyway.com/en/" target="_blank" rel="noopener">Aiguille du Midi cable car</a> at Chamonix; a <a href="https://www.meribel.net/en/" target="_blank" rel="noopener">Méribel</a> buyer in the Trois Vallées is a single ski day from Courchevel and Val Thorens on the same lift pass; a Morzine buyer in the Portes du Soleil is a forty-minute drive from Geneva airport and a single chairlift ride from Avoriaz, <a href="https://www.chatel.com/en" target="_blank" rel="noopener">Châtel</a> and the Swiss side at <a href="https://www.region-dents-du-midi.ch/en" target="_blank" rel="noopener">Champéry</a> and Les Crosets. The region packs a remarkable amount of difference into a 200-kilometre by 100-kilometre footprint — purpose-built high-altitude resorts, traditional Belle Époque villages, river-valley working towns, glacier-fed mountaineering centres, broad family-friendly bowls — and a French Alps share that combines proximity to several of these gives an owner a year-round mountain base rather than a single-season property. Few other alpine regions can match that range without significantly longer drive times.</p>
 
-        var data = new FormData();
-        data.append('action', 'cop_newsletter_subscribe');
-        data.append('email', emailInput.value);
+<p>For a co-ownership buyer thinking strategically rather than just emotionally, the French Alps' combination of <strong>scale, altitude security and infrastructure depth</strong> matters more than the headline glamour. The chalet you buy a share of above Méribel sits in a market where the buildable land along the village ridge is already capped by planning rules and where the existing chalet stock at slope-side addresses is fundamentally finite. The Val d'Isère apartment is in a resort whose central-village permits have not loosened in fifteen years. The Megève farmhouse is in a commune whose Plan Local d'Urbanisme protects the working agricultural valleys around Mont d'Arbois and Rochebrune. These are not assets that depend on a particular interest-rate cycle to hold their value; they depend on the unchanging facts that the Trois Vallées remain the Trois Vallées, that the Aiguille du Midi remains the Aiguille du Midi, and that climate trends keep favouring high-altitude alpine real estate. Add the modern <strong>LLC ownership infrastructure</strong> that makes shared ownership transparent, taxable and resaleable, and the case for co-ownership in the French Alps writes itself.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'newsletter-form-msg success';
-                msg.textContent = res.data || 'Thank you for subscribing!';
-                form.reset();
-                btn.textContent = 'Subscribed!';
-            } else {
-                msg.className = 'newsletter-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Join Newsletter';
-            }
-        })
-        .catch(function() {
-            msg.className = 'newsletter-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Join Newsletter';
-        });
-    });
-})();
-        /* ── Multi-select destination dropdown (shared partial) ────── */
-(function() {
-    var wrap     = document.getElementById('dest-multiselect');
-    var trigger  = document.getElementById('dest-trigger');
-    var dropdown = document.getElementById('dest-dropdown');
-    var hidden   = document.getElementById('ef-destination');
-    if (!wrap || !trigger || !dropdown || !hidden) return;
+<p>One under-discussed advantage that becomes obvious once you actually start using a French Alps second home is the depth of the region's <strong>professional services infrastructure for non-resident owners</strong>. Five decades of British, Belgian, Dutch, Scandinavian and (more recently) Russian and American buyers have built up an ecosystem of <strong>multilingual lawyers, property managers, notaires, tax advisers, ski-instructor agencies, chalet companies and concierge services</strong> across the major valleys that smaller alpine alternatives simply cannot match. The local management companies in Courchevel, Méribel, Val d'Isère, Megève, Chamonix and Morzine operate in <strong>English, German, Dutch, French and the Scandinavian languages</strong> as a matter of routine, with decades of operating history; the British community in the Trois Vallées is large enough to run its own ski schools, English-language church services and chartered-flight transfers through the season. The French notarial system gives ownership documentary clarity that traces back to the Napoleonic Code of 1804, and the cadastral records — held by the <strong>service de la publicité foncière</strong> — are a long-running, reliable record-of-record system. None of this is glamorous, but it is the kind of infrastructure that determines whether owning a mountain home from another country is a pleasure or a chore.</p>
 
-    var placeholder = trigger.querySelector('.dest-placeholder');
-    var selected = [];
+<p>The fourth structural advantage worth naming is the <strong>transport infrastructure</strong> that makes a French Alps second home practically usable rather than just nominally owned. <a href="https://www.gva.ch/en/" target="_blank" rel="noopener">Geneva airport (GVA)</a> is the gateway airport for the western French Alps — sitting on the French border, with direct year-round service from London, Manchester, Edinburgh, Dublin, Amsterdam, Brussels, Paris, Frankfurt, Munich, Hamburg, Berlin, Zurich, Vienna, Copenhagen, Stockholm and dozens of further European cities, plus East-coast US gateways through the winter. <a href="https://www.lyonaeroports.com/en" target="_blank" rel="noopener">Lyon-Saint Exupéry (LYS)</a> covers the southern Alps, and the smaller <a href="https://www.chamberyairport.com/en/" target="_blank" rel="noopener">Chambéry (CMF)</a> handles winter charter directly to the Tarentaise valley. Most Northern European hubs are <strong>under two hours' flight time</strong> to GVA; the drive from GVA to the major resorts is genuinely short (Morzine and Les Gets in <strong>60 minutes</strong>, Megève in <strong>75 minutes</strong>, Chamonix in <strong>75 minutes</strong>, Courchevel and Méribel in <strong>2 hours</strong>, Val d'Isère in <strong>2.5 hours</strong>); and the <a href="https://www.tgv-inoui.sncf/en" target="_blank" rel="noopener">TGV</a> direct from Paris to <a href="https://www.moutiers-tarentaise.com/en/" target="_blank" rel="noopener">Moûtiers</a> and Bourg-Saint-Maurice gives the Tarentaise an additional rail backbone. An owner can leave London on a Friday morning and be on the <strong>Courchevel slopes</strong> by Saturday lunchtime. The professional ski instruction network through the <a href="https://www.esf.net/en/" target="_blank" rel="noopener">École du Ski Français (ESF)</a> — the national French ski-school federation, founded in 1945 — operates branches in every major resort and is the largest single ski-school organisation in the world.</p>
 
-    function render() {
-        /* Remove old tags */
-        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+</div></section>
 
-        if (selected.length === 0) {
-            placeholder.style.display = '';
-        } else {
-            placeholder.style.display = 'none';
-            selected.forEach(function(val) {
-                var tag = document.createElement('span');
-                tag.className = 'dest-tag';
-                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
-                trigger.insertBefore(tag, placeholder);
-            });
-        }
+<section class="dest-sec white"><div class="dest-inner">
 
-        /* Update hidden field */
-        hidden.value = selected.join('; ');
+<h2>Where to own in the French Alps</h2>
 
-        /* Update option highlights */
-        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
-            if (selected.indexOf(opt.dataset.value) !== -1) {
-                opt.classList.add('selected');
-            } else {
-                opt.classList.remove('selected');
-            }
-        });
-    }
+<p>The French Alps' second-home market is best understood through <strong>five distinct sub-zones</strong>, each with its own altitude, architecture, season and buyer mix. There are, of course, French Alps addresses outside these five — the southern Alps around <a href="https://www.serre-chevalier.com/en/" target="_blank" rel="noopener">Serre Chevalier</a> and Briançon, the Belledonne range above <a href="https://www.grenoble-tourisme.com/en/" target="_blank" rel="noopener">Grenoble</a>, the smaller Maurienne resorts at Valloire and Valfréjus, the lower valleys around <a href="https://en.lac-annecy.com/" target="_blank" rel="noopener">Annecy</a> and Aix-les-Bains — and we are happy to discuss them with buyers whose interests run that direction. But the supply story for fractional ownership is concentrated in the five clusters below: the <strong>Trois Vallées</strong> (Courchevel, Méribel, Val Thorens), the <strong>Espace Killy</strong> (Val d'Isère, Tignes), <strong>Megève</strong>, the <strong>Chamonix-Mont-Blanc valley</strong>, and the <strong>Portes du Soleil</strong> (Avoriaz, Morzine, Les Gets). Together they account for the overwhelming majority of international second-home demand in the French Alps.</p>
 
-    /* Toggle dropdown */
-    trigger.addEventListener('click', function(e) {
-        /* If clicking a tag X, remove that item */
-        if (e.target.classList.contains('dest-tag-x')) {
-            var val = e.target.dataset.val;
-            selected = selected.filter(function(v) { return v !== val; });
-            render();
-            e.stopPropagation();
-            return;
-        }
-        wrap.classList.toggle('open');
-    });
+<h3>The Trois Vallées — Courchevel, Méribel, Val Thorens</h3>
 
-    /* Click an option */
-    dropdown.addEventListener('click', function(e) {
-        var opt = e.target.closest('.dest-option');
-        if (!opt) return;
-        var val = opt.dataset.value;
-        var idx = selected.indexOf(val);
-        if (idx === -1) {
-            selected.push(val);
-        } else {
-            selected.splice(idx, 1);
-        }
-        render();
-        e.stopPropagation();
-    });
+<p>The <a href="https://www.les3vallees.com/en" target="_blank" rel="noopener">Trois Vallées</a> is the <strong>largest connected ski domain in the world</strong> — 600 kilometres of lift-served pistes spread across three parallel valleys in the Tarentaise, with 183 lifts moving skiers between Courchevel, Méribel, Val Thorens, Les Menuires and Saint-Martin-de-Belleville on a single lift pass. <strong>Courchevel</strong> is the prestige anchor at the southern end of the domain — a six-village commune rising from Courchevel Village at <strong>1,300 metres</strong> through Courchevel Moriond (1,650), Courchevel Village (1,550) and Courchevel 1850 at the top, where the slope-side residential addresses around the Jardin Alpin, Bellecôte and Plantrey have set European price records over the past two decades. <a href="https://www.courchevel.com/en/" target="_blank" rel="noopener">Courchevel 1850</a> is the address that defined high-end alpine luxury in France and remains the most concentrated cluster of Michelin-starred restaurants in any ski resort worldwide. <strong>Méribel</strong> sits in the central valley — a deliberately low-rise chalet resort built around the wooden-balconied vernacular that British property developer Peter Lindsay imposed on the area in the 1930s, and one of the most architecturally coherent purpose-built resorts in the Alps. <a href="https://www.meribel.net/en/" target="_blank" rel="noopener">Méribel</a>'s twin altitude levels — Méribel-les-Allues at <strong>1,450 metres</strong> and Mottaret at <strong>1,750 metres</strong> — sit at the geographic centre of the domain and put every part of the Trois Vallées within a single ski day.</p>
 
-    /* Close on outside click */
-    document.addEventListener('click', function(e) {
-        if (!wrap.contains(e.target)) {
-            wrap.classList.remove('open');
-        }
-    });
-})();
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/4548d9e1cb/chalet-de-la-manche-4.jpg" alt="A traditional Alpine-style chalet in the French Alps with wooden balconies and panoramic mountain views" loading="lazy" />
+  <figcaption>A traditional French Alps chalet, wooden balconies and the surrounding peaks filling the windows.</figcaption>
+</figure>
 
-/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
-(function() {
-    var form = document.getElementById('expert-enquiry-form');
-    if (!form) return;
-    var btn = form.querySelector('.expert-submit-btn');
-    var msg = document.getElementById('expert-form-msg');
+<p><strong>Val Thorens</strong>, at the head of the third valley, is the <strong>highest ski resort in Europe</strong> at <strong>2,300 metres</strong>, with a building stock that is almost entirely high-altitude purpose-built and snow that runs from late November through early May in a typical year. <a href="https://www.valthorens.com/en/" target="_blank" rel="noopener">Val Thorens</a> has won the <strong>World Ski Award for "World's Best Ski Resort"</strong> multiple times in the past decade and is the closest thing in the Alps to a guaranteed-snow address. The international buyer mix across the Trois Vallées is heavily <strong>British and Belgian</strong> in Courchevel and Méribel, with a long-standing Dutch, Russian, Middle-Eastern and increasingly American presence in the prime Courchevel 1850 tier; Val Thorens sees a younger, more sports-oriented mix that crosses Northern European nationalities. The architectural inheritance divides cleanly between the high-altitude purpose-built apartments and small chalets of Val Thorens, the wooden-balconied chalet vernacular of Méribel, and the spread of contemporary slope-side chalets and apartment-residences around Courchevel 1850. Drive times from <a href="https://www.gva.ch/en/" target="_blank" rel="noopener">Geneva</a> are <strong>2 hours to Courchevel and Méribel</strong> and <strong>2 hours 15 minutes to Val Thorens</strong>; from <a href="https://www.lyonaeroports.com/en" target="_blank" rel="noopener">Lyon</a> roughly <strong>2 hours 15 minutes</strong>; from <a href="https://www.chamberyairport.com/en/" target="_blank" rel="noopener">Chambéry</a> a shorter <strong>90 minutes</strong>. Climate runs <strong>−5 to 0°C (high 20s°F to low 30s°F)</strong> through the heart of the winter and <strong>15–22°C (low 60s°F to low 70s°F)</strong> in high summer at resort altitude, with snow on the high pistes from late November through early May. The Trois Vallées sits inside the <a href="https://www.vanoise-parcnational.fr/en" target="_blank" rel="noopener">Vanoise National Park</a> buffer zone, France's oldest national park (founded in 1963). <strong>Best for:</strong> serious skiers who want the deepest connected terrain in the world on a single lift pass, buyers who prioritise altitude-secured snow, and owners whose calendars centre on the December–April peak with shoulder-season summer use.</p>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.textContent = 'Sending\u2026';
-        msg.className = 'expert-form-msg';
-        msg.textContent = '';
+<h3>The Espace Killy — Val d'Isère and Tignes</h3>
 
-        var data = new FormData();
-        data.append('action', 'cop_expert_enquiry');
-        data.append('nonce',       form.querySelector('[name="nonce"]').value);
-        data.append('name',        form.querySelector('[name="name"]').value);
-        data.append('email',       form.querySelector('[name="email"]').value);
-        data.append('phone',       form.querySelector('[name="phone"]').value);
-        data.append('destination', form.querySelector('[name="destination"]').value);
-        data.append('budget',      form.querySelector('[name="budget"]').value);
-        data.append('message',     form.querySelector('[name="message"]').value);
+<p>The <a href="https://www.valdisere.com/en/" target="_blank" rel="noopener">Espace Killy</a> — 300 kilometres of pistes connecting <strong>Val d'Isère</strong> at <strong>1,850 metres</strong> and <strong>Tignes</strong> at <strong>2,100 metres</strong> — is the second of the major Tarentaise domains and the one that most defines the <strong>high-altitude expert-skier French alpine experience</strong>. Val d'Isère is the older village with the deeper traditional core — the late-medieval Saint-Bernard church, the long pedestrian Rue Principale, the original family-owned hotels around the central Place du Village — and has been a serious international ski destination since the 1955 World Championships. <a href="https://www.tignes.net/en/" target="_blank" rel="noopener">Tignes</a>, at higher altitude, is the more purpose-built of the two — its four village levels (Le Lac, Val Claret, Le Lavachet, Tignes 1800) were rebuilt after the 1952 hydroelectric dam flooded the original village, which gives Tignes a more uniformly modern (and architecturally controversial) look than its older neighbour. The two villages share the <a href="https://www.glacier-grande-motte.com/" target="_blank" rel="noopener">Grande Motte glacier</a> at <strong>3,450 metres</strong>, which sustains lift-served skiing from late October through early May — among the longest seasons of any French resort and one of the few French addresses with reliable autumn skiing.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'expert-form-msg success';
-                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
-                form.reset();
-                btn.textContent = 'Sent!';
-                /* Clear destination tags */
-                var wrap = document.getElementById('dest-multiselect');
-                if (wrap) {
-                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-                    var ph = wrap.querySelector('.dest-placeholder');
-                    if (ph) ph.style.display = '';
-                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
-                }
-            } else {
-                msg.className = 'expert-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Send Enquiry';
-            }
-        })
-        .catch(function() {
-            msg.className = 'expert-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Send Enquiry';
-        });
-    });
-})();
-        // Show more properties
-        var showMoreBtn = document.getElementById('dest-show-more');
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', function() {
-                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
-                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
-            });
-        }
-    </script>
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1tVwlSI5ib0XS8apwNxybXTo-WpS9G_2G" alt="A French Alps mountain apartment with traditional alpine architecture and Mont Blanc views" loading="lazy" />
+  <figcaption>A French Alps mountain apartment, the traditional alpine architecture wrapping the high windows.</figcaption>
+</figure>
+
+<p>The international buyer mix in the Espace Killy is heavily <strong>British, Scandinavian and Dutch</strong> in Val d'Isère, with a younger and more sports-oriented mix across Tignes. The architectural inheritance in Val d'Isère is the traditional Tarentaise stone-and-wood village vernacular preserved through strict planning rules around the historic core, complemented by a tier of contemporary slope-side chalets that has emerged on the village fringes over the past two decades; Tignes is more uniformly modern. The Espace Killy is the natural choice for owners who prefer <strong>altitude-secured snow and serious expert terrain</strong> over the more compact convenience of the Trois Vallées; the off-piste skiing in the <a href="https://www.vanoise-parcnational.fr/en" target="_blank" rel="noopener">Vanoise National Park</a> backcountry that the resorts back onto is among the best in Europe. Drive times from Geneva are <strong>2 hours 30 minutes</strong>; from Lyon roughly <strong>2 hours 30 minutes</strong>; from Chambéry <strong>90 minutes</strong>; and the TGV reaches <strong>Bourg-Saint-Maurice</strong>, the rail terminus thirty minutes downvalley, from Paris and Lille direct. Climate is similar to the Trois Vallées at altitude — <strong>−6 to 0°C (low 20s°F to low 30s°F)</strong> mid-winter and <strong>14–20°C (high 50s°F to high 60s°F)</strong> in high summer — but the high-altitude exposure makes Val d'Isère and Tignes both colder and more snow-secure than the slightly lower Méribel and Courchevel. <strong>Best for:</strong> committed skiers who prioritise terrain over village charm, families with strong-skier teenagers, and owners willing to trade convenience for the deepest snowpack and the longest season in the French Alps.</p>
+
+<h3>Megève</h3>
+
+<p><a href="https://www.megeve.com/en" target="_blank" rel="noopener">Megève</a> sits in a different category from the Tarentaise high-altitude resorts. It is a <strong>Belle Époque traditional village</strong> founded as a resort by the <strong>Rothschild family</strong> in the 1920s — when Noémie de Rothschild, after a visit to Saint Moritz, decided that France needed its own equivalent and chose Megève for its broad sunny pasture, traditional Savoyard architecture and proximity to Mont Blanc. The result is the <strong>most architecturally complete traditional ski village in France</strong>: a working medieval centre around the seventeenth-century parish church and the pedestrian Place du Village, a residential ring of restored chalets on the slopes of Mont d'Arbois and Rochebrune, and a Belle Époque hotel tradition (the <a href="https://www.fourseasons.com/megeve/" target="_blank" rel="noopener">Four Seasons Hotel des Alpes</a>, the historic Mont d'Arbois palace, the Lodge Park) that has anchored the village's identity for a century. The ski domain — <strong>400 kilometres of pistes</strong> across the Mont d'Arbois, Rochebrune, Le Jaillet and Combloux sectors, with onward connection to the larger <a href="https://www.evasion-montblanc.com/en/" target="_blank" rel="noopener">Évasion Mont-Blanc</a> area — is mid-altitude (the highest lift tops out at <strong>2,350 metres</strong> on the Cote 2000), which makes Megève less snow-secure than Val Thorens or Val d'Isère but materially more sun-blessed across the season.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1wx2Jocsdx492yAJqjxShoC8BsySbqlR8" alt="A Megève-style alpine chalet interior with traditional wood beams, fireplace and mountain views" loading="lazy" />
+  <figcaption>A traditional French alpine chalet interior, wood beams and fireplace framing the mountain view.</figcaption>
+</figure>
+
+<p>The international buyer mix in Megève is the <strong>most Francophone of the major French alpine resorts</strong> — Paris families with second homes in Megève represent the single largest cohort, with a long-standing Belgian, Swiss, Brazilian and Lebanese presence and a smaller but growing Anglo-Saxon share. The architectural inheritance is the strict Savoyard chalet vernacular protected by the commune's planning rules — wooden balconies, stone bases, slate roofs, the pierre de Megève limestone trim — and the result is a village that looks like the platonic ideal of a French alpine resort. The off-season life in Megève is the deepest of the major French ski destinations: the village has a <strong>year-round population of around 4,000</strong>, the restaurants and shops open through May–June and September–October, and the summer calendar — golf at the <a href="https://www.golf-mont-darbois.com/" target="_blank" rel="noopener">Mont d'Arbois course</a>, hiking the Aravis ridge, the late-July <a href="https://www.megevejazz.com/en/" target="_blank" rel="noopener">Megève Jazz Contest</a>, the August <a href="https://www.jumping-megeve.com/en/" target="_blank" rel="noopener">Jumping International</a> equestrian event — gives the village a genuine four-season identity that the higher-altitude resorts lack. Drive times from Geneva are <strong>75 minutes</strong>; from Chamonix <strong>30 minutes</strong>; from Lyon roughly <strong>2 hours</strong>. Climate runs <strong>−2 to 4°C (high 20s°F to high 30s°F)</strong> mid-winter at village altitude (1,100 metres) and <strong>18–24°C (mid-60s°F to mid-70s°F)</strong> in high summer, with the village's sunny exposure giving Megève noticeably more sunshine than the deep Tarentaise valleys. <strong>Best for:</strong> design-led families who value architectural pedigree and four-season usability over highest-altitude snow security, Paris-based owners who want a winter base inside three hours of the capital, and buyers who treat the village's restaurant and cultural calendar as part of the address.</p>
+
+<h3>The Chamonix-Mont-Blanc valley</h3>
+
+<p><a href="https://www.chamonix.com/en" target="_blank" rel="noopener">Chamonix-Mont-Blanc</a>, in the Arve valley at the foot of the Mont Blanc massif, is the <strong>oldest and most iconic French alpine resort</strong> — the site of the <a href="https://olympics.com/en/olympic-games/chamonix-1924" target="_blank" rel="noopener">first Winter Olympics in 1924</a>, the historical heart of European mountaineering, and the only major French ski address with a year-round full-service town life rather than a resort calendar. The town has a <strong>year-round population of around 9,000</strong>, three full-service hospitals, a daily market, the <a href="https://www.chamonix.com/musee-alpin,28,en.html" target="_blank" rel="noopener">Musée Alpin</a>, the historic Mont Blanc Hotel, and a working four-season life that the purpose-built ski resorts cannot match. The annual <a href="https://www.cosmojazzfestival.com/en/" target="_blank" rel="noopener">Cosmo Jazz Festival</a> in late July sees jazz concerts staged on the high alpine pastures around the town. The Mont Blanc massif itself rises directly above the town to <strong>4,809 metres</strong> — the highest peak in Western Europe — and the <a href="https://www.compagniedumontblanc.com/en/" target="_blank" rel="noopener">Aiguille du Midi cable car</a> from the centre of Chamonix rises to <strong>3,842 metres</strong> in twenty minutes, the highest vertical lift in Europe and the gateway to the legendary <strong>Vallée Blanche</strong> off-piste descent that drops 2,800 metres back to the town. The skiing in the valley is spread across multiple non-connected sectors — <a href="https://en.chamonix.com/discover/the-resort/grands-montets" target="_blank" rel="noopener">Grands Montets</a> at Argentière, <strong>Le Tour</strong> at the head of the valley, <strong>Brévent and Flégère</strong> on the southern flank of the valley facing Mont Blanc, and the smaller <strong>Les Houches</strong> domain below the town — totalling <strong>170 km of pistes</strong> served by a single Chamonix valley lift pass.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1mlS_fPrGujiQhK6Z6O9j1HnOhQCefPc3" alt="A Chamonix apartment with terrace and views of the Mont Blanc massif" loading="lazy" />
+  <figcaption>A Chamonix apartment with terrace, the Mont Blanc massif rising beyond.</figcaption>
+</figure>
+
+<p>The international buyer mix in Chamonix is the <strong>most cosmopolitan in the French Alps</strong> — British, Scandinavian, Belgian, Dutch, German, Italian, American and a notable South American cohort, drawn as much to the mountaineering tradition as to the skiing. The architectural inheritance divides cleanly between the historic core around the Saint-Michel church and the Rue du Docteur Paccard (traditional Savoyard chalets and Belle Époque hotel architecture), the residential ring on the slopes above the town (a mix of restored farmhouses and contemporary chalets, particularly across the Argentière, Les Praz and Les Tines villages further up the valley), and a discrete stock of central apartments in the recently restored buildings around the Place Balmat. The historic <a href="https://www.compagniedumontblanc.com/en/" target="_blank" rel="noopener">Compagnie du Mont-Blanc</a> operates the full network of valley cable cars and is the largest single lift operator in the Chamonix valley. The summer season in Chamonix is, on most measures, <strong>larger than the winter</strong> — the town's mountaineering tradition, the access to the <a href="https://en.chamonix.com/discover/the-resort/mer-de-glace" target="_blank" rel="noopener">Mer de Glace</a> glacier via the historic <a href="https://en.chamonix.com/discover/the-resort/montenvers-train" target="_blank" rel="noopener">Montenvers railway</a>, the <a href="https://utmbmontblanc.com/en" target="_blank" rel="noopener">UTMB Mont-Blanc</a> in late August, and the network of high-altitude hikes around the Tour du Mont-Blanc make Chamonix one of the few French alpine resorts where the summer schedule rivals or exceeds the winter calendar. Drive times from Geneva are <strong>75 minutes</strong> on the A40 motorway; from Lyon roughly <strong>2 hours 15 minutes</strong>; from Megève <strong>30 minutes</strong>. Climate runs <strong>−4 to 2°C (mid-20s°F to mid-30s°F)</strong> mid-winter at the town's <strong>1,035 metres</strong> and <strong>15–24°C (high 50s°F to mid-70s°F)</strong> in high summer, with the deep valley exposure giving Chamonix shorter winter daylight than the higher-altitude resorts (the sun barely climbs above the Brévent ridge in December and January). <strong>Best for:</strong> owners who want a genuine four-season mountain town rather than a purely winter resort, mountaineering enthusiasts and serious off-piste skiers, and design-led couples who value the depth of historical and cultural identity that only a working full-service alpine town can provide.</p>
+
+<h3>Portes du Soleil — Avoriaz, Morzine, Les Gets</h3>
+
+<p>The <a href="https://www.portesdusoleil.com/en/" target="_blank" rel="noopener">Portes du Soleil</a> is the cross-border ski area linking <strong>twelve resorts across the French and Swiss sides</strong> of the Chablais Alps — 600 kilometres of lift-served pistes spread across <strong>Morzine, Avoriaz, Les Gets, Châtel, Saint-Jean d'Aulps and Abondance on the French side</strong> and <strong>Champéry, Les Crosets, Champoussin, Morgins, Val-d'Illiez and Torgon on the Swiss side</strong>. The two anchor French addresses are very different in character. <strong>Morzine</strong>, at <strong>1,000 metres</strong> at the bottom of the valley, is a traditional Savoyard market town that retains its working-village character — wooden balconies, slate roofs, a Sunday morning market on the Place de l'Église, a year-round population of around 3,000, and the deepest off-season life in the Portes du Soleil. <a href="https://www.morzine-avoriaz.com/en/" target="_blank" rel="noopener">Avoriaz</a>, three kilometres uphill at <strong>1,800 metres</strong>, is the opposite — a famously car-free architecturally extreme purpose-built resort designed in the late 1960s by Jacques Labro, with red-cedar-clad cliff-hanging buildings that have made it one of the most architecturally distinctive ski stations in the Alps. <a href="https://www.lesgets.com/en/" target="_blank" rel="noopener">Les Gets</a>, on the eastern flank of the valley, is the smaller traditional village that locals consistently rate as the most family-friendly cluster in the domain, with an active <strong>summer mountain-biking scene</strong> (Les Gets hosted the 2022 UCI Mountain Bike World Championships) that gives the village a genuine four-season identity.</p>
+
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/3b99b4f30c/panorama-morzine-4.jpg" alt="A Morzine apartment with a south-west balcony, looking across the Portes du Soleil mountains and Le Pléney slopes" loading="lazy" />
+  <figcaption>A Morzine apartment with a south-west balcony, the Portes du Soleil rising beyond Le Pléney.</figcaption>
+</figure>
+
+<p>The international buyer mix in the Portes du Soleil is heavily <strong>British, Dutch, Belgian, Scandinavian and Swiss</strong>, with a long-standing British presence in Morzine that dates to the 1970s chalet boom and a growing Northern European share in Les Gets. The architectural inheritance is split between the traditional Savoyard chalet vernacular of Morzine and Les Gets (the slate roofs, the wooden balconies, the protected village cores) and the radical 1960s and 1970s purpose-built architecture of Avoriaz (the red-cedar cliff faces, the bell-tower roofline, the snow-flowing curved walls). The summer life in the valley is one of the strongest in the Alps — the <strong>UCI Mountain Bike World Cup</strong> regularly returns to Les Gets and Châtel, the long-distance hiking trails of the <a href="https://www.geopark-chablais.com/en/" target="_blank" rel="noopener">Chablais UNESCO Geopark</a> are among the most usable in France, and the lake at Montriond gives the valley a true summer swimming venue. Drive times from <a href="https://www.gva.ch/en/" target="_blank" rel="noopener">Geneva</a> are an <strong>industry-leading 60 minutes to Morzine and Les Gets</strong> and <strong>75 minutes to Avoriaz</strong> — the shortest airport-to-front-door of any major French alpine address. Climate runs <strong>−2 to 4°C (high 20s°F to high 30s°F)</strong> mid-winter at Morzine's altitude and proportionally colder at Avoriaz, with summer ranges of <strong>16–24°C (low 60s°F to mid-70s°F)</strong>. <strong>Best for:</strong> families with school-age children — particularly British and Northern European — who value the shortest possible airport transfer, the Morzine village rhythm and the four-season mountain-biking life; and design-led buyers drawn to Avoriaz's architectural radicalism and altitude security.</p>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>A year in your French Alps co-ownership home</h2>
+
+<p>Spreading <strong>45 days of personal use</strong> across a calendar year is itself a skill — and one of the unsung benefits of the French Alps specifically is that the region's combination of long ski seasons, dramatic summer hiking, gentle shoulder months and full-service town life in the major resorts gives an owner usable weeks across more of the year than almost any other European mountain destination. Below is a walk through the year with the particular weeks owners across the COP French Alps portfolio return to most often. The pattern is broadly the same across all <strong>eight co-owners</strong> of a given property, with the calendar mechanics ensuring every owner gets a <strong>fair allocation of peak weeks</strong> across a multi-year cycle. Owners who are flexible enough to use shoulder weeks — rather than competing for every week of February — consistently report a <strong>higher use-quality</strong> from their share than those who insist on peak.</p>
+
+<h3>Winter (December–April)</h3>
+
+<p>Winter is, unambiguously, the <strong>defining season of any French Alps share</strong> and the months on which the value proposition of an alpine home is built. The season opens in <strong>early December</strong> with the high-altitude resorts — Val Thorens, Tignes, Val d'Isère, Avoriaz, Courchevel 1850 — running lifts from the first weekend, with the lower-altitude addresses (Méribel, Megève, Morzine, Chamonix at town altitude) following through mid-December as the snowpack builds. The <strong>Christmas-and-New-Year fortnight</strong> is the single highest-demand window of the alpine year — the week between Christmas Day and 2 January is fully booked across every prime address in the Alps, with restaurant tables in Courchevel 1850 typically booked four to six weeks ahead and the village atmospheres at their most spectacular. Owners who time the calendar to land Christmas in the Alps every two or three years (rather than every year) consistently find their use pattern more relaxed than those who try to anchor Christmas every December.</p>
+
+<p><strong>January</strong> is, on most measures, the connoisseur's month — the lifts are quieter after the Christmas rush, the snow conditions are typically at their best (the <strong>cold-weather January powder</strong> is what serious skiers travel for), restaurant tables are easier to book, and the village atmospheres run at a more measured pace. <strong>February</strong> is the peak of the family-skiing calendar — the French <strong>school holiday rotation</strong> moves across three zones (Zone A, B and C) through the four weeks of the month, with overlapping British, Dutch, Belgian, German and Scandinavian half-terms pushing demand to its highest annual level. The third weekend of February is typically the single busiest piste-traffic week of the year across the major French domains. Restaurant booking windows in the prime resorts stretch to <strong>three to four weeks ahead</strong>, ski-school slots are pre-allocated, and the high-altitude pistes thicken noticeably. None of this is a problem for owners who plan ahead, but it is the practical reality of February in the French Alps.</p>
+
+<p><strong>March</strong> is the underrated month — the lift-served terrain is at its full opening, the snowpack is at its deepest of the year, the days are noticeably longer (sunset moves from 5:30 in mid-February to past 7:30 by the end of March), and the village calendars open up after the February peak. <strong>Easter week</strong> is the second-major holiday window of the season and the last reliable peak in the calendar; the high-altitude resorts (Val Thorens, Tignes, Val d'Isère, Avoriaz) carry full lift operations through Easter and into the third week of April, while the lower-altitude addresses typically wind down operations from mid-April onwards. <strong>The Trois Vallées domain</strong> typically runs lifts until the third week of April; Val Thorens to the first weekend of May; Tignes to a similar window depending on snow conditions; and the <a href="https://www.glacier-grande-motte.com/" target="_blank" rel="noopener">Grande Motte glacier</a> above Tignes is one of the few addresses with year-round summer lift access. Climate-wise the winter runs <strong>−6 to 4°C (low 20s°F to high 30s°F)</strong> at resort altitudes, with the high-altitude resorts (Val Thorens, Tignes, Avoriaz) consistently colder than the lower-altitude (Megève, Chamonix town, Morzine) and noticeably more snow-secure across the season.</p>
+
+<h3>Spring (May–June)</h3>
+
+<p>The French Alps' <strong>spring</strong> is the <strong>most under-used of the four seasons</strong> by international buyers — and consequently one of the most rewarding for a fractional owner with calendar flexibility. <strong>May</strong> on the mountain is the season's quiet transition: the high-altitude resorts close from the second week, the villages briefly empty as the seasonal workforce departs, and the valleys turn from snowmelt to alpine spring through the second half of the month. <strong>Chamonix</strong> is the exception — the town's full-service population keeps the restaurants and cafés open through May, and the <strong>Tour du Mont-Blanc</strong> hiking circuit opens its lower sections from early May. Megève keeps a similar shoulder rhythm. The drive times shorten through the valleys as the alpine roads reopen — the <strong>Col de l'Iseran</strong> (the highest paved road in the Alps at <strong>2,764 metres</strong>) opens in late May or early June, connecting the Tarentaise to the Maurienne in a way that the high-summer Alps routes never have.</p>
+
+<p><strong>June</strong> is when the alpine summer properly opens. The <strong>cable cars</strong> resume operation through the second weekend — the Aiguille du Midi in Chamonix, the Brévent-Flégère, the Saulire above Courchevel, the Mont d'Arbois above Megève — and the hiking calendar runs at its full opening. The wildflower meadows across the Beaufortain, the Aravis and the Vanoise National Park are at their photogenic peak through the second half of June; the alpine lakes (Lac de Roselend in the Beaufortain, Lac de Tignes-le-Lavachet, Lac Blanc above Chamonix) warm enough for cold-water swimming through the last week of June. The <strong>Tour du Mont-Blanc</strong> long-distance circuit fills with international hikers from mid-June onwards; the <a href="https://utmbmontblanc.com/en" target="_blank" rel="noopener">UTMB</a> long-distance trail race in late August anchors the late-summer calendar but the broader hiking season runs from mid-June through mid-September. For owners who use their share in <strong>genuinely four-season mode</strong> — rather than just winter weeks — June is consistently named the favourite shoulder month in the French Alps.</p>
+
+<h3>Summer (July–August)</h3>
+
+<p>The French Alps' summer is a serious and well-defined second season — not the afterthought it can be in some alpine markets. <strong>July</strong> brings the alpine high season — Chamonix is at its busiest summer week in the run-up to the <strong>14 July Bastille Day</strong>, with the village restaurants fully booked and the cable cars running at peak capacity. The <strong>Megève Jazz Contest</strong> in the third week of July is one of the village's defining summer events; the <strong>Festival du Mont-Blanc</strong> classical music programme runs across multiple venues from Saint-Gervais to Argentière. The Trois Vallées and Espace Killy resorts run lift operations through July and August — the Saulire cable car above Courchevel, the lifts to the Mont du Vallon above Méribel, the Funitel and the Cime Caron at Val Thorens, the Grande Motte glacier at Tignes — and a meaningful summer hiking and mountain-biking calendar runs across the high-altitude pistes.</p>
+
+<p><strong>August</strong> is the absolute peak — and the most expensive month — with the alpine valleys running at full capacity from the first weekend through the third week. The <strong>15 August Assumption holiday</strong> is the single highest-density alpine weekend of the year, with restaurant booking windows stretching to four to six weeks ahead in the prime addresses. The <a href="https://utmbmontblanc.com/en" target="_blank" rel="noopener">Ultra-Trail du Mont-Blanc</a> in the last week of August fills Chamonix and the surrounding villages with twenty thousand international runners and an even larger spectator crowd; the <strong>Megève Jumping International</strong> equestrian event in early August anchors the village's summer calendar. The <strong>Les Gets and Châtel mountain-biking circuits</strong> run at peak capacity through August; the <strong>cable cars</strong> at Brévent, Aiguille du Midi and Mont d'Arbois operate the full summer schedule. Climate-wise the valleys run <strong>20–28°C (high 60s°F to low 80s°F)</strong> in the day in August at resort altitudes, with the high-altitude addresses (Val Thorens, Tignes, Avoriaz) several degrees cooler and the lower altitudes (Megève, Chamonix valley floor) similar to the lower hills. The <strong>alpine lakes</strong> reach swimming temperatures of <strong>18–22°C (mid-60s°F to low 70s°F)</strong> across the season; the Mont Blanc snow line in August sits at around <strong>3,200 metres</strong>, which means the high-altitude lift accessed terrain remains snow-covered all year round.</p>
+
+<h3>Autumn (September–November)</h3>
+
+<p>For many seasoned French Alps owners, <strong>September is the favourite month</strong>. The August crowds disperse from the first weekend of the month; the high-altitude lifts continue running through mid-September; the lower-valley restaurants take reservations again the same week you ask; and the hiking and mountain-biking conditions at altitude are arguably at their best of the year — the <strong>autumn larch needles</strong> in the Vanoise and Beaufortain massifs turn the alpine slopes a remarkable burnt-gold colour from mid-September through early October, and the <strong>weather windows</strong> for high-altitude routes are typically at their most stable. The <a href="https://www.autourdumontblanc.com/en/" target="_blank" rel="noopener">Tour du Mont-Blanc</a> circuit closes from late September as the high passes get their first snow; the lift operators wind down summer schedules through the third week of September. <strong>October</strong> is the genuine off-season — many of the seasonal village restaurants close, the cable cars run reduced schedules, the alpine hiking trails get their first snow on the high passes by mid-month, and the prime addresses run on a maintenance calendar before the November ski-season preparation begins.</p>
+
+<p><strong>November</strong> divides cleanly between the lower-valley addresses (Chamonix town, Megève centre, Morzine and Les Gets) — which keep a working off-season life through the month with most restaurants and shops open, the village markets running, and the local life largely uninterrupted — and the high-altitude purpose-built resorts (Val Thorens, Tignes, Avoriaz, Courchevel 1850), which run on a soft schedule as the resort prepares for winter. By <strong>late November</strong> the first lifts open at Val Thorens (typically the third weekend of November) and the season cycle begins again. Owners who use their share in genuinely four-season mode — three or four trips of seven to ten days across the calendar rather than two long holidays — increasingly name early September and the first week of December as their favourite weeks of the year. The high-altitude lakes, the <strong>autumn larches</strong>, the early-season piste openings before the Christmas rush — all available to the share-owner whose calendar can flex around the genuine peaks.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Who buys in the French Alps, and why</h2>
+
+<p>The international buyer mix in the French Alps is the <strong>most diverse of any European alpine region</strong> — by a meaningful margin. <strong>British buyers</strong> have anchored the French alpine market since the 1970s chalet boom and remain the largest non-French foreign cohort; the British community across Morzine, Méribel, Chamonix and Val d'Isère is large enough to run English-language schools, chartered Saturday flights, in-resort chalet operators and English-speaking ski-school provision through the season. <strong>Belgian and Dutch buyers</strong> are the second and third largest cohorts; the proximity from Brussels and Amsterdam (90 minutes by air, six hours by car) makes the French Alps the natural ski destination for both nationalities, and the established Belgian-Dutch presence in Courchevel, Méribel, Avoriaz and Les Gets dates to the 1980s. <strong>Scandinavian buyers</strong> — Swedes, Norwegians, Danes, Finns — concentrate in Val d'Isère, Tignes, Méribel and the Espace Killy, drawn to the deep terrain and the long season. <strong>German and Swiss buyers</strong> are well represented in Megève and Chamonix, where the Francophone-but-internationalised village life suits their taste better than the more purely British-anchored resorts. <strong>American buyers</strong>, historically a minority in the French Alps, have grown sharply over the past decade — drawn to Chamonix for the mountaineering tradition, Megève for the Belle Époque architectural pedigree, and Courchevel for the prestige factor and the directly-bookable East-coast flights through Geneva.</p>
+
+<p><strong>French buyers themselves</strong> remain a meaningful share of the international second-home market for these resorts — particularly in Megève (Paris families), Val d'Isère (Lyon and Paris families), and Chamonix (Paris and Lyon weekenders using the TGV). The <strong>cross-border Swiss demand</strong> from the Geneva and Lausanne metropolitan areas is significant in the resorts closest to the border — Megève, Chamonix, Morzine, Les Gets, Châtel — where Swiss families maintain weekend properties as a cheaper alternative to the Swiss-side equivalent.</p>
+
+<p>The <strong>age-and-life-stage profile</strong> is in some respects more relevant than the nationality breakdown. The largest single buyer cohort across the COP French Alps portfolio is in the <strong>40–55 age band</strong> — typically dual-income professional couples with school-age children whose ski calendars centre on the February, Easter and Christmas school holidays, who value the operational simplicity of a fully managed chalet, and for whom the long-term equity case of a mountain home is part of a broader portfolio rather than a single-asset bet. The second-largest cohort is the <strong>55–70 age band</strong> — owners whose own primary income is established, whose children are at university or beyond (which gives them more calendar flexibility than the school-holiday-locked cohort), and whose long-run thinking on the mountain home runs to the next 15–20 years of skiing and summer-hiking use. The third cohort is the <strong>35–45 age band</strong> — younger buyers earlier in their portfolio, often pairing a French Alps share with a Mediterranean summer share, and using the chalet primarily through long ski weekends and the February family-week.</p>
+
+<p>Within those nationalities, French Alps co-ownership tends to suit a small number of well-defined buyer profiles:</p>
+
+<ul>
+  <li><strong>Active families with school-age children</strong> — typically using a Méribel, Morzine or Les Gets share around the Christmas, February and Easter ski holidays plus shoulder-season summer weeks, with the children coming back to the same chalet year after year so it becomes their second home rather than a holiday rental. The fully managed model removes the friction of running a chalet remotely; the children return to familiar staff, familiar ski-school, familiar restaurants.</li>
+  <li><strong>Empty-nesters and recent retirees from Northern Europe</strong> — particularly British, Dutch, Belgian and Scandinavian, who use their share in long shoulder-season blocks (January for the deep powder, March for the longer days, June and September for the summer hiking) rather than competing for the February peak. The 55–70 cohort is the heart of this demographic.</li>
+  <li><strong>Multi-generational groups</strong> — four- and five-bedroom chalets in Méribel, Megève, Val d'Isère or the Chamonix valley that sleep grandparents, parents, children and partners in the same week. The fractional model deals with extended-family calendar coordination better than a whole-ownership model, particularly when the family spans multiple countries with different school-holiday calendars.</li>
+  <li><strong>Design-led couples choosing Megève, Chamonix or Avoriaz</strong> — owners who treat the Belle Époque village pedigree of Megève, the mountaineering tradition of Chamonix or the architectural radicalism of Avoriaz as the primary destination, who book repeat shorter stays around the resort's quieter rhythms, and who value the proximity to the village restaurant calendar as much as the skiing itself.</li>
+  <li><strong>Serious skiers and mountaineers</strong> — a notable cohort who specifically choose Val d'Isère, Tignes, Chamonix or Val Thorens for the depth of expert terrain and off-piste access. This sub-cohort typically uses the property heavily in January (powder) and March (long-day spring conditions) rather than the February peak.</li>
+  <li><strong>Four-season mountain enthusiasts</strong> — owners drawn to Chamonix, Megève, Morzine and Les Gets for the genuine summer life (hiking, mountain-biking, classical music festivals, the alpine lakes) for whom the summer schedule is as important as the winter season. This cohort uses the share more evenly through the year than the winter-only buyer.</li>
+</ul>
+
+<p>A pattern worth highlighting is the <strong>multi-region buyer</strong> — French Alps owners who hold a second COP share elsewhere. The most common combination is <strong>alpine plus Mediterranean</strong> (a French Alps chalet for the ski weeks at Christmas, February half-term and Easter, plus a Mallorca, Côte d'Azur or Italian Lakes share for the summer holidays). The second-most-common is <strong>alpine plus city</strong> (a Megève or Chamonix chalet for the ski calendar plus a Paris or London apartment for repeat short cultural stays through the year). Less common but increasingly observed is the <strong>alpine plus winter-sun</strong> pattern (a French Alps share for the ski calendar plus a Canary Islands or Algarve apartment for the deep-winter weeks of January and the spring half-term). The fractional model makes that portfolio strategy practical: <strong>two 1/8 shares cost less than a single whole property</strong> at either of the addresses individually, and the management relationship across the portfolio is unified, which removes the multi-jurisdiction friction.</p>
+
+<div class="dest-callout">
+  <strong>The portfolio pattern:</strong> the French Alps is one of the single most common starting points for COP owners who go on to hold a second share elsewhere — both because the winter-centric calendar pairs naturally with a summer Mediterranean share, and because the same LLC framework applies across every COP property, making a multi-region portfolio operationally simpler than the equivalent across two or three different ownership vehicles.
+</div>
+
+<p>What unites these otherwise quite different buyer profiles is the <strong>underlying calculation</strong>: the alpine weeks each of them actually uses in a year are within the <strong>6–7 weeks</strong> a 1/8 share delivers, the operational overhead of running a chalet remotely is non-trivial in any of the major valleys (and notably higher in the high-altitude purpose-built resorts because of the seasonal staff turnover, the winter snow management and the off-season closures), and the <strong>resale liquidity of a fractional share</strong> inside a managed portfolio is — in our experience across the COP network — <strong>markedly higher</strong> than the resale liquidity of a whole property at the same address. The French Alps is a market where the maths of fractional ownership lines up <strong>almost perfectly</strong> with the use pattern of the buyer.</p>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Geneva, Lyon, Chambéry — and the resort transfers</h3>
+
+<p><a href="https://www.gva.ch/en/" target="_blank" rel="noopener">Geneva airport (GVA)</a> is the principal gateway airport for the western French Alps and one of the most internationally connected airports in Europe. GVA sits on the French border, with the Swiss and French sides of the terminal handled separately and a French sector that allows alpine-bound passengers to clear directly into France without a Swiss customs stop. Year-round direct service runs from London (Heathrow, Gatwick, City), Manchester, Edinburgh, Dublin, Birmingham, Amsterdam, Brussels, Paris (CDG and Orly), Frankfurt, Munich, Hamburg, Berlin, Düsseldorf, Zurich, Vienna, Copenhagen, Stockholm, Oslo and Helsinki; through the winter charter season the network expands to several dozen further European cities and direct East-coast US gateways including New York JFK and Newark, Washington Dulles and (seasonally) Boston, Chicago and Montreal. The <a href="https://www.lyonaeroports.com/en" target="_blank" rel="noopener">Lyon-Saint Exupéry airport (LYS)</a> handles the southern Alps and the Tarentaise resorts at roughly comparable drive times, with a stronger Lyon-based network of French domestic and southern-European flights. The smaller <a href="https://www.chamberyairport.com/en/" target="_blank" rel="noopener">Chambéry-Savoie Mont Blanc airport (CMF)</a> operates as a dedicated ski-season charter airport into the Tarentaise valley from December through early April, with direct service from London, Manchester, Edinburgh, Dublin, Birmingham, Amsterdam, Brussels and Copenhagen at Saturday peak frequency. An owner can reach a French Alps second home <strong>in under three hours door-to-door</strong> from any major Northern European hub through Geneva, which is the practical precondition for the high-frequency, short-stay use pattern that fractional ownership rewards.</p>
+
+<p>Drive times from <a href="https://www.gva.ch/en/" target="_blank" rel="noopener">Geneva</a> to the major sub-zones are short. <strong>Morzine and Les Gets</strong> are <strong>60 minutes</strong> on the A40 motorway through the Vallée Verte; <strong>Avoriaz</strong> is <strong>75 minutes</strong> with the village's underground car park five minutes' shuttle from the lifts; <strong>Megève</strong> is <strong>75 minutes</strong> on the A40 to Sallanches; <strong>Chamonix</strong> is <strong>75 minutes</strong> on the A40 to the eastern end of the valley; <strong>Courchevel and Méribel</strong> are <strong>2 hours</strong> on the A41 to Albertville and then up the Tarentaise; <strong>Val Thorens</strong> is <strong>2 hours 15 minutes</strong>; <strong>Val d'Isère and Tignes</strong> are <strong>2 hours 30 minutes</strong> at the head of the Tarentaise. Most owners pre-arrange a private transfer rather than self-driving — particularly in the winter months when the alpine roads have snow restrictions and the resort approach roads are subject to chain control — through the established multilingual transfer operators that have been working the alpine routes for decades. The French Alps is also accessible by direct <a href="https://www.tgv-inoui.sncf/en" target="_blank" rel="noopener">TGV</a> from Paris and Lille to <strong>Moûtiers</strong> (the Trois Vallées rail terminus) and <strong>Bourg-Saint-Maurice</strong> (the Espace Killy rail terminus), with a popular weekend "ski train" running through the season. <a href="https://www.eurostar.com" target="_blank" rel="noopener">Eurostar</a> runs the seasonal <strong>Eurostar Snow Train</strong> direct from London St Pancras to Bourg-Saint-Maurice and Moûtiers, putting the Trois Vallées and the Espace Killy within a single train journey of central London.</p>
+
+<h3>Whole-property vs 1/8 share: the comparison</h3>
+
+<p>The case for a fractional structure in the French Alps is most clearly seen in the <strong>side-by-side comparison</strong> against both whole ownership and long-term rental — the three ways most international buyers actually consider holding a French alpine second home.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full taxes, insurance, management, maintenance</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 6–10)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">6–24 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The comparison most buyers find most telling is the <strong>annual-carry line</strong>. Owning a whole Courchevel or Méribel chalet outright means carrying full taxe foncière, full insurance, full property-management retainer, full snow-clearance and seasonal preparation, full reserve fund — every year, whether you spend two weeks on the mountain or twelve. A 1/8 fractional share carries proportionally less, fully managed, with the operational burden lifted entirely. Compared to renting a similar chalet long-term, you build real equity rather than burning rent — and the share is yours to sell, transfer, or pass on.</p>
+
+<p>The other line worth examining is the <strong>time-to-sell</strong>. Whole-property resale in the French alpine prime tier — top Courchevel 1850 chalets, Val d'Isère central-village apartments, Megève slope-side farmhouses, Chamonix valley duplexes — is genuinely slow. The buyer pool at the top tier is small, well-informed and unhurried; a chalet in Megève going to market today might sit for <strong>12–18 months</strong> before transacting, and the carrying costs of holding a whole French Alps chalet through a slow open-market sale can add up to a meaningful fraction of the sale price by the time it closes. A fractional share, by contrast, typically clears in <strong>around a month or less</strong> across the COP portfolio because the buyer pool is already aware of the property, the LLC structure and the management framework, and the transfer of an LLC membership interest is a more direct mechanical action than a full notarial conveyance. The carrying-cost differential between a quick professional exit and a slow open-market exit can easily exceed the headline transaction-fee difference between fractional and whole ownership.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual carry on a 1/8 French Alps share is, by definition, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — which means it's a fraction of what an outright French alpine second-home owner pays in taxes, insurance, management and maintenance, and a fraction of what year-round long-term rental of an equivalent chalet would cost. It is best understood as a <strong>single all-in number</strong> that covers everything required to keep the property operating at full standard regardless of who is or isn't in residence. The included items typically run to: <strong>taxe foncière</strong>, the French municipal property tax; taxe d'habitation on second residences where applicable; non-resident income tax on the imputed-rental basis where applicable; building and contents insurance for the furniture and fittings; the full property-management retainer covering staff, scheduling and owner relationship; cleaning and linen between every stay; pre-arrival snow clearance, terrace preparation, fireplace stocking and seasonal opening; landscaping and pool maintenance where applicable; minor maintenance and repairs under a defined threshold; utility bills (electricity, water, internet, gas, alarm monitoring); the syndic-de-copropriété fees in apartment buildings; and a contribution to the <strong>reserve fund for major capital works</strong> (roof, heating, structural). What is typically <strong>not included</strong>: large capital improvements (kitchen replacement, major bathroom refurbishment) which are decided by the LLC's annual general meeting and funded either from the reserve fund or from a one-off levy; personal staff costs (a private chef booked for an owner's stay, a private driver beyond the standard transfer, ski-instructor bookings); damage caused by an owner's own use; and unusually high-volume utility use during peak personal stays. The point is that the annual figure is not a "running cost" in the open-property sense but a <strong>comprehensive operating budget</strong> that covers the property in active condition all year — including the seasonal snow-clearance, the alpine-weather preparation, and the pre-arrival readiness that an owner of a French Alps chalet running the property remotely would otherwise have to organise themselves.</p>
+
+<div class="dest-callout">
+  <strong>The carry-cost reality:</strong> the carry on an outright French Alps chalet stacks up across taxe foncière, taxe d'habitation, building and contents insurance, seasonal snow-clearance, fireplace and heating maintenance, security, utilities, the syndic-de-copropriété fees in apartment buildings, and a year-round property-management retainer — paid in full every year regardless of how many weeks you actually spend in the mountains. A 1/8 fractional share carries roughly 1/8 of that total, fully managed, with the operational burden lifted entirely.
+</div>
+
+<h3>What you actually own — the legal share</h3>
+
+<p>The <strong>legal nature</strong> of a French Alps co-ownership share is one of the questions buyers should understand fully before purchase. Every French alpine property on COP is held in a <strong>purpose-built LLC</strong> — the same modern international ownership vehicle used across COP's destinations — in which you and your seven co-owners hold <strong>equal LLC membership interests</strong>. The underlying French property is held by the company, with the title registered at the <strong>service de la publicité foncière</strong> (the French land registry) and the cadastral position recorded at the local <strong>cadastre</strong>; your membership interest is recorded in the company's register, with transfer effected on resale or inheritance through a <strong>clean, well-documented administrative process</strong> rather than the heavier title-conveyance route required for direct French real estate.</p>
+
+<p><strong>The practical effect</strong> is that you hold a <strong>real, registered, transferable equity interest</strong> — not a timeshare, not a points membership, not a usage right. You can sell through the <strong>established resale process</strong> or to a qualifying outside buyer; you can leave it to your children under your home jurisdiction's inheritance rules (with French succession law overlay where applicable, particularly the réserve héréditaire); and you <strong>participate proportionally in any appreciation</strong> in the underlying French alpine property's market value. Because the framework is consistent across every property on COP, owners who go on to buy a second or third share — whether elsewhere in France or in another country entirely — find themselves dealing with the same documentation, the same administrative cadence, and the same management relationship across the whole portfolio.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works in the French Alps</h2>
+
+<p>The mechanics of fractional ownership in the French Alps are framed by <strong>three things that work together</strong>: the <strong>purpose-built LLC ownership structure</strong> used to hold every property on COP, the <strong>French property-tax regime</strong> that applies to all secondary residences (including the taxe foncière municipal tax and the taxe d'habitation on second residences), and the well-developed <strong>service de la publicité foncière</strong> system that handles registration of the underlying property at the French land registry. The LLC is the modern international vehicle through which you and seven other owners hold the property; the French taxes are the standard local taxes that any non-resident second-home owner pays; and the publicité foncière is the long-running record-of-record system, with documentary precedent traceable to the Napoleonic Code of 1804, that gives the underlying real estate its documentary clarity. Understanding how these three pieces fit together is the difference between a <strong>clear, predictable ownership experience</strong> and one the buyer feels uncertain about.</p>
+
+<h3>How the LLC structure holds French Alps property</h3>
+
+<p>The LLC that holds each French Alps property is a <strong>purpose-built company</strong> designed for international shared ownership. It has a managing officer appointed under the company's governing documents, a <strong>register of members</strong> recording who holds which interest and in what proportion, and an <strong>annual general meeting</strong> at which owner-level decisions (major capital works, budget, manager review) are made. The same LLC framework runs across COP's destinations in the <strong>United States, the United Kingdom, France, Spain, Italy</strong> and elsewhere — meaning an owner adding a second property in another country is <strong>not learning a new ownership structure each time</strong>, but extending one they already understand.</p>
+
+<p>For a fractional buyer in the French Alps, the practical effect is that you become a <strong>registered member of the LLC</strong> that owns the property, holding <strong>one of eight equal membership interests</strong>. The property itself remains French — registered at the service de la publicité foncière by the LLC, which is the legal owner of record — and you, in turn, are a legal owner of the LLC. What you hold is a <strong>transferable equity interest</strong> in the underlying real estate — not a timeshare use-right that depreciates to zero when the contract expires, not a points-club membership, not a fractional holiday club. This <strong>two-step structure</strong> is what gives French Alps co-ownership on COP its <strong>single consistent international format</strong> across every market COP covers, its <strong>cleaner cross-border inheritance treatment</strong> than directly deeded shared ownership, and its <strong>faster resale path</strong>: a transfer of LLC membership is a more direct administrative action than triggering a full title conveyance through a French notary.</p>
+
+<h3>Tax basics: taxe foncière, taxe d'habitation, capital gains</h3>
+
+<p>France operates a <strong>relatively straightforward property-tax framework</strong> for non-resident owners in the Alps, and almost all of the routine compliance is handled through the LLC and its appointed French tax adviser rather than by the individual owner. <strong>Taxe foncière</strong> is the annual municipal property tax paid by the owner of the property — in this case the LLC — calculated on the cadastral rental value as assessed by the local commune, with rates set by each town hall (Courchevel, Méribel, Val Thorens, Val d'Isère, Megève, Chamonix, Morzine and the other alpine communes each set their own rate within the national framework). Taxe foncière is paid by the LLC from the annual service charge collected from co-owners, so <strong>individual owners never deal with the local tax office directly</strong>. <strong>Taxe d'habitation</strong>, the second municipal tax, has been progressively abolished for primary residences but remains applicable to <strong>second residences</strong> in many alpine communes — many of the major French ski resorts apply the maximum 60% surcharge permitted under the 2017 zone tendue legislation, which targets areas with strong second-home pressure. Both taxes are handled at the LLC level and included in the annual service charge.</p>
+
+<p>French <strong>capital-gains tax</strong> on resale is another area where holding the property through a corporate vehicle <strong>simplifies matters for international buyers</strong>. A direct sale of French real estate by a non-resident faces French capital-gains tax (administered through the French tax authority, <a href="https://www.impots.gouv.fr/international-particulier-0" target="_blank" rel="noopener">impots.gouv.fr</a>) at a base rate of <strong>19% (plus 17.2% social contributions for EU residents)</strong>, with progressive abatements for length of ownership and a complete exemption typically reached after 30 years. A transfer of LLC membership interest is administered differently and typically faces <strong>lower transactional friction</strong>, though the precise treatment always depends on the buyer's home jurisdiction and the relevant bilateral tax treaty. We recommend any international buyer review the specific position with their own tax counsel before purchase.</p>
+
+<h3>Inheritance and French succession law</h3>
+
+<p>Directly held French real estate is subject to <strong>French succession and gift tax</strong>, with rates structured around the relationship between the deceased and the heir — direct-line heirs (children, surviving spouse) benefit from substantial allowances and lower rates than collateral or unrelated heirs. France's <strong>réserve héréditaire</strong> regime is a defining feature of the French succession system: it reserves a fixed minimum share of the deceased's estate for direct-line heirs (typically half for one child, two-thirds for two children, three-quarters for three or more), with the remainder being the freely disposable <strong>quotité disponible</strong>. The réserve héréditaire applies to French real estate held directly by a French-resident decedent and has historically been one of the more complex aspects of holding French property for international buyers with home-jurisdiction succession arrangements that differ from the French model.</p>
+
+<p>The <strong>2015 EU Succession Regulation (Brussels IV)</strong> gave EU residents the option to elect their home-country succession law for their estates; non-EU residents (US, UK, Canadian, Australian buyers post-Brexit) can also elect under the same regulation, with some limitations. <strong>LLC membership interests</strong> are treated as <strong>movable rather than immovable property</strong> under most bilateral interpretations, which can give them a different succession treatment from directly held French real estate — again, this is jurisdiction-specific and requires personal tax advice. The point worth making here is that the LLC structure gives <strong>more flexibility</strong> on the succession question than direct ownership, not less, particularly for international buyers whose home-jurisdiction wishes may not align with the strict réserve héréditaire allocation.</p>
+
+<h3>The professional management calendar and how scheduling works</h3>
+
+<p>Once the purchase completes, a <strong>professional management company</strong> takes over all operational responsibility for the French Alps property. Your personal weeks — <strong>approximately 45 days</strong> for a 1/8 share — are allocated through a <strong>fair-rotation calendar</strong> that mixes peak weeks (the Christmas/New Year fortnight, the February family weeks across the rotating French school zones, the Easter week on the high-altitude resorts, the August summer peak in Chamonix and Megève) with shoulder-season and quieter weeks across the year. Owners pre-book several months ahead; the unused weeks are either held for the owner pool or, where the property's structure allows, rented to the broader market with the income flowing back to the co-owners. Service-charge collection, building maintenance, insurance, taxe foncière and taxe d'habitation payments, the linen-and-cleaning between stays, the pre-arrival snow-clearance and seasonal preparation, the welcome arrival, the on-call concierge — <strong>all sit with the management company</strong>. The deep multilingual operations ecosystem across the major valleys — five decades old in Morzine, Courchevel, Méribel and Megève — means that the routine practical realities of owning a chalet remotely in the French Alps are handled by professionals who have been catering to non-resident owners for generations.</p>
+
+<h3>Resale: how to exit, typical timelines, the professional process</h3>
+
+<p>When you decide to exit your French Alps share, a <strong>professional resale process</strong> is in place. Across COP's portfolio, the typical timeline from listing to completion is <strong>around a month or less</strong> — well under the <strong>6–24 months</strong> that whole-property resales typically take on the French alpine open market. The process is well-supported, the buyer pool is already aware of the property and the LLC structure, and the transfer of LLC membership is administratively lighter than triggering a full notarial title conveyance through a French notary. For owners who want maximum control over the price and process, an open-market sale to any qualifying buyer remains an option — but most owners find the established process faster and cheaper.</p>
+
+<div class="dest-callout">
+  <strong>Free to browse, free to enquire:</strong> no buyer-side fees and no obligation. The share price you see is the share price you pay; talking to our specialists costs nothing.
+</div>
+
+<p>The <strong>full mechanics of fractional ownership</strong> across all jurisdictions — usage calendars, exit procedures, rental income treatment, insurance, the transfer on death, the relationship with the management company — are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>. For specific French Alps property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market.</p>
+
+<h3>Your ownership at a glance</h3>
+
+<ul>
+  <li><strong>Real, deeded equity in the underlying property</strong> — the chalet itself is registered at the French service de la publicité foncière via the LLC, and your membership interest is a real, transferable equity stake in that property. Not a timeshare, not a points membership, not a usage right.</li>
+  <li><strong>Consistent international structure</strong> — your French Alps share sits inside the same purpose-built LLC framework used across every property on COP, so multi-country owners deal with one model rather than a stack of different vehicles, with the same documentation cadence and the same administrative process from Courchevel to Mallorca.</li>
+  <li><strong>Professional management included throughout</strong> — pre-arrival snow clearance, linen and cleaning between every stay, year-round maintenance, fireplace and heating servicing, taxes, insurance and the on-call concierge are all covered within your annual service charge, with no top-up bills for routine operating costs.</li>
+  <li><strong>Clear, supported resale through the COP owner network</strong> — the existing audience of co-ownership buyers means your share has an organised market from day one, with exits across the portfolio typically clearing in around a month at a known price rather than the 12–18 months a comparable whole chalet might sit on the French alpine open market.</li>
+  <li><strong>One consistent international portfolio relationship</strong> — whether you own one COP share or several across different countries, you deal with the same ownership structure, the same documentation cadence and the same management relationship, which is why a meaningful proportion of owners go on to add a second or third property.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Still deciding which French Alps resort?</h2>
+
+<p>Many readers arrive on this page already <strong>half-decided</strong> — they want the French Alps, but not yet which French Alps. The choice between the Trois Vallées, the Espace Killy, Megève, the Chamonix valley and the Portes du Soleil is <strong>rarely about budget alone</strong>; the major sub-zones sit in similar price bands once you compare like-for-like quality. The decisive question is <strong>usage pattern</strong>. How will you actually spend your weeks across a calendar year — and how does that pattern map onto the altitude profile, the village character and the airport transfer time of each resort? The honest answer for most buyers is one most have not previously articulated, because the question rarely arises until ownership becomes concrete. Our team has spent years inside the French alpine second-home market and can walk you through the regional differences — climate, calendar, owner mix, day-to-day rhythm — before you commit to a resort. Below is the framework we walk through with buyers who reach the same fork, with deliberate over-simplification — most owners actually end up combining elements from more than one — but useful as a starting point.</p>
+
+<p><strong>Choose the Trois Vallées — Courchevel, Méribel or Val Thorens</strong> — if your primary use pattern is built around the <strong>deepest connected ski terrain on the planet</strong>, the single largest lift-served domain in the world, and the prestige of the European alpine ski address that most defines high-end skiing in France. Courchevel works hardest for owners who treat the resort's restaurant calendar (the most concentrated cluster of Michelin stars in any ski resort) and its 1850-tier prestige as part of the address itself; Méribel for owners who value the architectural coherence of the wooden-balconied chalet vernacular and the central position inside the domain; Val Thorens for owners who prioritise altitude-secured snow above all other factors.</p>
+
+<p><strong>Choose the Espace Killy — Val d'Isère or Tignes</strong> — if you want the <strong>highest-altitude expert-skier French alpine experience</strong>, the deepest off-piste terrain backing onto the Vanoise National Park, and the longest reliable season anchored by the Grande Motte glacier above Tignes. Val d'Isère and Tignes are the natural choice for committed skiers who prioritise terrain over village charm, families with strong-skier teenagers, and owners willing to trade the convenience of a shorter airport transfer for the deepest snowpack and the longest season in the French Alps.</p>
+
+<p><strong>Choose Megève</strong> if you want the <strong>most architecturally complete traditional ski village in France</strong>, the Belle Époque pedigree of the Rothschild-era resort, and a four-season Paris-family-favoured rhythm that runs through the calendar rather than living and dying with the lifts. Megève works hardest for design-led families who value architectural pedigree and the depth of the village restaurant calendar over highest-altitude snow security, Paris-based owners who want a winter base inside three hours of the capital, and buyers who treat the village's cultural identity as part of the address.</p>
+
+<p><strong>Choose the Chamonix-Mont-Blanc valley</strong> if you want a <strong>genuine four-season mountain town</strong> rather than a purely winter resort, the mountaineering tradition that gave the Alps their identity as a destination, and the year-round full-service life that no purpose-built resort can match. Chamonix is the natural choice for owners who want a working alpine town life (the daily market, the year-round hospitals and schools, the summer cable-car schedule that arguably exceeds the winter calendar in volume), serious off-piste skiers and mountaineering enthusiasts, and design-led couples drawn to the depth of historical and cultural identity that only a working full-service alpine town can provide.</p>
+
+<p><strong>Choose the Portes du Soleil — Morzine, Avoriaz or Les Gets</strong> if your dominant priorities are the <strong>shortest possible Geneva-airport transfer</strong> (60 minutes to Morzine and Les Gets — industry-leading in the French Alps), the cross-border 600-kilometre ski domain that spans the French and Swiss Chablais Alps, and the Northern European family rhythm that anchors the valley. Morzine works hardest for families with school-age children — particularly British and Dutch — who value the traditional Savoyard village life and the four-season mountain-biking calendar; Avoriaz for design-led buyers drawn to the architectural radicalism of the car-free 1960s purpose-built resort; Les Gets for the smaller traditional village rhythm with the strongest summer mountain-biking identity. The Portes du Soleil is also — unlike a traditional timeshare, which locks you into one week in one property year after year — one of the easiest French Alps addresses to <strong>combine with a second share elsewhere</strong>, since the short Geneva transfer makes long-weekend use realistic from any Northern European hub.</p>
+
+<div class="dest-callout">
+  <strong>The decision shortcut:</strong> if your dominant use is deep-terrain skiing + connected domain + prestige, choose the Trois Vallées. If it is altitude-secured snow + expert terrain + long season, choose the Espace Killy. If it is Belle Époque village + four-season life + Paris-family rhythm, choose Megève. If it is full-service mountain town + mountaineering pedigree + four-season identity, choose Chamonix. If it is shortest airport transfer + cross-border domain + family rhythm, choose the Portes du Soleil. If it is two of the above, the multi-share approach is often more economical than scaling up to a single whole property at any one address.
+</div>
+
+<p>The <strong>portfolio approach</strong> is worth at least mentioning. A meaningful proportion of French Alps co-ownership owners hold <strong>more than one share</strong> — either elsewhere in France (a Côte d'Azur villa for the summer, a Paris apartment for repeat short cultural stays) or further afield (a Mallorca finca for the long summer holidays, an Italian Lakes apartment for the spring shoulder season, a Canary Islands apartment for the deep winter). For owners building a multi-region portfolio with COP, you have <strong>one team across every destination</strong> — the same advisors, the same calendar mechanics, the same resale process across every property you own. <strong>Two 1/8 shares</strong> — a French Alps winter chalet plus a Mediterranean summer villa, say — give an owner <strong>roughly 90 days of use</strong> across a calendar year, drawn from genuinely different lifestyle modes, at a combined annual carry that is <strong>still a fraction of what a single whole property</strong> at either address would cost.</p>
+
+<p>Whichever way the decision goes, the deeper exploration starts on the cluster and parent pages:</p>
+
+<ul>
+  <li><a href="/france-fractional-ownership-properties/">Explore France →</a></li>
+  <li><a href="/south-of-france-fractional-ownership-properties/">Explore the South of France →</a></li>
+  <li><a href="/paris-fractional-ownership-properties/">Explore Paris →</a></li>
+  <li><a href="/pyrenees-mountains-fractional-ownership-properties/">Explore the Pyrenees →</a></li>
+</ul>
+
+<p>If you would like to talk through <strong>which French Alps resort best fits your family's actual use pattern</strong> — rather than the brochure version of it — <a href="#newsletter">join our list</a> and we will be in touch with relevant new-property alerts and an introduction to the team.</p>
+
+</div></section>
+
 </body>
 </html>
