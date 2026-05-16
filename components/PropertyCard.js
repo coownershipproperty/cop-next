@@ -31,7 +31,7 @@ const COPY = {
   },
   fr: {
     bed_singular: 'Chambre', bed_plural: 'Chambres',
-    view_property: 'Voir la propriété →',
+    view_property: 'Voir le bien →',
     fav_add: 'Ajouter aux favoris', fav_remove: 'Retirer des favoris',
     prev_photo: 'Photo précédente', next_photo: 'Photo suivante',
     missing_photos: (n) => `Il vous manque ${n} photos`,
