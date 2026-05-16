@@ -17,16 +17,30 @@ pillars, extract it here as a new block.
 
 ## Block 1 — Featured snippet (§A top)
 
+> **Editorial rule — single "tour" rhetoric per page.** Across the pillar, the rhetorical
+> pattern of "[property type] in/above [place], [property type] in/above [place], [property type] in/above [place]"
+> should appear **once** — in the hero subtitle. Do **not** repeat that enumeration in the
+> mid-CTA paragraph or the §A snippet. Both of those should describe the property in adjective
+> form only (e.g. "a luxury Mediterranean second home", "a luxury alpine second home", "a luxury lakefront second home")
+> without listing specific examples.
+>
+> **Editorial rule — softened co-owner count.** Use "up to seven other co-owners" / equivalent
+> per locale, not a flat "seven other co-owners". Many buyers acquire multiple shares, so the
+> actual number of distinct co-owners is often fewer than seven. The 1/8 share structure is
+> still defined elsewhere — this is just a tone fix.
+
 ### EN source
 
 ```html
 <div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
   <h2 itemprop="name">What is fractional ownership in {Destination}?</h2>
   <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-    <p itemprop="text"><strong>Fractional ownership in {Destination} means buying a deeded 1/8 share of a luxury second home — a {example1}, a {example2}, or a {example3} — held in a purpose-built LLC alongside seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+    <p itemprop="text"><strong>Fractional ownership in {Destination} means buying a deeded 1/8 share of a luxury {regional_adjective} second home — held in a purpose-built LLC alongside up to seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
   </div>
 </div>
 ```
+
+`{regional_adjective}` = a single descriptor for the destination (e.g. "Mediterranean", "alpine", "lakefront", "Mediterranean island", "sun-coast"). No enumeration of property types or places here.
 
 ### DE
 
@@ -34,7 +48,7 @@ pillars, extract it here as a new block.
 <div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
   <h2 itemprop="name">Was ist Miteigentum in {Destination_DE}?</h2>
   <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-    <p itemprop="text"><strong>Miteigentum in {Destination_DE} bedeutet, einen eingetragenen 1/8-Anteil an einer Luxus-Ferienimmobilie zu erwerben — einer {example1_DE}, einer {example2_DE} oder einem {example3_DE} — gehalten in einer eigens dafür gegründeten LLC gemeinsam mit sieben weiteren Miteigentümern.</strong> Jeder Eigentümer erhält rund 45 Tage persönlicher Nutzung pro Jahr über einen fair rotierenden Belegungskalender, wobei das gesamte Immobilienmanagement, die Instandhaltung, die Steuern und der Betrieb von einem professionellen Team übernommen werden. Es handelt sich um echtes, eingetragenes Eigentumsrecht an Immobilien in Ihrem Namen — kein Timeshare, kein Holiday Club.</p>
+    <p itemprop="text"><strong>Miteigentum in {Destination_DE} bedeutet, einen eingetragenen 1/8-Anteil an einer luxuriösen {regional_adjective_DE} Ferienimmobilie zu erwerben — gehalten in einer eigens dafür gegründeten LLC gemeinsam mit bis zu sieben weiteren Miteigentümern.</strong> Jeder Eigentümer erhält rund 45 Tage persönlicher Nutzung pro Jahr über einen fair rotierenden Belegungskalender, wobei das gesamte Immobilienmanagement, die Instandhaltung, die Steuern und der Betrieb von einem professionellen Team übernommen werden. Es handelt sich um echtes, eingetragenes Eigentumsrecht an Immobilien in Ihrem Namen — kein Timeshare, kein Holiday Club.</p>
   </div>
 </div>
 ```
@@ -45,7 +59,7 @@ pillars, extract it here as a new block.
 <div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
   <h2 itemprop="name">¿Qué es la copropiedad en {Destination_ES}?</h2>
   <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-    <p itemprop="text"><strong>La copropiedad en {Destination_ES} consiste en adquirir una fracción escriturada de 1/8 de una segunda casa de lujo — una {example1_ES}, una {example2_ES} o una {example3_ES} — constituida en una LLC creada específicamente para este fin junto con otros siete copropietarios.</strong> Cada propietario recibe aproximadamente 45 días de uso personal al año mediante un sistema de rotación equitativo, con toda la gestión inmobiliaria, mantenimiento, impuestos y operativa cubiertos por un equipo profesional. Se trata de patrimonio inmobiliario real, escriturado a tu nombre — no es multipropiedad ni un club de vacaciones.</p>
+    <p itemprop="text"><strong>La copropiedad en {Destination_ES} consiste en adquirir una fracción escriturada de 1/8 de una segunda casa de lujo {regional_adjective_ES} — constituida en una LLC creada específicamente para este fin junto a un pequeño grupo de copropietarios (hasta siete en total).</strong> Cada propietario recibe aproximadamente 45 días de uso personal al año mediante un sistema de rotación equitativo, con toda la gestión inmobiliaria, mantenimiento, impuestos y operativa cubiertos por un equipo profesional. Se trata de patrimonio inmobiliario real, escriturado a tu nombre — no es multipropiedad ni un club de vacaciones.</p>
   </div>
 </div>
 ```
@@ -56,7 +70,7 @@ pillars, extract it here as a new block.
 <div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
   <h2 itemprop="name">Qu'est-ce que la copropriété en {Destination_FR} ?</h2>
   <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-    <p itemprop="text"><strong>La copropriété en {Destination_FR} consiste à acquérir une part actée de 1/8 d'une résidence secondaire de luxe — un {example1_FR}, un {example2_FR} ou un {example3_FR} — détenue au sein d'une LLC créée spécifiquement à cet effet aux côtés de sept autres copropriétaires.</strong> Chaque propriétaire bénéficie d'environ 45 jours d'utilisation personnelle par an grâce à un calendrier de rotation équitable, l'ensemble de la gestion immobilière, de l'entretien, de la fiscalité et de l'exploitation étant pris en charge par une équipe professionnelle. Il s'agit d'un véritable patrimoine immobilier acté à votre nom — ce n'est ni de la multipropriété, ni un club de vacances.</p>
+    <p itemprop="text"><strong>La copropriété en {Destination_FR} consiste à acquérir une part actée de 1/8 d'une résidence secondaire de luxe {regional_adjective_FR} — détenue au sein d'une LLC créée spécifiquement à cet effet aux côtés d'un petit groupe de copropriétaires (sept au maximum).</strong> Chaque propriétaire bénéficie d'environ 45 jours d'utilisation personnelle par an grâce à un calendrier de rotation équitable, l'ensemble de la gestion immobilière, de l'entretien, de la fiscalité et de l'exploitation étant pris en charge par une équipe professionnelle. Il s'agit d'un véritable patrimoine immobilier acté à votre nom — ce n'est ni de la multipropriété, ni un club de vacances.</p>
   </div>
 </div>
 ```
@@ -69,7 +83,7 @@ pillars, extract it here as a new block.
 
 ```html
 <div class="dest-callout">
-  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and seven other owners hold equal membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and up to seven other owners hold equal membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
 </div>
 ```
 
@@ -77,7 +91,7 @@ pillars, extract it here as a new block.
 
 ```html
 <div class="dest-callout">
-  <strong>LLC in einem Satz:</strong> eine eigens dafür gegründete Gesellschaft, der die Immobilie gehört und in der Sie zusammen mit sieben weiteren Eigentümern gleiche Geschäftsanteile halten — das ergibt einen leichteren Wiederverkauf und eine einheitliche Eigentumsstruktur für jede COP-Immobilie weltweit, sodass Eigentümer mit Immobilien in mehreren Ländern mit einem einzigen Modell arbeiten statt mit einem Stapel unterschiedlicher Vehikel.
+  <strong>LLC in einem Satz:</strong> eine eigens dafür gegründete Gesellschaft, der die Immobilie gehört und in der Sie zusammen mit bis zu sieben weiteren Eigentümern gleiche Geschäftsanteile halten — das ergibt einen leichteren Wiederverkauf und eine einheitliche Eigentumsstruktur für jede COP-Immobilie weltweit, sodass Eigentümer mit Immobilien in mehreren Ländern mit einem einzigen Modell arbeiten statt mit einem Stapel unterschiedlicher Vehikel.
 </div>
 ```
 
@@ -85,7 +99,7 @@ pillars, extract it here as a new block.
 
 ```html
 <div class="dest-callout">
-  <strong>La LLC en una frase:</strong> una sociedad creada específicamente para ser propietaria de la casa, en la que tú y otros siete propietarios tenéis participaciones iguales — esto facilita la reventa y aporta una estructura de propiedad única y coherente para cada casa de COP en todo el mundo, de forma que los propietarios con casas en varios países trabajan con un único modelo en lugar de una pila de vehículos jurídicos distintos.
+  <strong>La LLC en una frase:</strong> una sociedad creada específicamente para ser propietaria de la casa, en la que tú y un pequeño grupo de propietarios (hasta siete en total) tenéis participaciones iguales — esto facilita la reventa y aporta una estructura de propiedad única y coherente para cada casa de COP en todo el mundo, de forma que los propietarios con casas en varios países trabajan con un único modelo en lugar de una pila de vehículos jurídicos distintos.
 </div>
 ```
 
@@ -93,7 +107,7 @@ pillars, extract it here as a new block.
 
 ```html
 <div class="dest-callout">
-  <strong>La LLC en une phrase :</strong> une société créée spécifiquement pour détenir le bien, dans laquelle vous et sept autres propriétaires détenez des parts égales — ce qui allège la revente et apporte une structure de détention unique et cohérente pour chaque bien COP dans le monde, afin que les propriétaires possédant des biens dans plusieurs pays travaillent avec un seul modèle plutôt qu'avec un empilement de véhicules juridiques différents.
+  <strong>La LLC en une phrase :</strong> une société créée spécifiquement pour détenir le bien, dans laquelle vous et un petit groupe de copropriétaires (sept au maximum) détenez des parts égales — ce qui allège la revente et apporte une structure de détention unique et cohérente pour chaque bien COP dans le monde, afin que les propriétaires possédant des biens dans plusieurs pays travaillent avec un seul modèle plutôt qu'avec un empilement de véhicules juridiques différents.
 </div>
 ```
 

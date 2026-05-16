@@ -1,1123 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Costa Del Sol Fractional Ownership Properties | Co-Ownership Property</title>
-    <meta name="description" content="Discover premium co-ownership properties on the Costa del Sol including Marbella, Sotogrande &amp; Puerto Banús. Luxury coastal properties available through fractional ownership.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-        <style>
-        /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
-
-/* ── CSS Variables ── */
-:root {
-    /* === Primary palette (use these in new work) === */
-    --blue:         #2C4A5E;
-    --cream:        #F5F2EC;
-    --gold:         #C9A84C;
-    --white:        #FFFFFF;
-    --text:         #1a2533;
-    --muted:        #5a6a7a;
-    --border:       #e8e0d4;
-    --max:          1400px;
-
-    /* === Legacy aliases (keep for existing templates) === */
-    --warm-gold:    #C9A84C;
-    --cream-bg:     #F5F2EC;
-    --cream-light:  #FAF8F5;
-    --text-dark:    #2C4A5E;
-    --text-light:   rgba(255,255,255,0.85);
-    --text-muted:   #5a6a7a;
-    --gray-border:  #e8e0d4;
-    --blue-80:      #4A6A7E;
-    --blue-60:      #6B8A9E;
-    --blue-40:      #9EAFBC;
-    --blue-20:      #C5CED5;
-    --transition:   0.3s ease;
-}
-
-/* ── Base reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-button { font-family: inherit; cursor: pointer; }
-        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
-        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
-        a{color:inherit;text-decoration:none;transition:color var(--transition)}
-        img{display:block;max-width:100%;height:auto}
-
-                /* ===== SITE-WIDE HEADER ===== */
-        .cop-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 3rem;
-            height: 80px;
-            box-sizing: border-box;
-            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .admin-bar .cop-header { top: 32px; }
-
-        /* Logo */
-        .cop-logo { flex-shrink: 0; }
-        .cop-logo a { display: block; }
-        .cop-logo img { height: 54px; width: auto; display: block; }
-
-
-        /* Nav — absolutely centred between logo and hamburger */
-        .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0;
-            align-items: center;
-        }
-        .cop-nav a {
-            color: rgba(44,74,94,0.8);
-            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.84rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.4rem 1.4rem;
-            white-space: nowrap;
-            transition: color 0.25s ease;
-            text-decoration: none;
-        }
-        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
-
-        /* Gold underline on hover / active */
-        .cop-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 1.4rem; right: 1.4rem;
-            height: 1px;
-            background: rgba(201,168,76,1);
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.28s ease;
-        }
-        .cop-nav a:hover,
-        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
-        .cop-nav a:hover::after,
-        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
-
-
-        /* Favourites — heart prefix */
-        .cop-nav a.cop-nav-favourites::before {
-            content: '\2665\00a0\00a0';
-            font-size: 0.75rem;
-            color: rgba(201,168,76,1);
-            opacity: 0.75;
-            letter-spacing: 0;
-        }
-
-        /* Hamburger */
-        .cop-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-        .cop-hamburger span {
-            width: 22px; height: 1.5px;
-            background: rgba(44,74,94,0.8);
-            transition: all 0.28s ease;
-            transform-origin: center;
-            display: block;
-        }
-        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        /* ===== MOBILE (<768px) ===== */
-        @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
-            .cop-nav {
-                position: fixed;
-                top: 80px; left: 0; right: 0;
-                transform: none;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.97);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
-                z-index: 9998;
-            }
-            .admin-bar .cop-nav { top: 112px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
-            .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
-                width: 100%;
-                text-align: center;
-                border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
-                box-sizing: border-box;
-            }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
-        }
-
-        /* ===== HERO ===== */
-        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
-        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
-        .page-hero>*{position:relative;z-index:1}
-        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
-        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
-        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
-
-        /* ===== PROPERTY GRID ===== */
-        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
-        .props-inner{max-width:1400px;margin:0 auto}
-        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .props-count strong{color:var(--text-dark);font-weight:700}
-        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
-        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
-        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
-        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
-        .prop-card:hover .prop-img{transform:scale(1.04)}
-        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
-        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
-        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
-        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
-        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
-        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
-        .prop-stat{display:flex;align-items:center;gap:0.35rem}
-        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
-        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
-        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
-        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
-        .prop-card:hover .prop-view{color:var(--warm-gold)}
-        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
-        /* Show more button */
-        .prop-card.hidden{display:none}
-        .show-more-wrap{text-align:center;margin-top:2.5rem}
-        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
-        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-        /* Mid-page CTA */
-        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
-        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-        .dest-mid-cta > *{position:relative;z-index:1}
-        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
-        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
-        .dest-cta-btn-gold:hover{background:#b8963e}
-        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
-        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-
-        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
-        
-.dest-sec{padding:80px 3rem}
-.dest-sec.cream{background:var(--cream-bg)}
-.dest-sec.white{background:var(--white)}
-.dest-inner{max-width:900px;margin:0 auto}
-.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
-.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
-.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
-.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
-.dest-sec strong{color:var(--text-dark);font-weight:700}
-.dest-sec em{font-style:italic}
-.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
-.dest-sec a:hover{color:var(--blue)}
-.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
-.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
-.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
-.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
-.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
-/* Explore More */
-.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
-.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
-.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
-.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
-.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
-/* FAQ */
-.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
-.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
-.dest-faq-list{counter-reset:faq}
-.dest-faq-item{border-top:1px solid var(--warm-gold)}
-.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
-.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
-.dest-faq-item summary::-webkit-details-marker{display:none}
-.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
-.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
-details[open] .dest-faq-chevron{transform:rotate(-135deg)}
-.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
-.dest-faq-answer p{margin-bottom:0.8rem}
-@media(max-width:768px){
-    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
-    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-        /* ===== CTAs ===== */
-                /* ===== NEWSLETTER SIGNUP ===== */
-        .newsletter-section {
-            background: var(--white);
-            position: relative;
-            padding: 100px 3rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 400;
-            color: var(--text-dark);
-        }
-        .newsletter-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 620px;
-            margin: 0 auto;
-        }
-        .newsletter-form input {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border: 1px solid #ddd;
-            background: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-        .newsletter-form input::placeholder { color: var(--text-muted); }
-        .newsletter-form input:focus { border-color: var(--warm-gold); }
-        .newsletter-btn {
-            background: var(--blue);
-            color: var(--white);
-            border: 2px solid var(--blue);
-            padding: 0.9rem 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            font-family: 'Nunito Sans', sans-serif;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
-        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
-        .newsletter-form-msg {
-            margin-top: 1rem;
-            font-size: 0.88rem;
-            min-height: 1.4em;
-        }
-        .newsletter-form-msg.success { color: #4a9e6e; }
-        .newsletter-form-msg.error   { color: #c0392b; }
-
-        @media (max-width: 640px) {
-            .newsletter-section { padding: 70px 1.5rem; }
-            .newsletter-heading { font-size: 2rem; }
-            .newsletter-form { flex-direction: column; }
-        }
-                /* ===== EXPERT FORM SECTION ===== */
-        .expert-section {
-            background: var(--blue);
-            padding: 100px 3rem;
-            position: relative;
-            overflow: hidden;
-            scroll-margin-top: 90px;
-        }
-        .expert-section::after {
-            content: '';
-            position: absolute;
-            top: 28px; left: 28px; right: 28px; bottom: 28px;
-            border: 1px solid rgba(201,168,76,0.15);
-            pointer-events: none;
-        }
-        .expert-section > * { position: relative; z-index: 1; }
-
-        .expert-inner {
-            max-width: 820px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .expert-eyebrow {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--warm-gold);
-            margin-bottom: 1.2rem;
-        }
-        .expert-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-        .expert-heading em { font-style: italic; color: var(--warm-gold); }
-        .expert-sub {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-        .expert-form { text-align: left; }
-        .expert-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .expert-form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-        .expert-form-field.full { grid-column: 1 / -1; }
-        .expert-form-field label {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.85);
-        }
-        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
-
-        .expert-form-field input,
-        .expert-form-field select,
-        .expert-form-field textarea {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.85rem 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-        .expert-form-field input:focus,
-        .expert-form-field select:focus,
-        .expert-form-field textarea:focus {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .expert-form-field input::placeholder,
-        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-        .expert-form-field select option { background: var(--blue); color: var(--white); }
-        .expert-form-field textarea { resize: vertical; min-height: 110px; }
-
-        /* ── Multi-select destination dropdown ── */
-        .dest-multiselect {
-            position: relative;
-            width: 100%;
-        }
-        .dest-trigger {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.65rem 1rem;
-            min-height: 46px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            transition: border-color 0.2s;
-            position: relative;
-        }
-        .dest-trigger::after {
-            content: '';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            width: 7px; height: 7px;
-            border-right: 1.5px solid rgba(255,255,255,0.5);
-            border-bottom: 1.5px solid rgba(255,255,255,0.5);
-            transform: translateY(-60%) rotate(45deg);
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-        .dest-multiselect.open .dest-trigger::after {
-            transform: translateY(-30%) rotate(-135deg);
-        }
-        .dest-trigger:hover,
-        .dest-multiselect.open .dest-trigger {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .dest-placeholder {
-            color: rgba(255,255,255,0.25);
-            pointer-events: none;
-        }
-        .dest-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-        .dest-tag-x {
-            cursor: pointer;
-            font-size: 0.85rem;
-            line-height: 1;
-            opacity: 0.6;
-            transition: opacity 0.15s;
-        }
-        .dest-tag-x:hover { opacity: 1; }
-
-        .dest-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0; right: 0;
-            background: #1e3a4f;
-            border: 1px solid rgba(201,168,76,0.3);
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 50;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .dest-multiselect.open .dest-dropdown { display: block; }
-
-        .dest-option {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .dest-option:hover { background: rgba(201,168,76,0.1); }
-        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
-
-        .dest-check {
-            width: 16px; height: 16px;
-            border: 1.5px solid rgba(201,168,76,0.4);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s, border-color 0.15s;
-        }
-        .dest-option.selected .dest-check {
-            background: var(--warm-gold);
-            border-color: var(--warm-gold);
-        }
-        .dest-check::after {
-            content: '';
-            width: 4px; height: 8px;
-            border-right: 2px solid #1a2a3a;
-            border-bottom: 2px solid #1a2a3a;
-            transform: rotate(45deg) translateY(-1px);
-            opacity: 0;
-        }
-        .dest-option.selected .dest-check::after { opacity: 1; }
-
-        /* Scrollbar for dropdown */
-        .dest-dropdown::-webkit-scrollbar { width: 5px; }
-        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
-        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
-
-        /* Submit area */
-        .expert-submit { margin-top: 1.5rem; text-align: center; }
-        .expert-submit-btn {
-            background: var(--warm-gold);
-            color: #fff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border: none;
-            padding: 1rem 3rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            max-width: 320px;
-        }
-        .expert-submit-btn:hover { background: #b8963e; }
-        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
-        .expert-form-msg {
-            margin-top: 1.2rem;
-            font-size: 0.88rem;
-            text-align: center;
-            min-height: 1.4em;
-        }
-        .expert-form-msg.success { color: #7ed8a3; }
-        .expert-form-msg.error   { color: #f08080; }
-
-        @media (max-width: 640px) {
-            .expert-form-grid { grid-template-columns: 1fr; }
-            .expert-heading { font-size: 2rem; }
-            .expert-section { padding: 70px 1.5rem; }
-        }
-
-        /* ===== FOOTER ===== */
-        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
-        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
-        .footer-logo img{height:35px;margin-bottom:1rem}
-        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
-        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.6rem}
-        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
-        .footer-col a:hover{color:var(--warm-gold)}
-        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal{display:flex;gap:2rem}
-        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal a:hover{color:var(--warm-gold)}
-
-        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){
-            .page-hero{padding:130px 1.5rem 50px}
-            .props-sec{padding:50px 1.5rem}
-            .props-grid{grid-template-columns:1fr;gap:1.5rem}
-            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Costa del Sol Fractional Ownership Properties | Co-Ownership Property</title>
+  <meta name="description" content="Co-ownership properties on the Costa del Sol from COP — deeded fractional ownership in Marbella, Sotogrande, Estepona and Benahavís. Fully managed, 6–7 weeks of personal use a year, real equity in Europe's most established sun-coast second-home market.">
 </head>
 <body>
-    <header class="cop-header scrolled" id="cop-header">
-    <div class="cop-logo">
-        <a href="/">
-            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
-        </a>
+
+<section class="page-hero">
+  <p class="eyebrow">Costa del Sol · Spain · Europe</p>
+  <h1>Fractional Ownership <em>on the Costa del Sol</em></h1>
+  <p class="subtitle">From a Sierra Blanca villa above Marbella's Golden Mile and a Puerto Banús apartment overlooking the superyacht harbour, to a Sotogrande golf villa beside Valderrama on the western edge of the coast and a Higuerón resort residence above Fuengirola with the Mediterranean opening south toward Africa — fractional ownership on the Costa del Sol means a deeded share of Europe's most established sun-coast second-home market, six to seven weeks of personal use a year, and a fully managed Mediterranean home that is ready the day the winter sunshine starts.</p>
+</section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Europe's most established sun-coast second-home market, accessible through co-ownership.</h2>
+    <p>Fully managed villas, apartments and penthouses across <strong>Marbella and the Golden Mile, Sotogrande, Estepona, Benahavís and the Mijas Costa corridor</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of Spain's most internationally established sunshine coastline.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
     </div>
-    <nav class="cop-nav" id="cop-nav">
-        <a href="/" class="cop-nav-active">Home</a>
-        <a href="/our-homes/">Our Homes</a>
-        <a href="/how-it-works/">How It Works</a>
-        <a href="/about-us">About Us</a>
-        <a href="/all-our-blog/">Our Blog</a>
-        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
-        <a href="/contact">Contact</a>
-    </nav>
-    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-    </button>
-</header>
+  </div>
+</div>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <p class="eyebrow">Co-Ownership Properties</p>
-        <h1>Costa Del Sol Fractional Ownership Properties</h1>
-        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
-    </section>
+<section class="dest-sec cream"><div class="dest-inner">
 
-    <!-- PROPERTY GRID -->
-    <section class="props-sec">
-        <div class="props-inner">
-                        <div class="no-props">
-                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
-            </div>
-                    </div>
-    </section>
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/c7ada17d15/zenity-5.jpg" alt="A Costa del Sol villa above Marbella, the Mediterranean opening south beyond the pool and the terrace" loading="lazy" />
+  <figcaption>A Costa del Sol villa above Marbella, the Mediterranean opening south beyond the pool and the terrace.</figcaption>
+</figure>
 
-    <!-- MID-PAGE CTA -->
-    <div class="dest-mid-cta">
-        <p>Ready to find your property in Costa?</p>
-        <div class="dest-mid-cta-btns">
-            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
-            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
-        </div>
-    </div>
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership on the Costa del Sol?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership on the Costa del Sol means buying a deeded 1/8 share of a luxury Mediterranean second home — held in a purpose-built LLC alongside up to seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
 
-    <!-- SEO CONTENT (rendered as styled sections) -->
-        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3>
-<p>Discover Costa del Sol fractional ownership vacation homes across Spain&#8217;s legendary Mediterranean coastline, where 320+ days of annual sunshine, golden beaches, championship golf courses, and Andalusian culture create Europe&#8217;s most desirable coastal lifestyle. Costa del Sol co-ownership properties in Marbella, Fuengirola, Mijas, Sotogrande, Estepona, and Benahavís deliver beachfront access, panoramic sea views, luxury resort amenities, and deeded real estate ownership in one of Spain&#8217;s strongest second-home markets.​</p>
-<p>As part of the broader <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/spain-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Spain fractional ownership properties</a> portfolio, Costa del Sol vacation homes represent Spain&#8217;s premium coastal real estate market, with property prices rising 10.4% in 2025 and second-home sales to international buyers growing 2% in 2024. Premium Marbella fractional ownership properties, exclusive Sotogrande golf developments, and modern Fuengirola El Higuerón residences continue attracting UK, Northern European, and North American buyers seeking Mediterranean  with year-round climate and established tourism infrastructure. Compare Costa del Sol beach living with island alternatives through our <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/balearics-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Balearics fractional ownership properties</a> including <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/mallorca-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Mallorca</a>, <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/ibiza-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Ibiza</a>, and <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/menorca-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Menorca</a> for a diversified Spanish coastal portfolio.​</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Europe&#8217;s Best Year-Round Climate: 320 Days of Sunshine</h2>
-<p>Costa del Sol (literally &#8220;Coast of the Sun&#8221;) earns its name through Europe&#8217;s most reliable Mediterranean climate with 320+ days of annual sunshine, average winter temperatures of 17°C (63°F), and summer beach weather from May through October. Unlike seasonal European beach destinations that close October through April, Costa del Sol fractional ownership properties offer genuine four-season usability—beach swimming in November, outdoor terrace dining in February, golf year-round, and spring holidays in May before Northern European summer crowds arrive.​</p>
-<p>This climate consistency means Costa del Sol fractional owners maximize their 6-7 weeks of annual usage across all seasons: winter sun escapes when UK and Northern Europe face gray skies and rain, spring beach holidays with perfect temperatures (20-25°C), peak summer Mediterranean lifestyle with beach clubs and watersports, and autumn golf trips with comfortable conditions for championship courses. Marbella, Fuengirola, Estepona, and Sotogrande maintain vibrant year-round communities with restaurants, shops, and cultural activities operating 12 months rather than shuttering as seasonal ghost towns, providing authentic coastal living beyond tourist-only summer seasons.​</p>
-<p>The microclimate advantage of Costa del Sol&#8217;s mountain-protected coastline creates consistently warmer, drier conditions than other Spanish coastal regions, with the Sierra Blanca and Sierra de Mijas mountains blocking northern weather systems and creating the Mediterranean&#8217;s most stable beach climate.​</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>150km of Golden Beaches &amp; Mediterranean Lifestyle</h2>
-<p>Costa del Sol stretches 150km from Nerja in the east to Sotogrande near Gibraltar, offering extraordinary beach variety along the Mediterranean coastline—from Blue Flag certified sandy beaches in Fuengirola and Marbella to hidden coves in Estepona and exclusive beach clubs serving fresh seafood and Mediterranean cuisine steps from the sea. Fractional owners access different coastal experiences within 20-40 minute drives: family-friendly beaches with watersports and children&#8217;s facilities in Fuengirola, sophisticated beach clubs and Golden Mile glamour in Marbella, authentic Andalusian fishing villages in Estepona, exclusive marina lifestyle in Sotogrande&#8217;s Puerto Deportivo.​</p>
-<p>The region&#8217;s beach culture combines Spanish authenticity with international resort amenities—traditional chiringuito beach restaurants serving grilled sardines and paella alongside upscale beach clubs with infinity pools, DJ sets, and champagne service. This diversity means Costa del Sol vacation homes suit every  preference, from relaxed family seaside holidays to luxury Mediterranean social scenes.​</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>70+ Championship Golf Courses: Europe&#8217;s Premier Golf Destination</h2>
-<p>Costa del Sol hosts 70+ championship golf courses designed by legends including Robert Trent Jones, Jack Nicklaus, and Seve Ballesteros, earning the nickname &#8220;Costa del Golf&#8221; and establishing the region as Europe&#8217;s premier year-round golf destination. World-renowned courses include Valderrama (1997 Ryder Cup venue) in Sotogrande, Finca Cortesín (2023 Solheim Cup), La Reserva Club de Golf, Villa Padierna, and Los Naranjos Golf Club, with most courses playable 350+ days annually due to Costa del Sol&#8217;s exceptional climate.​</p>
-<p>Fractional ownership in Marbella, Sotogrande, Benahavís, or Mijas positions you within 15-30 minutes of multiple world-class golf courses, with many developments offering golf course views, club membership access, or preferential tee-time booking. Winter golf escapes (November-March) represent a key driver of off-season property usage and rental income potential, as Northern European and British golfers seek warm-weather courses when home courses face frost delays and closures.​</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Strong Real Estate Investment Performance &amp; International Buyer Demand</h2>
-<p>Spanish property prices rose 10.4% in Q2 2025, with Costa del Sol coastal properties outperforming national averages as international buyers continue targeting limited beachfront and golf-view inventory in Marbella, Marbella Golden Mile, Sotogrande, and emerging areas like Fuengirola&#8217;s El Higuerón. Second-home sales to foreign buyers grew 2% in 2024 despite broader European real estate market cooling, with British, German, Belgian, Scandinavian, and increasingly North American purchasers dominating Costa del Sol luxury property acquisitions.​</p>
-<p>Spanish real estate market forecasts project 4-8% annual price appreciation through 2026, supported by limited beachfront development opportunities (protected coastal zones restrict new construction), strong year-round tourism and rental demand, and Costa del Sol&#8217;s reputation as a &#8220;safe haven&#8221; Spanish market with 60+ years of proven tourism infrastructure and international community. Premium Marbella properties (especially Golden Mile, Sierra Blanca, and Nueva Andalucía) and exclusive Sotogrande developments command the strongest price appreciation and rental yields, while emerging value areas like Fuengirola, Mijas Costa, and Estepona offer entry points with resort amenities and appreciation potential as these zones gain international buyer recognition.​</p>
-<p>For fractional ownership investors, a 1/8th share (typically €115,000-€495,000 on Costa del Sol) represents deeded real estate equity in properties worth €920,000-€3.96 million, appreciating alongside Spain&#8217;s strongest coastal market where demand from international lifestyle buyers and retirees consistently outstrips supply of quality beachfront homes, golf villas, and resort residences. This capital efficiency allows buyers to access luxury Costa del Sol property markets without full sole-ownership capital commitments while capturing identical percentage appreciation on their fractional shares.​</p>
-<p>Market liquidity advantages: Fractional shares in desirable Costa del Sol locations (Marbella, Sotogrande, El Higuerón) trade more easily than full luxury properties due to lower price points (€115,000-€495,000 vs €920,000-€3.96 million) attracting broader buyer pools, particularly UK and Northern European second-home seekers.​</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Year-Round Mediterranean Lifestyle &amp; Four-Season Usability</h2>
-<p><strong>Winter (December-March):</strong> Sun escape season with 17°C average daytime temperatures, peak golf season with dry conditions, cultural festivals and traditional Spanish celebrations, hiking in nearby Sierra de las Nieves and Sierra Blanca mountains, outdoor terrace dining, New Year&#8217;s Eve celebrations in Puerto Banús and Marbella, Semana Santa (Holy Week) processions in Málaga.​</p>
-<p><strong>Spring (April-June):</strong> Perfect beach weather (22-26°C) before peak European summer crowds, wildflower blooms in Andalusian countryside, Spanish fiestas and festivals (Feria de Málaga in August, local pueblo celebrations), ideal family holiday period with school-age children, shoulder-season rental opportunities with strong demand and premium rates.​</p>
-<p><strong>Summer (July-September):</strong> Classic Mediterranean beach season with beach clubs operating daily, watersports and sailing, chiringuito sunset dining, Marbella nightlife and Puerto Banús social scene, warm sea temperatures (23-25°C) perfect for swimming and snorkeling, extended daylight hours for evening beach time.​</p>
-<p>This four-season usability means families and couples can strategically split their 6-7 annual weeks between February golf escapes, May spring beach holidays, August summer vacations, and October half-term family breaks—maximizing value from fractional ownership beyond properties usable only 2-3 months annually. Compare this year-round flexibility with mountain destinations like <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/pyrenees-mountains-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Pyrenees Mountains fractional ownership</a> which concentrate usage in winter ski season and summer hiking periods.​</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Exceptional International Accessibility from European &amp; Global Hubs</h2>
-<p>Most Costa del Sol fractional ownership properties sit 15-60 minutes from Málaga Airport: Fuengirola and Mijas (20-25 minutes), Marbella (40-45 minutes), Estepona (50 minutes), Benahavís (45 minutes), Sotogrande (70 minutes). This exceptional accessibility makes long weekend escapes (Friday-Monday) genuinely feasible for UK and European-based fractional owners, while North American buyers can maximize week-long usage periods with minimal travel time from gateway cities.​</p>
-<p>High-speed AVE train connectivity links Málaga to Madrid (2h30), Barcelona (5h30), and Seville (2h), enabling Costa del Sol fractional owners to combine beach holidays with Spanish city breaks—spend 4 days at your Costa del Sol property plus 3 days exploring Madrid&#8217;s museums and Retiro Park through <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/madrid-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Madrid fractional ownership properties</a>.​</p>
-<p>Costa del Sol fractional ownership means co-owning a Mediterranean vacation property with a small group of buyers (typically 8 co-owners), with each owner holding a deeded real estate share (typically 1/8th) registered in the Spanish Land Registry (Registro de la Propiedad). Unlike timeshares which sell only usage rights, fractional ownership gives you actual Spanish property ownership, shared equity that appreciates with market values, and guaranteed usage rights of 6-7 weeks per year (approximately 45-50 days annually).​</p>
-<p>All property maintenance, community fees, professional management, and operating costs are handled by specialized fractional property management companies and split proportionally among co-owners (you pay 1/8th of total costs, not 100%). This model is ideal for families, golfers, and beach lovers seeking luxury Costa del Sol vacation homes—beachfront apartments in Marbella, golf villas in Sotogrande, resort residences in Fuengirola—without the full financial commitment, ongoing maintenance burden, and carrying costs of sole ownership.​</p>
-<p>Since your name appears on the Spanish property deed (escritura) as a legal co-owner, you can transfer your fractional share to children through inheritance, keeping the property in your family for generations. For European buyers, this offers inheritance tax advantages—your heirs pay Spanish inheritance tax on only 1/8th of the property&#8217;s assessed value while retaining usage rights to the full luxury property when they stay there.​</p>
-<p>Costa del Sol fractional ownership combines Mediterranean lifestyle enjoyment with investment-grade Spanish real estate in Europe&#8217;s most resilient sunny coastal market, offering both personal usage and financial appreciation potential. Recent data shows Spanish property prices rose <strong>10.4% in Q2 2025</strong>, with Costa del Sol coastal properties outperforming national averages due to limited beachfront supply and sustained international buyer demand. Second-home sales to foreign purchasers grew 2% in 2024 despite broader European real estate market cooling, reflecting Costa del Sol&#8217;s &#8220;safe haven&#8221; status with 60+ years of proven tourism infrastructure.</p>
-<p><strong>Deeded equity appreciation:</strong> Your fractional share appreciates proportionally with full property market values—if a €2 million Marbella apartment grows 8% annually, your €250,000 1/8th share grows identically to €270,000, capturing the same percentage returns as sole owners without the €2 million capital commitment.​</p>
-<p><strong>Limited coastal supply:</strong> Spanish coastal protection laws severely restrict new beachfront construction along Costa del Sol, with most prime beach-access land already developed, creating supply constraints supporting long-term property values as demand from British, German, Scandinavian, and North American buyers continues growing.​</p>
-<p><strong>Year-round rental income potential:</strong> Costa del Sol&#8217;s 320-day sunshine climate generates rental demand across all four seasons—winter golf tourists, spring family holidays, summer beach vacations, autumn retreats—unlike seasonal-only ski or summer beach destinations, maximizing rental income during your unused ownership weeks where co-ownership agreements permit rentals.​</p>
-<p><strong>Climate comparison:</strong> Costa del Sol averages 320+ sunshine days with mild 17°C winter temperatures enabling year-round outdoor living, golf, and beach walks. <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/mallorca-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Mallorca</a>, <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/ibiza-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Ibiza</a>, and <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/menorca-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Menorca</a> offer similar Mediterranean summers but cooler, rainier winters (November-March) when many island businesses close seasonally, limiting off-season usability.​</p>
-<p><strong>Golf infrastructure:</strong> Costa del Sol&#8217;s 70+ championship courses (Valderrama, Finca Cortesín, La Reserva) create Europe&#8217;s premier year-round golf destination unmatched by Balearic Islands&#8217; limited golf offerings (Mallorca has ~20 courses, Ibiza and Menorca minimal golf infrastructure). For golfers, Costa del Sol fractional ownership provides far superior access and variety.​</p>
-<p><strong>Accessibility:</strong> Costa del Sol benefits from Málaga Airport&#8217;s year-round flight frequency and 60+ destination connectivity, with 15-45 minute property transfers. Balearic Islands require island-hopping flights or ferries, with seasonal flight reductions October-April and typically higher airfares due to island premium and limited competition.​</p>
-<p><strong>Beach character:</strong> Balearic Islands offer pristine cove beaches, crystal-clear turquoise waters, and island exclusivity appealing to buyers seeking secluded Mediterranean paradise. Costa del Sol provides 150km of varied coastline with sophisticated beach club culture, watersports infrastructure, and easy beach-hopping between different towns and beach types within single days.​</p>
-<p><strong>Bottom line:</strong> Choose Costa del Sol fractional ownership for year-round usability, golf-focused lifestyle, mainland convenience, and lower property management costs (no island import premiums). Choose <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/mallorca-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Mallorca</a>, <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/ibiza-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Ibiza</a>, or <a class="reset interactable cursor-pointer decoration-1 underline-offset-1 text-super hover:underline font-semibold" href="/menorca-fractional-ownership-properties/" target="_blank" rel="nofollow noopener">Menorca</a> for island romance, pristine coves, and exclusive away-from-it-all retreats. Many fractional buyers eventually own in both locations for lifestyle diversity.​</p>
-<p><strong>Ownership structure:</strong> Costa del Sol fractional ownership grants real Spanish property ownership—actual deeded shares (participaciones indivisas) recorded in Spain&#8217;s Land Registry (Registro de la Propiedad) functioning identically to buying any Spanish real estate. Your 1/8th share in a Marbella beachfront apartment or Sotogrande golf villa represents tangible real estate equity you can sell on open market, mortgage with lenders familiar with fractional properties, or pass to heirs through standard Spanish succession law and inheritance procedures. Timeshares sell only the right to use a property for specific weeks annually—you own nothing tangible, no equity, and no transferable real estate asset that appreciates with market values.​</p>
-<p><strong>Investment value and appreciation:</strong> Costa del Sol fractional ownership properties appreciate over time alongside full property market values—recent data shows Costa del Sol prices rising 10.4% in Q2 2025, meaning fractional owners captured identical percentage appreciation on their shares. When you sell your Marbella co-ownership share or Fuengirola fractional property, you capture market appreciation just like any Spanish real estate investor benefiting from Costa del Sol&#8217;s strong tourism economy. Timeshares rarely hold resale market value—most sell for pennies on purchase price if transferable at all, as you&#8217;re selling temporary usage rights in properties you don&#8217;t legally own.​</p>
-<p><strong>Property quality and locations:</strong> Costa del Sol fractional ownership focuses exclusively on luxury properties in premium locations—beachfront Marbella apartments with sea views, Sotogrande golf villas near Valderrama, modern El Higuerón resort residences with infinity pools and spa facilities. Timeshares often involve dated resort complexes with hundreds of units lacking authentic Spanish architectural character and boutique luxury amenities defining Costa del Sol&#8217;s high-end real estate market.​</p>
-<p><strong>Bottom line for Costa del Sol buyers:</strong> If you&#8217;re seeking investment-grade Spanish real estate with genuine equity, market appreciation potential, and ability to pass your Mediterranean second home to children through inheritance, choose fractional ownership. For discerning buyers building European coastal property portfolios, Costa del Sol fractional ownership delivers true real estate ownership in Spain&#8217;s premier sunshine destination with proven tourism demand and infrastructure.​</p>
-<p>Many Costa del Sol fractional ownership structures allow owners to rent their allocated usage weeks when not in personal use, creating rental income potential from your Mediterranean vacation home while offsetting annual ownership costs (community fees, property taxes, utilities, management). Rental policies vary by specific co-ownership agreement and property management company, so prospective buyers should clarify rental rules and restrictions during purchase process to understand income-generating potential from their Marbella, Fuengirola, Sotogrande, or Estepona property.</p>
-<p><strong>Costa del Sol rental demand and income potential:</strong> Mediterranean beach resorts command strong year-round rental rates due to Costa del Sol&#8217;s 320-day sunshine climate. Peak winter golf season (January-March) attracts Northern European and British golfers willing to pay premium nightly rates for Sotogrande, Benahavís, and Marbella properties near championship courses. Summer season (July-September) generates maximum rental demand from European family holidays, with beachfront Fuengirola, Marbella, and Estepona apartments commanding highest rates during August school vacation period. Shoulder seasons (April-June, September-November) offer strong rental yields from spring travelers and autumn sun-seekers avoiding peak summer crowds but seeking warm beach weather.​</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2><strong>Costa del Sol Destination &amp; Town Guides</strong></h2></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Marbella &amp; Golden Mile: Luxury, Glamour &amp; Mediterranean Sophistication</h2>
-<p>Marbella fractional ownership represents Costa del Sol&#8217;s most prestigious address and Spain&#8217;s premier luxury coastal destination, anchored by the legendary Golden Mile (stretching from Marbella town to Puerto Banús), iconic Puerto Banús marina filled with superyachts and designer boutiques (Dior, Gucci, Louis Vuitton), and Michelin-starred restaurants serving avant-garde Spanish and Mediterranean cuisine. Marbella vacation homes and Golden Mile properties attract international elite, celebrities, and discerning buyers seeking sophisticated Mediterranean lifestyle with year-round social scenes, exclusive beach clubs (Nikki Beach, Ocean Club), and established luxury real estate market.​</p>
-<p>The historic Marbella Old Town (Casco Antiguo) offers authentic Andalusian charm with whitewashed buildings, orange tree-lined plazas, tapas bars, and boutique shopping, while modern Marbella features contemporary developments with sea views, infinity pools, and concierge services. Marbella&#8217;s international community (over 140 nationalities) creates cosmopolitan atmosphere with English widely spoken, international schools, private healthcare, and expat services supporting seamless second-home ownership.​</p>
-<p>Marbella fractional ownership properties command Costa del Sol&#8217;s highest prices but deliver strongest rental demand (year-round bookings from international visitors), proven appreciation (premium Golden Mile properties appreciated 8-12% in 2024), and prestige positioning unmatched in Spanish coastal real estate.​</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Benahavís: Mountain Villages &amp; Golf Course Views</h2>
-<p>Benahavís fractional ownership and co-ownership properties sit in the picturesque hills above Marbella and Estepona, delivering panoramic Mediterranean sea views, mountain backdrops, and proximity to Costa del Sol&#8217;s highest concentration of championship golf courses. Known as the &#8220;dining room of Costa del Sol&#8221; for its exceptional restaurant scene, Benahavís pueblo combines authentic Andalusian white village charm with luxury villa developments and golf resort communities (La Zagaleta, Los Arqueros, La Quinta).​</p>
-<p>Benahavís vacation homes appeal to buyers seeking tranquil mountain settings with sea views, golf course access (10+ courses within 15 minutes), and proximity to Marbella sophistication (20 minutes) and Puerto Banús nightlife (25 minutes) without beachfront crowds. The area&#8217;s villa-focused development pattern means fractional ownership provides accessible entry to luxury property market typically requiring €1-5 million sole-ownership investments.​</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Fuengirola &amp; Mijas: Modern Resort Living &amp; Family-Friendly Value</h2>
-<p>Fuengirola fractional ownership and Mijas co-ownership properties center on the exclusive El Higuerón resort area, offering contemporary new-build developments with infinity pools, spa facilities, panoramic Mediterranean sea views, and comprehensive resort amenities at more accessible price points than Marbella Golden Mile or Sotogrande. Fuengirola maintains authentic Spanish coastal town character with weekly markets, traditional tapas bars, promenade beachfront, and thriving international expat community, while nearby Mijas Pueblo provides traditional whitewashed Andalusian village charm in the hills with artisan shops and donkey taxis.​</p>
-<p>El Higuerón (Reserva del Higuerón) represents exceptional fractional ownership value, offering luxury resort infrastructure (multiple pools, spa, fitness facilities, concierge, restaurants) and modern construction quality with sea-view terraces at €115,000-€298,000 fractional shares versus €500,000+ Marbella equivalents. The area&#8217;s family-friendly Blue Flag beaches, children&#8217;s facilities, and safe swimming conditions make Fuengirola ideal for families with young children seeking stress-free Mediterranean beach holidays.​</p>
-<p>Fuengirola and Mijas fractional properties benefit from Málaga Airport proximity (20-25 minutes), making weekend getaways and short breaks highly practical for UK and European owners, while strong year-round rental demand from British and Scandinavian tourists supports rental income potential during unused ownership weeks.​</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Sotogrande: Exclusive Polo, Golf &amp; Marina Haven</h2>
-<p>Sotogrande fractional ownership delivers Costa del Sol&#8217;s most exclusive residential enclave and Spain&#8217;s premier gated community lifestyle, internationally renowned for championship golf (including legendary Valderrama Golf Club—1997 Ryder Cup venue), world-class polo tournaments (Santa María Polo Club), luxury marina living (Puerto Deportivo Sotogrande), and ultra-private residential security. Positioned near Gibraltar (15 minutes) on the western Costa del Sol, Sotogrande attracts affluent British, European, and international buyers seeking luxury Spanish lifestyle with English-language international schools, established expat services, and easy UK connections via Gibraltar Airport.​</p>
-<p>Sotogrande vacation homes and fractional ownership properties represent ultra-premium positioning with strictly limited new development inventory due to built-out nature of the master-planned community, making co-ownership an accessible entry point (typically €165,000-€395,000 fractional shares) to one of Europe&#8217;s most exclusive addresses where sole-ownership villas command €2-10 million+. The community&#8217;s generational family appeal—with families returning decades for summer holidays, polo season, and golf—creates stable, refined atmosphere distinct from Marbella&#8217;s party-focused Puerto Banús scene.​</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Estepona: Authentic Andalusian Coastal Town &amp; Emerging Value</h2>
-<p>Estepona fractional ownership offers authentic Andalusian charm with a beautifully preserved historic old town (Casco Antiguo), weekly farmers&#8217; markets, traditional Spanish festivals, contemporary beachfront developments, and more relaxed pace than high-profile Marbella or exclusive Sotogrande. Known as the &#8220;Garden of Costa del Sol&#8221; for its flower-filled streets and plaza gardens, Estepona combines genuine local Spanish community with growing international recognition and new luxury property developments.​</p>
-<p>Estepona&#8217;s recent development boom (2020-2025) added significant new-build beachfront and sea-view properties with modern amenities, infinity pools, and resort facilities while maintaining traditional town character—creating fractional ownership opportunities at value price points (€135,000-€270,000) with strong appreciation potential as international buyers discover the area. The town&#8217;s family-friendly atmosphere, clean beaches, authentic restaurants serving local Málaga-style seafood, and weekly cultural events appeal to buyers seeking genuine coastal Spanish living beyond tourist-focused resort developments.​</p>
-<p>Estepona fractional properties benefit from growing international accessibility (45-50 minutes from Málaga Airport), proximity to Marbella amenities (20 minutes) and Gibraltar (30 minutes), while maintaining quieter, more Spanish character attracting families, retirees, and buyers prioritizing authenticity over social scenes.​</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>A Week in Your Costa del Sol Co-Ownership Property</h2>
+<h2>Why the Costa del Sol?</h2>
 
-<h3>Mornings: Championship Golf</h3>
+<p>The Costa del Sol is, by every measurable metric that matters for a serious second-home buyer, the <strong>single most established sun-coast property market in Europe</strong> — and one of the most established Mediterranean second-home destinations anywhere in the world. The 150-kilometre arc of Andalusian coastline running from Nerja in the east, through Málaga, Fuengirola, Marbella and Estepona, to Sotogrande and the Strait of Gibraltar in the west, has been the chosen winter and summer address of Northern European second-home buyers for more than sixty years; the modern Costa del Sol market dates from the late 1950s, when the village of Marbella was rediscovered by Prince Alfonso von Hohenlohe-Langenburg and a Central European aristocratic circle that turned the Marbella Club and the surrounding Sierra Blanca foothills into the founding template of Mediterranean luxury second-home living. The catalogue of finca villas, beachfront apartments, marina-front penthouses and inland mountain houses along this coast — the <a href="https://www.marbellaclub.com/en/" target="_blank" rel="noopener">Marbella Club</a> and the Puente Romano in Marbella, the <a href="https://www.valderrama.com/en/" target="_blank" rel="noopener">Valderrama</a> and La Reserva estates in Sotogrande, the <a href="https://www.fincacortesin.com/en" target="_blank" rel="noopener">Finca Cortesín</a> estate above Casares, the Higuerón resort above Fuengirola — anchors what may be the deepest stock of modern luxury Mediterranean residential architecture in Europe. <a href="https://www.andalucia.org/en/" target="_blank" rel="noopener">Andalusia</a>, the region of which Costa del Sol forms the most internationally exposed coastal strip, supports the longest reliable warm season of any European mainland coast — a genuine four-season climate where outdoor terrace living continues through January and February and the swimming season runs comfortably from late May through October. Few European regions, and arguably none in the sun-coast tier specifically, combine that span of usable winter days with that depth of infrastructure and professional services for non-resident owners.</p>
 
-<p>The Costa del Sol hosts over 70 championship golf courses, positioning it among Europe&#8217;s premier golfing destinations. Properties near Marbella and Puerto Banús offer proximity to courses including Valderrama, La Zagaleta, and Real Club Valderrama—names recognized by serious golfers worldwide. Morning tee times in winter and spring provide perfect conditions: clear skies, moderate temperatures, and fairways in peak condition.</p>
+<p>Your Costa del Sol share is held inside a <strong>purpose-built LLC</strong> alongside up to seven other co-owners. This is the same modern international structure used across every property on COP — the United States, the United Kingdom, France, Spain, Italy and elsewhere — rather than a legacy national vehicle that varies country by country. <strong>The practical effect</strong> for the international buyer is significant. Your relationship with the Costa del Sol property runs through <strong>one consistent ownership structure</strong> regardless of which property or jurisdiction you own in; you own inside the same modern framework whether your share is in Marbella, Mallorca, the French Alps or California; and resale is faster and lighter because transferring an <strong>LLC membership interest</strong> is a more direct administrative action than triggering a full Spanish escritura conveyance through a notary. For owners who go on to add a second property in another COP destination — and a meaningful proportion do, often pairing a Costa del Sol winter-sun share with a summer Mallorca finca or an Alpine winter chalet — the reward is a <strong>single international portfolio relationship</strong> rather than a stack of jurisdiction-specific arrangements that each behave differently.</p>
 
-<p>Alternatively, mornings can unfold at quieter pace—a beachside breakfast overlooking the Mediterranean, followed by reading, swimming, or simply absorbing the Andalucian landscape. The rhythm accommodates both activity-focused and leisure-oriented guests.</p>
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and up to seven other owners hold equal LLC membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
+</div>
 
-<h3>Midday: Beach Selection and Coastal Exploration</h3>
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and up to seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare.
+</div>
 
-<p>The Costa del Sol&#8217;s coastline offers diverse beach experiences within short distances. Marbella&#8217;s old town beaches retain authentic character with narrow streets, local bars, and genuine community atmosphere. The long sandy stretches of Fuengirola provide family-friendly environments with water sports facilities and established beach clubs. For those seeking seclusion, secluded coves near Benahavís and the whitewashed pueblos blancos (white villages) offer dramatic limestone landscapes and genuine tranquility.</p>
+<p>The Costa del Sol's particular advantage inside European second-home markets is the <strong>combination of climate consistency, infrastructure depth and international community</strong> that has held this coast as the European winter-sun default for sixty years. The Sierra Blanca and Sierra de Mijas mountains rise sharply behind the coastal strip and block the northerly weather systems that bring rain to the Atlantic Spanish coast and the interior Andalusian plain; the resulting mountain-protected microclimate gives the central Costa del Sol — Marbella through Mijas — its <strong>320-plus days of annual sunshine</strong> and the famously reliable <strong>17–19°C (low to mid-60s°F) January and February daytimes</strong> that no other European mainland coast can match in winter. The buildable coastal strip itself, between the mountains and the sea, is genuinely narrow — most of the Marbella, Estepona and Mijas Costa lengths run from the lower mountain slopes to the beach inside a single kilometre, and <strong>Spanish coastal-protection law (the <a href="https://www.miteco.gob.es/en/costas.html" target="_blank" rel="noopener">Ley de Costas</a>)</strong> has held the active beach margin under public-domain regulation since 1988, which has kept first-line beachfront construction essentially capped at the existing footprint. The Mediterranean coastline opens south toward Africa, with the <a href="https://www.visitcostadelsol.com/en" target="_blank" rel="noopener">Sierra Bermeja</a> rising behind Estepona and the protected Sierra de las Nieves national park sitting directly inland — a geography that has shaped which addresses became the prime second-home tier and which did not. The result is that the buildable stock of high-specification Costa del Sol villas and apartments is, in real terms, no longer growing at the rate of demand in the prime addresses — and the existing inventory is held tighter than at any point in the modern era.</p>
 
-<p>Beach clubs have become cultural institutions—venues combining seaside access, Mediterranean cuisine, and social atmosphere. These establishments serve lunch from noon onward, featuring fresh fish, gazpacho, and local wine selections. The Spanish custom of lingering through lunch means afternoon transitions naturally into early evening hours.</p>
+<p>It is worth setting the Costa del Sol in its European competitive context. <strong>The Côte d'Azur</strong> — the French Mediterranean coast running from Cassis through Cannes, Antibes, Nice and Menton — offers comparable summer scenery at materially higher entry prices and with a substantially shorter usable winter season (January Nice runs <strong>5–7°C colder</strong> than January Marbella on most measures). <strong>The Italian Riviera</strong> (Liguria) and the <strong>Amalfi Coast</strong> offer real charm at smaller scale and with a similarly shorter winter usability. <strong>The Balearic Islands</strong> — Mallorca, Ibiza, Menorca — offer pristine cove beaches and crystal-clear water but require island-hopping flights and ferries, with seasonal flight reductions through October–April and noticeably cooler, rainier winters than the Costa del Sol mainland. <strong>The Algarve</strong> in southern Portugal is the closest European competitor on climate, with a similarly reliable winter sun and a comparable expat community, but at smaller market depth and with less developed second-home professional services outside the central Vilamoura–Quinta do Lago corridor. None of these comparisons makes the Costa del Sol categorically "better" for every buyer — the right answer depends on the specific use pattern and lifestyle — but they help frame why the Costa del Sol remains, by some distance, the <strong>highest-volume international winter-sun second-home market in Europe</strong>. The broader regional tourism authorities (<a href="https://www.visitcostadelsol.com/en" target="_blank" rel="noopener">Visit Costa del Sol</a>, the <a href="https://www.spain.info/en/destination/costa-del-sol/" target="_blank" rel="noopener">Spanish national tourism board</a> Costa del Sol pages, the <a href="https://www.malagaturismo.com/en" target="_blank" rel="noopener">Málaga city tourism authority</a>) all treat the coast as Spain's single most valuable inbound tourism asset outside Madrid and Barcelona.</p>
 
-<h3>Afternoons: Cultural and Gastronomic Landmarks</h3>
+<p>The third structural argument for the Costa del Sol is the <strong>diversity of usable lifestyles</strong> available inside a single coastal arc. A Northern European family with a 1/8 share in Marbella is forty minutes from the <a href="https://www.aena.es/en/malaga.html" target="_blank" rel="noopener">Málaga airport hub</a> and within ninety minutes of Granada, Córdoba and Ronda for cultural day trips; a Sotogrande buyer is fifteen minutes from Gibraltar and an hour from Tarifa and the Atlantic coast; a Fuengirola or Higuerón buyer is twenty minutes from Málaga's urban services, the <a href="https://www.museopicassomalaga.org/en" target="_blank" rel="noopener">Picasso Museum</a> and the Soho design district. The region packs a remarkable amount of difference into a 150-kilometre east–west footprint — international resort towns, working Andalusian fishing villages, white sierra villages in the foothills, the gated golf-and-polo community at Sotogrande, the family-resort corridor at Mijas Costa, the deep-Andalusian inland towns of Ojén, Casares and Gaucín — and a Costa del Sol share that combines proximity to several of these gives an owner a year-round Mediterranean base rather than a single-season property. Few other European regions can match that range without significantly longer drive times.</p>
 
-<p>Marbella&#8217;s Plaza de los Naranjos represents historic Andalucian architecture at human scale—orange trees, fountain, surrounding tapas bars, and arcaded passages create authentic Mediterranean environment. Walking through this plaza at mid-afternoon captures Spanish life before evening social activity accelerates.</p>
+<p>For a co-ownership buyer thinking strategically rather than just emotionally, the Costa del Sol's combination of <strong>climate, infrastructure and international depth</strong> matters more than the headline glamour. The villa you buy a share of above Marbella sits in a market where the buildable land at the prime Sierra Blanca and Nueva Andalucía addresses is already effectively saturated and where the existing villa stock at the prime lakefront-style addresses is fundamentally finite. The Sotogrande villa is in a master-planned community whose generational family addresses run two and three generations deep. The Higuerón apartment is in a resort whose ridge-line above the Mijas Costa offers a Mediterranean view that the original developers spent twenty years assembling. These are not assets that depend on a particular interest-rate cycle to hold their value; they depend on the unchanging facts that the Sierra Blanca remains the Sierra Blanca, that Sotogrande remains Sotogrande, and that the Northern European appetite for a reliable winter-sun second home is steady across generations. Add the modern <strong>LLC ownership infrastructure</strong> that makes shared ownership transparent, taxable and resaleable, and the case for co-ownership on the Costa del Sol writes itself.</p>
 
-<p>Puerto Banús transforms in late afternoon as the sun angles lower. The marina&#8217;s promenade—lined with restaurants, bars, and boutiques—becomes focal point for the sundowner crowd. The ritual of arriving at 5:00 or 6:00 PM, settling at a harbourside table with a drink, and watching boats and people until dinner service begins represents quintessential Costa del Sol experience that has attracted visitors for decades.</p>
+<p>One under-discussed advantage that becomes obvious once you actually start using a Costa del Sol second home is the depth of the region's <strong>professional services infrastructure for non-resident owners</strong>. Six decades of Northern European buyers have built up an ecosystem of <strong>multilingual lawyers, gestores, property managers, notaries, asesores fiscales, garden contractors and private medical clinics</strong> across the major coastal towns that smaller European sun-coast alternatives cannot match. The British community on the Costa del Sol is large enough to run its own English-language schools (the <a href="https://www.swans.org.es/en/" target="_blank" rel="noopener">Sotogrande International School</a>, the British School of Marbella, Aloha College), English-language hospitals (the <a href="https://www.quironsalud.com/en/marbella-hospital" target="_blank" rel="noopener">Quirónsalud Marbella</a>, HC Marbella International Hospital), English-language weekly newspapers and radio. The Spanish notarial system gives ownership documentary clarity through the <strong>Registro de la Propiedad</strong> (the Spanish land registry, administered through the <a href="https://www.registradores.org/en/" target="_blank" rel="noopener">Colegio de Registradores</a>), and the cadastral records held by the <strong>Dirección General del Catastro</strong> under the <a href="https://www.hacienda.gob.es/en-GB/Paginas/Home.aspx" target="_blank" rel="noopener">Spanish Ministry of Finance</a> are a long-running, reliable record-of-record system. None of this is glamorous, but it is the kind of infrastructure that determines whether owning a Mediterranean home from another country is a pleasure or a chore.</p>
 
-<h3>Evenings: Dining Excellence</h3>
+<p>The fourth structural advantage worth naming is the <strong>transport infrastructure</strong> that makes a Costa del Sol second home practically usable rather than just nominally owned. <a href="https://www.aena.es/en/malaga.html" target="_blank" rel="noopener">Málaga–Costa del Sol Airport (AGP)</a> is the principal gateway for the entire coast, with direct year-round service from London, Manchester, Edinburgh, Dublin, Amsterdam, Brussels, Paris, Frankfurt, Munich, Zurich, Vienna, Copenhagen, Stockholm, Oslo, Helsinki and dozens of further European cities, plus seasonal long-haul service from New York Newark, Montreal and Toronto. <a href="https://www.gibraltar-airport.com/" target="_blank" rel="noopener">Gibraltar International Airport (GIB)</a> sits twenty minutes' drive from Sotogrande on the western coast, with year-round British Airways and easyJet service from London. <a href="https://www.aena.es/en/sevilla.html" target="_blank" rel="noopener">Seville (SVQ)</a> offers a useful inland alternative for owners arriving from Atlantic or Iberian routes. Most Northern European hubs are <strong>under three hours' flight time</strong> to Málaga; the drive from AGP to the coastal towns is short (Fuengirola in <strong>20 minutes</strong>, Marbella in <strong>40 minutes</strong>, Estepona in <strong>50 minutes</strong>, Sotogrande in <strong>1 hour 15 minutes</strong>); and the Spanish high-speed rail network — <a href="https://www.renfe.com/es/en" target="_blank" rel="noopener">Renfe</a> AVE — connects Málaga María Zambrano station to Madrid in roughly <strong>two-and-a-half hours</strong>. An owner can leave London on a Friday morning and be on the <strong>terrace above Puerto Banús</strong> by Saturday lunchtime.</p>
 
-<p>Estepona&#8217;s old town offers authenticity often absent from more developed coastal areas. Narrow cobbled streets, family-run restaurants, and generations-old establishments serve traditional espetos (grilled sardines), gazpachos, and regional specialties at prices reflecting Spanish restaurant economics rather than tourist markup.</p>
+</div></section>
 
-<p>Nueva Andalucía and surrounding areas concentrate Michelin-starred establishments and chef-driven restaurants offering Spanish, Mediterranean, and international cuisine at the highest levels. These venues attract culinary professionals from across Europe seeking weekend destinations combining excellence with accessibility.</p>
+<section class="dest-sec white"><div class="dest-inner">
 
-<h3>Day Trips and Excursions</h3>
+<h2>Where to own on the Costa del Sol</h2>
 
-<p>Granada and the Alhambra sit 1.5 hours inland from coastal properties. This UNESCO World Heritage palace complex represents medieval Islamic Spain at its architectural and cultural apex—a day trip that justifies itself comprehensively without requiring elaborate planning.</p>
+<p>The Costa del Sol's second-home market is best understood through <strong>several principal sub-zones</strong> rather than as a single uniform coastline — each with its own character, architecture, season and buyer mix. There are, of course, Costa del Sol addresses outside the zones below — the eastern coast at Nerja, Torrox and the Axarquía, the inland Antequera and Loja country, the deep-rural Serranía de Ronda — and we are happy to discuss them with buyers whose interests run that direction. But the supply story for fractional ownership is concentrated in the sub-zones below: <strong>Marbella and the Golden Mile</strong> (the prestige flank), <strong>Puerto Banús</strong> (the marina district), <strong>Estepona</strong> (the western working town with the preserved old centre), <strong>Sotogrande</strong> (the gated golf-and-polo community in the far west), <strong>Benahavís and the inland sierra villages</strong> (Ojén, Mijas, Casares), the <strong>Mijas Costa corridor</strong> (Fuengirola, El Higuerón, Calahonda), and the <strong>white villages</strong> in the foothills behind. Together they account for the overwhelming majority of international second-home demand on the Costa del Sol.</p>
 
-<p>Ronda, perched on a dramatic gorge 1 hour inland, offers heart-stopping views and the historic arena where Spanish bullfighting tradition developed. The city provides escape from coastal atmosphere while remaining easily accessible for day exploration.</p>
+<h3>Marbella and the Golden Mile — Sierra Blanca, Nueva Andalucía</h3>
 
-<p>Seville, Spain&#8217;s Andalucian capital, lies 2.5 hours north and offers cathedral architecture, flamenco traditions, river setting, and urban energy distinguishing it from coastal destinations. The city warrants multi-day exploration but remains accessible for weekend excursions from Costa del Sol properties.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Why Costa del Sol Property Values Keep Rising</h2>
+<p><a href="https://www.marbellaexclusive.com/en/" target="_blank" rel="noopener">Marbella</a> is the <strong>most internationally recognised address on the Costa del Sol</strong> — a town of <strong>roughly 150,000 residents</strong> on a south-facing strip of coast sheltered by the <strong>Sierra Blanca</strong> mountains and supporting one of the most concentrated luxury second-home markets in Europe. The modern Marbella story dates from the late 1950s, when the village was rediscovered by Prince Alfonso von Hohenlohe-Langenburg and the founding circle around the <a href="https://www.marbellaclub.com/en/" target="_blank" rel="noopener">Marbella Club</a> on the Golden Mile, and the subsequent six decades have built up the densest concentration of internationally branded hospitality, luxury residential and gastronomic infrastructure of any Spanish coastal town. The <strong>Golden Mile</strong> proper is the four-kilometre coastal strip running west from Marbella's old town to Puerto Banús, anchored by the <a href="https://www.puenteromano.com/en" target="_blank" rel="noopener">Puente Romano</a> beach-resort estate and the Marbella Club at its centre; the parallel <strong>Sierra Blanca</strong> hillside above the Golden Mile is the prestige villa quarter, with private gated estates climbing the slope and Mediterranean views opening south toward Africa from every plot. <a href="https://www.cassandra-properties.com/en/sierra-blanca-marbella-property-guide" target="_blank" rel="noopener">Sierra Blanca</a> contains the highest concentration of multi-million-euro villa addresses on the Spanish mainland.</p>
 
-<h3>Decades of Proven Market Liquidity</h3>
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/d83055bb9f/zenity-6.jpg" alt="A Costa del Sol apartment in the Marbella foothills, the Mediterranean opening south beyond the terrace and pool" loading="lazy" />
+  <figcaption>A Costa del Sol apartment in the Marbella foothills, the Mediterranean opening south beyond the terrace and pool.</figcaption>
+</figure>
 
-<p>The Costa del Sol represents one of Europe&#8217;s most liquid prime property markets for several decades continuously. International buyers from the United Kingdom, Germany, Scandinavia, the Middle East, and the Americas have established consistent demand patterns spanning multiple economic cycles. This long-term buyer diversity creates stability that regional markets cannot match. Properties in premier locations transition regularly, establishing market prices through transparent transactions rather than speculative outliers.</p>
+<p>The <strong>old town of Marbella</strong> (the Casco Antiguo), set inland from the Golden Mile, has retained its preserved Andalusian core around the <strong>Plaza de los Naranjos</strong> — the orange-tree-shaded square at the medieval centre, ringed by tapas bars, the sixteenth-century Casa del Corregidor and the parish church of the Encarnación. Walking through the Casco Antiguo on a winter afternoon gives Marbella its quieter face: the working town with its weekly market, its family-run restaurants, its Spanish-speaking residents who keep the village rhythm running underneath the international veneer. <strong>Nueva Andalucía</strong>, the residential and golf district inland of Puerto Banús, is the principal mid-tier Marbella address — a wide valley filled with the so-called <em>Golf Valley</em> courses (Las Brisas, Aloha, Los Naranjos, La Quinta) and the surrounding residential urbanisations. The <strong>Marbella restaurant scene</strong> has become one of the most concentrated Mediterranean dining quarters in Europe, with Michelin-starred <a href="https://guide.michelin.com/en/andalucia/marbella/restaurants" target="_blank" rel="noopener">Michelin Guide</a> addresses (Skina, Messina, Back, El Lago, Sollo) sitting alongside the long-established beach chiringuitos along the Marbella and San Pedro beaches. The international buyer mix is heavily <strong>British, Scandinavian, German, Dutch, Belgian, Swiss and Middle-Eastern</strong>, with a long-standing North-American share that has grown sharply since 2020. Climate runs <strong>9–18°C (high 40s°F to mid-60s°F)</strong> in mid-winter at coast level and <strong>23–30°C (mid-70s°F to high 80s°F)</strong> in high summer, with the sheltered bay warming to <strong>22–24°C (low to mid-70s°F)</strong> for swimming from late May through October. Drive times from Málaga airport are <strong>40 minutes to Marbella town</strong> and <strong>50 minutes to Puerto Banús</strong> through the AP-7 toll motorway. <strong>Best for:</strong> buyers who treat the Marbella name as part of the address itself, multi-generational families drawn to the depth of the international infrastructure and the four-season town life, design-led couples whose use pattern centres on the long shoulder seasons of April–May and September–October, and Northern European weekenders who value the <strong>40-minute taxi run from Málaga airport</strong> direct to the front door.</p>
 
-<h3>Post-Pandemic Lifestyle Shift and Sustained Demand</h3>
+<h3>Puerto Banús — the marina district</h3>
 
-<p>The pandemic-driven migration toward Mediterranean locations, initially viewed as temporary, has proven durable. Rather than disrupting established demand patterns, remote work adoption reinforced interest from professionals and entrepreneurs relocating permanently or semi-permanently. Climate, connectivity, and lifestyle quality remain constant drivers regardless of employment arrangements. Buyer profiles have expanded beyond retirees to include working-age professionals and families establishing actual residency rather than acquiring vacation properties.</p>
+<p><strong>Puerto Banús</strong>, four kilometres west of Marbella's old town along the Golden Mile, is the lake's <strong>single most internationally visible single address</strong> — a purpose-built marina opened in 1970 by the developer José Banús around a sheltered harbour that today moors a permanent fleet of superyachts and seasonal arrivals from across the Mediterranean. The marina-front strip — <strong>Avenida Ribera</strong>, lined with the luxury-brand boutiques (Dior, Gucci, Louis Vuitton, Hermès, Cartier) and the long-running restaurant institutions (Cipriani, Cappuccino Grand Café, the Buddha Beach Club) — is the most photographed quarter of the Costa del Sol and the heart of the international party season from May through September. The <strong>Puerto Banús residential market</strong> is dominated by marina-front apartments and penthouses with direct harbour or sea views, with the prime first-line addresses commanding the highest per-square-metre prices on the Costa del Sol after the Sierra Blanca villa tier. The summer season runs at full intensity through July and August — restaurant tables four to six weeks ahead, the marina nightlife at its peak — and the winter season holds a quieter but still active rhythm with the marina restaurants running through January and February when most Mediterranean marinas have closed. <strong>Best for:</strong> buyers drawn to the marina lifestyle and the long-running international party calendar, owners whose use pattern centres on the high-summer weeks of July and August, and those for whom proximity to the Marbella Golden Mile and the year-round restaurant calendar is part of the address itself.</p>
 
-<h3>Limited Development Land and Supply Constraints</h3>
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/bd52663ae0/es0901a-_-carat-jardin-_-fuengirola-3.jpg" alt="A Costa del Sol apartment with terrace and Mediterranean view, the southern coast opening behind the palms" loading="lazy" />
+  <figcaption>A Costa del Sol apartment with terrace and Mediterranean view, the southern coast opening behind the palms.</figcaption>
+</figure>
 
-<p>The corridor between Marbella and Puerto Banús—the Costa del Sol&#8217;s prime location—contains minimal remaining undeveloped land suitable for residential construction. Existing properties occupy optimal positions relative to beaches, golf courses, and amenities. New supply emerges primarily through renovation and repositioning of existing buildings rather than greenfield development. This supply constraint intensifies as demand remains robust, creating sustained appreciation pressure for well-positioned assets.</p>
+<h3>Estepona — the western working town with the preserved old centre</h3>
 
-<h3>International Buyer Recognition and Infrastructure</h3>
+<p><a href="https://www.estepona.es/en/" target="_blank" rel="noopener">Estepona</a> sits twenty-five kilometres west of Marbella, a working coastal town of <strong>roughly 75,000 residents</strong> that has rebuilt its identity over the past fifteen years into one of the most appealing alternative Costa del Sol addresses for buyers who value <strong>authentic Andalusian village rhythm</strong> over the Marbella party scene. The <strong>Casco Antiguo</strong> at Estepona's centre is the most-revived old quarter on the western Costa del Sol, with its whitewashed lanes, painted-pot streets (the <em>Calles de las Flores</em>, where every doorway is hung with geraniums and bougainvillea), the Plaza de las Flores at the centre, the long pedestrianised <em>Calle Real</em> running the length of the old town, and the open-air murals programme (the <a href="https://rutadelmuraldeestepona.com/en/" target="_blank" rel="noopener">Ruta del Mural</a>) that has commissioned more than seventy large-scale public murals across the town's facades. The Estepona beach strip — running for four kilometres west from the old port — has reopened with a long pedestrian promenade and a sequence of beach restaurants serving traditional Andalusian seafood (the espetos of Mediterranean sardines grilled over driftwood fires, the gazpacho, the local Málaga wine).</p>
 
-<p>The Costa del Sol&#8217;s reputation extends globally among high-net-worth buyers and lifestyle migrants. The region maintains infrastructure—airports, marinas, private schools, healthcare facilities, English-language professional services—catering to international residents. This institutional support reduces practical barriers to permanent residence or extended seasonal occupation, broadening the effective buyer pool beyond local or regional purchasers.</p>
+<p>The <strong>New Golden Mile</strong>, the residential corridor running west from Marbella's San Pedro de Alcántara to Estepona's eastern fringe, is the principal Estepona second-home zone — a fifteen-kilometre stretch of contemporary villa and apartment developments with sea views, infinity pools and resort amenities at materially lower price points than the original Marbella Golden Mile. The international buyer mix on Estepona is the <strong>most family-and-retiree-led on the central Costa del Sol</strong> — heavily British, Northern European and Dutch, with a growing Belgian and Scandinavian share. Drive times from Málaga airport run <strong>50 minutes to Estepona</strong> via the AP-7 toll motorway; from Gibraltar airport <strong>30 minutes</strong>. Climate runs broadly parallel to Marbella, with the Estepona end of the coast picking up slightly more westerly Atlantic influence and a noticeably cooler summer evening breeze (<strong>2–3°C cooler at midnight</strong> than the central Marbella beach). <strong>Best for:</strong> buyers seeking the most authentic Andalusian coastal town rhythm with full second-home infrastructure, families and retirees drawn to the preserved old centre and the long beach promenade, owners whose use pattern centres on quieter shoulder weeks and longer winter stays rather than the August party peak, and Gibraltar-routed travellers who value the <strong>30-minute drive from GIB</strong>.</p>
 
-<h3>Operating Cost Structure and Ownership Comparison</h3>
+<h3>Sotogrande — the gated golf-and-polo community</h3>
 
-<p>Fractional ownership through a Co-Ownership Property structure offers compelling economics relative to traditional ownership or rental alternatives. Annual running costs for a premier Costa del Sol property range from €8,000 to €18,000 for comprehensive management, maintenance, insurance, and utilities. Each 1/8 co-owner&#8217;s annual share totals €1,000 to €2,250.</p>
+<p><a href="https://www.sotogrande.com/en/" target="_blank" rel="noopener">Sotogrande</a> is Spain's <strong>oldest and most established master-planned residential community</strong> — a private estate of <strong>2,000 hectares</strong> on the western Costa del Sol just east of Gibraltar, opened in 1962 by the American developer Joseph McMicking around an original golf course (now the Real Club Valderrama, the <strong>1997 Ryder Cup venue</strong>). The community has matured over six decades into a multi-tier residential estate with <strong>five golf courses</strong> (<a href="https://www.valderrama.com/en/" target="_blank" rel="noopener">Valderrama</a>, <a href="https://www.lareservaclubsotogrande.com/en" target="_blank" rel="noopener">La Reserva</a>, the Real Club de Golf Sotogrande, Almenara, the San Roque Club), a working <strong>polo facility</strong> (the <a href="https://santamariapoloclub.com/en/" target="_blank" rel="noopener">Santa María Polo Club</a> hosts the annual International Polo Tournament every August), a deep-water marina (<strong>Puerto Sotogrande</strong>) with two hundred berths, an internationally accredited school (the <a href="https://www.sotograndeinternationalschool.com/en/" target="_blank" rel="noopener">Sotogrande International School</a>), and a year-round resident population that runs noticeably more British and Northern European than the broader Costa del Sol average.</p>
 
-<p>Compare this to renting an equivalent property for the equivalent occupancy period. A single week in a comparable premium coastal property costs €2,000 to €5,000 in the seasonal rental market. One 1/8 share—approximately 45 days annually—translates to six to seven weeks of usage at fractional ownership costs that undercut rental rates substantially while building equity participation in appreciating real estate.</p>
+<p>The <strong>Sotogrande Costa</strong> (the original beach-side residential area), <strong>Sotogrande Alto</strong> (the higher residential terrain inland, with the Valderrama and La Reserva villas at the top of the hill), the <strong>Marina district</strong> (the apartments and townhouses around the deep-water harbour), and the recently opened <strong>La Reserva Club</strong> beach-club and residential extension form the four principal Sotogrande sub-zones. The community's <strong>generational family appeal</strong> — multi-generational British, Spanish and Anglo-Andalusian families with two and three generations of summer residence — gives Sotogrande a distinct character from the prestige-and-party Marbella tier: the rhythm is family-centred, child-friendly, calendar-anchored around the August polo season and the shoulder-season golf weeks, with restaurant tables genuinely available and the marina-front Sundays running quieter than Puerto Banús. Drive times from Málaga airport run <strong>1 hour 15 minutes via the AP-7 toll motorway</strong>; from Gibraltar airport <strong>20 minutes</strong>. <strong>Best for:</strong> family buyers drawn to the generational-community character and the multi-school international education, owners whose primary use pattern centres on golf, polo and the marina, and Gibraltar-routed travellers who value the short cross-frontier drive from GIB.</p>
 
-<p>The ownership structure provides stability and certainty against rising rental rates, maintenance surprises, and availability constraints, while eliminating vacation planning complications and booking uncertainties.</p></div></section>    
-    <!-- CTAs -->
-        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
-    <section class="newsletter-section" id="newsletter">
-        <h2 class="newsletter-heading">Be The First To Know</h2>
-        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
-        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
-            <input type="email" name="email" placeholder="Enter your email address" required>
-            <button type="submit" class="newsletter-btn">Join Newsletter</button>
-        </form>
-        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
-    </section>
-        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
-    <section class="expert-section" id="speak-to-expert">
-        <div class="expert-inner">
-            <p class="expert-eyebrow">Get in Touch</p>
-            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
-            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/36a94de320/carat-vista-5.jpg" alt="A Costa del Sol apartment terrace with Mediterranean view, the southern coast opening across the Sierra de Mijas" loading="lazy" />
+  <figcaption>A Costa del Sol apartment terrace with Mediterranean view, the southern coast opening across the Sierra de Mijas.</figcaption>
+</figure>
 
-            <form class="expert-form" id="expert-enquiry-form" novalidate>
-                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
-                    <div class="expert-form-field">
-                        <label for="ef-name">Name <span>*</span></label>
-                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-email">Email Address <span>*</span></label>
-                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-phone">Phone Number <span>*</span></label>
-                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label>Destinations</label>
-                        <div class="dest-multiselect" id="dest-multiselect">
-                            <div class="dest-trigger" id="dest-trigger">
-                                <span class="dest-placeholder">Select destinations</span>
-                            </div>
-                            <div class="dest-dropdown" id="dest-dropdown">
-                                                                <div class="dest-option" data-value="France">
-                                    <span class="dest-check"></span>
-                                    🇫🇷 France                                </div>
-                                                                <div class="dest-option" data-value="Spain">
-                                    <span class="dest-check"></span>
-                                    🇪🇸 Spain                                </div>
-                                                                <div class="dest-option" data-value="Italy">
-                                    <span class="dest-check"></span>
-                                    🇮🇹 Italy                                </div>
-                                                                <div class="dest-option" data-value="USA">
-                                    <span class="dest-check"></span>
-                                    🇺🇸 USA                                </div>
-                                                                <div class="dest-option" data-value="Portugal">
-                                    <span class="dest-check"></span>
-                                    🇵🇹 Portugal                                </div>
-                                                                <div class="dest-option" data-value="Austria">
-                                    <span class="dest-check"></span>
-                                    🇦🇹 Austria                                </div>
-                                                                <div class="dest-option" data-value="England">
-                                    <span class="dest-check"></span>
-                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
-                                                                <div class="dest-option" data-value="Sweden">
-                                    <span class="dest-check"></span>
-                                    🇸🇪 Sweden                                </div>
-                                                                <div class="dest-option" data-value="Germany">
-                                    <span class="dest-check"></span>
-                                    🇩🇪 Germany                                </div>
-                                                                <div class="dest-option" data-value="Croatia">
-                                    <span class="dest-check"></span>
-                                    🇭🇷 Croatia                                </div>
-                                                                <div class="dest-option" data-value="Mexico">
-                                    <span class="dest-check"></span>
-                                    🇲🇽 Mexico                                </div>
-                                                            </div>
-                        </div>
-                        <input type="hidden" name="destination" id="ef-destination">
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-budget">Budget Range</label>
-                        <select id="ef-budget" name="budget">
-                            <option value="" disabled selected>Select a budget</option>
-                            <option>Under €100,000</option>
-                            <option>€100,000 – €200,000</option>
-                            <option>€200,000 – €350,000</option>
-                            <option>€350,000 – €500,000</option>
-                            <option>€500,000 – €750,000</option>
-                            <option>€750,000 – €1,000,000</option>
-                            <option>Over €1,000,000</option>
-                        </select>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-message">Message</label>
-                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
-                    </div>
-                </div>
-                <div class="expert-submit">
-                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
-                    <p class="expert-form-msg" id="expert-form-msg"></p>
-                </div>
-            </form>
-        </div>
-    </section>
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/d2cbfa299b/carat-vista-2.jpg" alt="A Costa del Sol apartment terrace above Fuengirola, the southern Mijas Costa opening toward the Mediterranean" loading="lazy" />
+  <figcaption>A Costa del Sol apartment terrace above Fuengirola, the southern Mijas Costa opening toward the Mediterranean.</figcaption>
+</figure>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
-            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
-            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
-            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
-            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
-        </div>
-        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
-    </footer>
+<h3>Benahavís and the inland sierra villages — Ojén, Mijas Pueblo, Casares</h3>
 
-    <script>
-        /* ── Shared header JS ──────────────────────────────────────── */
-(function () {
-    var header = document.getElementById('cop-header');
-    var btn    = document.getElementById('cop-hamburger');
-    var nav    = document.getElementById('cop-nav');
-    if (!header || !btn || !nav) return;
+<p>The <strong>inland sierra villages</strong> behind the Costa del Sol coast form the lake's quieter, more Andalusian residential flank — a string of working white villages set in the foothills of the Sierra de las Nieves and the Sierra Bermeja, with cooler summer temperatures, dramatic coastal views, and a slower local rhythm. <strong>Benahavís</strong>, ten kilometres inland from the New Golden Mile, sits in a steep mountain valley above the Guadalmina river, with the village's compact white-village core surrounded by the most concentrated single cluster of golf courses on the entire Costa del Sol (the <em>Benahavís Golf Triangle</em> of La Quinta, Los Arqueros, El Higueral, the Marbella Club Golf Resort, plus the surrounding <a href="https://lazagaleta.com/en/" target="_blank" rel="noopener">La Zagaleta</a> ultra-private estate). The village is known regionally as the <strong>"dining room of the Costa del Sol"</strong> for the depth of the restaurant scene relative to the small population, and the residential development pattern around Benahavís has been dominated by villa estates on the surrounding hillsides rather than the apartment-and-townhouse density of the coastal strip.</p>
 
+<p><strong>Ojén</strong>, the white village seven kilometres directly inland from Marbella, sits at <strong>335 metres</strong> in the Sierra Blanca foothills with the entire Marbella coast spreading below — the village's preserved Andalusian core, the surrounding chestnut and cork-oak forest, and the proximity to the <strong>Sierra de las Nieves national park</strong> give Ojén the most authentic inland village rhythm within ten minutes' drive of the prime Marbella addresses. <strong>Mijas Pueblo</strong>, the long-established white village above Fuengirola at <strong>428 metres</strong> elevation, has been on the European tourist map since the 1960s but has held its preserved Andalusian core: the donkey-taxi rank in the central square, the cliff-edge bullring (the smallest in Spain), the Virgen de la Peña shrine carved into the mountainside. <strong>Casares</strong>, the most photographed of the white villages, sits twenty kilometres inland of Estepona at <strong>435 metres</strong>, with its whitewashed houses cascading down a steep ridge below a thirteenth-century Moorish castle and the Sierra Bermeja rising behind. The international buyer mix on the inland villages is more European than the coastal strip — heavily British, Dutch, German and Scandinavian, with a notably higher Spanish-resident share than the beachfront. <strong>Best for:</strong> buyers drawn to the most authentic Andalusian village rhythm with same-day access to the coast, owners who value the cooler summer evenings and dramatic coastal views from elevation, design-led couples drawn to the inland restaurant scene and the proximity to the Sierra de las Nieves national park, and golfers who treat the Benahavís triangle as the primary use case.</p>
 
-    // Mobile hamburger toggle
-    btn.addEventListener('click', function () {
-        nav.classList.toggle('active');
-        btn.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-            nav.classList.remove('active');
-            btn.classList.remove('open');
-        });
-    });
-}());
-        /* ── Newsletter form (shared partial) ──────────────────────── */
-(function() {
-    var form = document.getElementById('cop-newsletter-form');
-    if (!form) return;
-    var msg = document.getElementById('newsletter-form-msg');
+<h3>Mijas Costa — Fuengirola, El Higuerón, Calahonda</h3>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var emailInput = form.querySelector('input[type="email"]');
-        var btn = form.querySelector('.newsletter-btn');
-        if (!emailInput.value) return;
+<p>The <strong>Mijas Costa</strong> corridor — the twenty-kilometre stretch of coast between Málaga and Marbella, running through Torremolinos, Benalmádena, Fuengirola, Calahonda and the Cabopino marina — is the Costa del Sol's <strong>most established family-resort flank</strong>, with the deepest concentration of resort-style residential developments, the most established Blue Flag beaches, and the closest proximity to Málaga airport. <strong>Fuengirola</strong>, the largest of the Mijas Costa towns at <strong>roughly 85,000 residents</strong>, has the most authentic working-Spanish-coastal-town character of the central coast — a long beachfront promenade running over seven kilometres, a Tuesday market that is the largest open-air weekly market on the Costa del Sol, and a Northern European expat community (heavily Finnish and Scandinavian) that has been resident since the 1970s and runs its own bilingual schools, churches and community calendar. The <strong>El Higuerón</strong> ridge above Fuengirola — the elevated resort terrain rising from the coastal strip to roughly <strong>150 metres</strong> above sea level, with the Sierra de Mijas behind and the open Mediterranean opening south toward Africa — has become the principal new-build resort address on the central Costa del Sol over the past decade, anchored by the <a href="https://higueronhotel.com/en/" target="_blank" rel="noopener">Higuerón Hotel</a>, the <a href="https://higueroninternationalschool.com/en/" target="_blank" rel="noopener">Higuerón International School</a>, the Higuerón sports club and a sequence of contemporary villa and apartment developments with infinity pools, sea views and resort-level amenities at materially lower price points than the Marbella Golden Mile.</p>
 
-        btn.disabled = true;
-        btn.textContent = 'Subscribing\u2026';
-        msg.className = 'newsletter-form-msg';
-        msg.textContent = '';
+<p><strong>Calahonda</strong>, the residential strip between Fuengirola and Marbella, is the long-established mid-tier resort corridor for British, Scandinavian and Northern European families — a residential community with full English-speaking infrastructure, multiple golf courses, and a position roughly halfway between Málaga airport and Marbella that makes it one of the most practical Costa del Sol bases for owners flying in from Northern Europe. The international buyer mix on Mijas Costa is heavily <strong>British, Scandinavian, Finnish, German and Belgian</strong>, with the deepest Northern European resident population of any Costa del Sol sub-zone. Drive times from Málaga airport run <strong>15 minutes to Torremolinos</strong>, <strong>20 minutes to Fuengirola</strong>, <strong>25 minutes to El Higuerón</strong>, and <strong>30 minutes to Calahonda</strong>. Climate runs almost identical to Marbella, with the eastern Mijas Costa picking up slightly warmer summer days as the mountain shelter weakens. <strong>Best for:</strong> family buyers who value the <strong>short twenty-minute drive from AGP</strong> for weekend-feasible travel, Northern European retirees drawn to the long-established expat infrastructure, golf-oriented owners who treat the Mijas Costa as the practical base for the central coast's golf network, and value-conscious buyers who want the Costa del Sol climate and infrastructure without the Marbella entry-price premium.</p>
 
-        var data = new FormData();
-        data.append('action', 'cop_newsletter_subscribe');
-        data.append('email', emailInput.value);
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/b3d29d781e/carat-solmar-2.jpg" alt="A Costa del Sol apartment in Fuengirola, the Mediterranean and the long beach promenade opening south from the terrace" loading="lazy" />
+  <figcaption>A Costa del Sol apartment in Fuengirola, the Mediterranean and the long beach promenade opening south from the terrace.</figcaption>
+</figure>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'newsletter-form-msg success';
-                msg.textContent = res.data || 'Thank you for subscribing!';
-                form.reset();
-                btn.textContent = 'Subscribed!';
-            } else {
-                msg.className = 'newsletter-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Join Newsletter';
-            }
-        })
-        .catch(function() {
-            msg.className = 'newsletter-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Join Newsletter';
-        });
-    });
-})();
-        /* ── Multi-select destination dropdown (shared partial) ────── */
-(function() {
-    var wrap     = document.getElementById('dest-multiselect');
-    var trigger  = document.getElementById('dest-trigger');
-    var dropdown = document.getElementById('dest-dropdown');
-    var hidden   = document.getElementById('ef-destination');
-    if (!wrap || !trigger || !dropdown || !hidden) return;
+<h3>The white villages — Gaucín, Comares, Frigiliana</h3>
 
-    var placeholder = trigger.querySelector('.dest-placeholder');
-    var selected = [];
+<p>Beyond the principal coastal and near-inland sub-zones, the <strong>deeper white villages</strong> in the Serranía de Ronda and the Axarquía form a thinner but distinctive Costa del Sol address class. <strong>Gaucín</strong>, set at <strong>626 metres</strong> in the Serranía de Ronda inland from Estepona, is the highest of the white villages on the western Costa del Sol — a working Andalusian pueblo of roughly 1,500 residents around a Moorish castle ruin, with views running south to Gibraltar and the Atlas Mountains of Morocco on a clear day. <strong>Comares</strong>, perched at <strong>703 metres</strong> in the Axarquía inland of Málaga, is one of the most dramatic white villages on the eastern Costa del Sol, set on a high ridge with 360-degree views over the surrounding olive country. <strong>Frigiliana</strong>, set above Nerja on the far-eastern Costa del Sol, has been named one of Spain's most-preserved villages by multiple guides and retains a working Andalusian rhythm. The international buyer market in the deeper white villages is much thinner than on the coast — predominantly British, Dutch, German and Northern European, with a small but growing Scandinavian share — which makes the villages a notably more authentic and price-sensible entry point for buyers seeking the Andalusian-village lifestyle without the international resort scale of the central coast. <strong>Best for:</strong> buyers drawn to the most authentic deep-Andalusian village rhythm, owners whose use pattern centres on long shoulder-season stays and slow walks, and design-led couples seeking material distance from the coastal-resort intensity while remaining within an hour's drive of the Mediterranean.</p>
 
-    function render() {
-        /* Remove old tags */
-        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+</div></section>
 
-        if (selected.length === 0) {
-            placeholder.style.display = '';
-        } else {
-            placeholder.style.display = 'none';
-            selected.forEach(function(val) {
-                var tag = document.createElement('span');
-                tag.className = 'dest-tag';
-                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
-                trigger.insertBefore(tag, placeholder);
-            });
-        }
+<section class="dest-sec cream"><div class="dest-inner">
 
-        /* Update hidden field */
-        hidden.value = selected.join('; ');
+<h2>A year on the Costa del Sol</h2>
 
-        /* Update option highlights */
-        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
-            if (selected.indexOf(opt.dataset.value) !== -1) {
-                opt.classList.add('selected');
-            } else {
-                opt.classList.remove('selected');
-            }
-        });
-    }
+<p>Spreading <strong>45 days of personal use</strong> across a calendar year is itself a skill — and one of the unsung benefits of the Costa del Sol specifically is that the region's combination of <strong>320-plus days of annual sunshine</strong>, reliable warm winter days, comfortable shoulder seasons and warm but rarely oppressive summers gives an owner usable days across more of the year than almost any other European mainland destination. Below is a walk through the year with the particular weeks owners across the COP Costa del Sol portfolio return to most often. The pattern is broadly the same across all <strong>eight co-owners</strong> of a given property, with the calendar mechanics ensuring every owner gets a <strong>fair allocation of peak weeks</strong> across a multi-year cycle. Owners who are flexible enough to use shoulder and winter weeks — rather than competing for every week of August — consistently report a <strong>higher use-quality</strong> from their share than those who insist on peak.</p>
 
-    /* Toggle dropdown */
-    trigger.addEventListener('click', function(e) {
-        /* If clicking a tag X, remove that item */
-        if (e.target.classList.contains('dest-tag-x')) {
-            var val = e.target.dataset.val;
-            selected = selected.filter(function(v) { return v !== val; });
-            render();
-            e.stopPropagation();
-            return;
-        }
-        wrap.classList.toggle('open');
-    });
+<h3>Winter (December–February)</h3>
 
-    /* Click an option */
-    dropdown.addEventListener('click', function(e) {
-        var opt = e.target.closest('.dest-option');
-        if (!opt) return;
-        var val = opt.dataset.value;
-        var idx = selected.indexOf(val);
-        if (idx === -1) {
-            selected.push(val);
-        } else {
-            selected.splice(idx, 1);
-        }
-        render();
-        e.stopPropagation();
-    });
+<p>Winter is, for many seasoned Costa del Sol owners, the <strong>defining season</strong> — and the single strongest argument in favour of a Costa del Sol second home over any other European Mediterranean destination. The coastal strip from Marbella through Estepona runs at <strong>17–19°C (low to mid-60s°F) daytime highs</strong> through January and February at lake level, with <strong>300-plus days of annual sunshine</strong> producing reliable warm afternoons that no other European mainland coast can match in mid-winter. The Sierra Blanca and Sierra de Mijas mountains block the cold-front weather systems that bring rain to the Atlantic Spanish coast; the Marbella–Estepona corridor measures noticeably warmer, drier and sunnier in January than any of the major Mediterranean alternatives (the Côte d'Azur runs <strong>5–7°C colder</strong> at the same latitude through January, the Italian Lakes hold at <strong>0–6°C</strong> at coast level, the Algarve runs broadly parallel but with a denser Atlantic cloud pattern). <strong>December</strong> opens with the Spanish school holidays (the <em>Puente de la Constitución</em> in the first week, the long Christmas holiday from 22 December through 6 January) and a steady flow of Northern European winter-sun arrivals; the restaurant calendars run at full capacity through the Christmas-and-New-Year fortnight, the Marbella Old Town and Estepona Plaza de las Flores fill with the local Spanish families on the <em>Nochebuena</em> evening, and the Three Kings parade on 5 January (the <em>Cabalgata de Reyes</em>) is the year's most local public celebration along the entire coast.</p>
 
-    /* Close on outside click */
-    document.addEventListener('click', function(e) {
-        if (!wrap.contains(e.target)) {
-            wrap.classList.remove('open');
-        }
-    });
-})();
+<p><strong>January</strong> is the connoisseur's month — the post-Christmas quiet falls in the second week, restaurant tables in Marbella open up the same day you ask, the golf calendars run their fullest schedule of the year (the <a href="https://www.europeantour.com/dpworld-tour" target="_blank" rel="noopener">DP World Tour</a> European-season opening events on the Spanish circuit, the regional amateur championships, the <strong>Andalucía Open</strong> at Valderrama) and the long-distance walking routes along the coast and into the Sierra Blanca run at their best winter weeks. The water remains too cold for swimming at <strong>14–16°C (mid- to high-50s°F)</strong> through January and February, but the heated swimming-pool weeks have opened across the Marbella, Estepona and Sotogrande resorts with private heated pools, and the open-water swimming community along the Marbella beachfront runs through the entire winter for those acclimatised to colder water. <strong>February</strong> brings the carnival calendar (the <strong>Cádiz Carnival</strong> in the second week is a one-hour drive west of Sotogrande, the smaller carnivals across the white villages run the same fortnight) and the first signs of the lakefront-spring opening: the almond blossom across the Sierra Blanca foothills, the wisteria starting on the Marbella Old Town facades, the lemon trees in fruit across the Estepona old quarter. Northern European owners who time the Christmas-and-New-Year fortnight, the long January golf weeks or the February half-term break consistently name the deep winter as the favourite use-window of the entire year.</p>
 
-/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
-(function() {
-    var form = document.getElementById('expert-enquiry-form');
-    if (!form) return;
-    var btn = form.querySelector('.expert-submit-btn');
-    var msg = document.getElementById('expert-form-msg');
+<h3>Spring (March–May)</h3>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.textContent = 'Sending\u2026';
-        msg.className = 'expert-form-msg';
-        msg.textContent = '';
+<p>Spring is the lake's <strong>second peak season</strong> after the deep winter, and the one that delivers the most reliably perfect outdoor-living weather of the year on the central Costa del Sol. <strong>March</strong> opens with the spring-blossom calendar across the inland sierra: the wild rosemary and broom across the Sierra Bermeja, the orange-tree blossom across the Marbella Old Town and the Estepona Casco Antiguo, the regional <em>Día de Andalucía</em> public holiday on 28 February anchoring the start of the active spring season. <strong>Semana Santa</strong> (Holy Week, the week before Easter) is the year's most distinctive religious-cultural calendar across all of Andalusia — the <a href="https://www.malagaturismo.com/en/article/semana-santa-en-malaga-90" target="_blank" rel="noopener">Málaga Holy Week processions</a> are among the most spectacular in Spain, with the brotherhoods (the <em>cofradías</em>) carrying massive carved wooden floats through the city centre across the long evenings of the week, and Marbella, Estepona and the white villages run their own preserved processions on a smaller scale. The week runs at full peak — restaurant tables in the centre of Marbella, Sotogrande and Estepona tighten visibly, the coastal AP-7 motorway runs at its tightest non-summer day-trip weeks, and the hotel inventory across the entire coast runs at full capacity.</p>
 
-        var data = new FormData();
-        data.append('action', 'cop_expert_enquiry');
-        data.append('nonce',       form.querySelector('[name="nonce"]').value);
-        data.append('name',        form.querySelector('[name="name"]').value);
-        data.append('email',       form.querySelector('[name="email"]').value);
-        data.append('phone',       form.querySelector('[name="phone"]').value);
-        data.append('destination', form.querySelector('[name="destination"]').value);
-        data.append('budget',      form.querySelector('[name="budget"]').value);
-        data.append('message',     form.querySelector('[name="message"]').value);
+<p><strong>April</strong> is when the coast comes properly back to spring life — the daytime weather runs <strong>20–25°C (high 60s°F to high 70s°F)</strong> with warm afternoon sun and the cool morning and evening that the central coast retains through April, the gardens of the inland villas reach their full opening with the bougainvillea, jasmine and oleander all at peak, and the lake-edge restaurant calendars run their late-spring rhythm without the high-summer crowds. The <strong>Marbella Polo</strong> spring season opens at the Santa María Polo Club at Sotogrande, the long-distance hiking calendars across the Sierra de las Nieves reach their best walking weeks, and the surrounding wine regions (the Málaga sweet-wine country, the Ronda red-wine country) reach their tasting season. <strong>May</strong> is, on most measures, the connoisseur's month on the Costa del Sol — and one of the single most-requested shoulder months across the COP portfolio. The weather runs <strong>22–27°C (low to high 70s°F)</strong> through the day with cool evenings, the swimming season opens through the second half of the month as the sea reaches <strong>19–20°C (high 60s°F)</strong>, and the lake-edge restaurants run at full capacity but with the family-and-couples rhythm rather than the August party scene. Owners who plan their share-use around shoulder weeks consistently name April–May (and September–October, see below) as their favourite weeks of the entire year.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'expert-form-msg success';
-                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
-                form.reset();
-                btn.textContent = 'Sent!';
-                /* Clear destination tags */
-                var wrap = document.getElementById('dest-multiselect');
-                if (wrap) {
-                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-                    var ph = wrap.querySelector('.dest-placeholder');
-                    if (ph) ph.style.display = '';
-                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
-                }
-            } else {
-                msg.className = 'expert-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Send Enquiry';
-            }
-        })
-        .catch(function() {
-            msg.className = 'expert-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Send Enquiry';
-        });
-    });
-})();
-        // Show more properties
-        var showMoreBtn = document.getElementById('dest-show-more');
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', function() {
-                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
-                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
-            });
-        }
-    </script>
+<h3>Summer (June–August)</h3>
+
+<p>Summer is the <strong>peak high season</strong> on the entire Costa del Sol — and the months that anchor the value proposition of any Mediterranean second-home. <strong>June</strong> brings the proper Costa del Sol beach season: sea temperatures climb from <strong>20°C (high 60s°F)</strong> at the start of the month to <strong>22°C (low 70s°F)</strong> by the end, and the beach-front chiringuitos along the Marbella, Puerto Banús and Estepona beaches fill through the second half of the month. The <strong>Spanish school holidays begin in mid-June</strong> and run through mid-September, which gives the Costa del Sol a fourteen-week peak season that is materially longer than the Alpine ski season's eighteen weeks but with a more even daily rhythm. The European school holiday calendars overlap with the Spanish one through July and August in particular, which makes the coast the most internationally crowded it gets all year. <strong>July</strong> is the absolute peak — the lakefront villas run at full capacity from the first week, the cross-coast traffic runs its tightest summer rhythm, and the cultural calendars are at their fullest (the <a href="https://www.starlitemarbella.com/en/" target="_blank" rel="noopener">Starlite Marbella</a> open-air concert season opens in late June, the Marbella Film Festival in mid-July, the <strong>Sotogrande summer polo</strong> season opens at Santa María).</p>
+
+<p><strong>August</strong> is the densest month — the <strong>Feria de Málaga</strong> in the third week of August (one of the largest Andalusian summer ferias, with seven days of flamenco, public dancing in the Málaga old town and elaborate horse parades) is the single highest-density week of the year, with restaurant booking windows in the prime Marbella addresses stretching to four to six weeks ahead and the coastal AP-7 motorway running at the year's maximum. The lake water reaches its annual maximum of <strong>23–25°C (mid- to high-70s°F)</strong> through the second and third weeks of August; daytime air temperatures across the central coast reach into the <strong>30–34°C (high 80s°F to low 90s°F)</strong> range, with the lake's mountain-shelter giving the central addresses a several-degree advantage over the surrounding interior Andalusian plain (which can reach <strong>40°C / 104°F</strong> in the Cordoba and Sevilla valleys through the same fortnight). The <strong>Sotogrande International Polo Tournament</strong> at the Santa María Polo Club runs through the same weeks as Feria de Málaga, and the marina-front nights at Puerto Banús run at their year's peak. Owners who time the calendar to land Feria de Málaga or the early-August Sotogrande polo at the coast every two or three years (rather than every year) consistently find their use pattern more relaxed than those who try to anchor August every year. The <strong>cooler inland villages</strong> — Benahavís, Ojén, Casares, Gaucín — sit several degrees below the coastal heat through August and are particularly favoured by Northern European owners whose summer-temperature tolerance runs lower.</p>
+
+<h3>Autumn (September–November)</h3>
+
+<p>For many seasoned Costa del Sol owners, <strong>September is the favourite month of the entire year</strong>. The August crowds disperse from the first weekend of the month, the Spanish school year reopens through the second week, restaurant tables in Marbella and Puerto Banús take reservations again the same week you ask, and the lake water remains comfortably warm (still <strong>22–24°C / low to mid-70s°F</strong>) for swimming through the entire month. The weather runs <strong>24–28°C (mid- to low 80s°F)</strong> through the day with crisp early evenings; the cultural calendars carry their late-summer programmes (the <a href="https://www.festivaldemalaga.com/" target="_blank" rel="noopener">Málaga Festival</a> jazz programme, the Marbella Spanish-Film Festival, the autumn DP World Tour event at Valderrama). The <strong>autumn light</strong> on the Costa del Sol — particularly through the second half of September — is the warm horizontal sun that has drawn painters and photographers to the coast since the 1960s, the light flattering the white-village facades and the surrounding olive country in a way the sharper summer light does not.</p>
+
+<p><strong>October</strong> is the autumn shoulder month and one of the most rewarding weeks on the coast for owners with calendar flexibility. The Costa del Sol's first autumn weekly markets across Marbella, Estepona and Mijas run their full schedules, the grape harvest across the Ronda wine country (the <a href="https://www.turismoderonda.es/en/" target="_blank" rel="noopener">DO Sierras de Málaga</a> appellation, the Ronda red-wine country) runs through the first three weeks of the month, and the inland chestnut and olive harvests peak through the same window. The Costa del Sol golf calendar reopens after the August heat — the <strong>Andalucía Costa del Sol Open</strong> at Valderrama and the regional autumn opens at Finca Cortesín, Los Naranjos and La Reserva run through October, and the European amateur golf weeks bring a noticeable Northern European visitor rotation to the central coast. <strong>November</strong> is the genuine off-season but warmer than any other European mainland alternative — the lake water still holds at <strong>17–19°C (low 60s°F)</strong>, the daytime weather runs <strong>17–21°C (mid- to high-60s°F)</strong>, and the restaurant calendars across Marbella and Estepona run at three-quarter rhythm into the Christmas opening of the following month. The <strong>autumn rain season</strong> — the only consistent rain weeks of the Costa del Sol year — runs through mid-November in most years, with the coast picking up <strong>50–80 millimetres</strong> of rain over the month against the year-round average of just over <strong>500 millimetres</strong>. The result is that even the rainiest Costa del Sol weeks are usable outdoor-terrace days more often than not.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Who buys on the Costa del Sol, and why</h2>
+
+<p>The international buyer mix on the Costa del Sol is the <strong>most heavily UK-led and Northern-European-anchored of any Mediterranean coast in Europe</strong> — by a substantial margin. <strong>British buyers</strong> have anchored the Costa del Sol market since the early 1960s, when the first wave of post-war Northern European second-home buyers chose Marbella and the surrounding coast as the chosen winter-sun alternative to the colder British weather. The British community on the Costa del Sol is large enough to run its own English-language schools (<a href="https://www.swans.org.es/en/" target="_blank" rel="noopener">Sotogrande International School</a>, Aloha College, the British School of Marbella, Laude San Pedro), English-language Anglican parishes, English-language newspapers (<em>Sur in English</em>, the <em>Olive Press</em>), English-speaking GP and dental surgeries across all the major coastal towns, and the most established English-speaking second-home property services market in continental Europe. <strong>Scandinavian buyers</strong> — Swedes, Norwegians, Danes, Finns — concentrate heavily on the Mijas Costa corridor (Fuengirola in particular has a Finnish community of <strong>roughly 4,000 year-round residents</strong>), with the Scandinavian-speaking infrastructure running for fifty years. <strong>Dutch and Belgian buyers</strong> are a meaningful second cohort, concentrated on the Estepona–Sotogrande western coast and the inland sierra villages.</p>
+
+<p><strong>German, Swiss and Austrian buyers</strong> have been a steady cohort across the Costa del Sol for sixty years — the <em>Marbella Club</em> founding circle was substantially German and Austrian (Prince Alfonso von Hohenlohe-Langenburg himself was Austrian-born), and the central-European buyer share has remained strong on the prime Sierra Blanca, Nueva Andalucía and Sotogrande tier through every decade since. <strong>Middle-Eastern buyers</strong> have a long-standing presence on the prime Marbella tier (the Saudi royal family has held Marbella addresses since the 1970s, and the Sierra Blanca villa quarter remains one of the most internationally Arab-leaning prime addresses in Europe), with the Marbella mosque (the <a href="https://www.mezquitamarbella.com/" target="_blank" rel="noopener">Mezquita del Rey Abdul Aziz</a>) at the heart of the international Arab community on the central coast. <strong>North American buyers</strong>, historically a minority outside the Sotogrande tier, have grown sharply over the past decade — drawn to Marbella by the international resort infrastructure, to Sotogrande by the golf-and-polo community, and to Estepona by the value-relative-to-Marbella case. The <strong>Russian, Ukrainian and Eastern European buyer cohort</strong> has been a meaningful share of the prime Marbella tier since the late 1990s, with much of the post-2022 international cohort restructured around the broader sanctions environment.</p>
+
+<p><strong>Spanish buyers themselves</strong> remain a meaningful share of the international second-home market on the coast — particularly Madrid-based families on the Marbella–Estepona corridor (the Madrid–Málaga AVE high-speed rail run of two-and-a-half hours makes Marbella the natural Madrileño weekender), Sevillanos on the Estepona end of the coast, and a steady year-round Andalusian Spanish resident base across all the major coastal towns. The <strong>Madrileño-on-Marbella pattern</strong> is the strongest single domestic flow — many of the great Sierra Blanca villas of Marbella have been Madrid family addresses for two and three generations, and the coast serves as the family's winter-and-summer base rather than a holiday rental.</p>
+
+<p>The <strong>age-and-life-stage profile</strong> is in some respects more relevant than the nationality breakdown. The largest single buyer cohort across the COP Costa del Sol portfolio is in the <strong>45–60 age band</strong> — typically dual-income professional couples with school-age or recently graduated children whose Costa del Sol calendars centre on the summer and Easter school holidays plus winter half-term breaks, who value the operational simplicity of a fully managed villa, and for whom the long-term equity case of a Mediterranean home is part of a broader portfolio rather than a single-asset bet. The second-largest cohort is the <strong>55–70 age band</strong> — owners whose own primary income is established, whose children are at university or beyond (which gives them more calendar flexibility than the school-holiday-locked cohort), and whose long-run thinking on the Costa del Sol home runs to the next 15–20 years of winter-sun escape and shoulder-season use. The third cohort is the <strong>35–45 age band</strong> — younger buyers earlier in their portfolio, often pairing a Costa del Sol winter-sun share with an Alpine winter share or a summer-island share, and using the Costa del Sol property primarily through winter weekend escapes plus selected spring and autumn shoulder weeks.</p>
+
+<p>Within those nationalities, Costa del Sol co-ownership tends to suit a small number of well-defined buyer profiles:</p>
+
+<ul>
+  <li><strong>Active families with school-age children</strong> — typically using a Marbella, Estepona or Mijas Costa share around the Easter and summer school holidays plus winter half-term escapes, with the children returning to the same villa year after year so it becomes their second home rather than a holiday rental. The fully managed model removes the friction of running a coastal property remotely; the children return to familiar staff, familiar beach-edge restaurants, familiar swimming spots and familiar friends across the international school cohort.</li>
+  <li><strong>Empty-nesters and recent retirees from Northern Europe</strong> — particularly British, Scandinavian, Finnish, Dutch, Belgian and German, who use their share in long winter and shoulder-season blocks (December through March for the winter sun, April–May and September–October for the warm spring and autumn) rather than competing for the August peak. The 55–70 cohort is the heart of this demographic and the deepest single layer of Costa del Sol residents.</li>
+  <li><strong>Multi-generational groups</strong> — four- and five-bedroom villas on Sierra Blanca, in Sotogrande or above Estepona that sleep grandparents, parents, children and partners in the same week. The fractional model deals with extended-family calendar coordination better than a whole-ownership model, particularly when the family spans multiple countries with different school-holiday calendars.</li>
+  <li><strong>Golf-led buyers choosing Sotogrande, Benahavís or Mijas Costa</strong> — owners who treat the depth of the <strong>70-plus golf-course infrastructure</strong> as the primary destination driver, who plan calendar weeks around Valderrama, Finca Cortesín, La Reserva and the Benahavís Golf Triangle, and who value the year-round playable conditions that no other European golf-coast can match.</li>
+  <li><strong>Design-led couples choosing Marbella Old Town, Estepona or the white villages</strong> — owners who treat the Andalusian village rhythm, the preserved Casco Antiguo of either coastal town, or the inland sierra-village character as the primary destination, who book repeat shorter stays around the long shoulder seasons, and who value proximity to the Marbella–Málaga restaurant scene as much as the swimming itself.</li>
+  <li><strong>Four-season Costa del Sol enthusiasts</strong> — owners drawn to the coast specifically for the genuine deep-winter usability that the Costa del Sol offers and that other European Mediterranean alternatives cannot match. This cohort uses the share more evenly through the year than the August-only buyer and is the single most-satisfied profile across the COP portfolio.</li>
+</ul>
+
+<p>A pattern worth highlighting is the <strong>multi-region buyer</strong> — Costa del Sol owners who hold a second COP share elsewhere. The most common combination is <strong>Costa del Sol plus Alpine</strong> (a winter-sun Mediterranean villa plus a French Alps or Swiss Alps winter chalet). The second-most-common is <strong>Costa del Sol plus summer-island</strong> (a Costa del Sol winter-sun villa plus a Mallorca or Ibiza deep-summer finca). Less common but increasingly observed is the <strong>Costa del Sol plus city</strong> pattern (a Costa del Sol coastal home plus a Madrid or London apartment for repeat short cultural stays through the year). The fractional model makes that portfolio strategy practical: <strong>two 1/8 shares cost less than a single whole property</strong> at either of the addresses individually, and the management relationship across the portfolio is unified, which removes the multi-jurisdiction friction.</p>
+
+<div class="dest-callout">
+  <strong>The portfolio pattern:</strong> the Costa del Sol is one of the single most common starting points for COP owners who go on to hold a second share elsewhere — both because the winter-sun and shoulder-season calendar pairs naturally with a summer-island share or a winter Alpine share, and because the same LLC framework applies across every COP property, making a multi-region portfolio operationally simpler than the equivalent across two or three different ownership vehicles. The heavy British, Scandinavian, Dutch and Belgian buyer mix means the Costa del Sol is particularly well-represented in the inbound buyer flow from the established Northern European second-home demographic.
+</div>
+
+<p>What unites these otherwise quite different buyer profiles is the <strong>underlying calculation</strong>: the Costa del Sol weeks each of them actually uses in a year are within the <strong>6–7 weeks</strong> a 1/8 share delivers, the operational overhead of running a Mediterranean home remotely is non-trivial in any of the major coastal towns (and notably higher in the prime villas at the prime addresses because of the year-round garden maintenance, the pool maintenance, the security, the seasonal opening and the autumn-rain-driven maintenance load), and the <strong>resale liquidity of a fractional share</strong> inside a managed portfolio is — in our experience across the COP network — <strong>markedly higher</strong> than the resale liquidity of a whole property at the same address. The Costa del Sol is a market where the maths of fractional ownership lines up <strong>almost perfectly</strong> with the use pattern of the buyer.</p>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Málaga AGP, Gibraltar, Seville — and the resort transfers</h3>
+
+<p><a href="https://www.aena.es/en/malaga.html" target="_blank" rel="noopener">Málaga–Costa del Sol Airport (AGP)</a> is the principal gateway airport for the entire Costa del Sol, and one of the most internationally connected airports in southern Europe. AGP sits 8 kilometres west of Málaga city on the eastern Mijas Costa, with year-round direct service from London, Manchester, Edinburgh, Dublin, Amsterdam, Brussels, Paris, Frankfurt, Munich, Berlin, Zurich, Vienna, Copenhagen, Stockholm, Oslo, Helsinki and dozens of further European cities; year-round and seasonal long-haul service runs to New York Newark, Montreal and Toronto. <a href="https://www.gibraltar-airport.com/" target="_blank" rel="noopener">Gibraltar International Airport (GIB)</a>, sitting on the Spanish-Gibraltar border 20 minutes' drive from Sotogrande, handles year-round British Airways and easyJet service from London Heathrow, London Gatwick and Manchester — the most convenient air gateway for the western Costa del Sol. <a href="https://www.aena.es/en/sevilla.html" target="_blank" rel="noopener">Seville (SVQ)</a>, two-and-a-half hours' drive west of Sotogrande, is the useful alternative for owners arriving from Atlantic or Iberian routes; <a href="https://www.aena.es/en/jerez.html" target="_blank" rel="noopener">Jerez (XRY)</a> is similarly placed for the western coast.</p>
+
+<p>Drive times from <a href="https://www.aena.es/en/malaga.html" target="_blank" rel="noopener">Málaga–Costa del Sol airport</a> to the major sub-zones are short. <strong>Torremolinos</strong> is <strong>15 minutes</strong>; <strong>Fuengirola and El Higuerón</strong> are <strong>20–25 minutes</strong>; <strong>Mijas Costa and Calahonda</strong> are <strong>25–30 minutes</strong>; <strong>Marbella town</strong> is <strong>40 minutes</strong>; <strong>Puerto Banús and Nueva Andalucía</strong> are <strong>45 minutes</strong>; <strong>Estepona</strong> is <strong>50 minutes</strong>; <strong>Benahavís</strong> is <strong>45 minutes</strong> via the AP-7 motorway; <strong>Sotogrande</strong> is <strong>1 hour 15 minutes</strong> at the western end of the coast. From <a href="https://www.gibraltar-airport.com/" target="_blank" rel="noopener">Gibraltar</a> to Sotogrande is <strong>20 minutes</strong>; to Estepona <strong>30 minutes</strong>; to Marbella <strong>50 minutes</strong>. Most owners pre-arrange a private transfer rather than renting a car at the airport — particularly through the high-summer months when the AP-7 runs close to capacity — through the established multilingual transfer operators that have been working the Málaga-to-coast routes for decades. The Costa del Sol is also accessible by direct <a href="https://www.renfe.com/es/en" target="_blank" rel="noopener">Renfe AVE</a> high-speed rail: Madrid Atocha to Málaga María Zambrano is <strong>2 hours 30 minutes</strong>, putting the entire Costa del Sol within a single train journey of central Madrid; Madrid to Córdoba is <strong>1 hour 45 minutes</strong> on the same line; Madrid to Sevilla is <strong>2 hours 30 minutes</strong>. The Spanish suburban rail (the <em>Cercanías C-1</em>) runs between Málaga centre, the airport, Torremolinos, Benalmádena and Fuengirola at <strong>20-minute intervals</strong>, giving Mijas Costa owners a direct rail connection to AGP without driving.</p>
+
+<h3>Whole-property vs 1/8 share: the comparison</h3>
+
+<p>The case for a fractional structure on the Costa del Sol is most clearly seen in the <strong>side-by-side comparison</strong> against both whole ownership and long-term rental — the three ways most international buyers actually consider holding a Mediterranean second home.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full taxes, insurance, management, maintenance</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 4–8)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">6–24 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The comparison most buyers find most telling is the <strong>annual-carry line</strong>. Owning a whole Marbella Sierra Blanca villa or a Sotogrande golf villa outright means carrying full IBI and non-resident income tax, full building insurance, full property-management retainer, full garden and pool maintenance, full security and alarm, full reserve fund — every year, whether you spend two weeks on the coast or twelve. A 1/8 fractional share carries proportionally less, fully managed, with the operational burden lifted entirely. Compared to renting a similar villa long-term, you build real equity rather than burning rent — and the share is yours to sell, transfer, or pass on.</p>
+
+<p>The other line worth examining is the <strong>time-to-sell</strong>. Whole-property resale in the Costa del Sol prime tier — Sierra Blanca, Sotogrande Alto, Benahavís hillside villas, the first-line Marbella Golden Mile — is genuinely slow. The buyer pool at the top tier is small, well-informed and unhurried; a Sierra Blanca villa going to market today might sit for <strong>12–24 months</strong> before transacting, and the carrying costs of holding a whole Costa del Sol villa through a slow open-market sale can add up to a meaningful fraction of the sale price by the time it closes. A fractional share, by contrast, typically clears in <strong>around a month or less</strong> across the COP portfolio because the buyer pool is already aware of the property, the LLC structure and the management framework, and the transfer of an LLC membership interest is a more direct mechanical action than a full Spanish escritura conveyance. The carrying-cost differential between a quick professional exit and a slow open-market exit can easily exceed the headline transaction-fee difference between fractional and whole ownership.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual carry on a 1/8 Costa del Sol share is, by definition, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — which means it's a fraction of what an outright Costa del Sol second-home owner pays in taxes, insurance, management and maintenance, and a fraction of what year-round long-term rental of an equivalent villa would cost. It is best understood as a <strong>single all-in number</strong> that covers everything required to keep the property operating at full standard regardless of who is or isn't in residence. The included items typically run to: <strong>IBI</strong>, the Spanish municipal property tax (the <em>Impuesto sobre Bienes Inmuebles</em>, applied at municipal rates by each ayuntamiento on all second residences); <strong>basura</strong> and other municipal household-service charges; the Spanish non-resident income tax (the <em>Impuesto sobre la Renta de No Residentes</em>) where applicable; building and contents insurance for the furniture and fittings; the full property-management retainer covering staff, scheduling and owner relationship; cleaning and linen between every stay; pre-arrival garden preparation, terrace cleaning, pool opening and seasonal opening; landscaping and pool maintenance through the active season; minor maintenance and repairs under a defined threshold; utility bills (electricity, water, internet, gas, alarm monitoring); the <em>cuotas de comunidad</em> fees in apartment buildings and gated developments; and a contribution to the <strong>reserve fund for major capital works</strong> (roof, heating, structural, terrace water-proofing, pool replacement). What is typically <strong>not included</strong>: large capital improvements (kitchen replacement, major bathroom refurbishment) which are decided by the LLC's annual general meeting and funded either from the reserve fund or from a one-off levy; personal staff costs (a private chef booked for an owner's stay, a private driver beyond the standard transfer, a boat-charter day); damage caused by an owner's own use; and unusually high-volume utility use during peak personal stays. The point is that the annual figure is not a "running cost" in the open-property sense but a <strong>comprehensive operating budget</strong> that covers the property in active condition all year — including the year-round garden upkeep, the pool service, the security monitoring, the autumn-rain-driven maintenance load — that an owner of a Costa del Sol villa running the property remotely would otherwise have to organise themselves.</p>
+
+<div class="dest-callout">
+  <strong>The carry-cost reality:</strong> the carry on an outright Costa del Sol villa stacks up across IBI municipal taxes, basura household-service charges, non-resident income tax, building and contents insurance, garden and pool maintenance, alarm and security, utilities, the <em>cuotas de comunidad</em> in gated developments and apartment buildings, and a year-round property-management retainer — paid in full every year regardless of how many weeks you actually spend on the coast. A 1/8 fractional share carries roughly 1/8 of that total, fully managed, with the operational burden lifted entirely.
+</div>
+
+<h3>What you actually own — the legal share</h3>
+
+<p>The <strong>legal nature</strong> of a Costa del Sol co-ownership share is one of the questions buyers should understand fully before purchase. Every Costa del Sol property on COP is held in a <strong>purpose-built LLC</strong> — the same modern international ownership vehicle used across COP's destinations — in which you and up to seven co-owners hold <strong>equal LLC membership interests</strong>. The underlying Spanish property is held by the company, with the title registered at the <strong>Registro de la Propiedad</strong> (the Spanish land registry) and the cadastral position recorded at the local <strong>Catastro</strong> (the Spanish cadastre, administered by the <a href="https://www.hacienda.gob.es/en-GB/Paginas/Home.aspx" target="_blank" rel="noopener">Spanish Ministry of Finance</a>); your membership interest is recorded in the company's register, with transfer effected on resale or inheritance through a <strong>clean, well-documented administrative process</strong> rather than the heavier title-conveyance route required for direct Spanish real estate through a notary's escritura.</p>
+
+<p><strong>The practical effect</strong> is that you hold a <strong>real, registered, transferable equity interest</strong> — not a timeshare, not a points membership, not a usage right. You can sell through the <strong>established resale process</strong> or to a qualifying outside buyer; you can leave it to your children under your home jurisdiction's inheritance rules (with Spanish succession-law overlay where applicable, particularly the reserved-share regime for direct-line heirs); and you <strong>participate proportionally in any appreciation</strong> in the underlying Costa del Sol property's market value. Because the framework is consistent across every property on COP, owners who go on to buy a second or third share — whether elsewhere in Spain or in another country entirely — find themselves dealing with the same documentation, the same administrative cadence, and the same management relationship across the whole portfolio.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works on the Costa del Sol</h2>
+
+<p>The mechanics of fractional ownership on the Costa del Sol are framed by <strong>three things that work together</strong>: the <strong>purpose-built LLC ownership structure</strong> used to hold every property on COP, the <strong>Spanish property-tax regime</strong> that applies to all secondary residences (including the IBI municipal property tax, the non-resident income tax, and the capital-gains and wealth taxes that apply to international buyers), and the well-developed <strong>Registro de la Propiedad</strong> system that handles registration of the underlying property at the Spanish land registry. The LLC is the modern international vehicle through which you and up to seven other owners hold the property; the Spanish taxes are the standard local taxes that any non-resident second-home owner pays; and the Registro — together with the local <strong>Catastro</strong> cadastral records — is the long-running record-of-record system, with documentary precedent traceable to the nineteenth-century mortgage-law reforms that established the modern Spanish land-registration framework, that gives the underlying real estate its documentary clarity. Understanding how these three pieces fit together is the difference between a <strong>clear, predictable ownership experience</strong> and one the buyer feels uncertain about.</p>
+
+<h3>How the LLC structure holds Costa del Sol property</h3>
+
+<p>The LLC that holds each Costa del Sol property is a <strong>purpose-built company</strong> designed for international shared ownership. It has a managing officer appointed under the company's governing documents, a <strong>register of members</strong> recording who holds which interest and in what proportion, and an <strong>annual general meeting</strong> at which owner-level decisions (major capital works, budget, manager review) are made. The same LLC framework runs across COP's destinations in the <strong>United States, the United Kingdom, France, Spain, Italy</strong> and elsewhere — meaning an owner adding a second property in another country is <strong>not learning a new ownership structure each time</strong>, but extending one they already understand.</p>
+
+<p>For a fractional buyer on the Costa del Sol, the practical effect is that you become a <strong>registered member of the LLC</strong> that owns the property, holding <strong>one of eight equal membership interests</strong>. The property itself remains Spanish — registered at the Registro de la Propiedad by the LLC, which is the legal owner of record, with the cadastral position recorded at the local Catastro — and you, in turn, are a legal owner of the LLC. What you hold is a <strong>transferable equity interest</strong> in the underlying real estate — not a timeshare use-right that depreciates to zero when the contract expires, not a points-club membership, not a fractional holiday club. This <strong>two-step structure</strong> is what gives Costa del Sol co-ownership on COP its <strong>single consistent international format</strong> across every market COP covers, its <strong>cleaner cross-border inheritance treatment</strong> than directly deeded shared ownership, and its <strong>faster resale path</strong>: a transfer of LLC membership is a more direct administrative action than triggering a full Spanish escritura through a notary.</p>
+
+<h3>Tax basics: IBI, non-resident income tax, capital gains, wealth tax</h3>
+
+<p>Spain operates a <strong>relatively transparent property-tax framework</strong> for non-resident owners on the Costa del Sol, and almost all of the routine compliance is handled through the LLC and its appointed Spanish <em>asesor fiscal</em> (tax adviser) rather than by the individual owner. <strong>IBI</strong> (the <em>Impuesto sobre Bienes Inmuebles</em>, the municipal property tax) is the annual property tax paid by the owner of the property — in this case the LLC — calculated on the cadastral value (the <em>valor catastral</em>) as recorded at the Catastro, with rates set by each ayuntamiento within the national framework (typical IBI rates on second residences run from roughly 0.4% to 1.1% of the cadastral value depending on the municipality). The Costa del Sol ayuntamientos — Málaga, Marbella, Estepona, Benahavís, Fuengirola, Mijas, Manilva, San Roque (for Sotogrande), Casares — each set their own rate. IBI is paid by the LLC from the annual service charge collected from co-owners, so <strong>individual owners never deal with the local tax office directly</strong>. <strong>Basura</strong> (the household waste tax) and other municipal household-service charges are similarly handled at the LLC level and included in the annual service charge.</p>
+
+<p>The Spanish <strong>non-resident income tax</strong> (the <em>Impuesto sobre la Renta de No Residentes</em>, IRNR, administered through the <a href="https://sede.agenciatributaria.gob.es/Sede/en_gb/non-residents.html" target="_blank" rel="noopener">Agencia Tributaria</a>) is the principal Spanish national tax that applies to non-resident owners of Spanish real estate. For non-resident owners who do not rent out their property, the IRNR is calculated as a notional imputed rental income (a fixed percentage of the cadastral value, typically 1.1% or 2%) taxed at the non-resident rate (currently 19% for EU/EEA residents and 24% for non-EU residents). For owners who do rent out, the actual rental income is taxed instead, with EU/EEA residents able to deduct expenses (mortgage interest, maintenance, insurance) and non-EU residents typically taxed on the gross. Spanish <strong>capital-gains tax</strong> on resale is administered through the same Agencia Tributaria framework — direct property sales by non-residents face the same 19% or 24% rate depending on jurisdiction. A transfer of LLC membership interest is administered differently and typically faces <strong>lower transactional friction</strong>, though the precise treatment always depends on the buyer's home jurisdiction and the relevant bilateral tax treaty. The Spanish <strong>wealth tax</strong> (the <em>Impuesto sobre el Patrimonio</em>) applies to non-resident owners of Spanish assets above the statutory threshold set each year (with substantial scope for regional variation across Andalusia and the recent <em>Impuesto Temporal de Solidaridad sobre las Grandes Fortunas</em> overlay); it is normally handled at the LLC level through the asesor fiscal and forms part of the annual service charge where applicable. We recommend any international buyer review the specific position with their own tax counsel before purchase.</p>
+
+<h3>Inheritance and Spanish succession law</h3>
+
+<p>Directly held Spanish real estate is subject to <strong>Spanish inheritance and gift tax</strong> (the <em>Impuesto sobre Sucesiones y Donaciones</em>), with rates and allowances varying substantially by autonomous region — Andalusia is one of the more generous regions on this front, with substantial direct-line allowances and the recent reforms providing near-zero effective inheritance tax for direct-line heirs in many cases. Spain's <strong>forced-heirship</strong> regime (the <em>legítima</em>) is a defining feature of the Spanish succession system: it reserves a fixed minimum share of the deceased's estate for direct-line heirs — broadly two-thirds of the estate for descendants, with the surviving spouse holding a separate usufruct right over part of the reserved share. The legítima applies to Spanish real estate held directly by a Spanish-resident decedent and has historically been one of the more complex aspects of holding Spanish property for international buyers with home-jurisdiction succession arrangements that differ from the Spanish model.</p>
+
+<p>The <strong>2015 EU Succession Regulation (Brussels IV)</strong> gave EU residents the option to elect their home-country succession law for their estates; non-EU residents (US, UK post-Brexit, Canadian, Australian buyers) can also elect under the same regulation, with some limitations. <strong>LLC membership interests</strong> are treated as <strong>movable rather than immovable property</strong> under most bilateral interpretations, which can give them a different succession treatment from directly held Spanish real estate — again, this is jurisdiction-specific and requires personal tax advice. The point worth making here is that the LLC structure gives <strong>more flexibility</strong> on the succession question than direct ownership, not less, particularly for international buyers whose home-jurisdiction wishes may not align with the strict Spanish forced-heirship allocation.</p>
+
+<h3>The professional management calendar and how scheduling works</h3>
+
+<p>Once the purchase completes, a <strong>professional management company</strong> takes over all operational responsibility for the Costa del Sol property. Your personal weeks — <strong>approximately 45 days</strong> for a 1/8 share — are allocated through a <strong>fair-rotation calendar</strong> that mixes peak weeks (the Christmas-and-New-Year fortnight, the Easter Semana Santa week, the Feria de Málaga in August, the Sotogrande August polo, the Marbella film festival in October) with shoulder-season and quieter weeks across the year. Owners pre-book several months ahead; the unused weeks are either held for the owner pool or, where the property's structure allows, rented to the broader market with the income flowing back to the co-owners. Service-charge collection, building maintenance, insurance, IBI and basura payments, the linen-and-cleaning between stays, the pre-arrival garden and pool preparation, the welcome arrival, the on-call concierge — <strong>all sit with the management company</strong>. The deep multilingual operations ecosystem across the major Costa del Sol towns — six decades old in Marbella and Estepona, fifty years deep on the Mijas Costa Scandinavian corridor — means that the routine practical realities of owning a villa remotely on the Costa del Sol are handled by professionals who have been catering to non-resident owners for generations.</p>
+
+<h3>Resale: how to exit, typical timelines, the professional process</h3>
+
+<p>When you decide to exit your Costa del Sol share, a <strong>professional resale process</strong> is in place. Across COP's portfolio, the typical timeline from listing to completion is <strong>around a month or less</strong> — well under the <strong>12–24 months</strong> that whole-property resales typically take on the Costa del Sol's open market for the prime tier. The process is well-supported, the buyer pool is already aware of the property and the LLC structure, and the transfer of LLC membership is administratively lighter than triggering a full notarial escritura through a Spanish notary. For owners who want maximum control over the price and process, an open-market sale to any qualifying buyer remains an option — but most owners find the established process faster and cheaper.</p>
+
+<div class="dest-callout">
+  <strong>Free to browse, free to enquire:</strong> no buyer-side fees and no obligation. The share price you see is the share price you pay; talking to our specialists costs nothing.
+</div>
+
+<p>The <strong>full mechanics of fractional ownership</strong> across all jurisdictions — usage calendars, exit procedures, rental income treatment, insurance, the transfer on death, the relationship with the management company — are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>. For specific Costa del Sol property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market.</p>
+
+<h3>Your ownership at a glance</h3>
+
+<ul>
+  <li><strong>Real, deeded equity in the underlying property</strong> — the villa itself is registered at the Spanish Registro de la Propiedad via the LLC, with the cadastral position recorded at the local Catastro, and your membership interest is a real, transferable equity stake in that property. Not a timeshare, not a points membership, not a usage right.</li>
+  <li><strong>Consistent international structure</strong> — your Costa del Sol share sits inside the same purpose-built LLC framework used across every property on COP, so multi-country owners deal with one model rather than a stack of different vehicles, with the same documentation cadence and the same administrative process from Marbella to Mallorca.</li>
+  <li><strong>Professional management included throughout</strong> — year-round garden and pool maintenance, security and alarm monitoring, linen and cleaning between every stay, IBI and basura tax compliance, insurance and the on-call concierge are all covered within your annual service charge, with no top-up bills for routine operating costs.</li>
+  <li><strong>Clear, supported resale through the COP owner network</strong> — the existing audience of co-ownership buyers means your share has an organised market from day one, with exits across the portfolio typically clearing in around a month at a known price rather than the 12–24 months a comparable whole villa might sit on the Costa del Sol's open market.</li>
+  <li><strong>One consistent international portfolio relationship</strong> — whether you own one COP share or several across different countries, you deal with the same ownership structure, the same documentation cadence and the same management relationship, which is why a meaningful proportion of owners go on to add a second or third property.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Still deciding which Costa del Sol spot?</h2>
+
+<p>Many readers arrive on this page already <strong>half-decided</strong> — they want the Costa del Sol, but not yet which Costa del Sol address. The choice between Marbella, Sotogrande, Estepona, Benahavís, the Mijas Costa and the white villages is <strong>rarely about budget alone</strong>; the major sub-zones sit in overlapping price bands once you compare like-for-like quality at the prime tier. The decisive question is <strong>usage pattern</strong>. How will you actually spend your weeks across a calendar year — and how does that pattern map onto the climate, the airport transfer time, the buyer mix and the day-to-day rhythm of each sub-zone? The honest answer for most buyers is one most have not previously articulated, because the question rarely arises until ownership becomes concrete. Our team has spent years inside the Costa del Sol second-home market and can walk you through the regional differences — climate, calendar, owner mix, day-to-day rhythm — before you commit to a sub-zone. Below is the framework we walk through with buyers who reach the same fork, with deliberate over-simplification — most owners actually end up combining elements from more than one — but useful as a starting point.</p>
+
+<p><strong>Choose Marbella and the Golden Mile — Sierra Blanca, Nueva Andalucía or the Casco Antiguo</strong> — if your primary use pattern is built around the <strong>single most internationally recognised Spanish-coastal address</strong>, the deepest stock of luxury Mediterranean villa and apartment infrastructure in Europe, and the prestige of the Marbella name itself. Sierra Blanca works hardest for owners who value the prime-villa hillside above the Golden Mile and the dramatic Mediterranean views; Nueva Andalucía for golf-led families drawn to the Golf Valley courses; the Marbella Old Town for design-led couples drawn to the Plaza de los Naranjos rhythm and the preserved Andalusian core; Puerto Banús for owners whose use pattern centres on the marina nightlife and the high-summer party season. Unlike a traditional timeshare, a Costa del Sol share gives you an equity stake in the underlying villa — not a fixed week in a fixed property year after year — which is precisely why the prestige-driven Marbella tier suits the fractional model so well.</p>
+
+<p><strong>Choose Sotogrande</strong> — Sotogrande Costa, Sotogrande Alto, the Marina district or La Reserva — if your dominant priorities are the <strong>most established gated golf-and-polo community in Europe</strong>, the multi-generational family-resort character built across six decades, the proximity to Valderrama and the European Tour golf calendar, and the short cross-frontier drive from Gibraltar airport. Sotogrande Alto works hardest for owners drawn to the prime-villa hillside; Sotogrande Costa for families with the beach-edge and original-community rhythm; the Marina district for owners whose use pattern centres on the deep-water harbour and the family-resort calendar; La Reserva for buyers drawn to the newest-tier residential extension and the modern beach-club. Unlike a traditional timeshare, the Sotogrande share gives you genuine equity in the underlying generational asset.</p>
+
+<p><strong>Choose Estepona</strong> — the Casco Antiguo, the New Golden Mile or the beachfront promenade — if you want the <strong>most authentic working-Andalusian coastal town</strong> with full second-home infrastructure, the preserved old centre with the painted-flower lanes and the public-mural programme, the long beach promenade, and the proximity to Gibraltar and the western Costa del Sol amenities. The Casco Antiguo works hardest for design-led couples drawn to the preserved Andalusian architecture; the New Golden Mile for families and retirees drawn to the contemporary resort developments at materially lower price points than the Marbella Golden Mile; the beachfront promenade for owners whose use pattern centres on the daily beach-and-restaurant rhythm.</p>
+
+<p><strong>Choose Benahavís and the inland sierra villages — Ojén, Mijas Pueblo, Casares</strong> — if your dominant priorities are the <strong>most authentic Andalusian-village rhythm with same-day access to the coast</strong>, the cooler summer evenings and dramatic coastal views from elevation, and (for golf-led owners) the densest concentration of championship golf courses on the Costa del Sol. Benahavís works hardest for the dining-and-golf-led owner profile; Ojén for buyers drawn to the most authentic village rhythm within ten minutes of Marbella; Mijas Pueblo for the family-resort buyer who values the donkey-taxi-and-cliff-edge-bullring rhythm; Casares for the photography-and-Andalusian-architecture-led buyer drawn to the white-village cascade.</p>
+
+<p><strong>Choose Mijas Costa</strong> — Fuengirola, El Higuerón or Calahonda — if you want the <strong>Costa del Sol climate and infrastructure without the Marbella entry-price premium</strong>, the short twenty-minute drive from Málaga airport for weekend-feasible travel, and the deepest Northern European resident community on the Spanish coast. El Higuerón works hardest for design-led families drawn to the resort-tier amenities and the contemporary architectural pattern; Fuengirola for the long-established working-town rhythm and the deep Scandinavian community; Calahonda for the practical mid-tier resort corridor between Málaga and Marbella. Like a traditional timeshare, the Costa del Sol resort tier offers stay-rotation across multiple buildings; unlike a timeshare, a Mijas Costa share gives you a registered equity stake in one specific property rather than a use-right in a generic pool.</p>
+
+<p><strong>Choose the white villages — Gaucín, Comares, Frigiliana</strong> — if your dominant priorities are the <strong>most authentic deep-Andalusian village rhythm</strong>, materially lower entry prices than the coastal sub-zones, and the deep-rural Sierra setting that runs an hour inland from the Mediterranean. Gaucín works hardest for the design-led couple drawn to the highest of the western white villages; Comares for the dramatic-ridge-view profile; Frigiliana for owners who treat the eastern Costa del Sol — Nerja, the Axarquía — as the primary lifestyle. The white villages are also — unlike a traditional timeshare, which locks you into one week in one property year after year — easy to combine with a coastal-sub-zone share, since the cross-sierra drives are short and the same Málaga airport serves all of the central coast and the inland country.</p>
+
+<div class="dest-callout">
+  <strong>The decision shortcut:</strong> if your dominant use is prestige + luxury Mediterranean infrastructure + four-season town life, choose Marbella. If it is gated-community + golf-and-polo + family-multigenerational rhythm + Gibraltar proximity, choose Sotogrande. If it is authentic Andalusian town + preserved old centre + value vs Marbella, choose Estepona. If it is inland-village rhythm + golf-Triangle + Marbella proximity, choose Benahavís or Ojén. If it is short-AGP-drive + family-resort + Scandinavian community + value vs Marbella, choose Mijas Costa. If it is most authentic deep-Andalusian rhythm + materially lower entry + Sierra-setting, choose the white villages. If it is two of the above, the multi-share approach is often more economical than scaling up to a single whole property at any one address.
+</div>
+
+<p>The <strong>portfolio approach</strong> is worth at least mentioning. A meaningful proportion of Costa del Sol co-ownership owners hold <strong>more than one share</strong> — either elsewhere in Spain (a Mallorca summer finca for the deep Mediterranean weeks, an Ibiza summer apartment, a Costa Blanca beach villa for the family-resort weeks) or further afield (a French Alps winter chalet, a Tuscan farmhouse for the long autumn weeks, a Paris apartment for repeat short cultural stays). For owners building a multi-region portfolio with COP, you have <strong>one team across every destination</strong> — the same advisors, the same calendar mechanics, the same resale process across every property you own. <strong>Two 1/8 shares</strong> — a Costa del Sol winter-sun villa plus a French Alps winter chalet, say — give an owner <strong>roughly 90 days of use</strong> across a calendar year, drawn from genuinely different lifestyle modes, at a combined annual carry that is <strong>still a fraction of what a single whole property</strong> at either address would cost.</p>
+
+<p>Whichever way the decision goes, the deeper exploration starts on the cluster and parent pages:</p>
+
+<ul>
+  <li><a href="/spain-fractional-ownership-properties/">Explore Spain →</a></li>
+  <li><a href="/spanish-costas-fractional-ownership-properties/">Explore the Spanish Costas →</a></li>
+  <li><a href="/costa-blanca-fractional-ownership-properties/">Explore Costa Blanca →</a></li>
+  <li><a href="/costa-de-la-luz-fractional-ownership-properties/">Explore Costa de la Luz →</a></li>
+</ul>
+
+<p>If you would like to talk through <strong>which Costa del Sol sub-zone best fits your family's actual use pattern</strong> — rather than the brochure version of it — <a href="#newsletter">join our list</a> and we will be in touch with relevant new-property alerts and an introduction to the team.</p>
+
+</div></section>
+
 </body>
 </html>

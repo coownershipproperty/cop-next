@@ -14,6 +14,45 @@ Verification grep: `grep -ic "andhamlet\|vivla\|myne\|pacaso\|&Hamlet" "$FILE"` 
 
 ---
 
+## Rule 1.5 — Single "tour" of property types + places per page
+
+David flagged in May 2026 that the rhetorical pattern of listing property types in specific places — `[type] in [place], [type] in [place], [type] in [place]` — was repeating **three times** per pillar across:
+
+1. **Hero subtitle** ("From a Belle Époque villa above Menaggio… to a Sirmione townhouse… to a Stresa palazzo…")
+2. **Mid-CTA** ("Fully managed villas, apartments and townhouses across Lake Como (Bellagio, Menaggio, Tremezzina…), Lake Garda (Sirmione, Salò…)…")
+3. **§A snippet** ("Fractional ownership on the Italian Lakes means buying a deeded 1/8 share of a luxury lakefront second home — a Belle Époque villa above Menaggio, a Sirmione townhouse, a Stresa palazzo…")
+
+That's the same listing three times in 200 words. Drop two of them.
+
+**Rule**: the tour appears **once** — in the hero subtitle. Then:
+
+- **Mid-CTA paragraph**: list the high-level cluster names only, no parenthetical sub-zone enumeration. Good: `"Fully managed villas, apartments and townhouses across <strong>Lake Como, Lake Garda and Lago Maggiore</strong>"`. Bad: `"Fully managed villas, apartments and townhouses across <strong>Lake Como</strong> (Bellagio, Menaggio, Tremezzina, Como town, Domaso), <strong>Lake Garda</strong> (Sirmione, Salò, Gardone Riviera, Bardolino, Malcesine, Riva del Garda)…"`
+- **§A snippet**: describe the property in adjective form only, no enumeration. Good: `"means buying a deeded 1/8 share of a luxury lakefront second home — held in a purpose-built LLC alongside up to seven other co-owners"`. Bad: `"means buying a deeded 1/8 share of a luxury lakefront second home — a Belle Époque villa above Menaggio on Lake Como, a Sirmione townhouse on the Lake Garda peninsula, a Stresa palazzo facing the Borromean Islands — held in a purpose-built LLC…"`
+
+Pick a single descriptor for the snippet: "Mediterranean", "alpine", "lakefront", "Mediterranean island", "sun-coast", "Andalusian coastal", etc.
+
+The §B "Where to own" sub-zones can still tour the destination — that's the section's whole point. This rule only applies to §A/hero/mid-CTA.
+
+Verification: snippet line (with `means buying a deeded` / `bedeutet, einen eingetragenen` / `consiste en adquirir` / `consiste à acquérir`) should have **at most 2 em-dashes**. More than 2 = an interjection still in place.
+
+---
+
+## Rule 1.6 — "Up to seven other co-owners", not "seven other co-owners"
+
+Buyers often acquire multiple shares (one buyer takes 2/8 or 3/8), so the actual number of distinct co-owners is often fewer than seven. Phrasing "seven other co-owners" as a flat fact reads as too rigid.
+
+**Canonical phrasings:**
+- EN: `alongside up to seven other co-owners` / `you and up to seven other owners`
+- DE: `gemeinsam mit bis zu sieben weiteren Miteigentümern` / `Sie und bis zu sieben weitere Miteigentümer`
+- ES: `junto a un pequeño grupo de copropietarios (hasta siete en total)` / `tú y un pequeño grupo de propietarios (hasta siete en total)`
+- FR: `aux côtés d'un petit groupe de copropriétaires (sept au maximum)` / `vous et un petit groupe de copropriétaires (sept au maximum)`
+
+The 1/8 share structure is still defined in §F and the comparison table — this rule is just about tone in the snippet, LLC callout, anti-timeshare callout, §F legal-nature paragraph, and §F mechanics paragraph.
+
+Verification: `grep -P '(?<!up to )seven (other |your |)owners|(?<!up to )seven (other |your |)co-owners' "$FILE"` → must return 0 hits. (Perl regex needed for lookbehind.)
+
+---
+
 ## Rule 2 — LLC, never SCI / SRL / Sociedad Limitada / comunidad de bienes
 
 COP holds every property — regardless of country — in a purpose-built LLC. NEVER reference national legal vehicles even when describing a country-specific page.
