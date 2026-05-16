@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { getFavSlugs, onFavsChange } from '@/lib/favs';
-import { localeFromPath, t, SUPPORTED_LOCALES, localizedPath, canonicalEnglishKey, PROPERTY_URL_PREFIX } from '@/lib/i18n';
+import { localeFromPath, t, SUPPORTED_LOCALES, localizedPath, canonicalEnglishKey, PROPERTY_URL_PREFIX, destinationAvailableIn } from '@/lib/i18n';
 
 // Per-locale URL prefixes for dynamic-route page families. Used by the
 // language switcher to translate the current URL when no static ROUTE_MAP
@@ -33,13 +33,29 @@ const DYNAMIC_URL_FAMILIES = [
 // (404). Block these explicitly.
 const LOCALE_ROOT_PATHS = new Set(['/', '/es/', '/fr/', '/de/']);
 
+// Every destination slug ends with one of these suffixes (audit the corpus:
+// `-fractional-ownership-properties` is the canonical pattern; a handful of
+// older slugs use `-fractional-ownership` or longer variants like
+// `-fractional-ownership-miami` / `-fractional-ownership-emerald-coast-...`).
+// We use this to detect EN destination URLs without false-positive-matching
+// every single-segment root path.
+const DESTINATION_SLUG_RE = /-fractional-ownership(-|$)/;
+
 function detectDynamicFamily(path, currentLocale) {
   if (LOCALE_ROOT_PATHS.has(path)) return null;
   for (const fam of DYNAMIC_URL_FAMILIES) {
     const prefix = fam.prefixes[currentLocale];
     if (!prefix) continue;
-    // Match prefix at start; the rest is the slug (+ optional trailing /)
-    if (currentLocale === 'en' && fam.family === 'destinations') continue; // EN destinations are root-level, ambiguous
+    if (currentLocale === 'en' && fam.family === 'destinations') {
+      // EN destinations live at /{slug}/ (root level). Only match when the
+      // single-segment slug looks like a destination slug — otherwise every
+      // root-level page would be misdetected (/about-us/, /contact/, etc.).
+      const slug = path.replace(/^\//, '').replace(/\/$/, '');
+      if (slug && !slug.includes('/') && DESTINATION_SLUG_RE.test(slug)) {
+        return { family: fam.family, slug, prefixes: fam.prefixes };
+      }
+      continue;
+    }
     if (path.startsWith(prefix)) {
       const slug = path.slice(prefix.length).replace(/\/$/, '');
       if (slug && !slug.includes('/')) {
@@ -281,9 +297,13 @@ function LanguageSwitcher({ currentLocale, currentPath, desktopOnly = false }) {
     if (dyn) {
       const prefix = dyn.prefixes[loc];
       if (!prefix) return null;
-      // For destinations the EN equivalent is at /{slug}/ (root level) —
-      // skip cross-link to EN until we add a wrapper there.
-      if (dyn.family === 'destinations' && loc === 'en') return null;
+      // Destinations: only link if the target locale actually has the page.
+      // FR has 5 country pillars; ES has none; DE has all 48. EN is the
+      // canonical set (always renderable at /{slug}/ via pages/[slug].js).
+      if (dyn.family === 'destinations') {
+        if (!destinationAvailableIn(dyn.slug, loc)) return null;
+        return `${prefix}${dyn.slug}/`;
+      }
       return `${prefix}${dyn.slug}/`;
     }
     return localizedPath(englishPath, loc);
