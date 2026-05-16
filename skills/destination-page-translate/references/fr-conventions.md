@@ -48,7 +48,7 @@ Possessives: "votre bien", "votre part", "vos vacances".
 | service charge | **charges annuelles** / **forfait de gestion annuel** | "charges annuelles" reads cleanly |
 | resale | **revente** | the standard term |
 | deeded share / real equity | **part actée** / **véritable patrimoine immobilier** | reinforces "this is real property, not a timeshare" |
-| timeshare / multipropriété | **multipropriété** / **timeshare** | "multipropriété" is the French term but "timeshare" is universally understood. Use multipropriété in body copy. |
+| timeshare / multipropriété | **multipropriété** (primary), **timeshare** (English loan, mention once per section) | See "Timeshare positioning" section below — we now use this word HEAVILY as strategic contrast, not just in the snippet line. |
 | rotation calendar | **calendrier de rotation équitable** | |
 | concierge | **conciergerie** / **concierge** | both work |
 | equity | **patrimoine** / **capital** / **plus-value** | "patrimoine" for general capital/wealth context |
@@ -63,12 +63,42 @@ Possessives: "votre bien", "votre part", "vos vacances".
 - **"fair-rotation calendar"** → "calendrier de rotation équitable"
 - **"professional management team"** → "équipe de gestion professionnelle"
 - **"real, recorded property equity"** → "véritable patrimoine immobilier acté à votre nom"
-- **"not a timeshare, not a holiday club"** → "ce n'est ni de la multipropriété, ni un club de vacances"
+- **"not a timeshare, not a holiday club"** → "ce n'est ni de la multipropriété, ni un timeshare, ni un club de vacances" (include both terms — MYNE-style timeshare-contrast positioning)
 - **"fully managed"** → "entièrement géré" / "gestion intégrale"
 - **"6–7 weeks of personal use a year"** → "6 à 7 semaines d'utilisation personnelle par an"
 - **"single international portfolio relationship"** → "une seule relation internationale pour votre portefeuille"
 - **"~1 month on average"** → "environ un mois en moyenne"
 - **"free to browse, free to enquire"** → "Consultation libre, contact libre" or "L'exploration et la prise de contact sont sans engagement"
+
+---
+
+## Timeshare positioning (MYNE-style strategic contrast — IMPORTANT)
+
+MYNE leads heavily on a "this is NOT timeshare" framing because (a) "timeshare/multipropriété" is the highest-volume search term in this category, and (b) it's the mental category most prospective buyers compare us against. We adopt the same approach.
+
+**Primary French term: `multipropriété`** (dominant SEO). **Also include**: `timeshare` (English loan, French luxury audience knows it — use once per section for international searchers).
+
+### Required mentions per pillar
+
+Every French pillar MUST include the contrast in at least these spots:
+
+1. **§A snippet** — the existing line: "ce n'est ni de la multipropriété, ni un timeshare, ni un club de vacances"
+2. **§A LLC contrast callout** (NEW — see template below) — placed immediately after the existing "La LLC en une phrase" callout
+3. **§F mechanics** — when describing what you actually own, contrast against timeshare: "une participation patrimoniale transmissible — non un droit d'usage de multipropriété qui se déprécie à zéro à l'expiration du contrat"
+4. **§F "Votre détention en un coup d'œil" bullets** — first bullet should reinforce: "...ce n'est ni de la multipropriété, ni une adhésion à points, ni un droit d'usage"
+5. **§G decision section** — at least one reference to "à la différence de la multipropriété traditionnelle"
+
+### Required callout template (insert after the LLC callout in §A)
+
+```html
+<div class="dest-callout">
+  <strong>Ce n'est pas de la multipropriété (timeshare) :</strong> la multipropriété — ou timeshare — vous vend un <em>droit d'usage</em> du bien pour une semaine définie chaque année, généralement par un contrat à terme et sans valeur de revente. Une part COP vous vend une <strong>participation patrimoniale enregistrée</strong> dans le bien lui-même, à travers une LLC dans laquelle vous et sept autres copropriétaires êtes titulaires à part égale. Elle est transmissible, transmissible par héritage, se valorise avec le bien sous-jacent, et se vend via un processus professionnel en environ un mois — exactement l'inverse de la multipropriété.
+</div>
+```
+
+### Tone
+
+Don't be defensive about timeshare. Be matter-of-fact about the contrast and confident about why the COP model is structurally different (equity vs use-right, transferable vs locked-in, appreciates vs depreciates). MYNE's framing is: "we own; timeshare uses." Match that.
 
 ---
 
@@ -116,7 +146,7 @@ Possessives: "votre bien", "votre part", "vos vacances".
   - **propriétaire** — NEVER touch (means "owner", not "property")
 - **AVOID SCI / SARL / SCCV / société civile immobilière** — these are French legal vehicles. We use the international LLC framework. Banned per Rule 2 of the rewrite skill.
 - **AVOID "biens immobiliers"** when "biens" alone reads cleaner — both are correct but "biens" is more luxury-real-estate. Use "biens immobiliers" only when disambiguating.
-- **AVOID literal "temps partagé"** as translation of timeshare — outdated, dry. Use "multipropriété" or "timeshare".
+- **AVOID literal "temps partagé"** as translation of timeshare — outdated, dry. Use **"multipropriété"** as primary and **"timeshare"** as secondary mention per the Timeshare positioning section above.
 - **Mind gender agreement** — "bien" is masculine. After the propriété→bien sweep we did a grammar pass to fix la→le, une→un, cette→ce, de la→du, à la→au, vraie→vrai, espagnoles/italiennes/françaises/européennes→masculine forms. Translations must use masculine agreement: "le bien", "un bien", "ce bien", "du bien", "au bien", "vrai bien", "biens espagnols", etc.
 
 ---

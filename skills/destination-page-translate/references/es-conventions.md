@@ -50,7 +50,7 @@ Don't mix tú and usted within the SAME paragraph.
 | service charge | **cuota anual de servicios** / **gastos comunes** | "cuota de servicios" is cleanest |
 | resale | **reventa** | the standard term |
 | deeded share / real equity | **fracción escriturada** / **patrimonio inmobiliario real** | reinforces "this is real property, not a timeshare" |
-| timeshare / multipropiedad | **multipropiedad** / **timeshare** | "multipropiedad" is the Spanish word but "timeshare" is universally understood. Use multipropiedad. |
+| timeshare / multipropiedad | **multipropiedad** (primary), **timeshare** (English loan, mention once per section), **tiempo compartido** (LatAm colloquial, mention once on page) | See "Timeshare positioning" section below — we now use this word HEAVILY as a strategic contrast point, not just in the snippet line. |
 | rotation calendar | **calendario de rotación** | |
 | concierge | **concierge** / **conserjería** | "concierge" works in Spanish luxury context |
 | equity | **patrimonio** / **plusvalía** | "patrimonio" for capital/wealth; "plusvalía" specifically for capital gains |
@@ -65,12 +65,42 @@ Don't mix tú and usted within the SAME paragraph.
 - **"fair-rotation calendar"** → "calendario de rotación equitativo" (or just "sistema de rotación")
 - **"professional management team"** → "equipo de gestión profesional"
 - **"real, recorded property equity"** → "patrimonio inmobiliario real, escriturado a tu nombre"
-- **"not a timeshare, not a holiday club"** → "no es multipropiedad, no es un club de vacaciones"
+- **"not a timeshare, not a holiday club"** → "no es multipropiedad ni un timeshare, no es un club de vacaciones" (include both terms — MYNE-style timeshare-contrast positioning)
 - **"fully managed"** → "totalmente gestionado" / "gestión integral"
 - **"6–7 weeks of personal use a year"** → "6 a 7 semanas de uso personal al año"
 - **"single international portfolio relationship"** → "una sola relación internacional para tu cartera"
 - **"~1 month on average"** → "alrededor de un mes de media"
 - **"free to browse, free to enquire"** → "Explora gratis, consulta gratis" (Vivla-style direct address)
+
+---
+
+## Timeshare positioning (MYNE-style strategic contrast — IMPORTANT)
+
+MYNE leads heavily on a "this is NOT timeshare" framing because (a) "timeshare/multipropiedad/tiempo compartido" is the highest-volume search term in this category, and (b) it's the mental category most prospective buyers compare us against. We adopt the same approach.
+
+**Primary Spanish term: `multipropiedad`** (the legal Spanish term, dominant SEO in Spain). **Also include**: `timeshare` (English loan, used once per section to capture international searchers) and `tiempo compartido` (LatAm colloquial — high volume in Mexico, include at least once on the page).
+
+### Required mentions per pillar
+
+Every Spanish pillar MUST include the contrast in at least these spots:
+
+1. **§A snippet** — the existing line: "no es multipropiedad ni un timeshare, no es un club de vacaciones"
+2. **§A LLC contrast callout** (NEW — see template below) — placed immediately after the existing "La LLC en una frase" callout
+3. **§F mechanics** — when describing what you actually own, contrast against timeshare ownership rights: "una participación patrimonial transmisible — no un derecho de uso de multipropiedad que se deprecia a cero al expirar el contrato"
+4. **§F "Tu propiedad de un vistazo" bullets** — first bullet should reinforce: "...no es multipropiedad, no es una afiliación de puntos, no es un derecho de uso"
+5. **§G decision section** — when describing what makes the model right, at least one reference to "a diferencia de la multipropiedad tradicional"
+
+### Required callout template (insert after the LLC callout in §A)
+
+```html
+<div class="dest-callout">
+  <strong>Esto no es multipropiedad (timeshare):</strong> la multipropiedad — también conocida como tiempo compartido o timeshare — te vende un <em>derecho de uso</em> de la casa durante una semana determinada cada año, normalmente con contrato que expira y sin valor de reventa. Una fracción COP te vende una <strong>participación patrimonial registrada</strong> en la propia casa, a través de una LLC en la que tú y otros siete copropietarios sois titulares al mismo nivel. Es transmisible, heredable, se revaloriza con la casa subyacente, y se vende a través de un proceso profesional en alrededor de un mes — exactamente lo opuesto a la multipropiedad.
+</div>
+```
+
+### Tone
+
+Don't be defensive about timeshare. Be matter-of-fact about the contrast and confident about why the COP model is structurally different (equity vs use-right, transferable vs locked-in, appreciates vs depreciates). MYNE's framing is: "we own; timeshare uses." Match that.
 
 ---
 
@@ -113,7 +143,7 @@ Don't mix tú and usted within the SAME paragraph.
 - **Avoid "propiedades"** as the default term for "properties" — Vivla uses "casas" and "viviendas". "Propiedades" is fine in legal context ("derechos de propiedad", "Registro de la Propiedad") but never as the catch-all noun for what we sell.
 - **Avoid "comunidad de bienes"** — that is the Spanish legal vehicle (NOT what we use). Banned per Rule 2 of the rewrite skill.
 - **Avoid "sociedad limitada (S.L.)"** — Spanish LLC equivalent. We use the international LLC framework, not S.L.
-- **Avoid "tiempo compartido"** as a translation of timeshare — it's literal but feels dated. Use "multipropiedad" or "timeshare" directly.
+- **"tiempo compartido"** is acceptable as a SECONDARY mention (it's the higher-volume search term in Latin America, particularly Mexico) — include it once per page alongside "multipropiedad" and "timeshare" to capture all three search variants. But "multipropiedad" remains the PRIMARY term in Spain-facing copy.
 - **Avoid the literal "uso compartido"** for shared use — Vivla uses "Propiedad compartida, Uso exclusivo" (paradoxically: the property is shared, the use is exclusive to your weeks). Match this framing.
 
 ---

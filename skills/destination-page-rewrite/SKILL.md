@@ -172,13 +172,41 @@ Place IMMEDIATELY after `<section class="dest-sec cream"><div class="dest-inner"
 
 ---
 
+## Step 6b — Timeshare-contrast positioning (MYNE-style — REQUIRED on every pillar)
+
+"Timeshare" is the highest-volume search term in this category and the mental model most prospective buyers compare us against. MYNE leads heavily on a "this is NOT timeshare" framing for that reason. We do the same.
+
+### Required mentions per pillar
+
+Every EN pillar MUST include the contrast in at least these spots:
+
+1. **§A snippet** — already covered by the existing line "not a timeshare, not a holiday club" in Step 6
+2. **§A timeshare-contrast callout** (NEW — see template below) — placed immediately after the existing "LLC in one line" callout
+3. **§F mechanics** — when describing what you actually own, contrast against timeshare ownership rights: "a transferable equity interest — not a timeshare use-right that depreciates to zero when the contract expires"
+4. **§F "Your ownership at a glance" bullets** — first bullet should reinforce: "...not a timeshare, not a points membership, not a usage right"
+5. **§G decision section** — at least one reference to "unlike a traditional timeshare" or similar
+
+### Required callout template (insert after the LLC callout in §A)
+
+```html
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare.
+</div>
+```
+
+### Tone
+
+Don't be defensive about timeshare. Be matter-of-fact about the contrast and confident about why the COP model is structurally different (equity vs use-right, transferable vs locked-in, appreciates vs depreciates). MYNE's framing is: "we own; timeshare uses." Match that.
+
+---
+
 ## Step 7 — "Your ownership at a glance" 5-bullet list at end of §F (POSITIVE FRAMING)
 
 Replace any "things to verify before signing" or similar negative-framed list with this positive pattern. Adapt the country-specific bits but keep the structure:
 
 ```html
 <ul>
-  <li><strong>Real, deeded equity in your name</strong> — your 1/8 share is recorded in [country]'s land registers, transferable, inheritable, and it appreciates with the underlying property.</li>
+  <li><strong>Real, deeded equity in your name</strong> — your 1/8 share is recorded in [country]'s land registers, transferable, inheritable, and it appreciates with the underlying property. Not a timeshare, not a points membership, not a usage right.</li>
   <li><strong>Consistent international structure</strong> — your [country] share sits inside the same purpose-built LLC framework COP uses for properties worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.</li>
   <li><strong>Fully managed throughout</strong> — the management company handles taxes, insurance, maintenance, scheduling, linen, the on-call concierge. You arrive, the property is ready.</li>
   <li><strong>Supported resale through COP's owner network</strong> — when you decide to exit, the managed-resale path connects you to the existing wait list and broader buyer pool, typically clearing in 2–3 months.</li>

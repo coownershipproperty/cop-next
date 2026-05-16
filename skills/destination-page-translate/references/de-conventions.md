@@ -44,7 +44,7 @@ Possessives: "Ihr Anteil", "Ihre Immobilie", "Ihr Aufenthalt" (capital I — for
 | service charge | **Servicepauschale** / **Betriebskostenpauschale** | "Servicepauschale" reads cleaner |
 | resale | **Wiederverkauf** | the standard term |
 | deeded share / real equity | **eingetragener Anteil** / **echtes Eigentumsrecht** | reinforces the "this is real property, not a timeshare" point |
-| timeshare | **Timeshare** | kept English; the German equivalent "Teilzeitnutzungsrecht" is correct but feels bureaucratic |
+| timeshare | **Timesharing** (primary, German use of English root, dominant SEO), **Timeshare** (interchangeable) | See "Timeshare positioning" section below — we now use this word HEAVILY as strategic contrast, MYNE-style. Avoid bureaucratic "Teilzeitnutzungsrecht". |
 
 ---
 
@@ -56,11 +56,41 @@ Possessives: "Ihr Anteil", "Ihre Immobilie", "Ihr Aufenthalt" (capital I — for
 - **"fair-rotation calendar"** → "fair rotierender Belegungskalender" or "fair geregelter Buchungskalender"
 - **"professional management team"** → "professionelles Verwaltungsteam"
 - **"real, recorded property equity"** → "echtes, eingetragenes Eigentumsrecht an Immobilien"
-- **"not a timeshare, not a holiday club"** → "kein Timeshare, kein Holiday Club"
+- **"not a timeshare, not a holiday club"** → "kein Timesharing, kein Timeshare, kein Holiday Club" (include both German variants — MYNE-style timeshare-contrast positioning)
 - **"fully managed"** → "vollständig verwaltet" or "Rundum-Verwaltung"
 - **"6–7 weeks of personal use a year"** → "6 bis 7 Wochen persönlicher Nutzung pro Jahr"
 - **"single international portfolio relationship"** → "eine einzige internationale Portfolio-Beziehung"
 - **"~1 month on average"** → "im Durchschnitt rund einen Monat"
+
+---
+
+## Timeshare positioning (MYNE-style strategic contrast — IMPORTANT)
+
+MYNE leads heavily on a "this is NOT Timesharing" framing because (a) "Timesharing/Timeshare" is the highest-volume search term in this category in German, and (b) it's the mental category most prospective buyers compare us against. We adopt the same approach.
+
+**Primary German term: `Timesharing`** (dominant SEO, what Germans search). **Also use**: `Timeshare` interchangeably. Avoid `Teilzeitnutzungsrecht` (legally correct but bureaucratic).
+
+### Required mentions per pillar
+
+Every German pillar MUST include the contrast in at least these spots:
+
+1. **§A snippet** — the existing line: "kein Timesharing, kein Timeshare, kein Holiday Club"
+2. **§A LLC contrast callout** (NEW — see template below) — placed immediately after the existing "LLC in einem Satz" callout
+3. **§F mechanics** — when describing what you actually own, contrast against Timesharing: "ein übertragbarer Eigentumsanteil — kein Timesharing-Nutzungsrecht, das bei Vertragsende auf null abschreibt"
+4. **§F "Ihr Eigentum auf einen Blick" bullets** — first bullet should reinforce: "...kein Timesharing, keine Punkte-Mitgliedschaft, kein Nutzungsrecht"
+5. **§G decision section** — at least one reference to "im Unterschied zum klassischen Timesharing"
+
+### Required callout template (insert after the LLC callout in §A)
+
+```html
+<div class="dest-callout">
+  <strong>Das ist kein Timesharing:</strong> Timesharing — auch Timeshare genannt — verkauft Ihnen ein <em>Nutzungsrecht</em> an der Immobilie für eine festgelegte Woche pro Jahr, typischerweise mit befristetem Vertrag und ohne Wiederverkaufswert. Ein COP-Anteil verkauft Ihnen einen <strong>eingetragenen Eigentumsanteil</strong> an der Immobilie selbst, über eine LLC, an der Sie und sieben weitere Miteigentümer gleichberechtigt beteiligt sind. Er ist übertragbar, vererbbar, wertsteigerungsfähig im Einklang mit der zugrunde liegenden Immobilie, und wird über einen professionellen Prozess in rund einem Monat verkauft — genau das Gegenteil von Timesharing.
+</div>
+```
+
+### Tone
+
+Don't be defensive about Timesharing. Be matter-of-fact about the contrast and confident about why the COP model is structurally different (Eigentum vs Nutzungsrecht, übertragbar vs gebunden, wertsteigerungsfähig vs auf null abschreibend). MYNE's framing is: "wir besitzen; Timesharing nutzt." Match that.
 
 ---
 
