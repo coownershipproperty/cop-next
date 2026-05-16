@@ -28,7 +28,7 @@ export default function APropos() {
       <section className="page-hero">
         <p className="eyebrow">Notre histoire</p>
         <h1>À <em>propos</em></h1>
-        <p className="subtitle">Rencontrez l'équipe dédiée à rendre la copropriété de résidence secondaire de luxe accessible, transparente et intelligente.</p>
+        <p className="subtitle">Rencontrez notre équipe dirigeante dédiée à rendre la copropriété de résidence secondaire de luxe plus accessible et transparente.</p>
       </section>
 
       <div className="press-bar" role="region" aria-label="Vu dans">
@@ -62,7 +62,7 @@ export default function APropos() {
           <p className="eyebrow">Qui sommes-nous</p>
           <h2>Une agence pour la <em>copropriété</em> premium</h2>
           <p>Depuis 2022, Co-Ownership Property se consacre exclusivement aux résidences secondaires en copropriété premium dans les destinations les plus prisées au monde.</p>
-          <p>Agissant à 100% du côté de l'acheteur, nous collaborons uniquement avec les opérateurs les plus réputés, transparents et professionnellement gérés en Europe et aux États-Unis. Nous ne sommes liés à aucune plateforme ni promoteur en particulier. Si un bien ne répond pas à nos standards, elle n'apparaît pas sur ce site.</p>
+          <p>Nous sommes à 100% du côté de l'acheteur, et collaborons uniquement avec les opérateurs les plus réputés et transparents en Europe et aux États-Unis. Nous ne sommes liés à aucune plateforme ni promoteur en particulier. Si un bien ne répond pas à nos standards, il n'apparaît pas sur ce site.</p>
         </div>
       </section>
 
@@ -78,7 +78,7 @@ export default function APropos() {
               </div>
               <h3>David Olsson</h3>
               <span className="team-role">Fondateur</span>
-              <p className="team-bio">Plus de 20 ans à vendre des biens premium de ski dans plus de 40 stations alpines françaises. David a vu le marché se transformer alors que les clients qui pouvaient autrefois acheter étaient progressivement écartés. Il a fondé COP en 2022 parce qu'il croyait que les biens exceptionnelles devaient appartenir à ceux qui les aiment — pas seulement à ceux qui peuvent se les offrir intégralement.</p>
+              <p className="team-bio">Plus de 20 ans à vendre des biens premium à la montagne (principalement dans le neuf) dans plus de 40 stations des Alpes françaises. David a vu le marché se transformer alors que les clients qui pouvaient autrefois acheter étaient progressivement écartés par les prix de plus en plus élevés. Il a fondé COP en 2022 parce qu'il pensait que les biens exceptionnels devaient aussi être accessibles à ceux qui les aiment — pas seulement à ceux qui peuvent se les offrir.</p>
             </div>
             <div className="team-card">
               <div className="team-photo">
@@ -86,7 +86,7 @@ export default function APropos() {
               </div>
               <h3>Dylan Olsson</h3>
               <span className="team-role">Ventes</span>
-              <p className="team-bio">Élevé entre Londres et Marbella, avec des racines dans quatre pays, Dylan a grandi avec un sens instinctif de l'acheteur international. Après avoir obtenu son diplôme en business à l'Université de Manchester, il s'est donné pour mission de combler l'écart entre l'aspiration et la réalité — rendant les maisons de vacances haut de gamme accessibles à plus de personnes via une approche transparente centrée sur le client.</p>
+              <p className="team-bio">Élevé entre Londres et Marbella, avec des racines dans quatre pays, Dylan a grandi dans le milieu de la vente à l'international. Après avoir obtenu son diplôme en business à l'Université de Manchester, il s'est donné pour mission de combler l'écart entre l'aspiration et la réalité — rendant les maisons de vacances haut de gamme accessibles à plus de personnes via une approche transparente, plus centrée sur les besoins du client.</p>
             </div>
             <div className="poppy-card">
               <div className="team-photo">
@@ -95,7 +95,7 @@ export default function APropos() {
               <div>
                 <h3 style={{color: '#fff'}}>Poppy</h3>
                 <span className="team-role">Responsable sécurité</span>
-                <p className="team-bio">Tolérance zéro envers les écureuils, les facteurs et les chats non autorisés. Connue pour accepter des pots-de-vin sous forme de cheddar ou de caresses au ventre.</p>
+                <p className="team-bio">Tolérance zéro envers les écureuils, les facteurs et les chats non autorisés. Connue pour accepter des pots-de-vin sous forme de Caprice des Dieux ou de caresses prolongées.</p>
               </div>
             </div>
           </div>
@@ -111,9 +111,9 @@ export default function APropos() {
             <div className="story-text">
               <p className="eyebrow">Pourquoi nous avons commencé</p>
               <h2>Un marché qui laissait <em>des gens de côté</em></h2>
-              <p>David a passé plus de deux décennies à vendre des biens premium dans les Alpes françaises. Au début, les taux hypothécaires français étaient inférieurs à 2%, les durées s'étendaient à 25 ans, et les prix dans les stations alpines — bien que jamais bon marché — gardaient un rapport raisonnable avec ceux de Paris. Acheter un bien de ski était une aspiration réaliste pour une famille de cadres.</p>
-              <p>Ce monde a progressivement disparu. Entre 2017 et 2022, les prix dans les stations les plus convoitées ont augmenté de 30 à 50%, dépassant dans certaines zones les prix au mètre carré parisiens. Le chalet à Méribel, l'appartement à Chamonix — étaient devenus le territoire des acheteurs comptant.</p>
-              <blockquote>Les clients avec qui je travaillais depuis des années voulaient toujours acheter — ils ne pouvaient simplement plus se le permettre. Ils étaient simplement écartés par les prix.
+              <p>David a passé plus de deux décennies à vendre des biens premium dans les Alpes françaises. Au début, les taux hypothécaires français étaient inférieurs à 2%, les durées s'étendaient à 25 ans, et les prix dans les stations alpines — bien que jamais bon marché — gardaient un rapport raisonnable avec ceux de Paris. Acheter un bien à la montagne était une aspiration réaliste pour une famille de cadres de classe moyenne.</p>
+              <p>Ce monde a progressivement disparu. Entre 2017 et 2022, les prix dans les stations les plus convoitées ont augmenté de 30 à 50%, dépassant dans certaines zones les prix au mètre carré parisiens. Le chalet à Méribel, l'appartement à Chamonix — étaient devenus le territoire des acheteurs cash avec de très gros moyens.</p>
+              <blockquote>Les clients avec qui je travaillais depuis des années voulaient toujours acheter — ils ne pouvaient simplement plus se le permettre. Ils étaient écartés par les nouveaux prix au m².
                 <span className="quote-attr">David Olsson — Fondateur</span>
               </blockquote>
             </div>
@@ -126,11 +126,11 @@ export default function APropos() {
           <div className="story-grid">
             <div className="story-text">
               <p className="eyebrow">La solution</p>
-              <h2>Une meilleure façon de <em>posséder</em></h2>
-              <p>Là où un bien alpine entière nécessite désormais plus de 800 000 €, une quote-part fractionnée met la vrai bien à portée à partir d'environ 100 000 €. Vous possédez une part enregistrée d'un bien premium, elle prend de la valeur avec le marché, et vous décidez quand vendre.</p>
+              <h2>Une manière plus logique de <em>posséder sa résidence secondaire</em></h2>
+              <p>Là où un bien alpin entier nécessite désormais plus de 800 000 €, une quote-part fractionnée met le vrai bien à portée à partir d'environ 100 000 €. Vous possédez une part enregistrée d'un bien premium, il prend de la valeur avec le marché, et vous décidez quand vendre.</p>
               <p>Une seule quote-part de 1/8 vous donne six semaines d'usage par an — 45 jours. Le propriétaire moyen d'une résidence secondaire utilise son bien seulement 35 jours par an, donc une quote-part dépasse déjà l'usage personnel typique.</p>
-              <p>Et rien ne vous empêche d'aller plus loin : achetez deux quotes-parts de la même bien, ou combinez une quote-part dans un chalet alpin avec une autre dans une villa à Ibiza. Les biens fonctionnent indépendamment, la structure de bien est la même, et votre calendrier vous appartient.</p>
-              <blockquote>La résidence secondaire moyenne reste vide 330 jours par an. Une quote-part vous donne plus de temps dans un bien exceptionnelle — pour une fraction du coût.</blockquote>
+              <p>Et rien ne vous empêche d'aller plus loin : achetez deux quotes-parts dans le même bien, ou combinez une quote-part dans un chalet alpin avec une autre dans une villa à Ibiza. Les biens fonctionnent indépendamment, la structure est la même, et votre calendrier vous appartient.</p>
+              <blockquote>La résidence secondaire moyenne reste vide 330 jours par an. Une quote-part vous donne plus de temps dans un bien exceptionnel — pour une fraction du coût.</blockquote>
             </div>
             <div className="story-img">
               <Image src="/wp-content/uploads/2025/11/ibiza-villa.jpg" alt="Villa à Ibiza avec piscine" fill quality={90} style={{objectFit:"cover"}} sizes="(max-width: 900px) 100vw, 50vw" />
