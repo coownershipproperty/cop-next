@@ -33,7 +33,7 @@ const COPY = {
   },
   fr: {
     heading: 'Soyez les premiers informés',
-    subtitle: 'Rejoignez notre communauté pour recevoir nos propriétés exclusives et analyses de destinations directement dans votre boîte mail.',
+    subtitle: 'Rejoignez notre communauté pour recevoir notre offre exclusive et nos analyses de destinations directement dans votre boîte mail.',
     placeholder: 'Votre adresse email',
     button_idle: "M'inscrire",
     button_sending: 'Envoi en cours…',

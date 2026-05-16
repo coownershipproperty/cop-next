@@ -48,7 +48,7 @@ const FOOTER_LINKS = {
   },
   fr: {
     discover: [
-      { href: '/fr/proprietes/',         label: 'Toutes les propriétés' },
+      { href: '/fr/proprietes/',         label: 'Notre offre' },
       { href: '/fr/comment-ca-marche/',  label: 'Comment ça marche' },
       { href: '/fr/a-propos/',           label: 'À propos' },
       { href: '/all-our-blog/',          label: 'Blog' },

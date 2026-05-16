@@ -75,7 +75,7 @@ const COPY = {
     destinations_label: "Destinations d'intérêt",
     destinations_placeholder: 'Sélectionner des destinations…',
     message_label: 'Message',
-    message_placeholder: 'Parlez-nous de la destination, du type de propriété ou de tout autre élément…',
+    message_placeholder: 'Parlez-nous de votre destination favorite, du type de bien ou de toute autre info…',
     btn_idle: 'Envoyer la demande',
     btn_sending: 'Envoi en cours…',
     btn_success: 'Envoyé !',
