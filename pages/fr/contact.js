@@ -42,7 +42,7 @@ export default function ContactFR() {
             <div className="trust-card">
               <div className="trust-icon">&#x23F0;</div>
               <h3>Réponse rapide</h3>
-              <p>Nous répondons généralement sous quelques heures — souvent plus vite. Pour les demandes des États-Unis, merci de tenir compte du décalage horaire. Nous vous répondrons toujours.</p>
+              <p>Nous répondons généralement sous quelques heures — souvent plus vite. Pour les demandes des États-Unis, merci de tenir compte du décalage horaire.</p>
             </div>
             <div className="trust-card">
               <div className="trust-icon">&#x2713;</div>
