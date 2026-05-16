@@ -8,6 +8,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import { createClient } from '@supabase/supabase-js';
+import { destinationAvailableIn } from '@/lib/i18n';
 
 // ─── Destination → property filter map (mirror of English /[slug].js) ────────
 const DEST_FILTERS = {
@@ -501,6 +502,12 @@ export default function DestinationPageDE({
         <meta name="twitter:image" content={ogImage} />
         <link rel="alternate" hrefLang="en" href={`https://co-ownership-property.com/${slug}/`} />
         <link rel="alternate" hrefLang="de" href={canonicalUrl} />
+        {destinationAvailableIn(slug, 'es') && (
+          <link rel="alternate" hrefLang="es" href={`https://co-ownership-property.com/es/destinos/${slug}/`} />
+        )}
+        {destinationAvailableIn(slug, 'fr') && (
+          <link rel="alternate" hrefLang="fr" href={`https://co-ownership-property.com/fr/destinations/${slug}/`} />
+        )}
         <link rel="alternate" hrefLang="x-default" href={`https://co-ownership-property.com/${slug}/`} />
         {schemas.map((schema, i) => (
           <script key={i} type="application/ld+json"

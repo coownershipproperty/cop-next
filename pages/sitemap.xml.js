@@ -206,12 +206,33 @@ export async function getServerSideProps({ res }) {
       : []
   );
 
+  // Spanish destination mirrors at content/destinations/es/<slug>.html
+  // (URL pattern is /es/destinos/<slug>/).
+  const destDirEs = path.join(cwd, 'content', 'destinations', 'es');
+  const destSlugsEsSet = new Set(
+    fs.existsSync(destDirEs)
+      ? fs.readdirSync(destDirEs).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
+      : []
+  );
+
+  // French destination mirrors at content/destinations/fr/<slug>.html
+  // (URL pattern is /fr/destinations/<slug>/).
+  const destDirFr = path.join(cwd, 'content', 'destinations', 'fr');
+  const destSlugsFrSet = new Set(
+    fs.existsSync(destDirFr)
+      ? fs.readdirSync(destDirFr).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
+      : []
+  );
+
   // Pillar slugs get higher priority + more frequent crawl signal
   const PILLAR_SLUGS = new Set([
     'spain-fractional-ownership-properties',
     'france-fractional-ownership-properties',
     'italy-fractional-ownership-properties',
     'usa-fractional-ownership-properties',
+    'portugal-fractional-ownership-properties',
+    'austria-fractional-ownership-properties',
+    'germany-fractional-ownership-properties',
   ]);
 
   const today = new Date().toISOString().split('T')[0];
@@ -229,22 +250,26 @@ export async function getServerSideProps({ res }) {
     // Destinations with dedicated ES/FR pages (Mallorca, Ibiza)
     ...DESTINATION_ES_FR_GROUPS.flatMap(g => emitGroup(g, today)),
 
-    // All other destinations — emit EN at root (/<slug>/) and DE mirror if it
-    // exists (/de/destinationen/<slug>/) with reciprocal hreflang.
-    // Pillars get higher priority (0.9); regions/cities get 0.8.
+    // All other destinations — emit EN at root (/<slug>/) plus every locale
+    // mirror that exists (DE, ES, FR) with reciprocal hreflang across all
+    // available locales. Pillars get higher priority (0.9); regions/cities 0.8.
     ...destSlugs
       .filter(slug => !DEST_ES_FR_HANDLED_SLUGS.has(slug))
       .flatMap(slug => {
         const priority = PILLAR_SLUGS.has(slug) ? '0.9' : '0.8';
         const hasDe = destSlugsDeSet.has(slug);
+        const hasEs = destSlugsEsSet.has(slug);
+        const hasFr = destSlugsFrSet.has(slug);
         const altset = { en: `/${slug}/` };
+        if (hasEs) altset.es = `/es/destinos/${slug}/`;
+        if (hasFr) altset.fr = `/fr/destinations/${slug}/`;
         if (hasDe) altset.de = `/de/destinationen/${slug}/`;
         const out = [
           urlEntry(`${BASE}/${slug}/`, priority, 'weekly', today, altset),
         ];
-        if (hasDe) {
-          out.push(urlEntry(`${BASE}/de/destinationen/${slug}/`, priority, 'weekly', today, altset));
-        }
+        if (hasEs) out.push(urlEntry(`${BASE}${altset.es}`, priority, 'weekly', today, altset));
+        if (hasFr) out.push(urlEntry(`${BASE}${altset.fr}`, priority, 'weekly', today, altset));
+        if (hasDe) out.push(urlEntry(`${BASE}${altset.de}`, priority, 'weekly', today, altset));
         return out;
       }),
 
