@@ -318,7 +318,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
       {/* ===== INTRODUCTION SECTION ===== */}
       <section className="intro-section">
         <p className="intro-text">
-          Découvrez l'univers des biens de prestige en vente fractionnée. Des villas baignées de soleil en Méditerranée aux appartements urbains élégants, des domaines viticoles aux chalets alpins, chaque bien donne naturellement l'impression d'être chez vous.
+          Découvrez l'univers des biens de prestige en vente fractionnée. Des villas baignées de soleil en Méditerranée aux appartements urbains élégants, des domaines viticoles aux chalets alpins, vous êtes comme chez vous.
         </p>
         <p className="intro-subtext">
           Chaque bien est soigneusement sélectionné, impeccablement aménagé et géré par des professionnels. Plus qu'une façon d'être propriétaire, c'est un accès privilégié à des paysages intemporels, à des trésors culturels et à des moments inoubliables en famille.
