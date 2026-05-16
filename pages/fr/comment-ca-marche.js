@@ -82,9 +82,9 @@ export default function CommentCaMarche() {
             <div className="intro-text">
               <p className="eyebrow">La façon intelligente de posséder</p>
               <h2>Possédez une maison qui vaut <em>8 fois</em> votre budget</h2>
-              <p className="highlight">Une maison de vacances de luxe qui coûterait des millions à acquérir seul devient vôtre pour une fraction — avec les mêmes droits, les mêmes actes et la même valorisation.</p>
-              <p>Avec la copropriété, vous achetez une <strong>part enregistrée</strong> — typiquement 1/8 — d'un bien premium. Elle est inscrite à votre nom via une LLC (Limited Liability Company) propre à le bien — la même structure utilisée de manière homogène à travers notre portefeuille international. Vous utilisez la maison environ 45 jours par an, et tous les coûts sont partagés au prorata entre copropriétaires.</p>
-              <p>Ce n'est pas une multibien. Pas de points, pas de club, pas de piège. C'est une véritable bien immobilière — celle que vous pouvez revendre, transmettre à vos enfants, et regarder prendre de la valeur.</p>
+              <p className="highlight">Une maison de vacances de luxe qui coûterait des millions à acquérir seul devient vôtre pour une fraction — avec les mêmes droits, le même acte notarial et la même valorisation future.</p>
+              <p>Avec la copropriété, vous achetez une <strong>part enregistrée</strong> — typiquement 1/8 — d'un bien premium. Elle est inscrite à votre nom via une société de type SCI propre au bien — une structure utilisée de manière homogène à travers toute notre offre. Vous utilisez votre bien environ 45 jours par an (1/8), et tous les coûts sont partagés au prorata entre copropriétaires.</p>
+              <p>Ce n'est pas du « temps partagé ». Pas de « club de propriétaires », pas de piège. C'est une véritable résidence secondaire — un bien que vous pouvez revendre, transmettre à vos enfants, ou tout simplement regarder prendre de la valeur.</p>
               <div className="intro-stats">
                 <div>
                   <div className="intro-stat-num">1/8</div>
@@ -113,10 +113,10 @@ export default function CommentCaMarche() {
         <div className="heritage-inner">
           <p className="eyebrow">Une tradition de confiance</p>
           <h2>Ce n'est pas <em>nouveau</em></h2>
-          <p>Les familles partagent des résidences secondaires depuis des siècles. Des grands-parents qui transmettent une villa à trois enfants. Des cousins qui héritent d'une ferme en Toscane. Des amis qui s'associent pour acheter un chalet dans les Alpes. La copropriété est l'une des formes les plus anciennes et naturelles de détention immobilière en Europe.</p>
-          <blockquote>Vos grands-parents faisaient cela. Ils n'avaient simplement pas de LLC pour le formaliser.</blockquote>
-          <p>En France, l'indivision — le bien conjointe — est l'une des façons les plus courantes pour les familles de détenir un bien. À travers l'Italie, l'Espagne et l'Autriche, le bien partagée de maisons héritées est la norme depuis des générations. Ce qui a changé, ce n'est pas le concept — c'est l'infrastructure.</p>
-          <p>Aujourd'hui, chaque bien est détenue dans sa propre LLC avec un règlement de copropriété formel, une gestion professionnelle et un calendrier équitable. Vous n'avez jamais à vous coordonner directement avec les autres copropriétaires. Tout est géré pour vous. Pas de conversations gênantes, pas de litiges, pas de friction.</p>
+          <p>Les familles en France partagent des résidences secondaires depuis des siècles. Des grands-parents qui transmettent une villa à trois enfants. Des cousins qui héritent d'une ferme en Toscane. Des amis qui s'associent pour acheter un chalet dans les Alpes. La copropriété est l'une des formes les plus anciennes et naturelles de détention immobilière en Europe.</p>
+          <blockquote>Vos grands-parents faisaient cela. Ils n'avaient simplement pas de SCI gérée pour le mettre en place.</blockquote>
+          <p>En France, l'indivision est l'une des façons les plus courantes pour les familles de détenir un bien. En Italie, Espagne, Autriche, ce système pour les biens en succession est la norme depuis des générations. Ce qui a changé, ce n'est pas le concept — c'est l'infrastructure.</p>
+          <p>Aujourd'hui, chaque bien est détenu dans sa propre SCI avec un règlement de copropriété formel, une gestion professionnelle et un calendrier équitable. Vous n'avez jamais à contacter directement les autres copropriétaires. Tout est géré pour vous. Pas de conversations gênantes, pas de litiges, pas de friction.</p>
         </div>
       </section>
 
@@ -130,8 +130,8 @@ export default function CommentCaMarche() {
           <div className="benefits-grid">
             <div className="benefit-card">
               <div className="benefit-icon">&#x1f3e0;</div>
-              <h3>Vrai bien immobilière</h3>
-              <p>Une part enregistrée à votre nom via une LLC propre à le bien. Pas un contrat — un véritable actif que vous possédez.</p>
+              <h3>Vrai bien immobilier</h3>
+              <p>Une part enregistrée à votre nom via une SCI possédant la totalité du bien. Pas un bout de papier — un véritable actif que vous possédez, régularisé chez le notaire.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon">&#x1f4c8;</div>
@@ -141,12 +141,12 @@ export default function CommentCaMarche() {
             <div className="benefit-card">
               <div className="benefit-icon">&#x1f4b0;</div>
               <h3>Revenus locatifs</h3>
-              <p>Vous n'utilisez pas vos semaines allouées ? De nombreuses biens vous permettent de louer vos semaines inutilisées et de générer des revenus pendant votre absence.</p>
+              <p>Vous n'utilisez pas vos semaines allouées ? De nombreux biens vous permettent de louer vos semaines inutilisées — contactez-nous pour plus d'infos.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon">&#x1f504;</div>
-              <h3>Échange de maisons</h3>
-              <p>La plupart des biens de notre portefeuille proposent un système d'échange. Envie d'une autre destination cette année ? Échangez votre séjour avec un autre copropriétaire.</p>
+              <h3>Échange de biens entre copropriétaires</h3>
+              <p>La plupart de notre offre propose un système d'échange. Envie d'une autre destination cette année ? Échangez votre séjour avec un autre copropriétaire.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon">&#x1f5d3;</div>
@@ -155,7 +155,7 @@ export default function CommentCaMarche() {
             </div>
             <div className="benefit-card">
               <div className="benefit-icon">&#x1f6e0;</div>
-              <h3>Entièrement gérée</h3>
+              <h3>Entièrement géré</h3>
               <p>La gestion immobilière professionnelle s'occupe de l'entretien, des réparations, du ménage et des taxes locales. Vous arrivez, profitez, repartez — le reste est pris en charge.</p>
             </div>
           </div>
@@ -175,8 +175,8 @@ export default function CommentCaMarche() {
                 <tr>
                   <th></th>
                   <th className="compare-highlight">Copropriété</th>
-                  <th>Achat individuel</th>
-                  <th>Multibien</th>
+                  <th>Achat individuel 100%</th>
+                  <th>Temps partagé</th>
                   <th>Location de vacances</th>
                 </tr>
               </thead>
@@ -264,23 +264,23 @@ export default function CommentCaMarche() {
         <div className="sec-inner" style={{textAlign: 'center'}}>
           <p className="eyebrow">Le processus</p>
           <h2>Quatre étapes vers votre <em>résidence secondaire</em></h2>
-          <p className="lead" style={{margin: '0 auto'}}>Chaque bien est détenue dans sa propre LLC (Limited Liability Company). Vous achetez un membership interest dans cette LLC — vous donnant un bien authentique et enregistrée avec une protection juridique complète.</p>
+          <p className="lead" style={{margin: '0 auto'}}>Chaque bien est détenu dans sa propre SCI. Vous achetez une quote-part dans cette SCI — vous donnant un bien authentique et enregistré avec une protection juridique complète.</p>
 
           <div className="model-flow">
             <div className="model-step">
               <div className="model-num">1</div>
               <h3>Parcourez et choisissez</h3>
-              <p>Explorez plus de 360 biens de luxe sélectionnées. Filtrez par destination, style de vie, budget et taille de quote-part.</p>
+              <p>Explorez plus de 360 biens de luxe sélectionnés. Filtrez par destination, style de vie, budget et taille de quote-part.</p>
             </div>
             <div className="model-step">
               <div className="model-num">2</div>
-              <h3>Nous gérons le juridique</h3>
+              <h3>Tout l'aspect juridique est géré</h3>
               <p>Des notaires indépendants gèrent toute la transaction. Un règlement de copropriété est rédigé couvrant calendriers, frais, droits de revente et votre protection.</p>
             </div>
             <div className="model-step">
               <div className="model-num">3</div>
-              <h3>Achetez votre quote-part</h3>
-              <p>Signez l'acte authentique chez le notaire, votre membership interest dans la LLC est enregistré, et vous recevez votre certificat de bien. La plupart des maisons sont prêtes à habiter.</p>
+              <h3>Achetez votre part ou vos parts</h3>
+              <p>Signez l'acte authentique chez le notaire, votre quote-part est enregistrée chez le notaire (comme dans toute SCI), et vous recevez votre acte notarial. La plupart des maisons sont prêtes à habiter.</p>
             </div>
             <div className="model-step">
               <div className="model-num">4</div>
@@ -298,14 +298,14 @@ export default function CommentCaMarche() {
           <h2>Questions <em>fréquemment</em> posées</h2>
         </div>
         <ul className="faq-list">
-          <li className="faq-item"><details><summary><h3>Qu'est-ce que la copropriété de résidence secondaire ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>La copropriété de résidence secondaire est l'achat d'une part enregistrée d'un bien — typiquement 1/8 ou 1/4. Vous possédez votre quote-part de plein droit, enregistrée via une LLC propre à le bien. Vous pouvez l'utiliser pendant le temps qui vous est alloué chaque année (généralement 45 à 90 jours), la revendre sur le marché libre, ou la transmettre à vos enfants. C'est une vrai bien immobilière — pas une location, pas un club, pas une multibien.</p></div></details></li>
-          <li className="faq-item"><details><summary><h3>En quoi est-ce différent de la multibien ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Fondamentalement différent. La copropriété vous donne un acte enregistré — une vrai bien qui prend de la valeur. La multipropiété est un contrat d'usage qui se déprécie généralement. Vous pouvez revendre une quote-part de copropriété sur le marché libre ; les reventes de multibien sont notoirement difficiles. Les coûts de la copropriété sont proportionnels et transparents ; les frais de multibien continuent que vous utilisiez le bien ou non.</p></div></details></li>
-          <li className="faq-item"><details><summary><h3>Qu'est-ce que la structure LLC ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Chaque bien est détenue dans sa propre LLC (Limited Liability Company) dédiée — la même structure utilisée de manière homogène à travers notre portefeuille international. Lorsque vous achetez une quote-part, vous achetez un membership interest dans cette LLC — vous donnant un bien légale du bien proportionnelle à la taille de votre quote-part. Cette structure offre une protection de la responsabilité, simplifie la revente et garantit une séparation juridique nette entre copropriétaires.</p></div></details></li>
+          <li className="faq-item"><details><summary><h3>Qu'est-ce que la copropriété de résidence secondaire ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>La copropriété de résidence secondaire est l'achat d'une part enregistrée d'un bien — typiquement 1/8 ou 1/4. Vous possédez votre quote-part de plein droit, enregistrée via une SCI propre au bien. Vous pouvez l'utiliser pendant le temps qui vous est alloué chaque année (généralement 45 à 90 jours), la revendre sur le marché libre, ou la transmettre à vos enfants. C'est un vrai bien immobilier — pas une location, pas un club, pas du timeshare.</p></div></details></li>
+          <li className="faq-item"><details><summary><h3>En quoi est-ce différent du timeshare ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Fondamentalement différent. La copropriété vous donne un acte enregistré — un vrai bien qui prend de la valeur. Le timeshare est un contrat d'usage qui se déprécie généralement. Vous pouvez revendre une quote-part de copropriété sur le marché libre ; les reventes de timeshare sont notoirement difficiles. Les coûts de la copropriété sont proportionnels et transparents ; les frais de timeshare continuent que vous utilisiez le bien ou non.</p></div></details></li>
+          <li className="faq-item"><details><summary><h3>Qu'est-ce que la structure SCI ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Chaque bien est détenu dans sa propre SCI dédiée — une structure utilisée de manière homogène à travers toute notre offre. Lorsque vous achetez une quote-part, vous achetez une part dans cette SCI — vous donnant une propriété légale du bien proportionnelle à la taille de votre quote-part. Cette structure offre une protection de la responsabilité, simplifie la revente et garantit une séparation juridique nette entre copropriétaires.</p></div></details></li>
           <li className="faq-item"><details><summary><h3>Combien de temps puis-je utiliser le bien par an ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>L'usage dépend de la taille de votre quote-part. Une quote-part de 1/8 vous donne environ 45 jours par an (6 semaines). Une quote-part de 1/4 fournit environ 90 jours (environ 3 mois). Un calendrier rotatif équitable assure une répartition égale des dates haute et basse saison entre tous les copropriétaires — chacun obtient des semaines d'été, de Noël et de Pâques au fil du temps.</p></div></details></li>
           <li className="faq-item"><details><summary><h3>Puis-je revendre ma quote-part ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Oui. Vous possédez une quote-part enregistrée, vous pouvez donc la revendre sur le marché libre à tout moment — sous réserve d'une clause de droit de préemption pour vos copropriétaires. La revente est simple et les quotes-parts dans des emplacements premium ont tendance à prendre de la valeur avec le temps.</p></div></details></li>
-          <li className="faq-item"><details><summary><h3>Puis-je générer des revenus locatifs ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Sur de nombreuses biens, oui. Si vous n'utilisez pas vos semaines allouées, vous pouvez les louer et générer des revenus. L'équipe de gestion peut s'occuper du processus de location pour vous. La disponibilité varie selon le bien — demandez-nous les détails sur des annonces spécifiques.</p></div></details></li>
-          <li className="faq-item"><details><summary><h3>Et l'échange de maisons ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>La plupart des biens de notre portefeuille offrent un système d'échange. Si vous souhaitez passer votre temps alloué dans une autre destination, vous pouvez organiser un échange avec un copropriétaire d'une autre bien. C'est un excellent moyen d'explorer différents endroits sans coût supplémentaire.</p></div></details></li>
-          <li className="faq-item"><details><summary><h3>Quels coûts sont partagés ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Tous les frais courants sont divisés au prorata : taxe foncière, assurance, charges, entretien, réparations, ménage et gestion professionnelle. Un règlement de copropriété précise exactement comment les frais sont gérés. De nombreuses biens sont entièrement meublées et rénovées, avec ces coûts inclus dans le prix de la quote-part.</p></div></details></li>
+          <li className="faq-item"><details><summary><h3>Puis-je générer des revenus locatifs ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Sur de nombreux biens, oui. Si vous n'utilisez pas vos semaines allouées, vous pouvez les louer et générer des revenus. L'équipe de gestion peut s'occuper du processus de location pour vous. La disponibilité varie selon le bien — demandez-nous les détails sur des annonces spécifiques.</p></div></details></li>
+          <li className="faq-item"><details><summary><h3>Et l'échange de maisons ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>La plupart des biens de notre portefeuille offrent un système d'échange. Si vous souhaitez passer votre temps alloué dans une autre destination, vous pouvez organiser un échange avec un copropriétaire d'un autre bien. C'est un excellent moyen d'explorer différents endroits sans coût supplémentaire.</p></div></details></li>
+          <li className="faq-item"><details><summary><h3>Quels coûts sont partagés ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Tous les frais courants sont divisés au prorata : taxe foncière, assurance, charges, entretien, réparations, ménage et gestion professionnelle. Un règlement de copropriété précise exactement comment les frais sont gérés. De nombreux biens sont entièrement meublés et rénovés, avec ces coûts inclus dans le prix de la quote-part.</p></div></details></li>
           <li className="faq-item"><details><summary><h3>Et si l'opérateur de gestion disparaît ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Question légitime — surtout après l'épisode Prello. La LLC est juridiquement indépendante de l'opérateur. Si l'opérateur cesse son activité, la LLC continue d'exister, le bien reste enregistré au cadastre au nom de la LLC, et vos droits de copropriétaire sont intacts. Un autre opérateur peut reprendre la gestion par vote des membres.</p></div></details></li>
           <li className="faq-item"><details><summary><h3>Puis-je transmettre ma quote-part à ma famille ?</h3><div className="faq-chevron"></div></summary><div className="faq-answer"><p>Oui. Votre quote-part enregistrée est un véritable actif que vous pouvez transmettre à vos enfants ou héritiers — comme tout bien immobilier. De nombreuses familles possèdent des quotes-parts de copropriété ensemble à travers les générations. La structure LLC rend les transmissions simples.</p></div></details></li>
         </ul>
