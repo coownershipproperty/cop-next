@@ -157,21 +157,23 @@ img {
 
 .cop-header.scrolled .cop-logo img.logo-dark  { display: block; }
 
-/* Nav — sits right next to the logo (left-aligned), with the languages
-   pushed to the right via margin-left:auto on .cop-lang-switcher-desktop.
-   As viewport shrinks: the GAP between nav and languages collapses first
-   (languages slide left toward the nav), then nav compresses if needed —
-   logo never moves, everything packs left in unison. */
+/* Nav — desktop: absolutely centered in the header. The logo sits on the
+   left, the language dropdown on the right, and the nav floats in the
+   geometric middle regardless of the widths of those two. On the mobile
+   drawer (≤1024px) this rule gets overridden — see the media query lower
+   in the file. */
         .cop-nav {
-            flex: 0 1 auto;
-            min-width: 0;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             gap: 0;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             flex-wrap: nowrap;
-            /* Tight gap to logo — HOME sits close, no wasted dead space */
-            margin-left: 0.4rem;
+            max-width: calc(100vw - 360px);
+            white-space: nowrap;
         }
 
 .cop-nav a {
