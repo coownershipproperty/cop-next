@@ -190,9 +190,110 @@ img {
 
 .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
 
-/* ── Language switcher — desktop: absolute right of header (own track,
-   doesn't compete with the centered nav for space). Mobile: stays inside
-   the open drawer via cop-nav .cop-lang-switcher (no desktop class). ── */
+/* ── Desktop language dropdown ───────────────────────────────────────────
+   Replaces the old 2x2 flag grid. Trigger pill shows the current locale
+   code (e.g. "EN") + chevron; click opens a panel listing the other
+   supported locales with flag + native name. */
+.cop-lang-dropdown {
+  position: relative;
+  margin-left: auto;
+  margin-right: 8px;
+  align-self: center;
+  font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+  z-index: 50;
+}
+.cop-lang-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.45);
+  border-radius: 2px;
+  color: rgba(44,74,94,0.85);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.cop-lang-dropdown-trigger:hover,
+.cop-lang-dropdown-trigger.open {
+  border-color: rgba(201,168,76,0.95);
+  color: var(--warm-gold);
+  background: rgba(201,168,76,0.06);
+}
+.cop-lang-dropdown-code {
+  display: inline-block;
+}
+.cop-lang-dropdown-chev {
+  display: inline-block;
+  font-size: 0.7rem;
+  line-height: 1;
+  transform: translateY(1px);
+  transition: transform 0.15s ease;
+}
+.cop-lang-dropdown-trigger.open .cop-lang-dropdown-chev {
+  transform: translateY(1px) rotate(180deg);
+}
+
+/* Panel: drops down from the trigger, right-aligned. Items are just
+   the 2-letter locale codes, stacked vertically. No flags, no names. */
+.cop-lang-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 56px;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid rgba(201,168,76,0.45);
+  border-radius: 2px;
+  box-shadow: 0 6px 18px rgba(44,74,94,0.12);
+  font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+.cop-lang-dropdown-panel li {
+  margin: 0;
+  padding: 0;
+}
+.cop-lang-dropdown-item {
+  display: block;
+  padding: 8px 14px;
+  color: rgba(44,74,94,0.85);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.cop-lang-dropdown-item:hover {
+  background: rgba(201,168,76,0.08);
+  color: var(--warm-gold);
+}
+.cop-lang-dropdown-item-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.cop-lang-dropdown-item-disabled:hover {
+  background: transparent;
+  color: rgba(44,74,94,0.85);
+}
+
+/* Hide the dropdown on small screens — drawer's flag picker handles it */
+@media (max-width: 1024px) {
+  .cop-lang-dropdown { display: none; }
+}
+
+/* ── Language switcher — drawer (mobile) uses the legacy in-line flag
+   picker shown inside the open menu. Desktop variant retained below for
+   the in-drawer rendering only; the .cop-lang-switcher-desktop class is
+   no longer applied to any element (the new dropdown replaced it). ── */
 .cop-lang-switcher {
   display: flex;
   align-items: center;

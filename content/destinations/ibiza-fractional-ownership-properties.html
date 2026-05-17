@@ -1,1064 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ibiza Fractional Ownership Properties | Co-Ownership Property</title>
-    <meta name="description" content="Discover premium co-ownership properties in Ibiza including villas &amp; apartments on the White Isle. Luxury Mediterranean properties available through fractional ownership.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-        <style>
-        /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
-
-/* ── CSS Variables ── */
-:root {
-    /* === Primary palette (use these in new work) === */
-    --blue:         #2C4A5E;
-    --cream:        #F5F2EC;
-    --gold:         #C9A84C;
-    --white:        #FFFFFF;
-    --text:         #1a2533;
-    --muted:        #5a6a7a;
-    --border:       #e8e0d4;
-    --max:          1400px;
-
-    /* === Legacy aliases (keep for existing templates) === */
-    --warm-gold:    #C9A84C;
-    --cream-bg:     #F5F2EC;
-    --cream-light:  #FAF8F5;
-    --text-dark:    #2C4A5E;
-    --text-light:   rgba(255,255,255,0.85);
-    --text-muted:   #5a6a7a;
-    --gray-border:  #e8e0d4;
-    --blue-80:      #4A6A7E;
-    --blue-60:      #6B8A9E;
-    --blue-40:      #9EAFBC;
-    --blue-20:      #C5CED5;
-    --transition:   0.3s ease;
-}
-
-/* ── Base reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-button { font-family: inherit; cursor: pointer; }
-        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
-        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
-        a{color:inherit;text-decoration:none;transition:color var(--transition)}
-        img{display:block;max-width:100%;height:auto}
-
-                /* ===== SITE-WIDE HEADER ===== */
-        .cop-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 3rem;
-            height: 80px;
-            box-sizing: border-box;
-            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .admin-bar .cop-header { top: 32px; }
-
-        /* Logo */
-        .cop-logo { flex-shrink: 0; }
-        .cop-logo a { display: block; }
-        .cop-logo img { height: 54px; width: auto; display: block; }
-
-
-        /* Nav — absolutely centred between logo and hamburger */
-        .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0;
-            align-items: center;
-        }
-        .cop-nav a {
-            color: rgba(44,74,94,0.8);
-            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.84rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.4rem 1.4rem;
-            white-space: nowrap;
-            transition: color 0.25s ease;
-            text-decoration: none;
-        }
-        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
-
-        /* Gold underline on hover / active */
-        .cop-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 1.4rem; right: 1.4rem;
-            height: 1px;
-            background: rgba(201,168,76,1);
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.28s ease;
-        }
-        .cop-nav a:hover,
-        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
-        .cop-nav a:hover::after,
-        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
-
-
-        /* Favourites — heart prefix */
-        .cop-nav a.cop-nav-favourites::before {
-            content: '\2665\00a0\00a0';
-            font-size: 0.75rem;
-            color: rgba(201,168,76,1);
-            opacity: 0.75;
-            letter-spacing: 0;
-        }
-
-        /* Hamburger */
-        .cop-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-        .cop-hamburger span {
-            width: 22px; height: 1.5px;
-            background: rgba(44,74,94,0.8);
-            transition: all 0.28s ease;
-            transform-origin: center;
-            display: block;
-        }
-        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        /* ===== MOBILE (<768px) ===== */
-        @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
-            .cop-nav {
-                position: fixed;
-                top: 80px; left: 0; right: 0;
-                transform: none;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.97);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
-                z-index: 9998;
-            }
-            .admin-bar .cop-nav { top: 112px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
-            .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
-                width: 100%;
-                text-align: center;
-                border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
-                box-sizing: border-box;
-            }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
-        }
-
-        /* ===== HERO ===== */
-        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
-        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
-        .page-hero>*{position:relative;z-index:1}
-        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
-        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
-        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
-
-        /* ===== PROPERTY GRID ===== */
-        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
-        .props-inner{max-width:1400px;margin:0 auto}
-        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .props-count strong{color:var(--text-dark);font-weight:700}
-        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
-        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
-        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
-        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
-        .prop-card:hover .prop-img{transform:scale(1.04)}
-        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
-        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
-        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
-        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
-        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
-        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
-        .prop-stat{display:flex;align-items:center;gap:0.35rem}
-        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
-        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
-        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
-        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
-        .prop-card:hover .prop-view{color:var(--warm-gold)}
-        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
-        /* Show more button */
-        .prop-card.hidden{display:none}
-        .show-more-wrap{text-align:center;margin-top:2.5rem}
-        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
-        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-        /* Mid-page CTA */
-        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
-        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-        .dest-mid-cta > *{position:relative;z-index:1}
-        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
-        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
-        .dest-cta-btn-gold:hover{background:#b8963e}
-        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
-        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-
-        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
-        
-.dest-sec{padding:80px 3rem}
-.dest-sec.cream{background:var(--cream-bg)}
-.dest-sec.white{background:var(--white)}
-.dest-inner{max-width:900px;margin:0 auto}
-.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
-.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
-.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
-.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
-.dest-sec strong{color:var(--text-dark);font-weight:700}
-.dest-sec em{font-style:italic}
-.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
-.dest-sec a:hover{color:var(--blue)}
-.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
-.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
-.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
-.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
-.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
-/* Explore More */
-.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
-.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
-.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
-.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
-.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
-/* FAQ */
-.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
-.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
-.dest-faq-list{counter-reset:faq}
-.dest-faq-item{border-top:1px solid var(--warm-gold)}
-.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
-.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
-.dest-faq-item summary::-webkit-details-marker{display:none}
-.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
-.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
-details[open] .dest-faq-chevron{transform:rotate(-135deg)}
-.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
-.dest-faq-answer p{margin-bottom:0.8rem}
-@media(max-width:768px){
-    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
-    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-        /* ===== CTAs ===== */
-                /* ===== NEWSLETTER SIGNUP ===== */
-        .newsletter-section {
-            background: var(--white);
-            position: relative;
-            padding: 100px 3rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 400;
-            color: var(--text-dark);
-        }
-        .newsletter-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 620px;
-            margin: 0 auto;
-        }
-        .newsletter-form input {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border: 1px solid #ddd;
-            background: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-        .newsletter-form input::placeholder { color: var(--text-muted); }
-        .newsletter-form input:focus { border-color: var(--warm-gold); }
-        .newsletter-btn {
-            background: var(--blue);
-            color: var(--white);
-            border: 2px solid var(--blue);
-            padding: 0.9rem 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            font-family: 'Nunito Sans', sans-serif;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
-        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
-        .newsletter-form-msg {
-            margin-top: 1rem;
-            font-size: 0.88rem;
-            min-height: 1.4em;
-        }
-        .newsletter-form-msg.success { color: #4a9e6e; }
-        .newsletter-form-msg.error   { color: #c0392b; }
-
-        @media (max-width: 640px) {
-            .newsletter-section { padding: 70px 1.5rem; }
-            .newsletter-heading { font-size: 2rem; }
-            .newsletter-form { flex-direction: column; }
-        }
-                /* ===== EXPERT FORM SECTION ===== */
-        .expert-section {
-            background: var(--blue);
-            padding: 100px 3rem;
-            position: relative;
-            overflow: hidden;
-            scroll-margin-top: 90px;
-        }
-        .expert-section::after {
-            content: '';
-            position: absolute;
-            top: 28px; left: 28px; right: 28px; bottom: 28px;
-            border: 1px solid rgba(201,168,76,0.15);
-            pointer-events: none;
-        }
-        .expert-section > * { position: relative; z-index: 1; }
-
-        .expert-inner {
-            max-width: 820px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .expert-eyebrow {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--warm-gold);
-            margin-bottom: 1.2rem;
-        }
-        .expert-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-        .expert-heading em { font-style: italic; color: var(--warm-gold); }
-        .expert-sub {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-        .expert-form { text-align: left; }
-        .expert-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .expert-form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-        .expert-form-field.full { grid-column: 1 / -1; }
-        .expert-form-field label {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.85);
-        }
-        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
-
-        .expert-form-field input,
-        .expert-form-field select,
-        .expert-form-field textarea {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.85rem 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-        .expert-form-field input:focus,
-        .expert-form-field select:focus,
-        .expert-form-field textarea:focus {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .expert-form-field input::placeholder,
-        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-        .expert-form-field select option { background: var(--blue); color: var(--white); }
-        .expert-form-field textarea { resize: vertical; min-height: 110px; }
-
-        /* ── Multi-select destination dropdown ── */
-        .dest-multiselect {
-            position: relative;
-            width: 100%;
-        }
-        .dest-trigger {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.65rem 1rem;
-            min-height: 46px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            transition: border-color 0.2s;
-            position: relative;
-        }
-        .dest-trigger::after {
-            content: '';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            width: 7px; height: 7px;
-            border-right: 1.5px solid rgba(255,255,255,0.5);
-            border-bottom: 1.5px solid rgba(255,255,255,0.5);
-            transform: translateY(-60%) rotate(45deg);
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-        .dest-multiselect.open .dest-trigger::after {
-            transform: translateY(-30%) rotate(-135deg);
-        }
-        .dest-trigger:hover,
-        .dest-multiselect.open .dest-trigger {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .dest-placeholder {
-            color: rgba(255,255,255,0.25);
-            pointer-events: none;
-        }
-        .dest-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-        .dest-tag-x {
-            cursor: pointer;
-            font-size: 0.85rem;
-            line-height: 1;
-            opacity: 0.6;
-            transition: opacity 0.15s;
-        }
-        .dest-tag-x:hover { opacity: 1; }
-
-        .dest-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0; right: 0;
-            background: #1e3a4f;
-            border: 1px solid rgba(201,168,76,0.3);
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 50;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .dest-multiselect.open .dest-dropdown { display: block; }
-
-        .dest-option {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .dest-option:hover { background: rgba(201,168,76,0.1); }
-        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
-
-        .dest-check {
-            width: 16px; height: 16px;
-            border: 1.5px solid rgba(201,168,76,0.4);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s, border-color 0.15s;
-        }
-        .dest-option.selected .dest-check {
-            background: var(--warm-gold);
-            border-color: var(--warm-gold);
-        }
-        .dest-check::after {
-            content: '';
-            width: 4px; height: 8px;
-            border-right: 2px solid #1a2a3a;
-            border-bottom: 2px solid #1a2a3a;
-            transform: rotate(45deg) translateY(-1px);
-            opacity: 0;
-        }
-        .dest-option.selected .dest-check::after { opacity: 1; }
-
-        /* Scrollbar for dropdown */
-        .dest-dropdown::-webkit-scrollbar { width: 5px; }
-        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
-        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
-
-        /* Submit area */
-        .expert-submit { margin-top: 1.5rem; text-align: center; }
-        .expert-submit-btn {
-            background: var(--warm-gold);
-            color: #fff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border: none;
-            padding: 1rem 3rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            max-width: 320px;
-        }
-        .expert-submit-btn:hover { background: #b8963e; }
-        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
-        .expert-form-msg {
-            margin-top: 1.2rem;
-            font-size: 0.88rem;
-            text-align: center;
-            min-height: 1.4em;
-        }
-        .expert-form-msg.success { color: #7ed8a3; }
-        .expert-form-msg.error   { color: #f08080; }
-
-        @media (max-width: 640px) {
-            .expert-form-grid { grid-template-columns: 1fr; }
-            .expert-heading { font-size: 2rem; }
-            .expert-section { padding: 70px 1.5rem; }
-        }
-
-        /* ===== FOOTER ===== */
-        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
-        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
-        .footer-logo img{height:35px;margin-bottom:1rem}
-        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
-        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.6rem}
-        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
-        .footer-col a:hover{color:var(--warm-gold)}
-        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal{display:flex;gap:2rem}
-        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal a:hover{color:var(--warm-gold)}
-
-        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){
-            .page-hero{padding:130px 1.5rem 50px}
-            .props-sec{padding:50px 1.5rem}
-            .props-grid{grid-template-columns:1fr;gap:1.5rem}
-            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Ibiza Fractional Ownership Properties | Co-Ownership Property</title>
+  <meta name="description" content="Co-ownership properties in Ibiza from COP — deeded fractional ownership in Ibiza Town, Santa Eulàlia, San José, San Joan and San Antonio. Fully managed, 6–7 weeks of personal use per year, real equity on one of the western Mediterranean's most distinctive islands.">
 </head>
 <body>
-    <header class="cop-header scrolled" id="cop-header">
-    <div class="cop-logo">
-        <a href="/">
-            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
-        </a>
+
+<section class="page-hero">
+  <p class="eyebrow">Ibiza · Balearic Islands · Spain</p>
+  <h1>Fractional Ownership <em>in Ibiza</em></h1>
+  <p class="subtitle">From a Talamanca beachfront villa overlooking Ibiza Town's Dalt Vila and a Santa Eulàlia apartment on the eastern coast to a Sant Joan finca in the northern hills and a Cala Llonga villa above the southeastern coves — fractional ownership in Ibiza means a deeded share of the western Mediterranean's most architecturally protected island, six to seven weeks of personal use a year, and a fully managed home waiting whenever you arrive.</p>
+</section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Ibiza's most coveted addresses, accessible through co-ownership.</h2>
+    <p>Fully managed villas, fincas, townhouses and apartments across <strong>Ibiza Town and Marina Botafoch</strong>, <strong>Santa Eulàlia and the east coast</strong>, <strong>San José and the southwest</strong>, <strong>San Joan and the north</strong> and <strong>San Antonio and the sunset coast</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of a UNESCO-listed island whose protected interior has effectively stopped producing new prime inventory.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
     </div>
-    <nav class="cop-nav" id="cop-nav">
-        <a href="/" class="cop-nav-active">Home</a>
-        <a href="/our-homes/">Our Homes</a>
-        <a href="/how-it-works/">How It Works</a>
-        <a href="/about-us">About Us</a>
-        <a href="/all-our-blog/">Our Blog</a>
-        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
-        <a href="/contact">Contact</a>
-    </nav>
-    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-    </button>
-</header>
+  </div>
+</div>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <p class="eyebrow">Co-Ownership Properties</p>
-        <h1>Ibiza Fractional Ownership properties</h1>
-        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
-    </section>
+<section class="dest-sec cream"><div class="dest-inner">
 
-    <!-- PROPERTY GRID -->
-    <section class="props-sec">
-        <div class="props-inner">
-                        <div class="no-props">
-                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
-            </div>
-                    </div>
-    </section>
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/cced7ef11e/es0830a-_-villa-tarida-villa.jpg" alt="An Ibiza villa near Cala Tarida on the island's southwest coast, whitewashed walls and a pool dropping toward the Mediterranean" loading="lazy" width="2100" height="1400" />
+  <figcaption>An Ibiza villa near Cala Tarida on the southwest coast, the pine forests of Es Cubells running down toward the Mediterranean.</figcaption>
+</figure>
 
-    <!-- MID-PAGE CTA -->
-    <div class="dest-mid-cta">
-        <p>Ready to find your property in Ibiza?</p>
-        <div class="dest-mid-cta-btns">
-            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
-            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
-        </div>
-    </div>
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership in Ibiza?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership in Ibiza means buying a deeded 1/8 share of a luxury Mediterranean island second home — held in a purpose-built LLC alongside up to seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
 
-    <!-- SEO CONTENT (rendered as styled sections) -->
-        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Ibiza Fractional Ownership — White Isle Living, Real Deeded Ownership</h2>
-<p>Ibiza fractional ownership gives you a legally recorded, deeded stake in one of the Mediterranean&#8217;s most iconic and enduringly desirable islands — owning a <strong>1/8 share</strong> of a fully managed Ibicenco villa, hillside finca, or coastal apartment, with approximately <strong>45 days of personal use per year</strong>. This is genuine co-ownership of real Spanish property — not a timeshare, not a points club, and not a holiday membership. Your name appears on the Spanish land registry, the <em>Registro de la Propiedad</em>, as a real property owner with full resale rights and inheritance rights under Spanish law.</p>
-<p>For UK buyers navigating the post-Brexit <strong>90-day-in-180-day Schengen rule</strong>, Ibiza fractional co-ownership is the most practical and financially intelligent way to secure your place on the White Isle — enjoying the island on your own terms, within your annual allowance, without the full cost and burden of sole ownership. Browse our Ibiza properties below and discover what island co-ownership at its finest truly looks like.</p>
-<p>Whether you are drawn to a clifftop finca in the north, a southwest villa with panoramic sea views, or a stylish apartment in Ibiza Town steps from the marina, Ibiza fractional ownership gives you the keys to the White Isle — deeded, managed, and ready to enjoy from your very first visit on the island.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose Ibiza Fractional Ownership?</h2>
-<p>Ibiza fractional ownership is among the most compelling propositions in the European co-ownership market — and it is easy to understand why. The island sits at a unique intersection of natural beauty, cultural depth, world-class cuisine, and an international buyer community that has made it one of the most sought-after second-home destinations in the Mediterranean. Whether you are drawn by the dramatic cliffs of the north, the crystal-clear coves of the west coast, the buzzing marina culture of Ibiza Town, or the family-friendly calm of the east, Ibiza delivers an experience that is genuinely unlike anywhere else in Spain. Ibiza fractional ownership gives you a real, legally registered stake in this world, without the full capital outlay and ongoing cost burden of sole ownership.</p>
-<p>The island&#8217;s property market is one of the most robust and internationally recognised in the Balearics. Premium villas and hillside fincas across the island attract buyers from across the UK, Europe, Scandinavia, and the Middle East. Fractional co-ownership taps into exactly this market — giving buyers a deeded share of a property that is professionally managed, impeccably maintained, and used by a small group of co-owners who share the lifestyle and the costs. In place of a sole purchase requiring hundreds of thousands or millions of euros in upfront capital, a <strong>1/8 share</strong> makes the Ibiza lifestyle financially accessible without compromising on the quality of the property or the ownership experience.</p>
-<p>For UK buyers specifically, the post-Brexit landscape has transformed the economics of Spanish property ownership. Under Schengen rules, UK nationals are limited to <strong>90 days in any 180-day period</strong> across the entire Schengen zone — a constraint that makes sole ownership of a Spanish property feel wasteful for many buyers. You own 100% of a property you can legally occupy for a maximum of 90 days per year, while carrying 100% of the costs, taxes, and management burden. Ibiza fractional co-ownership resolves this directly: a 1/8 share gives you approximately 45 days of personal use per year — nearly perfectly calibrated to your Schengen entitlement — while sharing the costs across co-owners and benefiting from professional management that keeps the property in pristine condition between visits. It is the most rational response to the post-Brexit reality for buyers who want a genuine, lasting connection with Ibiza.</p>
-<p>Ibiza is, of course, far more than its famous nightlife. The island has a year-round community, an extraordinary natural landscape — much of it UNESCO-protected — and a pace of life that changes with the seasons. Summer brings the full Mediterranean carnival of beach clubs, market nights, and sunset sessions at the island&#8217;s legendary venues. Spring and autumn offer a quieter, more intimate Ibiza: hiking trails through pine forests, morning swims in empty coves, long lunches at farmhouse restaurants, and a sense of the island as a genuine home rather than a tourist destination. Winter in Ibiza has its own magic — clear skies, empty roads, and an authenticity that only those with real property ownership on the island ever truly experience. Ibiza fractional ownership gives you access to all of it, on your own schedule, with the keys and the time to use it properly.</p>
-<p>The island&#8217;s rental market is exceptionally active during peak summer months, and some co-owners explore rental income from unused weeks — but this is subject to Balearic Island licensing requirements, which are among the strictest in Spain, and should never be assumed or guaranteed. The Balearic government has significantly tightened short-term rental rules in recent years, requiring a Vacation Tourist Licence (<em>Vivienda Vacacional</em> licence) for any property rented to tourists. Whether rental income is available for a specific property is confirmed case by case — the primary value of Ibiza fractional ownership remains the lifestyle, the asset, and the deeded ownership rather than any income assumption.</p>
-<p>The property types available through Ibiza fractional ownership reflect the full breadth of what the island offers. Classic Ibicenco fincas — thick-walled, whitewashed rural farmhouses set among carob and almond trees, with private pools and uninterrupted views across pine-forested hills to the sea — represent the quintessential Ibiza property dream. Modern architect-designed villas in the premium zones of the southwest combine infinity pools, open-plan living, and the kind of indoor-outdoor connection that the Ibiza climate makes possible for the full summer season and beyond. Coastal apartments and townhouses in Ibiza Town and Santa Eulària offer the lifestyle convenience of being within walking distance of restaurants, markets, and the sea, without the land and maintenance commitment of a rural property. Ibiza fractional co-ownership properties span all of these categories — the common thread is quality, professional management, and a location that rewards repeat visits with new discoveries each time.</p>
-<p>The community of co-owners on any given Ibiza property is deliberately small — typically six to eight people sharing a single property, all of whom are vetted through the same purchase process, bound by the same co-ownership agreement, and united by a shared appreciation of the property and the island. This is not anonymous hotel-style access: it is the closest thing to genuine private ownership that a second-home model can offer, with all the operational simplicity of a managed property and none of the loneliness of an empty villa sitting unused and deteriorating for eleven months of the year. Ibiza fractional ownership is, at its best, the most human and most rational way to genuinely own a piece of the White Isle — shared between people who love it, managed by professionals who care for it, and enjoyed on a schedule that makes the most of every day on the island.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Ibiza Fractional Ownership — Areas &amp; Neighbourhoods</h2>
-<p>Ibiza fractional ownership spans the full geographic range of the island — from the cosmopolitan southwest and the cultural richness of Ibiza Town, to the rugged northern landscapes, the family-friendly east coast, and the boho heartland of Santa Gertrudis. Each area of the island has its own character and its own buyer profile. The right area for your co-ownership depends on how you want to use the property: for summer beach life, year-round culture, peaceful countryside retreats, or direct access to the island&#8217;s famous social scene.</p>
-<h3>San José, Cala Tarida &amp; the Southwest Coast — Ibiza Fractional Ownership</h3>
-<p>The southwest is where Ibiza&#8217;s reputation for breathtaking natural beauty is at its most concentrated. The municipality of San José (<em>Sant Josep de sa Talaia</em>) encompasses some of the island&#8217;s most photographed coves — Cala Tarida, Cala Bassa, Cala Conta, and Cala d&#8217;Hort, with its iconic view of the rock fortress of Es Vedrà. Villas and fincas here tend to be set on elevated positions with dramatic sea views, private pools, and the space and privacy that define high-end Ibiza living. This is the heartland of Ibiza fractional co-ownership for buyers seeking the quintessential White Isle experience: sun, sea, seclusion, and world-class sunsets. The area is also home to some of the island&#8217;s most celebrated restaurant and beach club culture, including Ses Salines beach and the world-famous Sunset Strip of Café del Mar and Savannah just to the north in San Antonio&#8217;s bay.</p>
-<h3>Ibiza Town (Eivissa), Talamanca &amp; Can Rimbau — Ibiza Fractional Ownership</h3>
-<p>Ibiza Town — <em>Eivissa</em> in Catalan — is the island&#8217;s capital and its cultural and social heart. The UNESCO World Heritage-listed <em>Dalt Vila</em> (the walled upper city) rises dramatically above the marina, its cobbled streets lined with boutiques, galleries, and restaurants that draw an international crowd year-round. The marina itself is a parade of superyachts, café terraces, and evening paseo culture that makes Ibiza Town a living destination in its own right, rather than simply a gateway to the beaches. Talamanca, the sheltered bay immediately to the north of the marina, offers calm swimming and a genuine residential character. Can Rimbau, the prestigious residential quarter overlooking the marina and the city, is among the most sought-after addresses on the island. Ibiza fractional ownership in this area suits buyers who want cultural depth, restaurant access, and a year-round connection to the island — not just peak summer beach life.</p>
-<h3>San Juan, Portinatx &amp; the Rural North — Ibiza Fractional Ownership</h3>
-<p>The north of Ibiza — centred on the village of San Juan (<em>Sant Joan de Labritja</em>) — is the island&#8217;s quiet, unhurried counterpoint to the busy southwest. Pine-covered hillsides, ancient farmhouses, organic food markets, and an arts-and-crafts community that has been drawn here since the 1960s give the north a character that is entirely its own. The coastline is dramatic and largely undeveloped — the cliffs at Cap de Barbaria and the secluded coves of Benirràs, famous for its Sunday drum circle at sunset, define a landscape that feels genuinely wild. Fincas and rural villas here tend to be larger, more private, and more affordable per square metre than comparable properties in the southwest, making the north one of the most interesting areas for Ibiza fractional property for buyers who value peace, nature, and authenticity over access to beach clubs and nightlife.</p>
-<h3>Santa Gertrudis, San Rafael &amp; the Ibiza Heartland — Ibiza Fractional Ownership</h3>
-<p>The central zone of Ibiza — anchored by the village of Santa Gertrudis de Fruitera — is where the island&#8217;s bohemian spirit and its international creative community coexist most visibly. Gallery openings, excellent farm-to-table restaurants, a famous ice cream shop that has served as the social hub of the village for generations, and a genuine village-life pace that the beach resorts cannot replicate. Properties in and around Santa Gertrudis tend to be traditional Ibicenco fincas — whitewashed, thick-walled, with characteristic arched doorways and terraced gardens — set within a short drive of both the beaches and Ibiza Town. San Rafael, sitting between Santa Gertrudis and the capital, adds another dimension: it is home to two of the island&#8217;s most iconic clubs and, increasingly, a growing food and arts scene of its own. Ibiza fractional ownership in the island&#8217;s heartland suits buyers who want the full Ibiza experience — the culture, the landscape, the community — without anchoring themselves to a single coastal resort.</p>
-<h3>Santa Eulària, Cala Llenya &amp; the East Coast — Ibiza Fractional Ownership</h3>
-<p>The east coast of Ibiza, centred on the town of Santa Eulària des Riu — the only river town in the Balearic Islands — is the quietest and most family-oriented part of the island. Its beaches, including Es Canar, Cala Llenya, and Cala Nova, are sheltered, gently sloping, and served by a variety of restaurants and beach bars that cater to a relaxed, all-ages crowd rather than the party circuit. Santa Eulària itself is a genuinely liveable town with a year-round market, quality supermarkets, an excellent marina, and a residential fabric that feels authentic rather than purely tourist-oriented. For families, couples, and buyers who want to use their Ibiza fractional property across a longer season — spring through autumn — rather than exclusively in the peak summer weeks, the east coast offers the most balanced and practical base on the island. Property types range from modern villas and townhouses within walking distance of the town to rural fincas set in the quieter interior between the coast and Santa Gertrudis.</p>
-<p>Each of these areas of Ibiza has its own distinct property character, buyer community, and seasonal personality. The southwest is the island&#8217;s glamour heartland — maximum sun, maximum sea views, maximum access to the beaches and beach clubs that define the Ibiza summer experience. Ibiza Town and its surroundings offer culture, cuisine, and year-round relevance for buyers who want a connection to the island&#8217;s living community rather than a purely seasonal retreat. The rural north rewards patience and authenticity — the buyers who choose it tend to love it with a particular intensity that those focused on the southwest rarely fully understand until they visit. Santa Gertrudis and the central zone are Ibiza for those who have moved past the obvious and want the real thing: the village café on a Tuesday morning, the art gallery opening on a Saturday evening, the farmhouse restaurant where the chef grows half the menu in the garden behind the kitchen. The east coast is the family zone — calm, practical, beautiful, and unpretentious. For a buyer approaching Ibiza fractional ownership for the first time, the most important question to answer early is not which property type or share size — it is which part of the island speaks to the life you want to live when you are there. Every area of Ibiza rewards that clarity with something genuinely special. The Balearic Islands as a whole offer extraordinary depth — see our full <a href="/balearics-fractional-ownership-properties/">Balearics fractional ownership</a> guide to explore the full range of islands and options across the archipelago.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Ibiza Fractional Ownership Works</h2>
-<p>Ibiza fractional ownership operates as genuine co-ownership of Spanish real property, conducted through the standard Spanish conveyancing system and governed entirely by Spanish property law. There is no special fractional ownership statute or separate regulatory framework — this is real estate ownership in every legal sense, structured to allow a small number of co-owners to share a single property in defined shares with a clear governance framework for scheduling and management.</p>
-<p>The purchase process follows the standard Spanish property transaction structure. A preliminary agreement — the <em>contrato de arras</em> or private purchase contract — is signed, a deposit of typically 10% of the purchase price is paid, and the transaction is then completed before a Spanish <em>Notario</em> (notary public), who is an independent officer of state responsible for authenticating and recording the transaction. On completion, the buyer&#8217;s ownership interest — whether a 1/8 share, a 1/4 share, or another fraction — is registered in the <em>Registro de la Propiedad</em>, the official Spanish national land registry. From that moment, the buyer is a <strong>deeded property owner</strong> under Spanish law, with all the legal protections, rights, and responsibilities that entails.</p>
-<p>The legal vehicle for Ibiza fractional co-ownership is a purpose-built <strong>limited liability company (LLC)</strong> — the same structure used consistently across our global portfolio, in Spain as in France, Italy, Portugal and the United States. The LLC owns the underlying Ibiza property outright as the registered proprietor, and each co-owner holds an equal membership interest in the LLC. The operating agreement sits alongside the registered title and governs the practical aspects of shared ownership: the annual usage calendar, maintenance responsibilities, the management structure, the procedure for sale or transfer of a membership interest, and the rights of co-owners in relation to one another. The LLC framework simplifies transfers and estate planning, provides clear liability protection, and operates cleanly within the Spanish property and tax system. The personal-tax implications of holding LLC interests vary by nationality and residence, so a Spanish property lawyer and cross-border tax adviser should always be consulted.</p>
-<p>Usage allocation in Ibiza fractional ownership follows a rotating calendar system designed to give all co-owners equitable access across the full range of seasons and weeks. A standard <strong>1/8 share</strong> provides approximately 45 days of personal use per year — typically structured as a combination of high-season summer weeks, shoulder-season spring and autumn periods, and the option to swap unused time between co-owners. The management company administers the booking system, handles all arrivals and departures, coordinates maintenance and cleaning between visits, and manages any interaction with local authorities, community fees, and utility providers. The co-owner&#8217;s role is simply to arrive, enjoy the property, and leave — the operational burden of property ownership is entirely removed.</p>
-<p>The tax position of Ibiza fractional ownership for non-resident buyers follows standard Spanish non-resident property ownership rules. Buyers pay the relevant purchase taxes on acquisition — typically <em>Impuesto de Transmisiones Patrimoniales</em> (ITP, transfer tax) for resale properties or IVA (VAT) plus stamp duty for new-build properties. Ibiza is within the Balearic Islands, which applies its own regional ITP rate — currently among the most progressive in Spain, with rates scaling from 8% up to 13% depending on the property value. Annual non-resident property taxes include the <em>Impuesto sobre la Renta de No Residentes</em> (IRNR, non-resident income tax on imputed rental income from the property), which is calculated as a percentage of the property&#8217;s rateable value (<em>valor catastral</em>), and the <em>Impuesto sobre Bienes Inmuebles</em> (IBI, the local annual property ownership tax). Spain also applies a non-resident capital gains tax (<strong>19% for EU/EEA residents</strong>, 24% for others) on any profit realised on sale of the fractional interest. A qualified Spanish tax adviser should be engaged from the outset to model the full cost of ownership accurately.</p>
-<p>Co-owners wishing to sell their fractional interest at any time may do so — this is a genuine asset with full resale rights. The co-ownership agreement typically provides for a <strong>right of first refusal</strong> among existing co-owners, followed by the ability to sell to a new buyer on the open market. The same Spanish conveyancing process — <em>Notario</em>, <em>Registro de la Propiedad</em> — applies to any resale of a fractional interest. Inheritance of a fractional interest follows Spanish succession law, which applies to Spanish-situ assets regardless of the owner&#8217;s country of residence or domicile — an area where cross-border estate planning advice is essential for UK, US, and other non-EU buyers.</p>
-<p>For buyers seeking a deeper understanding of the co-ownership model before committing to a purchase, the What is Fractional Ownership? guide provides a comprehensive overview of the legal framework, ownership structures, and practical considerations across European jurisdictions. The <a href="/co-ownership-buying-process/">co-ownership buying process</a> guide walks through the specific steps of a fractional purchase from initial enquiry to completion and registration. Both are recommended reading for any buyer approaching Ibiza fractional ownership for the first time.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Ibiza Fractional Ownership — Investment &amp; Lifestyle</h2>
-<p>Ibiza fractional ownership stands at the intersection of two powerful drivers: the island&#8217;s enduring appeal as one of Europe&#8217;s most desirable lifestyle destinations, and the structural logic of shared ownership as the most efficient model for a second home used seasonally. The lifestyle case is straightforward — Ibiza is one of the most recognisable and internationally connected islands in the Mediterranean, with a year-round calendar of experiences that gives every season its own distinct character and appeal. The property market logic is equally compelling: the island&#8217;s position within the premium end of the Balearic property market means that co-ownership makes premium properties accessible to a broader international buyer community than outright purchase alone would allow.</p>
-<p>The Ibiza property market has demonstrated consistent long-term resilience. The island&#8217;s combination of limited land supply, strict planning regulations — particularly in the north, where rural property development is tightly controlled — and sustained international demand has supported property values across economic cycles in a way that few other Mediterranean markets have matched. This is not an invented statistic but a structural reality: an island of finite size, with planning constraints that restrict new supply, and demand from one of the most geographically diverse international buyer communities in Europe. Ibiza fractional ownership participates in this market at the quality end — co-ownership properties are typically the kind of well-built, well-located villas and fincas that benefit most directly from the island&#8217;s underlying value fundamentals.</p>
-<p>The lifestyle offering of Ibiza fractional property extends across every season. Summer — July and August particularly — is the island at its most intense: every beach club, marina terrace, and restaurant at capacity, the social calendar relentless, and the Mediterranean light extraordinary. June and September offer many buyers their preferred version of Ibiza: warm enough to swim from any cove, quiet enough to actually get a table at Ama Lur or Na Xamena without a month&#8217;s advance booking, and with a pace that allows the island to breathe. May and October bring cooler temperatures, clearer air, and the autumn almond harvest that turns the interior of the island a warm ochre-gold. Even winter has its advocates among those who know Ibiza well — the local community comes into its own, the restaurants of Santa Gertrudis and Es Canar stay open, and the island&#8217;s natural landscape, usually busy with tourists, can be walked and explored in near-total solitude.</p>
-<p>Beyond the beach, Ibiza&#8217;s lifestyle offer includes some of the finest dining in the Balearics. Restaurants like Heart Ibiza — a collaboration between the Adrià brothers and Cirque du Soleil — sit alongside neighbourhood gems in Santa Gertrudis, fresh-fish tavernas in the fishing village of Es Canar, and organic farm restaurants in the northern hills that source everything from within a few kilometres. The island has a dedicated international school, excellent private healthcare, a marina with berths for vessels of all sizes, a network of water sports providers, and the kind of international connectivity — direct flights from across Europe and beyond from April through October — that makes it genuinely practical as a regular destination rather than a once-a-year trip.</p>
-<p>For buyers comparing Ibiza fractional ownership with alternatives across the Balearics, the key distinction is character and market positioning. <a href="/mallorca-fractional-ownership-properties/">Mallorca</a> is larger, more diverse, and arguably more family-oriented in its overall market profile. <a href="/menorca-fractional-ownership-properties/">Menorca</a> is quieter, more natural, and less internationally connected. Formentera, Ibiza&#8217;s smaller sister island, offers the finest beaches in the archipelago but extremely limited property supply and even more complex planning rules. Ibiza occupies a specific and irreplaceable position: internationally connected, culturally sophisticated, naturally beautiful, and with a property market deep enough to offer genuine choice and liquidity at the quality end. Ibiza fractional co-ownership is simply the most rational entry point for buyers who want that position without the full capital commitment of outright ownership.</p>
-<p>The ongoing costs of Ibiza fractional property are shared proportionally between co-owners and typically cover community fees (<em>gastos de comunidad</em> if the property is within a development), local property tax (IBI), home and contents insurance, utility standing charges, and the management company&#8217;s annual fee for maintenance, cleaning, and booking coordination. These costs are modest relative to the asset and are predictable — co-owners receive a transparent annual cost schedule at the start of each year. There are no hidden overheads and no surprises — professional management is one of the defining advantages of the structured co-ownership model over traditional sole-ownership holiday properties.</p>
-<p>Ibiza&#8217;s connectivity to the rest of Europe is one of its defining practical advantages as a fractional ownership destination. Ibiza Airport — the island&#8217;s international gateway — operates direct flights from London Gatwick, Heathrow, Stansted, Manchester, Birmingham, Bristol, and Edinburgh, as well as from Paris, Amsterdam, Frankfurt, Zurich, Stockholm, and a dozen other major European cities throughout the summer season. From April to October, reaching Ibiza from anywhere in western Europe is a two-to-three-hour journey at most. This ease of access makes the 45-day annual allocation of Ibiza fractional ownership feel genuinely usable across multiple shorter visits — a long weekend in May, two weeks in July, a week in September — rather than requiring a single annual trip that concentrates all use in the peak season. The winter schedule is more limited, with fewer direct routes, but the island remains accessible year-round via connections through Barcelona, Madrid, or Palma for those who want to visit outside the main season.</p>
-<p>For buyers weighing Ibiza fractional ownership against other Mediterranean co-ownership destinations, the comparison is informative. <a href="/south-of-france-fractional-ownership-properties/">South of France fractional ownership</a> offers a different but equally compelling set of lifestyle and property market attributes — the <a href="/french-alps-fractional-ownership-properties/">French Alps</a> offer a mountain rather than coastal experience — and <a href="/sardinia-fractional-ownership-properties/">Sardinia</a> provides an Italian island alternative with its own distinct culture and property market dynamics. <a href="/portugal-fractional-ownership-properties/">Portugal fractional ownership</a> offers a broader range of climate zones and property types at generally lower entry prices. Each has its merits — but Ibiza&#8217;s combination of island exclusivity, year-round connectivity, cultural depth, and premium property stock makes it a uniquely strong and compelling proposition within the broader European co-ownership landscape. For buyers who know the island and love it, the question is not whether to own there, but how — and Ibiza fractional co-ownership answers that question definitively.</p>
-<p>The benefits of fractional ownership for second homes are well-documented: lower entry cost, shared running expenses, professional management, preserved lifestyle access, and the financial and emotional efficiency of owning exactly as much as you need and use. Ibiza fractional ownership applies all of these benefits to one of the Mediterranean&#8217;s most coveted addresses — which is why the interest in White Isle co-ownership has grown consistently among international buyers seeking the optimal balance between ownership, enjoyment, and intelligent use of capital.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/balearics-fractional-ownership-properties/" class="dest-explore-card">Balearics Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card">Mallorca Fractional Ownership &rarr;</a><a href="/menorca-fractional-ownership-properties/" class="dest-explore-card">Menorca Fractional Ownership &rarr;</a><span class="dest-explore-card">Spain Fractional Ownership</span><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Ibiza Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What do I actually own with Ibiza fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>You own a legally registered fractional interest in Spanish real property. Your ownership share — typically a <strong>1/8 interest</strong> — is recorded in the Spanish land registry, the <em>Registro de la Propiedad</em>, in your name. You are a real property owner under Spanish law, with all the rights that entails: the right to use the property for your allocated weeks, the right to sell your share on the open market, the right to pass it on through your estate, and the right to the appreciation in value of your share as the underlying property value changes over time. What you do not own is exclusive use of the property for the entire year — you own your proportional share of the whole, with usage allocated equitably among co-owners under the governance framework of the co-ownership agreement.</p>
-<p>This is fundamentally different from a timeshare, which is a contractual right to use a property during a specified period each year — not an ownership interest in the real estate itself. With Ibiza fractional ownership, the property is on your balance sheet as an asset. With a timeshare, it is not. The distinction is both legally and financially significant.</p></div></details><details class="dest-faq-item"><summary><h3>Is Ibiza fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — and the distinction matters enormously. A timeshare involves the sale of a contractual usage right, not a property ownership interest. When a timeshare company fails or the arrangement ends, the timeshare holder walks away with no asset value and no legal recourse as a property owner. Ibiza fractional ownership is the precise legal opposite: it is a registered property ownership interest that gives the holder a capital asset, the benefits of any appreciation in value, and full resale rights on the open market.</p>
-<p>Timeshare resale is notoriously difficult — many buyers struggle to find buyers at any price, and the secondary market is thin and problematic. Fractional ownership interest in a quality Ibiza property can be sold through the standard Spanish property market, through existing co-owners exercising their right of first refusal, or through specialist fractional property agents. These are two entirely different legal and financial arrangements that happen, superficially, to involve shared access to a property — <strong>not a timeshare</strong> is the accurate and important description of Ibiza fractional co-ownership.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use my Ibiza fractional property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard <strong>1/8 share</strong> provides approximately 45 days of personal use per year — structured typically as a combination of peak summer weeks, shoulder-season periods in spring and autumn, and the flexibility to bank or swap unused time with other co-owners. The usage allocation is managed through a rotating annual calendar that ensures no single co-owner permanently holds the most desirable high-season weeks — all co-owners rotate through peak and off-peak periods over the years.</p>
-<p>For UK buyers specifically, 45 days aligns exceptionally well with the post-Brexit Schengen allowance of 90 days in any 180-day rolling period. A 1/8 share of an Ibiza property uses just half your annual Schengen entitlement, leaving the other 45 days available for travel across the rest of Europe. Buyers who want more time in Ibiza can consider a 1/4 share (approximately 90 days) if they wish to use the full Schengen allocation in a single destination.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Ibiza fractional property during weeks I&#8217;m not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Rental income from unused weeks is possible for some co-owners, but this is never guaranteed and is subject to Balearic Island licensing requirements that are among the most stringent in Spain. The Balearic government has significantly tightened short-term tourist rental regulations in recent years. A property must hold a valid <em>Vivienda Vacacional</em> (Vacation Tourist Licence) to be legally rented to tourists, and new licences in many parts of Ibiza — particularly within the municipality of Ibiza Town and in certain coastal zones — have been placed under moratoriums or restricted in number. There is a formal waiting list for new licences in some areas.</p>
-<p>Whether a specific co-ownership property has a tourist licence, and whether co-owners may rent their unused time, is confirmed on a case-by-case basis for each property. Never select an Ibiza fractional property on the basis of an assumed or projected rental income — the lifestyle value, the asset value, and the deeded ownership structure are the primary drivers of value, not rental returns.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Ibiza fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Non-resident co-owners are also liable for the <em>Impuesto sobre la Renta de No Residentes</em> (IRNR) — a small annual tax calculated on the deemed rental value of the property (based on the <em>valor catastral</em>) that applies even when the property is not actually rented out. Again, this is calculated on the co-owner&#8217;s proportional share of the property value. A Spanish tax adviser will calculate and file this on your behalf annually. The total annual cost of Ibiza fractional ownership, properly structured, is a fraction of the cost of sole ownership and is entirely predictable.</p></div></details><details class="dest-faq-item"><summary><h3>What legal structure is used for Ibiza fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The structure used for Ibiza fractional co-ownership is a purpose-built <strong>limited liability company (LLC)</strong> — the same vehicle COP uses consistently across its global portfolio, in Spain as in France, Italy, Portugal and the United States. The LLC owns the property outright as the registered proprietor, and each of the (typically eight) co-owners holds an equal membership interest in the LLC.</p>
-<p>The LLC framework has several practical advantages: transfers of co-ownership interests can be handled as membership transactions rather than full notarial property conveyances, estate planning is cleaner across jurisdictions, and the structure provides clear liability protection at the property level. The LLC pays its own running costs and tax obligations on the property; you, as a member, deal only with the personal-tax implications of holding LLC interests in your country of residence. Those implications vary by nationality and residence, so always take advice from a qualified Spanish property lawyer and a cross-border tax specialist before completing the purchase.</p></div></details><details class="dest-faq-item"><summary><h3>How does the buying process for Ibiza fractional ownership work?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The buying process follows the standard Spanish property conveyancing structure. After selecting a property and agreeing terms, a preliminary contract — either a <em>contrato de arras</em> (reservation deposit agreement) or a private purchase contract — is signed, and a reservation deposit (typically 10% of the fractional purchase price) is paid. This takes the property off the market while due diligence is carried out. Due diligence on an Ibiza fractional property purchase covers the title registration, any encumbrances or charges registered against the property, planning and licensing status, community fee arrears (if applicable), and — critically for Ibiza — the tourist licence status of the property.</p>
-<p>Completion takes place before a Spanish <em>Notario</em>, who reads and authenticates the purchase deed (<em>escritura de compraventa</em>), after which the buyer&#8217;s fractional interest is registered in the <em>Registro de la Propiedad</em>. Purchase taxes (ITP for resale properties — at Balearic rates — or IVA plus stamp duty for new-build) are paid within 30 days of completion. Non-resident buyers will need a Spanish tax identification number (NIE) and a Spanish bank account for the transaction. The entire process, from reservation to completion, typically takes 6 to 12 weeks for a well-prepared transaction.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Ibiza fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — this is a genuine asset with full resale rights. Co-owners wishing to sell their fractional interest may do so at any time, subject to the terms of the co-ownership agreement. Most agreements provide for a <strong>right of first refusal</strong> among the existing co-owners — meaning that before selling to a third party, the seller must first offer the share to their fellow co-owners at the same price and on the same terms. This protects the co-ownership group by giving them control over who joins the ownership group before the share is marketed externally.</p>
-<p>If no existing co-owner exercises the right of first refusal, the share may be marketed and sold to a new buyer through the same Spanish conveyancing process as the original purchase. Any capital gain on the sale of an Ibiza fractional interest is subject to Spanish non-resident capital gains tax — currently <strong>19% for EU and EEA residents</strong>, and 24% for non-EU residents including UK nationals post-Brexit. A Spanish tax adviser should model the exit tax position as part of the investment assessment.</p></div></details><details class="dest-faq-item"><summary><h3>Is Ibiza fractional ownership suitable for UK buyers post-Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Ibiza fractional ownership is arguably the most rational response to the post-Brexit Schengen constraint for UK buyers who want a genuine long-term connection with the island. Since January 2021, UK nationals have been subject to the Schengen Area&#8217;s 90-day-in-180-day rule, which limits the total time they can spend in Spain (and across all Schengen countries) without a long-stay visa. A 1/8 share providing approximately 45 days of personal use aligns almost perfectly with half of this annual allowance — leaving the remaining entitlement for travel elsewhere in Europe while giving the buyer a legally registered, capital-owning stake in an Ibiza property.</p>
-<p>For UK buyers who want more time in Spain, the Spanish <em>Golden Visa</em> — available to non-EU nationals investing €500,000 or more in Spanish real estate — provides residency rights that supersede the Schengen 90-day restriction. A fractional interest could, in some cases, contribute towards this threshold as part of a broader property portfolio. However, this is a complex area and specialist Spanish immigration and tax advice is essential. For the majority of UK buyers, a well-structured Ibiza fractional property representing 45 days of use per year is the cleaner, simpler, and more cost-effective answer.</p></div></details><details class="dest-faq-item"><summary><h3>How does Ibiza compare to Mallorca and Menorca for fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Each of the main Balearic islands has a distinct character and a distinct buyer profile. <a href="/mallorca-fractional-ownership-properties/">Mallorca fractional ownership</a> offers the greatest geographic diversity within a single island: mountain villages, long golden beaches, marina towns, and a property market with extraordinary range from rustic farmhouses to ultra-luxury villas. It appeals to a broader family market and has the most developed fractional property infrastructure of the three main islands. <a href="/menorca-fractional-ownership-properties/">Menorca</a> is the quietest and most natural of the three — a UNESCO Biosphere Reserve with some of the finest unspoilt beaches in the Mediterranean, a slower pace, and a property market that is notably less developed in the fractional space, giving early buyers an advantageous position. Ibiza sits between the two in terms of pace: more international and cosmopolitan than Menorca, more focused and characterful than Mallorca, with a year-round cultural and social calendar that neither of its sister islands can match. The choice between the three comes down entirely to how you want to live in the property, and in which season.</p></div></details><details class="dest-faq-item"><summary><h3>What happens if I want to pass on my Ibiza fractional interest to my heirs?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Ibiza fractional ownership carries full inheritance rights — your fractional interest is an asset that can be passed on through your estate. However, because the property is situated in Spain, Spanish succession law (<em>Ley del Impuesto sobre Sucesiones y Donaciones</em>) applies to the transfer of Spanish-situ assets regardless of your country of residence or domicile. For EU residents, the EU Succession Regulation (Brussels IV) allows you to elect for the law of your habitual residence to govern your overall succession — which may result in more favourable outcomes than Spanish forced heirship rules in some cases. For UK residents post-Brexit, this EU election is no longer available, and specialist cross-border estate planning advice is essential.</p>
-<p>The Balearic Islands apply their own regional succession tax rules, which are generally more favourable than the national Spanish rates — particularly for direct-line family heirs. The co-ownership agreement should be reviewed to understand whether a transfer of interest by inheritance requires notification to or consent from the other co-owners. In many well-structured co-ownership arrangements, inheritance transfers to direct family members are permitted without triggering the right of first refusal that would apply to a commercial sale. This is an area where both a Spanish inheritance lawyer and a cross-border estate planning specialist should be consulted early in the purchase process, not as an afterthought.</p></div></details></div></div></section>    
-    <!-- CTAs -->
-        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
-    <section class="newsletter-section" id="newsletter">
-        <h2 class="newsletter-heading">Be The First To Know</h2>
-        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
-        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
-            <input type="email" name="email" placeholder="Enter your email address" required>
-            <button type="submit" class="newsletter-btn">Join Newsletter</button>
-        </form>
-        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
-    </section>
-        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
-    <section class="expert-section" id="speak-to-expert">
-        <div class="expert-inner">
-            <p class="expert-eyebrow">Get in Touch</p>
-            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
-            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+<h2>Why Ibiza?</h2>
 
-            <form class="expert-form" id="expert-enquiry-form" novalidate>
-                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
-                    <div class="expert-form-field">
-                        <label for="ef-name">Name <span>*</span></label>
-                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-email">Email Address <span>*</span></label>
-                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-phone">Phone Number <span>*</span></label>
-                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label>Destinations</label>
-                        <div class="dest-multiselect" id="dest-multiselect">
-                            <div class="dest-trigger" id="dest-trigger">
-                                <span class="dest-placeholder">Select destinations</span>
-                            </div>
-                            <div class="dest-dropdown" id="dest-dropdown">
-                                                                <div class="dest-option" data-value="France">
-                                    <span class="dest-check"></span>
-                                    🇫🇷 France                                </div>
-                                                                <div class="dest-option" data-value="Spain">
-                                    <span class="dest-check"></span>
-                                    🇪🇸 Spain                                </div>
-                                                                <div class="dest-option" data-value="Italy">
-                                    <span class="dest-check"></span>
-                                    🇮🇹 Italy                                </div>
-                                                                <div class="dest-option" data-value="USA">
-                                    <span class="dest-check"></span>
-                                    🇺🇸 USA                                </div>
-                                                                <div class="dest-option" data-value="Portugal">
-                                    <span class="dest-check"></span>
-                                    🇵🇹 Portugal                                </div>
-                                                                <div class="dest-option" data-value="Austria">
-                                    <span class="dest-check"></span>
-                                    🇦🇹 Austria                                </div>
-                                                                <div class="dest-option" data-value="England">
-                                    <span class="dest-check"></span>
-                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
-                                                                <div class="dest-option" data-value="Sweden">
-                                    <span class="dest-check"></span>
-                                    🇸🇪 Sweden                                </div>
-                                                                <div class="dest-option" data-value="Germany">
-                                    <span class="dest-check"></span>
-                                    🇩🇪 Germany                                </div>
-                                                                <div class="dest-option" data-value="Croatia">
-                                    <span class="dest-check"></span>
-                                    🇭🇷 Croatia                                </div>
-                                                                <div class="dest-option" data-value="Mexico">
-                                    <span class="dest-check"></span>
-                                    🇲🇽 Mexico                                </div>
-                                                            </div>
-                        </div>
-                        <input type="hidden" name="destination" id="ef-destination">
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-budget">Budget Range</label>
-                        <select id="ef-budget" name="budget">
-                            <option value="" disabled selected>Select a budget</option>
-                            <option>Under €100,000</option>
-                            <option>€100,000 – €200,000</option>
-                            <option>€200,000 – €350,000</option>
-                            <option>€350,000 – €500,000</option>
-                            <option>€500,000 – €750,000</option>
-                            <option>€750,000 – €1,000,000</option>
-                            <option>Over €1,000,000</option>
-                        </select>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-message">Message</label>
-                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
-                    </div>
-                </div>
-                <div class="expert-submit">
-                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
-                    <p class="expert-form-msg" id="expert-form-msg"></p>
-                </div>
-            </form>
-        </div>
-    </section>
+<p>Ibiza is the <strong>most architecturally protected island</strong> in the western Mediterranean and, by some measures, the most misunderstood. The cliché — that this is a party island colonised by superclubs and DJs — accounts for a real but narrow slice of the summer week along one stretch of coast around <strong>Playa d'en Bossa</strong> and <strong>San Antonio</strong>. The Ibiza most international second-home owners actually buy into is the opposite: the <strong>UNESCO-listed Dalt Vila</strong> citadel above the harbour at <a href="https://www.eivissa.es/portal/index.php/en/" target="_blank" rel="noopener">Ibiza Town</a>, the deep pine-forested interior protected as <em>Eivissa Patrimoni de la Humanitat</em>, the working agricultural plain around <strong>Santa Gertrudis</strong> and <strong>San Mateu</strong>, the quiet northern hills around <strong>San Joan</strong> and <strong>Santa Agnès</strong>, the cliff-cut coves of <strong>Cala d'Hort</strong> and <strong>Es Vedrà</strong>, and the long sand at <strong>Las Salinas</strong> and <strong>Ses Salines</strong>. The island runs to barely <strong>572 square kilometres</strong> and a permanent population under <strong>160,000</strong>, of which a third lives inside the Eivissa municipality alone — making it materially smaller and more legible than Mallorca, more developed and better-served than Menorca, and several scales more cosmopolitan than its size suggests.</p>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
-            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
-            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
-            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
-            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
-        </div>
-        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
-    </footer>
+<p>Your Ibizan share is held inside a <strong>purpose-built LLC</strong> alongside up to seven other co-owners. This is the same modern international structure used across every property on COP — the United States, the United Kingdom, France, Spain, Italy and elsewhere — rather than a legacy national vehicle that varies country by country. <strong>The practical effect</strong> for the international buyer is significant. Your relationship with the Ibizan property runs through <strong>one consistent ownership structure</strong> regardless of which property or jurisdiction you own in; you own inside the same modern framework whether your share is in Ibiza, the Spanish Costas, the French Alps or elsewhere; and resale is faster and lighter because transferring an <strong>LLC membership interest</strong> is a more direct administrative action than triggering a full notarial title conveyance through an Ibizan notary. For owners who go on to add a second property in another COP destination — and a meaningful proportion do, often pairing an Ibiza share with a winter-sun or alpine share — the reward is a <strong>single international portfolio relationship</strong> rather than a stack of jurisdiction-specific arrangements that each behave differently.</p>
 
-    <script>
-        /* ── Shared header JS ──────────────────────────────────────── */
-(function () {
-    var header = document.getElementById('cop-header');
-    var btn    = document.getElementById('cop-hamburger');
-    var nav    = document.getElementById('cop-nav');
-    if (!header || !btn || !nav) return;
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and up to seven other owners hold equal LLC membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
+</div>
 
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and up to seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare.
+</div>
 
-    // Mobile hamburger toggle
-    btn.addEventListener('click', function () {
-        nav.classList.toggle('active');
-        btn.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-            nav.classList.remove('active');
-            btn.classList.remove('open');
-        });
-    });
-}());
-        /* ── Newsletter form (shared partial) ──────────────────────── */
-(function() {
-    var form = document.getElementById('cop-newsletter-form');
-    if (!form) return;
-    var msg = document.getElementById('newsletter-form-msg');
+<p>The question every prospective Ibiza buyer eventually asks — <strong>is Ibiza too much of a party island for a fractional second home?</strong> — deserves an honest answer up front. The party Ibiza is geographically concentrated. The two main club zones — the strip along <strong>Playa d'en Bossa</strong> south of Ibiza Town (the Ushuaïa, Hï Ibiza, the daytime beach clubs) and the sunset bars and superclubs around <strong>San Antonio</strong> on the west coast (Café del Mar, the historic O Beach district) — occupy a small fraction of the island's coastline. Drive twenty minutes inland from either and the music industry's Ibiza disappears entirely: the hills around <strong>Sant Mateu</strong> grow some of the better wines on the Balearics, the working <em>cases pageses</em> (traditional Ibizan farmhouses) of <strong>Sant Joan de Labritja</strong> sit in pine valleys with no audible nightlife at all, the harbour villages of <strong>Sant Carles</strong> and <strong>Es Caná</strong> run a generations-old Saturday hippy-market rhythm, and the protected agricultural plain around <strong>Santa Gertrudis</strong> is genuinely rural. <strong>The serious international second-home buyer</strong> in Ibiza is almost never bound for Hï Ibiza or Pacha — they are buying into the quiet north, the gentler east, the protected southwest pine forests, or the medieval old town above the harbour. Few of them set foot in the club zones except by deliberate choice on a specific night.</p>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var emailInput = form.querySelector('input[type="email"]');
-        var btn = form.querySelector('.newsletter-btn');
-        if (!emailInput.value) return;
+<p>Ibiza's particular advantage inside the western Mediterranean is the <strong>combination of architectural pedigree and planning protection</strong> that has kept the island's most desirable inventory genuinely scarce. The <a href="https://whc.unesco.org/en/list/417/" target="_blank" rel="noopener">UNESCO World Heritage inscription</a> for <em>Ibiza, Biodiversity and Culture</em> — granted in 1999 and covering the entire <strong>Dalt Vila</strong> walled citadel above Ibiza Town, the Phoenician necropolis at Puig des Molins, the Phoenician settlement at Sa Caleta and the marine biodiversity of the seagrass meadows in the channel between Ibiza and Formentera — has imposed a strict building-control regime on much of the island for over two decades; the cluster of UNESCO-protected addresses inside the medieval walls of Dalt Vila, the Catalan-Gothic cathedral at the citadel's peak, the network of dry-stone-walled <em>algar</em> fields across the interior, and the protected coastal stretches at <a href="https://www.illesbalears.travel/en/balearics/what-to-do/parc-natural-de-ses-salines-de-eivissa-i-formentera" target="_blank" rel="noopener">Ses Salines natural park</a> are essentially the same landscape the Carthaginians, the Catalans and the early twentieth-century writers and bohemians described. The result is that the buildable stock of high-specification Ibizan villas and fincas is, in real terms, no longer growing in the most desirable zones — and the existing inventory is held tighter than at any point in the modern era.</p>
 
-        btn.disabled = true;
-        btn.textContent = 'Subscribing\u2026';
-        msg.className = 'newsletter-form-msg';
-        msg.textContent = '';
+<p>It is worth setting Ibiza in its European competitive context. <strong>Mallorca</strong>, its larger sister Balearic, has a longer-established international second-home market and a deeper professional services bench — but lacks Ibiza's compactness and the specific design-led, Mediterranean-bohemian culture that has accreted around the smaller island over the past sixty years. <strong>Menorca</strong> is genuinely quieter, with a slower rhythm and less infrastructure, and runs significantly more seasonal than Ibiza. <strong>Formentera</strong>, just across the channel, is smaller again, with no airport and a single ferry-led summer rhythm. <strong>Sardinia</strong> offers comparable Mediterranean glamour at the Costa Smeralda tier but with notably less developed off-season infrastructure and a heavier seasonal pattern. <strong>Mykonos</strong> in Greece has the design-led Mediterranean-island parallel but lacks the EU residential infrastructure depth and the year-round flight connectivity. <strong>Saint-Tropez</strong> sits on the Côte d'Azur mainland rather than an island, at materially higher entry prices and without the medieval-citadel-and-pine-interior duality that makes Ibiza distinctive. None of these comparisons makes Ibiza categorically "better" — the right answer depends on the buyer's priorities — but they frame why Ibiza retains, by some distance, the <strong>most distinctive design-and-music-industry-adjacent second-home culture on any Mediterranean island</strong>.</p>
 
-        var data = new FormData();
-        data.append('action', 'cop_newsletter_subscribe');
-        data.append('email', emailInput.value);
+<p>The third structural argument for Ibiza is the <strong>compactness of the usable lifestyle</strong> on a small island. Every major part of Ibiza is reachable from every other part in <strong>under forty minutes by car</strong>. A buyer with a 1/8 share in a Sant Joan finca in the north can be having lunch in Ibiza Town's harbour by 1pm, swimming at Cala d'Hort below Es Vedrà by 4pm, and back home in the pine hills by sunset. A Santa Eulàlia owner is ten minutes from the agricultural plain at Santa Gertrudis and twenty from the medieval streets of Dalt Vila. A San José villa above Cala Tarida is thirty minutes from <a href="https://www.aena.es/en/ibiza.html" target="_blank" rel="noopener">Ibiza airport (IBZ)</a> and twenty from the citadel. The island's scale — a single forty-by-twenty-kilometre footprint — packs a remarkable amount of difference (medieval old town, pine-forested interior, working agricultural plain, dramatic cliff coves, long sand beaches, design-led harbour towns, traditional whitewashed villages) into a footprint that can be circumnavigated in a single afternoon. Few other Mediterranean islands offer that combination of variety and compactness, and the practical effect for a fractional owner is that 45 days of use per year can genuinely cover the whole island rather than being locked to a single bay or village.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'newsletter-form-msg success';
-                msg.textContent = res.data || 'Thank you for subscribing!';
-                form.reset();
-                btn.textContent = 'Subscribed!';
-            } else {
-                msg.className = 'newsletter-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Join Newsletter';
-            }
-        })
-        .catch(function() {
-            msg.className = 'newsletter-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Join Newsletter';
-        });
-    });
-})();
-        /* ── Multi-select destination dropdown (shared partial) ────── */
-(function() {
-    var wrap     = document.getElementById('dest-multiselect');
-    var trigger  = document.getElementById('dest-trigger');
-    var dropdown = document.getElementById('dest-dropdown');
-    var hidden   = document.getElementById('ef-destination');
-    if (!wrap || !trigger || !dropdown || !hidden) return;
+<p>For a co-ownership buyer thinking strategically rather than just emotionally, Ibiza's combination of <strong>UNESCO-grade protection, compact scale and design-led culture</strong> matters more than the headline party-island reputation. The villa you buy a share of above Cala Vadella sits in a market where the buildable land inside the <em>Sant Josep de sa Talaia</em> municipality is hemmed in by coastal-strip planning rules that have not moved in twenty years. The Sant Joan finca on the northern hills is in a region whose protected agricultural plain has planning ceilings that effectively prevent new-build. The Ibiza Town apartment in the Marina Botafoch quarter is in a district whose pre-1960s building stock — Phoenician-influenced whitewashed cubes, Catalan-Gothic civic buildings, the maze of Dalt Vila lanes — pre-dates every present resident and will outlast them. These are not assets that depend on a particular interest-rate cycle to hold their value; they depend on the unchanging facts that Ibiza remains Ibiza, that Dalt Vila remains protected, and that the Mediterranean keeps washing the same controlled shoreline. Add the modern <strong>LLC ownership infrastructure</strong> that makes shared ownership transparent, taxable and resaleable, and the case for co-ownership on Ibiza writes itself.</p>
 
-    var placeholder = trigger.querySelector('.dest-placeholder');
-    var selected = [];
+<p>One under-discussed advantage that becomes obvious once you actually start using an Ibizan second home is the depth of the island's <strong>professional services infrastructure for non-resident owners</strong>. Five decades of British, German, Dutch, Belgian, French and increasingly American buyers have built up an ecosystem of <strong>multilingual lawyers, property managers, gestores, tax advisers, architects, builders and notaries</strong> on the island. The local management companies in Ibiza Town, Santa Eulàlia, San José and San Joan operate in <strong>English, German, French, Dutch, Italian and the Scandinavian languages</strong> as a matter of routine, with decades of operating history; the design and architecture community on the island — concentrated around Santa Gertrudis and Ibiza Town — has produced some of the most distinctive Mediterranean-modern residential architecture of the past thirty years (the Ibizan minimalist vernacular of whitewashed cubic volumes, dry-stone walls, oak and olive wood, raw plaster interiors). The notarial system gives ownership documentary clarity through Spain's <strong>Registro de la Propiedad</strong>, and the cadastral records — held by the <strong>Catastro</strong> — are a long-running, reliable record-of-record system. None of this is glamorous, but it is the kind of infrastructure that determines whether owning a second home from another country is a pleasure or a chore.</p>
 
-    function render() {
-        /* Remove old tags */
-        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+<p>The fourth structural advantage worth naming is the <strong>transport infrastructure</strong> that makes an Ibizan second home practically usable rather than just nominally owned. <a href="https://www.aena.es/en/ibiza.html" target="_blank" rel="noopener">Ibiza airport (IBZ)</a> handles around <strong>9 million passengers a year</strong>, with year-round direct service from London, Manchester, Birmingham, Edinburgh, Dublin, Frankfurt, Düsseldorf, Munich, Berlin, Hamburg, Zurich, Geneva, Vienna, Amsterdam, Brussels, Paris, Copenhagen, Stockholm and Oslo, expanding to several dozen further European cities through the summer charter season. Most Northern European hubs are <strong>under three hours' flight time</strong>; the drive from IBZ to the major villages is genuinely short (Ibiza Town in fifteen minutes, San José in twenty, Santa Eulàlia in thirty, San Joan in forty); and the year-round flight frequency — slightly thinner than Mallorca but still substantial — means the <strong>high-frequency, short-stay use pattern</strong> that fractional ownership rewards is realistically achievable from any major Northern European city. An owner can leave London, Frankfurt or Amsterdam on a Friday lunchtime and be having dinner at the harbour in Santa Eulàlia that evening.</p>
 
-        if (selected.length === 0) {
-            placeholder.style.display = '';
-        } else {
-            placeholder.style.display = 'none';
-            selected.forEach(function(val) {
-                var tag = document.createElement('span');
-                tag.className = 'dest-tag';
-                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
-                trigger.insertBefore(tag, placeholder);
-            });
-        }
+<p>A fifth and often overlooked argument for Ibiza is the <strong>quality of the food and wine scene</strong> that has developed on the island over the past two decades. The <strong>Ibizan kitchen</strong> sits at the meeting point of Catalan, Balearic, North African and Italian influences — the working agricultural plain around Santa Gertrudis and Sant Mateu produces some of the better small-batch wines on the Balearics through producers like <a href="https://www.canrich.com/" target="_blank" rel="noopener">Bodegas Can Rich</a> and the surrounding cellars in the Santa Inés appellation; the protected salt-pans at Las Salinas are still working, with the <em>flor de sal</em> from the southern flats sold across European specialist markets; the <strong>sobrassada</strong> and <strong>botifarró</strong> from the local farms appear on most serious restaurant menus; the long-line fishing from the harbours at Sant Antoni and Santa Eulària supplies the daily catch into Ibiza Town's restaurants; and the <a href="https://guide.michelin.com/en/es/balears" target="_blank" rel="noopener">Michelin Guide</a> coverage of the Balearics now reaches deeply into the Ibiza scene at multiple addresses. For owners who care about food, the working agricultural rhythm of the inland — the Saturday market at Santa Gertrudis, the Wednesday market at Sant Carles, the Sunday market at Sant Joan — is one of the under-discussed daily attractions of an Ibizan share.</p>
 
-        /* Update hidden field */
-        hidden.value = selected.join('; ');
+<p>The sixth argument is the <strong>Ibizan architectural vernacular</strong> itself, which has emerged over the past thirty years as one of the most distinctive contemporary residential styles in the Mediterranean. The traditional <em>casa pagesa</em> — the working Ibizan farmhouse with its flat roof, thick whitewashed stone walls, small windows, deep shaded interior courtyards (<em>porches</em>) and dry-stone-walled terraces — has been adapted into a contemporary minimalist idiom by successive generations of architects working on the island. The <strong>Ibizan minimalist villa</strong> as it now exists — whitewashed cubic volumes layered into a hillside, raw plaster interiors, oak and olive wood, oversized openings to pine forest or sea, infinity pools running to the cliff edge — is one of the most internationally imitated Mediterranean residential vernaculars and has produced a continuous design pipeline that pulls international architects, interior designers and creative-industry buyers to the island as much as the climate does. For owners drawn to that aesthetic, owning a share in a representative example is one of the genuine pleasures of an Ibizan share — and one that does not exist in quite the same way on Mallorca, Menorca, Sardinia or the Greek islands.</p>
 
-        /* Update option highlights */
-        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
-            if (selected.indexOf(opt.dataset.value) !== -1) {
-                opt.classList.add('selected');
-            } else {
-                opt.classList.remove('selected');
-            }
-        });
-    }
+<p>The final structural advantage is the <strong>year-round usability of the island for owners who actually want a winter base inside the EU</strong>. The combination of mild coastal temperatures, low rainfall, the year-round flight frequency, the depth of the multilingual professional services ecosystem and the cultural calendar that runs in Ibiza Town from October through April makes Ibiza one of the more under-discussed winter retreats in the western Mediterranean. The <strong>Sant Antoni and Sant Sebastià</strong> festivals in mid-to-late January, the <strong>almond blossom across Santa Agnès</strong> from late January through early March, the spring restaurant calendar reopening in March, and the long shoulder season from late March through May — taken together — give a fractional owner a usable Ibizan calendar that runs to nine or ten months of the year, rather than the two-month high-summer-only pattern many associate with the island. Owners who use their share across the full calendar consistently report a <strong>higher use-quality</strong> from their Ibizan share than those who restrict themselves to the high-summer window alone.</p>
 
-    /* Toggle dropdown */
-    trigger.addEventListener('click', function(e) {
-        /* If clicking a tag X, remove that item */
-        if (e.target.classList.contains('dest-tag-x')) {
-            var val = e.target.dataset.val;
-            selected = selected.filter(function(v) { return v !== val; });
-            render();
-            e.stopPropagation();
-            return;
-        }
-        wrap.classList.toggle('open');
-    });
+</div></section>
 
-    /* Click an option */
-    dropdown.addEventListener('click', function(e) {
-        var opt = e.target.closest('.dest-option');
-        if (!opt) return;
-        var val = opt.dataset.value;
-        var idx = selected.indexOf(val);
-        if (idx === -1) {
-            selected.push(val);
-        } else {
-            selected.splice(idx, 1);
-        }
-        render();
-        e.stopPropagation();
-    });
+<section class="dest-sec white"><div class="dest-inner">
 
-    /* Close on outside click */
-    document.addEventListener('click', function(e) {
-        if (!wrap.contains(e.target)) {
-            wrap.classList.remove('open');
-        }
-    });
-})();
+<h2>Where to own in Ibiza</h2>
 
-/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
-(function() {
-    var form = document.getElementById('expert-enquiry-form');
-    if (!form) return;
-    var btn = form.querySelector('.expert-submit-btn');
-    var msg = document.getElementById('expert-form-msg');
+<p>Ibiza's second-home market is best understood through <strong>five distinct sub-zones</strong>, each with its own architecture, microclimate, season and buyer mix. There are, of course, Ibizan addresses outside these five — the southeastern coves around <strong>Cala Llonga</strong> and <strong>Cala Mastella</strong>, the working market town of <strong>Sant Mateu d'Aubarca</strong> in the central interior, the design-led village of <strong>Santa Gertrudis</strong> on the inland plain, the southern cliff coast around <strong>Cala d'Hort</strong> and <strong>Es Vedrà</strong> — and we are happy to discuss them with buyers whose interests run that direction. But the supply story for fractional ownership is concentrated in the five clusters below: <strong>Ibiza Town and Marina Botafoch</strong> in the south, <strong>Santa Eulàlia and the east coast</strong>, <strong>San José and the southwest</strong>, <strong>San Joan and the north</strong>, and <strong>San Antonio and the sunset coast</strong>. Together they account for the overwhelming majority of international second-home demand on the island.</p>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.textContent = 'Sending\u2026';
-        msg.className = 'expert-form-msg';
-        msg.textContent = '';
+<h3>Ibiza Town and Marina Botafoch</h3>
 
-        var data = new FormData();
-        data.append('action', 'cop_expert_enquiry');
-        data.append('nonce',       form.querySelector('[name="nonce"]').value);
-        data.append('name',        form.querySelector('[name="name"]').value);
-        data.append('email',       form.querySelector('[name="email"]').value);
-        data.append('phone',       form.querySelector('[name="phone"]').value);
-        data.append('destination', form.querySelector('[name="destination"]').value);
-        data.append('budget',      form.querySelector('[name="budget"]').value);
-        data.append('message',     form.querySelector('[name="message"]').value);
+<p><a href="https://www.eivissa.es/portal/index.php/en/" target="_blank" rel="noopener">Ibiza Town</a> — Eivissa in Catalan — is the island's working capital and, since 1999, the holder of one of the western Mediterranean's most consequential <a href="https://whc.unesco.org/en/list/417/" target="_blank" rel="noopener">UNESCO World Heritage inscriptions</a> covering the entire <strong>Dalt Vila</strong> walled citadel above the harbour, the Phoenician necropolis at <strong>Puig des Molins</strong>, the Phoenician settlement at <strong>Sa Caleta</strong> and the seagrass-meadow marine biodiversity in the channel toward Formentera. The medieval upper town rises in a stack of whitewashed lanes from the harbour to the Catalan-Gothic cathedral at the citadel's peak; the lower town wraps the inner harbour with the <strong>Marina Ibiza</strong> and <strong>Marina Botafoch</strong> yacht harbours on either side, and the residential quarters of <strong>La Marina, Sa Penya</strong> and <strong>Talamanca</strong> giving the city its daily rhythm. The pre-1960s building stock — Catalan-Gothic civic buildings, Phoenician-influenced whitewashed cubes, the maze of medieval stepped lanes inside the walls — is being painstakingly restored to high specification as one of the island's most active small-city residential markets.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'expert-form-msg success';
-                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
-                form.reset();
-                btn.textContent = 'Sent!';
-                /* Clear destination tags */
-                var wrap = document.getElementById('dest-multiselect');
-                if (wrap) {
-                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-                    var ph = wrap.querySelector('.dest-placeholder');
-                    if (ph) ph.style.display = '';
-                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
-                }
-            } else {
-                msg.className = 'expert-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Send Enquiry';
-            }
-        })
-        .catch(function() {
-            msg.className = 'expert-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Send Enquiry';
-        });
-    });
-})();
-        // Show more properties
-        var showMoreBtn = document.getElementById('dest-show-more');
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', function() {
-                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
-                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
-            });
-        }
-    </script>
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/0539ed653a/creo-brisa.jpg" alt="A contemporary Ibizan apartment block in the Marina Botafoch district with a shared pool and sea views toward Dalt Vila" loading="lazy" width="2100" height="1400" />
+  <figcaption>A contemporary residential building in the Marina Botafoch quarter, the rooftops of Dalt Vila visible across the inner harbour.</figcaption>
+</figure>
+
+<p>The prime residential sub-zones inside Ibiza Town divide between <strong>Dalt Vila</strong> itself (the densest medieval housing stock inside the citadel walls, with the cathedral and the Phoenician necropolis as immediate neighbours, accessed by stepped lanes from the harbour); <strong>Marina Botafoch and Talamanca</strong> on the eastern arm of the bay (contemporary apartment buildings with pools and yacht-harbour views, the long calm-water beach at Talamanca, the design-led restaurant scene that has developed around the marina); <strong>La Marina and Sa Penya</strong> in the lower town (the traditional fishermen's quarters, narrow whitewashed lanes that now hold a concentrated restaurant and bar scene); and <strong>Jesús and Can Misses</strong> on the northern edge of the city (the modern residential districts where many year-round Ibiza Town professionals actually live, with easier parking and direct access to the inland road network). IBZ airport is <strong>15 minutes by taxi</strong> from the harbour; Santa Eulàlia is <strong>20 minutes</strong> north-east on the C-733; San José is <strong>20 minutes</strong> west on the E-20; San Joan is <strong>35 minutes</strong> north. Climate runs <strong>15–18°C (high 50s°F to mid-60s°F)</strong> in winter to <strong>28–31°C (low to high 80s°F)</strong> in high summer, with the small-city scale (Eivissa's metropolitan area is under <strong>60,000</strong> people) meaning the city's restaurant and cultural calendar runs at human pace year-round, with none of the high-summer shutdown that affects parts of the rural island. <strong>Best for:</strong> cultural enthusiasts who want a base for repeat short stays rather than long single holidays — flying in for a long Friday-to-Tuesday around a Dalt Vila exhibition, a harbour-front dinner, a Christmas week inside the medieval walls — and for owners who treat the UNESCO-protected pre-1960s architectural pedigree of central Eivissa as the primary destination rather than a gateway to the rest of the island.</p>
+
+<p>What makes Ibiza Town distinctive among Mediterranean small-city residential markets is the <strong>density of the historical layers</strong> visible inside a single half-hour walk. The <a href="https://maaca.eivissa.es/en/" target="_blank" rel="noopener">Museu Arqueològic d'Eivissa</a> at the top of Dalt Vila holds the Phoenician and Punic finds from the <strong>Puig des Molins necropolis</strong> just outside the citadel walls — one of the largest Phoenician burial sites in the western Mediterranean and a key part of the UNESCO inscription. The <strong>Catalan-Gothic cathedral</strong> at the citadel's peak dates to the fourteenth century and sits on the foundations of an earlier mosque; the <strong>Almudaina fortress</strong> walls were rebuilt in the sixteenth century to a design by the Italian military architect Giovanni Battista Calvi after the city had been threatened by Barbary corsairs through much of the late Middle Ages. The seafront walls, the <strong>Portal de ses Taules</strong> gateway, the cathedral's bell tower, the <strong>Baluard de Sant Pere</strong> bastion and the long views from the upper citadel back down across the harbour and across to Formentera in the channel are the elements that the UNESCO inscription specifically protects — and the daily working backdrop of a Dalt Vila apartment owner. Few Mediterranean small cities deliver that combination of historical layering and daily usability inside a footprint a buyer can walk in twenty minutes.</p>
+
+<h3>Santa Eulàlia and the east coast</h3>
+
+<p><a href="https://www.santaeulalia.net/turismo/en/" target="_blank" rel="noopener">Santa Eulàlia des Riu</a>, on the eastern coast, is the island's <strong>second-largest town</strong> and the long-favoured choice for international families with school-age children who want a domesticated bay rhythm without the cultural intensity of Eivissa or the cliff-coast remoteness of the north. The town wraps the long sandy beach at <strong>Platja de Santa Eulària</strong> in a gentle horseshoe; the harbour at <strong>Puerto Santa Eulalia</strong> is the largest yacht harbour on the east coast; the long pedestrian seafront promenade runs south from the harbour to the river mouth (the <em>Riu de Santa Eulària</em>, the only river on the Balearics that runs year-round) and north toward the Punta Arabí headland. The town's central <strong>Passeig de S'Alamera</strong> is one of the island's more cosmopolitan small-town avenues, with a serious restaurant scene that runs into the autumn and winter beyond the summer crowds.</p>
+
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/bdd3e94af8/creo-brisa.jpg" alt="An apartment terrace in an Ibizan residential complex with pool and Mediterranean views, whitewashed contemporary architecture" loading="lazy" width="2100" height="1400" />
+  <figcaption>An apartment terrace in a contemporary residential complex on the eastern coast of Ibiza, the Mediterranean visible beyond the pool deck.</figcaption>
+</figure>
+
+<p>The prime sub-zones around Santa Eulàlia divide between the <strong>central town</strong> (apartments along the Passeig de S'Alamera, townhouses in the streets behind the harbour, contemporary low-rise residential buildings on the southern edge), the <strong>Punta Arabí and Es Caná</strong> headlands north of the town (the famous <a href="https://www.hippymarket.com/" target="_blank" rel="noopener">Punta Arabí Wednesday hippy market</a> has been running since 1973, and the surrounding pine-forest hillsides hold some of the east coast's prime sea-view villas), the <strong>Cala Llonga and Cala Mastella</strong> southern coves (smaller resort villages set in protected pine forest, ten to fifteen minutes south of the main town), and the <strong>San Carlos / Sant Carles</strong> village inland (the working hippie-era village that anchored the 1960s and 1970s creative community, still home to the legendary <a href="https://www.barannita.com/" target="_blank" rel="noopener">Bar Anita</a> and a Saturday market). Drive times from IBZ airport to Santa Eulàlia run <strong>30 minutes</strong> on the C-733 via Jesús; to Ibiza Town a further <strong>20 minutes</strong>; to San Joan <strong>25 minutes</strong> north on the PM-810. Climate is similar to Ibiza Town — <strong>15–18°C (high 50s°F to mid-60s°F)</strong> in winter to <strong>27–30°C (low 80s°F)</strong> in high summer — with the eastern bay's still water and the long shallow swimming margin giving the area its family-led reputation. <strong>Best for:</strong> multi-generational families — particularly British, Dutch, Belgian and German — who want a domesticated bay rhythm, the long-stay residential character of an east-coast town, a deep restaurant calendar, and a long usable shoulder season from late March through October.</p>
+
+<p>Santa Eulàlia's particular daily texture is one of the reasons the area has held the family-led second-home market for so long. The town centre runs a year-round restaurant rhythm — the long pedestrian Passeig de S'Alamera holds a Saturday morning market that has been running for decades, the harbour-front fish restaurants on the southern arm of the bay operate from March through November, and the small but serious gastronomy cluster around the harbour and the church of Santa Eulàlia des Riu (the only fortified parish church on the island, built on the <strong>Puig de Missa</strong> hill above the town) has produced one of the more sustained restaurant scenes on the east coast. The <strong>Camí des Rec</strong> walking path running inland from the river mouth toward the <em>noria</em> (waterwheel) at the Roman bridge is one of the small daily pleasures of an east-coast share; the Sant Carles village inland (with its hippie-era anchor <a href="https://www.barannita.com/" target="_blank" rel="noopener">Bar Anita</a>) is fifteen minutes by car; the Saturday <a href="https://www.lasdaliasibiza.com/" target="_blank" rel="noopener">Las Dalias hippy market</a> at Sant Carles has been running since 1985 and remains the most authentically counter-cultural of the island's three major markets.</p>
+
+<h3>San José and the southwest</h3>
+
+<p>The southwest of Ibiza — the municipality of <a href="https://santjosep.org/?lang=en" target="_blank" rel="noopener">Sant Josep de sa Talaia</a>, anchored by the inland village of <strong>San José</strong> and the southwestern coastline running from <strong>Es Cubells</strong> through <strong>Cala Vadella</strong>, <strong>Cala Tarida</strong>, <strong>Cala Conta</strong> and <strong>Cala Bassa</strong> — is the <strong>design-led pine-coast Ibiza</strong> that has emerged in the past two decades as one of the island's most desirable villa zones. The landscape here is fundamentally different from Ibiza Town: deep pine forests running to the cliff edge, dry-stone-walled <em>algar</em> fields on the inland plateau, dramatic cliff-cut coves at <strong>Cala d'Hort</strong> facing the sea-stack of <a href="https://www.illesbalears.travel/en/balearics/what-to-do/parc-natural-de-ses-salines-de-eivissa-i-formentera" target="_blank" rel="noopener">Es Vedrà</a>, and the long protected beaches and salt flats of <strong>Ses Salines</strong> at the southern tip. The protected coastal status here — Ses Salines is a Balearic natural park and the pine-forest interior is under strict planning controls — has kept beach development to a minimum; the coastline from Es Cubells through Cala d'Hort is one of the most genuinely undeveloped stretches of premium Mediterranean coast in Spain.</p>
+
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/c3fcfbf810/es0830a-villa-tarida_wohnen.jpg" alt="An Ibizan villa near Cala Tarida with a private pool and large terrace, contemporary architecture with whitewashed walls and a pine forest beyond" loading="lazy" width="2100" height="1400" />
+  <figcaption>A villa near Cala Tarida on Ibiza's southwest coast, the pine forest of Sant Josep municipality rising behind the terrace.</figcaption>
+</figure>
+
+<p>San José itself is the central market town — the Saturday market on the Plaça de l'Església draws buyers from across the southwestern plateau, the village's eighteenth-century parish church gives the central square its anchor, and the small but serious restaurant scene has matured significantly in the past decade. <strong>Es Cubells</strong>, ten kilometres south on the cliff coast, is the smaller and quieter village above one of the island's most photogenic cliff-edge bays. <strong>Cala Vadella, Cala Tarida and Cala Conta</strong> are the design-led coastal villages with the highest concentration of contemporary villa-rental and second-home stock on the southwest coast — many built between 2000 and 2020 in the Ibizan minimalist vernacular of whitewashed cubic volumes, raw plaster interiors, oak and olive wood, infinity pools running to the pine forest. Drive times from IBZ airport to San José run <strong>20 minutes</strong>; to Cala Tarida a further <strong>15 minutes</strong>; to Cala d'Hort the same; to Ibiza Town <strong>25 minutes</strong>. Climate is slightly warmer than the rest of the island — <strong>16–19°C (high 50s°F to mid-60s°F)</strong> in winter to <strong>28–31°C (low to high 80s°F)</strong> in high summer — and the southwestern exposure gives the area Ibiza's longest reliable swimming season into late October. <strong>Best for:</strong> design-led couples and families who value protected pine-coast landscape, the contemporary Ibizan minimalist villa vernacular, easy access to Cala d'Hort, Es Vedrà and the Ses Salines protected coast, and Ibiza's warmest microclimate.</p>
+
+<p>The Sant Josep municipality holds two of the island's most photographed natural features. <a href="https://www.illesbalears.travel/en/balearics/what-to-do/parc-natural-de-ses-salines-de-eivissa-i-formentera" target="_blank" rel="noopener">Es Vedrà</a> — the 380-metre limestone sea-stack rising directly out of the Mediterranean off the cliff coast at Cala d'Hort — is the single most distinctive natural landmark on the island and a recurring fixture in the international travel press. The <strong>Ses Salines natural park</strong> at the island's southern tip protects the working salt pans (still producing <em>flor de sal</em> for export), the dune system at Las Salinas and Es Cavallet, the long sand beach at Las Salinas (one of the most photogenic on the island), and the marine biodiversity of the channel between Ibiza and Formentera — the <strong>Posidonia oceanica</strong> seagrass meadow that runs through this channel is on the UNESCO inscription as a separate component of the <em>Ibiza, Biodiversity and Culture</em> listing, and is one of the largest single posidonia meadows in the Mediterranean. The pine forest above the cliff at Es Cubells, the long inland road through the central Sant Josep plateau, and the small-village rhythm at <a href="https://santjosep.org/?lang=en" target="_blank" rel="noopener">San José village</a> itself give the southwest a depth of usable landscape that goes well beyond the headline coastline.</p>
+
+<h3>San Joan and the north</h3>
+
+<p>The north of Ibiza — the municipality of <a href="https://santjoandelabritja.com/en/" target="_blank" rel="noopener">Sant Joan de Labritja</a>, the island's largest municipality by area and smallest by population — is the <strong>quietest part of the island</strong> by some distance and the area whose addresses have the deepest sense of traditional Ibizan rural life. The landscape is hillier and greener than the south: pine-forested ridges running from the central interior to the dramatic north coast at <strong>Portinatx</strong>, <strong>Cala Xarraca</strong> and <strong>Cala San Vicente</strong>, working agricultural valleys around <strong>Sant Llorenç</strong> and <strong>Sant Vicent</strong>, and the inland villages of <strong>Sant Miquel de Balansat</strong>, <strong>Santa Agnès de Corona</strong> and <strong>Sant Mateu d'Aubarca</strong> set in almond, fig and carob terraces. The <strong>almond blossom across Santa Agnès</strong> in late January and early February — the <em>Camí des Plà de Corona</em> running through what is genuinely one of the more photogenic blossom landscapes in the Mediterranean — is the unofficial start of the Ibizan year.</p>
+
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/1838x1225/642bf1a5f5/es0877a-i-creo-aqua-ii.jpg" alt="A contemporary Ibizan apartment terrace with sea views, whitewashed walls and a private pool" loading="lazy" width="1838" height="1225" />
+  <figcaption>A contemporary Ibizan apartment terrace with whitewashed walls and a private pool, the pine forest of the interior running beyond.</figcaption>
+</figure>
+
+<p>The property stock in the north is consciously protected — the strict <em>casa pagesa</em> conservation regime applies a careful building-control regime to traditional Ibizan farmhouses, and the inventory of usable second-home fincas inside the protected zone is fundamentally finite. The architectural vernacular is specific: <strong>flat-roofed whitewashed cubes</strong> with thick stone walls and tiny windows, originally built for thermal mass in the agricultural era; the dry-stone walls (<em>parets de marès</em>) that bound the fields; and the deep stone interiors with shaded courtyards. <strong>Sant Joan village</strong> itself is the small central anchor — Sunday market, eighteenth-century parish church, a handful of restaurants that have served the village community for generations — and the surrounding valleys hold the highest concentration of restored traditional fincas on the island. <strong>Sant Miquel</strong> is the larger neighbouring village; <strong>Santa Agnès</strong>, on the inland plateau, holds the famous almond-blossom landscape and the long-standing <a href="https://www.canpereibiza.com/" target="_blank" rel="noopener">Can Pere</a> village bar; <strong>Portinatx</strong> on the north coast is the small resort village with a long sandy bay. Drive times from IBZ airport to San Joan run <strong>40 minutes</strong>; to Portinatx a further <strong>15 minutes</strong>; to Santa Agnès <strong>25 minutes</strong>; to Santa Eulàlia <strong>25 minutes</strong>. Climate in the northern hills runs several degrees cooler than the coast — <strong>13–16°C (mid-50s°F to low 60s°F)</strong> in winter and <strong>25–28°C (high 70s°F to low 80s°F)</strong> in summer. <strong>Best for:</strong> cultural enthusiasts and design-led couples who value the traditional Ibizan rural vernacular above coastal convenience, who want the quietest and most agricultural part of the island as a base, and who will use the property in genuinely year-round mode across an extended shoulder season.</p>
+
+<p>One overlooked attraction of the Sant Joan area is the <strong>north-coast cove inventory</strong> — the protected swimming bays at <strong>Cala Xarraca, Cala Xuclà, Cala d'en Serra, Cala San Vicente</strong> and <strong>Aguas Blancas</strong>, several of which are accessible only by foot down pine-shaded paths and remain genuinely quiet through high summer because the access difficulty filters the day-tripper crowds out. The long-distance <strong>Camí de Cala Sant Vicent</strong> walking trail runs along the north coast for several kilometres and is one of the more rewarding shoulder-season walks on the island. The northern peak of <strong>Sa Talaia de Sant Joan</strong> at <strong>415 metres</strong>, while not the highest point on the island (Sa Talaia in Sant Josep at <strong>475 metres</strong> holds that), gives the best views back across the northern hills and the central agricultural plain. The Sant Joan area is also home to the <a href="https://hippymarket.com/" target="_blank" rel="noopener">Sunday hippy market</a> held in the village itself — smaller and more genuinely local than the Wednesday Punta Arabí or the Saturday Las Dalias markets — and to the producers around <a href="https://www.ibizawine.es/" target="_blank" rel="noopener">Sant Mateu d'Aubarca</a> who make a small quantity of the better wines on the Balearics under the protected designation of origin.</p>
+
+<h3>San Antonio and the sunset coast</h3>
+
+<p><a href="https://santantoni.net/turisme/" target="_blank" rel="noopener">San Antonio de Portmany</a> — <em>Sant Antoni</em> in Catalan — sits on the wide bay of Portmany on the island's west coast, and is the most polarising of the five major Ibizan addresses. The town centre and the southern resort strip have a deserved reputation as the island's most concentrated nightlife zone — the historic sunset bars at Café del Mar and Café Mambo, the O Beach and Eden club complex, the cruise harbour at the southern end of the bay. The <strong>buyer who chooses San Antonio for a second home</strong> is, almost without exception, not buying into the southern strip at all but into one of the quieter sub-zones around the bay: <strong>San Agustín des Vedrà</strong> (a traditional inland village ten minutes south of the town), <strong>Cala Salada and Cala Saladeta</strong> (the protected pine-forest coves three kilometres north of the town), the <strong>Cap Negret and Punta Galera</strong> headlands above the northern bay, or the inland villages of <strong>Buscastell, Forada and Santa Inés</strong> in the agricultural plain behind the coast.</p>
+
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/af79a0597f/es0165f_hippie-chic_wohnzimmer.jpg" alt="A relaxed Ibizan apartment interior with whitewashed walls, rustic wood furniture and a hippie-chic Mediterranean design aesthetic" loading="lazy" width="2100" height="1400" />
+  <figcaption>An apartment interior in the Ibizan minimalist vernacular — whitewashed walls, raw wood furniture, the Mediterranean visible through the doorway.</figcaption>
+</figure>
+
+<p>The architectural inheritance in the quieter San Antonio sub-zones is mixed: traditional <em>cases pageses</em> in the inland villages, contemporary villas on the Cap Negret cliffs, smaller-scale apartment buildings on the northern flank of the bay. The <strong>genuine attraction of the area</strong> for the international second-home buyer is the unobstructed west-facing sunset (Ibiza's western coastline is the only one that catches the full Mediterranean sunset directly), the protected pine-forest coves immediately north of the town (Cala Salada is regularly cited as one of the most photogenic coves on the island), and the agricultural plain at Santa Inés which produces one of the better wines on the Balearics (<a href="https://www.ibizawine.es/" target="_blank" rel="noopener">Bodegas Can Rich</a> and the surrounding small producers). Drive times from IBZ airport to San Antonio run <strong>25 minutes</strong> on the E-20; to Cala Salada a further <strong>10 minutes</strong>; to Santa Inés <strong>15 minutes</strong>; to Ibiza Town <strong>20 minutes</strong>. Climate runs <strong>15–18°C (high 50s°F to mid-60s°F)</strong> in winter and <strong>27–30°C (low 80s°F)</strong> in summer; the west-facing exposure gives the area Ibiza's longest evening light, which is one reason it has held its reputation as the sunset coast for half a century. <strong>Best for:</strong> design-led owners who value west-facing sunset views, the protected pine coves around Cala Salada and the working agricultural plain inland, and who will deliberately use the property in shoulder season and quieter weeks rather than competing with the high-summer crowds in the town centre.</p>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>A year on Ibiza</h2>
+
+<p>Spreading <strong>45 days of use</strong> across a calendar year is itself a skill — and Ibiza specifically has a distinct seasonal shape that rewards owners who think beyond the high-summer peak. Unlike Mallorca, whose longer shoulder season gives an owner usable weeks across most of the year, Ibiza runs a <strong>significantly steeper seasonal curve</strong>: the high-density summer from mid-June through mid-September is the most-used and most-competitive window on the island, the late-September-through-October shoulder is widely considered the best month of the year by experienced owners, and the deep-winter months from December through February are the quietest in the western Mediterranean second-home calendar. Below is a walk through the year with the particular weeks owners across the COP Ibiza portfolio return to most often. The calendar mechanics ensure every owner gets a <strong>fair allocation of peak weeks</strong> across a multi-year cycle; owners who are flexible enough to use shoulder weeks — rather than competing for August on the coast — consistently report a <strong>higher use-quality</strong> from their share than those who insist on peak.</p>
+
+<h3>Spring (March–May)</h3>
+
+<p>Ibizan spring is the most <strong>under-used of the four seasons</strong> by international buyers — and consequently one of the most rewarding for a fractional owner with calendar flexibility. <strong>March</strong> on the island is already running at <strong>16–19°C (low to high 60s°F)</strong> in the day, the <strong>almond blossom</strong> at Santa Agnès is in full flower through the first week (with the festival of the <em>Flor d'Ametller</em> running on the plateau in late January and early February), and the spring restaurant calendar across Santa Eulàlia, Ibiza Town and Santa Gertrudis has reopened from the quiet February pause. The classic March week — long walks through the pine forests of Sant Josep, cycling the inland roads around Santa Inés before the summer heat closes them down, lunches at the harbour-front cafés in Santa Eulàlia with the season just opening — is one of the secret pleasures of an Ibiza share.</p>
+
+<p><strong>April</strong> brings the <a href="https://www.eivissa.es/portal/index.php/es/" target="_blank" rel="noopener">Setmana Santa</a> processions in Ibiza Town and Santa Eulàlia, the spring half-term holidays from the British and German school calendars, and the long Easter weekend that anchors the start of the proper season. The walking and cycling network in the protected interior is at its peak — the long inland roads from Santa Inés through Sant Mateu to Sant Joan are usable through April before the summer heat builds. <strong>May</strong> sees the island warming into proper swimming weather — sea temperatures climb past <strong>18°C (65°F)</strong> on the southern coast by mid-May, and the long beaches at Las Salinas, Cala Bassa and Cala Conta become usable. The first <strong>Wednesday hippy market</strong> at Punta Arabí typically reopens at full capacity in early May; the inland markets across the working agricultural plain run through May and into early June. For owners who prefer Ibiza quiet, the second half of May is consistently named the favourite period — the island is at its photogenic best, the high-summer crowds are still a fortnight away, and the restaurant calendars are running at full capacity without the August booking pressure.</p>
+
+<h3>Summer (June–August)</h3>
+
+<p>The Ibizan summer pattern is intense, well-defined and worth understanding before allocating weeks. <strong>Mid-June</strong> is the Mediterranean's secret fortnight on the island — warm enough for swimming (water temperatures climb past <strong>22°C (72°F)</strong> by the third week of June), the village calendars at their pre-peak best, the inland markets at full operation, and the high-summer crowds still a week or two away. The classic mid-June week sees the Sant Joan villages at their photogenic peak, the long evenings at the Santa Eulàlia harbour with the cafés open until midnight, the southwestern beaches at Cala Tarida filling slowly as the British and Dutch school summer starts to release.</p>
+
+<p><strong>July</strong> brings the high season proper — the Spanish school holidays begin around 22 June and the Northern European summer holidays stack from mid-July onwards. The island reaches its <strong>highest-density visitor week</strong> in the seven days either side of the third weekend in July. Restaurant booking windows in the prime addresses stretch to <strong>three to four weeks ahead</strong>, villa staff calendars are pre-allocated, and the coast roads through San José, San Antonio and Santa Eulàlia thicken noticeably. <strong>August</strong> is the absolute peak — and the most concentrated month — with the island running at full capacity. Restaurant reservations in the prime addresses can require <strong>four to six weeks</strong> notice; the beaches at Cala Conta and Las Salinas fill from early morning; the coast roads from Ibiza Town to San Antonio and from San Joan to Portinatx traffic heavily through late morning and evening. The yacht harbours at Marina Botafoch, Santa Eulàlia and San Antonio run full through August. None of this is a problem for owners who plan ahead, but it is the practical reality of August on the island.</p>
+
+<p>The <strong>July and August nightlife calendar</strong> is the heart of the modern Ibiza brand — the international DJ residencies at Hï Ibiza, Pacha, Amnesia, Ushuaïa and the daytime sessions at the beach clubs along Playa d'en Bossa. The genuine second-home buyer is almost never in those venues; the owner of a Sant Joan finca or a Santa Eulàlia apartment is far more likely to be at a long dinner at a working agricultural restaurant in San Mateu, a sunset drink at Café del Mar in San Antonio (still worth the trip on the right evening), or a long quiet day at one of the protected pine-coast coves below Es Vedrà. The two Ibizas — the music industry's and the second-home owner's — coexist on the same forty-by-twenty-kilometre island in August without much overlap. Climate-wise, the island runs <strong>28–32°C (low to high 80s°F)</strong> by day in August, with the sea above <strong>26°C (79°F)</strong> on the southern coast and warm enough for late-night swimming. The northern hills around Sant Joan and Santa Agnès run several degrees cooler — <strong>25–28°C (high 70s°F to low 80s°F)</strong> — which is why design-led buyers increasingly choose those inland addresses for the summer use pattern.</p>
+
+<h3>Autumn (September–November)</h3>
+
+<p>For most seasoned Ibizan-property owners, <strong>September is the favourite</strong>. Water temperatures still <strong>above 24°C (75°F)</strong> through most of the month, daytime air around <strong>26–29°C (high 70s°F to mid 80s°F)</strong>, the August crowds dispersed within ten days of the new school term starting, restaurants taking reservations again the same week you ask. The inland markets are at their post-peak best; the long-distance walking trails through the Sant Josep pine forests and the Sant Joan hills are at their autumn-light photogenic best; the agricultural calendar enters the harvest season with the <strong>fig and almond crops</strong> across the central plain and the working vineyards around Santa Inés and Sant Mateu pulling fruit through September and early October. The international closing-party calendar at the major clubs runs through the last week of September and the first weekend of October — for the buyer who specifically wants one night of the music-industry Ibiza, this is the week to do it — and then the island visibly quiets.</p>
+
+<p><strong>October and November</strong> divide cleanly. The coast stays mild — daytime highs around <strong>22–25°C (low to high 70s°F)</strong> through October, dropping to <strong>17–20°C (low to high 60s°F)</strong> by mid-November, with swimming generally finished by late October but everything else still very much open — while Ibiza Town enters its <strong>quietest cultural months</strong>. The autumn season at Dalt Vila opens; the new restaurant calendar takes the autumn ingredients off the central plain (game from the inland forests, mushrooms from the Sant Mateu hills, the early olive oil from the November harvest at Santa Inés and Sant Joan); the agricultural fairs across the working plain mark the year. The <strong>olive harvest in the northern hills</strong> runs through November, and owners who care about food increasingly time at least one stay around the new oil. By <strong>late November</strong> the island has visibly quieted; many of the seasonal coastal restaurants close, and the rhythm shifts toward the long-stay winter community in Ibiza Town, Santa Eulàlia and the inland villages.</p>
+
+<p>One of the most distinctive Ibiza autumn rituals is the <strong>harvest fair at Sant Mateu</strong> in the first weekend of December — the <em>Festa del Vi Pagès</em>, the celebration of the year's new wine production from the small producers of the central interior. Held in the village square at Sant Mateu d'Aubarca on the inland plateau, it draws working winemakers and food producers from across the island's small agricultural community and is, for owners who care about food and wine, one of the more authentic dates in the Ibizan calendar. Earlier in the autumn, the <strong>Fira de la Sal</strong> at Sant Josep celebrates the working salt pans at Las Salinas — the harvest of the year's <em>flor de sal</em> typically runs from June through September, with the autumn fair marking the end of the working season — and the smaller harvest fairs across the Sant Joan and Sant Antoni municipalities run on rotating weekends through October. These are not tourist productions; they are the working agricultural calendar of an island whose interior remains genuinely agricultural despite the headline reputation of the coast.</p>
+
+<h3>Winter (December–February)</h3>
+
+<p>Ibizan winter is its own argument. The island's winter daytime temperatures — reliably in the <strong>14–18°C (high 50s°F to mid-60s°F)</strong> band on the coast and a few degrees cooler in the northern hills — give it one of the <strong>mildest winters of any major European island</strong>, and the combination of low rainfall, long sunshine hours and quiet rhythms makes it one of the great undiscovered winter retreats. The <strong>Christmas and New Year</strong> fortnight is the highest-demand winter window — villas in San José, apartments in Ibiza Town, fincas in Sant Joan all book heavily; the city's <strong>Reyes</strong> celebrations on the night of 5 January and the morning of 6 January are an authentic urban-cultural moment owners with families increasingly time a stay around. The island's restaurant calendar holds up better through Christmas than it does in January and February.</p>
+
+<p><strong>January and February</strong> are the quietest months of the year on the island — and consequently the most rewarding for owners who want Ibiza without the crowds. The <strong>almond blossom</strong> arrives across the Santa Agnès plateau from late January through early March; the festival of the <em>Flor d'Ametller</em> at Santa Agnès is one of the more under-discovered Mediterranean spring rituals. The Sant Antoni and Sant Sebastià festivals in mid-to-late January, the small Sa Rua Carnival processions in Ibiza Town and Santa Eulàlia in early February, and the long quiet weekday rhythm at the harbour cafés are the texture of the island's winter. The northern hills are cool but rarely cold; the long inland roads from Santa Inés through Sant Mateu are usable for cycling through most of the season. Owners who use their share in genuinely year-round mode — three or four trips of seven to ten days across the calendar rather than two long summer holidays — increasingly name the late-January almond blossom as the favourite single week of their year. The <strong>Carnival</strong> closes out the winter calendar before the spring almond blossom opens the next cycle, and the seasonal restaurants slowly reopen from the second week of March onwards.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Who buys on Ibiza, and why</h2>
+
+<p>The international buyer mix on Ibiza is <strong>more design-led and music-industry-adjacent</strong> than on any other Mediterranean island — and meaningfully different in character from neighbouring Mallorca, even at the same price points. <strong>British buyers</strong> are the single largest foreign cohort and have been since the 1970s; the LLC ownership structure, which uses a corporate vehicle and is <strong>unaffected by the 90-in-180-day Schengen rule</strong> for personal days, is one reason the British presence has held up post-Brexit. <strong>German buyers</strong> are the second-largest cohort, with a particular concentration around the eastern coast and the inland design-led villages of Santa Gertrudis and Sant Mateu. <strong>Dutch and Belgian buyers</strong> have grown sharply over the past fifteen years and are heavily represented around Santa Eulàlia and the southwest. <strong>French buyers</strong> are a steadily growing cohort, drawn to the design and food scene around Santa Gertrudis and Sant Joan. <strong>Swiss and Austrian buyers</strong> concentrate in the southwest and the northern hills. <strong>Italian buyers</strong> have a long-standing presence around Ibiza Town and the eastern coast; the design and architecture scene on the island has strong Milanese and Florentine cultural links. <strong>Scandinavian buyers</strong> — Swedes, Danes, Norwegians, Finns — have grown steadily across all major sub-zones. <strong>American buyers</strong>, historically a minority on the island, have grown sharply over the past five years — drawn to the design-led villa stock in the southwest, the Dalt Vila apartment scene in Ibiza Town, and the dollar's strength against the euro through much of the period.</p>
+
+<p>The <strong>cultural profile</strong> of the typical Ibiza second-home buyer matters more than the headline nationality breakdown. Compared with neighbouring Mallorca, the Ibiza buyer skews <strong>more design-led, more creative-industry, more music-industry-adjacent, and somewhat younger</strong> in the active second-home buying age band. The dominant professions represented in the COP Ibiza portfolio include senior figures from the design and architecture sectors (with a long-running London-Milan-Amsterdam-Paris design axis particularly visible), founders and senior executives from the technology and creative-services industries, and a meaningful music-industry cohort — though, importantly, almost none of the music-industry buyers are part of the superclub-DJ ecosystem. The buyers we see from that world are typically <strong>label owners, publishers, production-company principals and senior agents</strong> who want a base on the island for the same reasons their clients do — without spending any of their personal weeks inside the club zones at all.</p>
+
+<p>The <strong>"is Ibiza too much of a party island" question</strong>, which almost every prospective buyer raises at some point in the conversation, deserves a direct answer once more here in the buyer-profile section. The two club zones — the strip along Playa d'en Bossa south of Ibiza Town and the southern end of Sant Antoni — together occupy perhaps <strong>five kilometres</strong> of an island coastline that runs to more than <strong>200 kilometres</strong>. Drive ten minutes inland from either and the music industry's Ibiza is entirely inaudible: the working agricultural villages of Sant Josep, Sant Mateu, Sant Joan, Santa Agnès and Santa Eulària run their year-round rhythm without any reference to the superclub calendar at all. The international second-home buyer in Ibiza is, almost without exception, <strong>not bound for Hï Ibiza, Pacha, Amnesia, Ushuaïa or O Beach</strong> — they are buying into Sant Joan, into the southwestern pine coast, into Santa Eulàlia's family bay, into Santa Gertrudis's design-led inland village, or into the medieval citadel above Ibiza Town. Many of them are entirely uninterested in the club calendar, and several are actively repelled by it. The fractional buyer who chooses Ibiza specifically because of the club scene is genuinely rare — and almost certainly miscalibrated for the second-home use pattern that fractional ownership rewards.</p>
+
+<p>The age-and-life-stage profile is in some respects more relevant than the professional one. The largest single buyer cohort across the COP Ibiza portfolio is in the <strong>45–60 age band</strong> — owners whose own primary income is established, whose children are at university or beyond (which gives them more calendar flexibility than the working-family cohort), and whose long-run thinking on the second home runs to the <strong>next 20–25 years</strong>. The second-largest cohort is the <strong>35–50 age band</strong> — typically dual-income professional couples with school-age or pre-school children, who use their share around school holidays and value the operational simplicity of a fully managed property. The third and fastest-growing cohort is the <strong>60–75 age band</strong> — empty-nesters and recent retirees who want a winter-mild base inside the EU and for whom the operational simplicity of a managed property is the central appeal.</p>
+
+<p>Within those nationalities, Ibiza co-ownership tends to suit a small number of well-defined buyer profiles:</p>
+
+<ul>
+  <li><strong>Design-led couples and families</strong> — typically using a southwest or eastern-coast share around the summer holidays plus shoulder-season half-terms, with the children coming back to the same villa year after year so it becomes their second home rather than a holiday rental. The fully managed model removes the friction of running a contemporary Ibizan villa remotely; the children return to familiar staff, familiar restaurants, familiar beaches.</li>
+  <li><strong>Empty-nesters and retirees from Northern Europe</strong> — particularly British, German, Dutch, Belgian and Swiss, who use their share in long winter and shoulder-season blocks rather than short summer trips, and for whom the mild Ibizan winter is the central appeal. The 50–65 cohort is the heart of this demographic.</li>
+  <li><strong>Multi-generational groups</strong> — four- and five-bedroom fincas in Sant Joan, Santa Gertrudis or San José that sleep grandparents, parents, children and partners in the same week. The fractional model deals with extended-family calendar coordination better than a whole-ownership model, particularly when the family spans multiple countries with different school calendars.</li>
+  <li><strong>Design and architecture professionals choosing Ibiza Town, Santa Gertrudis or Santa Eulàlia</strong> — owners who treat the architectural pedigree of the Ibizan minimalist vernacular, the restored Dalt Vila apartment, or the restored traditional <em>casa pagesa</em> as the primary destination, who book repeat shorter stays around the island's quieter rhythms, and who value the proximity to the island's design scene.</li>
+  <li><strong>Music-industry and creative-services principals</strong> — a notable cohort who specifically choose the island for the proximity to the international design and creative community, but who almost without exception buy into the quiet north or the design-led southwest rather than the club zones. This sub-cohort typically uses the property heavily in the May–June and September–October shoulder seasons rather than the high-summer peak.</li>
+  <li><strong>Wine-and-food sophisticates</strong> — owners drawn to the working agricultural inland (the Santa Inés and Sant Mateu wine regions, the Sant Joan olive press, the Santa Gertrudis Saturday market) for whom the working landscape of the island is as important as the design culture or the climate.</li>
+</ul>
+
+<p>A pattern worth highlighting is the <strong>multi-region buyer</strong> — Ibiza owners who hold a second COP share elsewhere. The most common combination is <strong>Ibiza plus winter-sun</strong> (a southwest villa or a Sant Joan finca for the long shoulder-season and summer weeks, plus a Tenerife or Lanzarote apartment for the November-through-February deep-winter trips). The second-most-common is <strong>Ibiza plus alpine</strong> (an Ibizan summer-and-shoulder home plus a Pyrenean or French Alps chalet for the ski weeks at Christmas, February half-term and Easter). Less common but increasingly observed is the <strong>Ibiza-plus-city</strong> pattern (a rural Sant Joan finca or a Santa Eulàlia apartment for the longer holidays plus a Madrid or Barcelona apartment for repeat short cultural stays through the year). The fractional model makes that portfolio strategy practical: <strong>two 1/8 shares cost less than a single whole property</strong> at either of the addresses individually, and the management relationship across the portfolio is unified, which removes the multi-jurisdiction friction.</p>
+
+<div class="dest-callout">
+  <strong>The portfolio pattern:</strong> Ibiza is one of the more common starting points for COP owners who go on to hold a second share elsewhere — both because the island's intense but short summer season pairs naturally with a winter-sun or alpine share, and because the same LLC framework applies across every COP property, making a multi-region portfolio operationally simpler than the equivalent across two or three different ownership vehicles.
+</div>
+
+<p>What unites these otherwise quite different buyer profiles is the <strong>underlying calculation</strong>: the second-home weeks each of them actually uses in a year are within the <strong>6–7 weeks</strong> a 1/8 share delivers, the operational overhead of running an Ibizan property remotely is non-trivial in any of the major sub-zones (and notably higher on the island than on the Spanish mainland because of the ferry and air-freight logistics), and the <strong>resale liquidity of a fractional share</strong> inside a managed portfolio is — in our experience across the COP network — <strong>markedly higher</strong> than the resale liquidity of a whole property at the same address. Ibiza is a market where the maths of fractional ownership lines up <strong>almost perfectly</strong> with the use pattern of the buyer — and where the contrast with a traditional timeshare is at its sharpest, because the equity in an Ibizan property is the underlying asset value, not a use-right that runs to zero at the end of a contract term.</p>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Ibiza airport and ground access</h3>
+
+<p><a href="https://www.aena.es/en/ibiza.html" target="_blank" rel="noopener">Ibiza airport (IBZ)</a> is the <strong>fifth-busiest airport in Spain</strong> and one of the most internationally connected island airports in Europe relative to its population. The state airport authority <a href="https://www.aena.es/en" target="_blank" rel="noopener">Aena</a> operates IBZ; capacity has expanded steadily over the past decade to handle the <strong>9 million annual passengers</strong> the island now receives. Year-round direct service runs from London (Heathrow, Gatwick, Stansted, Luton), Manchester, Birmingham, Edinburgh, Dublin, Frankfurt, Munich, Düsseldorf, Cologne, Hamburg, Berlin, Zurich, Geneva, Vienna, Amsterdam, Brussels, Paris (CDG and Orly), Copenhagen, Stockholm and Oslo; through the summer months the network expands to several dozen further European cities including Madrid, Barcelona, Valencia, Bilbao, Milan, Rome, Naples, Warsaw, Prague and increasingly East-coast US gateways through one-stop connections via Madrid or Barcelona. An owner can reach an Ibizan second home <strong>in under three hours door-to-door</strong> from any major Northern European hub, which is the practical precondition for the high-frequency, short-stay use pattern that fractional ownership rewards.</p>
+
+<p>Drive times from IBZ to the major sub-zones are short. <strong>Ibiza Town</strong> is <strong>15 minutes</strong> by taxi; <strong>San José</strong> is <strong>20 minutes</strong> on the E-20; <strong>Cala Tarida</strong> is <strong>35 minutes</strong> via San José; <strong>Santa Eulàlia</strong> is <strong>30 minutes</strong> on the C-733; <strong>San Joan</strong> is <strong>40 minutes</strong> on the PM-810; <strong>Portinatx</strong> is <strong>55 minutes</strong> on the same road; <strong>San Antonio</strong> is <strong>25 minutes</strong> on the E-20; <strong>Santa Agnès</strong> is <strong>35 minutes</strong> via the inland Camí des Plà de Corona. Most owners pre-arrange a private transfer rather than self-driving, particularly when arriving late or with multiple bags; the bilingual local transfer operators are well established and accept advance booking. Ibiza is also accessible by overnight ferry from <strong>Barcelona, Valencia and Dénia</strong> on the Spanish mainland (handy for owners who want to bring a car), and by inter-island ferry from <strong>Mallorca and Formentera</strong>. The short hop to <a href="https://www.formentera.es/en/" target="_blank" rel="noopener">Formentera</a> — twenty-five minutes by fast ferry from the Ibiza Town harbour — is one of the under-discussed attractions of owning on Ibiza; many owners spend at least a few days of each long stay on the smaller island.</p>
+
+<h3>Whole-property vs 1/8 share: the comparison</h3>
+
+<p>The case for a fractional structure on Ibiza is most clearly seen in the <strong>side-by-side comparison</strong> against both whole ownership and long-term rental — the three ways most international buyers actually consider holding an Ibizan second home.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full taxes, insurance, management, maintenance</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 6–10)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">6–24 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The comparison most buyers find most telling is the <strong>annual-carry line</strong>. Owning a whole Ibizan villa outright means carrying full IBI, full insurance, full management, full pool and garden, full reserve fund — every year, whether you spend two weeks on the island or twelve. A 1/8 fractional share carries proportionally less, fully managed, with the operational burden lifted entirely. Compared to renting a similar property long-term, you build real equity rather than burning rent — and the share is yours to sell, transfer, or pass on. Compared with a traditional timeshare, which gives you a use-right for a defined week each year on a fixed-term contract with no resale value, the 1/8 share is a registered equity stake in the underlying property — transferable, inheritable, and participating in any appreciation in the underlying Ibizan asset.</p>
+
+<p>The other line worth examining is the <strong>time-to-sell</strong>. Whole-property resale in the Ibizan prime tier — Sant Josep design villas, Sant Joan restored fincas, Dalt Vila apartments, Marina Botafoch contemporary buildings — is genuinely slow. The buyer pool at the top tier is small, well-informed and unhurried; a villa in Es Cubells going to market today might sit for <strong>12–18 months</strong> before transacting, and the carrying costs of holding a whole Ibizan villa through a slow open-market sale can add up to a meaningful fraction of the sale price by the time it closes. A fractional share, by contrast, typically clears in <strong>around a month or less</strong> across the COP portfolio because the buyer pool is already aware of the property, the LLC structure and the management framework, and the transfer of an LLC membership interest is a more direct mechanical action than a full notarial conveyance. The carrying-cost differential between a quick professional exit and a slow open-market exit can easily exceed the headline transaction-fee difference between fractional and whole ownership.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual carry on a 1/8 Ibizan share is, by definition, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — which means it's a fraction of what an outright Ibizan second-home owner pays in taxes, insurance, management and maintenance, and a fraction of what year-round long-term rental of an equivalent home would cost. It is best understood as a <strong>single all-in number</strong> that covers everything required to keep the property operating at full standard regardless of who is or isn't in residence. The included items typically run to: <strong>IBI (Impuesto sobre Bienes Inmuebles)</strong>, the Spanish municipal property tax; non-resident income tax on the imputed-rental basis where applicable; the <strong>basura</strong> (municipal waste collection charge); building and contents insurance for the furniture and fittings; the full property-management retainer covering staff, scheduling and owner relationship; cleaning and linen between every stay; landscaping, pool maintenance and seasonal preparation; minor maintenance and repairs under a defined threshold; utility bills (electricity, water, internet, gas, alarm monitoring); the community-of-owners fees in apartment buildings; and a contribution to the <strong>reserve fund for major capital works</strong> (roof, heating, structural). What is typically <strong>not included</strong>: large capital improvements (kitchen replacement, major bathroom refurbishment) which are decided by the LLC's annual general meeting and funded either from the reserve fund or from a one-off levy; personal staff costs (a private chef booked for an owner's stay, a private driver beyond the standard transfer); damage caused by an owner's own use; and unusually high-volume utility use during peak personal stays. The point is that the annual figure is not a "running cost" in the open-property sense but a <strong>comprehensive operating budget</strong> that covers the property in active condition all year.</p>
+
+<div class="dest-callout">
+  <strong>The carry-cost reality:</strong> the carry on an outright Ibizan second home stacks up across IBI, basura, non-resident tax, building and contents insurance, pool and garden upkeep, security, utilities, the community-of-owners fees and a year-round property-management retainer — paid in full every year regardless of how many weeks you actually spend on the island. A 1/8 fractional share carries roughly 1/8 of that total, fully managed, with the operational burden lifted entirely.
+</div>
+
+<h3>What you actually own — the legal share</h3>
+
+<p>The <strong>legal nature</strong> of an Ibizan co-ownership share is one of the questions buyers should understand fully before purchase. Every Ibizan property on COP is held in a <strong>purpose-built LLC</strong> — the same modern international ownership vehicle used across COP's destinations — in which you and up to seven co-owners hold <strong>equal LLC membership interests</strong>. The underlying Ibizan property is held by the company, with the title registered at the <strong>Registro de la Propiedad</strong> (the Spanish land registry) and the cadastral position recorded at the <strong>Catastro</strong>; your membership interest is recorded in the company's register, with transfer effected on resale or inheritance through a <strong>clean, well-documented administrative process</strong> rather than the heavier title-conveyance route required for direct Spanish real estate.</p>
+
+<p><strong>The practical effect</strong> is that you hold a <strong>real, registered, transferable equity interest</strong> — not a timeshare, not a points membership, not a usage right. You can sell through the <strong>established resale process</strong> or to a qualifying outside buyer; you can leave it to your children under your home jurisdiction's inheritance rules (with Spanish succession law overlay where applicable); and you <strong>participate proportionally in any appreciation</strong> in the underlying Ibizan property's market value. Because the framework is consistent across every property on COP, owners who go on to buy a second or third share — whether elsewhere in Spain or in another country entirely — find themselves dealing with the same documentation, the same administrative cadence, and the same management relationship across the whole portfolio.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works on Ibiza</h2>
+
+<p>The mechanics of fractional ownership on Ibiza are framed by <strong>three things that work together</strong>: the <strong>purpose-built LLC ownership structure</strong> used to hold every property on COP, the <strong>Spanish property-tax regime</strong> that applies to all secondary residences (including the IBI municipal tax, the basura waste charge and the non-resident income tax on imputed rental), and the well-developed <strong>Registro de la Propiedad</strong> system that handles registration of the underlying property at the Spanish land registry. The LLC is the modern international vehicle through which you and up to seven other owners hold the property; the Spanish taxes are the standard local taxes that any non-resident second-home owner pays; and the Registro is the long-running record-of-record system that gives the underlying real estate its documentary clarity. Understanding how these three pieces fit together is the difference between a <strong>clear, predictable ownership experience</strong> and one the buyer feels uncertain about.</p>
+
+<h3>How the LLC structure holds Ibizan property</h3>
+
+<p>The LLC that holds each Ibizan property is a <strong>purpose-built company</strong> designed for international shared ownership. It has a managing officer appointed under the company's governing documents, a <strong>register of members</strong> recording who holds which interest and in what proportion, and an <strong>annual general meeting</strong> at which owner-level decisions (major capital works, budget, manager review) are made. The same LLC framework runs across COP's destinations in the <strong>United States, the United Kingdom, France, Spain, Italy</strong> and elsewhere — meaning an owner adding a second property in another country is <strong>not learning a new ownership structure each time</strong>, but extending one they already understand.</p>
+
+<p>For a fractional buyer on Ibiza, the practical effect is that you become a <strong>registered member of the LLC</strong> that owns the property, holding <strong>one of eight equal membership interests</strong>. The property itself remains Ibizan — registered at the Registro de la Propiedad by the LLC, which is the legal owner of record — and you, in turn, are a legal owner of the LLC. What you hold is a <strong>transferable equity interest</strong> in the underlying real estate — not a timeshare use-right that depreciates to zero when the contract expires, not a points-club membership, not a fractional holiday club. This <strong>two-step structure</strong> is what gives Ibizan co-ownership on COP its <strong>single consistent international format</strong> across every market COP covers, its <strong>cleaner cross-border inheritance treatment</strong> than directly deeded shared ownership, and its <strong>faster resale path</strong>: a transfer of LLC membership is a more direct administrative action than triggering a full title conveyance through an Ibizan notary.</p>
+
+<h3>Spanish property tax basics: IBI, basura, non-resident imputed-income tax, capital gains</h3>
+
+<p>Spain operates a <strong>relatively straightforward property-tax framework</strong> for non-resident owners on Ibiza, and almost all of the routine compliance is handled through the LLC and its appointed Spanish tax adviser rather than by the individual owner. <strong>IBI (Impuesto sobre Bienes Inmuebles)</strong> is the annual municipal property tax paid by the owner of the property — in this case the LLC — calculated on the cadastral value as assessed by the local town hall, and falling within a typical range of <strong>0.4%–1.1% of the cadastral value</strong> depending on the municipality (Eivissa, Sant Josep, Santa Eulària, Sant Joan and Sant Antoni each set their own rate within the national framework). IBI is paid by the LLC from the annual service charge collected from co-owners, so <strong>individual owners never deal with the local tax office directly</strong>. The <strong>basura</strong> — the municipal waste-collection charge, set per property and per municipality — is paid in the same way. <strong>Non-resident imputed-income tax</strong> applies to non-Spanish-resident property owners on an imputed-rental basis (typically calculated on a small fraction of the cadastral value, taxed at the standard non-resident rate) — or on actual rental income where the property is rented out — and is again handled at the LLC level on behalf of the co-owners.</p>
+
+<p>The Balearic regional <strong>tourist tax (Impost sobre Estades Turístiques)</strong> applies per night of guest stay in certain types of accommodation; the treatment of fractional-share personal-use stays vs rental stays is handled by the LLC's management and tax adviser as part of routine compliance. Spanish capital-gains tax on resale is another area where holding the property through a corporate vehicle <strong>simplifies matters for international buyers</strong>. A direct sale of Spanish real estate by a non-resident incurs a <strong>19% capital-gains tax</strong> (with a 3% retention at completion handled by the buyer's notary) and the proceeds repatriated through Spanish banking channels. A transfer of LLC membership interest is administered differently and typically faces <strong>lower transactional friction</strong>, though the precise treatment always depends on the buyer's home jurisdiction and the relevant bilateral tax treaty. We recommend any international buyer review the specific position with their own tax counsel before purchase.</p>
+
+<h3>Inheritance and Spanish succession law</h3>
+
+<p>Directly held Spanish real estate is subject to <strong>Spanish succession and gift tax</strong>, which varies by autonomous community — the <strong>Balearic Islands</strong> have applied significant reductions for direct-line heirs (children, spouses) in recent years, with effective rates well below the national average. The <strong>2015 EU Succession Regulation (Brussels IV)</strong> gave EU residents the option to elect their home-country succession law for their estates; non-EU residents (US, UK, Canadian, Australian buyers post-Brexit) can also elect under the same regulation. <strong>LLC membership interests</strong> are treated as <strong>movable rather than immovable property</strong> under most bilateral interpretations, which can give them a different succession treatment from directly held Spanish real estate — again, this is jurisdiction-specific and requires personal tax advice. The point worth making here is that the LLC structure gives <strong>more flexibility</strong> on the succession question than direct ownership, not less. For owners with multi-jurisdictional estates — common among the international Ibiza buyer profile — this is one of the structural attractions of the corporate-vehicle approach.</p>
+
+<h3>The professional management model and how the calendar works</h3>
+
+<p>Once the purchase completes, a <strong>professional management company</strong> takes over all operational responsibility for the Ibizan property. Your personal weeks — <strong>approximately 45 days</strong> for a 1/8 share — are allocated through a <strong>fair-rotation calendar</strong> that mixes peak weeks (the Christmas/New Year fortnight, the Setmana Santa week, the long July and August weeks on the island) with shoulder-season and quieter weeks across the year. Owners pre-book several months ahead; the unused weeks are either held for the owner pool or, where the property's structure allows, rented to the broader market with the income flowing back to the co-owners. Service-charge collection, building maintenance, insurance, IBI and non-resident tax payments, the linen-and-cleaning between stays, the welcome arrival, the on-call concierge — <strong>all sit with the management company</strong>. The multilingual operations ecosystem on the island — three generations old in the major sub-zones — means that the routine practical realities of owning a property remotely on Ibiza are handled by professionals who have been catering to non-resident owners for decades.</p>
+
+<h3>Resale: how to exit, typical timelines, the professional process</h3>
+
+<p>When you decide to exit your Ibizan share, a <strong>professional resale process</strong> is in place. Across COP's portfolio, the typical timeline from listing to completion is <strong>around a month or less</strong> — well under the <strong>6–24 months</strong> that whole-property resales typically take on the Ibizan open market. The process is well-supported, the buyer pool is already aware of the property and the LLC structure, and the transfer of LLC membership is administratively lighter than triggering a full notarial title conveyance through an Ibizan notary. For owners who want maximum control over the price and process, an open-market sale to any qualifying buyer remains an option — but most owners find the established process faster and cheaper. The contrast with a traditional timeshare exit — where the secondary market for a use-right that depreciates to zero at contract expiry is famously thin — is especially sharp on a market like Ibiza, where the underlying property values have appreciated steadily over the past two decades.</p>
+
+<div class="dest-callout">
+  <strong>Free to browse, free to enquire:</strong> no buyer-side fees and no obligation. The share price you see is the share price you pay; talking to our specialists costs nothing.
+</div>
+
+<p>The <strong>full mechanics of fractional ownership</strong> across all jurisdictions — usage calendars, exit procedures, rental income treatment, insurance, the transfer on death, the relationship with the management company — are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>. For specific Ibiza property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market.</p>
+
+<h3>Your ownership at a glance</h3>
+
+<ul>
+  <li><strong>Real, deeded equity in the underlying property</strong> — the home itself is registered at the Spanish Registro de la Propiedad via the LLC, and your membership interest is a real, transferable equity stake in that property. Not a timeshare, not a points membership, not a usage right.</li>
+  <li><strong>Consistent international structure</strong> — your Ibizan share sits inside the same purpose-built LLC framework used across every property on COP, so multi-country owners deal with one model rather than a stack of different vehicles, with the same documentation cadence and the same administrative process from Sant Joan to the French Alps.</li>
+  <li><strong>Professional management included throughout</strong> — pre-arrival preparation, linen and cleaning between every stay, year-round maintenance, gardening and pool care, taxes (IBI, basura, non-resident imputed-income tax), insurance and the on-call concierge are all covered within your annual service charge, with no top-up bills for routine operating costs.</li>
+  <li><strong>Clear, supported resale through the COP owner network</strong> — the existing audience of co-ownership buyers means your share has an organised market from day one, with exits across the portfolio typically clearing in around a month at a known price rather than the 12–18 months a comparable whole property might sit on the Ibizan open market.</li>
+  <li><strong>One consistent international portfolio relationship</strong> — whether you own one COP share or several across different countries, you deal with the same ownership structure, the same documentation cadence and the same management relationship, which is why a meaningful proportion of owners go on to add a second or third property.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Still deciding which Ibiza zone?</h2>
+
+<p>Many readers arrive on this page already <strong>half-decided</strong> — they want Ibiza, but not yet which Ibiza. The choice between Ibiza Town, Santa Eulàlia, San José, San Joan and San Antonio is <strong>rarely about budget alone</strong>; the major sub-zones sit in broadly similar price bands once you compare like-for-like quality. The decisive question is <strong>usage pattern</strong>. How will you actually spend your weeks across a calendar year? The honest answer for most buyers is one most have not previously articulated, because the question rarely arises until ownership becomes concrete. Our team has spent years inside the Ibiza second-home market and can walk you through the regional differences — climate, calendar, owner mix, day-to-day rhythm — before you commit to a zone. Below is the framework we walk through with buyers who reach the same fork, with deliberate over-simplification — most owners actually end up combining elements from more than one — but useful as a starting point.</p>
+
+<p><strong>Choose Ibiza Town and Marina Botafoch</strong> if you want a <strong>UNESCO-protected medieval citadel as your daily street</strong>, the deepest cultural pedigree on the island, the harbour-yacht-marina restaurant scene at Marina Botafoch, the shortest drive on the island from airport to front door, and a year-round restaurant calendar that holds up better than the more seasonal coastal sub-zones. Ibiza Town works hardest for owners drawn to the design-led contemporary apartment, the restored Dalt Vila townhouse, or the Marina Botafoch yacht-harbour buildings — and who use the property in genuinely year-round mode rather than the high-summer peak alone. Unlike a traditional timeshare, which locks you into one week in one property year after year, the Ibiza Town share is the easiest on the island to combine with a second share elsewhere, since the city's year-round usability pairs naturally with a seasonal coastal villa or a non-Ibizan share entirely.</p>
+
+<p><strong>Choose Santa Eulàlia and the east coast</strong> if you want a <strong>domesticated bay rhythm</strong>, the multi-generational British, Dutch and German family scene around the Santa Eulària river mouth, the long pedestrian seafront promenade, and a long usable shoulder season that runs from late March through October. Santa Eulàlia is the natural choice for families with school-age children — particularly British and Northern European — who want the children to come back to the same villa or apartment year after year and who value the bay's family-led safety and the easy proximity to the Punta Arabí hippy market, the inland village of Sant Carles, and the southern coves at Cala Llonga.</p>
+
+<p><strong>Choose San José and the southwest</strong> if you want the <strong>design-led pine-coast Ibiza</strong>, the contemporary Ibizan minimalist villa vernacular set behind dry-stone walls in pine-forested plots, the warmest microclimate on the island, easy access to Cala d'Hort, Es Vedrà and the Ses Salines natural park, and the longest reliable swimming season into late October. The southwest is the design-led couple's natural answer to the Ibiza question — and the highest-value microclimate on the island for buyers who want long swimming-and-sunbathing weeks rather than cultural city stays.</p>
+
+<p><strong>Choose Sant Joan and the north</strong> if you want the <strong>quietest part of the island</strong>, the working <em>casa pagesa</em> traditional finca vernacular, the famous Santa Agnès almond blossom in late January and early February, the inland markets at Sant Joan village and Sant Miquel, and the cool northern hills that run several degrees cooler than the coast through high summer. Sant Joan works hardest for cultural enthusiasts and design-led couples who value the traditional Ibizan rural fabric above coastal convenience, who want the quietest and most agricultural part of the island as a base, and who use the property in genuinely year-round mode across an extended shoulder season — including the dead-quiet January-and-February window that many other owners skip.</p>
+
+<p><strong>Choose Sant Antoni and the sunset coast</strong> if you want a <strong>west-facing sunset</strong>, the protected pine-forest coves around Cala Salada and Cala Saladeta, the working agricultural plain at Santa Inés with its small wine producers, and the deliberate willingness to use the property in shoulder season and quieter weeks rather than the high-summer town centre. The Sant Antoni share is — perhaps counter-intuitively, given the town's club-zone reputation — one of the better-value entry points into the Ibizan market for design-led owners who specifically want the sunset coast and are happy to navigate around the high-summer nightlife concentration in the town centre itself.</p>
+
+<div class="dest-callout">
+  <strong>The decision shortcut:</strong> if your dominant use is medieval citadel + harbour + repeat short stays, choose Ibiza Town. If it is family bay + multi-generational + long shoulder season, choose Santa Eulàlia. If it is design villa + pine coast + warmest microclimate, choose San José. If it is quiet rural + traditional finca + almond blossom, choose Sant Joan. If it is west-facing sunset + protected coves + shoulder-season use, choose Sant Antoni. If it is two of the above, the multi-share approach is often more economical than scaling up to a single whole property at any one address.
+</div>
+
+<p>The <strong>portfolio approach</strong> is worth at least mentioning. A meaningful proportion of Ibiza co-ownership owners hold <strong>more than one share</strong> — either elsewhere in Spain (a Tenerife winter-sun apartment, a Pyrenean ski chalet, a Madrid pied-à-terre, or a Mallorcan finca) or further afield (a French Alps chalet, an Italian Lakes apartment, a Côte d'Azur villa). For owners building a multi-region portfolio with COP, you have <strong>one team across every destination</strong> — the same advisors, the same calendar mechanics, the same resale process across every property you own. (For a wider orientation across the island's regions, seasons and culture, the official <a href="https://www.ibiza.travel/en/" target="_blank" rel="noopener">Ibiza Travel</a> tourism site and the <a href="https://www.illesbalears.travel/en/balearics/" target="_blank" rel="noopener">Illes Balears Travel</a> Balearic Islands tourism portal are useful starting references.) <strong>Two 1/8 shares</strong> — an Ibiza summer-and-shoulder home plus a Canary winter-sun apartment, say — give an owner <strong>roughly 90 days of use</strong> across a calendar year, drawn from genuinely different lifestyle modes, at a combined annual carry that is <strong>still a fraction of what a single whole property</strong> at either address would cost.</p>
+
+<p>Whichever way the decision goes, the deeper exploration starts on the cluster and parent pages:</p>
+
+<ul>
+  <li><a href="/spain-fractional-ownership-properties/">Explore Spain →</a></li>
+  <li><a href="/balearics-fractional-ownership-properties/">Explore the Balearic Islands →</a></li>
+  <li><a href="/mallorca-fractional-ownership-properties/">Explore Mallorca →</a></li>
+  <li><a href="/menorca-fractional-ownership-properties/">Explore Menorca →</a></li>
+  <li><a href="/palma-fractional-ownership-properties/">Explore Palma de Mallorca →</a></li>
+</ul>
+
+<p>If you would like to talk through <strong>which Ibiza zone best fits your family's actual use pattern</strong> — rather than the brochure version of it — <a href="#newsletter">join our list</a> and we will be in touch with relevant new-property alerts and an introduction to the team.</p>
+
+</div></section>
+
 </body>
 </html>

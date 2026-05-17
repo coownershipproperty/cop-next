@@ -200,8 +200,10 @@ export default function Header() {
           )}
         </nav>
 
-        {/* Language switcher — desktop: absolute right, hidden on mobile */}
-        <LanguageSwitcher currentLocale={locale} currentPath={path} desktopOnly />
+        {/* Language switcher — desktop: a compact "EN ▾" dropdown trigger,
+            opens a panel listing the other locales. Hidden on mobile (drawer
+            uses the full-tile picker below the nav links). */}
+        <LanguageDropdown currentLocale={locale} currentPath={path} />
 
       </header>
 
@@ -348,4 +350,118 @@ function stripLocalePrefix(path, locale) {
   if (path.startsWith(`/${locale}/`)) return path.slice(locale.length + 1) || '/';
   if (path === `/${locale}`) return '/';
   return path;
+}
+
+// ── Desktop language dropdown ──────────────────────────────────────────────
+// Trigger: a compact pill showing the current locale code uppercase (e.g. "EN")
+// with a chevron. Click → opens a panel listing the OTHER supported locales
+// (the current one is omitted — you're already there). Each row: flag + native
+// language name. Unavailable target locales show greyed out with tooltip.
+//
+// Closes on: click outside, route change, Escape key.
+function LanguageDropdown({ currentLocale, currentPath }) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useState(null)[0]; // placeholder; we use refs below
+  // We track the ref via a callback so we don't need useRef ergonomics
+  // (keeps the import surface unchanged — useState/useEffect only).
+  // For click-outside detection we measure event target against the
+  // dropdown root using a data attribute selector.
+
+  useEffect(() => {
+    if (!open) return undefined;
+    function onDocClick(e) {
+      // Close when the click lands outside the dropdown
+      if (!e.target.closest('[data-cop-lang-dropdown]')) setOpen(false);
+    }
+    function onKey(e) { if (e.key === 'Escape') setOpen(false); }
+    document.addEventListener('click', onDocClick);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('click', onDocClick);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  // Close on route change (page navigation)
+  useEffect(() => { setOpen(false); }, [currentPath]);
+
+  // Resolve target URLs the same way LanguageSwitcher does (dyn family +
+  // canonical ROUTE_MAP). Inlined here so the dropdown is self-contained.
+  const dyn = detectDynamicFamily(currentPath, currentLocale);
+  const englishPath = canonicalEnglishKey(currentPath) || stripLocalePrefix(currentPath, currentLocale);
+  const NOT_AVAILABLE_LABEL = {
+    en: 'Not yet available in English',
+    es: 'Aún no disponible en español',
+    fr: 'Pas encore disponible en français',
+    de: 'Noch nicht auf Deutsch verfügbar',
+  };
+
+  function targetForLocale(loc) {
+    if (dyn) {
+      const prefix = dyn.prefixes[loc];
+      if (!prefix) return null;
+      if (dyn.family === 'destinations') {
+        if (!destinationAvailableIn(dyn.slug, loc)) return null;
+        return `${prefix}${dyn.slug}/`;
+      }
+      return `${prefix}${dyn.slug}/`;
+    }
+    return localizedPath(englishPath, loc);
+  }
+
+  // Locales to show in the panel — exclude the current one
+  const otherLocales = SUPPORTED_LOCALES.filter((l) => l !== currentLocale);
+
+  return (
+    <div
+      className="cop-lang-dropdown"
+      data-cop-lang-dropdown
+      aria-label="Language"
+    >
+      <button
+        type="button"
+        className={`cop-lang-dropdown-trigger${open ? ' open' : ''}`}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={`Current language: ${LOCALE_NAMES[currentLocale]}. Click to change language.`}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span className="cop-lang-dropdown-code">{currentLocale.toUpperCase()}</span>
+        <span className="cop-lang-dropdown-chev" aria-hidden="true">▾</span>
+      </button>
+      {open && (
+        <ul className="cop-lang-dropdown-panel" role="listbox">
+          {otherLocales.map((loc) => {
+            const target = targetForLocale(loc);
+            const unavailable = !target;
+            const label = loc.toUpperCase();
+            return (
+              <li key={loc} role="option" aria-selected="false">
+                {unavailable ? (
+                  <span
+                    className="cop-lang-dropdown-item cop-lang-dropdown-item-disabled"
+                    title={NOT_AVAILABLE_LABEL[loc]}
+                    aria-label={LOCALE_NAMES[loc] + ' — ' + NOT_AVAILABLE_LABEL[loc]}
+                    aria-disabled="true"
+                  >
+                    {label}
+                  </span>
+                ) : (
+                  <a
+                    href={target}
+                    className="cop-lang-dropdown-item"
+                    hrefLang={loc}
+                    aria-label={LOCALE_NAMES[loc]}
+                    onClick={() => setOpen(false)}
+                  >
+                    {label}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
 }
