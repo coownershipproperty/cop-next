@@ -452,7 +452,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Spanien</div>
               <p className="dest-info-desc">Spanien verbindet Weltklasse-Strände, lebendige Kultur und Sonne das ganze Jahr über auf Mallorca, Ibiza, an der Costa del Sol und vielem mehr — alles zu einem außergewöhnlichen Wert für anspruchsvolle Miteigentümer.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/spain-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -464,7 +464,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Frankreich</div>
               <p className="dest-info-desc">Von den sonnigen Küsten der Côte d'Azur über die Pisten der französischen Alpen bis zur zeitlosen Eleganz von Paris — Frankreich ist Europas begehrteste Adresse für Co-Ownership.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/france-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -476,7 +476,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Italien</div>
               <p className="dest-info-desc">Italiens außergewöhnliche Landschaften — vom kristallklaren Wasser des Comer Sees über die alten Dörfer Liguriens bis zu den toskanischen Hügeln — machen es zum ewigen Favoriten für anspruchsvolle Miteigentümer.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/italy-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -488,7 +488,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Portugal</div>
               <p className="dest-info-desc">Von der goldenen Küste der Algarve über die eleganten Boulevards von Lissabon bis zur unberührten Schönheit der Silberküste — Portugal ist eine der spannendsten Destinationen Europas für luxuriöses Co-Ownership.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/portugal-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -500,7 +500,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Österreich</div>
               <p className="dest-info-desc">Österreichs alpiner Glanz — von den Weltklasse-Skiresorts in Tirol bis zum imperialen Charme Wiens — macht es zu einer der lohnendsten Destinationen Europas für luxuriöses Co-Ownership.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/austria-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -512,7 +512,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">England</div>
               <p className="dest-info-desc">London bleibt eine der großen Weltstädte für Luxusimmobilien — von den Stadthäusern in Mayfair bis zu den Apartments am Themseufer — während die englische Landschaft idyllische Refugien für anspruchsvolle Miteigentümer bietet.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/england-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -524,7 +524,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Schweden</div>
               <p className="dest-info-desc">Schwedens spektakuläre Landschaften — vom Stockholmer Schärengarten bis zu den Seenregionen im Norden — bieten ein außergewöhnlich ruhiges Umfeld für luxuriöses Co-Ownership, fernab der Massen.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/sweden-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -536,7 +536,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Deutschland</div>
               <p className="dest-info-desc">Von den bayerischen Alpen und den Ufern des Bodensees über Sylt und die Ostsee bis zu den Kulturhauptstädten Berlin und München — Deutschland bietet eine attraktive Vielfalt an Luxus-Immobilien für Miteigentümer.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/germany-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -548,7 +548,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Kroatien</div>
               <p className="dest-info-desc">Die beeindruckende Adriaküste Kroatiens, das kristallklare Wasser und historische Festungsstädte wie Dubrovnik machen es zu einer der begehrtesten Mittelmeer-Destinationen für luxuriöses Co-Ownership.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/croatia-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -560,7 +560,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">USA</div>
               <p className="dest-info-desc">Von der kalifornischen Surfkultur über die Skipisten Colorados bis zum Glamour der Küste Floridas — der US-Luxusimmobilienmarkt bietet außergewöhnliche Möglichkeiten für internationale Miteigentümer.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/usa-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
@@ -572,7 +572,7 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
             <div className="dest-info">
               <div className="dest-info-name">Mexiko</div>
               <p className="dest-info-desc">Von den türkisfarbenen Küsten der Riviera Maya bis zum Pazifik-Glamour von Los Cabos — Mexiko bietet außergewöhnlichen Luxus zu außergewöhnlichem Wert und entwickelt sich zu einem der spannendsten Co-Ownership-Märkte der Welt.</p>
-              <a href="/de/immobilien/" className="dest-explore-btn">Immobilien ansehen</a>
+              <a href="/de/destinationen/mexico-fractional-ownership-properties/" className="dest-explore-btn">Immobilien ansehen</a>
             </div>
           </div>
 
