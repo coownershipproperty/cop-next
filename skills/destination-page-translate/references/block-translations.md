@@ -59,7 +59,7 @@ pillars, extract it here as a new block.
 <div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
   <h2 itemprop="name">¿Qué es la copropiedad en {Destination_ES}?</h2>
   <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-    <p itemprop="text"><strong>La copropiedad en {Destination_ES} consiste en adquirir una fracción escriturada de 1/8 de una segunda casa de lujo {regional_adjective_ES} — constituida en una LLC creada específicamente para este fin junto a un pequeño grupo de copropietarios (hasta siete en total).</strong> Cada propietario recibe aproximadamente 45 días de uso personal al año mediante un sistema de rotación equitativo, con toda la gestión inmobiliaria, mantenimiento, impuestos y operativa cubiertos por un equipo profesional. Se trata de patrimonio inmobiliario real, escriturado a tu nombre — no es multipropiedad ni un club de vacaciones.</p>
+    <p itemprop="text"><strong>La copropiedad en {Destination_ES} consiste en adquirir una fracción escriturada de 1/8 de una segunda casa de lujo {regional_adjective_ES} — constituida en una LLC creada específicamente para este fin junto a un pequeño grupo de hasta siete copropietarios más.</strong> Cada propietario recibe aproximadamente 45 días de uso personal al año mediante un sistema de rotación equitativo, con toda la gestión inmobiliaria, mantenimiento, impuestos y operativa cubiertos por un equipo profesional. Se trata de patrimonio inmobiliario real, escriturado a tu nombre — no es multipropiedad ni un club de vacaciones.</p>
   </div>
 </div>
 ```
@@ -70,7 +70,7 @@ pillars, extract it here as a new block.
 <div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
   <h2 itemprop="name">Qu'est-ce que la copropriété en {Destination_FR} ?</h2>
   <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-    <p itemprop="text"><strong>La copropriété en {Destination_FR} consiste à acquérir une part actée de 1/8 d'une résidence secondaire de luxe {regional_adjective_FR} — détenue au sein d'une LLC créée spécifiquement à cet effet aux côtés d'un petit groupe de copropriétaires (sept au maximum).</strong> Chaque propriétaire bénéficie d'environ 45 jours d'utilisation personnelle par an grâce à un calendrier de rotation équitable, l'ensemble de la gestion immobilière, de l'entretien, de la fiscalité et de l'exploitation étant pris en charge par une équipe professionnelle. Il s'agit d'un véritable patrimoine immobilier acté à votre nom — ce n'est ni de la multipropriété, ni un club de vacances.</p>
+    <p itemprop="text"><strong>La copropriété en {Destination_FR} consiste à acquérir une part actée de 1/8 d'une résidence secondaire de luxe {regional_adjective_FR} — détenue au sein d'une LLC créée spécifiquement à cet effet aux côtés d'un petit groupe d'au plus sept autres copropriétaires.</strong> Chaque propriétaire bénéficie d'environ 45 jours d'utilisation personnelle par an grâce à un calendrier de rotation équitable, l'ensemble de la gestion immobilière, de l'entretien, de la fiscalité et de l'exploitation étant pris en charge par une équipe professionnelle. Il s'agit d'un véritable patrimoine immobilier acté à votre nom — ce n'est ni de la multipropriété, ni un club de vacances.</p>
   </div>
 </div>
 ```
@@ -99,7 +99,7 @@ pillars, extract it here as a new block.
 
 ```html
 <div class="dest-callout">
-  <strong>La LLC en una frase:</strong> una sociedad creada específicamente para ser propietaria de la casa, en la que tú y un pequeño grupo de propietarios (hasta siete en total) tenéis participaciones iguales — esto facilita la reventa y aporta una estructura de propiedad única y coherente para cada casa de COP en todo el mundo, de forma que los propietarios con casas en varios países trabajan con un único modelo en lugar de una pila de vehículos jurídicos distintos.
+  <strong>La LLC en una frase:</strong> una sociedad creada específicamente para ser propietaria de la casa, en la que tú y un pequeño grupo de hasta siete propietarios más tenéis participaciones iguales — esto facilita la reventa y aporta una estructura de propiedad única y coherente para cada casa de COP en todo el mundo, de forma que los propietarios con casas en varios países trabajan con un único modelo en lugar de una pila de vehículos jurídicos distintos.
 </div>
 ```
 
