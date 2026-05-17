@@ -100,6 +100,8 @@ function PropCarousel({ items, propertyCount }) {
   const [cardW, setCardW] = useState(430);
   const trackRef = useRef(null);
   const snapping = useRef(false);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
   useEffect(() => {
     setCardW(getCardW());
@@ -114,6 +116,25 @@ function PropCarousel({ items, propertyCount }) {
   const move = (dir) => {
     if (snapping.current) return;
     setPos(p => p + dir);
+  };
+
+  const SWIPE_THRESHOLD = 40;
+  const onTouchStart = (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current == null) return;
+    const t = (e.changedTouches && e.changedTouches[0]) || null;
+    if (!t) { touchStartX.current = null; return; }
+    const dx = t.clientX - touchStartX.current;
+    const dy = t.clientY - touchStartY.current;
+    touchStartX.current = null;
+    touchStartY.current = null;
+    if (Math.abs(dx) < SWIPE_THRESHOLD) return;
+    if (Math.abs(dy) > Math.abs(dx)) return;
+    if (dx < 0) move(1); else move(-1);
   };
 
   const onTransitionEnd = () => {
@@ -142,7 +163,11 @@ function PropCarousel({ items, propertyCount }) {
 
   return (
     <div className="pc-wrap">
-      <div className="pc-outer">
+      <div
+        className="pc-outer"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <div
           ref={trackRef}
           className="pc-track"
@@ -334,6 +359,20 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
         </p>
       </section>
 
+      {/* ===== PROPERTIES CAROUSEL (moved above the explainer to put
+           inventory in front of visitors immediately — reduces bounce rate
+           from people who don't scroll past the explainer text) ===== */}
+      <section className="properties-section" id="properties">
+        <h2 className="section-heading">Ferienimmobilien im Miteigentum kaufen</h2>
+        <p className="section-subtitle">Villen, Apartments und Ferienhäuser im Anteilskauf auf Mallorca, Ibiza, an der Costa del Sol, am Gardasee, in der Toskana, in Tirol und mehr — mit Preisen ab einem Bruchteil des Vollkaufpreises.</p>
+
+        <PropCarousel items={featuredProps} propertyCount={propertyCount} />
+
+        <div className="pc-browse-all">
+          <a href="/de/immobilien/" className="pc-browse-btn">Alle {propertyCount} Immobilien ansehen &rarr;</a>
+        </div>
+      </section>
+
       {/* ===== CO-OWNERSHIP EXPLAINER ===== */}
       <section className="explainer-section">
         <div className="explainer-intro">
@@ -378,18 +417,6 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
         <div className="cta-band-buttons">
           <a href="#speak-to-expert" className="cta-band-primary">Mit einem Experten sprechen</a>
           <a href="#newsletter" className="cta-band-secondary">Newsletter abonnieren</a>
-        </div>
-      </section>
-
-      {/* ===== PROPERTIES CAROUSEL ===== */}
-      <section className="properties-section" id="properties">
-        <h2 className="section-heading">Ferienimmobilien im Miteigentum kaufen</h2>
-        <p className="section-subtitle">Villen, Apartments und Ferienhäuser im Anteilskauf auf Mallorca, Ibiza, an der Costa del Sol, am Gardasee, in der Toskana, in Tirol und mehr — mit Preisen ab einem Bruchteil des Vollkaufpreises.</p>
-
-        <PropCarousel items={featuredProps} propertyCount={propertyCount} />
-
-        <div className="pc-browse-all">
-          <a href="/de/immobilien/" className="pc-browse-btn">Alle {propertyCount} Immobilien ansehen &rarr;</a>
         </div>
       </section>
 

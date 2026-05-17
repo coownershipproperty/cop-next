@@ -98,6 +98,8 @@ function PropCarousel({ items, propertyCount }) {
   const [cardW, setCardW] = useState(430);
   const trackRef = useRef(null);
   const snapping = useRef(false);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
   useEffect(() => {
     setCardW(getCardW());
@@ -112,6 +114,25 @@ function PropCarousel({ items, propertyCount }) {
   const move = (dir) => {
     if (snapping.current) return;
     setPos(p => p + dir);
+  };
+
+  const SWIPE_THRESHOLD = 40;
+  const onTouchStart = (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current == null) return;
+    const t = (e.changedTouches && e.changedTouches[0]) || null;
+    if (!t) { touchStartX.current = null; return; }
+    const dx = t.clientX - touchStartX.current;
+    const dy = t.clientY - touchStartY.current;
+    touchStartX.current = null;
+    touchStartY.current = null;
+    if (Math.abs(dx) < SWIPE_THRESHOLD) return;
+    if (Math.abs(dy) > Math.abs(dx)) return;
+    if (dx < 0) move(1); else move(-1);
   };
 
   const onTransitionEnd = () => {
@@ -140,7 +161,11 @@ function PropCarousel({ items, propertyCount }) {
 
   return (
     <div className="pc-wrap">
-      <div className="pc-outer">
+      <div
+        className="pc-outer"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <div
           ref={trackRef}
           className="pc-track"
@@ -332,6 +357,20 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
         </p>
       </section>
 
+      {/* ===== PROPERTIES CAROUSEL (moved above the explainer to put
+           inventory in front of visitors immediately — reduces bounce rate
+           from people who don't scroll past the explainer text) ===== */}
+      <section className="properties-section" id="properties">
+        <h2 className="section-heading">Comprar una segunda residencia en copropiedad</h2>
+        <p className="section-subtitle">Villas, apartamentos y casas de vacaciones en propiedad fraccionada por Mallorca, Ibiza, Costa del Sol y otros destinos europeos — con precios desde una fracción de la compra íntegra.</p>
+
+        <PropCarousel items={featuredProps} propertyCount={propertyCount} />
+
+        <div className="pc-browse-all">
+          <a href="/our-homes/" className="pc-browse-btn">Ver las {propertyCount} propiedades &rarr;</a>
+        </div>
+      </section>
+
       {/* ===== CO-OWNERSHIP EXPLAINER ===== */}
       <section className="explainer-section">
         <div className="explainer-intro">
@@ -376,18 +415,6 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
         <div className="cta-band-buttons">
           <a href="#speak-to-expert" className="cta-band-primary">Habla con un experto</a>
           <a href="#newsletter" className="cta-band-secondary">Suscribirme a la newsletter</a>
-        </div>
-      </section>
-
-      {/* ===== PROPERTIES CAROUSEL ===== */}
-      <section className="properties-section" id="properties">
-        <h2 className="section-heading">Comprar una segunda residencia en copropiedad</h2>
-        <p className="section-subtitle">Villas, apartamentos y casas de vacaciones en propiedad fraccionada por Mallorca, Ibiza, Costa del Sol y otros destinos europeos — con precios desde una fracción de la compra íntegra.</p>
-
-        <PropCarousel items={featuredProps} propertyCount={propertyCount} />
-
-        <div className="pc-browse-all">
-          <a href="/our-homes/" className="pc-browse-btn">Ver las {propertyCount} propiedades &rarr;</a>
         </div>
       </section>
 

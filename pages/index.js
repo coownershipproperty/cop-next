@@ -90,6 +90,13 @@ function PropCarousel({ items, propertyCount }) {
   const trackRef = useRef(null);
   const snapping = useRef(false); // prevents moves during instant snap
 
+  // Touch-swipe state — refs (no re-renders during gesture). Tracks initial
+  // touch position so we can compute the delta on touchend and decide
+  // whether the gesture was a horizontal swipe (next/prev) or a vertical
+  // scroll (do nothing).
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+
   // Keep card width in sync with viewport
   useEffect(() => {
     setCardW(getCardW());
@@ -106,6 +113,29 @@ function PropCarousel({ items, propertyCount }) {
   const move = (dir) => {
     if (snapping.current) return;
     setPos(p => p + dir);
+  };
+
+  // Touch handlers — swipe left = next, swipe right = previous. We require
+  // a primarily-horizontal gesture (|Δx| > |Δy| and |Δx| ≥ 40px) so vertical
+  // page scrolling never accidentally pages the carousel.
+  const SWIPE_THRESHOLD = 40;
+  const onTouchStart = (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current == null) return;
+    const endTouch = (e.changedTouches && e.changedTouches[0]) || null;
+    if (!endTouch) { touchStartX.current = null; return; }
+    const dx = endTouch.clientX - touchStartX.current;
+    const dy = endTouch.clientY - touchStartY.current;
+    touchStartX.current = null;
+    touchStartY.current = null;
+    if (Math.abs(dx) < SWIPE_THRESHOLD) return;
+    if (Math.abs(dy) > Math.abs(dx)) return; // vertical scroll — ignore
+    if (dx < 0) move(1);   // swipe left → next
+    else        move(-1);  // swipe right → previous
   };
 
   // After each CSS transition ends, silently snap back to the middle copy if needed
@@ -135,7 +165,11 @@ function PropCarousel({ items, propertyCount }) {
 
   return (
     <div className="pc-wrap">
-      <div className="pc-outer">
+      <div
+        className="pc-outer"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <div
           ref={trackRef}
           className="pc-track"
@@ -376,6 +410,20 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         </p>
     </section>
 
+    {/* ===== PROPERTIES CAROUSEL SECTION (moved above the explainer to put
+         the inventory in front of visitors immediately — reduces bounce
+         rate from people who don't scroll past the explainer text) ===== */}
+    <section className="properties-section" id="properties">
+        <h2 className="section-heading">Explore Our Properties</h2>
+        <p className="section-subtitle">Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.</p>
+
+        <PropCarousel items={featuredProps} propertyCount={propertyCount} />
+
+        <div className="pc-browse-all">
+          <a href="/our-homes/" className="pc-browse-btn">View All {propertyCount} Properties &rarr;</a>
+        </div>
+    </section>
+
     {/* ===== CO-OWNERSHIP EXPLAINER ===== */}
     <section className="explainer-section">
         <div className="explainer-intro">
@@ -420,18 +468,6 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         <div className="cta-band-buttons">
             <a href="#speak-to-expert" className="cta-band-primary">Speak to an Expert</a>
             <a href="#newsletter" className="cta-band-secondary">Subscribe to Newsletter</a>
-        </div>
-    </section>
-
-    {/* ===== PROPERTIES CAROUSEL SECTION ===== */}
-    <section className="properties-section" id="properties">
-        <h2 className="section-heading">Explore Our Properties</h2>
-        <p className="section-subtitle">Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.</p>
-
-        <PropCarousel items={featuredProps} propertyCount={propertyCount} />
-
-        <div className="pc-browse-all">
-          <a href="/our-homes/" className="pc-browse-btn">View All {propertyCount} Properties &rarr;</a>
         </div>
     </section>
 
