@@ -567,17 +567,16 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
               <p className="pp-location-text">{[p.city, p.region, p.country].filter(Boolean).join(', ')}</p>
               {p.lat && p.lng && (
                 <div className="pp-map-wrap">
-                  {/* OpenStreetMap embed — free, no API key, reliable. The
-                      previous Google Maps embed (maps.google.com/maps?...&output=embed)
-                      is a deprecated legacy endpoint that Google rate-limits
-                      intermittently, which caused some property pages to render
-                      an empty grey box instead of the map. OSM doesn't have
-                      that issue. The bbox is a ~5km window around the
-                      property; the &marker= pin shows the exact location. */}
+                  {/* Google Maps Embed API. The API key is HTTP-referrer
+                      restricted (co-ownership-property.com/* + Vercel +
+                      localhost) and API-restricted to Maps Embed API only,
+                      so the public NEXT_PUBLIC_* env var is safe to expose
+                      client-side. Embed API is in Google's "Always free"
+                      tier — no quota, no cost. */}
                   <iframe
                     title="Property location"
-                    src={`https://www.openstreetmap.org/export/embed.html?bbox=${p.lng - 0.05},${p.lat - 0.05},${p.lng + 0.05},${p.lat + 0.05}&layer=mapnik&marker=${p.lat},${p.lng}`}
-                    width="100%" height="280" style={{border:0}} loading="lazy"
+                    src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY}&q=${p.lat},${p.lng}&zoom=13&maptype=roadmap`}
+                    width="100%" height="280" style={{ border: 0, display: 'block' }} loading="lazy" allowFullScreen
                   />
                 </div>
               )}
