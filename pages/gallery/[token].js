@@ -76,8 +76,13 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
   const rawImages = Array.isArray(property.images) ? property.images : [];
 
   // When photos is empty we fall back to images (MYNE properties).
-  // In that case the MYNE workflow also uploads those same renders as the first
-  // N items of extra_photos — skip them to avoid showing the same images twice.
+  // In that case the MYNE workflow can also upload those same renders as
+  // items inside extra_photos — we want to deduplicate to avoid showing
+  // the same image twice. But ONLY drop items that actually match a hero
+  // image by URL. The previous logic blindly sliced the first N items off
+  // extra_photos which silently dropped floor plans for properties where
+  // extra_photos contained floor-plan/brochure shots first (e.g. the Ses
+  // Salines listing where extra_photos[0..2] were floor plans, not dupes).
   const usingImagesFallback =
     (!Array.isArray(property.photos) || property.photos.length === 0) &&
     rawImages.length > 0;
@@ -89,7 +94,10 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
     : property.img ? [property.img] : [];
 
   const extrasRaw = Array.isArray(property.extra_photos) ? property.extra_photos : [];
-  const extras    = usingImagesFallback ? extrasRaw.slice(rawImages.length) : extrasRaw;
+  const heroUrlSet = new Set(rawImages);
+  const extras = usingImagesFallback
+    ? extrasRaw.filter(url => !heroUrlSet.has(url))
+    : extrasRaw;
 
   const documents = Array.isArray(property.documents)    ? property.documents    : [];
 
