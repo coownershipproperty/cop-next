@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angleterre — copropriété de résidences secondaires de luxe | Co-Ownership Property</title>
+    <meta name="description" content="Biens en copropriété en Angleterre avec COP — parts 1/8 actées à Londres (Belgravia, Mayfair, Chelsea) et en Cornouailles (Sennen Cove et côte atlantique). Gestion intégrale, environ 45 jours d'utilisation personnelle par an, véritable patrimoine immobilier acté dans l'un des marchés les plus transparents du monde.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT ===== */
+
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+.dest-callout{background:var(--cream-bg);border-left:3px solid var(--warm-gold);padding:1.2rem 1.5rem;margin:1.5rem 0;font-size:0.95rem;color:var(--text-muted);line-height:1.75}
+.dest-callout strong{color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* ── Multi-select destination dropdown ── */
+        .dest-multiselect {
+            position: relative;
+            width: 100%;
+        }
+        .dest-trigger {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.65rem 1rem;
+            min-height: 46px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            transition: border-color 0.2s;
+            position: relative;
+        }
+        .dest-trigger::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            width: 7px; height: 7px;
+            border-right: 1.5px solid rgba(255,255,255,0.5);
+            border-bottom: 1.5px solid rgba(255,255,255,0.5);
+            transform: translateY(-60%) rotate(45deg);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .dest-multiselect.open .dest-trigger::after {
+            transform: translateY(-30%) rotate(-135deg);
+        }
+        .dest-trigger:hover,
+        .dest-multiselect.open .dest-trigger {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .dest-placeholder {
+            color: rgba(255,255,255,0.25);
+            pointer-events: none;
+        }
+        .dest-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(201,168,76,0.2);
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .dest-tag-x {
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .dest-tag-x:hover { opacity: 1; }
+
+        .dest-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0; right: 0;
+            background: #1e3a4f;
+            border: 1px solid rgba(201,168,76,0.3);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 50;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .dest-multiselect.open .dest-dropdown { display: block; }
+
+        .dest-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .dest-option:hover { background: rgba(201,168,76,0.1); }
+        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
+
+        .dest-check {
+            width: 16px; height: 16px;
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .dest-option.selected .dest-check {
+            background: var(--warm-gold);
+            border-color: var(--warm-gold);
+        }
+        .dest-check::after {
+            content: '';
+            width: 4px; height: 8px;
+            border-right: 2px solid #1a2a3a;
+            border-bottom: 2px solid #1a2a3a;
+            transform: rotate(45deg) translateY(-1px);
+            opacity: 0;
+        }
+        .dest-option.selected .dest-check::after { opacity: 1; }
+
+        /* Scrollbar for dropdown */
+        .dest-dropdown::-webkit-scrollbar { width: 5px; }
+        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+    </style>
+</head>
+<body>
+    <header class="cop-header scrolled" id="cop-header">
+    <div class="cop-logo">
+        <a href="/fr/">
+            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
+        </a>
+    </div>
+    <nav class="cop-nav" id="cop-nav">
+        <a href="/fr/" class="cop-nav-active">Accueil</a>
+        <a href="/fr/proprietes/">Nos biens</a>
+        <a href="/fr/comment-ca-marche/">Comment ça marche</a>
+        <a href="/fr/a-propos/">À propos</a>
+        <a href="/fr/blog/">Notre blog</a>
+        <a href="/fr/favoris/" class="cop-nav-favourites">Mes favoris</a>
+        <a href="/fr/contact/">Contact</a>
+    </nav>
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <p class="eyebrow">Biens en copropriété</p>
+        <h1>Copropriété de résidences secondaires <em>en Angleterre</em></h1>
+        <p class="subtitle">Véritable patrimoine acté. Pas de la multipropriété. Des résidences secondaires de luxe accessibles grâce à une part actée — aux côtés d'au plus sept autres copropriétaires.</p>
+    </section>
+
+    <!-- PROPERTY GRID -->
+    <section class="props-sec">
+        <div class="props-inner">
+            <div class="no-props">
+                <p>Aucun bien actuellement disponible pour cette destination. <a href="/fr/proprietes/" style="color:var(--warm-gold);font-weight:700;">Parcourir tous les biens</a> ou <a href="/fr/contact/" style="color:var(--warm-gold);font-weight:700;">nous contacter</a> pour les annonces à venir.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MID-PAGE CTA -->
+    <div class="dest-mid-cta">
+        <p>Prêt à trouver votre bien en Angleterre ?</p>
+        <div class="dest-mid-cta-btns">
+            <a href="/fr/proprietes/" class="btn btn-gold">Voir tous les biens</a>
+            <a href="#newsletter" class="btn btn-outline">Recevoir les actualités</a>
+        </div>
+    </div>
+
+    <!-- SEO CONTENT -->
+
+    <!-- §A — Featured Snippet -->
+    <section class="dest-sec cream"><div class="dest-inner">
+
+    <div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+      <h2 itemprop="name">Qu'est-ce que la copropriété en Angleterre ?</h2>
+      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text"><strong>La copropriété en Angleterre consiste à acquérir une part actée de 1/8 d'une résidence secondaire de luxe anglaise — détenue au sein d'une LLC créée spécifiquement à cet effet aux côtés d'un petit groupe d'au plus sept autres copropriétaires.</strong> Chaque propriétaire bénéficie d'environ 45 jours d'utilisation personnelle par an grâce à un calendrier de rotation équitable, l'ensemble de la gestion immobilière, de l'entretien, de la fiscalité et de l'exploitation étant pris en charge par une équipe professionnelle. Il s'agit d'un véritable patrimoine immobilier acté à votre nom — ce n'est ni de la multipropriété, ni un timeshare, ni un club de vacances.</p>
+      </div>
+    </div>
+
+    <h2>La copropriété en Angleterre : deux visions du luxe</h2>
+
+    <p>L'Angleterre propose deux horizons distincts pour la copropriété de résidences secondaires via Co-Ownership Property. Pour ceux qu'attire le prestige culturel, la gravitas historique et les grands pôles financiers mondiaux, les quartiers ultra-premium de Londres — Belgravia, Mayfair et Chelsea — offrent un accès sans égal à la gastronomie, aux musées, aux théâtres et aux boutiques de rang mondial. Pour ceux qui recherchent un littoral atlantique spectaculaire, une flexibilité de mode de vie contemporaine et l'attrait grandissant du télétravail au bord de l'océan, la Cornouailles — Sennen Cove et la péninsule sud-occidentale — délivre une beauté naturelle à toute saison, un surf de niveau mondial et une véritable échappée loin de l'agitation urbaine. Que vous soyez un acheteur exigeant en quête de liquidité maximale et de capital culturel ou un investisseur qui reconnaît la transformation de la Cornouailles en destination de premier plan, le modèle de copropriété anglais ouvre ces deux visions à travers une véritable détention actée et une gestion professionnelle.</p>
+
+    </div></section>
+
+    <!-- §B — Why England -->
+    <section class="dest-sec white"><div class="dest-inner">
+
+    <h2>Pourquoi la copropriété en Angleterre ?</h2>
+
+    <p>Le marché immobilier anglais est l'un des plus résilients et des plus transparents au monde, avec des siècles de précédents juridiques, une demande mondiale établie et une offre structurellement limitée dans les emplacements premium. La copropriété en Angleterre — via notre structure LLC — présente plusieurs avantages distinctifs par rapport à la pleine propriété ou à la multipropriété. Premièrement, vous acquérez une véritable propriété légale, et non une simple licence d'usage. Deuxièmement, vous éliminez le fardeau de la gestion immobilière à 100 % ; l'équipe professionnelle de Co-Ownership Property prend en charge l'entretien, les assurances, les améliorations et la coordination. Troisièmement, vous réduisez considérablement le coût d'entrée : une part de 1/8 (environ 45 jours par an) requiert bien moins de capital que l'achat d'un bien entier, tout en conférant de véritables droits de propriété. Quatrièmement, les deux propositions distinctes de l'Angleterre — le marché mondial de prestige londonien et la destination lifestyle émergente qu'est la Cornouailles — offrent aux investisseurs et aux acheteurs en quête de style de vie des profils de risque-rendement et des usages totalement différents.</p>
+
+    <p>D'un point de vue patrimonial, les marchés immobiliers anglais bénéficient d'une rareté réelle et structurelle. Les quartiers premium de Londres sont géographiquement contraints ; toute nouvelle construction y est quasi impossible, ce qui tire la valorisation par une offre limitée face à une demande mondiale persistante. Le marché immobilier de Cornouailles est tout aussi contraint côté offre, mais s'apprécie grâce à des tendances démographiques : télétravailleurs, jeunes retraités et acheteurs internationaux en quête de mode de vie et de connectivité migrent vers le sud-ouest à un rythme record. Les deux marchés s'inscrivent dans une logique de préservation du patrimoine à long terme et d'une valorisation modérée à soutenue.</p>
+
+    <p>Pour les acheteurs en quête de style de vie, la copropriété en Angleterre élimine le « fardeau de la résidence secondaire » : le poids émotionnel et financier d'entretenir un bien qui reste vide la majeure partie de l'année. À la place, vous réservez environ 45 jours par an (avec une part de 1/8), jouissez pleinement du bien, et laissez Co-Ownership Property en optimiser l'usage et la gestion. La résidence secondaire cesse d'être une source de stress pour devenir une source de loisir véritable et de rendement.</p>
+
+    </div></section>
+
+    <!-- §C — Londres -->
+    <section class="dest-sec cream"><div class="dest-inner">
+
+    <h2>Londres — l'avantage de la capitale</h2>
+
+    <p>La copropriété à Londres, c'est l'accès à l'un des marchés immobiliers les plus mondialement reconnus et durablement désirables. Le marché résidentiel ultra-prime londonien — ancré par Belgravia, Mayfair et Chelsea — fonctionne presque comme une réserve de valeur mondiale. Investisseurs internationaux, dirigeants multinationaux et ultra-high-net-worth individuals se disputent chaque bien disponible dans ces quartiers, créant un marché secondaire liquide et transparent qui assure une valorisation régulière. Lorsque vous détenez une part fractionnelle dans un bien premium londonien via Co-Ownership Property, vous ne spéculez pas sur un marché régional : vous participez à une classe d'actifs mondialement reconnue et établie depuis un siècle.</p>
+
+    <p>La copropriété à Londres offre également une densité de style de vie sans pareille. À quelques pas de votre bien, vous trouvez des restaurants trois étoiles Michelin, des clubs privés de premier rang, des galeries d'art contemporain, des musées patrimoniaux, des théâtres du West End et le meilleur shopping d'Europe. Vos semaines de copropriété à Londres ne sont pas de simples vacances ; elles constituent une immersion totale dans la culture mondiale, la finance et le luxe. Pour les cadres, les entrepreneurs et les passionnés de culture, la copropriété londonienne combine logique d'investissement et logique de style de vie comme peu d'autres destinations peuvent le faire.</p>
+
+    <h3>Belgravia : le quartier le plus prestigieux de Londres</h3>
+
+    <p>Belgravia est le quartier ultra-prime le plus constant, le plus mondialement reconnu de Londres. Conçu par Thomas Cubitt dans les années 1820, ses squares aux stuccos blancs — Belgrave Square, Eaton Square, Chester Square — projettent une élégance géorgienne intemporelle. Aujourd'hui, les résidents de Belgravia incluent des familles royales européennes, des titans de l'économie mondiale et des familles d'Ancien Régime dont l'ancrage remonte à des siècles. Le quartier se définit par sa cohérence architecturale, ses squares (jardins privés réservés aux résidents) et une scène de restaurants inégalée à Londres : Zuma, Nobu, Scott's et des dizaines d'établissements Michelin à quelques minutes.</p>
+
+    <p>La copropriété à Belgravia offre un prestige et une liquidité maximaux. Les biens se mettent rarement sur le marché ; la plupart des transactions se font en privé au sein des réseaux ultra-high-net-worth. Une part fractionnelle dans un bien de Belgravia vous donne non seulement accès à la meilleure adresse de Londres, mais aussi une entrée immédiate sur l'un des marchés immobiliers les plus exclusifs au monde. Les prix à Belgravia se situent typiquement entre £8 millions et £25+ millions pour des résidences familiales de premier rang, ce qui rend une part de 1/8 économiquement accessible tout en maintenant un statut ultra-prime véritable. D'un point de vue patrimonial, Belgravia affiche une valorisation composée de 4 à 7 % par an sur des périodes de vingt ans, avec une résistance particulière lors des périodes d'incertitude mondiale (l'ultra-prime londonien étant perçu comme valeur refuge).</p>
+
+    <h3>Mayfair : prestige historique et densité de style de vie</h3>
+
+    <p>Mayfair, le quartier ultra-prime originel de Londres, offre un caractère différent de Belgravia tout en maintenant un prestige équivalent. Les maisons de ville historiques de Mayfair, ses jardins en terrasse et ses rues bordées d'arbres projettent une élégance d'Ancien Monde ; sa situation entre Bond Street (shopping de classe mondiale) et Park Lane (vue sur Hyde Park) assure une commodité de style de vie maximale. Les résidents de Mayfair incluent des familles royales, des dignitaires internationaux et les financiers et entrepreneurs les plus accomplis de Londres.</p>
+
+    <p>La copropriété à Mayfair présente des avantages distinctifs. Premièrement, les biens de Mayfair comprennent souvent des jardins et terrasses privés — luxes rares en centre de Londres — qui rendent les longs séjours plus confortables. Deuxièmement, l'emplacement de Mayfair est imbattable : vous êtes à quelques pas de Fortnum &amp; Mason, Claridge's, l'Annabel's, la Royal Academy of Arts et le St. James's Park. Troisièmement, l'historique d'investissement de Mayfair est solide ; le quartier s'est valorisé régulièrement depuis deux siècles sans aucun signe de ralentissement de la demande. Les biens de Mayfair pour la copropriété se situent typiquement entre £6 millions et £20 millions, positionnant les parts de 1/8 comme des investissements premium mais accessibles.</p>
+
+    <h3>Chelsea : prestige contemporain, héritage artistique</h3>
+
+    <p>Chelsea représente le quartier ultra-prime le plus cosmopolite de Londres, mêlant un héritage artistique historique à un glamour contemporain. La King's Road de Chelsea fut l'épicentre de la culture des années 1960 ; aujourd'hui, Chelsea équilibre prestige intellectuel (historiens, artistes, universitaires côtoient les financiers) et énergie avant-gardiste. La proximité du quartier avec la Tamise, le Chelsea Physic Garden et les musées et galeries de South Kensington crée une proposition de style de vie distincte par rapport à Belgravia ou Mayfair.</p>
+
+    <p>La copropriété à Chelsea séduit particulièrement les créatifs, les collectionneurs et les acheteurs orientés style de vie qui souhaitent un Londres ultra-prime sans la rigidité parfois associée à Belgravia. Le caractère architectural de Chelsea est plus varié — maisons victoriennes en terrasse, demeures Queen Anne, penthouses contemporains — qu'à Belgravia, offrant une diversité esthétique plus grande. D'un point de vue patrimonial, Chelsea s'est valorisé plus vite que la moyenne du centre de Londres ces dernières années (6 à 8 % par an), portée par la jeunesse des fortunes et l'attrait international. Les biens de Chelsea pour la copropriété se situent typiquement entre £5 millions et £18 millions, faisant des parts de 1/8 des points d'entrée accessibles dans le quartier ultra-prime le plus dynamique de Londres.</p>
+
+    </div></section>
+
+    <!-- §D — Cornouailles -->
+    <section class="dest-sec white"><div class="dest-inner">
+
+    <h2>Cornouailles — vivre sur la côte atlantique</h2>
+
+    <p>Si Londres incarne la capitale financière mondiale de l'Angleterre, la Cornouailles en est la capitale des destinations : une histoire de transformation où le télétravail, la migration lifestyle et la découverte internationale ont repositionné cette péninsule sud-occidentale comme l'une des destinations résidentielles et patrimoniales les plus prisées d'Europe. Le superbe littoral atlantique de Cornouailles, ses falaises spectaculaires, ses criques cachées et sa beauté naturelle toute l'année ont toujours attiré les touristes ; ce qui a changé au cours de la dernière décennie, c'est que les acheteurs aisés perçoivent désormais la Cornouailles non plus comme une escapade de week-end, mais comme une véritable destination de résidence principale ou secondaire, véritablement compétitive avec Londres, les Cotswolds ou le Sud de la France.</p>
+
+    <p>La copropriété en Cornouailles répond directement à cette transformation. Un bien à Sennen Cove ou sur la côte cornouaillaise au sens large vous offre une véritable échappée : paysages marins spectaculaires, plages de premier plan, restaurants renommés et un mode de vie fondamentalement différent de la vie urbaine — avec une connectivité moderne, des services professionnels et une infrastructure sophistiquée. Pour les investisseurs, le marché immobilier de Cornouailles s'apprécie de 5 à 8 % par an, l'offre restant contrainte tandis que la demande des télétravailleurs, acheteurs internationaux et migrants lifestyle ne cesse de croître. Pour les acheteurs lifestyle, une part de 1/8 (environ 45 jours par an) vous donne un accès saisonnier étendu à l'un des plus beaux littoraux d'Europe, sans la charge d'entretien de la pleine propriété.</p>
+
+    <h3>Sennen Cove : dramatisme atlantique et excellence du surf</h3>
+
+    <p>Sennen Cove, situé à la pointe sud-ouest de la Cornouailles, incarne la côte cornouaillaise dans ce qu'elle a de plus spectaculaire : une vaste plage de sable flanquée de falaises de granite, balayée par les houles atlantiques et adossée à un village soudé de surfeurs, d'artistes et de réfugiés du mode de vie. Sennen est la plage la plus occidentale d'Angleterre, mondialement connue des surfeurs sérieux ; la crique reçoit des houles atlantiques régulières d'un à deux mètres toute l'année, avec des swells d'hiver atteignant parfois quatre à cinq mètres. Pour les acheteurs actifs qui privilégient le style de vie en plein air — surf, randonnée côtière, baignade, ou simplement passer des heures à regarder les vagues et le ciel — Sennen offre quelque chose de profondément ressourçant qu'aucun bien en ville ne peut égaler.</p>
+
+    <p>La construction à Sennen Cove est strictement encadrée ; toute nouvelle construction est quasi impossible, garantissant une rareté de l'offre et une valorisation à long terme. Les biens y sont typiquement de substantielles demeures victoriennes ou géorgiennes, des maisons contemporaines conçues pour maximiser les vues sur la mer, ou des granges et bâtiments de caractère reconvertis. La copropriété à Sennen Cove vous connecte à une communauté authentique et créative — où vous croiserez artistes, musiciens, cinéastes et entrepreneurs qui se sont installés sur la côte — tout en vous offrant un accès à une plage d'exception et une véritable échappée. Une part de 1/8 vous donne accès à environ 45 jours par an, idéalement positionnés pour de longs séjours estivaux, des houles automnales ou les tempêtes d'hiver lorsque l'Atlantique domine véritablement le paysage.</p>
+
+    <h3>La côte cornouaillaise au sens large : un marché de luxe en expansion</h3>
+
+    <p>Au-delà de Sennen, le littoral plus vaste de la Cornouailles — autour de Padstow, Port Isaac, Perranporth et Falmouth — offre des déclinaisons de la proposition lifestyle côtière. Padstow est devenu synonyme de chefs célèbres (les restaurants et la scène food de Rick Stein), de tables en bord de port et de loisirs haut de gamme. Port Isaac, pittoresque village de pêcheurs rendu célèbre par la télévision britannique, attire les acheteurs en quête d'authenticité et de communauté artistique. Perranporth offre une ambiance de plage plus détendue, populaire auprès des jeunes acheteurs lifestyle et des familles. Falmouth, ville historiquement maritime, associe patrimoine naval, musées maritimes et regénération du front de mer en une destination culturelle.</p>
+
+    <p>Dans toutes ces localités, la copropriété via Co-Ownership Property suit le même modèle : détention actée d'une part de 1/8, gestion professionnelle de l'entretien et de la coordination, environ 45 jours d'usage annuel et pleins droits de propriété actés. La valorisation sur l'ensemble du littoral cornouaillais avoisine 5 à 7 % par an, portée par la migration lifestyle continue, la normalisation du télétravail et l'offre contrainte. Pour les acheteurs lifestyle, ces localités offrent des atmosphères radicalement différentes — du dramatisme atlantique de Sennen à la sophistication gastronomique de Padstow en passant par l'authenticité artistique de Port Isaac — permettant à chacun de choisir l'expérience cornouaillaise qui correspond le mieux à ses valeurs.</p>
+
+    </div></section>
+
+    <!-- §E — Une semaine dans votre bien -->
+    <section class="dest-sec cream"><div class="dest-inner">
+
+    <h2>Une semaine dans votre bien anglais en copropriété</h2>
+
+    <p>Imaginez une semaine dans votre bien en copropriété à Belgravia, pendant les Bank Holidays de mai à Londres. Vous arrivez dans votre maison de ville géorgienne à quelques pas de Belgrave Square un jeudi après-midi. Le bien a été préparé par l'équipe de gestion de Co-Ownership Property : fleurs fraîches dans le couloir, vos boissons préférées en stock, le chauffage optimisé, l'éclairage réglé selon vos préférences. Vous vous installez dans votre résidence privée — pas un hôtel — et commandez le dîner dans un restaurant du quartier, dégusté à votre rythme dans votre propre salle à manger. Le vendredi apporte une matinée tranquille à la piscine et au spa d'un club privé, suivie d'un déjeuner dans un restaurant étoilé réservé des mois à l'avance. Le samedi est culturel : vernissage à la Royal Academy, suivi d'un spectacle au West End et d'un souper tardif dans un club privé. Le dimanche, un long brunch avec des amis et une promenade dans le Green Park voisin, l'après-midi à flâner de galerie en galerie à Mayfair. Le lundi venu, vous avez vécu au cœur du monde le plus exclusif de Londres, retrouvé chaque soir le confort et l'intimité d'une véritable propriété — et non d'un hôtel — et absorbé culture, gastronomie et prestige que nulle part ailleurs ne peut reproduire.</p>
+
+    <p>Imaginez maintenant une semaine dans votre bien en copropriété à Sennen Cove en juillet. Vous arrivez un vendredi dans une généreuse maison côtière dont la fenêtre de cuisine donne directement sur l'Atlantique. Les pierres patinées par le sel de l'architecture cornouaillaise traditionnelle encadrent un confort contemporain : espace de vie ouvert, chauffage au sol, poêle à bois et terrasse face à la mer. Le samedi matin, vous êtes dans l'eau au lever du soleil pour deux heures de surf ; ensuite, une promenade jusqu'au café du village pour un café et une viennoiserie, en observant les autres surfeurs matinaux, les promeneurs de chiens et les artistes qui se rassemblent. L'après-midi du samedi se passe simplement à regarder la mer — lire, esquisser, réfléchir, exister au rythme de la marée et de la lumière. Le dimanche apporte une randonnée sur les sentiers de falaise, un déjeuner dans un restaurant en bord de port et une conversation en soirée avec le tenancier local sur les courants et les prévisions de houle. Vous passez vos jours restants dans un rythme de temps-océan et de temps-créatif : matins dans l'eau, après-midis à explorer des criques cachées, soirées à cuisiner des fruits de mer frais dans votre propre cuisine, nuits à observer les étoiles sans aucune pollution lumineuse de ville. Le vendredi suivant, vous êtes revenu au calme, au rythme naturel, à la ressource que les semaines en ville congestionnée ne peuvent offrir.</p>
+
+    </div></section>
+
+    <!-- §F — How it works -->
+    <section class="dest-sec white"><div class="dest-inner">
+
+    <h2>Comment fonctionne la copropriété en Angleterre</h2>
+
+    <p>Le modèle de copropriété anglais de Co-Ownership Property est structuré pour la clarté juridique, l'efficacité fiscale et la simplicité opérationnelle. Vous acquérez une véritable part de 1/8 dans un bien détenu au sein d'une structure LLC (Limited Liability Company) créée spécifiquement à cet effet. Cela signifie que vous détenez un titre légal sur le bien — ce n'est ni une licence d'usage, ni de la multipropriété, ni un bail — enregistré au HM Land Registry anglais. Votre part est pleinement transmissible par héritage — vous pouvez la léguer à vos héritiers — et pleinement cessible ; vous pouvez la vendre à un autre acheteur.</p>
+
+    <div class="dest-callout">
+      <strong>Ce n'est pas de la multipropriété (timeshare) :</strong> la multipropriété — ou timeshare — vous vend un <em>droit d'usage</em> du bien pour une semaine définie chaque année, généralement par un contrat à terme et sans valeur de revente. Une part COP vous vend une <strong>participation patrimoniale enregistrée</strong> dans le bien lui-même, à travers une LLC dans laquelle vous et sept autres copropriétaires êtes titulaires à part égale. Elle est transmissible, transmissible par héritage, se valorise avec le bien sous-jacent, et se vend via un processus professionnel en environ un mois — exactement l'inverse de la multipropriété.
+    </div>
+
+    <p>La structure LLC offre plusieurs avantages. Premièrement, elle sépare votre responsabilité personnelle de la responsabilité liée au bien ; en cas d'incident sur le bien, c'est l'assurance de la LLC qui est engagée, non votre patrimoine personnel. Deuxièmement, elle crée une entité de gestion professionnelle : Co-Ownership Property agit en tant que gérant de la LLC, responsable des assurances, de l'entretien, des réparations et de la conformité opérationnelle. Troisièmement, elle établit un calendrier d'usage formel : en tant que copropriétaire à 1/8, vous bénéficiez d'environ 45 à 47 jours par an (l'allocation exacte étant déterminée par le groupe de copropriétaires). Quatrièmement, elle assure la conformité fiscale : la LLC dépose les déclarations fiscales appropriées, et Co-Ownership Property distribue les informations de revenus et charges à l'ensemble des copropriétaires pour leurs déclarations personnelles.</p>
+
+    <p>L'allocation d'usage fonctionne via un système de réservation prioritaire, généralement 6 à 8 mois à l'avance, combiné à un système de rotation équitable en secours. Les périodes prisées (grandes vacances d'été, Noël, Pâques) sont réparties équitablement entre les huit copropriétaires ; les périodes moins demandées (janvier, février, novembre) nécessitent moins de compétition. Vous pouvez également organiser des échanges de semaines avec d'autres copropriétaires si les emplois du temps s'y prêtent, ou demander des transferts temporaires pour prolonger un séjour particulier.</p>
+
+    <p>En matière de fiscalité immobilière anglaise, la copropriété entraîne la Stamp Duty Land Tax (SDLT) uniquement sur votre acquisition individuelle de la part fractionnelle, et non sur la valeur totale du bien. Par exemple, si le bien vaut £8 millions, la SDLT est calculée uniquement sur la valeur de votre part de 1/8 (£1 million), et non sur les £8 millions — résultant en des économies de SDLT significatives par rapport à l'acquisition du bien en entier. C'est l'un des avantages fiscaux spécifiques de la structure fractionnelle.</p>
+
+    <p>Les charges annuelles de fonctionnement sont partagées équitablement entre les huit copropriétaires. Elles comprennent typiquement les taxes foncières (Council Tax), les assurances, les réserves d'entretien et les honoraires de gestion professionnelle. Un bien premium londonien peut engendrer des charges annuelles totales de £40 000 à £60 000 (soit £5 000 à £7 500 par copropriétaire au 1/8) ; un bien côtier cornouaillais engendre typiquement £25 000 à £35 000 au total (soit £3 000 à £4 500 par copropriétaire au 1/8). Co-Ownership Property fournit une comptabilité détaillée trimestrielle et gère l'ensemble des relations avec les prestataires, des travaux d'entretien et de la conformité réglementaire.</p>
+
+    <h3>Votre détention en un coup d'œil</h3>
+    <ul>
+      <li><strong>Véritable patrimoine acté à votre nom</strong> — votre part de 1/8 est inscrite au HM Land Registry anglais, transmissible, transmissible par héritage, et elle se valorise avec le bien sous-jacent. Ce n'est ni de la multipropriété, ni une adhésion à points, ni un droit d'usage.</li>
+      <li><strong>Structure internationale cohérente</strong> — votre part en Angleterre s'inscrit dans le même cadre LLC conçu spécifiquement pour chaque bien COP dans le monde.</li>
+      <li><strong>Gestion intégrale</strong> — l'équipe de gestion professionnelle s'occupe du Council Tax et autres charges, des assurances, de l'entretien, de la planification, du linge et du service de conciergerie. Vous arrivez, le bien est prêt.</li>
+      <li><strong>Revente accompagnée via le réseau de copropriétaires COP</strong> — le processus de revente accompagnée se conclut généralement en environ un mois ou moins, bien en deçà des 4 à 8 mois que prend habituellement une vente d'un bien entier sur le marché libre anglais.</li>
+      <li><strong>Conçu pour les portefeuilles internationaux</strong> — le modèle LLC fait de la détention de plusieurs biens COP une seule relation consolidée.</li>
+    </ul>
+
+    </div></section>
+
+    <!-- §G — Investment Advantages -->
+    <section class="dest-sec cream"><div class="dest-inner">
+
+    <h2>Avantages patrimoniaux de la copropriété en Angleterre</h2>
+
+    <p>Le marché immobilier anglais, en particulier dans les emplacements premium, offre plusieurs avantages patrimoniaux distinctifs. Premièrement, la rareté de l'offre est réelle et imposée par la géographie et la réglementation. Les maisons de ville de Belgravia sont limitées au tissu du XIXe siècle originel ; aucun nouveau Belgravia ne sera jamais construit. Le littoral de Cornouailles est immuable ; aucune nouvelle côte ne sera jamais créée. Cette rareté véritable — à rebours des développements périurbains en expansion où l'offre croît indéfiniment — garantit que la demande pour les biens premium dépasse indéfiniment la croissance de l'offre, soutenant la valorisation.</p>
+
+    <p>Deuxièmement, le cadre juridique anglais est transparent, bien établi et mondialement reconnu. La détention immobilière en Angleterre remonte à des siècles ; le registre foncier, le droit immobilier et les cadres contractuels sont compris par chaque investisseur international. Cette transparence crée la confiance et réduit les primes de risque qui s'appliquent aux systèmes juridiques moins établis, soutenant les valorisations et garantissant que vous pouvez céder votre part fractionnelle facilement le moment venu.</p>
+
+    <p>Troisièmement, les biens anglais attirent une demande mondiale authentique. Le marché ultra-prime de Londres sert de valeur refuge pour les patrimoines internationaux ; lorsque les marchés mondiaux deviennent incertains, les individus aisés du monde entier se portent instinctivement sur l'immobilier londonien premium. Cela crée un pool d'acheteurs mondial bien plus large et liquide que les marchés régionaux britanniques. L'attrait de la Cornouailles s'étend à l'international : acheteurs européens, retraités américains et télétravailleurs internationaux se disputent activement les biens dans les emplacements les plus prisés.</p>
+
+    <p>Quatrièmement, la structure de copropriété réduit votre coût d'entrée unitaire tout en maintenant une pleine propriété légale et un potentiel de valorisation entier. Un bien londonien à £12 millions s'appréciant à 5 % par an représente £600 000 de valorisation annuelle — sur une part de 1/8, c'est £75 000 de création de valeur annuelle sans effet de levier, sans charge d'entretien ni de gestion active. Sur un portefeuille diversifié de copropriété, cette valorisation se capitalise.</p>
+
+    <p>Cinquièmement, les revenus immobiliers anglais sont modestes mais légitimes. De nombreux biens en copropriété peuvent générer des revenus locatifs à court terme pendant vos périodes de non-utilisation ; l'équipe de gestion de Co-Ownership Property coordonne les locations, avec des revenus distribués aux copropriétaires trimestriellement, nets de frais de gestion. Si ce revenu est un complément — la copropriété est avant tout un placement lifestyle et de valorisation à long terme — il réduit les charges nettes de portage et crée un flux de trésorerie modeste. À la différence de la multipropriété traditionnelle qui vous enferme dans un droit d'usage immuable, votre part COP participe pleinement à l'appréciation du bien sous-jacent.</p>
+
+    </div></section>
+
+    <!-- Comparison Table -->
+    <section class="dest-sec white"><div class="dest-inner">
+
+    <h2>Comparaison : bien entier, part 1/8 COP, location longue durée</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Résidence secondaire entière</th>
+          <th>Part 1/8 COP</th>
+          <th>Location longue durée</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Engagement initial</td>
+          <td>Valeur totale du bien</td>
+          <td>~1/8 de la valeur du bien</td>
+          <td>Caution et 1–2 mois de loyer</td>
+        </tr>
+        <tr>
+          <td>Patrimoine dans l'actif</td>
+          <td>Plus-value totale</td>
+          <td>~1/8 de la plus-value</td>
+          <td>Aucun</td>
+        </tr>
+        <tr>
+          <td>Charges annuelles</td>
+          <td>Council Tax, assurances, gestion et entretien complets</td>
+          <td>~1/8 des charges, gestion intégrale incluse</td>
+          <td>Loyer complet chaque année, indéfiniment</td>
+        </tr>
+        <tr>
+          <td>Utilisation personnelle</td>
+          <td>Jusqu'à 52 semaines (la plupart utilisent 6 à 10)</td>
+          <td>~45 jours, planifiés professionnellement</td>
+          <td>Défini par le bail</td>
+        </tr>
+        <tr>
+          <td>Charge opérationnelle</td>
+          <td>Géré par le propriétaire ou personnel embauché</td>
+          <td>Entièrement inclus</td>
+          <td>Géré par le bailleur</td>
+        </tr>
+        <tr>
+          <td>Délai de revente</td>
+          <td>4 à 8 mois sur le marché libre anglais</td>
+          <td>Environ un mois en moyenne</td>
+          <td>Fin du bail</td>
+        </tr>
+        <tr>
+          <td>Droit successoral</td>
+          <td>Succession immobilière complète</td>
+          <td>Part transmissible par héritage via la LLC</td>
+          <td>Non applicable</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="dest-callout">
+      <strong>Consultation libre, contact libre.</strong> L'utilisation de COP est gratuite pour les acheteurs — aucuns frais, aucun coût d'inscription, aucun engagement. Parlez avec nos spécialistes pour savoir quelle région d'Angleterre correspond le mieux à votre mode d'utilisation, ou parcourez les annonces et inscrivez-vous à notre liste pour être alerté dès qu'un nouveau bien arrive sur le marché.
+    </div>
+
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="dest-faq-sec"><div class="dest-inner">
+      <p class="dest-eyebrow">Questions et réponses</p>
+      <h2>Copropriété en Angleterre — Questions fréquentes</h2>
+      <div class="dest-faq-list">
+
+        <details class="dest-faq-item">
+          <summary><h3>Les ressortissants étrangers peuvent-ils acheter une part fractionnelle en Angleterre ?</h3><div class="dest-faq-chevron"></div></summary>
+          <div class="dest-faq-answer">
+            <p>Oui, sans restriction. Les non-ressortissants britanniques peuvent acquérir des parts fractionnelles dans des biens anglais sans limitation (contrairement à certains achats résidentiels par des entités étrangères). Vous devrez obtenir un numéro d'identification fiscale britannique et déposer des déclarations fiscales au Royaume-Uni en tant que propriétaire non-résident. De nombreux copropriétaires COP sont des acheteurs internationaux en quête de prestige londonien ou de style de vie cornouaillais sans les complications d'une pleine propriété ou de la création d'une société britannique.</p>
+          </div>
+        </details>
+
+        <details class="dest-faq-item">
+          <summary><h3>Comment fonctionne la Stamp Duty Land Tax (SDLT) sur une part fractionnelle ?</h3><div class="dest-faq-chevron"></div></summary>
+          <div class="dest-faq-answer">
+            <p>La SDLT est calculée sur votre prix d'acquisition de la part fractionnelle, et non sur la valeur totale du bien. Si vous acquérez une part de 1/8 dans un bien à £8 millions (valeur de votre part = £1 million), vous payez la SDLT uniquement sur £1 million, et non sur £8 millions. Aux taux actuels, cela résulte en une SDLT d'environ £113 750 sur votre part de 1/8, contre £475 000 si vous achetiez le bien en entier. La SDLT sur l'acquisition fractionnelle est l'un des avantages fiscaux spécifiques de la structure fractionnelle.</p>
+          </div>
+        </details>
+
+        <details class="dest-faq-item">
+          <summary><h3>Puis-je louer mes semaines non utilisées pour générer un revenu ?</h3><div class="dest-faq-chevron"></div></summary>
+          <div class="dest-faq-answer">
+            <p>Oui, avec la gestion de Co-Ownership Property. Pendant vos périodes de non-utilisation, le bien peut être mis en location courte durée (Airbnb, Booking.com ou agences de location de luxe). Co-Ownership Property coordonne toute la logistique locative — sélection des locataires, ménage entre les séjours, gestion des sinistres, conformité réglementaire — et distribue les revenus locatifs aux copropriétaires trimestriellement, nets des frais de gestion. Pour les biens londoniens premium, les tarifs de location courte durée peuvent atteindre £1 500 à £3 000+ par nuit ; les biens côtiers cornouaillais commandent typiquement £800 à £1 500 par nuit. Ces revenus locatifs contribuent à compenser les charges annuelles de portage.</p>
+          </div>
+        </details>
+
+        <details class="dest-faq-item">
+          <summary><h3>Dois-je choisir Londres ou la Cornouailles pour ma copropriété ?</h3><div class="dest-faq-chevron"></div></summary>
+          <div class="dest-faq-answer">
+            <p>Cela dépend de votre usage principal. Choisissez Londres si vous privilégiez la densité culturelle, le prestige mondial, la gastronomie et le shopping de premier rang, et le réseautage professionnel — tout en souhaitant la liquidité maximale et le potentiel de valorisation d'un actif mondialement reconnu. Choisissez la Cornouailles si vous prioritisez l'échappée lifestyle, la beauté naturelle, les activités de plein air (surf, randonnée, vie côtière) et des séjours plus longs dans un marché en pleine transformation avec un véritable potentiel de croissance. Certains acheteurs acquièrent les deux : une part londonienne pour les semaines de déplacements professionnels et d'immersion culturelle, plus une part cornouaillaise pour les loisirs prolongés et la ressource.</p>
+          </div>
+        </details>
+
+        <details class="dest-faq-item">
+          <summary><h3>Puis-je transmettre ma part à mes enfants ou héritiers ?</h3><div class="dest-faq-chevron"></div></summary>
+          <div class="dest-faq-answer">
+            <p>Oui, votre part fractionnelle est pleinement transmissible par héritage. À votre décès, votre part passe à votre succession et revient à vos héritiers selon votre testament ou le droit successoral local applicable. Vos héritiers peuvent conserver la copropriété (en continuant à bénéficier des droits d'usage et des avantages patrimoniaux), céder la part à un autre acheteur, ou modifier leur niveau de participation. Le contrat d'exploitation de la LLC définit clairement les procédures successorales, garantissant une transmission fluide et évitant les complications de la succession.</p>
+          </div>
+        </details>
+
+        <details class="dest-faq-item">
+          <summary><h3>Comment se déroule la revente de ma part fractionnelle ?</h3><div class="dest-faq-chevron"></div></summary>
+          <div class="dest-faq-answer">
+            <p>Co-Ownership Property maintient un marché secondaire pour les parts fractionnelles et peut généralement localiser des acheteurs en environ un mois. Vous pouvez également vendre de façon indépendante via vos propres canaux. Le processus de vente : vous mettez votre part en vente avec le soutien de COP, les acheteurs potentiels sont sélectionnés (vérification financière et évaluation d'aptitude), la documentation juridique est transférée au HM Land Registry, et les fonds sont transférés à la finalisation. Les ventes se concluent typiquement en trente jours à compter de l'accord. La sortie est simple car les parts fractionnelles dans l'immobilier anglais premium restent des actifs hautement liquides — à la différence de la multipropriété traditionnelle qui ne se revend pas.</p>
+          </div>
+        </details>
+
+        <details class="dest-faq-item">
+          <summary><h3>Quelles sont les charges annuelles totales, et que couvrent-elles ?</h3><div class="dest-faq-chevron"></div></summary>
+          <div class="dest-faq-answer">
+            <p>Les charges annuelles varient selon le bien et la localisation. Un bien londonien premium coûte typiquement £40 000 à £60 000 par an (divisé entre huit copropriétaires = £5 000 à £7 500 par part de 1/8) ; un bien côtier cornouaillais coûte typiquement £25 000 à £35 000 par an (divisé entre huit copropriétaires = £3 000 à £4 500 par part de 1/8). Ces charges couvrent : Council Tax et Stamp Duty Land Tax (SDLT) s'il y a lieu, assurance bâtiment et contenu, entretien planifié et réserves de capital, réparations d'urgence, charges de services pendant les périodes de non-occupation, entretien des espaces extérieurs et du jardin, gestion professionnelle du bien, et conformité réglementaire. Vous recevez une comptabilité trimestrielle détaillée de toutes les dépenses.</p>
+          </div>
+        </details>
+
+      </div>
+    </div></section>
+
+    <!-- CTAs -->
+    <section class="newsletter-section" id="newsletter">
+        <h2 class="newsletter-heading">Soyez le premier informé</h2>
+        <p class="newsletter-subtitle">Rejoignez notre communauté pour recevoir des annonces exclusives et des actualités de destinations directement dans votre boîte mail.</p>
+        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
+            <input type="email" name="email" placeholder="Votre adresse e-mail" required>
+            <button type="submit" class="newsletter-btn">S'inscrire</button>
+        </form>
+        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
+    </section>
+
+    <section class="expert-section" id="speak-to-expert">
+        <div class="expert-inner">
+            <p class="expert-eyebrow">Nous contacter</p>
+            <h2 class="expert-heading">Parler à un <em>spécialiste</em></h2>
+            <p class="expert-sub">Dites-nous ce que vous recherchez et l'un de nos spécialistes en copropriété vous recontactera dans les 24 heures.</p>
+
+            <form class="expert-form" id="expert-enquiry-form" novalidate>
+                <input type="hidden" name="nonce" value="9e3a8b0450">
+                <div class="expert-form-grid">
+                    <div class="expert-form-field">
+                        <label for="ef-name">Nom <span>*</span></label>
+                        <input type="text" id="ef-name" name="name" placeholder="Votre nom" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-email">Adresse e-mail <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="votre@email.com" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-phone">Numéro de téléphone <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+33 6 00 00 00 00" required>
+                    </div>
+                    <div class="expert-form-field">
+                        <label>Destinations</label>
+                        <div class="dest-multiselect" id="dest-multiselect">
+                            <div class="dest-trigger" id="dest-trigger">
+                                <span class="dest-placeholder">Sélectionner des destinations</span>
+                            </div>
+                            <div class="dest-dropdown" id="dest-dropdown">
+                                <div class="dest-option" data-value="France">
+                                    <span class="dest-check"></span>
+                                    🇫🇷 France
+                                </div>
+                                <div class="dest-option" data-value="Spain">
+                                    <span class="dest-check"></span>
+                                    🇪🇸 Espagne
+                                </div>
+                                <div class="dest-option" data-value="Italy">
+                                    <span class="dest-check"></span>
+                                    🇮🇹 Italie
+                                </div>
+                                <div class="dest-option" data-value="USA">
+                                    <span class="dest-check"></span>
+                                    🇺🇸 États-Unis
+                                </div>
+                                <div class="dest-option" data-value="Portugal">
+                                    <span class="dest-check"></span>
+                                    🇵🇹 Portugal
+                                </div>
+                                <div class="dest-option" data-value="Austria">
+                                    <span class="dest-check"></span>
+                                    🇦🇹 Autriche
+                                </div>
+                                <div class="dest-option" data-value="England">
+                                    <span class="dest-check"></span>
+                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre
+                                </div>
+                                <div class="dest-option" data-value="Sweden">
+                                    <span class="dest-check"></span>
+                                    🇸🇪 Suède
+                                </div>
+                                <div class="dest-option" data-value="Germany">
+                                    <span class="dest-check"></span>
+                                    🇩🇪 Allemagne
+                                </div>
+                                <div class="dest-option" data-value="Croatia">
+                                    <span class="dest-check"></span>
+                                    🇭🇷 Croatie
+                                </div>
+                                <div class="dest-option" data-value="Mexico">
+                                    <span class="dest-check"></span>
+                                    🇲🇽 Mexique
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="destination" id="ef-destination">
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-budget">Budget</label>
+                        <select id="ef-budget" name="budget">
+                            <option value="" disabled selected>Sélectionner un budget</option>
+                            <option>Moins de 100 000 €</option>
+                            <option>100 000 € – 200 000 €</option>
+                            <option>200 000 € – 350 000 €</option>
+                            <option>350 000 € – 500 000 €</option>
+                            <option>500 000 € – 750 000 €</option>
+                            <option>750 000 € – 1 000 000 €</option>
+                            <option>Plus de 1 000 000 €</option>
+                        </select>
+                    </div>
+                    <div class="expert-form-field">
+                        <label for="ef-message">Message</label>
+                        <textarea id="ef-message" name="message" placeholder="Dites-nous ce que vous recherchez (facultatif)"></textarea>
+                    </div>
+                </div>
+                <div class="expert-submit">
+                    <button type="submit" class="expert-submit-btn">Envoyer ma demande</button>
+                    <p class="expert-form-msg" id="expert-form-msg"></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">La copropriété de luxe pour l'acheteur avisé de résidence secondaire.</p></div>
+            <div class="footer-col"><h3>Biens</h3><ul><li><a href="/fr/proprietes/">Tous les biens</a></li><li><a href="/fr/destinations/spain-fractional-ownership-properties/">Espagne</a></li><li><a href="/fr/destinations/france-fractional-ownership-properties/">France</a></li><li><a href="/fr/destinations/italy-fractional-ownership-properties/">Italie</a></li><li><a href="/fr/destinations/usa-fractional-ownership-properties/">États-Unis</a></li></ul></div>
+            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/fr/destinations/mallorca-fractional-ownership-properties/">Majorque</a></li><li><a href="/fr/destinations/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/fr/destinations/california-fractional-ownership-properties/">Californie</a></li><li><a href="/fr/destinations/french-alps-fractional-ownership-properties/">Alpes françaises</a></li><li><a href="/fr/destinations/lake-como-fractional-ownership-properties/">Lac de Côme</a></li></ul></div>
+            <div class="footer-col"><h3>La société</h3><ul><li><a href="/fr/a-propos/">À propos</a></li><li><a href="/fr/blog/">Notre blog</a></li><li><a href="/fr/comment-ca-marche/">Comment ça marche</a></li><li><a href="/fr/contact/">Contact</a></li></ul></div>
+            <div class="footer-col"><h3>Assistance</h3><ul><li><a href="/fr/contact/">Nous contacter</a></li><li><a href="/fr/comment-ca-marche/#faq">FAQ</a></li><li><a href="/fr/comment-ca-marche/">Comment ça marche</a></li><li><a href="/fr/proprietes/">Parcourir les biens</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. Tous droits réservés.</p><div class="footer-legal"><a href="/fr/">Politique de confidentialité</a><a href="/fr/">Conditions d'utilisation</a><a href="/fr/">Mentions légales</a></div></div>
+    </footer>
+
+    <script>
+        /* ── Shared header JS ──────────────────────────────────────── */
+(function () {
+    var header = document.getElementById('cop-header');
+    var btn    = document.getElementById('cop-hamburger');
+    var nav    = document.getElementById('cop-nav');
+    if (!header || !btn || !nav) return;
+
+    // Mobile hamburger toggle
+    btn.addEventListener('click', function () {
+        nav.classList.toggle('active');
+        btn.classList.toggle('open');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+            nav.classList.remove('active');
+            btn.classList.remove('open');
+        });
+    });
+}());
+        /* ── Newsletter form ──────────────────────────────────────── */
+(function() {
+    var form = document.getElementById('cop-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('newsletter-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var btn = form.querySelector('.newsletter-btn');
+        if (!emailInput.value) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Inscription…';
+        msg.className = 'newsletter-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_newsletter_subscribe');
+        data.append('email', emailInput.value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'newsletter-form-msg success';
+                msg.textContent = res.data || 'Merci pour votre inscription !';
+                form.reset();
+                btn.textContent = 'Inscrit !';
+            } else {
+                msg.className = 'newsletter-form-msg error';
+                msg.textContent = res.data || 'Une erreur est survenue. Veuillez réessayer.';
+                btn.disabled = false;
+                btn.textContent = 'S\'inscrire';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-form-msg error';
+            msg.textContent = 'Erreur réseau. Veuillez réessayer.';
+            btn.disabled = false;
+            btn.textContent = 'S\'inscrire';
+        });
+    });
+})();
+        /* ── Multi-select destination dropdown ────── */
+(function() {
+    var wrap     = document.getElementById('dest-multiselect');
+    var trigger  = document.getElementById('dest-trigger');
+    var dropdown = document.getElementById('dest-dropdown');
+    var hidden   = document.getElementById('ef-destination');
+    if (!wrap || !trigger || !dropdown || !hidden) return;
+
+    var placeholder = trigger.querySelector('.dest-placeholder');
+    var selected = [];
+
+    function render() {
+        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+
+        if (selected.length === 0) {
+            placeholder.style.display = '';
+        } else {
+            placeholder.style.display = 'none';
+            selected.forEach(function(val) {
+                var tag = document.createElement('span');
+                tag.className = 'dest-tag';
+                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
+                trigger.insertBefore(tag, placeholder);
+            });
+        }
+
+        hidden.value = selected.join('; ');
+
+        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
+            if (selected.indexOf(opt.dataset.value) !== -1) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    trigger.addEventListener('click', function(e) {
+        if (e.target.classList.contains('dest-tag-x')) {
+            var val = e.target.dataset.val;
+            selected = selected.filter(function(v) { return v !== val; });
+            render();
+            e.stopPropagation();
+            return;
+        }
+        wrap.classList.toggle('open');
+    });
+
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.dest-option');
+        if (!opt) return;
+        var val = opt.dataset.value;
+        var idx = selected.indexOf(val);
+        if (idx === -1) {
+            selected.push(val);
+        } else {
+            selected.splice(idx, 1);
+        }
+        render();
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!wrap.contains(e.target)) {
+            wrap.classList.remove('open');
+        }
+    });
+})();
+
+/* ── Expert enquiry form AJAX ─────────────── */
+(function() {
+    var form = document.getElementById('expert-enquiry-form');
+    if (!form) return;
+    var btn = form.querySelector('.expert-submit-btn');
+    var msg = document.getElementById('expert-form-msg');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Envoi…';
+        msg.className = 'expert-form-msg';
+        msg.textContent = '';
+
+        var data = new FormData();
+        data.append('action', 'cop_expert_enquiry');
+        data.append('nonce',       form.querySelector('[name="nonce"]').value);
+        data.append('name',        form.querySelector('[name="name"]').value);
+        data.append('email',       form.querySelector('[name="email"]').value);
+        data.append('phone',       form.querySelector('[name="phone"]').value);
+        data.append('destination', form.querySelector('[name="destination"]').value);
+        data.append('budget',      form.querySelector('[name="budget"]').value);
+        data.append('message',     form.querySelector('[name="message"]').value);
+
+        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: data
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+            if (res.success) {
+                msg.className = 'expert-form-msg success';
+                msg.textContent = res.data || 'Merci ! Nous vous recontacterons dans les 24 heures.';
+                form.reset();
+                btn.textContent = 'Envoyé !';
+                var wrap = document.getElementById('dest-multiselect');
+                if (wrap) {
+                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+                    var ph = wrap.querySelector('.dest-placeholder');
+                    if (ph) ph.style.display = '';
+                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
+                }
+            } else {
+                msg.className = 'expert-form-msg error';
+                msg.textContent = res.data || 'Une erreur est survenue. Veuillez réessayer.';
+                btn.disabled = false;
+                btn.textContent = 'Envoyer ma demande';
+            }
+        })
+        .catch(function() {
+            msg.className = 'expert-form-msg error';
+            msg.textContent = 'Erreur réseau. Veuillez réessayer.';
+            btn.disabled = false;
+            btn.textContent = 'Envoyer ma demande';
+        });
+    });
+})();
+        // Show more properties
+        var showMoreBtn = document.getElementById('dest-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
+                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

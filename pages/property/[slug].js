@@ -567,10 +567,17 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
               <p className="pp-location-text">{[p.city, p.region, p.country].filter(Boolean).join(', ')}</p>
               {p.lat && p.lng && (
                 <div className="pp-map-wrap">
+                  {/* OpenStreetMap embed — free, no API key, reliable. The
+                      previous Google Maps embed (maps.google.com/maps?...&output=embed)
+                      is a deprecated legacy endpoint that Google rate-limits
+                      intermittently, which caused some property pages to render
+                      an empty grey box instead of the map. OSM doesn't have
+                      that issue. The bbox is a ~5km window around the
+                      property; the &marker= pin shows the exact location. */}
                   <iframe
                     title="Property location"
-                    src={`https://maps.google.com/maps?q=${p.lat},${p.lng}&z=13&output=embed`}
-                    width="100%" height="280" style={{border:0}} loading="lazy" allowFullScreen
+                    src={`https://www.openstreetmap.org/export/embed.html?bbox=${p.lng - 0.05},${p.lat - 0.05},${p.lng + 0.05},${p.lat + 0.05}&layer=mapnik&marker=${p.lat},${p.lng}`}
+                    width="100%" height="280" style={{border:0}} loading="lazy"
                   />
                 </div>
               )}
