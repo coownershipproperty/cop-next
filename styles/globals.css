@@ -2778,10 +2778,11 @@ footer {
             /* Hide duplicate country name & gold outline on mobile */
             .dest-info-name { display: none; }
             .dest-country-outline { display: none !important; }
-            /* Destination tab labels — bigger, fully opaque */
+            /* Destination tab labels — bigger, fully opaque.
+               Dark navy now that the destinations section is cream. */
             .dest-tab-btn {
                 font-size: 0.88rem;
-                color: rgba(255,255,255,0.85);
+                color: rgba(44,74,94,0.85);
             }
             .dest-tab-btn.active { color: var(--warm-gold); }
             /* Info text — centred, more breathing room, less transparent */
@@ -2790,7 +2791,7 @@ footer {
                 padding-top: 1.4rem;
             }
             .dest-info-desc {
-                color: rgba(255,255,255,0.88);
+                color: rgba(44,74,94,0.85);
                 font-size: 0.92rem;
                 margin-bottom: 1.6rem;
             }
