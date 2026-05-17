@@ -1440,7 +1440,10 @@ img {
         }
 
 .destinations-section {
-            background: var(--blue);
+            /* Cream background so this section contrasts with the dark
+               navy CTA band above. Keeps the navy/cream alternation across
+               the page consistent. */
+            background: var(--cream-bg);
             padding: 80px 0 90px;
             min-height: 100vh;
             display: flex;
@@ -1448,9 +1451,9 @@ img {
             justify-content: center;
         }
 
-/* Override section-heading colour inside destinations */
+/* Heading inherits default dark text now that the section is cream. */
         .destinations-section .section-heading {
-            color: var(--white);
+            color: var(--blue);
         }
 
 /* Tab nav */
@@ -1468,7 +1471,8 @@ img {
             font-size: 0.9rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
+            /* Semi-transparent navy now that the section background is cream */
+            color: rgba(44,74,94,0.55);
             padding: 0.55rem 1.5rem;
             cursor: pointer;
             border: none;
@@ -1523,7 +1527,8 @@ img {
             font-family: 'Playfair Display', serif;
             font-size: 2.8rem;
             font-weight: 400;
-            color: var(--white);
+            /* Navy on cream background */
+            color: var(--blue);
             text-transform: uppercase;
             letter-spacing: 0.06em;
             line-height: 1.1;
@@ -1534,7 +1539,8 @@ img {
             font-family: 'Nunito Sans', sans-serif;
             font-size: 0.9rem;
             line-height: 1.9;
-            color: rgba(255,255,255,0.65);
+            /* Muted navy for body copy on cream */
+            color: rgba(44,74,94,0.72);
             font-weight: 300;
             margin-bottom: 2.2rem;
         }

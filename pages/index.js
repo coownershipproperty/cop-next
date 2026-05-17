@@ -401,18 +401,9 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
     </div>
 
     {/* ===== INTRODUCTION SECTION ===== */}
-    <section className="intro-section">
-        <p className="intro-text">
-            Discover the world of luxury co-ownership. From sun-drenched Mediterranean villas to chic city apartments, from vineyard estates to Alpine retreats, each property feels effortlessly yours.
-        </p>
-        <p className="intro-subtext">
-            Every listing is carefully curated, beautifully designed, and expertly managed. More than ownership, it's a gateway to timeless landscapes, cultural treasures, and unforgettable family moments.
-        </p>
-    </section>
-
-    {/* ===== PROPERTIES CAROUSEL SECTION (moved above the explainer to put
-         the inventory in front of visitors immediately — reduces bounce
-         rate from people who don't scroll past the explainer text) ===== */}
+    {/* ===== PROPERTIES CAROUSEL SECTION (placed immediately after the
+         hero so visitors see inventory before anything else — biggest
+         single bounce-rate lever) ===== */}
     <section className="properties-section" id="properties">
         <h2 className="section-heading">Explore Our Properties</h2>
         <p className="section-subtitle">Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.</p>
@@ -422,6 +413,15 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         <div className="pc-browse-all">
           <a href="/our-homes/" className="pc-browse-btn">View All {propertyCount} Properties &rarr;</a>
         </div>
+    </section>
+
+    <section className="intro-section">
+        <p className="intro-text">
+            Discover the world of luxury co-ownership. From sun-drenched Mediterranean villas to chic city apartments, from vineyard estates to Alpine retreats, each property feels effortlessly yours.
+        </p>
+        <p className="intro-subtext">
+            Every listing is carefully curated, beautifully designed, and expertly managed. More than ownership, it's a gateway to timeless landscapes, cultural treasures, and unforgettable family moments.
+        </p>
     </section>
 
     {/* ===== CO-OWNERSHIP EXPLAINER ===== */}

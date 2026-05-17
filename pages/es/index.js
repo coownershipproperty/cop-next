@@ -347,19 +347,8 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
         </div>
       </div>
 
-      {/* ===== INTRODUCTION SECTION ===== */}
-      <section className="intro-section">
-        <p className="intro-text">
-          Descubre el mundo de la copropiedad de lujo. Desde villas mediterráneas bañadas por el sol hasta apartamentos urbanos con encanto, pasando por fincas vinícolas y refugios alpinos: cada propiedad se siente sin esfuerzo como tuya.
-        </p>
-        <p className="intro-subtext">
-          Cada propiedad está cuidadosamente seleccionada, bellamente diseñada y profesionalmente gestionada. Más que una propiedad, es la puerta a paisajes únicos, tesoros culturales e inolvidables momentos en familia.
-        </p>
-      </section>
-
-      {/* ===== PROPERTIES CAROUSEL (moved above the explainer to put
-           inventory in front of visitors immediately — reduces bounce rate
-           from people who don't scroll past the explainer text) ===== */}
+      {/* ===== PROPERTIES CAROUSEL (placed immediately after hero so
+           visitors see inventory first — biggest bounce-rate lever) ===== */}
       <section className="properties-section" id="properties">
         <h2 className="section-heading">Comprar una segunda residencia en copropiedad</h2>
         <p className="section-subtitle">Villas, apartamentos y casas de vacaciones en propiedad fraccionada por Mallorca, Ibiza, Costa del Sol y otros destinos europeos — con precios desde una fracción de la compra íntegra.</p>
@@ -369,6 +358,16 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
         <div className="pc-browse-all">
           <a href="/our-homes/" className="pc-browse-btn">Ver las {propertyCount} propiedades &rarr;</a>
         </div>
+      </section>
+
+      {/* ===== INTRODUCTION SECTION ===== */}
+      <section className="intro-section">
+        <p className="intro-text">
+          Descubre el mundo de la copropiedad de lujo. Desde villas mediterráneas bañadas por el sol hasta apartamentos urbanos con encanto, pasando por fincas vinícolas y refugios alpinos: cada propiedad se siente sin esfuerzo como tuya.
+        </p>
+        <p className="intro-subtext">
+          Cada propiedad está cuidadosamente seleccionada, bellamente diseñada y profesionalmente gestionada. Más que una propiedad, es la puerta a paisajes únicos, tesoros culturales e inolvidables momentos en familia.
+        </p>
       </section>
 
       {/* ===== CO-OWNERSHIP EXPLAINER ===== */}

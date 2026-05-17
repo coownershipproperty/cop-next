@@ -349,19 +349,8 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
         </div>
       </div>
 
-      {/* ===== INTRODUCTION SECTION ===== */}
-      <section className="intro-section">
-        <p className="intro-text">
-          Entdecken Sie die Welt des luxuriösen Miteigentums. Von sonnenverwöhnten Mediterran-Villen über charmante Stadtwohnungen bis zu Weingütern und alpinen Refugien — jede Immobilie fühlt sich mühelos wie Ihre eigene an.
-        </p>
-        <p className="intro-subtext">
-          Jede Immobilie ist sorgfältig ausgewählt, geschmackvoll gestaltet und professionell verwaltet. Mehr als nur eine Immobilie — sie ist Ihr Tor zu einzigartigen Landschaften, kulturellen Schätzen und unvergesslichen Familienmomenten.
-        </p>
-      </section>
-
-      {/* ===== PROPERTIES CAROUSEL (moved above the explainer to put
-           inventory in front of visitors immediately — reduces bounce rate
-           from people who don't scroll past the explainer text) ===== */}
+      {/* ===== PROPERTIES CAROUSEL (placed immediately after hero so
+           visitors see inventory first — biggest bounce-rate lever) ===== */}
       <section className="properties-section" id="properties">
         <h2 className="section-heading">Ferienimmobilien im Miteigentum kaufen</h2>
         <p className="section-subtitle">Villen, Apartments und Ferienhäuser im Anteilskauf auf Mallorca, Ibiza, an der Costa del Sol, am Gardasee, in der Toskana, in Tirol und mehr — mit Preisen ab einem Bruchteil des Vollkaufpreises.</p>
@@ -371,6 +360,16 @@ export default function HomeDE({ propertyCount, featuredProps, latestPosts }) {
         <div className="pc-browse-all">
           <a href="/de/immobilien/" className="pc-browse-btn">Alle {propertyCount} Immobilien ansehen &rarr;</a>
         </div>
+      </section>
+
+      {/* ===== INTRODUCTION SECTION ===== */}
+      <section className="intro-section">
+        <p className="intro-text">
+          Entdecken Sie die Welt des luxuriösen Miteigentums. Von sonnenverwöhnten Mediterran-Villen über charmante Stadtwohnungen bis zu Weingütern und alpinen Refugien — jede Immobilie fühlt sich mühelos wie Ihre eigene an.
+        </p>
+        <p className="intro-subtext">
+          Jede Immobilie ist sorgfältig ausgewählt, geschmackvoll gestaltet und professionell verwaltet. Mehr als nur eine Immobilie — sie ist Ihr Tor zu einzigartigen Landschaften, kulturellen Schätzen und unvergesslichen Familienmomenten.
+        </p>
       </section>
 
       {/* ===== CO-OWNERSHIP EXPLAINER ===== */}

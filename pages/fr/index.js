@@ -340,19 +340,8 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
         </div>
       </div>
 
-      {/* ===== INTRODUCTION SECTION ===== */}
-      <section className="intro-section">
-        <p className="intro-text">
-          Découvrez l'univers des biens de prestige en vente fractionnée. Des villas baignées de soleil en Méditerranée aux appartements urbains élégants, des domaines viticoles aux chalets alpins, vous êtes chez vous.
-        </p>
-        <p className="intro-subtext">
-          Chaque bien est soigneusement sélectionné, impeccablement aménagé et géré par des professionnels. Plus qu'une façon d'être propriétaire, c'est un accès privilégié à des paysages intemporels, à des trésors culturels et à des moments inoubliables en famille.
-        </p>
-      </section>
-
-      {/* ===== PROPERTIES CAROUSEL (moved above the explainer to put
-           inventory in front of visitors immediately — reduces bounce rate
-           from people who don't scroll past the explainer text) ===== */}
+      {/* ===== PROPERTIES CAROUSEL (placed immediately after hero so
+           visitors see inventory first — biggest bounce-rate lever) ===== */}
       <section className="properties-section" id="properties">
         <h2 className="section-heading">Découvrez nos biens de prestige</h2>
         <p className="section-subtitle">Parcourez notre sélection de biens en copropriété dans les destinations les plus recherchées au monde.</p>
@@ -362,6 +351,16 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
         <div className="pc-browse-all">
           <a href="/our-homes/" className="pc-browse-btn">Voir les {propertyCount} biens &rarr;</a>
         </div>
+      </section>
+
+      {/* ===== INTRODUCTION SECTION ===== */}
+      <section className="intro-section">
+        <p className="intro-text">
+          Découvrez l'univers des biens de prestige en vente fractionnée. Des villas baignées de soleil en Méditerranée aux appartements urbains élégants, des domaines viticoles aux chalets alpins, vous êtes chez vous.
+        </p>
+        <p className="intro-subtext">
+          Chaque bien est soigneusement sélectionné, impeccablement aménagé et géré par des professionnels. Plus qu'une façon d'être propriétaire, c'est un accès privilégié à des paysages intemporels, à des trésors culturels et à des moments inoubliables en famille.
+        </p>
       </section>
 
       {/* ===== CO-OWNERSHIP EXPLAINER ===== */}
