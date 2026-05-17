@@ -289,8 +289,10 @@ img {
   color: rgba(44,74,94,0.85);
 }
 
-/* Hide the dropdown on small screens — drawer's flag picker handles it */
-@media (max-width: 1024px) {
+/* Hide the desktop EN dropdown at the same breakpoint where the hamburger
+   appears (1280px). Below that the language picker lives inside the
+   drawer, so the dropdown should disappear at the same moment. */
+@media (max-width: 1280px) {
   .cop-lang-dropdown { display: none; }
 }
 
