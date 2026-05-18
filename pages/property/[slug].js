@@ -149,34 +149,53 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const supabase = getSupabase();
-  // Selects '*' to include the new title_es/title_fr/description_es/description_fr/
-  // amenities_es/amenities_fr columns alongside the English originals. Falls back
-  // gracefully when a row hasn't been translated yet.
-  const { data: property } = await supabase
-    .from('properties')
-    .select('*')
-    .eq('slug', params.slug)
-    .single();
+  try {
+    const supabase = getSupabase();
+    // Selects '*' to include the new title_es/title_fr/description_es/description_fr/
+    // amenities_es/amenities_fr columns alongside the English originals. Falls back
+    // gracefully when a row hasn't been translated yet.
+    //
+    // Wrapped in try/catch + explicit error checks so that requests for slugs
+    // that no longer exist in the DB (renamed/removed properties — happens
+    // when the sync-sheet pipeline rewrites slugs) return a clean 404 instead
+    // of crashing into a 5xx. Google Search Console was flagging ~12 URLs as
+    // "Server error (5xx)" for exactly this reason — old slugs that got
+    // renamed since the page was last crawled.
+    const { data: property, error: propErr } = await supabase
+      .from('properties')
+      .select('*')
+      .eq('slug', params.slug)
+      .maybeSingle();
 
-  if (!property) return { notFound: true };
+    if (propErr || !property) return { notFound: true };
 
-  const prop = {
-    ...property,
-    driveUrl: property.drive_url,
-    dateAdded: property.date_added,
-  };
+    const prop = {
+      ...property,
+      driveUrl: property.drive_url,
+      dateAdded: property.date_added,
+    };
 
-  const { data: similarRaw } = await supabase
-    .from('properties')
-    .select('slug, title, title_es, title_fr, img, price, currency, country, region, city, beds, size, status')
-    .eq('country', property.country)
-    .neq('slug', property.slug)
-    .limit(3);
+    // Similar-properties query is best-effort. If it errors we just render
+    // the page with an empty similar list instead of breaking the whole page.
+    let similar = [];
+    try {
+      const { data: similarRaw } = await supabase
+        .from('properties')
+        .select('slug, title, title_es, title_fr, img, price, currency, country, region, city, beds, size, status')
+        .eq('country', property.country)
+        .neq('slug', property.slug)
+        .limit(3);
+      similar = (similarRaw || []).map(p => ({ ...p, driveUrl: null }));
+    } catch (_) {
+      similar = [];
+    }
 
-  const similar = (similarRaw || []).map(p => ({ ...p, driveUrl: null }));
-
-  return { props: { property: prop, similar }, revalidate: 3600 };
+    return { props: { property: prop, similar }, revalidate: 3600 };
+  } catch (err) {
+    // Any unexpected error → 404, never let it become a 5xx.
+    console.error(`property/[slug] getStaticProps failed for "${params.slug}":`, err);
+    return { notFound: true };
+  }
 }
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
