@@ -1,1072 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Florida Fractional Ownership Properties | Co-Ownership Property</title>
-    <meta name="description" content="Premium fractional ownership properties in Florida including Miami, Naples &amp; Orlando. Luxury homes through fractional ownership from as little as $60,000.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-        <style>
-        /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
-
-/* ── CSS Variables ── */
-:root {
-    /* === Primary palette (use these in new work) === */
-    --blue:         #2C4A5E;
-    --cream:        #F5F2EC;
-    --gold:         #C9A84C;
-    --white:        #FFFFFF;
-    --text:         #1a2533;
-    --muted:        #5a6a7a;
-    --border:       #e8e0d4;
-    --max:          1400px;
-
-    /* === Legacy aliases (keep for existing templates) === */
-    --warm-gold:    #C9A84C;
-    --cream-bg:     #F5F2EC;
-    --cream-light:  #FAF8F5;
-    --text-dark:    #2C4A5E;
-    --text-light:   rgba(255,255,255,0.85);
-    --text-muted:   #5a6a7a;
-    --gray-border:  #e8e0d4;
-    --blue-80:      #4A6A7E;
-    --blue-60:      #6B8A9E;
-    --blue-40:      #9EAFBC;
-    --blue-20:      #C5CED5;
-    --transition:   0.3s ease;
-}
-
-/* ── Base reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-button { font-family: inherit; cursor: pointer; }
-        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
-        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
-        a{color:inherit;text-decoration:none;transition:color var(--transition)}
-        img{display:block;max-width:100%;height:auto}
-
-                /* ===== SITE-WIDE HEADER ===== */
-        .cop-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 3rem;
-            height: 80px;
-            box-sizing: border-box;
-            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .admin-bar .cop-header { top: 32px; }
-
-        /* Logo */
-        .cop-logo { flex-shrink: 0; }
-        .cop-logo a { display: block; }
-        .cop-logo img { height: 54px; width: auto; display: block; }
-
-
-        /* Nav — absolutely centred between logo and hamburger */
-        .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0;
-            align-items: center;
-        }
-        .cop-nav a {
-            color: rgba(44,74,94,0.8);
-            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.84rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.4rem 1.4rem;
-            white-space: nowrap;
-            transition: color 0.25s ease;
-            text-decoration: none;
-        }
-        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
-
-        /* Gold underline on hover / active */
-        .cop-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 1.4rem; right: 1.4rem;
-            height: 1px;
-            background: rgba(201,168,76,1);
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.28s ease;
-        }
-        .cop-nav a:hover,
-        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
-        .cop-nav a:hover::after,
-        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
-
-
-        /* Favourites — heart prefix */
-        .cop-nav a.cop-nav-favourites::before {
-            content: '\2665\00a0\00a0';
-            font-size: 0.75rem;
-            color: rgba(201,168,76,1);
-            opacity: 0.75;
-            letter-spacing: 0;
-        }
-
-        /* Hamburger */
-        .cop-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-        .cop-hamburger span {
-            width: 22px; height: 1.5px;
-            background: rgba(44,74,94,0.8);
-            transition: all 0.28s ease;
-            transform-origin: center;
-            display: block;
-        }
-        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        /* ===== MOBILE (<768px) ===== */
-        @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
-            .cop-nav {
-                position: fixed;
-                top: 80px; left: 0; right: 0;
-                transform: none;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.97);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
-                z-index: 9998;
-            }
-            .admin-bar .cop-nav { top: 112px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
-            .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
-                width: 100%;
-                text-align: center;
-                border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
-                box-sizing: border-box;
-            }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
-        }
-
-        /* ===== HERO ===== */
-        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
-        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
-        .page-hero>*{position:relative;z-index:1}
-        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
-        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
-        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
-
-        /* ===== PROPERTY GRID ===== */
-        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
-        .props-inner{max-width:1400px;margin:0 auto}
-        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .props-count strong{color:var(--text-dark);font-weight:700}
-        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
-        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
-        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
-        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
-        .prop-card:hover .prop-img{transform:scale(1.04)}
-        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
-        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
-        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
-        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
-        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
-        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
-        .prop-stat{display:flex;align-items:center;gap:0.35rem}
-        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
-        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
-        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
-        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
-        .prop-card:hover .prop-view{color:var(--warm-gold)}
-        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
-        /* Show more button */
-        .prop-card.hidden{display:none}
-        .show-more-wrap{text-align:center;margin-top:2.5rem}
-        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
-        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-        /* Mid-page CTA */
-        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
-        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-        .dest-mid-cta > *{position:relative;z-index:1}
-        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
-        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
-        .dest-cta-btn-gold:hover{background:#b8963e}
-        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
-        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-
-        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
-        
-.dest-sec{padding:80px 3rem}
-.dest-sec.cream{background:var(--cream-bg)}
-.dest-sec.white{background:var(--white)}
-.dest-inner{max-width:900px;margin:0 auto}
-.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
-.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
-.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
-.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
-.dest-sec strong{color:var(--text-dark);font-weight:700}
-.dest-sec em{font-style:italic}
-.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
-.dest-sec a:hover{color:var(--blue)}
-.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
-.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
-.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
-.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
-.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
-/* Explore More */
-.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
-.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
-.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
-.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
-.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
-/* FAQ */
-.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
-.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
-.dest-faq-list{counter-reset:faq}
-.dest-faq-item{border-top:1px solid var(--warm-gold)}
-.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
-.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
-.dest-faq-item summary::-webkit-details-marker{display:none}
-.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
-.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
-details[open] .dest-faq-chevron{transform:rotate(-135deg)}
-.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
-.dest-faq-answer p{margin-bottom:0.8rem}
-@media(max-width:768px){
-    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
-    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-        /* ===== CTAs ===== */
-                /* ===== NEWSLETTER SIGNUP ===== */
-        .newsletter-section {
-            background: var(--white);
-            position: relative;
-            padding: 100px 3rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 400;
-            color: var(--text-dark);
-        }
-        .newsletter-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 620px;
-            margin: 0 auto;
-        }
-        .newsletter-form input {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border: 1px solid #ddd;
-            background: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-        .newsletter-form input::placeholder { color: var(--text-muted); }
-        .newsletter-form input:focus { border-color: var(--warm-gold); }
-        .newsletter-btn {
-            background: var(--blue);
-            color: var(--white);
-            border: 2px solid var(--blue);
-            padding: 0.9rem 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            font-family: 'Nunito Sans', sans-serif;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
-        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
-        .newsletter-form-msg {
-            margin-top: 1rem;
-            font-size: 0.88rem;
-            min-height: 1.4em;
-        }
-        .newsletter-form-msg.success { color: #4a9e6e; }
-        .newsletter-form-msg.error   { color: #c0392b; }
-
-        @media (max-width: 640px) {
-            .newsletter-section { padding: 70px 1.5rem; }
-            .newsletter-heading { font-size: 2rem; }
-            .newsletter-form { flex-direction: column; }
-        }
-                /* ===== EXPERT FORM SECTION ===== */
-        .expert-section {
-            background: var(--blue);
-            padding: 100px 3rem;
-            position: relative;
-            overflow: hidden;
-            scroll-margin-top: 90px;
-        }
-        .expert-section::after {
-            content: '';
-            position: absolute;
-            top: 28px; left: 28px; right: 28px; bottom: 28px;
-            border: 1px solid rgba(201,168,76,0.15);
-            pointer-events: none;
-        }
-        .expert-section > * { position: relative; z-index: 1; }
-
-        .expert-inner {
-            max-width: 820px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .expert-eyebrow {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--warm-gold);
-            margin-bottom: 1.2rem;
-        }
-        .expert-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-        .expert-heading em { font-style: italic; color: var(--warm-gold); }
-        .expert-sub {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-        .expert-form { text-align: left; }
-        .expert-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .expert-form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-        .expert-form-field.full { grid-column: 1 / -1; }
-        .expert-form-field label {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.85);
-        }
-        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
-
-        .expert-form-field input,
-        .expert-form-field select,
-        .expert-form-field textarea {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.85rem 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-        .expert-form-field input:focus,
-        .expert-form-field select:focus,
-        .expert-form-field textarea:focus {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .expert-form-field input::placeholder,
-        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-        .expert-form-field select option { background: var(--blue); color: var(--white); }
-        .expert-form-field textarea { resize: vertical; min-height: 110px; }
-
-        /* ── Multi-select destination dropdown ── */
-        .dest-multiselect {
-            position: relative;
-            width: 100%;
-        }
-        .dest-trigger {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.65rem 1rem;
-            min-height: 46px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            transition: border-color 0.2s;
-            position: relative;
-        }
-        .dest-trigger::after {
-            content: '';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            width: 7px; height: 7px;
-            border-right: 1.5px solid rgba(255,255,255,0.5);
-            border-bottom: 1.5px solid rgba(255,255,255,0.5);
-            transform: translateY(-60%) rotate(45deg);
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-        .dest-multiselect.open .dest-trigger::after {
-            transform: translateY(-30%) rotate(-135deg);
-        }
-        .dest-trigger:hover,
-        .dest-multiselect.open .dest-trigger {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .dest-placeholder {
-            color: rgba(255,255,255,0.25);
-            pointer-events: none;
-        }
-        .dest-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-        .dest-tag-x {
-            cursor: pointer;
-            font-size: 0.85rem;
-            line-height: 1;
-            opacity: 0.6;
-            transition: opacity 0.15s;
-        }
-        .dest-tag-x:hover { opacity: 1; }
-
-        .dest-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0; right: 0;
-            background: #1e3a4f;
-            border: 1px solid rgba(201,168,76,0.3);
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 50;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .dest-multiselect.open .dest-dropdown { display: block; }
-
-        .dest-option {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .dest-option:hover { background: rgba(201,168,76,0.1); }
-        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
-
-        .dest-check {
-            width: 16px; height: 16px;
-            border: 1.5px solid rgba(201,168,76,0.4);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s, border-color 0.15s;
-        }
-        .dest-option.selected .dest-check {
-            background: var(--warm-gold);
-            border-color: var(--warm-gold);
-        }
-        .dest-check::after {
-            content: '';
-            width: 4px; height: 8px;
-            border-right: 2px solid #1a2a3a;
-            border-bottom: 2px solid #1a2a3a;
-            transform: rotate(45deg) translateY(-1px);
-            opacity: 0;
-        }
-        .dest-option.selected .dest-check::after { opacity: 1; }
-
-        /* Scrollbar for dropdown */
-        .dest-dropdown::-webkit-scrollbar { width: 5px; }
-        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
-        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
-
-        /* Submit area */
-        .expert-submit { margin-top: 1.5rem; text-align: center; }
-        .expert-submit-btn {
-            background: var(--warm-gold);
-            color: #fff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border: none;
-            padding: 1rem 3rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            max-width: 320px;
-        }
-        .expert-submit-btn:hover { background: #b8963e; }
-        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
-        .expert-form-msg {
-            margin-top: 1.2rem;
-            font-size: 0.88rem;
-            text-align: center;
-            min-height: 1.4em;
-        }
-        .expert-form-msg.success { color: #7ed8a3; }
-        .expert-form-msg.error   { color: #f08080; }
-
-        @media (max-width: 640px) {
-            .expert-form-grid { grid-template-columns: 1fr; }
-            .expert-heading { font-size: 2rem; }
-            .expert-section { padding: 70px 1.5rem; }
-        }
-
-        /* ===== FOOTER ===== */
-        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
-        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
-        .footer-logo img{height:35px;margin-bottom:1rem}
-        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
-        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.6rem}
-        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
-        .footer-col a:hover{color:var(--warm-gold)}
-        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal{display:flex;gap:2rem}
-        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal a:hover{color:var(--warm-gold)}
-
-        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){
-            .page-hero{padding:130px 1.5rem 50px}
-            .props-sec{padding:50px 1.5rem}
-            .props-grid{grid-template-columns:1fr;gap:1.5rem}
-            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Florida Fractional Ownership Properties | Co-Ownership Property</title>
+  <meta name="description" content="Co-ownership properties in Florida from COP — deeded fractional ownership in Miami, 30A, the Florida Keys, Naples and Palm Beach. Fully managed, 6–7 weeks of personal use a year, real equity in the most established sun-belt second-home state in the US.">
 </head>
 <body>
-    <header class="cop-header scrolled" id="cop-header">
-    <div class="cop-logo">
-        <a href="/">
-            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
-        </a>
+
+<section class="page-hero">
+  <p class="eyebrow">Florida · USA</p>
+  <h1>Fractional Ownership <em>in Florida</em></h1>
+  <p class="subtitle">From a Rosemary Beach courtyard house on the white-sand 30A coast to a Brickell Miami penthouse looking out over Biscayne Bay and the downtown skyline — fractional ownership in Florida means a deeded share of the most established sun-belt second-home state in the United States, six to seven weeks of personal use a year, and a fully managed home waiting whenever you arrive.</p>
+</section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Florida's most coveted addresses, accessible through co-ownership.</h2>
+    <p>Fully managed villas, apartments, penthouses and beach houses across <strong>Miami and South Beach</strong>, <strong>30A and the Emerald Coast</strong>, the <strong>Florida Keys</strong>, <strong>Naples, Sanibel and South-West Florida</strong> and <strong>Palm Beach</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of the most internationally established warm-climate second-home market in the United States.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
     </div>
-    <nav class="cop-nav" id="cop-nav">
-        <a href="/" class="cop-nav-active">Home</a>
-        <a href="/our-homes/">Our Homes</a>
-        <a href="/how-it-works/">How It Works</a>
-        <a href="/about-us">About Us</a>
-        <a href="/all-our-blog/">Our Blog</a>
-        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
-        <a href="/contact">Contact</a>
-    </nav>
-    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-    </button>
-</header>
+  </div>
+</div>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <p class="eyebrow">Co-Ownership Properties</p>
-        <h1>Florida Fractional Ownership Properties</h1>
-        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
-    </section>
+<section class="dest-sec cream"><div class="dest-inner">
 
-    <!-- PROPERTY GRID -->
-    <section class="props-sec">
-        <div class="props-inner">
-                        <div class="no-props">
-                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
-            </div>
-                    </div>
-    </section>
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1oOq5fKR5tqfDCP_d69ZBpczC1hkpCcul" alt="A Rosemary Beach courtyard house on Florida's 30A coast, white sand and the Gulf of Mexico beyond the dune line" loading="lazy" width="2100" height="1400" />
+  <figcaption>A Rosemary Beach courtyard house on 30A, Gulf of Mexico dunes a short walk away.</figcaption>
+</figure>
 
-    <!-- MID-PAGE CTA -->
-    <div class="dest-mid-cta">
-        <p>Ready to find your property in Florida?</p>
-        <div class="dest-mid-cta-btns">
-            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
-            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
-        </div>
-    </div>
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership in Florida?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership in Florida means buying a deeded 1/8 share of a luxury sun-belt second home — held in a purpose-built LLC alongside up to seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
 
-    <!-- SEO CONTENT (rendered as styled sections) -->
-        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Florida Fractional Ownership — Sun, Coast &amp; Year-Round Lifestyle</h2>
-<p><strong>Florida fractional ownership</strong> gives you a genuine stake in one of the world&#8217;s most sought-after second-home destinations — owning a <strong>1/8 share</strong> of a fully managed beachfront villa, Miami waterfront apartment, or Gulf Coast retreat, with your name on the property deed and approximately <strong>45 days of use per year</strong>. This is deeded real property ownership — not a timeshare, not a holiday club, and not a points programme.</p>
-<p>For UK buyers navigating post-Brexit travel limits and the 90-day Schengen restriction, Florida&#8217;s fractional ownership model offers a compelling solution: full co-ownership rights, professional management, resale and inheritance entitlements, and up to half a year of combined access across a rotating schedule — all without the complexity of sole ownership abroad. Browse our Florida properties below and discover what co-ownership in the Sunshine State looks like.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Choose Florida Fractional Ownership?</h2>
-<p>Florida fractional ownership continues to attract buyers from across the UK, Europe, and beyond — and for good reason. The Sunshine State delivers what almost no other American destination can replicate: <strong>year-round warmth</strong>, an extraordinary coastline stretching from the Atlantic to the Gulf of Mexico, international airports within easy reach of almost every major resort area, and a real property market with proven long-term stability. Whether you are drawn to the white-sand beaches of the Florida Keys, the glamour of Miami Beach, the laid-back charm of 30A on the Emerald Coast, or the family-friendly Gulf Coast towns of Naples and Sarasota, Florida offers a co-ownership opportunity for almost every lifestyle.</p>
-<p>What makes Florida fractional property particularly attractive is the structure of ownership itself. Co-owners hold a legally recorded deeded interest in the property — not a points allocation, not a club membership, and emphatically <strong>not a timeshare</strong>. Your share is registered on the public land record, giving you the same legal standing as any other property owner in the state. You have the right to sell your share independently, pass it to family members as part of your estate, and in certain circumstances generate rental income from weeks you do not use — subject always to the specific agreement and any applicable licensing requirements.</p>
-<p>For UK buyers in particular, Florida fractional ownership solves a practical problem that has grown considerably since Brexit. The United States operates independently of Schengen and UK nationals can visit on the ESTA visa waiver programme for up to 90 days, with options for extended stays under the B-2 visitor visa for those who plan longer visits. This means the <strong>90-day-in-180-day restriction</strong> that limits time in EU destinations simply does not apply to Florida — making it one of the most accessible long-stay second-home destinations available to British buyers right now.</p>
-<p>Florida fractional ownership also compares favourably on cost. Rather than committing several million dollars to sole ownership of a beachfront villa in Naples or a Miami penthouse — plus carrying the full burden of maintenance, insurance, property tax, and management — you acquire a proportional share at a fraction of the acquisition cost. All ongoing costs are divided equally across co-owners in line with the ownership percentage. Professional management companies handle every aspect of the property: scheduling, housekeeping, maintenance, insurance renewal, property tax, and coordination of the usage calendar. You arrive, enjoy your time, and leave — without a single administrative burden.</p>
-<p>Florida&#8217;s tourism infrastructure is unmatched. The state welcomes more than 130 million visitors per year, supports some of the world&#8217;s busiest international airports — including Miami International, Orlando International, and Tampa International — and has a hospitality ecosystem developed over decades to serve discerning visitors. Theme parks, world-class golf courses, deep-sea fishing, sailing, paddleboarding, vibrant dining scenes, cultural institutions, and natural wilderness all exist within easy reach, regardless of which part of Florida you choose. Florida fractional property places you at the heart of this infrastructure, on your own terms, with genuine ownership rights.</p>
-<p>Most Florida fractional ownership properties are structured as <strong>1/8 shares</strong>, providing approximately 45 days of personal use per year under a rotating schedule that ensures every co-owner accesses different seasons over time. Some properties offer larger shares — up to a 1/4 or 1/2 interest — for those who want a more substantial annual presence. The property manager coordinates all scheduling, resolves any conflicts, and ensures the home is maintained to a consistent standard between visits. Florida fractional co-ownership combines the best of full property ownership with the convenience and cost-efficiency of a managed lifestyle product.</p>
-<p>Florida fractional ownership is particularly well-suited to buyers who are at a stage in life where time is more constrained than capital. Professionals in their forties and fifties, families with school-age children who have limited holiday windows, and retirees who want a guaranteed annual presence in Florida without the administrative complexity of sole overseas ownership all find the fractional model aligns neatly with how they actually live. The average Florida fractional co-owner uses their property for between five and eight weeks per year — precisely the range that a <strong>1/8 share</strong> delivers — and finds the rotating schedule sufficiently flexible to accommodate half-term breaks, Christmas trips, February warmth-seeking, and summer family holidays across a four-year cycle.</p>
-<p>It is also worth noting what Florida fractional ownership is not. It is not a hotel loyalty programme with a premium membership fee. It is not a destination club that can change its portfolio, alter its rules, or fold under financial pressure, leaving you with nothing. It is not a timeshare arrangement dressed in new language. Florida fractional co-ownership is a deeded real property interest — registered at the county, backed by standard US property law, and governed by a professionally drafted co-ownership agreement that puts your rights in writing. This legal solidity is what distinguishes the model from every other form of shared holiday accommodation — and it is what makes Florida fractional property ownership genuinely worth considering as both a lifestyle decision and a long-term asset.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Florida Fractional Ownership — Areas &amp; Neighbourhoods</h2>
-<p>Florida is a state of remarkable geographical and cultural variety. From the turquoise shallows of the Gulf Coast to the Art Deco glamour of South Beach, from the quiet barrier islands of the Atlantic shore to the wild beauty of the Everglades fringe, Florida fractional ownership can place you in a setting that genuinely matches your lifestyle. Below are the five primary areas our co-ownership properties span — each with its own distinct character, market dynamics, and buyer appeal.</p>
-<h3>Miami Beach &amp; South Beach — Florida Fractional Ownership</h3>
-<p><a href="/miami-fractional-ownership/">Miami</a> is the undisputed capital of Florida fractional ownership for lifestyle buyers who want cosmopolitan energy alongside the beach. South Beach — the iconic stretch of Art Deco hotels, white sand, and warm Atlantic water — sits within one of the most internationally recognisable urban environments in the world. Florida fractional property here typically means <strong>ocean-view apartments and penthouse suites</strong> in professionally managed buildings, a short walk from Lincoln Road&#8217;s restaurants and the galleries of the Wynwood Arts District. Miami International Airport connects directly to London, and Miami&#8217;s winter season from November to April is reliably warm, sunny, and socially vibrant.</p>
-<p>Fractional co-ownership in Miami is available across several micro-neighbourhoods: South Beach itself, Brickell for those who prefer the city-skyline view, Coconut Grove for a quieter waterfront lifestyle, and the Design District for proximity to galleries and culture. Each offers a different character within the same city. <a href="/brickell-fractional-ownership-miami/">Brickell</a> in particular has become a focal point for Florida fractional ownership among finance professionals and buyers who want walkable urban luxury with direct water views.</p>
-<h3>Naples &amp; Sarasota — Florida Fractional Property</h3>
-<p>The Gulf Coast of Southwest Florida offers some of the most beautiful beaches in the entire United States — and arguably some of the most underrated in terms of international visibility. Naples, with its wide white-sand beaches, upscale Third Street South dining district, and championship golf courses, is among Florida&#8217;s most affluent residential markets. Florida fractional ownership in Naples gives buyers access to <strong>Gulf-front villas and townhouses</strong> at a fraction of the sole-ownership price, with professional management handling everything from pool maintenance to seasonal preparation.</p>
-<p>Sarasota, an hour north of Naples, brings a vibrant arts and culture scene — home to the Ringling Museum, the Sarasota Ballet, and a year-round programme of theatre and music — alongside barrier island beaches on Longboat Key and Siesta Key that consistently rank among the finest in the country. Florida fractional property on or near these barrier islands combines natural beauty, cultural depth, and genuine lifestyle quality in a way that few destinations can match. The Gulf Coast&#8217;s notably calm, shallow, warm water also makes it particularly popular with families and water sports enthusiasts.</p>
-<h3>30A &amp; Destin — Emerald Coast Florida Fractional Ownership</h3>
-<p>The Florida Panhandle — and specifically the stretch of coastline along <a href="/30a-fractional-ownership-emerald-coast-co-ownership-beach-homes/">30A on the Emerald Coast</a> — is one of the fastest-growing second-home markets in the United States. The beaches here are defined by <strong>sugar-white quartz sand and vivid emerald water</strong> unlike anywhere else on the Florida coast, the result of a unique geological composition that produces a colour and clarity rarely seen outside the Caribbean. The 30A corridor runs through a series of distinctive planned communities — Seaside, Alys Beach, Rosemary Beach, WaterColor — each with its own architectural identity and community feel.</p>
-<p>Destin, just to the west, offers a more traditional resort-town atmosphere with a deep-sea fishing fleet, harbour restaurants, and consistently high sunshine hours. Florida fractional ownership along the Panhandle appeals particularly to buyers who want a quieter, more residential feel than Miami or Orlando, but who still want genuinely world-class beaches and easy access via Destin-Fort Walton Beach or Pensacola airports. A 1/8 share here gives you approximately 45 days per year in an area that commands premium summer pricing on the open rental market.</p>
-<h3>Florida Keys — Island Fractional Ownership</h3>
-<p>The <a href="/florida-keys-fractional-ownership/">Florida Keys</a> represent a truly unique proposition within Florida fractional ownership: a 125-mile chain of islands and coral islets connected by the Overseas Highway, stretching south from the mainland all the way to Key West. The atmosphere here is unlike anywhere else in Florida — unhurried, tropical, and intensely water-focused. <strong>Snorkelling over living coral reefs</strong>, kayaking through mangroves, sport fishing for tarpon and bonefish, and watching the sun set over the Gulf of Mexico from Mallory Square in Key West are all part of the Keys lifestyle.</p>
-<p>Florida fractional property in the Keys ranges from waterfront cottages in Islamorada — the self-styled Sport Fishing Capital of the World — to boutique villas in Key Largo, where the John Pennekamp Coral Reef State Park draws divers from around the globe. Key West itself, at the southern tip of the chain, offers a vibrant year-round social scene, exceptional dining, and an atmosphere of eccentricity and warmth that has attracted artists, writers, and adventurers for over a century. The Keys are accessible from Miami in under two hours by road, or by air into Key West International Airport.</p>
-<h3>Orlando &amp; Central Florida — Family-Focused Fractional Ownership</h3>
-<p>While Florida&#8217;s beaches dominate the conversation, Central Florida — anchored by Orlando — is one of the most visited regions on the planet and an increasingly active market for Florida fractional property. Families who want regular access to Walt Disney World, Universal Studios, SeaWorld, and the wider theme park ecosystem find fractional co-ownership here uniquely appealing. <strong>The theme park corridor west of Orlando</strong>, along with communities like Celebration and Windermere, offers resort-style villas and townhouses within 15–20 minutes of the major attractions.</p>
-<p>Central Florida fractional ownership is not just about the parks. The region has exceptional golf (over 170 courses within an hour of the city), professional sports, a booming food and culture scene in downtown Orlando&#8217;s Thornton Park and Mills 50 districts, and easy day-trip access to both the Atlantic coast beaches at New Smyrna Beach and the Gulf Coast at Clearwater. Orlando International Airport is one of the busiest in the US and operates multiple daily non-stop routes to London Heathrow, Gatwick, and Manchester — making Florida fractional ownership here genuinely convenient for UK buyers.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Florida Fractional Ownership — The Market &amp; Your Opportunity</h2>
-<p>Florida fractional property solves the access problem without compromising on quality. A co-owner purchasing a <strong>1/8 share</strong> in a Gulf-front villa in Naples or a waterfront apartment in Miami Beach is acquiring a genuine deeded interest in a premium property — not a downgraded version of a sole-ownership experience. The property is maintained to the same standard. The furnishings, facilities, and management are identical. The only difference is the purchase price, the carrying cost, and the number of co-owners sharing the asset. For buyers whose primary motivation is lifestyle enjoyment — rather than the ego satisfaction of exclusive ownership — Florida fractional co-ownership is simply the more rational choice.</p>
-<p>The market for Florida fractional ownership is also more mature and professionally structured than it was even five years ago. Management companies specialising in co-ownership have developed robust operational frameworks for scheduling, maintenance, financial reporting, and owner communication. The legal infrastructure — co-ownership agreements, tenancy-in-common structures, LLC operating agreements — has been refined through years of transactional experience. For buyers, this means a level of operational confidence and transparency that was simply not available in the earlier years of the market&#8217;s development. You can purchase with confidence that the systems around your investment are well-constructed and professionally managed.</p>
-<p>Florida fractional ownership also benefits from the state&#8217;s exceptional transport connectivity. Miami International is one of the ten busiest airports in the United States and operates year-round non-stop routes to London Heathrow via British Airways and American Airlines. Orlando International connects to Gatwick, Heathrow, and Manchester via multiple carriers. Tampa International has expanded its transatlantic offering significantly in recent years. Fort Lauderdale-Hollywood International serves as an alternative gateway for South Florida, often with lower fares and less congestion than Miami. From the UK, direct flights to Florida take between nine and ten hours — shorter than many long-haul destinations and far more straightforward, with no connecting flights required for the major gateway cities. The accessibility of Florida for UK buyers is a genuine competitive advantage of the destination, and one that the fractional ownership model leverages fully: your <strong>45 days per year</strong> can be split into multiple trips without the flight cost becoming disproportionate.</p>
-<p>When comparing Florida fractional co-ownership to other destinations in the <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> market, it is worth noting how different each state&#8217;s character is. <a href="/colorado-fractional-ownership-properties/">Colorado fractional ownership</a> appeals primarily to ski and mountain buyers, with a concentrated season centred on winter. <a href="/california-fractional-ownership-properties/">California fractional ownership</a> delivers Pacific coast lifestyle and wine country luxury but typically at higher price points. <a href="/utah-fractional-ownership-properties/">Utah fractional ownership</a> centres on world-class powder skiing and mountain town living around <a href="/park-city-fractional-ownership-2/">Park City</a>. Florida is the only major US co-ownership market that combines year-round climate usability, genuine beach access, major urban destinations, and competitive entry-level pricing across a wide geographic range. It is, in short, the broadest and most flexible option in the US fractional ownership landscape.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>How Florida Fractional Ownership Works</h2>
-<p>Florida fractional ownership operates as genuine deeded real property co-ownership. Each buyer acquires a legally recorded fractional interest in the property — typically a <strong>1/8 share</strong>, though interests of 1/4 or larger are available for some properties. The purchase is completed through the standard Florida real estate conveyancing process: a purchase contract, title search, title insurance, and the recording of the deed at the relevant county clerk&#8217;s office. The buyer&#8217;s name — or the name of a legal entity such as a family trust or LLC — appears on the deed of record. This is not a membership in a club. It is not a timeshare under Florida law. It is a deeded property interest with the same legal standing as any other form of real property ownership in the state.</p>
-<p>The legal framework underpinning Florida fractional co-ownership draws on both standard Florida property law and a co-ownership agreement — sometimes called a tenancy-in-common agreement or an LLC operating agreement — that governs the relationship between co-owners. This agreement sets out the usage schedule, the cost-sharing arrangement, the process for selling or transferring a share, and the governance structure for decisions about the property. A professionally drafted co-ownership agreement is fundamental: it protects every co-owner&#8217;s investment, prevents disputes, and provides a clear mechanism for exit when any individual co-owner wishes to sell.</p>
-<p>Usage allocation is managed through a rotating calendar. A 1/8 share typically provides approximately <strong>45 days of personal use per year</strong>, spread across two or more periods. The rotation ensures that over a four-year cycle, every co-owner accesses each season — high summer, spring break, winter holidays, and the quieter shoulder months. The professional management company administers the scheduling calendar, handles any swap requests between co-owners, and coordinates arrival and departure logistics. There are no fixed weeks — the system is designed to be flexible and fair.</p>
-<p>Florida has a specific statutory framework that distinguishes fractional ownership from timeshares. Under the Florida Vacation Plan and Timesharing Act, timeshares are defined by the sale of a right-to-use rather than a deeded ownership interest. Florida fractional ownership, by contrast, conveys a genuine property interest — which is why it carries different legal rights, different protections, and a fundamentally different position in the property market. A <strong>right of first refusal</strong> clause in the co-ownership agreement gives existing co-owners the opportunity to purchase any outgoing share before it is offered to third parties, protecting the ownership group&#8217;s cohesion and character.</p>
-<p>For overseas buyers — including those from the UK and Europe — there are two key pieces of US tax legislation to understand. <strong>FIRPTA</strong> (the Foreign Investment in Real Property Tax Act) applies when a foreign person sells US real property, requiring a withholding of a percentage of the gross sales price at the point of transaction. This withholding is not an additional tax; it is an advance payment that is reconciled through the buyer&#8217;s US tax return, and professional tax advisers can assist with the process. Property tax in Florida is assessed annually by the county. Florida has no state income tax, which is an advantage for co-owners generating rental income from unused weeks. A Florida-qualified tax professional and a US attorney experienced in international real estate transactions are strongly recommended for all overseas buyers.</p>
-<p>Ongoing costs are shared proportionally among all co-owners in line with their fractional interest. For a 1/8 share, this means each co-owner bears one-eighth of: annual property taxes, homeowners insurance, HOA fees (where applicable), management fees, routine maintenance, and a reserve fund contribution for capital expenditure. The management company provides quarterly or annual financial statements so co-owners have full visibility of the property&#8217;s outgoings. There are no hidden charges. The cost structure is transparent, fixed, and divided fairly — one of the core advantages of Florida fractional co-ownership over sole ownership, where the entire carrying cost falls on a single owner regardless of how many weeks per year the property is actually used.</p>
-<p>Resale of a fractional share follows the same process as any other real property sale in Florida: the share is listed, marketed, and sold to a new buyer. The management company, co-ownership platform, or a specialist real estate agent handles the sale. The proceeds are paid to the departing co-owner after any applicable FIRPTA withholding. There is no artificial cap on resale value — the share reflects movements in the underlying real estate market, as with any deeded property investment. Inheritance works similarly: a fractional share can be left to heirs through a US will or held within a trust structure, and the inheriting party steps into the same ownership rights and obligations as the original co-owner.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Florida Fractional Ownership — Investment &amp; Lifestyle</h2>
-<p>Florida fractional ownership sits at the intersection of two distinct motivations: the desire to enjoy a premium lifestyle in one of the world&#8217;s great holiday destinations, and the decision to place capital into a real asset with long-term value. These two motivations are not in conflict — they reinforce each other. The best Florida co-ownership properties are selected precisely because they are attractive both as lifestyle homes and as real property assets: well-located, professionally maintained, and positioned in markets where underlying demand for both ownership and short-term rental use is consistently high.</p>
-<p>The lifestyle case for Florida fractional property is straightforward. You have the use of a beautifully furnished, fully equipped, professionally managed home — in Miami Beach, on the Gulf Coast, in the Keys, or along the Emerald Coast — for approximately <strong>45 days per year</strong>. You arrive to a freshly prepared home. You leave without maintenance responsibilities. The property is managed to a consistent standard year-round. For buyers who would otherwise spend this time and money on high-end hotel stays, Florida fractional ownership delivers a fundamentally different experience: the comfort and privacy of a home you own, in a location you can return to every year, building familiarity with a destination, a neighbourhood, and a community.</p>
-<p>Florida is a genuine lifestyle state. The average annual temperature across South Florida is above 75°F (24°C), and even in January — the coolest month of the year — temperatures in Miami, Naples, and the Keys rarely fall below 65°F (18°C). The Gulf Coast in particular is justifiably famous for its winter sunshine, attracting large numbers of seasonal residents — sometimes called &#8220;snowbirds&#8221; — from the northern United States and Canada who spend the cooler months at their Florida second homes. Florida fractional ownership allows international buyers to participate in this same seasonal lifestyle without the full financial commitment of sole ownership.</p>
-<p>On the investment side, Florida&#8217;s real estate market has a long track record of resilience and growth. The state benefits from a combination of structural factors that underpin demand: <strong>no state income tax</strong>, a business-friendly regulatory environment, strong population growth (Florida is consistently among the fastest-growing states in the US by population), and a robust tourism sector that sustains both short-term rental demand and residential property values. No one can guarantee future price movements, and we never suggest that fractional ownership is a financial product with a predictable return. But as a category of real asset, Florida residential property has historically performed well over multi-decade holding periods.</p>
-<p>Rental income from unused fractional weeks is something that interests many co-owners — and in Florida it is certainly possible. Florida has one of the most active short-term rental markets in the world, particularly in beach destinations, theme park corridors, and city centres. However, rental income from fractional shares is never guaranteed, and licensing requirements vary significantly by county and municipality. Miami-Dade, Palm Beach, and certain Panhandle communities have specific short-term rental ordinances that must be complied with. Some co-ownership agreements expressly permit rental of unused weeks; others restrict it. We encourage buyers to discuss this aspect openly with the management company before purchase and to verify the applicable local licensing requirements for the specific property.</p>
-<p>The lifestyle dimension of Florida fractional co-ownership extends well beyond the property itself. Think of waking to a Gulf Coast sunrise over calm, turquoise water. Think of an evening in the Design District in Miami, moving from gallery to restaurant to rooftop bar. Think of a morning paddle on one of the coastal dune lakes that are unique to the 30A corridor — found almost nowhere else in the world. Think of cycling the Key West streets in the late afternoon, or watching ospreys dive over Sarasota Bay from a waterfront terrace. Florida fractional ownership is not simply a property transaction. It is an ongoing relationship with a place — and with the <a href="/beach-lifestyle/"></a> that Florida perfects better than almost anywhere on earth.</p>
-<p>Buyers considering Florida fractional property alongside other <a href="/usa-fractional-ownership-properties/">USA fractional ownership</a> destinations should also consider the complementary possibilities that the fractional model offers. Some platforms allow co-owners to hold fractional interests in multiple properties — spending winters in Florida, summers in <a href="/california-fractional-ownership-properties/">California</a>, or spring seasons in a European destination. The capital efficiency of fractional ownership — paying for a proportional share rather than the whole — is precisely what makes multi-destination co-ownership financially viable for a much wider range of buyers than traditional second-home ownership.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><a href="/usa-fractional-ownership-properties/" class="dest-explore-card">USA Fractional Ownership &rarr;</a><a href="/california-fractional-ownership-properties/" class="dest-explore-card">California Fractional Ownership &rarr;</a><a href="/colorado-fractional-ownership-properties/" class="dest-explore-card">Colorado Fractional Ownership &rarr;</a><a href="/utah-fractional-ownership-properties/" class="dest-explore-card">Utah Fractional Ownership &rarr;</a><a href="/mallorca-fractional-ownership-properties/" class="dest-explore-card"> Homes &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Florida Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What exactly do I own with Florida fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>With Florida fractional ownership, you own a legally recorded, deeded fractional interest in real property — most commonly a <strong>1/8 share</strong>, though interests of 1/4, 1/3, or 1/2 are available in certain properties. Your name, or the name of your chosen legal entity, appears on the county property deed. This gives you the same legal standing as any other Florida property owner: the right to use the property for your allocated time, the right to sell your share independently on the open market, the right to pass your share to heirs as part of your estate, and the right to a proportional share of any appreciation in the property&#8217;s value.</p>
-<p>Florida fractional ownership is fundamentally different from a timeshare. A timeshare conveys a right to use a property for a fixed period each year — typically under a long-term licence or membership agreement — without any ownership of the underlying asset. Florida fractional ownership conveys a genuine property interest. The distinction has significant legal, financial, and practical implications. Your fractional share can be mortgaged, insured, inherited, and sold. A timeshare cannot.</p></div></details><details class="dest-faq-item"><summary><h3>How many days per year can I use a Florida fractional property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The most common fractional interest is a 1/8 share, which provides approximately <strong>45 days of personal use per year</strong>. This is typically structured as two or more separate stays spread across the year, allocated through a rotating usage calendar that ensures all co-owners access different seasons over time. A 1/4 share provides around 90 days per year; a 1/2 share approximately 180 days.</p>
-<p>Usage allocation is managed by the professional management company, which administers the scheduling calendar and handles any requests from co-owners to swap or transfer specific periods. The management company&#8217;s primary role is to ensure the calendar operates fairly and the property is maintained to a consistent standard between all stays. In practice, co-owners often find the rotating schedule works well — spring in Florida is as enjoyable as high summer, and the shoulder seasons offer a quieter, more residential experience of the destination.</p></div></details><details class="dest-faq-item"><summary><h3>Is Florida fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — and this distinction matters enormously. Florida has specific legislation — the Florida Vacation Plan and Timesharing Act — that governs timeshares, and Florida fractional ownership does not fall within its scope. A timeshare involves the sale of a right-to-use, typically for a fixed number of weeks per year, with no ownership of the underlying property. The timeshare company retains legal ownership of the asset. When a timeshare agreement ends, the buyer walks away with nothing of capital value.</p>
-<p>Florida fractional co-ownership is the legal opposite. You own a real property interest, recorded at the county. Your share has capital value that reflects the market value of the underlying property. You can sell it at any time, gift it, or leave it to your heirs. You have governance rights in decisions about the property. You are, in every meaningful sense, a co-owner — not a customer of a hospitality business.</p></div></details><details class="dest-faq-item"><summary><h3>Can UK buyers purchase Florida fractional ownership properties?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. There are no restrictions on foreign nationals owning real property in Florida. UK buyers can purchase Florida fractional property as individuals, through a UK or US trust, through a limited company, or through a US LLC — and the choice of purchase vehicle has both tax and estate planning implications that are worth discussing with a qualified adviser before completing.</p>
-<p>For UK buyers, Florida fractional ownership is particularly advantageous because the United States operates outside the Schengen Area. There is no 90-day-in-180-day restriction affecting UK nationals visiting the US. Under the ESTA visa waiver programme, UK citizens can visit for up to 90 consecutive days per trip. Those wishing to stay longer can apply for a B-2 visitor visa. This means a 1/8 share&#8217;s worth of personal use time — approximately 45 days — can be taken flexibly, without the hard calendar constraints that affect European destinations post-Brexit. The process involves US legal advice, a purchase contract, title search and insurance, and FIRPTA compliance on any future sale.</p></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Florida fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Ongoing costs are shared among co-owners in proportion to their fractional interest. For a <strong>1/8 share</strong>, you bear one-eighth of: annual property taxes (which vary by county and property value), homeowners insurance, any applicable HOA fees, professional management fees, routine maintenance costs, and contributions to the property&#8217;s reserve fund for longer-term capital expenditure such as roof maintenance, appliance replacement, or landscaping upgrades.</p>
-<p>Florida has no state income tax, which simplifies the tax position for co-owners who generate rental income from unused weeks. Property taxes vary by county — Miami-Dade, Broward, and Palm Beach counties each have their own millage rates — and are payable annually. Management companies provide full financial transparency through regular statements. There are no hidden administrative charges. In most cases, co-owners find the total annual carrying cost of their fractional share to be significantly lower than the equivalent cost of regular hotel stays in the same destination, while simultaneously building equity in a real property asset.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Florida fractional property when I&#8217;m not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Rental income from unused fractional weeks is possible in Florida — and given the state&#8217;s enormous short-term rental market, some co-owners do generate revenue from weeks they do not use personally. However, this is not guaranteed and is always subject to three conditions: the specific co-ownership agreement must permit it, the property must comply with local short-term rental licensing requirements, and any rental activity must be coordinated through the management company.</p>
-<p>Short-term rental regulations in Florida have become more complex in recent years. Some municipalities — particularly in Miami Beach and parts of the Florida Keys — have imposed strict restrictions on short-term rentals in residential areas, including licensing requirements, minimum stay requirements, and occupancy limits. These rules vary by property, by zoning, and by local ordinance, and they can change. We strongly recommend discussing rental possibilities with the management company for the specific property before purchase, rather than assuming rental income will be available. Frame it as a potential benefit — not a guaranteed one.</p></div></details><details class="dest-faq-item"><summary><h3>How does the buying process work for Florida fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The process of purchasing a Florida fractional share follows the same general pathway as any Florida real estate transaction, adapted for the co-ownership structure. You begin with a period of research and property selection, typically involving conversations with the co-ownership platform or management company to understand the specific property, its co-owners, and the terms of the ownership agreement. Once you identify a property, you receive a full information pack including the co-ownership agreement, financial statements, usage calendar, and management contract — all of which should be reviewed by your own US attorney before you commit.</p>
-<p>A purchase contract is then signed, a deposit paid, and a title search and title insurance process initiated to verify clear ownership and protect against any prior claims on the property. On completion, the deed is recorded at the relevant county clerk&#8217;s office, formally transferring the fractional interest to you. The purchase can be completed remotely for overseas buyers — power of attorney arrangements allow a local representative to execute documents on your behalf. The full process typically takes four to eight weeks from offer acceptance to deed recording, depending on the complexity of the title search and the speed of document execution.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Florida fractional share if I want to exit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes. As a deeded property interest, a Florida fractional share can be sold at any time on the open market. The sale process mirrors a standard real estate transaction: the share is marketed, a buyer is found, a purchase contract is signed, title is transferred, and the deed is updated at the county. There is no obligation to sell to the management company, the co-ownership platform, or the other co-owners — though the co-ownership agreement may include a <strong>right of first refusal</strong> giving existing co-owners the opportunity to match any third-party offer before the share is listed externally.</p>
-<p>The resale value of your fractional share will reflect the market value of the underlying property, adjusted for the fractional interest. There is no guaranteed exit price, and like any real estate asset, values can go up or down. FIRPTA withholding will apply on the gross sales price at the point of a foreign person&#8217;s sale — typically at 15% of the sale price, which is withheld by the buyer&#8217;s agent and remitted to the IRS, with the excess recovered through the seller&#8217;s US tax filing. A US tax professional experienced in FIRPTA is strongly recommended to manage this process efficiently.</p></div></details><details class="dest-faq-item"><summary><h3>What types of properties are available for Florida fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Florida fractional ownership spans a wide range of property types, reflecting the state&#8217;s diverse residential market. On the coasts, you will find beachfront and waterfront villas with private pools, direct beach access, and expansive outdoor living spaces — the kind of property that would require a multi-million-dollar sole-ownership commitment. In urban settings like Miami, Brickell, and downtown Sarasota, co-ownership typically involves premium apartments, penthouses, and condo-hotel units in professionally managed buildings with concierge services and amenity facilities.</p>
-<p>In the Panhandle and 30A corridor, the stock of Florida fractional property tends toward single-family homes and townhouses in planned communities — often with access to community pools, beach access paths, tennis courts, and cycling trails. In Central Florida, resort-style villa communities with onsite amenities (golf, spa, dining) are common co-ownership vehicles. The properties we list are always fully furnished, professionally managed, and maintained to a consistent standard year-round — so regardless of the property type, you arrive to a home that is ready and well-presented for your stay.</p></div></details><details class="dest-faq-item"><summary><h3>How does Florida fractional ownership compare to other US destinations?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Florida fractional ownership stands apart from other US co-ownership destinations primarily on climate and lifestyle accessibility. While <a href="/colorado-fractional-ownership-properties/">Colorado</a> and <a href="/utah-fractional-ownership-properties/">Utah</a> offer exceptional mountain and ski co-ownership in a specific seasonal window, and <a href="/california-fractional-ownership-properties/">California</a> provides year-round Pacific coast living at a generally higher cost of entry, Florida delivers genuine year-round usability at a wider range of price points — from the Florida Keys and Gulf Coast to the Atlantic beaches of Palm Beach and Boca Raton.</p>
-<p>Florida also has the most mature short-term rental market of any US state, significant direct flight connections to the UK, and the added advantage of no state income tax. For buyers who want a beach co-ownership experience with strong year-round usability, Florida is the most compelling single-state option in the United States. The fractional model simply unlocks it at a cost that makes genuine ownership achievable — without compromise on property quality, location, or management standards. Whether your preference is the cultural energy of <a href="/miami-fractional-ownership/">Miami</a>, the serene beaches of the Gulf Coast, or the tropical island atmosphere of the <a href="/florida-keys-fractional-ownership/">Florida Keys</a>, fractional co-ownership is the most practical and legally robust way to make Florida your own.</p></div></details><details class="dest-faq-item"><summary><h3>Is Florida fractional ownership a good investment?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Florida fractional ownership represents the acquisition of a real property interest in one of the most consistently active real estate markets in the United States. Florida&#8217;s property market benefits from structural tailwinds: strong population growth (more people are relocating to Florida than any other US state), a year-round tourism economy, no state income tax, significant infrastructure investment, and a diversified economy that extends well beyond tourism into financial services, technology, healthcare, and international trade through the Port of Miami.</p>
-<p>That said, we do not recommend Florida fractional ownership purely as a financial investment, and we never invent projected yields or guaranteed returns. Property values can move in either direction, and the costs of carrying a fractional interest — management fees, taxes, insurance, reserves — need to be factored realistically into the financial picture. What we do say, consistently, is that Florida fractional co-ownership typically delivers better real-terms value than the alternative of spending equivalent money on hotel stays in the same destination over a comparable number of years — while also building a transferable asset with genuine resale and inheritance value. For the right buyer, it is both a lifestyle choice and a rational allocation of capital into a proven, liquid, real property market.</p></div></details></div></div></section>    
-    <!-- CTAs -->
-        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
-    <section class="newsletter-section" id="newsletter">
-        <h2 class="newsletter-heading">Be The First To Know</h2>
-        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
-        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
-            <input type="email" name="email" placeholder="Enter your email address" required>
-            <button type="submit" class="newsletter-btn">Join Newsletter</button>
-        </form>
-        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
-    </section>
-        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
-    <section class="expert-section" id="speak-to-expert">
-        <div class="expert-inner">
-            <p class="expert-eyebrow">Get in Touch</p>
-            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
-            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+<h2>Why Florida?</h2>
 
-            <form class="expert-form" id="expert-enquiry-form" novalidate>
-                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
-                    <div class="expert-form-field">
-                        <label for="ef-name">Name <span>*</span></label>
-                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-email">Email Address <span>*</span></label>
-                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-phone">Phone Number <span>*</span></label>
-                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label>Destinations</label>
-                        <div class="dest-multiselect" id="dest-multiselect">
-                            <div class="dest-trigger" id="dest-trigger">
-                                <span class="dest-placeholder">Select destinations</span>
-                            </div>
-                            <div class="dest-dropdown" id="dest-dropdown">
-                                                                <div class="dest-option" data-value="France">
-                                    <span class="dest-check"></span>
-                                    🇫🇷 France                                </div>
-                                                                <div class="dest-option" data-value="Spain">
-                                    <span class="dest-check"></span>
-                                    🇪🇸 Spain                                </div>
-                                                                <div class="dest-option" data-value="Italy">
-                                    <span class="dest-check"></span>
-                                    🇮🇹 Italy                                </div>
-                                                                <div class="dest-option" data-value="USA">
-                                    <span class="dest-check"></span>
-                                    🇺🇸 USA                                </div>
-                                                                <div class="dest-option" data-value="Portugal">
-                                    <span class="dest-check"></span>
-                                    🇵🇹 Portugal                                </div>
-                                                                <div class="dest-option" data-value="Austria">
-                                    <span class="dest-check"></span>
-                                    🇦🇹 Austria                                </div>
-                                                                <div class="dest-option" data-value="England">
-                                    <span class="dest-check"></span>
-                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
-                                                                <div class="dest-option" data-value="Sweden">
-                                    <span class="dest-check"></span>
-                                    🇸🇪 Sweden                                </div>
-                                                                <div class="dest-option" data-value="Germany">
-                                    <span class="dest-check"></span>
-                                    🇩🇪 Germany                                </div>
-                                                                <div class="dest-option" data-value="Croatia">
-                                    <span class="dest-check"></span>
-                                    🇭🇷 Croatia                                </div>
-                                                                <div class="dest-option" data-value="Mexico">
-                                    <span class="dest-check"></span>
-                                    🇲🇽 Mexico                                </div>
-                                                            </div>
-                        </div>
-                        <input type="hidden" name="destination" id="ef-destination">
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-budget">Budget Range</label>
-                        <select id="ef-budget" name="budget">
-                            <option value="" disabled selected>Select a budget</option>
-                            <option>Under €100,000</option>
-                            <option>€100,000 – €200,000</option>
-                            <option>€200,000 – €350,000</option>
-                            <option>€350,000 – €500,000</option>
-                            <option>€500,000 – €750,000</option>
-                            <option>€750,000 – €1,000,000</option>
-                            <option>Over €1,000,000</option>
-                        </select>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-message">Message</label>
-                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
-                    </div>
-                </div>
-                <div class="expert-submit">
-                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
-                    <p class="expert-form-msg" id="expert-form-msg"></p>
-                </div>
-            </form>
-        </div>
-    </section>
+<p>Florida is, by some distance, the <strong>single most established warm-climate second-home market in the United States</strong>. The state has been the chosen winter destination for Northern American buyers — New Yorkers, Bostonians, Chicagoans, Toronto-and-Montreal Canadians first, with Midwesterners, Texans and increasingly European and Latin-American buyers joining over the past three decades — for <strong>more than a century</strong>, since the first railway barons ran their lines down the Atlantic coast in the 1890s and built the original resort hotels at Palm Beach, St Augustine and Miami. The state combines a coastline of more than <a href="https://www.visitflorida.com/" target="_blank" rel="noopener">1,300 miles (over 2,000 km)</a> wrapping every form of sub-tropical shore — the Atlantic surf of the Treasure Coast, the calm Gulf shallows of Naples and Sanibel, the powder-sugar white sand of the Emerald Coast on the Panhandle, the coral-reef coves of the Keys, the urban harbour of Biscayne Bay — a serious agricultural and ranching interior of citrus groves and wetlands, the working ecological landscape of <a href="https://www.nps.gov/ever/index.htm" target="_blank" rel="noopener">Everglades National Park</a>, and three genuinely cosmopolitan cities in Miami, Tampa and Jacksonville. No other US state offers that range of landscapes, climates and lifestyle modes inside a single road-trip radius.</p>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
-            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
-            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
-            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
-            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
-        </div>
-        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
-    </footer>
+<p>Your Florida share is held inside a <strong>purpose-built LLC</strong> alongside up to seven other co-owners. This is the same modern international structure used across every property on COP — the United States, the United Kingdom, France, Spain, Italy and elsewhere — rather than a legacy national vehicle that varies country by country. <strong>The practical effect</strong> for the buyer is significant. Your relationship with the Florida property runs through <strong>one consistent ownership structure</strong> regardless of which property or jurisdiction you own in; you own inside the same modern framework whether your share is in Miami, Aspen, the French Alps or Mallorca; and resale is faster and lighter because transferring an <strong>LLC membership interest</strong> is a more direct administrative action than triggering a full county-recorder title conveyance. For owners who go on to add a second property in another COP destination — and a meaningful proportion do, often pairing a Florida winter-sun share with a summer-cool mountain or European share — the reward is a <strong>single international portfolio relationship</strong> rather than a stack of jurisdiction-specific arrangements that each behave differently.</p>
 
-    <script>
-        /* ── Shared header JS ──────────────────────────────────────── */
-(function () {
-    var header = document.getElementById('cop-header');
-    var btn    = document.getElementById('cop-hamburger');
-    var nav    = document.getElementById('cop-nav');
-    if (!header || !btn || !nav) return;
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and up to seven other owners hold equal LLC membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
+</div>
 
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value and an annual maintenance fee that often outlasts any usefulness. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and up to seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare. Florida happens to be the state where the modern timeshare industry was invented in the 1970s, which makes the distinction more important here than almost anywhere else; if anything you have ever read about Florida ownership has put you off, it was probably a timeshare you were reading about, not this.
+</div>
 
-    // Mobile hamburger toggle
-    btn.addEventListener('click', function () {
-        nav.classList.toggle('active');
-        btn.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-            nav.classList.remove('active');
-            btn.classList.remove('open');
-        });
-    });
-}());
-        /* ── Newsletter form (shared partial) ──────────────────────── */
-(function() {
-    var form = document.getElementById('cop-newsletter-form');
-    if (!form) return;
-    var msg = document.getElementById('newsletter-form-msg');
+<p>Florida's particular advantage inside the US sun-belt is the <strong>combination of tax regime, climate and accessibility</strong> that almost no other warm-weather state matches at the same time. The state has <strong>no state income tax</strong> — one of only nine US states without one — which gives it a structural pull for high-earning second-home buyers from New York, New Jersey, Massachusetts, Illinois and California who spend enough winter weeks in the state to consider tax-residence questions seriously. The <a href="https://floridarevenue.com/" target="_blank" rel="noopener">Florida Department of Revenue</a> publishes its property-tax framework openly; the state's <strong>homestead exemption</strong> for primary residents reduces assessed value by USD 50,000 and caps annual increases at 3% under the so-called "Save Our Homes" rule — a Florida-specific provision that does not extend to second-home owners but materially shapes the local property-tax market. Florida is also the only US state with year-round international air access from European hubs (London, Frankfurt, Paris, Madrid) and from Latin-American gateways (Mexico City, Bogotá, São Paulo, Buenos Aires), and the only one with a working second-home market built around <strong>direct nonstop flights</strong> from every major Northern North American city — Chicago, New York, Boston, Toronto, Montreal, Minneapolis, Detroit, Cleveland and Pittsburgh all have multiple daily nonstops to Miami, Fort Lauderdale, Tampa, Orlando and the Panhandle airports.</p>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var emailInput = form.querySelector('input[type="email"]');
-        var btn = form.querySelector('.newsletter-btn');
-        if (!emailInput.value) return;
+<p>It is worth setting Florida in its US sun-belt competitive context. <strong>Southern California</strong> offers comparable climate and arguably higher absolute prestige at the top tier (Malibu, La Jolla, Pebble Beach) but at materially higher entry prices, on a state with one of the heaviest income-tax burdens in the country, and with structural water and wildfire risks of its own. <strong>Arizona</strong> (Scottsdale, Paradise Valley) offers excellent winter climate and no income-tax issues but lacks Florida's coastline and the international flight access. <strong>The Carolinas</strong> (Hilton Head, Charleston, Kiawah) offer southern-coastal pedigree but with a cooler winter, a shorter swimming season and no direct international air access. <strong>The US Caribbean</strong> (the Virgin Islands, Puerto Rico) is more remote, with thinner ground-services infrastructure and a more cyclical hurricane geography than Florida. None of these comparisons makes Florida categorically "better" — the right answer depends on the specific buyer's priorities — but they help frame why Florida remains, by a meaningful margin, the <strong>highest-volume second-home state in the United States</strong> and the one with the deepest professional, legal and management infrastructure for non-resident owners.</p>
 
-        btn.disabled = true;
-        btn.textContent = 'Subscribing\u2026';
-        msg.className = 'newsletter-form-msg';
-        msg.textContent = '';
+<p>The third structural argument for Florida is the <strong>diversity of usable lifestyles</strong> available inside a single state. A family with a 1/8 share in Rosemary Beach on the Panhandle — six hours' drive from a family with a share in Naples on the south-west coast — could be using the same state in entirely different ways at the same time, one on white-sand Gulf beaches under southern pines, the other in mangrove backwaters and shelling-grade barrier islands. A Miami penthouse owner is forty-five minutes from Key Largo and the start of the Florida Keys; a Palm Beach buyer is two hours from Orlando, three from the Keys; a Rosemary Beach owner is fifteen minutes from Seaside, twenty from Alys Beach, thirty from Destin. The state packs a remarkable amount of difference into a single 450-by-150-mile footprint — Gulf and Atlantic coasts, sub-tropical and tropical climate zones, urban skyline and barrier-island village, ranchland and reef — and a Florida share that combines proximity to several of these gives an owner a year-round US winter base rather than a single-season property. Few other states can match that range without significantly longer drive times.</p>
 
-        var data = new FormData();
-        data.append('action', 'cop_newsletter_subscribe');
-        data.append('email', emailInput.value);
+<p>One factor it is worth addressing directly is <strong>hurricane geography</strong>. Florida sits at the heart of the Atlantic hurricane basin, and the official Atlantic hurricane season runs <strong>1 June through 30 November</strong> as tracked by the <a href="https://www.nhc.noaa.gov/" target="_blank" rel="noopener">NOAA National Hurricane Center</a>. The state has not had a year without at least one named storm crossing into its waters in living memory, and the post-2017 stretch (Irma, Michael, Ian, Idalia) has driven up insurance costs and brought building-code questions back into the foreground. For a co-ownership buyer, the practical implications are smaller than the headlines suggest but worth understanding. Property insurance is handled at the LLC level and built into the annual service charge — owners do not personally arrange hurricane cover. Modern post-Andrew Florida properties (built or substantially renovated since 1994) are constructed to <strong>Miami-Dade or Florida Building Code</strong> standards that mandate impact-rated windows, hurricane straps and reinforced roofing, which materially reduces storm-damage exposure on prime inventory. And the geographical reality is that the storm risk is not uniform: the Panhandle, the Keys and the south-west Gulf coast (Sanibel, Naples, Fort Myers) sit on more exposed tracks than the south-east coast in any given decade, and a portfolio that sits on the south-east — Miami, Palm Beach — is statistically less storm-exposed than the west or the Panhandle, though every part of Florida is in the basin. Honest discussion of this geography is part of the buyer conversation, not a reason to avoid the state. Properties on COP are vetted on construction standard, insurance availability and elevation; the LLC structure means storm-related costs are pooled and managed by professionals rather than landing on an individual owner's desk.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'newsletter-form-msg success';
-                msg.textContent = res.data || 'Thank you for subscribing!';
-                form.reset();
-                btn.textContent = 'Subscribed!';
-            } else {
-                msg.className = 'newsletter-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Join Newsletter';
-            }
-        })
-        .catch(function() {
-            msg.className = 'newsletter-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Join Newsletter';
-        });
-    });
-})();
-        /* ── Multi-select destination dropdown (shared partial) ────── */
-(function() {
-    var wrap     = document.getElementById('dest-multiselect');
-    var trigger  = document.getElementById('dest-trigger');
-    var dropdown = document.getElementById('dest-dropdown');
-    var hidden   = document.getElementById('ef-destination');
-    if (!wrap || !trigger || !dropdown || !hidden) return;
+<p>For a co-ownership buyer thinking strategically rather than just emotionally, Florida's combination of <strong>scale, tax regime and infrastructure depth</strong> matters more than the headline glamour. The villa you buy a share of on 30A sits in a market where the buildable land between the Gulf and the protected dune-and-pine reserves is essentially capped by coastal planning rules and where the inventory of high-specification beach houses is materially finite. The Miami penthouse in Brickell or South Beach is in a market that has been the gateway for Latin-American capital for half a century and that continues to attract international and domestic flight-from-tax-state migration. The Florida Keys cabin is in a chain where the protected reef, the National Marine Sanctuary status and the <strong>Rate of Growth Ordinance (ROGO)</strong> have capped new building permits for three decades — making the existing housing stock genuinely scarce. Add the modern <strong>LLC ownership infrastructure</strong> that makes shared ownership transparent, insurable and resaleable, and the case for co-ownership in Florida writes itself.</p>
 
-    var placeholder = trigger.querySelector('.dest-placeholder');
-    var selected = [];
+<p>One under-discussed advantage that becomes obvious once you actually start using a Florida second home is the depth of the state's <strong>professional services infrastructure for non-resident owners</strong>. A century of New York, Boston, Chicago and Toronto buyers has built up an ecosystem of <strong>specialist real-estate attorneys, property managers, CPAs, hurricane adjusters, builders and title companies</strong> across the state that smaller sun-belt alternatives cannot match. The local management companies in Miami, 30A, Naples and Palm Beach operate as a matter of routine for non-resident owners with primary homes in other states or countries; the title and escrow framework is professionalised through the state-regulated <a href="https://www.flrec.com/" target="_blank" rel="noopener">Florida Real Estate Commission</a>, and the public record at every county clerk's office is a reliable, long-running register-of-record system. None of this is glamorous, but it is the kind of infrastructure that determines whether owning a second home from another state or country is a pleasure or a chore.</p>
 
-    function render() {
-        /* Remove old tags */
-        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+<p>An argument worth raising separately — and the one that most decisively separates Florida from every other warm-climate US state — is the <strong>density of second-home ownership</strong> that already exists. According to <a href="https://www.census.gov/quickfacts/fact/table/FL/HSG010222" target="_blank" rel="noopener">US Census Bureau</a> data, Florida has the highest absolute number of second homes of any US state by a significant margin, with a meaningful proportion of housing stock in the prime coastal counties (Palm Beach, Collier, Walton, Monroe) classified as seasonally occupied rather than primary-residence. The practical effect of this density is that the professional services ecosystem, the cultural and restaurant calendars, the airport flight schedules and even the seasonal labour market are all <strong>structurally tuned to serve non-resident owners</strong> — which is materially different from a market where second-home buyers are a minority and the local economy is calibrated for year-round residents. The cleaners, the landscapers, the hurricane-shutter installers, the pool-and-HVAC technicians, the property managers and the rental concierges who service a Florida second home are working in an economy that has been built around exactly that kind of property for two generations. The arrivals-and-departures rhythm, the seasonal preparation cadence, the post-storm response — all of it operates at industrial scale across the state, in a way that does not exist in any other US warm-climate destination. This is precisely the kind of infrastructure depth that makes co-ownership work cleanly: a managed fractional property fits naturally into a service economy designed for it, rather than being a hard-to-service exception in a residential market built around something else.</p>
 
-        if (selected.length === 0) {
-            placeholder.style.display = '';
-        } else {
-            placeholder.style.display = 'none';
-            selected.forEach(function(val) {
-                var tag = document.createElement('span');
-                tag.className = 'dest-tag';
-                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
-                trigger.insertBefore(tag, placeholder);
-            });
-        }
+<p>The fourth structural advantage worth naming is the <strong>transport infrastructure</strong> that makes a Florida second home practically usable rather than just nominally owned. <a href="https://www.miami-airport.com/" target="_blank" rel="noopener">Miami International (MIA)</a> is the <strong>busiest international gateway in the southern United States</strong>, with direct year-round service from London, Frankfurt, Paris, Madrid, Barcelona, Amsterdam, Zurich, Rome, Lisbon and dozens of Latin American cities; <a href="https://www.fll.net/" target="_blank" rel="noopener">Fort Lauderdale-Hollywood (FLL)</a> covers the lower-fare and domestic-leisure market; <a href="https://www.pbia.org/" target="_blank" rel="noopener">Palm Beach International (PBI)</a> serves the north-east coast; <a href="https://flykeywest.com/" target="_blank" rel="noopener">Key West (EYW)</a> handles the Florida Keys; <a href="https://www.flyrsw.com/" target="_blank" rel="noopener">Southwest Florida International (RSW)</a> serves Naples, Sanibel and Fort Myers; <a href="https://www.flypensacola.com/" target="_blank" rel="noopener">Pensacola (PNS)</a> and Destin-Fort Walton handle the Panhandle and 30A. Most Northern US hubs are <strong>under three hours' flight time</strong>; the drive from each regional airport to the major resort towns is genuinely short (Miami to Brickell or South Beach: 20 minutes; PBI to Palm Beach: 15 minutes; RSW to Naples: 35 minutes; Pensacola or Destin to 30A: 30–45 minutes); and the year-round flight frequency means the <strong>high-frequency, short-stay use pattern</strong> that fractional ownership rewards is realistically achievable from any major Northern US or Canadian city.</p>
 
-        /* Update hidden field */
-        hidden.value = selected.join('; ');
+</div></section>
 
-        /* Update option highlights */
-        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
-            if (selected.indexOf(opt.dataset.value) !== -1) {
-                opt.classList.add('selected');
-            } else {
-                opt.classList.remove('selected');
-            }
-        });
-    }
+<section class="dest-sec white"><div class="dest-inner">
 
-    /* Toggle dropdown */
-    trigger.addEventListener('click', function(e) {
-        /* If clicking a tag X, remove that item */
-        if (e.target.classList.contains('dest-tag-x')) {
-            var val = e.target.dataset.val;
-            selected = selected.filter(function(v) { return v !== val; });
-            render();
-            e.stopPropagation();
-            return;
-        }
-        wrap.classList.toggle('open');
-    });
+<h2>Where to own in Florida</h2>
 
-    /* Click an option */
-    dropdown.addEventListener('click', function(e) {
-        var opt = e.target.closest('.dest-option');
-        if (!opt) return;
-        var val = opt.dataset.value;
-        var idx = selected.indexOf(val);
-        if (idx === -1) {
-            selected.push(val);
-        } else {
-            selected.splice(idx, 1);
-        }
-        render();
-        e.stopPropagation();
-    });
+<p>Florida's second-home market is best understood through <strong>five distinct sub-regions</strong>, each with its own architecture, microclimate, season and buyer mix. There are, of course, Florida addresses outside these five — the inland horse country around Ocala and Wellington, the Space Coast around Cocoa Beach and Cape Canaveral, the working Gulf coast around Tampa, St Petersburg and Sarasota, the Atlantic Treasure Coast around Stuart and Vero Beach, the Big Bend coast around Cedar Key and Apalachicola — and we are happy to discuss them with buyers whose interests run that direction. But the supply story for fractional ownership is concentrated in the five clusters below: <strong>Miami and Miami Beach</strong> in the south-east; <strong>30A and the Emerald Coast</strong> on the Panhandle; the <strong>Florida Keys</strong> running south-west from Key Largo to Key West; <strong>Naples, Sanibel and the south-west coast</strong>; and the <strong>Palm Beach</strong> corridor on the north-east coast. Together they account for the overwhelming majority of international and out-of-state second-home demand in Florida.</p>
 
-    /* Close on outside click */
-    document.addEventListener('click', function(e) {
-        if (!wrap.contains(e.target)) {
-            wrap.classList.remove('open');
-        }
-    });
-})();
+<h3>Miami and Miami Beach</h3>
 
-/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
-(function() {
-    var form = document.getElementById('expert-enquiry-form');
-    if (!form) return;
-    var btn = form.querySelector('.expert-submit-btn');
-    var msg = document.getElementById('expert-form-msg');
+<p><strong>Miami</strong> is the only genuinely global city in the south-eastern United States and the gateway between North and Latin America. The metropolitan area wraps Biscayne Bay across more than a dozen distinct neighbourhoods — <strong>Brickell</strong> (the dense financial-and-residential downtown core), <strong>South Beach</strong> (the Art Deco beachfront historic district), <strong>Mid-Beach</strong> (the more residential central section of Miami Beach), <strong>Coconut Grove</strong> (the leafy bayside village south of downtown), <strong>Coral Gables</strong> (the Mediterranean-revival garden city), <strong>Key Biscayne</strong> (the island reserve just off the south coast), <strong>Bal Harbour and Surfside</strong> (the high-end northern beach communities), and the emerging arts-and-design districts of <strong>Wynwood and the Design District</strong>. The city's residential offer ranges from Brickell's glass-tower penthouses over Biscayne Bay through South Beach's Art Deco apartments around <a href="https://www.miamibeachfl.gov/city-hall/historic-preservation/" target="_blank" rel="noopener">Ocean Drive</a> to single-family bay-front homes in Coconut Grove and Coral Gables. Miami is covered in detail on its own <a href="/miami-fractional-ownership-properties/">Miami pillar page</a> — this is a brief overview to position the city within the wider Florida portfolio.</p>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.textContent = 'Sending\u2026';
-        msg.className = 'expert-form-msg';
-        msg.textContent = '';
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1AU-UyXBLMMDhdZfAk-wG79lVKhgFels4" alt="A penthouse in Miami's Brickell district with floor-to-ceiling glass and a wraparound terrace over Biscayne Bay and the downtown skyline" loading="lazy" width="2100" height="1400" />
+  <figcaption>A Brickell penthouse over Biscayne Bay, downtown Miami beyond the wraparound terrace.</figcaption>
+</figure>
 
-        var data = new FormData();
-        data.append('action', 'cop_expert_enquiry');
-        data.append('nonce',       form.querySelector('[name="nonce"]').value);
-        data.append('name',        form.querySelector('[name="name"]').value);
-        data.append('email',       form.querySelector('[name="email"]').value);
-        data.append('phone',       form.querySelector('[name="phone"]').value);
-        data.append('destination', form.querySelector('[name="destination"]').value);
-        data.append('budget',      form.querySelector('[name="budget"]').value);
-        data.append('message',     form.querySelector('[name="message"]').value);
+<p>The international buyer mix in Miami is the most diverse of any US city. <strong>Latin-American buyers</strong> — Colombians, Venezuelans, Brazilians, Argentinians, Mexicans — have anchored the market since the 1980s and continue to set the tone in Brickell and the Design District; <strong>European buyers</strong> (Italian, French, Spanish, German, British, Russian) have grown sharply since the early 2000s; <strong>American buyers from the Northeast</strong> (New York, New Jersey, Massachusetts) have grown sharper still in the post-2020 migration, drawn by Florida's no-state-income-tax regime and Miami's emergence as a credible second financial city. <strong>The architectural pedigree</strong> is unusually varied: the <a href="https://www.mdpl.org/" target="_blank" rel="noopener">Miami Design Preservation League</a> protects the world's largest concentration of Art Deco buildings on South Beach; Coral Gables is one of the country's first planned Mediterranean-revival cities; the modern Brickell skyline has emerged in two decades as one of the most photographed in the Americas. Climate runs <strong>20–25°C (high 60s°F to high 70s°F)</strong> in winter, <strong>28–32°C (low to high 80s°F)</strong> in high summer, with the Atlantic side warmer in winter than the Gulf coast and the sea temperature above <strong>24°C (75°F)</strong> year-round on Miami Beach. <a href="https://www.miami-airport.com/" target="_blank" rel="noopener">MIA</a> is 20 minutes from Brickell, 25 from South Beach. <strong>Best for:</strong> design-led couples and professional buyers who want a genuinely global city with year-round restaurant calendars, the Latin-American cultural depth that no other US city matches, and the proximity to the Florida Keys as a weekend escape; this is the cluster covered in detail on its own pillar.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'expert-form-msg success';
-                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
-                form.reset();
-                btn.textContent = 'Sent!';
-                /* Clear destination tags */
-                var wrap = document.getElementById('dest-multiselect');
-                if (wrap) {
-                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-                    var ph = wrap.querySelector('.dest-placeholder');
-                    if (ph) ph.style.display = '';
-                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
-                }
-            } else {
-                msg.className = 'expert-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Send Enquiry';
-            }
-        })
-        .catch(function() {
-            msg.className = 'expert-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Send Enquiry';
-        });
-    });
-})();
-        // Show more properties
-        var showMoreBtn = document.getElementById('dest-show-more');
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', function() {
-                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
-                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
-            });
-        }
-    </script>
+<h3>30A and the Emerald Coast</h3>
+
+<p>The stretch of coast known by its highway number, <strong>30A</strong>, runs for about <strong>30 km (18 miles)</strong> along the Gulf of Mexico in <a href="https://www.visitsouthwalton.com/" target="_blank" rel="noopener">Walton County</a>, between Destin to the west and Panama City Beach to the east, and it has emerged in the past two decades as the <strong>single most coveted small-town beach strip in the United States</strong>. The geography is unusual: a series of <strong>fifteen distinct beach towns</strong> strung along one road, each architecturally and demographically different, with the white-sand beaches of the <a href="https://www.floridastateparks.org/parks-and-trails/topsail-hill-preserve-state-park" target="_blank" rel="noopener">Florida State Park</a> system protecting the dunes between them. The signature towns west-to-east are <strong>Dune Allees and Santa Rosa Beach</strong> (the working-residential western anchor), <strong>Watercolor</strong> (the master-planned community wrapping <a href="https://www.westernlakescolour.com/" target="_blank" rel="noopener">Western Lake</a>), <strong>Seaside</strong> (the New Urbanist village built in the 1980s that started the whole 30A phenomenon and provided the location for the film <em>The Truman Show</em>), <strong>Seagrove Beach</strong> (the older, leafier residential strip), <strong>Watersound and Alys Beach</strong> (the Bermudian-white New Urbanist projects of the 2000s), <strong>Rosemary Beach</strong> (the Charleston-inspired New Urbanist village at the eastern end), and <strong>Inlet Beach</strong> (the working-fishing easternmost anchor). The sand is genuinely distinctive — <strong>quartz crystal washed down from the Appalachians</strong> over hundreds of millennia — and the dune-and-pine landscape behind it is protected over thousands of acres of state and county park.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1QYHYPoT6EvWLr9_cStvFrPu9uKmYX7FD" alt="A Rosemary Beach courtyard house with classical white shutters and a stone-paved cobble street running toward the Gulf of Mexico" loading="lazy" width="2100" height="1400" />
+  <figcaption>A Rosemary Beach courtyard house on a cobbled lane running toward the Gulf, classical white shutters and balconies.</figcaption>
+</figure>
+
+<p>The international buyer mix on 30A is heavily <strong>American</strong> — drawn from the Atlanta, Birmingham, Nashville, Dallas, Houston and broader south-eastern US markets that have made the Panhandle their summer base for two generations, with growing Texan and Mid-western shares over the past decade. The architectural inheritance reflects the New Urbanist projects that built the most photographed villages: <strong>Seaside's pastel cottages</strong> with metal roofs and gingerbread porches, <strong>Rosemary Beach's Charleston-meets-West-Indies courtyards</strong> with deep verandas and shutters, <strong>Alys Beach's Bermudian-white limestone walls</strong> and gas-lantern courtyards, <strong>Watersound's coastal-modernist palette</strong>. The villages are walkable in a way almost no other American beach community is; bicycles outnumber cars on most streets; the central squares at Seaside and Rosemary host nightly outdoor markets, concerts and food trucks through the long summer season. Restaurants and small art-and-design shops are clustered in the village centres rather than along strip malls. Drive times from <a href="https://www.flypensacola.com/" target="_blank" rel="noopener">Pensacola (PNS)</a> to 30A run <strong>50 minutes</strong>; from <a href="https://iflybeaches.com/" target="_blank" rel="noopener">Destin-Fort Walton (VPS)</a> a shorter <strong>30 minutes</strong>; from <a href="https://iflybeaches.com/" target="_blank" rel="noopener">Northwest Florida Beaches (ECP)</a> on the eastern Panhandle a similar <strong>30 minutes</strong>. Climate runs warmer in summer and cooler in winter than south Florida — <strong>11–18°C (low 50s°F to mid-60s°F)</strong> in winter to <strong>27–32°C (low to high 80s°F)</strong> in high summer — with the Gulf water above <strong>26°C (79°F)</strong> from mid-May through October. <strong>Best for:</strong> families with school-age children — particularly south-eastern US and Texan — who want the white-sand walkable-village rhythm, multi-generational summer holidays in the same property year after year, the New Urbanist architectural pedigree, and a long shoulder season from late March through October.</p>
+
+<h3>The Florida Keys</h3>
+
+<p>The <a href="https://www.fla-keys.com/" target="_blank" rel="noopener">Florida Keys</a> are a <strong>200-km (125-mile) chain of more than 800 islands</strong> arching south-west from the south-eastern corner of the mainland out into the Gulf of Mexico, connected by the <a href="https://www.fhwa.dot.gov/scenic-byways/" target="_blank" rel="noopener">Overseas Highway (US-1)</a> and its <strong>42 bridges</strong> — the longest of which, the Seven Mile Bridge between Marathon and Little Duck Key, is one of the great American road-engineering monuments. The Keys divide naturally into <strong>four sub-regions</strong>: <strong>Key Largo</strong> (the northern gateway, an hour from Miami, with the <a href="https://www.floridastateparks.org/parks-and-trails/john-pennekamp-coral-reef-state-park" target="_blank" rel="noopener">John Pennekamp Coral Reef State Park</a> and the working diving and sport-fishing community); <strong>Islamorada</strong> (the Sport Fishing Capital of the World, a string of six islands between Tavernier and Long Key, with the most distinctive small-village atmosphere of the Upper Keys); <strong>Marathon</strong> (the working middle of the chain, with the <a href="https://www.floridakeysaquariumencounters.com/" target="_blank" rel="noopener">Marathon airport</a> and the working community); and <strong>Key West</strong> (the southernmost, the historic-district-and-conch-architecture endpoint famous for Hemingway, sunset rituals at Mallory Square and the working US Naval Air Station). The chain is protected as part of the <a href="https://floridakeys.noaa.gov/" target="_blank" rel="noopener">Florida Keys National Marine Sanctuary</a>, the third-largest marine protected area in the world; the building stock is regulated under the <strong>Rate of Growth Ordinance (ROGO)</strong>, which caps annual new-permit issuance at a level well below regional demand and has produced one of the more genuinely supply-constrained property markets in the United States.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/16wZCI9gscb90MmA4o58iXGIzF8cVSXy9" alt="A Florida Keys beach cabin in Islamorada with a wooden dock running into the turquoise shallows, palms and Bahamian-style shutters" loading="lazy" width="2100" height="1400" />
+  <figcaption>An Islamorada cabin with private dock running into the Gulf shallows, Bahamian-style shutters and white palms.</figcaption>
+</figure>
+
+<p>The Keys buyer mix is heavily <strong>South Floridian, Northeastern US and Texan</strong>, with a long-standing British and European cohort drawn to Key West's literary and bohemian heritage. The architectural vernacular is specific — <strong>conch houses</strong> with double verandas and metal roofs, <strong>stilted Bahamian cottages</strong> raised above flood elevation, contemporary keys-modern villas with infinity pools facing the reef. The community is much smaller and more village-scaled than mainland Florida: <strong>Islamorada and Marathon have populations under 10,000</strong>; Key West, the largest, sits at around 24,000 year-round; the entire Monroe County population (which is essentially the Keys) is under 80,000. <strong>Drive times</strong> from Miami to Key Largo run <strong>1 hour</strong>; to Islamorada <strong>90 minutes</strong>; to Marathon <strong>2 hours 15 minutes</strong>; to Key West <strong>3.5 hours</strong>, though the drive is genuinely scenic and one of the great American road journeys. <a href="https://flykeywest.com/" target="_blank" rel="noopener">Key West International (EYW)</a> takes direct service from Miami, Atlanta, Charlotte, Dallas and several other hubs; smaller airfields at Marathon (MTH) handle regional and private aviation. Climate is the most tropical part of the United States — <strong>21–25°C (high 60s°F to high 70s°F)</strong> in winter to <strong>28–31°C (low to high 80s°F)</strong> in high summer — with sea temperatures above <strong>24°C (75°F)</strong> year-round and snorkeling and diving conditions on the reef among the best in the continental US. The hurricane exposure is real and worth understanding: the Keys sit on a more active storm track than south-east mainland Florida, and the post-Irma rebuild (2017–2020) brought building codes to a higher standard than they were before. <strong>Best for:</strong> design-led couples and active families who value the diving-and-fishing lifestyle, the genuinely tropical climate, the small-village rhythm of Islamorada or Marathon, and the literary-bohemian Key West tradition for repeat short stays from Miami or further north.</p>
+
+<h3>Naples, Sanibel and South-West Florida</h3>
+
+<p>The south-west Gulf coast of Florida — anchored by <strong>Naples</strong>, <strong>Marco Island</strong>, the barrier islands of <strong>Sanibel and Captiva</strong>, and the working-and-luxury communities of <strong>Bonita Springs and Fort Myers Beach</strong> — is the <strong>quieter, calmer, more domesticated side of premium Florida</strong>. Where Miami is intense and Latin, where 30A is family-summer and walkable-village, where the Keys are reef-and-rum, Naples-and-Sanibel is the side of Florida for buyers who value the long Gulf shallows, the world-class shelling beaches, the sub-tropical landscape, the working bird-and-wildlife reserves of the <a href="https://www.nps.gov/ever/index.htm" target="_blank" rel="noopener">Everglades</a> and the proximity to the western edge of the Everglades watershed. <strong>Naples</strong> itself is the city, with a long established and architecturally distinctive downtown around <strong>Fifth Avenue South</strong> and <strong>Third Street South</strong>, a working <a href="https://www.naplespier.com/" target="_blank" rel="noopener">Naples Pier</a>, and one of the highest-density concentrations of golf courses and country clubs in the United States. The town's residential offer divides between the working downtown (<strong>Olde Naples</strong>), the long Gulf-front strip of <strong>Park Shore and Pelican Bay</strong>, the inland gated communities along <strong>Pine Ridge Road and along Vanderbilt Beach</strong>, and the southern enclave of <strong>Port Royal and Aqualane Shores</strong> (consistently among the most expensive residential ZIP codes in the United States).</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1H9nPgvji9Gw841wrKS4dE-88NUDZdVRz" alt="A Marco Island villa with a private dock and lap pool, the Gulf of Mexico shallows just beyond the seawall" loading="lazy" width="2100" height="1400" />
+  <figcaption>A Marco Island villa with private dock and lap pool, Gulf of Mexico shallows beyond the seawall.</figcaption>
+</figure>
+
+<p><strong>Marco Island</strong>, 30 minutes south of Naples, is the largest of the <strong>Ten Thousand Islands</strong> at the western edge of the Everglades — a residential island that pairs Gulf-front condominium living with working backwater fishing and the proximity to the protected wilderness. <strong>Sanibel and Captiva</strong>, the barrier islands a 45-minute drive north-west of Naples, are an entirely different sub-region — <strong>protected at over 65% of land area</strong> by the <a href="https://www.fws.gov/refuge/jn-ding-darling/" target="_blank" rel="noopener">J.N. "Ding" Darling National Wildlife Refuge</a>, with strict height limits that have kept the islands free of high-rise development, and globally famous for shelling along their unusually east-west-aligned beaches. The 2022 Hurricane Ian caused significant damage to Sanibel and Fort Myers Beach; the rebuild has been substantial and the post-2022 inventory is largely to higher modern standards. The international buyer mix in south-west Florida is heavily <strong>Midwestern American</strong> (Indianapolis, Chicago, Cincinnati, Detroit, Cleveland), with strong Canadian (Ontario, Quebec) and growing German and Swiss cohorts; the community is older, calmer and more golf-oriented than the south-east coast, with a markedly higher proportion of retired and semi-retired owners. Drive times from <a href="https://www.flyrsw.com/" target="_blank" rel="noopener">Southwest Florida International (RSW)</a> at Fort Myers to Naples run <strong>35 minutes</strong>; to Marco Island <strong>50 minutes</strong>; to Sanibel <strong>30 minutes</strong>. Climate runs <strong>20–25°C (high 60s°F to high 70s°F)</strong> in winter to <strong>28–32°C (low to high 80s°F)</strong> in summer; the Gulf water is calmer and warmer in winter than the Atlantic side. <strong>Best for:</strong> empty-nesters and retirees from the Midwest and Canada, families with grandparents joining for multi-generational holidays, design-led couples drawn to the calmer Gulf-shallows rhythm, golf-and-fishing-oriented owners, and buyers who specifically prefer the quieter sub-tropical southwest over the more energetic south-east coast.</p>
+
+<h3>Palm Beach and the Treasure Coast</h3>
+
+<p>The <strong>Palm Beach</strong> corridor — running north from West Palm Beach through <strong>Palm Beach proper</strong>, north to <strong>Jupiter and Tequesta</strong>, and on up the Atlantic Treasure Coast through <strong>Hobe Sound, Stuart and Vero Beach</strong> — is the <strong>oldest established premium second-home market in Florida</strong> and one of the oldest in the United States. The town of <a href="https://www.townofpalmbeach.com/" target="_blank" rel="noopener">Palm Beach</a> was built as a winter resort for the New York and Boston Gilded Age by Henry Flagler and the Florida East Coast Railway in the 1890s; the <a href="https://www.flaglermuseum.us/" target="_blank" rel="noopener">Flagler Museum</a> (Whitehall, the railway baron's beaux-arts mansion) remains the town's anchor cultural site. The signature Mediterranean Revival architecture of <strong>Worth Avenue</strong>, the <strong>Breakers hotel</strong> and the <a href="https://www.maralagoclub.com/" target="_blank" rel="noopener">Mar-a-Lago</a> estate established the visual code of "Old Florida money" that the rest of the state's premium real estate has imitated for a century. The residential sub-zones divide between <strong>Palm Beach proper</strong> (the barrier island, with its strictly residential code — no high-rise, no neon, no chain restaurants — and the long-established Mediterranean Revival mansion stock), the <strong>downtown West Palm Beach</strong> (the working mainland city, now in active redevelopment around the <a href="https://www.norton.org/" target="_blank" rel="noopener">Norton Museum of Art</a>), <strong>Jupiter and the northern Palm Beach county coast</strong> (the more domesticated family-residential strip), and the <strong>Vero Beach and Treasure Coast</strong> communities further north (calmer, more retired-oriented, with the smaller-town pedigree of Stuart and Vero).</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1LmyIWxpiZge42UYhId390RfZnzL_DZZo" alt="A West Palm Beach villa with classical Mediterranean Revival arched doorways, terracotta roof tiles and a courtyard pool" loading="lazy" width="2100" height="1400" />
+  <figcaption>A West Palm Beach villa with Mediterranean Revival arches and a courtyard pool, the Intracoastal Waterway a short walk away.</figcaption>
+</figure>
+
+<p>The Palm Beach buyer mix is the most <strong>Northeastern American</strong> of any Florida sub-region — anchored by New York, Connecticut, New Jersey and Boston since the 1890s, with strong Philadelphia, Washington DC and Chicago cohorts and a growing post-2020 inflow of California, Texas and Midwestern buyers. The architectural pedigree is <strong>Mediterranean Revival</strong> — <a href="https://www.npr.org/" target="_blank" rel="noopener">Addison Mizner</a>'s pre-1929 work along Worth Avenue and its surrounding streets remains the template; the post-Depression Spanish Colonial, the 1950s ranch-and-courtyard, the contemporary glass-and-stone villa of the 2010s sit alongside it on the prime streets. The town runs at a deliberately calmer pace than Miami: no neon, no high-rise on the island, no chain restaurants on Worth Avenue, an active <strong>cultural calendar</strong> (the Norton Museum, the <a href="https://www.kravis.org/" target="_blank" rel="noopener">Kravis Center</a> for the Performing Arts, the polo at Wellington thirty minutes inland) running through the high winter season. <a href="https://www.pbia.org/" target="_blank" rel="noopener">Palm Beach International (PBI)</a> is <strong>15 minutes</strong> from the island; <a href="https://www.fll.net/" target="_blank" rel="noopener">Fort Lauderdale (FLL)</a> a <strong>45-minute drive</strong> south; Miami <strong>75 minutes</strong>. Climate runs <strong>18–24°C (mid-60s°F to mid-70s°F)</strong> in winter — slightly cooler than Miami — to <strong>27–31°C (low to high 80s°F)</strong> in summer; the Gulf Stream offshore moderates the Atlantic water temperature year-round. <strong>Best for:</strong> Northeast US empty-nesters and retired owners with deep Palm Beach family histories, design-led couples drawn to the Mediterranean Revival pedigree, cultural enthusiasts who treat the winter season's symphony, ballet and gallery calendar as the primary draw, and buyers who specifically want the calmer-and-older alternative to Miami while still on the Atlantic coast with year-round air access.</p>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>A year in Florida</h2>
+
+<p>Spreading <strong>45 days of use</strong> across a calendar year is itself a skill — and Florida is one of the more interesting destinations to plan, because the state's sub-tropical-to-tropical climate, its long winter peak season, its quieter summer, and its hurricane-aware fall give a very different shape from the Mediterranean or Alpine calendars. Below is a walk through the year as it actually unfolds on the ground across the Florida portfolio. The pattern is broadly the same across all <strong>eight co-owners</strong> of a given property, with the calendar mechanics ensuring every owner gets a <strong>fair allocation of peak weeks</strong> across a multi-year cycle. Owners with calendar flexibility — who do not insist on the same two specific weeks every year — consistently report a <strong>higher use-quality</strong> from their share than those who lock to one season alone.</p>
+
+<h3>Peak winter (December–March)</h3>
+
+<p>Florida's <strong>winter is its peak season</strong> — by some distance the most distinctive feature of owning here vs almost any other US or European destination. From <strong>December through March</strong>, the state runs at the warmest accessible point in the continental US, with daytime temperatures in the <strong>20–26°C (high 60s°F to high 70s°F)</strong> range on the south and Atlantic coasts, sea water above <strong>22°C (72°F)</strong> through most of the period, and reliable sunshine across the south of the state. <strong>December</strong> opens with the Christmas-and-New-Year fortnight as the highest-demand window of the year — Palm Beach, Miami, the Keys, Naples and 30A all book heavily for the holiday weeks, with restaurant booking windows in the prime addresses stretching to <strong>four to six weeks ahead</strong>. The city's polo season, the Miami Art Basel weekend in early December (the international art-world's most important week in the Americas), and the Palm Beach winter cultural calendar all stack into the same period. Owners who can be flexible on the exact week often prefer <strong>early January</strong> — the post-holiday calm, the still-warm weather, the much easier restaurant availability.</p>
+
+<p><strong>January and February</strong> are the high winter — the months Northeasterners and Midwesterners and Canadians migrate south in serious numbers. The <a href="https://www.gulfstreampark.com/" target="_blank" rel="noopener">winter horse racing</a> at Gulfstream Park and the polo season at <a href="https://www.ipc.coth.com/" target="_blank" rel="noopener">Wellington</a> run through the period; the Miami restaurant scene operates at full capacity; the South Beach Wine and Food Festival lands in late February. <strong>The 30A and Panhandle coast</strong> sees its quietest months in January and February — too cool for swimming (Gulf water in the low 60s°F) but with the long-sleeve walking weather many off-season owners specifically prefer. <strong>March</strong> brings spring break — the colleges and high schools across the Northeast and Midwest run their breaks across two to four weeks somewhere between late February and mid-April, and the family-oriented coastal towns (Destin, Marco Island, Sanibel, the family side of Miami Beach) fill heavily. By <strong>late March</strong> the state is at peak season's tail end; the Atlantic water is climbing past <strong>24°C (75°F)</strong>; the Easter weekend often sits in late March or early April. <a href="https://www.usopenfederation.com/" target="_blank" rel="noopener">The Miami Open tennis tournament</a> runs through the same fortnight at Hard Rock Stadium, drawing the international tennis circuit. For families with school-age children, the spring-break fortnight is the heaviest single demand window of the year on 30A and the family-coastal sub-zones.</p>
+
+<h3>Transition spring (April–May)</h3>
+
+<p>April and May are the <strong>secret months</strong> of Florida ownership — the period most under-used by buyers who lock to either summer or winter and miss the genuinely best two-month window in between. The crowds disperse from mid-April onwards; the weather sits in the <strong>23–28°C (mid-70s°F to low 80s°F)</strong> band across the entire state; the Gulf and Atlantic waters are climbing into proper swimming temperatures (<strong>24–27°C / mid-70s°F to high 70s°F</strong> by mid-May); and the restaurant scene is at its operating peak with neither the high-winter Christmas-week pressure nor the summer slow-down. The 30A coast at this point is at its photogenic best — the white sand cleared of crowds, the dune-and-pine landscape behind it in spring green, the morning bike rides between Seaside and Rosemary Beach at their most pleasant. The Florida Keys diving and fishing seasons are at their seasonal peak in April-May; the late-April <strong>Stone Crab and Lobster festival</strong> calendars across the Keys close out the winter season. <strong>The Naples and Marco Island</strong> sub-zone is at its quietest residential rhythm — the snowbirds heading north, the summer not yet settling in, the long pelican-and-sandpiper mornings on Sanibel and the Ten Thousand Islands without the December-March crowds.</p>
+
+<p>For owners who can travel outside the school calendar — empty-nesters and retirees, design-led couples, the under-school-age-children cohort — the April-May fortnight in Florida is the most consistently named "favourite weeks of the year" pattern in the COP buyer feedback. Restaurants take reservations the same week; the small-town rhythms of 30A and Naples run at their most relaxed; the migratory bird seasons at <a href="https://www.fws.gov/refuge/jn-ding-darling/" target="_blank" rel="noopener">"Ding" Darling</a> and the Everglades hit their seasonal best.</p>
+
+<h3>Summer (June–September) and the start of hurricane season</h3>
+
+<p>Florida's summer pattern is well-defined and worth understanding before allocating weeks. <strong>June is the Gulf coast's secret early-summer month</strong> — warm enough for swimming everywhere in the state (Gulf and Atlantic water both above <strong>26°C / 79°F</strong>), the school-summer holidays just beginning so the heaviest crowds still a fortnight away, the long evenings stretching past 8:30 pm on the western coasts. <strong>July and August</strong> are the high summer proper — Florida's domestic-tourism peak, when the southern US families load their cars and drive to the Panhandle, when the Cuban-American Miami summer rhythm operates at full capacity, when the Keys fishing and Latin-American flight calendars converge. The state is <strong>at its hottest and most humid</strong> — daytime temperatures in the <strong>30–33°C (high 80s°F to low 90s°F)</strong> band across most of the state, with <strong>afternoon thunderstorms a daily near-certainty</strong> across the south Florida peninsula (the inland convection cell that builds every afternoon over the Everglades and breaks somewhere over Miami, Naples or Fort Myers between 3 and 6 pm).</p>
+
+<p>The other defining feature of summer in Florida is the <strong>start of hurricane season</strong>. The official <a href="https://www.nhc.noaa.gov/" target="_blank" rel="noopener">NOAA Atlantic hurricane season</a> runs <strong>1 June through 30 November</strong>; activity typically peaks in the second half of August through early October, with the climatological peak around <strong>10 September</strong>. The practical effect for fractional owners is smaller than the headlines suggest: insurance is handled at the LLC level and built into the annual budget; modern post-Andrew (1992) Florida construction is to building codes that materially reduce storm damage; and major hurricanes affecting a specific property's track in any single season remain statistically uncommon. But it does shape calendar planning. The peak hurricane window of <strong>late August through mid-October</strong> sees softer demand on the Keys, the Panhandle and the south-west coast — owners who want quieter weeks at the property and who can monitor the seven-day NHC outlook are often happy to take the period; owners with strict no-disruption preferences typically schedule outside it. The southeast coast (Miami, Palm Beach) sits on a less storm-exposed track in most decades than the Panhandle or the Keys, but every part of Florida is in the basin.</p>
+
+<p>Inland and on the Panhandle, the summer rhythm is family-summer: <strong>30A's villages</strong> at their busiest with multi-generational family rentals through July and August; <strong>Naples and Sanibel</strong> running with a quieter, more retired-oriented summer (the school-summer crowds skew Panhandle rather than Naples); <strong>Miami</strong> at its sub-tropical peak with the cultural calendar dialled back but the beach scene and the Cuban summer cuisine at full operation. The <a href="https://www.miami-airport.com/" target="_blank" rel="noopener">Miami</a> summer flight schedule expands to Argentina and Brazil in their winter season, giving the city a particularly active Latin-American flavour through July and August.</p>
+
+<h3>Fall (October–November) and hurricane awareness</h3>
+
+<p><strong>October</strong> is the meteorological transition month — the peak hurricane window winding down through the first half of the month, the school-half-term holidays from the northern US bringing a short family-travel spike in the second half. By <strong>late October</strong> the state has shifted into its long, warm fall season — daytime temperatures back in the <strong>23–28°C (mid-70s°F to low 80s°F)</strong> band, water temperatures still above <strong>26°C (79°F)</strong> on the south coast, the humidity dropping noticeably, the restaurant-and-cultural calendar quietly re-opening for the winter season ahead. The Atlantic hurricane season officially closes on <strong>30 November</strong>; in practice, late-season storms after mid-October are uncommon and the second half of November is one of the most reliable warm-weather windows of the year.</p>
+
+<p><strong>November</strong> is many seasoned Florida owners' favourite month. The temperatures sit in the <strong>22–27°C (low 70s°F to high 70s°F)</strong> band day-after-day; the water is still warm enough for swimming everywhere south of Tampa Bay; the high-winter crowds have not yet arrived; the restaurant scene is at full operation but easy on bookings; and the migratory-bird and wildlife seasons hit their seasonal peak in the <a href="https://www.fws.gov/refuge/jn-ding-darling/" target="_blank" rel="noopener">Sanibel</a>, <a href="https://www.nps.gov/ever/index.htm" target="_blank" rel="noopener">Everglades</a> and Treasure Coast reserves. <strong>Thanksgiving week</strong> is the season's first significant family-travel demand window — the Northeast US, Midwest and Canadian families load up for the four-day weekend, and the family-coastal sub-zones (Naples, 30A, the family side of Miami Beach) fill heavily. By the first week of December the winter season has effectively begun and the calendar pattern transitions back to peak.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Who buys in Florida, and why</h2>
+
+<p>The buyer mix in Florida is the <strong>most diverse of any US state</strong> — by a meaningful margin — and the structural drivers behind it have not changed materially in fifty years. <strong>New York and Northeast buyers</strong> have anchored the state's premium second-home market since Henry Flagler's railway in the 1890s and remain the single largest cohort across Palm Beach, Miami and the Atlantic coast; the post-2020 acceleration of migration from high-tax Northeastern states to Florida has reinforced rather than displaced that flow. <strong>Midwestern American buyers</strong> — Chicago, Indianapolis, Cincinnati, Detroit, Minneapolis, Cleveland — dominate the south-west Gulf coast (Naples, Sanibel, Marco Island) and the Treasure Coast (Stuart, Vero Beach), drawn by direct flight access and a calmer rhythm than the south-east. <strong>Latin-American buyers</strong> — Colombians, Venezuelans, Brazilians, Argentinians, Mexicans — concentrate in Miami, Brickell, Coral Gables and Key Biscayne, where multilingual professional services, Spanish-speaking schools and the cultural-and-business depth of the city make it a natural North American base. <strong>South-eastern US buyers</strong> — Atlantans, Birminghamians, Nashvillians, Charlotteans, Texans, Houstonians, Dallasans — dominate the Panhandle and 30A, with multi-generational family connections going back two or three decades. <strong>Canadian buyers</strong> are the second-largest foreign cohort after Latin America, concentrated on the Gulf coast and the central east coast. <strong>European buyers</strong> — British, German, Italian, French, Swiss, Scandinavian — have grown sharply over the past decade, particularly in Miami, the Keys and Naples, with the British presence strongest in Palm Beach and the German presence strongest on 30A.</p>
+
+<p>The <strong>age-and-life-stage profile</strong> is in some respects more revealing than the geographical breakdown. The largest single buyer cohort across the COP Florida portfolio is in the <strong>55–70 age band</strong> — owners whose primary income is established or in winding-down mode, whose children are at university or beyond, who are thinking actively about the warm-state-residency question, and whose long-run thinking on the second home runs to the <strong>next 20–25 years</strong>. The second-largest cohort is the <strong>40–55 age band</strong> — typically dual-income professional couples with school-age children, who use their share around school holidays (winter break, spring break, summer) and value the operational simplicity of a fully managed property in a state where remote-ownership friction is otherwise non-trivial. The third and fastest-growing cohort is the <strong>30–45 age band</strong> — younger professional couples (some pre-children, some with young children) who are using the share as a winter pied-à-terre for a Northern US primary home and who value the flexibility of a fractional structure that does not commit them to a single property forever.</p>
+
+<p>Within those groups, Florida co-ownership tends to suit a small number of well-defined buyer profiles:</p>
+
+<ul>
+  <li><strong>Northeast US and Canadian snowbirds</strong> — owners from New York, Boston, Toronto, Montreal, New Jersey, Connecticut, Massachusetts, Ontario and Quebec who use their share predominantly in the December-through-March winter window, often combining a Christmas week with a two-or-three-week January-February pattern and a spring-break return. The 55–70 cohort is the heart of this demographic.</li>
+  <li><strong>Midwestern retirees and pre-retirees</strong> — owners from Chicago, Indianapolis, Cincinnati, Detroit, Minneapolis, Cleveland and Pittsburgh who concentrate in the south-west Gulf coast (Naples, Marco Island, Sanibel) and use their share in long winter blocks rather than short summer trips. The fully managed model is the central appeal — the operational simplicity of arriving with no preparation and leaving with no shutdown is what makes the structure work for owners who would otherwise have to fly their own help south or manage remote staff.</li>
+  <li><strong>International buyers building a North American base</strong> — Europeans (British, German, Italian, Swiss, Scandinavian) and Latin Americans (Colombian, Argentinian, Brazilian) who want a US toehold for family, business or tax-residency reasons and who value the LLC structure for its consistency with how they hold property in their home jurisdictions or in other COP destinations. Miami is the single most common cluster for this cohort, with Palm Beach and 30A as the secondary markets.</li>
+  <li><strong>Multi-generational families</strong> — four- and five-bedroom houses on 30A, Marco Island, Sanibel and the Keys that sleep grandparents, parents, children and partners in the same week. The fractional model handles extended-family calendar coordination better than a whole-ownership model, particularly when the family spans multiple states or countries with different school calendars and where the property would otherwise sit empty for forty weeks a year.</li>
+  <li><strong>Design-led couples choosing Miami, Palm Beach or 30A</strong> — owners who treat the architectural pedigree of the Mediterranean Revival Palm Beach mansion, the Art Deco Miami Beach apartment or the New Urbanist Rosemary Beach courtyard as the primary destination, who book repeat shorter stays around the calendar's quieter rhythms, and who value the cultural depth of the city or village over the sand alone.</li>
+  <li><strong>Tax-residency-minded buyers from high-tax states</strong> — a growing cohort of New York, New Jersey, California, Massachusetts and Illinois residents using their Florida share as part of a long-running shift toward establishing Florida domicile, working alongside their tax counsel on the day-count and supporting-evidence questions that the state's <strong>no-state-income-tax regime</strong> rewards. The COP team can point this cohort to qualified Florida tax counsel; we do not give tax advice, but the LLC structure works cleanly with the standard Florida-domicile pathways.</li>
+  <li><strong>Active-and-outdoor owners</strong> — divers and snorkelers choosing the Keys for reef access, sport fishermen choosing Islamorada or Marathon, golfers choosing Naples or Palm Beach, sailors choosing the Atlantic Intracoastal or the Gulf coast, and birders and naturalists choosing the Everglades-and-Sanibel side of the state for the migratory seasons.</li>
+</ul>
+
+<p>A pattern worth highlighting is the <strong>multi-region buyer</strong> — Florida owners who hold a second COP share elsewhere. The most common combination is <strong>Florida plus a summer-cool destination</strong> — a Miami or Palm Beach winter share paired with an Aspen, Vail, Lake Tahoe or French Alps summer share for July and August, when Florida is at its hottest and the alpine destinations at their most beautiful. The second-most-common is <strong>Florida plus another sun-belt destination</strong> — a 30A or Naples share paired with a California, Mexico or Caribbean share — for owners building a portfolio of warm-climate options to use across the year. Less common but increasingly observed is the <strong>Florida-plus-Europe</strong> pattern (a Miami or Keys winter share plus a Mediterranean summer share in Mallorca, the Côte d'Azur or the Italian Lakes). The fractional model makes that portfolio strategy practical: <strong>two 1/8 shares</strong> across complementary climates cost less than a single whole property at either of the addresses individually, and the management relationship across the portfolio is unified, which removes the multi-jurisdiction friction.</p>
+
+<div class="dest-callout">
+  <strong>The portfolio pattern:</strong> Florida is one of the single most common starting points for COP owners who go on to hold a second share elsewhere — both because the state's deep winter peak pairs naturally with a summer-cool mountain or Mediterranean share, and because the same LLC framework applies across every COP property, making a multi-region portfolio operationally simpler than the equivalent across two or three different ownership vehicles.
+</div>
+
+<p>What unites these otherwise quite different buyer profiles is the <strong>underlying calculation</strong>: the second-home weeks each of them actually uses in a year are within the <strong>6–7 weeks</strong> a 1/8 share delivers, the operational overhead of running a Florida property remotely is non-trivial in any of the major sub-zones (and notably higher than in many alternative states because of the hurricane-insurance regime, the building-and-pool maintenance load in a sub-tropical climate, and the year-round HVAC and humidity management), and the <strong>resale liquidity of a fractional share</strong> inside a managed portfolio is — in our experience across the COP network — <strong>markedly higher</strong> than the resale liquidity of a whole property at the same address. Florida is a market where the maths of fractional ownership lines up <strong>almost perfectly</strong> with the use pattern of the buyer, and where the operational realities of remote ownership are otherwise heavy enough to make the managed model materially more attractive than direct ownership.</p>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Florida airports and ground access</h3>
+
+<p>Florida is the <strong>most internationally connected state in the southern United States</strong>, with seven major commercial airports and a dense secondary network of regional fields covering the state. <a href="https://www.miami-airport.com/" target="_blank" rel="noopener">Miami International (MIA)</a> is the largest, with direct year-round service from London (Heathrow), Frankfurt, Paris (CDG), Madrid, Barcelona, Amsterdam, Zurich, Rome, Lisbon, Helsinki, Istanbul, Tel Aviv, Dubai and Doha among others, plus comprehensive Latin-American coverage (Mexico City, Bogotá, Lima, Quito, Caracas, Santiago, Buenos Aires, São Paulo, Rio de Janeiro, Panama City) and every major North American gateway. <a href="https://www.fll.net/" target="_blank" rel="noopener">Fort Lauderdale-Hollywood (FLL)</a> handles the lower-fare and domestic-leisure traffic into south Florida; <a href="https://www.pbia.org/" target="_blank" rel="noopener">Palm Beach International (PBI)</a> serves the north-east coast; <a href="https://www.flyrsw.com/" target="_blank" rel="noopener">Southwest Florida International (RSW)</a> at Fort Myers serves Naples, Sanibel, Marco Island and Fort Myers Beach; <a href="https://flykeywest.com/" target="_blank" rel="noopener">Key West International (EYW)</a> handles the Keys; <a href="https://www.flypensacola.com/" target="_blank" rel="noopener">Pensacola International (PNS)</a> and <a href="https://iflybeaches.com/" target="_blank" rel="noopener">Northwest Florida Beaches (ECP)</a> serve the Panhandle and 30A. Most Northern US hubs are <strong>under three hours' flight time</strong> from a Florida airport; most European hubs are <strong>nine to ten hours</strong> from MIA; most Latin-American gateways are <strong>three to six hours</strong>.</p>
+
+<p>Drive times from each regional airport to the major sub-zones are short. <strong>MIA to Brickell or South Beach</strong>: 20 minutes. <strong>MIA to Coral Gables, Key Biscayne or the Design District</strong>: 15–25 minutes. <strong>MIA to Key Largo</strong>: 1 hour 15 minutes. <strong>FLL to Palm Beach</strong>: 45 minutes. <strong>PBI to Palm Beach island</strong>: 15 minutes. <strong>PBI to Jupiter or Tequesta</strong>: 25 minutes. <strong>RSW to Naples</strong>: 35 minutes. <strong>RSW to Marco Island</strong>: 50 minutes. <strong>RSW to Sanibel or Captiva</strong>: 30 minutes. <strong>PNS to 30A (Rosemary Beach to Seaside)</strong>: 50 minutes. <strong>VPS / Destin to 30A</strong>: 30 minutes. <strong>ECP to Rosemary Beach or Inlet Beach</strong>: 30 minutes. <strong>EYW to Key West Old Town</strong>: 10 minutes. Most owners pre-arrange a private transfer rather than self-driving, particularly when arriving late or with multiple bags; the professional transfer operators across the state are well established. Florida is also easily accessible by interstate driving: <strong>I-95 runs the entire Atlantic coast</strong> from Jacksonville to Miami, <strong>I-75 runs from the Georgia border to Naples and into the Everglades</strong>, and the <strong>Florida Turnpike</strong> provides the inland north-south spine.</p>
+
+<h3>Whole-property vs 1/8 share: the comparison</h3>
+
+<p>The case for a fractional structure in Florida is most clearly seen in the <strong>side-by-side comparison</strong> against both whole ownership and long-term rental — the three ways most buyers actually consider holding a Florida second home.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full taxes, insurance, management, maintenance</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Hurricane insurance</td>
+      <td data-col="Whole second home">Owner-arranged, full premium every year</td>
+      <td data-col="COP 1/8 share">Pooled at LLC level, included in service charge</td>
+      <td data-col="Long-term rental">Landlord-arranged, built into rent</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 6–10)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">6–24 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The comparison most buyers find most telling is the <strong>annual-carry line plus the hurricane-insurance line</strong>. Owning a whole Florida villa outright means carrying full property tax, full hurricane-and-windstorm insurance, full flood insurance where required, full pool and garden, full HVAC, full reserve fund — every year, whether you spend two weeks in Florida or twelve. Hurricane and windstorm insurance in particular has risen sharply across the state since 2017, with many private carriers withdrawing from the Florida market and the residual writer-of-last-resort, <a href="https://www.citizensfla.com/" target="_blank" rel="noopener">Citizens Property Insurance</a>, now carrying a meaningful share of the state's coverage. For an individual owner, that means renewal letters every year with double-digit increases; for an LLC pooling eight owners' contributions and managed at scale, the insurance procurement is more efficient and the per-owner impact materially smaller. A 1/8 fractional share carries proportionally less in every line, fully managed, with the operational burden lifted entirely. Compared to renting a similar property long-term, you build real equity rather than burning rent — and the share is yours to sell, transfer, or pass on.</p>
+
+<p>The other line worth examining is the <strong>time-to-sell</strong>. Whole-property resale in the Florida prime tier — top Palm Beach Mediterranean Revival villas, Brickell penthouses, 30A New Urbanist houses, Naples Olde-Naples bay-fronts, Florida Keys conch houses, Sanibel Gulf-fronts — is genuinely slow. The buyer pool at the top tier is small, well-informed and unhurried; a villa on Worth Avenue going to market today might sit for <strong>12–24 months</strong> before transacting, and the carrying costs of holding a whole Florida villa through a slow open-market sale — including property tax, hurricane insurance, lawn-and-pool service, HVAC, security, alarm monitoring — can add up to a meaningful fraction of the sale price by the time it closes. A fractional share, by contrast, typically clears in <strong>around a month or less</strong> across the COP portfolio because the buyer pool is already aware of the property, the LLC structure and the management framework, and the transfer of an LLC membership interest is a more direct administrative action than a full Florida real-estate conveyance. The carrying-cost differential between a quick professional exit and a slow open-market exit can easily exceed the headline transaction-fee difference between fractional and whole ownership.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual carry on a 1/8 Florida share is, by definition, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — which means it's a fraction of what an outright Florida second-home owner pays in property tax, hurricane insurance, management and maintenance, and a fraction of what year-round long-term rental of an equivalent home would cost. It is best understood as a <strong>single all-in number</strong> that covers everything required to keep the property operating at full standard regardless of who is or isn't in residence. The included items typically run to: <strong>county property tax</strong> (the Florida ad valorem tax assessed by the local county property appraiser); <strong>state and county tourism tax</strong> on rental nights where applicable; <strong>hurricane and windstorm insurance</strong>, <strong>flood insurance</strong> where required and <strong>contents insurance</strong> for the furniture and fittings; the full property-management retainer covering staff, scheduling and owner relationship; cleaning and linen between every stay; landscaping, pool maintenance, HVAC and humidity management, alarm monitoring and seasonal preparation; minor maintenance and repairs under a defined threshold; utility bills (electricity, water, internet, cable, alarm monitoring); the <strong>condominium-association or HOA fees</strong> in apartment buildings and gated communities; and a contribution to the <strong>reserve fund for major capital works</strong> (roof, HVAC, structural, hurricane retrofitting). What is typically <strong>not included</strong>: large capital improvements (kitchen replacement, major bathroom refurbishment) which are decided by the LLC's annual general meeting and funded either from the reserve fund or from a one-off levy; major hurricane-damage deductibles (which fall on the LLC and pool across owners); personal staff costs (a private chef booked for an owner's stay, a private boat captain beyond the standard transfer); damage caused by an owner's own use; and unusually high-volume utility use during peak personal stays. The point is that the annual figure is not a "running cost" in the open-property sense but a <strong>comprehensive operating budget</strong> that covers the property in active condition all year, including the hurricane-season reserve.</p>
+
+<div class="dest-callout">
+  <strong>The carry-cost reality:</strong> the carry on an outright Florida second home stacks up across county property tax, hurricane and windstorm insurance, flood insurance, contents insurance, pool and garden upkeep, year-round HVAC and humidity management, alarm and security, utilities, HOA or condominium-association fees, and a year-round property-management retainer — paid in full every year regardless of how many weeks you actually spend in the state. A 1/8 fractional share carries roughly 1/8 of that total, fully managed, with the operational burden lifted entirely.
+</div>
+
+<h3>What you actually own — the legal share</h3>
+
+<p>The <strong>legal nature</strong> of a Florida co-ownership share is one of the questions buyers should understand fully before purchase. Every Florida property on COP is held in a <strong>purpose-built LLC</strong> — the same modern international ownership vehicle used across COP's destinations — in which you and up to seven co-owners hold <strong>equal LLC membership interests</strong>. The underlying Florida property is held by the company, with the title recorded at the <strong>local county clerk's official records</strong> (Miami-Dade, Monroe, Collier, Lee, Walton, Palm Beach and the other Florida counties each maintain their own register of deeds) and the property-tax position assessed annually by the <strong>county property appraiser</strong>; your membership interest is recorded in the company's register, with transfer effected on resale or inheritance through a <strong>clean, well-documented administrative process</strong> rather than the heavier title-conveyance route required for direct Florida real estate.</p>
+
+<p><strong>The practical effect</strong> is that you hold a <strong>real, registered, transferable equity interest</strong> — not a timeshare, not a points membership, not a usage right. You can sell through the <strong>established resale process</strong> or to a qualifying outside buyer; you can leave it to your children under your home jurisdiction's inheritance rules (with Florida probate overlay where applicable); and you <strong>participate proportionally in any appreciation</strong> in the underlying Florida property's market value. Because the framework is consistent across every property on COP, owners who go on to buy a second or third share — whether elsewhere in the US or in another country entirely — find themselves dealing with the same documentation, the same administrative cadence, and the same management relationship across the whole portfolio. The distinction from a Florida timeshare contract is particularly important: a timeshare gives you a use-right for a defined week each year, on a fixed-term contract that depreciates toward zero over time, with no equity in the underlying real estate and no transferable resale market in any meaningful sense; a COP fractional share is the opposite — it is the equity itself, in a transferable corporate vehicle, with a working secondary market.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works in Florida</h2>
+
+<p>The mechanics of fractional ownership in Florida are framed by <strong>four things that work together</strong>: the <strong>purpose-built LLC ownership structure</strong> used to hold every property on COP, the <strong>Florida property-tax regime</strong> that applies to all real estate including the state's distinctive homestead exemption and "Save Our Homes" cap (and how those rules apply differently to second-home owners), the <strong>state's hurricane-insurance market</strong> that shapes the largest single line item in the annual budget, and the <strong>county-level recording system</strong> that handles registration of the underlying property at each county clerk's official records. The LLC is the modern international vehicle through which you and up to seven other owners hold the property; the Florida property tax is the standard local tax that any second-home owner pays; the insurance market is the practical reality of operating real estate in a hurricane state; and the county clerk is the long-running register-of-record system that gives the underlying real estate its documentary clarity. Understanding how these four pieces fit together is the difference between a <strong>clear, predictable ownership experience</strong> and one the buyer feels uncertain about.</p>
+
+<h3>How the LLC structure holds Florida property</h3>
+
+<p>The LLC that holds each Florida property is a <strong>purpose-built company</strong> designed for international and interstate shared ownership. It is registered with the <a href="https://dos.fl.gov/sunbiz/" target="_blank" rel="noopener">Florida Division of Corporations (Sunbiz)</a> or in a related jurisdiction, has a managing officer appointed under the company's governing documents, a <strong>register of members</strong> recording who holds which interest and in what proportion, and an <strong>annual general meeting</strong> at which owner-level decisions (major capital works, budget, manager review) are made. The same LLC framework runs across COP's destinations in the <strong>United States, the United Kingdom, France, Spain, Italy</strong> and elsewhere — meaning an owner adding a second property in another country is <strong>not learning a new ownership structure each time</strong>, but extending one they already understand.</p>
+
+<p>For a fractional buyer in Florida, the practical effect is that you become a <strong>registered member of the LLC</strong> that owns the property, holding <strong>one of eight equal membership interests</strong>. The property itself remains Florida real estate — recorded at the county clerk by the LLC, which is the legal owner of record — and you, in turn, are a legal owner of the LLC. What you hold is a <strong>transferable equity interest</strong> in the underlying real estate — not a timeshare use-right that depreciates to zero when the contract expires, not a points-club membership, not a fractional holiday club. This <strong>two-step structure</strong> is what gives Florida co-ownership on COP its <strong>single consistent international format</strong> across every market COP covers, its <strong>cleaner cross-border inheritance treatment</strong> than directly deeded shared ownership, and its <strong>faster resale path</strong>: a transfer of LLC membership is a more direct administrative action than triggering a full title conveyance through a Florida title company.</p>
+
+<h3>Property tax basics: county assessments, homestead exemption, the Save Our Homes cap</h3>
+
+<p>Florida operates a <strong>relatively straightforward property-tax framework</strong> by US standards, and almost all of the routine compliance is handled through the LLC and its appointed Florida CPA rather than by the individual owner. <strong>County property tax</strong> — the annual ad valorem tax assessed by the local county property appraiser — is the primary line, calculated on the just-value assessment as set by the property appraiser, and falling within a typical range of <strong>1.0%–2.0% of assessed value</strong> depending on the county and the millage rate (Miami-Dade, Monroe, Collier, Lee, Walton, Palm Beach and the other Florida counties each set their own millage). County tax is paid by the LLC from the annual service charge collected from co-owners, so <strong>individual owners never deal with the county property appraiser or tax collector directly</strong>.</p>
+
+<p>The Florida <strong>homestead exemption</strong> is one of the most distinctive features of the state's property-tax system and worth understanding even though it does not apply to second-home owners. Under Florida law, a property serving as a primary residence and registered with the county property appraiser receives a homestead exemption that reduces the assessed value by up to <strong>USD 50,000</strong> for property-tax purposes, plus the <strong>"Save Our Homes" cap</strong> that limits annual increases in assessed value to the lesser of 3% or inflation. These benefits apply only to Florida primary residences, not to second homes; a fractional share held inside an LLC by non-resident owners falls outside the homestead regime entirely. The practical effect is that <strong>non-resident second-home owners — including LLC-held fractional properties — typically face higher assessed-value growth year-over-year</strong> than Florida primary residences, with no Save-Our-Homes shelter. This is a structural cost worth factoring into the annual budget, and one the LLC's Florida CPA models on a continuing basis.</p>
+
+<p>Florida has <strong>no state income tax</strong> — one of the structural advantages of the state for high-earning second-home buyers from high-tax states like New York, New Jersey, Massachusetts, California, Connecticut and Illinois who spend enough Florida weeks to consider tax-domicile questions seriously. The state's <strong>property-transfer tax</strong> (documentary stamp tax on deeds and intangible tax on mortgages) is paid at conveyance and is built into the closing structure. <strong>Federal capital-gains tax</strong> on resale applies as it would on any US real estate; the LLC structure handles the transactional mechanics. The Florida <strong>tourism development tax</strong>, where applicable to rental nights, is handled at the LLC level. The point worth making here is that the Florida tax regime is, overall, <strong>among the most favourable in the United States for second-home ownership</strong> — particularly for buyers whose primary state has a heavy income tax — and the LLC structure makes the compliance routine.</p>
+
+<h3>Hurricane insurance, building codes and the Florida construction reality</h3>
+
+<p>Insurance is the largest single line item in the Florida annual budget and worth understanding in some detail. The state has experienced significant insurance-market dislocation since 2017, with several private carriers either withdrawing entirely or pulling back from the most exposed coastal markets, and the state-run <a href="https://www.citizensfla.com/" target="_blank" rel="noopener">Citizens Property Insurance Corporation</a> — the writer of last resort — now carrying a meaningful share of the state's residential coverage. For an individual second-home owner, this has meant annual premium increases of <strong>double-digit percentages year-over-year</strong> through the late 2010s and into the 2020s, with non-renewals a real risk on older or more storm-exposed buildings. For an LLC holding the property and procuring insurance at scale across multiple sub-zones, the procurement is materially more efficient — pooled risk across the portfolio, professional broker relationships, and the buying power that single-owner properties cannot match.</p>
+
+<p>The <strong>Florida Building Code</strong> — substantially upgraded after Hurricane Andrew in 1992 and again after the 2004-2005 hurricane season — is one of the strictest building codes in the United States and is particularly strict in the high-velocity hurricane zone covering Miami-Dade and Broward counties. Modern post-1994 Florida properties are constructed to standards including <strong>impact-rated windows and doors</strong>, <strong>hurricane straps and clips</strong> tying roof to wall to foundation, <strong>reinforced roofing</strong>, and elevation requirements in flood-prone zones. These standards have measurably reduced storm damage on prime modern inventory: properties built to the Miami-Dade high-velocity code performed materially better in Hurricane Irma (2017) and the subsequent storms than older buildings or properties in other jurisdictions. The LLC's vetting process when bringing a property into the COP portfolio includes construction-standard review, elevation review and insurance availability — properties that do not meet defensible standards are not brought in.</p>
+
+<p>A specific item buyers often ask about is the <strong>flood-zone designation</strong> under the <a href="https://www.fema.gov/flood-maps" target="_blank" rel="noopener">Federal Emergency Management Agency (FEMA) flood-map system</a>. Florida's coastal and low-lying inland properties are mapped into flood zones (Zone X for minimum risk, Zone AE for 1%-annual-chance flooding, Zone VE for coastal high-velocity flooding subject to wave action), with the zone designation driving the requirement for federally backed flood insurance through the <a href="https://www.fema.gov/flood-insurance" target="_blank" rel="noopener">National Flood Insurance Program (NFIP)</a> or a private equivalent. Properties on the Gulf coast at Sanibel, the Atlantic coast at Palm Beach and the Florida Keys are commonly in VE or AE zones; properties further inland or on higher ground sit in X zones. The LLC handles the NFIP enrolment and the annual flood-premium payment as part of the routine insurance budget; the per-owner flood-premium impact is materially smaller than it would be for a single-owner second home, since the property is pooled into the LLC's broader insurance portfolio. Properties brought into the COP portfolio are reviewed for their flood-zone designation, the elevation of the finished floor above base flood elevation, and the historical flood-claim record at the address — factors that materially affect both insurability and long-term resale value.</p>
+
+<h3>Inheritance, Florida probate and the LLC pathway</h3>
+
+<p>Directly held Florida real estate is subject to <strong>Florida probate</strong> on the death of the owner, which can be a slow and procedurally heavy process — Florida is one of the states where inherited real estate routinely sits in probate for <strong>twelve to twenty-four months</strong> before clearing to the heirs. For a non-Florida resident dying with a Florida property, the situation is more complex still — the property typically requires <strong>ancillary probate</strong> in Florida alongside the primary probate in the deceased's home state, with associated cost and delay. <strong>LLC membership interests</strong> are treated as <strong>personal property of the deceased's home jurisdiction</strong> rather than as Florida real estate, which generally avoids Florida ancillary probate entirely and clears through the home-state probate or revocable-trust process much more quickly. The combination of a revocable trust holding the LLC membership interest and the LLC holding the Florida real estate is the standard estate-planning pattern for non-Florida second-home owners, and one the LLC structure handles cleanly. This is a jurisdiction-and-individual-specific area and any buyer should review the specific position with their own counsel; the point is that the LLC structure typically gives <strong>more flexibility and faster clearance</strong> than direct Florida real estate.</p>
+
+<h3>The professional management model and how the calendar works</h3>
+
+<p>Once the purchase completes, a <strong>professional management company</strong> takes over all operational responsibility for the Florida property. Your personal weeks — <strong>approximately 45 days</strong> for a 1/8 share — are allocated through a <strong>fair-rotation calendar</strong> that mixes peak weeks (the Christmas-New Year fortnight, the Easter and spring-break window, the long July-and-August weeks where applicable, the Thanksgiving week) with shoulder-season and quieter weeks across the year. Owners pre-book several months ahead; the unused weeks are either held for the owner pool or, where the property's structure allows, rented to the broader market with the income flowing back to the co-owners. Service-charge collection, building maintenance, hurricane preparation, insurance management, property-tax payment, year-round HVAC and humidity management, pool and garden care, the linen-and-cleaning between stays, the welcome arrival, the on-call concierge — <strong>all sit with the management company</strong>. The deep professional services ecosystem across the state — a century old in Palm Beach and Miami, three decades old on 30A, two decades old in Naples and the Keys — means that the routine practical realities of owning a Florida property remotely are handled by professionals who have been catering to non-resident owners for generations.</p>
+
+<h3>Resale: how to exit, typical timelines, the professional process</h3>
+
+<p>When you decide to exit your Florida share, a <strong>professional resale process</strong> is in place. Across COP's portfolio, the typical timeline from listing to completion is <strong>around a month or less</strong> — well under the <strong>12–24 months</strong> that whole-property resales in the Florida prime tier typically take on the open market. The process is well-supported, the buyer pool is already aware of the property and the LLC structure, and the transfer of LLC membership is administratively lighter than triggering a full title conveyance through a Florida title company. For owners who want maximum control over the price and process, an open-market sale to any qualifying buyer remains an option — but most owners find the established process faster and cheaper.</p>
+
+<div class="dest-callout">
+  <strong>Free to browse, free to enquire:</strong> no buyer-side fees and no obligation. The share price you see is the share price you pay; talking to our specialists costs nothing.
+</div>
+
+<p>The <strong>full mechanics of fractional ownership</strong> across all jurisdictions — usage calendars, exit procedures, rental income treatment, insurance, the transfer on death, the relationship with the management company — are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>. For specific Florida property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market.</p>
+
+<h3>Your ownership at a glance</h3>
+
+<ul>
+  <li><strong>Real, deeded equity in the underlying property</strong> — the home itself is recorded at the Florida county clerk via the LLC, and your membership interest is a real, transferable equity stake in that property. Not a timeshare, not a points membership, not a usage right.</li>
+  <li><strong>Consistent international structure</strong> — your Florida share sits inside the same purpose-built LLC framework used across every property on COP, so multi-country owners deal with one model rather than a stack of different vehicles, with the same documentation cadence and the same administrative process from Miami to the French Alps.</li>
+  <li><strong>Professional management included throughout</strong> — pre-arrival preparation, linen and cleaning between every stay, year-round HVAC and humidity management, gardening and pool care, hurricane preparation and post-storm checks, county property tax and insurance management, and the on-call concierge are all covered within your annual service charge, with no top-up bills for routine operating costs.</li>
+  <li><strong>Clear, supported resale through the COP owner network</strong> — the existing audience of co-ownership buyers means your share has an organised market from day one, with exits across the portfolio typically clearing in around a month at a known price rather than the 12–24 months a comparable whole Florida property might sit on the open market.</li>
+  <li><strong>One consistent international portfolio relationship</strong> — whether you own one COP share or several across different countries, you deal with the same ownership structure, the same documentation cadence and the same management relationship, which is why a meaningful proportion of owners go on to add a second or third property.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Still deciding which Florida region?</h2>
+
+<p>Many readers arrive on this page already <strong>half-decided</strong> — they want Florida, but not yet which Florida. The choice between Miami, 30A, the Keys, Naples and Palm Beach is <strong>rarely about budget alone</strong>; the major sub-regions sit in different price bands but each has entry-level and prime tiers, and a 1/8 share at a quieter address in one cluster often costs less than a similar share at a more prestigious address in another. The decisive question is <strong>usage pattern</strong>. How will you actually spend your weeks across a calendar year? The honest answer for most buyers is one most have not previously articulated, because the question rarely arises until ownership becomes concrete. Our team has spent years inside the Florida second-home market and can walk you through the regional differences — climate, calendar, owner mix, day-to-day rhythm, hurricane geography — before you commit to a cluster. Below is the framework we walk through with buyers who reach the same fork, with deliberate over-simplification — most owners actually end up combining elements from more than one — but useful as a starting point.</p>
+
+<p><strong>Choose Miami or Miami Beach</strong> if you want a <strong>genuinely global city</strong>, year-round restaurant calendars, the Latin-American cultural depth that no other US city matches, the Art Deco architectural pedigree of South Beach or the contemporary high-rise pedigree of Brickell, and the proximity to the Florida Keys as a weekend escape. Miami works hardest for design-led couples and professional buyers — particularly Latin-American, European and Northeast US — who value the city's pace, the international flight access, the cultural depth, and the year-round usability that no rural Florida sub-region can quite match. Unlike a traditional timeshare, which locks you into one fixed week year after year, a Miami share gives you the city in its most distinctive seasons — December's Art Basel weekend, January's calmer cultural calendar, May's pre-summer warm shoulder — across rotating weeks.</p>
+
+<p><strong>Choose 30A and the Emerald Coast</strong> if you want a <strong>family-summer New Urbanist beach village</strong>, the white-sand walkable rhythm of Rosemary Beach, Seaside or Alys Beach, the long shoulder season from late March through October, and the multi-generational family-vacation pedigree that has built up across the south-eastern US over two generations. 30A is the natural choice for families with school-age children — particularly south-eastern US and Texan — who want the children to come back to the same village year after year and who value the New Urbanist architectural and planning pedigree alongside the powder-quartz sand.</p>
+
+<p><strong>Choose the Florida Keys</strong> if you want a <strong>genuinely tropical climate</strong> at the closest accessible point in the continental United States, the diving-and-fishing lifestyle of Islamorada or Marathon, the literary-bohemian Key West tradition, and the smaller-village rhythm that the Rate of Growth Ordinance has kept genuinely small. The Keys work hardest for design-led couples and active families who value the reef-and-fishing access, who use the property in shorter weekend-and-week trips from Miami or further north rather than long single holidays, and who are comfortable with the hurricane-exposed geography in exchange for the genuine year-round warmth.</p>
+
+<p><strong>Choose Naples, Sanibel or South-West Florida</strong> if you want the <strong>quieter Gulf-coast alternative</strong> to the south-east, the long shallow swimming margins of the Ten Thousand Islands or the shelling beaches of Sanibel, the golf-and-tennis-and-fishing residential rhythm of Olde Naples and Marco Island, and the proximity to the Everglades and the working ecological reserves of the south-west. South-west Florida is the natural choice for Midwestern and Canadian empty-nesters and retirees, multi-generational families with grandparents joining for extended winter visits, and design-led couples who specifically value the calmer Gulf-shallows rhythm over the more energetic south-east coast.</p>
+
+<p><strong>Choose Palm Beach and the Treasure Coast</strong> if you want the <strong>oldest established premium second-home market</strong> in Florida, the Mediterranean Revival architectural pedigree of Worth Avenue and its surrounding streets, the deliberately calm pace of the island (no neon, no high-rise on the island, no chain restaurants on Worth Avenue), the active winter cultural calendar (the Norton Museum, the Kravis Center, the polo at Wellington), and the Northeast-US-with-Old-Money-pedigree owner mix that makes Palm Beach the most socially distinctive sub-region in the state. Palm Beach works hardest for Northeast US empty-nesters and retirees with deep family histories in the town, design-led couples drawn to the architectural pedigree, cultural enthusiasts treating the winter symphony-and-gallery calendar as the primary draw, and buyers who specifically want the calmer-and-older alternative to Miami while still on the Atlantic coast with year-round air access.</p>
+
+<div class="dest-callout">
+  <strong>The decision shortcut:</strong> if your dominant use is global-city + Latin culture + design + year-round, choose Miami. If it is family-summer + white-sand walkable village + New Urbanist + multi-generational, choose 30A. If it is reef-and-fishing + tropical + small-village + Miami escape, choose the Keys. If it is Gulf shallows + golf + Midwestern retired + calmer pace, choose Naples or Sanibel. If it is Mediterranean Revival + winter cultural calendar + Northeast pedigree + island residential, choose Palm Beach. If it is two of the above — most often a Miami or Palm Beach winter share paired with a 30A summer share, or a Florida share paired with a non-Florida share entirely — the multi-share approach is often more economical than scaling up to a single whole property at any one address.
+</div>
+
+<p>The <strong>portfolio approach</strong> is worth at least mentioning. A meaningful proportion of Florida co-ownership owners hold <strong>more than one share</strong> — either elsewhere in Florida (a Palm Beach winter base paired with a 30A summer house, a Miami pied-à-terre paired with a Keys weekend cabin) or further afield (a Florida winter share paired with an Aspen or Vail summer share, a Miami share paired with a French Alps or Mallorca summer share, a 30A share paired with a Newport Beach or Lake Tahoe non-winter share). For owners building a multi-region portfolio with COP, you have <strong>one team across every destination</strong> — the same advisors, the same calendar mechanics, the same resale process across every property you own. (For a wider orientation across the state's regions, seasons and culture, the official <a href="https://www.visitflorida.com/" target="_blank" rel="noopener">Visit Florida</a> tourism site is a useful starting reference.) <strong>Two 1/8 shares</strong> — a Florida winter-sun home plus a summer-cool mountain or Mediterranean share, say — give an owner <strong>roughly 90 days of use</strong> across a calendar year, drawn from genuinely different lifestyle modes, at a combined annual carry that is <strong>still a fraction of what a single whole property</strong> at either address would cost. Unlike a traditional timeshare — where the structural design locks you to a single week in a single building, with no equity, no transferability and a maintenance fee that compounds for life — the fractional structure is built for exactly this kind of multi-property, multi-region portfolio.</p>
+
+<p>Whichever way the decision goes, the deeper exploration starts on the cluster and parent pages:</p>
+
+<ul>
+  <li><a href="/usa-fractional-ownership-properties/">Explore the USA →</a></li>
+  <li><a href="/miami-fractional-ownership-properties/">Explore Miami →</a></li>
+  <li><a href="/30a-fractional-ownership-properties/">Explore 30A and the Emerald Coast →</a></li>
+  <li><a href="/florida-keys-fractional-ownership-properties/">Explore the Florida Keys →</a></li>
+  <li><a href="/palm-beach-fractional-ownership-properties/">Explore Palm Beach →</a></li>
+</ul>
+
+<p>If you would like to talk through <strong>which Florida region best fits your family's actual use pattern</strong> — rather than the brochure version of it — <a href="#newsletter">join our list</a> and we will be in touch with relevant new-property alerts and an introduction to the team. Our specialists can walk you through the climate differences across the five clusters, the realistic flight options from your home city, the hurricane geography of each sub-region against the property's specific construction standard, the realistic mix of personal-use weeks and rental weeks across a calendar year, and how a Florida share fits inside any wider portfolio you may already be building elsewhere in the United States or internationally.</p>
+
+</div></section>
+
 </body>
 </html>

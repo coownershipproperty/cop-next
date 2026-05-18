@@ -35,6 +35,20 @@ The §B "Where to own" sub-zones can still tour the destination — that's the s
 
 Verification: snippet line (with `means buying a deeded` / `bedeutet, einen eingetragenen` / `consiste en adquirir` / `consiste à acquérir`) should have **at most 2 em-dashes**. More than 2 = an interjection still in place.
 
+### Rule 1.5.1 — Hero subtitle uses **2 items max**, not 4
+
+Earlier we allowed "From [X1] and [X2] to [Y1] and [Y2]" 4-item single tours. David then reviewed those and confirmed the 4-item form *still* reads as too listy — the cumulative "un X… un Y… un A… un B" rhythm in Spanish and French feels repetitive even though it's structurally one tour.
+
+**Updated rule**: hero subtitle uses **exactly 2 items**: "From [X] to [Y]". Pick the single most iconic property pair for the destination and drop the other two.
+
+Examples:
+- ✅ EN Mallorca: "From a stone finca near Pollença to a townhouse in the Old Town of Palma — fractional ownership in Mallorca means…"
+- ❌ Too listy (old form): "From a stone finca near Pollença and a Tramuntana villa above Port d'Andratx to a townhouse in the Old Town of Palma and a south-coast farmhouse near Ses Salines…"
+
+The longer 4-item form was retired in May 2026. New pillars and translations should default to 2 items.
+
+Target hero subtitle length: **18–28 words** in the pre-em-dash tour portion (not counting the post-em-dash value-prop sentence). The 50+ word heroes we shipped earlier feel turgid.
+
 ---
 
 ## Rule 1.6 — "Up to seven other co-owners", not "seven other co-owners"
