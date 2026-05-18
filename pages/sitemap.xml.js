@@ -104,35 +104,19 @@ const EN_ONLY_PAGES = [
 ];
 
 // ──────────────────────────────────────────────────────────────────────────
-// Destinations with dedicated ES/FR equivalents — Mallorca and Ibiza have
-// hand-written ES/FR pages at /es/destinos/<slug>/ and /fr/destinations/<slug>/.
-// The EN form is the standard destination pillar at /<slug>/.
-// (Other locale-paired hreflang for EN+DE is handled by the destSlugs loop.)
+// Legacy locale-only short-slug destination pages. These exist as
+// hand-written keyword-targeted landing pages alongside the full-translation
+// pillars (e.g. /es/destinos/mallorca/ alongside /es/destinos/mallorca-
+// fractional-ownership-properties/). They serve different keywords so we
+// index them separately WITHOUT hreflang to the EN pillar — Google should
+// treat them as distinct pages, not translations.
 // ──────────────────────────────────────────────────────────────────────────
-const DESTINATION_ES_FR_GROUPS = [
-  {
-    en: '/mallorca-fractional-ownership-properties/',
-    es: '/es/destinos/mallorca/',
-    fr: '/fr/destinations/mallorque/',
-    de: '/de/destinationen/mallorca-fractional-ownership-properties/',
-    priority: '0.9',
-    changefreq: 'weekly',
-  },
-  {
-    en: '/ibiza-fractional-ownership-properties/',
-    es: '/es/destinos/ibiza/',
-    fr: '/fr/destinations/ibiza/',
-    de: '/de/destinationen/ibiza-fractional-ownership-properties/',
-    priority: '0.9',
-    changefreq: 'weekly',
-  },
+const LEGACY_DEST_LOCALE_PAGES = [
+  { url: '/es/destinos/mallorca/',     priority: '0.75', changefreq: 'monthly' },
+  { url: '/es/destinos/ibiza/',        priority: '0.75', changefreq: 'monthly' },
+  { url: '/fr/destinations/mallorque/', priority: '0.75', changefreq: 'monthly' },
+  { url: '/fr/destinations/ibiza/',    priority: '0.75', changefreq: 'monthly' },
 ];
-// Slugs handled by the dedicated ES/FR groups above — skip these in the
-// destSlugs loop to avoid double-emission.
-const DEST_ES_FR_HANDLED_SLUGS = new Set([
-  'mallorca-fractional-ownership-properties',
-  'ibiza-fractional-ownership-properties',
-]);
 
 // ──────────────────────────────────────────────────────────────────────────
 // Helpers
@@ -224,8 +208,12 @@ export async function getServerSideProps({ res }) {
       : []
   );
 
-  // Pillar slugs get higher priority + more frequent crawl signal
+  // Pillar slugs get higher priority + more frequent crawl signal.
+  // Country pillars + regional pillars all rewritten to the new 10k+ word
+  // editorial standard with full DE/ES/FR translations. These are the
+  // pages we want Google indexing most aggressively.
   const PILLAR_SLUGS = new Set([
+    // Country pillars
     'spain-fractional-ownership-properties',
     'france-fractional-ownership-properties',
     'italy-fractional-ownership-properties',
@@ -233,6 +221,17 @@ export async function getServerSideProps({ res }) {
     'portugal-fractional-ownership-properties',
     'austria-fractional-ownership-properties',
     'germany-fractional-ownership-properties',
+    // Regional pillars (rewritten to new standard with full translations)
+    'mallorca-fractional-ownership-properties',
+    'french-alps-fractional-ownership-properties',
+    'italian-lakes-fractional-ownership-properties',
+    'costa-del-sol-fractional-ownership-properties',
+    'sardinia-fractional-ownership-properties',
+    'marbella-fractional-ownership-properties',
+    'lake-como-fractional-ownership-properties',
+    'south-of-france-fractional-ownership-properties',
+    'paris-fractional-ownership-properties',
+    'ibiza-fractional-ownership-properties',
   ]);
 
   const today = new Date().toISOString().split('T')[0];
@@ -247,14 +246,14 @@ export async function getServerSideProps({ res }) {
     // Locale-only pillar + SEO content (no hreflang alternates)
     ...LOCALE_ONLY_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
 
-    // Destinations with dedicated ES/FR pages (Mallorca, Ibiza)
-    ...DESTINATION_ES_FR_GROUPS.flatMap(g => emitGroup(g, today)),
+    // Legacy short-slug ES/FR destination landing pages (standalone, no
+    // hreflang to EN pillar — they target different keywords).
+    ...LEGACY_DEST_LOCALE_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
 
-    // All other destinations — emit EN at root (/<slug>/) plus every locale
+    // All destinations — emit EN at root (/<slug>/) plus every locale
     // mirror that exists (DE, ES, FR) with reciprocal hreflang across all
     // available locales. Pillars get higher priority (0.9); regions/cities 0.8.
     ...destSlugs
-      .filter(slug => !DEST_ES_FR_HANDLED_SLUGS.has(slug))
       .flatMap(slug => {
         const priority = PILLAR_SLUGS.has(slug) ? '0.9' : '0.8';
         const hasDe = destSlugsDeSet.has(slug);
