@@ -1,1284 +1,350 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angleterre — copropriété de résidences secondaires de luxe | Co-Ownership Property</title>
-    <meta name="description" content="Biens en copropriété en Angleterre avec COP — parts 1/8 actées à Londres (Belgravia, Mayfair, Chelsea) et en Cornouailles (Sennen Cove et côte atlantique). Gestion intégrale, environ 45 jours d'utilisation personnelle par an, véritable patrimoine immobilier acté dans l'un des marchés les plus transparents du monde.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
-
-/* ── CSS Variables ── */
-:root {
-    /* === Primary palette (use these in new work) === */
-    --blue:         #2C4A5E;
-    --cream:        #F5F2EC;
-    --gold:         #C9A84C;
-    --white:        #FFFFFF;
-    --text:         #1a2533;
-    --muted:        #5a6a7a;
-    --border:       #e8e0d4;
-    --max:          1400px;
-
-    /* === Legacy aliases (keep for existing templates) === */
-    --warm-gold:    #C9A84C;
-    --cream-bg:     #F5F2EC;
-    --cream-light:  #FAF8F5;
-    --text-dark:    #2C4A5E;
-    --text-light:   rgba(255,255,255,0.85);
-    --text-muted:   #5a6a7a;
-    --gray-border:  #e8e0d4;
-    --blue-80:      #4A6A7E;
-    --blue-60:      #6B8A9E;
-    --blue-40:      #9EAFBC;
-    --blue-20:      #C5CED5;
-    --transition:   0.3s ease;
-}
-
-/* ── Base reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-button { font-family: inherit; cursor: pointer; }
-        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
-        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
-        a{color:inherit;text-decoration:none;transition:color var(--transition)}
-        img{display:block;max-width:100%;height:auto}
-
-                /* ===== SITE-WIDE HEADER ===== */
-        .cop-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 3rem;
-            height: 80px;
-            box-sizing: border-box;
-            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .admin-bar .cop-header { top: 32px; }
-
-        /* Logo */
-        .cop-logo { flex-shrink: 0; }
-        .cop-logo a { display: block; }
-        .cop-logo img { height: 54px; width: auto; display: block; }
-
-
-        /* Nav — absolutely centred between logo and hamburger */
-        .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0;
-            align-items: center;
-        }
-        .cop-nav a {
-            color: rgba(44,74,94,0.8);
-            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.84rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.4rem 1.4rem;
-            white-space: nowrap;
-            transition: color 0.25s ease;
-            text-decoration: none;
-        }
-        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
-
-        /* Gold underline on hover / active */
-        .cop-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 1.4rem; right: 1.4rem;
-            height: 1px;
-            background: rgba(201,168,76,1);
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.28s ease;
-        }
-        .cop-nav a:hover,
-        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
-        .cop-nav a:hover::after,
-        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
-
-
-        /* Favourites — heart prefix */
-        .cop-nav a.cop-nav-favourites::before {
-            content: '\2665\00a0\00a0';
-            font-size: 0.75rem;
-            color: rgba(201,168,76,1);
-            opacity: 0.75;
-            letter-spacing: 0;
-        }
-
-        /* Hamburger */
-        .cop-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-        .cop-hamburger span {
-            width: 22px; height: 1.5px;
-            background: rgba(44,74,94,0.8);
-            transition: all 0.28s ease;
-            transform-origin: center;
-            display: block;
-        }
-        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        /* ===== MOBILE (<768px) ===== */
-        @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
-            .cop-nav {
-                position: fixed;
-                top: 80px; left: 0; right: 0;
-                transform: none;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.97);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
-                z-index: 9998;
-            }
-            .admin-bar .cop-nav { top: 112px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
-            .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
-                width: 100%;
-                text-align: center;
-                border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
-                box-sizing: border-box;
-            }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
-        }
-
-        /* ===== HERO ===== */
-        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
-        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
-        .page-hero>*{position:relative;z-index:1}
-        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
-        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
-        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
-
-        /* ===== PROPERTY GRID ===== */
-        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
-        .props-inner{max-width:1400px;margin:0 auto}
-        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .props-count strong{color:var(--text-dark);font-weight:700}
-        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
-        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
-        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
-        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
-        .prop-card:hover .prop-img{transform:scale(1.04)}
-        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
-        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
-        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
-        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
-        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
-        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
-        .prop-stat{display:flex;align-items:center;gap:0.35rem}
-        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
-        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
-        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
-        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
-        .prop-card:hover .prop-view{color:var(--warm-gold)}
-        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
-        /* Show more button */
-        .prop-card.hidden{display:none}
-        .show-more-wrap{text-align:center;margin-top:2.5rem}
-        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
-        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-        /* Mid-page CTA */
-        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
-        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-        .dest-mid-cta > *{position:relative;z-index:1}
-        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
-        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
-        .dest-cta-btn-gold:hover{background:#b8963e}
-        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
-        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-
-        /* ===== SEO CONTENT ===== */
-
-.dest-sec{padding:80px 3rem}
-.dest-sec.cream{background:var(--cream-bg)}
-.dest-sec.white{background:var(--white)}
-.dest-inner{max-width:900px;margin:0 auto}
-.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
-.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
-.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
-.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
-.dest-sec strong{color:var(--text-dark);font-weight:700}
-.dest-sec em{font-style:italic}
-.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
-.dest-sec a:hover{color:var(--blue)}
-.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
-.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
-.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
-.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
-.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
-.dest-callout{background:var(--cream-bg);border-left:3px solid var(--warm-gold);padding:1.2rem 1.5rem;margin:1.5rem 0;font-size:0.95rem;color:var(--text-muted);line-height:1.75}
-.dest-callout strong{color:var(--text-dark)}
-/* Explore More */
-.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
-.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
-.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
-.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
-.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
-/* FAQ */
-.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
-.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
-.dest-faq-list{counter-reset:faq}
-.dest-faq-item{border-top:1px solid var(--warm-gold)}
-.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
-.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
-.dest-faq-item summary::-webkit-details-marker{display:none}
-.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
-.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
-details[open] .dest-faq-chevron{transform:rotate(-135deg)}
-.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
-.dest-faq-answer p{margin-bottom:0.8rem}
-@media(max-width:768px){
-    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
-    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-        /* ===== CTAs ===== */
-                /* ===== NEWSLETTER SIGNUP ===== */
-        .newsletter-section {
-            background: var(--white);
-            position: relative;
-            padding: 100px 3rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 400;
-            color: var(--text-dark);
-        }
-        .newsletter-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 620px;
-            margin: 0 auto;
-        }
-        .newsletter-form input {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border: 1px solid #ddd;
-            background: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-        .newsletter-form input::placeholder { color: var(--text-muted); }
-        .newsletter-form input:focus { border-color: var(--warm-gold); }
-        .newsletter-btn {
-            background: var(--blue);
-            color: var(--white);
-            border: 2px solid var(--blue);
-            padding: 0.9rem 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            font-family: 'Nunito Sans', sans-serif;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
-        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
-        .newsletter-form-msg {
-            margin-top: 1rem;
-            font-size: 0.88rem;
-            min-height: 1.4em;
-        }
-        .newsletter-form-msg.success { color: #4a9e6e; }
-        .newsletter-form-msg.error   { color: #c0392b; }
-
-        @media (max-width: 640px) {
-            .newsletter-section { padding: 70px 1.5rem; }
-            .newsletter-heading { font-size: 2rem; }
-            .newsletter-form { flex-direction: column; }
-        }
-                /* ===== EXPERT FORM SECTION ===== */
-        .expert-section {
-            background: var(--blue);
-            padding: 100px 3rem;
-            position: relative;
-            overflow: hidden;
-            scroll-margin-top: 90px;
-        }
-        .expert-section::after {
-            content: '';
-            position: absolute;
-            top: 28px; left: 28px; right: 28px; bottom: 28px;
-            border: 1px solid rgba(201,168,76,0.15);
-            pointer-events: none;
-        }
-        .expert-section > * { position: relative; z-index: 1; }
-
-        .expert-inner {
-            max-width: 820px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .expert-eyebrow {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--warm-gold);
-            margin-bottom: 1.2rem;
-        }
-        .expert-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-        .expert-heading em { font-style: italic; color: var(--warm-gold); }
-        .expert-sub {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-        .expert-form { text-align: left; }
-        .expert-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .expert-form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-        .expert-form-field.full { grid-column: 1 / -1; }
-        .expert-form-field label {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.85);
-        }
-        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
-
-        .expert-form-field input,
-        .expert-form-field select,
-        .expert-form-field textarea {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.85rem 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-        .expert-form-field input:focus,
-        .expert-form-field select:focus,
-        .expert-form-field textarea:focus {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .expert-form-field input::placeholder,
-        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-        .expert-form-field select option { background: var(--blue); color: var(--white); }
-        .expert-form-field textarea { resize: vertical; min-height: 110px; }
-
-        /* ── Multi-select destination dropdown ── */
-        .dest-multiselect {
-            position: relative;
-            width: 100%;
-        }
-        .dest-trigger {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.65rem 1rem;
-            min-height: 46px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            transition: border-color 0.2s;
-            position: relative;
-        }
-        .dest-trigger::after {
-            content: '';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            width: 7px; height: 7px;
-            border-right: 1.5px solid rgba(255,255,255,0.5);
-            border-bottom: 1.5px solid rgba(255,255,255,0.5);
-            transform: translateY(-60%) rotate(45deg);
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-        .dest-multiselect.open .dest-trigger::after {
-            transform: translateY(-30%) rotate(-135deg);
-        }
-        .dest-trigger:hover,
-        .dest-multiselect.open .dest-trigger {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .dest-placeholder {
-            color: rgba(255,255,255,0.25);
-            pointer-events: none;
-        }
-        .dest-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-        .dest-tag-x {
-            cursor: pointer;
-            font-size: 0.85rem;
-            line-height: 1;
-            opacity: 0.6;
-            transition: opacity 0.15s;
-        }
-        .dest-tag-x:hover { opacity: 1; }
-
-        .dest-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0; right: 0;
-            background: #1e3a4f;
-            border: 1px solid rgba(201,168,76,0.3);
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 50;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .dest-multiselect.open .dest-dropdown { display: block; }
-
-        .dest-option {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .dest-option:hover { background: rgba(201,168,76,0.1); }
-        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
-
-        .dest-check {
-            width: 16px; height: 16px;
-            border: 1.5px solid rgba(201,168,76,0.4);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s, border-color 0.15s;
-        }
-        .dest-option.selected .dest-check {
-            background: var(--warm-gold);
-            border-color: var(--warm-gold);
-        }
-        .dest-check::after {
-            content: '';
-            width: 4px; height: 8px;
-            border-right: 2px solid #1a2a3a;
-            border-bottom: 2px solid #1a2a3a;
-            transform: rotate(45deg) translateY(-1px);
-            opacity: 0;
-        }
-        .dest-option.selected .dest-check::after { opacity: 1; }
-
-        /* Scrollbar for dropdown */
-        .dest-dropdown::-webkit-scrollbar { width: 5px; }
-        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
-        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
-
-        /* Submit area */
-        .expert-submit { margin-top: 1.5rem; text-align: center; }
-        .expert-submit-btn {
-            background: var(--warm-gold);
-            color: #fff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border: none;
-            padding: 1rem 3rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            max-width: 320px;
-        }
-        .expert-submit-btn:hover { background: #b8963e; }
-        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
-        .expert-form-msg {
-            margin-top: 1.2rem;
-            font-size: 0.88rem;
-            text-align: center;
-            min-height: 1.4em;
-        }
-        .expert-form-msg.success { color: #7ed8a3; }
-        .expert-form-msg.error   { color: #f08080; }
-
-        @media (max-width: 640px) {
-            .expert-form-grid { grid-template-columns: 1fr; }
-            .expert-heading { font-size: 2rem; }
-            .expert-section { padding: 70px 1.5rem; }
-        }
-
-        /* ===== FOOTER ===== */
-        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
-        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
-        .footer-logo img{height:35px;margin-bottom:1rem}
-        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
-        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.6rem}
-        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
-        .footer-col a:hover{color:var(--warm-gold)}
-        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal{display:flex;gap:2rem}
-        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal a:hover{color:var(--warm-gold)}
-
-        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){
-            .page-hero{padding:130px 1.5rem 50px}
-            .props-sec{padding:50px 1.5rem}
-            .props-grid{grid-template-columns:1fr;gap:1.5rem}
-            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Copropriété en Angleterre : biens en copropriété fractionnée | Co-Ownership Property</title>
+  <meta name="description" content="Biens en copropriété en Angleterre avec COP — part actée dans les Cotswolds, les Cornouailles, le Lake District, le Yorkshire et Londres. Gestion intégrale, 6 à 7 semaines d'utilisation personnelle par an, véritable patrimoine dans le pays le plus varié du nord de l'Europe.">
 </head>
 <body>
-    <header class="cop-header scrolled" id="cop-header">
-    <div class="cop-logo">
-        <a href="/fr/">
-            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
-        </a>
+
+<section class="page-hero">
+  <p class="eyebrow">Angleterre · Royaume-Uni · Europe</p>
+  <h1>Copropriété de résidences secondaires <em>en Angleterre</em></h1>
+  <p class="subtitle">D'une maison en pierre dorée dans les Cotswolds et d'une villa sur les falaises des Cornouailles à un chalet entre les fells du Lake District et un appartement à Mayfair — la copropriété en Angleterre signifie une part actée du pays le plus diversifié du nord de l'Europe, six à sept semaines d'utilisation personnelle par an, et un bien entièrement géré qui vous attend à chaque arrivée.</p>
+</section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Les adresses les plus recherchées d'Angleterre, accessibles grâce à la copropriété.</h2>
+    <p>Maisons de campagne, villas côtières et résidences urbaines entièrement gérées dans <strong>les Cotswolds</strong>, <strong>les Cornouailles et la côte sud-ouest</strong>, <strong>le Lake District</strong>, <strong>le Yorkshire et le nord</strong> et <strong>Londres</strong>. Votre <strong>part actée de 1/8</strong> comprend <strong>6 à 7 semaines d'utilisation personnelle</strong>, une équipe de gestion professionnelle disponible à tout moment, et le patrimoine à long terme de l'un des marchés de résidences secondaires les plus solides et les plus transparents du monde.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/fr/proprietes/" class="btn btn-gold">Voir tous les biens</a>
+      <a href="#newsletter" class="btn btn-outline">Recevoir les actualités</a>
     </div>
-    <nav class="cop-nav" id="cop-nav">
-        <a href="/fr/" class="cop-nav-active">Accueil</a>
-        <a href="/fr/proprietes/">Nos biens</a>
-        <a href="/fr/comment-ca-marche/">Comment ça marche</a>
-        <a href="/fr/a-propos/">À propos</a>
-        <a href="/fr/blog/">Notre blog</a>
-        <a href="/fr/favoris/" class="cop-nav-favourites">Mes favoris</a>
-        <a href="/fr/contact/">Contact</a>
-    </nav>
-    <button class="cop-hamburger" id="cop-hamburger" aria-label="Ouvrir le menu">
-        <span></span><span></span><span></span>
-    </button>
-</header>
+  </div>
+</div>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <p class="eyebrow">Biens en copropriété</p>
-        <h1>Copropriété de résidences secondaires <em>en Angleterre</em></h1>
-        <p class="subtitle">Véritable patrimoine acté. Pas de la multipropriété. Des résidences secondaires de luxe accessibles grâce à une part actée — aux côtés d'au plus sept autres copropriétaires.</p>
-    </section>
+<section class="dest-section--cream"><div class="dest-inner">
 
-    <!-- PROPERTY GRID -->
-    <section class="props-sec">
-        <div class="props-inner">
-            <div class="no-props">
-                <p>Aucun bien actuellement disponible pour cette destination. <a href="/fr/proprietes/" style="color:var(--warm-gold);font-weight:700;">Parcourir tous les biens</a> ou <a href="/fr/contact/" style="color:var(--warm-gold);font-weight:700;">nous contacter</a> pour les annonces à venir.</p>
-            </div>
-        </div>
-    </section>
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">Qu'est-ce que la copropriété en Angleterre ?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>La copropriété en Angleterre consiste à acquérir une part actée de 1/8 d'une résidence secondaire de luxe anglaise — détenue au sein d'une LLC créée spécifiquement à cet effet aux côtés d'un petit groupe d'au plus sept autres copropriétaires.</strong> Chaque propriétaire bénéficie d'environ 45 jours d'utilisation personnelle par an grâce à un calendrier de rotation équitable, l'ensemble de la gestion immobilière, de l'entretien, de la fiscalité et de l'exploitation étant pris en charge par une équipe professionnelle. Il s'agit d'un véritable patrimoine immobilier acté à votre nom — ce n'est ni de la multipropriété, ni un club de vacances.</p>
+  </div>
+</div>
 
-    <!-- MID-PAGE CTA -->
-    <div class="dest-mid-cta">
-        <p>Prêt à trouver votre bien en Angleterre ?</p>
-        <div class="dest-mid-cta-btns">
-            <a href="/fr/proprietes/" class="btn btn-gold">Voir tous les biens</a>
-            <a href="#newsletter" class="btn btn-outline">Recevoir les actualités</a>
-        </div>
+<h2>Pourquoi l'Angleterre pour votre résidence secondaire de luxe en copropriété ?</h2>
+
+<p>L'Angleterre est, selon bon nombre des critères qui comptent pour un acheteur en copropriété, la destination de résidence secondaire du nord de l'Europe la plus complète et la mieux structurée. Sur un territoire de moins de 130 000 kilomètres carrés cohabitent une campagne qui a inspiré des écrivains pendant des siècles, une côte atlantique sauvage et dramatique, deux parcs nationaux parmi les plus célébrés d'Europe, une capitale qui est le premier marché immobilier ultra-prime du monde, et un réseau de villages à l'architecture en pierre locale qui ne se retrouve nulle part ailleurs. Le tout avec une infrastructure de transport exceptionnelle — réseau ferroviaire rapide, liaisons nationales et connexions directes depuis plus de 40 pays — et un système juridique de détention des biens reconnu mondialement comme l'un des plus transparents et des plus sûrs du monde. La <strong>copropriété en Angleterre</strong> ouvre cet univers à une fraction du coût d'un achat en solo, toute la charge opérationnelle étant éliminée dès le premier jour.</p>
+
+<p>Votre part anglaise est constituée au sein d'une <strong>LLC créée spécifiquement à cet effet</strong> aux côtés d'un petit groupe d'au plus sept autres copropriétaires. Il s'agit de la même structure internationale moderne utilisée pour tous les biens COP — États-Unis, Espagne, France, Italie et au-delà — plutôt que d'un véhicule national hérité qui varie d'un pays à l'autre. L'effet pratique pour l'acheteur international est significatif : votre relation avec le bien passe par <strong>une structure de copropriété unique et cohérente</strong>, quel que soit le pays dans lequel vous détenez votre part. La revente est plus rapide parce que le transfert d'une <strong>participation dans une LLC</strong> est une démarche administrative plus directe que l'activation d'une transmission complète de titre auprès du HM Land Registry. Pour les copropriétaires qui finissent par ajouter un deuxième bien dans un autre marché — et une proportion significative le fait — le bénéfice est <strong>une seule relation internationale pour votre portefeuille</strong> plutôt qu'un empilement d'accords spécifiques à chaque juridiction.</p>
+
+<div class="dest-callout">
+  <strong>La LLC en une phrase :</strong> une société créée spécifiquement pour détenir le bien, dans laquelle vous et un petit groupe de copropriétaires (sept au maximum) détenez des parts égales — ce qui allège la revente et apporte une structure de détention unique et cohérente pour chaque bien COP dans le monde, afin que les propriétaires possédant des biens dans plusieurs pays travaillent avec un seul modèle plutôt qu'avec un empilement de véhicules juridiques différents.
+</div>
+
+<div class="dest-callout">
+  <strong>Ce n'est pas de la multipropriété (timeshare) :</strong> la multipropriété — ou timeshare — vous vend un <em>droit d'usage</em> du bien pour une semaine définie chaque année, généralement par un contrat à terme et sans valeur de revente. Une part COP vous vend une <strong>participation patrimoniale enregistrée</strong> dans le bien lui-même, à travers une LLC dans laquelle vous et sept autres copropriétaires êtes titulaires à part égale. Elle est transférable, transmissible par héritage, se valorise avec le bien sous-jacent, et se vend via un processus professionnel en environ un mois — exactement l'inverse de la multipropriété.
+</div>
+
+<p>Le deuxième argument structurel en faveur de l'Angleterre est <strong>la diversité d'expériences au sein d'un seul pays</strong>. Un acheteur qui passe sa première semaine de mai à arpenter les villages en pierre dorée des Cotswolds peut passer la suivante à surfer sur les plages atlantiques des Cornouailles, la troisième à explorer les fells du Lake District, et la quatrième en terrasse d'un restaurant étoilé Michelin à Mayfair. Il s'agit d'une proposition radicalement différente d'une destination unique — où il vous reste le même tronçon de côte, le même village, la même routine semaine après semaine. L'Angleterre récompense les visites répétées précisément parce qu'elle se révèle par couches : la première visite est le château et la cathédrale ; la deuxième inclut les pubs de village et les marchés de producteurs ; la troisième découvre les sentiers côtiers secrets et les auberges de bord de route du XVIe siècle ; la dixième retrouve les habitants au marché dominical de Stroud un samedi d'octobre avec les étals de fromages artisanaux et le parfum du pain tout juste sorti du four. C'est le type de profondeur que les hôtels et les locations de vacances, par définition, ne livrent pas.</p>
+
+<p>Le troisième argument structurel — et celui que les nouveaux acheteurs sous-estiment le plus — est la <strong>solidité juridique et la transparence du système de détention des biens anglais</strong>. Le HM Land Registry, créé en 1862, est l'un des registres fonciers les plus complets et les plus numérisés du monde : chaque transmission de titre est enregistrée publiquement, l'historique de chaque bien est traçable, et les données de transactions sont accessibles en temps réel. Le système anglais de conveyancing opère avec une transparence qui génère la confiance d'acheteurs internationaux de dizaines de pays. Il n'existe pas ici l'incertitude documentaire qui caractérise de nombreux marchés méditerranéens ; ce que vous achetez est exactement ce qui apparaît au registre. Cette clarté juridique a un effet direct sur la liquidité de l'actif : les acheteurs savent précisément ce qu'ils acquièrent, ce qui élargit le groupe d'acheteurs potentiels lors de la revente et accélère les délais de transaction.</p>
+
+<p>Le quatrième argument est la <strong>profondeur de l'écosystème de services professionnels pour les propriétaires non résidents</strong>. Des décennies d'acheteurs internationaux dans Londres, les Cotswolds et les Cornouailles ont bâti un écosystème d'avocats spécialisés dans le conveyancing international, de gestionnaires de biens, de conseillers fiscaux pour non-résidents et de consultants multilingues sans égal dans aucun autre pays du nord de l'Europe. Les gestionnaires de biens anglais travaillent couramment en français, espagnol, allemand et italien ; les cabinets d'avocats londoniens ont des départements entiers dédiés aux acheteurs d'Amérique latine, d'Europe et du Moyen-Orient. Cette infrastructure professionnelle est ce qui détermine si la détention d'une résidence secondaire depuis un autre continent est un plaisir ou un fardeau chronique.</p>
+
+<p>Le cinquième argument — qui a pris une importance décisive au cours de la dernière décennie — est la <strong>position de l'Angleterre comme actif en livres sterling dans un portefeuille international diversifié</strong>. Pour les acheteurs dont le portefeuille immobilier est principalement libellé en euros, la livre sterling offre une couche de diversification genuïne. Le marché prime anglais — en particulier les Cotswolds, les Cornouailles prime et le centre de Londres — a démontré historiquement une résilience face aux récessions européennes grâce à un groupe d'acheteurs véritablement mondial. Lorsque le cycle économique européen se ralentit, les capitaux internationaux se dirigent vers les actifs en livres comme valeur refuge ; lorsque l'économie du nord de l'Europe croît, la demande de maisons de campagne et de côte anglaises s'intensifie avec elle. Combinés, ces cinq avantages structurels — la diversité des modes de vie au sein d'un seul pays, la solidité du système juridique, la rareté de l'offre dans les zones prime, la profondeur des services professionnels pour les non-résidents et la position comme actif en livres dans les portefeuilles internationaux — expliquent pourquoi l'Angleterre est l'un des marchés de copropriété les plus demandés en dehors de la Méditerranée et le point d'entrée le plus naturel pour les acheteurs français, européens et du Moyen-Orient souhaitant un ancrage patrimonial dans le nord de l'Europe.</p>
+
+<p>Il vaut la peine de situer l'Angleterre dans son contexte compétitif européen. <strong>La France</strong> offre la Méditerranée, les Alpes et Paris, mais avec un régime fiscal pour les non-résidents plus complexe, la réserve héréditaire en droit successoral, et une logistique de gestion à distance qui peut surprendre les acheteurs non préparés. <strong>L'Espagne</strong> a l'ensoleillement le plus fiable et le coût d'entrée le plus bas dans de nombreuses zones, mais le marché prime se concentre dans des régions côtières saisonnières sans la diversité culturelle et de paysage que l'Angleterre offre. <strong>L'Italie</strong> est esthétiquement incomparable mais dispose du système bureaucratique et fiscal le plus complexe d'Europe occidentale pour les propriétaires non résidents, avec la règle de la réserve héréditaire et un marché de revente plus lent que l'anglais. <strong>Le Portugal</strong> a capté un énorme intérêt international ces dernières années, mais son marché prime est géographiquement plus concentré et l'écosystème de gestion professionnelle pour les non-résidents est comparativement plus récent. L'Angleterre occupe une place différente : le système d'enregistrement foncier le plus ancien et le plus transparent d'Europe, le marché de revente le plus liquide en dehors de Londres, et une diversité de paysage et de caractère qu'aucun autre pays du nord de l'Europe ne reproduit. Pour un acheteur qui construit un portefeuille européen multi-destinations, une part anglaise est le complément naturel d'une part méditerranéenne : tandis que la Méditerranée couvre le mode « soleil et mer d'été », l'Angleterre couvre le mode « culture, nature et campagne de printemps et d'automne » avec une richesse d'expériences qui n'a pas d'équivalent sous des latitudes plus méridionales.</p>
+
+<p>La question qui revient le plus fréquemment dans les conversations avec les nouveaux acheteurs est de savoir si l'Angleterre bénéficie d'un ensoleillement suffisant pour justifier une résidence secondaire. La réponse honnête est : cela dépend de ce que vous cherchez. Les étés anglais — juin, juillet et août — ont régulièrement plus d'heures de soleil que le mythe national ne l'admet, le sud de l'Angleterre recevant en moyenne <strong>6 à 7 heures de soleil par jour en juillet</strong> et des températures qui atteignent 25 à 28 °C (77 à 82 °F) lors des meilleures journées. Ce que l'Angleterre n'a pas, c'est la chaleur sèche garantie du sud de l'Espagne ou de l'Italie. Ce qu'elle a — et qu'aucune destination méditerranéenne ne peut reproduire — c'est la <strong>lumière du soir anglaise</strong> : cet éclairage horizontal doré de 19 h 00 à 21 h 30 en juin et juillet qui fait que la campagne, les falaises et les jardins semblent avoir été peints par Constable. C'est une lumière que des photographes du monde entier viennent expressément capturer, et que les copropriétaires avec des biens dans les Cotswolds ou les Cornouailles vivent depuis leur propre terrasse chaque soir d'été. Pour les acheteurs qui privilégient la chaleur sèche garantie, la Méditerranée est la bonne réponse. Pour ceux qui privilégient la diversité des expériences, la profondeur culturelle et le patrimoine immobilier le plus transparent du monde, la question du soleil devient secondaire au bout de trois semaines passées dans le bien.</p>
+
+<p><strong>Combien ça coûte ?</strong> Le marché anglais s'étend sur plusieurs gammes de prix. Dans les <strong>Cotswolds</strong>, un cottage de qualité vaut entre 800 000 £ et 2 500 000 £ (environ 950 000 € à 3 000 000 €) ; les farmhouses rénovés avec piscine se situent entre 1 500 000 £ et 4 000 000 £. En <strong>Cornouailles prime</strong> (St Ives, Rock, Padstow), les biens avec vue directe sur la mer s'échangent de 900 000 £ à 3 500 000 £. Dans le <strong>Lake District</strong>, les cottages lacustres vont de 600 000 £ à 2 000 000 £, avec les biens en bordure de lac qui dépassent facilement les 3 000 000 £. À <strong>Londres</strong> (Mayfair, Belgravia, Chelsea), les appartements et maisons de ville ultra-prime se négocient de 3 000 000 £ à 25 000 000 £ et au-delà. Une part de 1/8 dans un bien de 2 000 000 £ représente donc un investissement d'entrée d'environ 250 000 £ (environ 295 000 €), avec des charges annuelles typiquement comprises entre 3 000 £ et 8 000 £ selon la zone et le niveau de service.</p>
+
+</div></section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Les adresses les plus recherchées d'Angleterre, accessibles grâce à la copropriété.</h2>
+    <p>Cinq zones distinctes, chacune avec son caractère propre — des Cotswolds à Londres, des Cornouailles au Lake District. Votre part actée de 1/8 vous donne accès à un bien entièrement géré, environ 45 jours par an, dans l'un des marchés immobiliers les plus transparents du monde.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/fr/proprietes/" class="btn btn-gold">Voir tous les biens</a>
+      <a href="#newsletter" class="btn btn-outline">Recevoir les actualités</a>
     </div>
+  </div>
+</div>
 
-    <!-- SEO CONTENT -->
+<section class="dest-section--white"><div class="dest-inner">
 
-    <!-- §A — Featured Snippet -->
-    <section class="dest-sec cream"><div class="dest-inner">
+<h2>Zones en Angleterre pour la copropriété de luxe</h2>
 
-    <div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
-      <h2 itemprop="name">Qu'est-ce que la copropriété en Angleterre ?</h2>
-      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-        <p itemprop="text"><strong>La copropriété en Angleterre consiste à acquérir une part actée de 1/8 d'une résidence secondaire de luxe anglaise — détenue au sein d'une LLC créée spécifiquement à cet effet aux côtés d'un petit groupe d'au plus sept autres copropriétaires.</strong> Chaque propriétaire bénéficie d'environ 45 jours d'utilisation personnelle par an grâce à un calendrier de rotation équitable, l'ensemble de la gestion immobilière, de l'entretien, de la fiscalité et de l'exploitation étant pris en charge par une équipe professionnelle. Il s'agit d'un véritable patrimoine immobilier acté à votre nom — ce n'est ni de la multipropriété, ni un timeshare, ni un club de vacances.</p>
-      </div>
-    </div>
+<p>Le marché anglais des résidences secondaires se comprend mieux à travers <strong>cinq sous-zones distinctes</strong>, chacune avec sa propre architecture, son rythme, son profil d'acheteur et sa signature climatique. Chaque zone est connectée par train rapide ou route depuis Londres en moins de quatre heures — ce qui signifie qu'un copropriétaire dans les Cotswolds peut dîner à Covent Garden un soir et se promener parmi les jacinthes sauvages au-dessus de Burford le lendemain. Ce qui suit est l'orientation par zone qui aide le lecteur à passer de « l'Angleterre » à une sous-région concrète. Il existe bien sûr des destinations anglaises au-delà de ces cinq — le Suffolk et le Norfolk sur la côte est, les environs de Manchester, les villages côtiers du Devon — et nous serons ravis d'en parler avec les acheteurs dont les intérêts vont dans cette direction. Mais le cœur de l'offre en copropriété se concentre dans les cinq sous-zones suivantes.</p>
 
-    <h2>La copropriété en Angleterre : deux visions du luxe</h2>
+<h3>Les Cotswolds</h3>
 
-    <p>L'Angleterre propose deux horizons distincts pour la copropriété de résidences secondaires via Co-Ownership Property. Pour ceux qu'attire le prestige culturel, la gravitas historique et les grands pôles financiers mondiaux, les quartiers ultra-premium de Londres — Belgravia, Mayfair et Chelsea — offrent un accès sans égal à la gastronomie, aux musées, aux théâtres et aux boutiques de rang mondial. Pour ceux qui recherchent un littoral atlantique spectaculaire, une flexibilité de mode de vie contemporaine et l'attrait grandissant du télétravail au bord de l'océan, la Cornouailles — Sennen Cove et la péninsule sud-occidentale — délivre une beauté naturelle à toute saison, un surf de niveau mondial et une véritable échappée loin de l'agitation urbaine. Que vous soyez un acheteur exigeant en quête de liquidité maximale et de capital culturel ou un investisseur qui reconnaît la transformation de la Cornouailles en destination de premier plan, le modèle de copropriété anglais ouvre ces deux visions à travers une véritable détention actée et une gestion professionnelle.</p>
+<p>Les <strong>Cotswolds</strong> sont la quintessence de la campagne anglaise — l'image que le monde a gravée en lui lorsqu'il pense à « maison de campagne anglaise ». Une région de collines douces d'environ 2 000 kilomètres carrés s'étendant entre le Gloucestershire, l'Oxfordshire et le Warwickshire, les Cotswolds sont protégés comme Zone de Beauté Naturelle Exceptionnelle (AONB), ce qui signifie que les nouvelles constructions y sont strictement limitées et que l'offre de biens de qualité est essentiellement fixe. Le matériau qui définit la zone est la <strong>pierre de miel des Cotswolds</strong> — un calcaire oolithique jurassique de teinte dorée extrait des carrières locales depuis le Moyen Âge, qui donne à chaque village, chaque mur, chaque pont et chaque dépendance la même tonalité chaude et lumineuse dans la lumière du soir. Il n'existe rien de semblable nulle part ailleurs dans le monde.</p>
 
-    </div></section>
+<p>Les villages qui ancrent la région forment une liste des noms les plus reconnaissables du tourisme de luxe anglais : <strong>Bourton-on-the-Water</strong>, la « Venise des Cotswolds » avec ses ponts de pierre sur la rivière Windrush ; <strong>Burford</strong>, dont la rue principale en pente est l'une des plus photographiées d'Angleterre ; <strong>Chipping Campden</strong>, avec son marché médiéval et ses boutiques de délicatessen artisanaux ; <strong>Stow-on-the-Wold</strong>, le marché de village le plus élevé d'Angleterre ; et <strong>Moreton-in-Marsh</strong>, qui abrite quelques-uns des meilleurs gastropubs du centre du pays. Au-delà des villages, la région offre une densité extraordinaire d'expériences de premier plan dans un petit rayon : les restaurants étoilés Michelin de <strong>Cheltenham</strong> — dont Le Manoir aux Quat'Saisons de Raymond Blanc à Great Milton — les caves et distilleries artisanales qui ont fleuri ces dix dernières années, les marchés de producteurs qui fonctionnent toute l'année dans les villages principaux, et les parcours de golf en parfait état tout au long de l'année.</p>
 
-    <!-- §B — Why England -->
-    <section class="dest-sec white"><div class="dest-inner">
+<p>L'héritage littéraire des Cotswolds est omniprésent et fait partie de l'attrait pour de nombreux acheteurs internationaux. Ces paysages ont inspiré J.R.R. Tolkien pour les décors de la Comté dans <em>Le Seigneur des Anneaux</em> ; la région fut la patrie adoptive de William Morris et du mouvement Arts and Crafts ; et des dizaines d'écrivains et poètes du XXe siècle ont trouvé ici la campagne anglaise qu'ils décrivaient. La <strong>maison de campagne en pierre</strong> avec jardin, four à bois et poutres apparentes des XVIIe et XVIIIe siècles — rénovée aux standards contemporains mais avec tout le caractère historique intact — est la typologie dominante de copropriété dans les Cotswolds, et c'est exactement le type de parc immobilier qui ne peut être reproduit dans aucune autre région du monde. Les <strong>domaines rénovés</strong> avec piscine chauffée, cuisine design ouverte et hectares de jardin privé sont la deuxième typologie ; et les <strong>cottages de village</strong> au cœur des villages les plus prisés — à deux minutes de la pharmacie, du pub et de l'église normande — constituent la troisième.</p>
 
-    <h2>Pourquoi la copropriété en Angleterre ?</h2>
+<p>La profondeur gastronomique des Cotswolds est exceptionnelle pour une zone rurale. <strong>Le Manoir aux Quat'Saisons</strong> de Raymond Blanc à Great Milton, Oxfordshire — deux étoiles Michelin depuis des décennies — est le restaurant de campagne le plus célébré de Grande-Bretagne. <strong>The Kingham Plough</strong> et <strong>The Wild Rabbit</strong> à Kingham combinent la taverne de village anglaise avec une carte ambitieuse de cuisine de produit local. Les producteurs de la région incluent des fromages artisanaux des Cotswolds (le Double Gloucester et le Stinking Bishop ont une appellation géographique locale), des cidres des vergers de la vallée de la Wye, et les distilleries qui ont proliféré ces dix dernières années avec des gins et whiskies de céréales locaux. Le marché de producteurs de <strong>Stroud</strong> — l'un des plus primés de Grande-Bretagne — fonctionne chaque samedi tout au long de l'année avec des producteurs locaux de légumes, viandes, fromages et conserves qui n'arrivent dans aucun magasin. L'accès depuis Paris est excellent : Eurostar de Paris-Nord à St Pancras en 2 h 20, puis train GWR depuis Paddington à Moreton-in-Marsh en 90 minutes ; aéroport de Bristol (BRS) à 45 minutes de Cirencester.</p>
 
-    <p>Le marché immobilier anglais est l'un des plus résilients et des plus transparents au monde, avec des siècles de précédents juridiques, une demande mondiale établie et une offre structurellement limitée dans les emplacements premium. La copropriété en Angleterre — via notre structure LLC — présente plusieurs avantages distinctifs par rapport à la pleine propriété ou à la multipropriété. Premièrement, vous acquérez une véritable propriété légale, et non une simple licence d'usage. Deuxièmement, vous éliminez le fardeau de la gestion immobilière à 100 % ; l'équipe professionnelle de Co-Ownership Property prend en charge l'entretien, les assurances, les améliorations et la coordination. Troisièmement, vous réduisez considérablement le coût d'entrée : une part de 1/8 (environ 45 jours par an) requiert bien moins de capital que l'achat d'un bien entier, tout en conférant de véritables droits de propriété. Quatrièmement, les deux propositions distinctes de l'Angleterre — le marché mondial de prestige londonien et la destination lifestyle émergente qu'est la Cornouailles — offrent aux investisseurs et aux acheteurs en quête de style de vie des profils de risque-rendement et des usages totalement différents.</p>
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les couples européens et français à la recherche de l'expérience quintessentielle de campagne anglaise, les familles avec enfants dans des écoles ou universités du sud de l'Angleterre, les amateurs de culture et de gastronomie, et quiconque place l'architecture historique et le paysage anglais au-dessus de la côte et du soleil.</p>
 
-    <p>D'un point de vue patrimonial, les marchés immobiliers anglais bénéficient d'une rareté réelle et structurelle. Les quartiers premium de Londres sont géographiquement contraints ; toute nouvelle construction y est quasi impossible, ce qui tire la valorisation par une offre limitée face à une demande mondiale persistante. Le marché immobilier de Cornouailles est tout aussi contraint côté offre, mais s'apprécie grâce à des tendances démographiques : télétravailleurs, jeunes retraités et acheteurs internationaux en quête de mode de vie et de connectivité migrent vers le sud-ouest à un rythme record. Les deux marchés s'inscrivent dans une logique de préservation du patrimoine à long terme et d'une valorisation modérée à soutenue.</p>
+<h3>Cornouailles (Cornwall)</h3>
 
-    <p>Pour les acheteurs en quête de style de vie, la copropriété en Angleterre élimine le « fardeau de la résidence secondaire » : le poids émotionnel et financier d'entretenir un bien qui reste vide la majeure partie de l'année. À la place, vous réservez environ 45 jours par an (avec une part de 1/8), jouissez pleinement du bien, et laissez Co-Ownership Property en optimiser l'usage et la gestion. La résidence secondaire cesse d'être une source de stress pour devenir une source de loisir véritable et de rendement.</p>
+<p>Les <strong>Cornouailles</strong> sont la destination côtière la plus dramatique d'Angleterre — une péninsule qui s'avance à 140 kilomètres dans l'Atlantique, flanquée de falaises de granit, de criques de sable blanc et de villages de pêcheurs qui rivalisent en photogénie avec n'importe quel coin de la côte méditerranéenne. Ce qui distingue les Cornouailles de la Méditerranée, c'est l'intensité de l'Atlantique : la couleur de l'eau oscille entre le vert jade et le turquoise selon la lumière ; les vagues ont l'énergie océanique genuïne que les mers fermées ne peuvent offrir ; et le paysage — haies, champs en terrasse, fermes de fleurs de printemps entourées de soins de camélia — est unique en Europe. Les Cornouailles sont passées, en quinze ans, d'une destination de vacances familiales à un marché de résidence secondaire prime véritablement international, portées par la migration du travail à distance, l'émergence d'une scène gastronomique de premier plan et la reconnaissance internationale de leur beauté naturelle.</p>
 
-    </div></section>
+<p>Les points d'ancrage du marché prime sont bien connus. <strong>St Ives</strong> abrite la Tate St Ives, la communauté d'artistes la plus ancienne de Grande-Bretagne et quelques-unes des vues sur la mer les plus pittoresques de la côte ; le marché résidentiel y est parmi les plus disputés du sud-ouest. <strong>Port Isaac</strong>, immortalisé dans la série <em>Doc Martin</em>, conserve un caractère de village de pêcheurs authentique que la plupart des côtes anglaises ont perdu depuis longtemps. <strong>Padstow</strong> est synonyme de gastronomie grâce aux restaurants de <strong>Rick Stein</strong> — le Seafood Restaurant original, le Rick Stein Café, la Rick Stein Cookery School — et a élevé le niveau culinaire de toute la côte nord des Cornouailles au point que des comparaisons avec Saint-Sébastien ou la Côte Émeraude ne semblent plus exagérées. <strong>Rock</strong>, en face de Padstow de l'autre côté de l'estuaire de la Camel, est le cœur du marché ultra-prime avec ses villas de design contemporain et la plage de voile la plus active des Cornouailles. <strong>Sennen Cove</strong>, à la pointe la plus occidentale de l'Angleterre continentale, est la référence pour le surf atlantique sérieux : des vagues régulières d'un à trois mètres toute l'année, avec des pics hivernaux de quatre mètres ou plus lorsque les tempêtes de l'Atlantique nord touchent terre.</p>
 
-    <!-- §C — Londres -->
-    <section class="dest-sec cream"><div class="dest-inner">
+<p>Le parc immobilier prime va de la <strong>maison en granit rénovée avec vue directe sur la mer</strong> à la <strong>villa contemporaine sur les falaises</strong> avec terrasses donnant sur l'Atlantique ouvert, en passant par les cottages de pêcheurs reconvertis dans les villages portuaires avec leur mélange unique d'intimité et de vues. L'architecture vernaculaire des Cornouailles est spécifique et irréproductible : les murs de granit gris, les toits d'ardoise locale, les petites fenêtres orientées vers la mer et les jardins de camélia et de fuchsia qui profitent du microclimat atlantique doux pour fleurir même en hiver. C'est un parc immobilier qu'on ne peut pas imiter avec des constructions neuves — les originaux sont la matière même, et la planification stricte les préserve.</p>
 
-    <h2>Londres — l'avantage de la capitale</h2>
+<p>La gastronomie cornouaillaise a connu en quinze ans une transformation comparable à celle de la Bretagne française : au-delà de Rick Stein à Padstow, <strong>Paul Ainsworth at No. 6</strong> (étoile Michelin) représente la nouvelle génération de la cuisine locale. Le marché prime de la côte bénéficie de produits marins exceptionnels : langoustines de la baie de St Ives, moules de Fowey, huîtres de Falmouth, crabes de Port Isaac. L'accès depuis la France est aisé : Eurostar Paris–St Pancras en 2 h 20, puis train GWR depuis Paddington jusqu'à Penzance en 5 heures (avec service de nuit, le Night Riviera Sleeper) ; aéroport de Newquay (NQY) avec vols directs depuis Londres, Manchester et plusieurs destinations européennes.</p>
 
-    <p>La copropriété à Londres, c'est l'accès à l'un des marchés immobiliers les plus mondialement reconnus et durablement désirables. Le marché résidentiel ultra-prime londonien — ancré par Belgravia, Mayfair et Chelsea — fonctionne presque comme une réserve de valeur mondiale. Investisseurs internationaux, dirigeants multinationaux et ultra-high-net-worth individuals se disputent chaque bien disponible dans ces quartiers, créant un marché secondaire liquide et transparent qui assure une valorisation régulière. Lorsque vous détenez une part fractionnelle dans un bien premium londonien via Co-Ownership Property, vous ne spéculez pas sur un marché régional : vous participez à une classe d'actifs mondialement reconnue et établie depuis un siècle.</p>
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les surfeurs, navigateurs et amateurs de plein air, les familles à la recherche de la meilleure plage d'Angleterre, les amateurs de gastronomie authentique, et les acheteurs qui voient dans le marché prime de la côte cornouaillaise l'une des opportunités d'appréciation les plus intéressantes du pays.</p>
 
-    <p>La copropriété à Londres offre également une densité de style de vie sans pareille. À quelques pas de votre bien, vous trouvez des restaurants trois étoiles Michelin, des clubs privés de premier rang, des galeries d'art contemporain, des musées patrimoniaux, des théâtres du West End et le meilleur shopping d'Europe. Vos semaines de copropriété à Londres ne sont pas de simples vacances ; elles constituent une immersion totale dans la culture mondiale, la finance et le luxe. Pour les cadres, les entrepreneurs et les passionnés de culture, la copropriété londonienne combine logique d'investissement et logique de style de vie comme peu d'autres destinations peuvent le faire.</p>
+<h3>Le Lake District</h3>
 
-    <h3>Belgravia : le quartier le plus prestigieux de Londres</h3>
+<p>Le <strong>Lake District</strong> — classé au patrimoine mondial de l'UNESCO en 2017 — est le paysage le plus célébré d'Angleterre : seize lacs glaciaires dans un rayon de 50 kilomètres, flanqués des fells les plus hauts du pays, avec un caractère naturel que Wordsworth, Coleridge, Keats et John Ruskin ont mis en mots et qu'aucune photographie ne rend tout à fait justice. Le lac <strong>Windermere</strong> est le plus grand d'Angleterre ; l'<strong>Ullswater</strong>, le plus spectaculaire — c'est ici que Wordsworth écrivit son poème sur les jonquilles (« I wandered lonely as a cloud ») ; le <strong>Coniston</strong>, le plus littéraire — c'est ici qu'Arthur Ransome situa <em>Swallows and Amazons</em>. Les villages qui structurent le marché résidentiel sont <strong>Ambleside</strong>, centre de randonnée de la région avec d'excellents restaurants indépendants ; <strong>Grasmere</strong>, le village où vécut Wordsworth et où se fabrique le <em>gingerbread</em> le plus célèbre d'Angleterre ; <strong>Keswick</strong>, la capitale du nord du parc avec son centre victorien bien conservé et le lac Derwentwater à ses pieds ; et <strong>Hawkshead</strong>, le village médiéval aux toits d'ardoise et ruelles pavées où Wordsworth fit ses études enfant.</p>
 
-    <p>Belgravia est le quartier ultra-prime le plus constant, le plus mondialement reconnu de Londres. Conçu par Thomas Cubitt dans les années 1820, ses squares aux stuccos blancs — Belgrave Square, Eaton Square, Chester Square — projettent une élégance géorgienne intemporelle. Aujourd'hui, les résidents de Belgravia incluent des familles royales européennes, des titans de l'économie mondiale et des familles d'Ancien Régime dont l'ancrage remonte à des siècles. Le quartier se définit par sa cohérence architecturale, ses squares (jardins privés réservés aux résidents) et une scène de restaurants inégalée à Londres : Zuma, Nobu, Scott's et des dizaines d'établissements Michelin à quelques minutes.</p>
+<p>La particularité du marché immobilier dans le Lake District est la <strong>restriction extraordinairement sévère de l'offre nouvelle</strong>. Le Parc National couvre 90 % de la zone et dispose des réglementations d'urbanisme les plus strictes d'Angleterre : toute nouvelle construction y est pratiquement impossible, les rénovations sont limitées à l'enveloppe originale, et les matériaux doivent être locaux — ardoise de Cumbrie, pierre de Lakeland. Le résultat est un parc de logements qui est essentiellement le même qu'il y a cent ans, chaque bien de qualité étant en concurrence dans un groupe d'acheteurs de plus en plus mondial. Le marché s'est apprécié régulièrement parce que la restriction d'offre est structurelle et permanente, non cyclique. C'est la seule garantie genuïne que le marché immobilier peut offrir : ce n'est pas un argument de cycle ni de demande conjoncturelle — c'est la géographie et la législation du parc national, qui sont essentiellement inamovibles.</p>
 
-    <p>La copropriété à Belgravia offre un prestige et une liquidité maximaux. Les biens se mettent rarement sur le marché ; la plupart des transactions se font en privé au sein des réseaux ultra-high-net-worth. Une part fractionnelle dans un bien de Belgravia vous donne non seulement accès à la meilleure adresse de Londres, mais aussi une entrée immédiate sur l'un des marchés immobiliers les plus exclusifs au monde. Les prix à Belgravia se situent typiquement entre £8 millions et £25+ millions pour des résidences familiales de premier rang, ce qui rend une part de 1/8 économiquement accessible tout en maintenant un statut ultra-prime véritable. D'un point de vue patrimonial, Belgravia affiche une valorisation composée de 4 à 7 % par an sur des périodes de vingt ans, avec une résistance particulière lors des périodes d'incertitude mondiale (l'ultra-prime londonien étant perçu comme valeur refuge).</p>
+<p>Le parc résidentiel pour la copropriété va du <strong>cottage d'ardoise avec cheminée à bois et vue sur le lac</strong> à la <strong>maison de campagne victorienne avec terrasse directement sur l'eau</strong> — les biens en bordure de lac sur Windermere ou Coniston sont les plus recherchés du marché, avec une rareté telle que lorsqu'ils apparaissent sur le marché ils disparaissent en quelques semaines — et la <strong>farmhouse rénovée dans les vallées du parc</strong>, avec ses intérieurs contemporains derrière des façades historiques que l'urbanisme a préservées inchangées. La gastronomie du Lake District s'est nettement améliorée : <strong>L'Enclume</strong> de Simon Rogan à Cartmel — deux étoiles Michelin, régulièrement dans les listes des meilleurs restaurants du monde — a élevé le profil culinaire de toute la Cumbrie et a créé une communauté de producteurs locaux (fromages, agneau de race Herdwick, champignons sauvages, herbes aromatiques de montagne). L'accès depuis Londres est excellent : train Avanti depuis Euston à Oxenholme en 2 h 45 ; aéroport de Manchester (MAN) à 90 minutes en voiture.</p>
 
-    <h3>Mayfair : prestige historique et densité de style de vie</h3>
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les randonneurs, alpinistes et amoureux de la nature, les acheteurs souhaitant l'actif anglais avec la plus grande protection structurelle de l'offre, et les familles multigénérationnelles partageant le goût des activités de plein air et de la montagne.</p>
 
-    <p>Mayfair, le quartier ultra-prime originel de Londres, offre un caractère différent de Belgravia tout en maintenant un prestige équivalent. Les maisons de ville historiques de Mayfair, ses jardins en terrasse et ses rues bordées d'arbres projettent une élégance d'Ancien Monde ; sa situation entre Bond Street (shopping de classe mondiale) et Park Lane (vue sur Hyde Park) assure une commodité de style de vie maximale. Les résidents de Mayfair incluent des familles royales, des dignitaires internationaux et les financiers et entrepreneurs les plus accomplis de Londres.</p>
+<h3>Le Yorkshire</h3>
 
-    <p>La copropriété à Mayfair présente des avantages distinctifs. Premièrement, les biens de Mayfair comprennent souvent des jardins et terrasses privés — luxes rares en centre de Londres — qui rendent les longs séjours plus confortables. Deuxièmement, l'emplacement de Mayfair est imbattable : vous êtes à quelques pas de Fortnum &amp; Mason, Claridge's, l'Annabel's, la Royal Academy of Arts et le St. James's Park. Troisièmement, l'historique d'investissement de Mayfair est solide ; le quartier s'est valorisé régulièrement depuis deux siècles sans aucun signe de ralentissement de la demande. Les biens de Mayfair pour la copropriété se situent typiquement entre £6 millions et £20 millions, positionnant les parts de 1/8 comme des investissements premium mais accessibles.</p>
+<p>Le <strong>Yorkshire</strong> est la région la plus grande d'Angleterre et, de loin, la moins connue sur les marchés internationaux de résidence secondaire — ce qui signifie qu'elle représente le meilleur rapport qualité-prix du pays pour un acheteur qui sait ce qu'il cherche. Le caractère du Yorkshire est radicalement différent de celui des Cotswolds ou des Cornouailles : plus robuste, plus direct, avec un sens de l'humour propre que les habitants appellent avec fierté le <em>Yorkshire grit</em>. Les paysages englobent les <strong>Landes de North York</strong> avec leurs bruyères violettes en août et leurs abbayes médiévales en ruines — Rievaulx, Whitby, Fountains Abbey — les <strong>Yorkshire Dales</strong> avec leurs vallées de calcaire et leurs cascades encaissées, et la côte avec <strong>Whitby</strong> gothique sur les falaises et <strong>Scarborough</strong> victorienne face à la mer du Nord.</p>
 
-    <h3>Chelsea : prestige contemporain, héritage artistique</h3>
+<p>Le cœur du marché prime de résidence secondaire dans le Yorkshire s'articule autour de plusieurs pôles. <strong>Harrogate</strong> — la ville thermale la plus élégante d'Angleterre, avec ses Victorian Turkish Baths, son Betty's Tea Rooms de 1919 et son calendrier d'expositions et de festivals — possède le marché immobilier le plus sophistiqué du nord de l'Angleterre en dehors des grandes villes, avec des maisons géorgiennes et victoriennes de qualité exceptionnelle dans ses quartiers résidentiels. <strong>Helmsley</strong>, au cœur des Moors, est le prototype du village de marché anglais du nord : une place avec architecture vernaculaire en pierre, commerces indépendants, une distillerie de whisky locale et un accès direct aux sentiers du parc national. <strong>Skipton</strong>, la porte des Dales, combine le marché le plus actif du Yorkshire avec une accessibilité ferroviaire surprenante depuis Leeds. La saison de <strong>chasse</strong> (shooting season) — faisan, perdrix, bécasse, grand gibier — qui s'étend d'août à février fait du Yorkshire la référence des sports ruraux du nord de l'Europe, avec ses domaines historiques, ses tweeds locaux et sa gastronomie spécifique de saison.</p>
 
-    <p>Chelsea représente le quartier ultra-prime le plus cosmopolite de Londres, mêlant un héritage artistique historique à un glamour contemporain. La King's Road de Chelsea fut l'épicentre de la culture des années 1960 ; aujourd'hui, Chelsea équilibre prestige intellectuel (historiens, artistes, universitaires côtoient les financiers) et énergie avant-gardiste. La proximité du quartier avec la Tamise, le Chelsea Physic Garden et les musées et galeries de South Kensington crée une proposition de style de vie distincte par rapport à Belgravia ou Mayfair.</p>
+<p>La scène gastronomique du Yorkshire a connu ces dix dernières années une transformation similaire à celle des Cornouailles. <strong>The Star Inn</strong> à Harome, près de Helmsley — étoile Michelin, avec son propre pub de village, sa maison d'hôtes et son épicerie fine — est le modèle du gastropub rural anglais porté à son expression la plus raffinée. <strong>Roots</strong> de Tommy Banks à York — également étoile Michelin — représente la nouvelle génération culinaire de la capitale du comté. Les producteurs du Yorkshire incluent les fromages les plus primés de Grande-Bretagne (Wensleydale, Swaledale, Ribblesdale), les meilleurs agneaux de lande du pays, et une tradition de boucherie artisanale autour du gibier de saison. Les marchés du Yorkshire — <strong>Skipton</strong> le lundi et mercredi, <strong>Settle</strong> le mardi — fonctionnent avec l'authenticité de village de marché que les Cotswolds ont partiellement perdue sous la pression touristique.</p>
 
-    <p>La copropriété à Chelsea séduit particulièrement les créatifs, les collectionneurs et les acheteurs orientés style de vie qui souhaitent un Londres ultra-prime sans la rigidité parfois associée à Belgravia. Le caractère architectural de Chelsea est plus varié — maisons victoriennes en terrasse, demeures Queen Anne, penthouses contemporains — qu'à Belgravia, offrant une diversité esthétique plus grande. D'un point de vue patrimonial, Chelsea s'est valorisé plus vite que la moyenne du centre de Londres ces dernières années (6 à 8 % par an), portée par la jeunesse des fortunes et l'attrait international. Les biens de Chelsea pour la copropriété se situent typiquement entre £5 millions et £18 millions, faisant des parts de 1/8 des points d'entrée accessibles dans le quartier ultra-prime le plus dynamique de Londres.</p>
+<p>Les prix sont notablement inférieurs à ceux du sud du pays pour des qualités et surfaces comparables — une farmhouse en calcaire de cinq chambres avec grange rénovée et hectares de jardin dans les Dales coûte une fraction de ce que coûterait un bien équivalent dans les Cotswolds. L'accès depuis Paris est solide : Eurostar Paris–St Pancras puis train LNER depuis King's Cross à York en 1 h 50 ; aéroports de Leeds Bradford (LBA) et Manchester (MAN) avec connexions européennes.</p>
 
-    </div></section>
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les acheteurs qui privilégient la valeur patrimoniale par livre sterling, les amateurs de randonnée, équitation et chasse en domaine, les golfeurs — les parcours du Yorkshire figurent parmi les meilleurs parklands du nord de l'Europe — et les acheteurs qui veulent le caractère authentique du nord de l'Angleterre sans la concentration touristique des Cotswolds ou du Lake District.</p>
 
-    <!-- §D — Cornouailles -->
-    <section class="dest-sec white"><div class="dest-inner">
+<h3>Londres et ses environs</h3>
 
-    <h2>Cornouailles — vivre sur la côte atlantique</h2>
+<p><strong>Londres</strong> comme résidence secondaire en copropriété fonctionne d'une manière fondamentalement différente de la campagne anglaise. Ce n'est pas une base pour le repos et la nature, mais pour la <strong>densité culturelle, la gastronomie de premier niveau et l'accès à l'un des marchés patrimoniaux immobiliers les plus liquides du monde</strong>. Mayfair, Belgravia et Chelsea forment le triangle ultra-prime qui ancre le marché résidentiel international de Londres — trois quartiers géographiquement compacts où se concentre plus de richesse par hectare que dans presque n'importe quel autre endroit de la planète.</p>
 
-    <p>Si Londres incarne la capitale financière mondiale de l'Angleterre, la Cornouailles en est la capitale des destinations : une histoire de transformation où le télétravail, la migration lifestyle et la découverte internationale ont repositionné cette péninsule sud-occidentale comme l'une des destinations résidentielles et patrimoniales les plus prisées d'Europe. Le superbe littoral atlantique de Cornouailles, ses falaises spectaculaires, ses criques cachées et sa beauté naturelle toute l'année ont toujours attiré les touristes ; ce qui a changé au cours de la dernière décennie, c'est que les acheteurs aisés perçoivent désormais la Cornouailles non plus comme une escapade de week-end, mais comme une véritable destination de résidence principale ou secondaire, véritablement compétitive avec Londres, les Cotswolds ou le Sud de la France.</p>
+<p><strong>Mayfair</strong> — délimitée par Oxford Street, Regent Street, Green Park et Park Lane — est le cœur financier et culturel du Londres ultra-prime. Bond Street possède la plus grande concentration de marques de luxe du monde par mètre linéaire — Cartier, Harry Winston, Graff, Hermès et Chanel dans un kilomètre praticable ; les galeries d'art de Cork Street sont le baromètre du marché de l'art contemporain ; les restaurants de Mayfair — Scott's, The Connaught Grill, Sketch, Annabel's, Gymkhana — affichent des listes d'attente de plusieurs semaines. Les jardins privés de Grosvenor Square et Berkeley Square, accessibles exclusivement aux résidents du quartier, sont l'un des luxes les moins connus de la vie à Mayfair — des hectares de verdure ombragée au cœur de la capitale, auxquels aucun visiteur ne peut accéder. <strong>Belgravia</strong>, au sud de Hyde Park, est l'adresse la plus constamment chère de Londres — les places stuquées blanches conçues par Thomas Cubitt dans les années 1820 (Belgrave Square, Eaton Square, Chester Square) avec leurs jardins privés partagés n'ont pas d'équivalent esthétique dans aucune capitale européenne. <strong>Chelsea</strong>, le long de la Tamise, combine l'héritage artistique du XXe siècle avec une énergie cosmopolite contemporaine : la Saatchi Gallery, le Chelsea Physic Garden, le King's Road, le Chelsea Flower Show en mai. L'accès depuis Paris est immédiat : Eurostar à St Pancras en 2 h 20 ; Heathrow (LHR) avec vols directs depuis plus de 80 pays ; London City (LCY) à 30 minutes du centre en métro.</p>
 
-    <p>La copropriété en Cornouailles répond directement à cette transformation. Un bien à Sennen Cove ou sur la côte cornouaillaise au sens large vous offre une véritable échappée : paysages marins spectaculaires, plages de premier plan, restaurants renommés et un mode de vie fondamentalement différent de la vie urbaine — avec une connectivité moderne, des services professionnels et une infrastructure sophistiquée. Pour les investisseurs, le marché immobilier de Cornouailles s'apprécie de 5 à 8 % par an, l'offre restant contrainte tandis que la demande des télétravailleurs, acheteurs internationaux et migrants lifestyle ne cesse de croître. Pour les acheteurs lifestyle, une part de 1/8 (environ 45 jours par an) vous donne un accès saisonnier étendu à l'un des plus beaux littoraux d'Europe, sans la charge d'entretien de la pleine propriété.</p>
+<p><strong>Kew Gardens et Richmond</strong>, en bordure de Londres, offrent une alternative pour ceux qui veulent la densité culturelle de la capitale avec l'espace vert et la tranquillité d'un quartier résidentiel verdoyant. Richmond Hill surplombe la Tamise avec l'une des vues les plus célébrées de la région londonienne ; Kew abrite le Royal Botanic Gardens, inscrit au patrimoine mondial de l'UNESCO. <strong>Hampstead</strong>, au nord, combine le village pittoresque avec le Heath — 320 hectares de parc boisé — et une densité d'intellectuels, d'artistes et de professionnels qui en fait l'un des quartiers les plus animés intellectuellement de la capitale.</p>
 
-    <h3>Sennen Cove : dramatisme atlantique et excellence du surf</h3>
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les acheteurs souhaitant des séjours courts et répétés dans la ville globale par excellence, les familles avec enfants dans des lycées ou universités londoniens, les acheteurs français qui cherchent une base dans le monde anglophone, et les investisseurs qui privilégient la liquidité et l'appréciation de l'actif en livres sterling.</p>
 
-    <p>Sennen Cove, situé à la pointe sud-ouest de la Cornouailles, incarne la côte cornouaillaise dans ce qu'elle a de plus spectaculaire : une vaste plage de sable flanquée de falaises de granite, balayée par les houles atlantiques et adossée à un village soudé de surfeurs, d'artistes et de réfugiés du mode de vie. Sennen est la plage la plus occidentale d'Angleterre, mondialement connue des surfeurs sérieux ; la crique reçoit des houles atlantiques régulières d'un à deux mètres toute l'année, avec des swells d'hiver atteignant parfois quatre à cinq mètres. Pour les acheteurs actifs qui privilégient le style de vie en plein air — surf, randonnée côtière, baignade, ou simplement passer des heures à regarder les vagues et le ciel — Sennen offre quelque chose de profondément ressourçant qu'aucun bien en ville ne peut égaler.</p>
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Résidence secondaire entière</th>
+      <th>Part 1/8 COP</th>
+      <th>Location longue durée</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Engagement initial</td>
+      <td data-col="Résidence secondaire entière">Valeur totale du bien</td>
+      <td data-col="Part 1/8 COP">~1/8 de la valeur du bien</td>
+      <td data-col="Location longue durée">Caution et 1–2 mois de loyer</td>
+    </tr>
+    <tr>
+      <td>Patrimoine dans l'actif</td>
+      <td data-col="Résidence secondaire entière">Plus-value totale</td>
+      <td data-col="Part 1/8 COP">~1/8 de la plus-value</td>
+      <td data-col="Location longue durée">Aucun</td>
+    </tr>
+    <tr>
+      <td>Charges annuelles</td>
+      <td data-col="Résidence secondaire entière">Council Tax, assurances, gestion et entretien complets</td>
+      <td data-col="Part 1/8 COP">~1/8 des charges, gestion intégrale incluse</td>
+      <td data-col="Location longue durée">Loyer complet chaque année, indéfiniment</td>
+    </tr>
+    <tr>
+      <td>Utilisation personnelle</td>
+      <td data-col="Résidence secondaire entière">Jusqu'à 52 semaines (la plupart utilisent 4 à 8)</td>
+      <td data-col="Part 1/8 COP">~45 jours, planifiés professionnellement</td>
+      <td data-col="Location longue durée">Défini par le bail</td>
+    </tr>
+    <tr>
+      <td>Charge opérationnelle</td>
+      <td data-col="Résidence secondaire entière">Géré par le propriétaire ou personnel embauché</td>
+      <td data-col="Part 1/8 COP">Entièrement inclus</td>
+      <td data-col="Location longue durée">Géré par le bailleur</td>
+    </tr>
+    <tr>
+      <td>Délai de revente</td>
+      <td data-col="Résidence secondaire entière">4 à 8 mois sur le marché libre anglais</td>
+      <td data-col="Part 1/8 COP">Environ un mois en moyenne dans le portefeuille COP</td>
+      <td data-col="Location longue durée">Fin du bail</td>
+    </tr>
+  </tbody>
+</table>
 
-    <p>La construction à Sennen Cove est strictement encadrée ; toute nouvelle construction est quasi impossible, garantissant une rareté de l'offre et une valorisation à long terme. Les biens y sont typiquement de substantielles demeures victoriennes ou géorgiennes, des maisons contemporaines conçues pour maximiser les vues sur la mer, ou des granges et bâtiments de caractère reconvertis. La copropriété à Sennen Cove vous connecte à une communauté authentique et créative — où vous croiserez artistes, musiciens, cinéastes et entrepreneurs qui se sont installés sur la côte — tout en vous offrant un accès à une plage d'exception et une véritable échappée. Une part de 1/8 vous donne accès à environ 45 jours par an, idéalement positionnés pour de longs séjours estivaux, des houles automnales ou les tempêtes d'hiver lorsque l'Atlantique domine véritablement le paysage.</p>
+</div></section>
 
-    <h3>La côte cornouaillaise au sens large : un marché de luxe en expansion</h3>
+<section class="dest-section--cream"><div class="dest-inner">
 
-    <p>Au-delà de Sennen, le littoral plus vaste de la Cornouailles — autour de Padstow, Port Isaac, Perranporth et Falmouth — offre des déclinaisons de la proposition lifestyle côtière. Padstow est devenu synonyme de chefs célèbres (les restaurants et la scène food de Rick Stein), de tables en bord de port et de loisirs haut de gamme. Port Isaac, pittoresque village de pêcheurs rendu célèbre par la télévision britannique, attire les acheteurs en quête d'authenticité et de communauté artistique. Perranporth offre une ambiance de plage plus détendue, populaire auprès des jeunes acheteurs lifestyle et des familles. Falmouth, ville historiquement maritime, associe patrimoine naval, musées maritimes et regénération du front de mer en une destination culturelle.</p>
+<h2>Quand partir ?</h2>
 
-    <p>Dans toutes ces localités, la copropriété via Co-Ownership Property suit le même modèle : détention actée d'une part de 1/8, gestion professionnelle de l'entretien et de la coordination, environ 45 jours d'usage annuel et pleins droits de propriété actés. La valorisation sur l'ensemble du littoral cornouaillais avoisine 5 à 7 % par an, portée par la migration lifestyle continue, la normalisation du télétravail et l'offre contrainte. Pour les acheteurs lifestyle, ces localités offrent des atmosphères radicalement différentes — du dramatisme atlantique de Sennen à la sophistication gastronomique de Padstow en passant par l'authenticité artistique de Port Isaac — permettant à chacun de choisir l'expérience cornouaillaise qui correspond le mieux à ses valeurs.</p>
+<p>Répartir <strong>45 jours d'utilisation</strong> sur une année calendaire en Angleterre requiert une réflexion sérieuse — et l'un des avantages les moins publicisés d'avoir un bien ici est que le calendrier utilisable est genuïnement long et varié. L'été offre les journées les plus longues d'Europe et les meilleures plages ; le printemps est le moment des jardins historiques, des festivals et des champs de jacinthes sauvages ; l'automne combine le feuillage spectaculaire du nord avec l'esthétique de campagne anglaise que les peintures du XIXe siècle ont rendue iconique ; et l'hiver à Londres ou dans les Cotswolds offre une densité culturelle sans rival dans aucun autre mois. Une part de 1/8 avec ses 6 à 7 semaines peut être répartie stratégiquement tout au long de l'année : Chelsea Flower Show en mai, Glastonbury ou Henley en juin, semaines de plage en Cornouailles en juillet, automne doré dans le Lake District, Noël dans les Cotswolds. Peu de biens en copropriété sont totalement inactifs en quelque saison que ce soit — et cette utilité annuelle fiable est précisément ce qui fait de l'Angleterre un marché de copropriété aussi convaincant.</p>
 
-    </div></section>
+<h3>Été (juin–août)</h3>
 
-    <!-- §E — Une semaine dans votre bien -->
-    <section class="dest-sec cream"><div class="dest-inner">
+<p>L'été anglais a une réputation de pluie qui ne correspond pas à la réalité de juin à août dans le sud et l'ouest du pays. Les températures estivales oscillent entre <strong>18 et 24 °C (64 à 75 °F)</strong> dans les Cotswolds et le sud-est ; en Cornouailles, l'influence atlantique maintient un climat plus stable que beaucoup ne s'y attendent, avec des nuits notablement plus chaudes que dans les terres. Les journées sont les plus longues d'Europe à ces latitudes : au solstice de juin, le coucher du soleil en Cornouailles dépasse 21 h 30 et dans le Lake District 22 h 00. Cette longue lumière dorée du soir — différente de toute lumière méditerranéenne — est l'une des choses qui retiennent les propriétaires année après année.</p>
 
-    <h2>Une semaine dans votre bien anglais en copropriété</h2>
+<p>Le calendrier événementiel de l'été est extraordinairement riche et sans équivalent dans aucun autre pays européen. <strong>Wimbledon</strong> (deux dernières semaines de juin, premières de juillet) est le tournoi de tennis le plus célèbre du monde et l'un des grands rituels sociaux de l'été londonien ; pour un copropriétaire avec un bien à Chelsea ou Mayfair, la proximité est un privilège difficile à chiffrer. <strong>Glastonbury Festival</strong> (fin juin), organisé dans le Somerset à 90 minutes des Cotswolds en voiture, est le festival de musique le plus important du monde anglophone avec une capacité de 210 000 personnes. <strong>Royal Ascot</strong> (troisième semaine de juin) est la course de chevaux la plus aristocratique du calendrier anglais, dans le Berkshire à 30 minutes de Londres — chapeaux extravagants, loges privées et la meilleure exhibition de la culture sociale anglaise de l'année. <strong>Henley Royal Regatta</strong> (première semaine de juillet) combine le spectacle sportif avec l'événement social le plus traditionnel de l'été anglais, au bord de la Tamise dans l'Oxfordshire. Les plages des Cornouailles atteignent leur apogée en juillet et août : Fistral Beach pour le surf, Carbis Bay pour les familles, Porthcurno et Kynance Cove pour les falaises les plus dramatiques — avec une eau atlantique qui atteint <strong>17 à 19 °C (63 à 66 °F)</strong> en été. La longue lumière des soirées d'été dans le Lake District fait de cette saison le moment préféré des randonneurs qui veulent les fells sans la boue et le froid du printemps.</p>
 
-    <p>Imaginez une semaine dans votre bien en copropriété à Belgravia, pendant les Bank Holidays de mai à Londres. Vous arrivez dans votre maison de ville géorgienne à quelques pas de Belgrave Square un jeudi après-midi. Le bien a été préparé par l'équipe de gestion de Co-Ownership Property : fleurs fraîches dans le couloir, vos boissons préférées en stock, le chauffage optimisé, l'éclairage réglé selon vos préférences. Vous vous installez dans votre résidence privée — pas un hôtel — et commandez le dîner dans un restaurant du quartier, dégusté à votre rythme dans votre propre salle à manger. Le vendredi apporte une matinée tranquille à la piscine et au spa d'un club privé, suivie d'un déjeuner dans un restaurant étoilé réservé des mois à l'avance. Le samedi est culturel : vernissage à la Royal Academy, suivi d'un spectacle au West End et d'un souper tardif dans un club privé. Le dimanche, un long brunch avec des amis et une promenade dans le Green Park voisin, l'après-midi à flâner de galerie en galerie à Mayfair. Le lundi venu, vous avez vécu au cœur du monde le plus exclusif de Londres, retrouvé chaque soir le confort et l'intimité d'une véritable propriété — et non d'un hôtel — et absorbé culture, gastronomie et prestige que nulle part ailleurs ne peut reproduire.</p>
+<p>Pour les copropriétaires possédant un bien londonien, le mois d'août offre une ville paradoxalement apaisée : une grande partie des Londoniens est en vacances, les restaurants s'ouvrent plus facilement, les parcs et musées restent dans toute leur splendeur mais sans les files d'attente des autres mois. C'est également la période idéale pour profiter de la campagne autour de Londres — les <strong>South Downs</strong>, le Surrey Hills, les jardins du Kent — dans une sérénité que les week-ends de printemps ne permettent pas. La table de <strong>Le Manoir aux Quat'Saisons</strong> de Raymond Blanc, réputée parmi les dix meilleures tables de campagne du monde, est plus accessible en août qu'en juin ou septembre — un avantage pratique non négligeable pour un copropriétaire qui organise son calendrier.</p>
 
-    <p>Imaginez maintenant une semaine dans votre bien en copropriété à Sennen Cove en juillet. Vous arrivez un vendredi dans une généreuse maison côtière dont la fenêtre de cuisine donne directement sur l'Atlantique. Les pierres patinées par le sel de l'architecture cornouaillaise traditionnelle encadrent un confort contemporain : espace de vie ouvert, chauffage au sol, poêle à bois et terrasse face à la mer. Le samedi matin, vous êtes dans l'eau au lever du soleil pour deux heures de surf ; ensuite, une promenade jusqu'au café du village pour un café et une viennoiserie, en observant les autres surfeurs matinaux, les promeneurs de chiens et les artistes qui se rassemblent. L'après-midi du samedi se passe simplement à regarder la mer — lire, esquisser, réfléchir, exister au rythme de la marée et de la lumière. Le dimanche apporte une randonnée sur les sentiers de falaise, un déjeuner dans un restaurant en bord de port et une conversation en soirée avec le tenancier local sur les courants et les prévisions de houle. Vous passez vos jours restants dans un rythme de temps-océan et de temps-créatif : matins dans l'eau, après-midis à explorer des criques cachées, soirées à cuisiner des fruits de mer frais dans votre propre cuisine, nuits à observer les étoiles sans aucune pollution lumineuse de ville. Le vendredi suivant, vous êtes revenu au calme, au rythme naturel, à la ressource que les semaines en ville congestionnée ne peuvent offrir.</p>
+<h3>Printemps (mars–mai)</h3>
 
-    </div></section>
+<p>Le printemps anglais est, selon certaines mesures, <strong>la saison la plus sous-utilisée par les acheteurs internationaux</strong> — et, par conséquent, l'une des plus gratifiantes pour un copropriétaire avec de la flexibilité dans son calendrier. <strong>Mars</strong> en Angleterre tourne autour de <strong>8 à 12 °C (46 à 54 °F)</strong> dans la journée, avec des journées qui s'allongent visiblement : fin mars, le coucher du soleil dépasse 19 h 30 et la différence par rapport à l'hiver est palpable. Les jardins historiques — Kiftsgate, Hidcote, Rousham — ouvrent la saison avec les premiers bulbes et arbustes en fleurs ; les champs des Cotswolds retrouvent le vert qui s'est estompé en janvier et février ; et la campagne anglaise, qui en hiver a quelque chose d'une mélancolie noble, se transforme en quelques semaines en la version qui a inspiré des siècles de peinture et de littérature. Les pubs avec jardin commencent à sortir les tables à l'extérieur les jours de soleil ; les marchés de producteurs reprennent à pleine vitesse après la trêve hivernale. En Cornouailles, mars est le mois des camélias et des magnolias — les jardins subtropicaux de la côte sud comme Trebah et Glendurgan sont à leur moment le plus spectaculaire.</p>
 
-    <!-- §F — How it works -->
-    <section class="dest-sec white"><div class="dest-inner">
+<p><strong>Avril</strong> apporte la saison des agneaux — les champs se remplissent de nouveau-nés dans les fermes des Cotswolds et du Yorkshire — et le début de la <strong>saison de cricket</strong>, qui pour beaucoup d'acheteurs continentaux est l'expérience la plus quintessentielle du calendrier anglais : un match de county cricket un après-midi d'avril, avec l'herbe fraîchement tondue et les joueurs en blanc, est une image d'un autre temps que le pays livre encore avec toute son authenticité. <strong>Mai</strong> est le mois le plus spectaculaire pour les Cotswolds : les forêts de hêtres se remplissent de <strong>jacinthes sauvages</strong> (bluebells) — un spectacle qui ne dure que quelques semaines et qui attire des visiteurs de toute l'Europe capturés par l'image du sol de la forêt en violet sous les hêtres encore à peine feuillés. Les températures en mai atteignent <strong>15 à 18 °C (59 à 64 °F)</strong>, les journées dépassent 14 heures et les parcours de golf sont en parfait état dans tout le pays. Le <strong>Chelsea Flower Show</strong> de la dernière semaine de mai est l'événement le plus important du calendrier horticole mondial et, pour un copropriétaire avec une part londonienne, c'est le moment de l'année où Chelsea se transforme en épicentre de l'horticulture internationale. Les <strong>Bank Holidays de Pâques</strong> — typiquement fin mars ou début avril — ajoutent de l'animation dans les villages des Cotswolds et du Lake District, avec les premiers excursionnistes de la saison et les restaurants en mode pré-été.</p>
 
-    <h2>Comment fonctionne la copropriété en Angleterre</h2>
+<h3>Automne (septembre–novembre)</h3>
 
-    <p>Le modèle de copropriété anglais de Co-Ownership Property est structuré pour la clarté juridique, l'efficacité fiscale et la simplicité opérationnelle. Vous acquérez une véritable part de 1/8 dans un bien détenu au sein d'une structure LLC (Limited Liability Company) créée spécifiquement à cet effet. Cela signifie que vous détenez un titre légal sur le bien — ce n'est ni une licence d'usage, ni de la multipropriété, ni un bail — enregistré au HM Land Registry anglais. Votre part est pleinement transmissible par héritage — vous pouvez la léguer à vos héritiers — et pleinement cessible ; vous pouvez la vendre à un autre acheteur.</p>
-
-    <div class="dest-callout">
-      <strong>Ce n'est pas de la multipropriété (timeshare) :</strong> la multipropriété — ou timeshare — vous vend un <em>droit d'usage</em> du bien pour une semaine définie chaque année, généralement par un contrat à terme et sans valeur de revente. Une part COP vous vend une <strong>participation patrimoniale enregistrée</strong> dans le bien lui-même, à travers une LLC dans laquelle vous et sept autres copropriétaires êtes titulaires à part égale. Elle est transmissible, transmissible par héritage, se valorise avec le bien sous-jacent, et se vend via un processus professionnel en environ un mois — exactement l'inverse de la multipropriété.
-    </div>
-
-    <p>La structure LLC offre plusieurs avantages. Premièrement, elle sépare votre responsabilité personnelle de la responsabilité liée au bien ; en cas d'incident sur le bien, c'est l'assurance de la LLC qui est engagée, non votre patrimoine personnel. Deuxièmement, elle crée une entité de gestion professionnelle : Co-Ownership Property agit en tant que gérant de la LLC, responsable des assurances, de l'entretien, des réparations et de la conformité opérationnelle. Troisièmement, elle établit un calendrier d'usage formel : en tant que copropriétaire à 1/8, vous bénéficiez d'environ 45 à 47 jours par an (l'allocation exacte étant déterminée par le groupe de copropriétaires). Quatrièmement, elle assure la conformité fiscale : la LLC dépose les déclarations fiscales appropriées, et Co-Ownership Property distribue les informations de revenus et charges à l'ensemble des copropriétaires pour leurs déclarations personnelles.</p>
-
-    <p>L'allocation d'usage fonctionne via un système de réservation prioritaire, généralement 6 à 8 mois à l'avance, combiné à un système de rotation équitable en secours. Les périodes prisées (grandes vacances d'été, Noël, Pâques) sont réparties équitablement entre les huit copropriétaires ; les périodes moins demandées (janvier, février, novembre) nécessitent moins de compétition. Vous pouvez également organiser des échanges de semaines avec d'autres copropriétaires si les emplois du temps s'y prêtent, ou demander des transferts temporaires pour prolonger un séjour particulier.</p>
-
-    <p>En matière de fiscalité immobilière anglaise, la copropriété entraîne la Stamp Duty Land Tax (SDLT) uniquement sur votre acquisition individuelle de la part fractionnelle, et non sur la valeur totale du bien. Par exemple, si le bien vaut £8 millions, la SDLT est calculée uniquement sur la valeur de votre part de 1/8 (£1 million), et non sur les £8 millions — résultant en des économies de SDLT significatives par rapport à l'acquisition du bien en entier. C'est l'un des avantages fiscaux spécifiques de la structure fractionnelle.</p>
-
-    <p>Les charges annuelles de fonctionnement sont partagées équitablement entre les huit copropriétaires. Elles comprennent typiquement les taxes foncières (Council Tax), les assurances, les réserves d'entretien et les honoraires de gestion professionnelle. Un bien premium londonien peut engendrer des charges annuelles totales de £40 000 à £60 000 (soit £5 000 à £7 500 par copropriétaire au 1/8) ; un bien côtier cornouaillais engendre typiquement £25 000 à £35 000 au total (soit £3 000 à £4 500 par copropriétaire au 1/8). Co-Ownership Property fournit une comptabilité détaillée trimestrielle et gère l'ensemble des relations avec les prestataires, des travaux d'entretien et de la conformité réglementaire.</p>
-
-    <h3>Votre détention en un coup d'œil</h3>
-    <ul>
-      <li><strong>Véritable patrimoine acté à votre nom</strong> — votre part de 1/8 est inscrite au HM Land Registry anglais, transmissible, transmissible par héritage, et elle se valorise avec le bien sous-jacent. Ce n'est ni de la multipropriété, ni une adhésion à points, ni un droit d'usage.</li>
-      <li><strong>Structure internationale cohérente</strong> — votre part en Angleterre s'inscrit dans le même cadre LLC conçu spécifiquement pour chaque bien COP dans le monde.</li>
-      <li><strong>Gestion intégrale</strong> — l'équipe de gestion professionnelle s'occupe du Council Tax et autres charges, des assurances, de l'entretien, de la planification, du linge et du service de conciergerie. Vous arrivez, le bien est prêt.</li>
-      <li><strong>Revente accompagnée via le réseau de copropriétaires COP</strong> — le processus de revente accompagnée se conclut généralement en environ un mois ou moins, bien en deçà des 4 à 8 mois que prend habituellement une vente d'un bien entier sur le marché libre anglais.</li>
-      <li><strong>Conçu pour les portefeuilles internationaux</strong> — le modèle LLC fait de la détention de plusieurs biens COP une seule relation consolidée.</li>
-    </ul>
-
-    </div></section>
-
-    <!-- §G — Investment Advantages -->
-    <section class="dest-sec cream"><div class="dest-inner">
-
-    <h2>Avantages patrimoniaux de la copropriété en Angleterre</h2>
-
-    <p>Le marché immobilier anglais, en particulier dans les emplacements premium, offre plusieurs avantages patrimoniaux distinctifs. Premièrement, la rareté de l'offre est réelle et imposée par la géographie et la réglementation. Les maisons de ville de Belgravia sont limitées au tissu du XIXe siècle originel ; aucun nouveau Belgravia ne sera jamais construit. Le littoral de Cornouailles est immuable ; aucune nouvelle côte ne sera jamais créée. Cette rareté véritable — à rebours des développements périurbains en expansion où l'offre croît indéfiniment — garantit que la demande pour les biens premium dépasse indéfiniment la croissance de l'offre, soutenant la valorisation.</p>
-
-    <p>Deuxièmement, le cadre juridique anglais est transparent, bien établi et mondialement reconnu. La détention immobilière en Angleterre remonte à des siècles ; le registre foncier, le droit immobilier et les cadres contractuels sont compris par chaque investisseur international. Cette transparence crée la confiance et réduit les primes de risque qui s'appliquent aux systèmes juridiques moins établis, soutenant les valorisations et garantissant que vous pouvez céder votre part fractionnelle facilement le moment venu.</p>
-
-    <p>Troisièmement, les biens anglais attirent une demande mondiale authentique. Le marché ultra-prime de Londres sert de valeur refuge pour les patrimoines internationaux ; lorsque les marchés mondiaux deviennent incertains, les individus aisés du monde entier se portent instinctivement sur l'immobilier londonien premium. Cela crée un pool d'acheteurs mondial bien plus large et liquide que les marchés régionaux britanniques. L'attrait de la Cornouailles s'étend à l'international : acheteurs européens, retraités américains et télétravailleurs internationaux se disputent activement les biens dans les emplacements les plus prisés.</p>
-
-    <p>Quatrièmement, la structure de copropriété réduit votre coût d'entrée unitaire tout en maintenant une pleine propriété légale et un potentiel de valorisation entier. Un bien londonien à £12 millions s'appréciant à 5 % par an représente £600 000 de valorisation annuelle — sur une part de 1/8, c'est £75 000 de création de valeur annuelle sans effet de levier, sans charge d'entretien ni de gestion active. Sur un portefeuille diversifié de copropriété, cette valorisation se capitalise.</p>
-
-    <p>Cinquièmement, les revenus immobiliers anglais sont modestes mais légitimes. De nombreux biens en copropriété peuvent générer des revenus locatifs à court terme pendant vos périodes de non-utilisation ; l'équipe de gestion de Co-Ownership Property coordonne les locations, avec des revenus distribués aux copropriétaires trimestriellement, nets de frais de gestion. Si ce revenu est un complément — la copropriété est avant tout un placement lifestyle et de valorisation à long terme — il réduit les charges nettes de portage et crée un flux de trésorerie modeste. À la différence de la multipropriété traditionnelle qui vous enferme dans un droit d'usage immuable, votre part COP participe pleinement à l'appréciation du bien sous-jacent.</p>
-
-    </div></section>
-
-    <!-- Comparison Table -->
-    <section class="dest-sec white"><div class="dest-inner">
-
-    <h2>Comparaison : bien entier, part 1/8 COP, location longue durée</h2>
-
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Résidence secondaire entière</th>
-          <th>Part 1/8 COP</th>
-          <th>Location longue durée</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Engagement initial</td>
-          <td>Valeur totale du bien</td>
-          <td>~1/8 de la valeur du bien</td>
-          <td>Caution et 1–2 mois de loyer</td>
-        </tr>
-        <tr>
-          <td>Patrimoine dans l'actif</td>
-          <td>Plus-value totale</td>
-          <td>~1/8 de la plus-value</td>
-          <td>Aucun</td>
-        </tr>
-        <tr>
-          <td>Charges annuelles</td>
-          <td>Council Tax, assurances, gestion et entretien complets</td>
-          <td>~1/8 des charges, gestion intégrale incluse</td>
-          <td>Loyer complet chaque année, indéfiniment</td>
-        </tr>
-        <tr>
-          <td>Utilisation personnelle</td>
-          <td>Jusqu'à 52 semaines (la plupart utilisent 6 à 10)</td>
-          <td>~45 jours, planifiés professionnellement</td>
-          <td>Défini par le bail</td>
-        </tr>
-        <tr>
-          <td>Charge opérationnelle</td>
-          <td>Géré par le propriétaire ou personnel embauché</td>
-          <td>Entièrement inclus</td>
-          <td>Géré par le bailleur</td>
-        </tr>
-        <tr>
-          <td>Délai de revente</td>
-          <td>4 à 8 mois sur le marché libre anglais</td>
-          <td>Environ un mois en moyenne</td>
-          <td>Fin du bail</td>
-        </tr>
-        <tr>
-          <td>Droit successoral</td>
-          <td>Succession immobilière complète</td>
-          <td>Part transmissible par héritage via la LLC</td>
-          <td>Non applicable</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="dest-callout">
-      <strong>Consultation libre, contact libre.</strong> L'utilisation de COP est gratuite pour les acheteurs — aucuns frais, aucun coût d'inscription, aucun engagement. Parlez avec nos spécialistes pour savoir quelle région d'Angleterre correspond le mieux à votre mode d'utilisation, ou parcourez les annonces et inscrivez-vous à notre liste pour être alerté dès qu'un nouveau bien arrive sur le marché.
-    </div>
-
-    </div></section>
-
-    <!-- FAQ -->
-    <section class="dest-faq-sec"><div class="dest-inner">
-      <p class="dest-eyebrow">Questions et réponses</p>
-      <h2>Copropriété en Angleterre — Questions fréquentes</h2>
-      <div class="dest-faq-list">
-
-        <details class="dest-faq-item">
-          <summary><h3>Les ressortissants étrangers peuvent-ils acheter une part fractionnelle en Angleterre ?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Oui, sans restriction. Les non-ressortissants britanniques peuvent acquérir des parts fractionnelles dans des biens anglais sans limitation (contrairement à certains achats résidentiels par des entités étrangères). Vous devrez obtenir un numéro d'identification fiscale britannique et déposer des déclarations fiscales au Royaume-Uni en tant que propriétaire non-résident. De nombreux copropriétaires COP sont des acheteurs internationaux en quête de prestige londonien ou de style de vie cornouaillais sans les complications d'une pleine propriété ou de la création d'une société britannique.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>Comment fonctionne la Stamp Duty Land Tax (SDLT) sur une part fractionnelle ?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>La SDLT est calculée sur votre prix d'acquisition de la part fractionnelle, et non sur la valeur totale du bien. Si vous acquérez une part de 1/8 dans un bien à £8 millions (valeur de votre part = £1 million), vous payez la SDLT uniquement sur £1 million, et non sur £8 millions. Aux taux actuels, cela résulte en une SDLT d'environ £113 750 sur votre part de 1/8, contre £475 000 si vous achetiez le bien en entier. La SDLT sur l'acquisition fractionnelle est l'un des avantages fiscaux spécifiques de la structure fractionnelle.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>Puis-je louer mes semaines non utilisées pour générer un revenu ?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Oui, avec la gestion de Co-Ownership Property. Pendant vos périodes de non-utilisation, le bien peut être mis en location courte durée (Airbnb, Booking.com ou agences de location de luxe). Co-Ownership Property coordonne toute la logistique locative — sélection des locataires, ménage entre les séjours, gestion des sinistres, conformité réglementaire — et distribue les revenus locatifs aux copropriétaires trimestriellement, nets des frais de gestion. Pour les biens londoniens premium, les tarifs de location courte durée peuvent atteindre £1 500 à £3 000+ par nuit ; les biens côtiers cornouaillais commandent typiquement £800 à £1 500 par nuit. Ces revenus locatifs contribuent à compenser les charges annuelles de portage.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>Dois-je choisir Londres ou la Cornouailles pour ma copropriété ?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Cela dépend de votre usage principal. Choisissez Londres si vous privilégiez la densité culturelle, le prestige mondial, la gastronomie et le shopping de premier rang, et le réseautage professionnel — tout en souhaitant la liquidité maximale et le potentiel de valorisation d'un actif mondialement reconnu. Choisissez la Cornouailles si vous prioritisez l'échappée lifestyle, la beauté naturelle, les activités de plein air (surf, randonnée, vie côtière) et des séjours plus longs dans un marché en pleine transformation avec un véritable potentiel de croissance. Certains acheteurs acquièrent les deux : une part londonienne pour les semaines de déplacements professionnels et d'immersion culturelle, plus une part cornouaillaise pour les loisirs prolongés et la ressource.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>Puis-je transmettre ma part à mes enfants ou héritiers ?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Oui, votre part fractionnelle est pleinement transmissible par héritage. À votre décès, votre part passe à votre succession et revient à vos héritiers selon votre testament ou le droit successoral local applicable. Vos héritiers peuvent conserver la copropriété (en continuant à bénéficier des droits d'usage et des avantages patrimoniaux), céder la part à un autre acheteur, ou modifier leur niveau de participation. Le contrat d'exploitation de la LLC définit clairement les procédures successorales, garantissant une transmission fluide et évitant les complications de la succession.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>Comment se déroule la revente de ma part fractionnelle ?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Co-Ownership Property maintient un marché secondaire pour les parts fractionnelles et peut généralement localiser des acheteurs en environ un mois. Vous pouvez également vendre de façon indépendante via vos propres canaux. Le processus de vente : vous mettez votre part en vente avec le soutien de COP, les acheteurs potentiels sont sélectionnés (vérification financière et évaluation d'aptitude), la documentation juridique est transférée au HM Land Registry, et les fonds sont transférés à la finalisation. Les ventes se concluent typiquement en trente jours à compter de l'accord. La sortie est simple car les parts fractionnelles dans l'immobilier anglais premium restent des actifs hautement liquides — à la différence de la multipropriété traditionnelle qui ne se revend pas.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>Quelles sont les charges annuelles totales, et que couvrent-elles ?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Les charges annuelles varient selon le bien et la localisation. Un bien londonien premium coûte typiquement £40 000 à £60 000 par an (divisé entre huit copropriétaires = £5 000 à £7 500 par part de 1/8) ; un bien côtier cornouaillais coûte typiquement £25 000 à £35 000 par an (divisé entre huit copropriétaires = £3 000 à £4 500 par part de 1/8). Ces charges couvrent : Council Tax et Stamp Duty Land Tax (SDLT) s'il y a lieu, assurance bâtiment et contenu, entretien planifié et réserves de capital, réparations d'urgence, charges de services pendant les périodes de non-occupation, entretien des espaces extérieurs et du jardin, gestion professionnelle du bien, et conformité réglementaire. Vous recevez une comptabilité trimestrielle détaillée de toutes les dépenses.</p>
-          </div>
-        </details>
-
-      </div>
-    </div></section>
-
-    <!-- CTAs -->
-    <section class="newsletter-section" id="newsletter">
-        <h2 class="newsletter-heading">Soyez le premier informé</h2>
-        <p class="newsletter-subtitle">Rejoignez notre communauté pour recevoir des annonces exclusives et des actualités de destinations directement dans votre boîte mail.</p>
-        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
-            <input type="email" name="email" placeholder="Votre adresse e-mail" required>
-            <button type="submit" class="newsletter-btn">S'inscrire</button>
-        </form>
-        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
-    </section>
-
-    <section class="expert-section" id="speak-to-expert">
-        <div class="expert-inner">
-            <p class="expert-eyebrow">Nous contacter</p>
-            <h2 class="expert-heading">Parler à un <em>spécialiste</em></h2>
-            <p class="expert-sub">Dites-nous ce que vous recherchez et l'un de nos spécialistes en copropriété vous recontactera dans les 24 heures.</p>
-
-            <form class="expert-form" id="expert-enquiry-form" novalidate>
-                <input type="hidden" name="nonce" value="9e3a8b0450">
-                <div class="expert-form-grid">
-                    <div class="expert-form-field">
-                        <label for="ef-name">Nom <span>*</span></label>
-                        <input type="text" id="ef-name" name="name" placeholder="Votre nom" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-email">Adresse e-mail <span>*</span></label>
-                        <input type="email" id="ef-email" name="email" placeholder="votre@email.com" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-phone">Numéro de téléphone <span>*</span></label>
-                        <input type="tel" id="ef-phone" name="phone" placeholder="+33 6 00 00 00 00" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label>Destinations</label>
-                        <div class="dest-multiselect" id="dest-multiselect">
-                            <div class="dest-trigger" id="dest-trigger">
-                                <span class="dest-placeholder">Sélectionner des destinations</span>
-                            </div>
-                            <div class="dest-dropdown" id="dest-dropdown">
-                                <div class="dest-option" data-value="France">
-                                    <span class="dest-check"></span>
-                                    🇫🇷 France
-                                </div>
-                                <div class="dest-option" data-value="Spain">
-                                    <span class="dest-check"></span>
-                                    🇪🇸 Espagne
-                                </div>
-                                <div class="dest-option" data-value="Italy">
-                                    <span class="dest-check"></span>
-                                    🇮🇹 Italie
-                                </div>
-                                <div class="dest-option" data-value="USA">
-                                    <span class="dest-check"></span>
-                                    🇺🇸 États-Unis
-                                </div>
-                                <div class="dest-option" data-value="Portugal">
-                                    <span class="dest-check"></span>
-                                    🇵🇹 Portugal
-                                </div>
-                                <div class="dest-option" data-value="Austria">
-                                    <span class="dest-check"></span>
-                                    🇦🇹 Autriche
-                                </div>
-                                <div class="dest-option" data-value="England">
-                                    <span class="dest-check"></span>
-                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre
-                                </div>
-                                <div class="dest-option" data-value="Sweden">
-                                    <span class="dest-check"></span>
-                                    🇸🇪 Suède
-                                </div>
-                                <div class="dest-option" data-value="Germany">
-                                    <span class="dest-check"></span>
-                                    🇩🇪 Allemagne
-                                </div>
-                                <div class="dest-option" data-value="Croatia">
-                                    <span class="dest-check"></span>
-                                    🇭🇷 Croatie
-                                </div>
-                                <div class="dest-option" data-value="Mexico">
-                                    <span class="dest-check"></span>
-                                    🇲🇽 Mexique
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" name="destination" id="ef-destination">
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-budget">Budget</label>
-                        <select id="ef-budget" name="budget">
-                            <option value="" disabled selected>Sélectionner un budget</option>
-                            <option>Moins de 100 000 €</option>
-                            <option>100 000 € – 200 000 €</option>
-                            <option>200 000 € – 350 000 €</option>
-                            <option>350 000 € – 500 000 €</option>
-                            <option>500 000 € – 750 000 €</option>
-                            <option>750 000 € – 1 000 000 €</option>
-                            <option>Plus de 1 000 000 €</option>
-                        </select>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-message">Message</label>
-                        <textarea id="ef-message" name="message" placeholder="Dites-nous ce que vous recherchez (facultatif)"></textarea>
-                    </div>
-                </div>
-                <div class="expert-submit">
-                    <button type="submit" class="expert-submit-btn">Envoyer ma demande</button>
-                    <p class="expert-form-msg" id="expert-form-msg"></p>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">La copropriété de luxe pour l'acheteur avisé de résidence secondaire.</p></div>
-            <div class="footer-col"><h3>Biens</h3><ul><li><a href="/fr/proprietes/">Tous les biens</a></li><li><a href="/fr/destinations/spain-fractional-ownership-properties/">Espagne</a></li><li><a href="/fr/destinations/france-fractional-ownership-properties/">France</a></li><li><a href="/fr/destinations/italy-fractional-ownership-properties/">Italie</a></li><li><a href="/fr/destinations/usa-fractional-ownership-properties/">États-Unis</a></li></ul></div>
-            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/fr/destinations/mallorca-fractional-ownership-properties/">Majorque</a></li><li><a href="/fr/destinations/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/fr/destinations/california-fractional-ownership-properties/">Californie</a></li><li><a href="/fr/destinations/french-alps-fractional-ownership-properties/">Alpes françaises</a></li><li><a href="/fr/destinations/lake-como-fractional-ownership-properties/">Lac de Côme</a></li></ul></div>
-            <div class="footer-col"><h3>La société</h3><ul><li><a href="/fr/a-propos/">À propos</a></li><li><a href="/fr/blog/">Notre blog</a></li><li><a href="/fr/comment-ca-marche/">Comment ça marche</a></li><li><a href="/fr/contact/">Contact</a></li></ul></div>
-            <div class="footer-col"><h3>Assistance</h3><ul><li><a href="/fr/contact/">Nous contacter</a></li><li><a href="/fr/comment-ca-marche/#faq">FAQ</a></li><li><a href="/fr/comment-ca-marche/">Comment ça marche</a></li><li><a href="/fr/proprietes/">Parcourir les biens</a></li></ul></div>
-        </div>
-        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. Tous droits réservés.</p><div class="footer-legal"><a href="/fr/">Politique de confidentialité</a><a href="/fr/">Conditions d'utilisation</a><a href="/fr/">Mentions légales</a></div></div>
-    </footer>
-
-    <script>
-        /* ── Shared header JS ──────────────────────────────────────── */
-(function () {
-    var header = document.getElementById('cop-header');
-    var btn    = document.getElementById('cop-hamburger');
-    var nav    = document.getElementById('cop-nav');
-    if (!header || !btn || !nav) return;
-
-    // Mobile hamburger toggle
-    btn.addEventListener('click', function () {
-        nav.classList.toggle('active');
-        btn.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-            nav.classList.remove('active');
-            btn.classList.remove('open');
-        });
-    });
-}());
-        /* ── Newsletter form ──────────────────────────────────────── */
-(function() {
-    var form = document.getElementById('cop-newsletter-form');
-    if (!form) return;
-    var msg = document.getElementById('newsletter-form-msg');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var emailInput = form.querySelector('input[type="email"]');
-        var btn = form.querySelector('.newsletter-btn');
-        if (!emailInput.value) return;
-
-        btn.disabled = true;
-        btn.textContent = 'Inscription…';
-        msg.className = 'newsletter-form-msg';
-        msg.textContent = '';
-
-        var data = new FormData();
-        data.append('action', 'cop_newsletter_subscribe');
-        data.append('email', emailInput.value);
-
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'newsletter-form-msg success';
-                msg.textContent = res.data || 'Merci pour votre inscription !';
-                form.reset();
-                btn.textContent = 'Inscrit !';
-            } else {
-                msg.className = 'newsletter-form-msg error';
-                msg.textContent = res.data || 'Une erreur est survenue. Veuillez réessayer.';
-                btn.disabled = false;
-                btn.textContent = 'S\'inscrire';
-            }
-        })
-        .catch(function() {
-            msg.className = 'newsletter-form-msg error';
-            msg.textContent = 'Erreur réseau. Veuillez réessayer.';
-            btn.disabled = false;
-            btn.textContent = 'S\'inscrire';
-        });
-    });
-})();
-        /* ── Multi-select destination dropdown ────── */
-(function() {
-    var wrap     = document.getElementById('dest-multiselect');
-    var trigger  = document.getElementById('dest-trigger');
-    var dropdown = document.getElementById('dest-dropdown');
-    var hidden   = document.getElementById('ef-destination');
-    if (!wrap || !trigger || !dropdown || !hidden) return;
-
-    var placeholder = trigger.querySelector('.dest-placeholder');
-    var selected = [];
-
-    function render() {
-        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-
-        if (selected.length === 0) {
-            placeholder.style.display = '';
-        } else {
-            placeholder.style.display = 'none';
-            selected.forEach(function(val) {
-                var tag = document.createElement('span');
-                tag.className = 'dest-tag';
-                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
-                trigger.insertBefore(tag, placeholder);
-            });
-        }
-
-        hidden.value = selected.join('; ');
-
-        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
-            if (selected.indexOf(opt.dataset.value) !== -1) {
-                opt.classList.add('selected');
-            } else {
-                opt.classList.remove('selected');
-            }
-        });
-    }
-
-    trigger.addEventListener('click', function(e) {
-        if (e.target.classList.contains('dest-tag-x')) {
-            var val = e.target.dataset.val;
-            selected = selected.filter(function(v) { return v !== val; });
-            render();
-            e.stopPropagation();
-            return;
-        }
-        wrap.classList.toggle('open');
-    });
-
-    dropdown.addEventListener('click', function(e) {
-        var opt = e.target.closest('.dest-option');
-        if (!opt) return;
-        var val = opt.dataset.value;
-        var idx = selected.indexOf(val);
-        if (idx === -1) {
-            selected.push(val);
-        } else {
-            selected.splice(idx, 1);
-        }
-        render();
-        e.stopPropagation();
-    });
-
-    document.addEventListener('click', function(e) {
-        if (!wrap.contains(e.target)) {
-            wrap.classList.remove('open');
-        }
-    });
-})();
-
-/* ── Expert enquiry form AJAX ─────────────── */
-(function() {
-    var form = document.getElementById('expert-enquiry-form');
-    if (!form) return;
-    var btn = form.querySelector('.expert-submit-btn');
-    var msg = document.getElementById('expert-form-msg');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.textContent = 'Envoi…';
-        msg.className = 'expert-form-msg';
-        msg.textContent = '';
-
-        var data = new FormData();
-        data.append('action', 'cop_expert_enquiry');
-        data.append('nonce',       form.querySelector('[name="nonce"]').value);
-        data.append('name',        form.querySelector('[name="name"]').value);
-        data.append('email',       form.querySelector('[name="email"]').value);
-        data.append('phone',       form.querySelector('[name="phone"]').value);
-        data.append('destination', form.querySelector('[name="destination"]').value);
-        data.append('budget',      form.querySelector('[name="budget"]').value);
-        data.append('message',     form.querySelector('[name="message"]').value);
-
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'expert-form-msg success';
-                msg.textContent = res.data || 'Merci ! Nous vous recontacterons dans les 24 heures.';
-                form.reset();
-                btn.textContent = 'Envoyé !';
-                var wrap = document.getElementById('dest-multiselect');
-                if (wrap) {
-                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-                    var ph = wrap.querySelector('.dest-placeholder');
-                    if (ph) ph.style.display = '';
-                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
-                }
-            } else {
-                msg.className = 'expert-form-msg error';
-                msg.textContent = res.data || 'Une erreur est survenue. Veuillez réessayer.';
-                btn.disabled = false;
-                btn.textContent = 'Envoyer ma demande';
-            }
-        })
-        .catch(function() {
-            msg.className = 'expert-form-msg error';
-            msg.textContent = 'Erreur réseau. Veuillez réessayer.';
-            btn.disabled = false;
-            btn.textContent = 'Envoyer ma demande';
-        });
-    });
-})();
-        // Show more properties
-        var showMoreBtn = document.getElementById('dest-show-more');
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', function() {
-                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
-                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
-            });
-        }
-    </script>
+<p>Pour de nombreux copropriétaires anglais expérimentés, <strong>l'automne est la saison favorite</strong>. Les températures en septembre se maintiennent à <strong>14 à 18 °C (57 à 64 °F)</strong>, la lumière acquiert une qualité dorée et basse que les photographes considèrent comme la meilleure de l'année, et les visiteurs d'été ont disparu dans les dix jours suivant la rentrée scolaire. Les restaurants acceptent des réservations la semaine même ; les chemins des Cotswolds sont tranquilles ; les plages des Cornouailles ont cette solitude mélancolique que beaucoup d'acheteurs considèrent plus authentique que l'août bondé. L'<strong>automne dans le Lake District</strong> est visuellement spectaculaire — les forêts de hêtres et de chênes se teintent de rouge et d'or en octobre, les lacs reflètent les couleurs sur des eaux sans vent, et les randonneurs sérieux considèrent septembre et octobre comme les meilleurs mois de l'année pour les fells : sans la chaleur de l'été, sans les foules, avec une visibilité parfaite depuis les sommets.</p>
+
+<p>Les <strong>festivals de récolte</strong> animent les villages des Cotswolds et du Yorkshire tout au long d'octobre : pommes pour le cidre dans les vergers de la vallée de la Wye, champignons sauvages dans les forêts des Moors, fromages artisanaux et conserves dans les marchés de week-end. Le <strong>bonfire night</strong> (5 novembre) est l'un des grands rituels du calendrier anglais : feux de joie et feux d'artifice dans chaque ville, village et hameau du pays, avec les pubs bondés et les familles dans les champs les yeux levés vers le ciel. C'est un moment authentique, sans équivalent dans aucun autre pays, et particulièrement mémorable dans les villages des Cotswolds et du Yorkshire où les feux de joie ont une échelle et une intimité communautaire que les villes ne peuvent pas répliquer. <strong>Octobre</strong> dans le Yorkshire coïncide avec la <strong>saison de chasse</strong> — l'une des traditions rurales anglaises les plus anciennes, avec ses domaines historiques dans les Moors, ses tweeds locaux et sa gastronomie spécifique de gibier. Les températures de <strong>novembre</strong> descendent à <strong>8 à 12 °C (46 à 54 °F)</strong>, mais les Cotswolds et le Yorkshire gardent une beauté austère qui, dans les maisons avec la cheminée allumée, a quelque chose de parfaitement anglais.</p>
+
+<h3>Hiver (décembre–février)</h3>
+
+<p>L'hiver anglais est l'un des calendriers culturels les plus riches d'Europe pour un copropriétaire urbain ou de campagne. Les températures oscillent entre <strong>2 et 7 °C (36 à 45 °F)</strong> dans les Cotswolds et le Yorkshire — assez froid pour les cheminées allumées, la neige occasionnelle et l'esthétique de campagne anglaise d'hiver que les peintures et les romans ont rendu iconique — et entre <strong>5 et 10 °C (41 à 50 °F)</strong> à Londres et en Cornouailles, où le climat est notablement plus clément. Les marchés de Noël de <strong>Bath</strong> (considéré comme le meilleur de Grande-Bretagne pour son envergure et son architecture géorgienne en toile de fond), <strong>York</strong> (le plus historique, à l'intérieur des remparts médiévaux de la ville) et le <strong>marché de Noël de Hyde Park</strong> à Londres comptent parmi les meilleures expériences de Noël d'Europe. Les Cornouailles en hiver ont un dramatisme sans égal : les tempêtes atlantiques qui battent les falaises de granit de la côte nord, les pubs de village avec la cheminée allumée et l'ambiance de communauté maritime, le surf de grosses vagues qui arrive des tempêtes de l'Atlantique nord. C'est la version des Cornouailles que les visiteurs d'été ne voient jamais, et que de nombreux copropriétaires réservent activement dans leur calendrier annuel.</p>
+
+<p><strong>Londres en décembre et janvier</strong> est l'un des grands arguments pour une part urbaine. Les illuminations de Regent Street et Oxford Street figurent parmi les installations lumineuses de Noël les plus élaborées d'Europe ; le calendrier théâtral du West End atteint son apogée de production de Noël avec les grandes comédies musicales et les premières de saison ; les opéras et concerts du <strong>Royal Opera House</strong> et du <strong>Royal Albert Hall</strong> présentent en janvier et février une densité de programmation qui rivalise avec Vienne ou Berlin. Le jour de <strong>Boxing Day</strong> (26 décembre) est sacré dans le calendrier anglais : la tradition de sortir marcher à la campagne en famille le lendemain de Noël, avec les bottes de randonnée et le chien, amène les Cotswolds et le Lake District à une activité piétonne qui n'a d'équivalent dans aucun autre mois de l'année. La <strong>saison de pantomime</strong> (décembre–janvier) — une forme théâtrale particulièrement anglaise, avec des contes de fées réinterprétés pour toute la famille dans les théâtres locaux — est l'un de ces rituels culturels qui requièrent une présence sur place pour être compris et que les copropriétaires avec des enfants finissent par protéger comme leur séjour de décembre favori.</p>
+
+</div></section>
+
+<section class="dest-section--white"><div class="dest-inner">
+
+<h2>Pour qui ?</h2>
+
+<p>Le mix d'acheteurs internationaux dans la copropriété anglaise est véritablement mondial et se diversifie rapidement. Historiquement, le marché de résidence secondaire dans les Cotswolds et les Cornouailles était dominé par des acheteurs du sud de l'Angleterre et des Européens du nord — Français, Allemands, Néerlandais, Belges, Scandinaves — attirés par la proximité (l'Eurostar met Paris et Bruxelles à moins de deux heures et demie de St Pancras), la stabilité juridique et la qualité du parc immobilier historique. Ce qui a changé au cours de ces dix dernières années, c'est l'arrivée d'un acheteur plus authentiquement international : des Français et d'autres Européens qui cherchent un ancrage dans le monde anglophone, des familles avec enfants dans les internats du sud de l'Angleterre qui veulent une base familiale comfortable à moins de deux heures de l'école. Le marché londonien — Mayfair, Belgravia, Chelsea — est depuis des décennies véritablement mondial : le HM Land Registry recense des acheteurs de plus de 70 nationalités distinctes parmi les propriétaires actifs des cinq adresses londoniennes les plus valorisées.</p>
+
+<p>Le profil par étape de vie est à certains égards plus pertinent que la ventilation par nationalité. La cohorte unique la plus nombreuse d'acheteurs dans le marché de la copropriété anglaise se situe dans la <strong>tranche 45–65 ans</strong> — des copropriétaires dont le revenu principal est établi, dont la famille a un lien avec le monde anglophone par les études, le travail ou l'histoire familiale, et qui veulent un actif patrimonial en livres sterling comme complément naturel à un portefeuille libellé en euros. Un schéma qui mérite d'être souligné est celui de l'<strong>acheteur multi-fractions</strong> qui combine l'Angleterre avec la Méditerranée : Cotswolds plus Majorque, ou Londres plus la Costa del Sol, ou Cornouailles plus une ville européenne. Le modèle fractionnel rend cette stratégie de portefeuille pratique : deux parts de 1/8 coûtent moins qu'une seule résidence entière dans l'une ou l'autre direction, et la relation de gestion à travers le portefeuille est unifiée sous le même cadre LLC.</p>
+
+<p>Ce qui unit ces profils d'acheteurs par ailleurs assez distincts est le <strong>calcul sous-jacent</strong> : les semaines de résidence secondaire que chacun d'eux utilise réellement chaque année s'inscrivent dans les 6 à 7 semaines que livre une part de 1/8, le coût opérationnel de gestion à distance d'un bien anglais n'est pas négligeable — Council Tax, assurances, entretien du jardin, charges, gestion professionnelle : facilement <strong>15 000 £ à 25 000 £ par an</strong> pour un bien entier dans les Cotswolds ou le Lake District — et la liquidité de revente d'une part au sein d'un portefeuille géré est nettement supérieure à celle d'un bien entier à la même adresse. L'Angleterre est un marché où les mathématiques de la copropriété coïncident presque parfaitement avec le schéma d'utilisation réel de l'acheteur international — qui visite entre quatre et huit semaines par an — et où l'argument « mieux vaut la part fractionnée que le bien entier » a l'un de ses exemples les plus clairs en Europe.</p>
+
+<ul>
+  <li><strong>Familles avec enfants dans des internats ou des universités du Royaume-Uni</strong> — la décision d'achat la plus spécifiquement anglaise : familles françaises, européennes ou du Proche-Orient dont les enfants étudient à Eton, Winchester, Harrow, Oxford, Cambridge ou les universités de Londres, qui veulent un lieu de rassemblement lors des visites trimestrielles et des vacances de mi-trimestre sans le coût et l'inconfort des hôtels, et où les enfants ont un chez-eux dans le pays où ils étudient. La maison en copropriété dans les Cotswolds à 90 minutes de Londres, ou à Richmond en banlieue sud-ouest, répond à ce besoin de façon particulièrement précise.</li>
+  <li><strong>Couples européens amateurs de culture, de théâtre et de patrimoine historique</strong> — acheteurs français, allemands, néerlandais et scandinaves pour qui l'Angleterre est le complément naturel d'une vie culturelle centrée sur l'Europe, et qui veulent le West End, les musées du South Kensington, l'architecture géorgienne de Bath ou Cheltenham, et les jardins historiques des Cotswolds à portée d'un vol de 90 minutes depuis leurs villes principales. Le modèle fractionnel est particulièrement attractif pour ce profil parce qu'il permet des séjours de durée variée — deux jours pour une première londonienne, dix jours pour une semaine étendue de randonnée dans les Cotswolds — sans la charge opérationnelle d'un bien entier.</li>
+  <li><strong>Acheteurs français cherchant une base à Londres ou dans la campagne anglaise</strong> — un profil en croissance rapide dans le marché de la copropriété COP : acheteurs parisiens, bordelais, niçois et lyonnais pour qui Londres est la capitale mondiale du monde anglophone et pour qui les Cotswolds ou les Cornouailles représentent l'expérience de campagne anglaise qu'ils connaissent par la littérature, le cinéma et les séries, et qui veulent leur propre part de cette image. L'Eurostar à 2 h 20 de Paris-Nord rend les Cotswolds aussi accessibles que la plupart des destinations de week-end français.</li>
+  <li><strong>Amateurs de golf, d'équitation et de sports ruraux anglais</strong> — acheteurs qui placent le sport rural au centre de leur schéma d'utilisation : golf dans les parcours du Yorkshire et du Surrey, équitation dans les Dales, chasse en battue dans les domaines du nord, randonnée dans les parcs nationaux. L'Angleterre possède la meilleure infrastructure de tourisme rural sportif du monde anglophone et une culture de campagne sans équivalent dans aucun autre pays européen.</li>
+  <li><strong>Investisseurs cherchant un actif en livres sterling en complément de portefeuilles européens</strong> — acheteurs avec des portefeuilles libellés principalement en euros ou en dollars pour qui la livre sterling offre une couche genuïne de diversification de devise, soutenue par un marché immobilier prime avec deux cents ans de résultats d'appréciation et un système juridique qui bénéficie de la reconnaissance mondiale la plus large. La possibilité d'achat en Angleterre reste totalement ouverte aux ressortissants de l'UE après le Brexit — il n'existe aucune restriction sur l'acquisition de biens en Angleterre par des non-résidents européens.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-section--cream"><div class="dest-inner">
+
+<h2>Aspects pratiques</h2>
+
+<h3>Aéroports et accès depuis l'étranger</h3>
+
+<p>L'Angleterre dispose du réseau de connexions aériennes internationales le plus dense du nord de l'Europe. <strong>London Heathrow (LHR)</strong> est l'aéroport le plus fréquenté d'Europe avec des vols directs depuis plus de 180 destinations internationales, notamment toutes les grandes capitales européennes et mondiales. Le temps de trajet depuis Heathrow jusqu'au centre de Londres est de 15 minutes avec l'Elizabeth Line. <strong>London Gatwick (LGW)</strong> offre le plus grand réseau de vols low-cost européens et des connexions directes vers plus de 200 destinations ; il est particulièrement utile pour les propriétaires dans les Cotswolds (90 minutes en voiture depuis Cirencester). <strong>London City (LCY)</strong>, à 7 minutes du centre en métro, est l'aéroport d'affaires par excellence, avec des connexions directes vers les principales villes européennes — Amsterdam, Francfort, Zurich, Paris, Genève, Milan — avec des fréquences de plusieurs départs quotidiens.</p>
+
+<p>Pour les zones rurales, les aéroports régionaux sont fondamentaux. <strong>Bristol (BRS)</strong> dessert les Cotswolds (45 minutes en voiture jusqu'à Cirencester) et les Cornouailles (2 heures jusqu'à Padstow) ; il dispose de vols directs depuis Madrid, Barcelone, Lisbonne, Amsterdam, Francfort et Dubaï, entre autres. <strong>Exeter (EXT)</strong> est la porte d'entrée du Devon et de la partie orientale des Cornouailles. <strong>Newquay (NQY)</strong>, au cœur des Cornouailles, dispose de vols saisonniers depuis Londres, Manchester et plusieurs destinations européennes. <strong>Manchester (MAN)</strong> est le hub de référence pour le Lake District (90 minutes en voiture jusqu'à Windermere), le Yorkshire (45 minutes jusqu'à Leeds) et le nord de l'Angleterre en général ; il dispose du réseau international le plus large en dehors de Londres, avec des vols directs depuis Miami, New York, Dubaï, Doha et pratiquement toutes les capitales européennes.</p>
+
+<p>Le réseau ferroviaire est tout aussi remarquable : <strong>GWR depuis Paddington</strong> vers les Cotswolds (90 minutes jusqu'à Moreton-in-Marsh) et les Cornouailles (5 heures jusqu'à Penzance, avec service de nuit) ; <strong>Avanti depuis Euston</strong> vers le Lake District (2 h 45 jusqu'à Oxenholme) ; <strong>LNER depuis King's Cross</strong> vers le Yorkshire (1 h 50 jusqu'à York). L'<strong>Eurostar</strong> connecte Paris-Nord à St Pancras en <strong>2 h 20</strong>, Bruxelles en 2 heures, et Amsterdam en 4 heures — ce qui fait de l'Angleterre l'une des destinations de résidence secondaire les plus accessibles depuis le continent pour les acheteurs français.</p>
+
+<p>Les charges annuelles typiques pour une part de 1/8 en Angleterre se situent dans une fourchette de <strong>£3 000 à £8 000</strong> (environ 3 500 € à 9 500 €) selon la zone et le niveau de service. Les charges de service annuelles représentent environ <strong>£8 000 à £16 000</strong> pour l'ensemble d'un bien de qualité dans les Cotswolds ou le Lake District — soit £1 000 à £2 000 par part de 1/8. Ces charges couvrent le Council Tax (fraction proportionnelle de la taxe municipale annuelle), les assurances, la gestion professionnelle, le nettoyage et le linge entre chaque séjour, l'entretien du jardin, les petites réparations et une contribution au fonds de réserve pour les grandes améliorations. Il n'existe en Angleterre aucun équivalent de l'impôt annuel sur la fortune ou de l'ISF français — ce qui rend le coût de détention comparativement plus prévisible année après année.</p>
+
+<p><strong>Note post-Brexit importante :</strong> les ressortissants de l'Union européenne, y compris les Français, peuvent toujours acquérir librement des biens en Angleterre — il n'existe aucune restriction sur l'achat par des non-résidents européens. Le Brexit n'a modifié ni le droit de détenir des biens, ni les modalités de financement, ni les droits de succession pour les acheteurs de l'UE en Angleterre.</p>
+
+</div></section>
+
+<section class="dest-section--white"><div class="dest-inner">
+
+<h2>Comment ça fonctionne</h2>
+
+<p>La mécanique de la copropriété en Angleterre s'articule autour de trois éléments qui fonctionnent ensemble : la <strong>structure LLC créée spécifiquement à cet effet</strong> utilisée pour constituer chaque bien COP, le <strong>régime fiscal immobilier anglais</strong> qui s'applique à toutes les résidences secondaires, et le <strong>HM Land Registry</strong> qui gère l'enregistrement du titre du bien sous-jacent. Comprendre comment ces trois pièces s'emboîtent est la différence entre une expérience de copropriété claire et prévisible et une dans laquelle l'acheteur se sent incertain sur ce qu'il possède et sur son fonctionnement.</p>
+
+<h3>La structure LLC : comment votre part est actée</h3>
+
+<p>La LLC qui constitue chaque bien anglais est une <strong>société créée spécifiquement à cet effet</strong> conçue pour la copropriété internationale. Elle a un gestionnaire désigné sous les documents de gouvernance de la société, un registre d'associés qui recense qui détient quelle participation et dans quelle proportion, et une assemblée générale annuelle lors de laquelle les décisions au niveau des copropriétaires sont prises — grandes œuvres de capital, budget, révision du gestionnaire. Le même cadre LLC est utilisé dans l'ensemble des destinations COP aux États-Unis, en Espagne, en France, en Italie et au-delà — ce qui signifie qu'un copropriétaire qui ajoute un deuxième bien dans un autre pays n'apprend pas une nouvelle structure, mais étend celle qu'il connaît déjà.</p>
+
+<p>Pour un acheteur fractionnel en Angleterre, l'effet pratique est qu'il devient un <strong>membre inscrit de la LLC</strong> qui est titulaire du bien, détenant l'une des huit participations égales. Le bien lui-même reste anglais — inscrit au HM Land Registry au nom de la LLC, qui est le titulaire légal à part entière — et vous, à votre tour, êtes un titulaire légal de la LLC. Cette structure en deux étapes donne à la copropriété anglaise chez COP son format international unique et cohérent, son traitement successoral transfrontalier plus clair que la détention partagée inscrite directement, et sa voie de revente plus rapide : un transfert de participation dans une LLC est une démarche administrative plus directe que l'activation d'un processus complet de conveyancing anglais. Ce que vous détenez est une <strong>participation patrimoniale transmissible</strong> — non un droit d'usage de multipropriété qui se déprécie à zéro à l'expiration du contrat, non une adhésion à points, non un produit vacancier. C'est un bien immobilier réel, acté, enregistré.</p>
+
+<p>Le processus d'acquisition lui-même suit le cadre standard du conveyancing anglais. Un solicitor (avocat spécialisé en transactions immobilières) agit pour la LLC à l'achat, et un autre solicitor agit pour vous, l'acheteur de la participation. Les recherches de titre (<em>title searches</em>), l'examen des documents d'urbanisme et l'ensemble des vérifications de conformité sont effectués comme pour n'importe quelle transaction immobilière anglaise — à la différence que le bien est déjà identifié et inspecté avant votre achat, ce qui accélère notablement le calendrier. La transparence du HM Land Registry signifie que toute la chaîne de titre — depuis la construction ou le premier enregistrement du bien jusqu'à ce jour — est consultable par votre solicitor en temps réel. Il n'existe pas en Angleterre le risque de titres « informels » ou de droits non enregistrés qui peut affecter certains marchés méditerranéens. L'<strong>operating agreement de la LLC</strong> — équivalent des statuts de la société — définit en détail les droits et obligations de chaque copropriétaire : calendrier d'utilisation, règles de décision, modalités de revente, traitement des dépenses imprévues, et procédure en cas de désaccord entre copropriétaires. Ce document est rédigé en anglais et soumis au droit de la juridiction dans laquelle la LLC est constituée — votre solicitor français peut en obtenir une traduction certifiée si nécessaire.</p>
+
+<h3>Fiscalité pour les propriétaires étrangers en Angleterre</h3>
+
+<p>Le cadre fiscal anglais pour les propriétaires non résidents de résidence secondaire est comparativement simple et géré pour l'essentiel au niveau de la LLC. Le <strong>Council Tax</strong> est la taxe municipale annuelle calculée sur la tranche de valeur du bien — la LLC la paie en totalité et la dépense est répartie proportionnellement entre les copropriétaires à travers les charges annuelles de service ; les copropriétaires individuels n'ont jamais à traiter directement avec l'autorité locale. Le <strong>Stamp Duty Land Tax (SDLT)</strong> est payé au moment de l'achat et calculé uniquement sur le prix d'achat de la part de 1/8, non sur la valeur totale du bien — un avantage fiscal direct de la structure fractionnelle par rapport à l'achat du bien en entier. La surtaxe de 3 % pour les résidences secondaires s'applique également sur le prix de la part, ce qui reste bien inférieur à la charge équivalente sur un achat complet. Le <strong>Capital Gains Tax (CGT)</strong> s'applique sur la plus-value réalisée lors de la vente ; les non-résidents fiscaux au Royaume-Uni sont imposés à 24 % sur le gain net. L'<strong>Annual Tax on Enveloped Dwellings (ATED)</strong> s'applique aux biens détenus dans une LLC d'une valeur supérieure à 500 000 £, mais pour une LLC COP classique avec huit copropriétaires actifs utilisant le bien à titre personnel, des exonérations sont généralement disponibles — à confirmer avec un conseiller fiscal spécialisé au moment de l'acquisition.</p>
+
+<p>Un avantage structurel important pour les acheteurs internationaux : il n'existe en Angleterre aucun équivalent de l'impôt annuel sur la fortune espagnol ou de l'ancien ISF français — le coût de détention est comparativement plus prévisible année après année. Tout acheteur international doit examiner sa situation personnelle avec son propre conseiller fiscal avant l'achat, dans la mesure où le traitement dépend de la convention fiscale bilatérale entre le Royaume-Uni et le pays de résidence. La convention Franco-Britannique en matière de double imposition, mise à jour en 2010, couvre l'ensemble des catégories fiscales pertinentes pour les propriétaires non résidents.</p>
+
+<h3>Succession et transmission</h3>
+
+<p>Le droit successoral anglais est régi par le principe de <strong>liberté testamentaire totale</strong> — à la différence du système de réserve héréditaire forzosa qui opère en France, en Espagne et en Italie, le droit anglais permet au propriétaire de léguer ses biens à qui il souhaite sans restrictions à l'égard des héritiers réservataires. Cette liberté testamentaire est un avantage significatif pour les acheteurs internationaux qui souhaitent planifier leur succession avec une flexibilité maximale. Il convient toutefois de noter que la LLC est constituée sous une juridiction distincte de la France, et que le droit successoral applicable à la LLC elle-même peut différer du droit successoral français applicable aux résidents fiscaux français — un point à examiner avec un notaire ou avocat spécialisé en succession transfrontalière.</p>
+
+<p>Les participations dans une LLC se transmettent par héritage via le transfert de la participation dans le registre d'associés — un processus administratif plus direct que la transmission de biens immobiliers directement détenus, ce qui simplifie le processus successoral transfrontalier. L'<strong>Inheritance Tax (IHT)</strong> anglais s'applique à 40 % sur la valeur du patrimoine dépassant le seuil de 325 000 £ (ou 500 000 £ lorsque la résidence principale est incluse) ; pour les acheteurs non domiciliés au Royaume-Uni, l'IHT ne s'applique qu'aux actifs situés au Royaume-Uni. Pour les résidents fiscaux français, la convention bilatérale franco-britannique prévoit des mécanismes d'élimination de la double imposition successorale. Le modèle LLC offre par ailleurs une flexibilité de transmission que la détention directe ne permet pas : une participation peut être cédée à un héritier ou à un trust familial indépendamment des autres copropriétaires, sans activation d'un processus complet de conveyancing. La mécanique complète de la succession et de la transmission est à examiner avec un conseiller spécialisé ; <strong>la LLC protège la transmission</strong> d'une manière que la multipropriété traditionnelle, qui expire généralement à la mort du titulaire, ne peut pas offrir.</p>
+
+<h3>Gestion et calendrier de rotation</h3>
+
+<p>Une fois l'achat finalisé, une société de gestion professionnelle assume l'entière responsabilité opérationnelle du bien anglais. Les semaines personnelles — environ 45 jours pour une part de 1/8 — sont attribuées via un <strong>calendrier de rotation équitable</strong> qui mélange les semaines de haute saison (l'été en Cornouailles et dans le Lake District, Pâques, les ponts de Noël et du Nouvel An, les Bank Holiday weekends de mai et août dans les Cotswolds) avec des semaines d'épaule et de basse saison tout au long de l'année. Les copropriétaires réservent plusieurs mois à l'avance ; les semaines non utilisées sont maintenues pour l'ensemble ou, lorsque la licence le permet, louées sur le marché général, les revenus revenant aux copropriétaires. La préparation à l'arrivée, le nettoyage et le linge entre chaque séjour, l'accueil, la conciergerie de permanence — tout est pris en charge par la société de gestion. Arriver dans un bien en copropriété anglaise chez COP, c'est entrer dans un hôtel boutique privé et parfaitement familier, pas ouvrir une maison qui est restée vide et sans soin pendant des mois.</p>
+
+<p>La société de gestion s'occupe également de l'ensemble des relations avec les prestataires locaux : jardiniers, plombiers, électriciens, service de ménage, fournisseurs de linge de maison, prestataires de maintenance préventive, inspections de cheminée et de chauffage. Pour un copropriétaire basé à Paris, Bordeaux ou Lyon, cela signifie qu'il n'a à gérer aucune relation avec des prestataires locaux anglais — une charge que les propriétaires de résidences secondaires entières à distance sous-estiment systématiquement jusqu'à ce qu'ils en aient fait l'expérience. La société de gestion prépare également le rapport de dépenses trimestriel et assure la liaison avec le solicitor et le comptable de la LLC pour les déclarations fiscales annuelles. L'assemblée générale annuelle de la LLC — typiquement en ligne ou par vidéoconférence — réunit tous les copropriétaires pour valider le budget, examiner les grandes dépenses de l'année suivante, et discuter de toute décision concernant le bien. C'est le seul moment de l'année où une action active de la part des copropriétaires est attendue ; le reste est entièrement géré.</p>
+
+<h3>Revente de votre part</h3>
+
+<p>Lorsque vous décidez de sortir d'une part anglaise, il existe un processus professionnel de revente en place. Dans l'ensemble du portefeuille COP, le délai typique de la publication jusqu'à la clôture est d'<strong>environ un mois ou moins</strong> — bien en deçà des <strong>4 à 8 mois</strong> que les reventes de biens entiers prennent habituellement sur le marché libre anglais, même dans les marchés les plus liquides du pays. Le processus est bien accompagné : le groupe d'acheteurs connaît déjà le bien et la structure LLC, et le transfert de participation dans une LLC est administrativement plus léger que l'activation d'un processus complet de conveyancing. Pour les copropriétaires qui souhaitent un contrôle maximal sur le prix, une vente sur le marché libre à tout acheteur qualifié reste une option — mais la plupart trouvent le processus accompagné plus rapide et avec des coûts de transaction totaux plus faibles.</p>
+
+<h3>Votre détention en un coup d'œil</h3>
+
+<ul>
+  <li><strong>Patrimoine acté à votre nom — ce n'est ni de la multipropriété, ni une adhésion à points, ni un droit d'usage</strong> — votre part de 1/8 est inscrite au HM Land Registry d'Angleterre, transférable, transmissible par héritage, et elle se valorise avec le bien sous-jacent.</li>
+  <li><strong>Structure internationale cohérente</strong> — votre part en Angleterre s'inscrit dans le même cadre LLC conçu spécifiquement pour chaque bien COP dans le monde, afin que les propriétaires avec des biens dans plusieurs pays travaillent avec un seul modèle plutôt qu'avec un empilement de véhicules juridiques différents.</li>
+  <li><strong>Gestion intégrale</strong> — l'équipe de gestion professionnelle s'occupe des impôts (Council Tax, SDLT, CGT), des assurances, de l'entretien, de la planification, du linge et du service de conciergerie. Vous arrivez, le bien est prêt.</li>
+  <li><strong>Revente accompagnée via le réseau de copropriétaires COP</strong> — au moment de revendre, le processus de revente accompagnée se conclut généralement en environ un mois ou moins, bien en deçà des 4 à 8 mois que prend habituellement une vente d'un bien entier sur le marché libre anglais.</li>
+  <li><strong>Conçu pour les portefeuilles internationaux</strong> — le modèle LLC fait de la détention de plusieurs biens COP dans différents pays une seule relation consolidée, avec la même cadence documentaire et le même processus administratif des Cotswolds jusqu'à Majorque ou Aspen.</li>
+</ul>
+
+<div class="dest-callout">
+  <strong>Consultation libre, contact libre.</strong> L'utilisation de COP est gratuite pour les acheteurs — aucuns frais, aucun coût d'inscription, aucun engagement. Parlez avec nos spécialistes pour savoir quelle région de l'Angleterre correspond le mieux à votre mode d'utilisation, ou parcourez les annonces et inscrivez-vous à notre liste pour être alerté dès qu'un nouveau bien arrive sur le marché.
+</div>
+
+</div></section>
+
+<section class="dest-section--cream"><div class="dest-inner">
+
+<h2>L'Angleterre est-elle faite pour vous ?</h2>
+
+<p>De nombreux lecteurs arrivent sur cette page d'Angleterre déjà à moitié décidés — ils veulent le pays, mais pas encore quelle zone précise. Le choix entre les Cotswolds, les Cornouailles, le Lake District, le Yorkshire et Londres est rarement seulement une question de budget ; les zones ont des fourchettes de prix distinctes mais qui se recoupent davantage qu'on ne le pense lorsqu'on compare équivalent à équivalent en qualité. La question décisive est le <strong>schéma d'utilisation réel</strong> : comment utiliserez-vous réellement vos semaines tout au long de l'année ? Un acheteur qui voyage depuis Paris utilisera probablement sa part en trois ou quatre séjours de 10 à 15 jours plutôt qu'en deux longues semaines ; un acheteur qui vit à Bruxelles peut faire cinq ou six courts voyages de week-end prolongé. Le mode d'utilisation réel détermine presque entièrement quelle zone a le plus de sens.</p>
+
+<p><strong>Choisissez les Cotswolds</strong> si vous voulez l'<strong>expérience la plus complète du patrimoine de la campagne anglaise</strong> — architecture en pierre dorée du XVIIe siècle, jardins historiques de premier plan, gastropubs avec une carte ambitieuse, marchés de producteurs actifs tout au long de l'année, et une proximité avec Londres (90 minutes en train depuis Paddington) qui permet le schéma de séjours courts à haute fréquence. Les Cotswolds fonctionnent mieux pour les copropriétaires dont la résidence principale se trouve dans une capitale européenne ou française et qui traitent la région comme une escapade de week-end prolongé ; pour les familles avec des enfants dans des écoles du sud de l'Angleterre qui veulent une base proche pour les visites trimestrielles ; et pour les acheteurs pour qui l'image de la campagne anglaise classique — le cottage de pierre, l'église normande, le pub avec jardin — est la raison principale d'achat. Le calendrier des Cotswolds est véritablement annuel — jacinthes sauvages en mai, festivals d'été en juin, automne doré en octobre, Noël avec neige occasionnelle en décembre — ce qui facilite la répartition des 6 à 7 semaines tout au long de l'année sans gaspiller aucune saison.</p>
+
+<p><strong>Choisissez les Cornouailles</strong> si vous voulez l'<strong>expérience côtière la plus dramatique et la plus authentique d'Angleterre</strong> — falaises de granit sur l'Atlantique ouvert, villages de pêcheurs avec une architecture vernaculaire unique, plages de sable blanc avec eau jade, surf atlantique genuïne, et une scène gastronomique — Padstow et Rick Stein, les produits marins frais directement du port, les producteurs artisanaux de l'arrière-pays — qui s'est consolidée comme la meilleure du sud-ouest de l'Europe en dehors du Pays basque et de la Bretagne. Les Cornouailles fonctionnent mieux pour les acheteurs qui privilégient la vie en plein air et la côte sur le patrimoine historique et la densité culturelle ; pour les surfeurs et les navigateurs qui veulent l'Atlantique à leur porte ; pour les familles à la recherche de l'expérience de plage la plus authentique et la plus dramatique de Grande-Bretagne ; et pour les acheteurs qui voient dans le marché prime de la côte cornouaillaise l'une des opportunités d'appréciation les plus intéressantes du pays. À la différence de la multipropriété traditionnelle, qui vous enferme dans une semaine fixe dans un seul complexe, une part en copropriété dans les Cornouailles vous donne environ 45 jours par an à répartir librement selon les saisons et vos envies.</p>
+
+<p><strong>Choisissez le Lake District ou le Yorkshire</strong> si vous voulez le <strong>caractère le plus authentique du nord de l'Angleterre</strong> et le meilleur rapport qualité-prix du pays. Le Lake District, avec ses lacs classés au patrimoine mondial de l'UNESCO et ses fells protégés par les réglementations d'urbanisme les plus strictes d'Angleterre, est l'actif anglais avec la plus grande protection structurelle de l'offre ; aucune nouvelle construction ne peut le modifier et la demande ne fait que croître. Il convient mieux aux randonneurs et amoureux de la nature qui veulent l'échelle verticale et la grandeur visuelle que les Cotswolds et les Cornouailles ne peuvent pas offrir ; aux acheteurs qui veulent la garantie que le paysage qu'ils ont acheté sera le même dans trente ans ; et aux familles multigénérationnelles partageant le goût des activités de montagne. Le Yorkshire convient mieux aux acheteurs qui privilégient la valeur patrimoniale par livre, les sports ruraux du nord — golf, équitation, chasse en domaine avec histoire — et le caractère authentique de communauté locale que les destinations plus connues ont en partie perdu sous la pression touristique des vingt dernières années.</p>
+
+<p>Quelle que soit la décision, l'exploration approfondie commence sur les pages de chaque zone :</p>
+
+<ul>
+  <li><a href="/fr/destinations/cotswolds-fractional-ownership-properties/">Découvrir les Cotswolds →</a></li>
+  <li><a href="/fr/destinations/cornwall-fractional-ownership-properties/">Découvrir les Cornouailles →</a></li>
+  <li><a href="/fr/destinations/lake-district-fractional-ownership-properties/">Découvrir le Lake District →</a></li>
+  <li><a href="/fr/destinations/yorkshire-fractional-ownership-properties/">Découvrir le Yorkshire →</a></li>
+</ul>
+
+<p>Si vous souhaitez échanger sur <strong>la région de l'Angleterre qui correspond le mieux à la manière réelle dont votre famille utilise un bien</strong> — plutôt qu'à la version brochure — <a href="#newsletter">inscrivez-vous à notre liste</a> et nous reviendrons vers vous avec des alertes de nouveaux biens et une présentation personnalisée de l'équipe.</p>
+
+</div></section>
+
+<div class="dest-explora">
+  <p>Découvrez aussi nos autres destinations européennes en copropriété :</p>
+  <ul>
+    <li><a href="/fr/destinations/france-fractional-ownership-properties/">France →</a></li>
+    <li><a href="/fr/destinations/spain-fractional-ownership-properties/">Espagne →</a></li>
+    <li><a href="/fr/destinations/italy-fractional-ownership-properties/">Italie →</a></li>
+    <li><a href="/fr/destinations/portugal-fractional-ownership-properties/">Portugal →</a></li>
+  </ul>
+</div>
+
 </body>
 </html>

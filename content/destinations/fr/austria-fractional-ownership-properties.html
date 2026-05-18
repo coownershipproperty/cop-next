@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copropriété en Autriche : chalets et appartements alpins actés en fraction | Co-Ownership Property</title>
+  <meta name="description" content="Biens en copropriété en Autriche avec COP — part actée au Tyrol, Salzbourg, Vorarlberg, Styrie et Carinthie. Gestion intégrale, 6 à 7 semaines d'utilisation personnelle par an, véritable patrimoine dans les Alpes les plus accessibles d'Europe.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+:root {
+    --blue:#2C4A5E;--cream:#F5F2EC;--gold:#C9A84C;--white:#FFFFFF;--text:#1a2533;--muted:#5a6a7a;--border:#e8e0d4;--max:1400px;
+    --warm-gold:#C9A84C;--cream-bg:#F5F2EC;--cream-light:#FAF8F5;--text-dark:#2C4A5E;--text-light:rgba(255,255,255,0.85);--text-muted:#5a6a7a;--gray-border:#e8e0d4;--blue-80:#4A6A7E;--blue-60:#6B8A9E;--blue-40:#9EAFBC;--blue-20:#C5CED5;--transition:0.3s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none;transition:color var(--transition)}
+button{font-family:inherit;cursor:pointer}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+
+.cop-header{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;height:80px;box-sizing:border-box;transition:background 0.35s ease,box-shadow 0.35s ease,border 0.35s ease;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 2px 32px rgba(44,74,94,0.13);border-bottom:1px solid rgba(201,168,76,0.18)}
+.cop-logo{flex-shrink:0}.cop-logo a{display:block}.cop-logo img{height:54px;width:auto;display:block}
+.cop-nav{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:0;align-items:center}
+.cop-nav a{color:rgba(44,74,94,0.8);font-family:'Nunito Sans','Helvetica Neue',Arial,sans-serif;font-size:0.84rem;font-weight:400;letter-spacing:0.15em;text-transform:uppercase;position:relative;padding:0.4rem 1.4rem;white-space:nowrap;transition:color 0.25s ease;text-decoration:none}
+.cop-nav a+a{border-left:1px solid rgba(201,168,76,0.22)}
+.cop-nav a::after{content:'';position:absolute;bottom:-2px;left:1.4rem;right:1.4rem;height:1px;background:rgba(201,168,76,1);transform:scaleX(0);transform-origin:left center;transition:transform 0.28s ease}
+.cop-nav a:hover,.cop-nav a.cop-nav-active{color:rgba(44,74,94,1)}
+.cop-nav a:hover::after,.cop-nav a.cop-nav-active::after{transform:scaleX(1)}
+.cop-nav a.cop-nav-favourites::before{content:'\2665\00a0\00a0';font-size:0.75rem;color:rgba(201,168,76,1);opacity:0.75;letter-spacing:0}
+.cop-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:10}
+.cop-hamburger span{width:22px;height:1.5px;background:rgba(44,74,94,0.8);transition:all 0.28s ease;transform-origin:center;display:block}
+.cop-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.cop-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.cop-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+.page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+.page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+.page-hero>*{position:relative;z-index:1}
+.eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+.page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+.page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:560px;margin:0 auto;line-height:1.7}
+
+.props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+.props-inner{max-width:1400px;margin:0 auto}
+.no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+
+.dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+.dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-mid-cta>*{position:relative;z-index:1}
+.dest-mid-cta-inner{max-width:800px;margin:0 auto}
+.dest-mid-cta h2{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:400;color:var(--white);margin-bottom:1rem;line-height:1.2}
+.dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+.dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;text-decoration:none;transition:all 0.3s}
+.btn-gold{background:var(--warm-gold);color:#fff}.btn-gold:hover{background:#b8963e}
+.btn-outline{background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3)}.btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+
+.dest-snippet{background:var(--white);border:1px solid var(--gray-border);border-left:4px solid var(--warm-gold);padding:1.5rem 1.8rem;margin-bottom:2rem}
+.dest-snippet h2{font-size:1.15rem;margin-bottom:0.8rem;color:var(--text-dark)}
+.dest-callout{background:var(--white);border-left:4px solid var(--warm-gold);padding:1.2rem 1.5rem;margin:1.5rem 0;font-size:0.95rem;color:var(--text-muted);line-height:1.75}
+.dest-sec.white .dest-snippet,.dest-sec.white .dest-callout{background:var(--cream-bg)}
+.dest-ideal-for{font-size:0.95rem;margin-top:0.6rem}
+
+@media(max-width:640px){
+  .dest-sec table thead{display:none}
+  .dest-sec table tr{display:block;margin-bottom:1rem;border:1px solid var(--gray-border)}
+  .dest-sec table td{display:block;text-align:right;padding:0.5rem 0.8rem;border-bottom:1px solid var(--gray-border)}
+  .dest-sec table td::before{content:attr(data-col);float:left;font-weight:700;color:var(--text-dark)}
+  .dest-sec table td:first-child{background:var(--blue);color:#fff;text-align:left;font-weight:700}
+  .dest-sec table td:first-child::before{display:none}
+}
+
+.newsletter-section{background:var(--white);position:relative;padding:100px 3rem;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.newsletter-heading{font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:1rem;font-weight:400;color:var(--text-dark)}
+.newsletter-subtitle{font-size:1rem;margin-bottom:2.5rem;max-width:600px;line-height:1.6;color:var(--text-muted)}
+.newsletter-form{display:flex;gap:1rem;max-width:620px;margin:0 auto}
+.newsletter-form input{flex:1;padding:0.9rem 1.5rem;border:1px solid #ddd;background:var(--white);font-family:'Nunito Sans',sans-serif;font-size:0.95rem;border-radius:0;outline:none}
+.newsletter-form input::placeholder{color:var(--text-muted)}
+.newsletter-form input:focus{border-color:var(--warm-gold)}
+.newsletter-btn{background:var(--blue);color:var(--white);border:2px solid var(--blue);padding:0.9rem 1.5rem;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;font-family:'Nunito Sans',sans-serif;transition:all 0.3s ease;white-space:nowrap}
+.newsletter-btn:hover{background:var(--warm-gold);border-color:var(--warm-gold);color:var(--white)}
+
+footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+.footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+.footer-logo img{height:35px;margin-bottom:1rem}
+.footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+.footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:0.6rem}
+.footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+.footer-col a:hover{color:var(--warm-gold)}
+.footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+.footer-legal{display:flex;gap:2rem}
+.footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+.footer-legal a:hover{color:var(--warm-gold)}
+
+@media(max-width:768px){
+  .cop-hamburger{display:flex}
+  .cop-nav{position:fixed;top:80px;left:0;right:0;transform:none;flex-direction:column;align-items:center;background:rgba(22,38,52,0.97);backdrop-filter:blur(12px);padding:0;max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.35s ease;border-top:1px solid rgba(201,168,76,0.15);z-index:9998}
+  .cop-nav.active{max-height:500px;padding:1.5rem 0 2rem}
+  .cop-nav a{font-size:0.68rem;letter-spacing:0.2em;padding:0.85rem 2rem;width:100%;text-align:center;border-left:none!important;border-bottom:1px solid rgba(201,168,76,0.08);color:rgba(255,255,255,0.9);box-sizing:border-box}
+  .cop-nav a:last-child{border-bottom:none}
+  .cop-nav a::after{display:none}
+  .cop-nav a:hover{background:rgba(201,168,76,0.06);color:rgba(255,255,255,1)}
+  .cop-header{padding:1.5rem}
+  .cop-logo img{height:45px}
+  .page-hero{padding:130px 1.5rem 50px}
+  .dest-sec{padding:50px 1.5rem}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+  .newsletter-section{padding:70px 1.5rem}
+  .newsletter-heading{font-size:2rem}
+  .newsletter-form{flex-direction:column}
+}
+  </style>
+</head>
+<body>
+
+<header class="cop-header scrolled" id="cop-header">
+  <div class="cop-logo">
+    <a href="/fr/"><img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property"></a>
+  </div>
+  <nav class="cop-nav" id="cop-nav">
+    <a href="/fr/">Accueil</a>
+    <a href="/fr/proprietes/">Nos biens</a>
+    <a href="/fr/comment-ca-marche/">Comment ça marche</a>
+    <a href="/fr/a-propos/">À propos</a>
+    <a href="/fr/blog/">Blog</a>
+    <a href="/fr/favoris/" class="cop-nav-favourites">Mes favoris</a>
+    <a href="/fr/contact/">Contact</a>
+  </nav>
+  <button class="cop-hamburger" id="cop-hamburger" aria-label="Ouvrir le menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="page-hero">
+  <p class="eyebrow">Autriche · Europe Centrale · Les Alpes</p>
+  <h1>Copropriété de biens <em>en Autriche</em></h1>
+  <p class="subtitle">D'un chalet de ski au-dessus de Kitzbühel et d'un appartement alpin à Salzbourg à une villa lacustre en Carinthie et d'un bien sur l'Arlberg du Vorarlberg — la copropriété en Autriche représente une part actée dans les Alpes les plus accessibles d'Europe, six à sept semaines d'utilisation personnelle par an, et un bien entièrement géré qui vous attend à chaque arrivée.</p>
+</section>
+
+<!-- PROPERTY GRID -->
+<section class="props-sec">
+  <div class="props-inner">
+    <div class="no-props">
+      <p>Aucun bien listé actuellement pour l'Autriche. <a href="/fr/proprietes/" style="color:var(--warm-gold);font-weight:700;">Voir tous les biens</a> ou <a href="/fr/contact/" style="color:var(--warm-gold);font-weight:700;">nous contacter</a> pour en savoir plus sur les prochaines acquisitions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MID-PAGE CTA -->
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Les adresses les plus convoitées d'Autriche, accessibles grâce à la copropriété.</h2>
+    <p>Chalets, appartements de montagne et villas alpines entièrement gérés au <strong>Tyrol</strong>, à <strong>Salzbourg</strong>, au <strong>Vorarlberg</strong> et en <strong>Styrie et Carinthie</strong>. Votre <strong>part actée de 1/8</strong> comprend <strong>6 à 7 semaines d'utilisation personnelle</strong>, une équipe de gestion professionnelle disponible à tout moment, et le patrimoine à long terme de l'un des marchés alpins les plus stables et les plus demandés au monde.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/fr/proprietes/" class="btn btn-gold">Voir tous les biens</a>
+      <a href="#newsletter" class="btn btn-outline">Recevoir les actualités</a>
+    </div>
+  </div>
+</div>
+
+<!-- §A — Pourquoi l'Autriche ? (cream) -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">Qu'est-ce que la copropriété en Autriche ?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>La copropriété en Autriche consiste à acquérir une part actée de 1/8 d'une résidence secondaire de luxe alpine — détenue au sein d'une LLC créée spécifiquement à cet effet aux côtés d'un petit groupe d'au plus sept autres copropriétaires.</strong> Chaque propriétaire bénéficie d'environ 45 jours d'utilisation personnelle par an grâce à un calendrier de rotation équitable, l'ensemble de la gestion immobilière, de l'entretien, de la fiscalité et de l'exploitation étant pris en charge par une équipe professionnelle. Il s'agit d'un véritable patrimoine immobilier acté à votre nom — ce n'est ni de la multipropriété, ni un club de vacances.</p>
+  </div>
+</div>
+
+<h2>Pourquoi l'Autriche pour votre résidence secondaire de luxe en copropriété ?</h2>
+
+<p>L'Autriche est, selon la plupart des critères qui comptent pour un acheteur en copropriété alpine, <strong>la destination de montagne la plus complète et la mieux desservie d'Europe centrale</strong>. Ses neuf États fédéraux abritent certains des domaines skiables les plus étendus et les mieux connectés du continent, une capitale impériale de tout premier rang mondial, plus de deux mille kilomètres de sentiers de haute montagne, quatre massifs principaux, plusieurs lacs alpins aux eaux cristallines et une demi-douzaine de sous-régions architecturalement et culturellement distinctes — le tout à moins de quatre-vingt-dix minutes en voiture des grands aéroports du pays. Peu de nations alpines égalent cet ensemble à cette échelle de qualité. Aucune ne le fait tout en maintenant l'accessibilité depuis le nord de l'Europe qu'offre l'Autriche : <strong>Innsbruck (INN)</strong>, <strong>Salzbourg (SZG)</strong> et le proche <strong>Munich (MUC)</strong> placent la majeure partie du Tyrol, de Salzbourg et du Vorarlberg à deux ou trois heures de porte à porte depuis les principales villes du nord et du centre de l'Europe, avec des liaisons directes depuis Londres, Amsterdam, Francfort, Zurich et les capitales scandinaves tout au long de l'année et avec une densité accrue en saison de ski.</p>
+
+<p>Votre part autrichienne est constituée au sein d'une <strong>LLC créée spécifiquement à cet effet</strong> aux côtés d'un petit groupe d'au plus sept autres copropriétaires. C'est la même structure internationale moderne utilisée pour l'ensemble des biens COP — États-Unis, Royaume-Uni, France, Espagne, Italie et au-delà — plutôt qu'un véhicule national hérité qui varie d'un pays à l'autre. L'effet pratique pour l'acheteur international est significatif : votre relation avec le bien passe par <strong>une seule structure de copropriété cohérente</strong> quel que soit le pays où se trouve votre part ; vous êtes copropriétaire au sein du même cadre moderne, que votre part se trouve en Autriche, en Espagne ou en France ; et la revente est plus rapide et plus légère, car le transfert d'une <strong>participation dans une LLC</strong> est une démarche administrative plus directe que l'activation d'une transmission complète de titre devant un notaire autrichien. Pour les copropriétaires qui ajoutent un second bien dans un autre marché — et une proportion significative le fait — la récompense est une seule relation internationale pour l'ensemble du portefeuille, plutôt qu'un empilement d'accords propres à chaque juridiction qui se comportent différemment.</p>
+
+<p>Le deuxième argument structurel en faveur de l'Autriche est <strong>l'étendue des expériences utilisables au sein d'un seul pays</strong>. Une famille qui passe sa première semaine de février à skier sur les pentes glacées de St. Anton peut passer la suivante à randonner dans les prairies alpines du Tyrol en juillet, la troisième à assister au Festival de Salzbourg en août, et la quatrième à nager dans le Wörthersee en Carinthie en septembre — le tout dans le même cadre de copropriété. C'est une proposition très différente d'une destination alpine à saison unique : l'Autriche <strong>récompense une utilisation répétée tout au long de l'année</strong> précisément parce qu'elle révèle des couches d'expérience à chaque séjour. Ce qui, lors de la première visite, se résume au ski et aux refuges de montagne, devient lors de la deuxième la culture de Salzbourg et les thermes de Bad Gastein, et lors de la troisième les lacs de Carinthie et les vignobles de la Styrie du Sud.</p>
+
+<p>Le troisième argument structurel — et celui que les acheteurs néophytes sous-estiment le plus — est <strong>l'offre légalement limitée</strong> dans les zones résidentielles alpines les plus demandées. Les régions du Tyrol et du Vorarlberg opèrent sous certaines des réglementations urbanistiques et de résidence secondaire les plus restrictives de toute l'Europe. Le Tyrol a systématiquement limité le nouveau développement touristique dans les vallées les plus demandées, étendu les zones de protection naturelle et instauré des quotas de résidence secondaire dans de nombreuses communes de ski. À Kitzbühel, St. Anton, Lech et Zürs, les nouvelles constructions de qualité sont exceptionnellement rares — les prix des biens existants le reflètent clairement. Pour un acheteur en copropriété, cette histoire d'offre structurellement limitée est l'une des raisons les plus convaincantes d'avoir confiance dans la valeur à long terme de l'actif.</p>
+
+<p>L'Autriche résout également un problème concret et bien réel pour les acheteurs britanniques post-Brexit. Depuis que le Royaume-Uni a quitté l'Union européenne, les ressortissants britanniques sont soumis à la règle des 90 jours sur toute période de 180 jours dans l'espace Schengen — qui inclut l'Autriche. Acquérir un bien entier en Autriche signifie payer 100 % du prix d'acquisition et 100 % des charges annuelles pour un bien qui ne peut légalement être occupé que pendant environ trois mois par an. La copropriété <strong>aligne l'engagement financier sur l'utilisation réelle</strong> : une part de 1/8 donne environ 45 jours d'utilisation personnelle par an, ce qui s'inscrit confortablement dans la limite Schengen tout en conférant tous les droits et avantages d'un véritable patrimoine immobilier. Votre nom figure au <strong>Grundbuch</strong> — le registre foncier autrichien — et vous conservez les pleins droits de revente, de succession et de participation à la plus-value du bien sous-jacent.</p>
+
+<p>Le cinquième avantage structurel qui mérite d'être mentionné est la <strong>diversification du marché autrichien sur quatre saisons</strong>. Contrairement à certaines destinations de montagne qui dépendent presque exclusivement de l'hiver, l'Autriche accueille plus de 40 millions de nuitées en été — un chiffre comparable à celui de la saison de ski — ce qui conforte les valeurs immobilières avec une demande de visiteurs stable et diversifiée tout au long de l'année. Les pistes de ski se transforment en sentiers de randonnée et en pistes de vélo de montagne ; les lacs alpins de Carinthie atteignent des températures de baignade confortables de juin à septembre ; et la culture du bien-être et des thermes en Autriche — avec des établissements historiques à Bad Gastein et Bad Kleinkirchheim — fait des mois de basse saison une expérience à part entière. Les acheteurs qui évaluent la <a href="/fr/destinations/alpes-francaises-copropiete/">copropriété dans les Alpes françaises</a> constateront que l'Autriche offre souvent une expérience alpine tout aussi convaincante — notamment pour les familles en quête d'un environnement de montagne plus tranquille et authentiquement centre-européen.</p>
+
+<div class="dest-callout">
+  <strong>La LLC en une phrase :</strong> une société créée spécifiquement pour détenir le bien, dans laquelle vous et un petit groupe de copropriétaires (sept au maximum) détenez des parts égales — ce qui allège la revente et apporte une structure de détention unique et cohérente pour chaque bien COP dans le monde, afin que les propriétaires possédant des biens dans plusieurs pays travaillent avec un seul modèle plutôt qu'avec un empilement de véhicules juridiques différents.
+</div>
+
+<div class="dest-callout">
+  <strong>Ce n'est pas de la multipropriété (timeshare) :</strong> la multipropriété — ou timeshare — vous vend un <em>droit d'usage</em> du bien pour une semaine définie chaque année, généralement par un contrat à terme et sans valeur de revente. Une part COP vous vend une <strong>participation patrimoniale enregistrée</strong> dans le bien lui-même, à travers une LLC dans laquelle vous et sept autres copropriétaires êtes titulaires à part égale. Elle est transférable, transmissible par héritage, se valorise avec le bien sous-jacent, et se vend via un processus professionnel en environ un mois — exactement l'inverse de la multipropriété.
+</div>
+
+<h3>Combien ça coûte ?</h3>
+
+<p>Les fourchettes de prix varient considérablement selon la région et le type de bien. En règle générale, une part de 1/8 dans un chalet ou un appartement alpin de qualité au Tyrol ou au Vorarlberg se situe entre <strong>250 000 € et 800 000 €</strong>, selon l'emplacement, la surface et le niveau de finition — ce qui correspond à un bien sous-jacent valorisé entre 2 et 6,4 millions d'euros. Salzbourg et les destinations du Salzkammergut proposent souvent des points d'entrée légèrement inférieurs, tandis que Lech et Zürs dans le Vorarlberg atteignent les niveaux les plus élevés du marché alpin autrichien. En Styrie et en Carinthie, les parts de 1/8 commencent autour de <strong>150 000 €</strong> pour des biens bien situés avec accès au lac. Pour chaque bien, la charge annuelle représente environ 1/8 des coûts d'exploitation du bien entier équivalent — Grundsteuer, assurances, gestion, entretien, linge et conciergerie inclus — ce qui, dans la pratique, se traduit par des charges annuelles comprises entre <strong>7 000 € et 14 000 €</strong> selon le niveau et la région.</p>
+
+<p>À titre de comparaison, les coûts d'un bien entier de qualité comparable dans le même secteur — Grundsteuer, assurance tous risques, gestion locative ou intendance permanente, entretien du local à ski, chauffage en l'absence de l'occupant, fonds de travaux — atteignent facilement <strong>15 000 € à 35 000 € par an</strong> pour un bien haut de gamme au Tyrol ou au Vorarlberg. Une part de 1/8 représente donc non seulement environ un huitième du capital immobilisé, mais également environ un huitième de cette charge récurrente annuelle — avec l'avantage supplémentaire d'une gestion entièrement prise en charge sans aucune coordination à distance de votre part. La structure COP aligne le coût total de possession sur le volume d'utilisation réelle, ce qui est la définition même d'une proposition financièrement rationnelle pour un acheteur international sérieux. Les acheteurs qui comparent l'Autriche avec d'autres destinations alpines — la <a href="/fr/destinations/alpes-francaises-copropiete/">France</a> ou la Suisse notamment — trouvent généralement qu'à qualité de neige et de bien équivalente, le marché autrichien offre un rapport entre valeur du bien, charges annuelles et accessibilité aérienne qui lui est propre, en partie grâce à la limitation légale de l'offre dans les zones les plus demandées.</p>
+
+</div></section>
+
+<!-- §B — Zones en Autriche pour la copropriété de luxe (white) -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Zones en Autriche pour la copropriété de luxe</h2>
+
+<p>Le marché autrichien des résidences secondaires alpines se comprend mieux à travers <strong>quatre grandes régions</strong>, chacune avec sa propre architecture, son rythme de vie, son profil d'acheteur et son calendrier d'utilisation optimal. Toutes quatre sont accessibles depuis les aéroports principaux en moins de 90 minutes, et chacune offre quelque chose que les autres ne peuvent pas répliquer à l'identique. Ce qui suit est l'orientation au niveau pays qui aide le lecteur à passer de « Autriche » à une zone précise — étant entendu que la plupart des copropriétaires commencent par choisir une région et finissent par découvrir les autres.</p>
+
+<h3>Tyrol — le cœur du ski alpin européen</h3>
+
+<p>Le Tyrol est la région de copropriété alpine la plus demandée d'Autriche et, à bien des égards, la référence du ski européen. La province englobe certaines des destinations de neige les plus célèbres du monde : <strong>Kitzbühel</strong>, avec ses pistes iconiques — la Streif, la descente de Coupe du Monde considérée comme la plus exigeante du circuit — et son architecture médiévale parfaitement préservée de ruelles pavées et d'auberges peintes ; <strong>St. Anton am Arlberg</strong>, considéré comme le berceau historique du ski alpin moderne, avec un système de 305 kilomètres de pistes qui traverse la frontière entre le Tyrol et le Vorarlberg ; <strong>Ischgl</strong>, la destination d'après-ski la plus internationale d'Autriche, avec connexion directe au domaine suisse de Samnaun ; <strong>Sölden</strong>, dans l'Ötztal, avec ski sur glacier dès octobre et premières épreuves de Coupe du Monde de chaque saison ; <strong>Mayrhofen</strong>, dans le Zillertal, avec accès au Hintertux — le glacier avec ski garanti 365 jours par an ; et l'immense domaine du <strong>SkiWelt</strong>, le plus étendu d'Autriche avec 284 kilomètres de pistes reliées entre huit communes.</p>
+
+<p>La saison de neige tyrolienne est longue et régulière : les pistes d'altitude ouvrent habituellement en novembre et restent actives jusqu'en avril, avec des extensions sur les glaciers du Stubai et du Hintertux permettant de skier dix à onze mois par an. Une part de 1/8 dans un bien tyrolien vous confère <strong>un patrimoine acté au Grundbuch</strong> dans l'un des paysages alpins les plus iconiques d'Europe, avec les pleins droits de revente, de succession et de participation à la plus-value. L'aéroport d'Innsbruck (INN) est relié directement au Royaume-Uni et à de nombreuses villes européennes tout au long de l'année ; l'aéroport de Munich (MUC), à une heure et demie de la plupart des vallées du Tyrol oriental, offre le réseau long-courrier le plus étendu du sud de l'Allemagne.</p>
+
+<p>L'été au Tyrol est tout aussi remarquable : des sentiers de haute montagne qui traversent chaque vallée, des pistes de vélo de montagne sur les versants des pistes d'hiver, des lacs alpins aux eaux turquoise comme l'<strong>Achensee</strong> — le plus grand du Tyrol, à 930 mètres d'altitude avec ses propres lignes de ferry — et le <strong>Plansee</strong>, parfaitement tranquille entre forêts de pins. La vie de village au Tyrol maintient des traditions séculaires : les fanfares des Schützen, les défilés de l'Almabtrieb — le retour du bétail depuis les alpages en septembre — et les foires de village qui remplissent les agendas de septembre et octobre. Pour les familles qui souhaitent un bien utilisable quatre saisons sans compromis sur la qualité du ski en hiver, le Tyrol est la référence dans les Alpes autrichiennes.</p>
+
+<p>La gastronomie du Tyrol mérite également d'être mentionnée comme argument de pleine propriété. Au-delà des incontournables <em>Tiroler Gröstl</em> et <em>Kaiserschmarrn</em> des refuges de montagne, les villages tyroliens abritent des tables gastronomiques qui n'ont rien à envier aux grandes adresses des capitales européennes. Kitzbühel compte plusieurs restaurants étoilés et des caves à vins d'une profondeur remarquable pour une ville de montagne ; Innsbruck, capitale du Land, propose une scène culinaire et culturelle d'une vivacité qui surprend les visiteurs qui la découvrent pour la première fois — musées, théâtres, galeries, marché hebdomadaire, Ambras et son château Renaissance avec collections d'armures médiévales. Pour les copropriétaires qui arrivent au Tyrol principalement pour le ski mais qui finissent par revenir pour tout le reste, c'est précisément ce que les meilleurs acheteurs en copropriété alpine nous décrivent : une destination qui les surprend à chaque séjour par sa profondeur.</p>
+
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les familles actives avec enfants en âge scolaire souhaitant un accès direct aux pistes et l'environnement alpin le plus authentique et iconique d'Autriche, les skieurs sérieux qui privilégient la garantie de neige et la variété du terrain, et les acheteurs qui apprécient la richesse culturelle et gastronomique du Tyrol autant que l'expérience sportive hivernale.</p>
+
+<h3>Salzbourg — culture alpine, neige et lacs du Salzkammergut</h3>
+
+<p>La province de Salzbourg associe ski de première catégorie et profondeur culturelle extraordinaire sans équivalent dans aucune autre région alpine d'Autriche. En hiver, le domaine du <strong>Skicircus Saalbach-Hinterglemm-Leogang-Fieberbrunn</strong> — 270 kilomètres de pistes reliées couvrant quatre communes — est l'un des domaines les plus variés et les mieux connectés de toute l'Autriche. <strong>Bad Gastein</strong>, dans le Gasteinertal, ajoute le romantisme d'une station thermale Belle Époque nichée dans un amphithéâtre alpin vertical : l'architecture de grand hôtel du XIXe siècle est unique dans les Alpes, l'eau thermale qui jaillit de la montagne à 47 °C attire des visiteurs de toute l'Europe depuis des siècles, et la station de ski qui couronne le village a un caractère propre et inimitable. <strong>Zell am See</strong> et le <strong>Kitzsteinhorn</strong> — avec ski sur glacier actif jusqu'en juin — sont des destinations familiales établies avec une infrastructure touristique de premier ordre, parfaites pour les familles qui souhaitent combiner ski et activités lacustres depuis la même base.</p>
+
+<p>L'aéroport de Salzbourg (SZG) est l'une des portes alpines les mieux connectées d'Europe, avec des vols directs depuis le Royaume-Uni tout au long de l'année — pas seulement en saison de ski — et des liaisons régulières depuis Amsterdam, Bruxelles, Copenhague, Stockholm et Genève. Les temps de transfert depuis SZG vers les principaux domaines de ski de la province oscillent entre 45 minutes jusqu'à Saalbach et 90 minutes jusqu'au Gasteinertal. La ville de <strong>Salzbourg</strong> — berceau de Mozart, cadre du Festival de Salzbourg et Patrimoine mondial de l'UNESCO — se trouve à moins d'une heure de la plupart des vallées de ski de la province, ce qui fait de chaque séjour une combinaison possible de montagne et de culture de premier rang européen. Pour les copropriétaires qui souhaitent aller au-delà des pistes, Salzbourg offre opéra et concerts en été dans le festival le plus distingué du monde, le Mozarteum actif toute l'année, une scène gastronomique qui surpasse toute autre ville alpine de taille comparable, et l'architecture baroque du centre historique comme toile de fond de chaque soirée en ville.</p>
+
+<p>En été, le <strong>Salzkammergut</strong> — la région des lacs salins qui s'étend entre Salzbourg, le Tyrol et la Haute-Autriche — offre une combinaison d'eau, de montagne et de culture sans équivalent dans les Alpes. Le lac de <strong>Hallstatt</strong>, classé au Patrimoine mondial, est peut-être le paysage alpin le plus photographié au monde ; le <strong>Wolfgangsee</strong>, le <strong>Mondsee</strong> et le <strong>Fuschlsee</strong> ajoutent des kilomètres de rivages lacustres avec des eaux atteignant 24 °C en juillet. Le parc immobilier de la province englobe des chalets en bois traditionnels dans les vallées de ski jusqu'aux appartements de montagne modernes dans des résidences gérées avec spa et piscine couverte — disponibles à des prix souvent inférieurs aux sommets du Tyrol le plus exclusif.</p>
+
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les acheteurs qui souhaitent associer ski de première catégorie et accès à une grande ville culturelle européenne, les couples entre 50 et 65 ans qui accordent autant d'importance à l'opéra et à la gastronomie qu'aux pistes, et les familles qui apprécient la combinaison unique de lac et de montagne que seul le Salzkammergut peut offrir.</p>
+
+<h3>Vorarlberg — l'Arlberg et le niveau le plus exclusif des Alpes</h3>
+
+<p>Le Vorarlberg est la province la plus occidentale d'Autriche et le foyer du légendaire massif de l'<strong>Arlberg</strong> — unanimement considéré comme le berceau du ski alpin moderne et l'une des destinations de montagne les plus prestigieuses et exclusives au monde. <strong>Lech</strong>, <strong>Zürs</strong> et <strong>Stuben</strong> se trouvent côté Vorarlberg de l'Arlberg, attirant une clientèle internationale qui comprend des familles royales, des premiers ministres et des acheteurs de style de vie sophistiqués de toute l'Europe. Le domaine skiable de l'Arlberg — partagé avec le Tyrol via St. Anton et St. Christoph — offre 305 kilomètres de pistes sur un terrain allant des larges vallées idéales pour les skieurs intermédiaires aux couloirs les plus exigeants des Alpes occidentales. La neige sur l'Arlberg est légendaire : l'orientation nord et nord-ouest du massif en fait l'un des endroits avec les plus fortes accumulations de neige fraîche du continent, avec des chutes souvent extraordinaires de novembre à avril.</p>
+
+<p>La copropriété au Vorarlberg place l'acheteur dans un environnement d'un prestige exceptionnel. Les biens à Lech et Zürs comptent parmi les plus valorisés des Alpes autrichiennes — le prix au mètre carré de Lech am Arlberg rivalise avec Verbier, Courchevel et Kitzbühel dans les classements alpins internationaux — ce qui fait de la part actée de 1/8 la voie la plus pratique pour accéder à un véritable patrimoine sur ce marché. L'accès est excellent : l'aéroport de Zurich (ZRH) est à 90 minutes en voiture de Lech, et l'aéroport de Friedrichshafen (FDH) — à 45 minutes — ouvre des liaisons directes vers le Royaume-Uni pendant la saison de ski. L'été au Vorarlberg révèle une autre facette du Bregenzerwald — l'arrière-pays de forêts denses et de villages en bois sombre — avec des sentiers de randonnée familiaux, une architecture vernaculaire primée à l'échelle internationale et le <strong>Festival de Bregenz</strong> sur sa scène flottante spectaculaire au bord du lac de Constance.</p>
+
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les acheteurs pour qui le niveau de prestige de l'adresse est en lui-même un critère de sélection, les copropriétaires qui souhaitent un accès à la neige la plus fiable et au terrain le plus varié des Alpes autrichiennes, et les familles avec des connexions aériennes fréquentes vers Zurich qui veulent une base de ski à moins de 90 minutes de l'aéroport.</p>
+
+<h3>Styrie et Carinthie — lacs, bien-être et l'Autriche la plus authentique</h3>
+
+<p>La Styrie et la Carinthie forment le visage le moins connu de l'Autriche pour la plupart des acheteurs internationaux — et précisément pour cette raison, l'une des propositions les plus convaincantes du marché pour ceux qui découvrent ces deux provinces. La Carinthie abrite le <strong>Wörthersee</strong>, le lac le plus chaud des Alpes : avec des températures d'eau atteignant 26–28 °C en juillet et août, les eaux bleues du Wörthersee avec les montages qui les entourent constituent l'un des paysages lacustres les plus spectaculaires et les plus utilisables d'Europe. Les villes de Velden et Pörtschach, aux rives du lac, ont une élégance estivale bien établie — terrasses sur l'eau, voiliers, restaurants de saison, hôtels à l'architecture historique — qui attire une clientèle autrichienne, allemande et suisse de haut niveau depuis le XIXe siècle. En hiver, le domaine skiable de <strong>Bad Kleinkirchheim</strong> — avec ses thermes sur les pistes et une neige fiable jusqu'à 2 000 mètres — offre un ski familial d'excellent niveau sans la densité touristique du Tyrol ou du Vorarlberg.</p>
+
+<p>La Styrie ajoute la profondeur culturelle de <strong>Graz</strong> — deuxième ville d'Autriche, classée au Patrimoine mondial pour son centre historique baroque et Renaissance, avec une scène gastronomique émergente de niveau international et une vie culturelle qui ne s'arrête à aucune saison. La <strong>Styrie du Sud</strong>, avec ses collines douces couvertes de vignobles tournées vers la Slovénie, produit certains des Sauvignon Blanc et Muskateller les plus fins d'Europe, figurant désormais sur les cartes des meilleurs restaurants de Vienne, Munich et Londres. Les prix des biens en Styrie et Carinthie restent généralement inférieurs au niveau maximal du Tyrol le plus exclusif, ce qui en fait des marchés d'entrée attractifs pour les acheteurs en copropriété qui cherchent un rapport qualité-prix exceptionnel dans un cadre autrichien authentique.</p>
+
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les familles qui accordent autant d'importance aux vacances d'été qu'au ski d'hiver, les amateurs de bien-être et de thermes qui souhaitent une base autrichienne authentique loin de la densité touristique des grandes stations, et les acheteurs sensibles au rapport qualité-prix qui veulent un accès à la nature et à la culture autrichienne sans les prix de pointe du Tyrol ou du Vorarlberg.</p>
+
+<h3>Vienne — la capitale impériale comme résidence secondaire</h3>
+
+<p>Vienne représente une option distincte dans le marché autrichien de la copropriété : non pas une destination alpine, mais <strong>l'une des villes les plus culturellement riches et les mieux préservées d'Europe</strong>, régulièrement classée en tête des indices de qualité de vie mondiaux. Pour les acheteurs qui combinent une fraction alpine dans le Tyrol ou à Salzbourg avec un ancrage urbain pour les courts séjours culturels de printemps et d'automne, Vienne offre une proposition distincte et complémentaire. L'Opéra d'État de Vienne, avec son programme annuel de plus de 300 représentations, le Kunsthistorisches Museum avec l'une des plus grandes collections de maîtres anciens au monde, la Ringstrasse impériale et les Heurigen de la Vienne viticole dans les faubourgs du Wienerwald — tout cela constitue une densité culturelle que peu de villes européennes peuvent rivaliser.</p>
+
+<p>L'aéroport de Vienne-Schwechat (VIE) est le hub aérien le plus important d'Autriche avec des liaisons directes vers plus de 180 destinations dans le monde — permettant des courts séjours depuis Paris, Amsterdam, Londres ou les capitales scandinaves en moins de deux heures. Le réseau ferroviaire ÖBB connecte Vienne au reste de l'Autriche : deux heures trente jusqu'à Graz, trois heures jusqu'à Salzbourg, et le service Nightjet relie Vienne à Paris, Amsterdam, Berlin et Bruxelles du soir au matin, sans correspondances. Pour les copropriétaires qui vivent dans un rayon de deux à trois heures de vol de Vienne, un appartement en copropriété dans le premier ou le deuxième arrondissement représente une base culturelle permanente d'un niveau que peu d'alternatives peuvent offrir à ce point d'entrée fractionnel.</p>
+
+<p class="dest-ideal-for"><strong>Idéal pour :</strong> les amateurs d'opéra, de musées et de gastronomie fine qui souhaitent une base urbaine autrichienne permanente pour les courts séjours culturels, les acheteurs qui combinent une fraction alpine avec un ancrage viennois pour maximiser la diversité d'utilisation, et les copropriétaires dans les 50–70 ans dont les enfants sont indépendants et qui privilégient la culture et le confort urbain autant que la montagne.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Résidence secondaire entière</th>
+      <th>Part 1/8 COP</th>
+      <th>Location longue durée</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Engagement initial</td>
+      <td data-col="Résidence secondaire entière">Valeur totale du bien</td>
+      <td data-col="Part 1/8 COP">~1/8 de la valeur du bien</td>
+      <td data-col="Location longue durée">Caution et 1–2 mois de loyer</td>
+    </tr>
+    <tr>
+      <td>Patrimoine dans l'actif</td>
+      <td data-col="Résidence secondaire entière">Plus-value totale</td>
+      <td data-col="Part 1/8 COP">~1/8 de la plus-value</td>
+      <td data-col="Location longue durée">Aucun</td>
+    </tr>
+    <tr>
+      <td>Charges annuelles</td>
+      <td data-col="Résidence secondaire entière">Impôts, assurances, gestion et entretien complets</td>
+      <td data-col="Part 1/8 COP">~1/8 des charges, gestion intégrale incluse</td>
+      <td data-col="Location longue durée">Loyer complet chaque année, indéfiniment</td>
+    </tr>
+    <tr>
+      <td>Utilisation personnelle</td>
+      <td data-col="Résidence secondaire entière">Jusqu'à 52 semaines (la plupart utilisent 6 à 10)</td>
+      <td data-col="Part 1/8 COP">~45 jours, planifiés professionnellement</td>
+      <td data-col="Location longue durée">Défini par le bail</td>
+    </tr>
+    <tr>
+      <td>Charge opérationnelle</td>
+      <td data-col="Résidence secondaire entière">Géré par le propriétaire ou personnel embauché</td>
+      <td data-col="Part 1/8 COP">Entièrement inclus</td>
+      <td data-col="Location longue durée">Géré par le bailleur</td>
+    </tr>
+    <tr>
+      <td>Délai de revente</td>
+      <td data-col="Résidence secondaire entière">6 à 12 mois sur le marché libre autrichien</td>
+      <td data-col="Part 1/8 COP">Environ un mois en moyenne</td>
+      <td data-col="Location longue durée">Fin du bail</td>
+    </tr>
+  </tbody>
+</table>
+
+</div></section>
+
+<!-- §C — Quand visiter l'Autriche ? (cream) -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Quand visiter l'Autriche ?</h2>
+
+<p>Répartir <strong>45 jours d'utilisation</strong> au cours de l'année en Autriche est l'un des exercices les plus satisfaisants pour un copropriétaire alpin — parce que le pays offre des raisons convaincantes d'être à la montagne à chacune des quatre saisons. Contrairement à de nombreuses destinations de ski qui se vident en mai et ne retrouvent vie qu'en décembre, l'Autriche maintient une utilité authentique et profonde tout au long de l'année, faisant d'une part de 1/8 un outil de style de vie quatre saisons plutôt qu'une fenêtre de six semaines hivernales.</p>
+
+<h3>Hiver (décembre–février)</h3>
+
+<p>L'hiver est, pour la grande majorité des copropriétaires en Autriche, la motivation centrale de l'achat — et le Tyrol, l'Arlberg du Vorarlberg et les vallées de Salzbourg tiennent exactement ce qu'ils promettent. <strong>Décembre</strong> commence avec les marchés de Noël les plus authentiques d'Europe : le <strong>Christkindlmarkt</strong> de Vienne, sur la place de l'Hôtel de Ville, est le plus célèbre ; mais les marchés d'<strong>Innsbruck</strong> — avec le château impérial illuminé en toile de fond et le centre historique de la ville comme décor — et de <strong>Salzbourg</strong> — sur la place du Domplatz sous la forteresse de Hohensalzburg — ont une atmosphère de Noël que peu de villes européennes peuvent égaler. Les températures dans les vallées oscillent entre <strong>−2 et 4 °C (28–39 °F)</strong> le jour en décembre ; dans les stations de haute montagne, la neige recouvre déjà toutes les pistes et la saison est en pleine activité.</p>
+
+<p><strong>Janvier et février</strong> sont les mois de référence du ski autrichien. Les chutes de neige les plus constantes et les plus abondantes de l'année se produisent durant ces semaines ; les forfaits sont à leur demande maximale ; et le calendrier d'événements d'élite transforme les stations les plus célèbres en scènes sportives uniques. La <strong>Hahnenkamm</strong> de Kitzbühel — la descente de Coupe du Monde considérée comme la plus difficile et la plus périlleuse du circuit, disputée lors de la troisième semaine de janvier — paralyse le village entier et attire plus de 50 000 spectateurs qui remplissent les flancs de montagne et les tribunes. Les températures sur les pistes oscillent entre <strong>−8 et −2 °C (18–28 °F)</strong> en janvier, avec des journées ensoleillées fréquentes au Tyrol et au Vorarlberg — le soleil alpin d'hiver sur les terrasses des refuges de montagne, avec vue sur des sommets enneigés et une bière locale en main, est l'un des plaisirs les plus authentiques des Alpes autrichiennes.</p>
+
+<p>Pour les copropriétaires qui ne pratiquent pas le ski, l'hiver autrichien a sa propre richesse : les thermes historiques de <strong>Bad Gastein</strong> avec leur architecture thermale Belle Époque, les promenades en luge en famille dans les forêts du Bregenzerwald, les concerts d'hiver à Innsbruck et Salzbourg, et les restaurants de refuges de montagne — avec leur <em>Kaiserschmarrn</em>, leur <em>Tiroler Gröstl</em> et leur Glühwein servi dans des tasses en céramique — sont plus que suffisants pour justifier la présence dans les Alpes autrichiennes durant les mois les plus froids. La semaine de <strong>Noël et Nouvel An</strong> et les vacances de <strong>février</strong> sont les plus demandées de toute la saison ; le calendrier de rotation équitable garantit que ces semaines soient réparties équitablement entre les copropriétaires sur le cycle pluriannuel.</p>
+
+<h3>Printemps (mars–mai)</h3>
+
+<p>Le printemps autrichien est l'une des saisons les moins explorées par les acheteurs internationaux — et par conséquent l'une des plus gratifiantes pour un copropriétaire avec une souplesse de calendrier. <strong>Mars</strong> en Autriche est une charnière entre deux mondes : dans les vallées, les températures diurnes atteignent les <strong>8–14 °C (46–57 °F)</strong>, les amandiers de la Styrie du Sud commencent à fleurir et les premiers jours de soleil s'installent durablement. En altitude, mars est souvent le <strong>meilleur mois de ski de l'année</strong> — la neige accumulée depuis janvier donne profondeur et condition optimale aux pistes, les journées s'allongent jusqu'à 18 h 30 et le soleil de printemps transforme les terrasses des restaurants de montagne en lieux de célébration authentique. Les deux dernières semaines de mars, passées les vacances de Pâques, sont les plus tranquilles de l'année dans les Alpes autrichiennes : les pistes en parfaite condition, les forfaits plus abordables et les restaurants avec des tables disponibles sans réservation.</p>
+
+<p><strong>Avril</strong> au Tyrol et au Vorarlberg maintient le ski jusqu'en fin de mois — dans les stations de glacier du Stubai, du Hintertux et du Kitzsteinhorn à Kaprun, la saison se prolonge jusqu'à fin mai les bonnes années. Dans les vallées, les températures diurnes atteignent les <strong>15–18 °C (59–64 °F)</strong> et les premiers randonneurs parcourent les sentiers de basse altitude entre villages. À Salzbourg, avril marque la réouverture des jardins historiques de Hellbrunn et le début du calendrier de concerts du Mozarteum. Pour les copropriétaires en Styrie, avril est le meilleur moment pour explorer les vignobles de la Styrie du Sud lorsque les sarments commencent à bourgeonner et que les paysages de collines viticoles prennent une teinte vert brillant avant le feuillage complet de l'été.</p>
+
+<p><strong>Mai</strong> transforme complètement le paysage autrichien : les prairies alpines se couvrent de fleurs sauvages — jonquilles, gentianes bleues, primevères jaunes — dans un spectacle chromatique que les naturalistes font exprès de venir voir. Les sentiers de haute montagne ouvrent progressivement depuis la mi-mai ; les lacs de Carinthie commencent à se réchauffer jusqu'à <strong>16–18 °C (61–64 °F)</strong>, suffisant pour les plus courageux. Les villages du Tyrol fêtent la <strong>Walpurgisnacht</strong> le 30 avril avec des feux de joie sur les places et des traditions alpines vieilles de plusieurs siècles. Dans le Bregenzerwald du Vorarlberg, mai est incomparable : les alpages d'été ouvrent avec la montée du bétail vers les hauts pâturages (l'Alpaufzug), l'architecture en bois sombre des villages brille sous la lumière printanière et les sentiers familiaux de la vallée sont quasiment déserts.</p>
+
+<h3>Été (juin–août)</h3>
+
+<p>L'été autrichien est la grande révélation pour les acheteurs qui viennent au pays principalement pour le ski. <strong>Juin</strong> en Autriche est le mois secret de l'été alpin : le temps est suffisamment chaud pour randonner, nager en lac et dîner en terrasse — des températures de <strong>20–24 °C (68–75 °F)</strong> dans les vallées — mais les touristes de haute saison ne sont pas encore arrivés en masse. Les sentiers sont immaculés, les restaurants accessibles sans réservation préalable et les lacs de Carinthie atteignent les <strong>20–22 °C (68–72 °F)</strong> en fin de mois. Le Wörthersee en juin a un charme particulier : les voiliers et kayaks reprennent vie, les restaurants en bord de lac ouvrent leurs terrasses et le rythme de la vie lacustre s'anime sans la densité du plein août.</p>
+
+<p><strong>Juillet</strong> apporte la haute saison estivale et avec elle l'un des programmes culturels les plus extraordinaires d'Europe. Le <strong>Festival de Salzbourg</strong> — le festival de musique classique et d'opéra le plus important au monde, avec plus d'un siècle d'histoire ininterrompue — remplit la ville de Salzbourg de concerts, d'opéras et de représentations théâtrales de premier rang mondial pendant cinq semaines, de fin juillet à fin août. Les billets pour les événements principaux nécessitent une réservation plusieurs mois à l'avance, mais le programme de musique de chambre et les concerts en plein air dans le Mirabellgarten sont accessibles avec peu d'anticipation. Pour les copropriétaires de la province de Salzbourg, juillet est le mois qui justifie l'effort de planification du calendrier : la ville en plein festival est une expérience sans équivalent en Europe. Dans le Vorarlberg, le <strong>Festival de Bregenz</strong> — avec sa scène flottante sur le lac de Constance, l'une des plus spectaculaires au monde — est en pleine saison en juillet et août, à moins de 40 minutes des biens du Bregenzerwald.</p>
+
+<p><strong>Août</strong> est le mois de pointe absolu. Les semaines centrales dans les destinations lacustres de Carinthie, à Salzbourg durant le festival et dans les principales vallées du Tyrol sont entièrement réservées plusieurs mois à l'avance. Les températures dans les vallées atteignent les <strong>26–30 °C (79–86 °F)</strong>, les lacs de Carinthie sont à leur température maximale de 26–28 °C et la vie en plein air — natation, voile, randonnée matinale, longs dîners en terrasse — est la norme. Le calendrier de rotation équitable garantit que chaque copropriétaire accède aux semaines de pointe de façon équitable sur le cycle pluriannuel — personne n'est structurellement exclu d'août.</p>
+
+<h3>Automne (septembre–novembre)</h3>
+
+<p>Pour de nombreux copropriétaires autrichiens expérimentés, <strong>l'automne est la saison favorite</strong>. <strong>Septembre</strong> combine le meilleur des deux saisons : les températures diurnes atteignent encore les <strong>17–22 °C (63–72 °F)</strong> dans les vallées, les lacs de Carinthie conservent la chaleur accumulée — le Wörthersee dépasse les 20 °C bien avancé dans le mois — et les foules d'août se dissipent dès les premiers jours après la rentrée scolaire. Les restaurants sont à nouveau accessibles sans réservation préalable ; les sentiers de montagne sont en parfaite condition avec l'air frais de l'automne ; et les forêts de hêtres et d'érables sur les versants alpins commencent à changer de couleur fin septembre, avec des teintes dorées et rougeâtres qui contrastent avec la roche grise et les premiers sommets enneigés des semaines les plus élevées.</p>
+
+<p>La saison de l'<strong>Almabtrieb</strong> — la descente traditionnelle du bétail depuis les alpages vers les vallées — est l'un des grands événements culturels de l'automne autrichien, célébré à des dates différentes dans chaque village du Tyrol et de Salzbourg entre mi-septembre et mi-octobre. Les vaches reviennent parées de fleurs et de cloches dans un défilé qui remplit les rues des villages alpins et constitue à la fois une tradition authentique séculaire et un spectacle photographique de premier ordre. En <strong>Styrie du Sud</strong>, octobre est le mois des <strong>vendanges</strong> — les vignobles de Gamlitz produisent leurs blancs les plus délicats durant ces semaines, et les visites de domaines comme Gross, Polz ou Tement sont possibles sur réservation directe. Pour les copropriétaires de Salzbourg, octobre marque le début de la saison culturelle de la ville, avec la programmation du Mozarteum en plein régime et les musées et théâtres de retour à leurs calendriers complets d'automne-hiver.</p>
+
+<p><strong>Octobre et novembre</strong> marquent également le début de la pré-saison de ski : au Hintertux et au Stubai, la saison est déjà en cours depuis début octobre ; au Kitzsteinhorn à Kaprun, les premiers forfaits sont disponibles dès les premiers jours d'octobre. Pour les copropriétaires qui souhaitent une période de transition — randonnée de montagne le matin, premières descentes à ski l'après-midi — le Tyrol d'octobre offre cette combinaison unique. Les prix dans les hôtels et restaurants sont les plus abordables de l'année dans les vallées de haute montagne, et la sensation d'avoir les Alpes presque pour soi est tout à fait réelle.</p>
+
+<h3>Une semaine typique dans votre bien autrichien en copropriété</h3>
+
+<p>L'une des choses les plus convaincantes d'un bien en copropriété en Autriche est à quel point chaque séjour se ressent différemment selon la région et la saison. Les Alpes autrichiennes ont une profondeur suffisante — neige, randonnée, lacs, culture, gastronomie, tradition alpine — pour y passer plusieurs semaines à chaque saison pendant des années et continuer à découvrir quelque chose de nouveau. Voici ce que pourrait être une semaine typique de fin janvier au Tyrol, avec une arrivée le samedi après-midi. Vous atterrissez à Innsbruck, récupérez la voiture de location et en moins d'une heure vous remontez l'allée du bien. Le bien est immaculé — chauffage allumé, bois empilé près de la cheminée, le réfrigérateur avec l'essentiel déjà provisionné. Vous n'avez rien organisé de tout cela ; l'équipe de gestion a fait la préparation avant l'arrivée avant que votre vol ne décolle. Cette première soirée, rien de plus ambitieux qu'allumer la cheminée et se coucher tôt.</p>
+
+<p>Le dimanche, c'est la première descente de la saison : le télésiège ouvre à 8 h 30 et les premiers arrivés ont les pistes presque pour eux seuls pendant une heure. La neige du vendredi n'a pas été touchée dans les zones hors-piste. Le déjeuner au refuge de montagne — <em>Tiroler Gröstl</em> avec un œuf au plat et une bière locale servie dans une chope en céramique — fait partie du rituel que vous connaissez déjà. L'après-ski en terrasse, avec les skis plantés dans la neige et le soleil de fin d'après-midi encore chaud, est exactement comme dans votre souvenir. Les jours de semaine permettent d'explorer tranquillement : une matinée à Kitzbühel avec ses rues médiévales et ses galeries d'art, un après-midi dans le spa thermal du village pour ceux qui préfèrent le bien-être aux pistes, une visite à la distillerie locale de schnapps aux herbes alpines. Le vendredi matin, avant de partir pour l'aéroport, il reste le temps d'une dernière descente — et de confirmer avec l'équipe de gestion la date du prochain séjour. En septembre, ce même bien aura un caractère entièrement différent : la randonnée remplace le ski, les couleurs automnales de la forêt remplacent la neige, et le restaurant du village qui en janvier était plein de familles en bottes de ski est maintenant réservé par des locaux qui fêtent la fin de la saison estivale avec du vin nouveau et des plats de gibier.</p>
+
+</div></section>
+
+<!-- §D — À qui s'adresse l'Autriche ? (white) -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>À qui s'adresse l'Autriche ?</h2>
+
+<p>Le mix d'acheteurs internationaux dans la copropriété autrichienne est l'un des plus diversifiés du marché alpin européen, avec une concentration notablement distincte de celle des destinations méditerranéennes. <strong>Les acheteurs allemands</strong> constituent la plus grande cohorte unique — le marché domestique et immédiatement transfrontalier est profond et solide, avec des acheteurs de Munich, Francfort, Stuttgart et Hambourg qui considèrent les Alpes autrichiennes comme leur zone naturelle de résidence secondaire alpine, souvent à moins de trois heures en voiture de leur résidence principale. <strong>Les acheteurs britanniques</strong> sont la deuxième cohorte internationale la plus importante, avec une présence historique solide au Tyrol et sur l'Arlberg qui n'a pas été significativement affaiblie par le Brexit, précisément parce que la copropriété — avec ses environ 45 jours d'utilisation personnelle par an — s'inscrit confortablement dans la limite des 90 jours de l'espace Schengen sans nécessiter aucun visa ni autorisation spéciale. <strong>Les acheteurs néerlandais, belges et scandinaves</strong> constituent une cohorte croissante, attirés par la fiabilité de la neige au Tyrol et sur l'Arlberg, la profondeur culturelle de Salzbourg et le rapport qualité-prix du marché par rapport aux Alpes françaises ou suisses comparables.</p>
+
+<p>La copropriété en Autriche correspond typiquement à un certain nombre de profils d'acheteurs bien définis :</p>
+
+<ul>
+  <li><strong>Familles actives avec enfants en âge scolaire</strong> — le profil le plus nombreux au Tyrol et à Salzbourg. Elles cherchent un bien de ski fixe — pas une réservation d'hôtel différente à chaque saison — avec local à ski chauffé, jardin ou terrasse pour les enfants, et la même montagne et la même école de ski que les enfants reconnaissent d'une année à l'autre. La valeur émotionnelle de voir les enfants grandir avec la même montagne alpine, les mêmes camarades de piste et les mêmes rituels d'après-ski familiaux est quelque chose qu'aucune réservation d'hôtel ou location de vacances ne peut répliquer. La copropriété le rend financièrement accessible au niveau où la pleine propriété d'un chalet à Kitzbühel ou Lech est simplement hors de portée pour la plupart des acheteurs internationaux.</li>
+  <li><strong>Couples professionnels entre 50 et 65 ans</strong> — la cohorte à la plus forte croissance sur le marché alpin autrichien. Leurs enfants sont à l'université ou au-delà, ce qui leur donne une souplesse de calendrier pour utiliser la part durant les semaines les plus tranquilles — le ski de mars avec les pistes moins fréquentées, l'été autrichien avec ses randonnées et ses lacs, le Festival de Salzbourg en août. Ce profil apprécie tout particulièrement l'absence de charge opérationnelle : ils ne souhaitent pas gérer un bien à distance, ni organiser équipes de nettoyage et plombiers depuis un autre pays — ils veulent arriver et trouver le bien prêt.</li>
+  <li><strong>Acheteurs expérimentés en ski cherchant à rationaliser les coûts</strong> — anciens propriétaires de chalets entiers qui ont calculé combien de semaines par an ils utilisent réellement leur bien et ont conclu qu'une part de 1/8 — avec ses environ 45 jours — est structurellement plus efficiente que continuer à supporter 100 % des coûts d'un bien qu'ils utilisent 6 à 8 semaines au maximum. Beaucoup de ces acheteurs ont déjà une expérience à Verbier, Méribel ou Cortina et cherchent en Autriche une alternative de qualité de neige et de paysage équivalente avec un meilleur rapport entre coût d'entrée et utilisation réelle.</li>
+  <li><strong>Groupes multigénérationnels</strong> — grands-parents, parents et enfants qui partagent la part lors de semaines différentes ou, dans certains cas, simultanément dans des chalets de quatre et cinq chambres. La copropriété gère mieux la coordination du calendrier familial élargi qu'un modèle de pleine propriété — chaque branche de la famille peut réserver ses semaines de façon autonome au sein du système de rotation équitable, sans les négociations informelles qui compliquent généralement la propriété partagée non structurée entre membres de la famille.</li>
+  <li><strong>Acheteurs avec portefeuille international</strong> — copropriétaires qui ont déjà des parts dans d'autres destinations COP et ajoutent l'Autriche comme composante alpine d'un portefeuille diversifié géographiquement. Pour ce profil, la cohérence du cadre LLC est un avantage décisif : ils n'apprennent pas une nouvelle structure avec chaque bien, ils étendent celle qu'ils connaissent déjà à une nouvelle destination. Les combinaisons les plus fréquentes sont l'Autriche plus une part méditerranéenne en Espagne ou en Italie pour l'été, ou l'Autriche plus une destination urbaine comme Barcelone, Madrid ou Lisbonne pour les courts séjours culturels.</li>
+</ul>
+
+<p>Ce qui unit ces profils d'acheteurs — par ailleurs assez distincts en âge, nationalité et priorités — est le <strong>calcul sous-jacent</strong> : les semaines de résidence secondaire alpine que chacun utilise réellement par an se situent dans les 6 à 7 semaines que délivre une part de 1/8, et la <strong>liquidité de revente d'une part</strong> au sein d'un portefeuille géré est — selon notre expérience au sein du réseau COP — nettement supérieure à la liquidité de revente d'un chalet entier à la même adresse, où le groupe d'acheteurs qualifiés est restreint et les délais s'étendent habituellement entre 6 et 12 mois. À la différence de la multipropriété traditionnelle, une part COP est un actif patrimonial réel qui se valorise avec le bien sous-jacent — ce qui explique pourquoi la destination alpine autrichienne est l'une des plus demandées au sein du portefeuille COP.</p>
+
+<p>Il convient également de mentionner le <strong>pattern multi-fractions</strong> que l'on observe avec une fréquence croissante : des copropriétaires qui combinent une part autrichienne avec une autre dans une destination méditerranéenne ou urbaine. Les combinaisons les plus observées sont <strong>l'Autriche plus Majorque ou la Côte d'Azur</strong> — l'hiver alpin autrichien associé à l'été méditerranéen — et <strong>l'Autriche plus un appartement à Barcelone, Madrid ou Lisbonne</strong> pour les courts séjours culturels de printemps et d'automne. Moins fréquente mais de plus en plus visible est la combinaison <strong>Autriche plus Toscane ou lac de Côme</strong>, qui associe le ski d'hiver à la douceur culturelle et gastronomique italienne en été. Le modèle fractionnel rend cette stratégie de portefeuille pratique et financièrement cohérente : <strong>deux parts de 1/8 coûtent moins qu'un seul bien entier</strong> dans l'une ou l'autre des deux directions, et la relation de gestion à travers le portefeuille est unifiée dans le même cadre LLC — la même cadence documentaire, le même processus administratif, la même relation avec l'équipe COP du Tyrol aux Baléares.</p>
+
+</div></section>
+
+<!-- §E — Aspects pratiques (cream) -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Aspects pratiques</h2>
+
+<h3>Aéroports et accès depuis l'extérieur</h3>
+
+<p>L'Autriche est exceptionnellement bien connectée avec le reste de l'Europe pour un pays alpin enclavé, avec cinq aéroports principaux pertinents pour les copropriétaires internationaux. <strong>Innsbruck (INN)</strong> est la porte d'entrée sur le Tyrol : vols directs depuis Londres Heathrow, Gatwick et Stansted, Amsterdam, Berlin, Francfort et d'autres villes européennes tout au long de l'année, avec une fréquence additionnelle significative en saison de ski. L'aéroport est à 45 minutes de Kitzbühel, à 30 minutes du centre d'Innsbruck et à 90 minutes de St. Anton — la majeure partie du Tyrol est donc accessible en moins de 90 minutes de transfert depuis le terminal. <strong>Salzbourg (SZG)</strong> est l'une des portes alpines les mieux connectées du continent, avec des vols directs depuis le Royaume-Uni tout au long de l'année — pas seulement en saison — et des liaisons depuis Amsterdam, Copenhague, Stockholm, Dublin et Genève ; les destinations de ski du Salzkammergut et du Gasteinertal sont à 45 à 90 minutes en voiture. <strong>Munich (MUC)</strong>, à 90 minutes en voiture de la majeure partie du Tyrol oriental et de certaines destinations de l'est de Salzbourg, offre le réseau de vols long-courrier le plus étendu du sud de l'Europe centrale — Lufthansa et ses partenaires Star Alliance placent l'Autriche à quelques heures de pratiquement n'importe quelle ville du monde. <strong>Vienne-Schwechat (VIE)</strong> est la porte d'entrée sur la Styrie et la Carinthie, avec des vols directs depuis plus de 180 destinations dans le monde et une connexion en train ou en voiture vers Graz (2 h 30) et le Wörthersee (3 h 30). Pour le Vorarlberg et l'Arlberg, <strong>Zurich (ZRH)</strong> — à 90 minutes de Lech et Zürs — est l'alternative la plus utilisée par les copropriétaires en provenance du monde anglophone et de la communauté suisse.</p>
+
+<p>En ce qui concerne les liaisons depuis Paris : Paris CDG – Vienne est à 2 h environ en vol direct, Paris CDG – Innsbruck à 1 h 30, et Paris CDG – Salzbourg à 1 h 20. Depuis Amsterdam : Amsterdam AMS – Innsbruck 1 h 45, Amsterdam AMS – Salzbourg 1 h 40. Depuis Londres : Londres LHR – Vienne 2 h 10, Londres LHR – Innsbruck 2 h. Le réseau ferroviaire <strong>ÖBB Nightjet</strong> relie Vienne à Paris, Amsterdam, Berlin et Bruxelles avec des services de nuit sans correspondance, permettant aux copropriétaires de voyager d'une capitale à une autre sans billet d'avion — une option particulièrement appréciée pour les séjours courts de week-end prolongé en dehors de la saison de ski.</p>
+
+<h3>Résidence secondaire entière, part de 1/8 ou location : la comparaison qui compte</h3>
+
+<p>L'argument en faveur de la copropriété est le plus clair dans la comparaison directe entre les trois façons dont un acheteur international peut organiser sa relation avec une résidence secondaire alpine en Autriche. Le tableau ci-dessus n'utilise pas de chiffres absolus — les valeurs varient trop selon les régions et les types de biens pour qu'un seul chiffre ait du sens — mais des ratios comparatifs qui reflètent la structure du marché autrichien indépendamment du niveau de prix de chaque acheteur.</p>
+
+<p>La conclusion est claire : acquérir 100 % d'un chalet à Kitzbühel ou Lech engage un capital et des charges annuelles considérables pour un bien que la plupart des acheteurs utilisent 6 à 10 semaines par an. Une part de 1/8 aligne le capital engagé sur l'utilisation réelle — environ 45 jours — tout en conférant un patrimoine immobilier réel dans le bien, une plus-value proportionnelle à la hausse du marché, et une gestion entièrement prise en charge qui fait de chaque arrivée une expérience aussi fluide que si vous étiez le seul propriétaire. La location longue durée, quant à elle, n'offre aucun patrimoine : chaque loyer versé est un coût définitif sans retour sur capital, et aucune accumulation de plus-value n'est possible. Pour la grande majorité des acheteurs internationaux, la copropriété représente la structure optimale entre ces trois options.</p>
+
+<h3>Les charges annuelles et ce que vous possédez réellement</h3>
+
+<p>La charge annuelle d'une part autrichienne de 1/8 est, par définition, <strong>environ 1/8 de la charge du bien entier équivalent</strong> — ce qui dans la pratique représente une fraction de ce que paierait un propriétaire exclusif en Grundsteuer, assurances, gestion et entretien. La charge annuelle du copropriétaire couvre : la <strong>Grundsteuer</strong> (l'impôt foncier annuel autrichien calculé sur la valeur fiscale municipale du bien), les assurances du bâti et du contenu, la gestion intégrale du bien, le nettoyage et le linge entre les séjours, l'entretien du local à ski et du matériel de neige, le jardinage, la préparation saisonnière du bien, les charges (électricité, eau, chauffage, internet) et une contribution au fonds de réserve pour les grands travaux en capital. Les charges annuelles se situent généralement entre <strong>7 000 € et 14 000 €</strong> selon le niveau et la région.</p>
+
+<p>Ce que vous ne payez <em>pas</em> mérite aussi d'être précisé : vous ne payez pas les honoraires d'un gestionnaire de bien individuel pour surveiller une maison à distance, vous ne payez pas le chauffage au forfait annuel d'une maison occupée une partie de l'année seulement, vous ne payez pas les coûts d'une intervention d'urgence suite à une fuite ou un dégât des eaux découvert lors de votre arrivée — tout cela est inclus et géré de façon professionnelle avant que vous ne franchissiez la porte. Ce que vous possédez au fond de ce calcul est une <strong>participation patrimoniale actée au Grundbuch autrichien</strong> — le registre foncier officiel d'Autriche — transférable, transmissible par héritage et qui se valorise avec le bien sous-jacent. Ce n'est ni de la multipropriété, ni une adhésion à points, ni un droit d'usage qui expire : c'est un véritable patrimoine immobilier enregistré à votre nom dans le système officiel de publicité foncière d'Autriche, avec la même solidité juridique qu'un titre de pleine propriété.</p>
+
+</div></section>
+
+<!-- §F — Comment fonctionne la copropriété en Autriche (white) -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Comment fonctionne la copropriété en Autriche</h2>
+
+<p>La mécanique de la copropriété en Autriche s'articule autour de trois éléments qui fonctionnent de façon cohérente : la <strong>structure de LLC créée spécifiquement à cet effet</strong> utilisée pour constituer chaque bien COP, le <strong>régime fiscal immobilier autrichien</strong> qui s'applique à toutes les résidences secondaires, et le <strong>Grundbuch</strong> — le registre foncier autrichien — qui fournit la clarté documentaire nécessaire au bien sous-jacent. Comprendre comment ces trois pièces s'emboîtent est ce qui distingue une expérience de copropriété claire et prévisible d'une expérience dans laquelle l'acheteur reste incertain sur ce qu'il possède et sur son fonctionnement à long terme.</p>
+
+<h3>La structure LLC : comment votre part est actée</h3>
+
+<p>La LLC qui constitue chaque bien autrichien de COP est une <strong>société créée spécifiquement pour être propriétaire de ce bien</strong> — le même véhicule international moderne utilisé dans les destinations COP aux États-Unis, au Royaume-Uni, en Espagne, en France et en Italie. Elle a un gérant désigné en vertu des documents de gouvernance de la société, un registre d'associés qui indique qui détient quelle participation et dans quelle proportion, et une assemblée générale annuelle au cours de laquelle les décisions au niveau des copropriétaires sont prises (grands travaux en capital, révision du budget annuel, désignation du gestionnaire). Le même cadre est utilisé dans toutes les destinations COP, ce qui signifie qu'un copropriétaire qui ajoute une seconde part dans un autre pays n'apprend pas une nouvelle structure, mais étend celle qu'il connaît déjà à une destination différente — avec la même cadence documentaire et le même processus administratif.</p>
+
+<p>Il est important de préciser que ce choix de la LLC n'est pas motivé par la protection de la responsabilité personnelle — c'est la cohérence et la simplicité pour le propriétaire international qui en sont les raisons premières. La même structure s'applique qu'il s'agisse d'un bien tyrolien, d'une villa toscane ou d'une maison en Floride. Un copropriétaire COP qui détient des parts dans trois destinations différentes dispose d'une seule interface, d'un seul type de document, d'un seul processus de transfert à la revente — plutôt que de devoir maîtriser les spécificités d'une SCI française, d'un Eigentümergemeinschaft autrichien et d'un trust immobilier américain en parallèle. C'est cette unicité de modèle qui rend la construction d'un portefeuille international en copropriété non seulement souhaitable, mais véritablement pratique.</p>
+
+<p>Pour un acheteur en Autriche, l'effet pratique est de devenir <strong>associé inscrit de la LLC</strong> qui est titulaire du bien, détenant l'une des huit parts égales. Le bien lui-même reste autrichien — inscrit au Grundbuch au nom de la LLC, qui est le titulaire légal à plein droit — et vous êtes, à votre tour, titulaire légal de la LLC. Cette structure en deux étapes est ce qui confère à la copropriété autrichienne de COP son format international unique et cohérent sur chaque marché que COP couvre, sa voie de revente plus rapide — transférer une participation dans une LLC est administrativement plus direct qu'activer une transmission notariale complète de titre devant un notaire autrichien — et sa flexibilité successorale supérieure à celle de la copropriété immobilière directe entre plusieurs propriétaires sans structure sociétaire.</p>
+
+<h3>Fiscalité pour les propriétaires étrangers en Autriche</h3>
+
+<p>L'Autriche applique un cadre fiscal immobilier relativement favorable aux propriétaires internationaux, et la quasi-totalité de la conformité de routine est gérée par la LLC et son conseiller fiscal autrichien désigné plutôt que par le copropriétaire individuel. La <strong>Grundsteuer</strong> — l'impôt foncier annuel — est l'impôt municipal payé par le titulaire du bien, calculé sur la valeur fiscale évaluée par la commune et se situant habituellement dans une fourchette de <strong>0,1 % à 0,5 % de la valeur cadastrale</strong> selon la localité ; il est payé par la LLC avec les charges annuelles collectées auprès des copropriétaires. Le <strong>GrESt</strong> (Grunderwerbsteuer) — la taxe de mutation immobilière autrichienne — s'élève à <strong>3,5 %</strong> de la valeur d'acquisition et est payée une fois lors de l'achat. <strong>L'impôt sur les plus-values</strong> à la revente en Autriche est de <strong>25 %</strong> sur le gain net pour les transmissions de biens détenus depuis moins de dix ans ; pour les détentions supérieures à dix ans, le traitement peut être plus favorable selon la structure spécifique de l'opération. L'Autriche a <strong>supprimé l'impôt sur la fortune en 1997</strong>, éliminant l'impôt annuel sur le patrimoine net qui pèse sur les propriétaires dans certains autres pays européens — il n'existe pas d'impôt sur la fortune en Autriche. Les copropriétaires résidant au Royaume-Uni, aux Pays-Bas, en Suède ou dans tout autre pays ayant une convention de double imposition avec l'Autriche doivent vérifier leur situation personnelle avec leur propre conseiller fiscal avant l'achat, car le traitement précis peut varier selon la juridiction de résidence et la structure spécifique de chaque opération.</p>
+
+<h3>Succession et transmission</h3>
+
+<p>La succession de biens immobiliers en Autriche est régie par l'<strong>Erbrecht autrichien</strong> — le droit successoral du code civil autrichien, qui établit des quotas réservataires (<em>Pflichtteil</em>) pour le conjoint et les enfants, comparables à la réserve héréditaire en droit français. Pour les copropriétaires résidant au Royaume-Uni ou dans d'autres pays hors Union européenne, le <strong>Règlement européen sur les successions de 2015 (Bruxelles IV)</strong> peut ou non s'appliquer à leur situation post-Brexit selon la structure concrète de la succession ; en tout état de cause, une participation dans une LLC fait généralement l'objet d'un traitement successoral différent de celui d'un bien immobilier détenu directement, et potentiellement plus favorable concernant les quotas réservataires dans certains scénarios. La transmission d'une participation dans une LLC aux héritiers désignés est, d'un point de vue administratif, une opération plus directe que la transmission notariale d'un bien immobilier autrichien en titre direct. Pour les copropriétaires qui souhaitent créer un actif alpin générationnel — une résidence secondaire alpine que les enfants et petits-enfants hériteront et utiliseront — la structure LLC offre un cadre plus clair et plus souple que la copropriété immobilière directe entre plusieurs héritiers sans structure sociétaire. Un conseil juridique spécialisé en successions transfrontalières est recommandé pour tout copropriétaire résidant hors d'Autriche.</p>
+
+<p>Pour les copropriétaires français, le cadre de succession autrichien est bien plus familier qu'il n'y paraît au premier abord : l'<em>Erbrecht</em> autrichien partage avec le droit successoral français une tradition de droit civil continental, avec une réserve héréditaire (<em>Pflichtteil</em>) structurellement comparable à la réserve héréditaire française. Les copropriétaires français qui héritent d'une part de LLC autrichienne ou qui transmettent la leur à leurs héritiers navigueront dans un cadre dont les principes fondamentaux — intangibilité de la réserve pour le conjoint et les descendants, quotité disponible pour les libéralités — leur seront conceptuellement reconnaissables. La différence pratique principale est que la transmission d'une participation de LLC est une opération de droit sociétaire plutôt que de droit immobilier direct, ce qui offre une souplesse documentaire appréciable dans les successions transfrontalières complexes.</p>
+
+<h3>Gestion et calendrier de rotation</h3>
+
+<p>Une fois l'acquisition finalisée, une <strong>société de gestion professionnelle</strong> assume l'entière responsabilité opérationnelle du bien autrichien. Les semaines personnelles — <strong>environ 45 jours</strong> pour une part de 1/8 — sont attribuées via un <strong>calendrier de rotation équitable</strong> qui répartit les semaines de forte demande — les premiers jours de neige en décembre, la quinzaine centrale de janvier, Pâques, les vacances de février, les semaines de pointe de l'été en juillet et août — équitablement entre tous les copropriétaires sur le cycle pluriannuel. Aucun copropriétaire n'est structurellement exclu des semaines les plus demandées ; aucun ne les monopolise année après année. Les copropriétaires réservent leurs semaines plusieurs mois à l'avance ; les semaines non utilisées, lorsque la structure du bien et la réglementation touristique locale le permettent, peuvent être mises en location avec les revenus revenant aux copropriétaires. La collecte des charges, l'entretien du bâtiment, les assurances, les impôts, le nettoyage et le linge entre les séjours, la préparation à l'arrivée et la conciergerie de garde — tout cela relève de la société de gestion. Arriver dans un bien autrichien en copropriété ressemble à entrer dans un refuge de montagne parfaitement préparé, et non à ouvrir un bien qui est resté vide et sans chauffage pendant des mois.</p>
+
+<h3>Revente de votre part</h3>
+
+<p>Lorsque vous décidez de céder votre part autrichienne, un <strong>processus professionnel de revente</strong> est en place. Sur l'ensemble du portefeuille COP, le délai typique de la publication à la clôture est d'<strong>environ un mois ou moins</strong> — bien en deçà des <strong>6 à 12 mois</strong> que prennent habituellement les reventas de chalets entiers sur le marché libre autrichien, où le groupe d'acheteurs au niveau premium est restreint, bien informé et sans pression structurelle. Le processus est bien accompagné : le groupe d'acheteurs connaît déjà le bien et la structure LLC, et le transfert de participation dans une LLC est administrativement plus léger qu'activer une transmission notariale complète de titre devant un notaire autrichien. Pour les copropriétaires qui veulent un contrôle maximal sur le prix et le processus, une vente sur le marché libre à tout acheteur qualifié reste toujours une option ; mais la plupart trouvent le processus de revente accompagnée plus rapide, moins coûteux en frais de transaction et plus prévisible quant au résultat final.</p>
+
+<div class="dest-callout">
+  <strong>Consultation libre, contact libre.</strong> L'utilisation de COP est gratuite pour les acheteurs — aucuns frais, aucun coût d'inscription, aucun engagement. Parlez avec nos spécialistes pour savoir quelle région de l'Autriche correspond le mieux à votre mode d'utilisation, ou parcourez les annonces et inscrivez-vous à notre liste pour être alerté dès qu'un nouveau bien arrive sur le marché.
+</div>
+
+<h3>Votre détention en un coup d'œil</h3>
+
+<ul>
+  <li><strong>Patrimoine acté à votre nom — ce n'est ni de la multipropriété, ni une adhésion à points, ni un droit d'usage</strong> — votre part de 1/8 est inscrite au Grundbuch autrichien (le registre foncier officiel), transférable, transmissible par héritage, et elle se valorise avec le bien sous-jacent.</li>
+  <li><strong>Structure internationale cohérente</strong> — votre part en Autriche s'inscrit dans le même cadre LLC conçu spécifiquement pour chaque bien COP dans le monde, afin que les propriétaires avec des biens dans plusieurs pays travaillent avec un seul modèle plutôt qu'avec un empilement de véhicules juridiques différents.</li>
+  <li><strong>Gestion intégrale</strong> — l'équipe de gestion professionnelle s'occupe des impôts (Grundsteuer et taxes municipales), des assurances, de l'entretien, de la planification, du linge et du service de conciergerie. Vous arrivez, le bien est prêt.</li>
+  <li><strong>Revente accompagnée via le réseau de copropriétaires COP</strong> — au moment de revendre, le processus de revente accompagnée se conclut généralement en environ un mois ou moins, bien en deçà des 6 à 12 mois que prend habituellement une vente d'un bien entier sur le marché libre en Autriche.</li>
+  <li><strong>Conçu pour les portefeuilles internationaux</strong> — le modèle LLC fait de la détention de plusieurs biens COP une seule relation consolidée, plutôt que de jongler avec des véhicules juridiques propres à chaque pays.</li>
+</ul>
+
+<p>Les mécaniques complètes de la copropriété dans toutes les juridictions — calendriers d'utilisation, procédures de sortie, traitement des revenus locatifs, assurances, transmission en cas de décès, relation avec la société de gestion — sont couvertes dans notre <a href="/fr/comment-ca-marche/">guide de la copropriété expliquée</a>. Pour la disponibilité spécifique des biens en Autriche, parcourez les annonces dans la grille de biens ci-dessus, ou <a href="#newsletter">rejoignez notre liste</a> pour des alertes de nouveaux biens dès leur mise sur le marché.</p>
+
+</div></section>
+
+<!-- §G — L'Autriche est-elle faite pour vous ? (cream) -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>L'Autriche est-elle la bonne destination pour vous ?</h2>
+
+<p>Le <strong>Tyrol</strong> est la réponse naturelle pour les acheteurs dont la motivation principale est le ski de première catégorie, la garantie de neige et l'environnement alpin le plus classique et iconique. Si ce que vous cherchez, c'est vous lever avant l'aube avec de la neige fraîche tombée, prendre le premier télésiège de St. Anton ou de Kitzbühel avec le soleil rasant sur les sommets et rentrer dans un chalet chaud avec local à ski de pied en piste à midi, le Tyrol est pratiquement imbattable dans les Alpes. C'est aussi le choix le plus solide pour les familles avec enfants en âge scolaire qui veulent un bien de ski fixe : l'infrastructure d'école de ski du Tyrol est la plus développée et la plus riche en tradition d'Autriche, les points de location de matériel se trouvent dans chaque grand village et les services pour familles — jardins des neiges, cours en anglais, menus enfants dans les refuges de montagne — sont de première qualité. Les acheteurs de Kitzbühel et de St. Anton savent qu'ils se trouvent dans les adresses alpines au plus grand rayonnement international — des marques d'un niveau équivalent à Verbier, Courchevel ou Aspen sur les marchés de luxe mondiaux. Pour ceux qui souhaitent la part alpine de référence au plus grand rayonnement de marque sur le marché international, le Tyrol est la bonne réponse. L'accès depuis le Royaume-Uni, les Pays-Bas et les pays scandinaves via Innsbruck et le hub de Munich est le plus direct et le plus fréquent de tout l'arc alpin autrichien.</p>
+
+<p>Choisissez <strong>Salzbourg ou le Vorarlberg</strong> si l'équation entre culture, prestige et excellence alpine pèse autant dans votre décision que le nombre de kilomètres de pistes. Salzbourg convient à l'acheteur qui veut du ski de haute saison à Saalbach, Bad Gastein ou au Kitzsteinhorn, et en même temps la possibilité de passer un après-midi d'août au Festival de Salzbourg — avec la cathédrale baroque en toile de fond d'un récital de Mozart auquel participent les meilleures orchestres du monde — ou une matinée d'octobre dans les vignobles du Salzkammergut, ou un après-midi d'hiver dans les thermes historiques de Bad Gastein avec leurs sources naturelles. C'est le bon choix pour les couples entre 50 et 60 ans dont le bien autrichien doit se justifier autant par ses hivers que par ses étés culturels et ses automnes paisibles. Le Vorarlberg — et l'Arlberg en particulier — convient à l'acheteur pour lequel le niveau de prestige de l'adresse est en lui-même un critère de sélection : Lech et Zürs se situent dans la même gamme d'exclusivité que Verbier ou Courchevel en termes de valorisation et de clientèle internationale, et accéder à ce marché via une part actée de 1/8 est la seule voie pratique pour la plupart des acheteurs internationaux qui ne disposent pas des huit à dix millions d'euros que nécessiterait un bien entier dans les rues les plus cotées de Lech. L'accès depuis Zurich fait de l'Arlberg la destination alpine autrichienne la plus accessible pour les acheteurs avec des connexions aériennes fréquentes vers la Suisse. À la différence de la multipropriété traditionnelle, dans laquelle votre droit d'usage s'amenuise à chaque année qui passe, une part COP au Vorarlberg est une participation patrimoniale enregistrée qui se valorise avec l'actif sous-jacent.</p>
+
+<p>Choisissez la <strong>Styrie ou la Carinthie</strong> si l'été alpin, les lacs et le bien-être ont autant de poids dans votre décision que le ski d'hiver — ou clairement davantage. Le Wörthersee en juillet est un argument en lui-même : des eaux à 26–28 °C, des voiliers à l'horizon, des restaurants sur l'eau avec vue sur les montagnes environnantes et l'architecture élégante des villas de Velden et Pörtschach comme décor de fin d'après-midi. Pour les familles qui accordent autant ou plus d'importance aux vacances d'été qu'au ski, et qui veulent un bien autrichien aussi convaincant en août qu'en janvier, la Carinthie offre quelque chose que le Tyrol ne peut pas répliquer : la destination lacustre la plus chaude des Alpes, avec une infrastructure de bien-être thermal et de nature qui complète parfaitement les semaines de neige de l'hiver. La Styrie ajoute la profondeur culturelle de Graz — une ville universitaire au centre historique extraordinaire, une gastronomie émergente de niveau international et une vie culturelle qui ne s'arrête à aucune saison — et l'élégance rurale des vignobles de la Styrie du Sud, avec leurs douces collines tournées vers la Slovénie et leur production de Sauvignon Blanc et de Muskateller qui figure déjà sur les cartes des meilleurs restaurants de Vienne, Munich et Londres. C'est un marché où les mathématiques de la copropriété s'alignent avec une précision remarquable sur le profil d'utilisation réelle de l'acheteur international qui cherche un bien autrichien pour toutes les saisons.</p>
+
+<p>Quelle que soit la décision, l'exploration approfondie commence sur les pages de chaque zone :</p>
+<ul>
+  <li><a href="/fr/destinations/tyrol-copropiete/">Découvrir le Tyrol →</a></li>
+  <li><a href="/fr/destinations/salzbourg-copropiete/">Découvrir Salzbourg →</a></li>
+  <li><a href="/fr/destinations/vorarlberg-copropiete/">Découvrir le Vorarlberg →</a></li>
+</ul>
+
+<p>Si vous souhaitez échanger sur <strong>la région d'Autriche qui correspond le mieux à la manière réelle dont votre famille utilise un bien</strong> — plutôt qu'à la version brochure — <a href="#newsletter">inscrivez-vous à notre liste</a> et nous reviendrons vers vous avec des alertes de nouveaux biens et une présentation personnalisée de l'équipe.</p>
+
+</div></section>
+
+<!-- Newsletter -->
+<section class="newsletter-section" id="newsletter">
+  <h2 class="newsletter-heading">Soyez les premiers informés</h2>
+  <p class="newsletter-subtitle">Nouveaux biens en Autriche, alertes de disponibilité et guides de marché — directement dans votre boîte de réception.</p>
+  <form class="newsletter-form" id="newsletter-form">
+    <input type="email" placeholder="Votre adresse e-mail" required>
+    <button type="submit" class="newsletter-btn">S'inscrire</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo"><img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property"></div>
+      <p class="footer-tagline">La copropriété de luxe dans les destinations les plus prisées au monde.</p>
+    </div>
+    <div class="footer-col"><h3>Biens</h3><ul><li><a href="/fr/proprietes/">Tous les biens</a></li><li><a href="/fr/destinations/espagne-copropiete/">Espagne</a></li><li><a href="/fr/destinations/france-copropiete/">France</a></li><li><a href="/fr/destinations/italie-copropiete/">Italie</a></li><li><a href="/fr/destinations/etats-unis-copropiete/">États-Unis</a></li></ul></div>
+    <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/fr/destinations/majorque-copropiete/">Majorque</a></li><li><a href="/fr/destinations/cote-d-azur-copropiete/">Côte d'Azur</a></li><li><a href="/fr/destinations/alpes-francaises-copropiete/">Alpes françaises</a></li><li><a href="/fr/destinations/lac-de-come-copropiete/">Lac de Côme</a></li><li><a href="/fr/destinations/autriche-copropiete/">Autriche</a></li></ul></div>
+    <div class="footer-col"><h3>Entreprise</h3><ul><li><a href="/fr/a-propos/">À propos</a></li><li><a href="/fr/blog/">Blog</a></li><li><a href="/fr/comment-ca-marche/">Comment ça marche</a></li><li><a href="/fr/contact/">Contact</a></li></ul></div>
+    <div class="footer-col"><h3>Aide</h3><ul><li><a href="/fr/contact/">Nous contacter</a></li><li><a href="/fr/comment-ca-marche/#faq">Questions fréquentes</a></li><li><a href="/fr/comment-ca-marche/">Comment ça marche</a></li><li><a href="/fr/proprietes/">Voir les biens</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copyright">© 2025 Co-Ownership Property. Tous droits réservés.</span>
+    <div class="footer-legal">
+      <a href="/fr/mentions-legales/">Mentions légales</a>
+      <a href="/fr/confidentialite/">Politique de confidentialité</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

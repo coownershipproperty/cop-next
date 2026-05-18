@@ -2,1283 +2,321 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Copropiedad en Croacia: casas escrituradas en propiedad fraccionada | Co-Ownership Property</title>
-  <meta name="description" content="Casas en copropiedad en Croacia con COP — fracción escriturada en la Costa Dálmata, Dubrovnik, Split, Hvar e Istria. Gestión integral, 6 a 7 semanas de uso personal al año, patrimonio real en el Adriático.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
-
-/* ── CSS Variables ── */
-:root {
-    /* === Primary palette (use these in new work) === */
-    --blue:         #2C4A5E;
-    --cream:        #F5F2EC;
-    --gold:         #C9A84C;
-    --white:        #FFFFFF;
-    --text:         #1a2533;
-    --muted:        #5a6a7a;
-    --border:       #e8e0d4;
-    --max:          1400px;
-
-    /* === Legacy aliases (keep for existing templates) === */
-    --warm-gold:    #C9A84C;
-    --cream-bg:     #F5F2EC;
-    --cream-light:  #FAF8F5;
-    --text-dark:    #2C4A5E;
-    --text-light:   rgba(255,255,255,0.85);
-    --text-muted:   #5a6a7a;
-    --gray-border:  #e8e0d4;
-    --blue-80:      #4A6A7E;
-    --blue-60:      #6B8A9E;
-    --blue-40:      #9EAFBC;
-    --blue-20:      #C5CED5;
-    --transition:   0.3s ease;
-}
-
-/* ── Base reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-button { font-family: inherit; cursor: pointer; }
-        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
-        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
-        a{color:inherit;text-decoration:none;transition:color var(--transition)}
-        img{display:block;max-width:100%;height:auto}
-
-        /* ===== SITE-WIDE HEADER ===== */
-        .cop-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 3rem;
-            height: 80px;
-            box-sizing: border-box;
-            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .admin-bar .cop-header { top: 32px; }
-
-        .cop-logo { flex-shrink: 0; }
-        .cop-logo a { display: block; }
-        .cop-logo img { height: 54px; width: auto; display: block; }
-
-        .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0;
-            align-items: center;
-        }
-        .cop-nav a {
-            color: rgba(44,74,94,0.8);
-            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.84rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.4rem 1.4rem;
-            white-space: nowrap;
-            transition: color 0.25s ease;
-            text-decoration: none;
-        }
-        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
-        .cop-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 1.4rem; right: 1.4rem;
-            height: 1px;
-            background: rgba(201,168,76,1);
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.28s ease;
-        }
-        .cop-nav a:hover,
-        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
-        .cop-nav a:hover::after,
-        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
-        .cop-nav a.cop-nav-favourites::before {
-            content: '\2665\00a0\00a0';
-            font-size: 0.75rem;
-            color: rgba(201,168,76,1);
-            opacity: 0.75;
-            letter-spacing: 0;
-        }
-        .cop-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-        .cop-hamburger span {
-            width: 22px; height: 1.5px;
-            background: rgba(44,74,94,0.8);
-            transition: all 0.28s ease;
-            transform-origin: center;
-            display: block;
-        }
-        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
-            .cop-nav {
-                position: fixed;
-                top: 80px; left: 0; right: 0;
-                transform: none;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.97);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
-                z-index: 9998;
-            }
-            .admin-bar .cop-nav { top: 112px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
-            .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
-                width: 100%;
-                text-align: center;
-                border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
-                box-sizing: border-box;
-            }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
-        }
-
-        /* ===== HERO ===== */
-        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
-        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
-        .page-hero>*{position:relative;z-index:1}
-        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
-        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
-        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
-
-        /* ===== PROPERTY GRID ===== */
-        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
-        .props-inner{max-width:1400px;margin:0 auto}
-        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .props-count strong{color:var(--text-dark);font-weight:700}
-        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
-        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
-        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
-        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
-        .prop-card:hover .prop-img{transform:scale(1.04)}
-        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
-        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
-        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
-        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
-        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
-        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
-        .prop-stat{display:flex;align-items:center;gap:0.35rem}
-        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
-        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
-        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
-        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
-        .prop-card:hover .prop-view{color:var(--warm-gold)}
-        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
-        .prop-card.hidden{display:none}
-        .show-more-wrap{text-align:center;margin-top:2.5rem}
-        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
-        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
-        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-        .dest-mid-cta > *{position:relative;z-index:1}
-        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
-        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
-        .dest-cta-btn-gold:hover{background:#b8963e}
-        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
-        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-
-        /* ===== SEO CONTENT ===== */
-.dest-sec{padding:80px 3rem}
-.dest-sec.cream{background:var(--cream-bg)}
-.dest-sec.white{background:var(--white)}
-.dest-inner{max-width:900px;margin:0 auto}
-.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
-.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
-.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
-.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
-.dest-sec strong{color:var(--text-dark);font-weight:700}
-.dest-sec em{font-style:italic}
-.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
-.dest-sec a:hover{color:var(--blue)}
-.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
-.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
-.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
-.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
-.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
-.dest-callout{background:var(--cream-bg);border-left:3px solid var(--warm-gold);padding:1.2rem 1.5rem;margin:1.8rem 0;font-size:0.95rem;color:var(--text-muted);line-height:1.75}
-.dest-callout strong{color:var(--text-dark)}
-.dest-snippet{background:var(--cream-bg);border:1px solid var(--gray-border);padding:1.5rem 2rem;margin:1.8rem 0}
-.dest-snippet h2{font-size:1.2rem;margin-bottom:0.8rem}
-.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
-.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
-.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
-.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
-.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
-.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
-.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
-.dest-faq-list{counter-reset:faq}
-.dest-faq-item{border-top:1px solid var(--warm-gold)}
-.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
-.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
-.dest-faq-item summary::-webkit-details-marker{display:none}
-.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
-.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
-details[open] .dest-faq-chevron{transform:rotate(-135deg)}
-.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
-.dest-faq-answer p{margin-bottom:0.8rem}
-@media(max-width:768px){
-    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
-    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-        /* ===== NEWSLETTER SIGNUP ===== */
-        .newsletter-section {
-            background: var(--white);
-            position: relative;
-            padding: 100px 3rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 400;
-            color: var(--text-dark);
-        }
-        .newsletter-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 620px;
-            margin: 0 auto;
-        }
-        .newsletter-form input {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border: 1px solid #ddd;
-            background: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-        .newsletter-form input::placeholder { color: var(--text-muted); }
-        .newsletter-form input:focus { border-color: var(--warm-gold); }
-        .newsletter-btn {
-            background: var(--blue);
-            color: var(--white);
-            border: 2px solid var(--blue);
-            padding: 0.9rem 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            font-family: 'Nunito Sans', sans-serif;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
-        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
-        .newsletter-form-msg {
-            margin-top: 1rem;
-            font-size: 0.88rem;
-            min-height: 1.4em;
-        }
-        .newsletter-form-msg.success { color: #4a9e6e; }
-        .newsletter-form-msg.error   { color: #c0392b; }
-
-        @media (max-width: 640px) {
-            .newsletter-section { padding: 70px 1.5rem; }
-            .newsletter-heading { font-size: 2rem; }
-            .newsletter-form { flex-direction: column; }
-        }
-
-        /* ===== EXPERT FORM SECTION ===== */
-        .expert-section {
-            background: var(--blue);
-            padding: 100px 3rem;
-            position: relative;
-            overflow: hidden;
-            scroll-margin-top: 90px;
-        }
-        .expert-section::after {
-            content: '';
-            position: absolute;
-            top: 28px; left: 28px; right: 28px; bottom: 28px;
-            border: 1px solid rgba(201,168,76,0.15);
-            pointer-events: none;
-        }
-        .expert-section > * { position: relative; z-index: 1; }
-        .expert-inner {
-            max-width: 820px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .expert-eyebrow {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--warm-gold);
-            margin-bottom: 1.2rem;
-        }
-        .expert-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-        .expert-heading em { font-style: italic; color: var(--warm-gold); }
-        .expert-sub {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-        .expert-form { text-align: left; }
-        .expert-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .expert-form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-        .expert-form-field.full { grid-column: 1 / -1; }
-        .expert-form-field label {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.85);
-        }
-        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
-        .expert-form-field input,
-        .expert-form-field select,
-        .expert-form-field textarea {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.85rem 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-        .expert-form-field input:focus,
-        .expert-form-field select:focus,
-        .expert-form-field textarea:focus {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .expert-form-field input::placeholder,
-        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-        .expert-form-field select option { background: var(--blue); color: var(--white); }
-        .expert-form-field textarea { resize: vertical; min-height: 110px; }
-        .dest-multiselect { position: relative; width: 100%; }
-        .dest-trigger {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.65rem 1rem;
-            min-height: 46px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            transition: border-color 0.2s;
-            position: relative;
-        }
-        .dest-trigger::after {
-            content: '';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            width: 7px; height: 7px;
-            border-right: 1.5px solid rgba(255,255,255,0.5);
-            border-bottom: 1.5px solid rgba(255,255,255,0.5);
-            transform: translateY(-60%) rotate(45deg);
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-        .dest-multiselect.open .dest-trigger::after { transform: translateY(-30%) rotate(-135deg); }
-        .dest-trigger:hover,
-        .dest-multiselect.open .dest-trigger { border-color: rgba(201,168,76,0.7); background: rgba(255,255,255,0.1); }
-        .dest-placeholder { color: rgba(255,255,255,0.25); pointer-events: none; }
-        .dest-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-        .dest-tag-x { cursor: pointer; font-size: 0.85rem; line-height: 1; opacity: 0.6; transition: opacity 0.15s; }
-        .dest-tag-x:hover { opacity: 1; }
-        .dest-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0; right: 0;
-            background: #1e3a4f;
-            border: 1px solid rgba(201,168,76,0.3);
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 50;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .dest-multiselect.open .dest-dropdown { display: block; }
-        .dest-option {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .dest-option:hover { background: rgba(201,168,76,0.1); }
-        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
-        .dest-check {
-            width: 16px; height: 16px;
-            border: 1.5px solid rgba(201,168,76,0.4);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s, border-color 0.15s;
-        }
-        .dest-option.selected .dest-check { background: var(--warm-gold); border-color: var(--warm-gold); }
-        .dest-check::after {
-            content: '';
-            width: 4px; height: 8px;
-            border-right: 2px solid #1a2a3a;
-            border-bottom: 2px solid #1a2a3a;
-            transform: rotate(45deg) translateY(-1px);
-            opacity: 0;
-        }
-        .dest-option.selected .dest-check::after { opacity: 1; }
-        .dest-dropdown::-webkit-scrollbar { width: 5px; }
-        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
-        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
-        .expert-submit { margin-top: 1.5rem; text-align: center; }
-        .expert-submit-btn {
-            background: var(--warm-gold);
-            color: #fff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border: none;
-            padding: 1rem 3rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            max-width: 320px;
-        }
-        .expert-submit-btn:hover { background: #b8963e; }
-        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
-        .expert-form-msg {
-            margin-top: 1.2rem;
-            font-size: 0.88rem;
-            text-align: center;
-            min-height: 1.4em;
-        }
-        .expert-form-msg.success { color: #7ed8a3; }
-        .expert-form-msg.error   { color: #f08080; }
-
-        @media (max-width: 640px) {
-            .expert-form-grid { grid-template-columns: 1fr; }
-            .expert-heading { font-size: 2rem; }
-            .expert-section { padding: 70px 1.5rem; }
-        }
-
-        /* ===== FOOTER ===== */
-        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
-        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
-        .footer-logo img{height:35px;margin-bottom:1rem}
-        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
-        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.6rem}
-        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
-        .footer-col a:hover{color:var(--warm-gold)}
-        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal{display:flex;gap:2rem}
-        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal a:hover{color:var(--warm-gold)}
-
-        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){
-            .page-hero{padding:130px 1.5rem 50px}
-            .props-sec{padding:50px 1.5rem}
-            .props-grid{grid-template-columns:1fr;gap:1.5rem}
-            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-        }
-  </style>
+  <meta name="description" content="Casas en copropiedad en Croacia con COP — fracción escriturada de 1/8 en Dubrovnik, Split, Hvar, Istria y el archipiélago de Kvarner. Gestión integral, 45 días de uso personal al año, patrimonio real en la costa adriática más espectacular de Europa.">
 </head>
 <body>
 
-  <header class="cop-header scrolled" id="cop-header">
-    <div class="cop-logo">
-      <a href="/">
-        <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
-      </a>
-    </div>
-    <nav class="cop-nav" id="cop-nav">
-      <a href="/" class="cop-nav-active">Inicio</a>
-      <a href="/our-homes/">Nuestras Casas</a>
-      <a href="/how-it-works/">Cómo Funciona</a>
-      <a href="/about-us">Quiénes Somos</a>
-      <a href="/all-our-blog/">Blog</a>
-      <a href="/favourites" class="cop-nav-favourites">Mis Favoritos</a>
-      <a href="/contact">Contacto</a>
-    </nav>
-    <button class="cop-hamburger" id="cop-hamburger" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+<section class="page-hero">
+  <p class="eyebrow">Croacia · Europa</p>
+  <h1>Copropiedad de casas <em>en Croacia</em></h1>
+  <p class="subtitle">De una villa de piedra sobre las murallas medievales de Dubrovnik y una casa isleña en Hvar a una finca de trufas en la campiña de Istria — la copropiedad en Croacia significa una fracción escriturada en el litoral adriático más asombroso del continente, seis a siete semanas de uso personal al año, y una segunda casa totalmente gestionada esperándote en cada llegada.</p>
+</section>
 
-  <!-- HERO -->
-  <section class="page-hero">
-    <p class="eyebrow">Casas en Copropiedad · Croacia · Costa Adriática</p>
-    <h1>Copropiedad de casas <em>en Croacia</em></h1>
-    <p class="subtitle">Una fracción escriturada de una segunda casa de lujo adriática — junto a un pequeño grupo de hasta siete copropietarios más. Patrimonio real, gestión integral, aproximadamente 45 días de uso personal al año.</p>
-  </section>
-
-  <!-- PROPERTY GRID -->
-  <section class="props-sec">
-    <div class="props-inner">
-      <div class="no-props">
-        <p>No hay casas disponibles en este momento para este destino. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Ver todas las casas</a> o <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contactarnos</a> para conocer próximas incorporaciones.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- MID-PAGE CTA -->
-  <div class="dest-mid-cta">
-    <p>¿Listo para encontrar tu casa en Croacia?</p>
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Las direcciones más codiciadas del Adriático, accesibles a través de la copropiedad.</h2>
+    <p>Villas, casas isleñas y fincas totalmente gestionadas en <strong>Dubrovnik y la Dalmacia sur</strong>, <strong>Split y la Dalmacia central</strong>, <strong>Šibenik, Trogir y la Dalmacia norte</strong>, <strong>Istria</strong> y <strong>el archipiélago de Kvarner</strong>. Tu <strong>fracción escriturada de 1/8</strong> incluye <strong>45 días de uso personal</strong>, un equipo de gestión profesional disponible en todo momento, y el patrimonio a largo plazo de uno de los mercados de segundas casas más atractivos de Europa.</p>
     <div class="dest-mid-cta-btns">
-      <a href="#speak-to-expert" class="dest-cta-btn-gold">Hablar con un Experto</a>
-      <a href="#newsletter" class="dest-cta-btn-outline">Suscribirse al Boletín</a>
+      <a href="/es/propiedades/" class="btn btn-gold">Ver todas las casas</a>
+      <a href="#newsletter" class="btn btn-outline">Recibir actualizaciones</a>
     </div>
   </div>
+</div>
 
-  <!-- §A — FEATURED SNIPPET + INTRO -->
-  <section class="dest-sec white"><div class="dest-inner">
+<section class="dest-sec cream"><div class="dest-inner">
 
-    <div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
-      <h2 itemprop="name">¿Qué es la copropiedad en Croacia?</h2>
-      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-        <p itemprop="text"><strong>La copropiedad en Croacia consiste en adquirir una fracción escriturada de 1/8 de una segunda casa de lujo adriática — constituida en una LLC creada específicamente para este fin junto a un pequeño grupo de hasta siete copropietarios más.</strong> Cada propietario recibe aproximadamente 45 días de uso personal al año mediante un sistema de rotación equitativo, con toda la gestión inmobiliaria, mantenimiento, impuestos y operativa cubiertos por un equipo profesional. Se trata de patrimonio inmobiliario real, escriturado a tu nombre — no es multipropiedad ni un club de vacaciones.</p>
-      </div>
-    </div>
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">¿Qué es la copropiedad en Croacia?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>La copropiedad en Croacia consiste en adquirir una fracción escriturada de 1/8 de una segunda casa de lujo adriática — constituida en una LLC creada específicamente para este fin junto a un pequeño grupo de hasta siete copropietarios más.</strong> Cada propietario recibe aproximadamente 45 días de uso personal al año mediante un sistema de rotación equitativo, con toda la gestión inmobiliaria, mantenimiento, impuestos y operativa cubiertos por un equipo profesional. Se trata de patrimonio inmobiliario real, escriturado a tu nombre — no es multipropiedad ni un club de vacaciones.</p>
+  </div>
+</div>
 
-    <h2>Copropiedad en Croacia — el Adriático a tu manera</h2>
+<h2>¿Por qué Croacia?</h2>
 
-    <p>La <strong>copropiedad en Croacia</strong> ofrece a compradores de toda Europa una vía legalmente escriturada hacia una de las costas más espectaculares del Mediterráneo — no una multipropiedad, no un club de vacaciones, sino una auténtica fracción de 1/8 en una segunda casa de lujo estructurada a través de una LLC creada específicamente para este fin.</p>
+<p>Croacia ofrece algo que pocos destinos mediterráneos pueden igualar: una combinación de <strong>extraordinaria belleza natural, patrimonio cultural de primer orden y una posición de mercado que aún no ha alcanzado los niveles de precio de Grecia, Italia o España</strong>. El litoral adriático croata se extiende a lo largo de 1.800 kilómetros de costa calcárea con 1.246 islas, islotes y arrecifes, algunos de los mares más transparentes de Europa — el fondo marino es visible a quince metros de profundidad — y ciudades medievales amuralladas que se encuentran entre las mejor conservadas del mundo. Desde la adhesión de Croacia a la Unión Europea en 2013, la adopción del espacio Schengen en enero de 2023 y la adopción del euro (€) ese mismo mes, el país ha completado una integración plena en el marco europeo que simplifica drásticamente la compra internacional de casas. La copropiedad en Croacia permite acceder a este mercado a través de una estructura jurídicamente sólida, sin el compromiso de capital y la complejidad administrativa de la propiedad exclusiva en una costa extranjera.</p>
 
-    <p>Para los compradores del norte de Europa que gestionan la regla de los 90 días en el espacio Schengen, la copropiedad en Croacia se ajusta con precisión a ese límite — convirtiendo la auténtica copropiedad en una de las formas más prácticas de tener una segunda casa real en el Adriático. Tanto si te atrae una villa de piedra en las islas dálmatas, un apartamento frente al mar en Split o Dubrovnik, o un refugio tranquilo en la península de Istria, la copropiedad fraccionada abre la puerta a la costa croata a una fracción del coste de la propiedad en solitario.</p>
+<p>La base jurídica de la copropiedad en Croacia es clara y bien establecida. Toda la propiedad inmobiliaria queda registrada en el <em>Zemljišna knjiga</em> — el libro de la propiedad croata —, un sistema de registro consolidado que otorga claridad documental a cada transmisión. Cuando adquieres una fracción de una casa croata, tu titularidad queda formalmente registrada en tu nombre a través de la LLC que la posee. No estás comprando una afiliación de club, un esquema de puntos ni derechos de uso — eres titular de una participación patrimonial con derechos exigibles bajo el derecho civil croata. Tu fracción se constituye dentro de una <strong>LLC creada específicamente para este fin</strong> junto a un pequeño grupo de hasta siete copropietarios más. Es la misma estructura internacional moderna utilizada en todas las casas de COP — Estados Unidos, Reino Unido, Francia, España, Italia y más allá — en lugar de un vehículo nacional heredado que varía de un país a otro. El efecto práctico para el comprador internacional es significativo: tu relación con la casa pasa por <strong>una única estructura de copropiedad coherente</strong> independientemente del país en que tengas la fracción; y la reventa es más rápida y ágil porque transferir una participación en una LLC es una acción administrativa más directa que una transmisión completa de título.</p>
 
-  </div></section>
+<div class="dest-callout">
+  <strong>La LLC en una frase:</strong> una sociedad creada específicamente para ser propietaria de la casa, en la que tú y un pequeño grupo de hasta siete propietarios más tenéis participaciones iguales — esto facilita la reventa y aporta una estructura de propiedad única y coherente para cada casa de COP en todo el mundo.
+</div>
 
-  <!-- §B — WHY CROATIA -->
-  <section class="dest-sec cream"><div class="dest-inner">
+<div class="dest-callout">
+  <strong>Esto no es multipropiedad (timeshare):</strong> la multipropiedad — también conocida como tiempo compartido o timeshare — te vende un <em>derecho de uso</em> de la casa durante una semana determinada cada año, normalmente con contrato que expira y sin valor de reventa. Una fracción COP te vende una <strong>participación patrimonial registrada</strong> en la propia casa, a través de una LLC en la que tú y otros copropietarios sois titulares al mismo nivel. Es transmisible, heredable, se revaloriza con la casa subyacente, y se vende en alrededor de un mes — exactamente lo opuesto a la multipropiedad.
+</div>
 
-    <h2>¿Por qué elegir la copropiedad en Croacia?</h2>
+<p>Croacia ofrece algo que muchos competidores mediterráneos no pueden: <strong>belleza natural genuinamente poco masificada junto a patrimonio cultural de clase mundial</strong>. La ciudad amurallada de Dubrovnik es una de las mejores fortalezas medievales conservadas del planeta — declarada Patrimonio de la Humanidad por la UNESCO. El Palacio de Diocleciano en Split sigue siendo un barrio urbano vivo, no un museo: miles de personas trabajan y viven dentro de sus muros. La isla de Hvar combina una fortaleza veneciana del siglo XIII, campos de lavanda y algunos de los mejores restaurantes del Adriático. Vis, Korčula, Brač y la península del Pelješac ofrecen una calidad de reclusión natural que es cada vez más rara en el Mediterráneo amplio. La copropiedad en Croacia permite a los compradores mantener una presencia permanente en este paisaje extraordinario, volviendo año tras año a una casa que es genuinamente suya, en una costa que recompensa la familiaridad profunda. Para compradores que también están considerando <a href="/es/propiedades/?pais=italia">Italia</a>, <a href="/es/propiedades/?pais=portugal">Portugal</a> o la costa de <a href="/es/propiedades/?pais=espana">España</a>, la combinación de calidad natural y valor relativo de Croacia presenta un argumento convincente en cualquier comparación directa.</p>
 
-    <p>La copropiedad en Croacia da acceso a uno de los litorales más visualmente impresionantes del mundo — 1.800 kilómetros de karst calcáreo, islas cubiertas de pinos, ciudades medievales amuralladas y unas aguas tan transparentes que el fondo marino se ve a más de quince metros de profundidad. La Costa Dálmata lleva más de dos décadas atrayendo la atención de compradores internacionales, y la adhesión de Croacia a la Unión Europea en 2013 y la posterior adopción del euro crearon un mercado inmobiliario integrado en los estándares jurídicos europeos pero todavía significativamente infravalorado respecto a destinos costeros comparables en Francia, Italia o España. La copropiedad en Croacia permite al comprador internacional acceder a este mercado a través de una estructura de copropiedad legalmente auténtica, sin el compromiso de capital total y la complejidad administrativa de la propiedad en exclusiva en una costa extranjera.</p>
+<p>La posición de mercado de Croacia también se beneficia de <strong>limitaciones de oferta estructurales que sustentan el valor a largo plazo</strong>. La <em>Ley del Dominio Marítimo y Terrestre Costero</em> de Croacia impone restricciones estrictas a la construcción dentro de la zona costera, lo que significa que el stock de casas de calidad frente al mar es genuinamente limitado y no puede replicarse a escala. Esta restricción de oferta estructural, combinada con una demanda internacional sostenida y creciente — Croacia figura regularmente entre los cinco destinos europeos más deseados —, crea una dinámica favorable para los valores del patrimonio en los segmentos donde la copropiedad es más activa. El número de visitantes internacionales a Croacia ha crecido de menos de diez millones anuales a comienzos de los años 2000 a más de veinte millones en los años recientes — un crecimiento que la oferta costera estructuralmente restringida no puede absorber completamente, y que por tanto se traduce en presión sostenida sobre los valores de las casas bien situadas.</p>
 
-    <p>La base jurídica de la copropiedad en Croacia es clara y está bien establecida dentro del marco del derecho inmobiliario croata. Toda la propiedad está inscrita en el libro de la propiedad croata (<em>Zemljišna knjiga</em>). Al adquirir una fracción de una casa croata, tu titularidad queda formalmente registrada. No estás comprando una afiliación de club, un esquema de puntos ni derechos de uso — eres titular de un interés de copropiedad con derechos exigibles bajo el derecho civil croata. La copropiedad en Croacia <strong>no es multipropiedad</strong> en ningún sentido, y las protecciones legales disponibles para los copropietarios con fracción escriturada bajo la ley croata son sustanciales y están claramente definidas.</p>
+<p>Para los copropietarios que construyen una cartera de casas europeas, una fracción croata añade una dimensión genuinamente distinta: su arquitectura de piedra dálmata, su herencia veneciana en Istria y Hvar, la combinación particular de reclusión isleña y sofisticación urbana resultan complementarias, no duplicativas, de otras fracciones en el Mediterráneo occidental. El comprador que ya tiene una fracción en Mallorca o en la Costa del Sol encontrará que el Adriático croata le ofrece un segundo mar, una segunda herencia cultural y un segundo calendario climático — las lluvias que alejan a los visitantes de la costa española en noviembre no existen en Istria o el litoral dálmata en el mismo período. La copropiedad en Croacia, en el marco LLC de COP, significa que la segunda fracción comparte la misma estructura documental, la misma cadencia de gestión y la misma relación administrativa que la primera — un modelo unificado independientemente del número de destinos que el copropietario decida añadir a su cartera.</p>
 
-    <p>Para los compradores del norte de Europa en el escenario post-Brexit, la copropiedad en Croacia se ha convertido en una de las opciones mediterráneas estratégicamente más sensatas. Croacia forma parte del espacio Schengen, lo que significa que los nacionales del Reino Unido están limitados a 90 días en todos los países Schengen en cualquier periodo de 180 días. Una fracción estándar de 1/8 que entrega aproximadamente <strong>45 días por fracción</strong> al año encaja casi exactamente dentro de ese límite, convirtiendo la copropiedad en una de las estructuras de propiedad más prácticamente alineadas para compradores que quieren una presencia genuina y permanente en la costa croata sin complicada gestión de visados. La gestión profesional se ocupa de la casa durante todos los periodos de ausencia — los copropietarios no tienen ninguna expectativa de estar presentes todo el año, y la temporada de verano de la costa adriática croata significa que las semanas más deseables son precisamente las que caen dentro de la ventana de los 45 días.</p>
+<p>Hay un quinto argumento estructural a favor de Croacia que los compradores con perspectiva de mercado valoran: el país está en plena <strong>convergencia económica con el núcleo de la eurozona</strong>. La adopción del euro es reciente — enero de 2023 —, la adhesión a Schengen es reciente — el mismo mes —, y el efecto de esas incorporaciones en la normalización del mercado inmobiliario croata para el comprador internacional está aún en sus primeras fases. Los mercados que ya han completado esa convergencia — Grecia tras la crisis, Portugal tras 2015, España tras la crisis de 2012 — registraron una aceleración notable en la demanda internacional de segunda residencia en los años inmediatamente posteriores a la normalización. Croacia está en ese punto de entrada ahora. Para el comprador que quiere acceder a un litoral de calidad mediterránea antes de que la convergencia de precios esté completada, la ventana de oportunidad es real y no indefinida.</p>
 
-    <p>El mercado inmobiliario croata también se beneficia de restricciones de oferta que sustentan el valor a largo plazo. Las leyes de desarrollo costero de Croacia (la Ley del Dominio Marítimo y del Territorio Costero y la normativa relacionada) imponen restricciones estrictas a la construcción dentro de la zona costera — lo que significa que el parque de casas de calidad frente al mar o cerca de él es genuinamente limitado y no puede replicarse a escala. Esta restricción estructural de oferta, combinada con una demanda internacional sostenida y creciente (Croacia figura con regularidad entre los cinco destinos turísticos más visitados de Europa), crea dinámicas favorables para los valores inmobiliarios en los segmentos en los que la copropiedad en Croacia es más activa.</p>
+</div></section>
 
-    <p>Croacia ofrece algo que muchos competidores mediterráneos no pueden igualar: una belleza natural genuinamente no masificada junto a un patrimonio cultural de primer nivel mundial. La ciudad amurallada de Dubrovnik es una de las fortificaciones medievales mejor conservadas del mundo — un Patrimonio de la Humanidad de la UNESCO de notable integridad. El Palacio del Emperador Diocletiano en Split sigue siendo un barrio urbano vivo, no un museo — miles de personas viven y trabajan dentro de sus muros. La isla de Hvar combina una fortaleza veneciana del siglo XIII, campos de lavanda y algunos de los mejores restaurantes del Adriático. Vis, Korčula, Brač y la península de Pelješac ofrecen un nivel de aislamiento natural que se ha vuelto cada vez más raro en el Mediterráneo. La copropiedad en Croacia permite a los compradores tener una participación permanente en este extraordinario paisaje — regresando año tras año a una casa que es genuinamente suya.</p>
+<section class="dest-sec white"><div class="dest-inner">
 
-  </div></section>
+<h2>Dónde tener tu casa en Croacia</h2>
 
-  <!-- §C — AREAS & REGIONS -->
-  <section class="dest-sec white"><div class="dest-inner">
+<p>El mercado de segundas casas en Croacia se entiende mejor a través de <strong>cinco sub-regiones distintas</strong>, cada una con su propio carácter arquitectónico, ritmo, perfil de comprador y firma climática. La Dalmacia del sur alcanza el máximo de prestigio internacional con Dubrovnik a la cabeza; la Dalmacia central ofrece la mayor ciudad de la costa y el acceso más rápido a las islas más animadas; la Dalmacia norte combina parques nacionales y ciudades medievales con un turismo más sereno; Istria sorprende con su herencia veneciana, sus trufas y su gastronomía de nivel europeo; y el archipiélago de Kvarner, más silencioso y accesible, añade la elegancia de la Riviera habsburguesa. Lo que sigue es la orientación a nivel de país que ayuda al lector a pasar de «Croacia» a una sub-región concreta.</p>
 
-    <h2>Copropiedad en Croacia — zonas y regiones</h2>
+<h3>Dubrovnik y la costa sur de Dalmacia</h3>
 
-    <p>Las casas en copropiedad en Croacia se extienden por toda la Costa Dálmata desde Istria en el norte hasta la península de Pelješac en el sur, pasando por algunas de las islas y pueblos costeros más celebrados del Adriático. Esta es una guía de las principales regiones y lo que cada una ofrece al comprador en copropiedad que busca una segunda casa en Croacia.</p>
+<p>Dubrovnik es la dirección más internacionalmente reconocida de Croacia — la «perla del Adriático», como la llamó Byron — y la copropiedad en la zona de Dubrovnik refleja un nivel de exigencia que responde a la extraordinaria categoría cultural y arquitectónica de la ciudad. El Casco Antiguo, completamente rodeado por murallas de piedra calcárea del siglo XIV que pueden recorrerse en su totalidad, es una de las grandes experiencias urbanas del mundo: una sucesión de iglesias barrocas, palacios renacentistas, el paseo peatonal del Stradun y un puerto donde el Adriático brilla en todas direcciones. La ciudad cuenta con más de <strong>2.600 horas de sol anuales</strong>, uno de los registros más altos de Europa. La isla de Lokrum, accesible en barca en diez minutos desde el puerto viejo, ofrece playas protegidas y jardines botánicos que los residentes frecuentan en cualquier día de verano sin salir del litoral inmediato.</p>
 
-    <h3>Islas Dálmatas — copropiedad en Croacia</h3>
+<p>Más allá de las murallas, la Riviera de Dubrovnik se extiende hacia el sur hasta la ciudad histórica de Cavtat, hacia el este por el valle de Konavle — un paisaje agrícola tranquilo con arquitecturas vernáculas que el turismo masivo no ha alcanzado — y hacia el norte hacia la península del Pelješac, donde los viñedos de Plavac Mali y Dingač producen algunos de los vinos tintos más reconocidos del Adriático. Las islas Elaphiti — Koločep, Lopud y Šipan — forman una cadena de destinos más pequeños y tranquilos a un corto trayecto en ferry desde el puerto de Dubrovnik. Ninguna de las Elaphiti tiene tráfico motorizado; Šipan tiene un núcleo de palacetes renacentistas de los siglos XV y XVI que permanece prácticamente inalterado. El <strong>Festival de Verano de Dubrovnik</strong>, que se celebra de julio a finales de agosto, es uno de los festivales de artes escénicas al aire libre más antiguos del Mediterráneo: teatro clásico, ópera y conciertos en los palacios renacentistas, las plazas medievales y los adarves de las murallas. Para los copropietarios con casas en la zona durante semanas de julio, el acceso a este calendario cultural es uno de los beneficios de temporada más singulares de cualquier litoral mediterráneo.</p>
 
-    <p>Las islas dálmatas — Hvar, Brač, Korčula, Vis, Šolta y la cadena de Elafiti al sur de Dubrovnik — representan el segmento más codiciado del mercado de copropiedad en Croacia, y con razón. Son lugares genuinamente extraordinarios: islas de piedra caliza blanca, cipreses oscuros, lavanda y romero, con puertos que parecen inalterados desde los siglos en que los mercaderes venecianos construyeron sus palacios a lo largo de la orilla oriental del Adriático. La luz en las islas dálmatas en junio, julio y septiembre tiene una claridad y una calidez que ha atraído a pintores, escritores y viajeros durante generaciones — y que aún hoy, pese al creciente interés internacional, conserva su calidad porque el accidentado terreno de las islas y las restricciones urbanísticas limitan el tipo de desarrollo masivo que ha mermado destinos comparables en otros puntos del Mediterráneo.</p>
+<p>La arquitectura de las casas de copropiedad en la zona de Dubrovnik tiende a villas de piedra de gama alta con vistas al mar y apartamentos en edificios históricos con proximidad a las murallas del Casco Antiguo. El valor que impulsa esta ubicación — el prestigio de la dirección, el perfil internacional sostenido, la escasez estructural de casas de calidad dentro y alrededor del Casco Antiguo — es el más robusto de todo el litoral croata. Los precios de entrada fraccional son los más altos de Croacia y reflejan una prima real: la zona de Dubrovnik tiene unas de las restricciones urbanísticas más estrictas del país. El perfil internacional de la ciudad ha crecido aún más en los últimos años gracias a su papel como escenario de rodaje de grandes producciones internacionales, generando una visibilidad global que continúa impulsando tanto el número de visitantes como el interés en la propiedad. Para el copropietario que regresa año tras año, Dubrovnik tiene la capacidad rara de revelar nuevas capas en cada visita: los fondos marinos de las Elaphiti en primavera, los murales del Palacio del Rector en otoño, una bodega de Konavle recién descubierta en octubre, un concierto nocturno en la terraza de un palacio barroco en agosto. Es el tipo de destino que recompensa la pertenencia permanente más que el turismo puntual.</p>
 
-    <p>La copropiedad en Croacia en las islas dálmatas adopta con mayor frecuencia la forma de casas de piedra tradicionales — <em>kamene kuće</em> dálmatas — situadas en los centros históricos de los pueblos insulares o en laderas en terrazas sobre el mar. Estas casas combinan un patrimonio arquitectónico genuino con interiores contemporáneos de alta calidad: muros de piedra vista, suelos de terracota, terrazas sombreadas y la paz particular de una isla donde el ruido ambiente son las cigarras y el tintineo de las amarras, no el tráfico. Para los compradores que buscan la experiencia de copropiedad más auténtica y visualmente impactante en Croacia, las islas dálmatas son la opción definitiva.</p>
+<p><strong>Idóneo para:</strong> compradores que buscan la dirección adriática de mayor prestigio internacional, amantes de la arquitectura medieval y el patrimonio de la UNESCO, viajeros que quieren combinar cultura urbana de primer nivel con acceso a las islas Elaphiti y los vinos del Pelješac.</p>
 
-    <h3>Split y la Dalmacia Central — copropiedad en Croacia</h3>
+<h3>Split y la Dalmacia central</h3>
 
-    <p>Split es el corazón urbano de la copropiedad en Croacia — una ciudad de 200.000 habitantes construida alrededor y dentro de los muros del palacio romano tardío que el Emperador Diocletiano construyó como residencia de retiro a principios del siglo IV d. C. El palacio, Patrimonio de la Humanidad de la UNESCO, no es un yacimiento arqueológico sino un barrio vivo: restaurantes, bares, boutiques y apartamentos ocupan el peristilo, el vestíbulo y los corredores antiguos. Split es a la vez una de las ciudades históricamente más extraordinarias de Europa y una de las más auténticamente dinámicas — no es una ruina preservada sino una ciudad que ha absorbido su historia y ha seguido viviendo.</p>
+<p>Split es el corazón urbano de la Dalmacia central — una ciudad de 200.000 habitantes construida sobre y dentro de las murallas del palacio tardorromano que el Emperador Diocleciano levantó como residencia de retiro a comienzos del siglo IV d.C. El Palacio, declarado Patrimonio de la Humanidad por la UNESCO, no es un yacimiento arqueológico sino un barrio vivo: restaurantes, bares, boutiques y apartamentos ocupan el peristilo, el vestíbulo y los corredores milenarios. Split es simultáneamente una de las ciudades históricamente más extraordinarias de Europa y una de las más auténticamente activas — no es una ruina conservada sino una ciudad que ha absorbido su historia y ha seguido viviendo con plena energía. El paseo marítimo de la Riva, el laberinto de callejones del barrio de Varoš y el moderno distrito de Meje dan a Split una variedad urbana genuina que pocas ciudades costeras mediterráneas igualan.</p>
 
-    <p>La copropiedad en Croacia en Split y la Dalmacia Central es ideal para compradores que quieren sofisticación urbana junto al acceso inmediato a la costa. El paseo Riva, las callejuelas del barrio de Varoš y el moderno distrito de Meje dan a Split una variedad urbana genuina. La ciudad es también el principal hub de ferris para las islas de la Dalmacia central — Hvar, Brač, Šolta y Vis están todas a una o dos horas en ferri — lo que convierte a Split en la opción más práctica para compradores que quieren visitar islas durante sus semanas personales.</p>
+<p>La isla de Brač, a 50 minutos en ferry desde Split, alberga la <strong>Zlatni Rat</strong> — la playa de guijarros blancos y forma cambiante que es probablemente la imagen más reproducida del Adriático croata — y la cantera de piedra caliza blanca que se usó en la construcción del propio Palacio de Diocleciano. Hvar, a una hora de ferry, combina una fortaleza veneciana del siglo XIII, campos de lavanda aromáticos y la escena de yates y restaurantes más activa del Adriático croata; la ciudad de Hvar tiene las famosas <strong>procesiones de Semana Santa</strong> — un ritual cristiano de 500 años declarado Patrimonio Inmaterial de la Humanidad por la UNESCO — que convierten la isla en destino de visita obligada en abril. Vis, la isla más alejada de la Dalmacia central, ofrece lo contrario de Hvar: menos turismo, pescadores activos, una autenticidad de isla mediterránea que se ha vuelto escasa en el Mediterráneo occidental. La ciudad de Split es además el principal hub de ferry de la Dalmacia central, lo que hace de una base aquí la opción más práctica para los copropietarios que quieren hacer island-hopping durante sus semanas personales.</p>
 
-    <h3>Dubrovnik y el sur de Dalmacia — copropiedad en Croacia</h3>
+<p>El mix de compradores en la Dalmacia central es amplio: alemanes que conocen bien la costa, británicos atraídos por la historia romana y la energía de Hvar, holandeses y escandinavos que valoran la relación precio-calidad frente a Dubrovnik, y una cohorte creciente de compradores de Estados Unidos y Australia que descubren Split y sus islas a través de las recomendaciones de viaje internacionales. Las casas de copropiedad en esta sub-región incluyen apartamentos en el Casco Antiguo de Split dentro o cerca del Palacio, villas en las islas con acceso directo al mar, y casas de campo en la llanura del interior dálmata. La ciudad de Split tiene además una infraestructura de servicios profesionales para propietarios no residentes que ha madurado notablemente en la última década: abogados bilingües con experiencia en transacciones internacionales, gestores de property management con décadas de historial en el mercado dálmata, y una red de artesanos, instaladores y técnicos que conocen el parque edificado de la ciudad — mucho de él con siglos de antigüedad — con el nivel de especialización que esas casas exigen. Para el copropietario que quiere una base en la ciudad más viva de la Dalmacia con el Adriático al fondo y un archipiélago entero a menos de una hora en ferry, Split es la elección operativamente más completa.</p>
 
-    <p>Dubrovnik es la ciudad más internacionalmente reconocida de Croacia — la «Perla del Adriático», como la llamó Byron — y la copropiedad en Croacia en la zona de Dubrovnik cotiza con una prima que refleja el extraordinario estatus cultural y arquitectónico de la ciudad. La Ciudad Vieja, completamente rodeada por murallas de piedra caliza del siglo XIV que se pueden recorrer en su totalidad, es una de las grandes experiencias urbanas del mundo: una sucesión de iglesias barrocas, palacios renacentistas, el paseo de piedra caliza del Stradun y un puerto donde el Adriático brilla en todas las direcciones. La Riviera circundante — Cavtat, Mlini, Srebreno y las Islas Elafiti (Koločep, Lopud, Šipan) — extiende la experiencia de Dubrovnik hacia una cadena de destinos más pequeños y tranquilos a los que se llega fácilmente en barco.</p>
+<p><strong>Idóneo para:</strong> compradores que quieren sofisticación urbana con acceso inmediato a las islas, entusiastas de la navegación y el island-hopping, familias activas que buscan variedad de playa e isla en el mismo viaje, y cualquiera que quiera la experiencia adriática a un nivel de precio más accesible que Dubrovnik.</p>
 
-    <p>La copropiedad en Croacia en la zona de Dubrovnik es ideal para el comprador que quiere la dirección de mayor prestigio internacional en la costa croata. El perfil del área se ha elevado aún más en los últimos años por su papel como escenario de producciones internacionales de primer nivel, generando un nivel de reconocimiento global que sigue impulsando tanto el número de visitantes como el interés inmobiliario. Las casas aquí tienden a ser villas y apartamentos premium en edificios históricos, con vistas al mar y la proximidad a las murallas de la Ciudad Vieja como principales impulsores de valor.</p>
+<h3>Šibenik, Trogir y la Dalmacia norte</h3>
 
-    <h3>Istria — copropiedad en Croacia</h3>
+<p>La Dalmacia norte es la sub-región menos turistificada de la costa croata y la que mejor recompensa al comprador que se toma la molestia de descubrirla. <strong>Šibenik</strong> es la ciudad fundada por los propios croatas — no por griegos ni romanos, sino por la población eslava local en el siglo IX, lo que la convierte en la ciudad de origen croata más antigua de la costa adriática. Su catedral de San Jacobo, construida entre 1431 y 1535 sin mortero en las juntas, es un prodigio de ingeniería gótico-renacentista declarado Patrimonio de la Humanidad por la UNESCO. El Parque Nacional de Krka, a menos de 20 kilómetros de la ciudad, tiene cascadas en serie que pueden visitarse en temporada con la posibilidad de bañarse en las piscinas naturales entre junio y agosto. El Parque Nacional de Kornati, un archipiélago de 89 islas deshabitadas con una concentración de belleza marina excepcional, es accesible en barco desde el puerto de Šibenik en una mañana.</p>
 
-    <p>Istria, la región más septentrional de la costa croata y la península triangular del país que se adentra en el norte del Adriático, ofrece una experiencia de copropiedad en Croacia marcadamente distinta a la del sur dálmata. El carácter de Istria está moldeado por su larga historia veneciana y habsburguesa, produciendo un paisaje de pueblos medievales en colinas (Motovun, Grožnjan, Rovinj, Poreč) rodeados de bosques de trufas, olivares y viñedos que producen algunos de los mejores vinos de Croacia. La región es descrita sistemáticamente por los escritores gastronómicos como uno de los grandes destinos culinarios inexplorados de Europa — trufas, prosciutto istriano, marisco fresco del Adriático y un extraordinario aceite de oliva local conforman una cultura culinaria que rivaliza con cualquier cosa que ofrezca el <a href="/italy-fractional-ownership-properties/">norte de Italia</a> o el <a href="/south-of-france-fractional-ownership-properties/">sur de Francia</a>.</p>
+<p><strong>Trogir</strong>, a 27 kilómetros al sur de Split, es otra ciudad medieval amurallada declarada Patrimonio de la Humanidad por la UNESCO — una isla unida al continente por dos puentes, con una catedral del siglo XIII y un castillo Kamerlengo del siglo XV. El archipiélago de Kornati ofrece a los copropietarios con velero o barco a motor un parque marino de navegación entre islas que no tiene equivalente en el Mediterráneo occidental: 89 islas y escollos protegidos en un perímetro de 320 km², sin carreteras, sin alumbrado, sin agua corriente — solo los barcos, el mar y la vida salvaje marina. Las casas de copropiedad en esta sub-región tienden a ser más accesibles de precio que en Dubrovnik o Split, con un perfil de comprador más orientado a la navegación y la naturaleza que al prestigio de marca. Esa accesibilidad de precio no es sinónimo de menor calidad de vida: la claridad del agua en los parques nacionales de Krka y Kornati rivaliza con cualquier otro punto del Mediterráneo, la arquitectura medieval de Šibenik y Trogir tiene una autenticidad que el turismo masivo no ha diluido todavía, y la escala humana de estas ciudades — habitadas por croatas locales que trabajan, van al mercado y cocinan con los mismos ingredientes que sus abuelos — da una experiencia adriática genuina que Dubrovnik, por su fama internacional, ya no puede ofrecer sin esfuerzo. Para el copropietario que quiere descubrir el Adriático antes que las masas, la Dalmacia norte es el destino más prometedor del litoral croata en este momento.</p>
 
-    <p>La copropiedad en Croacia en Istria suele adoptar la forma de casas de campo de piedra reconvertidas en las colinas del interior, o apartamentos y villas costeras en pueblos como Rovinj, Pula y Poreč. Rovinj en particular — un pueblo costero de murallas venecianas sobre una antigua isla, ahora conectada al continente por una calzada — es uno de los pueblos más hermosos del Adriático, y la copropiedad en Istria en Rovinj o sus alrededores representa una propuesta genuinamente atractiva para compradores que quieren la combinación de carácter croata auténtico, proximidad a Italia (Trieste está a dos horas en coche) y una costa significativamente menos concurrida que Dalmacia en los meses de verano de mayor afluencia.</p>
+<p><strong>Idóneo para:</strong> navegantes y amantes de los parques nacionales, compradores que buscan autenticidad adriática sin las multitudes de los destinos más conocidos, entusiastas del patrimonio medieval y la vida costera a escala humana.</p>
 
-    <h3>Riviera de Makarska y la Península de Pelješac — copropiedad en Croacia</h3>
+<h3>Istria</h3>
 
-    <p>La Riviera de Makarska — el tramo de costa entre Split y Dubrovnik flanqueado por el dramático macizo calcáreo del Biokovo — es uno de los paisajes costeros de mayor intensidad visual de Croacia. El contraste entre el Adriático cristalino y los escarpados muros verticales del Biokovo (que supera los 1.700 metros a pocos kilómetros de la orilla) crea un paisaje único en el Mediterráneo europeo. Pueblos como Makarska, Brela, Baška Voda y Tučepi ofrecen playas excelentes, una infraestructura turística bien desarrollada y acceso fácil tanto al aeropuerto de Split como al de Dubrovnik. La copropiedad en Croacia en la Riviera de Makarska es especialmente popular entre compradores que priorizan el acceso a la playa, la actividad al aire libre (el Parque Nacional de Biokovo ofrece senderismo extraordinario) y el valor relativo frente a la zona de Dubrovnik de mayor perfil internacional.</p>
+<p>Istria, la península triangular del norte de Croacia que se adentra en el Adriático septentrional, ofrece una experiencia de copropiedad radicalmente diferente de la Dalmacia del sur. El carácter de Istria está moldeado por su larga historia veneciana y posteriormente habsburguesa, lo que produce un paisaje de ciudades medievales sobre colinas — Motovun, Grožnjan, <strong>Rovinj</strong>, Poreč — rodeadas de bosques de trufas, olivares y viñedos que producen algunos de los mejores vinos de Croacia. Los escritores gastronómicos describen sistemáticamente Istria como uno de los grandes destinos culinarios descubiertos de Europa: trufas blancas y negras, pršut istriano (jamón curado local), marisco fresco del Adriático y un aceite de oliva excepcional componen una cultura culinaria que rivaliza con el norte de Italia o el sur de Francia. La temporada de trufas alcanza su pico en <strong>octubre</strong>, con el mercado de trufas de Buzet y los menús con trufa en toda la región como eventos de temporada que los copropietarios programan activamente en su calendario otoñal.</p>
 
-    <p>La península de Pelješac, que se adentra en el Adriático al sur de Makarska, combina el mejor país vinícola de Croacia (los viñedos de Plavac Mali y Dingač están entre los mejores de la región adriática) con un paisaje peninsular de extraordinaria belleza natural. El pueblo de Orebić mira a la isla de Korčula a través de un estrecho canal — un escenario de encanto excepcional. La copropiedad en Croacia en Pelješac es perfecta para compradores que buscan aislamiento, cultura del vino y el placer particular de un paisaje croata que aún se siente genuinamente fuera del circuito turístico principal.</p>
+<p>Rovinj merece atención particular: una ciudad veneciana amurallada construida sobre lo que era una isla, ahora unida al continente, con una iglesia barroca que domina el perfil desde cualquier ángulo y un puerto pesquero activo que da a la ciudad su ritmo genuino. Las calles del casco antiguo son demasiado estrechas para los coches; los artistas tienen estudios en los pisos superiores de las casas medievales; los restaurantes sirven en terrazas sobre el agua. El anfiteatro romano de Pula, a 35 kilómetros al sur, es uno de los anfiteatros romanos mejor conservados del mundo y alberga conciertos de ópera y música en verano bajo las estrellas. La cercanía de Istria a Italia — Trieste está a dos horas en coche, Venecia a tres — hace de la región la elección natural para los compradores que quieren el Adriático croata con conexiones terrestres fáciles a Italia y Austria. Istria tiene el clima más suave del litoral croata en invierno — verde y templada de diciembre a febrero — lo que la convierte en un destino genuinamente utilizable todo el año frente a la estacionalidad más marcada de la Dalmacia del sur.</p>
 
-  </div></section>
+<p>Las casas de copropiedad en Istria suelen ser casas de campo de piedra reconvertidas en el interior colinar o apartamentos y villas costeras en Rovinj, Pula y Poreč. El parque edificado de Istria tiene una especificidad arquitectónica que lo distingue de cualquier otra región croata: la piedra local — la <em>kamen istesa</em>, una arenisca calcárea de color dorado — se usa desde la antigüedad romana tanto en los muros de los edificios como en los suelos y las escaleras exteriores, y las fachadas de las casas de pueblo istrianas tienen una textura y calidez que los materiales modernos no reproducen. Las casas rurales del interior de la península — las <em>istriana</em> típicas con tejados de teja y pozos de piedra en los patios — son propiedades auténticamente históricas que encajan con el mismo nivel de especificación interior que las mejores casas de la Dalmacia. El perfil de comprador aquí es notablemente alemán y austriaco, con una cohorte italiana creciente dada la proximidad, y una presencia holandesa y escandinava que aprecia la escala íntima de la costa norte frente al volumen turístico de la Dalmacia en agosto.</p>
 
-  <!-- §D — HOW IT WORKS -->
-  <section class="dest-sec cream"><div class="dest-inner">
+<p><strong>Idóneo para:</strong> gourmets atraídos por las trufas, el vino y la gastronomía de influencia italiana, compradores que buscan uso anual en lugar de puramente estival, amantes del patrimonio veneciano y los paisajes de colina del interior adriático.</p>
 
-    <h2>Cómo funciona la copropiedad en Croacia</h2>
+<h3>El archipiélago de Kvarner</h3>
 
-    <p>La copropiedad en Croacia se estructura como una compra inmobiliaria genuina — <strong>no es multipropiedad</strong>, no es un club de vacaciones ni un esquema de puntos. Adquieres una fracción legalmente registrada de una casa croata real, con tu titularidad inscrita en el libro de la propiedad croata (<em>Zemljišna knjiga</em>). El derecho inmobiliario croata, alineado con los estándares europeos desde la adhesión de Croacia en 2013, ofrece protecciones claras a todos los propietarios independientemente de su nacionalidad, y el proceso de compra se lleva a cabo a través de agentes inmobiliarios y notarios croatas con licencia.</p>
+<p>El golfo de Kvarner, encerrado entre la costa norte de Croacia, la península de Istria y las islas de Krk y Lošinj, es la parte del litoral croata más próxima a Europa central y, en consecuencia, la más conocida para los compradores alemanes y austriacos. <strong>Opatija</strong>, la ciudad balneario de la época habsburguesa, fue la Riviera de la monarquía austrohúngara — el lugar donde el Emperador Francisco José veraneaba a comienzos del siglo XX y donde los palacios de la Belle Époque bordean el paseo marítimo con una grandiosidad que la modernización no ha desplazado. Las villas de Opatija tienen techos altos, parquets de madera, miradores sobre el mar y jardines de palmeras y magnolias — una arquitectura que no se encuentra en ningún otro lugar del litoral croata.</p>
 
-    <div class="dest-callout">
-      <strong>La LLC en una frase:</strong> una sociedad creada específicamente para ser propietaria de la casa, en la que tú y un pequeño grupo de hasta siete copropietarios más tenéis participaciones iguales — esto facilita la reventa y aporta una estructura de propiedad única y coherente para cada casa de COP en todo el mundo, de forma que los copropietarios con casas en varios países trabajan con un único modelo en lugar de una pila de vehículos jurídicos distintos.
-    </div>
+<p>Las islas de Kvarner ofrecen caracteres muy distintos entre sí. <strong>Krk</strong>, la isla más grande de Croacia, está unida al continente por un puente desde 1980, lo que la hace la más accesible en coche; tiene una catedral románica del siglo XII en la ciudad de Krk y algunas playas de guijarros con aguas turquesas. <strong>Lošinj</strong> — conocida como «la isla azul» por la claridad excepcional de sus aguas — tiene un microclima benigno que atrajo sanatorios de neumología a finales del siglo XIX y sigue siendo reconocida por la calidad del aire entre los pinos mediterráneos. Mali Lošinj, el puerto principal, tiene una arquitectura de casas pintadas en pastel que recuerda a Rovinj en su escala íntima. <strong>Rijeka</strong>, la capital de la región, alberga el <strong>Carnaval de Rijeka</strong> — el mayor del Adriático croata, celebrado en febrero con desfiles y carrozas que rivalizan con los de Venecia en escala — que se convierte en una razón de temporada sólida para usar las semanas de invierno.</p>
 
-    <div class="dest-callout">
-      <strong>Esto no es multipropiedad (timeshare):</strong> la multipropiedad — también conocida como tiempo compartido o timeshare — te vende un <em>derecho de uso</em> de la casa durante una semana determinada cada año, normalmente con contrato que expira y sin valor de reventa. Una fracción COP te vende una <strong>participación patrimonial registrada</strong> en la propia casa, a través de una LLC en la que tú y otros copropietarios sois titulares al mismo nivel. Es transmisible, heredable, se revaloriza con la casa subyacente, y se vende a través de un proceso profesional en alrededor de un mes — exactamente lo opuesto a la multipropiedad.
-    </div>
+<p>Para los copropietarios procedentes de Alemania, Austria y la Europa central, el golfo de Kvarner es la opción más práctica en términos de acceso: el aeropuerto de Rijeka (RJK) sirve vuelos directos desde varias ciudades alemanas, y la autopista A7 conecta el norte de Croacia con Eslovenia, Austria y Alemania en cuatro a seis horas en coche desde Múnich o Viena. El litoral de Kvarner es en general menos concurrido que la Dalmacia en el pico de verano y más propicio para el uso de temporada de hombro de otoño y primavera. Para el copropietario con un velero o acceso a alquiler de embarcación, Kvarner tiene una navegación propia que difiere notablemente de la Dalmacia: el bora — el viento del norte continental que baja por los valles del Velebit — da a la vela de Kvarner su carácter más activo y técnico, mientras que el litoral de las islas de Krk, Cres y Lošinj ofrece fondeaderos protegidos de extraordinaria claridad de agua que los veleros de la costa dálmata central a menudo no llegan a conocer. La cadena de Kvarner es además la más próxima al Parque Nacional de los Risnjak y a los bosques del Gorski Kotar, que ofrecen senderismo de montaña genuino a menos de una hora en coche desde la costa — una combinación de mar y montaña que los copropietarios activos valoran especialmente en las semanas de mayo y octubre.</p>
 
-    <h3>Explorar las casas en copropiedad en Croacia</h3>
+<p><strong>Idóneo para:</strong> compradores alemanes y austriacos con décadas de vínculo con la región, amantes de la arquitectura de la Belle Époque y el legado habsburguesa, navegantes del Adriático septentrional y familias que priorizan el acceso en coche desde Europa central.</p>
 
-    <p>Comienza explorando las casas disponibles en copropiedad en Croacia. Cada casa incluye descripciones detalladas, fotografía profesional, contexto regional y precio de la fracción en copropiedad. Filtra por zona, tipo de casa y preferencias de estilo de vida para identificar las casas que mejor se adaptan a tus necesidades. El equipo de <a href="/">Co-Ownership Property</a> actúa como agencia del comprador — trabajando en tu nombre, no en el del vendedor — para asegurar que encuentres la casa en copropiedad correcta en Croacia al precio adecuado.</p>
+</div></section>
 
-    <h3>Due diligence legal y revisión de la copropiedad en Croacia</h3>
+<section class="dest-sec cream"><div class="dest-inner">
 
-    <p>Una vez identificada una casa, un abogado inmobiliario croata independiente realiza una due diligence exhaustiva. Esto incluye verificar el título en el libro de la propiedad croata (<em>Zemljišna knjiga</em>). El panorama jurídico completo queda documentado antes de asumir compromiso alguno, ofreciendo a cada comprador plena seguridad bajo el derecho croata.</p>
+<h2>Un año en tu casa croata en copropiedad</h2>
 
-    <h3>Compra y registro de tu fracción de copropiedad en Croacia</h3>
+<p>Distribuir <strong>45 días de uso</strong> en el calendario croata es más sencillo de lo que podría parecer, porque el litoral croata tiene un <strong>calendario de uso genuinamente extenso</strong>. La temporada de baño va de finales de mayo a octubre; la temporada de hombro útil abarca de marzo a noviembre; e incluso el invierno tiene propuestas culturales y gastronómicas sólidas en Dubrovnik, Istria y las ciudades del interior. Para un copropietario con algo de flexibilidad de calendario, Croacia recompensa tanto las semanas de pico estival — el azul del Adriático en julio, los festivales de verano, la energía de los puertos — como las de temporada de hombro, cuando los precios bajan, los restaurantes reservan el mismo día y las calles medievales recuperan una escala humana que el agosto no puede prometer.</p>
 
-    <p>La formalización de una compra en copropiedad en Croacia sigue el proceso notarial croata estándar. El contrato de compraventa (<em>Ugovor o kupoprodaji</em>) se redacta, se autentica notarialmente (<em>solemniziran</em>) y se presenta para su inscripción en el registro. Tu fracción de copropiedad queda formalmente registrada a tu nombre en el libro de la propiedad croata (<em>Zemljišna knjiga</em>). Los impuestos aplicables — <em>Porez na promet nekretnina</em> (impuesto sobre transmisiones inmobiliarias) — y las tasas de inscripción son calculados por tu abogado antes de la firma, con plena transparencia en cada etapa del proceso.</p>
+<h3>Primavera (marzo–mayo)</h3>
 
-    <h3>Disfruta y gestiona tu casa en copropiedad en Croacia</h3>
+<p>La primavera adriática es, para muchos copropietarios experimentados, la <strong>estación más subestimada del calendario</strong>. <strong>Marzo</strong> trae temperaturas de 12 a 20 °C en la costa dálmata, con las flores silvestres en las islas — anémonas, ciclamenes, romero en flor — y el olor de las plantas aromáticas que se liberan con el primer calor real. Los campos de lavanda de Hvar, que en agosto son fotogénicos pero están llenos de turistas, en marzo están silenciosos y fragantes. Los patrones de velero que conocen bien la costa empiezan a aparecer a finales de marzo y es habitual ver los primeros barcos anclados en las calas de Brač y Vis en la primera quincena de abril. El Adriático ha empezado a calentar desde el mínimo invernal y la temperatura del mar en marzo ronda ya los 14 a 16 °C — fresca para nadar, perfecta para navegar y caminar.</p>
 
-    <p>Una vez completada la compra, una empresa de gestión profesional asume toda la responsabilidad operativa de la casa. Tus semanas personales — aproximadamente <strong>45 días por fracción</strong> para una fracción de 1/8 — se asignan a través de un sistema de rotación equitativo establecido al inicio de cada año natural. La empresa de gestión se encarga del mantenimiento estacional, la limpieza y preparación antes de cada estancia, las renovaciones del seguro, el pago de los gastos de comunidad y las facturas de suministros, y todo el cumplimiento normativo. Llegas a una casa totalmente preparada y mantenida profesionalmente, lista para disfrutar de la costa croata desde el primer momento.</p>
+<p><strong>Abril</strong> es el mes de las célebres <strong>Procesiones de la Semana Santa en Hvar</strong> — un ritual cristiano de 500 años declarado Patrimonio Inmaterial de la Humanidad por la UNESCO, en el que los habitantes de seis pueblos de la isla marchan en la oscuridad portando cruces en una ruta de 22 kilómetros que dura toda la noche del Jueves Santo al Viernes Santo. No es un espectáculo creado para turistas; es un acto de devoción genuino que la comunidad local ha mantenido ininterrumpidamente desde el siglo XV. Para los copropietarios en la Dalmacia central, esta es una de las experiencias de temporada más auténticas de cualquier calendario adriático. Los restaurantes de las islas en abril sirven el menú local sin las colas de agosto; las murallas de Dubrovnik pueden recorrerse sin esperar cola; las calas de Vis y Korčula están prácticamente en privado. <strong>Mayo</strong> eleva las temperaturas a 18-22 °C de día, la temperatura del mar cruza los 19 °C en la segunda quincena — el inicio real de la temporada de baño —, y los días son ya largos, con el sol poniéndose pasadas las 20:30. Para los copropietarios en Istria, mayo es ideal para recorrer a pie los pueblos medievales del interior — Motovun, Grožnjan, Oprtalj — cuando los árboles de la llanura circundante están en flor y los caminos son transitables sin el calor de verano. El argumento práctico para la primavera es claro: disponibilidad amplia en las casas más demandadas, vuelos más baratos y un ritmo de estancia genuinamente más tranquilo para un copropietario que quiere usar sus 45 días anuales de forma estratégica. Un copropietario en la Dalmacia central que asigna una semana de abril a las procesiones de Semana Santa en Hvar, una semana de mayo a la navegación por las calas de Vis y una semana de junio para llegar antes que las vacaciones escolares tiene tres estancias con características completamente distintas entre sí — y las tres dentro de un período en el que el Adriático está espléndido, los servicios locales operan con plena normalidad y la presión del pico estival es todavía inexistente. El copropietario de Istria que asigna una semana de mayo a los pueblos de colina del interior y los primeros aceites de la cosecha de primavera llega a una experiencia que los visitantes de agosto no pueden comprar a ningún precio porque no existe en agosto: el silencio de los viñedos antes del turismo, los productores locales disponibles para una conversación en el molino de aceite, los restaurantes que cocinan con los ingredientes del mercado de esa mañana sin la presión de sesenta cubiertas en terraza.</p>
 
-  </div></section>
+<h3>Verano (junio–agosto)</h3>
 
-  <!-- §E — INVESTMENT & LIFESTYLE (usted) -->
-  <section class="dest-sec white"><div class="dest-inner">
+<p>El verano adriático croata es, en términos climáticos y de ambiente, el pico absoluto de la experiencia mediterránea: temperaturas de 28 a 35 °C, agua de 24 a 27 °C, cielos sin nubes, días que duran hasta las 21:00 horas y una energía costera que combina lo mejor de la vida isleña con la animación de los puertos internacionales. <strong>Junio</strong> es el mes secreto del verano adriático: lo suficientemente cálido para nadar, los calendarios de pueblo en su mejor pre-pico, y las multitudes del pleno verano aún a quince días vista. Los copropietarios que pueden coger la segunda quincena de junio acceden a la costa croata en condiciones casi perfectas — temperatura de pleno verano, luz de los días más largos del año — con una fracción de la densidad de agosto.</p>
 
-    <h2>Copropiedad en Croacia — inversión y estilo de vida</h2>
+<p><strong>El Festival de Verano de Dubrovnik</strong>, que se celebra de julio a finales de agosto, es uno de los festivales de artes escénicas al aire libre más antiguos del Mediterráneo: teatro clásico, ópera, conciertos de música de cámara y ballet en los palacios renacentistas, las plazas medievales y las murallas de la ciudad. Las entradas para las noches más demandadas se reservan con meses de antelación; los copropietarios con casas en Dubrovnik en semanas de julio tienen acceso a un calendario cultural que ningún hotel puede igualar en continuidad. En <strong>Hvar</strong>, julio es el pico de la escena de yates del Adriático: el puerto de la ciudad de Hvar tiene el mayor tráfico de embarcaciones de lujo de la costa croata, con una línea de restaurantes y bares frente al puerto que opera hasta pasada la medianoche y regatones de vela que utilizan la isla como base de todo el Mediterráneo. Para compradores que buscan la energía del Mediterráneo en su versión más animada, Hvar en julio es precisamente esa experiencia.</p>
 
-    <p>La copropiedad en Croacia se sitúa en la intersección de la calidad de vida, la seguridad jurídica y la participación patrimonial a largo plazo en el mercado inmobiliario — y lo hace con una propuesta de valor marcadamente favorable respecto a destinos costeros comparables del sur de Europa. La adhesión de Croacia a la Unión Europea en 2013 alineó el marco jurídico y regulatorio del país con los estándares de la UE, y la posterior adopción del euro eliminó la incertidumbre cambiaria que históricamente complicaba las compras inmobiliarias transfronterizas. El resultado es un mercado inmobiliario que combina la solidez jurídica del marco europeo con precios aún significativamente inferiores a los de casas costeras equivalentes en el sur de Francia, la Costa Amalfitana o las Islas Baleares españolas — haciendo de la copropiedad en Croacia una de las vías más rentables hacia un estilo de vida mediterráneo de primera calidad.</p>
+<p><strong>Agosto</strong> es el mes de máxima densidad en todo el litoral, con los puertos de Split, Dubrovnik y Hvar funcionando a plena capacidad, los restaurantes reservados con semanas de antelación y las carreteras de las islas con el tráfico de la temporada alta. Las regatas de vela del Adriático — entre ellas la <em>Adriatic Regatta</em> y diversas competiciones locales — atraen a miles de embarcaciones que utilizan el litoral croata como base a lo largo de toda la temporada estival. El sistema de calendario de rotación equitativo garantiza que cada copropietario reciba su asignación justa de semanas pico a lo largo del ciclo plurianual; planificar con el gestor con seis a ocho meses de antelación es imprescindible para asegurar las semanas de agosto. Vale la pena señalar que la densidad de agosto es un fenómeno de los puertos y las ciudades costeras más conocidas — las calas remotas de las Elaphiti, las bahías sin nombre de los Kornati o las playas de guijarros del interior de las islas menos turísticas como Vis y Šolta siguen siendo accesibles y tranquilas incluso en la semana de mayor afluencia del año. El copropietario que tiene una casa con barca o acceso fácil a alquiler de embarcaciones tiene un Adriático de agosto muy diferente al del turista que se limita a las playas accesibles en coche o en ferry regular.</p>
 
-    <p>El argumento de estilo de vida a favor de la copropiedad en Croacia es convincente y multidimensional. La Costa Dálmata ofrece una calidad medioambiental — claridad del agua, calidez del clima, abundancia de litoral sin urbanizar — que se ha vuelto cada vez más escasa en el Mediterráneo a medida que el desarrollo ha transformado antiguos pueblos de pescadores en infraestructura turística. Poseer una fracción de una casa de piedra en Hvar, un apartamento dentro de las murallas de la Ciudad Vieja de Korčula o una villa con vistas a la Riviera de Makarska no es simplemente una inversión inmobiliaria — es el acceso a un ritmo y una calidad de vida que recompensan el regreso anual y construyen una relación con el lugar que ninguna estancia en hotel puede replicar.</p>
+<h3>Otoño (septiembre–octubre)</h3>
 
-    <p>Desde la perspectiva de la inversión y la legalidad, la <strong>copropiedad documentada</strong> — inscrita en el libro de la propiedad croata (<em>Zemljišna knjiga</em>) — funciona como un activo inmobiliario plenamente transmisible. El derecho croata reconoce la copropiedad (<em>suvlasništvo</em>) como un concepto jurídico claramente definido, con los derechos y obligaciones de los copropietarios regulados por la Ley de Propiedad y Otros Derechos Reales (<em>Zakon o vlasništvu i drugim stvarnim pravima</em>). Esta legislación confiere a cada copropietario el derecho a usar, vender y heredar su fracción, sujeto a los derechos de tanteo de los demás copropietarios establecidos en el acuerdo de copropiedad. El mecanismo de salida de la copropiedad en Croacia es claro: usted puede vender su fracción a un tercero mediante un proceso estándar de compraventa inmobiliaria croata, con autenticación notarial e inscripción registral, a un precio que refleje los valores de mercado en ese momento.</p>
+<p>Para la mayoría de los copropietarios croatas con experiencia, <strong>el otoño es la estación favorita</strong>. <strong>Septiembre</strong> mantiene temperaturas de 18 a 25 °C, la temperatura del mar aún está por encima de los 22 °C durante buena parte del mes, las multitudes de agosto se han dispersado en los diez días siguientes al inicio del curso escolar europeo y los restaurantes aceptan reservas la misma semana en que se hacen. Es el momento dulce del calendario adriático para copropietarios sin hijos en edad escolar. Las calas de Vis, Korčula y las Elaphiti — que en agosto eran inaccesibles sin llegar antes de las nueve de la mañana — están abiertas y tranquilas; los pescadores locales han vuelto a sus rutinas habituales y la dinámica de isla auténtica que el verano interrumpe se reestablece con rapidez.</p>
 
-    <p>La copropiedad en Croacia también se beneficia del creciente perfil del país como destino turístico y de estilo de vida de primera línea global. Croacia figura con regularidad en los medios de viaje internacionales como uno de los destinos costeros más deseables de Europa, y el crecimiento sostenido del número de visitantes — de menos de 10 millones anuales a principios de los años 2000 a más de 20 millones en los últimos años — ha impulsado la demanda de alojamiento de calidad y casas secundarias a un ritmo que la oferta costera restringida no puede absorber plenamente. Esta dinámica de oferta y demanda, combinada con las limitaciones estructurales al desarrollo costero impuestas por el derecho urbanístico croata, crea un entorno favorable para la participación patrimonial a largo plazo que ofrece la copropiedad en Croacia.</p>
+<p><strong>Octubre en Istria</strong> es el mes de las trufas: la temporada de trufa blanca — la <em>Tuber magnatum pico</em>, la misma variedad que en Alba, en el Piamonte italiano — alcanza su pico en la primera quincena de octubre, con los cazadores de trufas recorriendo los bosques de robles del interior de la península con sus perros antes del amanecer. El mercado de trufas de Buzet, los menús de degustación con trufa rallada en los restaurantes de Motovun y Rovinj, y las visitas a los productores de aceite de oliva e istarski pršut componen un programa gastronómico de temporada sin equivalente en ninguna otra región del litoral croata. Simultáneamente, en la <strong>península del Pelješac</strong>, la vendimia del Plavac Mali y el Dingač está en marcha — los viñedos más empinados del Adriático, orientados directamente al mar para maximizar el calor y la maduración de la uva. Los copropietarios en la zona de Dubrovnik que programan una semana de octubre tienen acceso a bodegas que abren para catas de vendimia en un ambiente que ninguna temporada estival puede replicar. La temperatura diurna de octubre en la costa dálmata — 18 a 22 °C — es ideal para caminar por las ciudades medievales amuralladas sin el calor de julio, visitar el Parque Nacional de Plitvice o los lagos del Parque de Krka cuando los bosques circundantes tienen los tonos del otoño, y navegar por la costa norte con el maestral otoñal. Las terrazas de los restaurantes siguen abiertas; los mercados locales tienen los mejores productos de temporada del año. La pesca del Adriático en otoño alcanza su mejor momento, con los mejores ejemplares de lubina, dorada, pulpo y cefalópodos que llegan a los mercados de Split, Šibenik y Zadar en octubre. Los restaurantes que en agosto servían menús simplificados para grandes volúmenes de cubiertos vuelven en octubre a sus especialidades de raíz — peka (carne o pescado cocinado bajo la campana de hierro con brasa de leña), gregada de Hvar (guiso de pescado con patatas y vino blanco). El otoño es cuando el copropietario come mejor en cualquier punto de la costa croata.</p>
 
-    <p>Para compradores que construyen una cartera europea de fracciones en copropiedad, la copropiedad en Croacia ofrece una experiencia genuinamente distinta que complementa en lugar de duplicar otros activos mediterráneos. Compradores que tienen una fracción de 1/8 en una villa de <a href="/ibiza-fractional-ownership-properties/">Ibiza</a> o una casa en <a href="/sardinia-fractional-ownership-properties/">Cerdeña</a> encontrarán que el carácter dálmata de Croacia — su arquitectura de piedra, su herencia veneciana, su combinación particular de aislamiento insular y sofisticación urbana — es genuinamente diferente al Mediterráneo occidental, añadiendo una nueva dimensión a la cartera general de estilo de vida. Compradores que comparan <a href="/portugal-fractional-ownership-properties/">Portugal</a> o <a href="/spain-fractional-ownership-properties/">España</a> observarán que la costa oriental adriática de Croacia mira a un mar diferente, disfruta de un clima diferente y ofrece una experiencia cultural diferente — haciendo de la copropiedad en Croacia la opción natural para quienes quieren que su segunda casa amplíe en lugar de duplicar su repertorio de viajes habitual.</p>
-
-    <h3>Tu propiedad de un vistazo</h3>
+<h3>Invierno (diciembre–febrero)</h3>
 
-    <ul>
-      <li><strong>Patrimonio escriturado real a tu nombre</strong> — tu fracción de 1/8 está inscrita en el libro de la propiedad croata (<em>Zemljišna knjiga</em>), es transferible, heredable y se revaloriza con la casa subyacente. No es multipropiedad, no es una afiliación de puntos, no es un derecho de uso.</li>
-      <li><strong>Estructura internacional coherente</strong> — tu fracción en Croacia forma parte del mismo marco LLC creado específicamente para todas las casas de COP en el mundo, de forma que los copropietarios con casas en varios países trabajan con un único modelo en lugar de una pila de vehículos jurídicos distintos.</li>
-      <li><strong>Gestión integral</strong> — el equipo de gestión profesional se encarga de los impuestos locales, seguros, mantenimiento, planificación, lencería y conserjería. Llegas, la casa está lista.</li>
-      <li><strong>Reventa asistida a través de la red de propietarios COP</strong> — cuando decides vender, el proceso de reventa asistida suele cerrar en alrededor de un mes o menos, muy por debajo de los 6–12 meses que tarda una venta de la casa entera en el mercado libre croata.</li>
-      <li><strong>Diseñado para carteras internacionales</strong> — el modelo LLC convierte la propiedad de varias casas COP en una sola relación consolidada.</li>
-    </ul>
-
-  </div></section>
-
-  <!-- §F — OWNERSHIP STRUCTURE (usted) -->
-  <section class="dest-sec cream"><div class="dest-inner">
-
-    <h2>La estructura de propiedad — lo que posee realmente</h2>
-
-    <p>La naturaleza jurídica de una fracción en copropiedad en Croacia es una de las cuestiones que los compradores deben entender plenamente antes de la compra. Toda casa en COP en Croacia se constituye en una <strong>LLC creada específicamente para este fin</strong> — el mismo vehículo internacional moderno de propiedad utilizado a lo largo de todos los destinos COP — en la que usted y un pequeño grupo de hasta siete copropietarios más tienen <strong>participaciones iguales en la LLC</strong>. La casa croata subyacente la posee la sociedad, con el título inscrito en el libro de la propiedad croata (<em>Zemljišna knjiga</em>); su participación se inscribe en el libro registro de la sociedad, con la transmisión efectuándose en la reventa o herencia a través de un proceso administrativo limpio y bien documentado en lugar de la vía más pesada de transmisión de título requerida para bienes inmuebles croatas directos.</p>
-
-    <p>El efecto práctico es que usted tiene una <strong>participación patrimonial real, registrada y transmisible</strong>. No es multipropiedad — ni siquiera se le parece. La multipropiedad, también conocida como timeshare o tiempo compartido, le vende un <em>derecho de uso</em> de la casa durante una semana determinada cada año, normalmente con un contrato que expira y sin valor de reventa real. Lo que usted adquiere con COP es una <strong>fracción escriturada</strong> — puede venderla a través del proceso establecido de reventa o a un comprador externo que cualifique; puede legarla a sus hijos; y usted <strong>participa proporcionalmente en cualquier revalorización</strong> del valor de mercado de la casa croata subyacente.</p>
-
-    <p>Como el marco es coherente en cada casa de COP, los copropietarios que acaban comprando una segunda o tercera fracción — ya sea en otro lugar de Europa o en otro país totalmente — se encuentran tratando con la misma documentación, la misma cadencia administrativa y la misma relación de gestión en toda la cartera.</p>
-
-    <h3>Lo que incluye la gestión integral</h3>
-
-    <p>Una vez completada la compra, una sociedad de gestión profesional asume toda la responsabilidad operativa de la casa croata. Los conceptos habituales cubiertos incluyen: los impuestos locales aplicables (<em>porez na kuće</em>, <em>porez na dohodak od imovine</em>); el seguro de continente y contenido; la retención completa de gestión inmobiliaria cubriendo personal, programación y relación con el copropietario; limpieza y lencería entre cada estancia; jardinería, mantenimiento de piscina y preparación estacional; mantenimiento y reparaciones menores; facturas de suministros (electricidad, agua, internet, monitorización de alarma); y una aportación al fondo de reserva para grandes obras de capital.</p>
-
-    <p>El calendario de uso personal — aproximadamente <strong>45 días al año para una fracción de 1/8</strong> — se asigna a través de un sistema de rotación equitativo que garantiza que, a lo largo del ciclo plurianual, cada copropietario recibe una distribución justa de semanas de temporada alta y de temporada de hombro. Las semanas se confirman habitualmente al inicio de cada año natural, dándole la certeza necesaria para planificar los viajes a Croacia con suficiente antelación.</p>
-
-  </div></section>
-
-  <!-- EXPLORE MORE -->
-  <section class="dest-explore-sec">
-    <div class="dest-explore-inner">
-      <p class="dest-eyebrow" style="color:var(--warm-gold);">Explorar también</p>
-      <h2 style="color:#fff;">Más destinos en copropiedad relacionados con Croacia</h2>
-      <div class="dest-explore-grid">
-        <span class="dest-explore-card">Todos los destinos</span>
-        <a href="/italy-fractional-ownership-properties/" class="dest-explore-card">Copropiedad en Italia &rarr;</a>
-        <a href="/sardinia-fractional-ownership-properties/" class="dest-explore-card">Copropiedad en Cerdeña &rarr;</a>
-        <a href="/how-it-works/" class="dest-explore-card">¿Qué es la copropiedad? &rarr;</a>
-        <a href="/portugal-fractional-ownership-properties/" class="dest-explore-card">Copropiedad en Portugal &rarr;</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="dest-faq-sec">
-    <div class="dest-inner">
-      <p class="dest-eyebrow">Preguntas y Respuestas</p>
-      <h2>Copropiedad en Croacia — Preguntas Frecuentes</h2>
-      <div class="dest-faq-list">
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Qué es la copropiedad en Croacia y en qué se diferencia de la multipropiedad?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>La copropiedad en Croacia es la compra de una fracción legalmente definida — habitualmente una fracción de 1/8 — en una casa croata real, con tu titularidad inscrita en el libro de la propiedad croata (<em>Zemljišna knjiga</em>). Eres titular de un interés de copropiedad con plenos derechos jurídicos bajo el derecho civil croata, incluyendo el derecho a vender tu fracción, traspasarla a tus herederos y ejercer todos los derechos de un propietario.</p>
-            <p>La multipropiedad — también conocida como timeshare o tiempo compartido — es el opuesto estructural de la copropiedad en Croacia en todos los aspectos relevantes. Una multipropiedad transmite derechos de uso en lugar de propiedad inmobiliaria: no tienes ningún activo inmobiliario transmisible, no tienes ninguna participación patrimonial en el inmueble real, y tu capacidad para salir del acuerdo suele estar contractualmente restringida y es prácticamente muy difícil. El historial bien documentado de la industria de la multipropiedad — ventas incorrectas, estructuras de cuotas opacas y escasas opciones de salida — la convierte en una propuesta fundamentalmente diferente a la fracción escriturada de copropiedad en Croacia. Los compradores de copropiedad COP ostentan un interés inmobiliario real — no un contrato de consumo — y deben tener esto completamente claro al evaluar sus opciones.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Pueden los ciudadanos no comunitarios (incluidos los compradores del Reino Unido) comprar una casa en Croacia?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Sí — desde la adhesión de Croacia a la Unión Europea en 2013, los ciudadanos de la UE pueden comprar una casa en Croacia en las mismas condiciones que los ciudadanos croatas, sin restricciones. Para los ciudadanos no comunitarios — incluidos los nacionales del Reino Unido tras el Brexit — la situación requiere un breve paso adicional: los compradores del Reino Unido generalmente necesitan obtener una Confirmación de Reciprocidad del Ministerio de Justicia croata, confirmando que el Reino Unido otorga derechos equivalentes a los nacionales croatas. Se trata de un requisito procedimental y no de un obstáculo sustantivo, y es gestionado de forma rutinaria por los abogados inmobiliarios croatas como parte del proceso estándar de compraventa para compradores internacionales.</p>
-            <p>Una vez satisfecho este requisito, los compradores del Reino Unido pueden adquirir casas en copropiedad en Croacia mediante el mismo proceso notarial que cualquier otro comprador, con el mismo registro en el libro de la propiedad (<em>Zemljišna knjiga</em>) y las mismas protecciones legales. No existen restricciones específicas para la copropiedad fraccionada para compradores del Reino Unido — la compra de una fracción de 1/8 en una casa croata se trata de forma idéntica a la compra de una casa completa en términos de proceso jurídico y administrativo.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Cuántos días puedo usar mi casa en copropiedad en Croacia cada año?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Una fracción estándar de 1/8 en copropiedad en Croacia da derecho a cada copropietario a aproximadamente 45 días de uso personal al año — equivalente a seis o siete semanas. Esto se calcula dividiendo el año utilizable entre ocho copropietarios, con una asignación estándar para días de mantenimiento y cambios de turno. Las semanas concretas asignadas a cada copropietario se determinan mediante un sistema de rotación establecido en el acuerdo de copropiedad (<em>Ugovor o suvlasništvu</em>), garantizando que con el tiempo todos los copropietarios experimenten diferentes estaciones y diferentes momentos del año en la costa croata.</p>
-            <p>Las asignaciones se confirman habitualmente al inicio de cada año natural, permitiéndote planificar tus viajes a Croacia con suficiente antelación. Para los compradores del Reino Unido en particular, los aproximadamente 45 días de uso personal se alinean estrechamente con la regla de los 90 días del espacio Schengen para ciudadanos no comunitarios — haciendo de la copropiedad en Croacia una de las estructuras de propiedad más prácticas para los compradores británicos que quieren maximizar su tiempo anual en el Adriático.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Cómo se documenta formalmente mi fracción de copropiedad en Croacia?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Al adquirir una fracción de copropiedad en Croacia a través de Co-Ownership Property, tu interés queda formalmente documentado a través de una LLC croata estructurada jurídicamente. El contrato de compraventa es autenticado por un notario croata y la estructura societaria se inscribe ante las autoridades croatas competentes, creando un registro legalmente vinculante de tus derechos de copropiedad exigible bajo el derecho croata. Recibes documentación formal que confirma tu fracción, y el proceso es gestionado por profesionales jurídicos locales con licencia que garantizan plena transparencia en cada etapa.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Puedo vender mi fracción de copropiedad en Croacia?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Sí. Los derechos de reventa son una característica fundamental de la fracción escriturada de copropiedad en Croacia. Dado que tu fracción está inscrita en el libro de la propiedad croata (<em>Zemljišna knjiga</em>), no necesitas el permiso de un operador comercial para vender, no estás sujeto a un periodo de bloqueo, y no hay ningún programa de recompra por parte del operador del que tengas que depender para salir. Tu salida de la copropiedad en Croacia es, en principio, clara y gestionada profesionalmente — un contrato de compraventa autenticado notarialmente, una transferencia formal de titularidad y el pago de los impuestos aplicables.</p>
-            <p>En la práctica, la mayoría de los acuerdos de copropiedad en Croacia incluyen un derecho de tanteo (<em>pravo prvokupa</em>) para los copropietarios existentes — lo que significa que debes ofrecer primero tu fracción a los demás propietarios antes de listarlo en el mercado abierto. Si ningún copropietario ejercita el derecho de tanteo, eres libre de vender a cualquier tercero. El impuesto croata sobre las ganancias de capital (<em>porez na dohodak od kapitala</em>) puede aplicarse sobre cualquier plusvalía de la venta, y se recomienda asesoramiento fiscal especializado antes de cualquier operación de reventa.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Cuáles son los gastos recurrentes de la copropiedad en Croacia?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Los gastos recurrentes de la copropiedad en Croacia son proporcionales a tu participación y suelen incluir tu parte de la cuota anual de gestión, el seguro del inmueble, los costes de suministros (agua, electricidad, mantenimiento de zonas comunes) y cualquier coste de reparación o mantenimiento que surja durante el año. Para casas costeras e insulares, los gastos adicionales pueden incluir tasas de amarre, mantenimiento exterior de terrazas de piedra y gestión de infraestructuras estacionales. Todos estos costes se reparten equitativamente entre los copropietarios, convirtiéndolos en una fracción de los costes equivalentes para un propietario en exclusiva.</p>
-            <p>Los copropietarios deben tener en cuenta también sus obligaciones fiscales en Croacia: el impuesto croata sobre la renta puede aplicarse a los ingresos por alquiler de las semanas no utilizadas, y las obligaciones de ganancias de capital surgen en la venta. Croacia tiene convenios de doble imposición con el Reino Unido y la mayoría de los estados miembros de la UE, que generalmente evitan la doble tributación sobre los mismos ingresos o ganancias. Recomendamos encarecidamente asesoramiento fiscal independiente tanto en Croacia como en el país de residencia antes de adquirir una copropiedad en Croacia.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Quién gestiona la casa en copropiedad en Croacia cuando no estoy allí?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Cada casa en copropiedad en Croacia es gestionada por una empresa de gestión profesional en nombre de todos los copropietarios. La empresa de gestión es responsable de la casa durante todo el año: coordina el mantenimiento y las reparaciones, limpia y prepara la casa antes de cada estancia, gestiona los seguros, administra las facturas de suministros y los gastos de comunidad, gestiona los requisitos de licencia o normativos, y administra el sistema de programación de uso. Para casas insulares y costeras en la Dalmacia croata, la gestión estacional — incluyendo la gestión del pico de temporada estival y el mantenimiento fuera de temporada — es especialmente importante, y una empresa de gestión bien elegida marca la diferencia entre una inversión en copropiedad que aporta auténtica tranquilidad y una que genera fricciones administrativas.</p>
-            <p>Los costes de gestión se reparten equitativamente entre todos los copropietarios y quedan claramente establecidos en el acuerdo de copropiedad. Los copropietarios tienen colectivamente derechos de gobernanza sobre la empresa de gestión — una mayoría puede votar para sustituir al proveedor de gestión si el rendimiento es insatisfactorio — lo que proporciona un mecanismo de responsabilidad significativo.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Puedo obtener ingresos por alquiler de mis semanas en copropiedad en Croacia?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>En algunos casos sí — pero siempre somos transparentes en que los ingresos por alquiler de la copropiedad en Croacia no están garantizados y no deben tratarse como la principal motivación financiera para la compra. Que el alquiler de semanas no utilizadas esté permitido depende de los términos específicos del acuerdo de copropiedad y de los requisitos de licencia croata aplicables al alquiler residencial de corta duración. Croacia introdujo un sistema integral de licencias de alquiler de corta duración (<em>kategorizacija</em>) que exige a las casas utilizadas para alquiler turístico obtener una licencia formal de la autoridad turística competente — un proceso que varía según el municipio y el tipo de casa.</p>
-            <p>La costa adriática croata es uno de los mercados de alquiler de corta duración más activos de Europa, y las casas con licencia en buenas ubicaciones pueden generar ingresos de alquiler significativos durante la temporada estival. Sin embargo, nunca comercializamos la copropiedad en Croacia sobre la base de rendimientos proyectados por alquiler — la propuesta de valor principal es la titularidad de copropiedad, el uso personal de una casa costera excepcional y la participación a largo plazo en el mercado croata.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Qué ocurre con mi fracción de copropiedad en Croacia cuando fallezco?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Dado que la copropiedad en Croacia es un derecho de propiedad escriturado inscrito en el libro de la propiedad croata (<em>Zemljišna knjiga</em>), es plenamente heredable. Tus beneficiarios heredan un interés inmobiliario real — no un derecho contractual — y pueden optar por mantener la fracción como copropietarios a su nombre, venderla mediante un proceso notarial, u ofrecerla a los copropietarios existentes. La ley sucesoria croata (<em>Zakon o nasljeđivanju</em>) aplica a los inmuebles situados en Croacia independientemente de la nacionalidad del difunto.</p>
-            <p>Para los ciudadanos de la UE, el Reglamento europeo de sucesiones 650/2012 permite elegir que la ley sucesoria del país de origen se aplique a toda la herencia, incluida la casa croata. Para los nacionales del Reino Unido tras el Brexit, este reglamento ya no aplica, y se recomienda encarecidamente asesoramiento jurídico especializado sobre la interacción entre el derecho sucesorio croata y el del Reino Unido — incluyendo el impuesto de sucesiones en ambas jurisdicciones — antes de la compra.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Qué tipos de casas están disponibles para la copropiedad en Croacia?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>La copropiedad en Croacia abarca una gama amplia y genuinamente distintiva de tipos de casas, que refleja el variado litoral del país y su patrimonio arquitectónico único. El formato más característico es la casa de piedra dálmata tradicional (<em>kamena kuća</em>) — un edificio de construcción en caliza local, a menudo con siglos de historia, situado en los centros históricos de los pueblos insulares dálmatas o en laderas en terrazas sobre el Adriático. Estas casas combinan un excepcional carácter arquitectónico con interiores contemporáneos — muros de piedra vista, suelos de terracota o caliza, terrazas sombreadas con vistas al mar y la frescura particular de los gruesos muros de piedra en el calor estival.</p>
-            <p>Más allá de la casa de piedra tradicional, la copropiedad en Croacia también incluye villas contemporáneas con piscinas infinitas y vistas al mar en la Costa Dálmata, apartamentos dentro de las ciudades históticas amuralladas de Split, Dubrovnik y Hvar, casas de campo istrianas en colinas convertidas en casas vacacionales de alta especificación, y casas costeras en la Riviera de Makarska y la península de Pelješac. La gama de tipos de casas en copropiedad en Croacia es tan variada como el propio litoral.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Cómo se compara la copropiedad en Croacia con el alquiler de una villa vacacional en Croacia?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>La comparación entre la copropiedad en Croacia y el alquiler vacacional es una que todo comprador potencial debe considerar con honestidad. El alquiler de villas de primera calidad en las islas dálmatas y la zona de Dubrovnik durante julio y agosto — el pico de la temporada adriática — es genuinamente caro, con casas de calidad alcanzando miles de euros por semana. Las mejores casas se reservan con muchos meses o incluso años de antelación, y la disponibilidad para reservas espontáneas es muy limitada. A lo largo de una década de visitas regulares a ese nivel de alojamiento, el coste acumulado del alquiler es muy sustancial — sin ninguno de los valores residuales de la propiedad.</p>
-            <p>La copropiedad en Croacia, por el contrario, ofrece el mismo acceso — o mejor — por una inversión de capital que sigue siendo tuya como activo transmisible y heredable, participando en el mercado inmobiliario croata. Más allá de la comparación financiera, hay una dimensión cualitativa que los propietarios describen sistemáticamente como decisiva: la diferencia entre estar en algún sitio y tener un sitio. Una villa en alquiler siempre es la casa de otra persona; una fracción de copropiedad en Croacia es genuina e irrevocablemente tuya — una base en el Adriático a la que regresas cada año con la familiaridad y la continuidad que solo da la propiedad. A diferencia de la multipropiedad tradicional, que te encierra en una sola semana fija en un solo complejo, la copropiedad en Croacia se adapta a cómo cambia tu vida a lo largo de los años.</p>
-          </div>
-        </details>
-
-        <details class="dest-faq-item">
-          <summary><h3>¿Cómo empiezo con la copropiedad en Croacia?</h3><div class="dest-faq-chevron"></div></summary>
-          <div class="dest-faq-answer">
-            <p>Empezar con la copropiedad en Croacia es sencillo. El primer paso es explorar las casas disponibles en esta página, filtrando por región, tipo de casa y preferencias de estilo de vida para identificar las que mejor se ajustan a tus necesidades y tu visión de la base adriática ideal. Una vez identificada una o varias casas de interés, organiza una consulta con nuestro equipo de Co-Ownership Property — actuamos como agencia del comprador, lo que significa que nuestro papel es ayudarte a encontrar y asegurar la casa correcta, no venderte una en concreto.</p>
-            <p>Antes de comprometerte con cualquier compra en copropiedad en Croacia, recomendamos encarecidamente encargar a un abogado inmobiliario croata independiente que revise el <em>Ugovor o suvlasništvu</em>, el libro de la propiedad y todos los documentos pertinentes. También deberías obtener asesoramiento fiscal independiente tanto en Croacia como en tu país de residencia para entender la posición fiscal completa antes de firmar. Utiliza el formulario de contacto a continuación para iniciar tu camino hacia la copropiedad en Croacia.</p>
-          </div>
-        </details>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- §G — CLOSING / FREE TO BROWSE -->
-  <section class="dest-sec white"><div class="dest-inner">
-
-    <h2>Explora la copropiedad en Croacia — sin compromiso</h2>
-
-    <p>La copropiedad en Croacia, realizada correctamente, es una de las vías más gratificantes y jurídicamente seguras hacia una vida costera mediterránea disponibles para los compradores internacionales hoy. A diferencia de la multipropiedad tradicional, que te encierra en una sola semana fija en un solo complejo, una fracción en copropiedad en Croacia se adapta a cómo cambia tu vida a lo largo de 20 años: vacaciones escolares cuando los niños son pequeños, escapadas de pareja cuando crecen, estancias adriáticas más largas cuando la jubilación lo permite.</p>
-
-    <p>La exploración es completamente gratuita. Sin cuotas de registro, sin compromiso, sin presión. Nuestro equipo ha acompañado a compradores desde la primera consulta hasta la inscripción registral en casas de Croacia y de otros destinos de la red COP, y estará encantado de guiarte a través de las diferencias regionales — la Dalmacia de las islas frente a Split, frente a Dubrovnik, frente a Istria — antes de que te comprometas con ninguna zona.</p>
-
-    <div class="dest-callout">
-      <strong>Explora gratis, consulta gratis.</strong> Usar COP es gratuito para los compradores — sin tarifas, sin coste de registro, sin compromiso. Habla con nuestros especialistas sobre qué región de Croacia encaja mejor con tu forma de usar la casa, o explora los anuncios y apúntate a las actualizaciones para recibir alertas cuando salgan nuevas casas al mercado.
-    </div>
-
-    <p>¿Te interesan otros destinos del Mediterráneo? Los compradores que también valoran <a href="/italy-fractional-ownership-properties/">Italia</a>, <a href="/portugal-fractional-ownership-properties/">Portugal</a> o la <a href="/spain-fractional-ownership-properties/">costa española</a> encontrarán que la combinación croata de calidad natural y valor relativo presenta un argumento convincente en cualquier comparación directa. El mar, la arquitectura, la gastronomía y el marco jurídico de Croacia la hacen única — y la copropiedad la hace accesible.</p>
-
-  </div></section>
-
-  <!-- NEWSLETTER -->
-  <section class="newsletter-section" id="newsletter">
-    <h2 class="newsletter-heading">Sé el Primero en Saber</h2>
-    <p class="newsletter-subtitle">Únete a nuestra comunidad para recibir anuncios exclusivos y noticias de destinos directamente en tu bandeja de entrada.</p>
-    <form class="newsletter-form" id="cop-newsletter-form" novalidate>
-      <input type="email" name="email" placeholder="Introduce tu dirección de correo" required>
-      <button type="submit" class="newsletter-btn">Suscribirse</button>
-    </form>
-    <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
-  </section>
-
-  <!-- SPEAK TO AN EXPERT -->
-  <section class="expert-section" id="speak-to-expert">
-    <div class="expert-inner">
-      <p class="expert-eyebrow">Ponte en Contacto</p>
-      <h2 class="expert-heading">Habla con un <em>experto</em></h2>
-      <p class="expert-sub">Cuéntanos qué buscas y uno de nuestros especialistas en copropiedad se pondrá en contacto contigo en 24 horas.</p>
-
-      <form class="expert-form" id="expert-enquiry-form" novalidate>
-        <input type="hidden" name="nonce" value="9e3a8b0450">
-        <div class="expert-form-grid">
-          <div class="expert-form-field">
-            <label for="ef-name">Nombre <span>*</span></label>
-            <input type="text" id="ef-name" name="name" placeholder="Tu nombre" required>
-          </div>
-          <div class="expert-form-field">
-            <label for="ef-email">Correo Electrónico <span>*</span></label>
-            <input type="email" id="ef-email" name="email" placeholder="tu@email.com" required>
-          </div>
-          <div class="expert-form-field">
-            <label for="ef-phone">Teléfono <span>*</span></label>
-            <input type="tel" id="ef-phone" name="phone" placeholder="+34 600 000 000" required>
-          </div>
-          <div class="expert-form-field">
-            <label>Destinos</label>
-            <div class="dest-multiselect" id="dest-multiselect">
-              <div class="dest-trigger" id="dest-trigger">
-                <span class="dest-placeholder">Selecciona destinos</span>
-              </div>
-              <div class="dest-dropdown" id="dest-dropdown">
-                <div class="dest-option" data-value="France">
-                  <span class="dest-check"></span>
-                  &#127467;&#127479; Francia
-                </div>
-                <div class="dest-option" data-value="Spain">
-                  <span class="dest-check"></span>
-                  &#127466;&#127480; España
-                </div>
-                <div class="dest-option" data-value="Italy">
-                  <span class="dest-check"></span>
-                  &#127470;&#127481; Italia
-                </div>
-                <div class="dest-option" data-value="USA">
-                  <span class="dest-check"></span>
-                  &#127482;&#127480; EE. UU.
-                </div>
-                <div class="dest-option" data-value="Portugal">
-                  <span class="dest-check"></span>
-                  &#127477;&#127481; Portugal
-                </div>
-                <div class="dest-option" data-value="Austria">
-                  <span class="dest-check"></span>
-                  &#127462;&#127481; Austria
-                </div>
-                <div class="dest-option" data-value="England">
-                  <span class="dest-check"></span>
-                  &#127988;&#917607;&#917602;&#917605;&#917623;&#917607;&#917602;&#917605;&#917623; Inglaterra
-                </div>
-                <div class="dest-option" data-value="Sweden">
-                  <span class="dest-check"></span>
-                  &#127480;&#127466; Suecia
-                </div>
-                <div class="dest-option" data-value="Germany">
-                  <span class="dest-check"></span>
-                  &#127465;&#127466; Alemania
-                </div>
-                <div class="dest-option" data-value="Croatia">
-                  <span class="dest-check"></span>
-                  &#127469;&#127479; Croacia
-                </div>
-                <div class="dest-option" data-value="Mexico">
-                  <span class="dest-check"></span>
-                  &#127474;&#127485; México
-                </div>
-              </div>
-            </div>
-            <input type="hidden" name="destination" id="ef-destination">
-          </div>
-          <div class="expert-form-field">
-            <label for="ef-budget">Presupuesto</label>
-            <select id="ef-budget" name="budget">
-              <option value="" disabled selected>Selecciona un presupuesto</option>
-              <option>Menos de 100.000 €</option>
-              <option>100.000 € – 200.000 €</option>
-              <option>200.000 € – 350.000 €</option>
-              <option>350.000 € – 500.000 €</option>
-              <option>500.000 € – 750.000 €</option>
-              <option>750.000 € – 1.000.000 €</option>
-              <option>Más de 1.000.000 €</option>
-            </select>
-          </div>
-          <div class="expert-form-field">
-            <label for="ef-message">Mensaje</label>
-            <textarea id="ef-message" name="message" placeholder="Cuéntanos más sobre lo que buscas (opcional)"></textarea>
-          </div>
-        </div>
-        <div class="expert-submit">
-          <button type="submit" class="expert-submit-btn">Enviar Consulta</button>
-          <p class="expert-form-msg" id="expert-form-msg"></p>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-col">
-        <div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div>
-        <p class="footer-tagline">Copropiedad de lujo para el propietario inteligente de segunda casa.</p>
-      </div>
-      <div class="footer-col"><h3>Casas</h3><ul>
-        <li><a href="/our-homes/">Todas las casas</a></li>
-        <li><a href="/spain-fractional-ownership-properties/">España</a></li>
-        <li><a href="/france-fractional-ownership-properties/">Francia</a></li>
-        <li><a href="/italy-fractional-ownership-properties/">Italia</a></li>
-        <li><a href="/usa-fractional-ownership-properties/">EE. UU.</a></li>
-      </ul></div>
-      <div class="footer-col"><h3>Destinos</h3><ul>
-        <li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li>
-        <li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li>
-        <li><a href="/california-fractional-ownership-properties/">California</a></li>
-        <li><a href="/french-alps-fractional-ownership-properties/">Alpes Franceses</a></li>
-        <li><a href="/lake-como-fractional-ownership-properties/">Lago de Como</a></li>
-      </ul></div>
-      <div class="footer-col"><h3>Empresa</h3><ul>
-        <li><a href="/about-us/">Quiénes Somos</a></li>
-        <li><a href="/all-our-blog/">Blog</a></li>
-        <li><a href="/how-it-works/">Cómo Funciona</a></li>
-        <li><a href="/contact-us/">Contacto</a></li>
-      </ul></div>
-      <div class="footer-col"><h3>Ayuda</h3><ul>
-        <li><a href="/contact-us/">Ponte en Contacto</a></li>
-        <li><a href="/how-it-works/#faq">Preguntas Frecuentes</a></li>
-        <li><a href="/how-it-works/">Cómo Funciona</a></li>
-        <li><a href="/our-homes/">Ver Casas</a></li>
-      </ul></div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copyright">&copy; 2026 Co-Ownership Property. Todos los derechos reservados.</p>
-      <div class="footer-legal">
-        <a href="/">Política de Privacidad</a>
-        <a href="/">Términos de Servicio</a>
-        <a href="/">Legal</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    /* ── Shared header JS ── */
-(function () {
-    var header = document.getElementById('cop-header');
-    var btn    = document.getElementById('cop-hamburger');
-    var nav    = document.getElementById('cop-nav');
-    if (!header || !btn || !nav) return;
-    btn.addEventListener('click', function () {
-        nav.classList.toggle('active');
-        btn.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-            nav.classList.remove('active');
-            btn.classList.remove('open');
-        });
-    });
-}());
-
-    /* ── Newsletter form ── */
-(function() {
-    var form = document.getElementById('cop-newsletter-form');
-    if (!form) return;
-    var msg = document.getElementById('newsletter-form-msg');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var emailInput = form.querySelector('input[type="email"]');
-        var btn = form.querySelector('.newsletter-btn');
-        if (!emailInput.value) return;
-        btn.disabled = true;
-        btn.textContent = 'Suscribiendo…';
-        msg.className = 'newsletter-form-msg';
-        msg.textContent = '';
-        var data = new FormData();
-        data.append('action', 'cop_newsletter_subscribe');
-        data.append('email', emailInput.value);
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'newsletter-form-msg success';
-                msg.textContent = res.data || '¡Gracias por suscribirte!';
-                form.reset();
-                btn.textContent = '¡Suscrito!';
-            } else {
-                msg.className = 'newsletter-form-msg error';
-                msg.textContent = res.data || 'Algo salió mal. Por favor, inténtalo de nuevo.';
-                btn.disabled = false;
-                btn.textContent = 'Suscribirse';
-            }
-        })
-        .catch(function() {
-            msg.className = 'newsletter-form-msg error';
-            msg.textContent = 'Error de red. Por favor, inténtalo de nuevo.';
-            btn.disabled = false;
-            btn.textContent = 'Suscribirse';
-        });
-    });
-})();
-
-    /* ── Multi-select destination dropdown ── */
-(function() {
-    var wrap     = document.getElementById('dest-multiselect');
-    var trigger  = document.getElementById('dest-trigger');
-    var dropdown = document.getElementById('dest-dropdown');
-    var hidden   = document.getElementById('ef-destination');
-    if (!wrap || !trigger || !dropdown || !hidden) return;
-    var placeholder = trigger.querySelector('.dest-placeholder');
-    var selected = [];
-    function render() {
-        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-        if (selected.length === 0) {
-            placeholder.style.display = '';
-        } else {
-            placeholder.style.display = 'none';
-            selected.forEach(function(val) {
-                var tag = document.createElement('span');
-                tag.className = 'dest-tag';
-                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
-                trigger.insertBefore(tag, placeholder);
-            });
-        }
-        hidden.value = selected.join('; ');
-        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
-            if (selected.indexOf(opt.dataset.value) !== -1) {
-                opt.classList.add('selected');
-            } else {
-                opt.classList.remove('selected');
-            }
-        });
-    }
-    trigger.addEventListener('click', function(e) {
-        if (e.target.classList.contains('dest-tag-x')) {
-            var val = e.target.dataset.val;
-            selected = selected.filter(function(v) { return v !== val; });
-            render();
-            e.stopPropagation();
-            return;
-        }
-        wrap.classList.toggle('open');
-    });
-    dropdown.addEventListener('click', function(e) {
-        var opt = e.target.closest('.dest-option');
-        if (!opt) return;
-        var val = opt.dataset.value;
-        var idx = selected.indexOf(val);
-        if (idx === -1) {
-            selected.push(val);
-        } else {
-            selected.splice(idx, 1);
-        }
-        render();
-        e.stopPropagation();
-    });
-    document.addEventListener('click', function(e) {
-        if (!wrap.contains(e.target)) {
-            wrap.classList.remove('open');
-        }
-    });
-})();
-
-/* ── Expert enquiry form AJAX ── */
-(function() {
-    var form = document.getElementById('expert-enquiry-form');
-    if (!form) return;
-    var btn = form.querySelector('.expert-submit-btn');
-    var msg = document.getElementById('expert-form-msg');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.textContent = 'Enviando…';
-        msg.className = 'expert-form-msg';
-        msg.textContent = '';
-        var data = new FormData();
-        data.append('action', 'cop_expert_enquiry');
-        data.append('nonce',       form.querySelector('[name="nonce"]').value);
-        data.append('name',        form.querySelector('[name="name"]').value);
-        data.append('email',       form.querySelector('[name="email"]').value);
-        data.append('phone',       form.querySelector('[name="phone"]').value);
-        data.append('destination', form.querySelector('[name="destination"]').value);
-        data.append('budget',      form.querySelector('[name="budget"]').value);
-        data.append('message',     form.querySelector('[name="message"]').value);
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'expert-form-msg success';
-                msg.textContent = res.data || '¡Gracias! Nos pondremos en contacto contigo en 24 horas.';
-                form.reset();
-                btn.textContent = '¡Enviado!';
-                var wrap = document.getElementById('dest-multiselect');
-                if (wrap) {
-                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-                    var ph = wrap.querySelector('.dest-placeholder');
-                    if (ph) ph.style.display = '';
-                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
-                }
-            } else {
-                msg.className = 'expert-form-msg error';
-                msg.textContent = res.data || 'Algo salió mal. Por favor, inténtalo de nuevo.';
-                btn.disabled = false;
-                btn.textContent = 'Enviar Consulta';
-            }
-        })
-        .catch(function() {
-            msg.className = 'expert-form-msg error';
-            msg.textContent = 'Error de red. Por favor, inténtalo de nuevo.';
-            btn.disabled = false;
-            btn.textContent = 'Enviar Consulta';
-        });
-    });
-})();
-
-        var showMoreBtn = document.getElementById('dest-show-more');
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', function() {
-                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
-                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
-            });
-        }
-  </script>
+<p>El invierno adriático tiene un carácter distinto al del invierno de otras costas mediterráneas: fresco pero no frío en la costa, con máximas de 8 a 14 °C en el litoral dálmata de diciembre a febrero, y con una oferta cultural e histórica que convierte las ciudades medievales en destinos genuinamente atractivos fuera de la temporada de baño. <strong>Dubrovnik en invierno</strong> es, en cierta medida, la versión más auténtica de la ciudad: los grandes cruceros han cesado, las murallas pueden recorrerse sin esperar fila, el Stradun tiene una escala humana que agosto niega absolutamente. Los <strong>mercados navideños de Dubrovnik</strong>, que se celebran en diciembre en las plazas del Casco Antiguo, han ganado reconocimiento internacional por la calidad de sus artesanías y puestos de alimentos locales; la combinación de la arquitectura medieval iluminada y el ambiente de invierno mediterráneo los convierte en uno de los mercados navideños más fotogénicos de Europa del sur.</p>
+
+<p>En <strong>Rijeka</strong>, el <strong>Carnaval de Rijeka</strong> — el mayor del Adriático croata, celebrado en febrero — trae semanas de desfiles, carrozas y actuaciones callejeras que convierten la ciudad portuaria en el centro de la vida festiva de toda la región. Con más de 100.000 participantes en la parada principal, es el segundo carnaval más grande de Europa continental después del de Venecia; para los copropietarios en el área de Kvarner, es una razón de temporada sólida para usar las semanas de febrero. <strong>Istria en invierno</strong> es verde y templada — la península tiene el microclima más suave del litoral croata, con heladas raras en la costa — y los restaurantes de Rovinj y Poreč operan con plena capacidad durante todo el invierno, sirviendo a los residentes alemanes y austriacos que han mantenido su segunda casa en la región durante décadas. El <strong>Parque Nacional de Plitvice</strong> — a dos horas en coche del litoral dálmata — tiene en invierno, cuando los lagos y las cascadas se hielan parcialmente, uno de los paisajes más espectaculares de Europa central: el blanco del hielo sobre los azules y verdes de los caudales que no se han congelado del todo, rodeado por bosques de hayas con nieve. Es una visita de día que los copropietarios con casas en la Dalmacia central añaden regularmente al programa de sus semanas de enero y febrero. Para los copropietarios con casas en Istria, el invierno ofrece además la posibilidad de cruzar a Italia sin la densidad de tráfico estival: Venecia a tres horas en coche, Trieste a dos, Liubliana a hora y media — un arco de ciudades de primer orden que convierten las semanas de enero y febrero en las más culturalmente ricas del año para el copropietario con curiosidad urbana. Istria en invierno tiene también la mejor luz fotográfica del año: los días son cortos pero la luz horizontal de la tarde en las fachadas de piedra dorada de Rovinj o Poreč no se reproduce en ninguna otra estación. Todo ello apunta a la misma conclusión: el modelo de copropiedad en Croacia es más valioso de lo que parece a primera vista porque entrega una experiencia genuinamente distinta en cada una de las cuatro estaciones del año, y recompensa al copropietario que regresa con la frecuencia suficiente para conocer todas las caras del mismo mar.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Quién compra en Croacia, y por qué</h2>
+
+<p>El mix de compradores internacionales en la copropiedad croata refleja tanto la historia turística del país como su nueva posición como Estado miembro pleno de la UE, del espacio Schengen y de la eurozona. <strong>Los compradores alemanes</strong> son el grupo extranjero más numeroso en el mercado de segunda residencia croata — llevan décadas veraneando en el Adriático, conocen la costa con un nivel de familiaridad que pocos otros compradores internacionales igualan, y la adopción del euro en enero de 2023 eliminó el último obstáculo de divisas a la compra directa. <strong>Los compradores austriacos</strong> son la segunda cohorte en peso — la cercanía geográfica desde Viena a Istria o Kvarner es comparable a la distancia desde Londres a Mallorca — y el Golfo de Kvarner con su herencia habsburguesa tiene para muchos austriacos el valor sentimental de una segunda patria histórica. <strong>Los compradores británicos</strong> son una cohorte significativa y creciente, atraída por la relación calidad-precio del litoral croata frente a la Costa Azul o las Baleares; la estructura de copropiedad LLC, que no se ve afectada por la regla Schengen de 90 días de la misma manera que la propiedad directa, es una de las razones por las que el interés británico se mantiene sólido. Los compradores <strong>holandeses y escandinavos</strong> son una presencia seria y creciente, particularmente en Istria y la Dalmacia central.</p>
+
+<p>Más allá de Europa, el interés estadounidense y australiano en Croacia ha crecido notablemente en la última década — impulsado en parte por la visibilidad internacional de Dubrovnik como escenario de rodaje de producciones internacionales, en parte por el creciente número de rutas directas transatlánticas vía Madrid, Frankfurt y Ámsterdam que acortan el tiempo de viaje efectivo desde Nueva York o Sidney, y en parte por la percepción de que el litoral adriático croata ofrece un valor que sus equivalentes griegos e italianos ya no siempre pueden igualar. La adopción del euro en enero de 2023 también simplificó la operativa bancaria para los compradores no europeos: una sola moneda para todos los mercados COP en la eurozona significa que el copropietario con fracciones en Croacia, España e Italia gestiona la misma divisa en todos los destinos. Croacia figura regularmente entre los cinco destinos europeos más buscados por viajeros de larga distancia, y esa visibilidad se convierte gradualmente en demanda de compra. La adhesión a la UE, a Schengen y al euro ha resuelto las tres fricciones estructurales que históricamente complicaban la compra internacional; el mercado croata ha emergido como uno de los más accesibles y jurídicamente seguros del Mediterráneo no occidental.</p>
+
+<p>La copropiedad en Croacia suele encajar con un pequeño número de perfiles de comprador bien definidos:</p>
+
+<ul>
+  <li><strong>Veleros y apasionados del Adriático que quieren una base en las islas</strong> — compradores con experiencia marinera que buscan una base permanente desde la que zarpar hacia las calas desiertas de Vis, el archipiélago de Kornati o las Elaphiti, sin el coste de la propiedad exclusiva de una villa isleña.</li>
+  <li><strong>Familias activas que buscan el Mediterráneo más auténtico y menos masificado que España o Italia</strong> — compradores que conocen la Costa del Sol o las Baleares pero buscan algo con más profundidad cultural, menor densidad turística y una relación calidad-precio más favorable para el nivel de la casa.</li>
+  <li><strong>Compradores alemanes y austríacos que conocen bien Croacia desde hace décadas</strong> — una cohorte para quien la copropiedad no es un descubrimiento de destino sino la formalización de una relación con el Adriático que ya tiene décadas de historia familiar.</li>
+  <li><strong>Gourmets atraídos por la escena de trufas de Istria y los vinos de Pelješac</strong> — compradores que sitúan la gastronomía y el vino en el centro de su elección de destino y para quienes octubre en Istria o la vendimia en el Pelješac son eventos de calendario inamovibles.</li>
+  <li><strong>Compradores que buscan valor adriático antes de que los precios alcancen los niveles griegos o italianos</strong> — compradores con perspectiva de mercado que ven en Croacia la oportunidad de entrar en un litoral de calidad comparable a la Toscana costera o el Dodecaneso antes de que la convergencia de precios esté completada.</li>
+</ul>
+
+<p>Un patrón que merece la pena destacar es el <strong>comprador que combina una fracción croata con otra en España o en Italia</strong> — copropietarios que quieren la energía del Mediterráneo occidental en una fracción y la profundidad cultural e histórica del Adriático croata en otra. La combinación más común es una villa en Mallorca o la Costa del Sol para las semanas estivales de julio y agosto más una casa en la Dalmacia central o en Istria para las semanas de primavera y otoño — los dos mares en dos momentos del año en los que cada uno está en su mejor versión. El modelo fraccional hace esa estrategia de cartera financieramente posible: dos fracciones de 1/8 cuestan menos que una sola casa entera en cualquiera de los dos destinos, y la relación de gestión a través de la cartera está unificada dentro del mismo marco LLC.</p>
+
+<p>El <strong>perfil por edad y etapa vital</strong> de los compradores de copropiedad en Croacia tiene algunos matices específicos del destino que vale la pena nombrar. La cohorte más activa en la Dalmacia central es la <strong>franja de 40 a 55 años</strong> — parejas profesionales con o sin hijos, atraídas por la combinación de isla, navegación y gastronomía que Split y su archipiélago ofrecen, y para quienes la copropiedad soluciona el problema de la segunda casa sin el coste y la carga operativa de la propiedad exclusiva. En Dubrovnik, la cohorte dominante es la <strong>franja de 50 a 65 años</strong> — compradores que priorizan el prestigio de la dirección, el programa cultural de temporada y la calidad del patrimonio arquitectónico sobre la actividad física o la vida de playa intensa. En Istria, el perfil más frecuente es el <strong>comprador con orientación gastronómica y creativa</strong> — escritores, diseñadores, fotógrafos, arquitectos que buscan un entorno de trabajo extendido además de un destino vacacional, y para quienes la temporada de trufas de octubre o la luz de los viñedos de septiembre tienen el mismo peso en la decisión de compra que la calidad de la piscina o el número de dormitorios. Esa diversidad de perfiles dentro de un solo país es uno de los argumentos más sólidos de Croacia como mercado de copropiedad: hay una sub-región y un tipo de casa para cada patrón de uso, y el comprador que encuentra su combinación correcta suele repetir el modelo añadiendo una segunda fracción en el mismo país en un horizonte de cinco a diez años.</p>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Aspectos prácticos: cómo llegar, cuánto cuesta, qué posee</h2>
+
+<h3>Aeropuertos y acceso desde fuera de Croacia</h3>
+
+<p>Croacia está bien servida por una red de seis aeropuertos internacionales que cubren todas las sub-regiones del litoral: <strong>Dubrovnik (DBV)</strong> sirve la Dalmacia del sur con vuelos directos desde Londres, Ámsterdam, Fráncfort, Viena, Oslo y las principales capitales nórdicas; <strong>Split (SPU)</strong> es el hub más concurrido de la Dalmacia central, con vuelos directos desde más de 50 destinos europeos incluyendo múltiples aeropuertos del Reino Unido y Alemania; <strong>Zadar (ZAD)</strong> es el aeropuerto de las aerolíneas de bajo coste para la Dalmacia norte, con rutas de Ryanair y Wizz Air que hacen accesible la región a compradores con mayor sensibilidad al precio del vuelo; <strong>Pula (PUL)</strong> sirve el sur de Istria con vuelos directos desde Londres Stansted, Manchester, Fráncfort y varias ciudades austriacas; <strong>Zagreb (ZAG)</strong> es el hub principal de Croacia Airlines con conexiones a toda Europa; y <strong>Rijeka (RJK)</strong> sirve el área de Kvarner con conexiones directas desde Alemania y Europa central. Para los copropietarios en las islas, los ferries regulares de Jadrolinija conectan Split con Hvar, Brač, Vis y Šolta, y Zadar con las islas del norte, con frecuencias que permiten el acceso mismo en días laborables fuera de temporada alta.</p>
+
+<p>La adopción del euro en enero de 2023 eliminó el último elemento de fricción cambiaria para los compradores de la eurozona. Para los copropietarios procedentes del Reino Unido, el tipo euro-libra es estable y predecible; para los procedentes de Alemania, Austria, Países Bajos o los países escandinavos con euro, la operativa financiera de la casa es directa sin conversión de divisas. Los tiempos de vuelo desde los principales aeropuertos de origen son cortos: desde Londres Heathrow a Dubrovnik, dos horas y cuarenta minutos; desde Fráncfort a Split, una hora y cincuenta minutos; desde Múnich a Pula, una hora y veinte minutos; desde Ámsterdam a Zagreb, dos horas y diez minutos; desde Estocolmo a Dubrovnik, dos horas y cincuenta minutos. Dentro de Croacia, los ferries de la compañía Jadrolinija entre islas y el continente son frecuentes y fiables durante toda la temporada; en invierno la frecuencia es menor pero las rutas principales — Split-Hvar, Split-Brač, Zadar-Ugljan — mantienen el servicio diario durante todo el año. Para los copropietarios con casas en las islas, la combinación de un vuelo directo al aeropuerto más próximo y un ferry regular a la isla de destino convierte la logística de llegada en un proceso completamente predecible con prácticamente cualquier combinación de origen y destino.</p>
+
+<p>Los tiempos de desplazamiento en coche desde los aeropuertos a las principales sub-regiones son orientativos pero útiles para la planificación: desde el aeropuerto de Dubrovnik (DBV) al centro de la ciudad, 25 minutos; desde Split (SPU) al Palacio de Diocleciano, 30 minutos; desde Zadar (ZAD) a Šibenik, 45 minutos; desde Pula (PUL) a Rovinj, 40 minutos; desde Rijeka (RJK) a Opatija, 20 minutos. La red de autopistas croata — modernizada extensamente desde 2000 — conecta los aeropuertos con los destinos costeros con eficiencia; las carreteras de las islas son más estrechas y pintorescas, y en agosto requieren paciencia adicional en los puntos de mayor concentración. El alquiler de coche es la opción preferida de la mayoría de los copropietarios para la flexibilidad de movimiento dentro de la región; algunos que repiten con alta frecuencia mantienen un vehículo en la isla de destino gestionado por el equipo de property management.</p>
+
+<h3>Casa entera frente a fracción de 1/8: la comparación que importa</h3>
+
+<p>El argumento a favor de una estructura fraccional se ve con más claridad en la comparación directa frente tanto a la propiedad exclusiva como al alquiler de temporada — las tres formas en que la mayoría de los compradores plantea realmente tener un patrón de segunda casa en Croacia.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Casa al 100 %</th>
+      <th>Fracción 1/8 con COP</th>
+      <th>Alquiler de temporada</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Inversión inicial</td>
+      <td data-col="Casa al 100 %">Valor total de la casa</td>
+      <td data-col="Fracción 1/8 con COP">~1/8 del valor de la casa</td>
+      <td data-col="Alquiler de temporada">Solo el pago de la reserva</td>
+    </tr>
+    <tr>
+      <td>Patrimonio en el activo</td>
+      <td data-col="Casa al 100 %">Plusvalía total</td>
+      <td data-col="Fracción 1/8 con COP">~1/8 de la plusvalía</td>
+      <td data-col="Alquiler de temporada">Ninguno</td>
+    </tr>
+    <tr>
+      <td>Gastos anuales</td>
+      <td data-col="Casa al 100 %">Impuestos, seguros, gestión y mantenimiento al completo</td>
+      <td data-col="Fracción 1/8 con COP">~1/8 de los gastos, gestión integral incluida</td>
+      <td data-col="Alquiler de temporada">Coste de alquiler íntegro cada año, indefinidamente</td>
+    </tr>
+    <tr>
+      <td>Uso personal</td>
+      <td data-col="Casa al 100 %">Hasta 52 semanas (la mayoría usa entre 4 y 8)</td>
+      <td data-col="Fracción 1/8 con COP">~45 días, programados profesionalmente</td>
+      <td data-col="Alquiler de temporada">Solo las semanas contratadas</td>
+    </tr>
+    <tr>
+      <td>Carga operativa</td>
+      <td data-col="Casa al 100 %">Gestionado por el propietario o personal contratado</td>
+      <td data-col="Fracción 1/8 con COP">Totalmente incluida</td>
+      <td data-col="Alquiler de temporada">Gestionado por el arrendador</td>
+    </tr>
+    <tr>
+      <td>Tiempo para vender o salir</td>
+      <td data-col="Casa al 100 %">6-12 meses en el mercado libre croata</td>
+      <td data-col="Fracción 1/8 con COP">Alrededor de un mes de media</td>
+      <td data-col="Alquiler de temporada">No aplica — sin activo</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>La línea que más compradores encuentran reveladora es la de los <strong>gastos anuales</strong>. Poseer una villa croata frente al mar en exclusiva significa cargar con los impuestos completos, el seguro completo y la gestión completa — cada año, tanto si se pasan tres semanas allí como diez. Para una villa de gama alta en el área de Dubrovnik o en una cala de las islas dálmatas, los gastos anuales de mantenimiento, gestión y tributación pueden fácilmente superar los 20.000 a 40.000 euros al año, independientemente del uso real. Una fracción de 1/8 carga aproximadamente 1/8 de ese total, totalmente gestionada, con toda la carga operativa eliminada por completo. La otra línea que merece atención es el <strong>tiempo de reventa</strong>: vender una villa croata en el mercado libre lleva típicamente entre 6 y 12 meses; la reventa de una fracción COP a través del proceso de reventa asistida cierra habitualmente en alrededor de un mes.</p>
+
+<h3>Qué incluye la cuota anual de servicios</h3>
+
+<p>El gasto anual de una fracción croata de 1/8 es, por definición, aproximadamente 1/8 del gasto de la casa entera equivalente. Para una casa de calidad en el litoral croata, esto se traduce en una cifra todo incluido que cubre: el <em>porez na nekretnine</em> (impuesto croata sobre bienes inmuebles), el seguro del continente y contenido, la retención de gestión inmobiliaria profesional cubriendo personal, programación y relación con el copropietario, limpieza y lencería entre cada estancia, mantenimiento de jardín y piscina, reparaciones menores bajo un umbral definido, facturas de suministros (electricidad, agua, internet) y una aportación al fondo de reserva para grandes obras de capital. Lo que normalmente <strong>no está incluido</strong>: las grandes mejoras de capital que se deciden en la junta anual de la LLC; los servicios personales adicionales (chef privado, patrón de barco, chófer para traslados no estándar); y los daños causados directamente por el uso del copropietario. La cuota anual es un presupuesto operativo integral que cubre la casa en estado activo todo el año — no un coste de funcionamiento que el copropietario deba gestionar personalmente. La diferencia práctica con la propiedad exclusiva a distancia es sustancial: el propietario exclusivo de una villa croata que vive en Londres o Fráncfort dedica un tiempo considerable a gestionar proveedores, verificar presupuestos de reparación, coordinar el seguro y pagar facturas; el copropietario COP hace ninguna de esas cosas porque todo está dentro del perímetro de la gestión integral. Esa simplificación operativa tiene un valor real que no aparece en ninguna línea de la tabla comparativa pero que los copropietarios con experiencia mencionan de forma consistente como uno de los beneficios más valorados del modelo de copropiedad frente a la propiedad directa en un país extranjero.</p>
+
+<h3>Qué posee realmente — la fracción jurídica</h3>
+
+<p>Toda casa croata de COP se constituye en una <strong>LLC creada específicamente para este fin</strong> — el mismo vehículo internacional moderno utilizado a lo largo de los destinos COP — en la que usted y un pequeño grupo de hasta siete copropietarios más tienen participaciones iguales. La casa croata subyacente la posee la sociedad, con el título inscrito en el <em>Zemljišna knjiga</em> (libro de la propiedad) del municipio correspondiente; su participación se inscribe en el libro registro de la sociedad, con la transmisión efectuándose en la reventa o herencia a través de un proceso administrativo más directo que la transmisión de título requerida para bienes inmuebles croatas directos. Lo que usted tiene es una participación patrimonial real, registrada y transmisible — no una multipropiedad, no una afiliación de puntos, no un derecho de uso que expira. Su fracción se revaloriza proporcionalmente con el valor total de la casa: si una villa prime en el área de Dubrovnik sube un 7 % en un año, su fracción de 1/8 gana exactamente ese mismo 7 %, independientemente de si pagó 180.000 euros o 1,4 millones de euros por el activo. En lugar de inmovilizar el capital total en una sola segunda casa visitada seis semanas al año, el modelo fraccional despliega una octava parte por un uso comparable y una revalorización porcentual idéntica — liberando capital para otras inversiones, otras fracciones en otros destinos COP, o simplemente manteniendo el patrimonio más líquido y diversificado.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Cómo funciona la copropiedad en Croacia</h2>
+
+<p>La mecánica de la copropiedad en Croacia se enmarca en tres elementos que funcionan en conjunto: la <strong>estructura LLC creada específicamente para este fin</strong> que constituye cada casa en COP, el <strong>régimen fiscal inmobiliario croata</strong> que aplica a todas las residencias secundarias, y el sistema del <em>Zemljišna knjiga</em> que se encarga del registro de la casa subyacente. Croacia es miembro pleno de la Unión Europea desde 2013, del espacio Schengen desde enero de 2023 y de la eurozona desde ese mismo mes — lo que significa que el marco jurídico, fiscal y de libre circulación es el europeo estándar. Entender cómo encajan estas tres piezas es la diferencia entre una experiencia de copropiedad clara y previsible y una en la que el comprador se siente inseguro en cada paso del proceso.</p>
+
+<h3>Cómo la estructura LLC funciona en Croacia</h3>
+
+<p>La LLC que constituye cada casa croata de COP es una sociedad creada específicamente para este fin, diseñada para la copropiedad internacional. Tiene un administrador designado bajo los documentos de gobierno de la sociedad, un libro registro de socios que recoge quién tiene qué participación y en qué proporción, y una junta general anual en la que se toman las decisiones a nivel de copropietario (grandes obras de capital, presupuesto, revisión del gestor). El mismo marco LLC se utiliza a lo largo de todos los destinos de COP — lo que significa que un copropietario que añade una segunda casa en otro país no está aprendiendo una nueva estructura cada vez, sino extendiendo una que ya comprende y en la que ya confía.</p>
+
+<p>Para un comprador fraccional en Croacia, el efecto práctico es que se convierte en un miembro inscrito de la LLC que es titular de la casa, ostentando una de ocho participaciones iguales. La casa en sí sigue siendo croata — inscrita en el <em>Zemljišna knjiga</em> a nombre de la LLC, que es el titular legal de pleno derecho — y usted, a su vez, es un titular legal de la LLC. Esta estructura en dos pasos es lo que da a la copropiedad croata en COP su formato internacional único y coherente en cada mercado que COP cubre, un tratamiento sucesorio transfronterizo más limpio que la propiedad compartida escriturada directamente, y una vía de reventa más rápida: una transferencia de participación en LLC es una acción administrativa más directa que activar una transmisión completa de título ante un notario croata.</p>
+
+<h3>Fiscalidad croata: impuestos, tasas y lo que gestiona la LLC</h3>
+
+<p>Croacia opera un marco fiscal inmobiliario relativamente sencillo para propietarios no residentes, y casi todo el cumplimiento rutinario se gestiona a través de la LLC y de su asesor fiscal croata designado en lugar de por el copropietario individual. El <strong><em>porez na promet nekretnina</em></strong> — el impuesto croata sobre la transmisión de bienes inmuebles — se aplica a la compra inicial a un tipo del <strong>3 %</strong> sobre el valor de la transacción; es el principal impuesto de adquisición y se paga en el momento del cierre. El <em>porez na dohodak</em> (impuesto sobre la renta) puede aplicar sobre los ingresos de alquiler generados en semanas no utilizadas por el copropietario, gestionado a través de la LLC con el asesor fiscal local. El impuesto anual sobre bienes inmuebles croata es bajo en comparación con otros países mediterráneos y es gestionado íntegramente por la LLC dentro de la cuota anual de servicios, de modo que los copropietarios individuales no tratan directamente con la oficina fiscal local.</p>
+
+<p>Uno de los aspectos fiscales más atractivos de Croacia para compradores a largo plazo es la <strong>exención de plusvalías</strong>: las ganancias de capital en la venta de bienes inmuebles croatas están exentas del <em>porez na dohodak</em> (impuesto sobre la renta) cuando el vendedor ha sido titular durante más de dos años. Para copropietarios que mantienen su fracción durante el horizonte de uso habitual — cinco, diez, quince años — esta exención significa que la revalorización acumulada del activo puede materializarse en la reventa sin retención fiscal croata en origen. Comparado con otros mercados europeos — Francia aplica el 19 % sobre las plusvalías de no residentes durante los primeros veintidós años de tenencia, España aplica el 19 % para no residentes en todo momento — el tratamiento croata es uno de los más favorables para el inversor internacional del Mediterráneo. Croacia tiene convenios de doble imposición con el Reino Unido, Alemania, Austria, Países Bajos y la mayoría de los países de la eurozona, que previenen la tributación duplicada sobre los mismos ingresos o plusvalías. Recomendamos que cualquier comprador internacional revise su posición específica con su propio asesor fiscal antes de la compra; el tratamiento fiscal preciso depende siempre de la jurisdicción de residencia del comprador y del convenio bilateral pertinente.</p>
+
+<h3>Sucesión croata: el derecho hereditario y la LLC</h3>
+
+<p>Los bienes inmuebles croatas directamente poseídos están sujetos al <em>Zakon o nasljeđivanju</em> — la Ley de Sucesiones croata —, que reconoce el derecho de herencia forzosa (<em>nužni dio</em>) a favor de los hijos, el cónyuge y, en determinados casos, los padres del causante. Este sistema de legítima limita la libertad testamentaria del propietario sobre una proporción del patrimonio inmobiliario croata, de forma similar a la réserve héréditaire francesa o la legítima española. Sin embargo, como Croacia es Estado miembro de la Unión Europea, se aplica el <strong>Reglamento Europeo de Sucesiones 650/2012</strong>, que permite a los residentes en la UE elegir el derecho sucesorio de su país de origen para la totalidad de su sucesión, incluida la parte croata. Para los copropietarios procedentes del Reino Unido — que ya no se benefician del Reglamento desde Brexit — se recomienda asesoramiento jurídico específico sobre la interacción del derecho sucesorio croata y el derecho de su país de residencia.</p>
+
+<p>Las participaciones en una LLC se tratan habitualmente como bienes muebles en lugar de inmuebles bajo la mayoría de las interpretaciones bilaterales, lo que puede otorgarles un tratamiento sucesorio más limpio que la propiedad inmobiliaria directa. Este punto es específico de cada jurisdicción y requiere asesoramiento fiscal personal, pero la estructura LLC aporta en general más flexibilidad en la cuestión sucesoria que la propiedad directa, no menos. Mantener un testamento actualizado que aborde explícitamente la participación en la LLC croata es fuertemente recomendado.</p>
+
+<h3>El modelo de gestión profesional y cómo funciona el calendario</h3>
+
+<p>Una vez completada la compra, una sociedad de gestión profesional asume toda la responsabilidad operativa por la casa croata. Las semanas personales — aproximadamente 45 días para una fracción de 1/8 — se asignan a través de un <strong>calendario de rotación equitativo</strong> que mezcla semanas pico (julio y agosto en el litoral dálmata, Semana Santa en Hvar para la Dalmacia central, la temporada de trufas de octubre en Istria, el Carnaval de febrero para Kvarner) con semanas de hombro y más tranquilas a lo largo del año. El sistema de rotación está diseñado para garantizar que, a lo largo de un ciclo plurianual, cada copropietario reciba una asignación comparable de semanas pico y de hombro — de modo que ningún copropietario tenga sistemáticamente las mejores semanas y otro las peores. Los copropietarios confirman sus asignaciones con varios meses de antelación; las semanas no utilizadas se gestionan según los términos del acuerdo de copropiedad. La recaudación de cuotas, el mantenimiento del edificio, los seguros, los impuestos, la limpieza y lencería entre estancias, la preparación previa a la llegada, la bienvenida del primer día y la conserjería de guardia durante la estancia están a cargo íntegramente de la sociedad de gestión. Llegar a una casa croata en copropiedad se siente como entrar en un hotel boutique privado y perfectamente familiar — no como abrir una casa que ha estado vacía y desatendida durante meses. Esa experiencia de llegada — la casa provisionada, la piscina limpia, la terraza preparada, el número del gestor local en el teléfono — es el resultado de un sistema de gestión operativa que funciona exactamente igual en cada casa de la cartera COP en cualquier país.</p>
+
+<h3>Reventa: cómo salir, plazos típicos, el proceso asistido</h3>
+
+<p>La reventa de una fracción COP en Croacia sigue el proceso de reventa asistida estándar de la red COP, que cierra habitualmente en <strong>alrededor de un mes</strong> — muy por debajo de los 6 a 12 meses típicos del mercado libre croata para la venta de una casa completa. La diferencia de tiempo no es accidental: la reventa fraccional conecta directamente con el pool de compradores que ya conoce la casa, la estructura LLC y el marco de gestión, y la transferencia de una participación en LLC es mecánicamente más directa que una transmisión notarial completa de título inmobiliario. Los costes de mantenimiento de una villa croata frente al mar durante una venta lenta en el mercado libre — seguros, impuestos, gestión, reparaciones pendientes — pueden acumularse hasta representar una fracción significativa del precio de venta antes del cierre, haciendo que el diferencial de tiempo entre la reventa asistida y el mercado libre tenga un valor financiero real y no solo una conveniencia logística. Desde el momento en que el copropietario notifica su intención de venta hasta el cierre de la transacción, el proceso está gestionado por el equipo COP: identificación de compradores cualificados dentro de la red, presentación de la documentación de la LLC, gestión de la due diligence del comprador, coordinación de la transferencia formal de la participación. El copropietario saliente no tiene que encontrar el comprador, no tiene que negociar el precio, no tiene que gestionar la documentación — solo confirmar la transacción. Los copropietarios que prefieren explorar también el mercado abierto pueden hacerlo, sujeto a los derechos de tanteo de los copropietarios existentes establecidos en el acuerdo de copropiedad, que es el procedimiento estándar en cualquier estructura de copropiedad bien gobernada.</p>
+
+<h3>Tu propiedad de un vistazo</h3>
+<ul>
+  <li><strong>Patrimonio escriturado real a tu nombre</strong> — tu fracción de 1/8 está inscrita en el libro de la propiedad croata (Zemljišna knjiga), es transferible, heredable y se revaloriza con la casa subyacente. No es multipropiedad, no es una afiliación de puntos, no es un derecho de uso.</li>
+  <li><strong>Estructura internacional coherente</strong> — tu fracción en Croacia forma parte del mismo marco LLC creado específicamente para todas las casas de COP en el mundo.</li>
+  <li><strong>Gestión integral</strong> — el equipo de gestión profesional se encarga de los impuestos locales, seguros, mantenimiento, planificación, lencería y conserjería. Llegas, la casa está lista.</li>
+  <li><strong>Reventa asistida</strong> — el proceso de reventa asistida suele cerrar en alrededor de un mes o menos, muy por debajo de los 6–12 meses del mercado libre croata.</li>
+  <li><strong>Diseñado para carteras internacionales</strong> — el modelo LLC convierte la propiedad de varias casas COP en una sola relación consolidada.</li>
+</ul>
+
+<div class="dest-callout">
+  <strong>Explora gratis, consulta gratis.</strong> Usar COP es gratuito para los compradores — sin tarifas, sin coste de registro, sin compromiso. Habla con nuestros especialistas sobre qué región de Croacia encaja mejor con tu forma de usar la casa.
+</div>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>¿Aún decidiendo qué región de Croacia?</h2>
+
+<p><strong>Dubrovnik y la Dalmacia del sur</strong> son la elección correcta cuando el comprador busca la dirección adriática de mayor reconocimiento internacional, quiere la profundidad cultural de una de las ciudades medievales mejor conservadas del mundo, y valora el acceso a las islas Elaphiti y los vinos del Pelješac como componente central de su semana tipo. El precio de entrada fraccional en Dubrovnik es el más alto del litoral croata y refleja una prima de escasez real: la zona tiene unas de las restricciones urbanísticas más estrictas de Croacia, el perfil internacional de la ciudad sigue en ascenso, y la demanda de casas de calidad en el área supera con consistencia la oferta disponible. El Festival de Verano, las murallas peatonales, los ferries a las Elaphiti y los viñedos del Pelješac a una hora en coche componen un programa de destino que ninguna semana adriática puede igualar en densidad cultural. Para el comprador que quiere el Adriático en su versión más internacionalmente reconocida, Dubrovnik es la referencia indiscutible.</p>
+
+<p>Si el patrón de uso se orienta más hacia la vida isleña activa, la navegación, el island-hopping y una energía más dinámica — con mejor relación precio-calidad que la zona de Dubrovnik — <strong>Split, Hvar y Brač</strong> son la elección más natural. Split como base urbana ofrece el acceso más rápido al mayor número de islas: Hvar en una hora de ferry rápido, Brač en cuarenta y cinco minutos, Vis en dos horas; la ciudad tiene una vida gastronómica y cultural propia que funciona todo el año más allá de la temporada estival. Los copropietarios con velero o con patrón de uso centrado en las semanas de junio a septiembre encontrarán en la Dalmacia central la combinación más completa de isla, costa, ciudad y acceso marítimo de todo el litoral croata. Las procesiones de Semana Santa en Hvar en abril y la energía de los puertos en julio añaden dos momentos de calendario de temporada muy definidos que los copropietarios de la Dalmacia central protegen activamente en su rotación anual. Para los compradores que comparan con otros destinos mediterráneos como las Baleares o las islas griegas, la Dalmacia central ofrece una calidad comparable con menor masificación y un precio de fracción más competitivo.</p>
+
+<p>Si la gastronomía, el patrimonio veneciano e italiano, el uso anual en lugar de puramente estival y un entorno de menor escala turística son los criterios centrales, <strong>Istria</strong> es la elección que sorprende a quienes la descubren. La península tiene el microclima más suave del litoral croata, funciona genuinamente como destino todo el año — la temporada de trufa blanca de octubre es un acontecimiento de calendario que los copropietarios programan activamente —, y la herencia arquitectónica veneciana de ciudades como Rovinj y Poreč tiene una atmósfera que no existe en ningún otro lugar del Adriático. La cercanía a Italia y Austria hace de Istria la opción más conveniente en términos de acceso terrestre para compradores de Europa central, y la escala íntima de la costa istriana ofrece una experiencia adriática más serena que la gran Dalmacia en agosto. Para los compradores que quieren continuar explorando, nuestra <a href="#newsletter">lista de actualizaciones</a> incluye análisis por región y alertas de nuevas casas a medida que están disponibles.</p>
+
+<p>Hay un perfil de comprador que se debate con frecuencia entre Dubrovnik y Split: el que quiere la historia y el Mediterráneo de lujo pero también las islas activas y la navegación. Para ese perfil, la respuesta honesta es que <strong>la Dalmacia central tiene más diversidad de uso por semana</strong> — puedes empezar en el Palacio de Diocleciano en Split el lunes, estar en Hvar el miércoles y en una cala desierta de Vis el viernes, todo dentro de la misma semana de uso personal — mientras que Dubrovnik tiene un nivel de profundidad cultural y una densidad de experiencias de alta calidad concentradas dentro de las murallas que la Dalmacia central sencillamente no puede igualar. Ninguno de los dos es incorrecto; son perfiles de uso distintos para compradores con prioridades distintas. El copropietario que valora el island-hopping activo y la navegación casi siempre elige la Dalmacia central; el que valora el patrimonio urbano monumental y la gastronomía de las bodegas del Pelješac casi siempre elige Dubrovnik. Si la decisión sigue abierta después de esa pregunta, el equipo de COP puede ayudar a mapear el patrón de uso específico de cada comprador frente a las casas disponibles en ambas sub-regiones.</p>
+
+<p>Sea cual sea la dirección que tome la decisión, la exploración más detallada empieza aquí:</p>
+<ul>
+  <li><a href="/es/propiedades/?destino=dubrovnik">Explorar casas en Dubrovnik y la Dalmacia sur →</a></li>
+  <li><a href="/es/propiedades/?destino=split">Explorar casas en Split, Hvar y la Dalmacia central →</a></li>
+  <li><a href="/es/propiedades/?destino=istria">Explorar casas en Istria →</a></li>
+</ul>
+
+<p>Si quieres hablar de <strong>qué región encaja mejor con el patrón de uso real de tu familia</strong> — no con la versión de folleto — <a href="#newsletter">únete a nuestra lista</a> y el equipo se pondrá en contacto con alertas de nuevas casas relevantes y una presentación directa con los especialistas de destino de COP. Usar COP es completamente gratuito para los compradores: sin tarifas de registro, sin honorarios de asesoramiento, sin compromiso de ningún tipo hasta que decidas avanzar hacia la compra. Nuestra función es ayudarte a encontrar la casa correcta en la región correcta en el momento correcto — no vender una casa específica a cualquier precio.</p>
+
+</div></section>
+
 </body>
 </html>
