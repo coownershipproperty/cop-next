@@ -19,6 +19,10 @@ const nextConfig = {
       { protocol: 'https', hostname: 'a.storyblok.com' },
       // Blog hero images from Unsplash
       { protocol: 'https', hostname: 'images.unsplash.com' },
+      // Paris Property Group property photos (one-off partner: Rue Malher
+      // fractional listing). Long-term we'd mirror these to Supabase Storage;
+      // for a single listing the direct CDN reference is fine.
+      { protocol: 'https', hostname: 'media.agentaprd.com' },
     ],
   },
 };
