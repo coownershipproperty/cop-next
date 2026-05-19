@@ -42,6 +42,7 @@ export default async function handler(req, res) {
     .eq('status', 'Live')
     .order('date_added', { ascending: false, nullsFirst: false })
     .order('created_at', { ascending: false, nullsFirst: false })
+    .order('slug', { ascending: true })
     .limit(max);
 
   if (q && q.trim()) {

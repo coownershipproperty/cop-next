@@ -23,6 +23,7 @@ export default async function handler(req, res) {
     .gte('date_added', since)
     .order('date_added', { ascending: false })
     .order('created_at', { ascending: false, nullsFirst: false })
+    .order('slug', { ascending: true })
     .limit(12);
 
   if (error) return res.status(500).json({ error: error.message });
