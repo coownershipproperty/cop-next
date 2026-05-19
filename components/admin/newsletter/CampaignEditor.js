@@ -140,7 +140,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
     try {
       const r = await authedFetch('/api/admin/ui/newsletter-properties-search', {
         method: 'POST',
-        body: JSON.stringify({ q, limit: 24 }),
+        body: JSON.stringify({ q, limit: 500 }),
       })
       const j = await r.json()
       setPropResults(j.properties || [])

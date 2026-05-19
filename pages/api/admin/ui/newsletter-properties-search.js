@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   const { db } = ctx;
 
   const { q, partner, country, slugs, limit } = req.body || {};
-  const max = Math.min(Number(limit) || 20, 100);
+  const max = Math.min(Number(limit) || 20, 1000);
 
   const cols = 'slug, title, region, city, country, beds, price, currency, img, partner, date_added, status';
 
