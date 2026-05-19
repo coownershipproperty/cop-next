@@ -126,7 +126,7 @@ export default function PropertyEdit() {
         setPhotos(data.photos || [])
         setForm({
           title: data.title || '',
-          status: data.status || 'for_sale',
+          status: data.status || 'Live',
           price: data.price || 0,
           currency: data.currency || 'EUR',
           beds: data.beds || 0,
@@ -432,7 +432,7 @@ export default function PropertyEdit() {
               <Grid cols={2}>
                 <Field l="Status">
                   <select style={input} value={form.status} onChange={e => set('status', e.target.value)}>
-                    <option value="for_sale">For sale</option>
+                    <option value="Live">Live</option>
                     <option value="sold">Sold</option>
                     <option value="hidden">Hidden</option>
                   </select>

@@ -4,7 +4,7 @@ import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 
 const STATUS = {
-  for_sale: { label: 'For sale', bg: '#ecfdf5', color: '#065f46', border: '#a7f3d0' },
+  Live: { label: 'Live', bg: '#ecfdf5', color: '#065f46', border: '#a7f3d0' },
   sold: { label: 'Sold', bg: '#f3f4f6', color: '#6b7280', border: '#d1d5db' },
   hidden: { label: 'Hidden', bg: '#fffbeb', color: '#92400e', border: '#fcd34d' },
 }
@@ -122,7 +122,7 @@ export default function AdminIndex() {
           style={inputStyle}
         >
           <option value="">All statuses</option>
-          <option value="for_sale">For sale</option>
+          <option value="Live">Live</option>
           <option value="sold">Sold</option>
           <option value="hidden">Hidden</option>
         </select>
@@ -169,7 +169,7 @@ export default function AdminIndex() {
           gap: 16,
         }}>
           {filtered.map(p => {
-            const st = STATUS[p.status] || STATUS.for_sale
+            const st = STATUS[p.status] || STATUS.Live
             return (
               <Link
                 key={p.slug}
