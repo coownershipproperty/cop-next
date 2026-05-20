@@ -5,6 +5,8 @@
  * Read-only Google Search Console audit.
  *
  * Auth:
+ *   - OAuth desktop client at ~/.config/gsc/search-console-oauth-client.json
+ *     plus token at ~/.config/gsc/search-console-oauth-token.json
  *   - GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
  *   - or GSC_CREDENTIALS_JSON='{"type":"service_account",...}'
  *   - or GSC_CREDENTIALS_JSON=/path/to/service-account.json
@@ -16,11 +18,15 @@
  */
 
 const fs = require('fs');
+const http = require('http');
 const path = require('path');
+const { spawn } = require('child_process');
 const { google } = require('googleapis');
 
 const WEBMASTERS_SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly';
 const DEFAULT_OUT_DIR = path.join(process.env.HOME || process.cwd(), '.codex', 'seo-audits', 'gsc');
+const DEFAULT_OAUTH_CLIENT_FILE = path.join(process.env.HOME || '', '.config', 'gsc', 'search-console-oauth-client.json');
+const DEFAULT_OAUTH_TOKEN_FILE = path.join(process.env.HOME || '', '.config', 'gsc', 'search-console-oauth-token.json');
 const DEFAULT_CREDENTIAL_FILES = [
   path.join(process.env.HOME || '', '.config', 'gsc', 'search-console-service-account.json'),
   path.join(process.env.HOME || '', '.config', 'gsc', 'gsc-service-account.json'),
@@ -47,11 +53,14 @@ Required:
   --origin   Public site origin used for sitemap sampling, e.g. https://domosno.com
 
 Options:
+  --auth               Run one-time OAuth authorization and save refresh token.
   --list-sites         List Search Console properties visible to the credentials.
   --days=28             Search Analytics lookback window.
   --inspect-limit=25    Maximum URL Inspection API calls.
   --urls=a,b,c          Extra URLs to inspect.
   --urls-file=file      File containing one URL per line.
+  --client-file=file    OAuth client JSON path. Defaults to ~/.config/gsc/search-console-oauth-client.json.
+  --token-file=file     OAuth token JSON path. Defaults to ~/.config/gsc/search-console-oauth-token.json.
   --out-dir=dir         Audit output directory. Defaults to ~/.codex/seo-audits/gsc.
   --no-write            Print report only; do not write JSON/Markdown files.
 `;
@@ -78,6 +87,134 @@ function slugFromSite(siteUrl) {
     .toLowerCase();
 }
 
+function readJsonFile(file) {
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
+function ensurePrivateDir(file) {
+  fs.mkdirSync(path.dirname(file), { recursive: true, mode: 0o700 });
+  try { fs.chmodSync(path.dirname(file), 0o700); } catch (_) {}
+}
+
+function readOAuthClientConfig(file = DEFAULT_OAUTH_CLIENT_FILE) {
+  if (!fs.existsSync(file)) {
+    throw new Error(
+      `Missing OAuth client JSON at ${file}. Create a Desktop OAuth client in Google Cloud and save the downloaded JSON there.`
+    );
+  }
+
+  const json = readJsonFile(file);
+  const config = json.installed || json.web || json;
+  if (!config.client_id || !config.client_secret) {
+    throw new Error(`OAuth client JSON at ${file} does not contain client_id and client_secret.`);
+  }
+
+  return {
+    clientId: config.client_id,
+    clientSecret: config.client_secret,
+  };
+}
+
+function makeOAuthClient({ clientFile = DEFAULT_OAUTH_CLIENT_FILE, redirectUri = 'http://127.0.0.1' } = {}) {
+  const { clientId, clientSecret } = readOAuthClientConfig(clientFile);
+  return new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+}
+
+function openUrl(url) {
+  const opener = process.platform === 'darwin'
+    ? 'open'
+    : process.platform === 'win32'
+      ? 'cmd'
+      : 'xdg-open';
+  const args = process.platform === 'win32' ? ['/c', 'start', '', url] : [url];
+
+  try {
+    const child = spawn(opener, args, { detached: true, stdio: 'ignore' });
+    child.unref();
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+function waitForOAuthCode(server) {
+  return new Promise((resolve, reject) => {
+    server.on('request', (req, res) => {
+      const url = new URL(req.url, `http://${req.headers.host}`);
+      if (url.pathname !== '/oauth2callback') {
+        res.writeHead(404);
+        res.end('Not found');
+        return;
+      }
+
+      const error = url.searchParams.get('error');
+      const code = url.searchParams.get('code');
+      if (error) {
+        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        res.end(`Authorization failed: ${error}`);
+        reject(new Error(`OAuth authorization failed: ${error}`));
+        return;
+      }
+      if (!code) {
+        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        res.end('Missing authorization code.');
+        reject(new Error('OAuth callback did not include an authorization code.'));
+        return;
+      }
+
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.end('Search Console authorization complete. You can close this tab and return to Codex.');
+      resolve(code);
+    });
+  });
+}
+
+async function runOAuthAuth(args) {
+  const clientFile = args['client-file'] || DEFAULT_OAUTH_CLIENT_FILE;
+  const tokenFile = args['token-file'] || DEFAULT_OAUTH_TOKEN_FILE;
+  const loginHint = args.account || 'info@domosno.com';
+
+  const server = http.createServer();
+  await new Promise((resolve, reject) => server.listen(0, '127.0.0.1', err => err ? reject(err) : resolve()));
+  const { port } = server.address();
+  const redirectUri = `http://127.0.0.1:${port}/oauth2callback`;
+  const oauth2Client = makeOAuthClient({ clientFile, redirectUri });
+  const authUrl = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    prompt: 'consent',
+    scope: [WEBMASTERS_SCOPE],
+    login_hint: loginHint,
+    include_granted_scopes: true,
+  });
+
+  console.log(`Opening Google OAuth in your browser for ${loginHint}...`);
+  console.log(`If the browser does not open, visit:\n${authUrl}\n`);
+  openUrl(authUrl);
+
+  try {
+    const code = await waitForOAuthCode(server);
+    const { tokens } = await oauth2Client.getToken(code);
+    if (!tokens.refresh_token) {
+      throw new Error('Google did not return a refresh_token. Re-run with --auth; prompt=consent is already enabled.');
+    }
+    ensurePrivateDir(tokenFile);
+    fs.writeFileSync(tokenFile, JSON.stringify(tokens, null, 2), { mode: 0o600 });
+    try { fs.chmodSync(tokenFile, 0o600); } catch (_) {}
+    console.log(`OAuth token saved to ${tokenFile}`);
+  } finally {
+    server.close();
+  }
+}
+
+function readOAuthTokenFile(file = DEFAULT_OAUTH_TOKEN_FILE) {
+  if (!fs.existsSync(file)) return null;
+  const tokens = readJsonFile(file);
+  if (!tokens.refresh_token && !tokens.access_token) {
+    throw new Error(`OAuth token file at ${file} does not contain a refresh_token or access_token.`);
+  }
+  return tokens;
+}
+
 function readCredentials() {
   const raw = process.env.GSC_CREDENTIALS_JSON || process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
   if (raw) {
@@ -95,11 +232,21 @@ function readCredentials() {
   if (defaultCreds) return { keyFile: defaultCreds };
 
   throw new Error(
-    `Missing Search Console API credentials. Set GOOGLE_APPLICATION_CREDENTIALS, set GSC_CREDENTIALS_JSON, or save the service-account JSON to ${DEFAULT_CREDENTIAL_FILES[0]}.`
+    `Missing Search Console API credentials. Preferred setup: save a Desktop OAuth client JSON to ${DEFAULT_OAUTH_CLIENT_FILE}, then run "node scripts/gsc-audit.js --auth". Fallback setup: set GOOGLE_APPLICATION_CREDENTIALS/GSC_CREDENTIALS_JSON or save a service-account JSON to ${DEFAULT_CREDENTIAL_FILES[0]}.`
   );
 }
 
 async function authedClient() {
+  const oauthClientFile = process.env.GSC_OAUTH_CLIENT_FILE || DEFAULT_OAUTH_CLIENT_FILE;
+  const oauthTokenFile = process.env.GSC_OAUTH_TOKEN_FILE || DEFAULT_OAUTH_TOKEN_FILE;
+  const oauthTokens = readOAuthTokenFile(oauthTokenFile);
+
+  if (oauthTokens) {
+    const oauth2Client = makeOAuthClient({ clientFile: oauthClientFile });
+    oauth2Client.setCredentials(oauthTokens);
+    return oauth2Client;
+  }
+
   const auth = new google.auth.GoogleAuth({
     ...readCredentials(),
     scopes: [WEBMASTERS_SCOPE],
@@ -287,6 +434,11 @@ function renderReport(result) {
 async function main() {
   const args = parseArgs(process.argv);
   if (args.help) usage(0);
+
+  if (args.auth) {
+    await runOAuthAuth(args);
+    return;
+  }
 
   if (args['list-sites']) {
     const client = await authedClient();
