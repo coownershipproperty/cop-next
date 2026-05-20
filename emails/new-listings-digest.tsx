@@ -66,8 +66,6 @@ export default function NewListingsDigest({
             .prop-title { font-size: 20px !important; line-height: 1.35 !important; }
             .main-heading { font-size: 30px !important; line-height: 1.25 !important; }
             .card-inner { padding: 20px 18px 22px !important; }
-            .view-btn-full { display: none !important; }
-            .view-btn-short { display: inline !important; }
           }
         `}</style>
       </Head>
@@ -124,10 +122,7 @@ export default function NewListingsDigest({
                           <Text style={cardPriceLabel}>per share</Text>
                         </td>
                         <td style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
-                          <Link href={`${base}/property/${p.slug}`} style={viewBtn}>
-                            <span className="view-btn-full">View Property →</span>
-                            <span className="view-btn-short" style={{ display: 'none' }}>View →</span>
-                          </Link>
+                          <Link href={`${base}/property/${p.slug}`} style={viewBtn}>View →</Link>
                         </td>
                       </tr></tbody>
                     </table>
@@ -198,7 +193,7 @@ const cardTitle: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Geor
 const cardBeds: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 12, color: C.navy60, letterSpacing: '0.1em', textTransform: 'uppercase' as const, margin: 0 };
 const cardPrice: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 24, fontWeight: 500, color: C.navy, margin: '0 0 2px', lineHeight: '1' };
 const cardPriceLabel: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, color: C.navy60, letterSpacing: '0.1em', textTransform: 'uppercase' as const, margin: 0 };
-const viewBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', border: `1px solid ${C.navy}`, padding: '10px 18px', display: 'inline-block' };
+const viewBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', border: `1px solid ${C.navy}`, padding: '10px 18px', display: 'inline-block', whiteSpace: 'nowrap' as const };
 const ctaBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", backgroundColor: C.navy, color: C.white, fontSize: 11, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase' as const, padding: '16px 48px', textDecoration: 'none', display: 'inline-block' };
 const signOffBody: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 14, color: '#4A6070', lineHeight: '1.9', margin: '0 0 28px' };
 const goldRule: React.CSSProperties = { borderColor: C.gold, borderTopWidth: 1, width: 28, margin: '0 0 18px' };
