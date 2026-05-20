@@ -15,9 +15,9 @@ function getSupabase() {
 export async function getServerSideProps({ params, query }) {
   const raw = params.token; // could be a base64 token OR a pretty slug
   let name = null, email = null, slug = null, title = null;
-  // Locale comes in via ?lang=es / ?lang=fr — preserved from the original email link
+  // Locale comes in via ?lang=es / ?lang=fr / ?lang=de — preserved from the original email link
   const langParam = typeof query.lang === 'string' ? query.lang : null;
-  const locale = ['en', 'es', 'fr'].includes(langParam) ? langParam : 'en';
+  const locale = ['en', 'es', 'fr', 'de'].includes(langParam) ? langParam : 'en';
 
   // ── Try legacy base64url / base64 token ──────────────────────────────────
   let decoded = null;
@@ -74,7 +74,122 @@ export async function getServerSideProps({ params, query }) {
   };
 }
 
+// Locale-aware UI strings for the gallery page. Mirrors the locale that the
+// recipient was emailed in (en / es / fr / de) so the form, eyebrow, labels,
+// counter and success state all match the property page's language.
+const COPY = {
+  en: {
+    eyebrow: 'Private Enquiry',
+    title_l1: 'I want to find', title_l2: 'out more',
+    sub: "Leave your details and we'll be in touch.",
+    mobile_heading: 'I want to know more',
+    name: 'Name', email: 'Email',
+    phone: 'Phone number', message: 'Message', optional: '(optional)',
+    msg_placeholder: (title) => `I'd love to find out more about ${title}…`,
+    submit: "I'm Interested — Get In Touch",
+    sending: 'Sending…',
+    note: "No obligation · We'll be in touch soon",
+    err_phone: 'Please enter your phone number.',
+    err_generic: 'Something went wrong — please try again.',
+    success_title: "Thank you — we'll be in touch",
+    success_body: (first) =>
+      first ? `${first}, your enquiry has been received. We'll be in touch shortly.`
+            : "Your enquiry has been received. We'll be in touch shortly.",
+    view_listing: 'View the full listing →',
+    extra_label: 'Additional Photos',
+    doc_label: 'Floor Plan & Documents',
+    enquiry_counter: 'ENQUIRY',
+    per_share: ' per share',
+    interested_btn: "I'm Interested",
+    prev_aria: 'Previous', next_aria: 'Next',
+    slide_aria: (n) => `Go to slide ${n}`,
+    private_gallery: 'Private Gallery',
+  },
+  es: {
+    eyebrow: 'Consulta privada',
+    title_l1: 'Quiero saber', title_l2: 'más',
+    sub: 'Déjanos tus datos y nos pondremos en contacto contigo.',
+    mobile_heading: 'Quiero saber más',
+    name: 'Nombre', email: 'Correo electrónico',
+    phone: 'Número de teléfono', message: 'Mensaje', optional: '(opcional)',
+    msg_placeholder: (title) => `Me gustaría saber más sobre ${title}…`,
+    submit: 'Me interesa — Contactar',
+    sending: 'Enviando…',
+    note: 'Sin compromiso · Te contactaremos pronto',
+    err_phone: 'Por favor, introduce tu número de teléfono.',
+    err_generic: 'Algo salió mal — por favor, inténtalo de nuevo.',
+    success_title: 'Gracias — te contactaremos',
+    success_body: (first) =>
+      first ? `${first}, hemos recibido tu consulta. Nos pondremos en contacto contigo en breve.`
+            : 'Hemos recibido tu consulta. Nos pondremos en contacto contigo en breve.',
+    view_listing: 'Ver la ficha completa →',
+    extra_label: 'Fotos adicionales',
+    doc_label: 'Plano y documentos',
+    enquiry_counter: 'CONSULTA',
+    per_share: ' por participación',
+    interested_btn: 'Me interesa',
+    prev_aria: 'Anterior', next_aria: 'Siguiente',
+    slide_aria: (n) => `Ir a la diapositiva ${n}`,
+    private_gallery: 'Galería privada',
+  },
+  fr: {
+    eyebrow: 'Demande privée',
+    title_l1: "J'aimerais en", title_l2: 'savoir plus',
+    sub: 'Laissez-nous vos coordonnées et nous reviendrons vers vous.',
+    mobile_heading: "J'aimerais en savoir plus",
+    name: 'Nom', email: 'Email',
+    phone: 'Numéro de téléphone', message: 'Message', optional: '(optionnel)',
+    msg_placeholder: (title) => `J'aimerais en savoir plus sur ${title}…`,
+    submit: 'Je suis intéressé(e) — Me contacter',
+    sending: 'Envoi…',
+    note: 'Sans engagement · Nous reviendrons vers vous très bientôt',
+    err_phone: 'Veuillez saisir votre numéro de téléphone.',
+    err_generic: 'Une erreur est survenue — veuillez réessayer.',
+    success_title: 'Merci — nous reviendrons vers vous',
+    success_body: (first) =>
+      first ? `${first}, votre demande a bien été reçue. Nous reviendrons vers vous très prochainement.`
+            : 'Votre demande a bien été reçue. Nous reviendrons vers vous très prochainement.',
+    view_listing: "Voir l'annonce complète →",
+    extra_label: 'Photos supplémentaires',
+    doc_label: 'Plans et documents',
+    enquiry_counter: 'DEMANDE',
+    per_share: ' par part',
+    interested_btn: 'Je suis intéressé(e)',
+    prev_aria: 'Précédent', next_aria: 'Suivant',
+    slide_aria: (n) => `Aller à la diapositive ${n}`,
+    private_gallery: 'Galerie privée',
+  },
+  de: {
+    eyebrow: 'Persönliche Anfrage',
+    title_l1: 'Ich möchte mehr', title_l2: 'erfahren',
+    sub: 'Hinterlassen Sie Ihre Kontaktdaten und wir melden uns bei Ihnen.',
+    mobile_heading: 'Ich möchte mehr erfahren',
+    name: 'Name', email: 'E-Mail',
+    phone: 'Telefonnummer', message: 'Nachricht', optional: '(optional)',
+    msg_placeholder: (title) => `Ich würde gerne mehr über ${title} erfahren…`,
+    submit: 'Ich bin interessiert — Kontakt aufnehmen',
+    sending: 'Wird gesendet…',
+    note: 'Unverbindlich · Wir melden uns in Kürze',
+    err_phone: 'Bitte geben Sie Ihre Telefonnummer ein.',
+    err_generic: 'Etwas ist schiefgelaufen — bitte versuchen Sie es erneut.',
+    success_title: 'Vielen Dank — wir melden uns bei Ihnen',
+    success_body: (first) =>
+      first ? `${first}, wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen.`
+            : 'Wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen.',
+    view_listing: 'Vollständige Anzeige ansehen →',
+    extra_label: 'Weitere Fotos',
+    doc_label: 'Grundriss & Unterlagen',
+    enquiry_counter: 'ANFRAGE',
+    per_share: ' pro Anteil',
+    interested_btn: 'Ich bin interessiert',
+    prev_aria: 'Zurück', next_aria: 'Weiter',
+    slide_aria: (n) => `Zu Folie ${n}`,
+    private_gallery: 'Private Galerie',
+  },
+};
+
 export default function GalleryPage({ name, email, property, locale = 'en' }) {
+  const t = COPY[locale] || COPY.en;
   const rawImages = Array.isArray(property.images) ? property.images : [];
 
   // When photos is empty we fall back to images (MYNE properties).
@@ -167,7 +282,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const honeypot = e.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
-    if (!formState.phone.trim()) { setError('Please enter your phone number.'); return; }
+    if (!formState.phone.trim()) { setError(t.err_phone); return; }
     setSubmitting(true); setError('');
     try {
       const res = await fetch('/api/gallery-enquiry', {
@@ -193,9 +308,9 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
           slug: property.slug,
         });
       }
-      else setError('Something went wrong — please try again.');
+      else setError(t.err_generic);
     } catch {
-      setError('Something went wrong — please try again.');
+      setError(t.err_generic);
     } finally {
       setSubmitting(false);
     }
@@ -211,12 +326,18 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
   return (
     <>
       <Head>
-        <title>{property.title} — Private Gallery | Co-Ownership Property</title>
+        <title>{property.title} — {t.private_gallery} | Co-Ownership Property</title>
         <meta name="robots" content="noindex, nofollow" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+        {/* Set <html lang="..."> so screen readers + browser translators pick up the right language */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.lang = ${JSON.stringify(locale)};`
+          }}
+        />
       </Head>
 
       <div
@@ -255,11 +376,11 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
               {isPhoto && <div style={s.gradient} />}
               {/* extra photos label */}
               {isExtr && (
-                <div style={s.extraLabel}>Additional Photos</div>
+                <div style={s.extraLabel}>{t.extra_label}</div>
               )}
               {/* document label */}
               {isDoc && (
-                <div style={s.docLabel}>Floor Plan &amp; Documents</div>
+                <div style={s.docLabel}>{t.doc_label}</div>
               )}
             </div>
           );
@@ -277,24 +398,24 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
           <div style={s.enquiryInner} className="gallery-enquiry-inner">
             {!submitted ? (
               <>
-                <p style={s.eEyebrow} className="gallery-e-eyebrow">Private Enquiry</p>
+                <p style={s.eEyebrow} className="gallery-e-eyebrow">{t.eyebrow}</p>
                 <h2 style={s.eTitle} className="e-title">
-                  <em>I want to find<br />out more</em>
+                  <em>{t.title_l1}<br />{t.title_l2}</em>
                 </h2>
                 <p style={s.eProperty} className="gallery-e-property">{property.title}</p>
                 <div style={s.eRule} className="gallery-e-rule" />
                 <p style={s.eSub} className="gallery-e-sub">
-                  Leave your details and we'll be in touch.
+                  {t.sub}
                 </p>
 
                 {/* Mobile-only compact heading */}
-                <p className="gallery-mobile-heading" style={{ display: 'none' }}>I want to know more</p>
+                <p className="gallery-mobile-heading" style={{ display: 'none' }}>{t.mobile_heading}</p>
 
                 <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 420 }}>
                   <HoneypotField />
                   <div className="gallery-form-row" style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
                     <div style={{ flex: 1 }}>
-                      <label style={s.fieldLabel}>Name</label>
+                      <label style={s.fieldLabel}>{t.name}</label>
                       <input
                         type="text"
                         value={formState.name}
@@ -303,7 +424,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
                       />
                     </div>
                     <div style={{ flex: 1 }}>
-                      <label style={s.fieldLabel}>Email</label>
+                      <label style={s.fieldLabel}>{t.email}</label>
                       <input
                         type="email"
                         value={formState.email}
@@ -314,7 +435,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
                   </div>
                   <div style={s.fieldWrap}>
                     <label style={s.fieldLabel}>
-                      Phone number <span style={{ color: '#C9A84C' }}>*</span>
+                      {t.phone} <span style={{ color: '#C9A84C' }}>*</span>
                     </label>
                     <input
                       type="tel"
@@ -327,32 +448,32 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
                   </div>
                   <div className="gallery-msg-wrap" style={s.fieldWrap}>
                     <label style={s.fieldLabel}>
-                      Message <span style={{ color: 'rgba(255,255,255,0.25)', fontWeight: 300 }}>(optional)</span>
+                      {t.message} <span style={{ color: 'rgba(255,255,255,0.25)', fontWeight: 300 }}>{t.optional}</span>
                     </label>
                     <textarea
                       value={formState.message}
                       onChange={e => setFormState(p => ({ ...p, message: e.target.value }))}
-                      placeholder={`I'd love to find out more about ${property.title}…`}
+                      placeholder={t.msg_placeholder(property.title)}
                       style={{ ...s.input, height: 90, resize: 'none' }}
                       rows={3}
                     />
                   </div>
                   {error && <p style={s.errorMsg}>{error}</p>}
                   <button type="submit" style={s.submitBtn} disabled={submitting}>
-                    {submitting ? 'Sending…' : "I'm Interested — Get In Touch"}
+                    {submitting ? t.sending : t.submit}
                   </button>
-                  <p style={s.formNote} className="gallery-form-note">No obligation · We'll be in touch soon</p>
+                  <p style={s.formNote} className="gallery-form-note">{t.note}</p>
                 </form>
               </>
             ) : (
               <div style={{ textAlign: 'center', maxWidth: 480 }}>
                 <div style={s.successIcon}>✓</div>
-                <h2 style={s.successTitle}>Thank you — we'll be in touch</h2>
+                <h2 style={s.successTitle}>{t.success_title}</h2>
                 <p style={s.successSub}>
-                  {firstName ? `${firstName}, your` : 'Your'} enquiry has been received. We'll be in touch shortly.
+                  {t.success_body(firstName)}
                 </p>
                 <a href={`https://co-ownership-property.com/property/${property.slug}/`} style={s.successLink}>
-                  View the full listing →
+                  {t.view_listing}
                 </a>
               </div>
             )}
@@ -381,7 +502,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
           {priceStr && (
             <p style={s.infoPrice} className="gallery-info-price">
               {priceStr}
-              <span style={s.infoPriceSub}> per share</span>
+              <span style={s.infoPriceSub}>{t.per_share}</span>
             </p>
           )}
         </div>
@@ -389,7 +510,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
         {/* ── COUNTER (bottom right) ── */}
         <div style={s.counter}>
           {isEnquiry
-            ? <span style={{ color: '#C9A84C', letterSpacing: '0.2em' }}>ENQUIRY</span>
+            ? <span style={{ color: '#C9A84C', letterSpacing: '0.2em' }}>{t.enquiry_counter}</span>
             : <>{index + 1} <span style={{ color: 'rgba(255,255,255,0.3)', margin: '0 4px' }}>/</span> {totalSlides}</>
           }
         </div>
@@ -416,7 +537,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
         {!isEnquiry && (
           <div style={s.interestedWrap}>
             <button className="gallery-interested" onClick={() => goTo(enquiryIndex, 1)}>
-              I'm Interested
+              {t.interested_btn}
             </button>
           </div>
         )}
@@ -427,7 +548,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
             <button
               key={i}
               onClick={() => goTo(i, i > index ? 1 : -1)}
-              aria-label={`Go to slide ${i + 1}`}
+              aria-label={t.slide_aria(i + 1)}
               style={{
                 ...s.dot,
                 background: i === index ? '#C9A84C' : 'rgba(255,255,255,0.35)',
@@ -439,7 +560,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
 
         {/* ── PREV ARROW ── (hidden on enquiry slide to avoid overlapping form) */}
         {index > 0 && (
-          <button style={{ ...s.arrow, left: 0 }} className={isEnquiry ? 'gallery-prev-enquiry' : ''} onClick={goPrev} aria-label="Previous">
+          <button style={{ ...s.arrow, left: 0 }} className={isEnquiry ? 'gallery-prev-enquiry' : ''} onClick={goPrev} aria-label={t.prev_aria}>
             <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
               <path d="M9 1L1 9L9 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -448,7 +569,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
 
         {/* ── NEXT ARROW ── */}
         {index < totalSlides - 1 && (
-          <button style={{ ...s.arrow, right: 0 }} onClick={goNext} aria-label="Next">
+          <button style={{ ...s.arrow, right: 0 }} onClick={goNext} aria-label={t.next_aria}>
             <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
               <path d="M1 1L9 9L1 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
