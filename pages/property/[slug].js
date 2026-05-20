@@ -21,9 +21,9 @@ import { HONEYPOT_FIELD } from '@/lib/honeypot';
 // ── Locale-specific UI copy ────────────────────────────────────────────────
 const COPY = {
   en: {
-    cobadge: '1/8 Co-Ownership',
+    cobadge: (n) => `1/${n} Co-Ownership`,
     bedrooms: 'Bedrooms', bathrooms: 'Bathrooms', total_size: 'Total size', per_year: 'Per year', share_size: 'Share size',
-    days_label: '~45 days',
+    days_label: (n) => `~${Math.floor(365 / n)} days`,
     about_heading: 'About This Property',
     desc_empty: 'Full details coming soon. Use the enquiry form to get in touch.',
     show_less: 'Show less', read_more: 'Read more',
@@ -46,9 +46,9 @@ const COPY = {
     eq_err: 'Something went wrong. Please try again.',
   },
   es: {
-    cobadge: '1/8 de copropiedad',
+    cobadge: (n) => `1/${n} de copropiedad`,
     bedrooms: 'Dormitorios', bathrooms: 'Baños', total_size: 'Superficie total', per_year: 'Al año', share_size: 'Tamaño de fracción',
-    days_label: '~45 días',
+    days_label: (n) => `~${Math.floor(365 / n)} días`,
     about_heading: 'Sobre esta propiedad',
     desc_empty: 'Próximamente más detalles. Usa el formulario de contacto para obtener información.',
     show_less: 'Ver menos', read_more: 'Leer más',
@@ -71,9 +71,9 @@ const COPY = {
     eq_err: 'Algo salió mal. Inténtalo de nuevo.',
   },
   fr: {
-    cobadge: '1/8 en copropriété',
+    cobadge: (n) => `1/${n} en copropriété`,
     bedrooms: 'Chambres', bathrooms: 'Salles de bain', total_size: 'Surface totale', per_year: 'Par an', share_size: 'Taille de la part',
-    days_label: '~45 jours',
+    days_label: (n) => `~${Math.floor(365 / n)} jours`,
     about_heading: 'À propos de ce bien',
     desc_empty: 'Plus de détails bientôt. Utilisez le formulaire pour nous contacter.',
     show_less: 'Voir moins', read_more: 'Lire la suite',
@@ -96,9 +96,9 @@ const COPY = {
     eq_err: "Une erreur s'est produite. Veuillez réessayer.",
   },
   de: {
-    cobadge: '1/8 Miteigentum',
+    cobadge: (n) => `1/${n} Miteigentum`,
     bedrooms: 'Schlafzimmer', bathrooms: 'Badezimmer', total_size: 'Gesamtfläche', per_year: 'Pro Jahr', share_size: 'Anteilsgröße',
-    days_label: '~45 Tage',
+    days_label: (n) => `~${Math.floor(365 / n)} Tage`,
     about_heading: 'Über diese Immobilie',
     desc_empty: 'Weitere Details folgen in Kürze. Bitte nutzen Sie das Anfrageformular, um Kontakt aufzunehmen.',
     show_less: 'Weniger anzeigen', read_more: 'Mehr lesen',
@@ -536,7 +536,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             {p.status && String(p.status).toLowerCase().includes('sold') && (
               <span className="pp-badge pp-badge-sold-out">Sold Out</span>
             )}
-            <span className="pp-badge">{t.cobadge}</span>
+            <span className="pp-badge">{t.cobadge(p.share_denominator || 8)}</span>
           </div>
 
           <nav className="pp-crumb">
@@ -551,8 +551,8 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             {p.beds > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.beds}</span><span className="pp-stat-lbl">{t.bedrooms}</span></div>}
             {p.baths > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.baths}</span><span className="pp-stat-lbl">{t.bathrooms}</span></div>}
             {p.size > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.size} m²</span><span className="pp-stat-lbl">{t.total_size}</span></div>}
-            <div className="pp-stat"><span className="pp-stat-val">{t.days_label}</span><span className="pp-stat-lbl">{t.per_year}</span></div>
-            <div className="pp-stat"><span className="pp-stat-val">1/8</span><span className="pp-stat-lbl">{t.share_size}</span></div>
+            <div className="pp-stat"><span className="pp-stat-val">{t.days_label(p.share_denominator || 8)}</span><span className="pp-stat-lbl">{t.per_year}</span></div>
+            <div className="pp-stat"><span className="pp-stat-val">1/{p.share_denominator || 8}</span><span className="pp-stat-lbl">{t.share_size}</span></div>
           </div>
 
           <div className="pp-desc">

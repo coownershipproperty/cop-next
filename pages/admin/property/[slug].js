@@ -131,6 +131,7 @@ export default function PropertyEdit() {
           currency: data.currency || 'EUR',
           beds: data.beds || 0,
           baths: data.baths || 0,
+          share_denominator: data.share_denominator || 8,
           city: data.city || '',
           region: data.region || '',
           country: data.country || '',
@@ -232,6 +233,7 @@ export default function PropertyEdit() {
       currency: form.currency,
       beds: Number(form.beds),
       baths: Number(form.baths),
+      share_denominator: Number(form.share_denominator) || 8,
       city: form.city,
       region: form.region || null,
       country: form.country,
@@ -501,6 +503,15 @@ export default function PropertyEdit() {
                   onFocus={e => e.target.style.borderColor = C.blue}
                   onBlur={e => e.target.style.borderColor = C.border}
                 />
+              </Field>
+              <Field l="Share">
+                <select style={input} value={form.share_denominator} onChange={e => set('share_denominator', e.target.value)}>
+                  <option value="4">1/4</option>
+                  <option value="6">1/6</option>
+                  <option value="8">1/8</option>
+                  <option value="10">1/10</option>
+                  <option value="12">1/12</option>
+                </select>
               </Field>
             </Grid>
           </Card>
