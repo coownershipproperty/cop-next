@@ -66,6 +66,8 @@ export default function NewListingsDigest({
             .prop-title { font-size: 20px !important; line-height: 1.35 !important; }
             .main-heading { font-size: 30px !important; line-height: 1.25 !important; }
             .card-inner { padding: 20px 18px 22px !important; }
+            .view-btn-full { display: none !important; }
+            .view-btn-short { display: inline !important; }
           }
         `}</style>
       </Head>
@@ -111,7 +113,7 @@ export default function NewListingsDigest({
                 )}
                 <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation" style={{ position: 'relative' as const, zIndex: 3 }}>
                   <tbody><tr><td style={cardInner} className="card-inner">
-                    <Text style={cardLocation}>{p.location}, {p.country}</Text>
+                    <Text style={cardLocation}>{p.location}</Text>
                     <Hr style={cardGoldRule} />
                     <Text style={cardTitle} className="prop-title">{p.title}</Text>
                     <Text style={cardBeds}>{p.beds} Bedrooms</Text>
@@ -122,7 +124,10 @@ export default function NewListingsDigest({
                           <Text style={cardPriceLabel}>per share</Text>
                         </td>
                         <td style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
-                          <Link href={`${base}/property/${p.slug}`} style={viewBtn}>View Property →</Link>
+                          <Link href={`${base}/property/${p.slug}`} style={viewBtn}>
+                            <span className="view-btn-full">View Property →</span>
+                            <span className="view-btn-short" style={{ display: 'none' }}>View →</span>
+                          </Link>
                         </td>
                       </tr></tbody>
                     </table>

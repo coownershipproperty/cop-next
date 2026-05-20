@@ -104,8 +104,8 @@ export default async function handler(req, res) {
         to:      contact.email,
         subject,
         html,
-        from:    'Co-Ownership Property <info@co-ownership-property.com>',
-        replyTo: 'info@co-ownership-property.com',
+        from:    'Dylan at Co-Ownership Property <dylan@co-ownership-property.com>',
+        replyTo: 'dylan@co-ownership-property.com',
       });
 
       if (sendRow?.id) {
