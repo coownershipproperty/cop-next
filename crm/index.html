@@ -102,7 +102,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .chart-date-filter input[type="date"]:focus{outline:none;border-color:var(--gold)}
 .chart-date-filter button{padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:transparent;font-size:11px;cursor:pointer;font-family:inherit;color:var(--text2)}
 .chart-date-filter button:hover{background:var(--bg);color:var(--text)}
-.chart-wrap-scroll{position:relative;max-height:420px;overflow-y:auto;overflow-x:hidden}
+.chart-wrap-scroll{position:relative;max-height:760px;overflow-y:auto;overflow-x:hidden}
+.chart-pager{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px;font-size:11px;color:var(--text2)}
+.chart-pager button{padding:5px 12px;border:1px solid var(--border);border-radius:6px;background:#fff;font-size:11px;cursor:pointer;font-family:inherit;color:var(--text)}
+.chart-pager button:hover:not(:disabled){background:var(--bg);border-color:var(--gold)}
+.chart-pager button:disabled{opacity:0.4;cursor:not-allowed}
+.chart-pager span{min-width:140px;text-align:center}
 
 /* Table */
 .data-table{width:100%;border-collapse:collapse;font-size:12px}
@@ -386,6 +391,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
               </div>
             </div>
             <div class="chart-wrap chart-wrap-scroll"><canvas id="chart-properties"></canvas></div>
+            <div class="chart-pager" id="chart-properties-pager">
+              <button type="button" id="prop-prev" disabled>← Previous</button>
+              <span id="prop-pager-label">Showing 1-30</span>
+              <button type="button" id="prop-next">Next →</button>
+            </div>
           </div>
           <div class="chart-card">
             <div class="chart-title">Pipeline status</div>
@@ -760,7 +770,9 @@ function makeChart(id, type, labels, data, opts={}, extraOpts={}) {
 
 const CHART_COLORS = ['#c9993a','#2563eb','#16a34a','#dc2626','#9333ea','#0891b2','#ea580c','#84cc16','#f43f5e','#6366f1','#14b8a6','#f97316'];
 
-// ─── Properties chart (custom — needs dynamic height + date filter) ───
+// ─── Properties chart (custom — needs dynamic height + date filter + pagination) ───
+const PROP_PAGE_SIZE = 30;
+window._propPage = 0;
 function renderPropertiesChart(){
   const rows = window._dashRows || [];
   const from = (document.getElementById('prop-from')?.value || '').trim();
@@ -776,6 +788,15 @@ function renderPropertiesChart(){
   });
   const propData = Object.entries(propMap).sort((a,b) => b[1] - a[1]);
 
+  // Clamp page to valid range
+  const totalPages = Math.max(1, Math.ceil(propData.length / PROP_PAGE_SIZE));
+  if(window._propPage >= totalPages) window._propPage = totalPages - 1;
+  if(window._propPage < 0) window._propPage = 0;
+  const page = window._propPage;
+  const start = page * PROP_PAGE_SIZE;
+  const end = Math.min(start + PROP_PAGE_SIZE, propData.length);
+  const pageData = propData.slice(start, end);
+
   // Update sub label
   const sub = document.getElementById('chart-properties-sub');
   if(sub){
@@ -786,15 +807,25 @@ function renderPropertiesChart(){
     sub.textContent = `${propData.length} ${noun} · ${range}`;
   }
 
+  // Update pager
+  const pagerLabel = document.getElementById('prop-pager-label');
+  const prevBtn = document.getElementById('prop-prev');
+  const nextBtn = document.getElementById('prop-next');
+  const pager = document.getElementById('chart-properties-pager');
+  if(pager) pager.style.display = propData.length > PROP_PAGE_SIZE ? 'flex' : 'none';
+  if(pagerLabel) pagerLabel.textContent = propData.length === 0
+    ? 'No properties match'
+    : `Showing ${start + 1}–${end} of ${propData.length}`;
+  if(prevBtn) prevBtn.disabled = page === 0;
+  if(nextBtn) nextBtn.disabled = end >= propData.length;
+
   const canvas = document.getElementById('chart-properties');
   if(!canvas) return;
 
-  // Use horizontal bars when there are many properties (labels are too long for vertical)
-  const horizontal = propData.length > 12;
-  const wrap = canvas.parentElement;
+  // Use horizontal bars when there are many properties on this page
+  const horizontal = pageData.length > 12;
   if(horizontal){
-    // Each bar ~22px tall + padding
-    canvas.style.height = Math.max(220, propData.length * 22 + 40) + 'px';
+    canvas.style.height = Math.max(220, pageData.length * 22 + 40) + 'px';
     canvas.style.width = '100%';
     canvas.removeAttribute('height');
   } else {
@@ -806,9 +837,9 @@ function renderPropertiesChart(){
   charts['chart-properties'] = new Chart(canvas.getContext('2d'), {
     type: 'bar',
     data: {
-      labels: propData.map(([k]) => k.length > 50 ? k.slice(0,48) + '…' : k),
+      labels: pageData.map(([k]) => k.length > 50 ? k.slice(0,48) + '…' : k),
       datasets: [{
-        data: propData.map(([,v]) => v),
+        data: pageData.map(([,v]) => v),
         backgroundColor: CHART_COLORS[0],
         borderRadius: 4,
       }],
@@ -878,17 +909,29 @@ async function loadDashboard() {
     window._dashRows = rows;
     renderPropertiesChart();
 
-    // Wire up date inputs once
+    // Wire up date inputs + pagination buttons once
     const propFromEl = document.getElementById('prop-from');
     const propToEl = document.getElementById('prop-to');
     const propResetEl = document.getElementById('prop-reset');
+    const propPrevEl = document.getElementById('prop-prev');
+    const propNextEl = document.getElementById('prop-next');
     if(propFromEl && !propFromEl._wired){
       propFromEl._wired = true;
-      const re = () => renderPropertiesChart();
-      propFromEl.addEventListener('change', re);
-      propToEl.addEventListener('change', re);
+      // Date changes reset to page 1
+      const resetAndRender = () => { window._propPage = 0; renderPropertiesChart(); };
+      propFromEl.addEventListener('change', resetAndRender);
+      propToEl.addEventListener('change', resetAndRender);
       propResetEl.addEventListener('click', () => {
-        propFromEl.value = ''; propToEl.value = ''; re();
+        propFromEl.value = ''; propToEl.value = ''; resetAndRender();
+      });
+      // Pagination doesn't reset the date filter
+      propPrevEl.addEventListener('click', () => {
+        window._propPage = Math.max(0, (window._propPage || 0) - 1);
+        renderPropertiesChart();
+      });
+      propNextEl.addEventListener('click', () => {
+        window._propPage = (window._propPage || 0) + 1;
+        renderPropertiesChart();
       });
     }
 
