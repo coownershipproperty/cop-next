@@ -21,7 +21,10 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang={this.props.lang || "en"}>
-        <Head />
+        <Head>
+          <link rel="icon" href="/favicon.ico" sizes="any" />
+          <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        </Head>
         <body>
           <Main />
           <NextScript />
