@@ -4,6 +4,8 @@ import { trackConversion } from '@/lib/gtag';
 import { track } from '@vercel/analytics';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 import { localeFromPath } from '@/lib/i18n';
+import HoneypotField from '@/components/HoneypotField';
+import { HONEYPOT_FIELD } from '@/lib/honeypot';
 
 // Locale-specific copy. Kept inline rather than in messages/*.json because the
 // strings here are tightly coupled to this single component's UX states
@@ -66,6 +68,7 @@ export default function Newsletter() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const honeypot = e.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
     if (!email) return;
 
     setStatus('sending');
@@ -75,7 +78,7 @@ export default function Newsletter() {
       const res = await fetch('/api/newsletter/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, locale }),
+        body: JSON.stringify({ email, locale, [HONEYPOT_FIELD]: honeypot }),
       });
       const data = await res.json();
       if (data.ok) {
@@ -99,6 +102,7 @@ export default function Newsletter() {
       <h2 className="newsletter-heading">{t.heading}</h2>
       <p className="newsletter-subtitle">{t.subtitle}</p>
       <form className="newsletter-form" id="cop-newsletter-form" onSubmit={handleSubmit} noValidate>
+        <HoneypotField />
         <input type="email" name="email" placeholder={t.placeholder} required value={email} onChange={e => setEmail(e.target.value)} />
         <button type="submit" className="newsletter-btn" disabled={status === 'sending'}>
           {status === 'sending' ? t.button_sending : status === 'success' ? t.button_success : t.button_idle}

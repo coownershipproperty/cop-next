@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { isHoneypotFilled } from '@/lib/honeypot';
 import { queueEmail, sendTeamNotification, cancelPendingSequence } from '@/lib/resend';
 import { expandRegions } from '@/lib/regionMap';
 import EnquiryAutoreply from '@/emails/enquiry-autoreply';
@@ -139,6 +140,10 @@ async function getMatchingProperties(destination, budget) {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
+
+  // Honeypot — bots fill hidden fields. Silently accept (no email, no CRM) so
+  // the bot sees a normal success response and does not retry or adapt.
+  if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
   const { name, email, phone, message, property, url, destination, budget, locale: rawLocale } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });

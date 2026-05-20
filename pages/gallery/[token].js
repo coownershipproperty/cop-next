@@ -2,6 +2,8 @@ import Head from 'next/head';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { track } from '@vercel/analytics';
 import { createClient } from '@supabase/supabase-js';
+import HoneypotField from '@/components/HoneypotField';
+import { HONEYPOT_FIELD } from '@/lib/honeypot';
 
 function getSupabase() {
   return createClient(
@@ -164,6 +166,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const honeypot = e.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
     if (!formState.phone.trim()) { setError('Please enter your phone number.'); return; }
     setSubmitting(true); setError('');
     try {
@@ -179,6 +182,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
           propertyTitle: property.title,
           propertyUrl: `https://co-ownership-property.com/property/${property.slug}/`,
           locale,
+          [HONEYPOT_FIELD]: honeypot,
         }),
       });
       if (res.ok) {
@@ -287,6 +291,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
                 <p className="gallery-mobile-heading" style={{ display: 'none' }}>I want to know more</p>
 
                 <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 420 }}>
+                  <HoneypotField />
                   <div className="gallery-form-row" style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
                     <div style={{ flex: 1 }}>
                       <label style={s.fieldLabel}>Name</label>

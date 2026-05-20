@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, logActivity, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendHtml, sendTeamNotification } from '@/lib/resend';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 
@@ -95,6 +96,10 @@ function getDb() {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
+
+  // Honeypot — bots fill hidden fields. Silently accept (no email, no CRM) so
+  // the bot sees a normal success response and does not retry or adapt.
+  if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
   const { name, email, phone, message, propertySlug, propertyTitle, propertyUrl, locale: rawLocale } = req.body;
   if (!email || !phone) return res.status(400).json({ error: 'Missing required fields' });

@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { isHoneypotFilled } from '@/lib/honeypot';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
 import { render } from '@react-email/components';
 import FloorPlanEmail from '@/emails/floor-plan';
@@ -95,6 +96,10 @@ async function getSimilarProperties(propertySlug, propertyCountry, propertyCity,
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
+
+  // Honeypot — bots fill hidden fields. Silently accept (no email, no CRM) so
+  // the bot sees a normal success response and does not retry or adapt.
+  if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
   const { name, email, phone, propertyTitle, driveUrl, propertyUrl, propertyCountry, locale: rawLocale } = req.body;
   if (!email || !driveUrl) return res.status(400).json({ error: 'Missing fields' });

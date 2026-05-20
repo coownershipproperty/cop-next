@@ -4,6 +4,8 @@ import { getSavedUser, saveUser } from '@/lib/savedUser';
 import { trackConversion } from '@/lib/gtag';
 import { track } from '@vercel/analytics';
 import { localeFromPath } from '@/lib/i18n';
+import HoneypotField from '@/components/HoneypotField';
+import { HONEYPOT_FIELD } from '@/lib/honeypot';
 
 // ── Locale-specific copy ────────────────────────────────────────────────────
 const COPY = {
@@ -319,6 +321,7 @@ export default function ExpertForm({ property }) {
     const phone    = form.querySelector('[name="phone"]').value.trim();
     const budget   = form.querySelector('[name="budget"]').value;
     const message  = form.querySelector('[name="message"]').value.trim();
+    const honeypot = form.elements[HONEYPOT_FIELD]?.value || '';
     const destStr  = destinations.join('; ');
 
     if (!name || !email) {
@@ -334,7 +337,7 @@ export default function ExpertForm({ property }) {
       const res = await fetch('/api/enquiry/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, budget, destination: destStr, message, property, locale }),
+        body: JSON.stringify({ name, email, phone, budget, destination: destStr, message, property, locale, [HONEYPOT_FIELD]: honeypot }),
       });
       const data = await res.json();
       if (data.ok) {
@@ -373,6 +376,7 @@ export default function ExpertForm({ property }) {
         <p className="expert-sub">{t.sub}</p>
 
         <form className="expert-form" id="expert-enquiry-form" onSubmit={handleSubmit} noValidate ref={formRef}>
+          <HoneypotField />
           <div className="expert-form-grid">
 
             <div className="expert-form-field">

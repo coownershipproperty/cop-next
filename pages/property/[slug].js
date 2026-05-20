@@ -15,6 +15,8 @@ import ExpertForm from '@/components/ExpertForm';
 import UnlockModal from '@/components/UnlockModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
 import { localeFromPath } from '@/lib/i18n';
+import HoneypotField from '@/components/HoneypotField';
+import { HONEYPOT_FIELD } from '@/lib/honeypot';
 
 // ── Locale-specific UI copy ────────────────────────────────────────────────
 const COPY = {
@@ -242,9 +244,10 @@ function EnquiryForm({ propertyTitle, propertyUrl, locale }) {
 
   async function submit(e) {
     e.preventDefault(); setStatus('sending');
+    const honeypot = e.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
     try {
       const r = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...f, property: propertyTitle, url: propertyUrl, locale }) });
+        body: JSON.stringify({ ...f, property: propertyTitle, url: propertyUrl, locale, [HONEYPOT_FIELD]: honeypot }) });
       if (r.ok) {
         saveUser({ name: f.name, email: f.email });
         trackConversion('generate_lead', 'Lead', {
@@ -275,6 +278,7 @@ function EnquiryForm({ propertyTitle, propertyUrl, locale }) {
 
   return (
     <form onSubmit={submit} className="eq-form">
+      <HoneypotField />
       {fields.map(([k, label, type, ph, req]) => (
         <div key={k} className="eq-field">
           <label>{label}{req ? ' *' : ''}</label>

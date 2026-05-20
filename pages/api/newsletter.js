@@ -1,4 +1,5 @@
 import { checkRateLimit } from '@/lib/rateLimit';
+import { isHoneypotFilled } from '@/lib/honeypot';
 import { upsertContact, logActivity } from '@/lib/crm';
 import { queueEmail, sendTeamNotification, addToAudience } from '@/lib/resend';
 import Welcome1 from '@/emails/welcome-1';
@@ -17,6 +18,10 @@ function daysFromNow(n) {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
+
+  // Honeypot — bots fill hidden fields. Silently accept (no email, no CRM) so
+  // the bot sees a normal success response and does not retry or adapt.
+  if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
   const { email, locale: rawLocale } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });

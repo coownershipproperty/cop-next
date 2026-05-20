@@ -4,6 +4,8 @@ import { trackConversion } from '@/lib/gtag';
 import { track } from '@vercel/analytics';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 import { localeFromPath } from '@/lib/i18n';
+import HoneypotField from '@/components/HoneypotField';
+import { HONEYPOT_FIELD } from '@/lib/honeypot';
 
 const COPY = {
   en: {
@@ -56,11 +58,12 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
 
   async function submit(e) {
     e.preventDefault(); setStatus('sending');
+    const honeypot = e.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
     try {
       const r = await fetch('/api/unlock-drive/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, propertyTitle, driveUrl, propertyUrl, propertyCountry, locale }),
+        body: JSON.stringify({ name, email, propertyTitle, driveUrl, propertyUrl, propertyCountry, locale, [HONEYPOT_FIELD]: honeypot }),
       });
       if (r.ok) {
         saveUser({ name, email });
@@ -95,6 +98,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
             <h3>{t.heading}</h3>
             <p className="ul-sub">{t.sub}</p>
             <form onSubmit={submit} className="ul-form">
+              <HoneypotField />
               <input type="text" placeholder={t.name_placeholder} value={name} onChange={e => setName(e.target.value)} required />
               <input type="email" placeholder={t.email_placeholder} value={email} onChange={e => setEmail(e.target.value)} required />
               <button type="submit" disabled={status === 'sending'}>{status === 'sending' ? t.btn_sending : t.btn_idle}</button>
