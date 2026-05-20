@@ -104,6 +104,7 @@ export default function PropertyEdit() {
   const [uploadingPhotos, setUploadingPhotos] = useState(false)  // all-photos uploads
   const [uploadProgress, setUploadProgress] = useState('')  // "3 / 8" etc
   const [previewUrl, setPreviewUrl] = useState(null)  // lightbox state
+  const [copiedGallery, setCopiedGallery] = useState(false)  // "Copy gallery link" feedback
   const fileInputRef = useRef(null)
   const photosInputRef = useRef(null)
 
@@ -391,6 +392,24 @@ export default function PropertyEdit() {
             >
               View on site ↗
             </Link>
+            <Link
+              href={`/gallery/${slug}`}
+              target="_blank"
+              style={{ fontSize: 12, color: C.gold, textDecoration: 'none', fontWeight: 600 }}
+            >
+              View gallery ↗
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard?.writeText(`https://co-ownership-property.com/gallery/${slug}`)
+                setCopiedGallery(true)
+                setTimeout(() => setCopiedGallery(false), 1800)
+              }}
+              style={{ fontSize: 12, color: C.faint, background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontFamily: 'inherit' }}
+            >
+              {copiedGallery ? 'Copied ✓' : 'Copy gallery link'}
+            </button>
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
