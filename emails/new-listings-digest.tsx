@@ -6,7 +6,6 @@ import {
   Heading,
   Hr,
   Html,
-  Img,
   Link,
   Preview,
   Section,
@@ -62,7 +61,7 @@ export default function NewListingsDigest({
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
           @media only screen and (max-width: 600px) {
-            .prop-img { width: 100% !important; height: auto !important; max-height: 240px !important; object-fit: cover !important; }
+            .card-photo { height: 240px !important; }
             .prop-title { font-size: 20px !important; line-height: 1.35 !important; }
             .main-heading { font-size: 30px !important; line-height: 1.25 !important; }
             .card-inner { padding: 20px 18px 22px !important; }
@@ -99,16 +98,35 @@ export default function NewListingsDigest({
           <Container style={wrap}>
             {properties.map((p, i) => (
               <Section key={i} style={card}>
-                <Link href={`${base}/property/${p.slug}`} style={{ display: 'block' }}>
-                  {p.imageUrl
-                    ? <Img src={p.imageUrl} alt={p.title} width="560" height="340" className="prop-img" style={cardImg} />
-                    : <div style={cardImgPlaceholder} />}
-                </Link>
-                {p.isNew && (
-                  <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation" style={{ marginTop: -340, position: 'relative' as const, zIndex: 2 }}>
-                    <tbody><tr><td style={{ padding: '14px 18px', verticalAlign: 'top' }}><Text style={newBadge}>NEW</Text></td></tr></tbody>
-                  </table>
-                )}
+                <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation">
+                  <tbody><tr>
+                    <td
+                      className="card-photo"
+                      background={p.imageUrl || ''}
+                      bgcolor={C.navy}
+                      valign="top"
+                      style={{
+                        backgroundImage: p.imageUrl ? `url('${p.imageUrl}')` : undefined,
+                        backgroundColor: C.navy,
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        height: 340,
+                        verticalAlign: 'top',
+                      }}
+                    >
+                      <Link href={`${base}/property/${p.slug}`} style={{ display: 'block', height: '340px', textDecoration: 'none' }}>
+                        {p.isNew && (
+                          <table cellPadding="0" cellSpacing="0" border={0} role="presentation">
+                            <tbody><tr><td style={{ padding: '14px 0 0 14px' }}>
+                              <Text style={newBadge}>NEW</Text>
+                            </td></tr></tbody>
+                          </table>
+                        )}
+                      </Link>
+                    </td>
+                  </tr></tbody>
+                </table>
                 <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation" style={{ position: 'relative' as const, zIndex: 3 }}>
                   <tbody><tr><td style={cardInner} className="card-inner">
                     <Hr style={cardGoldRule} />
@@ -182,8 +200,6 @@ const goldBar: React.CSSProperties = { borderColor: C.gold, borderTopWidth: 1, w
 const mainHeading: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 38, fontWeight: 400, color: C.navy, margin: '0 0 16px', lineHeight: '1.2', textAlign: 'center' as const, letterSpacing: '0.02em' };
 const bodyText: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 14, color: '#4A6070', lineHeight: '1.9', margin: '0', textAlign: 'center' as const };
 const card: React.CSSProperties = { border: `1px solid ${C.border}`, backgroundColor: C.white, marginBottom: 24, overflow: 'hidden' };
-const cardImg: React.CSSProperties = { display: 'block', width: 560, height: 340, objectFit: 'cover' as const, maxWidth: '100%' };
-const cardImgPlaceholder: React.CSSProperties = { width: '100%', height: 340, background: `linear-gradient(160deg, ${C.navy}, #2C4A5E)`, display: 'block' };
 const newBadge: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: '0.18em', color: C.navy, backgroundColor: C.gold, padding: '4px 10px', margin: 0, display: 'inline-block' };
 const cardInner: React.CSSProperties = { padding: '24px 28px 28px' };
 const cardLocation: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 10px' };
