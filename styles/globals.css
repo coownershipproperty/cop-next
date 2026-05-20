@@ -3594,7 +3594,7 @@ img { display:block; max-width:100%; height:auto; }
 
 .prop-img-wrap {
             position:relative;
-            height:320px;
+            height:280px;
             overflow:hidden;
             background:var(--blue-20);
         }
@@ -3749,7 +3749,7 @@ img { display:block; max-width:100%; height:auto; }
 .prop-heart.active svg path { fill:var(--warm-gold); stroke:var(--warm-gold); }
 
 .prop-body {
-            padding:1rem 1.5rem 1.2rem;
+            padding:0.75rem 1.5rem 0.95rem;
             display:flex;
             flex-direction:column;
             flex:1;
@@ -4537,7 +4537,7 @@ h1,h2,h3{font-family:'Playfair Display',serif;font-weight:400}
 
 .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
 
-.prop-img-wrap{position:relative;height:320px;overflow:hidden;background:var(--blue-20)}
+.prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
 
 .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
 
@@ -4601,7 +4601,7 @@ h1,h2,h3{font-family:'Playfair Display',serif;font-weight:400}
 
 .prop-remove svg path{fill:var(--warm-gold);stroke:var(--warm-gold)}
 
-.prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+.prop-body{padding:0.75rem 1.5rem 0.95rem;display:flex;flex-direction:column;flex:1}
 
 .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
 
@@ -5010,7 +5010,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         .prop-card:hover .prop-img{transform:scale(1.04)}
         .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
         .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
-        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-body{padding:0.75rem 1.5rem 0.95rem;display:flex;flex-direction:column;flex:1}
         .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
         .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
         .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
@@ -5918,7 +5918,7 @@ section.props-sec,
 /* Image */
 .prop-img-wrap {
   position: relative;
-  height: 320px;
+  height: 280px;
   overflow: hidden;
   background: var(--blue-20, #C5CED5);
 }
@@ -5963,7 +5963,7 @@ section.props-sec,
 
 /* Card body */
 .prop-body {
-  padding: 1rem 1.5rem 1.2rem;
+  padding: 0.75rem 1.5rem 0.95rem;
   display: flex;
   flex-direction: column;
   flex: 1;
