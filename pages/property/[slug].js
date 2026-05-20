@@ -206,6 +206,15 @@ function fmtApprox(amount, locale = 'en-GB') {
   return (Math.round(amount / 1_000) * 1_000).toLocaleString(locale);
 }
 const PARTNER_LABEL = { pacaso: 'Pacaso', andhamlet: '&Hamlet', vivla: 'Vivla', myne: 'Myne' };
+const SITE_URL = 'https://co-ownership-property.com';
+const PROPERTY_HREFLANG_LOCALES = ['en', 'es', 'fr', 'de'];
+
+function propertyPathForLocale(slug, locale) {
+  if (locale === 'es') return `/es/propiedades/${slug}/`;
+  if (locale === 'fr') return `/fr/proprietes/${slug}/`;
+  if (locale === 'de') return `/de/immobilien/${slug}/`;
+  return `/property/${slug}/`;
+}
 
 // Given a property record and a target locale, return the best title /
 // description / amenities — translated where available, English fallback.
@@ -365,14 +374,10 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
     ? `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership at ${fmt(p.price, p.currency)}. Real deeded ownership, own only what you use.`
     : `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership. Real deeded ownership, own only what you use.`;
   // Canonical URL per locale — wrapper routes pass forceLocale so each
-  // /es/propiedades/{slug}/ and /fr/proprietes/{slug}/ has its own canonical.
-  const canonicalPath = locale === 'es'
-    ? `/es/propiedades/${p.slug}/`
-    : locale === 'fr'
-      ? `/fr/proprietes/${p.slug}/`
-      : `/property/${p.slug}/`;
-  const canonicalUrl = `https://co-ownership-property.com${canonicalPath}`;
-  const ogImage = p.img && p.img.startsWith('http') ? p.img : `https://co-ownership-property.com${p.img}`;
+  // translated property URL has its own canonical.
+  const canonicalPath = propertyPathForLocale(p.slug, locale);
+  const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+  const ogImage = p.img && p.img.startsWith('http') ? p.img : `${SITE_URL}${p.img}`;
 
   return (
     <>
@@ -382,6 +387,15 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={canonicalUrl} />
+        {PROPERTY_HREFLANG_LOCALES.map(hrefLocale => (
+          <link
+            key={hrefLocale}
+            rel="alternate"
+            hrefLang={hrefLocale}
+            href={`${SITE_URL}${propertyPathForLocale(p.slug, hrefLocale)}`}
+          />
+        ))}
+        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}${propertyPathForLocale(p.slug, 'en')}`} />
         <meta property="og:title" content={`${local.title} | Co-Ownership Property`} />
         <meta property="og:description" content={metaDesc} />
         <meta property="og:image" content={ogImage} />
