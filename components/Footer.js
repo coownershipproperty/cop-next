@@ -110,6 +110,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="footer-brand">
           <div className="footer-logo-text">Co-Ownership<br />Properties</div>
+          <img className="footer-brand-mark" src="/footer-cop-mark.svg" alt="" aria-hidden="true" />
         </div>
 
         {/* Discover */}
@@ -158,6 +159,16 @@ export default function Footer() {
         <p>&copy; {new Date().getFullYear()} {t('site.brand', locale)}. {t('footer.rights_reserved', locale)}</p>
         <p className="footer-bottom-right">{t('site.tagline', locale)}</p>
       </div>
+
+      <style jsx>{`
+        .footer-brand-mark {
+          display: block;
+          width: 46px;
+          height: 46px;
+          margin-top: 0.95rem;
+          opacity: 0.92;
+        }
+      `}</style>
     </footer>
   );
 }
