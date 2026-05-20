@@ -464,7 +464,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
                 <Img src={slide.src} alt={`${local.title} ${i + 1}`} priority={i === 0} loading={i === 0 ? 'eager' : 'lazy'} />
               </div>
             ) : (
-              <div key={i} className="pp-mob-slide pp-mob-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
+              <div key={i} className="pp-mob-slide pp-mob-lock" onClick={() => setShowUnlock(true)}>
                 <div className="pp-lock-blur-bg" style={{ backgroundImage: `url('${heroImg}')` }} />
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
@@ -506,7 +506,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
         <div className="pp-gallery-thumb" onClick={() => p.images[2] && setLightbox(2)}>
           {p.images[2] ? <Img src={p.images[2]} alt={`${local.title} 3`} sizes="(max-width: 960px) 33vw, 25vw" /> : <div className="pp-gallery-blank" />}
         </div>
-        <div className="pp-gallery-lock" onClick={() => p.driveUrl && setShowUnlock(true)}>
+        <div className="pp-gallery-lock" onClick={() => setShowUnlock(true)}>
           <div className="pp-lock-blur-bg" style={{ backgroundImage: `url('${heroImg}')` }} />
           <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>

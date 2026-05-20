@@ -101,8 +101,8 @@ export default async function handler(req, res) {
   // the bot sees a normal success response and does not retry or adapt.
   if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
-  const { name, email, phone, propertyTitle, driveUrl, propertyUrl, propertyCountry, locale: rawLocale } = req.body;
-  if (!email || !driveUrl) return res.status(400).json({ error: 'Missing fields' });
+  const { name, email, phone, propertyTitle, propertyUrl, propertyCountry, locale: rawLocale } = req.body;
+  if (!email) return res.status(400).json({ error: 'Missing fields' });
 
   // Resolve locale — only accept supported values, default to English
   const locale = SUPPORTED_LOCALES.includes(rawLocale) ? rawLocale : DEFAULT_LOCALE;
