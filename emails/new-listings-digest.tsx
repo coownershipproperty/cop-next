@@ -111,7 +111,6 @@ export default function NewListingsDigest({
                 )}
                 <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation" style={{ position: 'relative' as const, zIndex: 3 }}>
                   <tbody><tr><td style={cardInner} className="card-inner">
-                    <Text style={cardLocation}>{p.location}</Text>
                     <Hr style={cardGoldRule} />
                     <Text style={cardTitle} className="prop-title">{p.title}</Text>
                     <Text style={cardBeds}>{p.beds} Bedrooms</Text>
@@ -191,7 +190,7 @@ const cardLocation: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-ser
 const cardGoldRule: React.CSSProperties = { borderColor: C.gold, borderTopWidth: 1, width: 28, margin: '0 0 14px' };
 const cardTitle: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 22, fontWeight: 400, color: C.navy, margin: '0 0 8px', lineHeight: '1.35', letterSpacing: '0.01em' };
 const cardBeds: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 12, color: C.navy60, letterSpacing: '0.1em', textTransform: 'uppercase' as const, margin: 0 };
-const cardPrice: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 24, fontWeight: 500, color: C.navy, margin: '0 0 2px', lineHeight: '1' };
+const cardPrice: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 24, fontWeight: 500, color: C.gold, margin: '0 0 2px', lineHeight: '1' };
 const cardPriceLabel: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, color: C.navy60, letterSpacing: '0.1em', textTransform: 'uppercase' as const, margin: 0 };
 const viewBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', border: `1px solid ${C.navy}`, padding: '10px 18px', display: 'inline-block', whiteSpace: 'nowrap' as const };
 const ctaBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", backgroundColor: C.navy, color: C.white, fontSize: 11, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase' as const, padding: '16px 48px', textDecoration: 'none', display: 'inline-block' };
