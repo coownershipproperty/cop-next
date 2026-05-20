@@ -276,14 +276,14 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
   return (
     <>
       <Head>
-        <title>Copropiedad de lujo en España | Propiedad fraccionada — COP</title>
-        <meta name="description" content="Descubre propiedades en copropiedad y propiedad fraccionada en Mallorca, Ibiza, Costa del Sol y otros destinos europeos. Propiedad real con escritura ante notario." />
+        <title>Casas vacacionales de lujo | Copropiedad inmobiliaria</title>
+        <meta name="description" content="Descubre casas vacacionales en propiedad fraccionada en Mallorca, Ibiza, Costa del Sol, Baqueira, Costa Azul, París, Italia y otros destinos europeos. Propiedad real con escritura ante notario, no es &quot;tiempo compartido&quot;." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/es/" />
         <HreflangLinks englishPath="/" />
-        <meta property="og:title" content="Copropiedad de lujo en España | Propiedad fraccionada — COP" />
-        <meta property="og:description" content="Descubre propiedades en copropiedad y propiedad fraccionada por toda Europa. Propiedad real, no multipropiedad." />
+        <meta property="og:title" content="Casas exclusivas en España, Francia, Italia, Estados Unidos y más | Propiedad fraccionada — COP" />
+        <meta property="og:description" content="Descubre casas exclusivas en copropiedad por toda Europa. Propiedad real, no es &quot;Tiempo Compartido o Timeshare&quot;." />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
         <meta property="og:url" content="https://co-ownership-property.com/es/" />
         <meta property="og:type" content="website" />
@@ -302,7 +302,7 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
         <div className="hero-content">
           <h1 className="hero-heading">
             <span className="hero-pre">Tu ventana a las</span>
-            <em>mejores segundas residencias</em>
+            <em>casas vacacionales más exclusivas</em>
             <span className="hero-rule"></span>
             <span className="hero-post">en copropiedad</span>
           </h1>
@@ -350,8 +350,8 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
       {/* ===== PROPERTIES CAROUSEL (placed immediately after hero so
            visitors see inventory first — biggest bounce-rate lever) ===== */}
       <section className="properties-section" id="properties">
-        <h2 className="section-heading">Comprar una segunda residencia en copropiedad</h2>
-        <p className="section-subtitle">Villas, apartamentos y casas de vacaciones en propiedad fraccionada por Mallorca, Ibiza, Costa del Sol y otros destinos europeos — con precios desde una fracción de la compra íntegra.</p>
+        <h2 className="section-heading">Comprar una casa exclusiva en copropiedad</h2>
+        <p className="section-subtitle">Villas, apartamentos y chalets exclusivos en copropiedad fraccionada por Mallorca, Ibiza, Costa del Sol, Baqueira, Costa Azul y otros destinos europeos — con precios desde una fracción de 1/8 de la compra entera.</p>
 
         <PropCarousel items={featuredProps} propertyCount={propertyCount} />
 
@@ -363,17 +363,17 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
       {/* ===== INTRODUCTION SECTION ===== */}
       <section className="intro-section">
         <p className="intro-text">
-          Descubre el mundo de la copropiedad de lujo. Desde villas mediterráneas bañadas por el sol hasta apartamentos urbanos con encanto, pasando por fincas vinícolas y refugios alpinos: cada propiedad se siente sin esfuerzo como tuya.
+          Descubre el mundo de la copropiedad de lujo. Desde villas mediterráneas exclusivas bañadas por el sol hasta pisos de lujo con encanto, pasando por fincas y chalets de montaña: cada propiedad te hace sentir en casa.
         </p>
         <p className="intro-subtext">
-          Cada propiedad está cuidadosamente seleccionada, bellamente diseñada y profesionalmente gestionada. Más que una propiedad, es la puerta a paisajes únicos, tesoros culturales e inolvidables momentos en familia.
+          Cada propiedad está cuidadosamente seleccionada, diseñada por diseñadores de prestigio y gestionada para que usted disfrute. Más que una casa, es la puerta a paisajes únicos, tesoros culturales y momentos inolvidables en familia.
         </p>
       </section>
 
       {/* ===== CO-OWNERSHIP EXPLAINER ===== */}
       <section className="explainer-section">
         <div className="explainer-intro">
-          <h2>¿Qué es la copropiedad de una segunda residencia?</h2>
+          <h2>¿Qué es la copropiedad de una casa vacacional?</h2>
           <p>La <strong>copropiedad</strong> —también conocida como <strong>propiedad fraccionada</strong>— te permite comprar una participación legal de una vivienda vacacional de gama alta y disfrutarla plenamente, igual que si fuera totalmente tuya. Tienes el estilo de vida y la inversión inmobiliaria, pero compartes el coste y los gastos con otros copropietarios.</p>
         </div>
         <div className="explainer-grid">
