@@ -19,38 +19,38 @@ export async function getServerSideProps({ params, query }) {
   const langParam = typeof query.lang === 'string' ? query.lang : null;
   const locale = ['en', 'es', 'fr', 'de'].includes(langParam) ? langParam : 'en';
 
-  // ── Try legacy base64url / base64 token ──────────────────────────────────
-  let decoded = null;
-  try {
-    decoded = JSON.parse(Buffer.from(raw, 'base64url').toString('utf-8'));
-    if (!decoded || !decoded.e || !decoded.s) decoded = null;
-  } catch {}
-  if (!decoded) {
+  // ── Decode the path segment — it may be a base64 JSON token or a pretty slug ──
+  let tok = null;
+  for (const enc of ['base64url', 'base64']) {
     try {
-      decoded = JSON.parse(Buffer.from(raw, 'base64').toString('utf-8'));
-      if (!decoded || !decoded.e || !decoded.s) decoded = null;
+      const o = JSON.parse(Buffer.from(raw, enc).toString('utf-8'));
+      if (o && typeof o === 'object' && (o.e || o.s)) { tok = o; break; }
     } catch {}
   }
 
-  if (decoded) {
-    // Legacy format — redirect to pretty URL so the browser shows a clean address
-    ({ n: name, e: email, s: slug, t: title } = decoded);
-    if (slug && email) {
-      const userToken = Buffer.from(JSON.stringify({ n: name || '', e: email })).toString('base64url');
+  if (tok) {
+    name = tok.n || null;
+    email = tok.e || null;
+    if (tok.s) {
+      // Legacy {n,e,s} token — redirect to the clean pretty-slug URL
+      const userToken = Buffer.from(JSON.stringify({ n: name || '', e: email || '' })).toString('base64url');
       const langSuffix = locale !== 'en' ? `&lang=${locale}` : '';
-      const destination = `/gallery/${slug}?t=${userToken}${langSuffix}`;
-      return { redirect: { destination, permanent: false } };
+      return { redirect: { destination: `/gallery/${tok.s}?t=${userToken}${langSuffix}`, permanent: false } };
     }
-  } else {
-    // New pretty-URL format — raw IS the property slug; user info in ?t= param
-    slug = raw;
-    if (query.t) {
-      try {
-        const u = JSON.parse(Buffer.from(query.t, 'base64url').toString('utf-8'));
-        name  = u.n || null;
-        email = u.e || null;
-      } catch {}
-    }
+    // Token carries only the visitor (no property) — an old floor-plan link
+    // that never resolved a property. Send them to the full collection
+    // rather than a 404.
+    return { redirect: { destination: '/our-homes/', permanent: false } };
+  }
+
+  // Pretty-URL format — raw IS the property slug; visitor info in ?t= param
+  slug = raw;
+  if (query.t) {
+    try {
+      const u = JSON.parse(Buffer.from(query.t, 'base64url').toString('utf-8'));
+      name  = u.n || null;
+      email = u.e || null;
+    } catch {}
   }
 
   if (!slug) return { notFound: true };

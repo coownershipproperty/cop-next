@@ -165,6 +165,46 @@ export default async function handler(req, res) {
     }
   }
 
+  // Robust fallback: enquiry titles can differ from the website DB title
+  // (e.g. a Rightmove listing reads "4-Bed Villa With Fireplace" where the
+  // website DB says "4-Bed House With Fireplace"). Match on city + beds,
+  // then disambiguate by a shared feature keyword, so the gallery link
+  // still resolves to a real property instead of a dead token URL.
+  if (!propertySlug && propertyTitle) {
+    const db = getDb();
+    const locPart = String(propertyTitle).split('—')[0];
+    const city = (locPart.split(',')[0] || '').trim();
+    const bedsMatch = String(propertyTitle).match(/(\d+)\s*-?\s*bed/i);
+    const beds = bedsMatch ? Number(bedsMatch[1]) : null;
+    if (city) {
+      let q = db.from('properties')
+        .select('slug, title, city, price, img, country, region, partner')
+        .ilike('city', city)
+        .eq('status', 'Live');
+      if (beds) q = q.eq('beds', beds);
+      const { data: cands } = await q.limit(12);
+      if (cands && cands.length) {
+        let pick = cands[0];
+        if (cands.length > 1) {
+          const tail = String(propertyTitle).toLowerCase();
+          const generic = new Set(['with','bed','apartment','house','villa','estate','penthouse','townhouse','finca','chalet']);
+          const scored = cands.find(c => {
+            const words = (c.title || '').toLowerCase().split(/[^a-z]+/).filter(w => w.length > 3);
+            return words.some(w => !generic.has(w) && tail.includes(w));
+          });
+          if (scored) pick = scored;
+        }
+        propertySlug    = pick.slug;
+        propertyCity    = propertyCity    || pick.city    || null;
+        propertyPrice   = propertyPrice   || (pick.price ? Number(pick.price) : null);
+        propertyImg     = propertyImg     || pick.img     || null;
+        propertyRegion  = propertyRegion  || pick.region  || null;
+        propertyPartner = propertyPartner || pick.partner || null;
+        resolvedCountry = resolvedCountry || pick.country || null;
+      }
+    }
+  }
+
   // ── CRM ────────────────────────────────────────────────────────────────────
   let contact   = null;
   let emailSend = null;
@@ -212,7 +252,7 @@ export default async function handler(req, res) {
   const localeParam = locale && locale !== 'en' ? `&lang=${locale}` : '';
   const galleryUrl = propertySlug
     ? `https://co-ownership-property.com/gallery/${propertySlug}?t=${userToken}${localeParam}`
-    : `https://co-ownership-property.com/gallery/${userToken}${localeParam ? `?${localeParam.slice(1)}` : ''}`; // fallback if no slug
+    : `https://co-ownership-property.com/our-homes/`; // no slug resolved — link the full collection, never a dead token URL
 
   // ── Fetch similar properties for email ────────────────────────────────────
   const rawSimilar = await getSimilarProperties(propertySlug, resolvedCountry, propertyCity, propertyPrice);
