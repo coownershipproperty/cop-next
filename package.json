@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "gsc:audit": "node scripts/gsc-audit.js",
     "email:dev": "email dev ./emails",
     "email:preview": "email preview ./emails"
   },
