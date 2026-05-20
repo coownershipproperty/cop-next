@@ -128,7 +128,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
 
   async function loadTagsRegions() {
     try {
-      const r = await authedFetch('/api/admin/ui/newsletter-tags')
+      const r = await authedFetch('/api/admin/ui/newsletter-tags/')
       const j = await r.json()
       setTagsList(j.tags || [])
       setRegionsList(j.regions || [])
@@ -138,7 +138,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
   async function searchProperties(q) {
     setPropsLoading(true)
     try {
-      const r = await authedFetch('/api/admin/ui/newsletter-properties-search', {
+      const r = await authedFetch('/api/admin/ui/newsletter-properties-search/', {
         method: 'POST',
         body: JSON.stringify({ q, limit: 500 }),
       })
@@ -151,7 +151,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
 
   async function loadSelectedProperties(slugs) {
     if (!slugs.length) { setSelectedProperties([]); return }
-    const r = await authedFetch('/api/admin/ui/newsletter-properties-search', {
+    const r = await authedFetch('/api/admin/ui/newsletter-properties-search/', {
       method: 'POST',
       body: JSON.stringify({ slugs }),
     })
@@ -162,7 +162,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
   async function refreshAudienceCount() {
     setAudienceBusy(true)
     try {
-      const r = await authedFetch('/api/admin/ui/newsletter-audience-count', {
+      const r = await authedFetch('/api/admin/ui/newsletter-audience-count/', {
         method: 'POST',
         body: JSON.stringify({
           audience_segment: audienceSegment,
@@ -198,7 +198,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
       scheduled_for: scheduledFor || null,
       ...extraPatch,
     }
-    const r = await authedFetch('/api/admin/ui/newsletter-save', {
+    const r = await authedFetch('/api/admin/ui/newsletter-save/', {
       method: 'POST',
       body: JSON.stringify(payload),
     })
@@ -240,7 +240,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
     }
     setSending(true)
     try {
-      const r = await authedFetch('/api/admin/ui/newsletter-send', {
+      const r = await authedFetch('/api/admin/ui/newsletter-send/', {
         method: 'POST',
         body: JSON.stringify({ campaignId: campaignId || (await getJustSavedId()), confirm: true, excludeEnquired }),
       })
@@ -284,7 +284,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
 
   // ── Search recipients for "Render as" picker ────────────────────────────────
   async function searchContacts(q) {
-    const r = await authedFetch('/api/admin/ui/newsletter-contacts-search', {
+    const r = await authedFetch('/api/admin/ui/newsletter-contacts-search/', {
       method: 'POST',
       body: JSON.stringify({ q, limit: 12 }),
     })
@@ -300,7 +300,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
     }
     setPreviewBusy(true)
     try {
-      const r = await authedFetch('/api/admin/ui/newsletter-preview', {
+      const r = await authedFetch('/api/admin/ui/newsletter-preview/', {
         method: 'POST',
         body: JSON.stringify({
           campaignId,
