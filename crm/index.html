@@ -94,6 +94,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .chart-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
 .chart-sub{font-size:11px;color:var(--text3);margin-bottom:14px}
 .chart-wrap{position:relative}
+.chart-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.chart-card-head .chart-title,.chart-card-head .chart-sub{margin-bottom:0}
+.chart-card-head .chart-sub{margin-top:2px}
+.chart-date-filter{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)}
+.chart-date-filter input[type="date"]{padding:4px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;color:var(--text);background:#fff;font-family:inherit}
+.chart-date-filter input[type="date"]:focus{outline:none;border-color:var(--gold)}
+.chart-date-filter button{padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:transparent;font-size:11px;cursor:pointer;font-family:inherit;color:var(--text2)}
+.chart-date-filter button:hover{background:var(--bg);color:var(--text)}
+.chart-wrap-scroll{position:relative;max-height:420px;overflow-y:auto;overflow-x:hidden}
 
 /* Table */
 .data-table{width:100%;border-collapse:collapse;font-size:12px}
@@ -364,9 +373,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <!-- Charts row 1 -->
         <div class="chart-grid">
           <div class="chart-card">
-            <div class="chart-title">Leads by property</div>
-            <div class="chart-sub">Top 12 properties generating the most enquiries</div>
-            <div class="chart-wrap"><canvas id="chart-properties" height="220"></canvas></div>
+            <div class="chart-card-head">
+              <div>
+                <div class="chart-title">Leads by property</div>
+                <div class="chart-sub" id="chart-properties-sub">All properties · all time</div>
+              </div>
+              <div class="chart-date-filter">
+                <input type="date" id="prop-from" aria-label="From date">
+                <span>→</span>
+                <input type="date" id="prop-to" aria-label="To date">
+                <button type="button" id="prop-reset">All time</button>
+              </div>
+            </div>
+            <div class="chart-wrap chart-wrap-scroll"><canvas id="chart-properties"></canvas></div>
           </div>
           <div class="chart-card">
             <div class="chart-title">Pipeline status</div>
@@ -741,6 +760,75 @@ function makeChart(id, type, labels, data, opts={}, extraOpts={}) {
 
 const CHART_COLORS = ['#c9993a','#2563eb','#16a34a','#dc2626','#9333ea','#0891b2','#ea580c','#84cc16','#f43f5e','#6366f1','#14b8a6','#f97316'];
 
+// ─── Properties chart (custom — needs dynamic height + date filter) ───
+function renderPropertiesChart(){
+  const rows = window._dashRows || [];
+  const from = (document.getElementById('prop-from')?.value || '').trim();
+  const to = (document.getElementById('prop-to')?.value || '').trim();
+
+  const propMap = {};
+  rows.forEach(r => {
+    if(!r.property_title) return;
+    const d = (r.lead_created || '').slice(0,10);
+    if(from && d && d < from) return;
+    if(to && d && d > to) return;
+    propMap[r.property_title] = (propMap[r.property_title] || 0) + 1;
+  });
+  const propData = Object.entries(propMap).sort((a,b) => b[1] - a[1]);
+
+  // Update sub label
+  const sub = document.getElementById('chart-properties-sub');
+  if(sub){
+    const fmt = (s) => s ? new Date(s+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : null;
+    const f = fmt(from), t = fmt(to);
+    const range = (f && t) ? `${f} → ${t}` : (f ? `from ${f}` : (t ? `until ${t}` : 'all time'));
+    const noun = propData.length === 1 ? 'property' : 'properties';
+    sub.textContent = `${propData.length} ${noun} · ${range}`;
+  }
+
+  const canvas = document.getElementById('chart-properties');
+  if(!canvas) return;
+
+  // Use horizontal bars when there are many properties (labels are too long for vertical)
+  const horizontal = propData.length > 12;
+  const wrap = canvas.parentElement;
+  if(horizontal){
+    // Each bar ~22px tall + padding
+    canvas.style.height = Math.max(220, propData.length * 22 + 40) + 'px';
+    canvas.style.width = '100%';
+    canvas.removeAttribute('height');
+  } else {
+    canvas.style.height = '220px';
+    canvas.style.width = '100%';
+  }
+
+  if(charts['chart-properties']) charts['chart-properties'].destroy();
+  charts['chart-properties'] = new Chart(canvas.getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: propData.map(([k]) => k.length > 50 ? k.slice(0,48) + '…' : k),
+      datasets: [{
+        data: propData.map(([,v]) => v),
+        backgroundColor: CHART_COLORS[0],
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: horizontal ? 'y' : 'x',
+      plugins: { legend: { display: false } },
+      scales: horizontal ? {
+        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { size: 10 }, precision: 0 } },
+        y: { grid: { display: false }, ticks: { font: { size: 10 }, autoSkip: false } },
+      } : {
+        x: { grid: { display: false }, ticks: { font: { size: 10 }, maxRotation: 35 } },
+        y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { size: 10 }, precision: 0 } },
+      },
+    },
+  });
+}
+
 // ─── Dashboard ────────────────────────────────────────────
 async function loadDashboard() {
   document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
@@ -786,15 +874,23 @@ async function loadDashboard() {
     if(error) throw error;
     const rows = ld || [];
 
-    // Property chart
-    const propMap = {};
-    rows.forEach(r=>{ if(r.property_title) propMap[r.property_title]=(propMap[r.property_title]||0)+1; });
-    const propData = Object.entries(propMap).sort((a,b)=>b[1]-a[1]).slice(0,12);
-    makeChart('chart-properties','bar',
-      propData.map(([k])=>k.length>38?k.slice(0,36)+'…':k),
-      propData.map(([,v])=>v),
-      { backgroundColor:CHART_COLORS[0], borderRadius:4 }
-    );
+    // Property chart — store rows globally so date-range filter can re-render
+    window._dashRows = rows;
+    renderPropertiesChart();
+
+    // Wire up date inputs once
+    const propFromEl = document.getElementById('prop-from');
+    const propToEl = document.getElementById('prop-to');
+    const propResetEl = document.getElementById('prop-reset');
+    if(propFromEl && !propFromEl._wired){
+      propFromEl._wired = true;
+      const re = () => renderPropertiesChart();
+      propFromEl.addEventListener('change', re);
+      propToEl.addEventListener('change', re);
+      propResetEl.addEventListener('click', () => {
+        propFromEl.value = ''; propToEl.value = ''; re();
+      });
+    }
 
     // Status doughnut
     const statusMap = {};
