@@ -203,6 +203,7 @@ nextConfig.redirects = async () => [
   { source: '/wp-json/:path*', destination: '/', permanent: true },
 
   // ── WordPress category/tag archives ───────────────────────────────────────
+  { source: '/category/co-ownership-insights/buying-process/', destination: '/how-it-works/', permanent: true },
   { source: '/category/:path*', destination: '/all-our-blog/', permanent: true },
   { source: '/tag/:slug/',      destination: '/all-our-blog/', permanent: true },
 
@@ -819,7 +820,7 @@ nextConfig.redirects = async () => [
   { source: '/blog/arizona-fractional-ownership-embrace-luxury-living-in-sedona/', destination: '/all-our-blog/', permanent: true },
   { source: '/blog/balearic-property-for-sale/', destination: '/all-our-blog/', permanent: true },
   { source: '/blog/beach-lifestyle/', destination: '/all-our-blog/', permanent: true },
-  { source: '/blog/best-fractional-ownership-properties/', destination: '/all-our-blog/', permanent: true },
+  { source: '/blog/best-fractional-ownership-properties/', destination: '/our-homes/', permanent: true },
   { source: '/blog/browse-properties/', destination: '/all-our-blog/', permanent: true },
   { source: '/blog/buenos-aires-fractional-ownership-properties/', destination: '/all-our-blog/', permanent: true },
   { source: '/blog/buying-fractional-ownership-properties-in-alpe-dhuez/', destination: '/all-our-blog/', permanent: true },
