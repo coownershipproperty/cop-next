@@ -5,7 +5,7 @@ import { isHoneypotFilled } from '@/lib/honeypot';
 import { queueEmail, sendTeamNotification, cancelPendingSequence } from '@/lib/resend';
 import { cancelGalleryFollowup } from '@/lib/galleryFollowup';
 import { expandRegions } from '@/lib/regionMap';
-import EnquiryAutoreply from '@/emails/enquiry-autoreply';
+import { sendEnquiryReply } from '@/lib/enquiryReply';
 import NurtureDay3  from '@/emails/nurture-day3';
 import NurtureDay7  from '@/emails/nurture-day7';
 import NurtureDay14 from '@/emails/nurture-day14';
@@ -269,46 +269,31 @@ export default async function handler(req, res) {
     console.error('[Mail] team notification failed:', e.message);
   }
 
-  // ── Queue auto-reply to lead ────────────────────────────────────────────────
+  // ── Auto-reply to the lead — a short personal note from Dylan ──────────────
+  // Sent immediately via Resend (same plain style as the gallery follow-up).
   try {
     const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
 
-    await queueEmail({
-      autoSend:      true,
-      to:            email,
-      toName:        name || null,
-      subject:       subjectLine,
-      template:      React.createElement(EnquiryAutoreply, {
-        firstName:          firstName    || name || undefined,
-        propertyTitle:      property     || undefined,
-        propertyImg:        propertyImg  || undefined,
-        propertyUrl:        url          || undefined,
-        driveUrl:           driveUrl     || undefined,
-        destination:        destination  || undefined,
-        budget:             budget       || undefined,
-        matchingProperties: matchingProperties,
-        trackingPixelHtml:  pixel        || undefined,
-        locale,
-      }),
-      templateName:  'enquiry-autoreply',
-      templateProps: { firstName, propertyTitle: property, propertyUrl: url, locale },
-      trigger:       'enquiry_submitted',
-      notes:         `Auto-reply for enquiry${property ? ` about ${property}` : ''}`,
-      contactId:     contact?.id || null,
-      leadId:        lead?.id    || null,
+    await sendEnquiryReply({
+      to:                email,
+      firstName:         firstName || name || null,
+      propertyTitle:     property  || null,
+      propertyUrl:       url       || null,
+      locale,
+      trackingPixelHtml: pixel,
     });
 
     if (contact && emailSend) {
       await logActivity({
         contactId:   contact.id,
         leadId:      lead?.id || null,
-        type:        'email_queued',
-        description: `Auto-reply queued for ${email}`,
+        type:        'email_sent',
+        description: `Auto-reply sent to ${email}`,
         metadata:    { email_send_id: emailSend.id, type: 'enquiry_auto' },
       });
     }
   } catch (e) {
-    console.error('[Mail] auto-reply queue failed:', e.message);
+    console.error('[Mail] enquiry auto-reply failed:', e.message);
   }
 
   // ── Nurture sequence (property enquiries only) ─────────────────────────────
