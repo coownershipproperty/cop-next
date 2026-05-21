@@ -5,6 +5,10 @@
       "schedule": "* * * * *"
     },
     {
+      "path": "/api/process-gallery-followups",
+      "schedule": "* * * * *"
+    },
+    {
       "path": "/api/refresh-rates",
       "schedule": "0 6 * * *"
     },
