@@ -53,6 +53,6 @@ show translated text instead of falling back to English. See SKILL.md Step 7.
 `<SUPABASE_ANON_KEY>`
 
 **Service role key** (uploads + inserts — required):
-`<SUPABASE_SERVICE_ROLE_KEY>`
+Load from the `SUPABASE_SERVICE_ROLE_KEY` environment variable. Do not paste service-role keys into repo files.
 
 If the service role key stops working: Supabase dashboard → Settings → API → "Legacy anon, service_role API keys" tab → Reveal → copy the `service_role` one.

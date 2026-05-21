@@ -157,9 +157,10 @@ Use the Python upload script. See `scripts/upload_template.py` for the full temp
 `PROPERTIES` list for the new properties and run it.
 
 **Key upload rules:**
-- **Service role key required** — the anon key will be rejected. Use the legacy JWT format key:
-  `<SUPABASE_SERVICE_ROLE_KEY>`
-  (If this key ever stops working: Supabase dashboard → Settings → API → **Legacy** anon/service_role tab → Reveal → copy)
+- **Service role key required** — the anon key will be rejected.
+- Keep the service role key out of Git. Export it locally before running the upload script:
+  `export SUPABASE_SERVICE_ROLE_KEY='...'`
+- If this key ever stops working: Supabase dashboard → Settings → API → **Legacy** anon/service_role tab → Reveal → copy.
 
 **Storage structure:**
 ```

@@ -7,12 +7,15 @@ MYNE → COP Upload Template
 3. Check output — every line should say OK.
 4. Tell David the slugs, photo counts, and that extra_photos is ready for brochures.
 """
+import os
 import requests, time, json, uuid
 from datetime import date
 
 SUPABASE_URL = "https://iotzzoxyckpyatzqcjbo.supabase.co"
-# IMPORTANT: Must be the Legacy JWT service_role key (not the sb_secret_ format key)
-SERVICE_KEY = "<SUPABASE_SERVICE_ROLE_KEY>"
+# IMPORTANT: keep this key out of Git. Load it from your shell/Vercel secrets.
+SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "").strip()
+if not SERVICE_KEY:
+    raise SystemExit("Set SUPABASE_SERVICE_ROLE_KEY in your shell before running this script.")
 HEADERS = {"Authorization": f"Bearer {SERVICE_KEY}", "apikey": SERVICE_KEY}
 
 def upload_image(bucket, path, url):
