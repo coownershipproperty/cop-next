@@ -50,9 +50,9 @@ show translated text instead of falling back to English. See SKILL.md Step 7.
 ## Supabase Keys
 
 **Anon key** (read-only queries):
-`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MDE5OTEsImV4cCI6MjA5MjA3Nzk5MX0.6B_iQk8bqwFLkeB8Nl1qpiZRdXfRLPzw1Pea4Uxyrwo`
+`<SUPABASE_ANON_KEY>`
 
 **Service role key** (uploads + inserts — required):
-`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjUwMTk5MSwiZXhwIjoyMDkyMDc3OTkxfQ.NzeqvQSgUlEdAXUhe3aeG5C3auVuoq53dAJG3AZ2rJc`
+`<SUPABASE_SERVICE_ROLE_KEY>`
 
 If the service role key stops working: Supabase dashboard → Settings → API → "Legacy anon, service_role API keys" tab → Reveal → copy the `service_role` one.
