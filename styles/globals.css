@@ -6842,6 +6842,9 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-stat:last-child{border-right:none;padding-right:0;margin-right:0}
 .pp-stat-val{font-family:'Playfair Display',serif;font-size:1.3rem;color:#143047;display:block;font-weight:400;line-height:1.2}
 .pp-stat-lbl{font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:#6b8a9e;margin-top:4px;display:block;font-family:'Nunito Sans',sans-serif;font-weight:700}
+.pp-contact-stat{display:none;text-decoration:none;cursor:pointer}
+.pp-contact-stat-val{font-family:'Nunito Sans',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#C9A84C}
+.pp-contact-stat:hover .pp-contact-stat-val{color:#b8963e}
 
 /* ── Section headings ── */
 .pp-heading{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:400;color:#143047;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
@@ -6862,7 +6865,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-photo-thumb:hover img{transform:scale(1.04)}
 
 /* ── Similar ── */
-.pp-similar{margin-bottom:40px}
+.pp-similar{grid-column:1;margin-bottom:40px}
 .pp-similar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .pp-sim-card{display:block;text-decoration:none;border:1px solid var(--border);background:#fff;transition:transform .25s,box-shadow .25s}
 .pp-sim-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(20,48,71,.08)}
@@ -6875,6 +6878,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 
 /* ── Enquiry form card ── */
 .pp-form-card{background:#fff;border:1px solid var(--border);padding:32px}
+.pp-right{scroll-margin-top:100px}
 .pp-form-eye{font-family:'Nunito Sans',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#C9A84C;margin:0 0 8px}
 .pp-form-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:400;color:#143047;margin:0 0 8px}
 .pp-form-sub{font-family:'Nunito Sans',sans-serif;font-size:.82rem;color:#6b8a9e;margin:0 0 24px;line-height:1.5}
@@ -6955,6 +6959,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .pp-gallery{height:300px}
   .pp-content{grid-template-columns:1fr;gap:32px;padding:20px 20px 60px}
   .pp-right{position:static}
+  .pp-contact-stat{display:block}
   .pp-similar-grid{grid-template-columns:repeat(2,1fr)}
   .pp-photo-grid{grid-template-columns:repeat(2,1fr)}
 }
@@ -6985,6 +6990,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   }
   .pp-stat:last-child { border-right: none; }
   .pp-stat-val { font-size: 1.1rem; }
+  .pp-contact-stat-val { font-size: 0.74rem; line-height: 1.2; }
   .pp-stat-lbl { font-size: 0.58rem; letter-spacing: 0.1em; margin-top: 3px; }
   .pp-similar-grid,.pp-photo-grid{grid-template-columns:1fr}
   .pp-form-card{padding:20px}
