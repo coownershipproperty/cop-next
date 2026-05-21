@@ -20,6 +20,12 @@ function shuffle(arr) {
   return a;
 }
 
+/** Parse a date_added value into a sortable timestamp; missing/bad dates sort last. */
+function dateVal(d) {
+  const t = d ? Date.parse(d) : NaN;
+  return Number.isNaN(t) ? 0 : t;
+}
+
 export async function getStaticProps() {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -28,7 +34,7 @@ export async function getStaticProps() {
 
   const { data: raw, error } = await supabase
     .from('properties')
-    .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, country, region, city, beds, size, status, property_type');
+    .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, country, region, city, beds, size, status, property_type, date_added');
 
   if (error) {
     console.error('Supabase error (our-homes):', error);
@@ -57,6 +63,7 @@ export async function getStaticProps() {
     label:         '',
     status:        p.status        || '',
     property_type: p.property_type || '',
+    dateAdded:     p.date_added    || null,
   })));
 
   return { props: { allProperties }, revalidate: 3600 };
@@ -98,7 +105,7 @@ const COPY = {
     sub: "Handpicked luxury co-ownership properties across Europe, the USA and beyond — find the home that's right for you.",
     label_country: 'Country', label_region: 'Region', label_sort: 'Sort',
     all: 'All', other: 'Other',
-    sort_default: 'Default', sort_asc: 'Price ↑ Low', sort_desc: 'Price ↓ High',
+    sort_newest: 'Newest', sort_asc: 'Price ↑ Low', sort_desc: 'Price ↓ High',
     clear: '✕ Clear', clear_filters: 'Clear filters',
     get_alerts: 'Get property alerts',
     showing: 'Showing', of: 'of',
@@ -137,7 +144,7 @@ const COPY = {
     sub: 'Propiedades en copropiedad de lujo curadas a mano por Europa, EE. UU. y más allá — encuentra la que es perfecta para ti.',
     label_country: 'País', label_region: 'Región', label_sort: 'Ordenar',
     all: 'Todas', other: 'Otros',
-    sort_default: 'Por defecto', sort_asc: 'Precio ↑ Bajo', sort_desc: 'Precio ↓ Alto',
+    sort_newest: 'Más recientes', sort_asc: 'Precio ↑ Bajo', sort_desc: 'Precio ↓ Alto',
     clear: '✕ Limpiar', clear_filters: 'Limpiar filtros',
     get_alerts: 'Recibir alertas',
     showing: 'Mostrando', of: 'de',
@@ -204,7 +211,7 @@ const COPY = {
     sub: "Les biens de prestige en copropriété sélectionnés par notre équipe à travers l'Europe, les États-Unis et au-delà — trouvez celui qui vous convient.",
     label_country: 'Pays', label_region: 'Région', label_sort: 'Trier',
     all: 'Toutes', other: 'Autre',
-    sort_default: 'Par défaut', sort_asc: 'Prix ↑ Bas', sort_desc: 'Prix ↓ Haut',
+    sort_newest: 'Plus récents', sort_asc: 'Prix ↑ Bas', sort_desc: 'Prix ↓ Haut',
     clear: '✕ Effacer', clear_filters: 'Effacer les filtres',
     get_alerts: 'Recevoir des alertes',
     showing: 'Affichage de', of: 'sur',
@@ -271,7 +278,7 @@ const COPY = {
     sub: 'Sorgfältig ausgewählte Luxus-Ferienimmobilien im Miteigentum in ganz Europa, den USA und darüber hinaus — finden Sie das Zuhause, das zu Ihnen passt.',
     label_country: 'Land', label_region: 'Region', label_sort: 'Sortieren',
     all: 'Alle', other: 'Sonstige',
-    sort_default: 'Standard', sort_asc: 'Preis ↑ Niedrig', sort_desc: 'Preis ↓ Hoch',
+    sort_newest: 'Neueste', sort_asc: 'Preis ↑ Niedrig', sort_desc: 'Preis ↓ Hoch',
     clear: '✕ Zurücksetzen', clear_filters: 'Filter zurücksetzen',
     get_alerts: 'Benachrichtigungen erhalten',
     showing: 'Anzeige von', of: 'von',
@@ -362,7 +369,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
 
   const [countries,    setCountries]    = useState([]); // [] = All; array of selected countries
   const [regions,      setRegions]      = useState([]); // [] = all; array of selected region labels
-  const [sort,         setSort]         = useState('default');
+  const [sort,         setSort]         = useState('newest');
   const [page,         setPage]         = useState(1);
   const [alertOpen,     setAlertOpen]     = useState(false);
   const [alertEmail,    setAlertEmail]    = useState('');
@@ -459,8 +466,9 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     }
 
     // Sort
-    if (sort === 'asc')  list.sort((a, b) => (a.price || 0) - (b.price || 0));
-    if (sort === 'desc') list.sort((a, b) => (b.price || 0) - (a.price || 0));
+    if (sort === 'newest') list.sort((a, b) => dateVal(b.dateAdded) - dateVal(a.dateAdded));
+    if (sort === 'asc')    list.sort((a, b) => (a.price || 0) - (b.price || 0));
+    if (sort === 'desc')   list.sort((a, b) => (b.price || 0) - (a.price || 0));
 
     return list;
   }, [allProperties, countries, regions, sort]);
@@ -468,12 +476,12 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   const visible = useMemo(() => filtered.slice(0, page * PAGE_SIZE), [filtered, page]);
   const hasMore = visible.length < filtered.length;
 
-  const hasActiveFilters = countries.length > 0 || sort !== 'default';
+  const hasActiveFilters = countries.length > 0 || sort !== 'newest';
 
   function clearAll() {
     setCountries([]);
     setRegions([]);
-    setSort('default');
+    setSort('newest');
     setPage(1);
   }
 
@@ -617,7 +625,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
           <span className="filter-label">{t.label_sort}</span>
           <div className="filter-scroll-outer">
             <div className="filter-scroll-wrap">
-              {[['default', t.sort_default],['asc', t.sort_asc],['desc', t.sort_desc]].map(([val, label]) => (
+              {[['newest', t.sort_newest],['asc', t.sort_asc],['desc', t.sort_desc]].map(([val, label]) => (
                 <button
                   key={val}
                   className={`filter-btn sort-btn${sort === val ? ' active' : ''}`}
