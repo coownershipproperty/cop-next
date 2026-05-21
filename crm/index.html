@@ -180,6 +180,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ld-status-wrap{margin-left:auto}
 .ld-status-select{padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:12px;background:var(--bg);color:var(--text);cursor:pointer;outline:none;font-family:inherit}
 .lead-detail-body{padding:18px 22px}
+.telnyx-compact-panel{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border:1px solid rgba(201,153,58,0.32);border-radius:8px;background:#FEF9EC;margin-bottom:14px}
+.telnyx-compact-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px 12px}
+.telnyx-compact-row strong{display:inline-block;color:var(--text);font-size:14px;white-space:nowrap}
+.telnyx-label{display:block;color:var(--text3);font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.telnyx-actions{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}
+.telnyx-actions .btn{min-height:34px;padding:7px 12px}
+.telnyx-actions .whatsapp{background:#20bf5a;border-color:#20bf5a;color:#fff;text-decoration:none}
+.telnyx-actions .whatsapp:hover{background:#1aa44d;border-color:#1aa44d}
+.telnyx-actions .email-action{text-decoration:none}
+.telnyx-state-pill{display:inline-flex;align-items:center;min-height:24px;padding:3px 9px;border-radius:999px;background:#D1FAE5;color:#065F46;font-size:11px;font-weight:600}
+.telnyx-message{margin:0;color:var(--text2);font-size:11px}
+.telnyx-message.error{color:var(--danger)}
+.telnyx-remote-audio{display:none}
 .ld-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--bg);border-radius:8px;padding:12px 14px;margin-bottom:16px}
 .ld-field label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.3px;display:block}
 .ld-field span{font-size:12px;color:var(--text);margin-top:1px;display:block}
@@ -669,6 +682,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 const SUPABASE_URL = 'https://iotzzoxyckpyatzqcjbo.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MDE5OTEsImV4cCI6MjA5MjA3Nzk5MX0.6B_iQk8bqwFLkeB8Nl1qpiZRdXfRLPzw1Pea4Uxyrwo';
 const API_URL     = 'https://co-ownership-property.com/api/email-queue/';
+const ADMIN_API_BASE = 'https://co-ownership-property.com/api/admin';
+const TELNYX_WEBRTC_MODULE = 'https://esm.sh/@telnyx/webrtc@2.26.4?bundle';
 
 // ─── Init ─────────────────────────────────────────────────
 const { createClient } = supabase;
@@ -701,7 +716,8 @@ const ACT_STYLE = {
   email_sent:{bg:'#FEF3C7',c:'#92400E',l:'S'},
   email_opened:{bg:'#D1FAE5',c:'#065F46',l:'O'},
   enquiry_submitted:{bg:'#EDE9FE',c:'#5B21B6',l:'Q'},
-  floor_plan_requested:{bg:'#F3F4F6',c:'#4B5563',l:'F'}
+  floor_plan_requested:{bg:'#F3F4F6',c:'#4B5563',l:'F'},
+  phone_call:{bg:'#E0F2FE',c:'#0369A1',l:'C'}
 };
 
 // ─── Auth ─────────────────────────────────────────────────
@@ -923,6 +939,216 @@ function regionToCountry(region){
   const parts = region.split(';').map(r=>r.trim()).filter(Boolean);
   const countries = [...new Set(parts.map(r=>MAP[r]||'').filter(Boolean))];
   return countries.join('; ');
+}
+
+// ─── Lead communications ─────────────────────────────────
+const KNOWN_COUNTRY_CODES = ['1','27','31','32','33','34','39','41','43','44','45','46','47','48','49','61','64','65','351','352','353','966','971'];
+let telnyxClient = null;
+let telnyxCall = null;
+let telnyxReady = false;
+let telnyxCallerId = null;
+let telnyxCallState = null;
+let telnyxActiveLeadId = null;
+let telnyxLastLoggedStatus = null;
+
+function normalizePhoneNumber(raw, defaultCountryCode = '+44') {
+  if(!raw) return null;
+  const compact = String(raw).replace(/[^\d+]/g, '');
+  if(!compact) return null;
+  if(compact.startsWith('+')) return compact;
+  if(compact.startsWith('00')) return '+' + compact.slice(2);
+  if(compact.startsWith('0')) return defaultCountryCode + compact.slice(1);
+  if(KNOWN_COUNTRY_CODES.some(code => compact.startsWith(code))) return '+' + compact;
+  return defaultCountryCode + compact;
+}
+
+function makeWhatsappUrl(phone) {
+  if(!phone) return null;
+  return 'https://wa.me/' + phone.replace(/[^\d]/g, '');
+}
+
+function callIdFrom(call) {
+  if(!call) return null;
+  return call.id || call.callId || call.telnyxCallControlId || call.telnyxSessionId || call.telnyxLegId || null;
+}
+
+function setTelnyxPanelState(leadId, state, message, callState, isError=false) {
+  if(leadId && leadId !== telnyxActiveLeadId) return;
+  const stateEl = document.getElementById('telnyx-state-pill');
+  const msgEl = document.getElementById('telnyx-message');
+  const callBtn = document.getElementById('telnyx-call-btn');
+  const hangupBtn = document.getElementById('telnyx-hangup-btn');
+  const canCall = ['idle','ready','error'].includes(state);
+  const canHangup = ['calling','active'].includes(state) && !!telnyxCall;
+  if(stateEl) {
+    stateEl.textContent = callState || state;
+    stateEl.style.display = callState || !['idle','ready'].includes(state) ? '' : 'none';
+  }
+  if(msgEl) {
+    msgEl.textContent = message || '';
+    msgEl.style.display = message ? '' : 'none';
+    msgEl.classList.toggle('error', !!isError);
+  }
+  if(callBtn) callBtn.disabled = !canCall;
+  if(hangupBtn) hangupBtn.disabled = !canHangup;
+}
+
+async function logTelnyxCall(status, extra={}) {
+  const lead = allLeads.find(l => l.lead_id === telnyxActiveLeadId);
+  const dialNumber = normalizePhoneNumber(lead?.phone);
+  if(!lead || !dialNumber || telnyxLastLoggedStatus === status) return;
+  telnyxLastLoggedStatus = status;
+  await fetch(`${ADMIN_API_BASE}/telnyx/calls`, {
+    method: 'POST',
+    headers: await crmJsonHeaders(),
+    body: JSON.stringify({
+      leadId: lead.lead_id,
+      contactId: lead.contact_id,
+      destinationNumber: dialNumber,
+      callerNumber: telnyxCallerId,
+      telnyxCallId: callIdFrom(telnyxCall),
+      status,
+      state: telnyxCallState,
+      metadata: extra,
+    }),
+  }).catch(() => undefined);
+}
+
+async function getTelnyxClient(tokenResponse) {
+  if(telnyxClient && telnyxReady) return telnyxClient;
+  const module = await import(TELNYX_WEBRTC_MODULE);
+  const TelnyxRTC = module.TelnyxRTC || module.default?.TelnyxRTC || module.default;
+  if(!TelnyxRTC) throw new Error('Could not load Telnyx WebRTC client.');
+  const clientOptions = tokenResponse.auth.type === 'token'
+    ? { login_token: tokenResponse.auth.loginToken, enableCallReports: true }
+    : { login: tokenResponse.auth.login, password: tokenResponse.auth.password, enableCallReports: true };
+  const client = new TelnyxRTC(clientOptions);
+  client.remoteElement = 'telnyx-remote-audio';
+  telnyxClient = client;
+
+  await new Promise((resolve, reject) => {
+    let settled = false;
+    const timeout = window.setTimeout(() => {
+      if(settled) return;
+      settled = true;
+      reject(new Error('Telnyx did not become ready within 15 seconds.'));
+    }, 15000);
+
+    client
+      .on('telnyx.ready', () => {
+        telnyxReady = true;
+        setTelnyxPanelState(telnyxActiveLeadId, 'ready', 'Connected to Telnyx.', null);
+        if(!settled) {
+          settled = true;
+          window.clearTimeout(timeout);
+          resolve();
+        }
+      })
+      .on('telnyx.error', err => {
+        console.error('[telnyx]', err);
+        setTelnyxPanelState(telnyxActiveLeadId, 'error', 'Telnyx connection error.', null, true);
+        if(!settled) {
+          settled = true;
+          window.clearTimeout(timeout);
+          reject(err instanceof Error ? err : new Error('Telnyx connection error.'));
+        }
+      })
+      .on('telnyx.notification', notification => {
+        if(notification.type !== 'callUpdate' || !notification.call) return;
+        const call = notification.call;
+        const state = call.state || 'unknown';
+        telnyxCall = call;
+        telnyxCallState = state;
+        if(state === 'active') {
+          setTelnyxPanelState(telnyxActiveLeadId, 'active', 'Call connected.', state);
+          logTelnyxCall('answered', { state });
+        } else if(state === 'hangup' || state === 'destroy') {
+          setTelnyxPanelState(telnyxActiveLeadId, 'idle', 'Call ended.', state);
+          logTelnyxCall('ended', { state });
+          telnyxCall = null;
+        } else if(state === 'trying' || state === 'requesting' || state === 'early') {
+          setTelnyxPanelState(telnyxActiveLeadId, 'calling', 'Calling...', state);
+        }
+      });
+
+    client.connect().catch(error => {
+      if(!settled) {
+        settled = true;
+        window.clearTimeout(timeout);
+        reject(error instanceof Error ? error : new Error('Could not connect to Telnyx.'));
+      }
+    });
+  });
+
+  return client;
+}
+
+async function startLeadCall(leadId) {
+  const lead = allLeads.find(l => l.lead_id === leadId);
+  const dialNumber = normalizePhoneNumber(lead?.phone);
+  telnyxActiveLeadId = leadId;
+  telnyxLastLoggedStatus = null;
+  if(!dialNumber) {
+    setTelnyxPanelState(leadId, 'error', 'This lead does not have a valid phone number.', null, true);
+    return;
+  }
+  setTelnyxPanelState(leadId, 'connecting', 'Getting Telnyx access...', null);
+  try {
+    const response = await fetch(`${ADMIN_API_BASE}/telnyx/token`, {
+      method: 'POST',
+      headers: await crmJsonHeaders(),
+    });
+    const tokenResponse = await response.json();
+    if(!response.ok || tokenResponse.error) throw new Error(tokenResponse.error || 'Could not get Telnyx access.');
+    telnyxCallerId = tokenResponse.callerId;
+    const client = await getTelnyxClient(tokenResponse);
+    setTelnyxPanelState(leadId, 'calling', `Calling ${dialNumber}...`, null);
+    logTelnyxCall('started', { leadName: lead?.name || lead?.email || '' });
+    telnyxCall = client.newCall({
+      destinationNumber: dialNumber,
+      callerNumber: tokenResponse.callerId,
+      callerName: 'Co-Ownership Property',
+      remoteElement: 'telnyx-remote-audio',
+      audio: true,
+      video: false,
+    });
+  } catch(e) {
+    console.error('[telnyx-call]', e);
+    setTelnyxPanelState(leadId, 'error', e.message || 'Call failed.', null, true);
+    logTelnyxCall('failed', { error: e.message || String(e) });
+  }
+}
+
+async function hangupLeadCall() {
+  if(!telnyxCall) return;
+  setTelnyxPanelState(telnyxActiveLeadId, 'ending', 'Ending call...', telnyxCallState);
+  await telnyxCall.hangup().catch(() => undefined);
+  telnyxCall = null;
+  setTelnyxPanelState(telnyxActiveLeadId, 'idle', 'Call ended.', 'manual_hangup');
+  logTelnyxCall('ended', { state: 'manual_hangup' });
+}
+
+function renderLeadCommunicationPanel(lead) {
+  const dialNumber = normalizePhoneNumber(lead?.phone);
+  const whatsappUrl = makeWhatsappUrl(dialNumber);
+  const gmailUrl = lead?.email ? `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(lead.email)}` : '';
+  return `<div class="telnyx-compact-panel">
+    <div class="telnyx-compact-row">
+      <div>
+        <span class="telnyx-label">Lead phone</span>
+        <strong>${dialNumber ? esc(dialNumber) : 'No phone on record'}</strong>
+      </div>
+      <span class="telnyx-state-pill" id="telnyx-state-pill" style="display:none"></span>
+      <div class="telnyx-actions">
+        <button type="button" class="btn btn-primary" id="telnyx-call-btn" onclick="startLeadCall('${esc(lead?.lead_id||'')}')" ${dialNumber?'':'disabled'}>Call</button>
+        <button type="button" class="btn" id="telnyx-hangup-btn" onclick="hangupLeadCall()" disabled>Hang up</button>
+        ${whatsappUrl ? `<a class="btn whatsapp" href="${esc(whatsappUrl)}" target="_blank" rel="noopener noreferrer">WhatsApp</a>` : ''}
+        ${gmailUrl ? `<a class="btn email-action" href="${esc(gmailUrl)}" target="_blank" rel="noopener noreferrer">Email</a>` : ''}
+      </div>
+    </div>
+    <p class="telnyx-message" id="telnyx-message" style="display:none"></p>
+    <audio id="telnyx-remote-audio" class="telnyx-remote-audio" autoplay></audio>
+  </div>`;
 }
 
 // ─── Router ───────────────────────────────────────────────
@@ -1361,8 +1587,10 @@ function filterLeads() {
 }
 
 function closeLeadDetail() {
+  if(telnyxCall) hangupLeadCall();
   document.getElementById('lead-detail-panel').classList.remove('open');
   currentLeadId = null;
+  telnyxActiveLeadId = null;
   filterLeads();
 }
 
@@ -1445,6 +1673,7 @@ async function selectLead(lid, cid) {
       </div>
     </div>
     <div class="lead-detail-body">
+      ${renderLeadCommunicationPanel(lead)}
       ${contactLeads.length>1?`<div style="background:#FEF9EC;border:1px solid rgba(201,153,58,0.25);border-radius:8px;padding:10px 12px;margin-bottom:14px">
         <div style="font-size:11px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">${contactLeads.length} Leads for this contact</div>
         ${contactLeads.map(cl=>`<div onclick="selectLead('${cl.lead_id}','${cl.contact_id}')" style="display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;border-top:1px solid rgba(201,153,58,0.12)">
