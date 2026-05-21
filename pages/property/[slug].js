@@ -37,6 +37,8 @@ const COPY = {
     form_eye: 'Get in touch',
     form_title: 'Enquire About This Property',
     form_sub: 'Our team typically responds within a few hours. No obligation.',
+    contact_cta: 'Contact Us',
+    contact_sub: 'Enquire',
     eq_name: 'Your name', eq_name_ph: 'Full name',
     eq_email: 'Email', eq_email_ph: 'your@email.com',
     eq_phone: 'Phone', eq_phone_ph: '+1 or +44…',
@@ -62,6 +64,8 @@ const COPY = {
     form_eye: 'Contáctanos',
     form_title: 'Consulta sobre esta propiedad',
     form_sub: 'Nuestro equipo suele responder en pocas horas. Sin compromiso.',
+    contact_cta: 'Contáctanos',
+    contact_sub: 'Consulta',
     eq_name: 'Tu nombre', eq_name_ph: 'Nombre completo',
     eq_email: 'Correo electrónico', eq_email_ph: 'tu@email.com',
     eq_phone: 'Teléfono', eq_phone_ph: '+34 o +1…',
@@ -87,6 +91,8 @@ const COPY = {
     form_eye: 'Nous contacter',
     form_title: 'Ce bien vous intéresse ?',
     form_sub: 'Notre équipe répond généralement sous quelques heures. Sans engagement.',
+    contact_cta: 'Nous contacter',
+    contact_sub: 'Demande',
     eq_name: 'Votre nom', eq_name_ph: 'Nom complet',
     eq_email: 'Email', eq_email_ph: 'vous@email.com',
     eq_phone: 'Téléphone', eq_phone_ph: '+33 ou +1…',
@@ -112,6 +118,8 @@ const COPY = {
     form_eye: 'Kontakt aufnehmen',
     form_title: 'Anfrage zu dieser Immobilie',
     form_sub: 'Unser Team antwortet in der Regel innerhalb weniger Stunden. Unverbindlich.',
+    contact_cta: 'Kontakt',
+    contact_sub: 'Anfrage',
     eq_name: 'Ihr Name', eq_name_ph: 'Vollständiger Name',
     eq_email: 'E-Mail', eq_email_ph: 'ihre@email.com',
     eq_phone: 'Telefon', eq_phone_ph: '+49 oder +1…',
@@ -553,6 +561,14 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             {p.size > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.size} m²</span><span className="pp-stat-lbl">{t.total_size}</span></div>}
             <div className="pp-stat"><span className="pp-stat-val">{t.days_label(p.share_denominator || 8)}</span><span className="pp-stat-lbl">{t.per_year}</span></div>
             <div className="pp-stat"><span className="pp-stat-val">1/{p.share_denominator || 8}</span><span className="pp-stat-lbl">{t.share_size}</span></div>
+            <a
+              href="#property-enquiry"
+              className="pp-stat pp-contact-stat"
+              onClick={() => track('property_contact_cta_click', { property: local.title, slug: p.slug, locale })}
+            >
+              <span className="pp-stat-val pp-contact-stat-val">{t.contact_cta}</span>
+              <span className="pp-stat-lbl">{t.contact_sub}</span>
+            </a>
           </div>
 
           <div className="pp-desc">
@@ -625,29 +641,9 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             />
           )}
 
-          {similar.length > 0 && (
-            <div className="pp-similar">
-              <h2 className="pp-heading">{t.similar_heading(p.country)}</h2>
-              <div className="pp-similar-grid">
-                {similar.map(s => {
-                  const sTitle = s[`title_${locale}`] || s.title;
-                  return (
-                    <a key={s.slug} href={`/property/${s.slug}`} className="pp-sim-card">
-                      <div className="pp-sim-img"><Img src={s.img} alt={sTitle} sizes="(max-width: 768px) 100vw, 33vw" /></div>
-                      <div className="pp-sim-body">
-                        <h4>{sTitle}</h4>
-                        <p>{fmt(s.price, s.currency, localeNumberFmt)}</p>
-                      </div>
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
         </div>{/* /pp-left */}
 
-        <div className="pp-right">
+        <div className="pp-right" id="property-enquiry">
           <div className="pp-form-card">
             <p className="pp-form-eye">{t.form_eye}</p>
             <h3 className="pp-form-title">{t.form_title}</h3>
@@ -655,6 +651,26 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             <EnquiryForm propertyTitle={local.title} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} locale={locale} />
           </div>
         </div>
+
+        {similar.length > 0 && (
+          <div className="pp-similar">
+            <h2 className="pp-heading">{t.similar_heading(p.country)}</h2>
+            <div className="pp-similar-grid">
+              {similar.map(s => {
+                const sTitle = s[`title_${locale}`] || s.title;
+                return (
+                  <a key={s.slug} href={`/property/${s.slug}`} className="pp-sim-card">
+                    <div className="pp-sim-img"><Img src={s.img} alt={sTitle} sizes="(max-width: 768px) 100vw, 33vw" /></div>
+                    <div className="pp-sim-body">
+                      <h4>{sTitle}</h4>
+                      <p>{fmt(s.price, s.currency, localeNumberFmt)}</p>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
       </div>{/* /pp-content */}
 
