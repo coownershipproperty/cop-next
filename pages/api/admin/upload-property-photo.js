@@ -4,25 +4,18 @@
  * DELETE /api/admin/upload-property-photo
  * Removes a photo URL from properties.photos[] (and deletes from Storage if hosted there)
  *
- * Auth: Bearer <CRM_SECRET>
+ * Auth: Bearer <Supabase access token for CRM admin>
  */
-import { createClient } from '@supabase/supabase-js';
 import formidable from 'formidable';
 import fs from 'fs';
 import path from 'path';
+import { requireCrmAdmin } from '@/lib/adminAuth';
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
 export const config = { api: { bodyParser: false } };
 
 function getDb() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY,
-  );
-}
-
-function auth(req) {
-  const secret = process.env.CRM_SECRET;
-  return secret && req.headers['authorization'] === `Bearer ${secret}`;
+  return createSupabaseAdminClient();
 }
 
 export default async function handler(req, res) {
@@ -31,7 +24,8 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  if (!auth(req)) return res.status(401).json({ error: 'Unauthorised' });
+  const admin = await requireCrmAdmin(req, res);
+  if (!admin) return;
 
   const db = getDb();
 

@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { upsertContact, createLead, logActivity, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
@@ -90,8 +90,7 @@ function followUpHtml({ firstName, propertyTitle, propertyUrl, prevPropertyTitle
 }
 
 function getDb() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
+  return createSupabaseAdminClient();
 }
 
 export default async function handler(req, res) {

@@ -604,15 +604,9 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
               <p className="pp-location-text">{[p.city, p.region, p.country].filter(Boolean).join(', ')}</p>
               {p.lat && p.lng && (
                 <div className="pp-map-wrap">
-                  {/* Google Maps Embed API. The API key is HTTP-referrer
-                      restricted (co-ownership-property.com/* + Vercel +
-                      localhost) and API-restricted to Maps Embed API only,
-                      so the public NEXT_PUBLIC_* env var is safe to expose
-                      client-side. Embed API is in Google's "Always free"
-                      tier — no quota, no cost. */}
                   <iframe
                     title="Property location"
-                    src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY}&q=${p.lat},${p.lng}&zoom=13&maptype=roadmap`}
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(`${p.lat},${p.lng}`)}&z=13&output=embed`}
                     width="100%" height="280" style={{ border: 0, display: 'block' }} loading="lazy" allowFullScreen
                   />
                 </div>

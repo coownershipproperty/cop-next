@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -313,7 +312,6 @@ export default function HowItWorks() {
       <Newsletter />
       <ExpertForm />
       <Footer />
-      <Script src="/js/how-it-works.js" strategy="afterInteractive" />
     </>
   );
 }

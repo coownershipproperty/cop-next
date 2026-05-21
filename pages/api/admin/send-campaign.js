@@ -3,38 +3,32 @@
  * Bulk-approves and sends all pending emails for a given campaign (sequenceType).
  * Called from the CRM when the operator clicks "Send Campaign".
  *
- * Authorization: Bearer <CRM_SECRET>
+ * Authorization: Bearer <Supabase access token for CRM admin>
  *
  * Body (JSON):
  *   campaignId — the sequenceType value (e.g. 'new-listings-2026-04-27')
  *   limit      — optional max emails to send in one call (default: 500)
  */
-import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
+import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const BATCH_SIZE = 100; // Resend batch limit
 
 function getDb() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
+  return createSupabaseAdminClient();
 }
 
 export default async function handler(req, res) {
-  // CORS — allow the CRM dashboard
-  res.setHeader('Access-Control-Allow-Origin', 'https://cop-crm.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+  setCrmCors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   if (req.method !== 'POST') return res.status(405).end();
 
-  const auth   = req.headers['authorization'] || '';
-  const secret = process.env.CRM_SECRET;
-  if (!secret || auth !== `Bearer ${secret}`) {
-    return res.status(401).json({ error: 'Unauthorised' });
-  }
+  const admin = await requireCrmAdmin(req, res);
+  if (!admin) return;
 
   const { campaignId, limit = 500 } = req.body || {};
   if (!campaignId) return res.status(400).json({ error: 'campaignId required' });

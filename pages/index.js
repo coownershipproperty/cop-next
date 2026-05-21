@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Script from 'next/script';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -776,7 +775,6 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
       <Newsletter />
       <ExpertForm />
       <Footer />
-      <Script src="/js/index.js" strategy="afterInteractive" />
     </>
   );
 }

@@ -1,28 +1,19 @@
-import { createClient } from '@supabase/supabase-js'
 import formidable from 'formidable'
 import fs from 'fs'
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin'
+import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth'
 
 export const config = { api: { bodyParser: false } }
 
-const serviceSupabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { autoRefreshToken: false, persistSession: false } }
-)
+const serviceSupabase = createSupabaseAdminClient()
 
 export default async function handler(req, res) {
+  setCrmCors(res)
+  if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  // Verify user is authenticated
-  const token = req.headers.authorization?.replace('Bearer ', '')
-  if (!token) return res.status(401).json({ error: 'Unauthorised' })
-
-  const anonSupabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  )
-  const { data: { user } } = await anonSupabase.auth.getUser(token)
-  if (!user) return res.status(401).json({ error: 'Unauthorised' })
+  const admin = await requireCrmAdmin(req, res)
+  if (!admin) return
 
   const form = formidable({ maxFileSize: 20 * 1024 * 1024 })
   const [fields, files] = await form.parse(req)

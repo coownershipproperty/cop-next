@@ -10,16 +10,15 @@
  *   - Skip contacts who already have a pending/sent re-engagement in the last 90 days
  *   - Queue a re-engagement email (status: pending — requires manual approval)
  */
-import { createClient } from '@supabase/supabase-js';
 import { queueEmail } from '@/lib/resend';
 import ReEngagement from '@/emails/re-engagement';
 import * as React from 'react';
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
 const base = 'https://co-ownership-property.com';
 
 function getDb() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
+  return createSupabaseAdminClient();
 }
 
 export default async function handler(req, res) {
