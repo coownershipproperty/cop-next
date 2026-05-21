@@ -30,7 +30,10 @@
  *             sends no email and writes no marker. Safe to run any time.
  *
  * Markers are stored in email_queue with trigger='gallery_followup'
- * (status 'sent' for a real send, 'cancelled' for suppressed/expired).
+ * (status 'sent' for a real send, 'rejected' for suppressed/expired —
+ *  'rejected' because the DB status check constraint allows only
+ *  pending/approved/sent/rejected; a 'rejected' row is never sent by the
+ *  process-email-queue cron).
  * ─────────────────────────────────────────────────────────────────────────────
  */
 import { createClient } from '@supabase/supabase-js';
@@ -176,8 +179,8 @@ function buildEmail({ firstName, properties, locale }) {
 
 /**
  * Insert a marker row into email_queue so this contact is not reprocessed.
- * status 'sent'      → a real follow-up was emailed
- * status 'cancelled' → suppressed (enquiry) or expired (too old) — never sent
+ * status 'sent'     → a real follow-up was emailed
+ * status 'rejected' → suppressed (enquiry) or expired (too old) — never sent
  */
 async function insertMarker(db, { contact, status, subject, html, notes, properties }) {
   await db.from('email_queue').insert({
@@ -278,7 +281,7 @@ export default async function handler(req, res) {
     if (ageMin > MAX_AGE_MIN) {
       if (!dryRun) {
         await insertMarker(db, {
-          contact, status: 'cancelled',
+          contact, status: 'rejected',
           subject: 'Gallery follow-up — expired (unlock too old)',
           notes: `first unlock ${Math.round(ageMin)} min ago`,
         });
@@ -314,7 +317,7 @@ export default async function handler(req, res) {
     if (hasEnquiry) {
       if (!dryRun) {
         await insertMarker(db, {
-          contact, status: 'cancelled',
+          contact, status: 'rejected',
           subject: 'Gallery follow-up — suppressed (enquiry in window)',
           notes: 'contact submitted an enquiry within the 10-minute window',
           properties,
@@ -332,7 +335,7 @@ export default async function handler(req, res) {
     if (properties.length === 0) {
       if (!dryRun) {
         await insertMarker(db, {
-          contact, status: 'cancelled',
+          contact, status: 'rejected',
           subject: 'Gallery follow-up — skipped (no property data)',
           notes: 'unlock activity carried no property title',
         });
