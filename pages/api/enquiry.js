@@ -3,6 +3,7 @@ import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel,
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { queueEmail, sendTeamNotification, cancelPendingSequence } from '@/lib/resend';
+import { cancelGalleryFollowup } from '@/lib/galleryFollowup';
 import { expandRegions } from '@/lib/regionMap';
 import EnquiryAutoreply from '@/emails/enquiry-autoreply';
 import NurtureDay3  from '@/emails/nurture-day3';
@@ -317,6 +318,8 @@ export default async function handler(req, res) {
     try {
       await cancelPendingSequence(contact.id, 'welcome');
       await cancelPendingSequence(contact.id, 'nurture');
+      // Also cancel any pending gallery follow-up — the enquiry reply covers them.
+      await cancelGalleryFollowup(contact.id);
     } catch (e) {
       console.error('[Mail] cancel sequences failed:', e.message);
     }
