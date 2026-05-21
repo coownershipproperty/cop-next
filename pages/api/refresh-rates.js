@@ -3,7 +3,7 @@
  * Called daily by Vercel Cron to fetch fresh exchange rates and store in Supabase.
  * Vercel automatically sends Authorization: Bearer ${CRON_SECRET} for cron jobs.
  */
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
 export default async function handler(req, res) {
   // Verify this is a legitimate cron call (or manual trigger with secret)
@@ -25,10 +25,7 @@ export default async function handler(req, res) {
     }
 
     // Upsert into Supabase (single row, id=1)
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    );
+    const supabase = createSupabaseAdminClient();
 
     const { error } = await supabase
       .from('exchange_rates')

@@ -3,33 +3,32 @@
  * Queues a new-listings digest email to all newsletter subscribers as 'pending'.
  * The CRM operator reviews then bulk-approves via /api/admin/send-campaign.
  *
- * Authorization: Bearer <CRON_SECRET>
+ * Authorization: Bearer <Supabase access token for CRM admin>
  *
  * Body (JSON):
  *   slugs         — array of property slugs to feature (max 6)
  *   subject       — optional email subject override
  *   campaignId    — optional string key (default: 'new-listings-YYYY-MM-DD')
  */
-import { createClient } from '@supabase/supabase-js';
 import { queueEmail } from '@/lib/resend';
 import NewListingsDigest from '@/emails/new-listings-digest';
 import * as React from 'react';
+import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
 const BASE = 'https://co-ownership-property.com';
 
 function getDb() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
+  return createSupabaseAdminClient();
 }
 
 export default async function handler(req, res) {
+  setCrmCors(res);
+  if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).end();
 
-  const auth   = req.headers['authorization'] || '';
-  const secret = process.env.CRM_SECRET;
-  if (!secret || auth !== `Bearer ${secret}`) {
-    return res.status(401).json({ error: 'Unauthorised' });
-  }
+  const admin = await requireCrmAdmin(req, res);
+  if (!admin) return;
 
   const { slugs, subject: subjectOverride, campaignId: campaignIdParam } = req.body || {};
 

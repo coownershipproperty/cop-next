@@ -2,20 +2,25 @@
  * GET /api/process-email-queue
  * Cron job — runs every minute.
  * Picks up pending emails whose send_after time has passed and sends them.
+ * Authorization: Bearer <CRON_SECRET>
  */
-import { createClient } from '@supabase/supabase-js';
 import { sendHtml } from '@/lib/resend';
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
 function getDb() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
+  return createSupabaseAdminClient();
 }
 
 export default async function handler(req, res) {
-  // Allow Vercel cron (GET) or internal POST with secret
-  const isVercelCron = req.headers['x-vercel-cron'] === '1' || req.method === 'GET';
-  const isAuthed     = req.headers['authorization'] === `Bearer ${process.env.CRM_SECRET}`;
-  if (!isVercelCron && !isAuthed) return res.status(401).json({ error: 'Unauthorised' });
+  if (req.method !== 'GET' && req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const secret = process.env.CRON_SECRET;
+  const auth = req.headers['authorization'] || '';
+  if (!secret || auth !== `Bearer ${secret}`) {
+    return res.status(401).json({ error: 'Unauthorised' });
+  }
 
   const db  = getDb();
   const now = new Date().toISOString();

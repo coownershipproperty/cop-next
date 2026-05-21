@@ -7,31 +7,24 @@
  *   { action: 'reject',  id: '<uuid>' }  → mark as rejected
  *   { action: 'list'                   }  → return pending emails (for CRM display)
  *
- * Authorization: Bearer <CRM_SECRET>
+ * Authorization: Bearer <Supabase access token for CRM admin>
  */
 import { sendQueuedEmail, rejectQueuedEmail } from '@/lib/resend';
-import { createClient } from '@supabase/supabase-js';
+import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
 function getDb() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
+  return createSupabaseAdminClient();
 }
 
 export default async function handler(req, res) {
-  // CORS — allow the CRM dashboard
-  res.setHeader('Access-Control-Allow-Origin', 'https://cop-crm.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+  setCrmCors(res);
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   if (req.method !== 'POST') return res.status(405).end();
 
-  // Auth check
-  const auth   = req.headers['authorization'] || '';
-  const secret = process.env.CRM_SECRET;
-  if (!secret || auth !== `Bearer ${secret}`) {
-    return res.status(401).json({ error: 'Unauthorised' });
-  }
+  const admin = await requireCrmAdmin(req, res);
+  if (!admin) return;
 
   const { action, id, status, limit: pageLimit = 50, offset = 0 } = req.body || {};
 

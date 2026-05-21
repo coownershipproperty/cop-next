@@ -1,8 +1,8 @@
-import { createClient } from '@supabase/supabase-js';
+import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
+import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
 function getDb() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
+  return createSupabaseAdminClient();
 }
 
 // ── Lifestyle sibling groups ───────────────────────────────────────────────────
@@ -178,16 +178,14 @@ function buildPropertySelection(regionInterests, allProps, budgetMax) {
 // ── Handler ───────────────────────────────────────────────────────────────────
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', 'https://cop-crm.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    setCrmCors(res);
     return res.status(200).end();
   }
+  setCrmCors(res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const auth   = req.headers['authorization'] || '';
-  const secret = process.env.CRM_SECRET;
-  if (!secret || auth !== `Bearer ${secret}`) return res.status(401).json({ error: 'Unauthorised' });
+  const admin = await requireCrmAdmin(req, res);
+  if (!admin) return;
 
   const { name } = req.body || {};
   if (!name) return res.status(400).json({ error: 'name is required' });

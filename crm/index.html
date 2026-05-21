@@ -40,6 +40,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .gate-box button{width:100%;margin-top:12px;padding:10px;background:var(--gold);border:none;border-radius:8px;color:#1c1917;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
 .gate-box button:hover{background:var(--gold-light)}
 .gate-error{color:#f87171;font-size:12px;margin-top:8px}
+.gate-note{color:#a09890;font-size:12px;line-height:1.5;margin-top:14px}
 
 /* Layout */
 #app{display:flex;height:100vh}
@@ -296,14 +297,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </head>
 <body>
 
-<!-- Password Gate -->
+<!-- Auth Gate -->
 <div id="gate">
   <div class="gate-box">
     <div class="gate-logo">COP CRM</div>
-    <div class="gate-sub">Co-Ownership Properties</div>
-    <input type="password" id="gate-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPass()" />
-    <button onclick="checkPass()">Enter</button>
+    <div class="gate-sub" id="gate-sub">Co-Ownership Properties</div>
+    <input type="email" id="gate-pass" placeholder="admin@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')checkPass()" />
+    <button onclick="checkPass()" id="gate-button">Send magic link</button>
     <div class="gate-error" id="gate-error"></div>
+    <div class="gate-note" id="gate-note">Use an approved CRM admin email.</div>
   </div>
 </div>
 
@@ -353,6 +355,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       </div>
       <button id="gmail-scan-btn" onclick="scanGmailEnquiries()" style="display:none;width:100%;margin-top:6px;padding:6px 10px;background:rgba(201,153,58,0.15);border:1px solid rgba(201,153,58,0.3);border-radius:7px;color:var(--gold);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;align-items:center;justify-content:center;gap:5px">⚡ Scan enquiry emails</button>
       <div id="gmail-scan-status" style="font-size:11px;color:var(--text3);margin-top:4px;display:none"></div>
+      <div id="crm-user" style="font-size:10px;color:var(--text3);margin-top:10px;word-break:break-all"></div>
+      <button onclick="signOutCrm()" style="width:100%;margin-top:6px;padding:6px 10px;background:none;border:1px solid rgba(255,255,255,0.1);border-radius:7px;color:var(--text3);font-size:11px;cursor:pointer;font-family:inherit">Sign out</button>
     </div>
   </nav>
 
@@ -641,17 +645,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <script>
 // ─── Config ───────────────────────────────────────────────
-const PASS = 'cop2026'; // Change this password
 const SUPABASE_URL = 'https://iotzzoxyckpyatzqcjbo.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MDE5OTEsImV4cCI6MjA5MjA3Nzk5MX0.6B_iQk8bqwFLkeB8Nl1qpiZRdXfRLPzw1Pea4Uxyrwo';
-const CRM_SECRET  = 'f93d35a23ace3573bf97df8748f30f4262fd0e42'; // must match CRM_SECRET env var in Vercel
 const API_URL     = 'https://co-ownership-property.com/api/email-queue/';
 
 // ─── Init ─────────────────────────────────────────────────
 const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+const db = createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: {
+    detectSessionInUrl: true,
+    persistSession: true,
+    autoRefreshToken: true,
+  },
+});
 
 let allLeads = [], currentLeadId = null;
+let currentSession = null;
+let appStarted = false;
 
 const STATUS_LABELS = {
   new_lead:'New lead', contacted:'Contacted', lead_replied:'Replied',
@@ -674,20 +684,112 @@ const ACT_STYLE = {
 };
 
 // ─── Auth ─────────────────────────────────────────────────
-function checkPass() {
-  const v = document.getElementById('gate-pass').value;
-  if(v === PASS || sessionStorage.getItem('cop-auth') === '1') {
-    sessionStorage.setItem('cop-auth','1');
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
-    init();
-  } else {
-    document.getElementById('gate-error').textContent = 'Incorrect password';
+async function checkPass() {
+  const email = document.getElementById('gate-pass').value.trim().toLowerCase();
+  const btn = document.getElementById('gate-button');
+  const err = document.getElementById('gate-error');
+  err.textContent = '';
+  if(!email || !email.includes('@')) {
+    err.textContent = 'Enter your admin email.';
+    return;
   }
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  const { error } = await db.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: window.location.origin + window.location.pathname,
+      shouldCreateUser: false,
+    },
+  });
+  if(error) {
+    err.textContent = error.message;
+    btn.disabled = false;
+    btn.textContent = 'Send magic link';
+    return;
+  }
+  document.getElementById('gate-sub').textContent = 'Check your inbox';
+  document.getElementById('gate-note').textContent = `Magic link sent to ${email}.`;
+  btn.textContent = 'Link sent';
 }
-if(sessionStorage.getItem('cop-auth') === '1') {
+
+function showGate(message) {
+  document.getElementById('gate').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('gate-error').textContent = message || '';
+  const btn = document.getElementById('gate-button');
+  btn.disabled = false;
+  btn.textContent = 'Send magic link';
+}
+
+async function verifyCrmAdmin(session) {
+  if(!session?.user?.email) return false;
+  const email = session.user.email.toLowerCase();
+  const { data, error } = await db
+    .from('crm_admins')
+    .select('email')
+    .eq('email', email)
+    .eq('active', true)
+    .maybeSingle();
+  if(error) {
+    showGate(error.message);
+    return false;
+  }
+  if(!data) {
+    await db.auth.signOut();
+    showGate('This email is not approved for CRM access.');
+    return false;
+  }
+  return true;
+}
+
+async function startAuthenticatedApp(session) {
+  currentSession = session;
+  const ok = await verifyCrmAdmin(session);
+  if(!ok) return;
   document.getElementById('gate').style.display = 'none';
   document.getElementById('app').style.display = 'flex';
+  document.getElementById('crm-user').textContent = session.user.email;
+  if(!appStarted) {
+    appStarted = true;
+    init();
+  }
+}
+
+async function bootAuth() {
+  const { data: { session } } = await db.auth.getSession();
+  if(session) await startAuthenticatedApp(session);
+  else showGate();
+}
+
+db.auth.onAuthStateChange((event, session) => {
+  if(event === 'SIGNED_IN' && session) startAuthenticatedApp(session);
+  if(event === 'SIGNED_OUT') {
+    currentSession = null;
+    appStarted = false;
+    showGate();
+  }
+});
+
+async function getAccessToken() {
+  const { data: { session } } = await db.auth.getSession();
+  if(!session?.access_token) {
+    showGate('Session expired. Sign in again.');
+    throw new Error('Session expired');
+  }
+  currentSession = session;
+  return session.access_token;
+}
+
+async function crmJsonHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${await getAccessToken()}`,
+  };
+}
+
+async function signOutCrm() {
+  await db.auth.signOut();
 }
 
 // ─── Utils ────────────────────────────────────────────────
@@ -1846,7 +1948,7 @@ async function sendCampaign() {
   try {
     const res = await fetch(`https://co-ownership-property.com/api/admin/send-campaign`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${CRM_SECRET}` },
+      headers: await crmJsonHeaders(),
       body: JSON.stringify({ campaignId }),
     });
     const json = await res.json();
@@ -1940,7 +2042,7 @@ async function approveEmail() {
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${CRM_SECRET}` },
+      headers: await crmJsonHeaders(),
       body: JSON.stringify({ action: 'approve', id: activeQueueId }),
     });
     const json = await res.json();
@@ -2158,7 +2260,7 @@ async function approveScheduled() {
   try {
     const res = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${CRM_SECRET}` },
+      headers: await crmJsonHeaders(),
       body: JSON.stringify({ action: 'approve', id: activeSchedId }),
     });
     const json = await res.json();
@@ -2218,8 +2320,7 @@ function init() {
   setTimeout(initGmailTokenClient, 1000);
 }
 
-// Auto-login if already authenticated
-if(sessionStorage.getItem('cop-auth')==='1') init();
+bootAuth();
 
 // ─── Newsletters ──────────────────────────────────────────
 let nlActiveCampaignId = null;
@@ -2332,7 +2433,7 @@ async function selectNlRecipient(i) {
     try {
       const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/properties/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
+        headers: await crmJsonHeaders(),
         body: JSON.stringify({ slugs: allSlugs }),
       });
       const result = await resp.json();
@@ -2383,7 +2484,7 @@ async function prepareNewsletter() {
   try {
     const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/prepare/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
+      headers: await crmJsonHeaders(),
       body: JSON.stringify({ name: name.trim() }),
     });
     const data = await resp.json();
@@ -2406,7 +2507,7 @@ async function sendNewsletter() {
   try {
     const resp = await fetch('https://co-ownership-property.com/api/admin/newsletter/send/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CRM_SECRET },
+      headers: await crmJsonHeaders(),
       body: JSON.stringify({ campaignId: nlActiveCampaignId }),
     });
     const data = await resp.json();
