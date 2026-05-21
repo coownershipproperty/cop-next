@@ -43,7 +43,8 @@ import { sendHtml } from '@/lib/resend';
 const WINDOW_MIN    = 10;   // wait this long after the first unlock before sending
 const MAX_AGE_MIN   = 60;   // never send if the first unlock is older than this
 const COOLDOWN_DAYS = 30;   // at most one follow-up per person per 30 days
-const LOOKBACK_DAYS = 30;   // how far back to scan unlock activity
+const LOOKBACK_MIN  = 120;  // only scan unlocks from the last 2h — keeps every run tiny
+                            // (anything older than MAX_AGE_MIN is past the window anyway)
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
 const DYLAN_REPLY = 'dylan@co-ownership-property.com';
@@ -219,7 +220,7 @@ export default async function handler(req, res) {
 
   const db  = getDb();
   const now = Date.now();
-  const lookbackFrom = new Date(now - LOOKBACK_DAYS * 86400000).toISOString();
+  const lookbackFrom = new Date(now - LOOKBACK_MIN * 60000).toISOString();
   const cooldownFrom = new Date(now - COOLDOWN_DAYS * 86400000).toISOString();
 
   // 1. Recent gallery-unlock activity, oldest first.
