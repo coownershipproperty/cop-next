@@ -35,10 +35,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .gate-box{background:#292524;border:1px solid rgba(201,153,58,0.3);border-radius:16px;padding:40px;width:340px;text-align:center}
 .gate-logo{font-size:22px;font-weight:700;color:#e8c97a;letter-spacing:-0.5px;margin-bottom:6px}
 .gate-sub{font-size:13px;color:#a09890;margin-bottom:28px}
-.gate-box input{width:100%;padding:10px 14px;background:#1c1917;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#f5f4f1;font-size:14px;outline:none;font-family:inherit;letter-spacing:2px;text-align:center}
+.gate-box input{width:100%;padding:10px 14px;background:#1c1917;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#f5f4f1;font-size:14px;outline:none;font-family:inherit;text-align:center}
+.gate-box input[type="email"]{letter-spacing:1px}
+.gate-box input[type="password"]{letter-spacing:0;margin-top:8px}
 .gate-box input:focus{border-color:rgba(201,153,58,0.5)}
 .gate-box button{width:100%;margin-top:12px;padding:10px;background:var(--gold);border:none;border-radius:8px;color:#1c1917;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
 .gate-box button:hover{background:var(--gold-light)}
+.gate-box button.secondary{background:transparent;border:1px solid rgba(201,153,58,0.35);color:var(--gold-light);margin-top:8px}
+.gate-box button.secondary:hover{background:rgba(201,153,58,0.12)}
 .gate-error{color:#f87171;font-size:12px;margin-top:8px}
 .gate-note{color:#a09890;font-size:12px;line-height:1.5;margin-top:14px}
 
@@ -58,6 +62,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .nav-item svg{width:15px;height:15px;flex-shrink:0}
 .nav-badge{margin-left:auto;background:var(--gold);color:#1c1917;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px}
 .sidebar-footer{margin-top:auto;padding:12px 18px;font-size:11px;color:#4b4540}
+.account-tools{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06)}
+.account-tools input{width:100%;padding:6px 8px;margin-top:6px;background:#14110f;border:1px solid rgba(255,255,255,0.1);border-radius:7px;color:#e8e6e3;font-size:11px;outline:none;font-family:inherit}
+.account-tools input:focus{border-color:rgba(201,153,58,0.45)}
+.account-tools button{width:100%;margin-top:6px;padding:6px 10px;background:none;border:1px solid rgba(255,255,255,0.1);border-radius:7px;color:var(--text3);font-size:11px;cursor:pointer;font-family:inherit}
+.account-tools button:hover{background:rgba(255,255,255,0.04);color:#e8e6e3}
+.account-tools .primary{background:rgba(201,153,58,0.15);border-color:rgba(201,153,58,0.35);color:var(--gold-light);font-weight:600}
+.account-tools .account-msg{font-size:10px;color:var(--text3);line-height:1.35;margin-top:6px}
+.account-tools .account-msg.error{color:#f87171}
+.account-tools .account-msg.success{color:#86efac}
 .live-dot{display:inline-block;width:6px;height:6px;background:#22c55e;border-radius:50%;margin-right:5px;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
@@ -302,8 +315,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="gate-box">
     <div class="gate-logo">COP CRM</div>
     <div class="gate-sub" id="gate-sub">Co-Ownership Properties</div>
-    <input type="email" id="gate-pass" placeholder="admin@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')checkPass()" />
-    <button onclick="checkPass()" id="gate-button">Send magic link</button>
+    <input type="email" id="gate-email" placeholder="admin@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')loginWithPassword()" />
+    <input type="password" id="gate-password" placeholder="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginWithPassword()" />
+    <button onclick="loginWithPassword()" id="gate-login-button">Sign in</button>
+    <button onclick="sendMagicLink()" id="gate-link-button" class="secondary">Send magic link</button>
     <div class="gate-error" id="gate-error"></div>
     <div class="gate-note" id="gate-note">Use an approved CRM admin email.</div>
   </div>
@@ -355,8 +370,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       </div>
       <button id="gmail-scan-btn" onclick="scanGmailEnquiries()" style="display:none;width:100%;margin-top:6px;padding:6px 10px;background:rgba(201,153,58,0.15);border:1px solid rgba(201,153,58,0.3);border-radius:7px;color:var(--gold);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;align-items:center;justify-content:center;gap:5px">⚡ Scan enquiry emails</button>
       <div id="gmail-scan-status" style="font-size:11px;color:var(--text3);margin-top:4px;display:none"></div>
-      <div id="crm-user" style="font-size:10px;color:var(--text3);margin-top:10px;word-break:break-all"></div>
-      <button onclick="signOutCrm()" style="width:100%;margin-top:6px;padding:6px 10px;background:none;border:1px solid rgba(255,255,255,0.1);border-radius:7px;color:var(--text3);font-size:11px;cursor:pointer;font-family:inherit">Sign out</button>
+      <div class="account-tools">
+        <div id="crm-user" style="font-size:10px;color:var(--text3);word-break:break-all"></div>
+        <input type="password" id="new-crm-password" placeholder="new password" autocomplete="new-password" />
+        <input type="password" id="confirm-crm-password" placeholder="confirm password" autocomplete="new-password" onkeydown="if(event.key==='Enter')setCrmPassword()" />
+        <button class="primary" onclick="setCrmPassword()" id="set-password-button">Set password</button>
+        <button onclick="signOutCrm()">Sign out</button>
+        <div id="account-msg" class="account-msg"></div>
+      </div>
     </div>
   </nav>
 
@@ -684,16 +705,52 @@ const ACT_STYLE = {
 };
 
 // ─── Auth ─────────────────────────────────────────────────
-async function checkPass() {
-  const email = document.getElementById('gate-pass').value.trim().toLowerCase();
-  const btn = document.getElementById('gate-button');
+function getGateEmail() {
+  return document.getElementById('gate-email').value.trim().toLowerCase();
+}
+
+function setGateBusy(isBusy) {
+  document.getElementById('gate-login-button').disabled = isBusy;
+  document.getElementById('gate-link-button').disabled = isBusy;
+}
+
+async function loginWithPassword() {
+  const email = getGateEmail();
+  const password = document.getElementById('gate-password').value;
+  const btn = document.getElementById('gate-login-button');
   const err = document.getElementById('gate-error');
   err.textContent = '';
   if(!email || !email.includes('@')) {
     err.textContent = 'Enter your admin email.';
     return;
   }
-  btn.disabled = true;
+  if(!password) {
+    err.textContent = 'Enter your password.';
+    return;
+  }
+  setGateBusy(true);
+  btn.textContent = 'Signing in...';
+  const { data, error } = await db.auth.signInWithPassword({ email, password });
+  if(error) {
+    err.textContent = error.message;
+    setGateBusy(false);
+    btn.textContent = 'Sign in';
+    return;
+  }
+  btn.textContent = 'Signed in';
+  if(data?.session) await startAuthenticatedApp(data.session);
+}
+
+async function sendMagicLink() {
+  const email = getGateEmail();
+  const btn = document.getElementById('gate-link-button');
+  const err = document.getElementById('gate-error');
+  err.textContent = '';
+  if(!email || !email.includes('@')) {
+    err.textContent = 'Enter your admin email.';
+    return;
+  }
+  setGateBusy(true);
   btn.textContent = 'Sending...';
   const { error } = await db.auth.signInWithOtp({
     email,
@@ -704,7 +761,7 @@ async function checkPass() {
   });
   if(error) {
     err.textContent = error.message;
-    btn.disabled = false;
+    setGateBusy(false);
     btn.textContent = 'Send magic link';
     return;
   }
@@ -717,9 +774,9 @@ function showGate(message) {
   document.getElementById('gate').style.display = 'flex';
   document.getElementById('app').style.display = 'none';
   document.getElementById('gate-error').textContent = message || '';
-  const btn = document.getElementById('gate-button');
-  btn.disabled = false;
-  btn.textContent = 'Send magic link';
+  setGateBusy(false);
+  document.getElementById('gate-login-button').textContent = 'Sign in';
+  document.getElementById('gate-link-button').textContent = 'Send magic link';
 }
 
 async function verifyCrmAdmin(session) {
@@ -790,6 +847,39 @@ async function crmJsonHeaders() {
 
 async function signOutCrm() {
   await db.auth.signOut();
+}
+
+async function setCrmPassword() {
+  const password = document.getElementById('new-crm-password').value;
+  const confirm = document.getElementById('confirm-crm-password').value;
+  const btn = document.getElementById('set-password-button');
+  const msg = document.getElementById('account-msg');
+  msg.className = 'account-msg';
+  msg.textContent = '';
+  if(password.length < 12) {
+    msg.textContent = 'Use at least 12 characters.';
+    msg.classList.add('error');
+    return;
+  }
+  if(password !== confirm) {
+    msg.textContent = 'Passwords do not match.';
+    msg.classList.add('error');
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+  const { error } = await db.auth.updateUser({ password });
+  btn.disabled = false;
+  btn.textContent = 'Set password';
+  if(error) {
+    msg.textContent = error.message;
+    msg.classList.add('error');
+    return;
+  }
+  document.getElementById('new-crm-password').value = '';
+  document.getElementById('confirm-crm-password').value = '';
+  msg.textContent = 'Password saved.';
+  msg.classList.add('success');
 }
 
 // ─── Utils ────────────────────────────────────────────────
