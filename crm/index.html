@@ -998,7 +998,7 @@ async function logTelnyxCall(status, extra={}) {
   const dialNumber = normalizePhoneNumber(lead?.phone);
   if(!lead || !dialNumber || telnyxLastLoggedStatus === status) return;
   telnyxLastLoggedStatus = status;
-  await fetch(`${ADMIN_API_BASE}/telnyx/calls`, {
+  await fetch(`${ADMIN_API_BASE}/telnyx/calls/`, {
     method: 'POST',
     headers: await crmJsonHeaders(),
     body: JSON.stringify({
@@ -1094,7 +1094,7 @@ async function startLeadCall(leadId) {
   }
   setTelnyxPanelState(leadId, 'connecting', 'Getting Telnyx access...', null);
   try {
-    const response = await fetch(`${ADMIN_API_BASE}/telnyx/token`, {
+    const response = await fetch(`${ADMIN_API_BASE}/telnyx/token/`, {
       method: 'POST',
       headers: await crmJsonHeaders(),
     });
