@@ -1,3 +1,1 @@
-{
-  "_comment": "Vercel's own cron scheduler stopped firing reliably, so all scheduled jobs now run from GitHub Actions instead — see .github/workflows/cron-frequent.yml and cron-daily.yml. The 'crons' key was removed to avoid double-sends if Vercel's scheduler ever resumes."
-}
+{}
