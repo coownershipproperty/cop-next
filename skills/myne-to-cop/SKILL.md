@@ -39,7 +39,7 @@ missing their brochure screenshots:
 
 ```bash
 curl -s "https://iotzzoxyckpyatzqcjbo.supabase.co/rest/v1/properties?partner=eq.myne&select=slug,title,extra_photos" \
-  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MDE5OTEsImV4cCI6MjA5MjA3Nzk5MX0.6B_iQk8bqwFLkeB8Nl1qpiZRdXfRLPzw1Pea4Uxyrwo"
+  -H "apikey: <SUPABASE_ANON_KEY>"
 ```
 
 Parse the result and identify any properties where `extra_photos` is empty (`[]` or null).
@@ -157,9 +157,10 @@ Use the Python upload script. See `scripts/upload_template.py` for the full temp
 `PROPERTIES` list for the new properties and run it.
 
 **Key upload rules:**
-- **Service role key required** — the anon key will be rejected. Use the legacy JWT format key:
-  `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjUwMTk5MSwiZXhwIjoyMDkyMDc3OTkxfQ.NzeqvQSgUlEdAXUhe3aeG5C3auVuoq53dAJG3AZ2rJc`
-  (If this key ever stops working: Supabase dashboard → Settings → API → **Legacy** anon/service_role tab → Reveal → copy)
+- **Service role key required** — the anon key will be rejected.
+- Keep the service role key out of Git. Export it locally before running the upload script:
+  `export SUPABASE_SERVICE_ROLE_KEY='...'`
+- If this key ever stops working: Supabase dashboard → Settings → API → **Legacy** anon/service_role tab → Reveal → copy.
 
 **Storage structure:**
 ```
@@ -194,7 +195,7 @@ After the script runs:
 2. Quick confirmation query:
    ```bash
    curl -s "https://iotzzoxyckpyatzqcjbo.supabase.co/rest/v1/properties?slug=eq.{slug}&select=slug,title,total_images" \
-     -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MDE5OTEsImV4cCI6MjA5MjA3Nzk5MX0.6B_iQk8bqwFLkeB8Nl1qpiZRdXfRLPzw1Pea4Uxyrwo"
+     -H "apikey: <SUPABASE_ANON_KEY>"
    ```
 3. Report back: slugs added, photo counts, then move to Step 7.
 
@@ -264,7 +265,7 @@ print(json.loads(urllib.request.urlopen(req).read()))
 **Verify** every new slug has all three of each set populated:
 ```bash
 curl -s "https://iotzzoxyckpyatzqcjbo.supabase.co/rest/v1/properties?slug=eq.{slug}&select=title_es,title_fr,title_de,amenities_es,amenities_fr,amenities_de" \
-  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MDE5OTEsImV4cCI6MjA5MjA3Nzk5MX0.6B_iQk8bqwFLkeB8Nl1qpiZRdXfRLPzw1Pea4Uxyrwo"
+  -H "apikey: <SUPABASE_ANON_KEY>"
 ```
 
 Translations go live automatically within ~1 hour — the property pages use ISR
