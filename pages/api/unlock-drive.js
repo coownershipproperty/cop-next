@@ -3,7 +3,6 @@ import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel,
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
-import { scheduleOrUpdateGalleryFollowup } from '@/lib/galleryFollowup';
 import { render } from '@react-email/components';
 import FloorPlanEmail from '@/emails/floor-plan';
 import NurtureFloorPlan from '@/emails/nurture-floor-plan';
@@ -420,24 +419,6 @@ export default async function handler(req, res) {
         <p>Gallery sent: <a href="${galleryUrl}">${galleryUrl}</a></p>
       `,
     });
-
-    // ── Gallery follow-up email ──────────────────────────────────────────────
-    // Schedules (or extends) a "let me connect you with the team" email to send
-    // ~10 min after this person's first unlock. The delay is handled by Resend's
-    // native scheduling — no cron involved. Best-effort: never blocks the unlock.
-    try {
-      if (contact?.id) {
-        await scheduleOrUpdateGalleryFollowup({
-          contactId: contact.id,
-          email,
-          firstName: firstName || name || null,
-          locale,
-          property: { title: propertyTitle || null, url: propertyUrl || null },
-        });
-      }
-    } catch (e) {
-      console.error('[unlock-drive] gallery follow-up scheduling failed:', e.message);
-    }
 
     res.status(200).json({ ok: true });
   } catch (err) {

@@ -1,0 +1,33 @@
+name: COP scheduled tasks — daily
+
+# Independent scheduler — the once-a-day jobs.
+# Runs daily at 06:00 UTC.
+#
+# These three endpoints require an Authorization: Bearer <CRON_SECRET> header.
+# Add a repository secret named CRON_SECRET (Settings → Secrets and variables →
+# Actions) whose value matches the CRON_SECRET environment variable in Vercel.
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refresh exchange rates
+        run: >
+          curl -fsS --max-time 120
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+          "https://co-ownership-property.com/api/refresh-rates" || true
+      - name: Send property alerts
+        run: >
+          curl -fsS --max-time 120 -X POST
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+          "https://co-ownership-property.com/api/send-property-alerts" || true
+      - name: Send email sequences
+        run: >
+          curl -fsS --max-time 120
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+          "https://co-ownership-property.com/api/admin/send-sequences" || true

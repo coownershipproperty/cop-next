@@ -3,7 +3,6 @@ import { upsertContact, createLead, logActivity, incrementScore } from '@/lib/cr
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendHtml, sendTeamNotification } from '@/lib/resend';
-import { cancelGalleryFollowup } from '@/lib/galleryFollowup';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
@@ -154,8 +153,6 @@ export default async function handler(req, res) {
       await incrementScore(contact.id, 20);
       await createLead({ contactId: contact.id, propertySlug: resolvedSlug, propertyTitle, mainRegion: resolvedRegion, subregion: resolvedCity });
       await logActivity({ contactId: contact.id, type: 'gallery_enquiry', description: `Gallery enquiry for ${propertyTitle || propertySlug}`, metadata: { propertyTitle, propertyUrl, phone, message } });
-      // They've enquired — cancel any pending gallery follow-up so it doesn't double up.
-      await cancelGalleryFollowup(contact.id);
     }
   } catch (e) { console.error('[CRM] gallery-enquiry failed:', e.message); }
 

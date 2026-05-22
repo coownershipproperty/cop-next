@@ -1,20 +1,3 @@
 {
-  "crons": [
-    {
-      "path": "/api/process-email-queue",
-      "schedule": "* * * * *"
-    },
-    {
-      "path": "/api/refresh-rates",
-      "schedule": "0 6 * * *"
-    },
-    {
-      "path": "/api/send-property-alerts",
-      "schedule": "0 9 * * *"
-    },
-    {
-      "path": "/api/admin/send-sequences",
-      "schedule": "0 8 * * *"
-    }
-  ]
+  "_comment": "Vercel's own cron scheduler stopped firing reliably, so all scheduled jobs now run from GitHub Actions instead — see .github/workflows/cron-frequent.yml and cron-daily.yml. The 'crons' key was removed to avoid double-sends if Vercel's scheduler ever resumes."
 }
