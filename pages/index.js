@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
+import PriceTicker from '@/components/PriceTicker';
 import { createClient } from '@supabase/supabase-js';
 import { FEATURED_PROPERTY_SLUGS } from '@/lib/featured-properties';
 
@@ -406,6 +407,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
     <section className="properties-section" id="properties">
         <h2 className="section-heading">Explore Our Properties</h2>
         <p className="section-subtitle">Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.</p>
+      <PriceTicker />
 
         <PropCarousel items={featuredProps} propertyCount={propertyCount} />
 
