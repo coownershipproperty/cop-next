@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-// Rolling "shares from" price ticker for the homepage.
+// Rolling "buy from" price ticker for the homepage.
 // Self-contained: fetches live entry prices per country from Supabase on mount.
-// Drop into components/ and render <PriceTicker /> under the "Explore our
-// properties" subline. No props required.
+// All styling is inline and the marquee uses the Web Animations API, so there
+// is no dependency on global CSS or styled-jsx scoping.
 
 const SUPABASE_URL =
   process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://iotzzoxyckpyatzqcjbo.supabase.co';
@@ -28,6 +28,8 @@ const MIN_LISTINGS = 3; // a country appears once it has at least this many home
 
 export default function PriceTicker() {
   const [items, setItems] = useState([]);
+  const trackRef = useRef(null);
+  const animRef = useRef(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -42,15 +44,14 @@ export default function PriceTicker() {
         for (const row of rows) {
           const c = row.country;
           if (!c) continue;
-          // rows arrive price-ascending, so the first time a country is seen
-          // is its lowest entry price.
           if (!agg[c]) agg[c] = { country: c, count: 0, price: row.price, currency: row.currency };
           agg[c].count += 1;
         }
-        const list = Object.values(agg)
-          .filter((d) => d.count >= MIN_LISTINGS)
-          .sort((a, b) => Number(a.price) - Number(b.price));
-        setItems(list);
+        setItems(
+          Object.values(agg)
+            .filter((d) => d.count >= MIN_LISTINGS)
+            .sort((a, b) => Number(a.price) - Number(b.price))
+        );
       })
       .catch(() => {});
     return () => {
@@ -58,125 +59,63 @@ export default function PriceTicker() {
     };
   }, []);
 
-  const fmt = (price, currency) => {
-    const symbol = currency === 'USD' ? '$' : '€';
-    return `${symbol}${Number(price).toLocaleString('en-GB')}`;
-  };
-
-  const renderCell = (it, key, hidden) => (
-    <span className="pt-cell" key={key} aria-hidden={hidden || undefined}>
-      <a href={COUNTRY_PATH[it.country] || '/our-homes/'} className="pt-link">
-        <span className="pt-i">
-          <b>{it.country}</b>
-          <em>from {fmt(it.price, it.currency)}</em>
-        </span>
-      </a>
-      <span className="pt-sep" aria-hidden="true">&#9670;</span>
-    </span>
-  );
+  useEffect(() => {
+    if (!items.length || !trackRef.current || !trackRef.current.animate) return;
+    const reduce =
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    const anim = trackRef.current.animate(
+      [{ transform: 'translateX(0)' }, { transform: 'translateX(-50%)' }],
+      { duration: 42000, iterations: Infinity, easing: 'linear' }
+    );
+    animRef.current = anim;
+    return () => {
+      try { anim.cancel(); } catch (e) { /* noop */ }
+    };
+  }, [items]);
 
   if (!items.length) return null;
 
+  const fmt = (price, currency) =>
+    `${currency === 'USD' ? '$' : '€'}${Number(price).toLocaleString('en-GB')}`;
+
+  const cell = (it, key, hidden) => (
+    <a
+      key={key}
+      href={COUNTRY_PATH[it.country] || '/our-homes/'}
+      aria-hidden={hidden || undefined}
+      tabIndex={hidden ? -1 : undefined}
+      style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none', whiteSpace: 'nowrap' }}
+    >
+      <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: '10px', padding: '14px 0' }}>
+        <span style={{ color: '#f4f0e6', fontSize: '15px', letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "Georgia, 'Times New Roman', serif" }}>
+          {it.country}
+        </span>
+        <span style={{ color: '#c8a455', fontSize: '12.5px' }}>from {fmt(it.price, it.currency)}</span>
+      </span>
+      <span style={{ color: '#c8a455', opacity: 0.5, padding: '0 24px', fontSize: '11px' }}>&#9670;</span>
+    </a>
+  );
+
   return (
-    <div className="pt-wrap" aria-label="Co-ownership shares — entry prices by destination">
-      <div className="pt-label">
-        <span className="pt-dot" aria-hidden="true" />
-        Shares from
+    <div
+      onMouseEnter={() => { if (animRef.current) animRef.current.pause(); }}
+      onMouseLeave={() => { if (animRef.current) animRef.current.play(); }}
+      style={{ display: 'flex', background: '#1f3a4d', overflow: 'hidden' }}
+      aria-label="Co-ownership homes — entry prices by destination"
+    >
+      <div style={{ flex: 'none', display: 'flex', alignItems: 'center', gap: '9px', background: '#162b39', color: '#c8a455', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '0 20px' }}>
+        <span style={{ width: '6px', height: '6px', background: '#c8a455', borderRadius: '50%' }} />
+        Buy from
       </div>
-      <div className="pt-window">
-        <div className="pt-track">
-          {items.map((it, i) => renderCell(it, `a-${i}`, false))}
-          {items.map((it, i) => renderCell(it, `b-${i}`, true))}
+      <div style={{ flex: 1, overflow: 'hidden' }}>
+        <div ref={trackRef} style={{ display: 'flex', width: 'max-content' }}>
+          {items.map((it, i) => cell(it, `a-${i}`, false))}
+          {items.map((it, i) => cell(it, `b-${i}`, true))}
         </div>
       </div>
-
-      <style jsx>{`
-        .pt-wrap {
-          display: flex;
-          background: #1f3a4d;
-          overflow: hidden;
-          min-height: 47px;
-        }
-        .pt-label {
-          flex: none;
-          display: flex;
-          align-items: center;
-          gap: 9px;
-          background: #162b39;
-          color: #c8a455;
-          font-size: 11px;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          padding: 0 20px;
-        }
-        .pt-dot {
-          width: 6px;
-          height: 6px;
-          background: #c8a455;
-          border-radius: 50%;
-        }
-        .pt-window {
-          flex: 1;
-          overflow: hidden;
-        }
-        .pt-track {
-          display: flex;
-          width: max-content;
-          animation: pt-roll 42s linear infinite;
-        }
-        .pt-wrap:hover .pt-track {
-          animation-play-state: paused;
-        }
-        .pt-cell {
-          display: inline-flex;
-          align-items: center;
-        }
-        .pt-link {
-          text-decoration: none;
-        }
-        .pt-i {
-          display: inline-flex;
-          align-items: baseline;
-          gap: 10px;
-          white-space: nowrap;
-          padding: 14px 0;
-        }
-        .pt-i b {
-          color: #f4f0e6;
-          font-weight: 400;
-          font-size: 15px;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          font-family: Georgia, 'Times New Roman', serif;
-        }
-        .pt-i em {
-          color: #c8a455;
-          font-style: normal;
-          font-size: 12.5px;
-        }
-        .pt-link:hover .pt-i b {
-          color: #ffffff;
-        }
-        .pt-sep {
-          color: #c8a455;
-          opacity: 0.5;
-          padding: 0 24px;
-          font-size: 11px;
-        }
-        @keyframes pt-roll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .pt-track {
-            animation: none;
-          }
-        }
-      `}</style>
     </div>
   );
 }
