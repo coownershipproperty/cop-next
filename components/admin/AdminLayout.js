@@ -87,6 +87,7 @@ export default function AdminLayout({ children }) {
 
   const isProperties = router.pathname === '/admin' || router.pathname.startsWith('/admin/property')
   const isNewsletters = router.pathname.startsWith('/admin/newsletters')
+  const isEmails = router.pathname.startsWith('/admin/emails')
 
   return (
     <div style={s.root}>
@@ -100,6 +101,9 @@ export default function AdminLayout({ children }) {
             </Link>
             <Link href="/admin/newsletters" style={isNewsletters ? s.navLinkActive : s.navLink}>
               Newsletters
+            </Link>
+            <Link href="/admin/emails" style={isEmails ? s.navLinkActive : s.navLink}>
+              Emails
             </Link>
           </div>
           <div style={s.navRight}>
