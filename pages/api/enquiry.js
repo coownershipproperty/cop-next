@@ -2,20 +2,10 @@ import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
-import { queueEmail, sendTeamNotification, cancelPendingSequence } from '@/lib/resend';
+import { sendTeamNotification, cancelPendingSequence } from '@/lib/resend';
 import { expandRegions } from '@/lib/regionMap';
 import { sendEnquiryReply } from '@/lib/enquiryReply';
-import NurtureDay3  from '@/emails/nurture-day3';
-import NurtureDay7  from '@/emails/nurture-day7';
-import NurtureDay14 from '@/emails/nurture-day14';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
-import * as React from 'react';
-
-function daysFromNow(n) {
-  const d = new Date();
-  d.setDate(d.getDate() + n);
-  return d;
-}
 
 function getDb() {
   return createSupabaseAdminClient();
@@ -294,91 +284,17 @@ export default async function handler(req, res) {
     console.error('[Mail] enquiry auto-reply failed:', e.message);
   }
 
-  // ── Nurture sequence (property enquiries only) ─────────────────────────────
-  // Cancel any pending welcome or existing nurture sequences —
-  // prevents duplicates if someone enquires multiple times
+  // ── Cancel any pending welcome / legacy nurture sequence ───────────────────
+  // An enquiry supersedes the newsletter welcome series and any older nurture
+  // emails still queued from before the chasers were retired. The day 3/7/14
+  // nurture sequence is no longer created here — follow-ups are handled
+  // separately (see docs/email-automation-blueprint.md).
   if (contact?.id) {
     try {
       await cancelPendingSequence(contact.id, 'welcome');
       await cancelPendingSequence(contact.id, 'nurture');
     } catch (e) {
       console.error('[Mail] cancel sequences failed:', e.message);
-    }
-  }
-
-  if (property) {
-    const unsubscribeUrl = `https://co-ownership-property.com/unsubscribe/?email=${encodeURIComponent(email)}`;
-    const nurtureProps = {
-      firstName:     firstName || undefined,
-      propertyTitle: property  || undefined,
-      propertyUrl:   url       || undefined,
-      unsubscribeUrl,
-      locale,
-    };
-
-    // Day 3
-    try {
-      await queueEmail({
-        to:           email,
-        subject:      property
-          ? t('emails.nurture_day3.subject_property', locale).replace('{propertyTitle}', property)
-          : t('emails.nurture_day3.subject_general', locale),
-        template:     React.createElement(NurtureDay3, nurtureProps),
-        templateName:  'nurture-day3',
-        templateProps: { firstName, propertyTitle: property, propertyUrl: url, locale },
-        trigger:       'enquiry_submitted',
-        notes:         `Nurture sequence — Day 3${property ? ` for ${property}` : ''}`,
-        contactId:     contact?.id || null,
-        leadId:        lead?.id    || null,
-        sendAfter:     daysFromNow(3),
-        sequenceType:  'nurture',
-      });
-    } catch (e) {
-      console.error('[Mail] nurture-day3 queue failed:', e.message);
-    }
-
-    // Day 7
-    try {
-      // Extract destination from property title for subject + template
-      const day7Destination = property && property.includes(',')
-        ? property.split(',')[1]?.trim().split('—')[0]?.trim()
-        : null;
-      await queueEmail({
-        to:           email,
-        subject:      day7Destination
-          ? t('emails.nurture_day7.subject', locale).replace('{destinationName}', day7Destination)
-          : t('emails.nurture_day7.subject_general', locale),
-        template:     React.createElement(NurtureDay7, { ...nurtureProps, destinationName: day7Destination || undefined }),
-        templateName:  'nurture-day7',
-        templateProps: { firstName, propertyTitle: property, propertyUrl: url, locale },
-        trigger:       'enquiry_submitted',
-        notes:         `Nurture sequence — Day 7${property ? ` for ${property}` : ''}`,
-        contactId:     contact?.id || null,
-        leadId:        lead?.id    || null,
-        sendAfter:     daysFromNow(7),
-        sequenceType:  'nurture',
-      });
-    } catch (e) {
-      console.error('[Mail] nurture-day7 queue failed:', e.message);
-    }
-
-    // Day 14
-    try {
-      await queueEmail({
-        to:           email,
-        subject:      t('emails.nurture_day14.subject', locale),
-        template:     React.createElement(NurtureDay14, nurtureProps),
-        templateName:  'nurture-day14',
-        templateProps: { firstName, propertyTitle: property, propertyUrl: url, locale },
-        trigger:       'enquiry_submitted',
-        notes:         `Nurture sequence — Day 14${property ? ` for ${property}` : ''}`,
-        contactId:     contact?.id || null,
-        leadId:        lead?.id    || null,
-        sendAfter:     daysFromNow(14),
-        sequenceType:  'nurture',
-      });
-    } catch (e) {
-      console.error('[Mail] nurture-day14 queue failed:', e.message);
     }
   }
 
