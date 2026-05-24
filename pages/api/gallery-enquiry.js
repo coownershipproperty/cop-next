@@ -70,25 +70,6 @@ function firstReplyHtml({ firstName, propertyTitle, propertyUrl, locale }) {
     <p style="margin:0;">${signName}</p>`, locale);
 }
 
-function followUpHtml({ firstName, propertyTitle, propertyUrl, prevPropertyTitle, locale }) {
-  const greeting = firstName ? tr('greeting_name', locale, { firstName }) : tr('greeting_no_name', locale);
-  const propLink = propertyUrl
-    ? `<a href="${propertyUrl}" style="color:#1E3448;text-decoration:underline;">${propertyTitle}</a>`
-    : `<strong>${propertyTitle}</strong>`;
-  const intro = prevPropertyTitle
-    ? tr('followup_intro_with_prev', locale, { propertyLink: propLink, prevPropertyTitle })
-    : tr('followup_intro_no_prev',   locale, { propertyLink: propLink });
-  const offer    = tr('followup_offer',  locale);
-  const close    = tr('followup_close',  locale);
-  const signName = tr('signoff_name',    locale);
-  return emailShell(`
-    <p style="margin:0 0 20px;">${greeting}</p>
-    <p style="margin:0 0 20px;">${intro}</p>
-    <p style="margin:0 0 20px;">${offer}</p>
-    <p style="margin:0 0 32px;">${close}</p>
-    <p style="margin:0;">${signName}</p>`, locale);
-}
-
 function getDb() {
   return createSupabaseAdminClient();
 }
@@ -176,7 +157,11 @@ export default async function handler(req, res) {
     });
   } catch (e) { console.error('[Mail] team notification failed:', e.message); }
 
-  // ── Auto-reply: send directly (deduplication + follow-up) ─────────────────
+  // ── Auto-reply: a short personal note from Dylan, sent immediately ────────
+  // Deduplicated so a repeat enquiry for the SAME property within 60 days is
+  // not answered twice. Otherwise every enquiry gets the same fresh reply — a
+  // second enquiry may well be a different property (and a different partner),
+  // so it is never treated as a "follow-up" to an earlier one.
   try {
     const since = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString();
     const { data: prev } = await db.from('email_queue')
@@ -184,19 +169,13 @@ export default async function handler(req, res) {
       .eq('to_email', email)
       .eq('trigger', 'gallery_autoreply')
       .eq('status', 'sent')
-      .gte('created_at', since)
-      .order('created_at', { ascending: false });
+      .gte('created_at', since);
 
     const alreadySentForThisProperty = (prev || []).some(r => r.template_props?.propertySlug === resolvedSlug);
 
     if (!alreadySentForThisProperty) {
-      const prevReply = prev?.[0] || null;
-      const isFollowUp = !!prevReply;
-      const subjectKey = isFollowUp ? 'subject_followup' : 'subject_first';
-      const subject    = tr(subjectKey, locale, { propertyTitle: propertyTitle || propertySlug });
-      const html = isFollowUp
-        ? followUpHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl, prevPropertyTitle: prevReply.template_props?.propertyTitle, locale })
-        : firstReplyHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl, locale });
+      const subject = tr('subject_first', locale, { propertyTitle: propertyTitle || propertySlug });
+      const html    = firstReplyHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl, locale });
 
       // Send immediately — reliable, no cron dependency
       await sendHtml({ to: email, subject, html, from: DYLAN_FROM, replyTo: DYLAN_REPLY });

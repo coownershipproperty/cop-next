@@ -101,11 +101,11 @@ required here).
 
 **Follow-up:** none.
 
-> **Change in progress:** today, a second gallery-page enquiry made soon after
-> the first gets its own separate reply. This is being changed so that several
-> gallery-page enquiries within 10 minutes are **grouped into one email**
-> naming all of them — the same anti-spam batching the gallery follow-up uses.
-> See Part 4.
+**Repeat enquiries:** every gallery enquiry gets this same fresh reply — a
+second enquiry is never treated as a "follow-up" to an earlier one, because it
+may well be a different property (and a different partner). The only exception:
+an identical enquiry for the *same* property within 60 days is not answered
+twice.
 
 ### 4. Newsletter signup
 
@@ -159,9 +159,10 @@ Each enquiry gets its own personal reply — two enquiries, two replies. (They
 deliberately enquired about two things.) Submitting more than 3 in 5 minutes
 is rate-limited and simply rejected.
 
-**Submits two gallery-page enquiries close together**
-*Today:* each gets its own reply. *Being changed:* enquiries within 10 minutes
-will be grouped into one email (Part 4).
+**Submits two gallery-page enquiries**
+Each gets its own reply — a second enquiry is treated fresh (it may be a
+different property). An identical enquiry for the *same* property within 60
+days is not answered twice.
 
 **Saves a search again**
 There is only ever one saved search per email address — re-saving overwrites
