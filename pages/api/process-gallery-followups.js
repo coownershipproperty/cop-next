@@ -204,6 +204,17 @@ export default async function handler(req, res) {
   const isAuthed     = req.headers['authorization'] === `Bearer ${process.env.CRM_SECRET}`;
   if (!isVercelCron && !isAuthed) return res.status(401).json({ error: 'Unauthorised' });
 
+  // ── SUPERSEDED BY THE EMAIL ENGINE ────────────────────────────────────────
+  // Once the unified engine is live it owns the gallery_followup journey, so
+  // this legacy processor stands down — guaranteeing there is never a
+  // double-send. Cut over by setting EMAIL_ENGINE_ENABLED='true'.
+  if (process.env.EMAIL_ENGINE_ENABLED === 'true') {
+    return res.status(200).json({
+      ok: true, superseded: true,
+      note: 'Handled by /api/email-engine (EMAIL_ENGINE_ENABLED=true).',
+    });
+  }
+
   // ── SAFETY GATE ───────────────────────────────────────────────────────────
   // Until this is explicitly switched on, the endpoint does nothing at all.
   if (process.env.GALLERY_FOLLOWUP_ENABLED !== 'true') {

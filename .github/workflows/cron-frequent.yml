@@ -25,3 +25,5 @@ jobs:
         run: curl -fsS --max-time 90 "https://co-ownership-property.com/api/process-email-queue" || true
       - name: Process gallery follow-ups
         run: curl -fsS --max-time 90 "https://co-ownership-property.com/api/process-gallery-followups" || true
+      - name: Run email engine
+        run: curl -fsS --max-time 90 "https://co-ownership-property.com/api/email-engine" || true
