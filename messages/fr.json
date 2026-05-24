@@ -56,14 +56,14 @@
       "html_lang": "fr"
     },
     "floor_plan": {
-      "subject_prefix": "Plans et photos supplémentaires —",
-      "preview": "Vos plans et la galerie de {propertyTitle} sont prêts.",
+      "subject_prefix": "Votre galerie de photos —",
+      "preview": "Votre galerie de photos pour {propertyTitle} est prête.",
       "greeting": "Bonjour {firstName},",
-      "intro": "Merci de votre intérêt. Comme demandé, nous avons rassemblé l'ensemble des photos et les plans du bien présenté ci-dessous.",
+      "intro": "Merci de votre intérêt. Comme demandé, nous avons rassemblé l'ensemble des photos du bien présenté ci-dessous.",
       "cta_label": "Votre accès exclusif",
-      "cta_button": "Voir la galerie et les plans",
+      "cta_button": "Voir la galerie",
       "view_listing_link": "Voir la fiche du bien →",
-      "footer_fine_print": "Vous recevez cet email parce que vous avez demandé les plans sur co-ownership-property.com."
+      "footer_fine_print": "Vous recevez cet email parce que vous avez demandé la galerie de photos sur co-ownership-property.com."
     },
     "enquiry_autoreply": {
       "subject_property": "Merci pour votre demande concernant {propertyTitle}",

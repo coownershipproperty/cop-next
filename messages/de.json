@@ -56,14 +56,14 @@
       "html_lang": "de"
     },
     "floor_plan": {
-      "subject_prefix": "Grundrisse & weitere Fotos —",
-      "preview": "Ihre Grundrisse und Galerie für {propertyTitle} sind bereit.",
+      "subject_prefix": "Ihre Fotogalerie —",
+      "preview": "Ihre Fotogalerie für {propertyTitle} ist bereit.",
       "greeting": "Hallo {firstName},",
-      "intro": "Vielen Dank für Ihr Interesse. Wie gewünscht haben wir alle Fotos und Grundrisse für die unten aufgeführte Immobilie zusammengestellt.",
+      "intro": "Vielen Dank für Ihr Interesse. Wie gewünscht haben wir alle Fotos für die unten aufgeführte Immobilie zusammengestellt.",
       "cta_label": "Ihr exklusiver Zugang",
-      "cta_button": "Galerie & Grundrisse ansehen",
+      "cta_button": "Galerie ansehen",
       "view_listing_link": "Zur Immobilie →",
-      "footer_fine_print": "Sie erhalten diese E-Mail, weil Sie auf co-ownership-property.com Grundrisse angefragt haben."
+      "footer_fine_print": "Sie erhalten diese E-Mail, weil Sie auf co-ownership-property.com die Fotogalerie angefragt haben."
     },
     "enquiry_autoreply": {
       "subject_property": "Vielen Dank für Ihre Anfrage zu {propertyTitle}",

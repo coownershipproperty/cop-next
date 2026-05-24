@@ -56,14 +56,14 @@
       "html_lang": "en"
     },
     "floor_plan": {
-      "subject_prefix": "Floor Plans & More Photos —",
-      "preview": "Your floor plans and gallery for {propertyTitle} are ready.",
+      "subject_prefix": "Your Photo Gallery —",
+      "preview": "Your photo gallery for {propertyTitle} is ready.",
       "greeting": "Dear {firstName},",
-      "intro": "Thank you for your interest. As requested, we've put together the complete photo collection and floor plans for the property below.",
+      "intro": "Thank you for your interest. As requested, we've put together the complete photo gallery for the property below.",
       "cta_label": "Your exclusive access",
-      "cta_button": "View Gallery & Floor Plans",
+      "cta_button": "View Gallery",
       "view_listing_link": "View property listing →",
-      "footer_fine_print": "You're receiving this email because you requested floor plans on co-ownership-property.com."
+      "footer_fine_print": "You're receiving this email because you requested the photo gallery on co-ownership-property.com."
     },
     "enquiry_autoreply": {
       "subject_property": "Thanks for your enquiry about {propertyTitle}",
