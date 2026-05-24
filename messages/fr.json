@@ -180,7 +180,7 @@
       "greeting_no_name": "Bonjour,",
       "first_intro": "Merci pour votre intérêt pour {propertyLink} !",
       "first_offer": "Je serais ravi(e) de vous mettre en contact avec l'équipe spécialiste qui s'en occupe — avant de le faire, avez-vous des questions que je puisse leur transmettre sur le bien ou sur le modèle de copropriété ?",
-      "first_close": "Dès que j'ai votre retour, je fais la mise en relation tout de suite.",
+      "first_close": "Dès que j'ai votre retour, j'en informe l'équipe pour qu'elle puisse vous contacter directement.",
       "followup_intro_with_prev": "J'ai également vu que vous vous étiez renseigné(e) sur {propertyLink} — en plus de {prevPropertyTitle}.",
       "followup_intro_no_prev": "J'ai également vu que vous vous étiez renseigné(e) sur {propertyLink}.",
       "followup_offer": "Idem — des questions à transmettre à l'équipe sur ce bien-ci ?",

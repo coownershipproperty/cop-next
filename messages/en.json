@@ -180,7 +180,7 @@
       "greeting_no_name": "Hi there,",
       "first_intro": "Thanks for your interest in the {propertyLink}!",
       "first_offer": "I'd love to connect you with the specialist team behind it — before I do, do you have any questions I can pass along to them about the property or the co-ownership model?",
-      "first_close": "Once I hear back I'll make the introduction straight away.",
+      "first_close": "Once I hear back, I'll let the team know so they can get in touch with you directly.",
       "followup_intro_with_prev": "I also saw you enquired about the {propertyLink} — alongside the {prevPropertyTitle}.",
       "followup_intro_no_prev": "I also saw you enquired about the {propertyLink}.",
       "followup_offer": "Same goes — do you have any questions I can pass along to the team about this one?",
