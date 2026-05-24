@@ -71,7 +71,7 @@ const COPY = {
     intro: (links) => `Thanks for your interest in ${links}!`,
     offerSingle: `I'd love to connect you with the specialist team behind it — before I do, do you have any questions I can pass along to them about the property or the co-ownership model?`,
     offerMulti:  `I'd love to connect you with the specialist teams behind them — before I do, do you have any questions I can pass along about these homes or the co-ownership model?`,
-    close: `Once I hear back, I'll let the team know so they can be in touch with you directly.`,
+    close: `Once I hear back, I'll let the team know so they can get in touch with you directly.`,
     sign: 'Dylan',
     and: ' and ',
   },
