@@ -28,7 +28,7 @@
  * See docs/email-automation-blueprint.md.
  */
 import { createClient } from '@supabase/supabase-js';
-import { runEngine } from '@/lib/email/engine';
+import { runEngine, isEnvTrue } from '@/lib/email/engine';
 import { JOURNEYS } from '@/lib/email/journeys';
 
 function getDb() {
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
   // Applies to LIVE runs only. A dry run (?dry=1) sends nothing and writes
   // nothing, so it is always safe to run — that is how you preview the engine
   // before switching it on.
-  if (!dryRun && process.env.EMAIL_ENGINE_ENABLED !== 'true') {
+  if (!dryRun && !isEnvTrue('EMAIL_ENGINE_ENABLED')) {
     return res.status(200).json({
       ok: true, disabled: true,
       note: "Email engine inactive. Set EMAIL_ENGINE_ENABLED='true' to activate. "
@@ -75,7 +75,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       ok: true,
       dryRun,
-      engineEnabled: process.env.EMAIL_ENGINE_ENABLED === 'true',
+      engineEnabled: isEnvTrue('EMAIL_ENGINE_ENABLED'),
       testMode: testEmails.length > 0,
       testEmails: testEmails.length ? testEmails : undefined,
       summary,

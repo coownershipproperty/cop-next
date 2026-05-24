@@ -38,6 +38,7 @@
  */
 import { createClient } from '@supabase/supabase-js';
 import { sendHtml } from '@/lib/resend';
+import { isEnvTrue } from '@/lib/email/engine';
 
 // ── Tunables ────────────────────────────────────────────────────────────────
 const WINDOW_MIN    = 10;   // wait at least this long after the first unlock
@@ -208,7 +209,7 @@ export default async function handler(req, res) {
   // Once the unified engine is live it owns the gallery_followup journey, so
   // this legacy processor stands down — guaranteeing there is never a
   // double-send. Cut over by setting EMAIL_ENGINE_ENABLED='true'.
-  if (process.env.EMAIL_ENGINE_ENABLED === 'true') {
+  if (isEnvTrue('EMAIL_ENGINE_ENABLED')) {
     return res.status(200).json({
       ok: true, superseded: true,
       note: 'Handled by /api/email-engine (EMAIL_ENGINE_ENABLED=true).',
@@ -217,7 +218,7 @@ export default async function handler(req, res) {
 
   // ── SAFETY GATE ───────────────────────────────────────────────────────────
   // Until this is explicitly switched on, the endpoint does nothing at all.
-  if (process.env.GALLERY_FOLLOWUP_ENABLED !== 'true') {
+  if (!isEnvTrue('GALLERY_FOLLOWUP_ENABLED')) {
     return res.status(200).json({
       ok: true, disabled: true,
       note: "Inactive. Set GALLERY_FOLLOWUP_ENABLED='true' to activate.",
