@@ -68,10 +68,11 @@ const COPY = {
     subjectMulti:  ()  => `Questions about the homes you've been viewing?`,
     greetingName:  (n) => `Hi ${n},`,
     greetingNoName: 'Hi there,',
-    intro: (links) => `Thanks for your interest in ${links}!`,
-    offerSingle: `I'd love to connect you with the specialist team behind it — before I do, do you have any questions I can pass along to them about the property or the co-ownership model?`,
-    offerMulti:  `I'd love to connect you with the specialist teams behind them — before I do, do you have any questions I can pass along about these homes or the co-ownership model?`,
-    close: `Once I hear back, I'll let the team know so they can get in touch with you directly.`,
+    intro: (links) => `Thanks for taking a look at ${links}!`,
+    offerSingle: `Is there anything I can help with — questions about the home, or how co-ownership actually works? Just hit reply.`,
+    offerMulti:  `Is there anything I can help with — questions about the homes, or how co-ownership actually works? Just hit reply.`,
+    closeSingle: `And whenever you're ready, I'm happy to connect you directly with the team that manages it.`,
+    closeMulti:  `And whenever you're ready, I'm happy to connect you directly with the teams that manage them.`,
     sign: 'Dylan',
     and: ' and ',
   },
@@ -81,10 +82,11 @@ const COPY = {
     subjectMulti:  ()  => `¿Alguna pregunta sobre las propiedades que has visto?`,
     greetingName:  (n) => `Hola ${n},`,
     greetingNoName: 'Hola,',
-    intro: (links) => `¡Gracias por tu interés en ${links}!`,
-    offerSingle: `Me encantaría ponerte en contacto con el equipo especialista que hay detrás — antes de hacerlo, ¿tienes alguna pregunta que pueda trasladarles sobre la propiedad o el modelo de copropiedad?`,
-    offerMulti:  `Me encantaría ponerte en contacto con los equipos especialistas que hay detrás — antes de hacerlo, ¿tienes alguna pregunta que pueda trasladarles sobre estas propiedades o el modelo de copropiedad?`,
-    close: `En cuanto me respondas, se lo haré saber al equipo para que se ponga en contacto contigo directamente.`,
+    intro: (links) => `¡Gracias por echar un vistazo a ${links}!`,
+    offerSingle: `¿Hay algo en lo que pueda ayudarte — alguna duda sobre la propiedad o sobre cómo funciona la copropiedad? Solo tienes que responder a este correo.`,
+    offerMulti:  `¿Hay algo en lo que pueda ayudarte — alguna duda sobre las propiedades o sobre cómo funciona la copropiedad? Solo tienes que responder a este correo.`,
+    closeSingle: `Y cuando quieras, con mucho gusto te pongo en contacto directo con el equipo que la gestiona.`,
+    closeMulti:  `Y cuando quieras, con mucho gusto te pongo en contacto directo con los equipos que las gestionan.`,
     sign: 'Dylan',
     and: ' y ',
   },
@@ -94,10 +96,11 @@ const COPY = {
     subjectMulti:  ()  => `Des questions sur les biens que vous avez consultés ?`,
     greetingName:  (n) => `Bonjour ${n},`,
     greetingNoName: 'Bonjour,',
-    intro: (links) => `Merci de l'intérêt que vous portez à ${links} !`,
-    offerSingle: `Je serais ravi de vous mettre en contact avec l'équipe spécialisée qui s'en occupe — avant cela, avez-vous des questions que je pourrais leur transmettre sur le bien ou sur le modèle de copropriété ?`,
-    offerMulti:  `Je serais ravi de vous mettre en contact avec les équipes spécialisées qui s'en occupent — avant cela, avez-vous des questions que je pourrais leur transmettre sur ces biens ou sur le modèle de copropriété ?`,
-    close: `Dès que vous me répondez, j'en informe l'équipe pour qu'elle puisse vous contacter directement.`,
+    intro: (links) => `Merci d'avoir jeté un œil à ${links} !`,
+    offerSingle: `Puis-je vous aider en quoi que ce soit — une question sur le bien, ou sur le fonctionnement de la copropriété ? Il vous suffit de répondre à cet e-mail.`,
+    offerMulti:  `Puis-je vous aider en quoi que ce soit — une question sur les biens, ou sur le fonctionnement de la copropriété ? Il vous suffit de répondre à cet e-mail.`,
+    closeSingle: `Et quand vous le souhaitez, je vous mets volontiers en relation directe avec l'équipe qui le gère.`,
+    closeMulti:  `Et quand vous le souhaitez, je vous mets volontiers en relation directe avec les équipes qui les gèrent.`,
     sign: 'Dylan',
     and: ' et ',
   },
@@ -173,7 +176,7 @@ function buildEmail({ firstName, properties, locale }) {
     <p style="margin:0 0 20px;">${greeting}</p>
     <p style="margin:0 0 20px;">${t.intro(links)}</p>
     <p style="margin:0 0 20px;">${offer}</p>
-    <p style="margin:0 0 32px;">${t.close}</p>
+    <p style="margin:0 0 32px;">${single ? t.closeSingle : t.closeMulti}</p>
     <p style="margin:0;">${t.sign}</p>`;
 
   return { subject, html: emailShell(body, locale, t.role) };
