@@ -1,1 +1,12 @@
-{}
+{
+  "crons": [
+    {
+      "path": "/api/process-gallery-followups",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/email-engine",
+      "schedule": "*/10 * * * *"
+    }
+  ]
+}
