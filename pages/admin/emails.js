@@ -49,8 +49,18 @@ function relTime(value) {
   return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
 }
 
+// Time until a gallery follow-up is due — sent ~10 min after the first unlock.
+function dueText(firstUnlock) {
+  if (!firstUnlock) return 'sending now'
+  const ageMin = (Date.now() - new Date(firstUnlock).getTime()) / 60000
+  const left = 10 - ageMin
+  if (left > 0.5) return `sends in ~${Math.ceil(left)} min`
+  return 'sending now'
+}
+
 export default function AdminEmails() {
   const [emails, setEmails] = useState([])
+  const [pending, setPending] = useState([])
   const [counts, setCounts] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -73,7 +83,12 @@ export default function AdminEmails() {
       const cnt  = (build) => build(supabase.from('email_queue').select('*', { count: 'exact', head: true }))
       const sCnt = (build) => build(supabase.from('email_sends').select('*', { count: 'exact', head: true }).eq('type', 'enquiry_auto'))
 
-      const [list, sends, sentTotal, sentWeek, sentDay, stoppedWeek, queued, failed, replyTotal, replyWeek, replyDay] = await Promise.all([
+      // For the "Pending — about to send" view: recent gallery unlocks, and the
+      // gallery_followup markers that show which contacts are already handled.
+      const unlockWindow = new Date(Date.now() - 25 * 60000).toISOString()
+      const cooldownAgo  = new Date(Date.now() - 30 * 86400000).toISOString()
+
+      const [list, sends, sentTotal, sentWeek, sentDay, stoppedWeek, queued, failed, replyTotal, replyWeek, replyDay, unlocks, markers] = await Promise.all([
         supabase.from('email_queue')
           .select('to_email,to_name,subject,status,trigger,template_name,sequence_type,created_at,sent_at')
           .order('created_at', { ascending: false })
@@ -92,6 +107,16 @@ export default function AdminEmails() {
         sCnt(q => q),
         sCnt(q => q.gte('sent_at', weekAgo)),
         sCnt(q => q.gte('sent_at', dayAgo)),
+        supabase.from('email_queue')
+          .select('to_email,to_name,subject,created_at,contact_id')
+          .eq('trigger', 'floor_plan_requested')
+          .gte('created_at', unlockWindow)
+          .order('created_at', { ascending: true }),
+        supabase.from('email_queue')
+          .select('contact_id')
+          .eq('trigger', 'gallery_followup')
+          .gte('created_at', cooldownAgo)
+          .not('contact_id', 'is', null),
       ])
 
       if (list.error) throw list.error
@@ -123,6 +148,28 @@ export default function AdminEmails() {
         queued:      queued.count || 0,
         failed:      failed.count || 0,
       })
+
+      // Pending gallery follow-ups: contacts who unlocked inside the ~10-min
+      // window and have no gallery_followup marker yet (not sent/skipped).
+      const handled = new Set(((markers && markers.data) || []).map(m => m.contact_id))
+      const burst = new Map()
+      for (const u of ((unlocks && unlocks.data) || [])) {
+        if (!u.contact_id || handled.has(u.contact_id)) continue
+        const ex = burst.get(u.contact_id)
+        if (!ex) {
+          burst.set(u.contact_id, {
+            first: u.created_at,
+            to_email: u.to_email,
+            to_name: u.to_name,
+            subjects: u.subject ? [u.subject] : [],
+          })
+        } else {
+          if (new Date(u.created_at) < new Date(ex.first)) ex.first = u.created_at
+          if (u.subject && !ex.subjects.includes(u.subject)) ex.subjects.push(u.subject)
+        }
+      }
+      setPending([...burst.values()].sort((a, b) => new Date(a.first) - new Date(b.first)))
+
       setUpdatedAt(new Date())
     } catch (e) {
       setError((e && e.message) ? e.message : 'Could not load email data.')
@@ -225,6 +272,59 @@ export default function AdminEmails() {
               {c.hint && <div style={{ fontSize: 11, color: '#bdb5aa', marginTop: 6 }}>{c.hint}</div>}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Pending follow-ups — gallery unlocks inside the 10-minute window */}
+      {!loading && !error && (
+        <div style={{
+          marginBottom: 22, background: '#ffffff', borderRadius: 12, overflow: 'hidden',
+          border: `1px solid ${pending.length ? '#fcd34d' : '#e8e0d4'}`,
+        }}>
+          <div style={{
+            padding: '11px 16px',
+            background: pending.length ? '#fffbeb' : '#faf8f3',
+            borderBottom: `1px solid ${pending.length ? '#fcd34d' : '#e8e0d4'}`,
+            fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em',
+            color: pending.length ? '#92400e' : '#8a9aaa',
+          }}>
+            {pending.length
+              ? `Pending — about to send (${pending.length})`
+              : 'Pending — about to send'}
+          </div>
+          {pending.length === 0 ? (
+            <div style={{ padding: '13px 16px', fontSize: 13, color: '#8a9aaa' }}>
+              No gallery follow-ups in the 10-minute window right now — all caught up.
+            </div>
+          ) : (
+            pending.map((p, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
+                padding: '11px 16px',
+                borderBottom: i < pending.length - 1 ? '1px solid #f0ede8' : 'none',
+              }}>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ fontWeight: 600, color: '#2C4A5E', fontSize: 13 }}>
+                    {(p.to_name || '').trim() || p.to_email}
+                  </div>
+                  <div style={{
+                    fontSize: 12, color: '#8a949a',
+                    overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                  }}>
+                    {p.subjects.length > 1
+                      ? `${p.subjects.length} galleries unlocked`
+                      : (p.subjects[0] || 'Gallery unlocked')}
+                  </div>
+                </div>
+                <span style={{
+                  flexShrink: 0, fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 20,
+                  background: '#fffbeb', color: '#92400e', border: '1px solid #fcd34d', whiteSpace: 'nowrap',
+                }}>
+                  {dueText(p.first)}
+                </span>
+              </div>
+            ))
+          )}
         </div>
       )}
 
