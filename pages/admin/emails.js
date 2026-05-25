@@ -58,6 +58,17 @@ function dueText(firstUnlock) {
   return 'sending now'
 }
 
+// The subject the follow-up email will actually use — deliberately different
+// from the gallery-delivery email ("Your Photo Gallery — …"). Mirrors the
+// builder in process-gallery-followups.js. `subjects` holds the delivery
+// subjects; the property title is the part after the first " — ".
+function followupSubject(subjects) {
+  if (!subjects || subjects.length !== 1) return "Questions about the homes you've been viewing?"
+  const parts = String(subjects[0]).split(' — ')
+  const prop = parts.length > 1 ? parts.slice(1).join(' — ') : subjects[0]
+  return `Questions about ${prop}?`
+}
+
 export default function AdminEmails() {
   const [emails, setEmails] = useState([])
   const [pending, setPending] = useState([])
@@ -311,9 +322,7 @@ export default function AdminEmails() {
                     fontSize: 12, color: '#8a949a',
                     overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                   }}>
-                    {p.subjects.length > 1
-                      ? `${p.subjects.length} galleries unlocked`
-                      : (p.subjects[0] || 'Gallery unlocked')}
+                    {followupSubject(p.subjects)}
                   </div>
                 </div>
                 <span style={{
