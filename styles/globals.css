@@ -4148,7 +4148,7 @@ body { font-family:'Nunito Sans',sans-serif; color:var(--text-dark); background:
 
 .faq-item summary::-webkit-details-marker { display:none; }
 
-.faq-item summary::before { counter-increment:faq; content:counter(faq,decimal-leading-zero); font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--warm-gold); opacity:0.5; min-width:50px; }
+.faq-item summary::before { content:counter(faq,decimal-leading-zero); font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--warm-gold); opacity:0.5; min-width:50px; }
 
 .faq-item summary h3 { flex:1; font-size:1.1rem; color:var(--text-dark); }
 
