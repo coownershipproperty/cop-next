@@ -46,6 +46,8 @@ const MAX_AGE_MIN   = 120;  // never send if the first unlock is older than this
                             // margin so a delayed poll never expires a real lead
 const COOLDOWN_DAYS = 30;   // at most one follow-up per person per 30 days
 const LOOKBACK_MIN  = 240;  // only scan unlocks from the last 4h — keeps every run tiny
+const BURST_GAP_MIN = 45;   // unlocks >45 min apart are SEPARATE visits, not one
+                            // batch — the follow-up is timed off the latest visit
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
 const DYLAN_REPLY = 'dylan@co-ownership-property.com';
@@ -268,8 +270,20 @@ export default async function handler(req, res) {
   let sent = 0, suppressed = 0, expired = 0, notDue = 0,
       skippedCooldown = 0, skippedTest = 0, skippedNoProp = 0, errors = 0;
 
-  for (const [contactId, acts] of byContact) {
+  for (const [contactId, allActs] of byContact) {
     if (onCooldown.has(contactId)) { skippedCooldown++; continue; }
+
+    // Only the MOST RECENT burst of unlocks counts. allActs is ascending; walk
+    // back from the newest and stop at the first gap >BURST_GAP_MIN. A visit
+    // hours ago and a fresh visit now are separate sessions — without this, a
+    // returning visitor's new unlock is measured against their old one and
+    // wrongly expires.
+    const acts = [allActs[allActs.length - 1]];
+    for (let i = allActs.length - 2; i >= 0; i--) {
+      const gapMin = (new Date(acts[0].created_at) - new Date(allActs[i].created_at)) / 60000;
+      if (gapMin > BURST_GAP_MIN) break;
+      acts.unshift(allActs[i]);
+    }
 
     const burstStart = new Date(acts[0].created_at).getTime();
     const ageMin = (now - burstStart) / 60000;
