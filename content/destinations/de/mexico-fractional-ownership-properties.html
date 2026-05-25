@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mexico Fractional Ownership Properties | Co-Ownership Property</title>
-    <meta name="description" content="Premium fractional ownership (co-ownership) properties in Mexico including Los Cabos, Puerto Vallarta &amp; Cancun. Luxury beach homes through fractional co-ownership.">
+    <title>Miteigentum Immobilien Mexiko | Co-Ownership Property</title>
+    <meta name="description" content="Miteigentum-Immobilien in Mexiko von COP — eingetragenes Bruchteilseigentum in Los Cabos, Punta Mita und der Riviera Maya. Professionell verwaltet, 6–7 Wochen persönliche Nutzung pro Jahr, echtes Eigentumsrecht in einigen der begehrtesten Küstenmärkte Mexikos.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-        <style>
+    <style>
         /* ── Google Fonts ── */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
 
 /* ── CSS Variables ── */
 :root {
-    /* === Primary palette (use these in new work) === */
     --blue:         #2C4A5E;
     --cream:        #F5F2EC;
     --gold:         #C9A84C;
@@ -23,8 +22,6 @@
     --muted:        #5a6a7a;
     --border:       #e8e0d4;
     --max:          1400px;
-
-    /* === Legacy aliases (keep for existing templates) === */
     --warm-gold:    #C9A84C;
     --cream-bg:     #F5F2EC;
     --cream-light:  #FAF8F5;
@@ -38,8 +35,6 @@
     --blue-20:      #C5CED5;
     --transition:   0.3s ease;
 }
-
-/* ── Base reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
@@ -50,8 +45,6 @@ button { font-family: inherit; cursor: pointer; }
         h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
         a{color:inherit;text-decoration:none;transition:color var(--transition)}
         img{display:block;max-width:100%;height:auto}
-
-                /* ===== SITE-WIDE HEADER ===== */
         .cop-header {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -77,14 +70,9 @@ button { font-family: inherit; cursor: pointer; }
             border-bottom: 1px solid rgba(201,168,76,0.18);
         }
         .admin-bar .cop-header { top: 32px; }
-
-        /* Logo */
         .cop-logo { flex-shrink: 0; }
         .cop-logo a { display: block; }
         .cop-logo img { height: 54px; width: auto; display: block; }
-
-
-        /* Nav — absolutely centred between logo and hamburger */
         .cop-nav {
             position: absolute;
             left: 50%;
@@ -107,8 +95,6 @@ button { font-family: inherit; cursor: pointer; }
             text-decoration: none;
         }
         .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
-
-        /* Gold underline on hover / active */
         .cop-nav a::after {
             content: '';
             position: absolute;
@@ -124,9 +110,6 @@ button { font-family: inherit; cursor: pointer; }
         .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
         .cop-nav a:hover::after,
         .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
-
-
-        /* Favourites — heart prefix */
         .cop-nav a.cop-nav-favourites::before {
             content: '\2665\00a0\00a0';
             font-size: 0.75rem;
@@ -134,8 +117,6 @@ button { font-family: inherit; cursor: pointer; }
             opacity: 0.75;
             letter-spacing: 0;
         }
-
-        /* Hamburger */
         .cop-hamburger {
             display: none;
             flex-direction: column;
@@ -156,8 +137,6 @@ button { font-family: inherit; cursor: pointer; }
         .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
         .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
         .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        /* ===== MOBILE (<768px) ===== */
         @media (max-width:768px) {
             .cop-hamburger { display: flex; }
             .cop-nav {
@@ -195,16 +174,12 @@ button { font-family: inherit; cursor: pointer; }
             .cop-header { padding: 1.5rem; }
             .cop-logo img { height: 45px; }
         }
-
-        /* ===== HERO ===== */
         .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
         .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
         .page-hero>*{position:relative;z-index:1}
         .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
         .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
         .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
-
-        /* ===== PROPERTY GRID ===== */
         .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
         .props-inner{max-width:1400px;margin:0 auto}
         .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
@@ -228,12 +203,10 @@ button { font-family: inherit; cursor: pointer; }
         .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
         .prop-card:hover .prop-view{color:var(--warm-gold)}
         .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
-        /* Show more button */
         .prop-card.hidden{display:none}
         .show-more-wrap{text-align:center;margin-top:2.5rem}
         .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
         .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-        /* Mid-page CTA */
         .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
         .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
         .dest-mid-cta > *{position:relative;z-index:1}
@@ -243,9 +216,6 @@ button { font-family: inherit; cursor: pointer; }
         .dest-cta-btn-gold:hover{background:#b8963e}
         .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
         .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-
-        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
-        
 .dest-sec{padding:80px 3rem}
 .dest-sec.cream{background:var(--cream-bg)}
 .dest-sec.white{background:var(--white)}
@@ -263,14 +233,12 @@ button { font-family: inherit; cursor: pointer; }
 .dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
 .dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
 .dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
-/* Explore More */
 .dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
 .dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
 .dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
 .dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
 .dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
 .dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
-/* FAQ */
 .dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
 .dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
 .dest-faq-list{counter-reset:faq}
@@ -287,9 +255,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
     .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
     .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
 }
-
-        /* ===== CTAs ===== */
-                /* ===== NEWSLETTER SIGNUP ===== */
         .newsletter-section {
             background: var(--white);
             position: relative;
@@ -354,13 +319,11 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         }
         .newsletter-form-msg.success { color: #4a9e6e; }
         .newsletter-form-msg.error   { color: #c0392b; }
-
         @media (max-width: 640px) {
             .newsletter-section { padding: 70px 1.5rem; }
             .newsletter-heading { font-size: 2rem; }
             .newsletter-form { flex-direction: column; }
         }
-                /* ===== EXPERT FORM SECTION ===== */
         .expert-section {
             background: var(--blue);
             padding: 100px 3rem;
@@ -376,7 +339,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             pointer-events: none;
         }
         .expert-section > * { position: relative; z-index: 1; }
-
         .expert-inner {
             max-width: 820px;
             margin: 0 auto;
@@ -427,7 +389,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             color: rgba(255,255,255,0.85);
         }
         .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
-
         .expert-form-field input,
         .expert-form-field select,
         .expert-form-field textarea {
@@ -454,12 +415,7 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
         .expert-form-field select option { background: var(--blue); color: var(--white); }
         .expert-form-field textarea { resize: vertical; min-height: 110px; }
-
-        /* ── Multi-select destination dropdown ── */
-        .dest-multiselect {
-            position: relative;
-            width: 100%;
-        }
+        .dest-multiselect { position: relative; width: 100%; }
         .dest-trigger {
             background: rgba(255,255,255,0.07);
             border: 1px solid rgba(201,168,76,0.25);
@@ -488,18 +444,10 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             transition: transform 0.2s;
             flex-shrink: 0;
         }
-        .dest-multiselect.open .dest-trigger::after {
-            transform: translateY(-30%) rotate(-135deg);
-        }
+        .dest-multiselect.open .dest-trigger::after { transform: translateY(-30%) rotate(-135deg); }
         .dest-trigger:hover,
-        .dest-multiselect.open .dest-trigger {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .dest-placeholder {
-            color: rgba(255,255,255,0.25);
-            pointer-events: none;
-        }
+        .dest-multiselect.open .dest-trigger { border-color: rgba(201,168,76,0.7); background: rgba(255,255,255,0.1); }
+        .dest-placeholder { color: rgba(255,255,255,0.25); pointer-events: none; }
         .dest-tag {
             display: inline-flex;
             align-items: center;
@@ -513,15 +461,8 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             border-radius: 999px;
             white-space: nowrap;
         }
-        .dest-tag-x {
-            cursor: pointer;
-            font-size: 0.85rem;
-            line-height: 1;
-            opacity: 0.6;
-            transition: opacity 0.15s;
-        }
+        .dest-tag-x { cursor: pointer; font-size: 0.85rem; line-height: 1; opacity: 0.6; transition: opacity 0.15s; }
         .dest-tag-x:hover { opacity: 1; }
-
         .dest-dropdown {
             display: none;
             position: absolute;
@@ -535,7 +476,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
         .dest-multiselect.open .dest-dropdown { display: block; }
-
         .dest-option {
             display: flex;
             align-items: center;
@@ -550,7 +490,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         }
         .dest-option:hover { background: rgba(201,168,76,0.1); }
         .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
-
         .dest-check {
             width: 16px; height: 16px;
             border: 1.5px solid rgba(201,168,76,0.4);
@@ -561,10 +500,7 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             flex-shrink: 0;
             transition: background 0.15s, border-color 0.15s;
         }
-        .dest-option.selected .dest-check {
-            background: var(--warm-gold);
-            border-color: var(--warm-gold);
-        }
+        .dest-option.selected .dest-check { background: var(--warm-gold); border-color: var(--warm-gold); }
         .dest-check::after {
             content: '';
             width: 4px; height: 8px;
@@ -574,13 +510,9 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             opacity: 0;
         }
         .dest-option.selected .dest-check::after { opacity: 1; }
-
-        /* Scrollbar for dropdown */
         .dest-dropdown::-webkit-scrollbar { width: 5px; }
         .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
         .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
-
-        /* Submit area */
         .expert-submit { margin-top: 1.5rem; text-align: center; }
         .expert-submit-btn {
             background: var(--warm-gold);
@@ -607,14 +539,11 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         }
         .expert-form-msg.success { color: #7ed8a3; }
         .expert-form-msg.error   { color: #f08080; }
-
         @media (max-width: 640px) {
             .expert-form-grid { grid-template-columns: 1fr; }
             .expert-heading { font-size: 2rem; }
             .expert-section { padding: 70px 1.5rem; }
         }
-
-        /* ===== FOOTER ===== */
         footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
         .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
         .footer-logo img{height:35px;margin-bottom:1rem}
@@ -629,7 +558,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         .footer-legal{display:flex;gap:2rem}
         .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
         .footer-legal a:hover{color:var(--warm-gold)}
-
         @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
         @media(max-width:768px){
             .page-hero{padding:130px 1.5rem 50px}
@@ -643,261 +571,432 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
 <body>
     <header class="cop-header scrolled" id="cop-header">
     <div class="cop-logo">
-        <a href="/">
+        <a href="/de/">
             <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
         </a>
     </div>
     <nav class="cop-nav" id="cop-nav">
-        <a href="/" class="cop-nav-active">Home</a>
-        <a href="/our-homes/">Our Homes</a>
-        <a href="/how-it-works/">How It Works</a>
-        <a href="/about-us">About Us</a>
-        <a href="/all-our-blog/">Our Blog</a>
-        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
-        <a href="/contact">Contact</a>
+        <a href="/de/" class="cop-nav-active">Startseite</a>
+        <a href="/de/immobilien/">Immobilien</a>
+        <a href="/de/so-funktionierts/">So funktioniert's</a>
+        <a href="/de/ueber-uns/">Über uns</a>
+        <a href="/de/blog/">Unser Blog</a>
+        <a href="/de/favoriten/" class="cop-nav-favourites">Meine Favoriten</a>
+        <a href="/de/kontakt/">Kontakt</a>
     </nav>
-    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
+    <button class="cop-hamburger" id="cop-hamburger" aria-label="Menü öffnen">
         <span></span><span></span><span></span>
     </button>
 </header>
 
     <!-- HERO -->
     <section class="page-hero">
-        <p class="eyebrow">Co-Ownership Properties</p>
-        <h1>Mexico Fractional Ownership Properties</h1>
-        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
+        <p class="eyebrow">Mexiko · Amerika</p>
+        <h1>Miteigentum Immobilien <em>Mexiko</em></h1>
+        <p class="subtitle">Von einer Klippen-Villa hoch über dem Golf von Kalifornien bis zu einem dschungelgesäumten Strandhaus an der Riviera Maya — Miteigentum in Mexiko bedeutet einen eingetragenen Anteil an den begehrtesten Küstenadressen des Landes, sechs bis sieben Wochen persönliche Nutzung pro Jahr und eine vollständig verwaltete Immobilie, die bei Ihrer Ankunft bereit ist.</p>
     </section>
 
     <!-- PROPERTY GRID -->
     <section class="props-sec">
         <div class="props-inner">
-                        <div class="no-props">
-                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
+            <div class="no-props">
+                <p>Für dieses Reiseziel sind derzeit keine Immobilien gelistet. <a href="/de/immobilien/" style="color:var(--warm-gold);font-weight:700;">Alle Immobilien durchsuchen</a> oder <a href="/de/kontakt/" style="color:var(--warm-gold);font-weight:700;">kontaktieren Sie uns</a> für kommende Angebote.</p>
             </div>
-                    </div>
+        </div>
     </section>
 
     <!-- MID-PAGE CTA -->
     <div class="dest-mid-cta">
-        <p>Ready to find your property in Mexico?</p>
+      <div class="dest-mid-cta-inner">
+        <h2>Mexikos begehrteste Küstenadressen — zugänglich durch Miteigentum.</h2>
+        <p>Vollständig verwaltete Villen und Residenzen in <strong>Los Cabos</strong>, <strong>Punta Mita</strong> und an der <strong>Riviera Maya</strong>. Ihr <strong>eingetragener 1/8-Anteil</strong> beinhaltet <strong>6–7 Wochen persönliche Nutzung</strong>, ein professionelles Verwaltungsteam auf Abruf und das langfristige Eigentumsrecht in einem der angebotsbeschränktesten Luxus-Küstenmärkte der amerikanischen Kontinente.</p>
         <div class="dest-mid-cta-btns">
-            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
-            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
+            <a href="/de/immobilien/" class="dest-cta-btn-gold">Alle Immobilien ansehen</a>
+            <a href="#newsletter" class="dest-cta-btn-outline">Updates erhalten</a>
         </div>
+      </div>
     </div>
 
-    <!-- SEO CONTENT (rendered as styled sections) -->
-        <section class="dest-sec cream"><div class="dest-inner"><title>Mexico Fractional Ownership | Los Cabos &#038; Riviera Maya | COP</title></div></section><section class="dest-sec white"><div class="dest-inner">
-<figure class="dest-figure">
-  <img src="https://lh3.googleusercontent.com/d/1hbjBsCUBdfqdebBhZQmNuNghOcHGQvBg" alt="Eine Residenz in Cabo San Lucas in der bewachten Punta-Ballena-Gemeinde, mit Meerblick und privater Terrasse" loading="lazy" width="1600" height="1200" />
-  <figcaption>Eine Residenz in Cabo San Lucas in der bewachten Punta-Ballena-Gemeinde, der Ozean öffnet sich über Terrasse und Pool.</figcaption>
-</figure>
-<h2>Mexico Fractional Ownership: Year-Round Paradise, Two Coastlines</h2>
+    <!-- SEO CONTENT -->
 
-<p>Mexico offers year-round warmth, resort-quality infrastructure, and two dramatically distinct coastal environments for fractional property ownership through Co-Ownership Property. Los Cabos, where the Pacific Ocean meets the Sea of Cortez at Baja California&#8217;s southernmost tip, delivers dramatic desert landscapes, world-class sport fishing, championship golf courses, and over 300 days of sunshine annually. The Riviera Maya, stretching along the Caribbean coast south of Cancun, offers turquoise waters, cenote swimming, Mayan ruins, and a lifestyle centered on beach clubs, wellness, and natural beauty. For North American buyers seeking proximity to the United States, climate consistency, proven luxury resort infrastructure, and genuine investment appreciation, Mexico&#8217;s fractional ownership market represents an increasingly sophisticated alternative to Caribbean island properties. Whether you&#8217;re drawn to Baja&#8217;s dramatic desert-meets-ocean landscape or Quintana Roo&#8217;s Caribbean perfection, Mexico&#8217;s fractional ownership model delivers access to year-round paradise through genuine deeded ownership and professional management.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Mexico Fractional Ownership?</h2>
-
-<p>Mexico represents a compelling fractional ownership destination for several distinct reasons. First, geographic proximity: both Los Cabos and Riviera Maya are 4-5 hours from major US metropolitan areas by direct flight. For American buyers, Mexico offers escape with accessibility; you&#8217;re not crossing 10+ time zones or enduring long international flights. This proximity translates into usage frequency: owning a fractional share in Mexico means you can realistically visit for long weekends, month-long winter escapes, or extended summer stays without exhausting travel time. European buyers also find Mexico increasingly accessible, with direct flights from London, Frankfurt, and Paris to both Cancun and Los Cabos.</p>
-
-<p>Second, cost advantage: Mexico&#8217;s luxury properties command significantly lower acquisition prices than equivalent properties in California, the Caribbean, or Europe. A beachfront Los Cabos villa that costs $6-8 million would cost $15+ million in comparable Malibu or Santa Monica locations; a Riviera Maya oceanfront property identical in quality to Caribbean competitors costs 30-40% less. This price advantage means your capital achieves greater property quality and location prestige per dollar invested, improving both lifestyle quality and investment returns.</p>
-
-<p>Third, proven resort infrastructure: Mexico&#8217;s coastal resort markets—particularly Los Cabos and Riviera Maya—have decades of five-star resort experience. Infrastructure exists: helicopter services, private aircraft facilities, world-class restaurants, championship golf courses, diving operations, sport fishing fleets, and wellness centers. This infrastructure means fractional owners enjoy resort-quality experiences without the burden of operating a resort: Co-Ownership Property&#8217;s management team coordinates all services, from private chef services to yacht charters to spa treatments.</p>
-
-<p>Fourth, investment appreciation: Mexico&#8217;s premium coastal real estate has appreciated 5-8% annually for the past decade, driven by demographic migration (remote workers, retirees), increasing international brand development (Four Seasons, St. Regis, Rosewood expanding in Mexico), and constrained land supply in premium locations. Mexico&#8217;s properties offer moderate-to-strong appreciation while delivering immediate lifestyle benefits and short-term rental income potential.</p>
-
-<p>Fifth, Mexican property ownership is straightforward for foreigners: unlike some countries, Mexico welcomes foreign property ownership through a simple fideicomiso (bank trust) structure that protects your ownership rights fully. You own genuine property rights; you can sell, rent, improve, or pass to heirs without restriction. The fideicomiso structure is transparent, low-cost, and universally understood by international buyers.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Los Cabos — Baja California&#8217;s Crown Jewel</h2>
-
-<p>Los Cabos represents Mexico&#8217;s most developed, most globally recognized luxury property market. Located at the southern tip of the Baja California Peninsula where the Pacific Ocean meets the Sea of Cortez, Los Cabos combines dramatic desert landscape (golden cliffs meeting turquoise water), world-class resort infrastructure, and a buyer profile spanning Hollywood celebrities, international business titans, and wealthy American and Canadian retirees. The region receives over 300 days of sunshine annually, making it one of the world&#8217;s most reliably sunny destinations.</p>
-
-<p>The Los Cabos market is anchored by &#8220;the Corridor,&#8221; a 20-mile stretch from San José del Cabo (the quaint colonial city with art galleries and farm-to-table restaurants) to Cabo San Lucas (the resort-focused tourist hub with nightlife and sport fishing). The Corridor contains most of the region&#8217;s ultra-luxury development: the St. Regis, One &#038; Only Palmilla, Nobu Residences, Montage, and numerous private villa communities. Properties range from $2 million beachfront condominiums to $15+ million oceanfront estates with private beach access, infinity pools, and staff quarters.</p>
-
-<p>Los Cabos fractional ownership attracts several distinct buyer profiles. Sport fishermen seek world-class marlin and tuna fishing; the Pacific waters and Sea of Cortez provide some of the world&#8217;s finest deep-sea fishing, with charter operations operating year-round. Golf enthusiasts pursue championship courses designed by Jack Nicklaus, Tom Weiskopf, and Greg Norman. Business executives use their weeks as extended working escapes: modern properties include home offices, dedicated WiFi infrastructure, and cellular coverage supporting remote work while enjoying Baja sun. Retirees and lifestyle buyers see Los Cabos as superior to Caribbean alternatives: the food scene rivals major US cities, the climate is more predictable than hurricane-prone Caribbean islands, and the Baja landscape—while desert-like—offers distinctive beauty and outdoor activity unavailable on traditional beach islands.</p>
-
-<h3>San José del Cabo: Authenticity and Culinary Excellence</h3>
+<section class="dest-sec cream"><div class="dest-inner">
 
 <figure class="dest-figure">
-  <img src="https://lh3.googleusercontent.com/d/1skfAG5fultzykm_yjMbfAed9Vz-DV8Ju" alt="Eine Residenz in San José del Cabo in Palmilla mit Infinity-Pool und Blick auf die Bucht von Palmilla" loading="lazy" width="1600" height="1200" />
-  <figcaption>Eine Residenz in San José del Cabo in Palmilla, der Infinity-Pool blickt über die Bucht von Palmilla und die Pazifikküste.</figcaption>
+  <img src="https://lh3.googleusercontent.com/d/1hbjBsCUBdfqdebBhZQmNuNghOcHGQvBg" alt="Eine Residenz in Cabo San Lucas in der abgeschlossenen Punta-Ballena-Anlage mit Meerblick-Terrasse und privatem Pool" loading="lazy" width="1600" height="1200" />
+  <figcaption>Eine Residenz in Cabo San Lucas in der abgeschlossenen Punta-Ballena-Anlage — der Golf von Kalifornien öffnet sich jenseits der Terrasse und des Pools.</figcaption>
 </figure>
 
-<p>San José del Cabo, the Corridor&#8217;s western anchor, offers a markedly different character than resort-focused Cabo San Lucas. San José is a genuine colonial town, founded in the 17th century, with a central plaza, Spanish colonial architecture, local markets, and authentic Mexican culture. Over the past decade, San José has transformed into a culinary destination: dozens of acclaimed restaurants operated by chefs who&#8217;ve relocated from major US cities and Europe now line the town center and nearby areas. Thursday evening Art Walk brings galleries, restaurants, and locals together for a distinctly bohemian atmosphere unmatched in other Los Cabos areas.</p>
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">Was ist Miteigentum in Mexiko?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Miteigentum in Mexiko bedeutet, einen eingetragenen 1/8-Anteil an einer luxuriösen mexikanischen Küsten-Ferienimmobilie zu erwerben — gehalten in einer eigens dafür gegründeten LLC gemeinsam mit bis zu sieben weiteren Miteigentümern.</strong> Jeder Eigentümer erhält rund 45 Tage persönlicher Nutzung pro Jahr über einen fair rotierenden Belegungskalender, wobei das gesamte Immobilienmanagement, die Instandhaltung, die Steuern und der Betrieb von einem professionellen Verwaltungsteam übernommen werden. Es handelt sich um echtes, eingetragenes Eigentumsrecht an Immobilien in Ihrem Namen — kein Timeshare, kein Timesharing, kein Holiday Club.</p>
+  </div>
+</div>
 
-<p>Properties in San José del Cabo range from renovated colonial casas in the town center to modern estates on nearby estates and foothill properties overlooking the valley toward the ocean. San José fractional ownership appeals to cultural buyers, culinary enthusiasts, and those seeking &#8220;real Mexico&#8221; alongside resort convenience. Rather than spending your weeks poolside at a resort, San José owners explore galleries, dine at innovative restaurants, hike nearby trails, and participate in an authentic cultural landscape.</p>
+<h2>Warum Mexiko?</h2>
 
-<h3>Sport Fishing, Golf, and Corridor Luxury</h3>
+<p>Mexiko vereint drei Eigenschaften, die in ihrer Kombination mehr bewirken als jede einzelne für sich: <strong>ganzjährige Wärme und erstklassige Resort-Infrastruktur</strong>, eine <strong>ungewöhnlich angebotsnappe Versorgungssituation</strong> in seinen begehrtesten Küstenzonen und eine <strong>Vielfalt nutzbarer Zweitwohnstil-Lebensentwürfe</strong> entlang zweier völlig unterschiedlicher Küsten — der dramatischen Wüstenküste Baja Californias am Pazifik und dem türkisfarbenen Karibik von Quintana Roo und der Riviera Nayarit. Die Resort-Infrastruktur ist es, die mexikanischen Küstenimmobilien ihre operative Verlässlichkeit gibt: der <strong>Internationale Flughafen Los Cabos (SJD)</strong>, der Direktflüge aus mehr als dreißig US-amerikanischen und kanadischen Städten abwickelt, und der <strong>Internationale Flughafen Licenciado Gustavo Díaz Ordaz (PVR)</strong> in Puerto Vallarta, das Tor zu <strong>Punta Mita</strong> und der Riviera Nayarit, befinden sich inmitten zweier der am besten ausgestatteten und international erfahrensten Resortzentren der amerikanischen Kontinente. Die Angebotsknappheit bildet zusammen mit dieser Resorttiefe die Grundlage dafür, dass der Preisboden unter der richtigen Adresse in Mexikos besten Küstenzonen <strong>strukturell und nicht konjunkturell</strong> bedingt ist. <strong>Los Cabos</strong> ist physisch durch die Baja-Halbinsel begrenzt — ein langer, schmaler Landstreifen, an dessen dramatischem Endpunkt Pazifik und Golf von Kalifornien aufeinandertreffen; die Wüstengeologie macht neue Küstenbauten technisch anspruchsvoll, und Naturschutzgebiete halten die spektakulärsten Klippen-Lagen praktisch im festen Bestand. <strong>Punta Mita</strong> an der Riviera Nayarit liegt auf einer abgeschlossenen Halbinsel, die seit ihrer ersten Privatresort-Entwicklung bewusst in ihrer Ausdehnung begrenzt geblieben ist — eine Seltenheit, die kommerzielle Resorts schlechterdings nicht nachbilden können. Der prägende Küstenstreifen der Riviera Maya unterliegt wachsendem Denkmalschutz und Umweltschutzauflagen: das <a href="https://www.inah.gob.mx/" target="_blank" rel="noopener">Instituto Nacional de Antropología e Historia</a> hält strenge Kontrollen über die archäologischen Zonen entlang der Karibikküste aufrecht, und die Biosphärenreservate im Landesinneren bei Tulum und der Südküste beschränken die Ausdehnung neuer Bauprojekte.</p>
+
+<p>Ihr mexikanischer Anteil wird in einer <strong>eigens gegründeten LLC</strong> gehalten, gemeinsam mit bis zu sieben weiteren Miteigentümern. Dies ist dasselbe moderne internationale Rahmenwerk, das für jede Immobilie bei COP verwendet wird — in den Vereinigten Staaten, im Vereinigten Königreich, in Frankreich, Spanien und andernorts — statt eines veralteten nationalen Vehikels, das von Land zu Land variiert. <strong>Der praktische Vorteil</strong> für den internationalen Käufer ist erheblich. Ihre Beziehung zur Immobilie läuft über <strong>eine einheitliche Eigentumsstruktur</strong>, unabhängig davon, in welcher Immobilie oder Jurisdiktion Sie Eigentümer sind; Sie besitzen dasselbe moderne Rahmenwerk, ob Ihr Anteil in Mexiko, Frankreich, den USA oder anderswo liegt; und der Wiederverkauf ist schneller und unkomplizierter, weil die Übertragung eines <strong>LLC-Gesellschaftsanteils</strong> ein direkterer Verwaltungsvorgang ist als die vollständige Eigentumsübertragung einer Immobilie. Für Eigentümer, die anschließend eine zweite Immobilie an einem anderen COP-Standort hinzufügen — und ein bedeutender Anteil tut dies —, ist das Ergebnis eine <strong>einzige internationale Portfolio-Beziehung</strong> statt eines Stapels jurisdiktionsspezifischer Vereinbarungen, die jeweils unterschiedlich funktionieren.</p>
+
+<div class="dest-callout">
+  <strong>LLC in einem Satz:</strong> eine eigens dafür gegründete Gesellschaft, der die Immobilie gehört und in der Sie zusammen mit bis zu sieben weiteren Eigentümern gleiche Geschäftsanteile halten — das ergibt einen leichteren Wiederverkauf und eine einheitliche Eigentumsstruktur für jede COP-Immobilie weltweit, sodass Eigentümer mit Immobilien in mehreren Ländern mit einem einzigen Modell arbeiten statt mit einem Stapel unterschiedlicher Vehikel.
+</div>
+
+<div class="dest-callout">
+  <strong>Das ist kein Timesharing:</strong> Timesharing — auch Timeshare genannt — verkauft Ihnen ein <em>Nutzungsrecht</em> an der Immobilie für eine festgelegte Woche pro Jahr, typischerweise mit befristetem Vertrag und ohne Wiederverkaufswert. Ein COP-Anteil verkauft Ihnen einen <strong>eingetragenen Eigentumsanteil</strong> an der Immobilie selbst, über eine LLC, an der Sie und bis zu sieben weitere Miteigentümer gleichberechtigt beteiligt sind. Er ist übertragbar, vererbbar, wertsteigerungsfähig im Einklang mit der zugrunde liegenden Immobilie, und wird über einen professionellen Prozess verkauft — genau das Gegenteil von Timesharing.
+</div>
+
+<p>Die Versorgungssituation in Mexikos besten Küstenmärkten ist in strukturellen Begriffen zu betrachten, denn sie ist teils geographisch, teils regulatorisch und teils dem physischen Charakter des Geländes selbst geschuldet. <strong>Los Cabos</strong> liegt am Ende einer 1.200 Kilometer langen Halbinsel, wo das bebaubare Land mit echter Meeresfront endlich ist: die begehrtesten Adressen — die Klippen-Grundstücke über dem Golf von Kalifornien zwischen <strong>San José del Cabo</strong> und <strong>Cabo San Lucas</strong>, die geschützten Buchten mit direktem Strandzugang — sind ein fester Bestand. Der <strong>Tourist Corridor</strong>, der die beiden Städte verbindet — rund 33 Kilometer pazifikzugewandter Küste —, ist seit Jahrzehnten Gegenstand von Resort-Entwicklung; die Positionen, die auf Luxusniveau noch nicht bebaut sind, werden nahezu ausnahmslos durch Topographie, Wasserversorgung oder <a href="https://www.gob.mx/semarnat" target="_blank" rel="noopener">SEMARNAT</a>-Umweltgenehmigungsanforderungen eingeschränkt, die zunehmend strenger werden. <strong>Punta Mita</strong> folgt einer ganz eigenen Logik: Die 600 Hektar große Privathalbinsel wurde ab den späten 1990er-Jahren nach einem einzigen Masterplan entwickelt, und die Gesamtzahl der Einheiten ist bewusst begrenzt — es wird keine weiteren Grundstücke geben, weil die Halbinsel endet und die Infrastruktur der Four-Seasons- und St.-Regis-Resorts bereits im maximalen Umfang betrieben wird, den die Umgebung tragen kann.</p>
+
+<p>Es lohnt sich, Mexiko in seinem Wettbewerbskontext neben anderen Zweitwohnstandorten dieser Preisklasse zu betrachten. <strong>Die Karibikinseln</strong> — Turks und Caicos, St. Barth, Anguilla, Barbados — bieten vergleichbare Wärme, jedoch bei deutlich höheren Einstiegspreisen, komplexeren Auslandseigntumsregeln und der Hurrikanvulnerabilität, der der Pazifik und die geschützte Bahía de Banderas hinter Punta Mita weitgehend entgehen. <strong>Florida</strong> ist der natürliche Inlands-Konkurrent der USA für dieselbe Käufergruppe, aber erstklassige Florida-Küstenimmobilien in Palm Beach, Naples und Miami Beach sind im letzten Jahrzehnt im Preis erheblich gestiegen, was den Kostenvorteil reduziert; Mexiko liefert vergleichbare oder höhere Resortqualität zu einem günstigeren Einstieg, mit dem zusätzlichen Reiz eines echten internationalen Destinationsstatus. <strong>Costa Rica und Panama</strong> bieten tropische Küsten zu günstigeren Preisen, jedoch mit weniger entwickelter Resort-Infrastruktur, weniger Direktflügen und einem deutlich jüngeren internationalen Zweitwohnmarkt. <strong>Der Algarve</strong> in Portugal und die <strong>Costa del Sol</strong> in Spanien bedienen den europäischen Käufer, der Sonne ohne Langstreckenflüge möchte, verfügen aber nicht über die konzentrierte Multi-Resort-Infrastruktur, die Los Cabos in einem einzigen Korridor bietet.</p>
+
+<p>Das vierte Strukturargument für Mexiko ist die <strong>Verkehrsinfrastruktur</strong>, die ein mexikanisches Zweitwohnsitz praktisch so nutzbar macht, wie Miteigentum es verlangt. Der <a href="https://www.aeropuertosgap.com.mx/en/los-cabos/" target="_blank" rel="noopener">Internationale Flughafen Los Cabos (SJD)</a> verzeichnet mehr als <strong>5 Millionen Passagiere pro Jahr</strong>, mit Direktverbindungen aus Los Angeles (<strong>2 Stunden 30 Minuten</strong>), Dallas (<strong>3 Stunden</strong>), Phoenix (<strong>2 Stunden 30 Minuten</strong>), Denver, Chicago, Houston, New York JFK (<strong>5 Stunden 30 Minuten</strong>) sowie saisonal aus London und Frankfurt. Für Eigentümer, die von der US-Westküste anfliegen, ist Los Cabos näher als die meisten Karibikziele — ein Freitagabendflug aus Los Angeles landet in SJD noch vor dem Abendessen, und das Verwaltungsteam hat die Villa fertiggemacht, bevor Sie landen. Der <a href="https://www.aeropuertopuertovallarta.mx/en/" target="_blank" rel="noopener">Internationale Flughafen Puerto Vallarta (PVR)</a>, das Tor zu Punta Mita 45 Minuten nördlich auf der Straße, verfügt über Direktverbindungen aus einem vergleichbaren Spektrum US-amerikanischer und kanadischer Städte, und der <a href="https://asur.com.mx/" target="_blank" rel="noopener">Internationale Flughafen Cancún (CUN)</a> ist der <strong>zweitbeschäftigtste Flughafen Mexikos</strong> mit Direktstrecken aus ganz Nordamerika, dem Vereinigten Königreich (rund <strong>10 Stunden</strong> ab London Gatwick oder Heathrow) und mehreren europäischen Drehkreuzen. Diese Erreichbarkeit ist die Voraussetzung für das <strong>hochfrequente Nutzungsmuster mit mehreren Besuchen pro Jahr</strong>, das Miteigentum am meisten belohnt.</p>
+
+<p>Ein Vorteil, der erst klar wird, sobald man ein mexikanisches Zweitwohnsitz tatsächlich nutzt, ist die Tiefe der <strong>professionellen Dienstleistungsinfrastruktur für internationale Eigentümer</strong> in diesem Land. Die Rechts- und Immobilienverwaltungsökosysteme in Los Cabos, Punta Mita und der Riviera Maya betreuen nordamerikanische und europäische Eigentümer seit Jahrzehnten — durchgängig <strong>auf Englisch</strong>, vertraut mit internationalen Steuerstrukturen und grenzüberschreitenden Eigentümeranforderungen, und in einem regulatorischen Umfeld tätig, das zwar anders als europäische Märkte ist, aber auf dem Niveau, auf dem seriöse internationale Käufer tätig sind, ausgreift und gut dokumentiert ist. Die Verwaltungsunternehmen und Concierge-Betriebe in Los Cabos sind nach jedem Maßstab international wettbewerbsfähig: <strong>24-Stunden-Bereitschaftspersonal</strong>, Proviantierung vor der Anreise, Koordination von Sportfischercharter-Buchungen, Einsatz von Privatköchen, Spa-Buchungen und Bodentransport — alles als Standardbestandteil der Verwaltungsbeziehung koordiniert, nicht etwas, das der Eigentümer bei jedem Besuch neu zusammenstellen muss.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Wo man in Mexiko Eigentümer wird</h2>
+
+<p>Mexikos luxuriöser Küstenzweitwohnmarkt lässt sich am besten durch <strong>drei unterschiedliche Käufer-Geographien</strong> verstehen, jede mit ihrer eigenen Landschaft, ihrem Klima, ihrem Lebensstil und ihrem internationalen Käuferprofil. Natürlich gibt es mexikanische Küstenziele jenseits dieser drei — den kolonialen Charme von <strong>Puerto Escondido</strong> und der oaxacanischen Küste, das etablierte Strandleben von <strong>Huatulco</strong>, den wachsenden Baja-Norte-Markt rund um <strong>Ensenada</strong> und das Weinland des Valle de Guadalupe — und wir sprechen gerne mit Käufern, deren Interessen in diese Richtung gehen. Aber das Angebot an Miteigentum in der Qualitätsklasse, die die COP-Kollektion definiert, konzentriert sich auf die drei Cluster unten: <strong>Los Cabos</strong> mit seinem Baja-Halbinsel-Drama und seinem weltklassigen Sportfischen und Golf; <strong>Punta Mita und die Riviera Nayarit</strong> mit der abgeschlossenen Halbinsel und der geschützten Bahía de Banderas; und die <strong>Riviera Maya</strong> mit ihrer Karibikküste, den Cenoten und dem kulturellen Erbe der Maya. Zusammen machen diese drei den weitaus größten Teil der internationalen Zweitwohnnachfrage in Mexiko auf dem Niveau aus, auf dem Miteigentum strukturell sinnvoll ist.</p>
+
+<h3>Los Cabos — Die Pazifische Krone</h3>
 
 <figure class="dest-figure">
-  <img src="https://lh3.googleusercontent.com/d/1lvdDmxcwEGfehM4pk8r4nOlb9uj6SU1h" alt="Eine moderne Architektenvilla in San José del Cabo mit erhöhter Lage über dem Meer von Cortez" loading="lazy" width="1600" height="1200" />
-  <figcaption>Eine moderne Architektenvilla in San José del Cabo, das erhöhte Grundstück rahmt den Panoramablick auf das Meer von Cortez.</figcaption>
+  <img src="https://lh3.googleusercontent.com/d/1skfAG5fultzykm_yjMbfAed9Vz-DV8Ju" alt="Eine Palmilla-Residenz in San José del Cabo mit Infinity-Pool und Blick auf die Bucht und Pazifikküste" loading="lazy" width="1600" height="1200" />
+  <figcaption>Eine Residenz in San José del Cabo in der Palmilla-Zone, der Infinity-Pool rahmt den Blick über die Palmilla-Bucht und den Pazifik dahinter.</figcaption>
 </figure>
 
-<p>The Corridor between San José and Cabo San Lucas concentrates most luxury resort development and private villa communities. This area is defined by championship golf (multiple Nicklaus Design courses, challenging coastal layouts), world-class sport fishing (Pacific marlin, yellowfin tuna, dorado), and resort-scale amenities. Properties here range from high-end resort residences (ownership of a luxury condo within a Five Seasons or One &#038; Only resort) to standalone estates with private beach access, infinity pools, and staff compounds.</p>
+<p><strong>Los Cabos ist der Ausreißer unter den drei Clustern</strong> — nicht weil es mehr Wärme als seine Mitbewerber bietet (alle drei haben das ganze Jahr über Temperaturen, die einen Zweitwohnsitz in jedem Monat nutzbar machen), sondern weil es die dramatischste <strong>physische Landschaft</strong>, die am weitesten entwickelte <strong>Sportfisch- und Golfinfrastruktur</strong> und den reifsten <strong>US-Käufermarkt</strong> aller mexikanischen Küstenstandorte bietet. Am südlichen Ende der Baja-California-Halbinsel gelegen, wo der Pazifik auf den <a href="https://oceanservice.noaa.gov/facts/gulfofcalifornia.html" target="_blank" rel="noopener">Golf von Kalifornien</a> trifft — den Jacques Cousteau wegen der Dichte und Vielfalt seines Meereslebens „das Aquarium der Welt" nannte —, verzeichnet Los Cabos <strong>mehr als 340 Sonnentage pro Jahr</strong> und ist eines der verlässlichsten Sonnenziele der amerikanischen Kontinente. Die Wüste-trifft-Ozean-Landschaft ist unverwechselbar: goldene Granitfelsen, transparentes Wasser in kontrastierendem Pazifikblau und Cortez-Türkis, riesige Kakteen an den Hängen über den Resortimmobilien und die außergewöhnliche geologische Formation des <strong>El Arco de Cabo San Lucas</strong> am Land's End — der Felsbogen, an dem die beiden Wasserkörper zusammentreffen, wohl das meistfotografierte Naturdenkmal Mexikos.</p>
 
-<p>Corridor fractional ownership is ideal for active buyers: your weeks are spent sport fishing in the morning (with charter captains and crews coordinated by management), golfing in the afternoon at championship courses, and dining at acclaimed restaurants nightly. Or, equivalently, weeks spent simply by the pool with ocean views, reading, and occasional cultural excursions to San José del Cabo. The Corridor offers ultimate flexibility: pursue active adventure or complete relaxation, depending on your mood and season.</p>
-
-<h3>Cabo San Lucas: Resort Energy and Nightlife</h3>
+<p>Der Markt gliedert sich grob über <strong>zwei Ankerpunkte und einen Korridor dazwischen</strong>. <strong>San José del Cabo</strong> — der westliche Ankerpunkt, eine echte Kolonialstadt des 17. Jahrhunderts mit einem zentralen Plaza, dem <a href="https://www.loscabosguide.com/art-walk-san-jose-del-cabo/" target="_blank" rel="noopener">Donnerstags-Kunstspaziergang</a>, Galerien und einer Farm-to-Table-Restaurantszene, die sich im letzten Jahrzehnt stark weiterentwickelt hat — ist die kulturell verankerte, architektonisch kohärente Wahl für Käufer, die ein Gespür für das echte Mexiko neben der Resortbequemlichkeit wollen. Der Markt rund um San José erstreckt sich von der ikonischen <a href="https://www.oneandonlyresorts.com/palmilla" target="_blank" rel="noopener">One&Only Palmilla</a>-Resortzone südwärts durch die Privatresidenzgemeinschaften der Palmilla-Böschung, wo die Grundstücke vom Wüstenkamm hinab zum Golf von Kalifornien in einer Reihe von Infinity-Pool-Terrassen absteigen, die einige der dramatischsten Meerblicke der westlichen Hemisphäre bieten. <strong>Cabo San Lucas</strong> — der östliche Ankerpunkt — ist das Resortenergie-Ende des Marktes: die Marina, die Sportfischerflotten, die Strandclub-Szene, das Nachtleben und die Konzentration von Markenresidenzprojekten am touristenaktivsten Ende der Baja-Halbinsel. Dazwischen hält der <strong>33 Kilometer lange Tourist Corridor</strong> die höchste Konzentration von Ultra-Luxus-Privatvillengemeinschaften und Championshipgolfplätzen in Mexiko, darunter der <strong>Palmilla Golf Club</strong>, der <strong>Cabo Real Golf Club</strong> und <strong>Querencia</strong>, jeweils von Architekten mit internationalem Renommee entworfen.</p>
 
 <figure class="dest-figure">
-  <img src="https://lh3.googleusercontent.com/d/1H1TWOXDRfn3zaXmWsiblb9fsOEDJd332" alt="Ein zeitgenössisches Haus in Baja California Sur mit Blick auf das Meer von Cortez, mit Reflexionspool und Travertin-Interieurs" loading="lazy" width="1600" height="1200" />
-  <figcaption>Ein zeitgenössisches Haus in Baja California Sur mit Blick auf das Meer von Cortez, der Reflexionspool und die Travertin-Interieurs ankern das Küstenwohnen.</figcaption>
+  <img src="https://lh3.googleusercontent.com/d/1lvdDmxcwEGfehM4pk8r4nOlb9uj6SU1h" alt="Eine moderne Architektur-Villa in San José del Cabo mit erhöhtem Panoramablick über den Golf von Kalifornien" loading="lazy" width="1600" height="1200" />
+  <figcaption>Eine moderne Architektur-Villa in San José del Cabo — die erhöhte Lage rahmt den Panoramablick über den Golf von Kalifornien zum Cortez-Kanal hin.</figcaption>
 </figure>
 
-<p>Cabo San Lucas, the Corridor&#8217;s eastern anchor, is Mexico&#8217;s most tourist-focused, highest-energy resort destination. Land&#8217;s End (El Arco), the dramatic natural rock formation at Baja&#8217;s southern tip, is Mexico&#8217;s most iconic image. Cabo&#8217;s marina is filled with sport fishing charters, sunset cruise operators, and water sports concessions. Nightlife in Cabo is unmatched in Los Cabos: dedicated nightclubs, beach clubs with DJ stages and dancing until sunrise, and cosmopolitan bar scenes rivaling Miami or Cancun.</p>
-
-<p>Cabo fractional ownership attracts buyers seeking resort energy and active social scenes. Rather than peaceful isolation, Cabo weeks are spent around crowds, dining, dancing, and constant entertainment. For younger buyers or those seeking lively atmospheres, Cabo&#8217;s fractional properties (typically ultra-luxury resort residences) provide immediate access to the full resort experience without managing a standalone property.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Riviera Maya — Caribbean Mexico</h2>
-
-<p>The Riviera Maya, stretching along Quintana Roo&#8217;s Caribbean coast south from Cancun, offers a fundamentally different Mexico from Los Cabos. Where Los Cabos emphasizes dramatic landscape and sport fishing, Riviera Maya emphasizes turquoise water, cenote swimming, Mayan ruins, wellness culture, and Caribbean beach club sophistication. The region spans from Playa del Carmen (the tourism-focused beach town with nightlife and shopping) south to Tulum (the bohemian beachfront town, famous for Mayan ruins overlook, eco-luxury resorts, and wellness retreats) and includes cenote swimming destinations, offshore coral reefs perfect for diving, and jungle canopy activities.</p>
-
-<p>Riviera Maya&#8217;s real estate market is rapidly developing, particularly at the ultra-luxury end. Traditional Riviera Maya development has focused on all-inclusive resorts catering to American and Canadian package tourists; recent years have seen significant private villa and boutique resort residency development targeting affluent buyers seeking something beyond package tourism. Ultra-luxury developments now line the Riviera Maya coast, emphasizing privacy, natural surroundings, and wellness culture rather than commercial resort bustle.</p>
-
-<p>Riviera Maya fractional ownership attracts different buyers than Los Cabos. Rather than sport fishermen and golfers, Riviera Maya owners seek cenote swimming, diving, Mayan archaeology, wellness retreats, and Caribbean beach aesthetics. The pace is slower, more contemplative, more focused on natural beauty and cultural immersion than on activity and entertainment.</p>
-
-<h3>Playa del Carmen: Tourism Hub and Growing Sophistication</h3>
+<p>Die Sportfisch-Anziehungskraft von Los Cabos ist für den Zweitwohnmarkt nicht beiläufig — für einen erheblichen Teil der Käufer ist sie der Hauptgrund, warum sie Baja vor jedem anderen Warmwetterziel bevorzugen. Die <strong>Golf-von-Kalifornien- und Pazifikgewässer vor Cabo</strong> beherbergen eine der produktivsten Hochseefisch-Reviere der Welt: Blauer Marlin, gestreifter Marlin, schwarzer Marlin, Gelbflossen-Thunfisch und Dorado ziehen zu Mengen durch die Gewässer, die das ganze Jahr über ernsthafte Angler aus ganz Nordamerika anziehen — mit besonderer Konzentration von <strong>Oktober bis Dezember</strong> für den Marlin-Höhepunkt und <strong>Juni bis September</strong> für Gelbflossen-Thunfisch. Die Marina in Cabo San Lucas unterhält eine der größten Sportfischer-Charterflotten der Welt — Hunderte von Booten von der Panga bis zum voll ausgestatteten Luxussportfischer — und der internationale Turnierkalender umfasst das <a href="https://www.loscabostourism.com/en/sports/fishing" target="_blank" rel="noopener">Los Cabos Billfish Tournament</a> und weitere Veranstaltungen, die jedes Jahr Wettkampfangler und Zuschauer anziehen. Für einen Miteigentümer, der fischt, bedeutet ein Los-Cabos-Anteil, dass die Infrastruktur — vertäute Boote, erfahrene Kapitäne, Köderoperationen — <strong>durch das Verwaltungsteam koordiniert</strong> wird, statt bei jedem Besuch von Grund auf neu organisiert werden zu müssen.</p>
 
 <figure class="dest-figure">
-  <img src="https://lh3.googleusercontent.com/d/1ZdpHw3pWelp3bD9qpLDDoXOV8DJuOnLv" alt="Eine Villa in San José del Cabo mit weiten Meeresblicken und resorartigen Außenbereichen" loading="lazy" width="1600" height="1200" />
-  <figcaption>Eine Villa nahe San José del Cabo mit ausladender Terrasse, Swim-up-Bar und Dachterrasse, der karibisch-pazifische Kontrast der beiden Küsten Mexikos.</figcaption>
+  <img src="https://lh3.googleusercontent.com/d/1H1TWOXDRfn3zaXmWsiblb9fsOEDJd332" alt="Ein modernes Küstenhaus in Baja California Sur mit Reflexionsbecken und Travertin-Terrasse über dem Golf von Kalifornien" loading="lazy" width="1600" height="1200" />
+  <figcaption>Ein modernes Küstenhaus in Baja California Sur — das Reflexionsbecken und die Travertin-Terrasse verankern den Blick über den Golf von Kalifornien.</figcaption>
 </figure>
 
-<p>Playa del Carmen, located centrally along the Riviera Maya coast, is Mexico&#8217;s second-largest Caribbean beach town (after Cancun). Playa developed initially as a tourism destination; today it balances package-tour infrastructure with increasingly sophisticated dining, shopping, and nightlife. The central beachfront promenade (La Quinta Avenida) is lined with restaurants, bars, beach clubs, and shops; the beachfront itself maintains its Caribbean appeal despite significant tourism development.</p>
+<p>Die kulinarische Dimension von Los Cabos hat sich im letzten Jahrzehnt erheblich entwickelt und konkurriert inzwischen ernsthaft mit Reisezielen, die den Ruf als Gastronomiestandort seit Langem innehaben. <strong>San José del Cabos Kunstviertel</strong> beherbergt Restaurants, die aus den fruchtbaren Landwirtschaftstälern hinter den Baja-Hügeln beziehen, wo die Kombination aus Wüstensonne, Pazifikfeuchtigkeit und vulkanischem Boden außergewöhnliche Produkte hervorbringt. Die Restaurantszene entlang des Korridors reicht von hochkarätigen Mexiko-Stadt-Köchen, die die gastronomische Raffinesse der Hauptstadt an die Baja-Küste gebracht haben, bis hin zu lässigen Strandseafood-Betrieben, die den Tagesfang auf direktestmöglichem Weg servieren. Für Nicht-Fischer ist die <strong>Walbeobachtungssaison</strong> (Dezember bis April, wenn <a href="https://www.cortez.es/" target="_blank" rel="noopener">Grauwale</a> entlang der Pazifikküste und in die geschützten Lagunen von Baja California Sur ziehen) eine spezifische Los-Cabos-Attraktion ohne Entsprechung anderswo in Mexiko. <strong>Bestens geeignet für:</strong> Sport-Angel- und Golffamilien, die das weltbeste Marlin-Revier und Championshipplätze vor der Haustür haben wollen; Käufer, die eine dramatische Pazifik-Wüsten-trifft-Ozean-Landschaft mit maximaler Resortinfrastruktur suchen; US-amerikanische und kanadische Käufer, die die Nähe und Direktanbindung von einem Dutzend West- und Südwestküstenstädten schätzen; und Eigentümer, die den internationalst etabliertesten Luxusimmobilienmarkt Mexikos suchen.</p>
 
-<p>Playa del Carmen fractional ownership ranges from resort residences within large resort properties to private villas in residential developments. Playa attracts buyers seeking Caribbean energy and sophistication: you can spend mornings diving or snorkeling, afternoons at beach clubs, and evenings dining at acclaimed restaurants. Playa&#8217;s infrastructure is mature: international schools, shopping centers, medical facilities, and cultural activities create a lifestyle beyond pure resort experience.</p>
-
-<h3>Tulum: Bohemian Beachfront, Ruins and Wellness</h3>
+<h3>Punta Mita — Die geschützte Bahía de Banderas</h3>
 
 <figure class="dest-figure">
-  <img src="https://lh3.googleusercontent.com/d/1ot8Ayp0sv6thyC1u01zQdBhKHLU7CzBE" alt="Eine Waterfront-Villa in Puerto Los Cabos mit großzügigem Indoor-Outdoor-Bereich und Meerblicken" loading="lazy" width="1600" height="1200" />
-  <figcaption>Eine Waterfront-Villa in Puerto Los Cabos, der weitläufige Indoor-Outdoor-Patio und der Reflexionspool prägen das resort-typische mexikanische Küstenleben.</figcaption>
+  <img src="https://lh3.googleusercontent.com/d/1RTZlwA1pUSqteXvgmOPgv6qDMAFk9HU1" alt="Eine Küstenresidenz in der Bahía de Banderas bei Punta Mita mit tropischer Bepflanzung und Blick auf die Bucht" loading="lazy" width="1600" height="1200" />
+  <figcaption>Eine Küstenresidenz in der Bahía de Banderas bei Punta Mita — die tropischen Gärten führen zum geschützten Wasser der Banderas-Bucht hin.</figcaption>
 </figure>
 
-<p>Tulum, approximately 30 miles south of Playa del Carmen, represents the Riviera Maya&#8217;s most distinctive destination. Tulum is defined by its Mayan ruins—the most photogenic archaeological site in Mexico, perched on a limestone cliff overlooking the Caribbean—and by its bohemian, wellness-focused culture. Unlike Playa&#8217;s commercialism or Cancun&#8217;s all-inclusive mega-resorts, Tulum has attracted artists, yoga teachers, healers, and lifestyle refugees seeking Caribbean beauty without cruise-ship crowds. The town center (a small grid of streets) contains yoga studios, meditation retreats, organic restaurants, and galleries; the beachfront hosts boutique eco-resorts emphasizing sustainability and natural materials.</p>
+<p><strong>Punta Mita ist das ruhigere, exklusivere Gegenstück zu Los Cabos</strong> — eine abgeschlossene Privathalbinsel mit rund 600 Hektar, die am nördlichen Eingang der <a href="https://visitpuertovallarta.com.mx/en/" target="_blank" rel="noopener">Bahía de Banderas</a> an der Pazifikküste von Nayarit liegt, 45 Minuten nördlich von Puerto Vallarta auf der Straße. Anders als Los Cabos, das ein linearer Küstenstreifen mit mehreren Zugangspunkten und einem kontinuierlichen Entwicklungskorridor ist, ist Punta Mita eine diskrete geografische Einheit — man betritt sie durch ein einziges Tor, die Halbinsel umgibt einen, und die Außenwelt zieht sich auf eine Weise zurück, die selbst im Vergleich zu den exklusivsten Resortenklave der Welt ungewöhnlich ist. Das <a href="https://www.fourseasons.com/puntamita/" target="_blank" rel="noopener">Four Seasons Punta Mita</a> und das <a href="https://www.stregispuntamita.com/" target="_blank" rel="noopener">St. Regis Punta Mita</a> sind die beiden Flaggschiff-Resort-Ankerpunkte, die jeweils am absoluten Spitzenniveau ihres globalen Markenstandards operieren; zwischen ihnen bieten die privaten Villengemeinschaften — darunter Kupuri, Careyes und La Punta — den Wohnimmobilienbestand, der den Zweitwohnmarkt hier definiert.</p>
 
-<p>Tulum fractional ownership appeals to wellness-focused buyers, cultural explorers, and those seeking Caribbean authenticity without commercial resort dominance. Rather than nightclubs and sports, Tulum weeks involve yoga, meditation, cenote swimming, Mayan ruin exploration, and farm-to-table dining. The pace is intentionally slower; the culture is intentionally spiritual; the connection to nature is paramount. For buyers seeking restoration and cultural immersion, Tulum offers unmatched Caribbean appeal.</p>
+<p>Die Bahía de Banderas selbst ist einer der Gründe, warum Punta Mita einen Charakter hat, den Los Cabos bei aller Dramatik nicht repliziert. Die Bucht — eine der tiefsten und breitesten an der gesamten Pazifikküste der Amerikas — <strong>schützt die Halbinsel vor dem offenen Pazifikschwell</strong>, der das Meer in Los Cabos rau und gelegentlich unruhig macht; das Ergebnis ist ruhigeres, wärmeres, besser schwimmbares Wasser an den nach Osten ausgerichteten Punta-Mita-Stränden, während die nach Westen exponierte Spitze der Halbinsel die volle Pazifikenergie aufnimmt und beständigen Wellengang erzeugt. Die Tiefe und Produktivität der Bucht machen sie zu einem echten Meeresschutzgebiet: <strong>Buckelwale</strong> kalben von November bis März in der Bucht (sie ist eines der zwei oder drei produktivsten Buckelwal-Aufzuchtgebiete an der Pazifikküste der Amerikas), <strong>Mantarochen</strong> sind ganzjährige Bewohner, und die Unterwassertopographie bietet exzellente Tauch- und Schnorchelstellen, darunter der <a href="https://www.conanp.gob.mx/que_hacemos/pnmi.php" target="_blank" rel="noopener">Nationalpark Islas Marietas</a> — ein UNESCO-geschütztes Biosphärenreservat 12 Kilometer von der Halbinsel entfernt mit versteckten Stränden und nistenden Seevögeln. Die Islas Marietas sind ein wesentlicher Grund, warum Punta-Mita-Käufer mit Kindern oder naturkundlichem Interesse speziell diesen Standort wählen: der Halbtagesausflug zu den Inseln, mit Schnorcheln, Walbeobachtung oder Vogelbeobachtung je nach Saison, ist das ganze Jahr über möglich.</p>
 
-<h3>Cenotes and Diving: Riviera Maya&#8217;s Natural Wonders</h3>
+<p>Der Golf in Punta Mita ist in einer Weise ausgezeichnet, die selbst Los Cabos in einem spezifischen Merkmal nicht erreichen kann: das <strong>Tail of the Whale</strong>-Loch des <a href="https://www.fourseasonsgolf.com/punta-mita" target="_blank" rel="noopener">Pacifico Course</a>, ein Par-3, das zu einem Green auf einer natürlichen Felsinsel im Pazifik gespielt wird, das bei Niedrigwasser nur per Amphibienkar zugänglich ist — wohl das meistfotografierte einzelne Golfloch in Mexiko. Das Klimamuster in Punta Mita — <strong>warm und sonnig von Oktober bis Mai mit 26–30 °C (Ende der 70er bis Ende der 80er °F)</strong>, mit einer kurzen tropischen Regenzeit konzentriert in Juli und August, die typischerweise Nachmittagsschauer statt ganztägiger Bewölkung bringt — ergänzt einen Los-Cabos-Winteranteil in einer Weise, die Eigentümern mit dem primären Ziel ganzjähriger Warmwetternutzung eine natürliche regionale Paarung bietet. <strong>Bestens geeignet für:</strong> Käufer, die das höchste Maß an Privatheit und Exklusivität innerhalb einer vollständig abgeschlossenen Resortgemeinschaft suchen; Familien, die ruhigeres, besser schwimmbares Wasser als an den offenozeanischen Los-Cabos-Stränden möchten; Buckelwal- und Meereslebens-Enthusiasten, die eines der besten Walaufzuchtgebiete der Welt eine kurze Bootsfahrt von der Immobilie entfernt haben möchten; und Eigentümer, die ein wirklich anderes Pazifik-Mexiko-Erlebnis suchen — bewaldete tropische Hügel, üppige Vegetation, grünes Wasser — statt der kargen Dramatik der Baja.</p>
 
-<p>The Riviera Maya&#8217;s defining natural feature is its cenotes: freshwater sinkholes created when limestone bedrock collapses, revealing underground rivers and crystal-clear freshwater pools. Cenotes are sacred to Mayan culture (used for ritual offerings), and today they&#8217;re Mexico&#8217;s most unique swimming and diving destination. Cenotes provide year-round refreshment (water temperature around 75°F), visibility perfect for diving or snorkeling, and an otherworldly experience of swimming in cave systems and underground rivers. Many fractional properties include cenote access or are located within 30 minutes of multiple cenote destinations.</p>
+<h3>Riviera Maya — Karibisches Mexiko</h3>
 
-<p>Beyond cenotes, the Riviera Maya&#8217;s Caribbean waters provide exceptional diving and snorkeling: coral reef systems, tropical fish species, underwater caves, and the second-longest coral reef in the world. Divers can pursue everything from shallow reef snorkeling to advanced cave diving in sunken rivers and cenote systems. For buyers prioritizing water activities over sports like fishing or golf, Riviera Maya&#8217;s diving and cenote swimming offer unparalleled natural appeal.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A Week in Your Mexico Co-Ownership Property</h2>
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1ZVTzbYBaBiAGD7uVay8t8-yIgOSI7mLY" alt="Eine moderne Korridor-Villa in der San-José-Zone mit Terrassenpool und Blick auf den Pazifik der Los-Cabos-Küste" loading="lazy" width="1600" height="1200" />
+  <figcaption>Eine moderne Korridor-Villa in der San-José-Zone — der Terrassenpool rahmt einen ungebrochenen Pazifik-Horizont entlang der Baja-Küste.</figcaption>
+</figure>
 
-<p>Imagine a week in your Los Cabos fractional ownership during March. You arrive at your beachfront villa in the Corridor on Friday afternoon; the villa opens onto a private stretch of beach, with the Cabo landscape—golden cliffs, turquoise water, desert vegetation—framing your view. Saturday morning, you&#8217;re on a sport fishing charter at 6 AM, trolling the Pacific for marlin; by noon you&#8217;ve landed a 250-pound sailfish and are back at your villa, lunch prepared by your property&#8217;s available chef service. Saturday afternoon is spent at a championship golf course, the course running along coastal cliffs with impossible ocean views. Sunday is pure relaxation: you never leave your property&#8217;s oceanfront infinity pool, reading, swimming, watching the afternoon light change across the water. Monday brings a day trip to San José del Cabo: you explore the Art Walk, dine at an innovative restaurant focusing on local ingredients, visit galleries, and return to your villa for a sunset drink on your terrace. By Friday, you&#8217;ve experienced complete oscillation between resort activity and complete isolation—the essence of Los Cabos flexibility—and you&#8217;re already planning your next visit.</p>
+<p>Die Riviera Maya erstreckt sich entlang der Karibikküste von Quintana Roo südlich von <strong>Cancún</strong> über <strong>Playa del Carmen</strong>, <strong>Akumal</strong> und <strong>Tulum</strong> bis zum <strong>Biosphärenreservat Sian Ka'an</strong> an der südlichen Grenze der zugänglichen Luxusentwicklung und bietet ein kategorial anderes Mexiko als Los Cabos oder Punta Mita. Wo die Pazifikküste Wüstendramatik und Tiefseekraft liefert, bietet die Karibik die außergewöhnliche Farbpalette, die die Yucatán-Küste von jedem anderen Warmwasserziel der Amerikas unterscheidet: Das Wasser hat ein Türkis von ungewöhnlicher Intensität, das durch das <strong>flache Kalksteinregal</strong> entsteht, das sich von der Küste unter Wasser erstreckt und Licht auf eine Weise bricht, die der tiefere, dunklere Pazifik nicht kann. Das <a href="https://www.coral.org/en/blog/riviera-maya-coral-reef-system/" target="_blank" rel="noopener">Mesoamerikanische Barriereriff</a> — das zweitgrößte Korallenriffsystem der Welt mit über <strong>1.000 Kilometern Länge</strong>, das sich von der Yucatán-Halbinsel südwärts durch Belize, Guatemala und Honduras erstreckt — liegt unmittelbar vor der gesamten Riviera-Maya-Küste und macht das Gebiet zu einem der herausragendsten Schnorchel- und Tauchziele der Erde.</p>
 
-<p>Now imagine a week in your Riviera Maya fractional ownership in July. You arrive at your beachfront villa near Tulum Thursday afternoon; the Caribbean water stretches before you in impossible turquoise. Friday morning begins with sunrise yoga on your terrace, followed by a trip to a nearby cenote for swimming and snorkeling in underground freshwater pools—the strangest, most magical swimming experience possible. Friday afternoon is a diving excursion; you explore a coral reef and underwater cave system with a professional dive guide. That evening, you dine at a farm-to-table restaurant in Tulum town center, the meal featuring locally sourced vegetables, fresh seafood, and natural wines. Saturday is slower: you float in your private pool overlooking the Caribbean, read, and take a sunset walk along the beach. Sunday involves a guided tour to Mayan ruins—either Tulum&#8217;s dramatic cliff-top site or the inland jungle ruins of Coba—followed by evening meditation and early rest. By your final Friday, you&#8217;ve integrated into a rhythm of water, nature, culture, and wellness—the antithesis of schedule and productivity—and you&#8217;ve experienced Caribbean beauty unmediated by commercial resort structures.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Investment Advantages of Mexico Fractional Ownership</h2>
+<p>Die Riviera Maya wird nicht nur durch ihr Meer, sondern auch durch das definiert, was sich unter der Erde befindet. Die <strong>Yucatán-Halbinsel</strong> liegt auf einer riesigen <a href="https://www.ecosur.mx/" target="_blank" rel="noopener">Karststein-Plattform</a>, die von unterirdischen Flüssen, Höhlen und Einsturztrichtern namens <strong>Cenoten</strong> durchzogen ist — Süßwasserbecken, wo der Kalkstein eingebrochen ist und den unterirdischen Grundwasserspiegel freigelegt hat. Cenoten waren für die <a href="https://www.inah.gob.mx/" target="_blank" rel="noopener">alten Maya</a> als Portale zur Unterwelt heilig, und sie bleiben eine der unverwechselbarsten Naturerfahrungen Mexikos: kristallklares Süßwasser bei konstant <strong>23–25 °C (73–77 °F)</strong>, Sichtweiten von Dutzenden Metern, Höhlensysteme und unterirdische Flüsse, die viele Cenoten miteinander und mit dem Meer verbinden. Die Cenoten rund um <a href="https://www.tulum.gob.mx/" target="_blank" rel="noopener">Tulum</a> und die umfangreichen Höhlensysteme bei Playa del Carmen umfassen einige der am längsten kartierten Unterwasserhöhlensysteme der Welt — allein die <strong>Dos-Ojos</strong>- und <strong>Sac-Actun</strong>-Systeme erstrecken sich über Hunderte von Kilometern — und für tauchorientierte Eigentümer bietet die Riviera Maya eine genuinen Weltklasse-Unterwassererfahrung, die kein anderes Küstenimmobilienziel repliziert.</p>
 
-<p>Mexico&#8217;s coastal real estate, particularly in Los Cabos and Riviera Maya, offers solid long-term investment fundamentals. First, demographic migration is accelerating: remote workers are increasingly locating to Mexico&#8217;s Caribbean and Pacific coasts, seeking warm weather, lower cost of living, and escape from northern winter climates. This creates organic demand growth, supporting property appreciation without speculative bubble dynamics.</p>
+<p>Über der Erde wird die Riviera Maya durch ihr <strong>Kulturerbe der Maya</strong> geprägt: die <a href="https://www.inah.gob.mx/zonas/126-zona-arqueologica-tulum" target="_blank" rel="noopener">Klippenruinen von Tulum</a>, die von einem Kalksteinfelsen über der Karibik blicken, sind die meistfotografierte archäologische Stätte Mexikos und eine der wenigen bedeutenden mesoamerikanischen Stätten unmittelbar neben einem Strand. <a href="https://www.inah.gob.mx/zonas/89-zona-arqueologica-coba" target="_blank" rel="noopener">Cobá</a>, 45 Kilometer durch den Dschungel landeinwärts, bietet eine besteigbare Pyramide und ein Erlebnis in aktiven archäologischen Ausgrabungszonen, umgeben von feuchtem tropischen Wald. <a href="https://www.chichen-itza.com/" target="_blank" rel="noopener">Chichén Itzá</a>, ein <a href="https://whc.unesco.org/en/list/483/" target="_blank" rel="noopener">UNESCO-Weltkulturerbe</a> und eines der <a href="https://new7wonders.com/wonders/chichen-itza-mexico/" target="_blank" rel="noopener">Neuen Sieben Weltwunder</a>, ist ein Ganztagesausflug von Playa del Carmen oder Tulum — eine Reise durch das Yucatán-Landesinnere, die eines der wirkungsvollsten Kulturerlebnisse bietet, die von jedem Zweitwohnsitz-Stützpunkt in den Amerikas aus erreichbar sind. <strong>Bestens geeignet für:</strong> Wellness- und Yoga-orientierte Käufer, die das Tulum-Lifestyle-Ökosystem — Cenoten-Schwimmen, Bioküche, integrative Retreat-Kultur — als Mittelpunkt ihrer Zweitwohnzeit möchten; Taucher und Schnorchler, die täglichen Zugang zum zweitlängsten Riffsystem der Erde wollen; Familien mit Kindern, die sicheres Karibikbadewasser, kulturelle Bildung durch Maya-Archäologie und die operative Bequemlichkeit des Flughafen-Drehkreuzes Cancún wollen; und Käufer aus dem Vereinigten Königreich und Kontinentaleuropa, für die die Direktverbindungen des Cancún-Flughafens nach Europa die Riviera Maya zum praktischsten Einstiegspunkt nach Mexiko ohne Zwischenstopp machen.</p>
 
-<p>Second, international resort brand development is expanding significantly. Four Seasons, St. Regis, Rosewood, Nobu, and other ultra-luxury brands are adding properties to Mexico&#8217;s coasts annually. This brand expansion elevates real estate values in surrounding neighborhoods, supporting appreciation through market professionalization and infrastructure improvements.</p>
+</div></section>
 
-<p>Third, Mexico&#8217;s real estate appreciates 5-8% annually in premium locations, typically with minimal leverage. A $6 million Los Cabos property appreciating at 6% annually creates $360,000 in annual value growth—on a 1/8 share, that&#8217;s $45,000 in annual appreciation with zero management burden, zero maintenance responsibility, and immediate lifestyle access.</p>
+<section class="dest-sec cream"><div class="dest-inner">
 
-<p>Fourth, rental income potential is significant. Los Cabos and Riviera Maya attract short-term rental demand year-round. During your non-ownership weeks, properties can generate $1,500-$3,000+ nightly in Los Cabos (particularly sport fishing season, December-March and June-September) and $800-$1,500 nightly in Riviera Maya. This rental income substantially offsets annual carrying costs and creates positive cash flow for most fractional owners.</p>
+<h2>Ein Jahr in Ihrer mexikanischen Miteigentums-Ferienimmobilie</h2>
 
-<p>Fifth, Mexico&#8217;s tax structure is favorable for foreign property owners. Carrying costs (property tax, insurance) are low compared to US or European equivalents; rental income is taxable but at moderate Mexican rates. Co-Ownership Property manages all tax compliance and reporting, coordinating with Mexican accountants to optimize your tax position.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>How Mexico Fractional Ownership Works</h2>
+<p><strong>45 Nutzungstage</strong> über ein Kalenderjahr in Mexiko zu verteilen ist selbst eine Kunst — und einer der stillen Vorteile des Mehrküsten-Angebots besteht darin, dass die saisonale Logik von Los Cabos und Punta Mita am Pazifik fast exakt komplementär zur Riviera Maya in der Karibik verläuft. Das 1/8-Anteil-Modell gewährleistet eine <strong>faire Zuteilung der Spitzenwochen</strong> über einen mehrjährigen Rotationszyklus; Eigentümer, die flexibel genug sind, Schulterwochen zu nutzen — statt um die Weihnachtswoche oder den Los-Cabos-Sportfisch-Höhepunkt zu konkurrieren —, berichten durchweg von höherer Nutzungsqualität ihrer Anteile. Nachfolgend der landesweite saisonale Rundgang durch ein mexikanisches Jahr.</p>
 
-<p>Co-Ownership Property&#8217;s Mexico fractional ownership model is structured to provide legal security, tax efficiency, and operational simplicity. You acquire a genuine 1/8 beneficial ownership stake in a property held within a Mexican LLC structure (combining elements of LLC and a fideicomiso bank trust for additional protection).</p>
+<h3>Winter (Dezember–Februar)</h3>
 
-<p>The fideicomiso, a critical element of Mexican property ownership for foreigners, is a legal arrangement where a Mexican bank holds legal title to the property on behalf of the foreign owners, with full beneficial ownership and operational control remaining with you. This structure protects your ownership rights absolutely: the bank is merely a trustee, with no operational control and no claim to the property. The fideicomiso costs approximately $1,500-$3,000 to establish and requires modest annual fees ($150-$300). This structure has been used for decades by international property owners and is universally recognized in Mexico.</p>
+<p>Der mexikanische Winter ist die <strong>begehrteste Saison an beiden Küsten</strong>, und das aus gutem Grund. In Los Cabos bringt Dezember bis Februar das, was möglicherweise das <strong>angenehmste Trockenzeit-Klima der Amerikas</strong> ist: Tagestemperaturen von <strong>24–28 °C (Mitte bis Ende der 70er °F)</strong>, Wassertemperaturen von <strong>19–22 °C (66–72 °F)</strong>, praktisch kein Regen und die niedrige Luftfeuchtigkeit, die selbst die volle Mittagssonne leichter anfühlen lässt als in der karibischen Februarversion. Dies ist der Höhepunkt des <a href="https://www.loscabostourism.com/en/sports/fishing" target="_blank" rel="noopener">Sportfischer-Kalenders</a> für Streifenmarlin, und er fällt mit dem Beginn der <a href="https://www.ballenas.info/" target="_blank" rel="noopener">pazifischen Grauwalmigration</a> zusammen — Grauwale ziehen von Dezember bis März an der Baja-Küste entlang aus der Arktis in Richtung der Aufzuchtlagunen von Baja California Sur, und Walbeobachtungsausflüge im Golf von Kalifornien im Januar gehören zu den außergewöhnlichsten Wildtiererlebnissen, die Mexiko bietet. In Punta Mita ist Dezember bis Februar <strong>Buckelwalsaison</strong>: die Muttertiere mit ihren Kälbern sind in der Bahía de Banderas, und nahezu jede Bootsfahrt von der Punta-Mita-Marina wird ihnen begegnen. An der Riviera Maya bringen dieselben Monate <strong>karibische Winterperfektion</strong> — trocken, klar, <strong>25–29 °C (Ende der 70er bis Mitte der 80er °F)</strong> — mit dem zusätzlichen Merkmal, dass die Weihnachts- und Neujahrswochen in der Nähe von Tulum und Playa del Carmen ein internationales Publikum anziehen, das den Ort kosmopolitisch statt lediglich tropisch wirken lässt.</p>
 
-<p>Combined with the LLC ownership structure (which provides liability protection and operational management clarity), you have full legal ownership: you can improve the property, rent it during your non-usage periods, pass it to heirs, or sell your share to another buyer. Your ownership is documented, transparent, and enforceable under Mexican law and international property conventions.</p>
+<h3>Frühling (März–Mai)</h3>
 
-<p>Usage allocation works identically to England properties: as a 1/8 owner, you&#8217;re entitled to approximately 45-47 days annually. Usage is allocated through priority-booking systems (6-8 months advance booking) combined with fair-rotation systems for popular periods. You can exchange usage periods with other co-owners, arrange temporary transfers, or simply maintain a consistent annual schedule.</p>
+<p>Der Frühling ist die <strong>Nebensaison, die Eigentümer schätzen lernen</strong>. März in Los Cabos bleibt trocken und warm — <strong>25–30 °C (Ende der 70er bis Ende der 80er °F)</strong> — wobei die Osterwochenend-Nachfrage des mexikanischen Binnenmarkts kurze Aktivitätsschübe in Marina und Strandclubs erzeugt, die <strong>internationalen Hochsaisonmengen aber ab Mitte März merklich dünner werden</strong>, wenn die Schulferien in den USA und Kanada enden. April und Mai bringen einiges der klarsten Wassersichtweiten des Jahres im Golf von Kalifornien — die Sicht reicht bei ruhigen Bedingungen auf <strong>30 Meter</strong>, und die großen Rochen, Walhaie und gelegentlichen <a href="https://www.worldwildlife.org/species/whale-shark" target="_blank" rel="noopener">Walhaie</a>, die im Frühjahr den Cortez besuchen, sind für Schnorchler und Taucher mit einer kurzen Bootsfahrt vom <a href="https://www.cabopulmo.com/" target="_blank" rel="noopener">Meerespark Cabo Pulmo</a> erreichbar. In Punta Mita ist der Frühling die Zeit, wenn die Buckelwale abgereist sind, das Wasser sich aber erwärmt hat — <strong>25–27 °C (Ende der 70er °F)</strong> — und die Brandung an der Westexposition der Halbinsel zunimmt, was März und April zu den besten Monaten für Surfer macht, die Pazifikenergie ohne Konkurrenz mit den Wintersaisonbesuchern wollen. An der Riviera Maya bringt März den Spring-Break-Ansturm, der sich um Cancún und Playa del Carmen konzentriert; Eigentümer, die das ruhigere Tulum-Ende der Küste bevorzugen, finden März und April erheblich ruhiger, mit Strandclubs und Cenoten ohne die Wochenenddynamik, die der nördliche Teil der Riviera Maya erzeugt.</p>
 
-<p>Annual running costs vary by property. A premium Los Cabos beachfront villa might carry annual costs of $35,000-$50,000 total (or $4,375-$6,250 per 1/8 owner); a Riviera Maya property might run $25,000-$35,000 total (or $3,125-$4,375 per 1/8 owner). These costs cover property tax, insurance, maintenance, utilities, staff (groundskeeping), and professional management. Co-Ownership Property provides quarterly accounting of all expenses and manages all vendor relationships, maintenance, and regulatory compliance.</p></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Mexico Fractional Ownership — Frequently Asked Questions</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>Can foreigners buy fractional ownership in Mexico?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes, absolutely. Mexico actively encourages foreign property ownership and provides streamlined legal mechanisms (the fideicomiso trust) specifically designed for foreign buyers. As a fractional owner through Co-Ownership Property, you&#8217;ll acquire your share through an LLC structure combined with a fideicomiso arrangement that protects your ownership fully. Thousands of North American and European property owners hold Mexican real estate; the legal framework is mature, transparent, and secure.</p></div></details><details class="dest-faq-item"><summary><h3>What is a fideicomiso, and how does it protect me?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A fideicomiso is a legal trust arrangement unique to Mexico. A Mexican bank (the trustee) holds legal title to the property on your behalf, but you retain complete beneficial ownership and operational control. You can rent the property, improve it, sell your interest, or pass it to heirs without the bank&#8217;s permission or involvement. The bank has no operational control and no claim to the property; it is purely a legal placeholder required by Mexican law to allow foreign ownership. The fideicomiso costs $1,500-$3,000 to establish and requires modest annual maintenance fees ($150-$300). This structure has been standard for international property owners in Mexico for decades and provides absolute security.</p></div></details><details class="dest-faq-item"><summary><h3>What taxes apply to Mexico fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Property tax in Mexico is low—typically 0.05-0.10% of assessed property value annually (compared to 1-2% in US states). Insurance costs are moderate. Rental income is taxable at Mexican tax rates (approximately 25-30% on net rental income, depending on your filing structure). Non-resident property owners can optimize tax positions through proper structure and accounting; Co-Ownership Property&#8217;s management team coordinates with Mexican tax professionals to ensure compliance and minimize tax burden. Capital gains on property sales are generally low in Mexico; long-term appreciation is lightly taxed compared to other countries.</p></div></details><details class="dest-faq-item"><summary><h3>What are flight times from the US and UK to Los Cabos and Riviera Maya?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Los Cabos (Cabo San Lucas): approximately 3-4 hours direct from Los Angeles, San Francisco, Denver, Dallas, and Phoenix; 5-6 hours from New York and East Coast major cities. Direct flights operate from numerous US cities to Los Cabos International Airport (SJD). From London, you&#8217;ll typically fly to a US hub (5-7 hours to LA/Dallas/Miami) and then 3-4 hours south to Los Cabos, requiring 10-14 hours total travel time. Riviera Maya (Cancun): approximately 4-5 hours direct from East Coast US cities and 5-6 hours from West Coast major cities. Direct flights operate frequently from US major metros to Cancun International Airport (CUN). From London, direct flights to Cancun take approximately 10 hours, making Riviera Maya slightly more accessible than Los Cabos for UK-based owners.</p></div></details><details class="dest-faq-item"><summary><h3>Can I generate short-term rental income from my fractional share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes, absolutely. During your non-usage periods, Co-Ownership Property can list your property on short-term rental platforms (Airbnb, Booking.com, or luxury-focused rental agencies). Management coordinates all rental logistics: guest vetting, cleaning, damage claims, and regulatory compliance. Short-term rental rates in Los Cabos typically range $1,500-$3,000+ nightly (higher during peak sport fishing seasons, December-March and June-September); Riviera Maya typically commands $800-$1,500 nightly. Rental income is distributed quarterly to co-owners, less management fees (typically 20-25% of gross rental revenue). For most fractional owners, rental income substantially offsets annual carrying costs and creates modest positive cash flow.</p></div></details><details class="dest-faq-item"><summary><h3>How do I sell my fractional share in Mexico?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Co-Ownership Property maintains a secondary market for fractional shares and typically locates buyers within 60-120 days. You can also sell independently through your own networks. Sale process: you list your share with COP&#8217;s support, undergo vetting of potential buyers (including financial and legal verification), transfer ownership documentation (including fideicomiso transfer), and receive funds upon completion. Mexican property sales close within 30 days of agreement. Exit is straightforward: Mexico fractional shares in premium locations remain liquid assets with genuine buyer demand.</p></div></details></div></div></section>    
-    <!-- CTAs -->
-        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
+<h3>Sommer (Juni–August)</h3>
+
+<p>Der Sommer in Mexiko ist die Saison, die Eigentümer belohnt, die die Nuancen kennen. Los Cabos von Juni bis September ist <strong>wärmer und feuchter als im Winter</strong> — Tagestemperaturen von <strong>33–36 °C (Anfang bis Ende der 90er °F)</strong> mit gelegentlichen Nachmittagsgewittern —, aber die Meeresaktivität ist außergewöhnlich: <strong>Gelbflossen-Thunfisch und Dorado</strong> ziehen in Mengen durch die Pazifikgewässer, die Juli und August zur <strong>bevorzugten Saison für ernsthafte Thunfischangler</strong> machen. Die Wassertemperaturen steigen auf <strong>27–30 °C (80er °F)</strong>, was Schwimmen und Schnorcheln im Golf von Kalifornien so angenehm macht wie irgend möglich. Das Sommermuster in Punta Mita wird von der kurzen Regenzeit an der Nayarit-Küste geprägt — typischerweise ein oder zwei Stunden Nachmittagsschauer statt ganztägiger Bewölkung — und das Ergebnis ist eine üppige, <strong>intensiv grüne Tropenlandschaft</strong>, die dramatisch mit der Trockenzeit-Blaßpalette kontrastiert. Viele Eigentümer suchen gezielt Sommerwochen in Punta Mita für die Grünsaison-Schönheit: die Vegetation rund um die Villen ist am üppigsten, und die Kombination aus kurzen Regengüssen und intensiver Sonne erzeugt <strong>lebendiges tropisches Wachstum</strong>, das die Trockenmonate unterdrücken. An der Riviera Maya ist der Sommer die Zeit, wenn die <strong>Walhai-Ansammlungen</strong> vor der Küste der Isla Holbox erscheinen, drei Stunden nördlich von Cancún — wohl die zugänglichste Walhai-Schnorchelei der Welt, leicht mit einer Riviera-Maya-Immobilie als Tages- oder Übernachtungsausflug von Juni bis September zu verbinden.</p>
+
+<h3>Herbst (September–November)</h3>
+
+<p>Für viele erfahrene mexikanische Zweitwohnungsbesitzer ist <strong>der Herbst die meistunterschätzte und lohnendste Saison</strong>. Oktober und November in Los Cabos bieten ein <strong>zweites Qualitätsfenster</strong>: Die Temperaturen haben sich von den Sommerhöhen auf sehr angenehme <strong>26–30 °C (Ende der 70er bis Mitte der 80er °F)</strong> abgekühlt, das Meer ist auf dem Jahreshöchststand wärmstem (<strong>26–28 °C — Ende der 70er °F</strong>), und die <strong>Marlinsaison ist auf dem Höhepunkt</strong> — die <a href="https://www.loscabostourism.com/en/sports/fishing" target="_blank" rel="noopener">Los-Cabos-Hochseefisch-Turniersaison</a> läuft durch Oktober und November. In Punta Mita endet die Regenzeit im Oktober, und die Landschaft behält ihre Grünsaison-Üppigkeit, während das Wetter zur Trockenzeit-Zuverlässigkeit zurückkehrt, die die Halbinsel so komfortabel macht: <strong>November gilt weithin als der beste einzelne Monat des Punta-Mita-Jahres</strong> unter Wiederholungsbesuchern, die ihn mit jedem anderen Monat verglichen haben. An der Riviera Maya tragen September und Anfang Oktober ein <strong>Hurrikanrisiko</strong>, das Eigentümer bei der Nutzungsplanung berücksichtigen sollten: Während die Yucatán-Halbinsel über eine gut entwickelte Evakuierungs- und Resortschutzinfrastruktur verfügt, ist das September-Oktober-Fenster der statistische Höhepunkt der atlantischen Hurrikansaison, und erfahrene Riviera-Maya-Eigentümer tendieren dazu, ihre wertvollsten Wochen im November oder Januar und Februar zu nutzen. Bis Ende Oktober ist die Karibikküste in der Regel <strong>wieder in vollem Sonnenschein</strong> und ruhigem Wasser bei <strong>27–29 °C (Anfang der 80er °F)</strong>, und die Día-de-los-Muertos-Feiern in Quintana Roo — besonders in den kleinen Städten des Yucatán-Landesinneren, die von jeder Riviera-Maya-Basis erreichbar sind — bieten ein kulturelles Erlebnis ohne Entsprechung anderswo auf der Welt.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Wer in Mexiko kauft — und warum</h2>
+
+<p>Der internationale Käufermix beim mexikanischen Bruchteilseigentum stammt aus einer <strong>überwiegend nordamerikanischen Basis mit einem bedeutenden und wachsenden europäischen Anteil</strong>. <strong>Amerikanische Käufer</strong> sind mit Abstand die größte Gruppe in allen drei Clustern: die Kombination aus Direktflügen von einem Dutzend US-Städten nach Los Cabos und Cancún, der kulturellen Vertrautheit mit Mexiko als Familienferienziel und der langfristigen Kaufkraft des US-Dollars auf dem mexikanischen Luxusimmobilienmarkt macht Mexiko zum natürlichen ersten internationalen Zweitwohnziel für wohlhabende Amerikaner, die besitzen statt mieten wollen. <strong>Kanadische Käufer</strong> sind die zweitgrößte Gruppe — die Snowbird-Migration an Mexikos warme Küsten ist in Kanada eine jahrzehntealte Kulturtradition, und das Miteigentum-Modell ist zunehmend der bevorzugte Einstiegspunkt für kanadische Käufer, die einen Anteil an Qualität besitzen möchten, ohne die volle Verwaltungslast einer eigenen Immobilie zu tragen. <strong>Europäische Käufer</strong> — Briten, Niederländer, Deutsche, Franzosen und Skandinavier — sind die Wachstumsgruppe der vergangenen fünf Jahre, angetrieben durch verbesserte Direktverbindungen von europäischen Drehkreuzen nach Cancún und Los Cabos sowie durch das steigende internationale Profil von Mexikos Luxusresort-Angebot in der europäischen Luxusreisepresse.</p>
+
+<p>Das <strong>Alters- und Lebensphasenprofil</strong> des mexikanischen Miteigentumskäufers spiegelt den Charakter des Marktes wider. Die <strong>größte Einzelgruppe ist 45–65</strong> — Käufer, deren Kinder entweder im Teenageralter sind (wobei der Schulkalender die Nutzung rund um Thanksgiving, Weihnachten und die Frühjahrsferien setzt) oder gerade das Haus verlassen haben, deren Berufseinkommen etabliert ist und deren Planungshorizont für einen Zweitwohnsitz fünfzehn bis zwanzig Jahre beträgt. Innerhalb dieser Gruppe ist der Los-Cabos-Käufer oft der aktivitätsorientierte — Angeln, Golf, aktiver Outdoor-Lifestyle —, während der Tulum- und Riviera-Maya-Käufer mehr auf Wellness und Kultur ausgerichtet ist. Die <strong>am schnellsten wachsende Gruppe sind 35–45-jährige Doppelverdiener-Paare</strong> — vertraut mit Airbnb und hochkarätigen Hoteltreue-Programmen für ihre Urlaubsbedürfnisse, zunehmend erkennend, dass das Miteigentum-Modell bessere Qualität liefert, Eigenkapital aufbaut statt Hotelausgaben zu verbrennen, und ihnen einen echten Vermögenswert in einem Markt gibt, den sie langfristig nutzen wollen. Der <strong>Multi-Immobilien-Käufer</strong> — jemand, der bereits einen europäischen COP-Anteil hält und Mexiko als Warmwetter-Ergänzung zu einem Frankreich-, Spanien- oder England-Anteil hinzufügt — ist ein eigenständiges und wachsendes Segment: Die LLC-Struktur, die für alle COP-Standorte einheitlich ist, macht den zweiten oder dritten Anteil genuinen einfach zu einer bestehenden Portfolio-Beziehung hinzuzufügen.</p>
+
+<p>Bruchteilseigentum in Mexiko eignet sich typischerweise für:</p>
+<ul>
+  <li><strong>Sport-Angel- und Golffamilien aus den USA und Kanada</strong> — Käufer, für die das Los-Cabos-Marlin-Revier und die Championshipplätze das primäre Ziel sind und für die ein 1/8-Anteil den Zugang zum Höhepunkt des Sportfischer-Kalenders ohne die ganzjährigen Haltekosten einer eigenen Immobilie bietet.</li>
+  <li><strong>Wellness- und Yoga-orientierte Käufer</strong> — der Tulum- und südliche Riviera-Maya-Markt ist überproportional auf Käufer ausgerichtet, die den Cenoten, das Biorestaurant, das Meditationsretreat und den Karibikstrand als täglichen Rahmen ihrer Wochen wollen und für die das Miteigentum-Modell die Erschwinglichkeitsbarriere auf dem Qualitätsniveau löst, auf dem sie besitzen wollen.</li>
+  <li><strong>Internationale Portfolio-Aufbauer, die Mexiko mit Europa kombinieren</strong> — Käufer, die bereits einen mediterranen oder alpinen COP-Anteil halten und Mexiko hinzufügen, um ihrem Portfolio einen Warmwetter-Anker in den Amerikas zu geben; das kombinierte Nutzungsmuster — europäischer Anteil für Sommer und Frühling, mexikanischer Anteil für den Winter — liefert nahezu ganzjährige verwaltete Zweitwohnversorgung bei einem kombinierten Haltekostenanteil, der unter den Kosten einer einzigen ganzen Immobilie an einer der beiden Adressen liegt.</li>
+  <li><strong>Familien mit Kindern nach nordamerikanischem Schulkalender</strong> — Käufer, deren schulpflichtige Kinder Schulen mit nordamerikanischem Kalender besuchen, für die die Thanksgiving-, Weihnachts-, Frühjahrsferien- und Sommerfenster genau auf die Hauptnutzungszeiten eines mexikanischen Miteigentumsanteils abgebildet sind.</li>
+  <li><strong>Ruheständler und Käufer kurz vor dem Ruhestand</strong> — der mexikanische Miteigentumsmarkt hat eine spezifische Anziehungskraft für Käufer, die sich dem oder im frühen Ruhestand nähern und maximalen Warmwetterzugang, minimale Verwaltungsbelastung und eine Immobilie möchten, die sie vier bis sechs Mal im Jahr nutzen können — und die einen Vermögenswert aufbauen wollen, der Wert schafft statt Hotel- oder Mietausgaben ohne Gegenleistung.</li>
+</ul>
+
+<div class="dest-callout">
+  <strong>Der kombinierte Portfolio-Ansatz:</strong> ein Los-Cabos- oder Punta-Mita-Anteil für den pazifischen Winter und Frühling, ein europäischer Alpen- oder Mittelmeer-Anteil für die Sommermonate der nördlichen Hemisphäre — zwei 1/8-Anteile über diese beiden Märkte geben einer Familie rund <strong>10–12 Wochen vollständig verwalteter, eigentumsaufbauender Zweitwohnnutzung über das Kalenderjahr</strong> bei einem kombinierten jährlichen Haltekostenanteil, der weit unter den Kosten einer einzigen ganzen Immobilie an einer der beiden Adressen bleibt.
+</div>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Praktisches: Anreise, Kosten, was Sie besitzen</h2>
+
+<h3>Anreise</h3>
+
+<p>Mexikos drei wichtigste Zweitwohncluster werden von Flughäfen bedient, die nach den Standards internationaler Luxus-Reiseziele <strong>außergewöhnlich gut mit Nordamerika verbunden und zunehmend auch mit Europa erreichbar sind</strong>. Der <a href="https://www.aeropuertosgap.com.mx/en/los-cabos/" target="_blank" rel="noopener">Internationale Flughafen Los Cabos (SJD)</a> bedient den Cabo-Markt mit Direktstrecken aus <strong>Los Angeles (2 Std. 30 Min.), Phoenix (2 Std. 30 Min.), Dallas/Fort Worth (2 Std. 45 Min.), Denver (3 Std.), Houston (3 Std.), San Francisco (3 Std.), Chicago O'Hare (4 Std. 30 Min.), New York JFK (5 Std. 30 Min.), Toronto (5 Std.)</strong> sowie saisonalen oder Charter-Diensten aus London und anderen europäischen Drehkreuzen. Der Flughafen wurde in den letzten Jahren erheblich ausgebaut, um das Volumen des internationalen Privat- und Linienflugverkehrs zu bewältigen, das der Los-Cabos-Markt erzeugt.</p>
+
+<p>Der <a href="https://www.aeropuertopuertovallarta.mx/en/" target="_blank" rel="noopener">Internationale Flughafen Puerto Vallarta (PVR)</a>, 45 Minuten südlich von Punta Mita auf der Straße, spiegelt das Los-Cabos-Verbindungsprofil mit Direktdiensten aus demselben Spektrum US-amerikanischer und kanadischer Städte wider. Die Straße von PVR bis zum Punta-Mita-Tor führt nördlich entlang der Küstenstraße und erreicht das <strong>Punta-Mita-Tor</strong> in rund 45 Minuten bei normalem Verkehr. Der <a href="https://asur.com.mx/" target="_blank" rel="noopener">Internationale Flughafen Cancún (CUN)</a>, Mexikos zweitbeschäftigtster, wickelt <strong>Direktstrecken aus über 40 US-amerikanischen und kanadischen Städten</strong> ab, Direktdienste aus <strong>London Gatwick, London Heathrow, Manchester, Amsterdam, Paris CDG, Frankfurt und Madrid</strong> sowie die breiteste europäische Anbindung eines mexikanischen Flughafens. Die Fahrt von CUN nach Playa del Carmen dauert <strong>45 Minuten</strong> südlich auf der Küstenstraße; die Fahrt nach Tulum beträgt <strong>90 Minuten</strong>. Für Käufer aus dem Vereinigten Königreich oder Kontinentaleuropa ist Cancún das zugänglichste mexikanische Ziel — der rund <strong>10-stündige Direktflug</strong> aus London liegt gut innerhalb der Langstreckentransferrate, die die meisten europäischen Zweitwohnungsbesitzer als regelmäßigen Rhythmus im ersten Eigentumsjahr etablieren.</p>
+
+<h3>Ganze Immobilie vs. 1/8-Anteil: der Vergleich</h3>
+
+<p>Das Argument für eine Bruchteilseigentumsstruktur wird am deutlichsten im <strong>direkten Vergleich</strong> sowohl mit dem Volleigentum als auch mit der Langzeitmiete — den drei Wegen, auf denen die meisten internationalen Käufer den Besitz eines mexikanischen Zweitwohnsitzes in Betracht ziehen. Der Vergleich ist bewusst in relativen Begriffen gehalten, nicht in spezifischen Dollarwerten: Die Preispunkte variieren enorm zwischen einer San-José-del-Cabo-Korridor-Villa und einer Tulum-Strandimmobilie, und die <strong>Verhältnisse sind entscheidend</strong>, nicht irgendeine spezifische Zahl, die in dem Moment veraltet, in dem sie geschrieben wird.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Volle Ferienimmobilie</th>
+      <th>COP 1/8-Anteil</th>
+      <th>Langzeitmiete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Anfangsinvestition</td>
+      <td data-col="Volle Ferienimmobilie">Voller Immobilienwert</td>
+      <td data-col="COP 1/8-Anteil">~1/8 des Immobilienwerts</td>
+      <td data-col="Langzeitmiete">Nur Kaution und 1–2 Monatsmieten</td>
+    </tr>
+    <tr>
+      <td>Eigenkapital im Vermögen</td>
+      <td data-col="Volle Ferienimmobilie">Volle Wertsteigerung</td>
+      <td data-col="COP 1/8-Anteil">~1/8 der Wertsteigerung</td>
+      <td data-col="Langzeitmiete">Keine</td>
+    </tr>
+    <tr>
+      <td>Jährliche Kosten</td>
+      <td data-col="Volle Ferienimmobilie">Volle Grundsteuer, Versicherung, Verwaltung, Instandhaltung</td>
+      <td data-col="COP 1/8-Anteil">~1/8 der Kosten, vollständig verwaltet</td>
+      <td data-col="Langzeitmiete">Volle Miete jedes Jahr, auf unbestimmte Zeit</td>
+    </tr>
+    <tr>
+      <td>Persönliche Nutzung</td>
+      <td data-col="Volle Ferienimmobilie">Bis zu 52 Wochen (die meisten nutzen 4–8)</td>
+      <td data-col="COP 1/8-Anteil">~45 Tage, professionell organisiert</td>
+      <td data-col="Langzeitmiete">Vom Mietvertrag definiert</td>
+    </tr>
+    <tr>
+      <td>Operativer Aufwand</td>
+      <td data-col="Volle Ferienimmobilie">Vom Eigentümer verwaltet oder Personal eingestellt</td>
+      <td data-col="COP 1/8-Anteil">Vollständig inklusive</td>
+      <td data-col="Langzeitmiete">Vom Vermieter verwaltet</td>
+    </tr>
+    <tr>
+      <td>Verkaufsdauer</td>
+      <td data-col="Volle Ferienimmobilie">12–18 Monate auf dem freien Markt</td>
+      <td data-col="COP 1/8-Anteil">Typischerweise 2–3 Monate</td>
+      <td data-col="Langzeitmiete">Ende der Mietlaufzeit</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Der Vergleich, den die meisten Käufer am aufschlussreichsten finden, ist die <strong>Zeile der jährlichen Kosten</strong>. Eine ganze mexikanische Ferienimmobilie im Volleigentum zu halten — eine Los-Cabos-Korridor-Villa oder ein Punta-Mita-Halbinselhaus — bedeutet, die volle Grundsteuer, die volle Gebäude- und Hausratversicherung, das volle Immobilienmanagement und Personal, ganzjährige Nebenkosten sowie Garten- und Poolpflege zu tragen, jeden Monat, unabhängig davon, wie viele Wochen man tatsächlich vor Ort ist. Ein 1/8-Bruchteilseigentumsanteil trägt rund 1/8 dieses Gesamtbetrags, vollständig verwaltet, wobei die operative Last vollständig vom Eigentümer genommen wird. Im Vergleich zur Langzeitmiete einer vergleichbaren Immobilie baut der Miteigentümer echtes Eigenkapital auf statt Mietausgaben auf unbegrenzte Zeit zu verbrennen — und der 1/8-Anteil ist ein übertragbarer, vererbbarer Vermögenswert, der verkauft oder weitergegeben werden kann, statt Geld, das dauerhaft an die Immobilie eines anderen gebunden ist. Die <strong>Verkaufsdauer</strong> ist der andere aufschlussreiche Vergleich: der Wiederverkauf einer ganzen mexikanischen Küsten-Luxusvilla kann in einem stabilen Markt <strong>zwölf Monate oder mehr</strong> in Anspruch nehmen und bei sich verschlechternden Bedingungen erheblich länger dauern, wobei die vollen Haltekosten während der Wartezeit anfallen. Im COP-Portfolio verbindet der begleitete Wiederverkaufspfad für einen 1/8-Anteil zum bestehenden Käufernetzwerk und schließt in der Regel in <strong>zwei bis drei Monaten</strong> ab.</p>
+
+<h3>Was in der jährlichen Servicepauschale enthalten ist — und was nicht</h3>
+
+<p>Die jährliche Belastung eines 1/8-Anteils beträgt definitionsgemäß <strong>rund 1/8 der Belastung der äquivalenten ganzen Immobilie</strong> — was bedeutet, dass sie ein Bruchteil dessen ist, was ein Direkteigentümer an Grundsteuer, Versicherung, Management und Instandhaltung an jeder der mexikanischen Premiumküstenadressen zahlt. Die Servicepauschale ist am besten als <strong>einheitliche Gesamtzahl</strong> zu verstehen, die alles abdeckt, was erforderlich ist, um die Immobilie ganzjährig unabhängig von der Belegung auf Betriebsstandard zu halten. Die typischerweise enthaltenen Posten: Predial-Grundsteuer (Mexikos jährliche Wohnimmobilien-Steuer, die von der zuständigen Gemeindeverwaltung erhoben wird); Gebäude- und Hausratversicherung; der vollständige Immobilienverwaltungs-Retainer für Personal, Planung und Eigentümerkontakt; Wäsche und Reinigung zwischen jedem Aufenthalt; Garten-, Pool- und Geländepflege; Routinewartung und -reparaturen unterhalb einer definierten Grenze; Nebenkosten einschließlich Strom, Wasser, Internet und Sicherheitsüberwachung; sowie ein Beitrag zum <strong>Kapitalrücklagenfonds</strong> für größere Maßnahmen wie Dach, Gebäudestruktur, HVAC und Poolanlagen. Was typischerweise <strong>nicht enthalten</strong> ist: große Kapitalverbesserungsmaßnahmen, die auf der jährlichen LLC-Versammlung beschlossen und durch eine Einmallage finanziert werden; persönliche Kosten während Ihrer Aufenthalte; durch die Eigentümernutzung verursachte Schäden; und ungewöhnlich hoher Energieverbrauch bei längeren Belegungszeiten. Die Jahreszahl ist keine Mietverpflichtung — sie ist ein <strong>umfassendes Betriebsbudget</strong>, das eine qualitätstierhohe Immobilie ganzjährig in aktivem, gastbereitem Zustand hält, auf acht Teile aufgeteilt.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Wie Miteigentum in Mexiko funktioniert</h2>
+
+<p>Die Mechanik des Miteigentums in Mexiko wird durch <strong>drei Dinge bestimmt, die zusammenwirken</strong>: die <strong>eigens gegründete LLC-Eigentumsstruktur</strong>, die zur Haltung jeder Immobilie verwendet wird, der <strong>mexikanische Immobilienrechtsrahmen</strong>, der ausländische Eigentumsrechte im Land begründet und schützt, und das <strong>Fideicomiso-Trust-Instrument</strong>, das historisch das Eigentum in der 50-Kilometer-Schutzzone entlang Mexikos Küste untermauert. Zu verstehen, wie diese drei Teile zusammenpassen, macht den Unterschied zwischen einer <strong>klaren, vorhersehbaren Eigentumserfahrung</strong> und einer, bei der dem Käufer Unsicherheiten bleiben.</p>
+
+<h3>Die LLC, das Fideicomiso und die Schutzzone</h3>
+
+<p>Das mexikanische <a href="https://www.gob.mx/sre" target="_blank" rel="noopener">Auslandsinvestitionsgesetz</a> hat den direkten ausländischen Landerwerb innerhalb von <strong>50 Kilometern von der Küste</strong> historisch eingeschränkt. Der Mechanismus, über den diese Einschränkung rechtmäßig aufgelöst wird, ist das <strong>Fideicomiso</strong>: eine Trust-Struktur nach Mexikos Bankenrecht, in der eine mexikanische Bank den rechtlichen Eigentumstitel an der Küstenimmobilie treuhänderisch für den ausländischen Begünstigten hält, der das volle wirtschaftliche Eigentum und die operative Kontrolle behält. Die Bank — als Treuhänder handelnd — hat keine operative Autorität über die Immobilie und keinen Anspruch darauf; sie ist ein rechtlicher Platzhalter, der die verfassungsrechtliche Anforderung erfüllt, während dem ausländischen Eigentümer alle praktischen Eigentumsrechte eingeräumt werden. Das Fideicomiso ist verlängerbar, übertragbar und vererbbar; es ist seit mehreren Jahrzehnten der Standardmechanismus für internationales Immobilieneigentum in Mexikos Küstenresortmärkten und wird von der Rechts- und Bankgemeinschaft auf jeder Ebene des Marktes universell verstanden.</p>
+
+<p>COPs mexikanische Immobilien verwenden eine <strong>eigens gegründete LLC</strong> — dasselbe internationale Eigentumsvehikel, das im gesamten COP-Portfolio verwendet wird — als primäre Haltestruktur, wobei das Fideicomiso der Mechanismus ist, durch den die LLC ihren zugrunde liegenden Eigentumstitel an dem Küstengrundstück hält. Diese Struktur bedeutet, dass Sie einen <strong>LLC-Gesellschaftsanteil</strong> halten, die LLC das Fideicomiso-Nutzungsrecht hält und die mexikanische Treuhänderbank den nominalen Rechtstitel für die Küstenzonenkonformitätsanforderung hält. Der praktische Effekt aus Ihrer Perspektive als Käufer: Sie befassen sich mit der LLC-Struktur, die Sie von jeder anderen COP-Immobilie kennen, die Fideicomiso-Schicht arbeitet im Hintergrund als rechtliches Compliance-Instrument, und die Verwaltungsbeziehung sowie die Eigentumsdokumentation sind <strong>konsistent mit dem Rest des COP-Portfolios</strong>. Die bescheidene jährliche Treuhändergebühr des Fideicomiso ist in die Servicepauschale der Immobilie eingerechnet und wird auf die Miteigentümer aufgeteilt. Seit <strong>2013</strong> erlaubt das mexikanische Recht auch das ausländische Eigentum an bestimmten Immobilientypen in der Schutzzone durch direkte Unternehmensstrukturen; COPs Rechtsteam bestimmt von Immobilie zu Immobilie, welche Struktur der spezifischen Eigentumssituation am besten dient.</p>
+
+<h3>Mexikanische Grundsteuer, das Fideicomiso und Ihre Servicepauschale</h3>
+
+<p>Mexikos Wohnimmobiliensteuer — genannt <strong>Predial</strong> — wird jährlich von der Gemeindeverwaltung, in deren Zuständigkeitsbereich die Immobilie liegt, erhoben und ist nach internationalen Maßstäben <strong>bemerkenswert niedrig</strong>: Typische Sätze laufen von <strong>0,05 % bis 0,15 % des Katasterwerts</strong>, was die jährliche Predial-Steuer selbst einer hochwertigen Immobilie nach den Maßstäben der USA, des Vereinigten Königreichs oder Frankreichs moderat macht. Die Predial wird von der LLC als Immobilieneigentümer erhoben, in die jährliche Servicepauschale eingerechnet und proportional auf die Miteigentümer aufgeteilt. Die <strong>Grunderwerbsteuer</strong> (ISAI) gilt beim ursprünglichen Immobilienerwerb und wird bei Abschluss gezahlt; der Satz variiert je nach Gemeindeverwaltung, liegt aber typischerweise zwischen <strong>2 % und 4 % des Transaktionswerts</strong>. Die <strong>Kapitalertragsteuer</strong> (ISR) beim Wiederverkauf des LLC-Gesellschaftsanteils ist ein Bereich, in dem die Behandlung von der Steueransässigkeit des Verkäufers und einem etwaigen Doppelbesteuerungsabkommen zwischen Mexiko und dem Heimatland des Verkäufers abhängt; persönliche Beratung durch einen qualifizierten mexikanischen Steuerberater wird für jede spezifische Situation empfohlen. Das Verwaltungsteam koordiniert mit der <a href="https://www.sat.gob.mx/" target="_blank" rel="noopener">SAT</a> (Mexikos Steuerbehörde) und den örtlichen Gemeindeverwaltungen alle laufenden Compliance-Anforderungen, sodass der tägliche Steueraufwand für den einzelnen Miteigentümer vernachlässigbar ist.</p>
+
+<h3>Wie der Kalender funktioniert und was das Management umfasst</h3>
+
+<p>Sobald Ihr Kauf abgeschlossen ist, übernimmt ein <strong>professionelles Verwaltungsteam</strong> alle operativen Verantwortlichkeiten für die mexikanische Immobilie. Ihre persönlichen Wochen — <strong>rund 45 Tage für einen 1/8-Anteil</strong> — werden über einen <strong>fair rotierenden Belegungskalender</strong> zugeteilt, der Spitzenwochen (die Los-Cabos-Weihnachtsfortnight, den Punta-Mita-Frühjahrsferien-Höhepunkt, das Tulum-Día-de-los-Muertos-Fenster) fair über die Miteigentümergruppe im Laufe eines mehrjährigen Zyklus verteilt. Eigentümer buchen mehrere Monate im Voraus; nicht genutzte Wochen werden in den Eigentümerbestand zurückgegeben oder, wo die Struktur der Immobilie es erlaubt, breiter angeboten. Vor-Anreise-Proviantierung, Wäsche und Reinigung zwischen jedem Aufenthalt, ganzjährige Pool- und Geländepflege, Grundsteuer, Gebäudeversicherung und der Bereitschafts-Verwaltungskontakt — alles liegt beim Verwaltungsteam. Sie kommen an, die Immobilie ist bereit. Das Bereitschaftspersonal in Los Cabos und Punta Mita ist erfahren in der Koordination von <strong>Sportfischer-Chartern, Golftee-Zeiten, Privatköchen, Spa-Buchungen und Bodentransport</strong> als Standardbestandteil der Verwaltungsbeziehung; das Riviera-Maya-Team koordiniert zusätzlich <strong>Cenoten-Touren, Tauchbetriebe, Maya-Ruinen-Ausflüge und Wellness-Retreat-Buchungen</strong>. Der Standard der Vor-Anreise-Vorbereitung — Proviant, Blumen, Willkommenssetup — entspricht dem besten Boutique-Hotel-Ankoms-Erlebnis oder übertrifft es.</p>
+
+<h3>Wiederverkauf: wie man aussteigt, typische Zeitrahmen</h3>
+
+<p>Wenn Sie entscheiden, Ihren mexikanischen Anteil zu veräußern, ist ein <strong>professioneller Wiederverkaufsprozess etabliert</strong>. Im gesamten COP-Portfolio verbindet der begleitete Wiederverkaufspfad Ihren Anteil mit einer bestehenden Warteliste von Käufern, die die Immobilie und die LLC-Struktur kennen und die den Qualifizierungsprozess in der Regel bereits durchlaufen haben. Die Übertragung eines LLC-Gesellschaftsanteils ist administrativ weniger aufwendig als die vollständige Fideicomiso-Übertragung, die ein ganzer Immobilienwiederverkauf erfordert, und der Zeitvorteil ist erheblich: Während der Wiederverkauf einer ganzen Immobilie in Mexikos Premium-Küstenmärkten in einem stabilen Markt <strong>zwölf bis achtzehn Monate</strong> vom Inserat bis zum Abschluss dauern kann, schließt COPs begleiteter Wiederverkaufspfad in der Regel in <strong>zwei bis drei Monaten</strong> ab. Die vollständige Mechanik des Miteigentums in allen Jurisdiktionen — Nutzungskalender, Austrittsverfahren, die Verwaltungsbeziehung und was bei Tod oder Übertragung geschieht — ist in unserem <a href="/de/miteigentum-erklaert/">Miteigentum-Erklärungsleitfaden</a> behandelt. Für aktuelle mexikanische Immobilienverfügbarkeit durchsuchen Sie die Inserate im obigen Eigenschaftsraster oder <a href="#newsletter">tragen Sie sich in unsere Liste ein</a> für neue Immobilien-Benachrichtigungen, sobald sie auf den Markt kommen.</p>
+
+<div class="dest-callout">
+  <strong>Stöbern und anfragen — beides kostenlos.</strong> Die Nutzung von COP ist für Käufer kostenlos — keine Gebühren, keine Anmeldekosten, keine Verpflichtung. Sprechen Sie mit unseren Fachberatern darüber, welcher mexikanische Cluster am besten zu Ihrem Nutzungsmuster passt, oder durchstöbern Sie die Inserate und melden Sie sich für unsere Updates zu neuen Immobilien an, sobald diese auf den Markt kommen.
+</div>
+
+<h3>Ihr Eigentum auf einen Blick</h3>
+
+<ul>
+  <li><strong>Echtes, eingetragenes Eigentumsrecht in Ihrem Namen — kein Timesharing, keine Punktemitgliedschaft, kein Nutzungsrecht</strong> — Ihr 1/8-Anteil ist über die LLC- und Fideicomiso-Struktur eingetragen, übertragbar, vererbbar und wertsteigerungsfähig im Einklang mit der zugrunde liegenden Immobilie. Er ist ein übertragbares Eigentumsrecht an der Immobilie selbst, nicht ein Timesharing-Nutzungsrecht, das bei Vertragsende auf null abschreibt.</li>
+  <li><strong>Einheitliche internationale Struktur</strong> — Ihr mexikanischer Anteil ist Teil desselben eigens entwickelten LLC-Rahmens, den COP für Immobilien weltweit verwendet, sodass Eigentümer mit Immobilien in mehreren Ländern mit einem einzigen Modell arbeiten statt mit einem Stapel unterschiedlicher Vehikel. Ob Ihr Anteil in Mexiko, Frankreich, den USA oder England liegt — die Dokumentationsabfolge und die Verwaltungsbeziehung sind einheitlich.</li>
+  <li><strong>Rundum-Verwaltung</strong> — das Verwaltungsteam kümmert sich um Grundsteuer (Predial), Versicherung, Instandhaltung, Belegungsplanung, Wäsche und Reinigung zwischen jedem Aufenthalt, Sportfisch- und Aktivitätskoordination sowie den Concierge-Service auf Abruf. Sie kommen an, die Immobilie ist bereit und versorgt.</li>
+  <li><strong>Begleiteter Wiederverkauf über das COP-Eigentümernetzwerk</strong> — wenn Sie verkaufen möchten, verbindet der begleitete Wiederverkaufspfad Ihren Anteil mit einem bestehenden qualifizierten Käuferpool, wobei der Austritt typischerweise in zwei bis drei Monaten abgeschlossen wird — deutlich unter den zwölf bis achtzehn Monaten, die Vollverkäufe von Immobilien in Mexikos Premium-Küstenmärkten typischerweise in Anspruch nehmen.</li>
+  <li><strong>Gemacht für internationale Portfolios</strong> — das LLC-Modell bedeutet, dass Eigentum an mehreren COP-Destinationen zu einer konsolidierten Beziehung wird, statt länderspezifische Strukturen jonglieren zu müssen. Multi-Country-Eigentum — ein mexikanischer Winteranteil kombiniert mit einem europäischen Sommeranteil — ist die Art und Weise, wie ein bedeutender Anteil der COP-Eigentümer das Modell nach ihrem ersten Jahr nutzt.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Noch unentschieden, welcher Mexiko-Cluster?</h2>
+
+<p>Viele Leser kommen auf diese Seite bereits <strong>halb entschieden</strong> — sie wollen Mexiko, aber noch nicht welches Mexiko. Die Wahl zwischen Los Cabos, Punta Mita und der Riviera Maya ist <strong>selten allein eine Budgetfrage</strong>; die drei können auf Luxusniveau in weitgehend überlappenden Preisbändern liegen. Die entscheidende Frage ist das <strong>Lebensstil-Profil</strong>: Was werden Sie tatsächlich mit Ihren Wochen anfangen? Die ehrliche Antwort ist für die meisten Käufer eine, die sie noch nicht präzise formuliert haben, weil die Frage selten konkret wird, bis Eigentum auf dem Tisch liegt. Unten ist das Rahmenwerk, das Käufern hilft, diese Weggabelung zu lösen — mit bewusster Vereinfachung, weil die meisten Eigentümer, die länger als drei Jahre halten, feststellen, dass sie mehr als einen Cluster möchten —, aber nützlich als erste Orientierung.</p>
+
+<p><strong>Wählen Sie Los Cabos</strong>, wenn Ihr dominantes Nutzungsprofil <strong>Sportfischen, Championshipgolf und dramatische Pazifiklandschaft</strong> mit maximaler nordamerikanischer Anbindung und der gereiftesten internationalen Resort-Infrastruktur Mexikos ist. Los Cabos ist die richtige Antwort, wenn Sie ernsthaft angeln oder ein Ziel möchten, an dem die Fischerflotte, die Angelgeschäfte, der Turnierkalender und die erfahrenen Kapitäne alle sofort durch das Verwaltungsteam verfügbar sind; wenn Sie Championshipgolf als tägliche Option statt als gelegentlichen Ausflug schätzen; wenn Sie primär von der US-West- oder Südwestküste kommen und Nähe ein wesentlicher Faktor ist; und wenn Sie die breitestmögliche Auswahl an Luxusrestaurants und Strandclub-Optionen in Fahrweite zur Immobilie wollen. Los Cabos ist auch die richtige Antwort, wenn Ihr Eigentumsprofil primär auf <strong>Wintersonne auf höchstem Niveau</strong> ausgerichtet ist, mit geringstmöglicher operativer Komplexität. Im Unterschied zum klassischen Timesharing — das Ihnen eine feste Woche in einem Hotelzimmer zu jährlich steigenden Kosten verkauft und keinen Wiederverkaufswert bietet — gibt Ihnen ein Los-Cabos-Miteigentumsanteil ein echtes Eigentumsrecht an einer Immobilie, deren Wert durch dieselben festen geografischen Bedingungen untermauert wird, die sie von vornherein außergewöhnlich machen.</p>
+
+<p><strong>Wählen Sie Punta Mita</strong>, wenn Sie das <strong>höchste Maß an Privatheit und Exklusivität innerhalb einer abgeschlossenen Resortgemeinschaft</strong> wollen, mit ruhigerem und wärmerem Badewasser als an der offenozeanischen Los-Cabos-Küste, dem außergewöhnlichen Erlebnis der <a href="https://www.worldwildlife.org/species/humpback-whale" target="_blank" rel="noopener">Buckelwalsaison</a> in der Bahía de Banderas (November bis März), weltklassigem Schnorcheln am <a href="https://www.conanp.gob.mx/que_hacemos/pnmi.php" target="_blank" rel="noopener">Nationalpark Islas Marietas</a> eine kurze Bootsfahrt entfernt und der tropischen Grünsaison-Landschaft, die die trockene Baja-Halbinsel nicht bietet. Punta Mita ist die richtige Antwort für Käufer, die Resort-Luxus ohne die kommerzielle Energie eines Multi-Hub-Korridors wie Los Cabos wollen; für Familien mit kleinen Kindern, die vorhersehbar schwimmbares Wasser und eine in sich geschlossene Halbinselumgebung möchten; für Buckelwal-Enthusiasten und auf Meeresleben fokussierte Käufer; und für Eigentümer, die die <strong>bewaldete Tropenlandschaft</strong> — die Nayarit-Hügel über der Bucht, die Flusstäler und tropische Vegetation, die die Halbinsel rahmt — als eine Landschaftsregistrierung schätzen, die sich sowohl von der Baja als auch vom Yucatán unterscheidet. Die Kombination aus Four-Seasons- und St.-Regis-Resortservices, die für Villagäste in Punta Mita verfügbar sind, ohne die volle hotelsoziale Dichte, ist besonders für Käufer attraktiv, die <strong>Spitzenmarken-Services in einem Wohnrhythmus</strong> wollen. Im Unterschied zum Timesharing, das Sie in einer Woche zu jährlich steigenden Kosten ohne Eigenkapital festhält, ist ein Punta-Mita-Miteigentumsanteil ein übertragbares Eigentumsrecht, das an der Wertsteigerung einer der angebotsbeschränktesten Resorthalbinseln des Pazifiks teilnimmt.</p>
+
+<p><strong>Wählen Sie die Riviera Maya</strong>, wenn Ihr Profil <strong>karibisches Türkis, Cenoten, Korallentauchen, Maya-Archäologie und einen wellnessorientierten Lebensstil</strong> umfasst, den kein Pazifikküstenziel repliziert. Die Riviera Maya ist die richtige Antwort für Taucher und Schnorchler, die täglichen Zugang zum zweitlängsten Riffsystem der Erde wollen; für Wellness-Käufer, die den Cenoten, das Yoga-Studio und das Farm-to-Table-Restaurant als täglichen Rhythmus ihrer Wochen möchten; für Familien, die kulturelle Bildung — Maya-Ruinen sind von jeder Riviera-Maya-Immobilie aus innerhalb einer Stunde erreichbar — neben Strandzeit priorisieren; und für Käufer aus dem Vereinigten Königreich und Kontinentaleuropa, für die die <a href="https://asur.com.mx/" target="_blank" rel="noopener">Direktstrecken des Cancún-Flughafens</a> nach Europa die Riviera Maya zum praktischsten Einstiegspunkt nach Mexiko ohne Zwischenstopp machen. Die Riviera Maya ist auch die richtige Antwort, wenn die türkisfarbene Karibikfarbe — erzeugt durch das flache Kalksteinregal und das Korallensystem — die Ästhetik ist, die Ihre Wahl bestimmt, denn sie ist genuinein anders als jedes Pazifik-Äquivalent.</p>
+
+<p>Der <strong>Multi-Cluster-Ansatz</strong> ist es wert, benannt zu werden. Ein wachsender Anteil der COP-Mexiko-Eigentümer hält <strong>mehr als einen Anteil</strong> — oder kombiniert einen mexikanischen Anteil mit einem europäischen. Die natürlichste Mexiko-Paarung ist <strong>Los Cabos für den Winter und Riviera Maya für die Nebensaison</strong>, um die komplementären Klimata und den unterschiedlichen Lifestyle-Charakter der beiden auszunutzen. Die häufigste grenzüberschreitende Kombination ist ein <strong>mexikanischer Pazifikanteil gepaart mit einem französischen oder spanischen Mittelmeer-Anteil</strong>: Mexiko für den nordamerikanischen Winterhöhepunkt (Dezember bis März), Europa für Sommer und Frühherbst. Zwei 1/8-Anteile über diese beiden Märkte geben einer Familie rund <strong>10–12 Wochen vollständig verwalteter, eigentumsaufbauender Zweitwohnnutzung über ein Jahr</strong> bei einem kombinierten jährlichen Halteaufwand, der unter den Kosten einer einzigen ganzen Immobilie an einer der beiden Adressen bleibt. Für eine breitere Orientierung über jeden mexikanischen Cluster bietet die <a href="https://www.visitmexico.com/en" target="_blank" rel="noopener">offizielle Visit-Mexico-Tourismusseite</a> umfassende regionale Leitfäden; das <a href="https://www.loscabostourism.com/en/" target="_blank" rel="noopener">Los Cabos Tourism Board</a>, <a href="https://visitpuertovallarta.com.mx/en/" target="_blank" rel="noopener">Puerto Vallarta Tourism</a> (Tor zu Punta Mita) und die <a href="https://www.rivieramaya.com/" target="_blank" rel="noopener">Riviera Maya Tourism-Seite</a> sind für Käufer in früher regionaler Recherche ebenfalls nützlich.</p>
+
+<div class="dest-callout">
+  <strong>Die Entscheidungshilfe:</strong> wenn Ihr dominantes Profil Sportfischen, Golf und Pazifikdramatik ist, wählen Sie Los Cabos. Wenn es Halbinsel-Exklusivität, ruhigeres Wasser und Walbeobachtung ist, wählen Sie Punta Mita. Wenn es karibisches Türkis, Cenoten-Tauchen, Maya-Ruinen und Wellness-Kultur ist, wählen Sie die Riviera Maya. Wenn es zwei der drei ist — löst der Portfolio-Ansatz es wirtschaftlicher als eine Skalierung auf eine einzige ganze Immobilie an einer der Adressen.
+</div>
+
+<p>Wie auch immer Sie sich entscheiden — die tiefere Erkundung beginnt mit den aktuellen Inseraten:</p>
+
+<ul>
+  <li><a href="/de/immobilien/?land=mexiko">Alle Mexiko-Immobilien durchsuchen &rarr;</a></li>
+</ul>
+
+<p>Wenn Sie darüber sprechen möchten, <strong>welcher Cluster am besten zum tatsächlichen Nutzungsmuster Ihrer Familie passt</strong> — statt nur zur Broschürenversion davon — <a href="#newsletter">tragen Sie sich in unsere Liste ein</a>, und wir melden uns mit relevanten Hinweisen zu neuen Immobilien und einer persönlichen Vorstellung des Teams.</p>
+
+</div></section>
+
     <section class="newsletter-section" id="newsletter">
-        <h2 class="newsletter-heading">Be The First To Know</h2>
-        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
+        <h2 class="newsletter-heading">Als Erste informiert sein</h2>
+        <p class="newsletter-subtitle">Treten Sie unserer Community bei und erhalten Sie exklusive Inserate und Zielinformationen direkt in Ihren Posteingang.</p>
         <form class="newsletter-form" id="cop-newsletter-form" novalidate>
-            <input type="email" name="email" placeholder="Enter your email address" required>
-            <button type="submit" class="newsletter-btn">Join Newsletter</button>
+            <input type="email" name="email" placeholder="Ihre E-Mail-Adresse eingeben" required>
+            <button type="submit" class="newsletter-btn">Newsletter abonnieren</button>
         </form>
         <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
     </section>
-        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
+
     <section class="expert-section" id="speak-to-expert">
         <div class="expert-inner">
-            <p class="expert-eyebrow">Get in Touch</p>
-            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
-            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
+            <p class="expert-eyebrow">Kontakt aufnehmen</p>
+            <h2 class="expert-heading">Mit einem <em>Experten</em> sprechen</h2>
+            <p class="expert-sub">Teilen Sie uns mit, wonach Sie suchen, und einer unserer Miteigentums-Spezialisten meldet sich innerhalb von 24 Stunden.</p>
 
             <form class="expert-form" id="expert-enquiry-form" novalidate>
-                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
+                <input type="hidden" name="nonce" value="9e3a8b0450">
+                <div class="expert-form-grid">
                     <div class="expert-form-field">
                         <label for="ef-name">Name <span>*</span></label>
-                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
+                        <input type="text" id="ef-name" name="name" placeholder="Ihr Name" required>
                     </div>
                     <div class="expert-form-field">
-                        <label for="ef-email">Email Address <span>*</span></label>
-                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
+                        <label for="ef-email">E-Mail-Adresse <span>*</span></label>
+                        <input type="email" id="ef-email" name="email" placeholder="ihre@email.com" required>
                     </div>
                     <div class="expert-form-field">
-                        <label for="ef-phone">Phone Number <span>*</span></label>
-                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
+                        <label for="ef-phone">Telefonnummer <span>*</span></label>
+                        <input type="tel" id="ef-phone" name="phone" placeholder="+49 170 000 0000" required>
                     </div>
                     <div class="expert-form-field">
-                        <label>Destinations</label>
+                        <label>Reiseziele</label>
                         <div class="dest-multiselect" id="dest-multiselect">
                             <div class="dest-trigger" id="dest-trigger">
-                                <span class="dest-placeholder">Select destinations</span>
+                                <span class="dest-placeholder">Reiseziele auswählen</span>
                             </div>
                             <div class="dest-dropdown" id="dest-dropdown">
-                                                                <div class="dest-option" data-value="France">
+                                <div class="dest-option" data-value="France">
                                     <span class="dest-check"></span>
-                                    🇫🇷 France                                </div>
-                                                                <div class="dest-option" data-value="Spain">
+                                    🇫🇷 Frankreich                                </div>
+                                <div class="dest-option" data-value="Spain">
                                     <span class="dest-check"></span>
-                                    🇪🇸 Spain                                </div>
-                                                                <div class="dest-option" data-value="Italy">
+                                    🇪🇸 Spanien                                </div>
+                                <div class="dest-option" data-value="Italy">
                                     <span class="dest-check"></span>
-                                    🇮🇹 Italy                                </div>
-                                                                <div class="dest-option" data-value="USA">
+                                    🇮🇹 Italien                                </div>
+                                <div class="dest-option" data-value="USA">
                                     <span class="dest-check"></span>
                                     🇺🇸 USA                                </div>
-                                                                <div class="dest-option" data-value="Portugal">
+                                <div class="dest-option" data-value="Portugal">
                                     <span class="dest-check"></span>
                                     🇵🇹 Portugal                                </div>
-                                                                <div class="dest-option" data-value="Austria">
+                                <div class="dest-option" data-value="Austria">
                                     <span class="dest-check"></span>
-                                    🇦🇹 Austria                                </div>
-                                                                <div class="dest-option" data-value="England">
+                                    🇦🇹 Österreich                                </div>
+                                <div class="dest-option" data-value="England">
                                     <span class="dest-check"></span>
                                     🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
-                                                                <div class="dest-option" data-value="Sweden">
+                                <div class="dest-option" data-value="Sweden">
                                     <span class="dest-check"></span>
-                                    🇸🇪 Sweden                                </div>
-                                                                <div class="dest-option" data-value="Germany">
+                                    🇸🇪 Schweden                                </div>
+                                <div class="dest-option" data-value="Germany">
                                     <span class="dest-check"></span>
-                                    🇩🇪 Germany                                </div>
-                                                                <div class="dest-option" data-value="Croatia">
+                                    🇩🇪 Deutschland                                </div>
+                                <div class="dest-option" data-value="Croatia">
                                     <span class="dest-check"></span>
-                                    🇭🇷 Croatia                                </div>
-                                                                <div class="dest-option" data-value="Mexico">
+                                    🇭🇷 Kroatien                                </div>
+                                <div class="dest-option" data-value="Mexico">
                                     <span class="dest-check"></span>
-                                    🇲🇽 Mexico                                </div>
-                                                            </div>
+                                    🇲🇽 Mexiko                                </div>
+                            </div>
                         </div>
                         <input type="hidden" name="destination" id="ef-destination">
                     </div>
                     <div class="expert-form-field">
-                        <label for="ef-budget">Budget Range</label>
+                        <label for="ef-budget">Budgetrahmen</label>
                         <select id="ef-budget" name="budget">
-                            <option value="" disabled selected>Select a budget</option>
-                            <option>Under €100,000</option>
-                            <option>€100,000 – €200,000</option>
-                            <option>€200,000 – €350,000</option>
-                            <option>€350,000 – €500,000</option>
-                            <option>€500,000 – €750,000</option>
-                            <option>€750,000 – €1,000,000</option>
-                            <option>Over €1,000,000</option>
+                            <option value="" disabled selected>Budget auswählen</option>
+                            <option>Unter 100.000 €</option>
+                            <option>100.000 € – 200.000 €</option>
+                            <option>200.000 € – 350.000 €</option>
+                            <option>350.000 € – 500.000 €</option>
+                            <option>500.000 € – 750.000 €</option>
+                            <option>750.000 € – 1.000.000 €</option>
+                            <option>Über 1.000.000 €</option>
                         </select>
                     </div>
                     <div class="expert-form-field">
-                        <label for="ef-message">Message</label>
-                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
+                        <label for="ef-message">Nachricht</label>
+                        <textarea id="ef-message" name="message" placeholder="Erzählen Sie uns mehr darüber, was Sie suchen (optional)"></textarea>
                     </div>
                 </div>
                 <div class="expert-submit">
-                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
+                    <button type="submit" class="expert-submit-btn">Anfrage senden</button>
                     <p class="expert-form-msg" id="expert-form-msg"></p>
                 </div>
             </form>
@@ -907,13 +1006,13 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
     <!-- FOOTER -->
     <footer>
         <div class="footer-grid">
-            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
-            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
-            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
-            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
-            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
+            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxuriöses Miteigentum für den klugen Zweitwohnungsbesitzer.</p></div>
+            <div class="footer-col"><h3>Immobilien</h3><ul><li><a href="/de/immobilien/">Alle Immobilien</a></li><li><a href="/de/destinationen/spanien/">Spanien</a></li><li><a href="/de/destinationen/frankreich/">Frankreich</a></li><li><a href="/de/destinationen/italien/">Italien</a></li><li><a href="/de/destinationen/usa/">USA</a></li></ul></div>
+            <div class="footer-col"><h3>Destinationen</h3><ul><li><a href="/de/destinationen/mallorca/">Mallorca</a></li><li><a href="/de/destinationen/costa-del-sol/">Costa del Sol</a></li><li><a href="/de/destinationen/kalifornien/">Kalifornien</a></li><li><a href="/de/destinationen/franzoesische-alpen/">Französische Alpen</a></li><li><a href="/de/destinationen/comer-see/">Comer See</a></li></ul></div>
+            <div class="footer-col"><h3>Unternehmen</h3><ul><li><a href="/de/ueber-uns/">Über uns</a></li><li><a href="/de/blog/">Unser Blog</a></li><li><a href="/de/so-funktionierts/">So funktioniert's</a></li><li><a href="/de/kontakt/">Kontakt</a></li></ul></div>
+            <div class="footer-col"><h3>Support</h3><ul><li><a href="/de/kontakt/">Kontakt aufnehmen</a></li><li><a href="/de/so-funktionierts/#faq">Häufige Fragen</a></li><li><a href="/de/so-funktionierts/">So funktioniert's</a></li><li><a href="/de/immobilien/">Immobilien durchsuchen</a></li></ul></div>
         </div>
-        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
+        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. Alle Rechte vorbehalten.</p><div class="footer-legal"><a href="/">Datenschutzrichtlinie</a><a href="/">Nutzungsbedingungen</a><a href="/">Rechtliches</a></div></div>
     </footer>
 
     <script>
@@ -924,8 +1023,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
     var nav    = document.getElementById('cop-nav');
     if (!header || !btn || !nav) return;
 
-
-    // Mobile hamburger toggle
     btn.addEventListener('click', function () {
         nav.classList.toggle('active');
         btn.classList.toggle('open');
@@ -937,7 +1034,7 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         });
     });
 }());
-        /* ── Newsletter form (shared partial) ──────────────────────── */
+        /* ── Newsletter form ──────────────────────────────────────── */
 (function() {
     var form = document.getElementById('cop-newsletter-form');
     if (!form) return;
@@ -950,7 +1047,7 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         if (!emailInput.value) return;
 
         btn.disabled = true;
-        btn.textContent = 'Subscribing\u2026';
+        btn.textContent = 'Wird abonniert…';
         msg.className = 'newsletter-form-msg';
         msg.textContent = '';
 
@@ -966,25 +1063,25 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         .then(function(res) {
             if (res.success) {
                 msg.className = 'newsletter-form-msg success';
-                msg.textContent = res.data || 'Thank you for subscribing!';
+                msg.textContent = res.data || 'Vielen Dank für Ihre Anmeldung!';
                 form.reset();
-                btn.textContent = 'Subscribed!';
+                btn.textContent = 'Abonniert!';
             } else {
                 msg.className = 'newsletter-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                msg.textContent = res.data || 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.';
                 btn.disabled = false;
-                btn.textContent = 'Join Newsletter';
+                btn.textContent = 'Newsletter abonnieren';
             }
         })
         .catch(function() {
             msg.className = 'newsletter-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
+            msg.textContent = 'Netzwerkfehler. Bitte versuchen Sie es erneut.';
             btn.disabled = false;
-            btn.textContent = 'Join Newsletter';
+            btn.textContent = 'Newsletter abonnieren';
         });
     });
 })();
-        /* ── Multi-select destination dropdown (shared partial) ────── */
+        /* ── Multi-select destination dropdown ────── */
 (function() {
     var wrap     = document.getElementById('dest-multiselect');
     var trigger  = document.getElementById('dest-trigger');
@@ -996,7 +1093,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
     var selected = [];
 
     function render() {
-        /* Remove old tags */
         trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
 
         if (selected.length === 0) {
@@ -1011,10 +1107,8 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             });
         }
 
-        /* Update hidden field */
         hidden.value = selected.join('; ');
 
-        /* Update option highlights */
         dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
             if (selected.indexOf(opt.dataset.value) !== -1) {
                 opt.classList.add('selected');
@@ -1024,9 +1118,7 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         });
     }
 
-    /* Toggle dropdown */
     trigger.addEventListener('click', function(e) {
-        /* If clicking a tag X, remove that item */
         if (e.target.classList.contains('dest-tag-x')) {
             var val = e.target.dataset.val;
             selected = selected.filter(function(v) { return v !== val; });
@@ -1037,7 +1129,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         wrap.classList.toggle('open');
     });
 
-    /* Click an option */
     dropdown.addEventListener('click', function(e) {
         var opt = e.target.closest('.dest-option');
         if (!opt) return;
@@ -1052,7 +1143,6 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         e.stopPropagation();
     });
 
-    /* Close on outside click */
     document.addEventListener('click', function(e) {
         if (!wrap.contains(e.target)) {
             wrap.classList.remove('open');
@@ -1060,7 +1150,7 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
     });
 })();
 
-/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
+/* ── Expert enquiry form AJAX ─────────────── */
 (function() {
     var form = document.getElementById('expert-enquiry-form');
     if (!form) return;
@@ -1070,7 +1160,7 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         btn.disabled = true;
-        btn.textContent = 'Sending\u2026';
+        btn.textContent = 'Wird gesendet…';
         msg.className = 'expert-form-msg';
         msg.textContent = '';
 
@@ -1092,10 +1182,9 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
         .then(function(res) {
             if (res.success) {
                 msg.className = 'expert-form-msg success';
-                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
+                msg.textContent = res.data || 'Vielen Dank! Wir melden uns innerhalb von 24 Stunden.';
                 form.reset();
-                btn.textContent = 'Sent!';
-                /* Clear destination tags */
+                btn.textContent = 'Gesendet!';
                 var wrap = document.getElementById('dest-multiselect');
                 if (wrap) {
                     wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
@@ -1105,20 +1194,19 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
                 }
             } else {
                 msg.className = 'expert-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
+                msg.textContent = res.data || 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.';
                 btn.disabled = false;
-                btn.textContent = 'Send Enquiry';
+                btn.textContent = 'Anfrage senden';
             }
         })
         .catch(function() {
             msg.className = 'expert-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
+            msg.textContent = 'Netzwerkfehler. Bitte versuchen Sie es erneut.';
             btn.disabled = false;
-            btn.textContent = 'Send Enquiry';
+            btn.textContent = 'Anfrage senden';
         });
     });
 })();
-        // Show more properties
         var showMoreBtn = document.getElementById('dest-show-more');
         if (showMoreBtn) {
             showMoreBtn.addEventListener('click', function() {
