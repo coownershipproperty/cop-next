@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arizona Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Co-ownership properties in Arizona from COP — deeded fractional ownership in Scottsdale, Paradise Valley, Cave Creek and the Sonoran Desert golf communities. Fully managed, 6–7 weeks of personal use a year, real equity in the most sought-after desert second-home market in the US.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT ===== */
+
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+        .expert-form { text-align: left; }
+        .expert-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .expert-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .expert-form-field.full { grid-column: 1 / -1; }
+        .expert-form-field label {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+        }
+        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
+
+        .expert-form-field input,
+        .expert-form-field select,
+        .expert-form-field textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(201,168,76,0.25);
+            color: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.85rem 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .expert-form-field input:focus,
+        .expert-form-field select:focus,
+        .expert-form-field textarea:focus {
+            border-color: rgba(201,168,76,0.7);
+            background: rgba(255,255,255,0.1);
+        }
+        .expert-form-field input::placeholder,
+        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .expert-form-field select option { background: var(--blue); color: var(--white); }
+        .expert-form-field textarea { resize: vertical; min-height: 110px; }
+
+        /* Submit area */
+        .expert-submit { margin-top: 1.5rem; text-align: center; }
+        .expert-submit-btn {
+            background: var(--warm-gold);
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            padding: 1rem 3rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 320px;
+        }
+        .expert-submit-btn:hover { background: #b8963e; }
+        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
+        .expert-form-msg {
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            text-align: center;
+            min-height: 1.4em;
+        }
+        .expert-form-msg.success { color: #7ed8a3; }
+        .expert-form-msg.error   { color: #f08080; }
+
+        @media (max-width: 640px) {
+            .expert-form-grid { grid-template-columns: 1fr; }
+            .expert-heading { font-size: 2rem; }
+            .expert-section { padding: 70px 1.5rem; }
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+
+        /* ===== DEST FIGURE ===== */
+        .dest-figure{margin:1.8rem 0 1.4rem;overflow:hidden}
+        .dest-figure img{width:100%;display:block;object-fit:cover}
+        .dest-figure figcaption{font-size:0.78rem;color:var(--text-muted);font-family:'Nunito Sans',sans-serif;padding:0.55rem 0 0;border-top:1px solid var(--warm-gold);margin-top:0;letter-spacing:0.02em;line-height:1.5}
+
+        /* ===== DEST CALLOUT ===== */
+        .dest-callout{border-left:3px solid var(--warm-gold);background:rgba(201,168,76,0.07);padding:1rem 1.4rem;margin:1.5rem 0;font-size:0.95rem;color:var(--text-muted);line-height:1.75}
+        .dest-callout strong{color:var(--text-dark)}
+
+        /* ===== DEST STATS BAND ===== */
+        .dest-stats-band{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:1.8rem 0;border:1px solid var(--gray-border)}
+        .dest-stat-item{padding:1.2rem 1rem;text-align:center;border-right:1px solid var(--gray-border)}
+        .dest-stat-item:last-child{border-right:none}
+        .dest-stat-num{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--text-dark);line-height:1.1;margin-bottom:0.3rem}
+        .dest-stat-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted);font-family:'Nunito Sans',sans-serif;font-weight:600}
+        @media(max-width:640px){.dest-stats-band{grid-template-columns:repeat(2,1fr)}.dest-stat-item{border-bottom:1px solid var(--gray-border)}}
+
+        /* ===== COMPARE TABLE ===== */
+        .dest-compare-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+        .dest-compare-table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:'Nunito Sans',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+        .dest-compare-table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted);vertical-align:top}
+        .dest-compare-table tr td:nth-child(3){color:var(--text-dark);font-weight:600}
+        @media(max-width:640px){
+            .dest-compare-table thead{display:none}
+            .dest-compare-table tr{display:block;border-bottom:2px solid var(--warm-gold);margin-bottom:1rem}
+            .dest-compare-table td{display:block;padding:0.5rem 0.8rem;border-bottom:1px solid var(--gray-border)}
+            .dest-compare-table td::before{content:attr(data-col);display:block;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--warm-gold);font-weight:700;margin-bottom:0.2rem;font-family:'Nunito Sans',sans-serif}
+            .dest-compare-table td:first-child{background:var(--blue);color:#fff;font-weight:700;font-family:'Playfair Display',serif}
+            .dest-compare-table td:first-child::before{display:none}
+        }
+    </style>
+</head>
+<body>
+
+<section class="page-hero">
+  <p class="eyebrow">Arizona · USA</p>
+  <h1>Arizona Fractional Ownership <em>Properties</em></h1>
+  <p class="subtitle">From a desert-modern villa in Scottsdale to a high-Sonoran retreat above Cave Creek — fractional ownership in Arizona means a deeded share of the most sought-after desert second-home market in North America, six to seven weeks of personal use a year, and a fully managed home ready whenever you arrive.</p>
+</section>
+
+<section class="props-sec"></section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Arizona's most coveted desert addresses, accessible through co-ownership.</h2>
+    <p>Fully managed desert villas and resort-style estates across <strong>Scottsdale</strong>, <strong>Paradise Valley</strong>, <strong>Cave Creek</strong> and the <strong>North Scottsdale golf communities</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of one of the most supply-constrained luxury desert markets in the United States.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
+    </div>
+  </div>
+</div>
+
+<!-- §A WHY ARIZONA — cream -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/18E60MapH20-gMfyFwmUxLgVFyhvEwEgt" alt="A desert-modern villa in Cave Creek, Arizona, with saguaro cactus and the Sonoran Desert as backdrop" loading="lazy" width="1600" height="1067" />
+  <figcaption>A desert-modern villa in Cave Creek — saguaro cactus, volcanic ridgeline, and the deep-sky silence that defines the high Sonoran Desert.</figcaption>
+</figure>
+
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership in Arizona?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership in Arizona means buying a deeded 1/8 share of a luxury desert second home — held in a purpose-built LLC alongside up to seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
+
+<h2>Why Arizona?</h2>
+
+<p>Arizona's <strong>Greater Phoenix and Scottsdale area</strong> is, by most measures, the <strong>most sophisticated desert second-home market in the United States</strong> — a claim that rests on three interlocking structural advantages that no other Sun Belt destination matches simultaneously. The first is <strong>climate</strong>: the Sonoran Desert around Scottsdale and the Salt River Valley delivers a winter season of exceptional quality — <strong>18–24°C (mid-60s°F to mid-70s°F)</strong> average daily highs from November through April, with almost no rainfall and <strong>more than 300 days of sunshine per year</strong> — that has drawn American and international "snowbirds" for more than a century. The second is <strong>infrastructure</strong>: Scottsdale and the greater Phoenix metro have built a resort, spa, golf and culinary ecosystem of genuine global standing — <strong>more than 200 golf courses</strong> in the metropolitan area, a spa circuit anchored by the resorts of Camelback Mountain and the Sanctuary on Camelback Mountain, a restaurant scene that has developed a clear regional identity around Southwestern cuisine, and a cultural calendar ranging from the <a href="https://www.wmphoenixopen.com/" target="_blank" rel="noopener">WM Phoenix Open</a> (the world's most-attended professional golf tournament) to the <a href="https://www.scottsdaleartsdistrict.org/" target="_blank" rel="noopener">Scottsdale Arts District</a> and Old Town galleries. The third is <strong>architecture</strong>: the legacy of <a href="https://franklloydwright.org/site/taliesin-west/" target="_blank" rel="noopener">Frank Lloyd Wright's Taliesin West</a> — his winter studio, school and architectural laboratory at the edge of the Scottsdale desert, now a <strong>UNESCO World Heritage Site</strong> — set a design standard for desert modernism that has shaped every premium residential development in the area for eight decades. The result is a concentration of desert-modern villa architecture — stone, glass, rammed earth, limestone, flat-roof geometry with interior courtyards and pool-centred outdoor rooms — that is as recognisable a style as the mid-century modernism of Palm Springs, but rooted in the volcanic and saguaro landscape of the Sonoran rather than the Coachella Valley floor.</p>
+
+<p>Your Arizona share is held inside a <strong>purpose-built LLC</strong> alongside up to seven other co-owners. This is the same modern international ownership structure used across every property in the COP portfolio — whether in the United States, France, Spain, Italy or elsewhere — rather than a legacy national vehicle that varies country by country. <strong>The practical effect</strong> for the Arizona buyer is significant. The relationship with the property runs through <strong>one consistent ownership structure</strong> regardless of which property or jurisdiction you hold in; the same modern framework applies whether your share is in <strong>Scottsdale</strong>, the <strong>French Alps</strong>, <strong>Mallorca</strong> or <strong>Colorado</strong>; and resale is faster because transferring an <strong>LLC membership interest</strong> is a more direct administrative action than triggering a full Arizona-recorded title conveyance. For owners who go on to add a second share in another COP destination — and a meaningful proportion do, often pairing an Arizona winter share with a California coastal or European summer share — the result is a <strong>single international portfolio relationship</strong> rather than a stack of jurisdiction-specific arrangements that each behave differently.</p>
+
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and up to seven other owners hold equal LLC membership interests — giving lighter resale and a single consistent ownership structure across every property on COP, so multi-country owners deal with one model rather than a stack of different vehicles.
+</div>
+
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value and an annual maintenance fee that often outlasts any usefulness. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and up to seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare. Arizona happens to have its own state-level Timeshare Act governing traditional timeshare products; when you hold a COP fractional share, you are holding a corporate membership interest in a property-owning LLC — the structural distinction from a timeshare is legal, not merely rhetorical.
+</div>
+
+<p>The structural argument for Arizona as a fractional destination starts with the <strong>supply side of the Scottsdale and Paradise Valley luxury market</strong>. <a href="https://www.scottsdaleaz.gov/" target="_blank" rel="noopener">Scottsdale's city planning ordinances</a> and the <strong>McDowell Sonoran Preserve</strong> — a 36,400-acre protected wilderness directly abutting the city's northern and north-eastern boundary, designated in 2009 after two decades of civic campaigning — have permanently capped new residential development across the most scenic desert terrain in the metropolitan area. <strong>Paradise Valley</strong>, the independent municipality entirely surrounded by Phoenix and Scottsdale, is zoned exclusively for single-family residential development on large lots; no apartment buildings, no commercial development, no high-rise — the existing supply of luxury single-family villas in Paradise Valley is essentially fixed. <strong>Cave Creek</strong> to the north preserves a rural-residential character through its own town planning rules and the surrounding Tonto National Forest land. The net effect of these interlocking protections across the three premium sub-markets is that the premium desert villa stock does not expand meaningfully year-on-year — and the fractional structure that distributes the entry cost across eight owners makes that premium stock accessible to a substantially wider buyer pool.</p>
+
+<p>Arizona also offers a genuinely favourable <strong>tax environment for second-home owners</strong>. The state has <strong>no estate tax</strong> and <strong>no inheritance tax</strong>. Arizona's state income tax is among the lowest in the Sun Belt — the flat rate of <strong>2.5%</strong> introduced in 2023 is the lowest flat income-tax rate in any US state. For non-resident second-home owners, Arizona's tax structure adds a meaningful layer of attraction over comparable desert destinations. The county property-tax system — administered by <strong>Maricopa County</strong> for Scottsdale, Paradise Valley and Cave Creek — is transparent and professionally managed; the <a href="https://mcassessor.maricopa.gov/" target="_blank" rel="noopener">Maricopa County Assessor</a> maintains a public online database of assessed values, and the annual residential property-tax burden on Arizona luxury homes is modest in comparison to California or New York equivalents. For fractional co-owners, the annual carry on a 1/8 share divides these already-reasonable costs across eight owners while covering them inside a single professionally managed service charge.</p>
+
+<div class="dest-callout">
+  <strong>Arizona in three numbers:</strong> over <strong>300 days of sunshine</strong> per year across the Sonoran Desert · <strong>200+</strong> golf courses in the Greater Phoenix metro · <strong>36,400 acres</strong> of permanently protected McDowell Sonoran Preserve wilderness bordering Scottsdale's north side.
+</div>
+
+<p>The fourth structural argument — and the one that most directly explains "why fractional, why now?" — is what the Greater Scottsdale luxury second-home market actually costs to run as a sole owner. A desert-modern villa on a private cul-de-sac in <strong>Paradise Valley</strong>, or a pool-and-hot-tub property on a ridge above <strong>Cave Creek</strong>, carries <strong>full Maricopa County property tax, homeowners insurance, HOA fees where applicable, pool and spa service, landscaping maintenance, HVAC service (critical in the Arizona summer heat), concierge and a year-round property-management retainer</strong> — every year, whether the owner spends four weeks there or fourteen. The annual management burden on a premium Arizona desert property is significant: the pool requires year-round treatment, the landscape requires regular watering, and the extreme summer heat — daytime highs regularly reaching <strong>40–45°C (104–113°F)</strong> in July and August — creates a continuous HVAC-management requirement that non-resident owners cannot simply turn off between visits. The fractional structure divides that carry across eight owners, covers it inside the annual service charge, and removes the operational burden entirely. The owner arrives in November for Thanksgiving, or in February for the Phoenix Open, or in March for spring training baseball, and the property is ready.</p>
+
+<p>Arizona also benefits from its <strong>position as a gateway to some of the most dramatic natural scenery in North America</strong>. Owners in the Greater Scottsdale area are within a two-hour drive of <a href="https://www.visitsedona.com/" target="_blank" rel="noopener">Sedona's red rock country</a> — arguably the most photographically striking landscape in the continental United States — and within a four-hour drive of the <a href="https://www.nps.gov/grca/index.htm" target="_blank" rel="noopener">Grand Canyon's South Rim</a>. The Sonoran Desert itself — the only desert in the world where the towering <strong>saguaro cactus</strong> (<em>Carnegiea gigantea</em>) grows — creates a distinctive biological landscape within walking distance of the Scottsdale resort belt; the <a href="https://www.scottsdaleaz.gov/parks/mcdowell-sonoran-preserve" target="_blank" rel="noopener">McDowell Sonoran Preserve trail network</a> runs more than <strong>225 miles (362 km)</strong> of maintained hiking and mountain-biking trails through terrain that most visiting owners had never experienced before arriving. For buyers who want a luxury base with immediate access to transformative natural landscape — not merely pleasant climate — Arizona delivers something qualitatively different from the Palm Springs or Las Vegas desert offers.</p>
+
+</div></section>
+
+<!-- §B WHERE TO OWN — white -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Where to own in Arizona</h2>
+
+<p>Arizona's luxury second-home market is best understood through <strong>four distinct sub-zones</strong> within the Greater Phoenix and Scottsdale area, each with its own architectural character, lifestyle rhythm and buyer mix. The COP inventory in Arizona is concentrated across <strong>Scottsdale</strong>, <strong>Paradise Valley</strong>, <strong>Cave Creek and the high Sonoran Desert</strong>, and <strong>North Scottsdale and the desert golf communities</strong> — with Sedona's red-rock country available as a context cluster for owners who want to range further across the state. These four zones account for the overwhelming majority of premium desert second-home demand in the region.</p>
+
+<h3>Scottsdale — the resort core</h3>
+
+<p><strong>Scottsdale</strong> is the undisputed centre of Arizona's luxury resort economy and the address that most international buyers think of first when they consider a desert second home in the American Southwest. The city runs roughly north–south along the eastern edge of Phoenix, with the historic <strong>Old Town Scottsdale</strong> district at the southern end — a grid of galleries, boutiques, restaurants and the weekly <a href="https://www.scottsdalegalleries.com/" target="_blank" rel="noopener">Art Walk on Thursday evenings</a> — and the newer resort and spa belt ascending northward through the <strong>Camelback Mountain corridor</strong>, <strong>McCormick Ranch</strong> and <strong>Gainey Ranch</strong> to the foothills communities of north-central Scottsdale. <strong>Camelback Mountain</strong> — the iconic twin-humped ridgeline that rises to <strong>822 metres (2,704 feet)</strong> directly from the valley floor, straddling the Scottsdale–Phoenix border — is the single most recognisable natural landmark in the metropolitan area, and the resort hotels that cluster at its base — the <a href="https://www.thephoenician.com/" target="_blank" rel="noopener">Phoenician</a>, the <a href="https://www.sanctuaryoncamelback.com/" target="_blank" rel="noopener">Sanctuary on Camelback Mountain</a>, the <a href="https://www.mountainshadows.com/" target="_blank" rel="noopener">Mountain Shadows</a> and the historic <a href="https://www.royalpalmshotel.com/" target="_blank" rel="noopener">Royal Palms</a> — have given the mountain's flanks the highest concentration of luxury spa and dining facilities in the state. The two hiking trails to the summit — the Echo Canyon Trail on the west face and the Cholla Trail on the east — are among the most-hiked urban trails in the United States, with more than <strong>450,000 ascents recorded per year</strong>.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/12u7-AZpl0duYr1GWUVEuCxMyMmdxLAsb" alt="A Scottsdale desert-modern villa with pool, Arizona resort architecture amid saguaro landscape" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Scottsdale villa with pool — the desert-modern architecture and resort-scale outdoor living that defines the city's premium residential offer.</figcaption>
+</figure>
+
+<p>The residential character of central Scottsdale ranges from the historic neighbourhoods around Old Town — smaller lots, mid-century bungalows, high walkability to the gallery and restaurant scene — through the golf-course residential communities of McCormick Ranch and Gainey Ranch (large lots, private community access to courses and lakes, a more family-oriented buyer mix) to the mountain-view estate neighbourhoods on the lower Camelback and Mummy Mountain slopes, where properties sit on half-acre to two-acre lots with unobstructed <strong>views across the valley floor and the mountain ridgeline behind</strong>. The architectural vernacular across the premium tier runs to desert-modern: <strong>low-slung geometry, natural stone and plaster finishes, indoor-outdoor connectivity through disappearing glass walls, infinity-edge pools that appear to pour into the desert, and exterior living rooms with misters and shade structures</strong> built for the Arizona shoulder-season climate. Climate in Scottsdale runs <strong>14–20°C (high 50s°F to high 60s°F)</strong> in December and January, climbing through <strong>22–28°C (low to high 80s°F)</strong> in March and April, with peak summer heat of <strong>40–45°C (104–113°F)</strong> in July and August. The <a href="https://www.scottsdaleperformingarts.org/" target="_blank" rel="noopener">Scottsdale Center for the Performing Arts</a> and the <a href="https://www.scottsdalemuseum.com/" target="_blank" rel="noopener">Scottsdale Museum of Contemporary Art</a> give the city a cultural calendar more substantial than most desert resort towns can muster; the <strong>WM Phoenix Open</strong> at TPC Scottsdale in February draws more than <strong>700,000 attendees</strong> across the week, making it the largest golf spectator event in the world.</p>
+
+<p><strong>Best for:</strong> buyers who want the full resort ecosystem within walking or short-drive distance — spa, golf, dining, culture — and who use their Arizona weeks primarily in the winter–spring season from November through April. The Scottsdale resort core suits couples and small families who want professional, hotel-adjacent management and an immediately accessible lifestyle rather than the remoter, more rugged character of the high-desert communities to the north.</p>
+
+<h3>Paradise Valley — estate privacy and mountain framing</h3>
+
+<p><strong>Paradise Valley</strong> occupies a unique position in the American residential landscape: it is an incorporated municipality of approximately <strong>14,000 residents</strong> entirely surrounded by Phoenix and Scottsdale, governed by its own town council, and zoned exclusively for <strong>single-family residential development</strong> on lots of one acre or greater. No commercial development. No apartment buildings. No office parks. No retail. The town's entire identity is its residential exclusivity — and the result is a community of <strong>luxury estate homes</strong> framed by views of Camelback Mountain to the north and the Phoenix Mountain Preserve to the west, in a setting that feels genuinely secluded despite sitting less than ten minutes from Scottsdale's resort core. Several of Arizona's most iconic resort hotels sit within or directly adjacent to Paradise Valley's boundaries — the <a href="https://www.marriott.com/hotels/travel/phxpv-the-phoenician-a-luxury-collection-resort-scottsdale/" target="_blank" rel="noopener">Phoenician Resort</a>, the <a href="https://www.montlukecamelback.com/" target="_blank" rel="noopener">Montelucia Resort and Spa</a>, the <a href="https://www.sanctuaryoncamelback.com/" target="_blank" rel="noopener">Sanctuary</a> — which means the resort-grade spa, pool and dining infrastructure is accessible without the owner feeling they live in a resort zone.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1lS53g_rD2DCTmAErQS8FW5nsgnSwoXEi" alt="A Scottsdale villa with mountain views across the valley floor, Arizona desert modern architecture" loading="lazy" width="1600" height="1067" />
+  <figcaption>Mountain views across the valley floor from a Scottsdale desert-modern villa — the unobstructed sight-lines to Camelback and the McDowell range that define Paradise Valley's most coveted lots.</figcaption>
+</figure>
+
+<p>The residential architecture in Paradise Valley runs strongly toward the desert-contemporary and the architecturally distinctive. The town has historically attracted buyers — entertainment figures, technology founders, financial professionals, multi-generational Arizona families — who wanted estate-scale privacy and the best views in the metropolitan area without the noise of the resort corridor. Lot sizes run from one to five acres, pool and spa infrastructure is standard, guest houses and multi-vehicle garages are common, and the walled-and-gated compound format — with the desert landscape brought inside through courtyards and planted atriums — gives properties a sense of seclusion that Scottsdale's tighter urban neighbourhoods cannot replicate. The <strong>Maricopa County property-tax rate</strong> in Paradise Valley is at the standard Arizona residential level; the town itself imposes no additional municipal income tax; and the combination of estate-scale privacy, Camelback Mountain views and immediate proximity to Scottsdale's dining and cultural scene creates a proposition that the buyer who has visited — typically after a stay at one of the adjacent resorts — immediately understands. <a href="https://www.paradisevalleyaz.gov/" target="_blank" rel="noopener">Paradise Valley Town Hall</a> publishes the town's planning and zoning framework transparently; the residential-only zoning is written into the municipal code at the foundational level and cannot be amended without a public vote.</p>
+
+<p><strong>Best for:</strong> buyers who want estate-scale privacy, Camelback Mountain views and architectural distinctiveness as the primary drivers, and who are less interested in walkable proximity to Old Town Scottsdale's commercial activity. Paradise Valley suits buyers building a multi-generational family retreat, design-led couples who treat the architecture as part of the draw, and buyers for whom privacy and the mountain framing matter more than the resort amenity cluster.</p>
+
+<h3>Cave Creek and the high Sonoran Desert</h3>
+
+<p><strong>Cave Creek</strong> sits approximately <strong>40 km (25 miles)</strong> north of Scottsdale's resort core, at the point where the suburban grid of the Phoenix metropolitan area gives way to the genuine high desert of the <strong>Tonto National Forest</strong>. The town has a population of around <strong>5,000 permanent residents</strong>, a deliberately preserved rural character maintained through its own low-density zoning, and a landscape of volcanic ridgelines, stands of mature saguaro, palo verde trees and desert willow that sits in visible, uninterrupted contrast to the manicured resort aesthetic of central Scottsdale. The trade-off — and it is a conscious one for the buyers who choose it — is that Cave Creek asks its residents to accept more raw terrain, longer drives to urban amenity and the daily sight-lines of <strong>undeveloped Sonoran Desert</strong> as the price of genuine seclusion. For a meaningful cohort of Arizona second-home buyers, this trade-off is the point. They are not seeking resort adjacency; they are seeking a direct encounter with the desert landscape — the <strong>silence at night</strong>, the <strong>clear dark-sky conditions</strong> that make Cave Creek one of the premier stargazing locations in the lower 48 states, the saguaro-studded ridgeline visible from the pool, the sound of coyote and quail in the early morning.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1q074LR6DGIXjhAC2qvzeM2vu4eQOqjAr" alt="A Cave Creek Arizona villa with hot tub and saguaro cactus, high Sonoran Desert landscape" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Cave Creek villa with hot tub, framed by saguaro and the volcanic ridgelines of the high Sonoran Desert — the Arizona second-home market's quietest and most elemental address.</figcaption>
+</figure>
+
+<p>The architectural character in Cave Creek runs toward what might be called <strong>authentic desert contemporary</strong> — properties that work with the site rather than imposing on it, using natural stone, concrete, reclaimed wood and rammed earth to blend into rather than contrast with the volcanic and ochre landscape. Lots are large — frequently one to five acres in the residential communities north of the town centre — and properties are positioned to maximise ridgeline and desert views while providing the shaded outdoor rooms and pool-centred courtyard layouts essential for year-round Arizona living. The dining and cultural offer in Cave Creek itself is limited but characterful: the town's <a href="https://www.cavecreek.org/" target="_blank" rel="noopener">historic western main street</a> has a cluster of independent restaurants, art galleries and the annual <strong>Fiesta de los Vaqueros</strong> festival; the <a href="https://www.cavecreekmuseum.com/" target="_blank" rel="noopener">Cave Creek Museum</a> tells the story of the Sonoran Desert's indigenous and pioneer cultures. For more substantial urban amenity, the drive to Scottsdale Fashion Square or Old Town Scottsdale runs to approximately <strong>40 minutes</strong> in normal traffic. The surrounding <a href="https://www.fs.usda.gov/tonto" target="_blank" rel="noopener">Tonto National Forest</a> — the largest national forest in Arizona, covering nearly <strong>3 million acres</strong> — provides immediate access to hiking, mountain biking, equestrian trails and the Cave Creek Regional Park trail system. The <strong>Maricopa Trail</strong>, a 315-mile multi-use trail encircling the Phoenix metro, passes through the Cave Creek area and is one of the finest trail systems accessible from a luxury desert address anywhere in the United States.</p>
+
+<p><strong>Best for:</strong> buyers whose primary draw is the untreated Sonoran landscape — dark-sky stargazing, wildlife, saguaro ridgelines, genuine silence — and who value seclusion and authenticity over resort-adjacent amenity. Cave Creek suits outdoor enthusiasts, design-led buyers who treat the desert itself as the design element, and buyers building a meditative desert retreat rather than a resort pied-à-terre. The longer drive to urban Scottsdale is a feature, not a flaw, for this buyer profile.</p>
+
+<h3>North Scottsdale and the desert golf communities</h3>
+
+<p><strong>North Scottsdale</strong> — the broadly defined zone north of the Loop 101 freeway, encompassing the neighbourhoods of <strong>DC Ranch</strong>, <strong>Silverleaf</strong>, <strong>Grayhawk</strong>, <strong>Troon Village</strong>, <strong>Desert Highlands</strong>, <strong>Pinnacle Peak</strong> and the newer <strong>Eastmark and Desert Ridge</strong> master-planned communities — is the fastest-growing premium residential market in the Greater Scottsdale area and one of the most significant luxury residential build-outs in the United States over the past two decades. Where central Scottsdale and Paradise Valley are mature, built-out markets with limited new inventory, North Scottsdale has seen a sustained programme of planned community development that has created the most comprehensive golf, amenity and resort-adjacent residential offer in Arizona. The hallmark of North Scottsdale's premium communities is the <strong>integration of golf course, trail system, club amenity and custom architecture</strong> into a single planned residential environment — with the McDowell Sonoran Preserve immediately adjacent, providing a permanent natural open-space buffer that no further development can encroach on.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1TKY4KFYQ3W8zA9oM7hRfWg_49jZRCSjZ" alt="A North Scottsdale desert villa with pool and golf course backdrop, Arizona luxury residential" loading="lazy" width="1600" height="1067" />
+  <figcaption>A North Scottsdale villa with pool, the desert golf landscape and McDowell Mountains visible beyond — the master-planned residential communities that define the premium north end of the metropolitan area.</figcaption>
+</figure>
+
+<p><strong>DC Ranch</strong> and <strong>Silverleaf</strong> — a gated community within DC Ranch with a private golf club designed by <strong>Tom Weiskopf</strong> — are among the most exclusive residential addresses in Arizona, with a buyer mix of local Arizona entrepreneurs, out-of-state second-home buyers and the growing cohort of corporate relocations to the Phoenix metro (Goldman Sachs, Apple, Intel, TSMC and others have each established significant Phoenix-area operations in the 2020s, driving demand for executive residential addresses). <strong>Troon Village</strong> and its adjacent golf communities cluster around the world-class <a href="https://www.troonnorth.com/" target="_blank" rel="noopener">Troon North Golf Club</a> — the Tom Weiskopf and Jay Morrish-designed desert golf destination regularly ranked among the finest public-access courses in Arizona — and the <a href="https://www.fourcrossingsgolf.com/" target="_blank" rel="noopener">Four Seasons Scottsdale at Troon North</a> resort. The golf season in Arizona runs year-round, though the peak period — when the courses are most crowded with snowbird visitors and tournament-following guests — runs from October through April. The <strong>WM Phoenix Open</strong> at TPC Scottsdale and the Waste Management Phoenix Open at the Stadium Course, both in February, pull the largest single-week golf-tourism volumes in the state. Drive times from North Scottsdale to <a href="https://www.skyharbor.com/" target="_blank" rel="noopener">Phoenix Sky Harbor International Airport (PHX)</a> run to approximately <strong>30–35 minutes</strong> in normal conditions; Scottsdale Airport (SDL), a smaller general-aviation and regional facility, is more immediately accessible from north Scottsdale for private aviation arrivals.</p>
+
+<p><strong>Best for:</strong> golf-focused buyers who want course-proximate living, buyers drawn to the newer master-planned community infrastructure with club amenity, families looking for the best-equipped residential communities in the metro area, and the growing cohort of buyers relocating or connecting to the Phoenix tech and finance economy. North Scottsdale offers the most complete residential infrastructure in the Arizona premium market — the trade-off being a more suburban character than the raw desert feel of Cave Creek or the estate seclusion of Paradise Valley.</p>
+
+<h3>Sedona — the red-rock context</h3>
+
+<p>No editorial account of Arizona as a second-home destination is complete without acknowledging <strong>Sedona</strong> — and the role it plays in how buyers think about the state, even if the COP inventory is concentrated closer to Phoenix. Sedona sits approximately <strong>190 km (118 miles)</strong> north of Scottsdale along the <strong>Verde Valley</strong>, at an elevation of roughly <strong>1,310 metres (4,300 feet)</strong> in the high desert transition zone between the Sonoran Desert floor and the Colorado Plateau. The town is internationally famous for its <strong>red-rock buttes, mesas and canyon walls</strong> — formations of Permian-era sandstone coloured crimson, orange and purple by iron oxide — that create a visual landscape unlike any other in North America. The <a href="https://www.visitsedona.com/" target="_blank" rel="noopener">Sedona tourism and visitor authority</a> reports more than <strong>3 million visitors per year</strong>, making it one of the most-visited natural destinations in the American Southwest despite a permanent population of fewer than 11,000. The town has a well-developed <strong>arts colony identity</strong> — the <strong>Tlaquepaque Arts and Shopping Village</strong>, more than <strong>80 art galleries</strong>, a thriving spa and wellness industry built around the area's claimed "vortex" energy sites — and a dining and wine-country scene anchored by the Verde Valley's growing wine appellation, which has seen serious Rhône-varietal plantings take root in the past decade. For COP owners based in Scottsdale or Cave Creek, Sedona is a <strong>natural two-hour day trip or overnight excursion</strong> — a counterpoint landscape to the Sonoran valley floor that makes the Arizona second-home base feel even more geographically rich.</p>
+
+<p><strong>Best for:</strong> buyers who treat the Arizona second-home experience as a platform for exploring the broader Southwest landscape — Sedona's red rocks, the Grand Canyon, Monument Valley — rather than remaining anchored to the resort corridor. The Sedona day-trip distance from Scottsdale is one of the Arizona desert second-home market's underrated advantages over comparable desert destinations.</p>
+
+</div></section>
+
+<!-- §C A YEAR — cream -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>A year in your Arizona co-ownership home</h2>
+
+<p>Spreading <strong>45 days of use</strong> across the Arizona calendar is a planning exercise defined by the desert's distinctive seasonal split: the <strong>comfortable season</strong> — roughly October through April — when the climate is among the finest in North America, and the <strong>summer season</strong> — May through September — when the desert heat is extreme but the property is perfectly maintained for the next arrival. The fair-rotation calendar ensures every co-owner receives a <strong>fair allocation of peak-demand weeks</strong> across the most coveted winter–spring period, with owners who have calendar flexibility able to leverage the quieter October and April shoulder weeks to maximise their effective days in the desert. Arizona is not a single-season destination for the thoughtful owner: each quarter of the comfortable season has its own character, events calendar and outdoor opportunity.</p>
+
+<h3>Spring (March–May)</h3>
+
+<p>Spring is <strong>Arizona's most spectacular season</strong> and the period that most experienced owners identify as their favourite. March brings the full flourishing of the Sonoran Desert's brief wildflower season — desert marigolds, owl clover, brittlebush and the dramatic blooms of the <strong>saguaro cactus</strong>, which flowers in May at the very top of each arm — in a natural display that runs across the preserve lands around Cave Creek and the McDowell Sonoran Preserve simultaneously. Temperatures in March are at their most consistently pleasant: <strong>22–26°C (low to high 70s°F)</strong> daily highs, clear skies, and the warm-but-not-hot quality that makes outdoor dining, hiking and pool-use all simultaneously appealing. The <strong>WM Phoenix Open</strong> at TPC Scottsdale — the professional golf tournament that consistently attracts more spectators than any other in the world — runs in the first or second week of February, typically drawing crowds of more than <strong>200,000 across the week</strong> and filling the resort hotels and short-term rental market across central Scottsdale. February and March also anchor the <strong>Cactus League spring training baseball</strong> season, when all fifteen Cactus League teams — including the Chicago Cubs at Sloan Park in Mesa, the San Francisco Giants at Scottsdale Stadium, and the Colorado Rockies at Salt River Fields — are in the metro area for pre-season play, giving the Phoenix sports calendar a February–March intensity that rivals any comparable US metro. The <a href="https://www.BarrettJackson.com/" target="_blank" rel="noopener">Barrett-Jackson collector-car auction</a> in Scottsdale in January — one of the most significant automotive events in the world — is another early-season anchor that brings an affluent, design-conscious buyer population to the city precisely when the winter-second-home market is at its most active.</p>
+
+<p>By April, Scottsdale temperatures are climbing through <strong>28–32°C (low to high 80s°F)</strong>, the pool is in full daily use, and the hiking season on the <a href="https://www.scottsdaleaz.gov/parks/mcdowell-sonoran-preserve" target="_blank" rel="noopener">McDowell Sonoran Preserve trails</a> — best managed as morning or late-afternoon activity rather than midday — is at its most visually rewarding, with the saguaro blooms and the flowering palo verde trees turning the desert a vivid yellow-green before the summer heat arrives. The <strong>Scottsdale Culinary Festival</strong> in April and the broader spring-season restaurant calendar across <a href="https://www.experiencescottsdale.com/" target="_blank" rel="noopener">Old Town Scottsdale</a> and the resort corridor make spring the best time of year for the dining-focused owner. May marks the transition into summer — <strong>35–40°C (95–104°F)</strong> by late May — but the early morning and evening windows remain manageable, and the desert landscape in full late-spring flowering is genuinely extraordinary.</p>
+
+<h3>Summer (June–August)</h3>
+
+<p>Summer in the Sonoran Desert is <strong>extreme by any measure</strong>: daytime highs of <strong>40–45°C (104–113°F)</strong> are the norm from June through August, with overnight lows rarely dropping below <strong>28°C (82°F)</strong> even in the coolest hours. This is Arizona's natural off-season, and the practical implication for fractional owners is important: most owners do not schedule their peak use weeks in July and August, and the property is maintained in full operational condition — pool serviced, HVAC running — through the summer regardless of occupancy. The Arizona summer does have one genuine seasonal character note: the <strong>monsoon season</strong>, which runs from mid-June through September and brings dramatic afternoon and evening thunderstorms to the desert. The pre-monsoon lightning shows over the Superstition Mountains east of Phoenix are among the most photographically spectacular natural phenomena in the continental United States, and the rain that follows — <strong>50–60% of Phoenix's annual rainfall</strong> arrives in the monsoon season — turns the desert briefly lush, bringing a second smaller wave of wildflower blooms in August. For owners who are present in June or September — the shoulder weeks of the summer season, when temperatures are slightly more manageable — the monsoon landscape is a completely different visual experience from the dry-winter desert, and one that owners returning in November are always glad they saw. The <a href="https://www.arizonascenicroutes.com/" target="_blank" rel="noopener">Arizona Scenic Roads</a> programme documents the red-rock and canyon drives accessible from Scottsdale that are genuinely spectacular in the post-monsoon light of September and October.</p>
+
+<h3>Autumn (September–November)</h3>
+
+<p>Autumn is <strong>Arizona's quietly best-kept season</strong> — the equivalent of the shoulder-season argument made for Mediterranean Europe — and the period that the most experienced Arizona second-home owners privately guard. The reasoning is straightforward: temperatures drop through October from the summer extremes to the genuinely comfortable <strong>26–30°C (low to high 80s°F)</strong> range, with November settling into the <strong>20–24°C (high 60s°F to mid-70s°F)</strong> range that will carry through the winter season. The resort and restaurant scene re-opens at full capacity after the summer; the golf season re-activates; the hotel pools and spa programmes move back to full programming. The <strong>October shoulder weeks</strong> sit in what experienced owners describe as a perfect window: warm enough for pool and outdoor dining without the risk of summer heat, cool enough for comfortable hiking, and free of the February–March crowd peaks that come with the WM Phoenix Open and the spring training season. The Cave Creek area is particularly fine in October and November — the desert light in the angle of the autumn sun, falling on saguaro stands and volcanic ridgelines, has a quality that photographers and visual artists have documented for decades, and the <strong>Cave Creek Music and Art</strong> community begins its autumn gallery season in October, with openings and events through the winter months. <strong>Thanksgiving</strong> — the fourth Thursday in November — is one of the most popular owner-use periods across the Arizona second-home market, with the full family gathering capacity of a large desert villa, the outdoor dining and pool weather still cooperative, and the golf and hiking calendar at its most accessible for the mixed-generation household.</p>
+
+<h3>Winter (December–February)</h3>
+
+<p>Winter is <strong>Arizona's high season</strong> — the period when the "snowbird" migration from the northern US and Canada reaches its annual peak, resort occupancy runs at maximum, the Scottsdale dining and nightlife scene operates at its most vibrant, and the long-established pattern of <strong>winter in the desert</strong> as an annual ritual reasserts itself across three generations of American and increasingly international second-home culture. The weather in December and January delivers the precise conditions that make the Sonoran Desert winter famous: <strong>18–22°C (mid-60s°F to low 70s°F)</strong> daily highs, clear blue skies, minimal humidity, cool evenings in the <strong>8–12°C (mid-40s°F to low 50s°F)</strong> range that make the outdoor firepit or the villa's gas fire a natural evening focal point. This is the season when the contrast between Arizona's desert warmth and a February morning in Chicago, Toronto or London is most starkly felt — and most clearly monetised in the second-home market. The <a href="https://www.arizonabiltmore.com/" target="_blank" rel="noopener">Arizona Biltmore</a>, Scottsdale's historic winter resort hotel designed by a student of Frank Lloyd Wright and opened in 1929, embodies the history of the Arizona winter season in a single building; the tradition it represents is now almost a century old, and the second-home culture around it has only deepened in sophistication since. The <strong>Barrett-Jackson Scottsdale auction</strong> in January and the <strong>WM Phoenix Open</strong> in early February anchor the mid-winter calendar; the <strong>Scottsdale Arts Festival</strong> in March, the <strong>Phoenix Open de México</strong>, and the Cactus League spring training through February–March carry the season through to the April shoulder. For owners who can use their December and February peak weeks, the Arizona winter second-home offer is as strong as any in the continental United States.</p>
+
+</div></section>
+
+<!-- §D WHO BUYS — white -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Who buys in Arizona, and why</h2>
+
+<p>The buyer mix in the Greater Scottsdale and Phoenix luxury second-home market has shifted materially over the past decade, and the shift illuminates why fractional ownership has found a particularly receptive audience here. The <strong>traditional Arizona snowbird buyer</strong> — a retired or semi-retired couple from the upper Midwest (Chicago, Minneapolis, Detroit, Cleveland) or Canada (Toronto, Calgary, Vancouver) who purchases a winter home in Scottsdale for November-through-April use — remains a significant cohort, but it now sits alongside a newer and younger cohort of <strong>active professionals</strong>, many of them drawn by the post-2020 corporate migration of major financial and technology employers to the Phoenix metro. <a href="https://www.phoenix.gov/" target="_blank" rel="noopener">The City of Phoenix</a> has been one of the fastest-growing major metros in the United States for the past decade; the arrival of Goldman Sachs's Phoenix operations centre, TSMC's new semiconductor fabrication plant, Apple's supplier hub and Intel's Chandler campus has created an executive residential demand that runs year-round rather than seasonally, and has given the Scottsdale premium market a new buyer profile — younger, often with international connections, less focused on the snowbird winter rhythm and more interested in year-round quality of life. <strong>British, European and Australian buyers</strong> are a growing international component, drawn by the direct <a href="https://www.skyharbor.com/" target="_blank" rel="noopener">Phoenix Sky Harbor International Airport (PHX)</a> connections (British Airways, Aeromexico and multiple US carriers offer connections from London Heathrow via New York and Dallas, with total journey times from central London of approximately <strong>14–16 hours</strong>), the English-language environment and the practical absence of a Schengen restriction — UK nationals can visit Arizona on a US ESTA for up to <strong>90 days per trip</strong> with no annual accumulation rule governing repeat visits, removing the planning friction that a comparable European second-home imposes post-Brexit.</p>
+
+<p>Fractional ownership in Arizona typically suits a well-defined set of buyer profiles:</p>
+
+<ul>
+  <li><strong>Snowbird couples and families from the upper Midwest and Canada</strong> — buyers from Chicago, Minneapolis, Toronto or Calgary who have been renting in Scottsdale for five or more winters, whose actual use pattern is concentrated in December through March, and whose annual rent bill has reached the point where the maths of building equity versus paying rent has tipped decisively. The fully managed structure removes the operational complexity of managing a US vacation property from Canada or the northern states.</li>
+  <li><strong>Golf-focused buyers</strong> — active golfers who treat the Scottsdale and North Scottsdale course access (Troon North, Desert Highlands, Grayhawk, Gainey Ranch) as the primary draw. The Arizona golf season — at its peak from October through April, with the courses at their finest — aligns precisely with the comfortable-weather calendar, and the concentration of <strong>200+ courses</strong> in the metro area gives a golf-focused owner a practically inexhaustible rotation. The WM Phoenix Open week in February is a particularly high-demand window for this cohort.</li>
+  <li><strong>Design-led buyers drawn to desert-modern architecture</strong> — buyers for whom the Frank Lloyd Wright Taliesin West legacy, the desert-contemporary residential architecture of Paradise Valley and Cave Creek, and the connection to the Sonoran landscape are primary draws. This cohort overlaps with buyers interested in the <a href="https://franklloydwright.org/site/taliesin-west/" target="_blank" rel="noopener">annual Taliesin West lecture series</a>, the Scottsdale arts community, and the architectural heritage of the mid-20th-century resort hotels. Disproportionately European in their origin.</li>
+  <li><strong>Active outdoor enthusiasts</strong> — buyers whose primary draws are the <a href="https://www.scottsdaleaz.gov/parks/mcdowell-sonoran-preserve" target="_blank" rel="noopener">McDowell Sonoran Preserve trails</a>, the Cave Creek and Tonto National Forest hiking and mountain-biking network, the Camelback Mountain hiking routes, and the broader Southwest day-trip network (Sedona, the Grand Canyon, the Superstition Mountains). This cohort values Cave Creek or North Scottsdale access as much as the resort core.</li>
+  <li><strong>Multi-generational families with winter reunion traditions</strong> — four- and five-bedroom villas in Scottsdale or Cave Creek that sleep grandparents, parents and grandchildren for a shared Thanksgiving, Christmas or spring-break week. The large outdoor living area, the pool, the desert landscape and the family-activity calendar (hiking, golf, baseball spring training) make Arizona one of the most functional multi-generational second-home markets in the United States.</li>
+  <li><strong>COP portfolio builders</strong> — owners who already hold a European or California share and who see an Arizona winter share as the complementary piece of a multi-region portfolio. The most common Arizona-plus-elsewhere pairings are an Arizona winter share with a French Alps ski share (complementary seasons, opposite climates), an Arizona winter share with a Mallorca or Italian Lakes summer share, or an Arizona spring share with a Colorado ski-season share. The LLC framework makes the multi-destination portfolio operationally coherent.</li>
+  <li><strong>Corporate buyers and career relocators</strong> — professionals with significant connections to Phoenix's growing corporate economy who want a permanent-but-flexible base in the metro area, without the full capital and operational commitment of sole outright ownership. The fractional structure gives this buyer a professional home base during business trips and a leisure base for family visits, with the management overhead handled entirely by the professional team.</li>
+</ul>
+
+<div class="dest-callout">
+  <strong>The portfolio pattern:</strong> Arizona is one of the most natural starting points for COP owners who go on to pair a North American winter share with a European summer or ski share. The Arizona October–April comfortable season aligns with the French Alps and Colorado ski windows; the Arizona spring pairs naturally with Italian Lakes or Mallorca summer shares; and the LLC framework makes the multi-region portfolio coherent from one consolidated ownership relationship rather than multiple country-specific arrangements.
+</div>
+
+<p>What unites these diverse buyer profiles is a single underlying calculation: the weeks each of them actually uses in Arizona falls within — or close to — the <strong>six to seven weeks</strong> a 1/8 share delivers, the operational overhead of managing a luxury Arizona desert property from a distant home base is non-trivial (pool service, HVAC management and landscape maintenance continue year-round regardless of the owner's presence), and the <strong>resale liquidity of a professionally managed fractional share</strong> is — in experience across the portfolio — materially superior to the liquidity of a whole sole-ownership property at the same address. Our team can walk through which Arizona sub-zone best fits your specific use pattern before you commit to a property; the honest answer — Cave Creek or central Scottsdale or North Scottsdale — often depends less on budget and more on what you actually want to do on a Tuesday morning in February.</p>
+
+</div></section>
+
+<!-- §E PRACTICALITIES — cream -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Getting there — Arizona airports and ground access</h3>
+
+<p><strong>Phoenix Sky Harbor International Airport (PHX)</strong> is the primary gateway for all Greater Scottsdale and Phoenix metro destinations, and one of the largest and most efficiently managed airports in the United States. It sits approximately <strong>25 minutes</strong> from central Scottsdale and Old Town, <strong>35 minutes</strong> from the North Scottsdale golf communities, and <strong>45–55 minutes</strong> from Cave Creek in normal traffic. <a href="https://www.skyharbor.com/" target="_blank" rel="noopener">PHX</a> handles more than <strong>22 million passengers per year</strong> and offers direct domestic service from every major US hub — New York (JFK, LGA, EWR), Los Angeles (LAX), Chicago (ORD, MDW), Dallas (DFW, DAL), Atlanta (ATL), Denver (DEN), Seattle (SEA), Miami (MIA), Boston (BOS), Washington DC (DCA, IAD) and all other significant US cities. International direct or one-stop service connects PHX to London (via Dallas or New York on American and British Airways), Frankfurt, Mexico City, Cancún, London Gatwick, Amsterdam, Toronto, Calgary, Vancouver and multiple other international gateways. The combination of PHX's size and the one-stop reach to London, Frankfurt and Amsterdam gives Arizona a practical flight-accessibility picture that most second-tier US destinations cannot match: a buyer from London can arrive at Scottsdale in approximately <strong>15–16 hours</strong> door-to-door via a single connection.</p>
+
+<p><strong>Scottsdale Airport (SDL)</strong> is a general-aviation and regional commercial facility approximately <strong>5 minutes</strong> from central Scottsdale, handling private aircraft and charter arrivals for the resort market. For owners arriving by private aviation, SDL is the natural Arizona gateway, with Scottsdale FBOs (Fixed-Base Operators) providing full private-aviation services. <strong>Phoenix-Mesa Gateway Airport (AZA)</strong>, on the south-east edge of the metro, handles Allegiant Air services from smaller US cities and some seasonal routes; it is less relevant to the premium second-home market. <strong>Drive times from PHX</strong> to the principal sub-zones: <strong>PHX to central Scottsdale</strong> — 25 minutes; <strong>PHX to Paradise Valley</strong> — 25 minutes; <strong>PHX to North Scottsdale (DC Ranch / Troon)</strong> — 35 minutes; <strong>PHX to Cave Creek</strong> — 45–55 minutes; <strong>PHX to Sedona</strong> — 1 hour 50 minutes to 2 hours. No inter-city rail or shuttle infrastructure of significant relevance exists in the Phoenix metro; the standard arrival and departure pattern is either private car, rental car, or an Uber/Lyft from PHX to the villa.</p>
+
+<h3>What it costs — the comparison that matters</h3>
+
+<p>The case for a fractional structure in Arizona is most clearly illustrated in a direct side-by-side comparison against both whole ownership and long-term rental across the Greater Scottsdale and Cave Creek luxury market. Sole ownership of a Paradise Valley estate, a North Scottsdale golf-community villa or a Cave Creek desert retreat commits a buyer to the full property value as upfront capital, the full annual carry as a running cost, and the full operational burden of managing a premium Arizona property from a distant home base — whether the owner spends four weeks per year in the desert or twelve. The fractional structure distributes those costs across eight owners; the 1/8 share delivers the access the owner will actually use, at roughly 1/8 the capital commitment and carry, with the operational burden removed entirely.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full Maricopa County property tax, insurance, pool, HVAC, landscaping, management</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Arizona flat income tax</td>
+      <td data-col="Whole second home">2.5% flat rate on Arizona-sourced income</td>
+      <td data-col="COP 1/8 share">Same rate — proportionate to 1/8 share</td>
+      <td data-col="Long-term rental">Landlord's exposure, not yours</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 6–10)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">6–24 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The comparison that Arizona buyers find most compelling is the <strong>annual carry versus actual use</strong> calculation. A whole villa in Paradise Valley or a Cave Creek desert estate carries full <strong>Maricopa County property tax</strong> (approximately 0.5–0.7% of assessed value annually for residential luxury properties, lower than California's Prop 13 base rate), full homeowners insurance, full pool and spa service (a year-round requirement in Arizona regardless of the owner's presence — algae growth and equipment damage during the summer heat require continuous maintenance even with no one in the property), full HVAC service (critical in the Arizona summer — air-conditioning systems in desert-modern villas must run continuously to prevent damage to finishes, wood and electronics during the hottest months), landscaping and irrigation, concierge and property-management retainer, and any HOA fees in the master-planned communities of North Scottsdale. A 1/8 fractional share carries proportionally less in every line, fully managed, with the operational burden removed. Compared to renting an equivalent Arizona property on a seasonal long-term lease — a well-established market across Scottsdale's snowbird economy — the fractional buyer builds real equity rather than burning rent, and the share is theirs to sell, transfer or pass on at any time.</p>
+
+<p>The time-to-exit comparison is also relevant in the Arizona prime tier. The buyer pool for whole properties at the top of the Paradise Valley or North Scottsdale market is well-informed and patient; a premium villa in these markets can sit on the open market for <strong>12–18 months</strong> before transacting in a neutral market, with the carrying costs of holding through a slow sale representing a meaningful fraction of the sale price. A fractional share typically clears in <strong>around a month or less</strong> — the buyer pool is already familiar with the property and the LLC structure, and the transfer of an LLC membership interest is a more direct administrative action than a full Arizona-deed conveyance.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual carry on a 1/8 Arizona share is, by definition, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — which means it is a fraction of what an outright Arizona second-home owner pays in property tax, insurance, management and maintenance. The included items typically run to: <strong>Maricopa County property tax</strong> on the LLC's property interest; <strong>homeowners insurance</strong>; pool and spa service (year-round — this cannot be suspended during the summer absence without risking equipment damage); landscape maintenance and irrigation; HVAC servicing and utility management through the Arizona summer; cleaning and linen between every stay; the full property-management retainer covering staff, scheduling and owner relationship; alarm monitoring and security; utility bills; <strong>HOA fees</strong> where the property sits within a master-planned community; and a contribution to the <strong>reserve fund for major capital works</strong>. What is typically <strong>not included</strong>: large capital improvements (pool resurfacing, full HVAC replacement, structural work) decided at the LLC annual general meeting and funded from the reserve fund or a one-off levy; personal staff costs beyond the standard management service (a private chef for a specific stay, specialised transfers beyond the standard arrival service); damage caused by an owner's own use; and unusually high utility consumption during peak personal stays.</p>
+
+<h3>What you actually own — the legal share</h3>
+
+<p>Every Arizona property on COP is held in a <strong>purpose-built LLC</strong> — the same modern international ownership vehicle used across the COP portfolio — in which you and up to seven co-owners hold <strong>equal LLC membership interests</strong>. The underlying Arizona property is held by the company, with the title recorded at the <strong>Maricopa County Recorder's Office</strong>, and your membership interest recorded in the company's register. What you hold is a <strong>real, transferable equity interest</strong> — not a timeshare use-right that depreciates to zero when the contract expires, not a points membership, not a fractional holiday club. The <a href="https://azsos.gov/business/business-services/llcs" target="_blank" rel="noopener">Arizona Corporations Commission</a> provides the legal framework for LLC governance in the state; the <a href="https://recorder.maricopa.gov/" target="_blank" rel="noopener">Maricopa County Recorder</a> maintains the documentary record of property title; and the combination gives Arizona co-ownership a clean, well-governed ownership foundation. Arizona's LLC framework is straightforward and well-established, and the <strong>absence of a state estate tax or inheritance tax</strong> means the transfer of LLC membership interests on the owner's death is governed exclusively by the owner's home-jurisdiction estate arrangements rather than by an additional Arizona-specific layer.</p>
+
+</div></section>
+
+<!-- §F HOW FRACTIONAL OWNERSHIP WORKS — white -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works in Arizona</h2>
+
+<p>The mechanics of fractional ownership in Arizona are framed by <strong>four elements that work together</strong>: the <strong>purpose-built LLC ownership structure</strong> that holds every property in the COP portfolio, the <strong>Arizona property-tax system</strong> administered by Maricopa County, the <strong>state's modern LLC framework</strong> that governs the company, and the <strong>professional management infrastructure</strong> that handles the operational reality of a high-maintenance desert property from the day of purchase onwards. Understanding how these four elements combine is what separates a confident Arizona ownership experience from one burdened by uncertainty.</p>
+
+<h3>How the LLC structure holds Arizona property</h3>
+
+<p>The LLC that holds each Arizona property is a <strong>purpose-built company</strong> — registered in Arizona or a related US jurisdiction and designed specifically for international and multi-state shared ownership. It has a managing member or officer appointed under the operating agreement, a <strong>register of members</strong> recording who holds which interest and in what proportion, and an <strong>annual general meeting</strong> at which co-owner-level decisions — major capital works, budget approval, management review — are made by the owner group. The same LLC framework runs across every property in the COP portfolio in the <strong>United States, the United Kingdom, France, Spain, Italy</strong> and elsewhere — meaning an owner adding a second property in another COP destination is <strong>not encountering a new ownership structure each time</strong>, but extending one they already understand from the Arizona purchase.</p>
+
+<p>For the fractional buyer in Arizona, the practical effect is that you become a <strong>registered member of the LLC</strong> that owns the property. The property itself remains Arizona real estate — recorded at the Maricopa County Recorder — and you, in turn, are a legal member of the LLC that holds it. What you hold is a <strong>transferable equity interest</strong> in the underlying real estate — not a timeshare use-right, not a points-club membership. This gives the Arizona co-ownership structure a <strong>consistent international format</strong>, a <strong>cleaner inheritance treatment</strong> than directly deeded real estate (LLC membership interests pass as personal property of the owner's home jurisdiction rather than requiring Arizona ancillary probate), and a <strong>faster resale path</strong> compared to a full Arizona deed-and-title conveyance.</p>
+
+<h3>Arizona property tax and the annual service charge</h3>
+
+<p><strong>Arizona property tax</strong> is among the lowest of any US Sun Belt state for residential luxury property. The base assessment rate for owner-occupied residential properties in <strong>Maricopa County</strong> is approximately <strong>10% of full cash value</strong> (a reduced ratio applied to residential primary and secondary properties), and the county millage rate results in an effective annual property-tax burden well below that of comparable California, New York or Illinois addresses at equivalent value levels. The LLC's Arizona CPA handles the annual assessment and payment; individual co-owners do not deal with the county assessor directly. Arizona also has <strong>no state estate tax</strong> and no inheritance tax at the state level — a structural advantage for non-Arizona-resident owners who hold the property through LLC membership interests, as the transfer on death is governed by their home-state or home-country estate arrangements rather than by an additional Arizona-specific inheritance tax layer. The state's <strong>2.5% flat income-tax rate</strong> — the lowest flat income-tax rate of any US state as of 2023 — applies to Arizona-sourced income; it is not typically triggered by the mere holding of an LLC membership interest in a personal-use vacation property, but co-owners should review the specific position with their own tax advisors in their home jurisdictions.</p>
+
+<h3>Inheritance and the Arizona LLC structure</h3>
+
+<p>Directly held Arizona real estate is subject to <strong>Arizona probate</strong> on the owner's death, and for non-Arizona residents, ancillary probate in Arizona is typically required alongside the primary probate in the deceased's home state or country. <strong>LLC membership interests</strong> are treated as personal property of the deceased's home jurisdiction rather than as Arizona real estate, which generally avoids Arizona ancillary probate entirely and clears through the home-state or home-country inheritance process. The LLC's operating agreement can also include successor-member provisions — the standard estate-planning mechanism for non-Arizona second-home owners — that allow designated heirs to step into the membership interest without triggering a full probate process. This is an individual and jurisdiction-specific area; any buyer should review the specific position with their own legal and tax advisors in their home jurisdiction before completing a purchase. The general observation — that the LLC wrapper is simpler to inherit than directly titled real estate in an out-of-state jurisdiction — is consistently reported by estate-planning professionals who work with non-Arizona second-home owners.</p>
+
+<h3>The professional management model and how the calendar works</h3>
+
+<p>Once the purchase completes, a <strong>professional management company</strong> takes over all operational responsibility for the Arizona property. Your personal weeks — <strong>approximately 45 days</strong> for a 1/8 share — are allocated through a <strong>fair-rotation calendar</strong> that mixes peak-demand weeks (the January Barrett-Jackson auction week, the February WM Phoenix Open week, the Thanksgiving and Christmas–New Year windows, the March spring training baseball season) with shoulder and quieter weeks across the year. Owners pre-book several months ahead within the framework of the rotation; unused weeks in the pool are available for additional booking windows where the property's structure allows. <strong>Pool and spa service, HVAC management, landscape and irrigation maintenance, pre-arrival preparation, cleaning and linen between every stay, on-call concierge, utility bills, insurance and property-tax compliance, HOA management where applicable, and all maintenance management</strong> — all sit with the professional management team. You arrive; the property is ready.</p>
+
+<p>The Arizona management overhead is worth noting specifically: unlike a coastal or alpine property that can be largely winterised or low-maintenance in the off-season, an Arizona luxury desert property requires year-round active management. The <strong>pool cannot be simply closed</strong> — algae and equipment damage in the summer heat require continuous treatment. The <strong>HVAC must run</strong> to protect finishes, hardwoods, electronic systems and contents from extreme heat damage during the hottest months. The <strong>landscape requires continuous irrigation</strong> through the summer drought period. This year-round management overhead is a genuine complexity for sole owners managing a remote vacation property; for fractional co-owners, it is simply part of the annual service charge, handled without any owner involvement.</p>
+
+<h3>Resale: how to exit, typical timelines, the professional process</h3>
+
+<p>When you decide to exit your Arizona share, a <strong>professional resale process</strong> is in place. Across the COP portfolio, the typical timeline from listing to completion is <strong>around a month or less</strong> — well below the 6–18 months that whole-property resales in the Arizona prime tier typically take in a neutral market. The resale process is well-supported; the buyer pool for an established COP property is already familiar with the property and the LLC structure; and the administrative mechanics of transferring an LLC membership interest are lighter than triggering a full Arizona-deed conveyance through an escrow company. For owners who want to maximise price and have a specific buyer in mind, an open-market transfer to any qualifying buyer remains available; most find the established resale path faster and with lower carrying-cost exposure during the interim. The full mechanics of resale across all COP jurisdictions are covered in our <a href="/co-ownership-explained/" target="_blank" rel="noopener">co-ownership explained guide</a>.</p>
+
+<div class="dest-callout">
+  <strong>Free to browse, free to enquire:</strong> no buyer-side fees and no obligation. The share price you see is the share price you pay; talking to our team costs nothing and carries no commitment.
+</div>
+
+<p>For specific Arizona property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market. Our team can walk you through the differences between the four Arizona sub-zones — Scottsdale's resort core, Paradise Valley's estate privacy, Cave Creek's high-desert seclusion, and North Scottsdale's golf-community offer — and help match the right cluster to your specific use pattern before you commit to a property.</p>
+
+<h3>Your ownership at a glance</h3>
+
+<ul>
+  <li><strong>Real, deeded equity in your name</strong> — your 1/8 share is recorded in Arizona's Maricopa County property system via the LLC, transferable, inheritable, and it appreciates with the underlying property. Not a timeshare, not a points membership, not a usage right.</li>
+  <li><strong>Consistent international structure</strong> — your Arizona share sits inside the same purpose-built LLC framework used across every property in the COP portfolio, so multi-country owners deal with one model rather than a stack of different vehicles, with the same documentation cadence whether you own in Scottsdale or the French Alps.</li>
+  <li><strong>Fully managed throughout</strong> — the professional management team handles Maricopa County property tax, insurance, pool and spa service, HVAC management, landscape, scheduling, linen, the on-call concierge and all maintenance. You arrive; the property is ready.</li>
+  <li><strong>Supported resale through the COP owner network</strong> — when you decide to exit, a professional resale process is in place, with exits across the portfolio typically clearing in around a month at a known price rather than the 6–18 months a comparable whole Arizona property might take in a neutral open market.</li>
+  <li><strong>Designed for international portfolios</strong> — the LLC model means owning across multiple COP destinations becomes one consolidated relationship rather than a stack of country-specific structures; Arizona's winter season pairs naturally with European summer and ski shares in the same portfolio framework.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-faq-sec"><div class="dest-inner">
+<p class="dest-eyebrow">Questions &amp; Answers</p>
+<h2>Arizona Fractional Ownership — Frequently Asked Questions</h2>
+<div class="dest-faq-list">
+
+<details class="dest-faq-item">
+<summary><h3>What is fractional ownership in real estate, and how does it differ from a timeshare?</h3><div class="dest-faq-chevron"></div></summary>
+<div class="dest-faq-answer"><p>Fractional ownership in real estate means <strong>co-owning a vacation property</strong> with a small group of buyers — typically eight in total — where each owner holds a <strong>deeded 1/8 share</strong> of the property through an LLC membership interest. Unlike timeshares, fractional ownership gives you <strong>actual equity in the property</strong>, shared appreciation, and approximately <strong>45 days of personal use per year</strong> through a professionally managed rotation calendar. All maintenance, pool service, HVAC management, property tax, insurance and operational costs are handled professionally and covered in the annual service charge, shared proportionally among co-owners.</p>
+<p>A timeshare, by contrast, sells you a <em>use-right</em> — the right to occupy a property for a specific week or period each year, on a fixed-term contract that typically has no resale value and carries an annual maintenance fee that can escalate independent of the property's worth. A COP fractional share is a <strong>registered equity stake in the underlying real estate</strong>, held through an LLC: it is transferable to any qualifying buyer, inheritable by your heirs, appreciates with the property's market value, and resells through a professional process. It is the structural opposite of a timeshare.</p></div>
+</details>
+
+<details class="dest-faq-item">
+<summary><h3>What is the best time of year to use an Arizona fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary>
+<div class="dest-faq-answer"><p>Arizona's luxury second-home season runs from <strong>October through April</strong> — the period when the Sonoran Desert delivers its world-famous winter climate: <strong>18–24°C (mid-60s°F to mid-70s°F)</strong> daily highs, virtually zero rainfall, and the clear blue-sky conditions that define the "snowbird" experience. Within that comfortable season, the peak demand weeks are the <strong>WM Phoenix Open</strong> (early February), the <strong>Barrett-Jackson auction</strong> (January), <strong>Cactus League spring training baseball</strong> (February–March), and the <strong>Thanksgiving and Christmas–New Year</strong> holiday windows.</p>
+<p>The fair-rotation calendar that governs owner use across a 1/8 share ensures that every co-owner receives access to a fair proportion of peak-demand weeks across a multi-year cycle — no single owner permanently holds the February Open week while others receive only shoulder-season allocations. Owners with calendar flexibility who can use October, early November, late March and April — the shoulder of the comfortable season — often find these weeks deliver near-perfect conditions with fewer crowds, better restaurant availability and a more residential character across the Scottsdale and Cave Creek communities. Summer weeks (June–August) are part of the rotation at a reduced weighting, reflecting the extreme desert heat during those months.</p></div>
+</details>
+
+<details class="dest-faq-item">
+<summary><h3>How much does Arizona fractional ownership cost, and what is included?</h3><div class="dest-faq-chevron"></div></summary>
+<div class="dest-faq-answer"><p>The share price for a COP 1/8 fractional interest represents approximately <strong>1/8 of the underlying property's full market value</strong> — you are buying a proportionate equity stake in the Arizona real estate, not a fixed-price product. Across the Greater Scottsdale, Paradise Valley and Cave Creek premium desert market, that translates to shares in architecturally significant desert-modern villas with pool, spa and full resort-quality outdoor living infrastructure. Browse the current listings above to see specific properties and prices, or join our list for new properties as they come to market.</p>
+<p>The annual service charge covers <strong>Maricopa County property tax, homeowners insurance, year-round pool and spa service, HVAC management, landscape and irrigation maintenance, professional management fees, cleaning and linen for each stay, utility bills, alarm monitoring, and contributions to the reserve fund for major capital works</strong>. In total, the annual carry on a 1/8 Arizona share is roughly <strong>1/8 of what a sole owner at the same address would pay in taxes, insurance, management and maintenance</strong> — fully managed, with no additional invoices for routine operating costs. There are no buyer-side fees for enquiring or for working with our team; the share price you see is the share price you pay.</p></div>
+</details>
+
+</div>
+</div></section>
+
+<section class="dest-explore-sec"><div class="dest-explore-inner">
+<p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p>
+<h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2>
+<div class="dest-explore-grid">
+  <a href="/usa-fractional-ownership-properties/" class="dest-explore-card">USA Fractional Ownership &rarr;</a>
+  <a href="/palm-springs-fractional-ownership-desert-modern-luxury/" class="dest-explore-card">Palm Springs &rarr;</a>
+  <a href="/california-fractional-ownership-properties/" class="dest-explore-card">California Fractional Ownership &rarr;</a>
+  <a href="/colorado-fractional-ownership-properties/" class="dest-explore-card">Colorado Fractional Ownership &rarr;</a>
+  <a href="/how-it-works/" class="dest-explore-card">How Co-Ownership Works &rarr;</a>
+</div>
+</div></section>
+
+</body>
+</html>

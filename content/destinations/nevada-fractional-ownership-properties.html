@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nevada Fractional Ownership Properties | Co-Ownership Property</title>
+  <meta name="description" content="Co-ownership properties in Nevada from COP — deeded fractional ownership on the Nevada shore of Lake Tahoe, Incline Village and Crystal Bay. No state income tax, no estate tax. Professionally managed, 6–7 weeks of personal use per year, real equity in the most tax-advantaged alpine lake address in the United States.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+a{color:inherit;text-decoration:none;transition:color var(--transition)}
+img{display:block;max-width:100%;height:auto}
+
+/* ===== SITE-WIDE HEADER ===== */
+.cop-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    height: 80px;
+    box-sizing: border-box;
+    transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+    border-bottom: 1px solid rgba(201,168,76,0.18);
+}
+.cop-header.scrolled {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+    border-bottom: 1px solid rgba(201,168,76,0.18);
+}
+.cop-logo { flex-shrink: 0; }
+.cop-logo a { display: block; }
+.cop-logo img { height: 54px; width: auto; display: block; }
+.cop-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0;
+    align-items: center;
+}
+.cop-nav a {
+    color: rgba(44,74,94,0.8);
+    font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.84rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative;
+    padding: 0.4rem 1.4rem;
+    white-space: nowrap;
+    transition: color 0.25s ease;
+    text-decoration: none;
+}
+.cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+.cop-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 1.4rem; right: 1.4rem;
+    height: 1px;
+    background: rgba(201,168,76,1);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.28s ease;
+}
+.cop-nav a:hover,
+.cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+.cop-nav a:hover::after,
+.cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+.cop-nav a.cop-nav-favourites::before {
+    content: '\2665\00a0\00a0';
+    font-size: 0.75rem;
+    color: rgba(201,168,76,1);
+    opacity: 0.75;
+    letter-spacing: 0;
+}
+.cop-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+    z-index: 10;
+}
+.cop-hamburger span {
+    width: 22px; height: 1.5px;
+    background: rgba(44,74,94,0.8);
+    transition: all 0.28s ease;
+    transform-origin: center;
+    display: block;
+}
+.cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+@media (max-width:768px) {
+    .cop-hamburger { display: flex; }
+    .cop-nav {
+        position: fixed;
+        top: 80px; left: 0; right: 0;
+        transform: none;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(22,38,52,0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease, padding 0.35s ease;
+        border-top: 1px solid rgba(201,168,76,0.15);
+        z-index: 9998;
+    }
+    .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+    .cop-nav a {
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        padding: 0.85rem 2rem;
+        width: 100%;
+        text-align: center;
+        border-left: none !important;
+        border-bottom: 1px solid rgba(201,168,76,0.08);
+        color: rgba(255,255,255,0.9);
+        box-sizing: border-box;
+    }
+    .cop-nav a:last-child { border-bottom: none; }
+    .cop-nav a::after { display: none; }
+    .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+    .cop-header { padding: 1.5rem; }
+    .cop-logo img { height: 45px; }
+}
+
+/* ===== HERO ===== */
+.page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+.page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+.page-hero>*{position:relative;z-index:1}
+.eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+.page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+.page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+/* ===== PROPERTY GRID ===== */
+.props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+.props-inner{max-width:1400px;margin:0 auto}
+.props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+.props-count strong{color:var(--text-dark);font-weight:700}
+.props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+.prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+.prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+.prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+.prop-card:hover .prop-img{transform:scale(1.04)}
+.prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+.sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+.prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+.prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+.prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+.prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+.prop-stat{display:flex;align-items:center;gap:0.35rem}
+.prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+.prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+.prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+.prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+.prop-card:hover .prop-view{color:var(--warm-gold)}
+.no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+.prop-card.hidden{display:none}
+.show-more-wrap{text-align:center;margin-top:2.5rem}
+.show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+.show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+/* Mid-page CTA */
+.dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+.dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-mid-cta > *{position:relative;z-index:1}
+.dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+.dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+.dest-cta-btn-gold:hover{background:#b8963e}
+.dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+.dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+/* ===== SEO CONTENT ===== */
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+
+/* Callout box */
+.dest-callout{background:var(--white);border-left:3px solid var(--warm-gold);padding:1.2rem 1.5rem;margin:1.5rem 0;font-size:0.97rem;color:var(--text-muted);line-height:1.75}
+.dest-sec.white .dest-callout{background:var(--cream-bg)}
+
+/* Figure */
+.dest-figure{margin:2rem 0}
+.dest-figure img{width:100%;height:auto;display:block}
+.dest-figure figcaption{font-size:0.82rem;color:var(--text-muted);padding:0.6rem 0 0;border-top:1px solid var(--gold);font-family:"Nunito Sans",sans-serif;letter-spacing:0.03em}
+
+/* Stats band */
+.dest-stats-band{display:flex;gap:0;background:var(--blue);margin:2rem 0}
+.dest-stat-item{flex:1;padding:1.5rem 1.2rem;text-align:center;border-right:1px solid rgba(255,255,255,0.1)}
+.dest-stat-item:last-child{border-right:none}
+.dest-stat-number{font-family:"Playfair Display",serif;font-size:1.8rem;color:var(--warm-gold);margin-bottom:0.3rem}
+.dest-stat-label{font-size:0.75rem;color:rgba(255,255,255,0.7);font-family:"Nunito Sans",sans-serif;letter-spacing:0.1em;text-transform:uppercase}
+
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+
+/* ===== CTAs ===== */
+.newsletter-section {
+    background: var(--white);
+    position: relative;
+    padding: 100px 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.newsletter-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    color: var(--text-dark);
+}
+.newsletter-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+.newsletter-form {
+    display: flex;
+    gap: 1rem;
+    max-width: 620px;
+    margin: 0 auto;
+}
+.newsletter-form input {
+    flex: 1;
+    padding: 0.9rem 1.5rem;
+    border: 1px solid #ddd;
+    background: var(--white);
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.95rem;
+    border-radius: 0;
+    outline: none;
+}
+.newsletter-form input::placeholder { color: var(--text-muted); }
+.newsletter-form input:focus { border-color: var(--warm-gold); }
+.newsletter-btn {
+    background: var(--blue);
+    color: var(--white);
+    border: 2px solid var(--blue);
+    padding: 0.9rem 1.5rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    font-family: 'Nunito Sans', sans-serif;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+.newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+
+/* ===== FOOTER ===== */
+footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+.footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+.footer-logo img{height:35px;margin-bottom:1rem}
+.footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+.footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:0.6rem}
+.footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+.footer-col a:hover{color:var(--warm-gold)}
+.footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+.footer-legal{display:flex;gap:2rem}
+.footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+
+@media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+    .page-hero{padding:130px 1.5rem 50px}
+    .props-sec{padding:50px 1.5rem}
+    .props-grid{grid-template-columns:1fr;gap:1.5rem}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+    .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+    .dest-stats-band{flex-direction:column}
+    .dest-stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.1)}
+}
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="page-hero">
+  <p class="eyebrow">Nevada · USA · Lake Tahoe</p>
+  <h1>Nevada Fractional Ownership <em>Properties</em></h1>
+  <p class="subtitle">From a mountain-view estate above Incline Village to a lakefront villa on the Nevada shore of Lake Tahoe — fractional ownership in Nevada means a deeded share of the most tax-advantaged alpine lake address in the United States, six to seven weeks of personal use a year, and a fully managed home at the edge of North America's deepest alpine lake.</p>
+</section>
+
+<!-- PROPS SEC (rendered by renderer) -->
+<section class="props-sec"></section>
+
+<!-- MID-CTA -->
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>The Nevada shore of Lake Tahoe — premier addresses, accessible through co-ownership.</h2>
+    <p>Fully managed villas and mountain estates across <strong>Incline Village</strong> and the <strong>Nevada shore of Lake Tahoe</strong> — where no state income tax, no estate tax, and no capital gains tax combine with <strong>Diamond Peak ski resort</strong>, private lake beach access, and <strong>300+ days of Sierra Nevada sunshine</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of one of the most supply-constrained alpine-lake addresses in the western United States.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
+    </div>
+  </div>
+</div>
+
+<!-- §A WHY NEVADA — cream band -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1crPTDoRDTqfkH9fZFIRrZniEkMZbwQSo" alt="An Incline Village villa with mountain views on the Nevada shore of Lake Tahoe, Sierra Nevada peaks behind" loading="lazy" width="1600" height="1067" />
+  <figcaption>An Incline Village estate with Sierra Nevada mountain views — the Nevada shore of Lake Tahoe, where alpine scale and tax advantage converge.</figcaption>
+</figure>
+
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership in Nevada?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership in Nevada means buying a deeded 1/8 share of a luxury alpine second home on the Nevada shore of Lake Tahoe — held in a purpose-built LLC alongside up to seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
+
+<h2>Why Nevada?</h2>
+
+<p>For fractional buyers who have looked at the Lake Tahoe basin from all sides, the Nevada shore is not simply an alternative to the California side — it is, for a well-defined set of buyers, the structurally superior choice, and the reason has nothing to do with the mountain scenery or the lake itself, which is equally spectacular from both shores. The reason is the <strong>Nevada state tax line</strong>. Nevada levies <strong>no state income tax</strong>, <strong>no estate or inheritance tax</strong>, and <strong>no capital gains tax</strong>. The California shore of Lake Tahoe lies inside California, which levies all three. For any buyer whose financial life is large enough that those state-level tax treatments matter — and for second-home buyers at the co-ownership tier, they routinely do — the Nevada shore is a fundamentally different proposition from an identical property twenty minutes west, and the most financially sophisticated buyers in the Lake Tahoe basin have understood this for decades. The town of <strong>Incline Village</strong>, the primary residential community on the Nevada shore, has the highest median household income of any Nevada community for precisely this reason: it is where the buyers for whom the California-Nevada tax line is most consequential have consistently chosen to own.</p>
+
+<p>Your Nevada share is held inside a <strong>purpose-built LLC</strong> alongside up to seven other co-owners. This is the same modern international ownership vehicle used across every property on COP, whether in the United States, France, Spain, Italy or elsewhere — a single consistent framework rather than a legacy national vehicle that varies country by country. <strong>The practical effect</strong> for a Nevada buyer is meaningful in both directions. From an ownership-structure standpoint, the LLC model is well-established in Nevada: Nevada's LLC laws are among the most business-friendly in the United States, with a long history of companies registering in Nevada for its predictable, low-overhead framework. The Nevada LLC that holds your Incline Village share operates within that tradition. From a <strong>portfolio standpoint</strong>, the LLC model means that adding a European share — in the French Alps, Mallorca, the Italian Lakes — introduces no new ownership structure and no new relationship: the same framework runs across the entire COP portfolio, and multi-country owners deal with one model rather than a stack of differently-behaved jurisdiction-specific vehicles.</p>
+
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the Nevada property, in which you and up to seven other owners hold equal LLC membership interests — giving lighter resale, a consistent international ownership structure, and a single relationship across every COP property worldwide.
+</div>
+
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value and an annual maintenance fee that often outlasts any usefulness. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and up to seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare. Nevada's approach to property rights — strong LLC law, clear title recording at the <strong>Washoe County Recorder</strong> — makes it one of the most legally clean US jurisdictions in which to hold a fractional interest, and that clarity is distinct from the timeshare product regulated separately under Nevada's timeshare-specific statutes.
+</div>
+
+<p>The structural supply argument for the Nevada shore of Lake Tahoe is as compelling as anywhere in the western United States. The entire Lake Tahoe basin — Nevada and California sides alike — is governed by the <a href="https://www.trpa.gov/" target="_blank" rel="noopener">Tahoe Regional Planning Agency (TRPA)</a>, a bi-state compact authority established in 1969 and strengthened in 1980, which administers strict land-use and environmental rules across the entire watershed. New development anywhere on the lake's shoreline or in its immediate forest zones is subject to TRPA environmental thresholds that have effectively capped the supply of residential property in the basin for fifty years. <strong>The lakefront and mountain-bench property stock in Incline Village and Crystal Bay is essentially finite</strong> — and it has been finite for decades. This is not a market where new supply can respond to demand: the TRPA rules, the Nevada State Division of State Lands requirements and the federal Forest Service management units that ring the Nevada shore ensure it cannot. Against this fixed supply, demand has grown as the attractiveness of the Nevada tax position has become more widely understood — creating a market with structurally strong long-term appreciation dynamics that are well-evidenced in the Incline Village transaction history.</p>
+
+<p>The fourth argument — and the one most relevant to the question "why fractional, why now?" — is what sole ownership of an Incline Village villa actually costs to carry. <strong>Full property tax, HOA fees, snow removal and winterisation, HVAC servicing and maintenance through both the ski season and the summer, landscape and grounds management, insurance, utilities, pool and spa maintenance for hot-tub properties, a year-round property-management retainer</strong> — all of this runs continuously, whether the owner uses the property for four weeks a year or ten. The fractional model divides that carry across eight owners and covers it inside the annual service charge, removing the operational burden from the owner entirely. You arrive; the property is ready. The house has been winter-prepared if you arrive in December, and summer-opened if you arrive in July. The calendar is managed fairly among all eight co-owners. The mountain-lake lifestyle is available without the mountain-lake operational overhead that makes sole ownership more work than many buyers anticipate before they sign for it.</p>
+
+<div class="dest-callout">
+  <strong>Nevada in three numbers:</strong> <strong>$0</strong> state income tax — no state personal income tax, no state capital gains tax, no state estate or inheritance tax · <strong>Lake Tahoe at 1,897m (6,225 ft)</strong> above sea level — the largest alpine lake in North America and the deepest in the western hemisphere · <strong>TRPA-protected since 1969</strong> — the bi-state planning authority that caps new development around the entire lake and makes the existing property stock genuinely supply-constrained.
+</div>
+
+<p>One further argument worth addressing directly: the Nevada shore attracts a disproportionately high number of buyers who have consciously compared it with the California side and chosen Nevada for specific reasons. This is not a default or a second-best outcome — it is a deliberate decision. Buyers at the financial level at which a luxury fractional share makes sense have typically done the calculation on state income tax, estate planning, and the treatment of capital gains at the state level; in California's case, state income tax runs as high as <strong>13.3%</strong> on the highest earners, the estate tax framework is separate, and capital gains are taxed as ordinary income at the state level. Nevada has none of these. The Nevada shore of Lake Tahoe is the place where those buyers — and a meaningful share of California-domicile buyers who are considering establishing a Nevada domicile — choose to own their alpine lake second home. COP's properties in <strong>Incline Village</strong> sit precisely at the centre of that demand cluster.</p>
+
+<p>There is a broader cultural observation worth making about the Nevada shore's position in the national second-home landscape: <strong>it is a genuinely mature market</strong>. The first Incline Village residential development was underway in the late 1950s and early 1960s, the IVGID was formed in 1966, and the community has had more than sixty years to develop the service infrastructure, professional management, recreational facilities and community calendar that distinguish an established second-home destination from an emerging one. The <a href="https://www.inclinevillage.org/" target="_blank" rel="noopener">Incline Village-Crystal Bay Visitors Bureau</a> supports the community's year-round tourism and second-home culture; the <strong>Ponderosa Ranch</strong> heritage, the <strong>Sand Harbor</strong> State Park on the Nevada shore, and the <strong>Lake Tahoe Shakespeare Festival</strong> are well-established anchors of the cultural calendar. Buyers arriving at the Nevada shore are not making a speculative bet on an undiscovered destination — they are buying into a community that has been attracting the financially sophisticated second-home buyer for longer than most comparable destinations in the western United States, and whose property values reflect that sustained and well-documented demand.</p>
+
+</div></section>
+
+<!-- §B WHERE TO OWN — white band -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Where to own in Nevada</h2>
+
+<p>Nevada's Lake Tahoe shoreline runs along the north-eastern edge of the lake, from <strong>Crystal Bay</strong> at the north to the Nevada-California state line near <strong>Stateline</strong> at the south. The character of the shore is distinct from the California side: quieter, more residential, less commercially dense, and concentrated in two primary communities — <strong>Incline Village</strong> and <strong>Crystal Bay</strong> — that together form the entirety of the Nevada Lake Tahoe second-home market. Below these two lakeside communities, the terrain climbs quickly into the <strong>Sierra Nevada forest bench</strong> that surrounds the lake, where the mountain-view residential estates that COP's inventory centres on are found. Understanding the three overlapping micro-zones — the lake-front tier, the village core, and the forest-bench estates — is the starting point for any Nevada Tahoe buyer.</p>
+
+<h3>Incline Village — the Nevada Shore's Premier Address</h3>
+
+<p><strong>Incline Village</strong> is the largest residential community on the Nevada side of Lake Tahoe and the primary focus of fractional ownership interest on the Nevada shore. The village occupies a natural bench in the mountains above the north-eastern shoreline of the lake at an elevation of approximately <strong>1,950 metres (6,400 feet)</strong>, giving properties throughout the community either direct lake views or mountain-and-forest panoramas across the Sierra Nevada ridgeline. The name is not metaphorical: the village streets step up the mountain in a genuine incline from the lake-level residential tier near the private <a href="https://www.ivgid.org/" target="_blank" rel="noopener">Incline Village General Improvement District (IVGID)</a> beaches to the higher-elevation estate lots that command wider mountain and partial lake views. <strong>IVGID membership</strong> — available to property owners in Incline Village — is a non-trivial residential amenity: it includes access to three private beaches (Burnt Cedar Beach, Incline Beach and the smaller Secret Harbour), tennis facilities, recreation centres, golf and ski facilities, and the Diamond Peak ski resort at the top of the community. These are private amenities not available to the general public, and they are a structural part of what makes Incline Village different from other Lake Tahoe communities where beach access is public and uncontrolled.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1FLpheeAAWx7h52eZVenCeLALVaVX5TEP" alt="An Incline Village villa with mountain and forest views on the Nevada shore of Lake Tahoe" loading="lazy" width="1600" height="1067" />
+  <figcaption>An Incline Village villa with Sierra Nevada forest views — the private, elevated character of the Nevada shore's most prestigious residential community.</figcaption>
+</figure>
+
+<p>The residential architecture of Incline Village spans from <strong>1970s cedar-and-stone mountain chalets</strong> to <strong>contemporary mountain-modern estates</strong> built in the past decade, with the dominant idiom being a warm-toned, natural-material vernacular that sits sympathetically in the pine and fir forest that surrounds the community on three sides. Properties on the village bench — the middle tier of the community — typically occupy lots of half an acre to two acres, with mature pine-tree screening between properties, mountain views and the private quality that defines Incline Village's character. The lakefront tier below the village bench, where properties have direct lake access, is among the most expensive in the entire Lake Tahoe basin — comparable in price-per-square-foot to the most prestigious California North Shore lakefront addresses. The estate tier above the village core, where COP's properties are concentrated, offers the mountain-view character that many buyers actually prefer: elevated, quiet, surrounded by forest, with access to the IVGID private beaches below and the <strong>Diamond Peak ski lifts</strong> directly above.</p>
+
+<p><a href="https://www.diamondpeak.com/" target="_blank" rel="noopener"><strong>Diamond Peak ski resort</strong></a> sits immediately above Incline Village and is the community's dedicated ski mountain: <strong>655 acres</strong> of skiable terrain, a <strong>480-metre (1,577-foot)</strong> vertical drop, and the <strong>best lake views of any ski area in the Lake Tahoe basin</strong> — the upper lifts deliver panoramic views across the entire lake surface that are, in good-conditions winter days, among the most spectacular in alpine skiing. Diamond Peak is a smaller-scale resort than Palisades Tahoe or Heavenly Mountain, but it is deliberately managed as the community resort for Incline Village residents and IVGID members, with a culture that is family-oriented, uncrowded and characterised by the kind of lift-queue-free days that the large Nevada-California resorts can no longer offer on peak-season weekends. For the fractional owner whose ski-week priority is unhurried, high-quality mountain time rather than terrain acreage, Diamond Peak is among the finest ski experiences on the Nevada shore of the lake. For those who want the larger terrain of the California resorts, <strong>Palisades Tahoe</strong> is 45 minutes west by car, and the Sky Tahoe ski bus runs a seasonal service from Incline Village.</p>
+
+<p><strong>Best for:</strong> buyers for whom the Nevada state tax position is relevant — no state income tax, no estate tax, no capital gains tax — and who value the combination of IVGID private beach access, Diamond Peak ski convenience, a quiet and residential community character, and the Sierra Nevada mountain-estate lifestyle at one of the lake's most consistently supply-constrained addresses.</p>
+
+<h3>Crystal Bay — the Quiet Gateway to the Nevada Shore</h3>
+
+<p><strong>Crystal Bay</strong> sits at the northern tip of Lake Tahoe where the Nevada shoreline meets the California border, immediately west of Incline Village. It is the smallest of the Nevada shore communities — a loose constellation of lakefront properties, a handful of historic casino buildings from the mid-twentieth century, and the concentrated lakefront of the <a href="https://www.visitnorthlaketahoe.com/places/crystal-bay/" target="_blank" rel="noopener">Crystal Bay Club</a> and surrounding residential lots — but it occupies a structurally important position as the direct transition point between the Nevada shore and the California North Shore community of <strong>Kings Beach</strong>. Properties in Crystal Bay itself are relatively rare, and genuinely lakefront addresses here command prices that reflect their scarcity; the interest for fractional buyers is more often in the residential areas of Incline Village that are marketed under the Crystal Bay address due to their position in the upper residential tiers overlooking the bay from the north-east.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1joAzajGBjy4nbx8A51YJO5gZnb89owiJ" alt="A Nevada Lake Tahoe mountain estate with hot tub and Sierra Nevada views above Incline Village" loading="lazy" width="1600" height="1067" />
+  <figcaption>A mountain estate above the Nevada shore — the elevated forest setting, hot tub and Sierra Nevada ridge that define the Nevada Tahoe second-home character.</figcaption>
+</figure>
+
+<p>The Crystal Bay community lacks the IVGID private beach access that distinguishes Incline Village, but it benefits from its proximity to the <strong>Crystal Bay State Recreation Area</strong> on the California side and from a quieter, less trafficked character even within the Nevada shore's already-low footfall. The buyer profile here is concentrated among those who specifically want the northernmost Nevada shore address — for either the views, the proximity to the California North Shore services and restaurants, or the combination of the Nevada tax position with the closest possible access to the established second-home culture of <strong>Tahoe City</strong> and <strong>Carnelian Bay</strong> on the California side, accessible in under twenty minutes by car. <strong>Best for:</strong> buyers who want the Nevada tax position combined with the northernmost Nevada shore address and the closest access to the California North Shore's restaurant, marina and cultural infrastructure, with a quieter and more private character than the Incline Village village core.</p>
+
+<h3>The Nevada Shore — Lakefront Tier vs the Mountain Bench Estates</h3>
+
+<p>Understanding the <strong>vertical geography of the Nevada shore</strong> is essential to understanding where value sits and what different buyers are actually buying. The Lake Tahoe basin's Nevada shoreline rises sharply from the lake surface — at <strong>1,897 metres (6,225 feet)</strong> above sea level — into the Sierra Nevada foothills over a distance of roughly two kilometres, with elevation gains of <strong>200–400 metres (650–1,300 feet)</strong> from the waterfront to the highest estate lots above the village. This topography creates three distinct ownership tiers that are each differently priced and differently suited.</p>
+
+<p>The <strong>lakefront tier</strong> — properties on or within walking distance of the lake surface — is the most expensive and the most limited in supply. On the Nevada shore, genuine lakefront properties are extremely rare, partly because the shoreline is shorter than the California North and West shores and partly because the TRPA environmental-threshold rules have historically restricted what can be built or rebuilt at lake level. The lakefront properties that do exist in the Nevada shore market — a handful of genuinely lake-adjacent residential parcels in Crystal Bay and the lower Incline Village tiers — command prices that reflect both the scarcity and the long-run TRPA-enforced non-replication of the supply. Buyers in this tier are typically motivated primarily by direct lake access: swimming, kayaking, paddleboarding from their own shoreline, the dock, and the specific quality of morning light on the water at this elevation that is difficult to describe to those who have not experienced it.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1LRu5xAQN4bfI1gMUOHCSEx1HT-xEw7tR" alt="Interior of an Incline Village vacation villa with mountain-modern design on the Nevada shore of Lake Tahoe" loading="lazy" width="1600" height="1067" />
+  <figcaption>Mountain-modern interior of an Incline Village villa — the warm timber, stone and natural-material vernacular of the Nevada Tahoe estate tier.</figcaption>
+</figure>
+
+<p>The <strong>village bench and forest-estate tier</strong> — the mid-elevation and upper residential areas of Incline Village — is where the majority of the Nevada shore's fractional ownership inventory sits, and where COP's Incline Village properties are concentrated. These are the properties that offer <strong>mountain and forest views</strong> rather than direct lakefront access, but which trade the latter for more generous lot sizes, more architecturally ambitious homes, greater privacy from the summer tourist traffic, and — in the case of the upper estate tier — an elevated perspective on the Sierra Nevada landscape that is, in many owners' assessment, more compelling than the view from lake level. The access to IVGID private beaches means that lake swimming and waterfront use is available on a planned basis (rather than a step-outside-the-door basis), which many owners actually prefer: the beach day becomes a purposeful excursion to the community's private facilities rather than a background constant that the property is constantly managing around.</p>
+
+<p>The <strong>ski-proximate tier</strong> — properties in the upper residential zones of Incline Village, within a short drive or trail run of the Diamond Peak ski lift base — is the smallest and most specialised of the Nevada shore's ownership tiers. These properties trade lake views for ski convenience and the winter mountain-lifestyle specificity that defines the highest-altitude Incline Village lots. They are most strongly demanded by buyers whose primary use case is the ski season and who treat summer lake access as a secondary attraction. <strong>Best for:</strong> buyers who want the mountain-estate character of a large-lot Incline Village property, the Sierra Nevada forest surroundings, and the combination of IVGID beach access in summer with Diamond Peak ski access in winter — rather than direct lakefront ownership at the premium price that entails.</p>
+
+<h3>Nevada's Tahoe Shore in the Wider Sierra Nevada Context</h3>
+
+<p>Understanding the Nevada shore of Lake Tahoe requires placing it in the context of the broader <a href="https://www.renotahoe.com/" target="_blank" rel="noopener">Reno-Tahoe</a> region — specifically the corridor between <strong>Reno</strong> and the Nevada shore of the lake, which shapes both the gateway infrastructure and the wider case for establishing a Nevada presence at Lake Tahoe. <strong>Reno-Tahoe International Airport (RNO)</strong> is the closest airport to the Nevada shore, located <strong>45 minutes by car</strong> from Incline Village via the Mt. Rose Highway (<strong>NV-431</strong>) — a scenic high-desert-to-alpine drive that crosses the Mt. Rose summit at <strong>2,631 metres (8,635 feet)</strong> and is one of the most dramatic airport-to-destination transitions of any ski-and-lake basin in the United States. RNO takes direct service from a growing list of North American hubs: Los Angeles, San Francisco, Seattle, Portland, Denver, Dallas, Houston, Chicago, Phoenix, Minneapolis, Atlanta, New York (JFK and Newark), and seasonal additional services from Toronto and Vancouver. The airport is less internationally connected than San Francisco International (SFO), which is a <strong>3.5-hour drive</strong> from the Nevada shore, but for North American buyers — the primary market on the Nevada shore — RNO's direct connectivity is excellent.</p>
+
+<p>The city of <strong>Reno</strong> itself is relevant to the Nevada shore buyer for reasons beyond the airport. Reno has undergone a structural economic transformation over the past decade, driven by the arrival of major technology and logistics employers — <a href="https://www.tesla.com/" target="_blank" rel="noopener">Tesla</a>'s Gigafactory, Apple, Google and a cluster of semiconductor and data-centre operations — that have created a high-earning professional population with easy access to the Nevada shore and an established reason to explore Nevada residency. The combination of Reno's growing professional class and the Nevada shore's established second-home culture has produced a buyer mix on the Nevada Lake Tahoe shore that is increasingly diverse: Bay Area technology buyers who fly direct, Nevada-domicile buyers from Reno and Las Vegas, and out-of-state buyers from across North America who have done the tax analysis and chosen the Nevada side of the lake explicitly. The <a href="https://www.tahoedailytribune.com/" target="_blank" rel="noopener">regional media</a> and the Incline Village-Crystal Bay community infrastructure — its schools, medical facilities, grocery stores, restaurants and the <a href="https://www.ivgid.org/" target="_blank" rel="noopener">IVGID recreation calendar</a> — are oriented to serve this mix of year-round residents and seasonal second-home owners, creating the service infrastructure that makes the Nevada shore workable as a second home even for buyers arriving from long distances. <strong>Best for:</strong> buyers who want the full Nevada tax advantage combined with the established gateway infrastructure of Reno-Tahoe International Airport, the growing Reno professional community as a regional context, and the broadest national-and-international connectivity to the Nevada shore of Lake Tahoe.</p>
+
+</div></section>
+
+<!-- §C A YEAR — cream band -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>A year in your Nevada Lake Tahoe co-ownership home</h2>
+
+<p>Lake Tahoe's Nevada shore is one of the few alpine lake destinations in the world that delivers genuinely distinct and compelling experiences across all four seasons — not the artificial four-season marketing of many mountain resorts, but a genuinely bi-seasonal recreation landscape (ski and snow in winter, lake and hiking in summer) with compelling shoulder periods in spring and autumn that many owners privately regard as their favourite weeks of the year. The <strong>45 days</strong> a 1/8 share delivers can be spread across the calendar with genuine purpose: the fair-rotation system ensures every co-owner gets access to the peak weeks — the peak ski season in January and February, the long summer-lake weeks in July and August — alongside the shoulder weeks in spring and autumn that are quieter, more available and, in many owners' view, more personally rewarding than the crowded peak.</p>
+
+<h3>Winter (December–March)</h3>
+
+<p>Winter on the Nevada shore of Lake Tahoe is defined by <strong>Sierra Nevada snowpack</strong> — and by the specific quality of skiing at <a href="https://www.diamondpeak.com/" target="_blank" rel="noopener">Diamond Peak</a>, the community resort immediately above Incline Village. The Sierra Nevada snowpack builds from the first major Pacific storm systems of November and December, typically opening the Diamond Peak ski season in mid-December and consolidating through January and February into the deep powder conditions that give the Tahoe basin its reputation as one of the finest ski destinations in the continental United States. Average annual snowfall at Diamond Peak's upper elevations runs to <strong>more than 7 metres (23 feet)</strong> — with heavy La Niña winter years delivering substantially more — and the combination of high-altitude dry powder and the lake's stabilising thermal effect produces snow conditions that experienced alpine skiers consistently rate among the best in North America.</p>
+
+<p>The <strong>Diamond Peak experience</strong> in winter is characterised by its community scale. At <strong>655 acres</strong>, it is smaller than Palisades Tahoe or Heavenly Mountain, but it is reliably uncrowded on weekday mornings — a meaningful advantage for owners whose prime weeks fall in the middle of the ski season rather than on the December or Presidents' Day peak. The resort's upper elevations at <strong>2,568 metres (8,540 feet)</strong> deliver the <a href="https://www.diamondpeak.com/mountain/terrain" target="_blank" rel="noopener">lake-view runs</a> that make Diamond Peak exceptional: on clear winter days, the full expanse of Lake Tahoe's <strong>500 square kilometres (191 square miles)</strong> of blue water is visible below, framed by the snow-covered peaks of the Sierra Nevada on three sides — a visual experience that no other ski resort in the western United States can quite match. For owners who want access to the larger terrain of the California resorts, <strong>Palisades Tahoe</strong> (6,000 acres, home to the <strong>1960 Winter Olympics</strong>) is approximately 45 minutes west and <strong>Northstar California</strong> is 30 minutes west — both accessible for a full-day ski excursion from an Incline Village base.</p>
+
+<p>Winter temperatures in Incline Village run <strong>-5°C to 4°C (23°F to 40°F)</strong> at village level on typical January days, dropping to <strong>-12°C to -5°C (10°F to 23°F)</strong> on the coldest nights and at upper elevations. The IVGID private beaches are closed in winter, but the lake itself remains open for snowshoe and hiking access along the shore paths. The <strong>Christmas-to-New-Year window</strong> and the <strong>Presidents' Day weekend</strong> in February are the two peak-demand periods across all Tahoe ski properties; the January and mid-February shoulder between them — when conditions are often excellent but lift queues are thin — is the period many experienced Tahoe ski owners prefer for their primary winter week.</p>
+
+<h3>Spring (April–May)</h3>
+
+<p>Spring arrives later on the Nevada shore of Lake Tahoe than in most alpine destinations, owing to the elevation and the Sierra Nevada's northerly latitude. The ski season at Diamond Peak typically runs through the end of March and into April in good snow years, with the upper mountain holding skiable conditions into mid-April in years of heavy snowpack. <strong>April and May</strong> are the quietest months on the Nevada shore — the ski crowds have thinned, the summer visitors have not yet arrived, and the lake and mountain landscape is in the process of a dramatic seasonal transformation that many owners rate as one of Lake Tahoe's most distinctive visual experiences: the progressive melting of the Sierra Nevada snowpack, the greening of the forest floor, the return of the wildflower season to the mountain meadows, and the lake colour shifting from the deep winter grey-blue to the brilliant spring turquoise that gives <strong>Lake Tahoe</strong> its reputation as the clearest lake in North America.</p>
+
+<p>Spring temperatures in Incline Village run <strong>5°C–16°C (41°F–60°F)</strong> in April, warming to <strong>10°C–22°C (50°F–72°F)</strong> by May. Snowmelt swells the streams and fills the meadows of the <a href="https://www.fs.usda.gov/ltbmu" target="_blank" rel="noopener">Lake Tahoe Basin Management Unit</a> that surrounds the Nevada shore, and the hiking trails from <strong>Tunnel Creek</strong> east of Incline Village — which access the high-ridgeline terrain above the lake with views across to the Nevada desert — are typically open from mid-April. The <a href="https://www.nevadaadventure.org/" target="_blank" rel="noopener">Tahoe Rim Trail</a>, a 173-mile trail circumnavigating the entire lake and reaching elevations above 3,000 metres (10,000 feet), is partially accessible from spring trailheads on the Nevada shore. <strong>Best for:</strong> owners who value quiet weeks without crowds, the dramatic spring-melt landscape transformation, early-season hiking at lower elevations, and the specific quality of spring light on Lake Tahoe before the summer haze.</p>
+
+<h3>Summer (June–September)</h3>
+
+<p>Summer is the Nevada shore's defining season for the majority of fractional owners, and it is extraordinary. Lake Tahoe reaches its warmest swimmable temperatures — <strong>16°C–20°C (61°F–68°F)</strong> at the surface by mid-July — in a body of water so clear that the visibility extends <strong>21 metres (70 feet)</strong> below the surface in the deepest basins, producing an underwater visual experience more reminiscent of tropical diving than alpine swimming. The lake's summer surface colour — a blue of exceptional purity and intensity, produced by the combination of elevation, the surrounding granite geology, and the near-absence of nutrients in the water — is among the most photographed natural phenomena in the western United States, and it is experienced most directly from the <strong>IVGID private beaches</strong> below Incline Village, accessible to property owners and their guests throughout the summer season.</p>
+
+<p>Summer temperatures in Incline Village run <strong>18°C–27°C (64°F–80°F)</strong> during the day, dropping to <strong>8°C–14°C (46°F–57°F)</strong> at night — the high-elevation altitude means that even the hottest summer days are cooled by afternoon mountain breezes and crisp evenings that require a layer at sunset. This is part of the Nevada Tahoe summer's specific character: the daytime warmth is perfect for lake activities, but the evenings never have the cloying heat of low-altitude summer destinations. The <a href="https://www.gotahoenorth.com/" target="_blank" rel="noopener">North Lake Tahoe region</a> — which the Nevada shore is part of, alongside the California North Shore communities — runs a comprehensive summer events calendar through July and August: the <strong>Lake Tahoe Shakespeare Festival</strong> at Sand Harbor State Park on the Nevada shore (one of the most scenically spectacular outdoor theatre venues in North America, with performances staged against the backdrop of the lake itself), the <strong>BottleRock Napa Valley</strong> festival driving interest in the wider Sierra Nevada region, and the weekly farmers' markets and outdoor concerts that run through the Incline Village and Tahoe City communities from June through September. <strong>Sailing, kayaking, paddleboarding, mountain biking on the Flume Trail</strong> above Incline Village (a trail that traverses the cliff face above the eastern shore of the lake with views the full length of the lake from north to south) and <strong>hiking the Tahoe Rim Trail</strong> are the defining summer activities from an Incline Village base. The <a href="https://www.thunderbirdinc.org/" target="_blank" rel="noopener">Thunderbird Lodge</a>, the historic estate at Glenbrook on the Nevada shore, is open for summer tours and is one of the most architecturally significant historic properties on the lake.</p>
+
+<h3>Autumn (September–November)</h3>
+
+<p>Autumn on the Nevada shore of Lake Tahoe is a best-kept-secret season and the one that most experienced Tahoe property owners privately cite as their favourite. September still carries summer warmth — lake temperatures remain in the <strong>15°C–18°C (59°F–64°F)</strong> range through most of the month, daytime air temperatures in Incline Village stay in the <strong>15°C–25°C (59°F–77°F)</strong> band — but the summer crowds have cleared, the school calendar has reconvened and the Nevada shore returns to the quiet, residential character that distinguishes it from the busier California communities. The light in September and October on the lake is different from the summer light: lower in the sky, warmer in tone, more likely to produce the kind of extraordinary evening colours on the water and the surrounding peaks that photographers specifically target in the autumn window.</p>
+
+<p>The <strong>aspen colour season</strong> — aspens turning gold across the Sierra Nevada slopes above the lake from late September through mid-October — is one of the most dramatically beautiful natural events on the Nevada shore, and the Incline Village viewpoints above the lake provide some of the finest aspen-and-lake compositions in the entire basin. The <strong>Incline Village and Crystal Bay hiking trails</strong>, the <strong>Spooner Lake trail system</strong> on the Nevada shore and the upper elevations of the <a href="https://www.nevadaadventure.org/" target="_blank" rel="noopener">Tahoe Rim Trail</a> are all accessible well into October, with the high-altitude colour season making the autumn hike-and-view combination as compelling as any in the western United States. By November, the first snows are typically on the upper peaks above Incline Village, and the anticipation of the ski season beginning makes the late-autumn weeks on the Nevada shore a genuinely transitional and exciting time to be in the community — between seasons in a way that no pure summer or pure ski destination can offer. <strong>Best for:</strong> owners who value quiet, unhurried weeks; photographers and colour-season visitors; those who want peak-quality lake swimming and the aspen landscape simultaneously; and buyers considering their shoulder-season weeks as the real value in their 45-day annual calendar.</p>
+
+</div></section>
+
+<!-- §D WHO BUYS — white band -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Who buys in Nevada, and why</h2>
+
+<p>The buyer mix on the Nevada shore of Lake Tahoe is more intentional than in most second-home markets — because the buyers here have, for the most part, consciously chosen the Nevada side of the lake rather than simply defaulting to the more visible California communities. The primary domestic cohort is <strong>California-based buyers</strong>, particularly from the Bay Area (San Francisco, Silicon Valley, San Jose, the East Bay) and Southern California (Los Angeles, Orange County, San Diego), who are aware of the California-Nevada tax line and who are actively considering Nevada as a component of their wealth-planning strategy alongside the lifestyle case for the Nevada shore. These buyers are typically in their 40s and 50s, with significant professional and investment income, and they have done the calculation on <strong>California's 13.3% top marginal state income tax rate</strong> against Nevada's $0, on the state capital gains treatment, and on the estate-planning implications. For a meaningful proportion of them, the Nevada address is not just a second home — it is also, potentially, the address around which a change of primary domicile is structured if their financial advisors recommend it. The Nevada shore has been a legal-domicile destination for high-earning Californians for decades; the advice industry — accountants, estate-planning attorneys, wealth managers — has well-worn procedures for structuring Nevada domicile from a California financial base, and Incline Village is the established address at the centre of that practice.</p>
+
+<p>The second significant cohort is <strong>out-of-state US buyers</strong> from states that do have state income taxes — New York, New Jersey, Connecticut, Illinois, Massachusetts, Texas (where there is no state income tax, but where the property-tax structure is heavy) — who are drawn by the combination of the Nevada tax position with the Lake Tahoe alpine-lake lifestyle and the RNO direct-flight access from their home cities. This group is growing: as the national conversation about state-level tax differentials has matured, and as the post-2020 flexibility of remote work has made multi-state living more feasible for professional buyers, the Nevada shore has emerged as one of the three or four most discussed US locations for buyers seriously considering a second-home address that also functions as a potential domicile anchor. The <strong>international cohort</strong> on the Nevada shore is smaller than on the California coast, but present: British, European and Australian buyers drawn by the ESTA-permissive access to the US, the English-language infrastructure, and the Nevada tax position as a global tax-planning consideration. RNO's growing international charter and seasonal service, combined with the SFO gateway three and a half hours south, makes the Nevada shore accessible from most European and Asia-Pacific hubs with a single connection.</p>
+
+<p>Fractional ownership in Nevada typically suits a well-defined set of buyer profiles:</p>
+
+<ul>
+  <li><strong>California-domicile buyers with high investment or professional income</strong> — who want the Nevada shore's tax position as a second-home address or a potential domicile anchor, and whose financial advisors have flagged the California-Nevada comparison. The LLC structure and the property-ownership mechanics of the Nevada shore are well-understood in this buyer community.</li>
+  <li><strong>Active ski families from the Bay Area or Southern California</strong> — who have been renting ski-season accommodation in the Tahoe basin for years, whose actual use pattern is concentrated in the winter school holidays, and who have reached the point where building equity is more rational than paying rent for an equivalent-quality property. The Diamond Peak resort above Incline Village and the IVGID ski programme are designed specifically for this demographic.</li>
+  <li><strong>Four-season outdoor enthusiasts</strong> — buyers who want skiing in winter, lake swimming and hiking in summer, and the aspen-colour shoulder season as the third anchor. The Nevada shore's year-round recreation calendar — ski in winter, lake in summer, trails in spring and autumn — is more compelling than pure-winter ski resorts whose summer calendar is thin.</li>
+  <li><strong>Private-beach-access buyers</strong> — for whom the IVGID private beach access, unavailable to the general public, is a decisive quality-of-life element. In the high-traffic summers that Lake Tahoe's public beaches now experience, the ability to access an uncrowded private beach is a meaningful residential premium.</li>
+  <li><strong>Multi-generational family groups</strong> — the four- and five-bedroom villas and estates in Incline Village that COP's Nevada inventory centres on are designed for extended-family use: grandparents, parents, children and teenagers using a single property in a single week. The fractional model handles the calendar coordination more cleanly than whole-ownership in a property that might otherwise sit empty for forty weeks a year.</li>
+  <li><strong>COP portfolio builders adding a North American alpine share</strong> — owners who already hold a European summer share — in Mallorca, the Côte d'Azur, the Italian Lakes — and who are adding a North American ski-and-lake share as the complementary half of a year-round portfolio. The Nevada shore pairs naturally with warm-season European shares: the ski winter in Incline Village, the summer Mediterranean or lake at the European property, with the Nevada autumn and European spring as shoulder complements.</li>
+</ul>
+
+<div class="dest-callout">
+  <strong>The tax-line advantage — in plain terms:</strong> Nevada has no state personal income tax, no state capital gains tax, and no state estate or inheritance tax. California, whose shoreline begins twenty minutes west of Incline Village, has all three. For buyers at the financial level where these taxes are material — a second-home buyer at the fractional co-ownership tier almost always qualifies — the Nevada shore of Lake Tahoe is a different product from the California shore in ways that have nothing to do with the scenery and everything to do with the balance sheet. The analysis is individual and jurisdiction-specific; every buyer should discuss the specifics with their own tax and legal advisors.
+</div>
+
+<p>What unites these otherwise quite different profiles is a single underlying observation: the Nevada shore of Lake Tahoe delivers a quality of alpine-lake lifestyle that is objectively equivalent to the California shore — same lake, same Sierra Nevada, same sky, same Diamond Peak ski access — at a state-level tax overhead that is structurally lower than the California alternative. The buyers who have recognised that asymmetry are the Nevada shore's defining demographic, and the supply constraints imposed by the TRPA on the entire lake mean that the inventory available to service that demand is fixed. Browse the listings in the property grid above to see which Nevada properties are currently available. Our team can walk you through the regional distinctions between the Incline Village estate tiers — the lake-view properties, the mountain-bench estates and the ski-proximate upper village — before you commit to a property; the question of which Nevada address best suits your specific use pattern is one our specialists have worked through with many buyers, and the right answer is not always the most obvious one at first consideration.</p>
+
+</div></section>
+
+<!-- §E PRACTICALITIES — cream band -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Getting there — Nevada airports and ground access</h3>
+
+<p>The Nevada shore of Lake Tahoe is served by two primary airports, with a third regional option for specific buyers. <a href="https://www.flyreno.com/" target="_blank" rel="noopener"><strong>Reno-Tahoe International Airport (RNO)</strong></a> is the closest and most direct gateway: located <strong>45 minutes by car</strong> from Incline Village via the <strong>Mt. Rose Highway (NV-431)</strong>, which crosses the <strong>Mt. Rose Summit at 2,631 metres (8,635 feet)</strong> before descending into the Nevada shore communities. RNO serves direct flights from Los Angeles (LAX and BUR), San Francisco (SFO), San Jose (SJC), Seattle (SEA), Portland (PDX), Denver (DEN), Dallas-Fort Worth (DFW), Houston (IAH), Chicago (ORD and MDW), Phoenix (PHX), Minneapolis (MSP), Atlanta (ATL), New York (JFK and EWR), and seasonal services from Toronto Pearson (YYZ) and Vancouver (YVR). Winter ski season adds additional charter and seasonal direct services. The Mt. Rose Highway is a year-round highway (occasionally closed during major storm events) with regular Nevada DOT snow-clearance; chains or four-wheel-drive are advisable during heavy snow weeks.</p>
+
+<p><a href="https://www.flysfo.com/" target="_blank" rel="noopener"><strong>San Francisco International (SFO)</strong></a> is the major international gateway, located approximately <strong>3.5 hours by car</strong> from Incline Village via the Interstate 80 corridor through Sacramento and Truckee, connecting to the Nevada shore via the Mt. Rose Highway from the Reno side or via Highway 267 from the Truckee side. SFO offers direct service from London Heathrow, Frankfurt, Paris CDG, Amsterdam, Zurich, Tokyo, Sydney, Singapore, Seoul, Beijing, Dubai and all major US hubs — making it the most internationally connected gateway for overseas buyers. <a href="https://www.sacairport.org/" target="_blank" rel="noopener"><strong>Sacramento International (SMF)</strong></a> is approximately <strong>2 hours</strong> from Incline Village via the same I-80/Highway 267 corridor and is an efficient alternative for West Coast and Southwest US connections. Drive time from <strong>Las Vegas (LAS)</strong> — Nevada's primary international airport — is approximately <strong>7 hours</strong>; useful for buyers arriving from destinations with strong Las Vegas connectivity (London, Amsterdam, direct UK charter services) who combine a Nevada arrival with the Las Vegas gateway.</p>
+
+<p>Within the Nevada shore itself, a car is essential — the community is not walkable in the European sense, though the village core of Incline Village has services, restaurants and the IVGID recreation facilities within a short drive of all residential areas. The <strong>TART (Tahoe Area Regional Transit)</strong> seasonal bus service connects Tahoe City, Kings Beach and Incline Village during summer, and a ski-season shuttle serves Diamond Peak from the village centre. For owners who prefer not to drive in winter snow conditions, private car services from RNO to Incline Village are readily available through the well-developed Tahoe transfer market.</p>
+
+<h3>What it costs — the comparison that matters</h3>
+
+<p>The case for a fractional structure on the Nevada shore of Lake Tahoe is most clearly made by placing it in three-way comparison against whole ownership and long-term rental in the same market. Sole ownership of an Incline Village mountain estate or a Nevada shore lakefront property commits a buyer to the full property value as upfront capital, the full annual carry as a running cost (property tax, HOA, maintenance, management and all associated costs), and the full operational burden of managing a mountain-climate property through both the ski season's snow management and the summer's lake-and-trail season — whether the owner spends four weeks per year in Nevada or twelve. The fractional structure splits all of that across eight owners; the 1/8 share delivers the access the buyer will actually use, at roughly 1/8 the capital commitment and carry, with the operational burden handled entirely by the professional management team.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full property tax, insurance, management, HOA, maintenance</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Nevada tax position</td>
+      <td data-col="Whole second home">No state income tax, no capital gains tax, no estate tax — owner's full benefit</td>
+      <td data-col="COP 1/8 share">Same state-level tax position — no Nevada income, capital gains or estate tax</td>
+      <td data-col="Long-term rental">Landlord's Nevada tax benefit, not the tenant's</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 4–8)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">6–24 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The Nevada tax row in this comparison deserves specific emphasis: a 1/8 fractional co-owner on the Nevada shore benefits from Nevada's state-level tax structure in the same way that a whole-property owner does. The LLC that holds the property is a Nevada entity, the property is a Nevada property, and the co-owner's membership interest in that Nevada LLC sits in a Nevada property-ownership structure. The <strong>absence of Nevada state income tax, capital gains tax and estate tax</strong> is not diluted by the fractional structure — it applies to the ownership entity in full, just as it applies to any Nevada real-estate owner. Compared to renting an equivalent Nevada Tahoe property on a long-term lease, the fractional co-owner builds real equity in a genuinely supply-constrained market and captures the full Nevada tax position rather than paying rent to a landlord whose tax position is the relevant one.</p>
+
+<p>The exit-time comparison is also significant in the Nevada shore prime market. The buyer pool for whole Incline Village properties at the top of the market is concentrated and careful; a premium estate property can sit on the open market for <strong>12–24 months</strong> before transacting in a slow-market environment, with the full carrying cost of holding through a slow sale running continuously. A fractional share typically clears in <strong>around a month or less</strong> across COP's portfolio — the buyer pool is already familiar with the property and the LLC structure, and the transfer of an LLC membership interest is a more direct administrative action than a full Nevada deed-and-title conveyance and recordation at the Washoe County Recorder.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual carry on a 1/8 Nevada share is, by definition, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — a fraction of what an outright Incline Village estate owner pays in property tax, insurance, management and maintenance. The included items typically run to: <strong>Nevada property tax</strong> (assessed at the county-assessed rate, with Nevada's property taxes among the most competitive in the western United States at an effective rate well below California's equivalent); <strong>homeowners insurance and contents insurance</strong>; HOA fees where the property sits in a planned community; snow removal and winter road access management through the ski season; HVAC servicing and heating-system maintenance through the Nevada winters; hot tub maintenance, cleaning and chemical management for hot-tub properties (a standard feature in the Incline Village estate tier); pool and spa service for pool-equipped properties; landscaping and grounds management; cleaning and linen between every owner stay; the full property-management retainer covering staff, scheduling and owner relationship; alarm monitoring and security; utility bills; and a contribution to the <strong>reserve fund for major capital works</strong>. What is typically <strong>not included</strong>: large capital improvements (major appliance replacement, structural repairs) decided at the LLC general meeting; personal staff costs beyond the standard management service; damage caused by an owner's own use; and unusually high utility consumption.</p>
+
+<h3>What you actually own — the legal share</h3>
+
+<p>Every Nevada property on COP is held in a <strong>purpose-built LLC</strong> — the same modern international ownership vehicle used across every property in the COP portfolio — in which you and up to seven co-owners hold <strong>equal LLC membership interests</strong>. The underlying Nevada property is held by the LLC, with the title recorded at the <a href="https://www.washoecounty.gov/assessor/" target="_blank" rel="noopener"><strong>Washoe County Assessor and Recorder</strong></a> — the county registry that covers the Incline Village and Crystal Bay communities — and your membership interest is recorded in the company's register. Nevada's LLC law is among the most business-friendly in the United States, with a long established tradition of clear, predictable, low-overhead LLC governance. What you hold is a <strong>real, transferable equity interest</strong> — not a timeshare use-right that depreciates to zero when the contract expires, not a points membership, not a fractional holiday club. The <a href="https://www.leg.state.nv.us/nrs/NRS-086.html" target="_blank" rel="noopener">Nevada Revised Statutes Chapter 86</a>, governing Nevada LLC formation and governance, provides the legal framework; the Washoe County Recorder maintains the property title record; and the combination gives the Nevada co-ownership structure a clear, modern and well-proven legal foundation.</p>
+
+</div></section>
+
+<!-- §F HOW IT WORKS — white band -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works in Nevada</h2>
+
+<p>The mechanics of fractional ownership in Nevada are shaped by <strong>four things working together</strong>: the <strong>purpose-built LLC ownership structure</strong> used to hold every property, the <strong>Nevada property-tax and state-tax framework</strong> that gives the Nevada shore its financial distinctiveness, the <strong>Nevada LLC Act</strong> that governs the company framework, and the <strong>TRPA environmental rules</strong> that govern what can and cannot be done with property in the Lake Tahoe basin on both sides of the state line. Understanding how these pieces fit together is the difference between a clear, confident ownership experience and one the buyer approaches uncertainly.</p>
+
+<h3>How the LLC structure holds Nevada property</h3>
+
+<p>The LLC that holds each Nevada property is a <strong>purpose-built company</strong> designed for shared ownership, registered in Nevada under the <a href="https://www.leg.state.nv.us/nrs/NRS-086.html" target="_blank" rel="noopener">Nevada Revised Statutes Chapter 86</a>. It has a managing member or officer appointed under the company's operating agreement, a <strong>register of members</strong> recording who holds which interest and in what proportion, and an operating structure that governs owner-level decisions — major capital works, budget approval, management review — made by the co-owner group. The same LLC framework runs across COP's properties worldwide — in the United States, the United Kingdom, France, Spain, Italy and elsewhere — meaning that an owner adding a second property in Mallorca, the French Alps or the Italian Lakes is <strong>not learning a new ownership structure each time</strong>, but extending one they already understand. For a fractional buyer in Nevada, the practical effect is that you become a <strong>registered member of the LLC</strong> that owns the property. The property remains Nevada real estate — recorded at the Washoe County Recorder by the LLC — and you, in turn, are a legal member of the LLC. This structure gives Nevada co-ownership on COP its <strong>consistent international format</strong>, its <strong>cleaner inheritance treatment</strong> (LLC membership interests pass as personal property of the owner's home jurisdiction rather than requiring Nevada ancillary probate), and its <strong>faster resale path</strong>.</p>
+
+<h3>Nevada property tax — how it works for co-owners</h3>
+
+<p>Nevada's property tax system is one of the most competitively rated in the western United States. The effective property-tax rate in <strong>Washoe County</strong> — which covers Incline Village and Crystal Bay — runs significantly below California's effective rate on equivalent properties, producing a structurally lower tax carry for the LLC that holds the property. Nevada assesses property at <strong>35% of taxable value</strong>, with the tax rate set at the county level — Washoe County's combined rate produces an effective annual tax that is a fraction of an equivalent California property's Proposition 13-capped bill, which itself was designed to cap a higher baseline. Nevada has no <strong>transfer tax</strong> on property sold from an LLC member to a new LLC member — the transfer of an LLC membership interest is not treated as a conveyance of the underlying real estate and thus does not trigger Nevada's real-property-transfer-tax provisions in the standard fractional-transfer structure. This makes the exit and entry mechanics of the Nevada fractional structure administratively cleaner than in many other US jurisdictions. The LLC's Nevada-licensed CPA handles the property-tax assessment, annual filings and compliance with Washoe County; individual co-owners do not deal with the county assessor directly.</p>
+
+<p>The broader Nevada tax picture — <strong>no state income tax, no capital gains tax at the state level, no estate or inheritance tax</strong> — is relevant to co-owners primarily through two channels. First, any income derived from the property (rental income in weeks when the owner opts not to use their allocation, if the LLC's structure permits this) is not subject to Nevada state income tax — only federal tax applies. Second, on exit, any capital gain realised on the sale of the LLC membership interest is not subject to Nevada state capital gains tax — again, only federal tax applies. Both of these positions are meaningfully different from the equivalent California analysis, and both are individual-tax-circumstance questions that every buyer should review with their own tax advisor.</p>
+
+<h3>TRPA compliance and what it means for your property</h3>
+
+<p>The <a href="https://www.trpa.gov/" target="_blank" rel="noopener">Tahoe Regional Planning Agency (TRPA)</a> governs land use, development, redevelopment and environmental thresholds across the entire Lake Tahoe basin — both Nevada and California sides. Its rules are among the most comprehensive of any environmental planning authority in the United States, and they have a direct bearing on what can be done with any property in the basin, including properties on the Nevada shore. <strong>For a co-owner of an established Nevada Tahoe property</strong>, the TRPA's rules operate primarily as a constraint on what can be changed about the property — major additions, structural modifications, changes to coverage of the lot, modifications to any structures within the stream environment zone — rather than as a day-to-day operational issue. The professional management team handles TRPA compliance on behalf of the LLC as part of the standard management service; individual co-owners are not required to interact with the TRPA directly. The most important practical effect of the TRPA's framework for a fractional owner is the supply constraint it creates: since new residential development in the Nevada Tahoe basin is effectively capped, the property stock that the co-owner is buying into is genuinely non-replicable, which supports the structural appreciation case for Nevada Tahoe properties across long ownership horizons.</p>
+
+<h3>The professional management model and how the calendar works</h3>
+
+<p>Once the purchase completes, a <strong>professional management company</strong> takes over all operational responsibility for the Nevada property. Your personal weeks — <strong>approximately 45 days</strong> for a 1/8 share — are allocated through a <strong>fair-rotation calendar</strong> that distributes peak weeks (the Christmas-to-New-Year ski peak, the Presidents' Day ski weekend in February, the peak-summer lake weeks in July and August) across all co-owners over a multi-year cycle, alongside shoulder-season and quieter weeks. Owners pre-book several months ahead; the fair-rotation system ensures no co-owner systematically receives worse weeks than any other across the cycle. <strong>Snow removal, winterisation and de-winterisation, hot tub maintenance and chemical management, HVAC servicing, cleaning and linen between every stay, pre-arrival preparation, on-call concierge, maintenance management, utility bills, insurance and property-tax compliance</strong> — all sit with the management company. You arrive; the property is ready, regardless of whether it is December or July. The mountain-climate operational complexity that makes sole ownership of a Nevada Tahoe property genuinely demanding is entirely abstracted away.</p>
+
+<h3>Resale: how to exit, typical timelines</h3>
+
+<p>When you decide to exit your Nevada share, a <strong>professional resale process</strong> is in place. Across COP's portfolio, the typical timeline from listing to completion is <strong>around a month or less</strong> — materially below the 6–24 months that prime Nevada Tahoe whole-property resales can take on the open market. The buyer pool for a professionally managed fractional share is already familiar with the property and the LLC structure, and the administrative mechanics of transferring a Nevada LLC membership interest are lighter than triggering a full Nevada deed-and-title conveyance through the Washoe County Recorder system. For owners who want to transfer to a specific buyer or sell on the open market, that route remains available; most owners find the established process faster and less carrying-cost-intensive than waiting for the open market at the prime Nevada Tahoe tier. The carrying costs of holding a whole Incline Village property through a slow open-market sale — full property tax, maintenance, management, utilities and insurance running continuously while the property sits unsold — can represent a meaningful fraction of the sale price by the time the transaction closes. The fractional structure's ~1-month average exit is structurally superior in this respect. The full mechanics of resale across all COP jurisdictions are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>.</p>
+
+<div class="dest-callout">
+  <strong>Free to browse, free to enquire:</strong> no buyer-side fees and no obligation. The share price you see is the share price you pay; talking to our team costs nothing.
+</div>
+
+<p>For specific Nevada property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market. Our team can walk you through the distinctions between the Incline Village estate tiers — the lake-view properties, the mountain-bench estates and the ski-proximate upper village — and help you match the right property to your actual use pattern and financial objectives before you commit.</p>
+
+<h3>Your ownership at a glance</h3>
+
+<ul>
+  <li><strong>Real, deeded equity in your name</strong> — your 1/8 share is recorded in Nevada's property system via the LLC, transferable, inheritable, and it appreciates with the underlying property. Not a timeshare, not a points membership, not a usage right.</li>
+  <li><strong>Nevada's full state tax advantage</strong> — your ownership is structured through a Nevada LLC holding Nevada real estate, which means no state income tax, no state capital gains tax and no state estate tax applies at the Nevada level. This is the same position held by any Nevada property owner, and it is not diluted by the fractional ownership structure.</li>
+  <li><strong>Consistent international structure</strong> — your Nevada share sits inside the same purpose-built LLC framework used across every property on COP, so multi-country owners deal with one model whether they own in Incline Village, the French Alps, Mallorca or the Italian Lakes.</li>
+  <li><strong>Fully managed throughout</strong> — the professional management team handles property tax, insurance, maintenance, scheduling, linen, the on-call concierge, snow removal and winterisation, hot tub maintenance and HVAC servicing. You arrive; the property is ready.</li>
+  <li><strong>Supported resale with typical ~1-month timeline</strong> — when you decide to exit, a professional resale process is in place, with exits across the portfolio typically clearing in around a month — well below the 6–24 months a comparable whole Nevada Tahoe property might sit on the open market at the prime tier.</li>
+</ul>
+
+</div></section>
+
+<!-- FAQ SECTION -->
+<section class="dest-faq-sec"><div class="dest-inner">
+<p class="dest-eyebrow">Questions &amp; Answers</p>
+<h2>Nevada Fractional Ownership — Frequently Asked Questions</h2>
+<div class="dest-faq-list">
+
+<details class="dest-faq-item">
+<summary><h3>What is the tax advantage of owning on the Nevada shore of Lake Tahoe?</h3><div class="dest-faq-chevron"></div></summary>
+<div class="dest-faq-answer"><p>Nevada levies <strong>no state personal income tax, no state capital gains tax, and no state estate or inheritance tax</strong>. This contrasts with California — whose shoreline begins approximately twenty minutes west of Incline Village — which levies all three, with a top marginal state income tax rate of 13.3% and state-level capital gains taxed as ordinary income. For a fractional co-owner on the Nevada shore, the ownership is structured through a Nevada LLC holding Nevada real estate, which means the full Nevada state tax position applies at the property-ownership level.</p><p>The personal financial implications — particularly around domicile, the treatment of investment income, and estate planning — are individual and jurisdiction-specific. Every buyer should review their specific position with their own tax and legal advisors alongside the lifestyle case for the Nevada shore. What COP can confirm is that the ownership structure — a Nevada LLC holding Nevada property — is the same structure used by any Nevada real-estate owner and has no features that would dilute the standard Nevada tax position.</p></div>
+</details>
+
+<details class="dest-faq-item">
+<summary><h3>What amenities do Incline Village property owners get access to?</h3><div class="dest-faq-chevron"></div></summary>
+<div class="dest-faq-answer"><p>Property owners in Incline Village who are assessed for the <a href="https://www.ivgid.org/" target="_blank" rel="noopener">Incline Village General Improvement District (IVGID)</a> have access to a set of private amenities not available to the general public. These include: <strong>three private beaches</strong> (Burnt Cedar Beach, Incline Beach and Secret Harbour), which are among the least crowded lake-access points in the Tahoe basin during peak summer weekends; <strong>Diamond Peak ski resort</strong> above the village, with IVGID member pricing and priority access; recreation centres and indoor sports facilities; tennis and pickleball courts; and the IVGID golf programme. The specific IVGID assessment structure and the amenity entitlements for LLC-held fractional co-owners are confirmed at the property level; our team can walk prospective buyers through the specific IVGID access applicable to each Incline Village property in the COP portfolio.</p></div>
+</details>
+
+<details class="dest-faq-item">
+<summary><h3>Is fractional ownership on the Nevada shore of Lake Tahoe a good investment?</h3><div class="dest-faq-chevron"></div></summary>
+<div class="dest-faq-answer"><p>Nevada Lake Tahoe fractional ownership provides <strong>deeded equity in premium alpine and lakefront properties</strong> that are permanently supply-constrained by TRPA regulations governing the entire Lake Tahoe basin. Unlike purely seasonal ski resorts, Lake Tahoe's Nevada shore maintains year-round demand from ski visitors in winter, lake and outdoor-recreation visitors in summer, and the autumn shoulder market — supporting structural property values that do not depend on a single seasonal window. Your 1/8 share appreciates with the underlying property value, carries roughly 1/8 of the whole-property annual costs (fully managed), and resells through a professional process with a typical timeline of around a month or less.</p>
+<p>The <strong>Nevada state tax advantage</strong> adds a further structural dimension to the investment case. Properties in the Nevada shore market have historically attracted a financially sophisticated buyer demographic — buyers who have specifically chosen the Nevada side of the lake for the tax position — and that demographic has historically supported long-run price stability at the premium tier, underpinned by supply constraints that apply equally across the whole lake basin. The <strong>TRPA's development limits</strong>, which have been in place since 1969 and have been consistently tightened rather than relaxed over the intervening fifty-plus years, make the Nevada Tahoe property stock genuinely non-replicable: no new lakefront estate inventory is being created, and the mountain-bench estate supply above Incline Village is similarly fixed by the basin's environmental thresholds and national-forest boundaries. A 1/8 share in a genuinely supply-constrained market with year-round recreational demand, professional management and a typical exit timeline of around a month has a structurally different investment profile from a timeshare use-right or a points-club membership with no resale value. We recommend discussing the specifics with your own financial and legal advisers alongside the lifestyle case for the Nevada shore.</p></div>
+</details>
+
+</div>
+</div></section>
+
+<!-- EXPLORE MORE SECTION -->
+<section class="dest-explore-sec"><div class="dest-explore-inner">
+<p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p>
+<h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2>
+<div class="dest-explore-grid">
+  <a href="/usa-fractional-ownership-properties/" class="dest-explore-card">USA Fractional Ownership &rarr;</a>
+  <a href="/lake-tahoe-fractional-ownership-properties/" class="dest-explore-card">Lake Tahoe Fractional Ownership &rarr;</a>
+  <a href="/california-fractional-ownership-properties/" class="dest-explore-card">California Fractional Ownership &rarr;</a>
+  <a href="/colorado-fractional-ownership-properties/" class="dest-explore-card">Colorado Fractional Ownership &rarr;</a>
+  <a href="/how-it-works/" class="dest-explore-card">How Co-Ownership Works &rarr;</a>
+</div>
+</div></section>
+
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>South Carolina Fractional Ownership Properties | Co-Ownership Property</title>
+  <meta name="description" content="Co-ownership properties in South Carolina from COP — deeded fractional ownership on Kiawah Island, Hilton Head Island, Isle of Palms and Sullivan's Island. Fully managed, 6–7 weeks of personal use per year, real equity in the Lowcountry's most sought-after coastal addresses.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+    :root {
+      --blue:        #2C4A5E;
+      --cream:       #F5F2EC;
+      --gold:        #C9A84C;
+      --white:       #FFFFFF;
+      --text:        #1a2533;
+      --muted:       #5a6a7a;
+      --border:      #e8e0d4;
+      --max:         1400px;
+      --warm-gold:   #C9A84C;
+      --cream-bg:    #F5F2EC;
+      --cream-light: #FAF8F5;
+      --text-dark:   #2C4A5E;
+      --text-light:  rgba(255,255,255,0.85);
+      --text-muted:  #5a6a7a;
+      --gray-border: #e8e0d4;
+      --blue-80:     #4A6A7E;
+      --blue-60:     #6B8A9E;
+      --blue-40:     #9EAFBC;
+      --blue-20:     #C5CED5;
+      --transition:  0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { font-family: 'Nunito Sans', sans-serif; color: var(--text-dark); background: var(--white); line-height: 1.6; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 400; }
+
+    /* ===== HERO ===== */
+    .page-hero { background: var(--blue); padding: 150px 3rem 60px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero::after { content: ''; position: absolute; top: 28px; left: 28px; right: 28px; bottom: 28px; border: 1px solid rgba(201,168,76,0.12); pointer-events: none; }
+    .page-hero > * { position: relative; z-index: 1; }
+    .eyebrow { font-family: 'Nunito Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--warm-gold); font-weight: 700; margin-bottom: 1rem; }
+    .page-hero h1 { font-size: clamp(2rem,5vw,3.2rem); color: var(--white); line-height: 1.15; margin-bottom: 1rem; }
+    .page-hero .subtitle { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+    /* ===== PROPERTY GRID ===== */
+    .props-sec { background: var(--cream-bg); padding: 60px 3rem 80px; }
+
+    /* ===== MID-CTA ===== */
+    .dest-mid-cta { background: var(--blue); padding: 50px 3rem; text-align: center; position: relative; overflow: hidden; }
+    .dest-mid-cta::after { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; border: 1px solid rgba(201,168,76,0.15); pointer-events: none; }
+    .dest-mid-cta > * { position: relative; z-index: 1; }
+    .dest-mid-cta h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem,3vw,2rem); color: var(--white); font-weight: 400; margin-bottom: 1rem; }
+    .dest-mid-cta p { font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 1.5rem; }
+    .dest-mid-cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 14px 32px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-family: 'Nunito Sans', sans-serif; text-decoration: none; transition: all 0.3s; }
+    .btn-gold { background: var(--warm-gold); color: #fff; }
+    .btn-gold:hover { background: #b8963e; }
+    .btn-outline { background: transparent; color: rgba(255,255,255,0.85); border: 1.5px solid rgba(255,255,255,0.3); }
+    .btn-outline:hover { border-color: var(--warm-gold); color: var(--warm-gold); }
+
+    /* ===== EDITORIAL SECTIONS ===== */
+    .dest-sec { padding: 80px 3rem; }
+    .dest-sec.cream { background: var(--cream-bg); }
+    .dest-sec.white { background: var(--white); }
+    .dest-inner { max-width: 900px; margin: 0 auto; }
+    .dest-eyebrow { font-family: 'Nunito Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--warm-gold); font-weight: 700; margin-bottom: 0.8rem; }
+    .dest-sec h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem,3.5vw,2.2rem); font-weight: 400; color: var(--text-dark); margin-bottom: 1.2rem; line-height: 1.2; }
+    .dest-sec h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; color: var(--text-dark); margin: 2.6rem 0 0.6rem; }
+    .dest-sec p { font-size: 1rem; color: var(--text-muted); line-height: 1.85; margin-bottom: 1.1rem; }
+    .dest-sec strong { color: var(--text-dark); font-weight: 700; }
+    .dest-sec em { font-style: italic; }
+    .dest-sec a { color: var(--warm-gold); font-weight: 600; text-decoration: none; }
+    .dest-sec a:hover { color: var(--blue); }
+    .dest-sec ul, .dest-sec ol { margin: 0 0 1.2rem 1.5rem; color: var(--text-muted); font-size: 1rem; line-height: 1.8; }
+    .dest-sec table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.88rem; }
+    .dest-sec table th { background: var(--blue); color: #fff; padding: 0.7rem 1rem; text-align: left; font-family: 'Nunito Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+    .dest-sec table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--gray-border); color: var(--text-muted); }
+    .dest-callout { background: var(--white); border-top: 3px solid var(--warm-gold); padding: 1.2rem 1.4rem; margin: 1.5rem 0; font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+    .dest-sec.cream .dest-callout { background: var(--cream-light); }
+    .dest-snippet { background: var(--white); border-top: 3px solid var(--warm-gold); padding: 1.4rem 1.6rem; margin: 0 0 2rem; }
+    .dest-sec.cream .dest-snippet { background: var(--cream-light); }
+    .dest-snippet h2 { font-size: 1.1rem; margin-bottom: 0.6rem; }
+    .dest-snippet p { margin-bottom: 0; }
+    .dest-figure { margin: 1.8rem 0; }
+    .dest-figure img { width: 100%; height: auto; display: block; }
+    .dest-figure figcaption { font-size: 0.82rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem; padding-left: 0.2rem; }
+    .dest-stats-band { display: flex; gap: 0; background: var(--blue); color: #fff; margin: 2rem 0; }
+    .dest-stat-item { flex: 1; padding: 1.4rem 1.2rem; text-align: center; border-right: 1px solid rgba(201,168,76,0.2); }
+    .dest-stat-item:last-child { border-right: none; }
+    .dest-stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--warm-gold); display: block; }
+    .dest-stat-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); }
+
+    /* ===== COMPARE TABLE ===== */
+    .dest-compare-table th:nth-child(3) { background: var(--warm-gold); }
+    .dest-compare-table td:nth-child(3) { font-weight: 700; color: var(--text-dark); background: rgba(201,168,76,0.06); }
+
+    /* ===== FAQ ===== */
+    .dest-faq-sec { background: var(--cream-bg); padding: 80px 3rem; }
+    .dest-faq-sec h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem,3.5vw,2.2rem); font-weight: 400; color: var(--text-dark); margin-bottom: 0.5rem; text-align: center; }
+    .dest-faq-list { counter-reset: faq; }
+    .dest-faq-item { border-top: 1px solid var(--warm-gold); }
+    .dest-faq-item:last-child { border-bottom: 1px solid var(--warm-gold); }
+    .dest-faq-item summary { display: flex; align-items: center; cursor: pointer; padding: 20px 0; list-style: none; }
+    .dest-faq-item summary::-webkit-details-marker { display: none; }
+    .dest-faq-item summary h3 { flex: 1; font-size: 1rem; color: var(--text-dark); margin: 0; font-family: 'Playfair Display', serif; font-weight: 400; }
+    .dest-faq-chevron { width: 11px; height: 11px; border-right: 2px solid var(--warm-gold); border-bottom: 2px solid var(--warm-gold); transform: rotate(45deg); transition: transform 0.3s; flex-shrink: 0; margin-left: 16px; }
+    details[open] .dest-faq-chevron { transform: rotate(-135deg); }
+    .dest-faq-answer { font-size: 0.95rem; line-height: 1.8; color: var(--text-muted); padding: 0 0 20px 0; }
+    .dest-faq-answer p { margin-bottom: 0.8rem; }
+
+    /* ===== EXPLORE ===== */
+    .dest-explore-sec { background: var(--blue); position: relative; overflow: hidden; padding: 80px 3rem; }
+    .dest-explore-sec::after { content: ""; position: absolute; top: 28px; left: 28px; right: 28px; bottom: 28px; border: 1px solid rgba(201,168,76,0.15); pointer-events: none; }
+    .dest-explore-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; text-align: center; }
+    .dest-explore-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.8rem; margin-top: 0.5rem; }
+    .dest-explore-card { display: block; padding: 1rem 0.8rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,168,76,0.2); color: rgba(255,255,255,0.85); font-size: 0.82rem; font-family: 'Nunito Sans', sans-serif; font-weight: 600; text-decoration: none; transition: all 0.3s; }
+    .dest-explore-card:hover { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.5); color: #fff; }
+
+    @media(max-width:768px) {
+      .dest-sec, .dest-explore-sec, .dest-faq-sec { padding: 50px 1.5rem; }
+      .dest-explore-grid { grid-template-columns: repeat(2,1fr); }
+      .page-hero { padding: 130px 1.5rem 50px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="page-hero">
+  <p class="eyebrow">South Carolina · USA</p>
+  <h1>South Carolina Fractional Ownership <em>Properties</em></h1>
+  <p class="subtitle">From a oceanfront estate on Kiawah Island to a marshside villa on the Charleston Sea Islands — fractional ownership in South Carolina's Lowcountry means a deeded share of one of America's most exceptional coastal landscapes, six to seven weeks of personal use a year, and a fully managed home waiting whenever you arrive.</p>
+</section>
+
+<!-- PROPERTY GRID (populated by renderer) -->
+<section class="props-sec"></section>
+
+<!-- MID-CTA -->
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>The South Carolina Lowcountry's finest addresses, accessible through co-ownership.</h2>
+    <p>Fully managed oceanfront estates, villas and coastal retreats across <strong>Kiawah Island</strong>, <strong>Hilton Head Island</strong>, <strong>Isle of Palms and Sullivan's Island</strong>, and <strong>Johns Island and the Charleston Sea Islands</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of one of the American Southeast's most supply-constrained coastal markets.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
+    </div>
+  </div>
+</div>
+
+<!-- §A WHY SOUTH CAROLINA — cream -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1z0dGLe3oB0rPPMjiDMoxoAuBoSqX1gXy" alt="A Kiawah Island villa with sea views across the South Carolina Lowcountry coast" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Kiawah Island villa with ocean views — the Atlantic horizon stretching south along the South Carolina coast.</figcaption>
+</figure>
+
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership in South Carolina?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership in South Carolina means buying a deeded 1/8 share of a luxury Lowcountry coastal property — held in a purpose-built LLC alongside up to seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
+
+<h2>Why South Carolina?</h2>
+
+<p>South Carolina's Lowcountry coast is one of the genuinely irreplaceable landscapes of the American South — a place where <strong>barrier-island beaches, ancient maritime forest, tidal marsh, and the historic city of Charleston</strong> exist within a 60-mile arc, creating a second-home destination that has no direct equivalent anywhere else on the Eastern Seaboard. The Lowcountry occupies a specific geographic and cultural register: not the crowded resort corridor of Myrtle Beach to the north, not the retirement-community character of the South Carolina upstate, but a constellation of <strong>Sea Islands</strong> — <strong>Kiawah Island</strong>, <strong>Hilton Head Island</strong>, <strong>Isle of Palms</strong>, <strong>Sullivan's Island</strong>, <strong>Johns Island</strong>, <strong>Seabrook Island</strong> — each with its own architectural character, microclimate, and buyer profile, all orbiting the extraordinary historic core of <strong>Charleston</strong>. The case for fractional ownership in South Carolina starts with supply. The Lowcountry's barrier islands are ringed by tidal wetlands, <a href="https://www.dnr.sc.gov/" target="_blank" rel="noopener">South Carolina Department of Natural Resources</a> conservation easements, and private community land restrictions that have effectively capped new development for decades. <strong>Kiawah Island</strong>, arguably the most prestigious address on the South Carolina coast, controls development through its own community conservation trust; the island's interior maritime forest and its 10 miles of Atlantic beach are among the most carefully protected natural assets in the American South-East.</p>
+
+<p>Your South Carolina Lowcountry share is held inside a <strong>purpose-built LLC</strong> alongside up to seven other co-owners. This is the same modern international ownership structure used across every property on COP — whether in the United States, France, Spain, Italy or elsewhere — rather than a state-specific arrangement that would behave differently from country to country. <strong>The practical effect</strong> for the buyer is significant: your relationship with the property runs through <strong>one consistent ownership structure</strong> regardless of which COP destination you own in; resale is faster because transferring an <strong>LLC membership interest</strong> is a more direct administrative action than triggering a full South Carolina deed-and-title conveyance; and for owners who go on to add a second COP property elsewhere, the reward is a <strong>single international portfolio relationship</strong> rather than a stack of jurisdiction-specific arrangements that each behave differently. South Carolina's LLC governance follows the <a href="https://www.scstatehouse.gov/" target="_blank" rel="noopener">South Carolina LLC Act</a>, providing a robust and well-tested legal framework for shared co-ownership of real estate.</p>
+
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and up to seven other owners hold equal LLC membership interests — giving lighter resale, a consistent ownership structure across every COP property worldwide, and a single international portfolio relationship when you add a second destination.
+</div>
+
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value and an annual maintenance fee that often outlasts any usefulness. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and up to seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare.
+</div>
+
+<p>The structural argument for the South Carolina Lowcountry as a fractional destination goes beyond supply. The region has built, over the past half-century, one of the most comprehensive infrastructure layers for luxury second-home ownership of any coastal market in the United States. <strong>Kiawah Island</strong> and <strong>Hilton Head Island</strong> each have mature property-management industries, resort-calibre private amenity networks, and professional services ecosystems — attorneys, CPAs, title companies, and concierge operators — specifically oriented toward non-resident vacation-home owners. The <a href="https://www.hiltonheadisland.org/" target="_blank" rel="noopener">Hilton Head Island-Bluffton Chamber of Commerce</a> estimates that well over <strong>half the homes on Hilton Head</strong> are owned by non-resident second-home or vacation-property buyers, giving the island a professional services environment calibrated to remote ownership at a level that many newer coastal markets take decades to build. Both islands also benefit from the gravitational pull of <strong>Charleston</strong> itself — <strong>consistently ranked among the top domestic travel destinations in the United States</strong> by <a href="https://www.travelandleisure.com/" target="_blank" rel="noopener">Travel + Leisure</a> — which provides cultural depth, a world-class restaurant scene, international-gateway airport access, and a historic built environment that gives the entire Lowcountry a quality of place that is difficult to replicate in markets built purely around golf or beach resort amenities.</p>
+
+<p>South Carolina also benefits from what is arguably the most distinctive cultural heritage in the American South. The <strong>Gullah Geechee</strong> people — descendants of West and Central African enslaved people who maintained their language, spiritual practices, foodways and crafts across the Sea Islands for more than three centuries — are the living cultural foundation of the Lowcountry. The <a href="https://gullahgeecheecorridor.org/" target="_blank" rel="noopener">Gullah Geechee Cultural Heritage Corridor</a>, a federally designated corridor running from southern North Carolina through Georgia, passes directly through Charleston and the Lowcountry Sea Islands, and the culture's influence on <strong>Southern cooking, craftsmanship, music and literature</strong> is embedded in every aspect of the region's identity. For second-home buyers who value depth of place over generic resort character, the Gullah Geechee heritage is one of the Lowcountry's most enduring distinctions.</p>
+
+<div class="dest-callout">
+  <strong>South Carolina Lowcountry in three numbers:</strong> <strong>10 miles</strong> of protected Atlantic beach on Kiawah Island, managed under a private conservation trust · <strong>60 miles</strong> from Kiawah Island to Hilton Head, the arc of the Lowcountry's barrier-island coast · <strong>5 distinct Sea Islands</strong> in the COP inventory — Kiawah, Hilton Head, Isle of Palms, Sullivan's Island, Johns Island.
+</div>
+
+<p>A further argument for the Lowcountry that often surprises buyers approaching it as purely a domestic US market: <strong>no Schengen restriction applies</strong>. Post-Brexit, UK nationals are subject to the 90-day-in-180-day limit across the 27 EU member states combined. South Carolina carries no equivalent restriction — UK and European buyers can visit on a US ESTA for up to 90 days per trip, with no annual accumulation rule governing repeat visits across the same twelve-month period. For a 1/8 fractional owner whose share delivers approximately <strong>45 days of use per year</strong>, the ESTA's 90-day per-trip allowance is structurally more permissive than the Schengen rules would be for a comparable European share. The combination of a <strong>mild subtropical climate, direct London-to-Charleston transatlantic service</strong>, and the absence of any Schengen-style counter makes the South Carolina Lowcountry a genuinely practical proposition for UK and European buyers who have previously dismissed the American South-East as a secondary consideration.</p>
+
+<p>The fourth structural argument is the Lowcountry's <strong>golf pedigree</strong>, which is exceptional even by national standards. <strong>Kiawah Island</strong> is home to the <a href="https://www.kiawahresort.com/golf/ocean-course/" target="_blank" rel="noopener">Ocean Course</a>, the most memorable and most wind-exposed major championship venue in American golf — host of the <strong>1991 Ryder Cup</strong> ("The War at the Shore"), the <strong>2012 PGA Championship</strong>, the <strong>2021 PGA Championship</strong>, and already confirmed for the <strong>2031 Ryder Cup</strong>. It sits on a 2.5-mile oceanside ridge with all 18 holes commanding Atlantic views, designed by Pete Dye in 1991 and consistently ranked among the <strong>top five public golf courses in the United States</strong>. <strong>Hilton Head Island</strong> hosts the <a href="https://rbcheritagetickets.com/" target="_blank" rel="noopener">RBC Heritage</a> at <a href="https://www.harbourtownlinks.com/" target="_blank" rel="noopener">Harbour Town Golf Links</a> each April — a PGA Tour event held on what many professionals regard as the finest strategic links-style course in American golf, designed by Pete Dye with input from Jack Nicklaus. For buyers whose calendar is anchored in golf, the South Carolina Lowcountry offers a concentration of championship-grade courses — the five Kiawah courses, Harbour Town, Palmetto Dunes, Robert Trent Jones at Palmetto Hall, Arthur Hills at Palmetto Hall — that rivals any single destination in the United States.</p>
+
+</div></section>
+
+<!-- §B WHERE TO OWN — white -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Where to own in South Carolina</h2>
+
+<p>The South Carolina Lowcountry is not one market but <strong>four distinct second-home clusters</strong>, each with its own architectural character, buyer mix, proximity to Charleston, and lifestyle emphasis. Together they account for the overwhelming majority of luxury second-home demand in the state. The four clusters are: <strong>Kiawah Island</strong> — the most prestigious and most golf-oriented; <strong>Hilton Head Island</strong> — the largest and most internationally established; <strong>Isle of Palms and Sullivan's Island</strong> — the closest to Charleston, with the most residential character; and <strong>Johns Island and the Charleston Sea Islands</strong> — the most nature-immersed, with the lowest density and the strongest connection to the Lowcountry's marshland landscape.</p>
+
+<h3>Kiawah Island</h3>
+
+<p><strong>Kiawah Island</strong> is the most architecturally coherent and most rigidly conservation-minded of all the South Carolina barrier islands, and the result is a luxury second-home market with no direct equivalent on the US East Coast. The island stretches for <strong>10 miles</strong> along the <strong>Atlantic shore</strong> of Charleston County, separated from the mainland and from adjacent Seabrook Island by tidal creeks and marshland. Development is governed by the <a href="https://www.kiawahisland.org/" target="_blank" rel="noopener">Kiawah Island Community Association</a> and the Kiawah Conservancy, which between them control building standards, exterior palette, setback rules, and the ecological integrity of the island's maritime forest — the <strong>4,000-acre maritime forest</strong> of oak, palmetto and yaupon holly that gives the island its distinctive subtropical canopy. The result is that Kiawah's built environment feels deliberately low-density: houses sit within the tree canopy rather than above it, the beach itself is buffered by <strong>180 acres of preserved dune and scrubland</strong>, and the <strong>32-mile network of bike paths</strong> through the forest connects homeowners to every corner of the island without requiring a car.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1bEKAnqB-GOSkWk9aE1atYkZEs-W5xYqY" alt="A Kiawah Island coastal villa with fireplace, maritime forest and South Carolina Atlantic coast" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Kiawah Island villa with fireplace — the Atlantic and the island's protected maritime forest just beyond the tree line.</figcaption>
+</figure>
+
+<p>The golf infrastructure is, by any measure, the finest concentration of resort golf on the American East Coast. The <strong>Ocean Course</strong> — host of the 1991 Ryder Cup, the 2012 and 2021 PGA Championships, and confirmed for the 2031 Ryder Cup — is the headliner, but it is supported by four further 18-hole championship courses: Osprey Point (Tom Fazio, 1988), Turtle Point (Jack Nicklaus, 1981), Cougar Point (Gary Player, 1996) and Oak Point (Clyde Johnston, 1989) on adjacent Seabrook. The <a href="https://www.kiawahresort.com/" target="_blank" rel="noopener">Kiawah Island Golf Resort</a> manages the golf infrastructure and the resort amenities — including The Sanctuary Hotel, the East Beach Village retail and dining complex, and the Night Heron Park beach and outdoor recreation centre. The Atlantic beach itself is among the widest on the US East Coast, running <strong>10 miles without a single commercial break</strong> — no beach bars, no rental-chair operators, no hotels on the sand. Dolphins are a daily presence in the surf; loggerhead sea turtles nest on the beach from May through August, protected by the <a href="https://www.kiawahconservancy.org/" target="_blank" rel="noopener">Kiawah Conservancy</a>. Climate runs <strong>8–16°C (mid-40s°F to low 60s°F)</strong> in January and February, warming through spring to <strong>28–32°C (low 80s°F to low 90s°F)</strong> at the peak of July and August, with <strong>ocean water temperatures reaching 26–27°C (high 70s°F)</strong> from late June through September. The proximity of the Gulf Stream keeps water temperatures warmer than equivalent latitudes on the US Northeast Coast. <strong>Best for:</strong> golf-primary buyers who want the most prestigious championship golf address on the East Coast, conservation-minded families who value the ecological integrity and low-density character of the island, and buyers whose calendar is structured around the shoulder seasons — April–June and September–October — when the weather, golf conditions and Atlantic water temperatures are all at their most rewarding.</p>
+
+<h3>Hilton Head Island</h3>
+
+<p><strong>Hilton Head Island</strong> is the largest barrier island on the East Coast between New Jersey and Florida — <strong>12 miles (19 km) long and 5 miles (8 km) wide</strong> — and the most internationally established resort destination in South Carolina. The island's development as a modern resort began in 1956 with Charles Fraser's <strong>Sea Pines Resort</strong>, the first master-planned resort community in the United States to mandate environmental covenants and tree-preservation requirements as conditions of development. That founding philosophy has shaped the island's entire built environment for 70 years: roads run through canopied tree tunnels, buildings are height-limited to four storeys and muted in exterior palette, and the <strong>12 miles of public beach</strong> remain uncommercialised in the manner of Kiawah. The island today has more than <strong>20 golf courses</strong>, more than <strong>300 tennis courts</strong>, <strong>13 miles</strong> of dedicated bike paths, and a dining scene concentrated in <strong>Harbour Town</strong> (the lighthouse village at the tip of Sea Pines) and the <strong>Coligny Beach Park</strong> area that ranges from casual Lowcountry oyster bars to nationally recognised farm-to-table restaurants.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1BTCvwcb5RLa1Ncy9JCnR_yQcBF5miFU3" alt="A Hilton Head Island villa with sea views overlooking the South Carolina Atlantic coast" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Hilton Head Island villa with sea views — the Atlantic coast of South Carolina stretching north toward Charleston.</figcaption>
+</figure>
+
+<p>The <strong>RBC Heritage</strong> at <a href="https://www.harbourtownlinks.com/" target="_blank" rel="noopener">Harbour Town Golf Links</a>, held each April on the week after the Masters, is the island's signature annual event — a PGA Tour tournament that brings the full tour field to a course most professionals regard as the finest strategic test in American resort golf. The Harbour Town Links was designed by Pete Dye in collaboration with Jack Nicklaus in 1969 and plays to a par of 71 across 6,973 yards of tight Bermuda fairways, marshland borders and the iconic red-and-white candy-striped lighthouse at the 18th. Beyond the RBC Heritage, Hilton Head's event calendar includes the <a href="https://www.montageresorts.com/palmetto-bluff" target="_blank" rel="noopener">Palmetto Bluff</a> culinary festivals, the <strong>Hilton Head Island Concours d'Elegance</strong> in November, and the year-round programme at the <a href="https://www.artleaguehhi.org/" target="_blank" rel="noopener">Art League of Hilton Head</a>. The buyer mix is more geographically diverse than Kiawah's: a substantial <strong>domestic retirement and semi-retirement cohort</strong> from the Northeast and Midwest shares the island with <strong>active-family second-home buyers</strong> from the Charlotte, Atlanta and Washington DC metropolitan areas, and a growing international contingent — <strong>British, Canadian, German, Australian buyers</strong> — drawn by the direct flight access from <a href="https://www.hhi-airport.com/" target="_blank" rel="noopener">Hilton Head Airport (HHH)</a> and the island's English-language professional services infrastructure. <a href="https://www.charlestonairport.com/" target="_blank" rel="noopener">Charleston International Airport (CHS)</a> provides the wider gateway, with direct services from London Heathrow, New York, Boston, Chicago, Atlanta, Miami, Dallas, Los Angeles, Denver, Philadelphia and Charlotte. Drive time from <strong>CHS to Hilton Head</strong> is approximately <strong>1 hour 30 minutes</strong> via US-17 South and the Cross Island Parkway. <strong>Best for:</strong> buyers who want the broadest amenity offer on a single island — the combination of championship golf, world-class tennis, beach cycling, nature trails and a mature dining and shopping scene within a self-contained, well-managed destination — and who value the strong resale liquidity and international name recognition of the Hilton Head brand.</p>
+
+<h3>Isle of Palms and Sullivan's Island</h3>
+
+<p><strong>Isle of Palms</strong> and <strong>Sullivan's Island</strong> are the barrier islands immediately north and north-east of Charleston — both accessible from the city by bridge, and both with a character defined by proximity to the urban rather than immersion in the resort. <strong>Sullivan's Island</strong> is the closer and more residential: a narrow barrier island of roughly <strong>3,000 permanent residents</strong>, just <strong>8 miles (13 km) from downtown Charleston</strong>, whose oceanfront houses, raised on pilings among the live oaks, have long been among the most sought-after and most privately held addresses in the Charleston area. The island's restaurant and bar strip on Middle Street — notably <a href="https://www.dunleavys.com/" target="_blank" rel="noopener">Dunleavy's Pub</a> and the Sullivan's Island summer dining circuit — gives the island a village-scale social life that residents fiercely protect. The historic <strong>Fort Moultrie</strong>, where the first significant American victory of the Revolutionary War was won in 1776, occupies the western tip of the island; the <a href="https://www.nps.gov/fosu/index.htm" target="_blank" rel="noopener">Fort Sumter and Fort Moultrie National Historical Park</a> provides the broader historical context. <strong>Isle of Palms</strong> is the larger and more resort-oriented neighbour — accessible via the <strong>Ben Sawyer Bridge</strong> from Mount Pleasant — with the <a href="https://www.wilddunesresort.com/" target="_blank" rel="noopener">Wild Dunes Resort</a> anchoring the northern tip of the island and its two Tom Fazio-designed golf courses providing resort infrastructure for the vacation-home community. The beach at Isle of Palms runs for <strong>7 miles</strong> of wide Atlantic shoreline with gentle surf well-suited to families with younger children.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1Ovt-DJTVjmNEKDsyAXfb6hyfXVN-w2V6" alt="An Isle of Palms beach cabin on the South Carolina coast near Charleston" loading="lazy" width="1600" height="1067" />
+  <figcaption>An Isle of Palms coastal cabin — 7 miles of Atlantic beach and a 25-minute bridge-drive to downtown Charleston.</figcaption>
+</figure>
+
+<p>The defining advantage of Isle of Palms and Sullivan's Island for the fractional owner is <strong>ease of access to Charleston</strong>. A stay on either island gives direct bridge access to <strong>King Street</strong> (one of the finest shopping and dining streets in the American South), the <strong>Historic District</strong> (with its antebellum architecture, cobblestone streets, and 18th-century churches), the <strong>City Market</strong>, and the restaurant scene anchored by establishments including Husk, FIG, The Darling Oyster Bar and the emerging chefs of the Upper King culinary district. The combination of a beach island base and a world-class historic city within half an hour is genuinely unusual on the US East Coast — it is, in effect, the Hamptons or Martha's Vineyard experience but with a year-round warm climate and a historic city of genuine international stature. The <a href="https://www.charlestonfoodandwinefly.com/" target="_blank" rel="noopener">Charleston Wine + Food Festival</a> in March, the <a href="https://www.spoleto.org/" target="_blank" rel="noopener">Spoleto Festival USA</a> in May and June (the American counterpart of Italy's <strong>Festival dei Due Mondi</strong>, founded by Gian Carlo Menotti in 1977), and the <strong>MOJA Arts Festival</strong> in October give the Charleston calendar a cultural depth that is exceptional for a city of its size. <strong>Best for:</strong> buyers who want the closest possible combination of beach lifestyle and historic city culture, families whose children value the village-scale social life of Sullivan's Middle Street and the gentler surf of Isle of Palms, and cultural buyers for whom the Charleston arts and restaurant calendar — Spoleto, Wine + Food, the Gibbes Museum, the Drayton Hall and Middleton Place plantation gardens — is at least as important as the beach itself.</p>
+
+<h3>Johns Island and the Charleston Sea Islands</h3>
+
+<p><strong>Johns Island</strong> is the largest Sea Island in South Carolina and, by land area, the second largest island on the US East Coast. It sits between the Stono River to the north and the North Edisto River to the south, connected to Charleston and the broader Lowcountry by bridge, and its character is fundamentally different from the resort islands of Kiawah and Hilton Head: older, less developed, more deeply embedded in the agricultural and Gullah Geechee cultural traditions of the Lowcountry. The island's interior — <strong>tidal salt marshes, live oak canopies, truck farms, and old family land</strong> — has been largely preserved by conservation easements and low development pressure; the <strong>Angel Oak</strong>, a Southern live oak estimated at between <strong>400 and 500 years old</strong>, with a canopy spanning <strong>17,000 square feet</strong>, stands near the centre of the island as one of the oldest living things in the American East. The more rural atmosphere of Johns Island has, over the past two decades, become a genuine draw for second-home buyers who specifically want the antithesis of the managed-resort environment: larger lots, more privacy, direct access to navigable tidal creeks for boating, kayaking and crabbing, and a quieter sense of the Lowcountry's pre-resort character.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1vQoI-V_p6W8ABADWy0KQQn_3LggpPq6N" alt="A Johns Island Lowcountry villa with fireplace amid South Carolina's coastal marshland and maritime forest" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Johns Island villa with fireplace — the Lowcountry's tidal marshland and live oak canopy just beyond the property line.</figcaption>
+</figure>
+
+<p>The Johns Island dining and food scene has in recent years emerged as one of the most interesting in the Charleston area. <strong>The Royal Tern</strong>, <strong>Wild Olive</strong>, <strong>The Fat Hen</strong> and the Johns Island Farm Trail — connecting the island's boutique farms, farm stands and agritourism operations — have given the island a food-focused identity that draws day-trippers from Charleston and longer-staying second-home guests who value the farm-to-fork provenance of Lowcountry cuisine in its most direct expression. The proximity of <strong>Kiawah Island's Ocean Course</strong> — 20 minutes by car from the heart of Johns Island — means that golf access is not sacrificed, but the baseline character of the island is emphatically not a golf resort. <strong>Wadmalaw Island</strong>, immediately south of Johns Island, is home to the <a href="https://www.charlestonteagarden.com/" target="_blank" rel="noopener">Charleston Tea Garden</a> — the only commercial tea plantation in the United States, growing Camellia sinensis under a USDA organic certificate on 127 acres of Lowcountry marsh land — and the <strong>Deep Water Vineyard</strong>, whose sea-island wine has become a regional curiosity. <strong>Best for:</strong> nature-immersed buyers who want the Lowcountry landscape — marshland, live oaks, tidal creeks, wildlife — as the dominant character of their stays; privacy-seeking buyers who want larger lots and less resort density than Kiawah or Hilton Head; and Lowcountry food enthusiasts whose secondary draw is the farm-trail dining scene and the Gullah Geechee culinary heritage at its most direct.</p>
+
+</div></section>
+
+<!-- §C A YEAR IN YOUR HOME — cream -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>A year in your South Carolina Lowcountry co-ownership home</h2>
+
+<p>Spreading <strong>45 days of use</strong> across the Lowcountry calendar is, in practice, an exercise in choosing between the shoulder-season pleasures that most experienced Lowcountry owners privately favour and the peak-summer weeks that most first-time buyers instinctively reach for. The fair-rotation calendar ensures every co-owner receives a <strong>fair allocation across peak and shoulder weeks</strong> in a multi-year cycle. The Lowcountry's subtropical climate means that the traditional US summer peak — July and August — is also the hottest, most humid and most mosquito-active period; the April–June and September–October shoulders are, by most measures, the finest on the Lowcountry calendar, and owners with calendar flexibility consistently find those weeks more rewarding.</p>
+
+<h3>Spring (March–May)</h3>
+
+<p>Spring is the Lowcountry's finest season and the one that most experienced second-home owners regard as their primary target. March opens with the <a href="https://www.charlestonfoodandwinefly.com/" target="_blank" rel="noopener">Charleston Wine + Food Festival</a> — <strong>four days of marquee dinners</strong>, tasting events, and chef-hosted experiences that draw the national food-media circuit to a city already regarded as one of the finest restaurant destinations in the United States. Temperatures through March run <strong>12–19°C (mid-50s°F to mid-60s°F)</strong>, warming rapidly through April into the <strong>18–24°C (mid-60s°F to mid-70s°F)</strong> range that most buyers find ideal for golf, cycling and outdoor dining. On <strong>Kiawah Island</strong>, April and May represent the peak of the golf season before summer heat sets in: the Ocean Course plays to its most strategic form in the spring wind, and the wait list for tee times — long through the summer holiday season — is at its most manageable. On <strong>Hilton Head</strong>, April brings the <strong>RBC Heritage</strong> in the week after the Masters, transforming Harbour Town into the most animated golf venue in the American South for four days — and giving island homeowners a week that combines championship tournament atmosphere with the island's finest spring weather. The <a href="https://www.spoleto.org/" target="_blank" rel="noopener">Spoleto Festival USA</a> opens in late May, filling Charleston's theatres, churches, galleries and outdoor stages with opera, dance, theatre and chamber music for <strong>17 days</strong> — one of the most concentrated arts events in America and, for culturally oriented Lowcountry owners, an anchor for the late-spring calendar. <strong>Atlantic water temperatures</strong> in May reach <strong>21–22°C (low 70s°F)</strong> — swimmable and warm enough for paddleboarding and kayaking in the tidal creeks of Johns Island and Isle of Palms without a wetsuit.</p>
+
+<p>Spring is also the Lowcountry's <strong>garden season</strong>, and for a significant cohort of owners the gardens are as much the draw as the golf or the beach. The historic plantation gardens of the Ashley River corridor — <a href="https://www.magnoliaplantation.com/" target="_blank" rel="noopener">Magnolia Plantation</a>, Middleton Place and Cypress Gardens — reach their peak in late March and April, when the azaleas, camellias and wisteria fill the live-oak landscapes with the colour that has drawn visitors to the Charleston area for more than a century; Magnolia's gardens are among the oldest in the United States, continuously cultivated since the seventeenth century. The <a href="https://www.historiccharleston.org/" target="_blank" rel="noopener">Festival of Houses and Gardens</a>, held across March and April, opens the private courtyards and walled gardens of Charleston's historic peninsula to visitors — a programme that culturally oriented owners build entire spring weeks around. On the barrier islands themselves, spring is when the maritime forest comes fully into leaf, the marsh grass shifts from winter straw to vivid green, and the resident and migratory bird populations — painted buntings, roseate spoonbills, the returning shorebirds — are at their most active and visible along the Kiawah and Johns Island trail networks. For owners whose pleasure in a property is as much about its setting as its specification, the Lowcountry spring is the season that most fully rewards the decision to own here.</p>
+
+<h3>Summer (June–August)</h3>
+
+<p>Summer is the Lowcountry at its most intensely subtropical — and, for the well-prepared owner, at its most visually dramatic. Daytime temperatures from late June through August run <strong>29–33°C (low to high 80s°F)</strong>, with high humidity and an afternoon heat that makes the period between 11am and 4pm best spent in the pool, on the water, or in the air-conditioning of one of Charleston's excellent restaurants and museum spaces. The <strong>Atlantic water temperatures</strong> peak at <strong>26–28°C (high 70s°F to low 80s°F)</strong> in July and August — genuinely warm, bathtub-level conditions that make the Kiawah and Isle of Palms beaches exceptionally appealing for swimming. <a href="https://www.nps.gov/fisu/index.htm" target="_blank" rel="noopener">Fort Sumter</a>, accessible by ferry from the Charleston waterfront, is at its most visited in the summer months; the <a href="https://www.charlestonstage.com/" target="_blank" rel="noopener">Charleston Stage</a> summer theatre programme runs through July and August; and the <strong>Fourth of July</strong> celebrations on the Isle of Palms and Sullivan's Island beaches are among the most atmospheric on the East Coast — the local tradition of beachfront fireworks and the island's scale giving the holiday a character closer to a neighbourhood block party than a commercial event. <strong>Loggerhead sea turtle nesting season</strong> runs from May through August on Kiawah's beach, with volunteer conservation teams marking nests nightly; the hatching events, visible to beachgoing owners and guests, are among the most memorable wildlife encounters available on the East Coast. The summer months are also peak mosquito and sandfly season on the marshland-adjacent properties of Johns Island; screen porches, citronella and a pragmatic attitude to dusk and dawn outdoors are part of the Lowcountry summer character. <a href="https://www.noaa.gov/weather" target="_blank" rel="noopener">Hurricane season</a> runs officially from June through November, with the peak statistical risk in late August and September; barrier-island properties are built to modern wind and flood standards, and the professional management team handles the storm-preparation protocols — shutter installation, furniture securing, flood-vent checks — so owners are never personally managing a weather event from a distance.</p>
+
+<h3>Autumn (September–November)</h3>
+
+<p>Autumn is the Lowcountry's best-kept secret, and the season that most veteran second-home owners identify as their preference above all others. September begins warm — daytime temperatures still in the <strong>27–30°C (low to high 80s°F)</strong> range — but the summer crowds have thinned substantially, the school-holiday premium on golf tee times and restaurant bookings has eased, and the first hints of cooler evenings begin to arrive by mid-October. <strong>Atlantic water temperatures in September and early October</strong> remain at or above <strong>24–26°C (mid-70s°F)</strong> — the warmest point of the annual ocean temperature cycle, driven by the Gulf Stream's late-summer thermal peak — making October a particularly fine month for open-water swimming and sea kayaking in the tidal creeks. The <strong>MOJA Arts Festival</strong> in October — Charleston's celebration of African-American and Caribbean arts, music and culture — gives the autumn calendar a cultural anchor that draws the city's arts community and national performers for two weeks of concerts, exhibitions, literary events and culinary experiences rooted in the Gullah Geechee heritage. On <strong>Hilton Head</strong>, October brings the <a href="https://www.palmettodunescorner.com/" target="_blank" rel="noopener">Senior PGA Tour tournaments</a> and a return to the island's finest golf weather. The <strong>Hilton Head Island Concours d'Elegance</strong> in November is one of the most elegant automotive events in the American South, drawing prewar and post-war classics to Shelter Cove Harbour. By November, daytime temperatures have settled into the <strong>15–20°C (high 50s°F to high 60s°F)</strong> range — ideal for cycling the Kiawah and Hilton Head path networks, for <strong>oyster roasts on the Johns Island farms</strong>, and for the long, clear-sky evenings that define the Lowcountry autumn at its best.</p>
+
+<h3>Winter (December–February)</h3>
+
+<p>One final seasonal note for owners considering the full calendar: the Lowcountry's <strong>shoulder weeks in late January and early February</strong> — before the spring golf season picks up in March — represent the quietest and, for many buyers, the most restful period of the year on the barrier islands. Rental rates drop substantially, the beaches are walked by dog owners and birders rather than families with beach gear, and the restaurant tables at <strong>Kiawah's East Beach Village</strong> and <strong>Hilton Head's Harbour Town</strong> are immediately available without a reservation. For the urban professional owner who values solitude and easy access over peak-season energy, the late-January Lowcountry week is genuinely excellent.</p>
+
+<p>Winter in the South Carolina Lowcountry is the mildest on the US East Coast south of Florida — a fact that many Northern American and European buyers, accustomed to the idea of the American South as a summer destination, underestimate. Average January high temperatures on the barrier islands run <strong>14–16°C (high 50s°F to low 60s°F)</strong>, with overnight lows rarely falling below <strong>4–6°C (low 40s°F)</strong> and frost events occurring perhaps <strong>five to ten times per winter</strong>. The subtropical maritime climate — moderated by the Gulf Stream offshore and by the thermal mass of the broad tidal marshes inland — gives the Lowcountry a January climate closer to that of coastal Portugal or the Canary Islands than to comparable US East Coast latitude. <strong>Golf is year-round</strong> on both Kiawah and Hilton Head: the Bermuda fairway grass goes dormant and overseed in late autumn, giving the courses a different but perfectly playable surface from November through March, and the winter tee-time availability at the Ocean Course and Harbour Town Golf Links is materially better than at any other point in the year. <strong>Charleston's cultural season peaks in winter</strong>: the <a href="https://www.charlestonballet.com/" target="_blank" rel="noopener">Charleston Ballet Theatre</a> and the <a href="https://www.charlestonsymphony.org/" target="_blank" rel="noopener">Charleston Symphony Orchestra</a> run their full programme from October through April; the <a href="https://www.gibbesmuseum.org/" target="_blank" rel="noopener">Gibbes Museum of Art</a> and the <a href="https://www.nps.gov/subjects/hampton/index.htm" target="_blank" rel="noopener">Hampton Park</a> gardens and the nearby <a href="https://www.charlestonbotanicgarden.org/" target="_blank" rel="noopener">Magnolia Plantation &amp; Gardens</a> and <strong>Middleton Place</strong> are all at their most visited in winter, when camellias and early azaleas provide the first colour of the year. The short and mild winter of the Lowcountry is also one of the most persuasive arguments for the South Carolina fractional share as a complement to a European summer share: a January or February week in the Lowcountry — mild, culturally rich, golf-prime, uncrowded — slots cleanly into the annual calendar that a purely summer-coastal or alpine European share leaves empty.</p>
+
+</div></section>
+
+<!-- §D WHO BUYS — white -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Who buys in South Carolina, and why</h2>
+
+<p>The buyer profile in South Carolina's Lowcountry second-home market has historically been <strong>heavily domestic US</strong> — particularly from the Northeast and Mid-Atlantic corridor (New York, New Jersey, Pennsylvania, Massachusetts, Connecticut, Washington DC, Maryland), from the Southeast urban hubs (Atlanta, Charlotte, Nashville, Raleigh-Durham), and from the Midwest (Chicago, Cleveland, Detroit, Columbus). The pattern is driven by <strong>proximity and direct flight access</strong>: <strong>Charleston International Airport (CHS)</strong> now carries direct services from more than 40 US cities, and the <strong>1.5–2 hour flight time</strong> from New York, Philadelphia, Boston and Washington DC gives the Lowcountry a drive-to-or-quick-fly-in accessibility that makes it genuinely practical as a year-round second-home base rather than a distant vacation destination. <strong>Atlanta</strong> is a 4.5-hour drive — a trip that a significant proportion of Georgia and Tennessee second-home owners make by car for long-weekend stays. The <strong>international buyer cohort</strong> — <strong>British, Canadian, German, Australian</strong> — is smaller than in Hilton Head's peak decades but growing, driven by improved transatlantic air access (British Airways and American Airlines now operate direct London Heathrow–Charleston services), by the English-language infrastructure, and by the Schengen-free US access that makes the Lowcountry more practically usable than many European alternatives for UK and European buyers operating under post-Brexit travel constraints.</p>
+
+<p>Fractional ownership in South Carolina's Lowcountry typically suits:</p>
+
+<ul>
+  <li><strong>Golf-focused buyers from the Northeast and Southeast US</strong> — who know the Kiawah Ocean Course or Harbour Town Golf Links from regular visits, whose annual use pattern is concentrated in the April–June spring golf season and the September–October autumn shoulder, and who want a deeded share rather than continuing to pay resort rental rates at the same addresses year after year. The fractional structure gives them the ownership permanence and the equity upside without the full capital and carry commitment of a whole oceanfront villa.</li>
+  <li><strong>Active families with school-age children</strong> — from the Northeast and Mid-Atlantic corridor, whose calendar is structured by summer school holidays and whose children define their summers around Atlantic beach, kayaking and paddleboarding in the tidal creeks, loggerhead turtle nesting watches on Kiawah's beach, and the social life of Isle of Palms and Sullivan's Island. The professionally scheduled usage calendar suits families whose annual pattern is determined by school terms rather than individual flexibility.</li>
+  <li><strong>Cultural buyers drawn to Charleston</strong> — particularly Spoleto Festival USA devotees, Wine + Food Festival regulars, and buyers whose primary draw is the historic city rather than the beach or golf. For this cohort, Sullivan's Island and Isle of Palms provide the beach base within 20–30 minutes of King Street, while a Johns Island villa provides the most atmospheric Lowcountry backdrop for a culturally oriented stay.</li>
+  <li><strong>Nature-immersed buyers seeking the Lowcountry landscape</strong> — bird-watchers, kayakers, fly-fishers and wildlife enthusiasts for whom the tidal marshes, maritime forest and ACE Basin National Wildlife Refuge represent the primary draw. The <a href="https://www.fws.gov/refuge/ACE-basin" target="_blank" rel="noopener">ACE Basin</a> — the Ashepoo, Combahee and Edisto River basin, one of the largest undeveloped estuaries on the East Coast — is accessible within 45 minutes of both Kiawah Island and Johns Island. This cohort values the Johns Island and Kiawah Island sub-markets above the more resort-oriented Hilton Head.</li>
+  <li><strong>International buyers building a US Southeastern base</strong> — British, Canadian, German and Australian buyers who want a US East Coast foothold with year-round mild climate, strong cultural programming, direct transatlantic flight access, and a domestic US buyer pool deep enough to provide resale liquidity when they eventually exit. The Lowcountry's combination of <strong>historic city infrastructure, championship golf, Atlantic beach, and subtropical climate</strong> provides a more diverse lifestyle proposition than a purely resort-oriented Florida destination at a similar price point.</li>
+  <li><strong>COP portfolio builders pairing a Lowcountry share with a European share</strong> — owners who already hold a French Alps winter share or a Mallorca summer share and who identify the South Carolina Lowcountry as the ideal complement: a warm-weather, culturally rich US East Coast base that provides the weeks a pure European summer share cannot cover. The April–June Kiawah golf season, the January–February Lowcountry mild-winter period, and the September–October autumn shoulder all fill calendar gaps that the most popular European second-home seasons leave open.</li>
+</ul>
+
+<p>A pattern worth naming across all six of these profiles is how cleanly the Lowcountry's four clusters self-sort by buyer type — and how rarely a buyer regrets the cluster they choose once they have thought it through honestly. The golf-driven buyer almost always lands on Kiawah Island or Hilton Head, and the choice between the two turns on whether they want Kiawah's conservation-led seclusion or Hilton Head's breadth of amenity and deeper resale market. The Charleston-culture buyer lands on Isle of Palms or Sullivan's Island, where the historic city is twenty-five minutes away rather than ninety. The landscape-and-wildlife buyer lands on Johns Island, where the marsh-and-oak character is least diluted by resort infrastructure. The family buyer can be happy in any of the four, and the deciding factor is usually flight access and the specific beach character their children respond to. Because the COP collection runs across all four clusters, the practical task for a prospective buyer is not finding an available property — it is being honest with themselves about which of those four experiences they are actually buying. Our specialists spend more time on that conversation than on any other part of the process, because a share matched to the wrong cluster is the single most avoidable source of buyer regret.</p>
+
+<div class="dest-callout">
+  <strong>The portfolio pattern:</strong> the South Carolina Lowcountry is increasingly the US East Coast anchor for COP owners who hold European shares. A Kiawah Island spring-and-autumn share complements a Mediterranean summer share naturally — filling the spring golf calendar, the mild Lowcountry winter, and the September shoulder with a warm-climate, culturally rich US base. The LLC framework makes a multi-destination portfolio operationally simpler than the equivalent would be across two or three different national ownership vehicles.
+</div>
+
+<p>It is also worth noting the Lowcountry's position in the broader US second-home market context. The barrier islands of South Carolina have seen sustained demand pressure from the large Northeast-to-Southeast population migration that accelerated through 2020–2024, with remote-work adoption allowing buyers from New York, Boston and Washington DC to consider a South Carolina island address in a way that the five-day-per-week office commute previously made impractical. The <strong>Charleston metropolitan area</strong> has been consistently ranked among the fastest-growing in the United States; the city's growing technology, aerospace and financial services sectors — anchored by employers including <a href="https://www.boeing.com/" target="_blank" rel="noopener">Boeing's North Charleston facility</a> and a growing fintech and software cluster — have created a local professional class that provides a strong domestic demand floor for Lowcountry second-home and fractional properties, independently of the out-of-state and international buyer cohort. That domestic demand floor is one of the features that gives the Lowcountry barrier-island market its resale stability: even when national second-home sentiment cools, the local and regional buyer pool remains active.</p>
+
+<p>What unites these buyer profiles is a single underlying calculation: the weeks each of them actually uses in a South Carolina year falls within the <strong>six to seven weeks</strong> a 1/8 share delivers, the operational overhead of running a Lowcountry barrier-island property remotely is real (hurricane preparation, pest management, annual HVAC and dehumidification maintenance in a salt-air environment, pool and landscaping service, year-round termite bonding required in South Carolina's warm humid climate), and the resale liquidity of a fractional share inside a professionally managed portfolio is — in experience across the COP network — materially higher than the resale liquidity of a whole property at the same address. Browse the listings in the property grid at the top of this page to see which South Carolina Lowcountry properties are currently available across the four clusters. The inventory rotates as new properties are launched — <a href="#newsletter">joining the updates list</a> ensures you see new South Carolina properties as they come to market. Our team can walk you through the regional trade-offs between any of the four clusters before you commit to a property — the question of which Lowcountry address suits your specific use pattern is one our specialists work through with buyers regularly, and the honest answer is rarely the most obvious one at first glance.</p>
+
+</div></section>
+
+<!-- §E PRACTICALITIES — cream -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Getting there — airports, flight times and ground access</h3>
+
+<p>The South Carolina Lowcountry is served by <strong>two airports</strong>: <a href="https://www.charlestonairport.com/" target="_blank" rel="noopener">Charleston International Airport (CHS)</a> — the primary gateway for the entire Lowcountry, now carrying <strong>direct services from more than 40 US cities</strong> and transatlantic service from London Heathrow (American Airlines and British Airways) — and <a href="https://www.hhi-airport.com/" target="_blank" rel="noopener">Hilton Head Airport (HHH)</a>, a smaller regional facility 5 minutes from the Hilton Head south-end resorts, connected to Charlotte (CLT), Atlanta (ATL), Washington Dulles (IAD), New York LaGuardia (LGA) and seasonal services from New York JFK and Philadelphia. For the vast majority of domestic and international buyers, <strong>CHS</strong> is the practical gateway. <strong>Flight times from primary feeder markets:</strong> New York JFK or Newark — <strong>2 hours</strong>; Boston Logan — <strong>2 hours 30 minutes</strong>; Washington Dulles — <strong>1 hour 30 minutes</strong>; Chicago O'Hare — <strong>2 hours 30 minutes</strong>; Atlanta — <strong>1 hour 15 minutes</strong>; Miami — <strong>1 hour 45 minutes</strong>; London Heathrow — <strong>9 hours 30 minutes</strong>. From CHS to the major sub-zones by car: <strong>CHS to Kiawah Island</strong>: 35–40 minutes via US-17 South and Bohicket Road. <strong>CHS to Isle of Palms</strong>: 35–40 minutes via US-17 North and the Isle of Palms Connector. <strong>CHS to Sullivan's Island</strong>: 25–30 minutes via I-26 East and the Ben Sawyer Bridge. <strong>CHS to Johns Island</strong>: 25–30 minutes via US-17 South and River Road. <strong>CHS to Hilton Head Island</strong>: 1 hour 30 minutes via US-17 South and US-278 East. <strong>Atlanta to Hilton Head by car</strong>: 4 hours 30 minutes via I-85 North and I-16; <strong>Charlotte to Hilton Head</strong>: 3 hours 30 minutes via I-77 South.</p>
+
+<h3>What it costs — the comparison that matters</h3>
+
+<p>The case for a fractional structure in South Carolina's Lowcountry is clearest in the side-by-side comparison against both whole ownership and long-term rental. Sole ownership of a Kiawah oceanfront estate, a Hilton Head Sea Pines villa or an Isle of Palms beach house commits a buyer to the full property value as upfront capital, the full annual carry as a running cost, and the full operational burden of managing a salt-air, hurricane-zone coastal property remotely — whether the owner spends three weeks per year on the island or twelve. The fractional structure splits that carry across eight owners; the 1/8 share delivers the access the owner will actually use, at roughly 1/8 the capital commitment and carry, with the operational burden removed entirely.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full SC property tax, insurance, HOA, management, maintenance</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 5–8)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff; hurricane prep; salt-air maintenance</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">6–24 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The line that most Lowcountry buyers find most telling is <strong>annual carry versus actual use</strong>. A whole Kiawah Island oceanfront estate carries full South Carolina county property tax (Charleston County's effective rate is among the most competitive in the Southeast), full flood and wind insurance required under the <a href="https://www.fema.gov/flood-insurance" target="_blank" rel="noopener">National Flood Insurance Program</a> for barrier-island properties, full HOA and community association fees (which at Kiawah and Sea Pines run to several thousand dollars per year), full pool and landscaping service, full pest-control and dehumidification management in the humid subtropical environment, and a year-round property-management retainer — every year, whether the owner spends five weeks there or fifteen. A 1/8 fractional share carries proportionally less in every line, fully managed, with the operational burden removed. Compared to renting an equivalent Lowcountry property long-term or on a high-season basis, you build real equity rather than burning rent — and the share is yours to sell, transfer or pass on at any time.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual carry on a 1/8 South Carolina share is, by definition, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — which means it is a fraction of what an outright Lowcountry barrier-island owner pays across the full stack of carrying costs. The items typically included in the annual service charge are: <strong>South Carolina county property taxes</strong>; <strong>homeowners and hazard insurance</strong>, including wind and flood coverage as required for barrier-island properties; pool and hot tub service; landscaping and outdoor maintenance, including the pest control and termite bonding standard for Lowcountry properties; HVAC servicing and filter changes (critical in the humid subtropical environment); cleaning and linen between every owner stay; the full property-management retainer covering owner scheduling, maintenance oversight and on-call concierge; alarm monitoring and security systems; utility bills; and a contribution to the <strong>reserve fund for major capital works</strong>. What is typically <strong>not included</strong>: large capital improvements agreed at the LLC's annual meeting (roof replacement, major structural work, kitchen or bathroom replacement beyond ordinary maintenance) funded from the reserve fund or a one-off levy; personal staff costs beyond the standard management service (a private chef, a boat charter, a vehicle service beyond the standard arrival transfer); damage caused by an owner's own use; and unusually high utility consumption during individual stays. <strong>Hurricane preparation</strong> — shutter installation, outdoor furniture securing, flood-vent checks, post-storm damage assessment — is included in the management service; the owner is never personally managing a weather event from a distance.</p>
+
+<h3>South Carolina taxes and the second-home owner</h3>
+
+<p>South Carolina levies a <strong>state income tax</strong> on income sourced in South Carolina (including rental income from a South Carolina property), with a rate structure that runs from 0% to 6.5% on income above threshold. For non-resident owners who do not derive rental income from their fractional share — the typical fractional buyer who uses their weeks for personal use only — the state income-tax relevance is limited to any income-producing activity tied to the property. <strong>South Carolina property tax</strong> is assessed at one of two rates: the <strong>primary-residence 4% assessment ratio</strong> (available to owners who qualify their property as their legal domicile) and the <strong>second-home/investment 6% assessment ratio</strong> (applicable to the vast majority of non-resident fractional owners). The 6% rate, applied to a fractional owner's proportional 1/8 share of the assessed value, produces an annual property-tax liability that is — by comparison with property taxes in New York, New Jersey, Illinois, Texas, or California — <strong>exceptionally competitive</strong>. The <a href="https://www.sctax.org/" target="_blank" rel="noopener">South Carolina Department of Revenue</a> publishes the current assessment ratios and millage rates; buyers should confirm the current position with their own tax advisors at the time of purchase. The LLC's South Carolina CPA handles the annual property-tax filing and payment; individual co-owners do not deal with the county assessor directly.</p>
+
+<h3>What you actually own</h3>
+
+<p>Every South Carolina Lowcountry property on COP is held in a <strong>purpose-built LLC</strong> — the same modern international ownership vehicle used across COP's destinations — in which you and up to seven co-owners hold <strong>equal LLC membership interests</strong>. The underlying property is held by the company, with the title recorded at the <strong>Charleston County Register of Deeds</strong> (for Kiawah Island, Sullivan's Island, Isle of Palms, Johns Island, and the remainder of the Charleston-area Sea Islands) or the <strong>Beaufort County Register of Deeds</strong> (for Hilton Head Island). What you hold is a <strong>real, transferable equity interest</strong> — not a timeshare use-right that depreciates to zero when the contract expires, not a points membership, not a fractional holiday club. The membership interest is transferable, inheritable, and appreciates with the underlying property value.</p>
+
+</div></section>
+
+<!-- §F HOW IT WORKS — white -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works in South Carolina</h2>
+
+<p>The mechanics of fractional ownership in South Carolina are shaped by <strong>three things that work together</strong>: the <strong>purpose-built LLC ownership structure</strong> used to hold every property on COP, the <strong>South Carolina property-tax and second-home legal framework</strong>, and the <strong>county recorder system</strong> at Charleston and Beaufort Counties that holds the documentary record of the underlying property. Understanding how these pieces interact is the difference between a clear, permanent ownership experience and one the buyer feels uncertain about going in.</p>
+
+<h3>How the LLC structure holds South Carolina property</h3>
+
+<p>The LLC that holds each South Carolina Lowcountry property is a <strong>purpose-built company</strong> designed for international and interstate shared ownership. It is registered under the <a href="https://www.scstatehouse.gov/" target="_blank" rel="noopener">South Carolina LLC Act</a> or in a related US jurisdiction, has a managing member or officer appointed under the company's operating agreement, a <strong>register of members</strong> recording who holds which interest and in what proportion, and an <strong>annual general meeting</strong> at which owner-level decisions — major capital works, budget approval, management review — are made by the co-owner group. The same LLC framework runs across COP's destinations in the <strong>United States, the United Kingdom, France, Spain, Italy</strong> and elsewhere — meaning an owner adding a second COP property in France, Spain or the Italian Lakes is <strong>not learning a new ownership structure each time</strong>, but extending one they already understand. For a fractional buyer, the practical effect is that you become a <strong>registered member of the LLC</strong> that owns the property. The LLC owns the underlying South Carolina real estate — recorded at the county register — and you, in turn, are a legal member of the LLC. What you hold is a <strong>transferable equity interest</strong> in the underlying real estate — not a timeshare use-right, not a points-club membership. This structure gives South Carolina co-ownership on COP its <strong>consistent international format</strong>, its <strong>cleaner inheritance treatment</strong> (LLC membership interests pass as personal property of your home jurisdiction rather than requiring South Carolina ancillary probate as directly deeded real estate would), and its <strong>faster resale path</strong>.</p>
+
+<h3>Property tax and your service charge</h3>
+
+<p>South Carolina assesses second-home and investment properties at a <strong>6% assessment ratio</strong> applied to the <strong>county-assessed value</strong>, with the resulting millage rate varying by municipality and school district. For Charleston County barrier-island properties — Kiawah, Sullivan's Island, Isle of Palms, Johns Island — the effective property-tax rate on the assessed value is competitive by any national comparison. For Beaufort County Hilton Head properties, the county has maintained similarly competitive rates. The LLC's South Carolina CPA handles all property-tax filings and payments directly; individual co-owners receive their proportional share of the annual service charge bill, which includes the tax component, without ever personally interacting with the county assessor or county treasurer. <strong>South Carolina's Homestead Exemption</strong> is available to residents 65 and over on primary residences — not applicable to second-home owners — but the base tax treatment of non-resident second homes is already among the most favourable in the Southeast. The <a href="https://www.sctax.org/" target="_blank" rel="noopener">South Carolina Department of Revenue</a> and the Charleston County Auditor publish the current assessment and millage schedule publicly.</p>
+
+<h3>Inheritance and the South Carolina LLC structure</h3>
+
+<p>Directly held South Carolina real estate is subject to <strong>South Carolina probate</strong> on the owner's death, and for non-South Carolina residents, ancillary probate in South Carolina may be required alongside the primary probate in the deceased's home state or country — adding cost and delay. <strong>LLC membership interests</strong> are treated as personal property of the deceased's home jurisdiction rather than as South Carolina real estate, which generally avoids South Carolina ancillary probate and clears through the home-state or home-country inheritance process more quickly. The LLC structure also gives co-owners flexibility to name successor members under the operating agreement — the standard estate-planning approach for non-resident second-home owners. South Carolina does not levy a separate <strong>state inheritance tax</strong> or <strong>state estate tax</strong>, which simplifies the inheritance position compared with some other states. This is an individual and jurisdiction-specific matter; any buyer should review the specific position with their own legal and tax advisors.</p>
+
+<h3>The professional management model and how the calendar works</h3>
+
+<p>Once the purchase completes, a <strong>professional management company</strong> takes over all operational responsibility for the South Carolina property. Your personal weeks — <strong>approximately 45 days</strong> for a 1/8 share — are allocated through a <strong>fair-rotation calendar</strong> that mixes peak weeks (the spring golf peak in April–May at Kiawah and Hilton Head, the RBC Heritage tournament week on Hilton Head, the Spoleto Festival weeks in late May on the Charleston Sea Islands, the summer school-holiday peak in July–August, the autumn shoulder in September–October) with quieter shoulder weeks across the year. Owners pre-book several months ahead; peak weeks rotate on a multi-year cycle so that no single co-owner consistently holds all the high-demand weeks. <strong>Cleaning and linen, pre-arrival preparation, on-call concierge, maintenance management, utility bills, insurance and property-tax compliance, HOA management where applicable, hurricane preparation and post-storm assessment, pool and spa service, pest-control scheduling, HVAC servicing</strong> — all sit with the management team. You arrive; the property is ready.</p>
+
+<h3>Resale: how to exit, typical timelines</h3>
+
+<p>When you decide to exit your South Carolina share, a <strong>professional resale process</strong> is in place. Across COP's portfolio, the typical timeline from listing to completion is <strong>around a month or less</strong> — well below the 6–24 months that whole-property resales in the Kiawah Island or Sea Pines prime tier typically take on the open market. The process is well-supported, the buyer pool is already familiar with the property and the LLC structure, and the administrative mechanics of transferring an LLC membership interest are lighter than triggering a full South Carolina deed-and-title conveyance through an attorney and county recorder. For owners who want to maximise price and have a specific buyer in mind, an open-market transfer to any qualifying buyer remains available; most owners find the established resale path faster and less carrying-cost-intensive. The carrying costs of holding a whole Kiawah Island estate or a Sea Pines villa through a slow open-market sale — full annual property tax, insurance, HOA, management retainer, pool service and pest control — can represent a meaningful fraction of the sale price over a 12–24 month marketing period. A fractional resale at the typical COP timeline avoids that accumulation. The full mechanics of resale across all COP jurisdictions are covered in our <a href="/co-ownership-explained/" target="_blank" rel="noopener">co-ownership explained guide</a>.</p>
+
+<div class="dest-callout">
+  <strong>Free to browse, free to enquire:</strong> no buyer-side fees and no obligation. The share price you see is the share price you pay; talking to our team costs nothing and carries no obligation.
+</div>
+
+<p>For specific South Carolina property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market. Our team can walk you through the differences between Kiawah Island, Hilton Head, Isle of Palms and Sullivan's Island, and Johns Island — the climate calendars, flight access, golf and cultural priorities, and annual carry structure for each — and help you match the right cluster to your actual use pattern before you commit to a property.</p>
+
+<h3>Your ownership at a glance</h3>
+
+<ul>
+  <li><strong>Real, deeded equity in your name</strong> — your 1/8 share is recorded in South Carolina's county register system via the LLC, transferable, inheritable, and it appreciates with the underlying property. Not a timeshare, not a points membership, not a usage right.</li>
+  <li><strong>Consistent international structure</strong> — your South Carolina share sits inside the same purpose-built LLC framework used across every property on COP, so multi-country owners deal with one model rather than a stack of different vehicles, with the same documentation cadence whether you own on Kiawah Island, the French Alps or the Italian Lakes.</li>
+  <li><strong>Fully managed throughout</strong> — the professional management team handles South Carolina property taxes, insurance, HOA fees, hurricane preparation, scheduling, pool and landscaping maintenance, linen and the on-call concierge. You arrive, the property is ready.</li>
+  <li><strong>Professional resale support</strong> — when you decide to exit, a professional resale process is in place, with a typical timeline of around a month or less across the COP portfolio — well below the 6–24 months that comparable whole-property resales in the Lowcountry prime tier typically require on the open market.</li>
+  <li><strong>Designed for international portfolios</strong> — the LLC model means owning across multiple COP destinations (a South Carolina spring-and-autumn share combined with a French Alps winter share, for example) becomes one consolidated relationship rather than juggling country-specific structures.</li>
+</ul>
+
+</div></section>
+
+<!-- FAQ SECTION -->
+<section class="dest-faq-sec"><div class="dest-inner">
+  <p class="dest-eyebrow">Questions &amp; Answers</p>
+  <h2>South Carolina Fractional Ownership — Frequently Asked Questions</h2>
+  <div class="dest-faq-list">
+
+    <details class="dest-faq-item">
+      <summary><h3>What is fractional ownership, and how is it different from timeshare?</h3><div class="dest-faq-chevron"></div></summary>
+      <div class="dest-faq-answer">
+        <p>Fractional ownership means buying a deeded 1/8 equity share of a property — held in a purpose-built LLC — rather than a right to use the property for a fixed week each year. A timeshare sells you a <em>use-right</em> on a fixed-term contract with no resale value; the annual maintenance fee continues indefinitely and the product typically depreciates to zero. A COP fractional share gives you a registered equity interest in the property itself: it is transferable, inheritable, appreciates with the underlying property value, and resells through a professional process rather than being surrendered when you stop paying fees.</p>
+        <p>The practical differences are significant. A fractional co-owner can sell their share on the open market or through the professional resale process at any time at the prevailing market price. A timeshare holder cannot — the product has no secondary market in any meaningful sense. A fractional co-owner builds equity over time as the underlying South Carolina property appreciates. A timeshare holder builds no equity. The LLC structure that holds a COP fractional share is a real property-owning company registered in the relevant jurisdiction; the fractional share is a membership interest in that company, regulated under property and company law, not a consumer product regulated under vacation-ownership legislation.</p>
+      </div>
+    </details>
+
+    <details class="dest-faq-item">
+      <summary><h3>Which South Carolina island is right for me — Kiawah, Hilton Head, Isle of Palms or Johns Island?</h3><div class="dest-faq-chevron"></div></summary>
+      <div class="dest-faq-answer">
+        <p><strong>Kiawah Island</strong> is the right choice if championship golf is a primary draw — particularly the Ocean Course, host of the 2012 and 2021 PGA Championships — and if you value a conservation-focused, low-density island character with a 10-mile uncommercialised Atlantic beach. The island's management structure is among the most rigorous on the US East Coast, and its combination of golf, natural landscape and resort infrastructure is unmatched in the Southeast.</p>
+        <p><strong>Hilton Head Island</strong> is the right choice if you want the broadest amenity offer — the largest selection of golf courses, tennis, cycling and dining on a single island — combined with the strongest international name recognition and the deepest resale market. The island's Sea Pines community, Harbour Town Golf Links and RBC Heritage tournament week are reference points that international buyers can benchmark against the world's best resort destinations.</p>
+        <p><strong>Isle of Palms and Sullivan's Island</strong> are the right choice if proximity to Charleston is important — both islands are within 20–30 minutes of the historic city by bridge — and if the combination of beach lifestyle and Charleston's cultural and restaurant programme is the core appeal. Sullivan's Island is the more residential and private; Isle of Palms is the more family-resort-oriented. Both are significantly closer to CHS airport than Kiawah or Hilton Head.</p>
+        <p><strong>Johns Island</strong> is the right choice if you want the most immersive experience of the Lowcountry's natural landscape — tidal marshes, live oak canopies, farm country — with the least resort density. Johns Island buyers typically prize privacy, the farm-trail food scene, and direct access to the Lowcountry's ecological character above golf, tennis or beach resort infrastructure.</p>
+        <p>Our team can walk you through the trade-offs between all four clusters based on your specific use pattern — <a href="#newsletter">join our list</a> and we will be in touch.</p>
+      </div>
+    </details>
+
+    <details class="dest-faq-item">
+      <summary><h3>How does hurricane season affect a fractional ownership property on the South Carolina coast?</h3><div class="dest-faq-chevron"></div></summary>
+      <div class="dest-faq-answer">
+        <p>South Carolina's hurricane season runs officially from June through November, with the statistical peak in late August and September. The South Carolina Lowcountry barrier islands — Kiawah, Hilton Head, Isle of Palms, Sullivan's Island — have been struck by significant hurricanes historically; most recently Hurricane Matthew in 2016 and Hurricane Dorian in 2019 caused storm-surge and wind damage on parts of the coast, though both islands' building codes and elevation standards meant that well-constructed modern properties fared far better than older, lower-elevation structures. Modern barrier-island properties on COP are built to post-Hugo (1989) South Carolina wind and flood standards, which mandate elevated construction, impact-resistant windows, and reinforced framing. The professional management team handles all hurricane-preparation protocols — shutter installation or impact-glass preparation, outdoor furniture and equipment securing, flood-vent checks, coordination with the HOA and community association on island-wide protocols, and post-storm damage assessment and repair coordination — as part of the standard management service. Fractional co-owners are never personally responsible for executing storm preparation from a distance. Flood and wind insurance, required under the National Flood Insurance Program for barrier-island properties in a designated Special Flood Hazard Area, is included in the annual service charge. Buyers should review the specific flood-zone designation and insurance position of any individual property with the management team before purchase.</p>
+      </div>
+    </details>
+
+  </div>
+</div></section>
+
+<!-- EXPLORE MORE -->
+<section class="dest-explore-sec"><div class="dest-explore-inner">
+  <p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p>
+  <h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2>
+  <div class="dest-explore-grid">
+    <a href="/usa-fractional-ownership-properties/" class="dest-explore-card">USA Fractional Ownership &rarr;</a>
+    <a href="/florida-fractional-ownership-properties/" class="dest-explore-card">Florida Fractional Ownership &rarr;</a>
+    <a href="/30a-fractional-ownership-emerald-coast-co-ownership-beach-homes/" class="dest-explore-card">30A Emerald Coast &rarr;</a>
+    <a href="/california-fractional-ownership-properties/" class="dest-explore-card">California Fractional Ownership &rarr;</a>
+    <a href="/how-it-works/" class="dest-explore-card">How It Works &rarr;</a>
+  </div>
+</div></section>
+
+</body>
+</html>

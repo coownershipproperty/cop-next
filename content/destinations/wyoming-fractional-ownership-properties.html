@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyoming Fractional Ownership Properties | Co-Ownership Property</title>
+    <meta name="description" content="Co-ownership properties in Wyoming from COP — deeded fractional ownership in Jackson, Teton Village and the Jackson Hole valley. Fully managed, 6–7 weeks of personal use a year, real equity in the most supply-constrained mountain valley in the American West.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <style>
+        /* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+    /* === Primary palette (use these in new work) === */
+    --blue:         #2C4A5E;
+    --cream:        #F5F2EC;
+    --gold:         #C9A84C;
+    --white:        #FFFFFF;
+    --text:         #1a2533;
+    --muted:        #5a6a7a;
+    --border:       #e8e0d4;
+    --max:          1400px;
+
+    /* === Legacy aliases (keep for existing templates) === */
+    --warm-gold:    #C9A84C;
+    --cream-bg:     #F5F2EC;
+    --cream-light:  #FAF8F5;
+    --text-dark:    #2C4A5E;
+    --text-light:   rgba(255,255,255,0.85);
+    --text-muted:   #5a6a7a;
+    --gray-border:  #e8e0d4;
+    --blue-80:      #4A6A7E;
+    --blue-60:      #6B8A9E;
+    --blue-40:      #9EAFBC;
+    --blue-20:      #C5CED5;
+    --transition:   0.3s ease;
+}
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
+        a{color:inherit;text-decoration:none;transition:color var(--transition)}
+        img{display:block;max-width:100%;height:auto}
+
+                /* ===== SITE-WIDE HEADER ===== */
+        .cop-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            height: 80px;
+            box-sizing: border-box;
+            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .cop-header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+        }
+        .admin-bar .cop-header { top: 32px; }
+
+        /* Logo */
+        .cop-logo { flex-shrink: 0; }
+        .cop-logo a { display: block; }
+        .cop-logo img { height: 54px; width: auto; display: block; }
+
+
+        /* Nav — absolutely centred between logo and hamburger */
+        .cop-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0;
+            align-items: center;
+        }
+        .cop-nav a {
+            color: rgba(44,74,94,0.8);
+            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.84rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.4rem 1.4rem;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
+
+        /* Gold underline on hover / active */
+        .cop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 1.4rem; right: 1.4rem;
+            height: 1px;
+            background: rgba(201,168,76,1);
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.28s ease;
+        }
+        .cop-nav a:hover,
+        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
+        .cop-nav a:hover::after,
+        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
+
+
+        /* Favourites — heart prefix */
+        .cop-nav a.cop-nav-favourites::before {
+            content: '\2665\00a0\00a0';
+            font-size: 0.75rem;
+            color: rgba(201,168,76,1);
+            opacity: 0.75;
+            letter-spacing: 0;
+        }
+
+        /* Hamburger */
+        .cop-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+        .cop-hamburger span {
+            width: 22px; height: 1.5px;
+            background: rgba(44,74,94,0.8);
+            transition: all 0.28s ease;
+            transform-origin: center;
+            display: block;
+        }
+        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        /* ===== MOBILE (<768px) ===== */
+        @media (max-width:768px) {
+            .cop-hamburger { display: flex; }
+            .cop-nav {
+                position: fixed;
+                top: 80px; left: 0; right: 0;
+                transform: none;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(22,38,52,0.97);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease, padding 0.35s ease;
+                border-top: 1px solid rgba(201,168,76,0.15);
+                z-index: 9998;
+            }
+            .admin-bar .cop-nav { top: 112px; }
+            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
+            .cop-nav a {
+                font-size: 0.68rem;
+                letter-spacing: 0.2em;
+                padding: 0.85rem 2rem;
+                width: 100%;
+                text-align: center;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(201,168,76,0.08);
+                color: rgba(255,255,255,0.9);
+                box-sizing: border-box;
+            }
+            .cop-nav a:last-child { border-bottom: none; }
+            .cop-nav a::after { display: none; }
+            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
+            .cop-header { padding: 1.5rem; }
+            .cop-logo img { height: 45px; }
+        }
+
+        /* ===== HERO ===== */
+        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
+        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
+        .page-hero>*{position:relative;z-index:1}
+        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
+        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
+
+        /* ===== PROPERTY GRID ===== */
+        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
+        .props-inner{max-width:1400px;margin:0 auto}
+        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
+        .props-count strong{color:var(--text-dark);font-weight:700}
+        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
+        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
+        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
+        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+        .prop-card:hover .prop-img{transform:scale(1.04)}
+        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
+        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
+        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
+        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
+        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
+        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
+        .prop-stat{display:flex;align-items:center;gap:0.35rem}
+        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
+        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
+        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
+        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
+        .prop-card:hover .prop-view{color:var(--warm-gold)}
+        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
+        /* Show more button */
+        .prop-card.hidden{display:none}
+        .show-more-wrap{text-align:center;margin-top:2.5rem}
+        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
+        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+        /* Mid-page CTA */
+        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
+        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+        .dest-mid-cta > *{position:relative;z-index:1}
+        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
+        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
+        .dest-cta-btn-gold:hover{background:#b8963e}
+        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
+        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
+
+        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
+
+.dest-sec{padding:80px 3rem}
+.dest-sec.cream{background:var(--cream-bg)}
+.dest-sec.white{background:var(--white)}
+.dest-inner{max-width:900px;margin:0 auto}
+.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
+.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
+.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
+.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
+.dest-sec strong{color:var(--text-dark);font-weight:700}
+.dest-sec em{font-style:italic}
+.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
+.dest-sec a:hover{color:var(--blue)}
+.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
+.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
+.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
+/* Explore More */
+.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
+.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
+.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
+.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
+.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
+.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
+/* FAQ */
+.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
+.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
+.dest-faq-list{counter-reset:faq}
+.dest-faq-item{border-top:1px solid var(--warm-gold)}
+.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
+.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
+.dest-faq-item summary::-webkit-details-marker{display:none}
+.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
+.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
+details[open] .dest-faq-chevron{transform:rotate(-135deg)}
+.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
+.dest-faq-answer p{margin-bottom:0.8rem}
+@media(max-width:768px){
+    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
+    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+        /* ===== CTAs ===== */
+                /* ===== NEWSLETTER SIGNUP ===== */
+        .newsletter-section {
+            background: var(--white);
+            position: relative;
+            padding: 100px 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .newsletter-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+        .newsletter-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            border-radius: 0;
+            outline: none;
+        }
+        .newsletter-form input::placeholder { color: var(--text-muted); }
+        .newsletter-form input:focus { border-color: var(--warm-gold); }
+        .newsletter-btn {
+            background: var(--blue);
+            color: var(--white);
+            border: 2px solid var(--blue);
+            padding: 0.9rem 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            font-family: 'Nunito Sans', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
+        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
+        .newsletter-form-msg {
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            min-height: 1.4em;
+        }
+        .newsletter-form-msg.success { color: #4a9e6e; }
+        .newsletter-form-msg.error   { color: #c0392b; }
+
+        @media (max-width: 640px) {
+            .newsletter-section { padding: 70px 1.5rem; }
+            .newsletter-heading { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+        }
+                /* ===== EXPERT FORM SECTION ===== */
+        .expert-section {
+            background: var(--blue);
+            padding: 100px 3rem;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 90px;
+        }
+        .expert-section::after {
+            content: '';
+            position: absolute;
+            top: 28px; left: 28px; right: 28px; bottom: 28px;
+            border: 1px solid rgba(201,168,76,0.15);
+            pointer-events: none;
+        }
+        .expert-section > * { position: relative; z-index: 1; }
+
+        .expert-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .expert-eyebrow {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--warm-gold);
+            margin-bottom: 1.2rem;
+        }
+        .expert-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+        }
+        .expert-heading em { font-style: italic; color: var(--warm-gold); }
+        .expert-sub {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        /* ===== FOOTER ===== */
+        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
+        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
+        .footer-logo img{height:35px;margin-bottom:1rem}
+        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
+        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
+        .footer-col ul{list-style:none}
+        .footer-col li{margin-bottom:0.6rem}
+        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
+        .footer-col a:hover{color:var(--warm-gold)}
+        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal{display:flex;gap:2rem}
+        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
+        .footer-legal a:hover{color:var(--warm-gold)}
+
+        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .page-hero{padding:130px 1.5rem 50px}
+            .props-sec{padding:50px 1.5rem}
+            .props-grid{grid-template-columns:1fr;gap:1.5rem}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+
+/* ===== DEST CALLOUT ===== */
+.dest-callout{background:var(--white);border-top:3px solid var(--warm-gold);padding:1.2rem 1.4rem;margin:1.6rem 0;font-size:0.95rem;color:var(--text-muted);line-height:1.75}
+.dest-sec.white .dest-callout{background:var(--cream-bg)}
+.dest-callout strong{color:var(--text-dark)}
+
+/* ===== DEST FIGURE ===== */
+.dest-figure{margin:2rem 0;overflow:hidden}
+.dest-figure img{width:100%;height:auto;display:block}
+.dest-figure figcaption{font-size:0.78rem;color:var(--text-muted);padding:0.6rem 0;font-style:italic;border-bottom:1px solid var(--gray-border)}
+
+/* ===== DEST SNIPPET ===== */
+.dest-snippet{background:var(--white);border-top:3px solid var(--warm-gold);padding:1.4rem 1.6rem;margin:0 0 2rem;font-size:0.97rem;color:var(--text-muted);line-height:1.8}
+.dest-snippet h2{font-size:1.1rem;margin-bottom:0.6rem;font-family:'Playfair Display',serif;font-weight:400;color:var(--text-dark)}
+.dest-sec.cream .dest-snippet{background:var(--cream-light)}
+
+/* ===== DEST COMPARE TABLE ===== */
+.dest-compare-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
+.dest-compare-table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.dest-compare-table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted);vertical-align:top}
+.dest-compare-table tbody tr td:nth-child(3){color:var(--text-dark);font-weight:600}
+
+/* ===== DEST STATS BAND ===== */
+.dest-stats-band{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:2rem 0;border:1px solid var(--gray-border)}
+.dest-stat-item{padding:1.4rem 1.2rem;text-align:center;border-right:1px solid var(--gray-border)}
+.dest-stat-item:last-child{border-right:none}
+.dest-stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--text-dark);display:block;margin-bottom:0.3rem}
+.dest-stat-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-muted);font-weight:600}
+@media(max-width:768px){.dest-stats-band{grid-template-columns:repeat(2,1fr)}.dest-stat-item:nth-child(2){border-right:none}.dest-stat-item:nth-child(3){border-top:1px solid var(--gray-border)}}
+    </style>
+</head>
+<body>
+
+<section class="page-hero">
+  <p class="eyebrow">Wyoming · USA</p>
+  <h1>Wyoming Fractional Ownership <em>Properties</em></h1>
+  <p class="subtitle">From a log-and-timber cabin steps from the Jackson Hole Mountain Resort to a valley retreat looking out across the Teton Range — fractional ownership in Wyoming means a deeded share of the most fiercely protected mountain valley in the American West, six to seven weeks of personal use a year, and a fully managed home waiting whenever you arrive.</p>
+</section>
+
+<section class="props-sec"></section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Jackson Hole's most coveted mountain addresses, accessible through co-ownership.</h2>
+    <p>Fully managed cabins, villas and mountain apartments across <strong>Jackson town</strong>, <strong>Teton Village and the ski resort base</strong>, and <strong>the wider Jackson Hole valley</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of the most supply-constrained ski-and-wilderness valley in the United States.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
+    </div>
+  </div>
+</div>
+
+<!-- §A — cream -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1DL9IyTVAj3hxW1GuMGye47uqAl4xXXh6" alt="A six-bedroom Jackson Hole cabin with mountain views across the Teton Range, Wyoming" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Jackson Hole cabin with Teton Range views — the valley's signature combination of log-and-timber architecture and mountain wilderness on the doorstep.</figcaption>
+</figure>
+
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership in Wyoming?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership in Wyoming means buying a deeded 1/8 share of a luxury Jackson Hole mountain property — held in a purpose-built LLC alongside up to seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a professional team. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
+
+<h2>Why Wyoming?</h2>
+
+<p>Wyoming is, by the most meaningful measures, the most extraordinary <strong>mountain-valley second-home state in the United States</strong> — and Jackson Hole is the single reason. The <strong>Jackson Hole valley</strong> sits at roughly <strong>2,000 metres (6,200 feet)</strong> above sea level, framed to the west by the <strong>Teton Range</strong> — one of the youngest and most dramatically vertical mountain ranges in North America, rising nearly <strong>2,100 metres (7,000 feet)</strong> from the valley floor to the summit of the <strong>Grand Teton at 4,197 metres (13,770 feet)</strong> above sea level. There is no foothills zone buffering the view: the range erupts abruptly from the flat valley, a geological phenomenon that makes the Teton panorama unlike any other mountain vista in the United States. That visual drama, combined with <strong>two of the most important national parks in the country</strong> — <a href="https://www.nps.gov/grte/index.htm" target="_blank" rel="noopener">Grand Teton National Park</a> immediately to the north and <a href="https://www.nps.gov/yell/index.htm" target="_blank" rel="noopener">Yellowstone National Park</a> immediately beyond that — and the world-class skiing at <a href="https://www.jacksonhole.com/" target="_blank" rel="noopener">Jackson Hole Mountain Resort</a>, has created a destination whose second-home market operates in a category of its own.</p>
+
+<p>For the fractional buyer, what makes Wyoming structurally compelling begins with supply constraint of a severity that very few US destinations can match. The <strong>Jackson Hole valley</strong> is ringed on <strong>three sides</strong> by national park and national forest land — <a href="https://www.nps.gov/grte/index.htm" target="_blank" rel="noopener">Grand Teton National Park</a> to the north, the <a href="https://www.fs.usda.gov/btnf" target="_blank" rel="noopener">Bridger-Teton National Forest</a> to the south and east, and the <strong>Teton Wilderness</strong> to the north-east. Approximately <strong>97% of Teton County's land area is federally or state protected</strong>, leaving a small, finite sliver of privately developable land in the valley floor and the immediate town areas. New construction is tightly constrained by <strong>Teton County's own land-use regulations</strong>, which are among the most restrictive of any county in the Mountain West; the county's <a href="https://www.tetoncountywy.gov/215/Planning" target="_blank" rel="noopener">Planning and Development Department</a> has deliberately managed growth to preserve the valley's character and its relationship with the surrounding wilderness. The result is a supply constraint that is not cyclical — it does not ease in a downturn or expand in a boom — but <strong>structural and permanent</strong>. The inventory of quality second-home properties in Jackson Hole is genuinely finite, and the combination of a world-class ski resort, two national parks, and one of the most spectacular natural landscapes on earth means demand has been consistently strong for four decades.</p>
+
+<p>Your Wyoming share is held inside a <strong>purpose-built LLC</strong> alongside up to seven other co-owners. This is the same modern international structure used across every property on COP — whether in the United States, France, Spain, Italy, the United Kingdom or elsewhere — rather than a legacy national vehicle that varies by jurisdiction. <strong>The practical effect</strong> for the buyer is significant. Your relationship with the Wyoming property runs through <strong>one consistent ownership structure</strong> regardless of which property or jurisdiction you own in; the same modern framework applies whether your share is in <strong>Jackson</strong>, <strong>Teton Village</strong>, the <strong>French Alps</strong>, <strong>Mallorca</strong> or <strong>Aspen</strong>; and resale is faster because transferring an <strong>LLC membership interest</strong> is a more direct administrative action than triggering a full Wyoming deed-and-title conveyance. For owners who go on to add a second property in another COP destination — and a meaningful proportion do, often pairing a Wyoming winter ski share with a warm-season coastal or wine-country share elsewhere — the reward is a <strong>single international portfolio relationship</strong> rather than a stack of jurisdiction-specific arrangements that each behave differently.</p>
+
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and up to seven other owners hold equal LLC membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
+</div>
+
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value and an annual maintenance fee that often outlasts any usefulness. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and up to seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare. Wyoming's own property law distinguishes clearly between timeshare products — regulated separately under the state's timeshare statutes — and co-ownership interests held through an LLC structure; when you hold a COP fractional share, you are a member of a property-owning company, not the holder of a timeshare use-right governed under those statutes.
+</div>
+
+<p>The <strong>tax argument</strong> for Wyoming as a second-home state is among the strongest in the United States. Wyoming has <strong>no state income tax</strong> — one of only nine US states without one — and <strong>no state estate tax</strong> and <strong>no state inheritance tax</strong>. The state's <a href="https://revenue.wyo.gov/" target="_blank" rel="noopener">Department of Revenue</a> administers property tax at the county level, and Teton County's property-tax rates, while assessed at market values that reflect the valley's premium, benefit from a <strong>straightforward Wyoming framework</strong>: no additional state-level real-estate transfer tax, no wealth tax, no additional state-level tax on LLC membership interests. For international owners and high-net-worth US residents managing multi-state or multi-country portfolios, the <strong>Wyoming tax environment is structurally advantageous</strong> — and the combination of no state income tax, no estate tax and the LLC structure's clean inheritance treatment creates a holding framework that estate planners frequently cite as among the best available for a US second-home property.</p>
+
+<p>Wyoming also benefits from <strong>Jackson Hole Airport (JAC)</strong> — one of the most operationally remarkable commercial airports in the United States. Located <strong>entirely within the boundaries of Grand Teton National Park</strong>, JAC is the <strong>only commercial airport</strong> in the continental United States situated inside a national park, and direct flights from multiple US hubs (including year-round service from major gateway cities and expanded winter-season service from additional domestic and international origins) mean the valley is accessible without a long drive from a distant regional airport. The drive from <strong>JAC to Teton Village</strong> takes approximately <strong>20 minutes</strong>; to the town of <strong>Jackson</strong>, approximately <strong>10 minutes</strong>. For European and international buyers, the most common routing is via a US hub — <strong>Denver (DEN)</strong>, <strong>Dallas-Fort Worth (DFW)</strong>, <strong>Chicago (ORD)</strong>, <strong>Salt Lake City (SLC)</strong>, <strong>Los Angeles (LAX)</strong> or <strong>New York (JFK)</strong> — with short connecting flights into JAC from each.</p>
+
+<div class="dest-callout">
+  <strong>Wyoming in three numbers:</strong> <strong>97%</strong> of Teton County is federally or state-protected land, creating permanent supply constraint · <strong>4,139 ft (1,261 m)</strong> of continuous vertical rise at Jackson Hole Mountain Resort — the greatest continuous vertical in the United States · <strong>zero</strong> state income tax and zero state estate tax, among the most favourable tax environments of any US second-home state.
+</div>
+
+<p>One structural argument worth raising specifically for buyers comparing Wyoming with European alpine alternatives is the absence of any access restriction comparable to the Schengen limit. Post-Brexit, UK nationals are subject to the 90-day-in-180-day restriction across the 27 EU member states combined; for owners of French Alps, Austrian or Swiss chalets, that counter actively constrains how the property is used. Wyoming carries no equivalent restriction — UK and European buyers can visit on a US ESTA for up to <strong>90 days per trip</strong>, with no annual accumulation rule governing repeat visits across the same twelve-month period. For a 1/8 fractional owner whose share delivers approximately <strong>45 days of use per year</strong>, the ESTA's 90-day per-trip allowance is structurally more permissive than the Schengen rules would be for a comparable European share, and the absence of any Schengen-style counter removes a genuine planning friction that European alpine second-home owners increasingly must manage.</p>
+
+</div></section>
+
+<!-- §B — white -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Where to own in Jackson Hole</h2>
+
+<p>Jackson Hole is best understood through <strong>four distinct sub-zones</strong>, each with its own architectural character, proximity to the mountain and national parks, and buyer profile. The valley is compact — it is roughly <strong>80 km (50 miles) long and 20 km (12 miles) wide</strong> — so travel between zones is straightforward, but the experience of owning in one versus another is <strong>meaningfully different</strong>. The four zones are: <strong>the town of Jackson</strong>, the valley's commercial and cultural heart; <strong>Teton Village and the ski resort base</strong>, the ski-in/ski-out zone at the mountain's foot; <strong>the wider Jackson Hole valley</strong>, encompassing Wilson, the Snake River corridor and the ranch land between; and <strong>the national-park gateway</strong>, the northern reaches toward Grand Teton and the road to Yellowstone.</p>
+
+<h3>The Town of Jackson</h3>
+
+<p><strong>Jackson</strong> is the commercial and civic heart of the valley — a genuine town rather than a resort village — with a distinctive character shaped by the intersection of its ranching history, its status as the gateway to two national parks, and its emergence over the past two decades as one of the most culturally sophisticated small towns in the Mountain West. The <a href="https://downtownJacksonhole.com/" target="_blank" rel="noopener">town square</a>, with its famous elk-antler arches at each corner, sits at the centre of a compact walkable grid of galleries, restaurants, bars, boutiques and outfitters that serves both the local community and the visiting second-home owner market. The <a href="https://www.centerforthearts.org/" target="_blank" rel="noopener">Center for the Arts</a> hosts a year-round programme of theatre, dance, visual art and music; the <a href="https://www.nms.org/" target="_blank" rel="noopener">National Museum of Wildlife Art</a> perches on a ridge north of town with its collection of more than 5,000 works and views of the <strong>National Elk Refuge</strong> below; and the dining scene — anchored by restaurants such as <strong>Snake River Grill</strong> and the broader collection of bars, wine shops and cafés on the town square — is by any measure among the best of any mountain town in the country.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1As_tzSWtE2-90kR8QT-5aODGWHnjeNgA" alt="A three-bedroom cabin with mountain views in Jackson, Wyoming, with timber construction and Teton Range backdrop" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Jackson cabin with mountain views — the town's log-and-timber vernacular set against the dramatic vertical rise of the Teton Range.</figcaption>
+</figure>
+
+<p>The residential areas of Jackson — the streets east of the town square around the historic district, the neighbourhoods south toward the airport — offer a mix of log-and-timber homes, contemporary mountain architecture and older ranch properties. Owning in Jackson means having the full infrastructure of the town on your doorstep: the ability to walk to dinner, to the <strong>Saturday farmers' market</strong>, to the shops and galleries of the town square, without the ski-resort-base intensity that defines Teton Village. The <strong>National Elk Refuge</strong>, immediately north of the town, is home to one of the largest elk herds in North America; the winter sleigh-ride programme through the refuge is one of the valley's signature experiences. <a href="https://www.fws.gov/refuge/national-elk-refuge" target="_blank" rel="noopener">The refuge</a> runs from October through May and covers more than <strong>10,000 acres (4,000 hectares)</strong> of the valley floor immediately adjacent to the town's northern edge. The buyer mix in Jackson is the most diverse in the valley: local professionals, families with children in the town's schools, out-of-state second-home buyers who want a walkable base with full infrastructure, and international buyers for whom the town's self-contained character is a primary draw over the resort-village atmosphere of Teton Village. <strong>Best for:</strong> buyers who value year-round cultural and dining infrastructure, families with school-age children or multi-generational groups who want the option to walk to shops and restaurants, and international owners for whom a genuine town feel matters as much as ski-slope proximity.</p>
+
+<h3>Teton Village and the Ski Resort Base</h3>
+
+<p><strong>Teton Village</strong> sits directly at the base of <strong>Jackson Hole Mountain Resort</strong> — the most technically demanding and vertically impressive ski resort in the United States — and is the address of choice for ski-focused buyers who want the shortest possible distance between their front door and the gondola. The resort's statistics define its stature: <strong>4,139 feet (1,261 metres) of continuous vertical rise</strong>, the greatest continuous vertical rise of any ski resort in the United States; <strong>2,500 acres (1,011 hectares)</strong> of ski terrain spread across the <strong>Rendezvous Mountain</strong> and <strong>Apres Vous</strong> sectors; a vertical-rise-to-acreage ratio that produces some of the most sustained expert terrain in North America; and a snowfall record that averages more than <strong>460 inches (11.7 metres)</strong> of powder at the summit annually. The <strong>Jackson Hole Aerial Tram</strong> — carrying skiers <strong>2,034 metres (6,674 feet)</strong> to the top of Rendezvous Mountain — is one of the iconic mountain transport experiences in American skiing, and the view from the summit across the Teton Range and the Snake River plain to the east is genuinely without parallel in the continental United States. The resort is also one of the <strong>best-regarded in the US</strong> for <strong>off-piste and backcountry access</strong> — the Teton backcountry, accessible through resort gates, is among the most celebrated advanced and expert terrain in North America.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1MvohOHGY1WGXFLaOOia2kyIpgsgdAtY-" alt="A Teton Village villa with hot tub and mountain views at the base of Jackson Hole Mountain Resort, Wyoming" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Teton Village villa with hot tub, positioned at the ski resort base with direct access to the Jackson Hole Mountain Resort gondola.</figcaption>
+</figure>
+
+<p>Teton Village itself is a <strong>compact, walkable resort village</strong> at the mountain's base — a concentration of hotels, restaurants, shops and residential properties in the shadow of Rendezvous Mountain, with the <strong>Jackson Hole Aerial Tram</strong> departing from the village centre and the ski runs returning directly to the village floor. The village's dining and après-ski scene is the most concentrated in the valley; the <a href="https://www.jhmr.com/" target="_blank" rel="noopener">Jackson Hole Mountain Resort</a> facilities, including ski school, rental and the expanding village retail and restaurant circuit, are accessible on foot from any Teton Village property. Beyond ski season, Teton Village serves as a summer base for hiking access into <strong>Grand Teton National Park</strong>, which begins immediately north of the resort boundary; the resort's summer gondola operates for mountain biking and hiking access; and the proximity to the national park means wildlife-watching — moose, bear, elk, bison, pronghorn — is routine rather than exceptional. The buyer mix at Teton Village is the <strong>most ski-focused in the valley</strong>: serious skiers who measure a property by morning gondola time rather than by proximity to the town square, and international buyers whose primary motivation is the resort's vertical and powder record. <strong>Best for:</strong> serious ski-first buyers, couples and families for whom ski-in access and peak-season mountain intensity are the primary drivers of value, and buyers who visit primarily in winter and treat summer access to Grand Teton National Park as the complementary off-season offer.</p>
+
+<h3>The Wider Jackson Hole Valley — Wilson, the Snake River Corridor and Ranch Land</h3>
+
+<p>Between the town of Jackson to the south-east and Teton Village to the north-west lies the <strong>main body of the Jackson Hole valley</strong> — the floor of an ancient glacial basin drained by the <strong>Snake River</strong>, flanked by the Teton Range to the west and the rolling terrain of the <strong>Gros Ventre Range</strong> to the east. This is the broadest and most rural of the valley's ownership zones, and it is the one that most closely reflects the valley's original character as a ranching and farming landscape. The key communities within this zone are <strong>Wilson</strong>, a small crossroads settlement at the base of <strong>Teton Pass</strong> on the valley's western side with its own local bar and community feel; the ranch and estate properties along the <strong>Horse Creek Road</strong>, <strong>Fish Creek Road</strong> and <strong>Spring Gulch Road</strong> corridors south and west of Wilson; and the broader agricultural and conservation easement-protected land running north toward the national park boundary.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1BK2XEiGmH5tXlJbSRkdbg5YMiGnswMC9" alt="A three-bedroom cabin in Jackson Hole valley, Wyoming, surrounded by open meadows with Teton Range in the background" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Jackson Hole valley cabin with open meadow surroundings — the valley's ranch character preserved through conservation easements that permanently limit development.</figcaption>
+</figure>
+
+<p><strong>Conservation easements</strong> are one of the defining features of the wider Jackson Hole valley's land use. The <a href="https://www.jhlandtrust.org/" target="_blank" rel="noopener">Jackson Hole Land Trust</a> and a network of private, state and federal conservation programmes have placed easements on tens of thousands of acres of valley land — preserving the agricultural and wildlife character of the valley floor while severely constraining the development of new residential properties on the easement-protected parcels. The practical effect is that the supply of valley-floor properties with genuine space, privacy and wildlife views is both finite and diminishing; the combination of conservation easements and Teton County's own development regulations means the character of the wider valley is effectively locked in. Properties in the valley floor zone typically offer <strong>larger lot sizes</strong>, <strong>more privacy</strong>, and a more immersive sense of the Wyoming landscape than the more densely developed town and resort base zones — but at the cost of slightly longer drives to both the mountain and the town. The <strong>Snake River</strong> itself, a <strong>blue-ribbon trout fishery</strong> designated as a <a href="https://www.fs.usda.gov/recarea/btnf/recreation/fishing/recarea/?recid=72263" target="_blank" rel="noopener">Wild and Scenic River</a>, runs through the valley and is accessible for fly-fishing, floating and wildlife observation from properties throughout this zone. <strong>Best for:</strong> buyers who prioritise space, privacy and a direct experience of the Wyoming landscape over resort-base intensity, fly-fishing and outdoor-recreation enthusiasts, and those who want a genuine sense of the valley's ranching and wilderness character rather than its ski-resort dimension.</p>
+
+<h3>The National Park Gateway — Grand Teton and the Road to Yellowstone</h3>
+
+<p>The northern reaches of Teton County, where <strong>US Highway 89</strong> leaves the valley and enters <strong>Grand Teton National Park</strong>, represent the most remote and least commercially developed of the valley's ownership zones — a landscape of sagebrush flats, oxbow lakes, cottonwood groves and the extraordinary wildlife corridor that links the Teton Range to the <strong>Greater Yellowstone Ecosystem</strong>, one of the largest intact temperate ecosystems on earth. The <a href="https://www.nps.gov/grte/index.htm" target="_blank" rel="noopener">Grand Teton National Park</a> itself covers <strong>310,000 acres (125,000 hectares)</strong>, encompassing the peaks of the Teton Range and the northern portion of the Jackson Hole valley; it is <strong>continuous with</strong> <a href="https://www.nps.gov/yell/index.htm" target="_blank" rel="noopener">Yellowstone National Park</a> to the north, which adds a further <strong>2.2 million acres (890,000 hectares)</strong> of protected wilderness containing the <strong>world's greatest concentration of geothermal features</strong> — geysers, hot springs, mud pots and fumaroles — along with one of the largest bison herds in North America and some of the most productive grizzly bear, wolf and elk habitat anywhere in the temperate world.</p>
+
+<figure class="dest-figure">
+  <img src="https://lh3.googleusercontent.com/d/1viM8GgEIsnHSdL2cGH8QnFqv8IASiywc" alt="A three-bedroom apartment with mountain views in Jackson Hole, Wyoming, with Grand Teton National Park as backdrop" loading="lazy" width="1600" height="1067" />
+  <figcaption>A Jackson Hole apartment with mountain views looking toward Grand Teton National Park — the national park begins just north of the property boundary.</figcaption>
+</figure>
+
+<p>Properties in the national-park gateway zone offer the most direct access to the national parks themselves — <strong>Grand Teton's String Lake, Leigh Lake and Jenny Lake trailheads</strong> are within a short drive, as is the <strong>Jackson Hole Airport (JAC)</strong>, which sits within the park boundary and whose approach path over the Snake River plain is one of the most spectacular commercial arrivals in the world. Wildlife observation from properties in this zone can be <strong>exceptional</strong>: moose are common along the Snake River oxbows; bison herds move through the valley seasonally; bears are active in the spring and autumn in the park's sagebrush zones; and the <strong>Mormon Row historic district</strong> — a preserved cluster of early-twentieth-century homestead barns against the Teton backdrop — is one of the most photographed landscape compositions in the American West. The summer hiking calendar from this zone reaches directly into the Grand Teton backcountry; the <a href="https://www.nps.gov/grte/planyourvisit/hiking.htm" target="_blank" rel="noopener">park's trail system</a> includes routes to <strong>Hidden Falls, Inspiration Point, Cascade Canyon</strong> and ultimately the high peaks of the Teton crest. <strong>Best for:</strong> buyers whose primary draw is the national parks and the wildlife and hiking calendar, those who want the most immersive experience of the Greater Yellowstone Ecosystem, and buyers who value airport proximity combined with the most spectacular natural setting in the valley.
+
+</p>
+
+</div></section>
+
+<!-- §C — cream -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>A year in your Jackson Hole co-ownership home</h2>
+
+<p>Distributing <strong>45 days of use</strong> across the Jackson Hole calendar is, for most owners, a genuinely enjoyable planning exercise — the valley has <strong>no off-season</strong> in any meaningful sense. Winter brings world-class skiing; summer brings hiking, fly-fishing and wildlife access of a quality matched nowhere else in the lower 48 states; the shoulder seasons of spring and autumn bring calving elk, changing aspens and the quietest, most local version of the valley. The fair-rotation calendar ensures every co-owner receives a <strong>fair allocation of peak weeks</strong> — including the prime ski-season windows in January and February and the peak summer weeks in July and August — across a multi-year cycle.</p>
+
+<h3>Spring (March–May)</h3>
+
+<p>Spring in Jackson Hole runs from the tail of ski season through the dramatic transformation of the valley as it thaws, greens and fills with returning wildlife. March is still solidly ski season — the <strong>Jackson Hole Mountain Resort</strong> typically operates well into April, and March frequently brings some of the deepest and most consolidated powder of the season as the long Pacific storm cycles of mid-winter give way to warmer but still productive spring snowfall. Temperatures in March average <strong>−5 to 5°C (mid-20s°F to low 40s°F)</strong> on the valley floor, with bluebird days increasingly common as the season progresses. The ski resort's spring conditions — firm morning snow softening to groomed cruising by noon — are a favourite of experienced skiers who prefer fewer crowds and longer daylight hours over the deep-powder intensity of January.</p>
+
+<p>April marks the transition: the lower mountain terrain begins to bare out but the high-altitude terrain at <strong>Rendezvous Mountain</strong> remains skiable, and the valley floor begins to show the first green of new grass through the snow cover. The <strong>National Elk Refuge</strong> sees its annual elk migration in April, when the herd — which can number more than <strong>11,000 animals</strong> in peak years — begins its movement north toward summer ranges in the park and the Teton wilderness, and the valley roads and turnouts fill with wildlife-watchers tracking the procession. By May, the valley is fully awake: moose calves are born in the willows along the Snake River oxbows, bears emerge from hibernation in the park, osprey return to their nests at the Flat Creek marshes above the town of Jackson, and the first wildflower blooms appear in the sagebrush flats. <strong>Grand Teton National Park</strong> opens its full road network in May, and the hiking season begins with the lower-elevation trails as the snowpack retreats up the mountain slopes. Spring temperatures are <strong>3–15°C (high 30s°F to high 50s°F)</strong> on the valley floor, with occasional late-spring snow that locals accept as a feature rather than an inconvenience. The valley is at its <strong>quietest and most local</strong> in late April and May — a period that experienced Jackson Hole owners often identify as their favourite.</p>
+
+<h3>Summer (June–August)</h3>
+
+<p>Summer is the season when the full scope of the Jackson Hole experience becomes evident — the valley transforms from a ski destination into one of the premier outdoor and wildlife destinations in the world, and the national parks come into their peak operation. <strong>Grand Teton National Park</strong> reaches its operational peak from late June through August: the Jenny Lake shuttle operates full-time, the <strong>Jenny Lake Lodge</strong> and the park's campgrounds are fully open, and the trail network to the park's signature hikes — the Cascade Canyon loop, the Paintbrush Canyon–Cascade Canyon traverse, the <strong>Grand Teton summit approach</strong> for experienced technical climbers — is in prime condition. Temperatures on the valley floor in July and August average <strong>15–25°C (high 50s°F to high 70s°F)</strong>, with cool nights that typically drop to <strong>5–10°C (low 40s°F to high 40s°F)</strong> even at peak summer — the continental elevation of the valley (approximately <strong>2,000 metres / 6,200 feet</strong>) ensures that summer in Jackson Hole is never hot in the way that lowland US summer destinations can be.</p>
+
+<p>The Snake River fly-fishing season is at its finest from late June through September. The <strong>Snake River</strong> below Jackson Lake Dam and the <strong>upper Snake</strong> above it are both world-class fisheries — the upper Snake's technical dry-fly fishing for native <strong>Snake River cutthroat trout</strong> draws anglers from across the United States and internationally; guided <strong>drift-boat floats</strong> through the canyon section below Jackson are a signature valley experience. The summer calendar extends beyond the outdoor: the <a href="https://www.jhconcerts.org/" target="_blank" rel="noopener">Grand Teton Music Festival</a> runs through July and August at Walk Festival Hall in Teton Village, with a programme of orchestral and chamber music performances that draws world-class musicians and performers to the resort base each summer. The <a href="https://artsfest.jhartsfest.com/" target="_blank" rel="noopener">Jackson Hole Arts Festival</a> and the town's gallery walks fill the summer cultural calendar. The <strong>Wednesday and Saturday farmers' market</strong> on the Jackson town square is one of the finest in the Mountain West. Wildlife observation reaches its peak in summer: the valley's bison herds, grizzly families, wolf packs and black bear populations are most visible and most active from June through August, and the <strong>Antelope Flats</strong> and <strong>Oxbow Bend</strong> areas of Grand Teton National Park offer reliably productive wildlife viewing.</p>
+
+<h3>Autumn (September–November)</h3>
+
+<p>Autumn is <strong>Jackson Hole's most visually spectacular season</strong> — and the one that experienced valley owners consistently rank as their personal favourite. September and October bring the <strong>elk rut</strong> — the autumn mating season — to the meadows and river corridors of Grand Teton National Park and the National Elk Refuge, with bull elk competing for cows in a display of bugling, antler-clashing and territorial posturing that is one of the great wildlife spectacles in the temperate world. The sound of bull elk bugling in the valley at dawn and dusk in late September is a defining Jackson Hole experience. Temperatures in September remain pleasant — <strong>10–20°C (high 40s°F to high 60s°F)</strong> — with warm days and increasingly cool nights that begin to build the first high-altitude snowpack on Rendezvous Mountain above Teton Village.</p>
+
+<p>October transforms the valley with colour: the <strong>aspen groves</strong> on the lower Teton slopes, the Snake River cottonwood corridors and the hillsides throughout the valley turn gold, orange and yellow in a display that fills the valley's viewpoints and draws photographers from across the country. The light in October is <strong>exceptional</strong> — low-angle sun illuminating the golden aspens against the snow-capped Teton peaks produces the visual combination that has defined the valley's <strong>photographic identity</strong> for a century. The national park's crowds thin dramatically after the Labor Day weekend in early September; from mid-September through the October and early November shoulder, the trails, overlooks and wildlife-watching areas of Grand Teton and Yellowstone are accessible at their most relaxed, with the full wildlife activity of the autumn transition — grizzly bears in hyperphagia, wolf pack activity increasing, moose bulls in rut — providing exceptional viewing. <strong>Yellowstone National Park</strong>, <strong>89 miles (143 km)</strong> north of Jackson via the John D. Rockefeller Jr. Memorial Parkway, is at its most spectacular in autumn: the geothermal features steam more dramatically in cool air, the bison rut carries into September, and the wolf packs of the Lamar Valley are most active and visible in the early autumn light. By November, the <strong>first ski area operations</strong> begin on Rendezvous Mountain, and the valley transitions smoothly into its ski-season mode. <strong>Best for:</strong> wildlife enthusiasts, photographers, hikers who want national park access without summer crowds, and buyers for whom autumn colour and the elk rut are primary draws.</p>
+
+<h3>Winter (December–February)</h3>
+
+<p>Winter is the season that defines Jackson Hole's international reputation and the primary driver of the valley's second-home market. From the resort's opening in late November through the close of the main season in early April, the <strong>Jackson Hole Mountain Resort</strong> operates at a scale and quality that no other ski resort in the continental United States matches for sheer vertical ambition. The resort's statistics bear repeating: <strong>4,139 feet (1,261 metres) of continuous vertical rise</strong> — the greatest in the US; <strong>2,500 acres (1,011 hectares)</strong> of terrain across Rendezvous Mountain and Apres Vous; an average annual snowfall at the summit of more than <strong>460 inches (11.7 metres)</strong>; and a trail classification that runs roughly <strong>50% expert</strong> (black diamond and double black), <strong>40% intermediate</strong> and <strong>10% beginner</strong>, making it the most expert-weighted major resort in the country. The <strong>Hobacks, Corbets Couloir, Tram Face</strong> and the resort's extensive <strong>inbounds glade and cliff terrain</strong> make Jackson Hole the resort of choice for skiers at the advanced and expert level; the <strong>Apres Vous</strong> sector provides excellent groomed intermediate terrain for mixed-ability groups and families; and the resort's ski school, including the <strong>JHMR ski school</strong> with its highly regarded children's and adult programmes, is among the most well-resourced in the country.</p>
+
+<p>December and January are the two deepest months: the storms that build the snowpack typically arrive in concentrated pulses from Pacific and continental systems, producing the deep, cold, low-density powder that has given <strong>Jackson powder days</strong> their mythological status among serious skiers. The <strong>Christmas–New Year</strong> peak is the most in-demand window of the entire valley calendar; the <strong>Martin Luther King Day</strong> weekend and the <strong>Presidents' Day</strong> weekend in February are the next highest-demand periods. The January and early February shoulder weeks between the holiday peaks are many experienced Jackson Hole ski owners' preferred pattern — conditions as good, crowds noticeably thinner, and the mountain's character most fully apparent without the peak-holiday intensity. Beyond the resort, the valley's winter calendar includes <strong>snowshoeing and cross-country skiing</strong> in Grand Teton National Park (the park's <a href="https://www.nps.gov/grte/planyourvisit/winter.htm" target="_blank" rel="noopener">Taggart and Bradley Lakes trails</a> and the <strong>Teton Park Road</strong>, closed to vehicles in winter and open to skiers and snowshoers, are among the finest winter-trail experiences in the national park system); <strong>snowmobile access</strong> into the Bridger-Teton National Forest; the winter sleigh rides through the <strong>National Elk Refuge</strong>; and the extraordinary quiet of the valley in mid-winter, when the full population is a fraction of the summer and ski-holiday peaks. For owners who value <strong>solitude and deep mountain winter</strong> as much as the resort's ski terrain, the January shoulder weeks offer both in equal measure.</p>
+
+</div></section>
+
+<!-- §D — white -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Who buys in Jackson Hole, and why</h2>
+
+<p>The buyer mix in Jackson Hole's second-home market is unlike that of any other US mountain destination — and the drivers behind it have been <strong>consistent for three decades</strong>. <strong>Domestic US buyers</strong> form the largest single cohort: high-net-worth buyers from <strong>New York, Los Angeles, San Francisco, Chicago, Dallas, Houston and Denver</strong> who treat Jackson Hole as either a primary mountain base or as a complement to a coastal or city primary residence. The valley has a long history of attracting buyers from the east and west coasts who want a Mountain West base without the resort-village density of Vail or Aspen; the combination of national park wilderness access, a genuine town, world-class skiing and the Wyoming tax environment creates a proposition that is <strong>more rounded than a pure ski resort</strong> and more wild than a resort town. <strong>International buyers</strong> — from the UK, Germany, Scandinavia, Australia, Canada and increasingly from the Gulf states and Asia — are a growing cohort, drawn primarily by the combination of the resort's skiing credentials, the national parks, and the Wyoming LLC and tax structure's attractiveness as a holding framework for a US real-estate asset.</p>
+
+<p>Fractional ownership in Jackson Hole typically suits <strong>a well-defined set of buyer profiles:</strong></p>
+
+<ul>
+  <li><strong>Serious skiers at the advanced and expert level</strong> — buyers who have skied the major European resorts and the established American mountains and who judge Jackson Hole's <strong>4,139-foot vertical</strong>, its Tram Face terrain and its off-piste backcountry access to be unmatched in the continental United States. For this cohort, the resort's technical demands are the primary draw; the national-park access and the Wyoming setting are welcome enhancements.</li>
+  <li><strong>Multi-generational families</strong> — the valley's combination of a world-class ski resort for adults, an extraordinary wildlife and national-park experience for children, and a genuine town with infrastructure for extended-family stays makes Jackson Hole one of the most natural multi-generational second-home destinations in the US. Cabins and larger properties that sleep grandparents, parents and children in the same week are the standard format for this buyer profile.</li>
+  <li><strong>Outdoor enthusiasts with a four-season use pattern</strong> — buyers who value the fly-fishing, hiking, cycling and wildlife calendar as much as the ski season, and who want a mountain property that earns its keep across all four seasons rather than sitting empty for eight months of the year. These buyers often identify spring (the elk migration, the thaw) and autumn (the aspen colour, the elk rut, the shoulder access to Yellowstone) as their highest-priority use weeks alongside the ski-season core.</li>
+  <li><strong>High-net-worth US buyers optimising their tax position</strong> — for US residents managing a complex portfolio of assets across multiple states, Wyoming's <strong>no state income tax</strong> and <strong>no state estate tax</strong> environment, combined with the LLC structure's clean inheritance and transfer mechanics, makes Jackson Hole an attractive holding framework that serves both a lifestyle and a structural purpose. Estate planners in states with high state income and estate taxes (California, New York, Massachusetts, Oregon) frequently flag Wyoming ownership as a structurally advantageous complement to a client's portfolio.</li>
+  <li><strong>International buyers building a US foothold</strong> — European, Australian and Canadian buyers who want a US second home that combines genuine outdoor-recreation substance with a favourable tax structure and LLC holding framework. Jackson Hole's ESTA accessibility (90 days per trip, no Schengen-style annual counter), its direct or one-stop international connectivity via US hubs, and the structural attractiveness of Wyoming ownership for non-US-resident buyers make it <strong>one of the more compelling US propositions</strong> for this cohort.</li>
+  <li><strong>COP portfolio builders</strong> — owners who already hold a European alpine share (French Alps, Austrian Tyrol, Italian Dolomites) and who see a Jackson Hole ski-season share as the American complement to a European winter ownership — giving genuinely different mountain experiences across the same winter season, with the same LLC framework and the same portfolio relationship.</li>
+  <li><strong>Wildlife, photography and conservation-oriented buyers</strong> — buyers for whom proximity to the Greater Yellowstone Ecosystem, the National Elk Refuge, the Grand Teton bison herds and the valley's extraordinary wildlife calendar is the primary draw, and for whom the skiing is an enhancement rather than the reason. This cohort typically prioritises autumn and spring use weeks and often complements Jackson Hole ownership with other wildlife-oriented travel.</li>
+</ul>
+
+<div class="dest-callout">
+  <strong>The portfolio pattern:</strong> Jackson Hole is one of the most natural starting points for COP owners who go on to hold a second share in a European mountain or coastal destination. The most common complementary pairing is a Jackson Hole ski-season share with a French Alps or Austrian chalet share, or a Jackson Hole full-year share with a Mediterranean summer share in Mallorca or the Côte d'Azur. The LLC framework makes a multi-destination portfolio operationally simpler than the equivalent across two or three different national ownership structures.
+</div>
+
+<p>What unites these otherwise diverse buyer profiles is a calculation that most of them reach at a similar point in their relationship with the valley: the actual weeks they use a Jackson Hole property in a year fall within the range that <strong>a 1/8 share delivers</strong>; the operational burden of running a mountain property in Wyoming remotely — snow removal, HVAC maintenance, wildlife-related exterior maintenance, the seasonal opening and closing programme — is non-trivial and benefits enormously from professional management; and the resale liquidity of a well-managed fractional share inside a professionally managed portfolio is, in the experience of the broader COP network, meaningfully higher than that of a whole property at the same address. Browse the listings in the property grid at the top of this page to see which Jackson Hole properties are currently available. Our team can walk you through the sub-zone trade-offs — the town versus the resort base, the valley floor versus the park gateway — before you commit to a property.</p>
+
+</div></section>
+
+<!-- §E — cream -->
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Getting there — Wyoming airports and connections</h3>
+
+<p>Jackson Hole is served primarily by <a href="https://www.jacksonholeairport.com/" target="_blank" rel="noopener">Jackson Hole Airport (JAC)</a>, one of the most operationally distinctive commercial airports in the United States. Located <strong>entirely within Grand Teton National Park</strong> — the only commercial airport in the continental US inside a national park — JAC offers direct year-round service from <strong>Dallas-Fort Worth (DFW)</strong>, <strong>Denver (DEN)</strong>, <strong>Salt Lake City (SLC)</strong>, <strong>Chicago O'Hare (ORD)</strong>, <strong>Los Angeles (LAX)</strong>, <strong>San Francisco (SFO)</strong>, <strong>Seattle (SEA)</strong>, <strong>Phoenix (PHX)</strong> and <strong>New York (JFK)</strong>. Winter-season service expands significantly from December through March, with additional direct routes from <strong>Atlanta (ATL)</strong>, <strong>Houston (IAH)</strong>, <strong>Minneapolis (MSP)</strong>, <strong>Boston (BOS)</strong> and other US hubs; seasonal direct service from <strong>Vancouver (YVR)</strong> in Canada operates in the ski season. The <strong>airport-to-town drive</strong> is approximately <strong>10 minutes</strong>; the drive to <strong>Teton Village</strong> approximately <strong>20 minutes</strong>. European and international buyers typically route via a US hub city with the longest-range direct service: the <strong>London–Dallas–Jackson</strong> routing, the <strong>London–Denver–Jackson</strong> routing and the <strong>London–Salt Lake City–Jackson</strong> routing are the most common for UK buyers. Total journey time from London to Jackson Hole is typically <strong>14–16 hours</strong> including the hub connection, <strong>comparable to a long-haul European destination</strong>.</p>
+
+<p>An alternative gateway is <strong>Salt Lake City International (SLC)</strong>, which handles <strong>direct transatlantic service</strong> from London Heathrow (operated by Delta Air Lines) and connects to Jackson Hole via a short 45-minute flight or a <strong>4.5-hour drive</strong> north through Utah and southern Idaho. <strong>Idaho Falls Regional Airport (IDA)</strong>, <strong>90 minutes</strong> from Jackson by car, offers additional connectivity from US hubs as a secondary option. The valley is also accessible by car from major Mountain West cities: <strong>Salt Lake City to Jackson</strong> is approximately <strong>310 miles (499 km)</strong>, typically a 4.5 to 5-hour drive via US-189 north through Evanston and Kemmerer; <strong>Denver to Jackson</strong> is approximately <strong>370 miles (595 km)</strong>, approximately 5.5 hours via I-70 west and US-40.</p>
+
+<h3>What it costs — the comparison that matters</h3>
+
+<p>The case for a fractional structure in Jackson Hole is most directly made through a <strong>side-by-side comparison</strong> against both whole ownership and long-term rental in the valley's prime property tier. Sole ownership of a Jackson cabin, a Teton Village ski-in villa or a valley-floor ranch estate commits a buyer to the full property value as upfront capital, the full annual carry as a running cost, and the full operational burden of managing a high-demand mountain property remotely — whether the owner spends four weeks in the valley per year or twelve. The fractional structure splits that across eight owners; the <strong>1/8 share delivers</strong> the access the owner will actually use, at <strong>roughly 1/8</strong> the capital commitment and carry, with the operational burden removed entirely.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full Teton County property tax, insurance, management, maintenance, snow removal</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Wyoming tax benefit</td>
+      <td data-col="Whole second home">No state income tax; no state estate tax on the asset</td>
+      <td data-col="COP 1/8 share">Same state-tax position applies to the LLC's Wyoming interest</td>
+      <td data-col="Long-term rental">Landlord's benefit, not yours</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 4–8)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">6–24 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The comparison most Jackson Hole buyers find most telling is the <strong>annual carry versus actual use</strong> line. A whole cabin or villa in the valley carries the full Teton County property-tax assessment (with rates reflecting market values at the premium tier), the full mountain-grade insurance stack (property, contents, liability — mountain properties run higher insurance costs than valley equivalents due to snow-load, elevation and remoteness factors), the full professional management retainer, full year-round snow removal and road clearance, full HVAC and systems maintenance through the long winter season, and a significant reserve fund for the kind of structural maintenance — roof replacement, boiler overhaul, deck re-boarding — that mountain properties at elevation require on a recurring cycle. All of this is paid in full every year, regardless of whether the owner spends six weeks at the property or twelve. A 1/8 fractional share carries roughly 1/8 of that total, fully managed, with no additional operational bills. Compared to renting an equivalent Jackson Hole property long-term, you build real equity rather than burning rent — and the share is yours to sell, transfer or pass on at any time.</p>
+
+<p><strong>The time-to-exit comparison</strong> is also directly relevant in Jackson Hole's premium tier. The buyer pool for whole properties at the top of the Teton Village or valley-floor ranch market is small, well-informed and unhurried; prime properties in these zones have historically required <strong>12–24 months</strong> on the open market before transacting, with the carrying costs of holding through a slow sale representing <strong>a meaningful fraction of the sale price</strong> by the time it closes. A fractional share typically clears in <strong>around a month or less</strong> — the buyer pool is already familiar with the property and the LLC structure, and the transfer of an LLC membership interest is a more direct administrative action than a full Wyoming deed-and-title conveyance.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual carry on a 1/8 Wyoming share is, by definition, <strong>roughly 1/8 of the carry on the equivalent whole property</strong> — a fraction of what an outright second-home owner pays in property tax, insurance, management and maintenance in Jackson Hole's premium market. The items <strong>typically included</strong> in the annual service charge are: <strong>Teton County property tax</strong> (assessed annually by the county assessor at the property's fair-market value); <strong>property and contents insurance</strong> at mountain rates; the full professional management retainer covering scheduling, owner communication, on-site staff and concierge services; <strong>snow removal and road clearance</strong> — the operational load specific to a mountain property at Wyoming elevation; pre-arrival preparation, cleaning and linen between every owner stay; <strong>HVAC, boiler and plumbing maintenance</strong> across the cold months; landscaping and exterior maintenance; utility bills (electricity, heating fuel, internet, alarm monitoring); and a contribution to the <strong>reserve fund for major capital works</strong>. What is typically <strong>not included</strong>: major capital improvements decided by the LLC annual general meeting and funded from the reserve or a one-off levy; significant structural damage from events outside the standard insurance scope; personal staff costs beyond the standard management service (a private chef or specific concierge service booked for an individual owner's stay); damage caused by an owner's own use; and unusually high utility consumption during personal stays.</p>
+
+<h3>What you actually own — the legal share</h3>
+
+<p>Every Wyoming property on COP is held in a <strong>purpose-built LLC</strong> — the same modern international ownership vehicle used across COP's destinations — in which you and up to seven co-owners hold <strong>equal LLC membership interests</strong>. The underlying Wyoming property is held by the company, with the title recorded at the <strong>Teton County Clerk's Office</strong> in the county's land records, and your membership interest is recorded in the company's register. What you hold is a <strong>real, transferable equity interest</strong> — not a timeshare use-right that depreciates to zero when the contract expires, not a points membership, not a fractional holiday club. Wyoming's LLC framework, administered through the <a href="https://sos.wyo.gov/" target="_blank" rel="noopener">Wyoming Secretary of State</a>, provides <strong>one of the most modern LLC governance environments</strong> in the United States; Wyoming is routinely cited by business law commentators as having the <strong>most flexible and protective LLC statutes</strong> in the country, and the combination of that framework with the state's tax environment creates a holding structure of genuine sophistication.</p>
+
+</div></section>
+
+<!-- §F — white -->
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works in Wyoming</h2>
+
+<p>The mechanics of fractional ownership in Wyoming are shaped by <strong>four elements working together</strong>: the <strong>purpose-built LLC structure</strong> used to hold every property on COP, Wyoming's <strong>uniquely favourable tax and LLC environment</strong>, the <strong>mountain-specific operational model</strong> that handles everything from snow removal to wildlife-management best practices, and the <strong>Teton County land-records system</strong> that gives each property its documentary clarity. <strong>Understanding how these elements fit together</strong> is the difference between a confident, clear ownership experience and one the buyer feels uncertain about going in.</p>
+
+<h3>How the LLC structure holds Wyoming property</h3>
+
+<p>The LLC that holds each Wyoming property is a <strong>purpose-built company</strong> designed for international and interstate shared ownership. It is registered under <a href="https://sos.wyo.gov/business/index.aspx" target="_blank" rel="noopener">Wyoming Division of Corporations</a> law — one of the most modern LLC governance frameworks in the United States — with a managing officer appointed under the company's governing documents, a <strong>register of members</strong> recording who holds which interest and in what proportion, and an <strong>annual general meeting</strong> at which owner-level decisions (major capital works, budget approval, management review) are made by the co-owner group. The same LLC framework runs across COP's destinations in the <strong>United States, the United Kingdom, France, Spain, Italy</strong> and elsewhere — meaning an owner adding a second property in another country is not learning a new ownership structure each time, but extending one they already understand across the portfolio.</p>
+
+<p>For a fractional buyer in Wyoming, the practical effect is that you become a <strong>registered member of the LLC</strong> that owns the property, holding one of up to eight equal membership interests. The property remains Wyoming real estate — recorded at the Teton County Clerk's Office by the LLC — and you hold a <strong>transferable equity interest</strong> in that real estate through the LLC. <strong>What you own is not a timeshare use-right</strong>, not a points-club membership, not a holiday-club licence. This structure gives Wyoming co-ownership its <strong>single consistent international format</strong>, its <strong>cleaner inheritance treatment</strong> (LLC membership interests pass as personal property of your home jurisdiction rather than requiring Wyoming ancillary probate as directly deeded real estate would), and its <strong>faster resale path</strong> — a transfer of LLC membership is a <strong>more direct administrative action</strong> than triggering a full title conveyance at the Teton County Clerk.</p>
+
+<h3>Wyoming property tax and the state's tax environment</h3>
+
+<p>Wyoming's tax environment is among the most favourable of any US second-home state. At the state level: <strong>no state income tax</strong> on any form of income, including rental income, capital gains on the sale of property interests, or distributions from the LLC; <strong>no state estate tax</strong> and <strong>no state inheritance tax</strong> — meaning that at the Wyoming level, transfer of LLC membership interests on death carries no additional state tax burden. At the county level, <strong>Teton County property tax</strong> is assessed annually by the county assessor at a rate applied to the property's appraised fair-market value; the county's tax rates reflect the premium market values of the valley but operate within the standard Wyoming property-tax framework. The LLC's Wyoming CPA handles the annual filing and payment; individual co-owners never deal with the county assessor or tax collector directly. <strong>Federal tax treatment</strong> — capital-gains tax on the eventual resale of LLC membership interests, and any applicable US income-tax treatment for non-US-resident owners — is an individual and jurisdiction-specific matter that buyers should discuss with their own US and home-country tax advisors; the LLC structure handles the transactional mechanics, and the Wyoming state-level simplicity means one layer of complexity is removed compared to higher-tax states.</p>
+
+<p>Wyoming's LLC statutes are also notable for <strong>flexibility and robustness</strong> around <strong>charging order protection</strong> and <strong>single-member provisions</strong> — aspects of Wyoming LLC law that are relevant to estate planning and the structuring of ownership across multiple members or multiple properties. These are individual-planning matters, but the quality of Wyoming's LLC framework is one reason estate-planning professionals frequently recommend Wyoming LLCs for US real-estate holding structures regardless of whether the underlying property is in Wyoming.</p>
+
+<h3>Mountain-specific operations: snow management, wildlife and seasonal maintenance</h3>
+
+<p>Running a <strong>mountain property at Jackson Hole's elevation</strong> — and in a valley with <strong>average annual snowfall of approximately 150 inches (3.8 metres)</strong> on the valley floor, rising to more than <strong>460 inches (11.7 metres)</strong> at the summit of the ski resort — requires a year-round operational programme that flat-country properties do not. The <strong>professional management team</strong> handles <strong>snow removal and road clearance</strong> on every significant storm day; <strong>roof snowload monitoring</strong> on properties where valley-floor accumulation can stress structural elements; <strong>winterisation and seasonal-opening procedures</strong> for water systems, HVAC, outdoor water features and any mechanical systems vulnerable to freeze-thaw cycling; <strong>boiler and HVAC maintenance</strong> through the extended winter heating season; and <strong>pre-arrival full-property checks</strong> — critical in a valley where a property may sit between owner stays for several weeks in the depth of winter. The summer programme covers landscaping, deck and exterior maintenance after the winter, irrigation management and the preparation of any outdoor features for warm-weather use. <strong>Wildlife-aware property management</strong> is also a practical consideration in Jackson Hole: bear-aware refuse storage, appropriate exterior lighting, and seasonal awareness of wildlife movement patterns near the property are all aspects of mountain-property management that the professional team handles as routine.</p>
+
+<h3>Inheritance, probate and the LLC pathway</h3>
+
+<p>Directly held Wyoming real estate is subject to <strong>Wyoming probate</strong> on the owner's death, which for a non-Wyoming resident can involve both a Wyoming ancillary probate proceeding (required for in-state real property) and the primary probate in the deceased's home state or country — a duplicated process that is procedurally heavy and time-consuming. <strong>LLC membership interests</strong> are treated as personal property of the deceased's home jurisdiction, not as Wyoming real estate, and generally avoid the Wyoming ancillary probate requirement entirely, clearing through the home-state or home-country inheritance process more directly. The combination of a revocable trust holding the LLC membership interest and the LLC holding the Wyoming real estate is a standard estate-planning pattern for non-Wyoming-resident second-home owners. This is a jurisdiction-specific and individual matter; buyers should review the specific position with their own legal and estate-planning advisors. The LLC structure typically provides <strong>more flexibility and faster estate clearance</strong> than directly deeded Wyoming real estate, particularly for international owners for whom Wyoming ancillary probate would represent a significant practical burden.</p>
+
+<h3>The professional management model and how the calendar works</h3>
+
+<p>Once the purchase completes, a <strong>professional management company</strong> takes over all operational responsibility for the Wyoming property. Your personal weeks — <strong>approximately 45 days</strong> for a <strong>1/8 share</strong> — are allocated through a <strong>fair-rotation calendar</strong> that cycles the highest-demand windows (the <strong>Christmas–New Year peak</strong>, the Martin Luther King Day ski weekend, the Presidents' Day ski weekend, the prime July and August wildlife and hiking weeks, and the September–October elk rut and autumn colour weeks) with shoulder-season and quieter weeks across the calendar year. Owners pre-book several months ahead; the scheduling system ensures that over a multi-year cycle every co-owner receives a comparable allocation of peak-demand windows rather than the same fixed slot year after year. <strong>Snow removal, pre-arrival preparation, linen and cleaning between every stay, HVAC and boiler management, seasonal maintenance, utility management, property-tax and insurance compliance, and the on-call concierge</strong> — all sit with the management team. You arrive; <strong>the property is ready</strong>, the road is cleared, the heating is on, and the snow outside has already been managed.</p>
+
+<h3>Resale: how to exit, typical timelines</h3>
+
+<p>When you decide to exit your Wyoming share, a <strong>professional resale process</strong> is in place. Across the COP portfolio, the <strong>typical timeline</strong> from listing to completion is <strong>around a month or less</strong> — well below the 12–24 months that whole-property resales in Jackson Hole's premium tier typically require on the open market. The carrying costs of holding a whole Jackson Hole property through a slow open-market sale — Teton County property tax, full insurance, management retainer, year-round snow removal, the full mountain-maintenance programme — can be <strong>materially significant</strong> over a multi-year sale timeline, making the <strong>faster fractional resale path</strong> financially attractive beyond the headline convenience. The buyer pool for a fractional share is already familiar with the property, the LLC structure and the management framework; the transfer of LLC membership is a more direct administrative action than a full Wyoming deed-and-title conveyance at the county clerk. For owners who want maximum control over price and process, an open-market sale to any qualifying buyer remains an option.</p>
+
+<div class="dest-callout">
+  <strong>Free to browse, free to enquire:</strong> no buyer-side fees and no obligation. The share price you see is the share price you pay; talking to our team costs nothing.
+</div>
+
+<p>The <strong>full mechanics of fractional ownership</strong> across all jurisdictions — usage calendars, exit procedures, rental income treatment, insurance, transfer on death, the relationship with the management company — are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>. For specific Wyoming property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market. If you are comparing Jackson Hole directly against <strong>Aspen, Park City, Vail</strong> or a European Alps alternative, our specialist team can walk you through the access logistics, the snowfall data, the sub-zone differences and the ownership-structure mechanics in detail before you make any commitment.</p>
+
+<h3>Your ownership at a glance</h3>
+
+<ul>
+  <li><strong>Real, deeded equity in the underlying property</strong> — the home is recorded at the Teton County Clerk's Office via the LLC, and your membership interest is a real, transferable equity stake in that property. Not a timeshare, not a points membership, not a usage right.</li>
+  <li><strong>Consistent international structure</strong> — your Wyoming share sits inside the same purpose-built LLC framework used across every property on COP, so multi-country owners deal with one model rather than a stack of different vehicles, with the same documentation cadence and the same administrative process from Jackson Hole to the French Alps.</li>
+  <li><strong>Professional management included throughout</strong> — snow removal, pre-arrival preparation, linen and cleaning between every stay, mountain-specific HVAC and boiler maintenance, year-round property monitoring, Teton County property tax and insurance management, wildlife-aware property practices, and the on-call concierge are all covered within your annual service charge.</li>
+  <li><strong>Clear, supported resale through the COP owner network</strong> — exits across the portfolio typically clear in around a month at a known price, well below the 12–24 months that comparable whole Jackson Hole properties take on the open market.</li>
+  <li><strong>One consistent international portfolio relationship</strong> — whether you own one COP share or several across different countries, you deal with the same ownership structure, the same documentation cadence and the same management relationship; a meaningful proportion of owners go on to add a second or third property across the COP portfolio, pairing a Wyoming ski share with a European summer share or a US coastal base.</li>
+</ul>
+
+</div></section>
+
+<!-- FAQ section -->
+<section class="dest-faq-sec">
+  <div class="dest-inner">
+    <h2>Wyoming Fractional Ownership — Frequently Asked Questions</h2>
+    <div class="dest-faq-list">
+
+      <details class="dest-faq-item">
+        <summary>
+          <h3>Is fractional ownership in Wyoming the same as a timeshare?</h3>
+          <span class="dest-faq-chevron"></span>
+        </summary>
+        <div class="dest-faq-answer">
+          <p>No — the two structures are fundamentally different in what you own, how it behaves financially, and what rights you hold. A timeshare sells you a <strong>use-right</strong> in a property for a defined period each year, typically on a fixed-term contract; the use-right generally cannot be sold independently, has no appreciating value, and carries an ongoing maintenance fee regardless of use. A COP fractional share in Wyoming is a <strong>deeded equity interest</strong> — specifically, an <strong>LLC membership interest</strong> in the purpose-built LLC that owns the Wyoming property. That interest is recorded in the company's register and is directly connected to real Wyoming real estate recorded at the <strong>Teton County Clerk's Office</strong>. You can sell the interest, transfer it, leave it to your heirs, and <strong>it appreciates with the underlying property value</strong>. Wyoming law separately regulates timeshare products under the state's timeshare statutes; a COP fractional share is held under Wyoming LLC law, not under timeshare law — the distinction is legal, not merely rhetorical. In practical terms: a timeshare is a contract with a developer; a COP fractional share is equity in a property-owning company. One depreciates toward zero; the other appreciates with the asset.</p>
+        </div>
+      </details>
+
+      <details class="dest-faq-item">
+        <summary>
+          <h3>What are the tax implications of owning a fractional share in Wyoming?</h3>
+          <span class="dest-faq-chevron"></span>
+        </summary>
+        <div class="dest-faq-answer">
+          <p>Wyoming is one of the <strong>most tax-efficient states</strong> in the US for second-home ownership. At the <strong>state level</strong>, there is <strong>no Wyoming state income tax</strong> — meaning rental income generated by the property in weeks outside owner use, and any capital gain on eventual resale of the LLC membership interest, carries <strong>no Wyoming state income-tax liability</strong>. There is also <strong>no Wyoming state estate tax</strong> and <strong>no state inheritance tax</strong>, which means the transfer of LLC membership interests on death carries no additional Wyoming state-level tax burden for heirs. At the <strong>county level</strong>, Teton County property tax is assessed annually on the property's fair-market value and paid by the LLC as part of the service charge — individual owners do not deal with the county assessor directly. At the <strong>federal level</strong>, capital-gains tax on the eventual resale of LLC membership interests applies as it would for any US real-estate asset; non-US-resident owners have specific federal-tax obligations under FIRPTA and related rules that apply to US property dispositions. These are individual and jurisdiction-specific matters — buyers should review the specific position with their own US and home-country tax and legal advisors before completing a purchase. The structure is <strong>clean and administratively straightforward</strong>; the complexity, where it exists, is at the individual tax-planning level rather than in the ownership structure itself.</p>
+        </div>
+      </details>
+
+      <details class="dest-faq-item">
+        <summary>
+          <h3>How does the 45-day usage calendar work, and can I get peak ski weeks?</h3>
+          <span class="dest-faq-chevron"></span>
+        </summary>
+        <div class="dest-faq-answer">
+          <p>A 1/8 fractional share delivers <strong>approximately 45 days of personal use per year</strong> — the equivalent of 6–7 weeks. Usage is allocated through a <strong>fair-rotation calendar</strong> managed by the professional management team. The rotation system cycles peak-demand windows — the Christmas–New Year ski peak, the Martin Luther King Day and Presidents' Day winter weekends, the prime July and August summer weeks, and the September–October elk rut and autumn colour weeks — across all co-owners over a multi-year cycle. This means every owner gets a share of the highest-demand windows across the years they hold, rather than the same fixed set of weeks year after year. Owners pre-book their stays several months in advance; the scheduling system is designed to give <strong>every owner equal access</strong> to the calendar over time. Days outside the formal rotation that remain unbooked by other co-owners may be available for additional booking windows; the specifics depend on the LLC's governing documents and the management company's scheduling protocol for each property. The honest answer to "will I always get a Christmas week?" is that no rotation system can guarantee the same peak week every year, by design — the fairness of the system depends on that rotation. What it does guarantee is that over the life of the ownership, every co-owner has had comparable access to the peak calendar. Owners who can be flexible — taking the late-January shoulder week or the mid-October autumn week as enthusiastically as a peak holiday window — typically find the <strong>45-day allocation goes further</strong> and delivers more variety than a fixed same-week-every-year pattern.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- Explore more section -->
+<section class="dest-explore-sec">
+  <div class="dest-explore-inner">
+    <p class="eyebrow" style="color:var(--warm-gold);font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;margin-bottom:0.8rem;">Also Explore</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:400;color:#fff;margin-bottom:1.5rem;">More US and Mountain Destinations</h2>
+    <div class="dest-explore-grid">
+      <a href="/usa-fractional-ownership-properties/" class="dest-explore-card">USA Fractional Ownership →</a>
+      <a href="/colorado-fractional-ownership-properties/" class="dest-explore-card">Colorado →</a>
+      <a href="/aspen-fractional-ownership/" class="dest-explore-card">Aspen →</a>
+      <a href="/utah-fractional-ownership-properties/" class="dest-explore-card">Utah →</a>
+      <a href="/how-it-works/" class="dest-explore-card">How It Works →</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
