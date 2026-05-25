@@ -1,1086 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Austria Fractional Ownership Properties | Co-Ownership Property</title>
-    <meta name="description" content="Explore Austria fractional ownership chalets and apartments in Tyrol, Salzburg, and Vorarlberg. Own a share in a luxury alpine property with ski‑in access, panoramic views, and managed co‑ownership.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-        <style>
-        /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
-
-/* ── CSS Variables ── */
-:root {
-    /* === Primary palette (use these in new work) === */
-    --blue:         #2C4A5E;
-    --cream:        #F5F2EC;
-    --gold:         #C9A84C;
-    --white:        #FFFFFF;
-    --text:         #1a2533;
-    --muted:        #5a6a7a;
-    --border:       #e8e0d4;
-    --max:          1400px;
-
-    /* === Legacy aliases (keep for existing templates) === */
-    --warm-gold:    #C9A84C;
-    --cream-bg:     #F5F2EC;
-    --cream-light:  #FAF8F5;
-    --text-dark:    #2C4A5E;
-    --text-light:   rgba(255,255,255,0.85);
-    --text-muted:   #5a6a7a;
-    --gray-border:  #e8e0d4;
-    --blue-80:      #4A6A7E;
-    --blue-60:      #6B8A9E;
-    --blue-40:      #9EAFBC;
-    --blue-20:      #C5CED5;
-    --transition:   0.3s ease;
-}
-
-/* ── Base reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-button { font-family: inherit; cursor: pointer; }
-        body{font-family:'Nunito Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
-        h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:400}
-        a{color:inherit;text-decoration:none;transition:color var(--transition)}
-        img{display:block;max-width:100%;height:auto}
-
-                /* ===== SITE-WIDE HEADER ===== */
-        .cop-header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.2rem 3rem;
-            height: 80px;
-            box-sizing: border-box;
-            transition: background 0.35s ease, box-shadow 0.35s ease, border 0.35s ease;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .cop-header.scrolled {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 2px 32px rgba(44,74,94,0.13);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-        }
-        .admin-bar .cop-header { top: 32px; }
-
-        /* Logo */
-        .cop-logo { flex-shrink: 0; }
-        .cop-logo a { display: block; }
-        .cop-logo img { height: 54px; width: auto; display: block; }
-
-
-        /* Nav — absolutely centred between logo and hamburger */
-        .cop-nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0;
-            align-items: center;
-        }
-        .cop-nav a {
-            color: rgba(44,74,94,0.8);
-            font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 0.84rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0.4rem 1.4rem;
-            white-space: nowrap;
-            transition: color 0.25s ease;
-            text-decoration: none;
-        }
-        .cop-nav a + a { border-left: 1px solid rgba(201,168,76,0.22); }
-
-        /* Gold underline on hover / active */
-        .cop-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 1.4rem; right: 1.4rem;
-            height: 1px;
-            background: rgba(201,168,76,1);
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.28s ease;
-        }
-        .cop-nav a:hover,
-        .cop-nav a.cop-nav-active { color: rgba(44,74,94,1); }
-        .cop-nav a:hover::after,
-        .cop-nav a.cop-nav-active::after { transform: scaleX(1); }
-
-
-        /* Favourites — heart prefix */
-        .cop-nav a.cop-nav-favourites::before {
-            content: '\2665\00a0\00a0';
-            font-size: 0.75rem;
-            color: rgba(201,168,76,1);
-            opacity: 0.75;
-            letter-spacing: 0;
-        }
-
-        /* Hamburger */
-        .cop-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 4px;
-            background: none;
-            border: none;
-            z-index: 10;
-        }
-        .cop-hamburger span {
-            width: 22px; height: 1.5px;
-            background: rgba(44,74,94,0.8);
-            transition: all 0.28s ease;
-            transform-origin: center;
-            display: block;
-        }
-        .cop-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-        .cop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .cop-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-        /* ===== MOBILE (<768px) ===== */
-        @media (max-width:768px) {
-            .cop-hamburger { display: flex; }
-            .cop-nav {
-                position: fixed;
-                top: 80px; left: 0; right: 0;
-                transform: none;
-                flex-direction: column;
-                align-items: center;
-                background: rgba(22,38,52,0.97);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 0;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
-                border-top: 1px solid rgba(201,168,76,0.15);
-                z-index: 9998;
-            }
-            .admin-bar .cop-nav { top: 112px; }
-            .cop-nav.active { max-height: 500px; padding: 1.5rem 0 2rem; }
-            .cop-nav a {
-                font-size: 0.68rem;
-                letter-spacing: 0.2em;
-                padding: 0.85rem 2rem;
-                width: 100%;
-                text-align: center;
-                border-left: none !important;
-                border-bottom: 1px solid rgba(201,168,76,0.08);
-                color: rgba(255,255,255,0.9);
-                box-sizing: border-box;
-            }
-            .cop-nav a:last-child { border-bottom: none; }
-            .cop-nav a::after { display: none; }
-            .cop-nav a:hover { background: rgba(201,168,76,0.06); color: rgba(255,255,255,1); }
-            .cop-header { padding: 1.5rem; }
-            .cop-logo img { height: 45px; }
-        }
-
-        /* ===== HERO ===== */
-        .page-hero{background:var(--blue);padding:150px 3rem 60px;text-align:center;position:relative;overflow:hidden}
-        .page-hero::after{content:'';position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.12);pointer-events:none}
-        .page-hero>*{position:relative;z-index:1}
-        .eyebrow{font-family:'Nunito Sans',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:1rem}
-        .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--white);line-height:1.15;margin-bottom:1rem}
-        .page-hero .subtitle{font-size:1rem;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto;line-height:1.7}
-
-        /* ===== PROPERTY GRID ===== */
-        .props-sec{background:var(--cream-bg);padding:60px 3rem 80px}
-        .props-inner{max-width:1400px;margin:0 auto}
-        .props-count{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.5rem}
-        .props-count strong{color:var(--text-dark);font-weight:700}
-        .props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-        .prop-card{background:var(--white);overflow:hidden;transition:transform 0.35s,box-shadow 0.35s;display:flex;flex-direction:column;cursor:pointer;border:1px solid var(--gray-border)}
-        .prop-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(44,74,94,0.1)}
-        .prop-img-wrap{position:relative;height:280px;overflow:hidden;background:var(--blue-20)}
-        .prop-img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
-        .prop-card:hover .prop-img{transform:scale(1.04)}
-        .prop-badge{position:absolute;top:14px;left:14px;padding:0.3rem 0.75rem;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-family:'Nunito Sans',sans-serif}
-        .sold{background:var(--blue);color:#fff}.hot{background:var(--warm-gold);color:#fff}.waitlist{background:var(--blue-60);color:#fff}
-        .prop-body{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;flex:1}
-        .prop-location{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--warm-gold);font-weight:600;margin-bottom:0.4rem}
-        .prop-title{font-family:'Playfair Display',serif;font-size:1rem;line-height:1.4;color:var(--text-dark);margin-bottom:0.6rem;flex:1}
-        .prop-stats{display:flex;align-items:center;gap:0;margin-bottom:0.6rem;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.13em;color:var(--text-muted);font-weight:600}
-        .prop-stat{display:flex;align-items:center;gap:0.35rem}
-        .prop-stat svg{width:13px;height:13px;flex-shrink:0;opacity:0.55}
-        .prop-stat-sep{display:inline-block;width:1px;height:10px;background:rgba(201,168,76,0.35);margin:0 0.75rem}
-        .prop-price{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:0.6rem;border-top:1px solid rgba(201,168,76,0.18);padding-top:0.6rem}
-        .prop-view{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);font-weight:700;margin-top:auto;transition:color var(--transition)}
-        .prop-card:hover .prop-view{color:var(--warm-gold)}
-        .no-props{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:1rem}
-        /* Show more button */
-        .prop-card.hidden{display:none}
-        .show-more-wrap{text-align:center;margin-top:2.5rem}
-        .show-more-btn{display:inline-block;padding:14px 40px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:var(--blue);border:1.5px solid var(--gray-border);cursor:pointer;transition:all var(--transition)}
-        .show-more-btn:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-        /* Mid-page CTA */
-        .dest-mid-cta{background:var(--blue);padding:50px 3rem;text-align:center;position:relative;overflow:hidden}
-        .dest-mid-cta::after{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-        .dest-mid-cta > *{position:relative;z-index:1}
-        .dest-mid-cta p{font-size:1rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-family:'Nunito Sans',sans-serif}
-        .dest-mid-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-        .dest-cta-btn-gold{display:inline-block;padding:14px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:var(--warm-gold);color:#fff;text-decoration:none;transition:background 0.3s}
-        .dest-cta-btn-gold:hover{background:#b8963e}
-        .dest-cta-btn-outline{display:inline-block;padding:13px 32px;font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-family:'Nunito Sans',sans-serif;background:transparent;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.3);text-decoration:none;transition:all 0.3s}
-        .dest-cta-btn-outline:hover{border-color:var(--warm-gold);color:var(--warm-gold)}
-
-        /* ===== SEO CONTENT (rendered by dest-content-renderer.php) ===== */
-        
-.dest-sec{padding:80px 3rem}
-.dest-sec.cream{background:var(--cream-bg)}
-.dest-sec.white{background:var(--white)}
-.dest-inner{max-width:900px;margin:0 auto}
-.dest-eyebrow{font-family:"Nunito Sans",sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-gold);font-weight:700;margin-bottom:0.8rem}
-.dest-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:1.2rem;line-height:1.2}
-.dest-sec h3{font-family:"Playfair Display",serif;font-size:1.15rem;font-weight:400;color:var(--text-dark);margin:1.8rem 0 0.6rem}
-.dest-sec p{font-size:1rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.1rem}
-.dest-sec strong{color:var(--text-dark);font-weight:700}
-.dest-sec em{font-style:italic}
-.dest-sec a{color:var(--warm-gold);font-weight:600;text-decoration:none}
-.dest-sec a:hover{color:var(--blue)}
-.dest-sec ul,.dest-sec ol{margin:0 0 1.2rem 1.5rem;color:var(--text-muted);font-size:1rem;line-height:1.8}
-.dest-sec table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.88rem}
-.dest-sec table th{background:var(--blue);color:#fff;padding:0.7rem 1rem;text-align:left;font-family:"Nunito Sans",sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
-.dest-sec table td{padding:0.7rem 1rem;border-bottom:1px solid var(--gray-border);color:var(--text-muted)}
-.dest-sec blockquote{border-left:3px solid var(--warm-gold);padding-left:1.2rem;margin:1.5rem 0;font-family:"Playfair Display",serif;font-style:italic;font-size:1.1rem;color:var(--text-dark)}
-/* Explore More */
-.dest-explore-sec{background:var(--blue);position:relative;overflow:hidden;padding:80px 3rem}
-.dest-explore-sec::after{content:"";position:absolute;top:28px;left:28px;right:28px;bottom:28px;border:1px solid rgba(201,168,76,0.15);pointer-events:none}
-.dest-explore-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;text-align:center}
-.dest-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-top:0.5rem}
-.dest-explore-card{display:block;padding:1rem 0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.85);font-size:0.82rem;font-family:"Nunito Sans",sans-serif;font-weight:600;text-decoration:none;transition:all 0.3s}
-.dest-explore-card:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.5);color:#fff}
-/* FAQ */
-.dest-faq-sec{background:var(--cream-bg);padding:80px 3rem}
-.dest-faq-sec h2{font-family:"Playfair Display",serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text-dark);margin-bottom:0.5rem;text-align:center}
-.dest-faq-list{counter-reset:faq}
-.dest-faq-item{border-top:1px solid var(--warm-gold)}
-.dest-faq-item:last-child{border-bottom:1px solid var(--warm-gold)}
-.dest-faq-item summary{display:flex;align-items:center;cursor:pointer;padding:20px 0;list-style:none}
-.dest-faq-item summary::-webkit-details-marker{display:none}
-.dest-faq-item summary h3{flex:1;font-size:1rem;color:var(--text-dark);margin:0;font-family:"Playfair Display",serif;font-weight:400}
-.dest-faq-chevron{width:11px;height:11px;border-right:2px solid var(--warm-gold);border-bottom:2px solid var(--warm-gold);transform:rotate(45deg);transition:transform 0.3s;flex-shrink:0;margin-left:16px}
-details[open] .dest-faq-chevron{transform:rotate(-135deg)}
-.dest-faq-answer{font-size:0.95rem;line-height:1.8;color:var(--text-muted);padding:0 0 20px 0}
-.dest-faq-answer p{margin-bottom:0.8rem}
-@media(max-width:768px){
-    .dest-sec,.dest-explore-sec,.dest-faq-sec{padding:50px 1.5rem}
-    .dest-explore-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-        /* ===== CTAs ===== */
-                /* ===== NEWSLETTER SIGNUP ===== */
-        .newsletter-section {
-            background: var(--white);
-            position: relative;
-            padding: 100px 3rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .newsletter-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 400;
-            color: var(--text-dark);
-        }
-        .newsletter-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-        .newsletter-form {
-            display: flex;
-            gap: 1rem;
-            max-width: 620px;
-            margin: 0 auto;
-        }
-        .newsletter-form input {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border: 1px solid #ddd;
-            background: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            border-radius: 0;
-            outline: none;
-        }
-        .newsletter-form input::placeholder { color: var(--text-muted); }
-        .newsletter-form input:focus { border-color: var(--warm-gold); }
-        .newsletter-btn {
-            background: var(--blue);
-            color: var(--white);
-            border: 2px solid var(--blue);
-            padding: 0.9rem 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            font-family: 'Nunito Sans', sans-serif;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-        .newsletter-btn:hover { background: var(--warm-gold); border-color: var(--warm-gold); color: var(--white); }
-        .newsletter-btn:disabled { opacity: 0.6; cursor: default; }
-        .newsletter-form-msg {
-            margin-top: 1rem;
-            font-size: 0.88rem;
-            min-height: 1.4em;
-        }
-        .newsletter-form-msg.success { color: #4a9e6e; }
-        .newsletter-form-msg.error   { color: #c0392b; }
-
-        @media (max-width: 640px) {
-            .newsletter-section { padding: 70px 1.5rem; }
-            .newsletter-heading { font-size: 2rem; }
-            .newsletter-form { flex-direction: column; }
-        }
-                /* ===== EXPERT FORM SECTION ===== */
-        .expert-section {
-            background: var(--blue);
-            padding: 100px 3rem;
-            position: relative;
-            overflow: hidden;
-            scroll-margin-top: 90px;
-        }
-        .expert-section::after {
-            content: '';
-            position: absolute;
-            top: 28px; left: 28px; right: 28px; bottom: 28px;
-            border: 1px solid rgba(201,168,76,0.15);
-            pointer-events: none;
-        }
-        .expert-section > * { position: relative; z-index: 1; }
-
-        .expert-inner {
-            max-width: 820px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .expert-eyebrow {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--warm-gold);
-            margin-bottom: 1.2rem;
-        }
-        .expert-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            line-height: 1.2;
-        }
-        .expert-heading em { font-style: italic; color: var(--warm-gold); }
-        .expert-sub {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-        .expert-form { text-align: left; }
-        .expert-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .expert-form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-        .expert-form-field.full { grid-column: 1 / -1; }
-        .expert-form-field label {
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.85);
-        }
-        .expert-form-field label span { color: var(--warm-gold); margin-left: 2px; }
-
-        .expert-form-field input,
-        .expert-form-field select,
-        .expert-form-field textarea {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.85rem 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            width: 100%;
-            box-sizing: border-box;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-        .expert-form-field input:focus,
-        .expert-form-field select:focus,
-        .expert-form-field textarea:focus {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .expert-form-field input::placeholder,
-        .expert-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-        .expert-form-field select option { background: var(--blue); color: var(--white); }
-        .expert-form-field textarea { resize: vertical; min-height: 110px; }
-
-        /* ── Multi-select destination dropdown ── */
-        .dest-multiselect {
-            position: relative;
-            width: 100%;
-        }
-        .dest-trigger {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(201,168,76,0.25);
-            color: var(--white);
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.9rem;
-            padding: 0.65rem 1rem;
-            min-height: 46px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            transition: border-color 0.2s;
-            position: relative;
-        }
-        .dest-trigger::after {
-            content: '';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            width: 7px; height: 7px;
-            border-right: 1.5px solid rgba(255,255,255,0.5);
-            border-bottom: 1.5px solid rgba(255,255,255,0.5);
-            transform: translateY(-60%) rotate(45deg);
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-        .dest-multiselect.open .dest-trigger::after {
-            transform: translateY(-30%) rotate(-135deg);
-        }
-        .dest-trigger:hover,
-        .dest-multiselect.open .dest-trigger {
-            border-color: rgba(201,168,76,0.7);
-            background: rgba(255,255,255,0.1);
-        }
-        .dest-placeholder {
-            color: rgba(255,255,255,0.25);
-            pointer-events: none;
-        }
-        .dest-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: rgba(201,168,76,0.2);
-            border: 1px solid rgba(201,168,76,0.4);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            white-space: nowrap;
-        }
-        .dest-tag-x {
-            cursor: pointer;
-            font-size: 0.85rem;
-            line-height: 1;
-            opacity: 0.6;
-            transition: opacity 0.15s;
-        }
-        .dest-tag-x:hover { opacity: 1; }
-
-        .dest-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0; right: 0;
-            background: #1e3a4f;
-            border: 1px solid rgba(201,168,76,0.3);
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 50;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .dest-multiselect.open .dest-dropdown { display: block; }
-
-        .dest-option {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .dest-option:hover { background: rgba(201,168,76,0.1); }
-        .dest-option.selected { background: rgba(201,168,76,0.12); color: var(--white); }
-
-        .dest-check {
-            width: 16px; height: 16px;
-            border: 1.5px solid rgba(201,168,76,0.4);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: background 0.15s, border-color 0.15s;
-        }
-        .dest-option.selected .dest-check {
-            background: var(--warm-gold);
-            border-color: var(--warm-gold);
-        }
-        .dest-check::after {
-            content: '';
-            width: 4px; height: 8px;
-            border-right: 2px solid #1a2a3a;
-            border-bottom: 2px solid #1a2a3a;
-            transform: rotate(45deg) translateY(-1px);
-            opacity: 0;
-        }
-        .dest-option.selected .dest-check::after { opacity: 1; }
-
-        /* Scrollbar for dropdown */
-        .dest-dropdown::-webkit-scrollbar { width: 5px; }
-        .dest-dropdown::-webkit-scrollbar-track { background: transparent; }
-        .dest-dropdown::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
-
-        /* Submit area */
-        .expert-submit { margin-top: 1.5rem; text-align: center; }
-        .expert-submit-btn {
-            background: var(--warm-gold);
-            color: #fff;
-            font-family: 'Nunito Sans', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border: none;
-            padding: 1rem 3rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-            max-width: 320px;
-        }
-        .expert-submit-btn:hover { background: #b8963e; }
-        .expert-submit-btn:disabled { opacity: 0.6; cursor: default; }
-        .expert-form-msg {
-            margin-top: 1.2rem;
-            font-size: 0.88rem;
-            text-align: center;
-            min-height: 1.4em;
-        }
-        .expert-form-msg.success { color: #7ed8a3; }
-        .expert-form-msg.error   { color: #f08080; }
-
-        @media (max-width: 640px) {
-            .expert-form-grid { grid-template-columns: 1fr; }
-            .expert-heading { font-size: 2rem; }
-            .expert-section { padding: 70px 1.5rem; }
-        }
-
-        /* ===== FOOTER ===== */
-        footer{background:var(--blue);color:var(--text-light);padding:60px 3rem 30px}
-        .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3rem;max-width:1400px;margin:0 auto 3rem}
-        .footer-logo img{height:35px;margin-bottom:1rem}
-        .footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.6}
-        .footer-col h3{font-family:'Nunito Sans',sans-serif;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;color:#fff}
-        .footer-col ul{list-style:none}
-        .footer-col li{margin-bottom:0.6rem}
-        .footer-col a{font-size:0.88rem;color:rgba(255,255,255,0.55)}
-        .footer-col a:hover{color:var(--warm-gold)}
-        .footer-bottom{border-top:1px solid rgba(201,168,76,0.18);padding-top:1.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-        .footer-copyright{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal{display:flex;gap:2rem}
-        .footer-legal a{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-        .footer-legal a:hover{color:var(--warm-gold)}
-
-        @media(max-width:1024px){.props-grid{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){
-            .page-hero{padding:130px 1.5rem 50px}
-            .props-sec{padding:50px 1.5rem}
-            .props-grid{grid-template-columns:1fr;gap:1.5rem}
-            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Austria Fractional Ownership Properties | Co-Ownership Property</title>
+  <meta name="description" content="Co-ownership properties in Austria from COP — deeded fractional ownership in Tyrol, Vorarlberg and Salzburger Land. Professionally managed, 6–7 weeks of personal use per year, real equity in some of Austria's most desirable alpine second-home regions.">
 </head>
 <body>
-    <header class="cop-header scrolled" id="cop-header">
-    <div class="cop-logo">
-        <a href="/">
-            <img src="/wp-content/uploads/MAIN-LOGO-COP.svg" alt="Co-Ownership Property">
-        </a>
+
+<section class="page-hero">
+  <p class="eyebrow">Austria · Europe</p>
+  <h1>Austria Fractional Ownership <em>Properties</em></h1>
+  <p class="subtitle">From a Tyrolean chalet above the Kitzbühel Alps to a south-facing apartment on the Arlberg — fractional ownership in Austria means a deeded share of the country's most coveted alpine addresses, six to seven weeks of personal use a year, and a fully managed property waiting whenever you arrive.</p>
+</section>
+
+<div class="dest-mid-cta">
+  <div class="dest-mid-cta-inner">
+    <h2>Austria's most coveted alpine addresses, accessible through co-ownership.</h2>
+    <p>Fully managed chalets and alpine apartments across <strong>Tyrol</strong>, <strong>Vorarlberg</strong> and <strong>Salzburger Land</strong>. Your <strong>1/8 deeded share</strong> comes with <strong>6–7 weeks of personal use</strong>, a professional management team on call, and the long-term equity of one of Europe's most supply-constrained alpine second-home markets.</p>
+    <div class="dest-mid-cta-btns">
+      <a href="/our-homes/" class="btn btn-gold">Browse All Properties</a>
+      <a href="#newsletter" class="btn btn-outline">Get Updates</a>
     </div>
-    <nav class="cop-nav" id="cop-nav">
-        <a href="/" class="cop-nav-active">Home</a>
-        <a href="/our-homes/">Our Homes</a>
-        <a href="/how-it-works/">How It Works</a>
-        <a href="/about-us">About Us</a>
-        <a href="/all-our-blog/">Our Blog</a>
-        <a href="/favourites" class="cop-nav-favourites">My Favourites</a>
-        <a href="/contact">Contact</a>
-    </nav>
-    <button class="cop-hamburger" id="cop-hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-    </button>
-</header>
+  </div>
+</div>
 
-    <!-- HERO -->
-    <section class="page-hero">
-        <p class="eyebrow">Co-Ownership Properties</p>
-        <h1>Austria Fractional Ownership Properties</h1>
-        <p class="subtitle">Not timeshare. Real deeded ownership. Luxury second homes at a fraction of the cost.</p>
-    </section>
+<section class="dest-sec cream"><div class="dest-inner">
 
-    <!-- PROPERTY GRID -->
-    <section class="props-sec">
-        <div class="props-inner">
-                        <div class="no-props">
-                <p>No properties currently listed for this destination. <a href="/our-homes/" style="color:var(--warm-gold);font-weight:700;">Browse all properties</a> or <a href="/contact-us/" style="color:var(--warm-gold);font-weight:700;">contact us</a> for upcoming listings.</p>
-            </div>
-                    </div>
-    </section>
-
-    <!-- MID-PAGE CTA -->
-    <div class="dest-mid-cta">
-        <p>Ready to find your property in Austria?</p>
-        <div class="dest-mid-cta-btns">
-            <a href="#speak-to-expert" class="dest-cta-btn-gold">Speak to an Expert</a>
-            <a href="#contact" class="dest-cta-btn-outline">Join Our Newsletter</a>
-        </div>
-    </div>
-
-    <!-- SEO CONTENT (rendered as styled sections) -->
-        <section class="dest-sec cream"><div class="dest-inner"><h3>Which country are you interested in?</h3></div></section><section class="dest-sec white"><div class="dest-inner">
 <figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/2100x1400/cdfb694d0a/at_155_chalet-going_aussenansicht.jpg" alt="A Tyrolean chalet in Going am Wilden Kaiser, traditional timber facade with the Wilde Kaiser massif rising behind" loading="lazy" width="2100" height="1400" />
-  <figcaption>A Tyrolean chalet in Going am Wilden Kaiser, the Wilde Kaiser rising directly above the village.</figcaption>
+  <img src="https://a.storyblok.com/f/148662/2100x1400/cdfb694d0a/at_155_chalet-going_aussenansicht.jpg" alt="A new-build Tyrolean chalet in Going am Wilden Kaiser, the jagged peaks of the Wilder Kaiser massif rising directly above" loading="lazy" width="2100" height="1400" />
+  <figcaption>A new-build chalet in Going am Wilden Kaiser, the Wilder Kaiser massif forming an extraordinary backdrop above the village.</figcaption>
 </figure>
-<h2>Austria Fractional Ownership — Alpine Living at a Fraction of the Price</h2>
-<p><strong>Austria fractional ownership</strong> gives you documented co-ownership of a luxury Alpine property — from ski-in chalets in Tyrol to elegant mountain apartments in Salzburg — for a fraction of the cost of buying outright. With a standard 1/8 share, you receive approximately six to seven weeks of personal use per year (around 45 days), your co-ownership interest is formally documented, and full rights to resell, inherit, or gift your share. This is not a timeshare — it is genuine real estate ownership, registered under Austrian property law at the <em>property ownership records</em> . For UK buyers navigating the post-Brexit 90-day Schengen limit, Austria fractional ownership offers the most practical and financially sensible route to owning a second home in the Alps.</p>
-<p>Austria combines world-class skiing, breathtaking mountain scenery, excellent road and rail infrastructure, and a deep cultural heritage — from Mozart&#8217;s Salzburg to Vienna&#8217;s imperial grandeur. Whether you dream of a ski chalet above Kitzbühel, a mountain lodge in the Zillertal, or an alpine retreat near the Arlberg, fractional co-ownership makes it genuinely achievable. Browse our Austria fractional ownership properties below and discover how you could own a share of one of Europe&#8217;s most spectacular alpine destinations.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Austria Fractional Ownership Is the Smart Way to Own an Alpine Second Home</h2>
-<p><strong>Austria fractional ownership</strong> has become one of the most compelling alpine property opportunities in Europe for buyers who want genuine real estate ownership in the mountains without the full financial commitment of buying outright. Austria sits at the very heart of Europe&#8217;s great skiing culture — home to legendary resorts, some of the most consistently reliable snowfall on the continent, and a year-round  that extends far beyond winter. From the glaciers of the Ötztal and the vast ski circuits of the Skiwelt to the boutique valleys of Salzburg and the dramatic peaks of Vorarlberg, Austria offers an extraordinary depth of alpine experience. Yet the cost of whole ownership in Austria&#8217;s most desirable resort villages has risen sharply over the past decade, making fractional co-ownership an increasingly attractive and practical alternative.</p>
-<p>For UK buyers in particular, Austria fractional ownership solves a very real challenge. Since Brexit, British nationals are subject to the 90-day Schengen rule — a maximum of 90 days in any 180-day rolling period across all Schengen countries combined. Buying a whole property in Austria means paying 100% of the purchase price and 100% of the ongoing running costs — maintenance, insurance, Austrian property taxes, management — for a home you can only legally occupy for roughly three months a year. <strong>Fractional ownership</strong> aligns your financial commitment precisely with your actual usage: a 1/8 share gives you approximately <strong>45 days per year</strong>, which fits comfortably within the Schengen limit while providing all the rights and benefits of genuine property ownership. Your name appears on the Austrian property ownership records, and you hold full resale rights, inheritance rights, and real equity participation.</p>
-<p>Unlike a timeshare — which offers only usage rights with no property title, no real equity, and notoriously poor resale options — Austria fractional ownership is structured as a genuine deeded property purchase. You buy a legally registered fraction of a real asset. If the property appreciates in value, your share appreciates proportionally. You can sell your fraction on the open market, pass it to your children through inheritance, or gift it as you choose. A professional management company handles all day-to-day operations: maintenance, cleaning, insurance, local taxes, scheduling, and property upkeep. When you arrive at your Austrian chalet or apartment, it is fully prepared, heated, and ready for you.</p>
-<p>Austria also has exceptional connectivity for international buyers. Innsbruck Airport links directly to the UK with year-round and seasonal services. Salzburg Airport is one of the most snow-reliable gateways in the Alps, with regular direct flights from the UK throughout the ski season and beyond. Munich Airport, just over an hour&#8217;s drive from many Tyrolean resorts, offers a vast network of year-round international connections. Once in Austria, the country&#8217;s motorway and rail network puts most major ski areas within a 30-to-90-minute drive from these airports. Austria fractional ownership delivers access to a truly world-class alpine destination — on terms that match your actual lifestyle and budget.</p>
-<p>Austria&#8217;s appeal extends well beyond skiing. Summers in the Austrian Alps are breathtaking — hiking trails through wildflower meadows, mountain biking on the same slopes used for winter skiing, lake swimming in turquoise alpine lakes, and cycling through valley floors lined with traditional timber farmhouses. The Austrian  is one of Europe&#8217;s most complete four-season experiences. A fractional ownership property in Austria gives you access to this lifestyle across multiple seasons, with your 45-day annual allowance split across weeks you choose, including summer, Christmas, and peak ski season. Buyers exploring <a href="/french-alps-fractional-ownership-properties/">French Alps fractional ownership</a> will find that Austria often offers an equally compelling or superior alpine experience — particularly for families who want a quieter, more authentically European mountain setting.</p>
-<p>The Austrian property market is stable and investor-friendly. Austria has consistently low inflation, a strong rule of law, transparent property registration through the property ownership records system, and a long tradition of protecting property rights for international buyers. The country&#8217;s tourism economy is robust and diversified — Austria receives over 40 million overnight stays in winter alone — supporting property values in the key resort regions of Tyrol, Salzburg, and Vorarlberg. Austria fractional ownership gives you access to this stable, high-quality market at a fraction of the capital commitment required for whole ownership. Buyers comparing similar options can also look at <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees fractional ownership</a> for a different mountain character, or <a href="/italy-fractional-ownership-properties/">Italy fractional ownership</a> for a warmer Mediterranean counterpart to an alpine portfolio.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Austria Fractional Ownership — Regions &amp; Alpine Destinations</h2>
-<p>Austria fractional ownership opportunities span the country&#8217;s most celebrated alpine regions, from the legendary ski resorts of Tyrol to the cultural valleys of Salzburg and the dramatic terrain of Vorarlberg. Each region has its own distinct character, snow record, and lifestyle offering — and fractional co-ownership means you can access premium chalets and apartments in areas where whole-ownership prices have become prohibitive for a second home. Below are the four key regions where Austria fractional ownership demand is strongest.</p>
-<h3>Tyrol — Austria Fractional Ownership in the Heart of the Alps</h3>
+
+<div class="dest-snippet" itemscope itemtype="https://schema.org/Question">
+  <h2 itemprop="name">What is fractional ownership in Austria?</h2>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text"><strong>Fractional ownership in Austria means buying a deeded 1/8 share of a luxury alpine second home — held in a purpose-built LLC alongside up to seven other co-owners.</strong> Each owner receives approximately 45 days of personal use per year through a fair-rotation calendar, with all property management, maintenance, taxes and operations handled by a <strong>professional management team</strong>. It is real, recorded property equity in your name — not a timeshare, not a holiday club.</p>
+  </div>
+</div>
+
+<h2>Why Austria?</h2>
+
+<p>Austria occupies a singular position in the European second-home landscape: it is simultaneously one of the continent's <strong>great skiing nations</strong>, one of its most deeply-rooted <strong>hiking and alpine summer destinations</strong>, and a country whose property law gives international buyers the same documented clarity on the day they purchase as they will have fifteen years later. The combination of those three qualities — reliable snow, genuine four-season appeal, and a legal framework that works the same way every time — is why the Austrian alpine property market has attracted serious international buyers from Germany, the Netherlands, the UK, Switzerland, and increasingly from the Gulf and the United States with a consistency that few comparable destinations can match. <strong>Austria received over 150 million overnight tourism stays in 2023</strong>, with approximately half of those falling in the ski season — a demand base that supports the infrastructure, the lift investment, and ultimately the property values in the resort regions that matter most to fractional buyers. The <a href="https://www.austria.info/en" target="_blank" rel="noopener">Austrian National Tourist Office</a> reports that tourism contributes roughly <strong>15% of Austrian GDP</strong> — a share that dwarfs comparable figures for most comparable European economies, and that translates directly into the resort infrastructure, the <strong>world-class lift investment</strong>, and the <strong>high-standard property management ecosystem</strong> that give Austrian ski properties their quality floor.</p>
+
+<p>What the raw visitor numbers do not capture is the <strong>structural quality argument for Austrian property specifically</strong>. A buyer choosing between an Austrian chalet and a French or Swiss alpine property is not choosing between loosely comparable products — they are choosing between different legal systems, different planning frameworks, different accessibility profiles, and ultimately different long-term value propositions. Austria's argument rests on four pillars that reinforce each other: an <strong>exceptionally well-maintained land register</strong> (the <em>Grundbuch</em>) that has recorded property titles with legal certainty since the mid-19th century; <strong>strict environmental and planning controls</strong> in the alpine zones that permanently cap new residential supply in the most desirable locations; a <strong>diversified tourism economy</strong> that gives resort properties genuine year-round demand rather than a purely seasonal value story; and a <strong>geographical centrality within Europe</strong> that makes Austrian properties some of the most practically accessible high-alpine addresses on the continent. Each of these pillars has direct implications for the <strong>long-cycle value of property</strong> in the key resort regions — and together they explain why Austrian alpine real estate has demonstrated the value resilience it has through multiple economic cycles over the past thirty years.</p>
+
+<p>Your Austrian share is held in a <strong>purpose-built LLC</strong> alongside up to seven other co-owners. This is the same modern international framework used across every property in the COP portfolio — France, Spain, the United States, Italy and elsewhere — rather than a national vehicle that varies country by country. The practical effect for the international buyer is significant. Your relationship with the property runs through <strong>one consistent ownership structure</strong> regardless of which property or jurisdiction you own in; resale is faster and lighter because transferring an <strong>LLC membership interest</strong> is a more direct administrative action than triggering a full conveyance; and for owners who go on to add a second property in another COP destination — and a meaningful proportion do — the reward is a <strong>single international portfolio relationship</strong> rather than a stack of jurisdiction-specific arrangements that each behave differently.</p>
+
+<div class="dest-callout">
+  <strong>LLC in one line:</strong> a purpose-built company that owns the property, in which you and up to seven other owners hold equal LLC membership interests — giving lighter resale and a single consistent ownership structure across every COP property worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.
+</div>
+
+<div class="dest-callout">
+  <strong>This is not a timeshare:</strong> a timeshare sells you a <em>use-right</em> in the property for a defined week each year, typically on a fixed-term contract with no resale value. A COP fractional share sells you a <strong>registered equity stake</strong> in the property itself, through an LLC in which you and up to seven other owners hold equal membership interests. It is transferable, inheritable, appreciates with the underlying property, and resells through a professional process in around a month — exactly the opposite of a timeshare.
+</div>
+
+<p>The supply story in Austria's most desirable resort regions deserves careful attention, because it is <strong>structural rather than cyclical</strong>. <strong>Tyrol</strong>, Austria's most densely developed ski province, operates under some of the strictest environmental and planning controls in Central Europe: <a href="https://www.tirol.gv.at/en/" target="_blank" rel="noopener">the Tyrolean regional government</a> enforces a planning framework that effectively prohibits new construction above defined altitude thresholds, designates large swaths of mountain terrain as protected natural zones under <a href="https://www.tirol.gv.at/umwelt/natur-und-artenschutz/nationalpark-hohe-tauern/" target="_blank" rel="noopener">the Hohe Tauern National Park</a> and related Natura 2000 designations, and caps the residential development density in established resort communities like Kitzbühel, Ischgl and St. Anton at levels that have remained broadly stable for twenty years. <strong>Vorarlberg</strong>, Austria's westernmost province, adds to this a landscape of extraordinary ecological sensitivity — the <a href="https://www.vorarlberg.at/themen/umwelt" target="_blank" rel="noopener">Vorarlberg environmental authority</a> manages extensive protected zones across the Arlberg massif and the Rhine valley that make new residential development on the most desirable slopes either impossible or so restricted in scale as to be nominally relevant. The practical implication for a fractional buyer is that the properties that exist in these regions cannot be replicated, and the supply of new options is not growing in a way that would dilute the market position of established addresses.</p>
+
+<p>Austria's alpine property market has an additional structural advantage that is less often discussed: <strong>the depth of its year-round usage economy</strong>. Unlike some ski destinations whose appeal collapses to near-zero outside the snow season, Austria's major resort regions are as busily occupied in July and August as they are in January and February. <a href="https://www.austria.info/en/activities/hiking" target="_blank" rel="noopener">Hiking tourism in Austria</a> contributes roughly the same annual visitor volume as ski tourism — <strong>over 40,000 km of marked trails</strong> across the country, with <a href="https://www.tirol.at/reisefuehrer" target="_blank" rel="noopener">Tyrol</a> and <a href="https://www.salzburg.info/en/sights/mountains-lakes/hohe-tauern" target="_blank" rel="noopener">Salzburger Land</a> each recording <strong>record summer visitor numbers</strong> in recent years. That balance between seasons means the resort communities maintain a <strong>genuine service economy</strong> — restaurants, wellness facilities, specialist shops, sports hire — year-round, which in turn means the property you own does not sit in an empty village for five months of the year but in a functioning community that works for you whichever season you use it.</p>
+
+<div class="dest-callout">
+  <strong>Austria in three facts:</strong> the <a href="https://www.innsbruck-airport.com/en/" target="_blank" rel="noopener">Innsbruck Airport (INN)</a> serves direct routes from <strong>over 40 European cities</strong> year-round · <a href="https://www.salzburg-airport.com/en/" target="_blank" rel="noopener">Salzburg Airport (SZG)</a> is one of Europe's most snow-reliable gateways, with winter charters from the UK operating from October through April · the <a href="https://www.nationalpark.at/en/" target="_blank" rel="noopener">Hohe Tauern National Park</a>, Austria's largest protected area, covers <strong>1,856 km²</strong> of the high alpine and enforces planning controls that permanently cap development in the most sensitive mountain terrain
+</div>
+
+<p>The case for Austria specifically — rather than the French Alps, the Swiss Alps, or the Pyrenees — rests on several advantages that bear direct comparison. <strong>The French Alps</strong> offer comparable skiing depth and the famously consistent snowfall record of resorts like Courchevel, Val d'Isère and Chamonix, but require navigating French property law, French taxation and a French-language administrative environment that adds friction for buyers who are not already familiar with France. The French Alps also carry a higher price premium in the most prestigious addresses — a Courchevel 1850 chalet or a Val d'Isère ski-in apartment is priced at a level that makes the fractional model attractive but the entry point steep. <strong>The Swiss Alps</strong> deliver perhaps the highest prestige addresses in the alpine world — Verbier, Zermatt, Gstaad — but at price levels that make even fractional ownership a serious capital commitment, and Switzerland's <em>Lex Koller</em> regulations restrict foreign-national property purchases in many desirable cantons, adding a layer of regulatory complexity that Austrian property law does not impose on international buyers. <strong>The Pyrenees</strong> offer a more accessible entry price and the appeal of both French and Spanish sides, but the snowfall record is less consistent than the central and western Alps, and the infrastructure — lift networks, mountain restaurants, property management — is less developed than Austria's. <strong>Austria</strong> sits in a different position: pricing that is compelling relative to Switzerland and competitive with France at the premium end, an <strong>English-friendly administrative environment</strong> at the airports and in the resort towns, a legal framework that is <strong>EU-standard and internationally transparent</strong>, and a tourist infrastructure — hotels, restaurants, guides, lift passes — that is as professionally run as any in Europe. For the international buyer who wants the full alpine experience without the language barrier or the Swiss regulatory complexity, Austria is the natural answer.</p>
+
+<p>One further advantage is worth naming clearly: <strong>Austria's geographical centrality within Europe</strong>. A buyer based in the UK arrives at Innsbruck or Salzburg in two hours or less from most regional UK airports. A buyer based in Amsterdam, Frankfurt, Zurich or Milan is within a <strong>direct two-to-three-hour flight or an overnight train</strong> — the <a href="https://www.nightjet.com/en/" target="_blank" rel="noopener">Nightjet overnight train network</a> connecting Amsterdam, Brussels, Frankfurt and Hamburg to Innsbruck and Salzburg is one of the great practical advantages of Austrian ownership for north European buyers. For multi-national ownership groups — common among the co-owners of COP properties, where it is not unusual to have British, German, Dutch and Swiss co-owners sharing the same property — this central position means all owners can realistically use their annual allocation without the 12-hour transcontinental journey that a US or Caribbean property requires. The accessibility is not incidental; it is the precondition for the <strong>high-frequency, short-stay use pattern</strong> that fractional ownership rewards most. A 7-night stay in Austria costs a Londoner approximately the same in total travel time and cost as a 7-night stay in southern Spain — the Austrian Alps do not require the buyer to treat the property as a once-a-year expedition, but as a place they can genuinely use across multiple seasons in a single year.</p>
+
+<p>Austria's alpine villages also have a characteristic that distinguishes them from purpose-built French and Swiss resort developments: they are <strong>functioning, deeply-rooted communities</strong> — farming villages, market towns, and mountain settlements that predate skiing by centuries and that retain an economic and social life not wholly dependent on the ski industry. The <em>Gasthaus</em> traditions of Tyrolean and Vorarlberg hospitality, the <em>Almabtrieb</em> cattle festivals in autumn, the <em>Advent</em> markets in December, the classical-music programming that <a href="https://www.innsbruck.info/en/" target="_blank" rel="noopener">Innsbruck</a>, <a href="https://www.salzburg.info/en/" target="_blank" rel="noopener">Salzburg</a> and the resort towns maintain through the year — all of this contributes to a depth of place that a buyer who visits repeatedly across a decade finds more rewarding, not less, as familiarity deepens. This is the argument that no brochure quite captures but that experienced alpine property owners understand instinctively: the difference between an Austrian village and a French resort is partly the skiing quality (comparable at the best addresses), partly the legal framework (different in ways that matter), but fundamentally about whether the place you own in has a life of its own beyond the lift queues. <strong>In Austria, it does.</strong></p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>Where to own in Austria</h2>
+
+<p>Austria's second-home market divides into <strong>three distinct buyer geographies</strong>, each anchored by a different alpine character, each with its own skiing character, architecture, landscape and buyer mix. The properties in the COP collection are concentrated in the regions where international second-home demand is deepest and where the supply-constraint argument is strongest: <strong>Tyrol</strong>, with its legendary ski resorts and the Kitzbühel Alps; <strong>Vorarlberg</strong>, with the Arlberg — widely regarded as the birthplace of alpine skiing and home to some of the most prestigious resort addresses in Austria; and <strong>Salzburger Land</strong>, which combines consistently excellent skiing with the cultural richness of the Mozart city and the wild high terrain of the Hohe Tauern. Together these three regions account for the overwhelming majority of international second-home demand at the tier where fractional ownership makes structural sense.</p>
+
+<h3>Tyrol — the Kitzbühel Alps and the Paznaun Valley</h3>
+
+<p><strong>Tyrol</strong> is Austria's most internationally recognised alpine province — the name alone is shorthand for everything the Austrian mountain ideal stands for: <strong>steep-walled limestone massifs</strong>, traditional timber-and-stone chalet architecture, valleys deep enough to hold their own weather systems, and ski resorts whose racing pedigree gives them a sporting authority unmatched anywhere in Central Europe. The province is home to <strong>Kitzbühel</strong> — site of the <a href="https://www.hahnenkamm.com/en/" target="_blank" rel="noopener">Hahnenkamm downhill race</a>, one of the most demanding and most-watched events on the alpine racing calendar — and to the vast <a href="https://www.skiwelt.at/en/" target="_blank" rel="noopener">SkiWelt Wilder Kaiser</a>, which at over 280 km of marked pistes across nine resort villages is the largest interconnected ski area in Austria. At the western extreme of Tyrol, the <strong>Paznaun valley</strong> connects Ischgl — a resort with a European-wide reputation for après-ski culture and consistent deep snow — and St. Anton am Arlberg, the Tyrolean side of the Arlberg ski area and one of the most technically demanding resort villages in the Alps.</p>
+
 <figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/1838x1225/a6db57e237/at0357a-_-alpine-garden-sauna.jpg" alt="A Tyrolean apartment in Brixen in summer, with a private alpine garden and mountain panorama" loading="lazy" width="1838" height="1225" />
-  <figcaption>A Tyrolean apartment in Brixen with a private alpine garden, the surrounding ranges opening above the terrace in summer.</figcaption>
+  <img src="https://a.storyblok.com/f/148662/2100x1400/dbb672b91b/at0389a-i-paznaun-heights_terrace.jpg" alt="A south-west-facing apartment terrace in the Paznaun Valley near Ischgl, the high Tyrolean ranges opening across the horizon" loading="lazy" width="2100" height="1400" />
+  <figcaption>A south-west-facing apartment terrace in the Paznaun Valley — between Ischgl and St. Anton, within the heart of the Tyrolean high alpine.</figcaption>
 </figure>
-<p>Tyrol is Austria&#8217;s most celebrated ski region and the epicentre of Austria fractional ownership demand. The province encompasses some of the world&#8217;s most famous ski destinations: Kitzbühel, St. Anton am Arlberg, Ischgl, Sölden, Mayrhofen, and the vast Skiwelt circuit — the largest interconnected ski area in Austria. Tyrol&#8217;s resorts receive excellent and reliable snowfall from November through to April, with high-altitude skiing available even longer on the Stubai and Hintertux glaciers. A 1/8 fractional share in a Tyrolean property gives you <strong>documented co-ownership</strong> of a chalet or apartment in one of Europe&#8217;s most iconic alpine landscapes, with full rights to sell, inherit, and benefit from any appreciation in value. Innsbruck Airport provides direct access from the UK, and the motorway network puts most Tyrolean resorts within a 45-to-90-minute transfer. Summer in Tyrol is equally compelling: hiking, cycling, and mountain biking through scenery that rivals any destination in Europe. Austria fractional ownership in Tyrol suits buyers who want world-class skiing combined with a genuine four-season mountain home.</p>
-<h3>Salzburg Land — Austria Fractional Ownership with Culture &amp; Peaks</h3>
+
+<p>The SkiWelt Wilder Kaiser cluster, which includes the villages of Going am Wilden Kaiser, Brixen im Thale, Söll, Scheffau and Ellmau, gives fractional buyers access to a ski circuit of remarkable variety — gentle wide cruisers through the valley floors, challenging off-piste routes in the upper bowls, and the famous Wilder Kaiser massif rising almost vertically behind the southern villages as a permanent visual reference point. The SkiWelt is interconnected by gondola across nine resort villages, which means a family staying in Going on a given week can ski to Scheffau for lunch and return via the high ridge without reloading the car or repeating a single run. <strong>Kitzbühel</strong> — the most internationally famous ski town in Austria, site of the <a href="https://www.hahnenkamm.com/en/" target="_blank" rel="noopener">Hahnenkamm downhill race</a> and home to a <em>Innenstadt</em> of medieval painted houses that makes it one of the most photographed villages in the Alps — is reachable by car in 10–15 minutes from Going or Brixen, which means buyers in this cluster have both the accessible, family-friendly skiing of the SkiWelt and the more technically demanding runs of the Kitzbühel ski area within easy reach. The <a href="https://www.kitzski.at/en/" target="_blank" rel="noopener">KitzSki pass</a> combines Kitzbühel, SkiWelt and several adjoining ski areas into a single pass covering over 400 km of marked runs — one of the largest combined ski passes in the Alps. The architectural character here is classic Tyrolean timber construction — steep pitched roofs heavy with snow in winter, south-facing balconies designed to catch the low alpine sun, and interiors built around the wood-burning fireplace and the <em>Stube</em> dining room that makes an Austrian chalet feel fundamentally different from a French or Swiss one. <strong>Going am Wilden Kaiser</strong> is itself a quiet village — no major après-ski circuit, no mega-resort infrastructure — which is precisely what attracts families who want the skiing of the SkiWelt without the social intensity of Söll or the price premium of Kitzbühel. The Wilder Kaiser massif, a UNESCO Biosphere Reserve candidate, is directly above the village and forms a backdrop that changes character with every shift in weather and light — grey limestone walls, white snow patches, and the occasional eagle thermalling on the updrafts above the ridge.</p>
+
 <figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/1838x1225/f09ceef2bf/at0291a_chalet-hollersbach_hollersbach_aussicht.jpg" alt="A chalet in Hollersbach im Pinzgau, Salzburger Land, with views toward the Hohe Tauern" loading="lazy" width="1838" height="1225" />
-  <figcaption>A chalet in Hollersbach im Pinzgau, the peaks of the Hohe Tauern forming the backdrop of the Salzburger Land.</figcaption>
+  <img src="https://a.storyblok.com/f/148662/1838x1225/a6db57e237/at0357a-_-alpine-garden-sauna.jpg" alt="A private alpine garden apartment in Brixen im Thale, Tyrol, with outdoor sauna and views across the Kitzbühel Alps" loading="lazy" width="1838" height="1225" />
+  <figcaption>A garden apartment in Brixen im Thale with private terrace and outdoor sauna, the entry to the Wilder Kaiser ski area minutes away.</figcaption>
 </figure>
-<p>The province of Salzburg combines world-class skiing with extraordinary cultural depth, making it one of the most distinctive regions for Austria fractional ownership. The Salzburg region is home to the Skicircus Saalbach-Hinterglemm-Leogang-Fieberbrunn — one of the largest and most varied ski areas in the Alps — as well as the charming resorts of Bad Gastein, Zell am See, and Kaprun, where glacier skiing extends the season well into summer. Salzburg Airport is one of Europe&#8217;s best alpine gateways, with direct UK flights throughout the ski season and beyond. The city of Salzburg itself — birthplace of Mozart, home of the Salzburg Festival, and one of Europe&#8217;s most architecturally beautiful cities — is within easy driving distance of most Salzburg Land resort villages. Austria fractional ownership in this region gives buyers both a premium ski base and proximity to one of Europe&#8217;s great cultural cities. Properties range from traditional alpine chalets with panoramic mountain views to modern ski apartments with ski-room access and underground parking. The combination of consistent snow, excellent lift infrastructure, and genuine cultural enrichment makes Salzburg Land one of the most complete Austria fractional ownership destinations.</p>
-<h3>Vorarlberg — Austria Fractional Ownership on the Arlberg</h3>
+
+<p>Summer in Tyrol is the other half of the ownership argument, and it is as compelling as the winter case. The <a href="https://www.tirol.at/reisefuehrer" target="_blank" rel="noopener">Tyrolean hiking network</a> covers over 15,000 km of marked trails in the province alone — everything from low-valley <em>Spazierweg</em> walks suitable for small children to multi-day ridge traverses at altitude. Mountain biking, particularly in the SkiWelt and around the Kaisergebirge, has grown dramatically as a summer offer, with the same lift infrastructure used in winter now transporting bikes and riders to the high trails. The <a href="https://www.achensee.com/en/" target="_blank" rel="noopener">Achensee</a>, the largest lake in Tyrol and one of the cleanest swimming lakes in the Alps, is reachable from the SkiWelt in under an hour; watersports, sailing, and paddleboarding are available from the lakeside villages of Pertisau and Achenkirch. And <strong>Innsbruck</strong>, the provincial capital — a university city with a beautifully preserved medieval old town, an Olympic museum, the <a href="https://www.hofburg-innsbruck.at/en/" target="_blank" rel="noopener">Hofburg imperial palace</a>, the <a href="https://www.nordkettenbahn.at/en/" target="_blank" rel="noopener">Nordkette cable car</a> reaching 2,334m above the city in 20 minutes, and one of Austria's most dynamic restaurant and craft-beer cultures — is 30–40 minutes by train or motorway from the resort villages of the lower Inn Valley. The <a href="https://www.innsbruck.info/en/living/culture/museum-landscape.html" target="_blank" rel="noopener">Tyrolean State Museum</a> (Ferdinandeum), the <a href="https://www.bergisel.at/en/" target="_blank" rel="noopener">Bergisel ski jump</a> and museum, and the city's international restaurant scene — heavily influenced by the university population and a strong tradition of Italian cross-border culinary influence — make Innsbruck a day destination that rewards repeated visits without exhausting itself.</p>
+
+<p><strong>Best for:</strong> active families who want the largest and most diverse ski area in Austria alongside summer hiking that rivals any alpine destination in Europe; buyers for whom proximity to Kitzbühel is a prestige signal worth having; and couples who want the cultural depth of a regional capital — Innsbruck — within comfortable day-trip distance of their mountain base.</p>
+
+<h3>Vorarlberg — the Arlberg and the Brandnertal</h3>
+
+<p><strong>Vorarlberg</strong> is Austria's smallest and westernmost province, tucked into the corner where Austria meets Switzerland and Germany above Lake Constance, and it occupies an extraordinary position in the alpine property hierarchy. The <a href="https://www.arlberg.com/en/" target="_blank" rel="noopener">Arlberg ski area</a> — which straddles the provincial boundary between Vorarlberg and Tyrol, connecting the villages of Lech, Zürs, Stuben and St. Christoph on the Vorarlberg side with St. Anton on the Tyrolean side — is <strong>widely regarded as the birthplace of Alpine skiing</strong> and remains, by almost any measure, the most technically demanding and most internationally prestigious resort area in Austria. <strong>Lech am Arlberg</strong> in particular draws a clientele that includes European royalty and heads of state, with property values to match — making fractional co-ownership not merely convenient but the only viable route for most buyers who want a documented stake in this specific geography.</p>
+
 <figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/1838x1225/8f19e3dba4/alpside-arlberg-iii.jpg" alt="An Arlberg apartment in Stuben, Vorarlberg, with a view over the snow-covered Lechtaler Alps" loading="lazy" width="1838" height="1225" />
-  <figcaption>An Arlberg apartment in Stuben, the Lechtaler Alps framing the village under fresh snow.</figcaption>
+  <img src="https://a.storyblok.com/f/148662/1838x1225/8f19e3dba4/alpside-arlberg-iii.jpg" alt="A hillside apartment in Stuben am Arlberg, Vorarlberg, with panoramic views across the Lechtaler Alps and the Arlberg pass" loading="lazy" width="1838" height="1225" />
+  <figcaption>An apartment on the hillside above Stuben am Arlberg, the connecting point between the Arlberg resorts and the wider Vorarlberg valley network.</figcaption>
 </figure>
+
+<p><strong>Stuben am Arlberg</strong> sits at the foot of the Arlberg Pass — the historical and geographical hinge of the entire circuit, and the smallest and most atmospheric of the Arlberg villages. Stuben is where Hannes Schneider, the father of modern ski instruction, first developed the Arlberg technique in the early 20th century, and it retains a character that feels several degrees quieter and more authentic than the larger purpose-built resorts nearby. Access to the full Arlberg interconnect — 305 km of marked runs across the six linked villages — is available from the village lift, which puts Lech and Zürs within skiing reach and the Valluga, at 2,809m, within a day's expedition. <a href="https://www.arlberg.com/en/winter/ski-areas/" target="_blank" rel="noopener">The Arlberg ski area</a> receives some of the deepest and most consistent snowfall in the Alps — its position at the first major barrier to Atlantic weather systems crossing Europe from the west gives it a snow record that outperforms many eastern alpine resorts.</p>
+
 <figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/2100x1400/420ab19b99/tschengla-terrace-ii-4.jpg" alt="An apartment in Bürserberg on the Tschengla, Vorarlberg, with terrace and alpine view" loading="lazy" width="2100" height="1400" />
-  <figcaption>An apartment in Bürserberg on the Tschengla, the Vorarlberg ranges framing the sun terrace.</figcaption>
+  <img src="https://a.storyblok.com/f/148662/1838x1225/befd2b4206/tschengla-terrace.jpg" alt="A terrace apartment on the Tschengla above Bürserberg, Vorarlberg, with the Brandnertal valley and mountain ranges beyond" loading="lazy" width="1838" height="1225" />
+  <figcaption>A terrace apartment on the Tschengla above Bürserberg — five minutes from the Brandnertal ski area and 25 minutes from the Montafon's 200 km of slopes.</figcaption>
 </figure>
-<p>Vorarlberg is Austria&#8217;s westernmost province and home to the legendary Arlberg ski area — widely regarded as the birthplace of Alpine skiing and one of the most prestigious resort destinations in the world. Lech, Zürs, and Stuben sit on the Vorarlberg side of the Arlberg massif, attracting a discerning international clientele that includes royalty, heads of state, and sophisticated lifestyle buyers from across Europe and beyond. Austria fractional ownership in Vorarlberg places you in an exceptionally prestigious and exclusive setting. Properties in the Arlberg command among the highest valuations in the Austrian Alps, making fractional co-ownership the most practical route to genuine documented co-ownership in this area. Vorarlberg also benefits from excellent access via Zurich Airport (90 minutes) and Innsbruck Airport (under two hours), with direct rail connections from Germany and Switzerland. Beyond Arlberg, the Bregenzerwald valley offers a softer, more pastoral alpine experience with traditional Vorarlberg timber architecture, excellent hiking, and a thriving regional food culture. Austria fractional ownership in Vorarlberg suits buyers who want access to the very highest tier of the alpine property market through co-ownership.</p>
-<h3>Styria &amp; Carinthia — Austria Fractional Ownership for Lakes &amp; Year-Round Living</h3>
+
+<p>The <strong>Brandnertal</strong>, accessed from <strong>Bürserberg</strong> and the village of Brand, represents a different register within the Vorarlberg offering — less internationally famous than the Arlberg, more deliberately residential in character, and priced accordingly. The <a href="https://www.brandnertal.at/en/" target="_blank" rel="noopener">Brandner Valley ski area</a> offers around 64 km of runs across a south-facing mountain bowl with unusually sunny exposure and consistent snow cover from late November through early April. The terrain is particularly well-suited to intermediate and confident-intermediate skiers — the bowl configuration gives long, uninterrupted descents without the cliffed-out exposure that challenges nervous skiers on the steeper Arlberg terrain, and the sunny south-west orientation keeps the snow soft and skiable on the upper pistes for a higher proportion of the season than north-facing bowls can manage. The <strong>Montafon</strong>, Vorarlberg's largest ski area at over 200 km of pistes across six resort villages, is reachable in under 25 minutes by car from properties in Bürserberg — which means a Brandnertal base gives access to both its own quieter local ski area and one of Austria's great resort valleys without the price premium of being based in the Montafon directly. The <a href="https://www.montafon.at/en/" target="_blank" rel="noopener">Montafon</a> is arguably underrated by international buyers — its skiing is technically demanding in the upper zones, its après culture is lower-key than Ischgl or Lech, and its valley architecture is among the most authentically Vorarlberg of any ski area in the province. <strong>Bürserberg</strong> itself, on the elevated plateau of the Tschengla, has a character that is more agricultural village than ski resort — farms, orchards, traditional Vorarlberg timber farmhouses, and the kind of low-key community life that long-stay families and couples prize over the après-ski circuit. The city of Bludenz, with its restaurants, shops, <a href="https://www.suchard.com/en/" target="_blank" rel="noopener">Suchard chocolate factory</a>, and ÖBB rail connections to Innsbruck and Zurich, is 10 minutes by car below in the valley floor — practical for any owner who wants to combine a mountain base with easy access to the rail network.</p>
+
+<p>Vorarlberg's transport geography adds a further dimension. <a href="https://www.zrh.com/en/" target="_blank" rel="noopener">Zurich Airport (ZRH)</a>, one of Europe's major hubs with direct routes to North America, Asia, the Gulf and every European capital, is 90 minutes by road or train from the Brandnertal. <a href="https://www.innsbruck-airport.com/en/" target="_blank" rel="noopener">Innsbruck Airport (INN)</a> is under two hours by road. The <a href="https://www.rheintal-bahn.at/" target="_blank" rel="noopener">Rhine Valley rail network</a> connects Vorarlberg to the wider European rail system, giving owners from Germany, France and Switzerland a <strong>car-free access option</strong> that Tyrol cannot match.</p>
+
+<p><strong>Best for:</strong> buyers who want the highest-prestige alpine address in Austria (Arlberg/Stuben) as an entry-level fractional stake in one of Europe's most storied ski areas; families who want the quieter, more residential character of the Brandnertal with easy access to the vast Montafon ski network; and buyers for whom proximity to Zurich — whether for business or flight connections — is a meaningful operational consideration.</p>
+
+<h3>Salzburger Land and Pinzgau — the Kitzbühel Alps and the Hohe Tauern</h3>
+
+<p><strong>Salzburger Land</strong> — the federal state surrounding the city of Salzburg — and the adjacent <strong>Pinzgau</strong> region form a third distinct geography for Austrian fractional ownership: one defined by the <strong>Hohe Tauern</strong> massif, the largest national park in the Alps, and by a skiing and hiking offer that combines some of Austria's <strong>most reliable snow records</strong> with a cultural density — specifically, the proximity of <strong>Salzburg</strong> itself — that no other Austrian alpine region can offer. The province includes the <a href="https://www.saalbach.com/en/" target="_blank" rel="noopener">Skicircus Saalbach-Hinterglemm-Leogang-Fieberbrunn</a>, one of the largest and most varied ski circuits in the Alps at over 270 km of marked pistes, as well as the <a href="https://www.wildkogel-arena.at/en/" target="_blank" rel="noopener">Wildkogel Arena</a> around <strong>Neukirchen am Großvenediger</strong> — a quieter and more family-oriented ski area with exceptional views toward the Großvenediger, at 3,657m the third highest peak in Austria.</p>
+
 <figure class="dest-figure">
-  <img src="https://a.storyblok.com/f/148662/2100x1400/dbb672b91b/at0389a-i-paznaun-heights_terrace.jpg" alt="An Austrian apartment terrace with a wide alpine valley opening across the surrounding peaks" loading="lazy" width="2100" height="1400" />
-  <figcaption>An Austrian apartment terrace, the alpine valley opening across the surrounding mountains.</figcaption>
+  <img src="https://a.storyblok.com/f/148662/1838x1225/f09ceef2bf/at0291a_chalet-hollersbach_hollersbach_aussicht.jpg" alt="A luxury chalet on a south-facing slope above Hollersbach im Pinzgau, with the surrounding Pinzgau mountain panorama" loading="lazy" width="1838" height="1225" />
+  <figcaption>A chalet on the south-facing slopes above Hollersbach im Pinzgau, the KitzSki area minutes away and the peaks of the Hohe Tauern forming the backdrop.</figcaption>
 </figure>
-<p>Styria and Carinthia represent a different dimension of Austria fractional ownership — one defined as much by summer lakes, verdant valleys, and thermal wellness as by winter skiing. Carinthia&#8217;s lakes region is one of Austria&#8217;s best-kept secrets: the Wörthersee, Millstätter See, and Ossiacher See offer crystal-clear warm-water swimming, sailing, and lakeside living in a spectacular mountain setting. Styria, Austria&#8217;s &#8220;green heart,&#8221; combines gentle rolling hills, world-class wine production (particularly around the town of Gamlitz), and the beautifully preserved city of Graz — a UNESCO World Heritage Site and one of Austria&#8217;s most liveable cities. Austria fractional ownership in Styria and Carinthia suits buyers who want a genuine four-season retreat: skiing at Bad Kleinkirchheim or the Dachstein in winter; swimming, hiking, and cycling in summer; and the extraordinary thermal and wellness culture that this region has developed over centuries. Properties range from lakeside villas to rural farmhouses and mountain lodges. This is Austria fractional ownership for buyers who want something beyond the standard ski resort formula — a truly personal, year-round alpine home with depth and character.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>How Austria Fractional Ownership Works</h2>
-<p><strong>Austria fractional ownership</strong> is structured as a genuine property purchase — not a timeshare, not a holiday club, and not a points-based scheme. You buy a legally registered fraction of a real Austrian property, typically a 1/8 share, and your ownership is recorded on the Austrian property ownership records. The process is transparent, legally robust, and designed to give every co-owner the same protections and rights as a sole purchaser. Here is how the <a href="/co-ownership-buying-process/">co-ownership buying process</a> works in Austria.</p>
-<h3>Browse Austria Fractional Ownership Properties</h3>
-<p>Start by exploring the available Austria fractional ownership listings on this page. Each property includes detailed descriptions, professional photography, location information, and share pricing. You can filter by region, property type, and budget to find the home that best matches your alpine lifestyle. Our team at <a href="/">Co-Ownership Property</a> acts as a buyer&#8217;s agency — working on your behalf, not the seller&#8217;s — to ensure you find the right Austrian property at the right price.</p>
-<h3>Legal Review &amp; Austria Fractional Ownership Due Diligence</h3>
-<p>Once you identify a property, an independent Austrian lawyer (<em>Rechtsanwalt</em>) conducts full legal due diligence. This includes verifying the title entry on the property ownership records, checking for any encumbrances or charges, reviewing the co-ownership agreement (<em>Miteigentumsvertrag</em>), and confirming that all building regulations, permits, and planning approvals are in order. The co-ownership structure is established through a legally binding agreement that governs usage scheduling, maintenance obligations, decision-making, and exit provisions. Everything is documented and reviewed before you commit to purchase.</p>
-<h3>Purchase &amp; Registration of Your Austria Fractional Ownership Share</h3>
-<p>The purchase is completed before an Austrian notary (<em>Notar</em>), and the transfer of your fractional share is formally recorded at the property ownership records. <strong>Your name appears on the land register</strong> alongside the other co-owners, each holding their legally registered fractional share. This is identical in legal substance to any standard Austrian property purchase — the only difference is that multiple buyers share ownership of the same property. You receive a certified extract from the property ownership records confirming your Austria fractional ownership stake.</p>
-<h3>Enjoy &amp; Manage Your Austria Fractional Ownership Property</h3>
-<p>After completion, a professional management company takes over all day-to-day operations: cleaning, maintenance, insurance, Austrian property taxes, garden and pool care, ski room servicing, and usage scheduling. A fair rotation system ensures all co-owners access peak periods — prime ski weeks, Christmas, Easter, and premium summer weeks — equitably over time. When you arrive, your Austria fractional ownership property is fully prepared, heated, and ready for your stay. Learn more about the running costs of a fractional ownership property.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Austria Fractional Ownership — Investment &amp; Lifestyle</h2>
-<p><strong>Austria fractional ownership</strong> combines genuine lifestyle benefits with sound investment fundamentals in one of Europe&#8217;s most stable and desirable property markets. Austria&#8217;s alpine real estate — particularly in the core resort regions of Tyrol, Salzburg, and Vorarlberg — has demonstrated consistent long-term value resilience. The country&#8217;s limited supply of new-build property in established resort villages, combined with sustained international demand from buyers across Germany, Switzerland, the UK, the Netherlands, and increasingly from the Middle East and Asia, has created a market where quality alpine real estate holds its value well. When you purchase a 1/8 fractional share, you participate in this value story proportionally — if the property appreciates, your share appreciates. This is a fundamental distinction from a timeshare, where there is no equity, no appreciation, and no meaningful resale market.</p>
-<p>The financial efficiency of Austria fractional ownership is compelling. Rather than committing hundreds of thousands of euros to a property you use for a few weeks each year, you invest a proportional fraction of the purchase price for proportional use. Running costs — including maintenance, building insurance, Austrian property taxes (Grundsteuer), management fees, and utilities — are shared equally among co-owners, typically reducing your annual outlay to a fraction of what sole ownership would require. For a detailed breakdown of what to expect, see our guide to fractional ownership running costs.</p>
-<p>Rental income from unused weeks is possible for some Austria fractional ownership properties, but this is not guaranteed and depends on the specific property, its location, the co-ownership agreement, and Austrian tourism and rental licensing regulations. In high-demand resort areas, rental demand during peak ski weeks can be strong. However, the rental position varies significantly by property — some are actively managed for rental when co-owners are not in residence, while others are designated for personal use only. Always confirm the specific rental arrangement for any property before purchase. We present the opportunity honestly and never make guarantees about income.</p>
-<p>Beyond the investment case, Austria fractional ownership delivers a lifestyle that is genuinely extraordinary. Austrian alpine culture is unlike anywhere else in Europe — a deep connection between the land, the seasons, and a way of life that has been refined over centuries. In winter, you wake to fresh snow on the peaks, step into your ski boots in a warm chalet, and spend your mornings carving through some of the best-groomed pistes in the world. In the afternoon, you return to a property that is warm, comfortable, and distinctly yours. Evenings in Austrian resort villages offer traditional Stuben restaurants, craft beer culture, lively après-ski, and some of the most satisfying food in the Alps — from wiener schnitzel and Tiroler Gröstl to the extraordinary cheese and charcuterie traditions of the Vorarlberg Bregenzerwald.</p>
-<p>For families, Austria fractional ownership creates a generational asset. Children grow up with the experience of Austrian alpine life — ski school in Tyrol, summer hiking in Salzburg Land, the cultural experience of Salzburg and Innsbruck — and because your share is inheritable, the property can pass through the family. Professional couples value the hassle-free management model: your Austrian mountain home is managed year-round, maintained to a high standard, and ready for you whenever you choose to use it. For lifestyle investors who want a property that is both personally enjoyable and financially considered, Austria fractional ownership offers a rare and genuine combination of both.</p>
-<p>Buyers who want to build a broader fractional portfolio can compare Austria fractional ownership against <a href="/french-alps-fractional-ownership-properties/">French Alps fractional ownership</a> for a different alpine culture, or consider <a href="/portugal-fractional-ownership-properties/">Portugal fractional ownership</a> for a contrasting beach and sunshine destination to balance the alpine experience.</p></div></section><section class="dest-explore-sec"><div class="dest-explore-inner"><p class="dest-eyebrow" style="color:var(--warm-gold);">Also Explore</p><h2 style="color:#fff;">Explore More Fractional Ownership Destinations</h2><div class="dest-explore-grid"><span class="dest-explore-card">All Co-Ownership Destinations</span><a href="/french-alps-fractional-ownership-properties/" class="dest-explore-card">French Alps Fractional Ownership &rarr;</a><a href="/pyrenees-mountains-fractional-ownership-properties/" class="dest-explore-card">Pyrenees Fractional Ownership &rarr;</a><a href="/italy-fractional-ownership-properties/" class="dest-explore-card">Italy Fractional Ownership &rarr;</a><a href="/how-it-works/" class="dest-explore-card">What Is Fractional Ownership? &rarr;</a></div></div></section><section class="dest-faq-sec"><div class="dest-inner"><p class="dest-eyebrow">Questions & Answers</p><h2>Austria Fractional Ownership — FAQs</h2><div class="dest-faq-list"><details class="dest-faq-item"><summary><h3>What is Austria fractional ownership and how does it differ from buying a whole property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Austria fractional ownership means purchasing a legally registered share — typically 1/8 — of an Austrian property alongside a small group of co-owners. Your ownership interest is documented through a legally structured property company, and you receive a certified land register extract confirming your name and your fractional interest in the property. The key difference from whole ownership is that you pay a proportional fraction of the purchase price and share all running costs with the other co-owners. In exchange, you receive approximately six to seven weeks of personal use per year — around 45 days. You hold the same legal rights as a sole owner: you can sell your share, pass it to your children through inheritance, gift it, or benefit from any appreciation in property value. The property is professionally managed, so you never need to worry about maintenance, cleaning, or scheduling. For most buyers who would use their Austrian mountain home for less than three months annually, fractional co-ownership is a far more financially efficient structure than buying outright. To understand more about the concept, read our guide on what is fractional ownership.</p></div></details><details class="dest-faq-item"><summary><h3>Is Austria fractional ownership the same as a timeshare?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>No — they are fundamentally different, both legally and financially. A timeshare provides only usage rights for a fixed period each year. You do not own any part of the property, you hold no genuine equity stake in the property or land register, you have no real estate equity, and resale is typically extremely difficult or commercially punitive. Austria fractional ownership is a genuine property purchase. Your fractional share is registered at the Austrian property ownership records, you hold real equity that participates in any market appreciation, and you have full rights to sell, inherit, or gift your share. This is not a marketing distinction — it is a legal and financial reality. The co-ownership agreement governing your Austria fractional ownership is a binding legal document that protects all co-owners&#8217; interests, unlike timeshare contracts which primarily protect the developer. Austria fractional ownership is real estate ownership, structured for proportional use. For a full explanation of <a href="/co-ownership-explained/">co-ownership and how it differs from timeshare</a>, see our dedicated guide.</p></div></details><details class="dest-faq-item"><summary><h3>How much time do I get with an Austria fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>A standard 1/8 Austria fractional ownership share provides approximately six to seven weeks of personal use per year — around 45 days on average. Usage is allocated through a fair rotation system managed by the professional management company, ensuring all co-owners access peak periods equitably over time. In Austria&#8217;s context, peak periods include the prime ski weeks of January and February, Christmas and New Year, the February half-term school holiday, Easter, and premium summer weeks in July and August. A rotation system ensures no single co-owner is locked out of peak seasons year after year — instead, high-demand weeks are distributed fairly across all owners over a multi-year cycle. The 45-day annual allocation fits comfortably within the 90-day Schengen limit that applies to UK nationals post-Brexit, making Austria fractional ownership a natural fit for British buyers. If you want more time in Austria, some properties offer shares of 1/4 or larger, providing proportionally more weeks.</p></div></details><details class="dest-faq-item"><summary><h3>How does Austria fractional ownership work for UK buyers after Brexit?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Since Brexit, UK nationals are classified as third-country nationals within the Schengen zone, which includes Austria. British citizens can spend a maximum of 90 days in any 180-day rolling period across all Schengen countries combined — not 90 days per country. For anyone who owns a whole property in Austria, this creates a significant financial imbalance: you pay 100% of the costs but can only legally occupy the property for roughly three months. Austria fractional ownership resolves this precisely: a 1/8 share gives you approximately 45 days per year, which fits within the 90-day Schengen limit while keeping your costs proportional to your usage. Your legal property rights are unaffected by the Schengen rule — the limitation applies to your physical presence, not to your ownership, resale rights, inheritance rights, or equity participation. Austria fractional ownership is widely regarded as the most practical and financially efficient structure for British buyers who want a genuine second home in the Austrian Alps.</p></div></details><details class="dest-faq-item"><summary><h3>Can I rent out my Austria fractional ownership property when I am not using it?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"></div></details><details class="dest-faq-item"><summary><h3>What are the ongoing costs of Austria fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The ongoing costs of Austria fractional ownership are shared proportionally among all co-owners and are significantly lower than sole ownership. Typical expenses include: Austrian property tax (Grundsteuer), building and contents insurance, professional management fees, utilities, garden and terrace maintenance, snow clearance and heating maintenance, ski room upkeep, cleaning between stays, and a reserve fund for capital expenditure such as appliance replacements or building repairs. As a 1/8 co-owner, you pay one-eighth of all these costs, which typically amounts to a modest annual sum compared to the total cost of whole ownership. The management company provides transparent annual budgets and regular financial reporting, so you always know exactly what you are paying and why. For a detailed breakdown of typical fractional ownership running costs across different property types and regions, visit our running costs guide.</p></div></details><details class="dest-faq-item"><summary><h3>Can I sell my Austria fractional ownership share?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — full resale rights are a defining feature of Austria fractional ownership. Because your share is registered on the property ownership records, you own a genuine real estate asset that can be sold on the open market at any time, subject to the terms of your co-ownership agreement. Many Austria fractional ownership agreements include a right of first refusal clause, giving existing co-owners the opportunity to purchase your share before it is offered on the open market. If no existing co-owner wishes to purchase, you are free to sell to any third-party buyer through a standard Austrian property transaction, completed before a notary. If the property has appreciated in value since your purchase, you benefit from that appreciation proportionally on your share. This is a critical and fundamental distinction from timeshare, where resale is typically impossible or results in significant financial losses. Austria fractional ownership provides genuine liquidity and exit flexibility.</p></div></details><details class="dest-faq-item"><summary><h3>What types of properties are available through Austria fractional ownership?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Austria fractional ownership covers a wide range of property types with no restrictions on style or location. Available properties include traditional Tyrolean chalets with ski-in access and panoramic mountain views, modern alpine apartments in managed resort complexes, lakeside villas in Carinthia and Salzburg Land, mountain lodges in rural valley settings, and contemporary ski-in ski-out apartments in Vorarlberg&#8217;s most prestigious resort villages. The co-ownership model applies equally to chalets, apartments, villas, and country estates. Around 95% of Austria fractional ownership properties are offered as 1/8 shares, though some more exclusive homes may offer 1/4 or 1/2 shares for buyers who want more annual time. Whether you envision a ski chalet above the Kitzbühel pistes, a lakeside villa on the Wörthersee, or a traditional Salzburg farmhouse, Austria fractional ownership can accommodate your vision.</p></div></details><details class="dest-faq-item"><summary><h3>How do I start the process of buying an Austria fractional ownership property?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>The first step is to browse the available Austria fractional ownership listings on this page and identify properties that match your budget, location preferences, and lifestyle vision. Once you find a property of interest, contact our team at Co-Ownership Property. We act as a buyer&#8217;s agency — working exclusively on your behalf, not the seller&#8217;s — and can provide detailed property information, arrange viewings either in person or virtually, and guide you through every step of the purchase process. We will connect you with an independent Austrian lawyer who specialises in co-ownership transactions, explain the legal structure and co-ownership agreement in full, and ensure you understand all costs, timelines, and obligations before committing. The entire process from initial enquiry to completion at the notary typically takes between four and eight weeks, depending on the complexity of the transaction and the speed of legal due diligence. For a full step-by-step overview, read our guide to the <a href="/co-ownership-buying-process/">co-ownership buying process</a>.</p></div></details><details class="dest-faq-item"><summary><h3>Is Austria fractional ownership a good investment compared to other European mountain destinations?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Austria fractional ownership offers a particularly strong investment profile within the European alpine property market. Austria&#8217;s property market is characterised by stability, a robust legal framework, transparent land registration through the property ownership records, and a diversified tourism economy that supports year-round demand. Unlike some ski destinations that depend almost entirely on winter snowfall for their appeal, Austria&#8217;s major resort regions attract visitors in both summer and winter, supporting more consistent property demand and values. Austria&#8217;s proximity to Germany, Switzerland, and the broader central European market creates a large domestic and near-European buyer pool that reinforces property values even during periods of weaker international demand. Buyers comparing Austria with <a href="/french-alps-fractional-ownership-properties/">French Alps fractional ownership</a>, <a href="/pyrenees-mountains-fractional-ownership-properties/">Pyrenees fractional ownership</a>, or US options like <a href="/colorado-fractional-ownership-properties/">Colorado fractional ownership</a> will find Austria&#8217;s combination of stability, accessibility, and alpine quality difficult to beat.</p></div></details><details class="dest-faq-item"><summary><h3>Can I pass my Austria fractional ownership share to my children?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Yes — inheritance rights are a key feature of fractional ownership. Because your share is held on the Austrian property ownership records, it is treated as a real property asset under Austrian inheritance law (Erbrecht). You can include your share in your will, and upon your passing it transfers to your designated beneficiaries in accordance with applicable inheritance procedures. Your children — or any other beneficiary — inherit all the same rights you held: usage, resale, rental eligibility, and equity participation. Many families view Austria fractional ownership as an opportunity to create a generational alpine asset — a mountain home that children and grandchildren grow up using and eventually inherit. It is advisable to take specialist cross-border estate planning advice if you are a UK resident with Austrian property, as succession rules differ between the two jurisdictions. For a broader understanding of the benefits of fractional ownership as a long-term family asset, see our guide on the benefits of fractional ownership for second homes.</p></div></details><details class="dest-faq-item"><summary><h3>What happens if I want to leave my Austria fractional ownership arrangement?</h3><div class="dest-faq-chevron"></div></summary><div class="dest-faq-answer"><p>Because Austria fractional ownership is co-ownership interest holdership, you have full flexibility to exit your arrangement at any time by selling your share. The co-ownership agreement will include clear exit provisions: most agreements give existing co-owners a right of first refusal, and if no existing co-owner wishes to purchase, you are free to sell on the open market through a standard Austrian property transaction at the notary. Some co-ownership agreements also include provisions for a collective sale — where all co-owners agree to sell the entire property if a majority or unanimous decision is reached — giving you multiple exit routes simultaneously. Unlike timeshare, where exit is often impossible or financially punitive, Austria fractional ownership provides genuine liquidity, a transparent exit process, and real financial flexibility. This is one of the key reasons why Austria fractional ownership is considered genuine real estate ownership, rather than the commercially exploitative structure of timeshare products.</p></div></details></div></div></section><section class="dest-sec white"><div class="dest-inner"><h2>A Week in Your Austria Co-Ownership Property</h2>
-<h3>Winter in the Tyrol: First Tracks and Après-Ski Culture</h3>
-<p>Austrian winter fractional ownership rewards early planning and strategic timing. Allocate your annual days across peak snow season — December through March — to experience authentic Alpine life that transforms entire mountain communities. Your 1/8 ownership share, approximately 45 annual days, fits perfectly into winter&#8217;s three-month window, allowing multiple week-long stays across the season.</p>
-<p>Winter mornings in Tyrolean properties begin before sunrise. Fresh powder means first tracks: Austrian ski culture celebrates the opening bell at mountain restaurants where guides gather before dawn lift access. Properties in established ski communities — Söll, Sölden, St. Anton — sit steps from lift access. Austrian ski food culture deserves special attention: mid-morning breaks mean warming schnitzel and goulash at mountain huts. Kaiserschmarrn, a caramelised pancake dessert, appears on every menu. Après-ski defines Austrian winter culture as much as skiing itself. Söll&#8217;s legendary après scene transforms mountain villages into open-air gathering spaces. Sölden maintains more refined cocktail lounges. St. Anton balances both extremes. Your co-ownership property becomes a social hub — guests and fellow members congregate around property fireplaces, creating the community experience that motivates fractional ownership decisions.</p>
-<h3>Summer in Austria: Hiking, Lakes, and Cultural Access</h3>
-<p>Summer completely transforms Austrian Alpine properties, leveraging your remaining annual days across June–September. Snow melts by late May, revealing hiking networks that crisscross every valley. Properties in Tyrol and Salzburg regions put you within reach of Austria&#8217;s most celebrated trails: the Zillertal hikes connecting valley villages, the Ötztal glacier trails for adventurous hikers. Austrian lakes appear throughout — the Achensee (largest lake in Tyrol), smaller Alpine lakes rewarding hiking efforts with mountain vistas, and Vorarlberg properties placing you near Lake Constance shared between Austria, Switzerland, and Germany.</p>
-<p>Cultural access differentiates Austrian summer from other Alpine regions. Salzburg — birthplace of Mozart and location of The Sound of Music — sits 90 minutes from most Tyrolean properties. The summer festival, among Europe&#8217;s most prestigious, transforms the city each July–August. Fractional ownership properties in the Salzburg region provide direct access; properties in Tyrol make day trips feasible by train. Attending opera in a historic Austrian festival building creates summer experiences unavailable anywhere else on Earth.</p></div></section><section class="dest-sec cream"><div class="dest-inner"><h2>Why Austrian Alpine Property Values Keep Rising</h2>
-<p>Austrian Alpine property appreciation stems from regulatory scarcity that is structural rather than cyclical. Unlike some European mountain regions permitting development on every suitable slope, Austria enforces strict planning controls in protected zones. Tyrol and Vorarlberg particularly restrict new construction above certain elevations and in critical environmental areas. Environmental protection laws prevent development in avalanche zones, water source areas, and wildlife corridors. Properties in established communities sit within permitted development zones — but expansion zones are either fully developed or permanently protected. This creates functional supply limits: no new Alpine villages can appear, and existing established communities cannot meaningfully expand.</p>
-<p>Austrian Alps benefit from the rare combination of world-class winter skiing and summer hiking. Winter tourism sustains communities through three months of peak visitation. Summer hiking tourism adds three more months of high-visitation revenue. Christmas markets transform cities December–January beyond pure ski season. These shoulder-season tourism waves, absent in single-season mountain economies, support year-round restaurant, hotel, and service infrastructure. Property values appreciate alongside stable, diversified economies rather than boom-bust cycles that plague single-season destinations.</p></div></section><section class="dest-sec white"><div class="dest-inner"><h2>Austria Fractional Ownership — Practical Buyer Information</h2>
-<h3>Legal Framework and Annual Costs</h3>
-<p>Austrian fractional ownership utilises the GmbH structure (equivalent to limited liability companies in common law jurisdictions), which provides strong legal protections: member liability limited to capital contributions, management separated from ownership, and professional governance structures. Austrian capital gains tax applies to property share sales if held less than 10 years (30% rate). If held longer than 10 years, capital gains remain tax-free — a holding period aligned with most fractional ownership strategies. Annual property tax (Grundsteuer) applies at 0.1–0.5% of assessed property value depending on municipality. Austria abolished wealth tax in 1997, eliminating annual net worth taxes that burden some European property owners.</p>
-<h3>UK and International Buyers</h3>
-<p>British fractional ownership buyers maintain flexible access to Austrian properties. The Schengen area permits 90-day stays within any 180-day period — covering most fractional ownership annual entitlements without formal visa requirements. A 1/8 share of approximately 45 days per year fits comfortably within this limit and allows the split between winter ski weeks and summer hiking weeks that makes Austrian co-ownership so appealing. Austria&#8217;s excellent private healthcare system, accessible through annual travel insurance, eliminates the NHS-dependency concern some UK buyers raise about European property ownership. Many British fractional owners split their 45 annual days: three weeks winter (ski season, New Year), two weeks summer (hiking, lakes, Salzburg festival), distributing across both seasons to maximise the exceptional year-round Austrian lifestyle.</p></div></section>    
-    <!-- CTAs -->
-        <!-- ===== NEWSLETTER SIGNUP (shared partial) ===== -->
-    <section class="newsletter-section" id="newsletter">
-        <h2 class="newsletter-heading">Be The First To Know</h2>
-        <p class="newsletter-subtitle">Join our community for exclusive listings and destination insights delivered straight to your inbox.</p>
-        <form class="newsletter-form" id="cop-newsletter-form" novalidate>
-            <input type="email" name="email" placeholder="Enter your email address" required>
-            <button type="submit" class="newsletter-btn">Join Newsletter</button>
-        </form>
-        <p class="newsletter-form-msg" id="newsletter-form-msg"></p>
-    </section>
-        <!-- ===== SPEAK TO AN EXPERT (shared partial) ===== -->
-    <section class="expert-section" id="speak-to-expert">
-        <div class="expert-inner">
-            <p class="expert-eyebrow">Get in Touch</p>
-            <h2 class="expert-heading">Speak to an <em>expert</em></h2>
-            <p class="expert-sub">Tell us what you're looking for and one of our co-ownership specialists will be in touch within 24 hours.</p>
 
-            <form class="expert-form" id="expert-enquiry-form" novalidate>
-                <input type="hidden" name="nonce" value="9e3a8b0450">                <div class="expert-form-grid">
-                    <div class="expert-form-field">
-                        <label for="ef-name">Name <span>*</span></label>
-                        <input type="text" id="ef-name" name="name" placeholder="Your name" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-email">Email Address <span>*</span></label>
-                        <input type="email" id="ef-email" name="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-phone">Phone Number <span>*</span></label>
-                        <input type="tel" id="ef-phone" name="phone" placeholder="+44 7700 000000" required>
-                    </div>
-                    <div class="expert-form-field">
-                        <label>Destinations</label>
-                        <div class="dest-multiselect" id="dest-multiselect">
-                            <div class="dest-trigger" id="dest-trigger">
-                                <span class="dest-placeholder">Select destinations</span>
-                            </div>
-                            <div class="dest-dropdown" id="dest-dropdown">
-                                                                <div class="dest-option" data-value="France">
-                                    <span class="dest-check"></span>
-                                    🇫🇷 France                                </div>
-                                                                <div class="dest-option" data-value="Spain">
-                                    <span class="dest-check"></span>
-                                    🇪🇸 Spain                                </div>
-                                                                <div class="dest-option" data-value="Italy">
-                                    <span class="dest-check"></span>
-                                    🇮🇹 Italy                                </div>
-                                                                <div class="dest-option" data-value="USA">
-                                    <span class="dest-check"></span>
-                                    🇺🇸 USA                                </div>
-                                                                <div class="dest-option" data-value="Portugal">
-                                    <span class="dest-check"></span>
-                                    🇵🇹 Portugal                                </div>
-                                                                <div class="dest-option" data-value="Austria">
-                                    <span class="dest-check"></span>
-                                    🇦🇹 Austria                                </div>
-                                                                <div class="dest-option" data-value="England">
-                                    <span class="dest-check"></span>
-                                    🏴󠁧󠁢󠁥󠁮󠁧󠁿 England                                </div>
-                                                                <div class="dest-option" data-value="Sweden">
-                                    <span class="dest-check"></span>
-                                    🇸🇪 Sweden                                </div>
-                                                                <div class="dest-option" data-value="Germany">
-                                    <span class="dest-check"></span>
-                                    🇩🇪 Germany                                </div>
-                                                                <div class="dest-option" data-value="Croatia">
-                                    <span class="dest-check"></span>
-                                    🇭🇷 Croatia                                </div>
-                                                                <div class="dest-option" data-value="Mexico">
-                                    <span class="dest-check"></span>
-                                    🇲🇽 Mexico                                </div>
-                                                            </div>
-                        </div>
-                        <input type="hidden" name="destination" id="ef-destination">
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-budget">Budget Range</label>
-                        <select id="ef-budget" name="budget">
-                            <option value="" disabled selected>Select a budget</option>
-                            <option>Under €100,000</option>
-                            <option>€100,000 – €200,000</option>
-                            <option>€200,000 – €350,000</option>
-                            <option>€350,000 – €500,000</option>
-                            <option>€500,000 – €750,000</option>
-                            <option>€750,000 – €1,000,000</option>
-                            <option>Over €1,000,000</option>
-                        </select>
-                    </div>
-                    <div class="expert-form-field">
-                        <label for="ef-message">Message</label>
-                        <textarea id="ef-message" name="message" placeholder="Tell us more about what you're looking for (optional)"></textarea>
-                    </div>
-                </div>
-                <div class="expert-submit">
-                    <button type="submit" class="expert-submit-btn">Send Enquiry</button>
-                    <p class="expert-form-msg" id="expert-form-msg"></p>
-                </div>
-            </form>
-        </div>
-    </section>
+<p><strong>Hollersbach im Pinzgau</strong>, set on a sunny south-facing slope above the Salzach valley floor, exemplifies the character of the Pinzgau offer: a <strong>KitzSki ski pass</strong> — which links the Kitzbühel ski area with the SkiWelt in one of Austria's great inter-resort circuits — is available a few minutes' drive away, while the Hollersbach bathing lake provides a family-friendly summer offer literally on the doorstep. The Hohe Tauern National Park trails begin in the valley above the village, putting high-alpine wilderness within reach of a morning departure. <strong>Neukirchen am Großvenediger</strong>, set just inside the national park boundary, offers a ski lift within three minutes' walking distance, glacier views toward the Großvenediger, and access to the <a href="https://www.koenig.at/en/" target="_blank" rel="noopener">Kristallbad</a> at Wald-Königsleiten — one of Austria's most accomplished alpine spa complexes — in under fifteen minutes by car. The overall character of the Pinzgau and upper Salzach valley is of mountains that feel genuinely wild rather than purpose-built for skiing — the livestock still graze the lower alms in summer, the hay barns are still timber, and the resort infrastructure is set into a landscape that has been farmed and grazed for centuries rather than cleared for development.</p>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col"><div class="footer-logo"><img src="/wp-content/uploads/Main-Logo-white-COP.svg" alt="COP Logo"></div><p class="footer-tagline">Luxury fractional ownership for the smart second-home owner.</p></div>
-            <div class="footer-col"><h3>Properties</h3><ul><li><a href="/our-homes/">All Properties</a></li><li><a href="/spain-fractional-ownership-properties/">Spain</a></li><li><a href="/france-fractional-ownership-properties/">France</a></li><li><a href="/italy-fractional-ownership-properties/">Italy</a></li><li><a href="/usa-fractional-ownership-properties/">USA</a></li></ul></div>
-            <div class="footer-col"><h3>Destinations</h3><ul><li><a href="/mallorca-fractional-ownership-properties/">Mallorca</a></li><li><a href="/costa-del-sol-fractional-ownership-properties/">Costa del Sol</a></li><li><a href="/california-fractional-ownership-properties/">California</a></li><li><a href="/french-alps-fractional-ownership-properties/">French Alps</a></li><li><a href="/lake-como-fractional-ownership-properties/">Lake Como</a></li></ul></div>
-            <div class="footer-col"><h3>Company</h3><ul><li><a href="/about-us/">About Us</a></li><li><a href="/all-our-blog/">Our Blog</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/contact-us/">Contact</a></li></ul></div>
-            <div class="footer-col"><h3>Support</h3><ul><li><a href="/contact-us/">Get in Touch</a></li><li><a href="/how-it-works/#faq">FAQs</a></li><li><a href="/how-it-works/">How It Works</a></li><li><a href="/our-homes/">Browse Properties</a></li></ul></div>
-        </div>
-        <div class="footer-bottom"><p class="footer-copyright">&copy; 2026 Co-Ownership Property. All rights reserved.</p><div class="footer-legal"><a href="/">Privacy Policy</a><a href="/">Terms of Service</a><a href="/">Legal</a></div></div>
-    </footer>
+<figure class="dest-figure">
+  <img src="https://a.storyblok.com/f/148662/2100x1400/7bc816b92a/at0255a-i-chalet-wildkogel.jpg" alt="A chalet near the Wildkogel ski area in Neukirchen am Großvenediger, Salzburger Land, with mountain panorama" loading="lazy" width="2100" height="1400" />
+  <figcaption>A chalet near Neukirchen am Großvenediger, on the edge of the Hohe Tauern National Park — ski lift within walking distance, Großvenediger glacier views in every direction.</figcaption>
+</figure>
 
-    <script>
-        /* ── Shared header JS ──────────────────────────────────────── */
-(function () {
-    var header = document.getElementById('cop-header');
-    var btn    = document.getElementById('cop-hamburger');
-    var nav    = document.getElementById('cop-nav');
-    if (!header || !btn || !nav) return;
+<p>The cultural weight of <strong>Salzburg</strong> — birthplace of Mozart, site of the <a href="https://www.salzburgerfestspiele.at/en" target="_blank" rel="noopener">Salzburg Festival</a>, and one of the most architecturally coherent Baroque cities in Europe — is never far from a Salzburger Land property. <a href="https://www.salzburg-airport.com/en/" target="_blank" rel="noopener">Salzburg Airport (SZG)</a> offers direct flights to the UK, Germany, the Netherlands and a growing roster of European cities, and it operates a winter charter programme from October through April that makes it one of the most practically accessible alpine gateways in Europe. The city itself, 60–90 minutes by road or rail from most Pinzgau properties, is a world-class destination in its own right — the <a href="https://www.mozarteum.at/en/" target="_blank" rel="noopener">Mozarteum</a>, the <a href="https://www.diozesanmuseum-salzburg.at/en/" target="_blank" rel="noopener">cathedral and Dom quarter</a>, the <a href="https://www.hohensalzburg.com/en/" target="_blank" rel="noopener">Hohensalzburg fortress</a>, the old town's <em>Getreidegasse</em> and its Baroque palaces — that can justify a day trip in any season without any need to plan carefully.</p>
 
+<p><strong>Best for:</strong> families who want a quieter, more pastoral alpine base with access to one of Austria's great wild mountain landscapes (Hohe Tauern) and a major ski circuit (KitzSki/Wildkogel) without the premium pricing of the core Kitzbühel village; buyers for whom proximity to Salzburg — whether for the festival, the airport, or the cultural depth — is a significant factor in the ownership decision; and owners building a two-property portfolio who want the Pinzgau's authentic character as a complement to a more internationally famous alpine address.</p>
 
-    // Mobile hamburger toggle
-    btn.addEventListener('click', function () {
-        nav.classList.toggle('active');
-        btn.classList.toggle('open');
-    });
-    nav.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-            nav.classList.remove('active');
-            btn.classList.remove('open');
-        });
-    });
-}());
-        /* ── Newsletter form (shared partial) ──────────────────────── */
-(function() {
-    var form = document.getElementById('cop-newsletter-form');
-    if (!form) return;
-    var msg = document.getElementById('newsletter-form-msg');
+</div></section>
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var emailInput = form.querySelector('input[type="email"]');
-        var btn = form.querySelector('.newsletter-btn');
-        if (!emailInput.value) return;
+<section class="dest-sec cream"><div class="dest-inner">
 
-        btn.disabled = true;
-        btn.textContent = 'Subscribing\u2026';
-        msg.className = 'newsletter-form-msg';
-        msg.textContent = '';
+<h2>A year in your Austria co-ownership home</h2>
 
-        var data = new FormData();
-        data.append('action', 'cop_newsletter_subscribe');
-        data.append('email', emailInput.value);
+<p>The <strong>45-day annual allocation</strong> in an Austrian property is one of the most genuinely useful ownership windows in Europe's fractional market — spread across multiple seasons, it gives access to both the winter that defines the Austrian alpine offer and the summer that justifies the ownership the rest of the year. The rotation calendar distributes peak weeks — Christmas, the prime ski weeks of January and February, Easter, and the summer high season of July and August — fairly across all co-owners over a multi-year cycle, so no owner is systematically excluded from the weeks that matter most.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'newsletter-form-msg success';
-                msg.textContent = res.data || 'Thank you for subscribing!';
-                form.reset();
-                btn.textContent = 'Subscribed!';
-            } else {
-                msg.className = 'newsletter-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Join Newsletter';
-            }
-        })
-        .catch(function() {
-            msg.className = 'newsletter-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Join Newsletter';
-        });
-    });
-})();
-        /* ── Multi-select destination dropdown (shared partial) ────── */
-(function() {
-    var wrap     = document.getElementById('dest-multiselect');
-    var trigger  = document.getElementById('dest-trigger');
-    var dropdown = document.getElementById('dest-dropdown');
-    var hidden   = document.getElementById('ef-destination');
-    if (!wrap || !trigger || !dropdown || !hidden) return;
+<h3>Winter (December–February)</h3>
 
-    var placeholder = trigger.querySelector('.dest-placeholder');
-    var selected = [];
+<p>Austrian winter opens properly with the first significant snowfall above 1,500m, which in Tyrol and Vorarlberg typically falls in <strong>late October or early November</strong> and builds through December to the deep pack that defines the January and February skiing. Temperatures in the resort villages run -5 to -12°C (23–10°F) on a typical winter morning, warming to -1 to +4°C (30–39°F) on a sunny south-facing terrace by midday — cold enough for reliable snow, mild enough for long lunches on a terrace with a mountain view and a <em>Glühwein</em> warming from the inside. The <strong>Christmas and New Year period</strong> is the most socially intense point of the Austrian calendar in the ski resorts, with <em>Advent</em> markets in the valley towns — the <a href="https://www.innsbruck.info/en/events/christmas-in-innsbruck.html" target="_blank" rel="noopener">Innsbruck Christmas market</a> in the <em>Altstadt</em> is one of the most atmospheric in Austria — and the distinctive Austrian tradition of torchlit ski descents and New Year's Eve fireworks visible from resort terraces across the province. The <a href="https://www.hahnenkamm.com/en/" target="_blank" rel="noopener">Hahnenkamm race weekend in Kitzbühel</a>, held each January, is one of the great set pieces of the alpine sporting calendar and draws a large international audience to the area surrounding the SkiWelt and Pinzgau — the <strong>Streif</strong>, Kitzbühel's famous downhill course, is one of the most technical and dangerous runs in ski racing, and watching the race from the course-side crowd has become one of the defining winter social experiences in the Austrian Alps. In the Paznaun valley, the ski season begins early — <a href="https://www.ischgl.com/en/" target="_blank" rel="noopener">Ischgl</a>'s season traditionally opens with a major outdoor concert by a well-known international act in late November, and the high altitude of the area (Ischgl's highest points reach 2,872m) ensures late-season snow well into April. For Vorarlberg owners, the <strong>Arlberg's deep Atlantic snowfall record</strong> — the Arlberg sits at the first major topographic barrier to Atlantic weather systems approaching from the west, and catches a disproportionate share of the precipitation those systems carry — means that even a below-average winter in the eastern Alps often leaves the Arlberg with a comfortable base. This structural weather advantage, well documented over more than a century of snowfall records, has made Lech and Stuben reliably popular with buyers who are not prepared to accept any skiing uncertainty when they arrive at a property they have committed to for the season. The <a href="https://www.salzburgland.com/en/events/ski-world-cup" target="_blank" rel="noopener">Ski World Cup events in Salzburger Land</a> — at Saalbach and elsewhere in the circuit — add a further sporting-calendar dimension for owners in that region who want to combine a ski week with world-cup racing on their doorstep.</p>
 
-    function render() {
-        /* Remove old tags */
-        trigger.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
+<h3>Spring (March–May)</h3>
 
-        if (selected.length === 0) {
-            placeholder.style.display = '';
-        } else {
-            placeholder.style.display = 'none';
-            selected.forEach(function(val) {
-                var tag = document.createElement('span');
-                tag.className = 'dest-tag';
-                tag.innerHTML = val + ' <span class="dest-tag-x" data-val="' + val + '">&times;</span>';
-                trigger.insertBefore(tag, placeholder);
-            });
-        }
+<p>March is arguably the finest month in the Austrian alpine calendar — and the month that experienced alpine property owners increasingly prefer over the peak January weeks precisely because it combines reliable snow with the warmer, longer days that make the mountain landscape accessible beyond the ski runs. Temperatures climb to 2–8°C (36–46°F) in the mid-mountain zone while the snow cover remains deep and well-consolidated — the combination that makes spring skiing in the Alps a fundamentally different and often more pleasurable experience than the intense cold of midwinter. Days lengthen rapidly, with sunrise before 6:30am by the end of March, and the brilliant low-angle morning sun on fresh snow across a south-facing terrace is one of the defining sensory experiences of an Austrian spring stay. <a href="https://www.kitzbuehel.com/en/skiing-mountains/skiing-in-kitzbuhel/spring-skiing/" target="_blank" rel="noopener">Spring skiing in the Kitzbühel Alps</a> typically extends to mid-April, with the glacier ski areas at Stubai and Hintertux in Tyrol remaining open through May and into early June for owners who want to ski into the warmer months. The Skicircus Saalbach-Hinterglemm in Salzburger Land regularly wins European awards for late-season conditions, with a season that runs to late April in good snow years. By May, the transition from ski to hiking has begun — the lower valley trails open as the snow line retreats, the alm meadows begin to flower with the early-season alpine flora — <em>Soldanella</em>, <em>Crocus</em>, <em>Primula</em> — and the summer schedule of local events and markets starts to take shape. The <a href="https://www.alpbach.org/en/" target="_blank" rel="noopener">European Forum Alpbach</a>, held each August in the beautifully preserved village of Alpbach in Tyrol — designated by architects as one of Austria's most beautiful villages — is on the horizon as an intellectual and social event that adds a dimension to Austrian summer ownership beyond hiking and biking.</p>
 
-        /* Update hidden field */
-        hidden.value = selected.join('; ');
+<h3>Summer (June–August)</h3>
 
-        /* Update option highlights */
-        dropdown.querySelectorAll('.dest-option').forEach(function(opt) {
-            if (selected.indexOf(opt.dataset.value) !== -1) {
-                opt.classList.add('selected');
-            } else {
-                opt.classList.remove('selected');
-            }
-        });
-    }
+<p>Austrian alpine summer runs from the opening of the high trails in early June to the first autumn snow on the upper ridges in September, and it delivers an experience that bears almost no resemblance to the winter version of the same landscape. Temperatures in the resort villages reach 18–24°C (64–75°F) on a typical July day, dropping to 10–14°C (50–57°F) at night — perfect conditions for long days of activity and comfortable evenings on a terrace with the mountain air cooling steadily as the sun drops behind the western ridges. The <a href="https://www.nationalpark.at/en/" target="_blank" rel="noopener">Hohe Tauern National Park</a>, accessible from both Salzburger Land and the Pinzgau, is at its most accessible in July and August, with the high-altitude trails between the Grossglockner (3,798m, Austria's highest peak) and the Großvenediger open to experienced walkers and, in the upper sections, to guided glacier parties. The <strong>Zell am See-Kaprun</strong> area, within easy reach of Neukirchen and Hollersbach in the Pinzgau, combines summer lake swimming in the <a href="https://www.zellamsee-kaprun.com/en/" target="_blank" rel="noopener">Zeller See</a> — a shallow, warmish alpine lake that reaches 22–24°C (72–75°F) in July and August — with year-round glacier skiing on the Kitzsteinhorn above Kaprun, one of very few places in the Alps where winter skiing and summer swimming are genuinely possible on the same day. The <a href="https://www.grossglockner.at/en/" target="_blank" rel="noopener">Grossglockner High Alpine Road</a>, one of the most dramatic mountain drives in Europe, connects the Pinzgau to the Carinthian side of the Hohe Tauern via a series of hairpin bends that put the summit glacier of Austria's highest mountain within camera range of any owner willing to make the two-hour drive from Neukirchen. The <a href="https://www.salzburgerfestspiele.at/en" target="_blank" rel="noopener">Salzburg Festival</a>, running from late July through the last week of August, is one of the great summer cultural institutions of the European calendar — opera, theatre and chamber music in the <a href="https://www.salzburgerfestspiele.at/en/festival-venues" target="_blank" rel="noopener">Grosses Festspielhaus</a> and the open-air <em>Felsenreitschule</em> cut into the living rock of the Festungsberg, with tickets sold years in advance for the major productions. For Salzburger Land owners, the festival is on the doorstep. For Tyrol owners, it is a day trip by train — the <a href="https://www.oebb.at/en/" target="_blank" rel="noopener">ÖBB rail connection</a> from Innsbruck to Salzburg takes 1 hour 50 minutes and runs multiple times daily, returning any serious music lover to their mountain home in time for a late dinner on the terrace.</p>
 
-    /* Toggle dropdown */
-    trigger.addEventListener('click', function(e) {
-        /* If clicking a tag X, remove that item */
-        if (e.target.classList.contains('dest-tag-x')) {
-            var val = e.target.dataset.val;
-            selected = selected.filter(function(v) { return v !== val; });
-            render();
-            e.stopPropagation();
-            return;
-        }
-        wrap.classList.toggle('open');
-    });
+<h3>Autumn (September–November)</h3>
 
-    /* Click an option */
-    dropdown.addEventListener('click', function(e) {
-        var opt = e.target.closest('.dest-option');
-        if (!opt) return;
-        var val = opt.dataset.value;
-        var idx = selected.indexOf(val);
-        if (idx === -1) {
-            selected.push(val);
-        } else {
-            selected.splice(idx, 1);
-        }
-        render();
-        e.stopPropagation();
-    });
+<p>September is the Austrians' own preferred month in the mountains — the schools are back, the summer tourists have gone, and the landscape enters its brief and brilliantly coloured transition from green to gold before the first winter snow arrives on the upper ridges. The corollary for a fractional owner is that shoulder-season weeks — available through the rotation calendar — deliver the mountain at its quietest and most atmospheric. Daytime temperatures run 12–18°C (54–64°F) in the valleys, dropping sharply above 2,000m, and the light has a clarity and low-angle warmth that the midday summer sun never achieves. The hiking trails are quiet, the mountain huts are still open but running with local rather than tourist clientele, and the <strong>autumn mushroom season</strong> — one of the great quiet pleasures of Austrian alpine life — <em>Steinpilze</em>, <em>Eierschwammerl</em>, <em>Pfifferlinge</em> — transforms the forest trails around the valley villages into a foraging landscape that Austrian restaurants take seriously from September through October. The <a href="https://www.bregenzerwald.at/en/" target="_blank" rel="noopener">Bregenzerwald</a> in Vorarlberg — the valley behind the Arlberg, known for its extraordinary regional cheese culture and the <a href="https://www.kaskaese.at/" target="_blank" rel="noopener">Käsestrasse</a> (cheese road) connecting the producing farms — is at its most accessible and most atmospheric in autumn, when the cattle are brought down from the high <em>Almen</em> in the colourful <em>Almabtrieb</em> procession that marks the end of the summer grazing season. By late October, the first snowfall arrives above 2,000m, the ski area maintenance crews move onto the upper mountain, and the anticipation of the winter season builds in every resort village. November is the quietest month of the year — the ski areas are not yet open, the hiking trails above the tree line are iced — and it is the ideal time for owners who want the mountain landscape entirely to themselves, the wood fires burning in the chalet and the first powder on the highest ridges visible from the terrace.</p>
 
-    /* Close on outside click */
-    document.addEventListener('click', function(e) {
-        if (!wrap.contains(e.target)) {
-            wrap.classList.remove('open');
-        }
-    });
-})();
+</div></section>
 
-/* ── Expert enquiry form AJAX (shared partial) ─────────────── */
-(function() {
-    var form = document.getElementById('expert-enquiry-form');
-    if (!form) return;
-    var btn = form.querySelector('.expert-submit-btn');
-    var msg = document.getElementById('expert-form-msg');
+<section class="dest-sec white"><div class="dest-inner">
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        btn.disabled = true;
-        btn.textContent = 'Sending\u2026';
-        msg.className = 'expert-form-msg';
-        msg.textContent = '';
+<h2>Who buys in Austria, and why</h2>
 
-        var data = new FormData();
-        data.append('action', 'cop_expert_enquiry');
-        data.append('nonce',       form.querySelector('[name="nonce"]').value);
-        data.append('name',        form.querySelector('[name="name"]').value);
-        data.append('email',       form.querySelector('[name="email"]').value);
-        data.append('phone',       form.querySelector('[name="phone"]').value);
-        data.append('destination', form.querySelector('[name="destination"]').value);
-        data.append('budget',      form.querySelector('[name="budget"]').value);
-        data.append('message',     form.querySelector('[name="message"]').value);
+<p>The international buyer mix for fractional ownership in Austria is distinctly <strong>Central European in its core</strong>, with a significant and growing British, Dutch and Gulf component. <strong>German buyers</strong> are the single largest national group — Austria is effectively Germany's back garden for alpine purposes, with the <a href="https://www.autobahn.de/en/" target="_blank" rel="noopener">Bavarian motorway network</a> putting Munich within 90 minutes of Innsbruck and Frankfurt within a 5-hour drive of most Tyrolean resorts. Austrian property law, the common German language, and the deep cultural affinity between Bavaria and Tyrol make Austrian alpine property an almost frictionless purchase for German buyers. <strong>Swiss buyers</strong> are the second largest group in Vorarlberg specifically, drawn by the province's location above Lake Constance and the linguistic and cultural proximity between Vorarlberg's <em>Alemannisch</em> dialect and the Swiss-German of their home cantons — Bregenz, Vorarlberg's provincial capital, is fewer than 25 minutes by road from St. Gallen and closer still to the German border. <strong>Dutch and Belgian buyers</strong> are disproportionately active in the Austrian Alps relative to their home-country populations — the flat Netherlands exports alpine enthusiasm in both winter and summer, and the <a href="https://www.nightjet.com/en/" target="_blank" rel="noopener">Nightjet</a> overnight train from Amsterdam and Brussels to Innsbruck, Salzburg and Vienna has made Austria accessible without a flight for north European buyers who prefer train travel. <strong>British buyers</strong> have been consistent purchasers in the Austrian Alps for two decades, with the post-Brexit 90-day Schengen rule actually reinforcing rather than deterring fractional ownership demand: a 1/8 share gives approximately 45 days per year, which fits precisely within the Schengen window while matching the actual use pattern — typically two ski weeks, one spring stay and one summer week — that most British second-home buyers actually want. Gulf buyers from the UAE, Saudi Arabia and Qatar have emerged as a <strong>growing segment since 2020</strong>, attracted by Austria's reputation for <strong>ultra-reliable snow, world-class lift infrastructure, and five-star hospitality</strong> standards in the resort villages — the combination of proximity (a 5-hour flight from Dubai to Innsbruck or Vienna) and alpine quality that few destinations in the world can match. American buyers, particularly those who already own fractionally in Colorado or Utah, are increasingly adding an Austrian share to their portfolio as a complement to their North American alpine base, with the LLC structure making the cross-border portfolio administratively straightforward.</p>
 
-        fetch('https://staging.co-ownership-property.com/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            body: data
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.success) {
-                msg.className = 'expert-form-msg success';
-                msg.textContent = res.data || 'Thank you! We\'ll be in touch within 24 hours.';
-                form.reset();
-                btn.textContent = 'Sent!';
-                /* Clear destination tags */
-                var wrap = document.getElementById('dest-multiselect');
-                if (wrap) {
-                    wrap.querySelectorAll('.dest-tag').forEach(function(t) { t.remove(); });
-                    var ph = wrap.querySelector('.dest-placeholder');
-                    if (ph) ph.style.display = '';
-                    wrap.querySelectorAll('.dest-option').forEach(function(o) { o.classList.remove('selected'); });
-                }
-            } else {
-                msg.className = 'expert-form-msg error';
-                msg.textContent = res.data || 'Something went wrong. Please try again.';
-                btn.disabled = false;
-                btn.textContent = 'Send Enquiry';
-            }
-        })
-        .catch(function() {
-            msg.className = 'expert-form-msg error';
-            msg.textContent = 'Network error. Please try again.';
-            btn.disabled = false;
-            btn.textContent = 'Send Enquiry';
-        });
-    });
-})();
-        // Show more properties
-        var showMoreBtn = document.getElementById('dest-show-more');
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', function() {
-                document.querySelectorAll('.prop-card.hidden').forEach(function(c){ c.classList.remove('hidden'); });
-                showMoreBtn.closest('.show-more-wrap').style.display = 'none';
-            });
-        }
-    </script>
+<p><strong>Fractional ownership in Austria typically suits:</strong></p>
+<ul>
+  <li><strong>Skiing families with school-age children</strong> — Austria's ski schools, particularly in Tyrol and Salzburger Land, are among the best-resourced in Europe; <a href="https://www.skischule-kitzbuhel.at/en/" target="_blank" rel="noopener">Kitzbühel</a>, <a href="https://www.ski-club-lech.at/en/" target="_blank" rel="noopener">Lech</a> and <a href="https://www.snowsports-soell.at/en/" target="_blank" rel="noopener">Söll</a> each run multi-language children's ski schools that families return to year after year; the broad, groomed slopes of the SkiWelt and the Wildkogel are particularly forgiving for beginners.</li>
+  <li><strong>Serious skiers in their 40s and 50s</strong> — the Arlberg and the Paznaun valley offer genuinely challenging terrain, deep-powder conditions, and a social-skiing culture that rewards ambition; Stuben, Ischgl and the off-piste routes above St. Anton attract technically accomplished skiers who have exhausted the beginner and intermediate mountains.</li>
+  <li><strong>Multi-season alpine buyers</strong> — buyers who want equal value from summer hiking, autumn culture, and winter skiing rather than using the property for skiing alone; the Hohe Tauern and Tschengla contexts in particular deliver a four-season lifestyle that justifies ownership across all three uses.</li>
+  <li><strong>UK buyers managing the Schengen 90-day rule</strong> — the <strong>45-day annual allocation</strong> sits directly within the Schengen window, making Austrian fractional ownership the most financially rational structure for British buyers who want documented equity in an alpine property without the imbalance of full ownership and restricted legal occupancy.</li>
+  <li><strong>Portfolio builders adding a Central European anchor</strong> — buyers who already own a fractional share in France or Spain and want to add an alpine complement with a different climate, culture and seasonal calendar; the LLC structure makes the Austrian share as administratively simple to hold alongside the existing share as adding another position to an investment portfolio.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Practicalities: getting there, what it costs, what you own</h2>
+
+<h3>Getting there</h3>
+
+<p>Austria's mountain regions are served by a network of airports, motorways and rail connections that makes them practically accessible from most European countries without the transfer complexity that some alpine destinations require. <a href="https://www.innsbruck-airport.com/en/" target="_blank" rel="noopener">Innsbruck Airport (INN)</a> is the primary gateway for Tyrol and for the Arlberg — Ryanair, easyJet, Austrian Airlines and Lufthansa all operate scheduled year-round routes from UK airports, with additional winter charters from October through April; the city centre and the resort motorway network are 10 minutes from the terminal. <a href="https://www.salzburg-airport.com/en/" target="_blank" rel="noopener">Salzburg Airport (SZG)</a> serves the Salzburger Land and Pinzgau — direct scheduled services from London, Birmingham, Manchester, Bristol and Edinburgh operate year-round, with increased frequencies in the ski season; Neukirchen and Hollersbach are approximately 70–90 minutes by road from the terminal. <a href="https://www.zrh.com/en/" target="_blank" rel="noopener">Zurich Airport (ZRH)</a> provides the alternative gateway for Vorarlberg — 90 minutes to the Brandnertal by motorway, and 90 minutes to the Arlberg villages; ZRH's intercontinental network makes it the gateway of choice for buyers arriving from North America, the Gulf or Asia. <a href="https://www.munich-airport.de/en/" target="_blank" rel="noopener">Munich Airport (MUC)</a> offers the widest network of long-haul connections and sits 75 minutes by motorway from Kufstein at the Tyrolean border — effective for buyers arriving from outside Europe for whom Munich's direct connections matter more than the shorter Austrian airport transfer.</p>
+
+<p>By rail, the <a href="https://www.oebb.at/en/" target="_blank" rel="noopener">ÖBB Austrian federal railway</a> runs direct <em>Railjet</em> services from Vienna to Innsbruck and from Munich to Innsbruck on a frequency and at a journey time — Munich to Innsbruck in 1 hour 50 minutes — that <strong>competes directly with flying</strong> when airport transfer time is included. The <a href="https://www.nightjet.com/en/" target="_blank" rel="noopener">Nightjet overnight train network</a> connects Amsterdam, Brussels, Frankfurt, Hamburg and Paris to Innsbruck and Salzburg on routes that allow a working Friday followed by an overnight train and an arrival at the resort by Saturday morning — genuinely practical for north European buyers who own in Tyrol or Salzburger Land. Once in Austria, the resort bus and taxi networks operate on schedules driven by the ski and hiking season, and most properties in the COP collection are within 30–45 minutes by road from the airport arrival point.</p>
+
+<h3>What it costs — the comparison that matters</h3>
+
+<p>The right frame for the cost comparison is not "how does fractional ownership compare to a similar property on the rental market?" but "how does it compare to <strong>whole ownership of the same property</strong>?" The answer to the second question determines whether the fractional model is financially sound — and in Austria's alpine property market, where whole-ownership prices in the established ski villages have risen to levels that make full purchase a <strong>meaningful capital commitment</strong> for a property used six to ten weeks a year, the fractional ratio is compelling.</p>
+
+<table class="dest-compare-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Whole second home</th>
+      <th>COP 1/8 fractional share</th>
+      <th>Long-term rental</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Upfront commitment</td>
+      <td data-col="Whole second home">Full property value</td>
+      <td data-col="COP 1/8 share">~1/8 of the property value</td>
+      <td data-col="Long-term rental">First/last/deposit only</td>
+    </tr>
+    <tr>
+      <td>Equity in the asset</td>
+      <td data-col="Whole second home">Full appreciation</td>
+      <td data-col="COP 1/8 share">~1/8 of appreciation</td>
+      <td data-col="Long-term rental">None</td>
+    </tr>
+    <tr>
+      <td>Annual carry</td>
+      <td data-col="Whole second home">Full Grundsteuer, insurance, management, maintenance</td>
+      <td data-col="COP 1/8 share">~1/8 of carry, fully managed</td>
+      <td data-col="Long-term rental">Full rent every year, indefinitely</td>
+    </tr>
+    <tr>
+      <td>Personal use</td>
+      <td data-col="Whole second home">Up to 52 weeks (most use 4–8 in practice)</td>
+      <td data-col="COP 1/8 share">~45 days, professionally scheduled</td>
+      <td data-col="Long-term rental">Defined by lease terms</td>
+    </tr>
+    <tr>
+      <td>Operations burden</td>
+      <td data-col="Whole second home">Owner-managed or hired staff</td>
+      <td data-col="COP 1/8 share">Fully included</td>
+      <td data-col="Long-term rental">Landlord-managed</td>
+    </tr>
+    <tr>
+      <td>Time to exit</td>
+      <td data-col="Whole second home">6–24 months on the open market</td>
+      <td data-col="COP 1/8 share">~1 month on average</td>
+      <td data-col="Long-term rental">End of lease term</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The whole-ownership column is the natural comparison because fractional buyers are typically choosing between buying outright and buying fractionally, not between fractional ownership and never owning at all. A whole-property owner in an Austrian ski resort commits the full purchase price to a property they are legally permitted to use for approximately 90 days a year post-Brexit (if British), against which they carry the full weight of Austrian property tax (<em>Grundsteuer</em>), building insurance, management fees, utilities, ski-room maintenance, snow clearance and the ongoing maintenance reserve on the whole property. A 1/8 fractional owner commits <strong>1/8 of the purchase price</strong> and carries 1/8 of all those costs — proportional to the use they actually make of the property. The rental comparison is less intuitive but equally important: long-term rental builds no equity, carries full rent year over year with no appreciation benefit, and typically requires the renter to manage maintenance coordination and the relationship with a landlord whose interests are not aligned with theirs. The fractional model sits between the two: the upside of equity without the full capital commitment, the managed-service quality of a good rental without the indefinitely recurring rent cost.</p>
+
+<h3>What's included in the annual service charge — and what isn't</h3>
+
+<p>The annual service charge on a fractional Austrian property represents roughly <strong>1/8 of the carry on the equivalent whole property</strong> — a <strong>fraction of what an outright second-home owner pays</strong> in taxes, insurance, management and maintenance, for the same property in the same condition. The service charge typically covers: Austrian property tax (<em>Grundsteuer</em>); building and contents insurance; professional management fees covering the full operational stack; utilities (heating, electricity, water) across the shared areas and the individual units; regular cleaning between owner stays; linen, towels and consumables provided to hotel standard on arrival; ski-room maintenance and equipment storage during the skiing season; garden, terrace and exterior maintenance including snow clearance; and a maintenance reserve fund for planned capital expenditure. The service charge does <em>not</em> typically cover personal costs during your stay (restaurant bookings, lift passes, ski hire, grocery bills), costs arising directly from damage caused by an individual owner's use, or unplanned major capital works beyond the scope of the normal maintenance reserve. The management team provides <strong>transparent annual budget reporting</strong> so every co-owner understands exactly what the service charge covers and how it is calculated.</p>
+
+<h3>What you actually own</h3>
+
+<p>Your 1/8 share of an Austrian property is a <strong>deeded equity interest recorded in the Austrian land register</strong> (<em>Grundbuch</em>) — the official title register maintained by the district courts (<em>Bezirksgerichte</em>) and available for public inspection at any time through the <a href="https://www.justiz.gv.at/en/web2013/grundbuch" target="_blank" rel="noopener">Austrian Federal Ministry of Justice portal</a>. The Grundbuch is one of the most robustly maintained and legally certain title registers in Central Europe, with continuous records going back in most cases to the mid-19th century and a legal framework — the Austrian <em>Grundbuchgesetz</em> of 1955 and its predecessors — that gives registered title an <strong>exceptionally strong presumption of validity</strong>. Your name appears in the register alongside the other co-owners, each holding their legally recorded fractional interest. This interest is fully transferable — you can sell it, gift it, or include it in your estate with the same freedom you would have over any other real property asset. It is not a timeshare use-right that expires on a fixed date and depreciates to zero when the contract runs out; it is not a points membership that can be redeemed by the issuer or devalued through supply dilution; it is a <strong>deeded fractional interest in real property</strong> that appreciates or depreciates with the underlying asset and that can be passed to your heirs through standard Austrian or EU succession procedures. The full mechanics — usage calendars, exit procedures, the transfer process, the relationship with the management team — are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>. Browse the listings in the property grid above to see what is currently available, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market.</p>
+
+</div></section>
+
+<section class="dest-sec white"><div class="dest-inner">
+
+<h2>How fractional ownership works in Austria</h2>
+
+<p>Every property in the COP Austrian portfolio sits inside a <strong>purpose-built LLC</strong> — the same modern international ownership structure used across all COP destinations, from France and Spain to the United States. The LLC owns the Austrian property; co-owners hold equal 1/8 membership interests in the LLC. This approach is deliberately consistent across jurisdictions — it is not an adaptation of an Austrian national vehicle, but a modern international framework that functions the same way whether the property is in Tyrol, Tuscany or Texas. The practical benefit for international buyers is significant: the LLC membership interest is a more standardised and internationally recognisable legal instrument than a country-specific co-ownership title, which makes the resale process lighter and the relationship with the ownership structure predictable for buyers who already hold shares in other COP destinations. The Austrian legal environment presents no obstacle to this structure: Austria is an EU member state with a well-developed and internationally transparent corporate law framework, and the use of a purpose-built company to hold real property is a standard and well-understood instrument in the Austrian property market. The Austrian notarial system — <em>Notare</em> are legally qualified professionals with statutory responsibilities equivalent to those of notaries in France or Germany — provides an independent verification layer for every property transaction, which gives international buyers the same documentary certainty at completion that the local market expects.</p>
+
+<h3>How the LLC structure holds Austrian property</h3>
+
+<p>The LLC that owns each Austrian property is a <strong>purpose-built entity established specifically for that property</strong> and that property alone — it holds no other assets, carries no cross-liability to other properties, and is governed by an operating agreement that sets out the rules of co-ownership in plain terms. The operating agreement covers: the fair-rotation calendar mechanism for allocating personal-use weeks; the decision-making process for major expenditure (renovations, capital improvements above the maintenance reserve threshold); the service charge structure and how it is billed to co-owners; the resale process, including the right-of-first-refusal period that gives existing co-owners the option to purchase a departing owner's share before it is offered more broadly; and the dissolution provisions for the scenario — uncommon but possible — where all co-owners agree to a collective sale of the whole property. The LLC operating agreement does not restrict what you can do with your membership interest: you can sell it, gift it, pledge it as security for a loan, or transfer it to a trust or family vehicle in the usual way for your jurisdiction. <strong>The operating agreement is your governance document</strong> — read alongside the land register entry, it defines the totality of your rights and obligations as a co-owner.</p>
+
+<h3>Austrian property tax and your service charge</h3>
+
+<p>Austrian property tax (<em>Grundsteuer</em>) is levied annually on the assessed value (<em>Einheitswert</em>) of the property as determined by the tax authority. Austrian <em>Grundsteuer</em> rates are among the lowest in Central Europe — typically a fraction of a percent of the assessed value per year — and your 1/8 share means you bear <strong>1/8 of the total annual</strong> <em>Grundsteuer</em> bill. There is no Austrian equivalent of the French <em>taxe d'habitation</em> (secondary-residence occupancy tax), and Austria abolished its wealth tax in 1997, meaning there is no annual net-worth levy on property-owning non-residents of the kind that applies in France to overseas second-home holders. Austria does apply capital gains tax on property sales (<em>Immobilienertragsteuer</em>) at a flat rate for both residents and non-residents, with specific rules about the calculation base and any deductions available for renovation costs — the exact position for any given property and ownership structure is confirmed by an Austrian <em>Rechtsanwalt</em> (solicitor) or <em>Steuerberater</em> (tax advisor) at the time of purchase. As an LLC membership interest rather than a direct title transfer, the sale of your fractional share has a specific and well-established treatment in Austrian tax law that differs in certain respects from a straightforward property sale — this is one area where specialist advice adds real value. The service charge that covers the ongoing operational costs of the property is not a tax — it is a shared management cost that the LLC invoices to each co-owner pro-rata, similar in structure to the service charge in any managed apartment building or resort complex. The <a href="https://www.bmf.gv.at/en/" target="_blank" rel="noopener">Austrian Federal Ministry of Finance</a> publishes guidance on property income and capital gains treatment for non-residents in English, which provides a useful starting point alongside specialist legal advice.</p>
+
+<h3>Inheritance and transfer in Austria</h3>
+
+<p>Your 1/8 LLC membership interest in an Austrian property transfers to your heirs under the rules of succession that apply to your personal estate — typically the laws of your country of residence, unless you have specifically elected Austrian law under the <strong>2015 EU Succession Regulation</strong>, which allows EU-resident testators to elect the national law that governs their estate. For UK nationals, this means your Austrian interest passes under English or Scottish succession law by default, giving you wide testamentary freedom to designate beneficiaries. For German, Dutch or Belgian nationals, their home civil-law systems govern succession; for French nationals, the <em>réserve héréditaire</em> applies as it does to French-domiciled estates. In practice, the LLC membership interest is as straightforward to pass as any other financial asset held through a corporate structure — the beneficiary takes the membership interest, the other co-owners and the management team are notified, and the operating agreement continues unchanged. The <a href="/co-ownership-explained/">co-ownership explained guide</a> covers the inheritance mechanics across the main owner nationalities in more detail.</p>
+
+<h3>The professional management model and how the calendar works</h3>
+
+<p>The fair-rotation calendar is the mechanism that makes shared ownership equitable over time. Each co-owner's annual allocation — approximately <strong>45 days</strong>, organised into bookable stays typically of one-week minimum — is drawn from a pool that includes both peak weeks (Christmas, New Year, the prime January and February ski weeks, Easter, the high-summer weeks of July and August) and shoulder weeks (November, March, September, early October). A rotation algorithm ensures that no co-owner holds the same set of peak weeks in consecutive years; instead, the peak weeks cycle through the ownership group on a schedule that means every co-owner receives their fair share of the most desirable periods over the full cycle. Bookings outside the baseline rotation are managed on a first-come, first-served basis, allowing co-owners to plan additional stays or extend approved stays when the property is available. The <strong>professional management team</strong> handles all the physical operations: the property is prepared, heated, and stocked with linen and basics for each owner's arrival; the ski room is serviced between stays; and the concierge function — restaurant recommendations, lift pass booking, taxi coordination — is available on request throughout each stay.</p>
+
+<h3>Resale: how to exit, typical timelines</h3>
+
+<p>Resale of a fractional share in an Austrian property follows a <strong>clear two-route process</strong>. The first route — and the one that typically completes fastest — is the <strong>managed resale path</strong>, in which the professional resale support team markets the share to the existing wait list and broader buyer pool familiar with the specific property. Resale typically completes in <strong>around a month or less</strong> across the COP portfolio — well below the 6–24 months that whole-property resales in the Austrian Alps typically require on the open market, where the carrying costs of holding the property through a long sale period add meaningfully to the effective cost of exit. The second route is an open-market sale to any third-party buyer, which works through the same Austrian notarial process as any property transaction — the buyer takes the LLC membership interest, the transfer is registered, and the transaction completes on a schedule driven by the notary's availability and the buyer's due diligence process. The operating agreement's right-of-first-refusal period — typically 30 days — gives existing co-owners the chance to purchase the share before it goes to the open market, creating an internal buyer pool that the managed resale path taps first.</p>
+
+<p>The full mechanics of fractional ownership across all jurisdictions — usage calendars, exit procedures, rental income treatment, insurance, the transfer on death, the relationship with the management company — are covered in our <a href="/co-ownership-explained/">co-ownership explained guide</a>. For specific Austrian property availability, browse the listings in the property grid above, or <a href="#newsletter">join our list</a> for new-property alerts as they come to market.</p>
+
+<h3>Your ownership at a glance</h3>
+<ul>
+  <li><strong>Real, deeded equity in your name</strong> — your 1/8 share is recorded in Austria's land register (<em>Grundbuch</em>), transferable, inheritable, and it appreciates with the underlying property. Not a timeshare, not a points membership, not a usage right.</li>
+  <li><strong>Consistent international structure</strong> — your Austrian share sits inside the same purpose-built LLC framework used for COP properties worldwide, so multi-country owners deal with one model rather than a stack of different vehicles.</li>
+  <li><strong>Fully managed throughout</strong> — the management team handles taxes, insurance, maintenance, scheduling, linen, the on-call concierge. You arrive, the property is ready.</li>
+  <li><strong>Supported resale when you decide to exit</strong> — professional resale support is available through the management team behind each property; typical timeline from listing to completion is around a month or less, well below what whole-property open-market resales typically take.</li>
+  <li><strong>Designed for international portfolios</strong> — the LLC model means owning across multiple COP destinations becomes one consolidated relationship rather than juggling country-specific structures.</li>
+</ul>
+
+</div></section>
+
+<section class="dest-sec cream"><div class="dest-inner">
+
+<h2>Still deciding which Austria region?</h2>
+
+<p>The choice between Tyrol, Vorarlberg and Salzburger Land is, in practical terms, a question about three different relationships with the Austrian alpine landscape — and none of the three is universally right for every buyer. <strong>Tyrol</strong> is the case for the buyer who wants the <strong>largest ski area network</strong>, the fastest access from a UK or European airport (Innsbruck is 2 hours from London), and a base that gives equally deep access to summer hiking in the Hohe Tauern and the cultural draw of Innsbruck. The SkiWelt Wilder Kaiser is genuinely one of the great family ski areas in Europe — the combination of beginner-friendly terrain, gondola-connected villages, and the backdrop of the Wilder Kaiser massif gives it a character that families return to year after year. The proximity to Kitzbühel — ten to fifteen minutes by car from the SkiWelt villages — adds a social and prestige dimension that the larger but more anonymous French mega-resorts do not always provide. Buyers who ski at an advanced level and want access to genuinely challenging terrain will find the Paznaun valley, between Ischgl and St. Anton, a compelling alternative within the Tyrolean cluster — a terrain park-to-off-piste spectrum as wide as any in the Alps, in a valley that retains an atmosphere of serious alpine purpose alongside the entertainment infrastructure of a major resort.</p>
+
+<p>The case for <strong>Vorarlberg</strong> is the case for the buyer who values prestige above scale and for whom the Arlberg's particular combination of history, social character and <strong>deep snowfall record</strong> justifies a share in one of the highest-value alpine geographies in Austria. <strong>Stuben am Arlberg</strong> is a specific proposition: the smallest and most atmospheric of the Arlberg villages, with direct ski access to the full 305-km interconnected circuit, in a property market that is considerably more accessible than Lech or Zürs at the top end of the prestige scale. The Brandnertal alternative, based in <strong>Bürserberg</strong>, is the Vorarlberg option for buyers who want the province's landscape and access (Zurich Airport, the proximity to Switzerland and Germany) without the Arlberg premium — a quieter, more pastoral alpine village with its own local ski area and the vast Montafon within 25 minutes. For buyers already connected to Switzerland — whether for work, family or flight access — Vorarlberg has a logical case that no other Austrian region can quite replicate. The Zurich gateway means non-European buyers flying through ZRH arrive in Bürserberg or Stuben in under two hours from the aircraft door, a transfer speed that no Tyrolean resort can match unless the buyer is landing at Innsbruck directly.</p>
+
+<p><strong>Salzburger Land and the Pinzgau</strong> makes the strongest case for buyers who want something genuinely different from the standard ski-resort formula — a property set in a landscape that feels like a <strong>real mountain community</strong> rather than a purpose-built resort, with access to world-class skiing (the KitzSki circuit, the Skicircus Saalbach), the cultural depth of the Salzburg Festival and the Mozart city itself, and the wild high-alpine terrain of the <strong>Hohe Tauern National Park</strong> on the doorstep. The properties in Neukirchen and Hollersbach have an authenticity of setting — traditional farmhouse architecture, south-facing valley positions, the livestock grazing on the lower <em>Almen</em> in summer — that the purpose-built resort villages of Tyrol and Vorarlberg don't replicate. For buyers who have already experienced the French Alps and want something that feels less internationally homogenised, this region provides a more distinctly Austrian character. The Schengen practicality argument is strongest here too: Salzburg Airport's direct UK connections are the most frequent and best-timed of the three main Austrian alpine gateways, making the logistics of a 7-night fractional stay from a UK base particularly straightforward.</p>
+
+<p>Whichever way the decision goes, the deeper exploration starts on the cluster pages:</p>
+<ul>
+  <li><a href="/tyrol-fractional-ownership-properties/">Explore Tyrol →</a></li>
+  <li><a href="/vorarlberg-fractional-ownership-properties/">Explore Vorarlberg →</a></li>
+  <li><a href="/salzburger-land-fractional-ownership-properties/">Explore Salzburger Land →</a></li>
+</ul>
+
+<p>If you would like to talk through which region best fits your family's actual use pattern — the skiing priorities, the Schengen arithmetic, the airport logic, the shoulder-season lifestyle — our team can walk you through the regional differences before you make a decision. Unlike a traditional timeshare, where you are locked into a single fixed week in a single location with no flexibility, a COP fractional share gives you <strong>45 days per year to schedule</strong> across the seasons you actually want to use — which is precisely why taking the time to choose the right region matters. <a href="#newsletter">Join our list</a> and we will be in touch with relevant new-property alerts and an introduction to the team.</p>
+
+</div></section>
+
 </body>
 </html>
