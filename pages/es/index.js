@@ -7,7 +7,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import HreflangLinks from '@/components/HreflangLinks';
 import { createClient } from '@supabase/supabase-js';
-import { FEATURED_PROPERTY_SLUGS } from '@/lib/featured-properties';
+import { getFeaturedSlugs } from '@/lib/featured-properties';
 
 import { useState, useRef, useEffect } from 'react';
 
@@ -29,6 +29,8 @@ export async function getStaticProps() {
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   );
+
+  const FEATURED_PROPERTY_SLUGS = await getFeaturedSlugs(supabase);
 
   const { data: rows } = await supabase
     .from('properties')
