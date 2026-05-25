@@ -409,7 +409,6 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
     <section className="properties-section" id="properties">
         <h2 className="section-heading">Explore Our Properties</h2>
         <p className="section-subtitle">Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.</p>
-      <PriceTicker />
 
         <PropCarousel items={featuredProps} propertyCount={propertyCount} />
 
@@ -637,6 +636,9 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         </div>
     </section>
 
+
+    {/* ===== BUY-FROM PRICE TICKER (below Our Destinations) ===== */}
+    <PriceTicker />
 
     {/* ===== TESTIMONIALS SECTION ===== */}
     <section className="testimonials-section" id="testimonials">
