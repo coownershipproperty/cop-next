@@ -14,14 +14,21 @@ const SUPABASE_ANON =
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvdHp6b3h5Y2tweWF0enFjamJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MDE5OTEsImV4cCI6MjA5MjA3Nzk5MX0.6B_iQk8bqwFLkeB8Nl1qpiZRdXfRLPzw1Pea4Uxyrwo';
 
-// Countries with a dedicated destination page; others fall back to all homes.
+// Country -> its dedicated destination page. Covers every country that
+// currently has listings; any future country without a page falls back to
+// /our-homes/ via the lookup in cell().
 const COUNTRY_PATH = {
-  Spain: '/spain-fractional-ownership-properties/',
-  France: '/france-fractional-ownership-properties/',
-  Italy: '/italy-fractional-ownership-properties/',
-  USA: '/usa-fractional-ownership-properties/',
+  USA:      '/usa-fractional-ownership-properties/',
+  Spain:    '/spain-fractional-ownership-properties/',
+  Italy:    '/italy-fractional-ownership-properties/',
+  France:   '/france-fractional-ownership-properties/',
+  Mexico:   '/mexico-fractional-ownership-properties/',
+  Germany:  '/germany-fractional-ownership-properties/',
+  Austria:  '/austria-fractional-ownership-properties/',
+  England:  '/england-fractional-ownership-properties/',
   Portugal: '/portugal-fractional-ownership-properties/',
-  Austria: '/austria-fractional-ownership-properties/',
+  Croatia:  '/croatia-fractional-ownership-properties/',
+  Sweden:   '/sweden-fractional-ownership-properties/',
 };
 
 const MIN_LISTINGS = 3; // a country appears once it has at least this many homes
