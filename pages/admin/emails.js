@@ -66,30 +66,62 @@ export default function AdminEmails() {
       const dayAgo = new Date(Date.now() - 86400000).toISOString()
       const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString()
       const STOPPED = ['cancelled', 'rejected', 'expired', 'superseded']
-      const cnt = (build) => build(supabase.from('email_queue').select('*', { count: 'exact', head: true }))
+      // Enquiry auto-replies live in email_sends, not email_queue. The legacy
+      // email_queue copies (template_name 'enquiry-autoreply') are excluded from
+      // the email_queue side so email_sends is the single source — no double count.
+      const NOT_LEGACY_REPLY = 'template_name.is.null,template_name.neq.enquiry-autoreply'
+      const cnt  = (build) => build(supabase.from('email_queue').select('*', { count: 'exact', head: true }))
+      const sCnt = (build) => build(supabase.from('email_sends').select('*', { count: 'exact', head: true }).eq('type', 'enquiry_auto'))
 
-      const [list, sentTotal, sentWeek, sentDay, stoppedWeek, queued, failed] = await Promise.all([
+      const [list, sends, sentTotal, sentWeek, sentDay, stoppedWeek, queued, failed, replyTotal, replyWeek, replyDay] = await Promise.all([
         supabase.from('email_queue')
           .select('to_email,to_name,subject,status,trigger,template_name,sequence_type,created_at,sent_at')
           .order('created_at', { ascending: false })
           .limit(250),
-        cnt(q => q.eq('status', 'sent')),
-        cnt(q => q.eq('status', 'sent').gte('created_at', weekAgo)),
-        cnt(q => q.eq('status', 'sent').gte('created_at', dayAgo)),
+        supabase.from('email_sends')
+          .select('to_email,subject,sent_at')
+          .eq('type', 'enquiry_auto')
+          .order('sent_at', { ascending: false })
+          .limit(250),
+        cnt(q => q.eq('status', 'sent').or(NOT_LEGACY_REPLY)),
+        cnt(q => q.eq('status', 'sent').or(NOT_LEGACY_REPLY).gte('created_at', weekAgo)),
+        cnt(q => q.eq('status', 'sent').or(NOT_LEGACY_REPLY).gte('created_at', dayAgo)),
         cnt(q => q.in('status', STOPPED).gte('created_at', weekAgo)),
         cnt(q => q.eq('status', 'pending')),
         cnt(q => q.eq('status', 'error')),
+        sCnt(q => q),
+        sCnt(q => q.gte('sent_at', weekAgo)),
+        sCnt(q => q.gte('sent_at', dayAgo)),
       ])
 
       if (list.error) throw list.error
-      setEmails(list.data || [])
+
+      // email_queue rows, minus the legacy enquiry-reply copies (shown via email_sends).
+      const queueRows = (list.data || []).filter(r => r.template_name !== 'enquiry-autoreply')
+      // email_sends enquiry replies, normalised into the email_queue row shape.
+      const replyRows = (sends && !sends.error ? (sends.data || []) : []).map(r => ({
+        to_email:      r.to_email,
+        to_name:       null,
+        subject:       r.subject,
+        status:        'sent',
+        trigger:       'enquiry_autoreply',
+        template_name: null,
+        sequence_type: null,
+        created_at:    r.sent_at,
+        sent_at:       r.sent_at,
+      }))
+      const merged = [...queueRows, ...replyRows]
+        .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
+        .slice(0, 250)
+
+      setEmails(merged)
       setCounts({
-        sentTotal: sentTotal.count || 0,
-        sentWeek: sentWeek.count || 0,
-        sentDay: sentDay.count || 0,
+        sentTotal:   (sentTotal.count || 0) + (replyTotal.count || 0),
+        sentWeek:    (sentWeek.count  || 0) + (replyWeek.count  || 0),
+        sentDay:     (sentDay.count   || 0) + (replyDay.count   || 0),
         stoppedWeek: stoppedWeek.count || 0,
-        queued: queued.count || 0,
-        failed: failed.count || 0,
+        queued:      queued.count || 0,
+        failed:      failed.count || 0,
       })
       setUpdatedAt(new Date())
     } catch (e) {
