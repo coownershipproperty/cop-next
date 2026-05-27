@@ -74,7 +74,14 @@ function firstParagraphSnippet(html, maxChars) {
 
 function inferCountry(slug) {
   // Slug pattern: <region>-fractional-ownership[-properties].html
-  // For pillars, the prefix IS the country. For regions, we map manually.
+  // Pillar prefix → canonical country (must match Supabase country values).
+  const PILLAR_TO_COUNTRY = {
+    spain: 'Spain', france: 'France', italy: 'Italy', portugal: 'Portugal',
+    usa: 'USA', mexico: 'Mexico', germany: 'Germany', austria: 'Austria',
+    croatia: 'Croatia', sweden: 'Sweden', england: 'England',
+  };
+  // Region/city → country mapping (regions where the page is a sub-pillar).
+  // Keys are the slug prefix BEFORE the -fractional-ownership... suffix.
   const REGION_TO_COUNTRY = {
     mallorca: 'Spain', ibiza: 'Spain', menorca: 'Spain', balearics: 'Spain',
     marbella: 'Spain', 'costa-del-sol': 'Spain', 'costa-blanca': 'Spain',
@@ -85,18 +92,26 @@ function inferCountry(slug) {
     cotswolds: 'England', london: 'England',
     california: 'USA', florida: 'USA', colorado: 'USA',
     'lake-tahoe': 'USA', aspen: 'USA', vail: 'USA', breckenridge: 'USA',
-    'park-city-2': 'USA', miami: 'USA', 'newport-beach': 'USA',
-    'malibu-santa-barbara': 'USA', 'napa-sonoma-fractional-ownership-wine-country-estates': 'USA',
-    'brickell-fractional-ownership-miami': 'USA', 'florida-keys': 'USA',
-    'palm-springs': 'USA', '30a': 'USA',
+    'park-city': 'USA', miami: 'USA', 'newport-beach': 'USA',
+    'malibu-santa-barbara': 'USA', 'napa-sonoma': 'USA',
+    brickell: 'USA', 'florida-keys': 'USA', 'palm-springs': 'USA', '30a': 'USA',
     arizona: 'USA', nevada: 'USA', wyoming: 'USA', utah: 'USA', 'south-carolina': 'USA',
   };
-  // Strip the suffix to get the base
-  const base = slug.replace(/-fractional-ownership(-properties|-wine-country-estates|-emerald-coast-co-ownership-beach-homes|-desert-modern-luxury|-miami)?$/, '');
-  // First check pillar
-  if (PILLAR_SLUGS.has(slug)) {
-    return base.charAt(0).toUpperCase() + base.slice(1).replace(/-/g, ' ');
-  }
+  // Strip the suffix to get the base. Cover the various tail patterns used
+  // across the corpus (some pages have descriptive suffixes beyond the
+  // standard -fractional-ownership-properties).
+  const base = slug
+    .replace(/-fractional-ownership-properties$/, '')
+    .replace(/-fractional-ownership-emerald-coast-co-ownership-beach-homes$/, '')
+    .replace(/-fractional-ownership-wine-country-estates$/, '')
+    .replace(/-fractional-ownership-desert-modern-luxury$/, '')
+    .replace(/-fractional-ownership-for-sale$/, '')
+    .replace(/-fractional-ownership-miami$/, '')
+    .replace(/-fractional-ownership-2$/, '')
+    .replace(/-fractional-ownership$/, '');
+  // Pillar match
+  if (PILLAR_TO_COUNTRY[base]) return PILLAR_TO_COUNTRY[base];
+  // Region match
   return REGION_TO_COUNTRY[base] || null;
 }
 
