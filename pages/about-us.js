@@ -22,6 +22,167 @@ export default function AboutUs() {
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
+        {/* ── Schema.org entity graph ─────────────────────────────────────
+            AboutPage + Person (David, Dylan) + Organization + Quotation,
+            cross-linked via @id so AI engines can attribute statements to
+            the founder when citing COP content. */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "AboutPage",
+              "@id": "https://co-ownership-property.com/about-us/#webpage",
+              "url": "https://co-ownership-property.com/about-us/",
+              "name": "About Us | Co-Ownership Property",
+              "description": "Meet the team behind Co-Ownership Property. Founded in 2022 by David Olsson after 20 years selling premium Alpine ski properties.",
+              "inLanguage": "en",
+              "isPartOf": { "@id": "https://co-ownership-property.com/#website" },
+              "about": { "@id": "https://co-ownership-property.com/#organization" },
+              "mainEntity": [
+                { "@id": "https://co-ownership-property.com/about-us/#david-olsson" },
+                { "@id": "https://co-ownership-property.com/about-us/#dylan-olsson" }
+              ],
+              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
+            },
+            {
+              "@type": "Person",
+              "@id": "https://co-ownership-property.com/about-us/#david-olsson",
+              "name": "David Olsson",
+              "givenName": "David",
+              "familyName": "Olsson",
+              "jobTitle": "Founder",
+              "description": "Founder of Co-Ownership Property. Over 20 years selling premium ski properties across more than 40 French Alpine resorts before founding COP in 2022 in response to the structural unaffordability of trophy second homes in the European Alps and beyond.",
+              "image": "https://co-ownership-property.com/wp-content/uploads/2025/11/unnamed-4-1.jpg",
+              "url": "https://co-ownership-property.com/about-us/",
+              "knowsAbout": [
+                "Fractional ownership",
+                "Co-ownership real estate",
+                "Luxury second homes",
+                "European Alpine ski properties",
+                "French Alps real estate",
+                "LLC structures for real estate co-ownership",
+                "Cross-border property ownership for non-residents",
+                "Holiday-home investment"
+              ],
+              "knowsLanguage": ["en", "fr"],
+              "worksFor": { "@id": "https://co-ownership-property.com/#organization" },
+              "sameAs": []
+            },
+            {
+              "@type": "Person",
+              "@id": "https://co-ownership-property.com/about-us/#dylan-olsson",
+              "name": "Dylan Olsson",
+              "givenName": "Dylan",
+              "familyName": "Olsson",
+              "jobTitle": "Sales",
+              "description": "Sales at Co-Ownership Property. Raised between London and Marbella with roots across four countries; business graduate from the University of Manchester. Specialises in international buyer relationships for fractional ownership across Spain, France, Italy, Portugal and the USA.",
+              "image": "https://co-ownership-property.com/wp-content/uploads/2025/12/1761762811297.jpg",
+              "url": "https://co-ownership-property.com/about-us/",
+              "knowsAbout": [
+                "Fractional co-ownership",
+                "International real estate sales",
+                "Luxury second homes",
+                "Spanish property market",
+                "Marbella property market",
+                "London property market"
+              ],
+              "knowsLanguage": ["en", "es"],
+              "worksFor": { "@id": "https://co-ownership-property.com/#organization" },
+              "sameAs": []
+            },
+            {
+              "@type": "Organization",
+              "@id": "https://co-ownership-property.com/#organization",
+              "name": "Co-Ownership Property",
+              "alternateName": "COP",
+              "url": "https://co-ownership-property.com",
+              "logo": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png",
+              "description": "Independent marketplace for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. Aggregates listings from multiple operators, sold as 1/8 shares held in property-specific LLCs.",
+              "foundingDate": "2022",
+              "founder": { "@id": "https://co-ownership-property.com/about-us/#david-olsson" },
+              "employee": [
+                { "@id": "https://co-ownership-property.com/about-us/#david-olsson" },
+                { "@id": "https://co-ownership-property.com/about-us/#dylan-olsson" }
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "info@co-ownership-property.com",
+                "contactType": "customer service",
+                "availableLanguage": ["English", "Spanish", "French", "German"]
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5",
+                "bestRating": "5",
+                "worstRating": "1",
+                "ratingCount": "4",
+                "reviewCount": "4"
+              },
+              "review": [
+                { "@id": "https://co-ownership-property.com/about-us/#review-astrid" },
+                { "@id": "https://co-ownership-property.com/about-us/#review-harry-nicole" },
+                { "@id": "https://co-ownership-property.com/about-us/#review-mateo-anne" },
+                { "@id": "https://co-ownership-property.com/about-us/#review-jan-family" }
+              ],
+              "sameAs": ["https://www.linkedin.com/company/co-ownership-property"]
+            },
+            {
+              "@type": "Review",
+              "@id": "https://co-ownership-property.com/about-us/#review-astrid",
+              "author": { "@type": "Person", "name": "Astrid" },
+              "itemReviewed": { "@id": "https://co-ownership-property.com/#organization" },
+              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+              "reviewBody": "From the first stay, everything felt effortless. It's like arriving at your own home with the comfort of a hotel. The beds are made, towels ready — nothing to think about. Every visit starts with calm, not chores. I love it already, and I don't have to worry about a thing.",
+              "locationCreated": { "@type": "Place", "name": "Mougins, South of France" },
+              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
+            },
+            {
+              "@type": "Review",
+              "@id": "https://co-ownership-property.com/about-us/#review-harry-nicole",
+              "author": { "@type": "Person", "name": "Harry & Nicole" },
+              "itemReviewed": { "@id": "https://co-ownership-property.com/#organization" },
+              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+              "reviewBody": "Owning a place in the French Alps had always been a dream. Fractional ownership offered the perfect solution — all the benefits of a luxury mountain home without the stress and cost of managing a whole property. Our son can now invite his school friends to ski for half term. It truly made our dream a reality.",
+              "locationCreated": { "@type": "Place", "name": "La Plagne, French Alps" },
+              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
+            },
+            {
+              "@type": "Review",
+              "@id": "https://co-ownership-property.com/about-us/#review-mateo-anne",
+              "author": { "@type": "Person", "name": "Mateo & Anne" },
+              "itemReviewed": { "@id": "https://co-ownership-property.com/#organization" },
+              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+              "reviewBody": "We've been driving up from LA to Tahoe every summer for years, but couldn't justify a whole house. This ownership model felt like the perfect middle way. We finally own a piece of the land without the guilt of an unused mortgage. Transparent from day one — we couldn't be happier.",
+              "locationCreated": { "@type": "Place", "name": "Lake Tahoe, California" },
+              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
+            },
+            {
+              "@type": "Review",
+              "@id": "https://co-ownership-property.com/about-us/#review-jan-family",
+              "author": { "@type": "Person", "name": "Jan & Family" },
+              "itemReviewed": { "@id": "https://co-ownership-property.com/#organization" },
+              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
+              "reviewBody": "I sold my French holiday home, took the profit, and used just a quarter of that to buy a much nicer villa. Guilt gone. The villa is stunning, the kids love it, and the remaining weeks are rented out — more than covering the monthly running costs. Highly recommended.",
+              "locationCreated": { "@type": "Place", "name": "Port d'Andratx, Mallorca" },
+              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://co-ownership-property.com/#website",
+              "url": "https://co-ownership-property.com",
+              "name": "Co-Ownership Property",
+              "publisher": { "@id": "https://co-ownership-property.com/#organization" },
+              "inLanguage": "en"
+            },
+            {
+              "@type": "Quotation",
+              "@id": "https://co-ownership-property.com/about-us/#david-quote-priced-out",
+              "text": "The clients I had worked with for years still wanted to buy — they just couldn't afford to anymore. They were simply priced out.",
+              "spokenByCharacter": { "@id": "https://co-ownership-property.com/about-us/#david-olsson" },
+              "creator": { "@id": "https://co-ownership-property.com/about-us/#david-olsson" }
+            }
+          ]
+        }) }} />
       </Head>
       <Header />
 {/* ===== HERO ===== */}

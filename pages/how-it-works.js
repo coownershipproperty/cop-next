@@ -21,6 +21,115 @@ export default function HowItWorks() {
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/02/1920-x-1080-px-resale-ski-chalet-interior.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
+        {/* ── Schema.org FAQPage + WebPage ────────────────────────────────
+            Mirrors the question-then-answer structure of the page so AI
+            engines can lift self-contained passages on "what is fractional
+            ownership", "how is it different from timeshare", LLC structure,
+            scheduling, rental, resale, etc. */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://co-ownership-property.com/how-it-works/#webpage",
+              "url": "https://co-ownership-property.com/how-it-works/",
+              "name": "Co-Ownership Explained | COP - Fractional Property Ownership",
+              "description": "Learn how fractional co-ownership works. Buy a genuine deeded share in luxury holiday homes across Europe and the USA. Own only what you use, share costs with like-minded co-owners.",
+              "inLanguage": "en",
+              "isPartOf": { "@id": "https://co-ownership-property.com/#website" },
+              "about": { "@id": "https://co-ownership-property.com/#organization" },
+              "mainEntity": { "@id": "https://co-ownership-property.com/how-it-works/#faq" },
+              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
+            },
+            {
+              "@type": "FAQPage",
+              "@id": "https://co-ownership-property.com/how-it-works/#faq",
+              "inLanguage": "en",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "What is fractional co-ownership and how does it work?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Fractional co-ownership means buying a legally deeded share — typically 1/8 — of a luxury second home through a property-specific LLC registered in your name. You acquire real equity in a real asset: if the property appreciates, your share appreciates proportionally. A 1/8 share entitles you to approximately 45 days of use per year, a proportional share of any rental income, and 1/8 of the property's value when it sells. Costs are split proportionally among co-owners. Unlike a timeshare, your name sits behind the property deed and you can sell on the open market whenever you choose."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How is co-ownership different from a timeshare?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The difference is fundamental. A timeshare gives you the right to use a property for a fixed period each year — you own time, not real estate. Your name is not on any property deed, the asset does not appreciate, and you are locked into a membership or points system that is notoriously difficult to exit. Co-ownership gives you a genuine, deeded property asset through an LLC. Your name appears on the deed, you share in any capital appreciation, you can sell on the open market, you can gift or pass your share to family, and the booking system is flexible — from as little as 2–3 nights — rather than a fixed week every year."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What does a 1/8 share entitle me to?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Each 1/8 share entitles you to approximately 45 days of private use per year — roughly six weeks. The home is yours during those weeks with exclusive access to every bedroom, garden, pool, terrace, and amenity. You can invite friends and family, or allow them to stay independently during your allocated time. Usage is allocated through a rotating calendar so every co-owner gets fair access to peak and off-peak dates over time. The average second-home owner uses their property just 35 days a year, so a 1/8 share already exceeds typical personal use."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What is the LLC structure and why is it used?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Every property on COP is held in a purpose-built LLC (limited-liability company) that owns 100% of the property deed. As a buyer you acquire a legally deeded membership interest in that LLC — and by extension a genuine ownership stake in the property itself. The same structure is used consistently across France, Spain, Italy, Portugal, the USA and Mexico. This structure makes resale straightforward because you transfer LLC shares rather than triggering a full property conveyance, avoiding the notaire and stamp-duty costs of conventional resale. Before purchase you receive the full LLC documentation for review with independent legal counsel."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How is usage time scheduled fairly between co-owners?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Usage is allocated through a clearly defined and fair rotation system. Each 1/8 share entitles you to approximately 45 days per year, structured so all co-owners access high-season and shoulder-season weeks equitably over a multi-year cycle. Most properties use a digital booking platform that lets owners reserve specific dates, swap weeks with other owners, or extend stays where availability permits. The property management company administers the schedule and handles all coordination — owners never need to negotiate directly with each other."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Can I rent out my unused weeks?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "On many of our properties, yes. Unused weeks can be placed into a professionally managed rental programme. The management company handles guest marketing, booking, check-in, housekeeping, and maintenance. Rental income is returned directly to you after the platform fee. In high-demand destinations — the French Riviera, Ibiza, the French Alps, Colorado — rental yields can be strong enough to offset annual running costs significantly. Rental availability varies by location and some areas have local restrictions on short-term lets, so always confirm the rental policy for a specific property before purchase."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Who manages the property day-to-day?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Every co-ownership property on COP is managed by a dedicated professional property management company. Their remit covers routine maintenance and repairs, professional housekeeping between every stay, pool and garden care, utility management, local tax compliance, and emergency call-out. When you arrive, the home is hotel-ready — fresh linens, stocked essentials, everything in perfect order. The annual service charge — paid at 1/8 of the total — covers management fees, building insurance, local taxes, utility standing charges, and a maintenance reserve fund."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How do I sell my share when I want to exit?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "When you decide to exit, a professional resale process is in place. The supported resale process runs through the COP owner network — your fractional share is marketed to an existing audience of qualified prospects already familiar with co-ownership and the LLC structure, and you retain full control over price and timing. Across the COP portfolio the typical timeline from listing to completion is around a month or less — well below the 6–24 months that whole-property resales typically take. Because you are transferring LLC shares rather than real property, exit costs are materially lower than a conventional sale: no full conveyancing fees, no agent percentage on the full property value."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What are the running costs of co-ownership?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Running costs are shared proportionally among co-owners. Your annual service charge — paid at 1/8 of the total for a 1/8 share — covers professional property management, building insurance, local property taxes (such as taxe foncière in France or IBI in Spain), utility standing charges, routine maintenance, and a maintenance reserve fund. Many co-owners cover a meaningful portion of their annual service charge through rental income on unused weeks. The exact annual figure varies with property size and location and is disclosed upfront before purchase."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Is fractional co-ownership a good investment?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Co-ownership is best understood as a lifestyle investment rather than a pure financial vehicle. You capture full proportional price appreciation — your 1/8 share appreciates at the same percentage rate as the whole property — and prime resort destinations across Europe and the USA have appreciated consistently over the long term, supported by strict planning controls that limit new supply. The capital efficiency of fractional ownership lets you access trophy-address real estate at 1/8 the capital commitment of full ownership while retaining all the investment characteristics: deeded equity, price growth participation, and open-market resale. For most buyers, the primary return is in lifestyle use; capital appreciation is the long-term upside."
+                  }
+                }
+              ]
+            }
+          ]
+        }) }} />
       </Head>
       <Header />
 {/* ===== HERO ===== */}
