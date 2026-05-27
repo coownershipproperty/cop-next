@@ -6867,6 +6867,9 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Similar ── */
 .pp-similar{grid-column:1;margin-bottom:40px}
 .pp-similar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pp-pillar-link{margin:24px 0 0;font-family:'Nunito Sans',sans-serif;font-size:13px;letter-spacing:.04em;text-align:center}
+.pp-pillar-link a{color:#2C4A5E;text-decoration:none;border-bottom:1px solid rgba(44,74,94,.3);padding-bottom:2px;transition:border-color .2s}
+.pp-pillar-link a:hover{border-bottom-color:#2C4A5E}
 .pp-sim-card{display:block;text-decoration:none;border:1px solid var(--border);background:#fff;transition:transform .25s,box-shadow .25s}
 .pp-sim-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(20,48,71,.08)}
 .pp-sim-img{aspect-ratio:16/10;overflow:hidden;position:relative}
@@ -7376,6 +7379,35 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   text-transform: uppercase;
   color: #9AACBB;
   margin: 0;
+}
+.bh-meta {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #9AACBB;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.bh-meta .bh-byline a {
+  color: #2C4A5E;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(44, 74, 94, 0.25);
+  padding-bottom: 1px;
+}
+.bh-meta .bh-byline a:hover { border-bottom-color: #2C4A5E; }
+.bh-meta .bh-date-inline {
+  color: #9AACBB;
+  position: relative;
+}
+.bh-meta .bh-date-inline::before {
+  content: "·";
+  margin-right: 14px;
+  color: #C8D1D8;
 }
 
 /* ── Blog Hero Image ── */

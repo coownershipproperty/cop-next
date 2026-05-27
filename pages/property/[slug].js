@@ -31,6 +31,7 @@ const COPY = {
     all_amenities: (n) => `All ${n} amenities`,
     location_heading: 'Location',
     similar_heading: (country) => `Similar Properties in ${country}`,
+    pillar_link: (country) => `See all ${country} fractional ownership properties →`,
     missing_photos: (n) => `You're missing ${n} photos`,
     unlock_sub: 'Unlock the full gallery & floor plans — free',
     unlock_now: 'Unlock Now →',
@@ -58,6 +59,7 @@ const COPY = {
     all_amenities: (n) => `Ver las ${n} características`,
     location_heading: 'Ubicación',
     similar_heading: (country) => `Propiedades similares en ${country}`,
+    pillar_link: (country) => `Ver todas las propiedades de copropiedad en ${country} →`,
     missing_photos: (n) => `Te faltan ${n} fotos`,
     unlock_sub: 'Desbloquea la galería completa y los planos — gratis',
     unlock_now: 'Desbloquear ahora →',
@@ -85,6 +87,7 @@ const COPY = {
     all_amenities: (n) => `Voir les ${n} équipements`,
     location_heading: 'Localisation',
     similar_heading: (country) => `Biens immobiliers similaires en ${country}`,
+    pillar_link: (country) => `Voir toutes les propriétés en copropriété en ${country} →`,
     missing_photos: (n) => `Il vous manque ${n} photos`,
     unlock_sub: "Débloquez la galerie complète et les plans — gratuit",
     unlock_now: 'Débloquer maintenant →',
@@ -112,6 +115,7 @@ const COPY = {
     all_amenities: (n) => `Alle ${n} Ausstattungsmerkmale`,
     location_heading: 'Lage',
     similar_heading: (country) => `Ähnliche Immobilien in ${country}`,
+    pillar_link: (country) => `Alle Miteigentumsimmobilien in ${country} ansehen →`,
     missing_photos: (n) => `Ihnen fehlen ${n} Fotos`,
     unlock_sub: 'Galerie und Grundrisse freischalten — kostenlos',
     unlock_now: 'Jetzt freischalten →',
@@ -413,34 +417,95 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
         <meta name="twitter:title" content={`${local.title} | Co-Ownership Property`} />
         <meta name="twitter:description" content={metaDesc} />
         <meta name="twitter:image" content={ogImage} />
+        {/* ── Schema.org entity graph ─────────────────────────────────────
+            RealEstateListing (the offering) + Accommodation (the underlying
+            place) + BreadcrumbList. Cross-linked via @id so AI engines see
+            one coherent entity. Adds bathrooms, geo, amenities, availability,
+            and a mentions link to the country pillar — fields that were
+            missing in the previous minimal RealEstateListing block. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "RealEstateListing",
-          "name": p.title,
-          "description": metaDesc,
-          "url": canonicalUrl,
-          "image": (p.images && p.images.length > 0) ? p.images : [ogImage],
-          "numberOfRooms": p.beds || undefined,
-          "floorSize": p.size > 0 ? { "@type": "QuantitativeValue", "value": p.size, "unitCode": "MTK" } : undefined,
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": p.city || p.region || undefined,
-            "addressRegion": p.region || undefined,
-            "addressCountry": p.country || undefined,
-          },
-          "offers": p.price ? {
-            "@type": "Offer",
-            "price": p.price,
-            "priceCurrency": p.currency || "EUR",
-          } : undefined,
-        }) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://co-ownership-property.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Our Homes", "item": "https://co-ownership-property.com/our-homes/" },
-            { "@type": "ListItem", "position": 3, "name": p.title, "item": canonicalUrl },
+          "@graph": [
+            {
+              "@type": "RealEstateListing",
+              "@id": canonicalUrl + "#listing",
+              "name": p.title,
+              "description": metaDesc,
+              "url": canonicalUrl,
+              "image": (p.images && p.images.length > 0) ? p.images.slice(0, 12) : [ogImage],
+              "datePosted": p.dateAdded || undefined,
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": p.city || p.region || undefined,
+                "addressRegion": p.region || undefined,
+                "addressCountry": p.country || undefined,
+              },
+              "geo": (typeof p.lat === "number" && typeof p.lng === "number") ? {
+                "@type": "GeoCoordinates",
+                "latitude": p.lat,
+                "longitude": p.lng,
+              } : undefined,
+              "numberOfRooms": p.beds || undefined,
+              "numberOfBedrooms": p.beds || undefined,
+              "numberOfBathroomsTotal": p.baths || undefined,
+              "numberOfFullBathrooms": p.baths || undefined,
+              "floorSize": p.size > 0 ? { "@type": "QuantitativeValue", "value": p.size, "unitCode": "MTK" } : undefined,
+              "amenityFeature": (Array.isArray(p.amenities) && p.amenities.length > 0)
+                ? p.amenities.map(a => ({ "@type": "LocationFeatureSpecification", "name": a, "value": true }))
+                : undefined,
+              "accommodationCategory": "Fractional ownership — 1/8 deeded share",
+              "mainEntityOfPage": canonicalUrl,
+              "offers": p.price ? {
+                "@type": "Offer",
+                "url": canonicalUrl,
+                "price": p.price,
+                "priceCurrency": p.currency || "EUR",
+                "availability": p.status === "Live"
+                  ? "https://schema.org/InStock"
+                  : "https://schema.org/OutOfStock",
+                "itemOffered": { "@id": canonicalUrl + "#accommodation" },
+                "seller": { "@id": "https://co-ownership-property.com/#organization" },
+              } : undefined,
+              "mentions": (p.country) ? [{
+                "@type": "Place",
+                "name": p.country,
+                "url": `https://co-ownership-property.com/${p.country.toLowerCase().replace(/\s+/g, "-")}-fractional-ownership-properties/`,
+              }] : undefined,
+            },
+            {
+              "@type": "Accommodation",
+              "@id": canonicalUrl + "#accommodation",
+              "name": p.title,
+              "description": metaDesc,
+              "image": (p.images && p.images.length > 0) ? p.images.slice(0, 12) : [ogImage],
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": p.city || p.region || undefined,
+                "addressRegion": p.region || undefined,
+                "addressCountry": p.country || undefined,
+              },
+              "geo": (typeof p.lat === "number" && typeof p.lng === "number") ? {
+                "@type": "GeoCoordinates",
+                "latitude": p.lat,
+                "longitude": p.lng,
+              } : undefined,
+              "numberOfBedrooms": p.beds || undefined,
+              "numberOfBathroomsTotal": p.baths || undefined,
+              "floorSize": p.size > 0 ? { "@type": "QuantitativeValue", "value": p.size, "unitCode": "MTK" } : undefined,
+              "amenityFeature": (Array.isArray(p.amenities) && p.amenities.length > 0)
+                ? p.amenities.map(a => ({ "@type": "LocationFeatureSpecification", "name": a, "value": true }))
+                : undefined,
+              "accommodationCategory": "Fractional ownership — 1/8 deeded share",
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://co-ownership-property.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Our Homes", "item": "https://co-ownership-property.com/our-homes/" },
+                ...(p.country ? [{ "@type": "ListItem", "position": 3, "name": p.country, "item": `https://co-ownership-property.com/${p.country.toLowerCase().replace(/\s+/g, "-")}-fractional-ownership-properties/` }] : []),
+                { "@type": "ListItem", "position": p.country ? 4 : 3, "name": p.title, "item": canonicalUrl },
+              ]
+            }
           ]
         }) }} />
       </Head>
@@ -652,25 +717,44 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
           </div>
         </div>
 
-        {similar.length > 0 && (
-          <div className="pp-similar">
-            <h2 className="pp-heading">{t.similar_heading(p.country)}</h2>
-            <div className="pp-similar-grid">
-              {similar.map(s => {
-                const sTitle = s[`title_${locale}`] || s.title;
-                return (
-                  <a key={s.slug} href={`/property/${s.slug}`} className="pp-sim-card">
-                    <div className="pp-sim-img"><Img src={s.img} alt={sTitle} sizes="(max-width: 768px) 100vw, 33vw" /></div>
-                    <div className="pp-sim-body">
-                      <h4>{sTitle}</h4>
-                      <p>{fmt(s.price, s.currency, localeNumberFmt)}</p>
-                    </div>
-                  </a>
-                );
-              })}
+        {(() => {
+          // Country pillar URL — every country in the dataset has a matching
+          // /{slug}-fractional-ownership-properties/ pillar in EN. Locale
+          // variants exist patchily, so always link to the EN canonical
+          // pillar; visitors land somewhere coherent and AI crawlers (which
+          // mostly index EN) get a clean upward link from property → pillar.
+          const pillarSlug = p.country ? p.country.toLowerCase().replace(/\s+/g, '-') : null;
+          const pillarHref = pillarSlug ? `/${pillarSlug}-fractional-ownership-properties/` : null;
+          if (!pillarHref && similar.length === 0) return null;
+          return (
+            <div className="pp-similar">
+              {similar.length > 0 && (
+                <>
+                  <h2 className="pp-heading">{t.similar_heading(p.country)}</h2>
+                  <div className="pp-similar-grid">
+                    {similar.map(s => {
+                      const sTitle = s[`title_${locale}`] || s.title;
+                      return (
+                        <a key={s.slug} href={`/property/${s.slug}`} className="pp-sim-card">
+                          <div className="pp-sim-img"><Img src={s.img} alt={sTitle} sizes="(max-width: 768px) 100vw, 33vw" /></div>
+                          <div className="pp-sim-body">
+                            <h4>{sTitle}</h4>
+                            <p>{fmt(s.price, s.currency, localeNumberFmt)}</p>
+                          </div>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+              {pillarHref && (
+                <p className="pp-pillar-link">
+                  <a href={pillarHref}>{t.pillar_link(p.country)}</a>
+                </p>
+              )}
             </div>
-          </div>
-        )}
+          );
+        })()}
 
       </div>{/* /pp-content */}
 

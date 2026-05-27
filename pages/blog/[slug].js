@@ -229,6 +229,9 @@ export async function getStaticProps({ params }) {
     content:       postRow.content || '',
     content_es:    postRow.content_es || null,
     content_fr:    postRow.content_fr || null,
+    // Author byline — column may or may not exist yet in Supabase; falls
+    // back to David Olsson (founder) when unset.
+    byline:        postRow.byline || null,
   };
 
   // Legacy imported posts can contain inline two-column grids; tag them so CSS can stack them on mobile.
@@ -306,6 +309,36 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
   const canonicalUrl = `https://co-ownership-property.com${blogPathPrefix}/${post.slug}/`;
   const visibleRelatedPosts = relatedPosts.slice(0, 3);
 
+  // ── Resolve author for byline + schema ──────────────────────────────────
+  // Posts opt into a named byline via the (optional) `byline` field. When
+  // unset, the founder David Olsson is the implicit author — most editorial
+  // content on COP is his thinking. AI engines benefit from a Person entity
+  // attribution rather than the Organization fallback that was previously
+  // used here. Where the named author matches the team on /about-us/, we
+  // reference the canonical Person @id so the entity graph is consistent
+  // across the site.
+  const KNOWN_AUTHORS = {
+    'David Olsson': {
+      '@id': 'https://co-ownership-property.com/about-us/#david-olsson',
+      url: 'https://co-ownership-property.com/about-us/',
+      image: 'https://co-ownership-property.com/wp-content/uploads/2025/11/unnamed-4-1.jpg',
+      jobTitle: 'Founder',
+    },
+    'Dylan Olsson': {
+      '@id': 'https://co-ownership-property.com/about-us/#dylan-olsson',
+      url: 'https://co-ownership-property.com/about-us/',
+      image: 'https://co-ownership-property.com/wp-content/uploads/2025/12/1761762811297.jpg',
+      jobTitle: 'Sales',
+    },
+  };
+  const authorName = (post.byline && String(post.byline).trim()) || 'David Olsson';
+  const known = KNOWN_AUTHORS[authorName];
+  const authorSchema = known
+    ? { '@type': 'Person', '@id': known['@id'], name: authorName, url: known.url, image: known.image, jobTitle: known.jobTitle }
+    : { '@type': 'Person', name: authorName };
+  const authorUrl = known ? known.url : null;
+  const bylinePrefix = locale === 'es' ? 'Por' : locale === 'fr' ? 'Par' : 'By';
+
   return (
     <>
       <Head>
@@ -329,13 +362,16 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
           "url": canonicalUrl,
           "datePublished": post.date || '',
           "dateModified": post.date || '',
-          "author": { "@type": "Organization", "name": "Co-Ownership Property", "url": "https://co-ownership-property.com" },
+          "author": authorSchema,
           "publisher": {
             "@type": "Organization",
+            "@id": "https://co-ownership-property.com/#organization",
             "name": "Co-Ownership Property",
-            "logo": { "@type": "ImageObject", "url": "/wp-content/uploads/2025/10/COP-Logo-Large.png" }
+            "url": "https://co-ownership-property.com",
+            "logo": { "@type": "ImageObject", "url": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png" }
           },
-          "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl }
+          "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
+          "inLanguage": locale
         }) }} />
         {/* Font aliases for WP inline styles handled via CSS variables in globals.css —
             no duplicate Google Fonts request needed */}
@@ -349,7 +385,15 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
           {post.category && <p className="bh-cat">{post.category}</p>}
           <h1 className="bh-title">{title}</h1>
           {subtitle && <p className="bh-sub">{subtitle}</p>}
-          {post.dateFormatted && <p className="bh-date">{post.dateFormatted}</p>}
+          <p className="bh-meta">
+            <span className="bh-byline">
+              {bylinePrefix}{' '}
+              {authorUrl
+                ? <a href={authorUrl} rel="author">{authorName}</a>
+                : <span rel="author">{authorName}</span>}
+            </span>
+            {post.dateFormatted && <span className="bh-date-inline">{post.dateFormatted}</span>}
+          </p>
         </div>
       </div>
 
