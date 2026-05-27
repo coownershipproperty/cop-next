@@ -215,6 +215,13 @@ export async function getServerSideProps({ res }) {
     ? fs.readdirSync(compareDir).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
     : [];
 
+  // Partner profile pages at content/partners/<slug>.html — per-operator
+  // operational profiles (pacaso, myne, vivla, andhamlet, abitaro). EN-only.
+  const partnersDir = path.join(cwd, 'content', 'partners');
+  const partnerSlugs = fs.existsSync(partnersDir)
+    ? fs.readdirSync(partnersDir).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
+    : [];
+
   // Pillar slugs get higher priority + more frequent crawl signal.
   // Country pillars + regional pillars all rewritten to the new 10k+ word
   // editorial standard with full DE/ES/FR translations. These are the
@@ -283,6 +290,11 @@ export async function getServerSideProps({ res }) {
     // money pages for fractional-vs-timeshare / partner-vs-partner queries
     // we want AI engines citing).
     ...compareSlugs.map(slug => urlEntry(`${BASE}/compare/${slug}/`, '0.85', 'monthly', today)),
+
+    // Partner profile pages — EN-only, priority 0.85. Capture brand-search
+    // queries ('Is Pacaso legit', 'MYNE Homes review', etc.) and serve as
+    // hubs for each operator's queries.
+    ...partnerSlugs.map(slug => urlEntry(`${BASE}/partners/${slug}/`, '0.85', 'monthly', today)),
 
     // Property detail pages — emit EN / ES / FR / DE with reciprocal hreflang
     ...(properties || []).flatMap(p => {
