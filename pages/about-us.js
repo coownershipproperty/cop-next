@@ -53,8 +53,7 @@ export default function AboutUs() {
               "jobTitle": "Founder",
               "description": "Founder of Co-Ownership Property. Over 20 years selling premium ski properties across more than 40 French Alpine resorts before founding COP in 2022 in response to the structural unaffordability of trophy second homes in the European Alps and beyond.",
               "image": "https://co-ownership-property.com/wp-content/uploads/2025/11/unnamed-4-1.jpg",
-              "url": "https://co-ownership-property.com/team/david-olsson/",
-              "mainEntityOfPage": { "@id": "https://co-ownership-property.com/team/david-olsson/#profilepage" },
+              "url": "https://co-ownership-property.com/about-us/",
               "knowsAbout": [
                 "Fractional ownership",
                 "Co-ownership real estate",
@@ -78,8 +77,7 @@ export default function AboutUs() {
               "jobTitle": "Sales",
               "description": "Sales at Co-Ownership Property. Raised between London and Marbella with roots across four countries; business graduate from the University of Manchester. Specialises in international buyer relationships for fractional ownership across Spain, France, Italy, Portugal and the USA.",
               "image": "https://co-ownership-property.com/wp-content/uploads/2025/12/1761762811297.jpg",
-              "url": "https://co-ownership-property.com/team/dylan-olsson/",
-              "mainEntityOfPage": { "@id": "https://co-ownership-property.com/team/dylan-olsson/#profilepage" },
+              "url": "https://co-ownership-property.com/about-us/",
               "knowsAbout": [
                 "Fractional co-ownership",
                 "International real estate sales",
@@ -238,24 +236,22 @@ export default function AboutUs() {
             <h2>Meet the People <em>Behind COP</em></h2>
 
             <div className="team-grid">
-                <a href="/team/david-olsson/" className="team-card team-card-link">
+                <div className="team-card">
                     <div className="team-photo">
                         <Image src="/wp-content/uploads/2025/11/unnamed-4-1.jpg" alt="David Olsson" fill style={{objectFit:"cover"}} sizes="140px" />
                     </div>
                     <h3>David Olsson</h3>
                     <span className="team-role">Founder</span>
                     <p className="team-bio">Over 20 years selling premium ski properties across 40+ French Alpine resorts. David watched the market transform as clients who had once been able to buy were increasingly priced out. He founded COP in 2022 because he believed exceptional properties should be owned by people who love them — not just those who can afford to buy them outright.</p>
-                    <span className="team-card-cta">Read full bio →</span>
-                </a>
-                <a href="/team/dylan-olsson/" className="team-card team-card-link">
+                </div>
+                <div className="team-card">
                     <div className="team-photo">
                         <Image src="/wp-content/uploads/2025/12/1761762811297.jpg" alt="Dylan Olsson" fill style={{objectFit:"cover"}} sizes="140px" />
                     </div>
                     <h3>Dylan Olsson</h3>
                     <span className="team-role">Sales</span>
                     <p className="team-bio">Raised between London and Marbella with roots across four countries, Dylan grew up with an instinctive feel for the international buyer. After graduating in business from the University of Manchester, he set out to bridge the gap between aspiration and reality — making high-end holiday homes accessible to more people through a transparent, client-first approach.</p>
-                    <span className="team-card-cta">Read full bio →</span>
-                </a>
+                </div>
                 <div className="poppy-card">
                     <div className="team-photo">
                         <Image src="/wp-content/uploads/2025/11/unnamed-8.jpg" alt="Poppy" fill style={{objectFit:"cover"}} sizes="140px" />
