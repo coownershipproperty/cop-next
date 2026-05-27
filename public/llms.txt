@@ -78,6 +78,10 @@
 - [/all-our-blog/](https://co-ownership-property.com/all-our-blog/): Complete blog archive (113+ posts)
 - [/sitemap.xml](https://co-ownership-property.com/sitemap.xml): Full sitemap (2,066 URLs, hreflang reciprocal across en/es/fr/de)
 
+## Public JSON feeds for AI ingestion
+- [/api/properties.json](https://co-ownership-property.com/api/properties.json): Full inventory as Schema.org DataFeed — every live property with URL, location, beds, baths, size, price, geo coords, images, country pillar link. Refresh hourly via edge cache. CORS-open.
+- [/api/destinations.json](https://co-ownership-property.com/api/destinations.json): All destination buyer's guides — URL, country, tier (pillar/region), summary, locale variants (de/es/fr), property counts. CORS-open.
+
 ## Optional
 - [/contact/](https://co-ownership-property.com/contact/): Contact details, WhatsApp, email
 - [/privacy-policy/](https://co-ownership-property.com/privacy-policy/): Privacy policy

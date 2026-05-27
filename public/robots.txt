@@ -74,3 +74,7 @@ Sitemap: https://co-ownership-property.com/sitemap.xml
 # https://co-ownership-property.com/llms.txt
 # llms-full.txt — fuller knowledge manifest with inlined canonical content
 # https://co-ownership-property.com/llms-full.txt
+#
+# Public JSON feeds (CORS-open, edge-cached 1h):
+#   https://co-ownership-property.com/api/properties.json
+#   https://co-ownership-property.com/api/destinations.json
