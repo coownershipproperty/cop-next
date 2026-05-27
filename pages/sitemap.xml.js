@@ -222,6 +222,14 @@ export async function getServerSideProps({ res }) {
     ? fs.readdirSync(partnersDir).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
     : [];
 
+  // Team profile pages at content/team/<slug>.html — founder + team bios
+  // (david-olsson, dylan-olsson). EN-only. Anchors blog/compare/partners
+  // bylines and E-E-A-T entity attribution.
+  const teamDir = path.join(cwd, 'content', 'team');
+  const teamSlugs = fs.existsSync(teamDir)
+    ? fs.readdirSync(teamDir).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
+    : [];
+
   // Pillar slugs get higher priority + more frequent crawl signal.
   // Country pillars + regional pillars all rewritten to the new 10k+ word
   // editorial standard with full DE/ES/FR translations. These are the
@@ -295,6 +303,10 @@ export async function getServerSideProps({ res }) {
     // queries ('Is Pacaso legit', 'MYNE Homes review', etc.) and serve as
     // hubs for each operator's queries.
     ...partnerSlugs.map(slug => urlEntry(`${BASE}/partners/${slug}/`, '0.85', 'monthly', today)),
+
+    // Team profile pages — EN-only, priority 0.7. Bio anchors for E-E-A-T
+    // attribution; blog/compare/partners bylines link to these pages.
+    ...teamSlugs.map(slug => urlEntry(`${BASE}/team/${slug}/`, '0.7', 'monthly', today)),
 
     // Property detail pages — emit EN / ES / FR / DE with reciprocal hreflang
     ...(properties || []).flatMap(p => {

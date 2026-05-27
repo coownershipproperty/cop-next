@@ -319,14 +319,19 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
   // across the site.
   const KNOWN_AUTHORS = {
     'David Olsson': {
+      // @id stays anchored to /about-us/ as the canonical Person entity URL —
+      // both /about-us/ and /team/david-olsson/ declare the same entity by @id
+      // so AI engines reconcile to one canonical David. Visible byline URL
+      // now points to the dedicated /team/ profile (richer bio, better
+      // entity attribution target).
       '@id': 'https://co-ownership-property.com/about-us/#david-olsson',
-      url: 'https://co-ownership-property.com/about-us/',
+      url: 'https://co-ownership-property.com/team/david-olsson/',
       image: 'https://co-ownership-property.com/wp-content/uploads/2025/11/unnamed-4-1.jpg',
       jobTitle: 'Founder',
     },
     'Dylan Olsson': {
       '@id': 'https://co-ownership-property.com/about-us/#dylan-olsson',
-      url: 'https://co-ownership-property.com/about-us/',
+      url: 'https://co-ownership-property.com/team/dylan-olsson/',
       image: 'https://co-ownership-property.com/wp-content/uploads/2025/12/1761762811297.jpg',
       jobTitle: 'Sales',
     },

@@ -141,7 +141,7 @@ export default function ComparePage({ slug, entry, body, faqs, wordCount }) {
         "@type": "Person",
         "@id": SITE_URL + "/about-us/#david-olsson",
         "name": "David Olsson",
-        "url": SITE_URL + "/about-us/",
+        "url": SITE_URL + "/team/david-olsson/",
       },
       "publisher": { "@id": SITE_URL + "/#organization" },
       "isPartOf": { "@id": canonicalUrl + "#webpage" },
@@ -204,7 +204,7 @@ export default function ComparePage({ slug, entry, body, faqs, wordCount }) {
           {entry.subtitle && <p className="compare-subtitle">{entry.subtitle}</p>}
           <p className="compare-meta">
             <span className="compare-byline">
-              By <a href={SITE_URL + '/about-us/'} rel="author">David Olsson</a>
+              By <a href={SITE_URL + '/team/david-olsson/'} rel="author">David Olsson</a>
             </span>
             <span className="compare-date-inline">Updated {new Date(entry.dateModified).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
             <span className="compare-wc-inline">{Math.round(wordCount / 100) * 100} words · {Math.ceil(wordCount / 230)} min read</span>
