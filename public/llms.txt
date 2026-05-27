@@ -73,10 +73,14 @@
 - [/blog/the-great-wealth-transfer-how-a-new-generation-is-buying-luxury-second-homes-through-co-ownership/](https://co-ownership-property.com/blog/the-great-wealth-transfer-how-a-new-generation-is-buying-luxury-second-homes-through-co-ownership/): Generational wealth transfer & co-ownership
 - [/blog/prime-real-estate-running-out-smart-buyers-co-ownership-2026/](https://co-ownership-property.com/blog/prime-real-estate-running-out-smart-buyers-co-ownership-2026/): Prime real estate scarcity
 
+## Operator + category comparisons (high-intent decision guides)
+- [/compare/fractional-ownership-vs-timeshare/](https://co-ownership-property.com/compare/fractional-ownership-vs-timeshare/): 5,500-word neutral guide comparing fractional co-ownership with timeshare across legal structure, appreciation, exit, costs, scheduling, inheritance, and tax. 12-row comparison table + 12 FAQs. Disney Vacation Club exception explained; Marriott / Hilton / Westgate context.
+- [/compare/pacaso-vs-myne/](https://co-ownership-property.com/compare/pacaso-vs-myne/): 5,300-word operational head-to-head of Pacaso and MYNE Homes. 18-row comparison table + 15 FAQs. Covers geographic centre of gravity, home-swap mechanics (Pacaso Swap + Infinity vs MYNE concierge exchange), rental policy, MYNE's 12-month satisfaction guarantee, fee disclosure models, US-buyer financing pathways, country-by-country availability in France/Italy/England/Spain.
+
 ## Inventory & utility
 - [/our-homes/](https://co-ownership-property.com/our-homes/): All ~330 listings — filterable inventory across countries, partners, share size, price
 - [/all-our-blog/](https://co-ownership-property.com/all-our-blog/): Complete blog archive (113+ posts)
-- [/sitemap.xml](https://co-ownership-property.com/sitemap.xml): Full sitemap (2,066 URLs, hreflang reciprocal across en/es/fr/de)
+- [/sitemap.xml](https://co-ownership-property.com/sitemap.xml): Full sitemap (2,068 URLs, hreflang reciprocal across en/es/fr/de)
 
 ## Public JSON feeds for AI ingestion
 - [/api/properties.json](https://co-ownership-property.com/api/properties.json): Full inventory as Schema.org DataFeed — every live property with URL, location, beds, baths, size, price, geo coords, images, country pillar link. Refresh hourly via edge cache. CORS-open.

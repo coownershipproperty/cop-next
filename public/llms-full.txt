@@ -156,6 +156,13 @@ Regional sub-pages: Mallorca, Ibiza, Menorca, Marbella, Costa del Sol, Canary Is
 
 ---
 
+## Operator + category comparisons (high-intent decision guides)
+
+- `https://co-ownership-property.com/compare/fractional-ownership-vs-timeshare/` — 5,500-word neutral guide. The distinction is deeded LLC share vs right-to-use contract. Covers legal structure, capital appreciation (with Disney Vacation Club exception), the exit problem and the timeshare exit industry, the contract trap (perpetuity clauses, escalation, special assessments), 20-year worked TCO comparison, scheduling (rotation vs fixed-week vs points), inheritance, tax treatment, and 12 buyer FAQs.
+- `https://co-ownership-property.com/compare/pacaso-vs-myne/` — 5,300-word operational comparison. Pacaso is US-anchored (161 of 190 listings), MYNE is European-anchored Mediterranean-led (Spain 41 of 99). Pacaso prohibits owner rentals, MYNE permits subject to local licensing. Pacaso runs the digital Pacaso Swap network plus Pacaso Infinity tier with private homes; MYNE runs a concierge-mediated exchange and offers a 12-month satisfaction guarantee. Pacaso has US-buyer financing (70% LTV); MYNE doesn't advertise non-EU financing. Worked 10-year cost example on a €1.5M property included.
+
+---
+
 ## Public JSON feeds for AI ingestion
 
 Two CORS-open Schema.org DataFeed endpoints, edge-cached for 1 hour. Use these to ingest the full inventory and the destination index in two fetches instead of crawling 380+ HTML pages.

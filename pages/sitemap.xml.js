@@ -208,6 +208,13 @@ export async function getServerSideProps({ res }) {
       : []
   );
 
+  // Comparison pages at content/compare/<slug>.html — operational guides
+  // (fractional-vs-timeshare, Pacaso vs MYNE, etc.). EN-only for now.
+  const compareDir = path.join(cwd, 'content', 'compare');
+  const compareSlugs = fs.existsSync(compareDir)
+    ? fs.readdirSync(compareDir).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
+    : [];
+
   // Pillar slugs get higher priority + more frequent crawl signal.
   // Country pillars + regional pillars all rewritten to the new 10k+ word
   // editorial standard with full DE/ES/FR translations. These are the
@@ -271,6 +278,11 @@ export async function getServerSideProps({ res }) {
         if (hasDe) out.push(urlEntry(`${BASE}${altset.de}`, priority, 'weekly', today, altset));
         return out;
       }),
+
+    // Comparison pages — EN-only, priority 0.85 (high — these are the
+    // money pages for fractional-vs-timeshare / partner-vs-partner queries
+    // we want AI engines citing).
+    ...compareSlugs.map(slug => urlEntry(`${BASE}/compare/${slug}/`, '0.85', 'monthly', today)),
 
     // Property detail pages — emit EN / ES / FR / DE with reciprocal hreflang
     ...(properties || []).flatMap(p => {
