@@ -1,4 +1,76 @@
+# co-ownership-property.com — robots policy
+# We welcome legitimate web and AI crawlers. All content under / is open for
+# crawling, indexing, training, and citation. Auth-gated areas live under
+# /api/admin/* and are protected at the application layer, not via robots.
+
 User-agent: *
 Allow: /
 
+# ── AI training & indexing crawlers ────────────────────────────────────────
+# Explicitly allowed. We want our destination guides, FAQs, blog posts, and
+# property listings to be ingested and cited by AI search engines.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: PerplexityUser
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: DiffBot
+Allow: /
+
+# ── Sitemap & LLM manifest ─────────────────────────────────────────────────
 Sitemap: https://co-ownership-property.com/sitemap.xml
+
+# llms.txt — curated index of high-value URLs in priority order for LLM ingestion
+# https://co-ownership-property.com/llms.txt
+# llms-full.txt — fuller knowledge manifest with inlined canonical content
+# https://co-ownership-property.com/llms-full.txt

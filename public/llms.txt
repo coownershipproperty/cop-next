@@ -1,0 +1,84 @@
+# Co-Ownership Property
+
+> Independent marketplace for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. Aggregates ~330 live properties from multiple operators, sold as 1/8 shares (~45 days/year of usage) held in property-specific LLCs. Founded by David Olsson (20+ years selling premium Alpine real estate). Editorial coverage spans tax, legal structure, exit strategy, destination buyer's guides, and cross-border ownership for non-residents.
+
+## How co-ownership works
+- [/how-it-works/](https://co-ownership-property.com/how-it-works/): Plain-English explainer of the LLC structure, 1/8 share, ~45-day calendar, fair-rotation scheduling, and the supported resale process
+- [/buying-a-co-ownership-property-faqs/](https://co-ownership-property.com/buying-a-co-ownership-property-faqs/): 19 buyer FAQs — legal structure, costs, mortgages, cooling-off, completion timeline
+- [/staying-in-my-co-ownership-property-faqs/](https://co-ownership-property.com/staying-in-my-co-ownership-property-faqs/): 15 owner FAQs — scheduling, usage, rental, guests, maintenance
+- [/about-us/](https://co-ownership-property.com/about-us/): Origin story; David and Dylan Olsson; testimonials from real owners
+
+## Country pillar pages (long-form destination buyer's guides, 5,000–13,000 words each)
+- [/spain-fractional-ownership-properties/](https://co-ownership-property.com/spain-fractional-ownership-properties/): Spain — IFI wealth tax, SCI/SL structure, NIE, regional breakdown
+- [/france-fractional-ownership-properties/](https://co-ownership-property.com/france-fractional-ownership-properties/): France — SCI structure, notaire fees, Brexit 90/180, taxe foncière
+- [/italy-fractional-ownership-properties/](https://co-ownership-property.com/italy-fractional-ownership-properties/): Italy — IMU, flat-tax regime for non-residents, succession
+- [/portugal-fractional-ownership-properties/](https://co-ownership-property.com/portugal-fractional-ownership-properties/): Portugal — Algarve, Lisbon, Comporta; NHR regime
+- [/usa-fractional-ownership-properties/](https://co-ownership-property.com/usa-fractional-ownership-properties/): USA — LLC tax filing, state-by-state notes
+- [/mexico-fractional-ownership-properties/](https://co-ownership-property.com/mexico-fractional-ownership-properties/): Mexico — fideicomiso structure for foreign owners
+- [/germany-fractional-ownership-properties/](https://co-ownership-property.com/germany-fractional-ownership-properties/): Germany — DACH-region buyer's guide
+- [/austria-fractional-ownership-properties/](https://co-ownership-property.com/austria-fractional-ownership-properties/): Austria — Alpine ski destinations
+- [/croatia-fractional-ownership-properties/](https://co-ownership-property.com/croatia-fractional-ownership-properties/): Croatia — Dalmatian coast, Istria
+- [/sweden-fractional-ownership-properties/](https://co-ownership-property.com/sweden-fractional-ownership-properties/): Sweden — Nordic luxury
+- [/england-fractional-ownership-properties/](https://co-ownership-property.com/england-fractional-ownership-properties/): England — Cotswolds, London
+
+## Region & city pages
+- [/mallorca-fractional-ownership-properties/](https://co-ownership-property.com/mallorca-fractional-ownership-properties/): Mallorca — Balearic luxury, by far the largest single market
+- [/ibiza-fractional-ownership-properties/](https://co-ownership-property.com/ibiza-fractional-ownership-properties/): Ibiza
+- [/menorca-fractional-ownership-properties/](https://co-ownership-property.com/menorca-fractional-ownership-properties/): Menorca
+- [/balearics-fractional-ownership-properties/](https://co-ownership-property.com/balearics-fractional-ownership-properties/): Balearics overview
+- [/marbella-fractional-ownership-properties/](https://co-ownership-property.com/marbella-fractional-ownership-properties/): Marbella
+- [/costa-del-sol-fractional-ownership-properties/](https://co-ownership-property.com/costa-del-sol-fractional-ownership-properties/): Costa del Sol
+- [/costa-blanca-fractional-ownership-properties/](https://co-ownership-property.com/costa-blanca-fractional-ownership-properties/): Costa Blanca
+- [/canary-islands-fractional-ownership-properties/](https://co-ownership-property.com/canary-islands-fractional-ownership-properties/): Canary Islands
+- [/madrid-fractional-ownership-properties/](https://co-ownership-property.com/madrid-fractional-ownership-properties/): Madrid
+- [/french-alps-fractional-ownership-properties/](https://co-ownership-property.com/french-alps-fractional-ownership-properties/): French Alps — ski chalets
+- [/south-of-france-fractional-ownership-properties/](https://co-ownership-property.com/south-of-france-fractional-ownership-properties/): South of France
+- [/paris-fractional-ownership-properties/](https://co-ownership-property.com/paris-fractional-ownership-properties/): Paris pied-à-terre
+- [/italian-lakes-fractional-ownership-properties/](https://co-ownership-property.com/italian-lakes-fractional-ownership-properties/): Italian Lakes
+- [/lake-como-fractional-ownership-properties/](https://co-ownership-property.com/lake-como-fractional-ownership-properties/): Lake Como
+- [/sardinia-fractional-ownership-properties/](https://co-ownership-property.com/sardinia-fractional-ownership-properties/): Sardinia / Costa Smeralda
+- [/liguria-fractional-ownership-properties/](https://co-ownership-property.com/liguria-fractional-ownership-properties/): Liguria
+- [/california-fractional-ownership-properties/](https://co-ownership-property.com/california-fractional-ownership-properties/): California
+- [/florida-fractional-ownership-properties/](https://co-ownership-property.com/florida-fractional-ownership-properties/): Florida
+- [/colorado-fractional-ownership-properties/](https://co-ownership-property.com/colorado-fractional-ownership-properties/): Colorado — Aspen, Vail, Breckenridge
+- [/lake-tahoe-fractional-ownership-properties/](https://co-ownership-property.com/lake-tahoe-fractional-ownership-properties/): Lake Tahoe
+- [/aspen-fractional-ownership/](https://co-ownership-property.com/aspen-fractional-ownership/): Aspen
+- [/park-city-fractional-ownership-2/](https://co-ownership-property.com/park-city-fractional-ownership-2/): Park City
+- [/napa-sonoma-fractional-ownership-wine-country-estates/](https://co-ownership-property.com/napa-sonoma-fractional-ownership-wine-country-estates/): Napa / Sonoma
+- [/cotswolds-fractional-ownership-properties/](https://co-ownership-property.com/cotswolds-fractional-ownership-properties/): Cotswolds
+- [/london-fractional-ownership-properties/](https://co-ownership-property.com/london-fractional-ownership-properties/): London
+
+## Tax, legal & ownership structure (editorial deep-dives)
+- [/blog/cross-border-fractional-ownership-tax-legal-briefing-2026/](https://co-ownership-property.com/blog/cross-border-fractional-ownership-tax-legal-briefing-2026/): Cross-border tax & legal briefing for international buyers
+- [/blog/the-llc-advantage-how-co-ownership-property-structures-are-built-for-tax-efficient-wealth-planning-in-2026/](https://co-ownership-property.com/blog/the-llc-advantage-how-co-ownership-property-structures-are-built-for-tax-efficient-wealth-planning-in-2026/): Why LLC structure underpins co-ownership
+- [/blog/capital-gains-tax-on-fractional-property-a-complete-guide-for-co-owners-in-2026/](https://co-ownership-property.com/blog/capital-gains-tax-on-fractional-property-a-complete-guide-for-co-owners-in-2026/): Capital gains tax for co-owners
+- [/blog/inheritance-estate-planning-for-fractional-property-owners-the-complete-2026-guide/](https://co-ownership-property.com/blog/inheritance-estate-planning-for-fractional-property-owners-the-complete-2026-guide/): Inheritance & estate planning
+- [/blog/the-wealth-equation-how-fractional-ownership-turns-holiday-home-costs-into-a-tax-efficient-investment/](https://co-ownership-property.com/blog/the-wealth-equation-how-fractional-ownership-turns-holiday-home-costs-into-a-tax-efficient-investment/): Tax-efficient lifestyle ownership
+
+## Buyer decision guides
+- [/blog/how-to-choose-the-right-co-ownership-property-in-2026-the-complete-buyers-guide/](https://co-ownership-property.com/blog/how-to-choose-the-right-co-ownership-property-in-2026-the-complete-buyers-guide/): Complete buyer's guide
+- [/blog/10-myths-about-fractional-property-ownership-that-are-holding-you-back-from-your-dream-holiday-home/](https://co-ownership-property.com/blog/10-myths-about-fractional-property-ownership-that-are-holding-you-back-from-your-dream-holiday-home/): 10 fractional ownership myths debunked
+- [/blog/selling-co-ownership-share-exit-strategy-guide/](https://co-ownership-property.com/blog/selling-co-ownership-share-exit-strategy-guide/): Selling your share — the exit strategy guide
+- [/blog/holiday-rentals-to-fractional-ownership-why-families-switching-2026/](https://co-ownership-property.com/blog/holiday-rentals-to-fractional-ownership-why-families-switching-2026/): Why families are switching from rentals
+- [/blog/three-paths-luxury-fractional-ownership-success-stories/](https://co-ownership-property.com/blog/three-paths-luxury-fractional-ownership-success-stories/): Three real buyer journeys
+- [/blog/beach-mountain-or-city-how-to-choose-the-right-co-ownership-property-for-your-lifestyle/](https://co-ownership-property.com/blog/beach-mountain-or-city-how-to-choose-the-right-co-ownership-property-for-your-lifestyle/): Beach vs mountain vs city
+- [/blog/co-owning-ski-chalet-european-alps-smart-buyers-guide/](https://co-ownership-property.com/blog/co-owning-ski-chalet-european-alps-smart-buyers-guide/): Ski chalet co-ownership
+
+## Market intelligence & data
+- [/blog/co-ownership-owner-survey-2026-247-buyers-year-one/](https://co-ownership-property.com/blog/co-ownership-owner-survey-2026-247-buyers-year-one/): Survey of 247 owners — original COP research, year-one experience data
+- [/blog/european-co-ownership-property-market-intelligence-q2-2026-outlook/](https://co-ownership-property.com/blog/european-co-ownership-property-market-intelligence-q2-2026-outlook/): Q2 2026 European market outlook
+- [/blog/the-2026-luxury-second-home-market-data-every-smart-buyer-needs-to-know/](https://co-ownership-property.com/blog/the-2026-luxury-second-home-market-data-every-smart-buyer-needs-to-know/): 2026 luxury second-home market data
+- [/blog/holiday-home-boom-fractional-ownership-smartest-property-investment-2026/](https://co-ownership-property.com/blog/holiday-home-boom-fractional-ownership-smartest-property-investment-2026/): The $87B holiday home boom
+- [/blog/idle-asset-problem-fractional-ownership-investment-second-homes/](https://co-ownership-property.com/blog/idle-asset-problem-fractional-ownership-investment-second-homes/): The idle asset problem
+- [/blog/the-great-wealth-transfer-how-a-new-generation-is-buying-luxury-second-homes-through-co-ownership/](https://co-ownership-property.com/blog/the-great-wealth-transfer-how-a-new-generation-is-buying-luxury-second-homes-through-co-ownership/): Generational wealth transfer & co-ownership
+- [/blog/prime-real-estate-running-out-smart-buyers-co-ownership-2026/](https://co-ownership-property.com/blog/prime-real-estate-running-out-smart-buyers-co-ownership-2026/): Prime real estate scarcity
+
+## Inventory & utility
+- [/our-homes/](https://co-ownership-property.com/our-homes/): All ~330 listings — filterable inventory across countries, partners, share size, price
+- [/all-our-blog/](https://co-ownership-property.com/all-our-blog/): Complete blog archive (113+ posts)
+- [/sitemap.xml](https://co-ownership-property.com/sitemap.xml): Full sitemap (2,066 URLs, hreflang reciprocal across en/es/fr/de)
+
+## Optional
+- [/contact/](https://co-ownership-property.com/contact/): Contact details, WhatsApp, email
+- [/privacy-policy/](https://co-ownership-property.com/privacy-policy/): Privacy policy
+- [/terms-and-conditions/](https://co-ownership-property.com/terms-and-conditions/): Terms & conditions

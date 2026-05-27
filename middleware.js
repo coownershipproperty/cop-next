@@ -18,6 +18,28 @@ const ALLOW_PATTERNS = [
   /whatsapp/i, /applebot/i,
 ];
 
+// ── Allowed AI crawlers ─────────────────────────────────────────────────────
+// We *want* these to crawl us — they feed the AI engines that surface COP
+// content to high-intent buyers (ChatGPT, Claude, Perplexity, Gemini, etc.).
+//   • Training / index crawlers — bake content into model weights:
+//       GPTBot, ClaudeBot, PerplexityBot, CCBot, OAI-SearchBot,
+//       Bytespider, Amazonbot, FacebookBot, DiffBot
+//   • Live-fetch / user-triggered — fetch URLs when a user asks the AI:
+//       ChatGPT-User, PerplexityUser, Claude-Web
+//   • Training-data governors — control whether content is used for training:
+//       Google-Extended, Applebot-Extended, anthropic-ai, cohere-ai,
+//       meta-externalagent
+// Without this allow-list the generic /bot/i pattern above blackholes every
+// crawler whose UA contains "bot", silently removing COP from AI ingestion.
+const AI_CRAWLER_PATTERNS = [
+  /gptbot/i, /chatgpt-user/i, /oai-searchbot/i,
+  /claudebot/i, /claude-web/i, /anthropic-ai/i,
+  /perplexitybot/i, /perplexity-user/i,
+  /ccbot/i, /google-extended/i, /applebot-extended/i,
+  /cohere-ai/i, /bytespider/i, /amazonbot/i,
+  /meta-externalagent/i, /facebookbot/i, /diffbot/i,
+];
+
 // ── Eurozone countries → EUR ────────────────────────────────────────────────
 const EU_COUNTRIES = new Set([
   'AT','BE','CY','EE','FI','FR','DE','GR','IE','IT',
@@ -60,6 +82,12 @@ export function middleware(request) {
   // Always allow legitimate search engines / social crawlers — they must see
   // the canonical page they requested, never a geo-redirect.
   if (ALLOW_PATTERNS.some(p => p.test(ua))) {
+    return NextResponse.next();
+  }
+
+  // Always allow AI crawlers (ChatGPT, Claude, Perplexity, Gemini, etc.) —
+  // same logic as above: never 403, never geo-redirect.
+  if (AI_CRAWLER_PATTERNS.some(p => p.test(ua))) {
     return NextResponse.next();
   }
 
