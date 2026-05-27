@@ -7410,6 +7410,247 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   color: #C8D1D8;
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   /compare/ — operator + category comparison pages
+   ───────────────────────────────────────────────────────────────────────── */
+.compare-page {
+  background: var(--cream-bg);
+  min-height: 60vh;
+}
+.compare-hero {
+  background: #2C4A5E;
+  color: #fff;
+  padding: 110px 28px 56px;
+  text-align: center;
+}
+.compare-eyebrow {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin: 0 0 18px;
+  font-weight: 700;
+}
+.compare-h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(32px, 4.4vw, 48px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0 auto 18px;
+  max-width: 880px;
+  color: #fff;
+}
+.compare-subtitle {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.82);
+  margin: 0 auto 22px;
+  max-width: 760px;
+}
+.compare-meta {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.compare-meta .compare-byline a {
+  color: #C9A84C;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,0.4);
+  padding-bottom: 1px;
+}
+.compare-meta .compare-date-inline::before,
+.compare-meta .compare-wc-inline::before {
+  content: "·";
+  margin-right: 14px;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ── Body ── */
+.compare-body {
+  padding: 56px 28px;
+}
+.compare-body-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: #1f3445;
+}
+.compare-body-inner .tldr {
+  background: #fff;
+  border-left: 4px solid #C9A84C;
+  padding: 22px 28px;
+  margin: 0 0 36px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #1f3445;
+}
+.compare-body-inner .tldr strong { color: #2C4A5E; }
+.compare-body-inner h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #2C4A5E;
+  margin: 48px 0 18px;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 80px;
+}
+.compare-body-inner h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 21px;
+  font-weight: 500;
+  color: #2C4A5E;
+  margin: 32px 0 12px;
+}
+.compare-body-inner p {
+  margin: 0 0 16px;
+}
+.compare-body-inner ul, .compare-body-inner ol {
+  margin: 0 0 22px;
+  padding-left: 22px;
+}
+.compare-body-inner li {
+  margin-bottom: 8px;
+}
+.compare-body-inner a {
+  color: #2C4A5E;
+  border-bottom: 1px solid rgba(44,74,94,0.35);
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+.compare-body-inner a:hover {
+  border-bottom-color: #2C4A5E;
+}
+.compare-body-inner blockquote {
+  background: #fff;
+  border-left: 3px solid #2C4A5E;
+  padding: 18px 26px;
+  margin: 28px 0;
+  font-style: italic;
+  color: #2C4A5E;
+}
+
+/* ── Hero comparison table ── */
+.compare-table-wrap {
+  margin: 32px -16px;
+  overflow-x: auto;
+}
+.compare-body-inner table.compare-table {
+  border-collapse: collapse;
+  width: 100%;
+  background: #fff;
+  font-size: 14.5px;
+}
+.compare-body-inner table.compare-table th,
+.compare-body-inner table.compare-table td {
+  padding: 14px 18px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #E0DACE;
+}
+.compare-body-inner table.compare-table th {
+  background: #F5F2EC;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2C4A5E;
+  border-bottom: 2px solid #C9A84C;
+}
+.compare-body-inner table.compare-table td:first-child {
+  font-weight: 600;
+  color: #2C4A5E;
+  background: #FCFAF6;
+  width: 26%;
+}
+.compare-body-inner table.compare-table tr:hover td:not(:first-child) {
+  background: #FCFAF6;
+}
+.compare-body-inner table.compare-table .compare-pos { color: #2C7D4D; font-weight: 600; }
+.compare-body-inner table.compare-table .compare-neg { color: #a23b3b; font-weight: 600; }
+.compare-body-inner table.compare-table .compare-neu { color: #6B8A9E; }
+
+/* ── FAQ section ── */
+.compare-faq-section {
+  margin-top: 56px;
+  padding: 32px 0 8px;
+  border-top: 1px solid #E0DACE;
+}
+.compare-body-inner .compare-faq-section h2 {
+  margin-top: 0;
+  font-size: 26px;
+}
+.compare-body-inner .compare-faq-section h3 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2C4A5E;
+  margin: 28px 0 8px;
+}
+
+/* ── CTA section ── */
+.compare-cta {
+  background: #fff;
+  border: 1px solid #E0DACE;
+  padding: 28px 32px;
+  margin: 48px 0 20px;
+  text-align: center;
+}
+.compare-cta h3 {
+  margin-top: 0 !important;
+}
+.compare-cta-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.compare-cta-buttons a {
+  display: inline-block;
+  padding: 12px 24px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #2C4A5E;
+  transition: all 0.2s;
+}
+.compare-cta-buttons a.primary {
+  background: #2C4A5E;
+  color: #fff;
+}
+.compare-cta-buttons a.primary:hover { background: #1f3445; }
+.compare-cta-buttons a.ghost {
+  background: transparent;
+  color: #2C4A5E;
+}
+.compare-cta-buttons a.ghost:hover { background: #2C4A5E; color: #fff; }
+
+@media (max-width: 768px) {
+  .compare-hero { padding: 96px 18px 40px; }
+  .compare-body { padding: 36px 18px; }
+  .compare-body-inner table.compare-table th,
+  .compare-body-inner table.compare-table td { padding: 10px 12px; font-size: 13.5px; }
+  .compare-body-inner table.compare-table td:first-child { width: 32%; }
+}
+
 /* ── Blog Hero Image ── */
 .bh-image-wrap {
   max-width: 1200px;
