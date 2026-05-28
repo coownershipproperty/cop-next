@@ -297,6 +297,12 @@ export async function getServerSideProps({ res }) {
     // hubs for each operator's queries.
     ...partnerSlugs.map(slug => urlEntry(`${BASE}/partners/${slug}/`, '0.85', 'monthly', today)),
 
+    // Glossary — EN-only, priority 0.8. Single page with 50 DefinedTerm
+    // entries, each with anchor IDs for deep-link. Heavy AI-ingestion value
+    // per the AEO research (Perplexity 3.2x more likely to cite pages with
+    // glossary-style structured definitions).
+    urlEntry(`${BASE}/glossary/`, '0.8', 'monthly', today),
+
     // Property detail pages — emit EN / ES / FR / DE with reciprocal hreflang
     ...(properties || []).flatMap(p => {
       const altset = {

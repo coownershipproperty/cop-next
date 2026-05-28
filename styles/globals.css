@@ -7693,6 +7693,162 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .compare-body-inner table.compare-table td:first-child { width: 32%; }
 }
 
+/* ─── /glossary/ — fractional co-ownership term reference ────────────────
+   Variant on the /compare/ template hero. Body is a card-based list of
+   DefinedTerm entries grouped by category, with anchor IDs for deep-link.
+   Explicit text colors throughout to avoid CSS inheritance bugs against
+   the cream background.
+   ───────────────────────────────────────────────────────────────────────── */
+.glossary-page .compare-hero {
+  padding-bottom: 40px;
+}
+.glossary-body {
+  background: var(--cream-bg);
+  padding: 48px 28px 64px;
+}
+.glossary-inner {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* ── Category navigation pills ── */
+.glossary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 20px 24px;
+  background: #fff;
+  border: 1px solid #E0DACE;
+  margin-bottom: 40px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  box-shadow: 0 2px 8px rgba(44,74,94,0.04);
+}
+.glossary-nav-pill {
+  display: inline-block;
+  padding: 6px 14px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #2C4A5E;
+  background: #F5F2EC;
+  border: 1px solid #E0DACE;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.glossary-nav-pill:hover {
+  background: #C9A84C;
+  border-color: #C9A84C;
+  color: #1f3445;
+}
+
+/* ── Category section heading ── */
+.glossary-category {
+  margin-bottom: 48px;
+  scroll-margin-top: 100px;
+}
+.glossary-category-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #2C4A5E;
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #C9A84C;
+  letter-spacing: -0.01em;
+}
+
+/* ── Term card list ── */
+.glossary-terms {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.glossary-term {
+  background: #fff;
+  border: 1px solid #E0DACE;
+  border-left: 3px solid #C9A84C;
+  padding: 24px 28px;
+  scroll-margin-top: 100px;
+  color: #1f3445;
+}
+.glossary-term:target {
+  border-left-color: #2C4A5E;
+  background: #FCFAF6;
+  box-shadow: 0 4px 16px rgba(44,74,94,0.08);
+}
+.glossary-term-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 21px;
+  font-weight: 500;
+  color: #2C4A5E;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  letter-spacing: -0.005em;
+}
+.glossary-anchor {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #C9A84C;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+}
+.glossary-term:hover .glossary-anchor,
+.glossary-term:target .glossary-anchor {
+  opacity: 1;
+}
+.glossary-anchor:hover {
+  color: #2C4A5E;
+}
+.glossary-term-definition {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #1f3445;
+  margin: 0 0 14px;
+  font-weight: 600;
+}
+.glossary-term-explanation {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #4a5e6e;
+  margin: 0 0 14px;
+}
+.glossary-term-source {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 12px;
+  color: #6B8A9E;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid #F0EBE0;
+}
+.glossary-term-source a {
+  color: #2C4A5E;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(44,74,94,0.3);
+}
+.glossary-term-source a:hover {
+  border-bottom-color: #2C4A5E;
+}
+
+@media (max-width: 768px) {
+  .glossary-body { padding: 32px 16px 48px; }
+  .glossary-nav { padding: 14px 16px; }
+  .glossary-nav-pill { font-size: 11px; padding: 5px 10px; }
+  .glossary-category-heading { font-size: 24px; }
+  .glossary-term { padding: 20px 22px; }
+  .glossary-term-name { font-size: 19px; flex-wrap: wrap; }
+  .glossary-anchor { opacity: 1; }
+}
+
 /* ── Blog Hero Image ── */
 .bh-image-wrap {
   max-width: 1200px;

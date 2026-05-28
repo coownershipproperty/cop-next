@@ -1,0 +1,380 @@
+{
+  "intro": "A working glossary of the legal, tax, operational, and structural terms that come up when buying a fractional co-ownership share — particularly across European jurisdictions. Definitions favour operational clarity over textbook precision; for legally consequential decisions, consult a qualified local advisor.",
+  "categories": [
+    { "id": "legal-structures", "name": "Legal structures" },
+    { "id": "ownership", "name": "Ownership terms" },
+    { "id": "costs-fees", "name": "Costs and fees" },
+    { "id": "tax", "name": "Tax terms" },
+    { "id": "operational", "name": "Operational terms" },
+    { "id": "residency", "name": "Buyer & residency terms" },
+    { "id": "property", "name": "Property & transaction terms" }
+  ],
+  "terms": [
+    {
+      "slug": "llc",
+      "term": "LLC (Limited Liability Company)",
+      "category": "legal-structures",
+      "definition": "A US legal entity that combines limited liability protection with pass-through tax treatment. In fractional co-ownership, a property-specific LLC holds 100% of the property title, with co-owners holding proportional membership interests.",
+      "explanation": "Most US-based fractional operators use property-specific LLCs to hold individual properties — one LLC per property. The structure means each owner's name appears on the LLC's ownership register; the LLC owns the real estate; and at exit, owners transfer LLC membership interests rather than triggering a full property conveyance. This keeps transaction costs materially lower than a conventional second-home resale.",
+      "sameAs": "https://en.wikipedia.org/wiki/Limited_liability_company"
+    },
+    {
+      "slug": "sci",
+      "term": "SCI (Société Civile Immobilière)",
+      "category": "legal-structures",
+      "definition": "A French civil real-estate company used to hold property collectively. Roughly the French equivalent of a property-specific LLC for fractional co-ownership purposes.",
+      "explanation": "French fractional properties are commonly held in property-specific SCIs registered with the local notaire and the French commercial registry. Co-owners hold proportional shares in the SCI. The structure has been used by French families to hold shared property for generations; modern fractional operators have professionalised it for cross-border buyer use.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Soci%C3%A9t%C3%A9_civile_immobili%C3%A8re"
+    },
+    {
+      "slug": "sl",
+      "term": "SL (Sociedad Limitada)",
+      "category": "legal-structures",
+      "definition": "A Spanish limited-liability company. The standard Spanish corporate vehicle used to hold property — and, for fractional ownership, used as a property-specific entity with co-owners as proportional shareholders.",
+      "explanation": "Spanish notaires, accountants, and the Spanish business registry all handle SLs as routine business. For non-resident buyers of Spanish fractional shares, the SL structure is familiar to local advisors and produces standard Spanish corporate-law outcomes around governance, voting, and share transfer.",
+      "sameAs": "https://en.wikipedia.org/wiki/Sociedad_de_responsabilidad_limitada"
+    },
+    {
+      "slug": "srl",
+      "term": "Srl (Società a responsabilità limitata)",
+      "category": "legal-structures",
+      "definition": "An Italian limited-liability company. The Italian analogue of an SL or an LLC, sometimes used as the property-holding vehicle for fractional ownership in Italy.",
+      "explanation": "Italian property law and notarial practice are well-developed around the Srl form. The structure produces deeded shareholding outcomes for non-resident buyers and is recognised across the Italian regional notarial system.",
+      "sameAs": "https://en.wikipedia.org/wiki/Limited_liability_company"
+    },
+    {
+      "slug": "gmbh-co-kg",
+      "term": "GmbH & Co. KG",
+      "category": "legal-structures",
+      "definition": "A German limited partnership where a GmbH (limited-liability company) acts as the general partner and individuals are limited partners. Some fractional operators use this structure across European properties for consistency.",
+      "explanation": "The GmbH & Co. KG combines limited-partnership flexibility with the GmbH's limited-liability protection. When used by a fractional operator for properties across multiple countries, the same legal vehicle holds Spanish, Italian, French, and other properties — simplifying the ownership experience for multi-country buyers while underlying property law still governs the property itself.",
+      "sameAs": "https://en.wikipedia.org/wiki/Gesellschaft_mit_beschr%C3%A4nkter_Haftung_%26_Compagnie_Kommanditgesellschaft"
+    },
+    {
+      "slug": "fideicomiso",
+      "term": "Fideicomiso",
+      "category": "legal-structures",
+      "definition": "A Mexican bank trust through which foreign nationals can hold property in Mexico's restricted coastal and border zones (within 50km of the coast or 100km of a border).",
+      "explanation": "Mexican law restricts direct foreign ownership of property in these zones. The fideicomiso routes ownership through a Mexican bank as trustee, with the foreign buyer as beneficiary. The buyer has full rights of use, sale, transfer, and inheritance — comparable to direct ownership for practical purposes. For fractional ownership of Mexican coastal properties, the fideicomiso is the standard structure.",
+      "sameAs": "https://en.wikipedia.org/wiki/Fideicomiso"
+    },
+    {
+      "slug": "property-specific-entity",
+      "term": "Property-specific entity",
+      "category": "legal-structures",
+      "definition": "A legal entity (LLC, SCI, SL, Srl, KG, fideicomiso, etc.) created to hold exactly one property. Each property in a fractional operator's portfolio sits in its own entity, separate from other properties and from the operator's own company.",
+      "explanation": "The property-specific entity is the structural protection that makes fractional co-ownership distinct from operator-controlled membership models. Because the property is owned by its own entity (not by the operator), the property continues to exist if the operator ceases operations — co-owners can engage a replacement management company. Owner equity is in the property, not in the operator's business."
+    },
+    {
+      "slug": "indivision",
+      "term": "Indivision",
+      "category": "legal-structures",
+      "definition": "A French legal arrangement under which multiple parties jointly own a single asset without a formal company. Common in French inheritance where siblings receive joint ownership of a family property.",
+      "explanation": "Indivision is informal joint ownership — each co-owner holds an undivided share. Decisions about the property typically require unanimous consent, which creates friction. Modern fractional ownership uses property-specific SCIs instead of indivision precisely to avoid that friction: clear voting thresholds, standardised governance, and structured exit.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Indivision"
+    },
+    {
+      "slug": "fractional-ownership",
+      "term": "Fractional ownership",
+      "category": "ownership",
+      "definition": "A property-ownership model where multiple buyers each own a legally deeded fraction of a property, typically through a property-specific legal entity. Each owner has rights to use the property for a defined period each year proportional to their share.",
+      "explanation": "Modern fractional co-ownership is structurally distinct from timeshare: the buyer owns deeded real estate via the property-specific entity, the share appreciates with the property market, and the share can be sold on the open market. Typical share size is 1/8, giving roughly 45 days of usage per year. Most operators in the category use professional property management bundled into the model.",
+      "sameAs": "https://en.wikipedia.org/wiki/Fractional_ownership"
+    },
+    {
+      "slug": "co-ownership",
+      "term": "Co-ownership",
+      "category": "ownership",
+      "definition": "An umbrella term for arrangements where multiple parties hold ownership rights in the same property. In a fractional context, co-ownership specifically means deeded joint ownership through a property-specific legal entity rather than informal joint title.",
+      "explanation": "Co-ownership and fractional ownership are typically used interchangeably in the modern fractional category. The terms emphasise the same structural reality: a small group of owners (usually up to eight, occasionally more) sharing equity, usage, and ongoing costs of a single luxury property."
+    },
+    {
+      "slug": "deeded-share",
+      "term": "Deeded share",
+      "category": "ownership",
+      "definition": "A share in a property where the owner's name appears on legal ownership records — typically the membership register of the property-specific LLC or partnership — and the share constitutes a real-estate equity interest.",
+      "explanation": "Deeded ownership is the structural distinction that separates fractional co-ownership from contract-based products like traditional timeshare. With a deeded share, the buyer has a recorded equity stake that appreciates with the property, can be sold on the open market, passes to heirs as a property asset, and produces standard real-estate tax outcomes."
+    },
+    {
+      "slug": "one-eighth-share",
+      "term": "1/8 share",
+      "category": "ownership",
+      "definition": "The most common share size in modern fractional co-ownership: one-eighth of the property, entitling the owner to approximately 45 days of private use per year.",
+      "explanation": "A 1/8 share is sized to match the realistic annual usage of most second-home buyers — research consistently finds the typical second-home owner uses their property roughly 35 days per year. The 1/8 model produces eight equal share classes per property, with a property-specific entity holding the deed. Some operators also offer 1/4 and 1/2 shares for buyers wanting more usage time."
+    },
+    {
+      "slug": "rofr",
+      "term": "ROFR (Right of First Refusal)",
+      "category": "ownership",
+      "definition": "A contractual provision granting one party the right to be offered an asset before it is sold to anyone else. In fractional co-ownership, existing co-owners typically have ROFR over a fellow co-owner's resale share.",
+      "explanation": "When a fractional owner lists their share for sale, ROFR mechanics give existing co-owners of the same property the first opportunity to acquire the share at the listed price. If no co-owner exercises ROFR within a defined window, the share is marketed to the broader prospect pool. ROFR exists to give the existing ownership group some control over who joins them.",
+      "sameAs": "https://en.wikipedia.org/wiki/Right_of_first_refusal"
+    },
+    {
+      "slug": "whole-ownership",
+      "term": "Whole ownership",
+      "category": "ownership",
+      "definition": "The traditional model of property ownership: one owner (or one couple, family, or entity) holds 100% of the property title.",
+      "explanation": "Whole ownership commits 100% of the capital to one property, with the owner responsible for all running costs and management. Compared to a 1/8 fractional share at the same property value, whole ownership requires 8x the capital, produces unlimited usage rights (though realistic use typically lands around 35 days per year per industry data), and exposes the owner to the full operational burden of cross-border property management."
+    },
+    {
+      "slug": "timeshare",
+      "term": "Timeshare",
+      "category": "ownership",
+      "definition": "A property-use product where the buyer purchases the contractual right to use a property for a defined period each year — typically one week, sometimes flexible points — without owning any real estate.",
+      "explanation": "Timeshare is structurally distinct from fractional co-ownership: the buyer owns a contract, not a deeded property interest. Most timeshare contracts have no real-estate equity, do not appreciate with the property market, and are notoriously difficult to resell — an entire industry of 'timeshare exit companies' exists specifically to help owners dispose of unwanted contracts. Disney Vacation Club is the most-cited exception, using a deeded right-to-use structure with stronger resale dynamics.",
+      "sameAs": "https://en.wikipedia.org/wiki/Timeshare"
+    },
+    {
+      "slug": "service-fee",
+      "term": "Service fee",
+      "category": "costs-fees",
+      "definition": "A fee paid by fractional owners to the operating company for ongoing platform services, technology, owner support, and operator administration. Distinct from the property's actual running costs.",
+      "explanation": "Operators structure service fees differently: some publish a flat fee per share (e.g., a fixed amount per month per share), others charge a percentage of property value annually, others bundle a one-time service fee into the primary purchase price. The service fee is separate from the cost pass-through of the property's actual running expenses (insurance, taxes, utilities, maintenance)."
+    },
+    {
+      "slug": "cost-passthrough",
+      "term": "Cost pass-through",
+      "category": "costs-fees",
+      "definition": "The model where co-owners pay their proportional share of the property's actual running costs — management, insurance, local taxes, utility standing charges, maintenance, and reserve-fund contributions — without an operator margin added on top of those costs.",
+      "explanation": "Cost pass-through is the standard model for the property-operating component of fractional annual fees. A 1/8 owner pays 1/8 of the property's real running costs; the operator earns from the separately disclosed service fee (or a one-time fee at purchase) rather than from a markup on running expenses. Costs scale with the property — a more expensive villa has higher absolute costs — but the cost-share ratio stays consistent."
+    },
+    {
+      "slug": "reserve-fund",
+      "term": "Reserve fund",
+      "category": "costs-fees",
+      "definition": "A pooled cash reserve held within the property-specific entity to cover future major repairs, replacements, and capital expenditures without requiring surprise assessments from owners.",
+      "explanation": "The reserve fund is funded through annual contributions built into the cost pass-through. Major repairs (HVAC replacement, roof work, structural maintenance) are paid from the reserve rather than triggering one-off cash calls. Reserve adequacy is one of the items disclosed in pre-purchase documentation; under-reserved properties can lead to special assessments down the line."
+    },
+    {
+      "slug": "special-assessment",
+      "term": "Special assessment",
+      "category": "costs-fees",
+      "definition": "A one-off cash levy on owners beyond the standard annual fees, typically called when reserve funds are insufficient to cover a major repair or unexpected capital expense.",
+      "explanation": "Special assessments are common in both timeshare and certain whole-property HOA contexts; in well-managed fractional co-ownership they are rare because reserve funds are sized to absorb major repairs. Where a property does require an assessment, it is shared proportionally among co-owners according to share size. Pre-purchase disclosures typically include the property's assessment history."
+    },
+    {
+      "slug": "notaire-fees",
+      "term": "Notaire fees",
+      "category": "costs-fees",
+      "definition": "Fees charged by a French notaire for executing real-estate transactions. Combined with associated transfer taxes, the total typically runs 7–8% of the property purchase price for second-hand French property.",
+      "explanation": "In conventional French property purchases, the notaire fee covers the notaire's professional services plus the various transfer taxes and registration fees that pass through the notaire. For fractional ownership of French property, the notaire fees were paid once when the property-specific SCI was originally formed and the property acquired. When a share is resold subsequently, the buyer is acquiring SCI shares rather than triggering a new property conveyance — meaning no full notaire fee applies on the share transfer."
+    },
+    {
+      "slug": "stamp-duty",
+      "term": "Stamp duty",
+      "category": "costs-fees",
+      "definition": "A tax levied on real-estate transactions in various jurisdictions, typically calculated as a percentage of the purchase price. UK Stamp Duty Land Tax (SDLT) and Spanish ITP (Impuesto de Transmisiones Patrimoniales) are common examples.",
+      "explanation": "Conventional second-home purchases trigger stamp duty on the full property value at the time of purchase. In fractional co-ownership, stamp duty was paid once when the property-specific entity originally acquired the property; subsequent share transfers within the entity do not trigger fresh stamp duty in most jurisdictions, because no underlying property transfer is occurring."
+    },
+    {
+      "slug": "ifi",
+      "term": "IFI (Impôt sur la Fortune Immobilière)",
+      "category": "tax",
+      "definition": "France's wealth tax on real-estate holdings. Applies to French tax residents on their worldwide property and to non-residents on their French property, with a current threshold of €1.3 million in net property value.",
+      "explanation": "IFI taxes the net value of in-scope property above the €1.3M threshold at progressive rates (0.5%–1.5%). For non-resident buyers, only French property counts toward the threshold. A non-resident with a 1/8 share of a €5M French villa holds €625k of French real estate — below the IFI threshold for many buyers. Whole ownership of the same villa would put the buyer well into IFI territory.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Imp%C3%B4t_sur_la_fortune_immobili%C3%A8re"
+    },
+    {
+      "slug": "patrimonio",
+      "term": "Patrimonio (Spanish Wealth Tax)",
+      "category": "tax",
+      "definition": "Spain's wealth tax on net wealth (including real estate) above defined thresholds. Rates and thresholds vary by autonomous community — Madrid effectively does not levy it, while several other communities do.",
+      "explanation": "For non-resident buyers of Spanish property, Patrimonio applies to the net value of Spanish-located assets, with the threshold and rates set by the autonomous community where the property is located. Fractional ownership keeps the asset value below thresholds for many buyers who would otherwise face Patrimonio under whole ownership of the same property. Specific liability depends on the property's location, the buyer's residency, and any applicable treaty.",
+      "sameAs": "https://en.wikipedia.org/wiki/Wealth_tax"
+    },
+    {
+      "slug": "ibi",
+      "term": "IBI (Impuesto sobre Bienes Inmuebles)",
+      "category": "tax",
+      "definition": "Spain's annual local property tax, levied by the municipality where the property is located. Rates vary by region and typically run 0.4%–1.1% of the property's cadastral value (which is usually well below market value).",
+      "explanation": "IBI is paid annually by the property's owner — for a property held in an SL, the SL pays IBI. In fractional co-ownership, IBI flows through the cost pass-through, with each co-owner contributing their proportional share. Owners don't pay IBI separately; it's bundled into annual operating costs."
+    },
+    {
+      "slug": "imu",
+      "term": "IMU (Imposta Municipale Unica)",
+      "category": "tax",
+      "definition": "Italy's annual municipal property tax. Applies to second homes and high-value properties; the primary residence is generally exempt for Italian residents.",
+      "explanation": "IMU rates vary by municipality and are calculated against the property's revalued cadastral income. For non-resident owners of Italian second-home property — including fractional shares — IMU applies to the full property value, with each co-owner contributing proportionally through the cost pass-through.",
+      "sameAs": "https://en.wikipedia.org/wiki/Imposta_municipale_propria"
+    },
+    {
+      "slug": "taxe-fonciere",
+      "term": "Taxe foncière",
+      "category": "tax",
+      "definition": "France's annual property tax, paid by the owner of the property regardless of who occupies it. Calculated against the property's cadastral rental value.",
+      "explanation": "Taxe foncière rates and absolute amounts vary by commune. For French property held in an SCI, the SCI pays taxe foncière; in fractional ownership, this flows through the cost pass-through proportionally. The related taxe d'habitation has been largely phased out for primary residences but can still apply to second homes in some communes.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Taxe_fonci%C3%A8re"
+    },
+    {
+      "slug": "sucesiones",
+      "term": "Sucesiones (Spanish Inheritance Tax)",
+      "category": "tax",
+      "definition": "Spain's inheritance and gift tax, regulated nationally but administered with significant variation by autonomous community. Rates depend on the heir's relationship to the deceased and the heir's residency.",
+      "explanation": "Spanish-located assets are subject to Sucesiones on the heir, regardless of where the heir lives. Several autonomous communities offer substantial reductions or exemptions for direct-line heirs (spouses, children, parents). For non-resident heirs of Spanish fractional shares, specific liability depends on which autonomous community the property sits in and the heir's relationship to the deceased."
+    },
+    {
+      "slug": "capital-gains-tax",
+      "term": "Capital gains tax",
+      "category": "tax",
+      "definition": "Tax on the gain realised when an asset is sold for more than its cost basis. Applies to fractional shares when sold at a gain, with rates and mechanics determined by the property's jurisdiction and the seller's residency.",
+      "explanation": "On the sale of a fractional share, the gain (sale price minus cost basis minus eligible costs) is typically taxable in the property's country, often via a withholding mechanism for non-resident sellers, with reconciliation through a local tax return. Treaty arrangements between the property's country and the seller's home country may affect the final tax position.",
+      "sameAs": "https://en.wikipedia.org/wiki/Capital_gains_tax"
+    },
+    {
+      "slug": "k1",
+      "term": "K-1 (US Schedule K-1)",
+      "category": "tax",
+      "definition": "A US tax form issued annually by partnerships and LLCs taxed as partnerships to each member, reporting that member's share of income, deductions, credits, and other tax items.",
+      "explanation": "US property-specific LLCs holding fractional properties issue a K-1 to each co-owner at year-end. The K-1 reports the member's proportional share of LLC income (e.g., from rental activity if applicable), expenses, and capital items. Members use the K-1 to prepare their personal US tax returns. Non-US-resident members typically have additional filing requirements via the US tax treaty network."
+    },
+    {
+      "slug": "nhr",
+      "term": "NHR Regime (Portugal)",
+      "category": "tax",
+      "definition": "Portugal's Non-Habitual Resident tax regime — a preferential 10-year tax status for individuals who become Portuguese tax residents, offering reduced rates on certain foreign-source income.",
+      "explanation": "The NHR regime has been significantly restructured in recent years; the version available to new applicants today differs from earlier vintages. For non-resident buyers of Portuguese fractional property who are not planning to become Portuguese tax residents, NHR is not directly applicable — but it remains relevant context for buyers considering Portuguese residency."
+    },
+    {
+      "slug": "beckham-law",
+      "term": "Beckham Law (Spain)",
+      "category": "tax",
+      "definition": "Spain's special tax regime (formally the Régimen de Trabajadores Desplazados, often called the 'Beckham Law' after the footballer who used it) for individuals who become Spanish tax residents through work, allowing them to be taxed under modified rules for up to six years.",
+      "explanation": "The Beckham Law applies to individuals who relocate to Spain for work and meet specific eligibility criteria. It can be relevant context for non-Spanish buyers considering Spanish residency, but does not directly apply to non-resident owners of fractional Spanish property who remain tax-resident elsewhere."
+    },
+    {
+      "slug": "supported-resale",
+      "term": "Supported resale",
+      "category": "operational",
+      "definition": "A resale process administered by the fractional operator on behalf of the selling owner. The operator markets the share through its existing prospect pipeline and coordinates the transaction.",
+      "explanation": "Supported resale is the standard exit mechanism for fractional co-ownership. The selling owner notifies the operator, who provides pricing guidance based on market data, markets the share to qualified prospects already familiar with the operator and the property type, and coordinates the share transfer through the relevant legal process. Typical resale timelines across the COP portfolio are around 1–3 months from listing to completion."
+    },
+    {
+      "slug": "cooling-off-period",
+      "term": "Cooling-off period",
+      "category": "operational",
+      "definition": "A defined window after signing a purchase contract during which the buyer can withdraw without financial penalty. Mandatory under various jurisdictions' consumer-protection law.",
+      "explanation": "Cooling-off windows vary by jurisdiction: the EU's timeshare directive mandates a 14-day cooling-off period for timeshare contracts; French property purchases typically include 10-day SRU cooling-off plus additional windows depending on contract structure; US states have varying windows. For fractional co-ownership, the specific cooling-off rules depend on the property's country and the structure of the purchase agreement.",
+      "sameAs": "https://en.wikipedia.org/wiki/Cooling-off_period_(consumer_rights)"
+    },
+    {
+      "slug": "holding-period",
+      "term": "Minimum holding period",
+      "category": "operational",
+      "definition": "A defined period after purchase during which a fractional owner cannot resell their share. Used by some operators on some properties to discourage speculative short-term flipping.",
+      "explanation": "Minimum holding periods are property-specific and disclosed in pre-purchase documentation. A common pattern is a 12-month holding period from purchase before the share becomes eligible for the operator's resale process. After the minimum period elapses, owners can list their share on the standard resale pathway."
+    },
+    {
+      "slug": "liquidity-window",
+      "term": "Liquidity window",
+      "category": "operational",
+      "definition": "A defined period during which a fractional owner has structured access to a specific resale or exit mechanism, with the operator providing pricing, marketing, and transaction support.",
+      "explanation": "Some operators publish multi-window liquidity frameworks: a first window after the minimum holding period, an ongoing open window for standard market-rate resales, and a long-term window for committed long-term holders. The framework gives owners predictable exit paths at multiple horizons."
+    },
+    {
+      "slug": "rotation-calendar",
+      "term": "Rotation calendar (fair-rotation)",
+      "category": "operational",
+      "definition": "A scheduling system used to allocate peak-demand weeks across co-owners equitably over time. Combines fixed seasonal allocations with rotating priority for high-demand dates.",
+      "explanation": "Rotation calendars handle the structural problem that all co-owners want the same peak weeks (Christmas, school half-terms, peak summer). The system rotates priority annually so no single owner always gets the same dates — over a multi-year cycle, owners access peak and shoulder weeks roughly equitably. Most modern operators administer the calendar through their owner app, with co-owners booking specific dates within the priority structure."
+    },
+    {
+      "slug": "peak-weeks",
+      "term": "Peak weeks",
+      "category": "operational",
+      "definition": "The highest-demand booking periods at a property — typically Christmas/New Year, school half-terms, Easter, and peak summer (July/August in Europe; varies by destination).",
+      "explanation": "Because all co-owners want peak weeks, the rotation calendar mechanic ensures equitable access over a multi-year cycle rather than first-come-first-served allocation. Some operators allow owners to swap or trade peak-week allocations with other co-owners through their booking platform."
+    },
+    {
+      "slug": "home-swap",
+      "term": "Home swap / exchange network",
+      "category": "operational",
+      "definition": "A mechanism that lets a fractional owner stay at another property — typically another property within the same operator's portfolio — in exchange for making their own allocated weeks available to the network.",
+      "explanation": "Exchange networks let owners use their annual allocation across multiple destinations instead of always at one property. Mechanics differ by operator: some run direct 1:1 swaps where two owners trade stays, some run points-based systems where publishing a week earns credits redeemable against any other published week, and some run concierge-mediated matching. Exchange access is typically internal to each operator's network."
+    },
+    {
+      "slug": "lombard-loan",
+      "term": "Lombard loan",
+      "category": "operational",
+      "definition": "A loan secured against an existing investment portfolio (stocks, bonds, funds) held at a bank, with the bank lending against the pledged portfolio's value while the borrower retains the underlying investment returns.",
+      "explanation": "Some fractional operators have arranged Lombard-loan facilities through partner banks to support buyers who hold investment portfolios. The bank lends against the pledged portfolio rather than against the property itself, allowing buyers to finance their fractional share without liquidating investments. Eligibility depends on the bank's acceptance of the buyer's portfolio composition.",
+      "sameAs": "https://en.wikipedia.org/wiki/Lombard_credit"
+    },
+    {
+      "slug": "non-resident-buyer",
+      "term": "Non-resident buyer",
+      "category": "residency",
+      "definition": "A buyer who is not tax-resident in the country where the property is located. For European fractional purchases, this typically describes British, American, or other international buyers acquiring properties in Spain, France, Italy, Portugal, etc.",
+      "explanation": "Non-resident status affects tax treatment (wealth tax thresholds, capital-gains mechanics, inheritance rules), administrative requirements (NIE in Spain, equivalents elsewhere), and operational matters (Schengen day-count rules for stays in EU properties). Most operators have established workflows for non-resident buyer onboarding."
+    },
+    {
+      "slug": "nie",
+      "term": "NIE (Número de Identificación de Extranjero)",
+      "category": "residency",
+      "definition": "Spain's foreign-identification number, required for foreigners (residents and non-residents alike) to conduct most administrative and legal actions in Spain — including buying property, opening bank accounts, and filing taxes.",
+      "explanation": "Non-Spanish buyers of Spanish fractional shares must obtain an NIE before completion. Application is typically through a Spanish consulate in the buyer's country of residence, or via a Spanish lawyer or gestor by power of attorney. Most fractional operators selling Spanish properties coordinate NIE applications as part of the buyer onboarding process.",
+      "sameAs": "https://en.wikipedia.org/wiki/N%C3%BAmero_de_identificaci%C3%B3n_de_extranjero"
+    },
+    {
+      "slug": "schengen-90-180",
+      "term": "Schengen 90/180 rule",
+      "category": "residency",
+      "definition": "The rule limiting non-EU/EEA visitors to a maximum of 90 days in the Schengen Area within any rolling 180-day period without a visa or residency permit.",
+      "explanation": "Post-Brexit British buyers and US buyers of European fractional shares are subject to the 90/180 rule across the Schengen Area as a whole (not per country). For a 1/8 share owner using approximately 45 days per year at a single European property, the rule is comfortably within allocation. Buyers acquiring multiple European fractional shares need to track cumulative Schengen days to avoid exceeding the cap.",
+      "sameAs": "https://en.wikipedia.org/wiki/Schengen_Area"
+    },
+    {
+      "slug": "golden-visa",
+      "term": "Golden visa",
+      "category": "residency",
+      "definition": "Residency programmes offered by various countries allowing high-net-worth investors to obtain residency permits in exchange for qualifying property or capital investments. Programmes vary by country and have undergone significant reform in recent years.",
+      "explanation": "Golden visa programmes in Portugal, Spain, Greece, and elsewhere have historically been used by international buyers acquiring real estate above defined thresholds. Eligibility, thresholds, and the role of property investment have changed significantly since 2023 — Portugal removed property investment from its golden visa scheme, Spain announced a phase-out, and others have restructured. For fractional co-ownership specifically, the buyer's share would generally need to exceed the programme's minimum threshold to qualify.",
+      "sameAs": "https://en.wikipedia.org/wiki/Immigrant_investor_programs"
+    },
+    {
+      "slug": "beneficial-ownership",
+      "term": "Beneficial ownership",
+      "category": "residency",
+      "definition": "The natural person who ultimately owns, controls, or benefits from a legal entity — even when the entity's nominal owner is a different person, trust, or company.",
+      "explanation": "EU and UK anti-money-laundering regulations require disclosure of beneficial ownership for property-holding entities. For fractional co-ownership through a property-specific LLC, SCI, or SL, each co-owner is typically a beneficial owner of the property-holding entity to the extent of their share. Operators manage beneficial-ownership disclosure as part of the regulated purchase process.",
+      "sameAs": "https://en.wikipedia.org/wiki/Beneficial_ownership"
+    },
+    {
+      "slug": "escritura",
+      "term": "Escritura (Spanish title deed)",
+      "category": "property",
+      "definition": "A Spanish notarial public deed evidencing real-estate ownership or transfer. The escritura is signed before a Spanish notary and registered with the relevant property registry.",
+      "explanation": "For Spanish fractional property held in an SL, the escritura was executed when the SL originally acquired the property. Subsequent transfers of SL shares (when co-owners resell) are processed as Spanish corporate share transfers rather than property conveyances — meaning no new escritura is required on the underlying property, which materially reduces transfer costs."
+    },
+    {
+      "slug": "conveyancing",
+      "term": "Conveyancing",
+      "category": "property",
+      "definition": "The legal process of transferring property ownership from one party to another. Involves title searches, contract drafting, registration with relevant authorities, and payment of associated fees and taxes.",
+      "explanation": "Conventional property conveyancing is the costliest and slowest part of a second-home resale. Fractional co-ownership resales avoid full conveyancing because the transaction transfers shares in the property-specific entity rather than the underlying property — the entity continues to hold the property; only its ownership composition changes. This reduces transaction costs by an order of magnitude relative to conventional resale.",
+      "sameAs": "https://en.wikipedia.org/wiki/Conveyancing"
+    },
+    {
+      "slug": "concierge-management",
+      "term": "Concierge / property management",
+      "category": "property",
+      "definition": "Professional services that handle the operational aspects of property ownership — housekeeping, maintenance, utilities, local tax compliance, pre-arrival preparation, guest services, and emergency response — on behalf of the owner.",
+      "explanation": "Concierge / property management is bundled into fractional co-ownership; the management company is typically engaged by the property-specific entity and paid through the annual cost pass-through. For whole-property owners, the equivalent service must be self-arranged or contracted separately — adding meaningful time and cost. The bundled-management model is one of the primary operational advantages of fractional ownership versus whole ownership of a comparable property."
+    },
+    {
+      "slug": "bel-etage",
+      "term": "Bel-étage (Parisian architecture)",
+      "category": "property",
+      "definition": "The 'beautiful floor' of a classic Parisian Haussmannian building — historically the second or third floor, with the highest ceilings, the most ornate balconies (typically a continuous wrought-iron balcony), and the largest windows.",
+      "explanation": "In 19th-century Haussmannian Paris, the bel-étage was the most prestigious floor because it was accessible without stairs from the ground in an era before elevators, while sitting above the noise and dust of the street. Modern buyers of central Parisian property — including fractional buyers — pay a meaningful premium for genuine bel-étage apartments because of the ceiling height, balcony, and original architectural detail."
+    },
+    {
+      "slug": "vacation-rental",
+      "term": "Vacation rental",
+      "category": "property",
+      "definition": "A property rented out short-term to vacationing guests, typically through platforms like Airbnb, Booking.com, or Vrbo — distinct from long-term residential leasing.",
+      "explanation": "Vacation rental is an alternative to ownership for buyers seeking flexibility — paying for accommodation as needed rather than committing capital. Compared to fractional co-ownership, vacation rental requires no upfront capital, builds no equity, and offers no consistency of property. For buyers with low annual usage (under three weeks per year) or strong preference for destination variety, pure rental may produce better lifestyle utility per dollar than any ownership model.",
+      "sameAs": "https://en.wikipedia.org/wiki/Vacation_rental"
+    }
+  ]
+}
