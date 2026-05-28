@@ -7543,7 +7543,10 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   color: #2C4A5E;
 }
 
-/* ── Hero comparison table ── */
+/* ── Hero comparison table ──
+   Note: the older .compare-table rule from /how-it-works/ (line ~4081)
+   sets td color to white-on-white. We MUST set explicit colors here on
+   every cell or table content disappears against the cream background. */
 .compare-table-wrap {
   margin: 32px -16px;
   overflow-x: auto;
@@ -7553,15 +7556,18 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   width: 100%;
   background: #fff;
   font-size: 14.5px;
+  margin-top: 0;
 }
 .compare-body-inner table.compare-table th,
 .compare-body-inner table.compare-table td {
   padding: 14px 18px;
   text-align: left;
   vertical-align: top;
+  color: #1f3445;
   border-bottom: 1px solid #E0DACE;
+  line-height: 1.5;
 }
-.compare-body-inner table.compare-table th {
+.compare-body-inner table.compare-table thead th {
   background: #F5F2EC;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 12px;
@@ -7571,11 +7577,19 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   color: #2C4A5E;
   border-bottom: 2px solid #C9A84C;
 }
-.compare-body-inner table.compare-table td:first-child {
+.compare-body-inner table.compare-table thead th:first-child {
+  color: #2C4A5E;
+}
+.compare-body-inner table.compare-table tbody td {
+  color: #1f3445;
+  border-bottom: 1px solid #E0DACE;
+}
+.compare-body-inner table.compare-table tbody td:first-child {
   font-weight: 600;
   color: #2C4A5E;
   background: #FCFAF6;
   width: 26%;
+  font-size: 13.5px;
 }
 .compare-body-inner table.compare-table tr:hover td:not(:first-child) {
   background: #FCFAF6;
@@ -7583,23 +7597,51 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .compare-body-inner table.compare-table .compare-pos { color: #2C7D4D; font-weight: 600; }
 .compare-body-inner table.compare-table .compare-neg { color: #a23b3b; font-weight: 600; }
 .compare-body-inner table.compare-table .compare-neu { color: #6B8A9E; }
+.compare-body-inner table.compare-table strong { color: #2C4A5E; }
+.compare-body-inner table.compare-table a { color: #2C4A5E; border-bottom: 1px solid rgba(44,74,94,0.3); }
 
-/* ── FAQ section ── */
+/* ── FAQ section — styled as visually distinct cards
+   Each Q+A pair becomes a bordered card with a clear visual hierarchy.
+   Native browser accordion via <details>/<summary> would be cleaner but
+   the H3+P pattern is what the renderer extracts for FAQPage schema, so
+   we style what we have. */
 .compare-faq-section {
-  margin-top: 56px;
-  padding: 32px 0 8px;
-  border-top: 1px solid #E0DACE;
+  margin-top: 64px;
+  padding: 40px 0 8px;
+  border-top: 2px solid #C9A84C;
 }
 .compare-body-inner .compare-faq-section h2 {
-  margin-top: 0;
-  font-size: 26px;
+  margin: 0 0 32px;
+  font-size: 30px;
+  text-align: center;
 }
 .compare-body-inner .compare-faq-section h3 {
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 19px;
+  font-weight: 500;
   color: #2C4A5E;
-  margin: 28px 0 8px;
+  margin: 0;
+  padding: 22px 26px 14px;
+  background: #fff;
+  border-left: 3px solid #C9A84C;
+  border-top: 1px solid #E0DACE;
+  border-right: 1px solid #E0DACE;
+}
+.compare-body-inner .compare-faq-section h3 + p {
+  margin: 0;
+  padding: 0 26px 22px;
+  background: #fff;
+  border-left: 3px solid #C9A84C;
+  border-right: 1px solid #E0DACE;
+  border-bottom: 1px solid #E0DACE;
+  color: #1f3445;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.compare-body-inner .compare-faq-section h3 + p + p {
+  margin-top: -14px;
+  padding-top: 14px;
+  border-top: 1px solid #F0EBE0;
 }
 
 /* ── CTA section ── */
