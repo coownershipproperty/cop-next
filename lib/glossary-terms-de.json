@@ -1,0 +1,380 @@
+{
+  "intro": "Ein praxisorientiertes Glossar der rechtlichen, steuerlichen, operativen und strukturellen Begriffe, die beim Kauf eines Anteils an fraktionalem Miteigentum auftauchen — insbesondere über europäische Jurisdiktionen hinweg. Die Definitionen bevorzugen operative Klarheit gegenüber lehrbuchartiger Präzision; für rechtlich folgenreiche Entscheidungen konsultieren Sie einen qualifizierten lokalen Berater.",
+  "categories": [
+    { "id": "legal-structures", "name": "Rechtsstrukturen" },
+    { "id": "ownership", "name": "Eigentumsbegriffe" },
+    { "id": "costs-fees", "name": "Kosten und Gebühren" },
+    { "id": "tax", "name": "Steuerbegriffe" },
+    { "id": "operational", "name": "Operative Begriffe" },
+    { "id": "residency", "name": "Käufer- und Wohnsitzbegriffe" },
+    { "id": "property", "name": "Immobilien- und Transaktionsbegriffe" }
+  ],
+  "terms": [
+    {
+      "slug": "llc",
+      "term": "LLC (Limited Liability Company)",
+      "category": "legal-structures",
+      "definition": "Eine US-amerikanische Rechtseinheit, die den Schutz beschränkter Haftung mit transparenter steuerlicher Behandlung (Pass-Through-Besteuerung) kombiniert. Im fraktionalen Miteigentum hält eine immobilienspezifische LLC 100 % des Immobilientitels, wobei Miteigentümer anteilige Mitgliedschaftsbeteiligungen halten.",
+      "explanation": "Die meisten in den USA ansässigen fraktionalen Anbieter verwenden immobilienspezifische LLCs, um einzelne Immobilien zu halten — eine LLC pro Immobilie. Die Struktur bedeutet, dass der Name jedes Eigentümers im Eigentümerregister der LLC erscheint; die LLC besitzt die Immobilie; und beim Ausstieg übertragen Eigentümer LLC-Mitgliedschaftsbeteiligungen, anstatt eine vollständige Eigentumsübertragung auszulösen. Dies hält die Transaktionskosten deutlich niedriger als bei einem herkömmlichen Weiterverkauf eines Zweitwohnsitzes.",
+      "sameAs": "https://de.wikipedia.org/wiki/Limited_Liability_Company"
+    },
+    {
+      "slug": "sci",
+      "term": "SCI (Société Civile Immobilière)",
+      "category": "legal-structures",
+      "definition": "Eine französische zivilrechtliche Immobiliengesellschaft, die zur gemeinschaftlichen Immobilienhaltung verwendet wird. In etwa das französische Äquivalent zu einer immobilienspezifischen LLC für die Zwecke fraktionalen Miteigentums.",
+      "explanation": "Französische fraktionale Immobilien werden üblicherweise in immobilienspezifischen SCIs gehalten, die beim lokalen Notar und beim französischen Handelsregister eingetragen sind. Miteigentümer halten anteilige Anteile an der SCI. Die Struktur wurde von französischen Familien seit Generationen verwendet, um gemeinsames Eigentum zu halten; moderne fraktionale Anbieter haben sie für die grenzüberschreitende Käufernutzung professionalisiert.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Soci%C3%A9t%C3%A9_civile_immobili%C3%A8re"
+    },
+    {
+      "slug": "sl",
+      "term": "SL (Sociedad Limitada)",
+      "category": "legal-structures",
+      "definition": "Eine spanische Gesellschaft mit beschränkter Haftung. Das standardmäßige spanische Unternehmensvehikel zur Haltung von Immobilien — und für fraktionales Eigentum als immobilienspezifische Einheit mit Miteigentümern als anteiligen Anteilseignern verwendet.",
+      "explanation": "Spanische Notare, Steuerberater und das spanische Handelsregister behandeln SLs alle als Routinegeschäft. Für nicht-ansässige Käufer spanischer fraktionaler Anteile ist die SL-Struktur den lokalen Beratern vertraut und produziert standardmäßige Ergebnisse des spanischen Gesellschaftsrechts in Bezug auf Governance, Abstimmung und Anteilsübertragung.",
+      "sameAs": "https://de.wikipedia.org/wiki/Sociedad_Limitada"
+    },
+    {
+      "slug": "srl",
+      "term": "Srl (Società a responsabilità limitata)",
+      "category": "legal-structures",
+      "definition": "Eine italienische Gesellschaft mit beschränkter Haftung. Das italienische Pendant zu einer SL oder LLC, manchmal als immobilienhaltendes Vehikel für fraktionales Eigentum in Italien verwendet.",
+      "explanation": "Das italienische Immobilienrecht und die notarielle Praxis sind rund um die Srl-Form gut entwickelt. Die Struktur produziert verbriefe Anteilseignerergebnisse für nicht-ansässige Käufer und ist im gesamten italienischen regionalen Notarsystem anerkannt.",
+      "sameAs": "https://de.wikipedia.org/wiki/Società_a_responsabilità_limitata"
+    },
+    {
+      "slug": "gmbh-co-kg",
+      "term": "GmbH & Co. KG",
+      "category": "legal-structures",
+      "definition": "Eine deutsche Kommanditgesellschaft, in der eine GmbH (Gesellschaft mit beschränkter Haftung) als Komplementärin fungiert und Einzelpersonen Kommanditisten sind. Einige fraktionale Anbieter verwenden diese Struktur für Konsistenz über europäische Immobilien hinweg.",
+      "explanation": "Die GmbH & Co. KG kombiniert die Flexibilität der Kommanditgesellschaft mit dem Haftungsbeschränkungsschutz der GmbH. Wenn sie von einem fraktionalen Anbieter für Immobilien in mehreren Ländern verwendet wird, hält dasselbe Rechtsvehikel spanische, italienische, französische und andere Immobilien — was die Eigentumserfahrung für mehrländer Käufer vereinfacht, während das zugrunde liegende Immobilienrecht weiterhin die Immobilie selbst regelt.",
+      "sameAs": "https://de.wikipedia.org/wiki/GmbH_%26_Co._KG"
+    },
+    {
+      "slug": "fideicomiso",
+      "term": "Fideicomiso",
+      "category": "legal-structures",
+      "definition": "Ein mexikanischer Bankentreuhand, über den ausländische Staatsangehörige Eigentum in Mexikos beschränkten Küsten- und Grenzgebieten halten können (innerhalb von 50 km der Küste oder 100 km einer Grenze).",
+      "explanation": "Das mexikanische Recht beschränkt den direkten ausländischen Immobilienbesitz in diesen Zonen. Der Fideicomiso leitet das Eigentum über eine mexikanische Bank als Treuhänder, wobei der ausländische Käufer Begünstigter ist. Der Käufer hat volle Rechte auf Nutzung, Verkauf, Übertragung und Vererbung — für praktische Zwecke vergleichbar mit direktem Eigentum. Für fraktionales Eigentum mexikanischer Küstenimmobilien ist der Fideicomiso die Standardstruktur.",
+      "sameAs": "https://en.wikipedia.org/wiki/Fideicomiso"
+    },
+    {
+      "slug": "property-specific-entity",
+      "term": "Immobilienspezifische Einheit",
+      "category": "legal-structures",
+      "definition": "Eine Rechtseinheit (LLC, SCI, SL, Srl, KG, Fideicomiso usw.), die geschaffen wurde, um genau eine Immobilie zu halten. Jede Immobilie im Portfolio eines fraktionalen Anbieters sitzt in ihrer eigenen Einheit, getrennt von anderen Immobilien und vom Unternehmen des Anbieters selbst.",
+      "explanation": "Die immobilienspezifische Einheit ist der strukturelle Schutz, der das fraktionale Miteigentum von vom Anbieter kontrollierten Mitgliedschaftsmodellen unterscheidet. Da die Immobilie ihrer eigenen Einheit gehört (nicht dem Anbieter), besteht die Immobilie weiter, wenn der Anbieter seine Tätigkeit einstellt — Miteigentümer können eine Ersatzverwaltungsgesellschaft beauftragen. Das Eigenkapital der Eigentümer liegt in der Immobilie, nicht im Geschäft des Anbieters."
+    },
+    {
+      "slug": "indivision",
+      "term": "Indivision",
+      "category": "legal-structures",
+      "definition": "Eine französische Rechtsvereinbarung, unter der mehrere Parteien gemeinsam einen einzelnen Vermögenswert besitzen, ohne eine formelle Gesellschaft. Üblich in der französischen Erbschaft, wo Geschwister das gemeinsame Eigentum an einer Familienimmobilie erhalten.",
+      "explanation": "Die Indivision ist informelles gemeinsames Eigentum — jeder Miteigentümer hält einen ungeteilten Anteil. Entscheidungen über die Immobilie erfordern typischerweise Einstimmigkeit, was Reibung erzeugt. Modernes fraktionales Eigentum verwendet immobilienspezifische SCIs statt Indivision genau zur Vermeidung dieser Reibung: klare Abstimmungsschwellen, standardisierte Governance und strukturierter Ausstieg.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Indivision"
+    },
+    {
+      "slug": "fractional-ownership",
+      "term": "Fraktionales Eigentum",
+      "category": "ownership",
+      "definition": "Ein Immobilieneigentumsmodell, bei dem mehrere Käufer jeweils einen rechtlich verbrieften Bruchteil einer Immobilie besitzen, typischerweise durch eine immobilienspezifische Rechtseinheit. Jeder Eigentümer hat anteilig zu seinem Anteil Rechte, die Immobilie für einen definierten Zeitraum pro Jahr zu nutzen.",
+      "explanation": "Modernes fraktionales Miteigentum ist strukturell vom Timesharing zu unterscheiden: Der Käufer besitzt verbriefes Immobilieneigentum über die immobilienspezifische Einheit, der Anteil gewinnt mit dem Immobilienmarkt an Wert, und der Anteil kann auf dem freien Markt verkauft werden. Die typische Anteilsgröße ist 1/8, was etwa 45 Tage Nutzung pro Jahr ergibt. Die meisten Anbieter in der Kategorie nutzen professionelles Immobilienmanagement, das in das Modell gebündelt ist.",
+      "sameAs": "https://de.wikipedia.org/wiki/Bruchteilseigentum"
+    },
+    {
+      "slug": "co-ownership",
+      "term": "Miteigentum",
+      "category": "ownership",
+      "definition": "Ein Oberbegriff für Vereinbarungen, bei denen mehrere Parteien Eigentumsrechte an derselben Immobilie halten. In einem fraktionalen Kontext bedeutet Miteigentum speziell verbriefes gemeinsames Eigentum durch eine immobilienspezifische Rechtseinheit und nicht informeller gemeinschaftlicher Titel.",
+      "explanation": "Miteigentum und fraktionales Eigentum werden in der modernen fraktionalen Kategorie typischerweise synonym verwendet. Die Begriffe betonen dieselbe strukturelle Realität: eine kleine Gruppe von Eigentümern (in der Regel bis zu acht, gelegentlich mehr), die Eigenkapital, Nutzung und laufende Kosten einer einzelnen Luxusimmobilie teilen."
+    },
+    {
+      "slug": "deeded-share",
+      "term": "Verbriefter Anteil",
+      "category": "ownership",
+      "definition": "Ein Anteil an einer Immobilie, bei dem der Name des Eigentümers in rechtlichen Eigentumsregistern erscheint — typischerweise im Mitgliedschaftsregister der immobilienspezifischen LLC oder Partnerschaft — und der Anteil eine Immobilien-Eigenkapitalbeteiligung darstellt.",
+      "explanation": "Verbriefe Eigentum ist die strukturelle Unterscheidung, die fraktionales Miteigentum von vertragsbasierten Produkten wie dem traditionellen Timesharing trennt. Mit einem verbrieften Anteil hat der Käufer eine eingetragene Eigenkapitalbeteiligung, die mit der Immobilie an Wert gewinnt, auf dem freien Markt verkauft werden kann, an Erben als Immobilienvermögen übergeht und standardmäßige immobiliensteuerliche Ergebnisse produziert."
+    },
+    {
+      "slug": "one-eighth-share",
+      "term": "1/8-Anteil",
+      "category": "ownership",
+      "definition": "Die häufigste Anteilsgröße im modernen fraktionalen Miteigentum: ein Achtel der Immobilie, das den Eigentümer zu ungefähr 45 Tagen privater Nutzung pro Jahr berechtigt.",
+      "explanation": "Ein 1/8-Anteil ist so bemessen, dass er der realistischen jährlichen Nutzung der meisten Zweitwohnsitz-Käufer entspricht — Forschungen zeigen durchgängig, dass der typische Zweitwohnsitz-Eigentümer seine Immobilie etwa 35 Tage pro Jahr nutzt. Das 1/8-Modell produziert acht gleiche Anteilsklassen pro Immobilie, wobei eine immobilienspezifische Einheit die Urkunde hält. Einige Anbieter bieten auch 1/4- und 1/2-Anteile für Käufer an, die mehr Nutzungszeit wünschen."
+    },
+    {
+      "slug": "rofr",
+      "term": "Vorkaufsrecht (Right of First Refusal, ROFR)",
+      "category": "ownership",
+      "definition": "Eine vertragliche Bestimmung, die einer Partei das Recht einräumt, einen Vermögenswert vor dem Verkauf an Dritte angeboten zu bekommen. Im fraktionalen Miteigentum haben bestehende Miteigentümer typischerweise ein Vorkaufsrecht auf den Weiterverkaufsanteil eines Miteigentümers.",
+      "explanation": "Wenn ein fraktionaler Eigentümer seinen Anteil zum Verkauf inseriert, gibt die Vorkaufsrecht-Mechanik bestehenden Miteigentümern derselben Immobilie die erste Gelegenheit, den Anteil zum gelisteten Preis zu erwerben. Wenn kein Miteigentümer das Vorkaufsrecht innerhalb eines definierten Zeitfensters ausübt, wird der Anteil dem breiteren Interessentenpool vermarktet. Das Vorkaufsrecht existiert, um der bestehenden Eigentümergruppe etwas Kontrolle darüber zu geben, wer ihr beitritt.",
+      "sameAs": "https://de.wikipedia.org/wiki/Vorkaufsrecht"
+    },
+    {
+      "slug": "whole-ownership",
+      "term": "Volleigentum",
+      "category": "ownership",
+      "definition": "Das traditionelle Modell des Immobilieneigentums: Ein Eigentümer (oder ein Paar, eine Familie oder eine Einheit) hält 100 % des Immobilientitels.",
+      "explanation": "Volleigentum bindet 100 % des Kapitals an eine Immobilie, wobei der Eigentümer für alle laufenden Kosten und das Management verantwortlich ist. Im Vergleich zu einem 1/8-Bruchteilseigentumsanteil bei demselben Immobilienwert erfordert das Volleigentum das 8-fache Kapital, produziert unbegrenzte Nutzungsrechte (obwohl die realistische Nutzung laut Branchendaten typischerweise bei etwa 35 Tagen pro Jahr liegt) und setzt den Eigentümer der vollen operativen Last der grenzüberschreitenden Immobilienverwaltung aus."
+    },
+    {
+      "slug": "timeshare",
+      "term": "Timesharing",
+      "category": "ownership",
+      "definition": "Ein Immobilien-Nutzungsprodukt, bei dem der Käufer das vertragliche Recht erwirbt, eine Immobilie für einen definierten Zeitraum jedes Jahr zu nutzen — typischerweise eine Woche, manchmal flexible Punkte — ohne irgendeine Immobilie zu besitzen.",
+      "explanation": "Timesharing ist strukturell vom fraktionalen Miteigentum zu unterscheiden: Der Käufer besitzt einen Vertrag, keine verbriefe Immobilienbeteiligung. Die meisten Timesharing-Verträge haben kein Immobilien-Eigenkapital, gewinnen nicht mit dem Immobilienmarkt an Wert und sind notorisch schwer weiterzuverkaufen — eine ganze Branche von „Timesharing-Ausstiegsfirmen“ existiert speziell, um Eigentümern beim Loswerden ungewollter Verträge zu helfen. Der Disney Vacation Club ist die meistzitierte Ausnahme und verwendet eine verbriefe Nutzungsrechtsstruktur mit stärkerer Weiterverkaufsdynamik.",
+      "sameAs": "https://de.wikipedia.org/wiki/Timesharing"
+    },
+    {
+      "slug": "service-fee",
+      "term": "Servicegebühr",
+      "category": "costs-fees",
+      "definition": "Eine von fraktionalen Eigentümern an die Betriebsgesellschaft gezahlte Gebühr für laufende Plattformdienste, Technologie, Eigentümerbetreuung und Anbieterverwaltung. Unterscheidet sich von den tatsächlichen laufenden Kosten der Immobilie.",
+      "explanation": "Anbieter strukturieren Servicegebühren unterschiedlich: Einige veröffentlichen eine pauschale Gebühr pro Anteil (z. B. ein fester Betrag pro Monat pro Anteil), andere berechnen einen Prozentsatz des Immobilienwerts jährlich, wieder andere bündeln eine einmalige Servicegebühr in den Erstkaufpreis. Die Servicegebühr ist getrennt vom Cost-Pass-Through der tatsächlichen laufenden Ausgaben der Immobilie (Versicherung, Steuern, Versorgung, Wartung)."
+    },
+    {
+      "slug": "cost-passthrough",
+      "term": "Cost-Pass-Through (Kostenweitergabe)",
+      "category": "costs-fees",
+      "definition": "Das Modell, bei dem Miteigentümer ihren anteiligen Anteil der tatsächlichen laufenden Kosten der Immobilie zahlen — Verwaltung, Versicherung, lokale Steuern, Versorgungsgrundgebühren, Wartung und Rücklagenbeiträge — ohne dass eine Anbietermarge auf diese Kosten aufgeschlagen wird.",
+      "explanation": "Cost-Pass-Through ist das Standardmodell für die Komponente der Immobilienbetriebskosten in fraktionalen Jahresgebühren. Ein 1/8-Eigentümer zahlt 1/8 der tatsächlichen laufenden Kosten der Immobilie; der Anbieter verdient an der separat offengelegten Servicegebühr (oder einer einmaligen Gebühr beim Kauf) statt an einem Aufschlag auf die laufenden Ausgaben. Die Kosten skalieren mit der Immobilie — eine teurere Villa hat höhere absolute Kosten — aber das Kostenanteilsverhältnis bleibt konsistent."
+    },
+    {
+      "slug": "reserve-fund",
+      "term": "Rücklage (Reservefonds)",
+      "category": "costs-fees",
+      "definition": "Eine gepoolte Barreserve, die innerhalb der immobilienspezifischen Einheit gehalten wird, um künftige größere Reparaturen, Ersetzungen und Investitionsausgaben zu decken, ohne überraschende Umlagen von Eigentümern zu erfordern.",
+      "explanation": "Die Rücklage wird durch jährliche Beiträge finanziert, die in den Cost-Pass-Through eingebaut sind. Größere Reparaturen (Austausch der Heizungs-/Klimaanlage, Dacharbeiten, strukturelle Wartung) werden aus der Rücklage bezahlt, anstatt einmalige Barabrufe auszulösen. Die Angemessenheit der Rücklage ist einer der in der Vor-Kauf-Dokumentation offengelegten Punkte; unterversicherte Immobilien können später zu Sonderumlagen führen."
+    },
+    {
+      "slug": "special-assessment",
+      "term": "Sonderumlage",
+      "category": "costs-fees",
+      "definition": "Eine einmalige Barabgabe an Eigentümer über die standardmäßigen jährlichen Gebühren hinaus, typischerweise einberufen, wenn die Rücklagen nicht ausreichen, um eine größere Reparatur oder unerwartete Kapitalausgabe zu decken.",
+      "explanation": "Sonderumlagen sind sowohl im Timesharing als auch in bestimmten HOA-Kontexten für vollständige Immobilien üblich; in gut verwaltetem fraktionalem Miteigentum sind sie selten, weil die Rücklagen so bemessen sind, dass sie größere Reparaturen absorbieren. Wenn eine Immobilie eine Umlage benötigt, wird diese anteilig nach Anteilsgröße unter den Miteigentümern aufgeteilt. Vor-Kauf-Offenlegungen umfassen typischerweise die Umlagenhistorie der Immobilie."
+    },
+    {
+      "slug": "notaire-fees",
+      "term": "Notargebühren (Notaire fees)",
+      "category": "costs-fees",
+      "definition": "Gebühren, die von einem französischen Notar für die Durchführung von Immobilientransaktionen erhoben werden. Kombiniert mit den damit verbundenen Übertragungssteuern beträgt der Gesamtbetrag bei gebrauchten französischen Immobilien typischerweise 7–8 % des Immobilienkaufpreises.",
+      "explanation": "Bei herkömmlichen französischen Immobilienkäufen deckt die Notargebühr die Honorardienste des Notars plus die verschiedenen Übertragungssteuern und Eintragungsgebühren ab, die über den Notar laufen. Für fraktionales Eigentum an französischen Immobilien wurden die Notargebühren einmal gezahlt, als die immobilienspezifische SCI ursprünglich gegründet und die Immobilie erworben wurde. Wenn anschließend ein Anteil weiterverkauft wird, erwirbt der Käufer SCI-Anteile statt eine neue Eigentumsübertragung auszulösen — was bedeutet, dass keine volle Notargebühr auf die Anteilsübertragung anfällt."
+    },
+    {
+      "slug": "stamp-duty",
+      "term": "Grunderwerbsteuer (Stamp Duty)",
+      "category": "costs-fees",
+      "definition": "Eine Steuer auf Immobilientransaktionen in verschiedenen Jurisdiktionen, typischerweise als Prozentsatz des Kaufpreises berechnet. Die UK Stamp Duty Land Tax (SDLT) und die spanische ITP (Impuesto de Transmisiones Patrimoniales) sind häufige Beispiele.",
+      "explanation": "Herkömmliche Zweitwohnsitz-Käufe lösen zum Zeitpunkt des Kaufs eine Grunderwerbsteuer auf den vollen Immobilienwert aus. Im fraktionalen Miteigentum wurde die Grunderwerbsteuer einmal gezahlt, als die immobilienspezifische Einheit ursprünglich die Immobilie erwarb; nachfolgende Anteilsübertragungen innerhalb der Einheit lösen in den meisten Jurisdiktionen keine erneute Grunderwerbsteuer aus, da keine zugrunde liegende Immobilienübertragung stattfindet."
+    },
+    {
+      "slug": "ifi",
+      "term": "IFI (Impôt sur la Fortune Immobilière)",
+      "category": "tax",
+      "definition": "Die französische Vermögensteuer auf Immobilienvermögen. Gilt für französische Steueransässige auf ihr weltweites Immobilienvermögen und für Nicht-Ansässige auf ihr französisches Immobilienvermögen, mit einer aktuellen Schwelle von 1,3 Millionen € Nettoimmobilienwert.",
+      "explanation": "Die IFI besteuert den Nettowert des relevanten Immobilienvermögens oberhalb der 1,3-Mio.-€-Schwelle zu progressiven Sätzen (0,5 %–1,5 %). Für nicht-ansässige Käufer zählt nur französisches Immobilienvermögen zur Schwelle. Ein Nicht-Ansässiger mit einem 1/8-Anteil an einer französischen Villa für 5 Mio. € hält 625.000 € französisches Immobilienvermögen — unterhalb der IFI-Schwelle für viele Käufer. Volleigentum derselben Villa würde den Käufer weit in den IFI-Bereich bringen.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Imp%C3%B4t_sur_la_fortune_immobili%C3%A8re"
+    },
+    {
+      "slug": "patrimonio",
+      "term": "Patrimonio (spanische Vermögensteuer)",
+      "category": "tax",
+      "definition": "Die spanische Vermögensteuer auf das Nettovermögen (einschließlich Immobilien) oberhalb definierter Schwellen. Sätze und Schwellen variieren je nach autonomer Gemeinschaft — Madrid erhebt sie effektiv nicht, während mehrere andere Gemeinschaften sie erheben.",
+      "explanation": "Für nicht-ansässige Käufer spanischer Immobilien gilt das Patrimonio auf den Nettowert der in Spanien gelegenen Vermögenswerte, wobei die Schwelle und die Sätze von der autonomen Gemeinschaft festgelegt werden, in der die Immobilie liegt. Fraktionales Eigentum hält den Vermögenswert für viele Käufer unter den Schwellen, die sie sonst beim Volleigentum derselben Immobilie überschreiten würden. Die spezifische Steuerpflicht hängt vom Standort der Immobilie, vom Wohnsitz des Käufers und von einem etwaigen anwendbaren Abkommen ab.",
+      "sameAs": "https://de.wikipedia.org/wiki/Verm%C3%B6gensteuer"
+    },
+    {
+      "slug": "ibi",
+      "term": "IBI (Impuesto sobre Bienes Inmuebles)",
+      "category": "tax",
+      "definition": "Die jährliche lokale Grundsteuer Spaniens, erhoben von der Gemeinde, in der die Immobilie liegt. Die Sätze variieren je nach Region und betragen typischerweise 0,4 %–1,1 % des Katasterwerts der Immobilie (der in der Regel deutlich unter dem Marktwert liegt).",
+      "explanation": "Die IBI wird jährlich vom Eigentümer der Immobilie gezahlt — für eine in einer SL gehaltene Immobilie zahlt die SL die IBI. Im fraktionalen Miteigentum fließt die IBI durch den Cost-Pass-Through, wobei jeder Miteigentümer seinen anteiligen Anteil beisteuert. Eigentümer zahlen die IBI nicht separat; sie ist in den jährlichen Betriebskosten gebündelt."
+    },
+    {
+      "slug": "imu",
+      "term": "IMU (Imposta Municipale Unica)",
+      "category": "tax",
+      "definition": "Italiens jährliche kommunale Grundsteuer. Gilt für Zweitwohnsitze und hochwertige Immobilien; der Hauptwohnsitz ist für italienische Steueransässige im Allgemeinen befreit.",
+      "explanation": "Die IMU-Sätze variieren je nach Gemeinde und werden gegen das neu bewertete Katastereinkommen der Immobilie berechnet. Für nicht-ansässige Eigentümer italienischer Zweitwohnsitz-Immobilien — einschließlich fraktionaler Anteile — gilt die IMU auf den vollen Immobilienwert, wobei jeder Miteigentümer anteilig über den Cost-Pass-Through beisteuert.",
+      "sameAs": "https://it.wikipedia.org/wiki/Imposta_municipale_propria"
+    },
+    {
+      "slug": "taxe-fonciere",
+      "term": "Taxe foncière",
+      "category": "tax",
+      "definition": "Die jährliche Grundsteuer Frankreichs, gezahlt vom Eigentümer der Immobilie, unabhängig davon, wer sie bewohnt. Berechnet gegen den katastermäßigen Mietwert der Immobilie.",
+      "explanation": "Die Sätze und absoluten Beträge der Taxe foncière variieren je nach Gemeinde. Für französische Immobilien, die in einer SCI gehalten werden, zahlt die SCI die Taxe foncière; im fraktionalen Eigentum fließt diese anteilig durch den Cost-Pass-Through. Die verwandte Taxe d'habitation wurde für Hauptwohnsitze weitgehend abgeschafft, kann aber in einigen Gemeinden noch für Zweitwohnsitze gelten.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Taxe_fonci%C3%A8re"
+    },
+    {
+      "slug": "sucesiones",
+      "term": "Sucesiones (spanische Erbschaftsteuer)",
+      "category": "tax",
+      "definition": "Spaniens Erbschafts- und Schenkungsteuer, national reguliert, aber mit erheblichen Unterschieden je nach autonomer Gemeinschaft verwaltet. Die Sätze hängen von der Beziehung des Erben zum Verstorbenen und vom Wohnsitz des Erben ab.",
+      "explanation": "In Spanien gelegene Vermögenswerte unterliegen den Sucesiones-Steuern beim Erben, unabhängig davon, wo der Erbe lebt. Mehrere autonome Gemeinschaften bieten erhebliche Ermäßigungen oder Befreiungen für direkte Linie-Erben (Ehepartner, Kinder, Eltern). Für nicht-ansässige Erben spanischer fraktionaler Anteile hängt die spezifische Steuerpflicht davon ab, in welcher autonomen Gemeinschaft die Immobilie liegt und welche Beziehung der Erbe zum Verstorbenen hatte."
+    },
+    {
+      "slug": "capital-gains-tax",
+      "term": "Kapitalertragsteuer",
+      "category": "tax",
+      "definition": "Steuer auf den Gewinn, der realisiert wird, wenn ein Vermögenswert für mehr als seine Kostenbasis verkauft wird. Gilt für fraktionale Anteile, wenn sie mit Gewinn verkauft werden, wobei die Sätze und die Mechanik durch die Jurisdiktion der Immobilie und den Wohnsitz des Verkäufers bestimmt werden.",
+      "explanation": "Beim Verkauf eines fraktionalen Anteils ist der Gewinn (Verkaufspreis abzüglich Kostenbasis abzüglich anrechenbarer Kosten) typischerweise im Land der Immobilie steuerpflichtig, oft über einen Quellensteuermechanismus für nicht-ansässige Verkäufer, mit Abgleich über eine lokale Steuererklärung. Abkommensvereinbarungen zwischen dem Land der Immobilie und dem Heimatland des Verkäufers können die endgültige Steuerposition beeinflussen.",
+      "sameAs": "https://de.wikipedia.org/wiki/Kapitalertragsteuer"
+    },
+    {
+      "slug": "k1",
+      "term": "K-1 (US-amerikanisches Schedule K-1)",
+      "category": "tax",
+      "definition": "Ein US-amerikanisches Steuerformular, das jährlich von Partnerschaften und als Partnerschaften besteuerten LLCs an jedes Mitglied ausgestellt wird und den Anteil dieses Mitglieds an Einkommen, Abzügen, Gutschriften und anderen Steuerposten ausweist.",
+      "explanation": "US-immobilienspezifische LLCs, die fraktionale Immobilien halten, stellen jedem Miteigentümer zum Jahresende ein K-1 aus. Das K-1 weist den anteiligen Anteil des Mitglieds am LLC-Einkommen (z. B. aus Mietaktivitäten, falls zutreffend), an Ausgaben und an Kapitalposten aus. Mitglieder verwenden das K-1, um ihre persönlichen US-Steuererklärungen vorzubereiten. Nicht in den USA ansässige Mitglieder haben typischerweise zusätzliche Meldepflichten über das US-Steuerabkommensnetzwerk."
+    },
+    {
+      "slug": "nhr",
+      "term": "NHR-Regelung (Portugal)",
+      "category": "tax",
+      "definition": "Portugals Steuerregelung für nicht-gewöhnliche Ansässige (Non-Habitual Resident) — ein bevorzugter 10-jähriger Steuerstatus für Personen, die portugiesische Steueransässige werden, mit ermäßigten Sätzen auf bestimmte Einkünfte aus ausländischen Quellen.",
+      "explanation": "Die NHR-Regelung wurde in den letzten Jahren erheblich umstrukturiert; die heute für neue Antragsteller verfügbare Version unterscheidet sich von früheren Versionen. Für nicht-ansässige Käufer portugiesischer fraktionaler Immobilien, die nicht planen, portugiesische Steueransässige zu werden, ist die NHR nicht direkt anwendbar — aber sie bleibt relevanter Kontext für Käufer, die portugiesische Aufenthaltsberechtigung in Betracht ziehen."
+    },
+    {
+      "slug": "beckham-law",
+      "term": "Beckham-Gesetz (Spanien)",
+      "category": "tax",
+      "definition": "Spaniens besondere Steuerregelung (formell Régimen de Trabajadores Desplazados, oft nach dem Fußballer, der sie nutzte, „Beckham-Gesetz“ genannt) für Personen, die durch Arbeit spanische Steueransässige werden und es ihnen ermöglicht, bis zu sechs Jahre lang nach modifizierten Regeln besteuert zu werden.",
+      "explanation": "Das Beckham-Gesetz gilt für Personen, die zur Arbeit nach Spanien umziehen und bestimmte Berechtigungskriterien erfüllen. Es kann relevanter Kontext für nicht-spanische Käufer sein, die eine spanische Aufenthaltsberechtigung in Betracht ziehen, gilt aber nicht direkt für nicht-ansässige Eigentümer fraktionaler spanischer Immobilien, die anderswo steueransässig bleiben."
+    },
+    {
+      "slug": "supported-resale",
+      "term": "Begleiteter Weiterverkauf",
+      "category": "operational",
+      "definition": "Ein Weiterverkaufsprozess, der vom fraktionalen Anbieter im Namen des verkaufenden Eigentümers verwaltet wird. Der Anbieter vermarktet den Anteil über seine bestehende Interessentenpipeline und koordiniert die Transaktion.",
+      "explanation": "Der begleitete Weiterverkauf ist der standardmäßige Ausstiegsmechanismus für fraktionales Miteigentum. Der verkaufende Eigentümer benachrichtigt den Anbieter, der Preisberatung basierend auf Marktdaten bietet, den Anteil an qualifizierte Interessenten vermarktet, die bereits mit dem Anbieter und dem Immobilientyp vertraut sind, und die Anteilsübertragung über den entsprechenden rechtlichen Prozess koordiniert. Typische Weiterverkaufszeiten im COP-Portfolio liegen bei etwa 1–3 Monaten vom Inserat bis zum Abschluss."
+    },
+    {
+      "slug": "cooling-off-period",
+      "term": "Widerrufsfrist",
+      "category": "operational",
+      "definition": "Ein definiertes Zeitfenster nach Unterzeichnung eines Kaufvertrags, in dem der Käufer ohne finanzielle Strafe zurücktreten kann. Verpflichtend nach dem Verbraucherschutzrecht verschiedener Jurisdiktionen.",
+      "explanation": "Die Widerrufsfristen variieren je nach Jurisdiktion: Die EU-Timesharing-Richtlinie schreibt eine 14-tägige Widerrufsfrist für Timesharing-Verträge vor; französische Immobilienkäufe beinhalten typischerweise eine 10-tägige SRU-Widerrufsfrist plus zusätzliche Fenster je nach Vertragsstruktur; US-Staaten haben unterschiedliche Fenster. Für fraktionales Miteigentum hängen die spezifischen Widerrufsregeln vom Land der Immobilie und von der Struktur der Kaufvereinbarung ab.",
+      "sameAs": "https://de.wikipedia.org/wiki/Widerrufsrecht"
+    },
+    {
+      "slug": "holding-period",
+      "term": "Mindesthaltedauer",
+      "category": "operational",
+      "definition": "Ein definierter Zeitraum nach dem Kauf, in dem ein fraktionaler Eigentümer seinen Anteil nicht weiterverkaufen kann. Wird von einigen Anbietern bei einigen Immobilien verwendet, um spekulatives kurzfristiges Weiterverkaufen zu entmutigen.",
+      "explanation": "Mindesthaltedauern sind immobilienspezifisch und in der Vor-Kauf-Dokumentation offengelegt. Ein häufiges Muster ist eine Haltedauer von 12 Monaten ab Kauf, bevor der Anteil für den Weiterverkaufsprozess des Anbieters berechtigt wird. Nach Ablauf der Mindestdauer können Eigentümer ihren Anteil über den Standard-Weiterverkaufspfad inserieren."
+    },
+    {
+      "slug": "liquidity-window",
+      "term": "Liquiditätsfenster",
+      "category": "operational",
+      "definition": "Ein definierter Zeitraum, in dem ein fraktionaler Eigentümer strukturierten Zugang zu einem bestimmten Weiterverkaufs- oder Ausstiegsmechanismus hat, wobei der Anbieter Preisgestaltung, Marketing und Transaktionsunterstützung bietet.",
+      "explanation": "Einige Anbieter veröffentlichen mehrere Liquiditätsfenster-Rahmen: ein erstes Fenster nach der Mindesthaltedauer, ein laufendes offenes Fenster für standardmäßige marktkonforme Weiterverkäufe und ein langfristiges Fenster für engagierte Langzeithalter. Der Rahmen bietet Eigentümern vorhersehbare Ausstiegspfade an mehreren Horizonten."
+    },
+    {
+      "slug": "rotation-calendar",
+      "term": "Rotationskalender (faire Rotation)",
+      "category": "operational",
+      "definition": "Ein Terminplanungssystem, das verwendet wird, um Spitzenwochen mit hoher Nachfrage über Miteigentümer hinweg im Zeitverlauf gerecht zuzuteilen. Kombiniert feste saisonale Zuteilungen mit rotierender Priorität für stark nachgefragte Daten.",
+      "explanation": "Rotationskalender bewältigen das strukturelle Problem, dass alle Miteigentümer dieselben Spitzenwochen wollen (Weihnachten, Schulferien, Hauptsaisonsommer). Das System rotiert die Priorität jährlich, sodass kein einzelner Eigentümer immer dieselben Daten erhält — über einen mehrjährigen Zyklus haben Eigentümer in etwa gleichmäßigen Zugang zu Spitzen- und Nebensaisonwochen. Die meisten modernen Anbieter verwalten den Kalender über ihre Eigentümer-App, wobei Miteigentümer bestimmte Daten innerhalb der Prioritätsstruktur buchen."
+    },
+    {
+      "slug": "peak-weeks",
+      "term": "Spitzenwochen",
+      "category": "operational",
+      "definition": "Die nachfragestärksten Buchungszeiträume an einer Immobilie — typischerweise Weihnachten/Neujahr, Schulferien, Ostern und Hauptsaisonsommer (Juli/August in Europa; variiert je nach Destination).",
+      "explanation": "Da alle Miteigentümer Spitzenwochen wollen, stellt die Rotationskalender-Mechanik einen gerechten Zugang über einen mehrjährigen Zyklus sicher, anstatt einer Zuteilung nach dem Prinzip „Wer zuerst kommt, mahlt zuerst“. Einige Anbieter erlauben Eigentümern, Spitzenwochen-Zuteilungen über ihre Buchungsplattform mit anderen Miteigentümern zu tauschen oder zu handeln."
+    },
+    {
+      "slug": "home-swap",
+      "term": "Wohnungstausch / Tauschnetzwerk",
+      "category": "operational",
+      "definition": "Ein Mechanismus, der es einem fraktionalen Eigentümer ermöglicht, in einer anderen Immobilie zu wohnen — typischerweise einer anderen Immobilie im Portfolio desselben Anbieters — im Austausch dafür, dass er seine eigenen zugeteilten Wochen dem Netzwerk zur Verfügung stellt.",
+      "explanation": "Tauschnetzwerke erlauben Eigentümern, ihre jährliche Zuteilung an mehreren Destinationen statt immer an einer Immobilie zu nutzen. Die Mechanik unterscheidet sich je nach Anbieter: Einige betreiben direkte 1:1-Tausche, bei denen zwei Eigentümer Aufenthalte tauschen, einige betreiben punktebasierte Systeme, bei denen die Veröffentlichung einer Woche Credits einbringt, die gegen jede andere veröffentlichte Woche eingelöst werden können, und einige betreiben Concierge-vermittelte Vermittlung. Der Tauschzugang ist typischerweise intern zum Netzwerk jedes Anbieters."
+    },
+    {
+      "slug": "lombard-loan",
+      "term": "Lombardkredit",
+      "category": "operational",
+      "definition": "Ein Kredit, der gegen ein bestehendes Anlageportfolio (Aktien, Anleihen, Fonds) besichert ist, das bei einer Bank gehalten wird, wobei die Bank gegen den Wert des verpfändeten Portfolios verleiht, während der Kreditnehmer die zugrunde liegenden Anlageerträge behält.",
+      "explanation": "Einige fraktionale Anbieter haben Lombardkredit-Fazilitäten über Partnerbanken arrangiert, um Käufer zu unterstützen, die Anlageportfolios halten. Die Bank verleiht gegen das verpfändete Portfolio statt gegen die Immobilie selbst, was Käufern ermöglicht, ihren fraktionalen Anteil zu finanzieren, ohne Investitionen zu liquidieren. Die Berechtigung hängt von der Akzeptanz der Portfoliozusammensetzung des Käufers durch die Bank ab.",
+      "sameAs": "https://de.wikipedia.org/wiki/Lombardkredit"
+    },
+    {
+      "slug": "non-resident-buyer",
+      "term": "Nicht-ansässiger Käufer",
+      "category": "residency",
+      "definition": "Ein Käufer, der nicht im Land der Immobilie steueransässig ist. Bei europäischen fraktionalen Käufen beschreibt dies typischerweise britische, amerikanische oder andere internationale Käufer, die Immobilien in Spanien, Frankreich, Italien, Portugal usw. erwerben.",
+      "explanation": "Der Status als Nicht-Ansässiger beeinflusst die steuerliche Behandlung (Vermögensteuerschwellen, Kapitalertragsmechanik, Erbschaftsregeln), administrative Anforderungen (NIE in Spanien, Äquivalente anderswo) und operative Angelegenheiten (Schengen-Tagezählregeln für Aufenthalte in EU-Immobilien). Die meisten Anbieter haben etablierte Arbeitsabläufe für das Onboarding nicht-ansässiger Käufer."
+    },
+    {
+      "slug": "nie",
+      "term": "NIE (Número de Identificación de Extranjero)",
+      "category": "residency",
+      "definition": "Spaniens ausländische Identifikationsnummer, die für Ausländer (Ansässige und Nicht-Ansässige gleichermaßen) erforderlich ist, um die meisten administrativen und rechtlichen Handlungen in Spanien durchzuführen — einschließlich Immobilienkauf, Eröffnung von Bankkonten und Steuererklärungen.",
+      "explanation": "Nicht-spanische Käufer spanischer fraktionaler Anteile müssen vor Abschluss eine NIE erhalten. Die Beantragung erfolgt typischerweise über ein spanisches Konsulat im Wohnsitzland des Käufers oder über einen spanischen Anwalt oder Gestor per Vollmacht. Die meisten fraktionalen Anbieter, die spanische Immobilien verkaufen, koordinieren NIE-Anträge als Teil des Käufer-Onboarding-Prozesses.",
+      "sameAs": "https://es.wikipedia.org/wiki/N%C3%BAmero_de_identificaci%C3%B3n_de_extranjero"
+    },
+    {
+      "slug": "schengen-90-180",
+      "term": "Schengen 90/180-Regel",
+      "category": "residency",
+      "definition": "Die Regel, die Besucher ohne EU-/EWR-Status auf maximal 90 Tage im Schengen-Raum innerhalb eines beliebigen rollierenden 180-Tage-Zeitraums ohne Visum oder Aufenthaltsgenehmigung beschränkt.",
+      "explanation": "Britische Käufer nach dem Brexit und US-Käufer europäischer fraktionaler Anteile unterliegen der 90/180-Regel für den Schengen-Raum als Ganzes (nicht pro Land). Für einen Eigentümer eines 1/8-Anteils, der ungefähr 45 Tage pro Jahr an einer einzigen europäischen Immobilie nutzt, liegt die Regel komfortabel innerhalb der Zuteilung. Käufer, die mehrere europäische fraktionale Anteile erwerben, müssen die kumulativen Schengen-Tage verfolgen, um die Obergrenze nicht zu überschreiten.",
+      "sameAs": "https://de.wikipedia.org/wiki/Schengen-Raum"
+    },
+    {
+      "slug": "golden-visa",
+      "term": "Golden Visa",
+      "category": "residency",
+      "definition": "Aufenthaltsprogramme verschiedener Länder, die es vermögenden Investoren ermöglichen, Aufenthaltsgenehmigungen im Austausch für qualifizierende Immobilien- oder Kapitalinvestitionen zu erhalten. Die Programme variieren je nach Land und haben in den letzten Jahren erhebliche Reformen erfahren.",
+      "explanation": "Golden-Visa-Programme in Portugal, Spanien, Griechenland und anderswo wurden historisch von internationalen Käufern genutzt, die Immobilien oberhalb definierter Schwellen erwarben. Berechtigung, Schwellen und die Rolle von Immobilieninvestitionen haben sich seit 2023 erheblich geändert — Portugal hat Immobilieninvestitionen aus seinem Golden-Visa-Programm entfernt, Spanien hat eine Abschaffung angekündigt, und andere haben umstrukturiert. Für fraktionales Miteigentum speziell müsste der Anteil des Käufers im Allgemeinen die Mindestschwelle des Programms überschreiten, um sich zu qualifizieren.",
+      "sameAs": "https://de.wikipedia.org/wiki/Goldenes_Visum"
+    },
+    {
+      "slug": "beneficial-ownership",
+      "term": "Wirtschaftliche Berechtigung (wirtschaftlicher Eigentümer)",
+      "category": "residency",
+      "definition": "Die natürliche Person, die letztendlich eine Rechtseinheit besitzt, kontrolliert oder von ihr profitiert — auch wenn der nominelle Eigentümer der Einheit eine andere Person, ein Trust oder ein Unternehmen ist.",
+      "explanation": "EU- und UK-Geldwäschebekämpfungsvorschriften erfordern die Offenlegung der wirtschaftlichen Berechtigung für immobilienhaltende Einheiten. Für fraktionales Miteigentum durch eine immobilienspezifische LLC, SCI oder SL ist jeder Miteigentümer typischerweise ein wirtschaftlicher Eigentümer der immobilienhaltenden Einheit im Umfang seines Anteils. Anbieter verwalten die Offenlegung der wirtschaftlichen Berechtigung als Teil des regulierten Kaufprozesses.",
+      "sameAs": "https://de.wikipedia.org/wiki/Wirtschaftlich_Berechtigter"
+    },
+    {
+      "slug": "escritura",
+      "term": "Escritura (spanische Eigentumsurkunde)",
+      "category": "property",
+      "definition": "Eine spanische öffentliche Notarurkunde, die das Immobilieneigentum oder die Eigentumsübertragung belegt. Die Escritura wird vor einem spanischen Notar unterzeichnet und beim entsprechenden Immobilienregister eingetragen.",
+      "explanation": "Für spanisches fraktionales Immobilieneigentum, das in einer SL gehalten wird, wurde die Escritura ausgeführt, als die SL ursprünglich die Immobilie erwarb. Nachfolgende Übertragungen von SL-Anteilen (wenn Miteigentümer weiterverkaufen) werden als Übertragungen spanischer Gesellschaftsanteile statt als Eigentumsübertragungen verarbeitet — was bedeutet, dass keine neue Escritura für die zugrunde liegende Immobilie erforderlich ist, was die Übertragungskosten erheblich reduziert."
+    },
+    {
+      "slug": "conveyancing",
+      "term": "Eigentumsübertragung (Conveyancing)",
+      "category": "property",
+      "definition": "Der rechtliche Prozess der Übertragung des Immobilieneigentums von einer Partei auf eine andere. Umfasst Titelprüfungen, Vertragsentwürfe, Eintragung bei den zuständigen Behörden und Zahlung der damit verbundenen Gebühren und Steuern.",
+      "explanation": "Die herkömmliche Eigentumsübertragung ist der kostspieligste und langsamste Teil eines Weiterverkaufs eines Zweitwohnsitzes. Weiterverkäufe fraktionalen Miteigentums vermeiden die vollständige Eigentumsübertragung, weil die Transaktion Anteile an der immobilienspezifischen Einheit überträgt statt der zugrunde liegenden Immobilie — die Einheit hält weiterhin die Immobilie; nur ihre Eigentümerzusammensetzung ändert sich. Dies reduziert die Transaktionskosten um eine Größenordnung im Verhältnis zum herkömmlichen Weiterverkauf.",
+      "sameAs": "https://de.wikipedia.org/wiki/Eigentums%C3%BCbertragung"
+    },
+    {
+      "slug": "concierge-management",
+      "term": "Concierge-Service / Immobilienverwaltung",
+      "category": "property",
+      "definition": "Professionelle Dienstleistungen, die die operativen Aspekte des Immobilieneigentums abwickeln — Hauswirtschaft, Wartung, Versorgung, lokale Steuer-Compliance, Vorbereitung vor der Ankunft, Gästedienste und Notfallreaktion — im Namen des Eigentümers.",
+      "explanation": "Concierge-Service / Immobilienverwaltung ist in das fraktionale Miteigentum gebündelt; die Verwaltungsgesellschaft wird typischerweise von der immobilienspezifischen Einheit beauftragt und über den jährlichen Cost-Pass-Through bezahlt. Für Volleigentümer muss der entsprechende Service selbst arrangiert oder separat beauftragt werden — was erheblichen Zeit- und Kostenaufwand hinzufügt. Das Modell der gebündelten Verwaltung ist einer der primären operativen Vorteile des fraktionalen Eigentums gegenüber dem Volleigentum einer vergleichbaren Immobilie."
+    },
+    {
+      "slug": "bel-etage",
+      "term": "Bel-étage (Pariser Architektur)",
+      "category": "property",
+      "definition": "Das „schöne Stockwerk“ eines klassischen Pariser Haussmann-Gebäudes — historisch das zweite oder dritte Stockwerk mit den höchsten Decken, den prächtigsten Balkonen (typischerweise ein durchgehender schmiedeeiserner Balkon) und den größten Fenstern.",
+      "explanation": "Im Haussmann-Paris des 19. Jahrhunderts war die Bel-étage das prestigeträchtigste Stockwerk, weil sie in einer Zeit vor Aufzügen ohne Treppen vom Boden aus zugänglich war und gleichzeitig über dem Lärm und Staub der Straße lag. Moderne Käufer zentraler Pariser Immobilien — einschließlich fraktionaler Käufer — zahlen einen bedeutenden Aufpreis für echte Bel-étage-Wohnungen wegen der Deckenhöhe, des Balkons und der ursprünglichen architektonischen Details."
+    },
+    {
+      "slug": "vacation-rental",
+      "term": "Ferienvermietung",
+      "category": "property",
+      "definition": "Eine Immobilie, die kurzfristig an Urlaubsgäste vermietet wird, typischerweise über Plattformen wie Airbnb, Booking.com oder Vrbo — unterscheidet sich von der langfristigen Wohnungsvermietung.",
+      "explanation": "Die Ferienvermietung ist eine Alternative zum Eigentum für Käufer, die Flexibilität suchen — sie zahlen nach Bedarf für Unterkünfte, statt Kapital zu binden. Im Vergleich zum fraktionalen Miteigentum erfordert die Ferienvermietung kein Anfangskapital, baut kein Eigenkapital auf und bietet keine Beständigkeit der Immobilie. Für Käufer mit geringer jährlicher Nutzung (unter drei Wochen pro Jahr) oder starker Präferenz für Destinationsvielfalt kann reine Miete einen besseren Lebensstil-Nutzen pro ausgegebenem Euro produzieren als jedes Eigentumsmodell.",
+      "sameAs": "https://de.wikipedia.org/wiki/Ferienwohnung"
+    }
+  ]
+}

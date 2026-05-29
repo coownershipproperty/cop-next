@@ -209,18 +209,30 @@ export async function getServerSideProps({ res }) {
   );
 
   // Comparison pages at content/compare/<slug>.html — operational guides
-  // (fractional-vs-timeshare, Pacaso vs MYNE, etc.). EN-only for now.
+  // (fractional-vs-timeshare, Pacaso vs MYNE, etc.). EN + ES + FR + DE.
   const compareDir = path.join(cwd, 'content', 'compare');
   const compareSlugs = fs.existsSync(compareDir)
     ? fs.readdirSync(compareDir).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
     : [];
+  const compareSlugsEsSet = new Set(fs.existsSync(path.join(compareDir, 'es')) ? fs.readdirSync(path.join(compareDir, 'es')).filter(f => f.endsWith('.html')).map(f => f.replace('.html', '')) : []);
+  const compareSlugsFrSet = new Set(fs.existsSync(path.join(compareDir, 'fr')) ? fs.readdirSync(path.join(compareDir, 'fr')).filter(f => f.endsWith('.html')).map(f => f.replace('.html', '')) : []);
+  const compareSlugsDeSet = new Set(fs.existsSync(path.join(compareDir, 'de')) ? fs.readdirSync(path.join(compareDir, 'de')).filter(f => f.endsWith('.html')).map(f => f.replace('.html', '')) : []);
 
   // Partner profile pages at content/partners/<slug>.html — per-operator
-  // operational profiles (pacaso, myne, vivla, andhamlet, abitaro). EN-only.
+  // operational profiles. EN + ES + FR + DE.
   const partnersDir = path.join(cwd, 'content', 'partners');
   const partnerSlugs = fs.existsSync(partnersDir)
     ? fs.readdirSync(partnersDir).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
     : [];
+  const partnerSlugsEsSet = new Set(fs.existsSync(path.join(partnersDir, 'es')) ? fs.readdirSync(path.join(partnersDir, 'es')).filter(f => f.endsWith('.html')).map(f => f.replace('.html', '')) : []);
+  const partnerSlugsFrSet = new Set(fs.existsSync(path.join(partnersDir, 'fr')) ? fs.readdirSync(path.join(partnersDir, 'fr')).filter(f => f.endsWith('.html')).map(f => f.replace('.html', '')) : []);
+  const partnerSlugsDeSet = new Set(fs.existsSync(path.join(partnersDir, 'de')) ? fs.readdirSync(path.join(partnersDir, 'de')).filter(f => f.endsWith('.html')).map(f => f.replace('.html', '')) : []);
+
+  // Glossary — single page per locale.
+  const glossaryLocales = ['en'];
+  if (fs.existsSync(path.join(cwd, 'lib', 'glossary-terms-es.json'))) glossaryLocales.push('es');
+  if (fs.existsSync(path.join(cwd, 'lib', 'glossary-terms-fr.json'))) glossaryLocales.push('fr');
+  if (fs.existsSync(path.join(cwd, 'lib', 'glossary-terms-de.json'))) glossaryLocales.push('de');
 
 
   // Pillar slugs get higher priority + more frequent crawl signal.
@@ -287,21 +299,41 @@ export async function getServerSideProps({ res }) {
         return out;
       }),
 
-    // Comparison pages — EN-only, priority 0.85 (high — these are the
-    // money pages for fractional-vs-timeshare / partner-vs-partner queries
-    // we want AI engines citing).
-    ...compareSlugs.map(slug => urlEntry(`${BASE}/compare/${slug}/`, '0.85', 'monthly', today)),
+    // Comparison pages — EN + ES + FR + DE with reciprocal hreflang.
+    // Priority 0.85 (these are money pages for AI-search citation).
+    ...compareSlugs.flatMap(slug => {
+      const altset = { en: `/compare/${slug}/` };
+      if (compareSlugsEsSet.has(slug)) altset.es = `/es/comparativa/${slug}/`;
+      if (compareSlugsFrSet.has(slug)) altset.fr = `/fr/comparaison/${slug}/`;
+      if (compareSlugsDeSet.has(slug)) altset.de = `/de/vergleich/${slug}/`;
+      const out = [urlEntry(`${BASE}/compare/${slug}/`, '0.85', 'monthly', today, altset)];
+      if (altset.es) out.push(urlEntry(`${BASE}${altset.es}`, '0.85', 'monthly', today, altset));
+      if (altset.fr) out.push(urlEntry(`${BASE}${altset.fr}`, '0.85', 'monthly', today, altset));
+      if (altset.de) out.push(urlEntry(`${BASE}${altset.de}`, '0.85', 'monthly', today, altset));
+      return out;
+    }),
 
-    // Partner profile pages — EN-only, priority 0.85. Capture brand-search
-    // queries ('Is Pacaso legit', 'MYNE Homes review', etc.) and serve as
-    // hubs for each operator's queries.
-    ...partnerSlugs.map(slug => urlEntry(`${BASE}/partners/${slug}/`, '0.85', 'monthly', today)),
+    // Partner profile pages — EN + ES + FR + DE with reciprocal hreflang.
+    ...partnerSlugs.flatMap(slug => {
+      const altset = { en: `/partners/${slug}/` };
+      if (partnerSlugsEsSet.has(slug)) altset.es = `/es/socios/${slug}/`;
+      if (partnerSlugsFrSet.has(slug)) altset.fr = `/fr/partenaires/${slug}/`;
+      if (partnerSlugsDeSet.has(slug)) altset.de = `/de/partner/${slug}/`;
+      const out = [urlEntry(`${BASE}/partners/${slug}/`, '0.85', 'monthly', today, altset)];
+      if (altset.es) out.push(urlEntry(`${BASE}${altset.es}`, '0.85', 'monthly', today, altset));
+      if (altset.fr) out.push(urlEntry(`${BASE}${altset.fr}`, '0.85', 'monthly', today, altset));
+      if (altset.de) out.push(urlEntry(`${BASE}${altset.de}`, '0.85', 'monthly', today, altset));
+      return out;
+    }),
 
-    // Glossary — EN-only, priority 0.8. Single page with 50 DefinedTerm
-    // entries, each with anchor IDs for deep-link. Heavy AI-ingestion value
-    // per the AEO research (Perplexity 3.2x more likely to cite pages with
-    // glossary-style structured definitions).
-    urlEntry(`${BASE}/glossary/`, '0.8', 'monthly', today),
+    // Glossary — EN + ES + FR + DE with reciprocal hreflang. Priority 0.8.
+    ...(() => {
+      const altset = {};
+      glossaryLocales.forEach(loc => {
+        altset[loc] = loc === 'en' ? '/glossary/' : loc === 'es' ? '/es/glosario/' : loc === 'fr' ? '/fr/glossaire/' : '/de/glossar/';
+      });
+      return Object.entries(altset).map(([loc, p]) => urlEntry(`${BASE}${p}`, '0.8', 'monthly', today, altset));
+    })(),
 
     // Property detail pages — emit EN / ES / FR / DE with reciprocal hreflang
     ...(properties || []).flatMap(p => {

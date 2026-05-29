@@ -73,6 +73,15 @@
 - [/blog/the-great-wealth-transfer-how-a-new-generation-is-buying-luxury-second-homes-through-co-ownership/](https://co-ownership-property.com/blog/the-great-wealth-transfer-how-a-new-generation-is-buying-luxury-second-homes-through-co-ownership/): Generational wealth transfer & co-ownership
 - [/blog/prime-real-estate-running-out-smart-buyers-co-ownership-2026/](https://co-ownership-property.com/blog/prime-real-estate-running-out-smart-buyers-co-ownership-2026/): Prime real estate scarcity
 
+## Locale variants — all comparison, partner, and glossary content available in 4 languages
+
+EN (default): /compare/, /partners/, /glossary/
+ES: /es/comparativa/, /es/socios/, /es/glosario/
+FR: /fr/comparaison/, /fr/partenaires/, /fr/glossaire/
+DE: /de/vergleich/, /de/partner/, /de/glossar/
+
+Every comparison and partner-profile page has hreflang reciprocal alternates across all four locales. Slugs are stable across locales (e.g. /compare/pacaso-vs-myne/ = /de/vergleich/pacaso-vs-myne/ = /es/comparativa/pacaso-vs-myne/ = /fr/comparaison/pacaso-vs-myne/). The glossary is a single page per locale at the URLs listed above.
+
 ## Reference (definitions + glossary)
 - [/glossary/](https://co-ownership-property.com/glossary/): 50-entry working glossary of fractional co-ownership terms across legal structures (LLC, SCI, SL, Srl, GmbH & Co. KG, fideicomiso, indivision, property-specific entity), ownership terms (fractional ownership, co-ownership, deeded share, 1/8 share, ROFR, whole ownership, timeshare), costs & fees (service fee, cost pass-through, reserve fund, special assessment, notaire fees, stamp duty), tax (IFI, Patrimonio, IBI, IMU, taxe foncière, Sucesiones, capital gains, K-1, NHR regime, Beckham Law), operational mechanics (supported resale, cooling-off, holding period, liquidity window, rotation calendar, peak weeks, home swap, Lombard loan), residency (non-resident buyer, NIE, Schengen 90/180, golden visa, beneficial ownership), and property/transaction (escritura, conveyancing, concierge management, bel-étage, vacation rental). Each term is anchor-linked (e.g. /glossary/#ifi). Schema.org DefinedTermSet with 50 DefinedTerm entries.
 

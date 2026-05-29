@@ -1,0 +1,380 @@
+{
+  "intro": "Un glosario práctico de los términos legales, fiscales, operativos y estructurales que aparecen al comprar una participación en copropiedad fraccional, especialmente en jurisdicciones europeas. Las definiciones favorecen la claridad operativa frente a la precisión académica; para decisiones con consecuencias legales, consulte a un asesor local cualificado.",
+  "categories": [
+    { "id": "legal-structures", "name": "Estructuras legales" },
+    { "id": "ownership", "name": "Términos de propiedad" },
+    { "id": "costs-fees", "name": "Costes y tarifas" },
+    { "id": "tax", "name": "Términos fiscales" },
+    { "id": "operational", "name": "Términos operativos" },
+    { "id": "residency", "name": "Términos de comprador y residencia" },
+    { "id": "property", "name": "Términos de inmueble y transacción" }
+  ],
+  "terms": [
+    {
+      "slug": "llc",
+      "term": "LLC (Limited Liability Company)",
+      "category": "legal-structures",
+      "definition": "Entidad legal estadounidense que combina la protección de responsabilidad limitada con un tratamiento fiscal de transparencia. En copropiedad fraccional, una LLC específica del inmueble ostenta el 100 % de la titularidad del inmueble, y los copropietarios mantienen intereses de membresía proporcionales.",
+      "explanation": "La mayoría de los operadores fraccionales estadounidenses utilizan LLC específicas del inmueble para mantener propiedades individuales: una LLC por inmueble. La estructura implica que el nombre de cada propietario aparece en el registro de propiedad de la LLC; la LLC es propietaria del inmueble; y, en la salida, los propietarios transfieren intereses de membresía en la LLC en lugar de desencadenar una transmisión completa de la propiedad. Esto mantiene los costes de transacción materialmente más bajos que una reventa convencional de segunda vivienda.",
+      "sameAs": "https://en.wikipedia.org/wiki/Limited_liability_company"
+    },
+    {
+      "slug": "sci",
+      "term": "SCI (Société Civile Immobilière)",
+      "category": "legal-structures",
+      "definition": "Sociedad civil inmobiliaria francesa utilizada para mantener propiedad de forma colectiva. Aproximadamente el equivalente francés de una LLC específica del inmueble para fines de copropiedad fraccional.",
+      "explanation": "Las propiedades fraccionales francesas se mantienen habitualmente en SCI específicas del inmueble registradas ante el notario local y el registro mercantil francés. Los copropietarios poseen participaciones proporcionales en la SCI. La estructura ha sido utilizada por las familias francesas para mantener propiedad compartida durante generaciones; los operadores fraccionales modernos la han profesionalizado para uso de compradores transfronterizos.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Soci%C3%A9t%C3%A9_civile_immobili%C3%A8re"
+    },
+    {
+      "slug": "sl",
+      "term": "SL (Sociedad Limitada)",
+      "category": "legal-structures",
+      "definition": "Sociedad española de responsabilidad limitada. El vehículo corporativo español estándar utilizado para mantener propiedad y, en el caso de la copropiedad fraccional, utilizado como entidad específica del inmueble con los copropietarios como accionistas proporcionales.",
+      "explanation": "Los notarios españoles, los contables y el registro mercantil español gestionan las SL como negocio rutinario. Para compradores no residentes de participaciones fraccionales españolas, la estructura SL es familiar para los asesores locales y produce resultados estándar del derecho societario español en torno a la gobernanza, el voto y la transferencia de participaciones.",
+      "sameAs": "https://en.wikipedia.org/wiki/Sociedad_de_responsabilidad_limitada"
+    },
+    {
+      "slug": "srl",
+      "term": "Srl (Società a responsabilità limitata)",
+      "category": "legal-structures",
+      "definition": "Sociedad italiana de responsabilidad limitada. El análogo italiano de una SL o una LLC, utilizada en ocasiones como vehículo para la tenencia de propiedad en la copropiedad fraccional en Italia.",
+      "explanation": "El derecho inmobiliario y la práctica notarial italianas están bien desarrollados en torno a la forma Srl. La estructura produce resultados de tenencia escriturada de participaciones para compradores no residentes y está reconocida en todo el sistema notarial regional italiano.",
+      "sameAs": "https://en.wikipedia.org/wiki/Limited_liability_company"
+    },
+    {
+      "slug": "gmbh-co-kg",
+      "term": "GmbH & Co. KG",
+      "category": "legal-structures",
+      "definition": "Sociedad limitada en comandita alemana en la que una GmbH (sociedad de responsabilidad limitada) actúa como socio gestor y los particulares son socios comanditarios. Algunos operadores fraccionales utilizan esta estructura en propiedades europeas para lograr consistencia.",
+      "explanation": "La GmbH & Co. KG combina la flexibilidad de la sociedad en comandita con la protección de responsabilidad limitada de la GmbH. Cuando un operador fraccional la utiliza para propiedades en varios países, el mismo vehículo legal mantiene propiedades españolas, italianas, francesas y de otros países, simplificando la experiencia de propiedad para compradores multipaís, mientras el derecho inmobiliario subyacente sigue rigiendo el propio inmueble.",
+      "sameAs": "https://en.wikipedia.org/wiki/Gesellschaft_mit_beschr%C3%A4nkter_Haftung_%26_Compagnie_Kommanditgesellschaft"
+    },
+    {
+      "slug": "fideicomiso",
+      "term": "Fideicomiso",
+      "category": "legal-structures",
+      "definition": "Trust bancario mexicano a través del cual los extranjeros pueden poseer propiedad en las zonas costeras y fronterizas restringidas de México (a 50 km de la costa o 100 km de la frontera).",
+      "explanation": "La ley mexicana restringe la propiedad directa extranjera en estas zonas. El fideicomiso canaliza la propiedad a través de un banco mexicano como fiduciario, con el comprador extranjero como beneficiario. El comprador tiene plenos derechos de uso, venta, transferencia y herencia, comparables a la propiedad directa a efectos prácticos. Para la copropiedad fraccional de propiedades costeras mexicanas, el fideicomiso es la estructura estándar.",
+      "sameAs": "https://en.wikipedia.org/wiki/Fideicomiso"
+    },
+    {
+      "slug": "property-specific-entity",
+      "term": "Entidad específica del inmueble",
+      "category": "legal-structures",
+      "definition": "Entidad legal (LLC, SCI, SL, Srl, KG, fideicomiso, etc.) creada para mantener exactamente un inmueble. Cada propiedad en la cartera de un operador fraccional se aloja en su propia entidad, separada de otras propiedades y de la propia empresa del operador.",
+      "explanation": "La entidad específica del inmueble es la protección estructural que distingue la copropiedad fraccional de los modelos de membresía controlados por el operador. Como la propiedad es propiedad de su propia entidad (no del operador), el inmueble sigue existiendo si el operador cesa operaciones: los copropietarios pueden contratar una sociedad de gestión sustituta. El patrimonio del propietario está en el inmueble, no en el negocio del operador."
+    },
+    {
+      "slug": "indivision",
+      "term": "Indivision",
+      "category": "legal-structures",
+      "definition": "Régimen legal francés según el cual varias partes mantienen conjuntamente la propiedad de un único activo sin una sociedad formal. Habitual en la sucesión francesa cuando los hermanos reciben la copropiedad de una propiedad familiar.",
+      "explanation": "La indivision es propiedad conjunta informal: cada copropietario ostenta una cuota indivisa. Las decisiones sobre el inmueble suelen requerir consentimiento unánime, lo que genera fricción. La copropiedad fraccional moderna utiliza SCI específicas del inmueble en lugar de indivision precisamente para evitar esa fricción: umbrales de voto claros, gobernanza estandarizada y salida estructurada.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Indivision"
+    },
+    {
+      "slug": "fractional-ownership",
+      "term": "Copropiedad fraccional",
+      "category": "ownership",
+      "definition": "Modelo de propiedad inmobiliaria en el que varios compradores poseen cada uno una fracción legalmente escriturada de un inmueble, normalmente a través de una entidad legal específica del inmueble. Cada propietario tiene derechos a usar el inmueble durante un período definido cada año, proporcional a su participación.",
+      "explanation": "La copropiedad fraccional moderna es estructuralmente distinta del timeshare: el comprador posee inmueble escriturado a través de la entidad específica del inmueble, la participación se revaloriza con el mercado inmobiliario y la participación puede venderse en el mercado abierto. El tamaño típico de la participación es 1/8, lo que da aproximadamente 45 días de uso al año. La mayoría de los operadores de la categoría utilizan gestión profesional de la propiedad integrada en el modelo.",
+      "sameAs": "https://en.wikipedia.org/wiki/Fractional_ownership"
+    },
+    {
+      "slug": "co-ownership",
+      "term": "Copropiedad",
+      "category": "ownership",
+      "definition": "Término paraguas para los regímenes en los que varias partes mantienen derechos de propiedad sobre el mismo inmueble. En un contexto fraccional, copropiedad significa específicamente propiedad conjunta escriturada a través de una entidad legal específica del inmueble, en lugar de titularidad conjunta informal.",
+      "explanation": "Copropiedad y copropiedad fraccional se utilizan típicamente de forma intercambiable en la categoría fraccional moderna. Los términos enfatizan la misma realidad estructural: un pequeño grupo de propietarios (normalmente hasta ocho, ocasionalmente más) compartiendo patrimonio, uso y costes continuos de un único inmueble de lujo."
+    },
+    {
+      "slug": "deeded-share",
+      "term": "Participación escriturada",
+      "category": "ownership",
+      "definition": "Participación en un inmueble en la que el nombre del propietario aparece en los registros legales de propiedad —normalmente el registro de membresía de la LLC o sociedad específica del inmueble— y la participación constituye un interés de patrimonio inmobiliario.",
+      "explanation": "La propiedad escriturada es la distinción estructural que separa la copropiedad fraccional de los productos basados en contrato, como el timeshare tradicional. Con una participación escriturada, el comprador tiene una participación patrimonial inscrita que se revaloriza con el inmueble, puede venderse en el mercado abierto, se transmite a los herederos como activo inmobiliario y produce resultados fiscales inmobiliarios estándar."
+    },
+    {
+      "slug": "one-eighth-share",
+      "term": "Participación de 1/8",
+      "category": "ownership",
+      "definition": "El tamaño más habitual de participación en la copropiedad fraccional moderna: una octava parte del inmueble, que da derecho al propietario a aproximadamente 45 días de uso privado al año.",
+      "explanation": "Una participación de 1/8 está dimensionada para coincidir con el uso anual realista de la mayoría de los compradores de segunda vivienda: la investigación encuentra de forma consistente que el propietario típico de segunda vivienda utiliza su inmueble aproximadamente 35 días al año. El modelo 1/8 produce ocho clases de participación iguales por inmueble, con una entidad específica del inmueble ostentando la escritura. Algunos operadores también ofrecen participaciones de 1/4 y 1/2 para compradores que quieran más tiempo de uso."
+    },
+    {
+      "slug": "rofr",
+      "term": "Derecho de tanteo (ROFR)",
+      "category": "ownership",
+      "definition": "Disposición contractual que otorga a una parte el derecho a que se le ofrezca un activo antes de venderlo a cualquier otra. En la copropiedad fraccional, los copropietarios existentes normalmente tienen tanteo sobre la participación que un compañero copropietario ponga en reventa.",
+      "explanation": "Cuando un propietario fraccional anuncia su participación para la venta, la mecánica del derecho de tanteo da a los copropietarios existentes del mismo inmueble la primera oportunidad de adquirir la participación al precio anunciado. Si ningún copropietario ejerce el tanteo dentro de una ventana definida, la participación se comercializa al pool de prospectos más amplio. El tanteo existe para dar al grupo de propietarios existente algún control sobre quién se incorpora.",
+      "sameAs": "https://en.wikipedia.org/wiki/Right_of_first_refusal"
+    },
+    {
+      "slug": "whole-ownership",
+      "term": "Propiedad completa",
+      "category": "ownership",
+      "definition": "Modelo tradicional de propiedad inmobiliaria: un propietario (o una pareja, familia o entidad) ostenta el 100 % de la titularidad del inmueble.",
+      "explanation": "La propiedad completa compromete el 100 % del capital a un solo inmueble, con el propietario responsable de todos los costes operativos y de la gestión. Comparada con una participación fraccional de 1/8 al mismo valor de propiedad, la propiedad completa requiere 8 veces el capital, produce derechos de uso ilimitados (aunque el uso realista suele situarse en torno a 35 días al año según datos del sector) y expone al propietario a toda la carga operativa de la gestión inmobiliaria transfronteriza."
+    },
+    {
+      "slug": "timeshare",
+      "term": "Timeshare",
+      "category": "ownership",
+      "definition": "Producto de uso de propiedad en el que el comprador adquiere el derecho contractual a utilizar un inmueble durante un período definido cada año —normalmente una semana, a veces puntos flexibles— sin poseer inmueble alguno.",
+      "explanation": "El timeshare es estructuralmente distinto de la copropiedad fraccional: el comprador posee un contrato, no un interés escriturado en el inmueble. La mayoría de los contratos de timeshare no tienen patrimonio inmobiliario, no se revalorizan con el mercado inmobiliario y son notoriamente difíciles de revender: existe toda una industria de «empresas de salida de timeshare» específicamente para ayudar a los propietarios a deshacerse de contratos no deseados. El Disney Vacation Club es la excepción más citada, al utilizar una estructura escriturada de derecho de uso con dinámicas de reventa más sólidas.",
+      "sameAs": "https://en.wikipedia.org/wiki/Timeshare"
+    },
+    {
+      "slug": "service-fee",
+      "term": "Tarifa de servicio",
+      "category": "costs-fees",
+      "definition": "Tarifa pagada por los propietarios fraccionales a la empresa operativa por los servicios continuos de plataforma, tecnología, soporte al propietario y administración del operador. Distinta de los costes operativos reales del inmueble.",
+      "explanation": "Los operadores estructuran las tarifas de servicio de manera diferente: algunos publican una tarifa fija por participación (p. ej., un importe fijo por mes y participación), otros cobran un porcentaje del valor del inmueble anualmente, otros integran una tarifa de servicio única en el precio de la compra primaria. La tarifa de servicio es independiente de la repercusión de los gastos operativos reales del inmueble (seguros, impuestos, suministros, mantenimiento)."
+    },
+    {
+      "slug": "cost-passthrough",
+      "term": "Repercusión de costes",
+      "category": "costs-fees",
+      "definition": "Modelo en el que los copropietarios pagan su parte proporcional de los costes operativos reales del inmueble —gestión, seguros, impuestos locales, cargos fijos de suministros, mantenimiento y aportaciones al fondo de reserva— sin un margen del operador añadido sobre esos costes.",
+      "explanation": "La repercusión de costes es el modelo estándar para el componente operativo de las tarifas anuales fraccionales. Un propietario de 1/8 paga 1/8 de los costes reales del inmueble; el operador obtiene ingresos de la tarifa de servicio divulgada por separado (o de una tarifa única en la compra) en lugar de un sobreprecio sobre los gastos operativos. Los costes escalan con el inmueble —una villa más cara tiene costes absolutos más altos— pero el ratio de reparto se mantiene consistente."
+    },
+    {
+      "slug": "reserve-fund",
+      "term": "Fondo de reserva",
+      "category": "costs-fees",
+      "definition": "Reserva de efectivo común mantenida dentro de la entidad específica del inmueble para cubrir futuras reparaciones importantes, sustituciones y gastos de capital sin necesidad de derramas sorpresa de los propietarios.",
+      "explanation": "El fondo de reserva se financia mediante aportaciones anuales integradas en la repercusión de costes. Las reparaciones importantes (sustitución de HVAC, obras en el tejado, mantenimiento estructural) se pagan con la reserva en lugar de desencadenar peticiones puntuales de efectivo. La adecuación de la reserva es uno de los elementos divulgados en la documentación previa a la compra; las propiedades infrarreservadas pueden dar lugar a derramas en el futuro."
+    },
+    {
+      "slug": "special-assessment",
+      "term": "Derrama",
+      "category": "costs-fees",
+      "definition": "Imposición puntual de efectivo a los propietarios más allá de las tarifas anuales estándar, convocada típicamente cuando los fondos de reserva son insuficientes para cubrir una reparación importante o un gasto de capital inesperado.",
+      "explanation": "Las derramas son habituales tanto en timeshare como en ciertos contextos de comunidades de propietarios (HOA) en propiedad completa; en la copropiedad fraccional bien gestionada son raras porque los fondos de reserva se dimensionan para absorber las reparaciones importantes. Cuando una propiedad sí requiere una derrama, esta se reparte proporcionalmente entre los copropietarios según el tamaño de la participación. Las divulgaciones previas a la compra suelen incluir el historial de derramas de la propiedad."
+    },
+    {
+      "slug": "notaire-fees",
+      "term": "Honorarios notariales (Francia)",
+      "category": "costs-fees",
+      "definition": "Honorarios cobrados por un notario francés por ejecutar transacciones inmobiliarias. Combinados con los impuestos de transmisión asociados, el total suele situarse en el 7–8 % del precio de compra del inmueble para propiedad francesa de segunda mano.",
+      "explanation": "En las compras convencionales de propiedad francesa, los honorarios notariales cubren los servicios profesionales del notario más los diversos impuestos de transmisión y tasas de registro que pasan por el notario. Para la copropiedad fraccional de propiedad francesa, los honorarios notariales se pagaron una vez cuando la SCI específica del inmueble se constituyó originalmente y se adquirió la propiedad. Cuando una participación se revende posteriormente, el comprador adquiere participaciones de la SCI en lugar de desencadenar una nueva transmisión de la propiedad, lo que significa que no se aplican honorarios notariales completos sobre la transferencia de participación."
+    },
+    {
+      "slug": "stamp-duty",
+      "term": "Impuesto de transmisiones / Stamp duty",
+      "category": "costs-fees",
+      "definition": "Impuesto aplicado a las transacciones inmobiliarias en diversas jurisdicciones, calculado típicamente como un porcentaje del precio de compra. El Stamp Duty Land Tax (SDLT) del Reino Unido y el ITP español (Impuesto de Transmisiones Patrimoniales) son ejemplos habituales.",
+      "explanation": "Las compras convencionales de segunda vivienda desencadenan el impuesto de transmisiones sobre el valor total del inmueble en el momento de la compra. En la copropiedad fraccional, el impuesto de transmisiones se pagó una vez cuando la entidad específica del inmueble adquirió originalmente la propiedad; las transferencias posteriores de participación dentro de la entidad no desencadenan un nuevo impuesto de transmisiones en la mayoría de las jurisdicciones, porque no se produce una transmisión del inmueble subyacente."
+    },
+    {
+      "slug": "ifi",
+      "term": "IFI (Impôt sur la Fortune Immobilière)",
+      "category": "tax",
+      "definition": "Impuesto francés sobre el patrimonio inmobiliario. Se aplica a los residentes fiscales franceses sobre su propiedad inmobiliaria mundial y a los no residentes sobre su propiedad francesa, con un umbral actual de 1,3 millones de euros de valor neto inmobiliario.",
+      "explanation": "El IFI grava el valor neto de la propiedad incluida en el ámbito de aplicación por encima del umbral de 1,3 M € a tipos progresivos (0,5 %–1,5 %). Para los compradores no residentes, solo la propiedad francesa cuenta para el umbral. Un no residente con una participación de 1/8 de una villa francesa de 5 M € ostenta 625.000 € de inmueble francés, por debajo del umbral del IFI para muchos compradores. La propiedad completa de la misma villa situaría al comprador plenamente en territorio del IFI.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Imp%C3%B4t_sur_la_fortune_immobili%C3%A8re"
+    },
+    {
+      "slug": "patrimonio",
+      "term": "Patrimonio (Impuesto sobre el Patrimonio español)",
+      "category": "tax",
+      "definition": "Impuesto español sobre el patrimonio neto (incluida la propiedad inmobiliaria) por encima de umbrales definidos. Los tipos y umbrales varían según la comunidad autónoma: Madrid efectivamente no lo aplica, mientras que varias otras comunidades sí.",
+      "explanation": "Para compradores no residentes de propiedad española, el Patrimonio se aplica al valor neto de los activos situados en España, con el umbral y los tipos fijados por la comunidad autónoma donde se ubica el inmueble. La copropiedad fraccional mantiene el valor del activo por debajo de los umbrales para muchos compradores que, de otro modo, se enfrentarían al Patrimonio bajo propiedad completa del mismo inmueble. La responsabilidad concreta depende de la ubicación de la propiedad, de la residencia del comprador y de cualquier tratado aplicable.",
+      "sameAs": "https://en.wikipedia.org/wiki/Wealth_tax"
+    },
+    {
+      "slug": "ibi",
+      "term": "IBI (Impuesto sobre Bienes Inmuebles)",
+      "category": "tax",
+      "definition": "Impuesto anual local español sobre la propiedad, recaudado por el municipio donde se ubica el inmueble. Los tipos varían según la región y suelen situarse entre el 0,4 % y el 1,1 % del valor catastral del inmueble (que normalmente está bastante por debajo del valor de mercado).",
+      "explanation": "El IBI lo paga anualmente el propietario del inmueble: para un inmueble mantenido en una SL, la SL paga el IBI. En la copropiedad fraccional, el IBI fluye a través de la repercusión de costes, con cada copropietario aportando su parte proporcional. Los propietarios no pagan el IBI por separado; está integrado en los costes operativos anuales."
+    },
+    {
+      "slug": "imu",
+      "term": "IMU (Imposta Municipale Unica)",
+      "category": "tax",
+      "definition": "Impuesto municipal anual italiano sobre la propiedad. Se aplica a las segundas viviendas y a las propiedades de alto valor; la vivienda principal está generalmente exenta para los residentes italianos.",
+      "explanation": "Los tipos del IMU varían según el municipio y se calculan sobre la renta catastral revalorizada del inmueble. Para propietarios no residentes de propiedad italiana de segunda vivienda —incluidas las participaciones fraccionales—, el IMU se aplica sobre el valor total del inmueble, con cada copropietario aportando proporcionalmente a través de la repercusión de costes.",
+      "sameAs": "https://en.wikipedia.org/wiki/Imposta_municipale_propria"
+    },
+    {
+      "slug": "taxe-fonciere",
+      "term": "Taxe foncière",
+      "category": "tax",
+      "definition": "Impuesto anual francés sobre la propiedad, pagado por el propietario del inmueble con independencia de quién lo ocupe. Calculado sobre el valor catastral de alquiler del inmueble.",
+      "explanation": "Los tipos y los importes absolutos de la taxe foncière varían según la commune. Para la propiedad francesa mantenida en una SCI, la SCI paga la taxe foncière; en la copropiedad fraccional, esto fluye proporcionalmente a través de la repercusión de costes. La taxe d'habitation relacionada ha sido en gran medida eliminada para las viviendas principales, pero todavía puede aplicarse a segundas viviendas en algunas communes.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Taxe_fonci%C3%A8re"
+    },
+    {
+      "slug": "sucesiones",
+      "term": "Sucesiones (Impuesto sobre Sucesiones español)",
+      "category": "tax",
+      "definition": "Impuesto español sobre sucesiones y donaciones, regulado a nivel nacional pero administrado con una variación significativa por comunidad autónoma. Los tipos dependen de la relación del heredero con el fallecido y de la residencia del heredero.",
+      "explanation": "Los activos situados en España están sujetos a Sucesiones para el heredero, con independencia de dónde viva este. Varias comunidades autónomas ofrecen reducciones o exenciones sustanciales para herederos en línea directa (cónyuges, hijos, padres). Para herederos no residentes de participaciones fraccionales españolas, la responsabilidad concreta depende de la comunidad autónoma en la que se ubique el inmueble y de la relación del heredero con el fallecido."
+    },
+    {
+      "slug": "capital-gains-tax",
+      "term": "Impuesto sobre ganancias de capital",
+      "category": "tax",
+      "definition": "Impuesto sobre la ganancia obtenida cuando un activo se vende por más que su coste de adquisición. Se aplica a las participaciones fraccionales cuando se venden con ganancia, con los tipos y la mecánica determinados por la jurisdicción del inmueble y la residencia del vendedor.",
+      "explanation": "En la venta de una participación fraccional, la ganancia (precio de venta menos coste de adquisición menos costes elegibles) suele tributar en el país del inmueble, a menudo mediante un mecanismo de retención para vendedores no residentes, con conciliación a través de una declaración fiscal local. Los acuerdos de los tratados entre el país del inmueble y el país de origen del vendedor pueden afectar a la posición fiscal final.",
+      "sameAs": "https://en.wikipedia.org/wiki/Capital_gains_tax"
+    },
+    {
+      "slug": "k1",
+      "term": "K-1 (US Schedule K-1)",
+      "category": "tax",
+      "definition": "Formulario fiscal estadounidense emitido anualmente por las partnerships y las LLC tributadas como partnerships a cada miembro, informando de la parte de ese miembro en ingresos, deducciones, créditos y otros conceptos fiscales.",
+      "explanation": "Las LLC específicas del inmueble estadounidenses que mantienen propiedades fraccionales emiten un K-1 a cada copropietario al final del año. El K-1 informa de la parte proporcional del miembro en ingresos de la LLC (p. ej., por actividad de alquiler si procede), gastos y partidas de capital. Los miembros usan el K-1 para preparar sus declaraciones fiscales personales estadounidenses. Los miembros no residentes en EE. UU. suelen tener obligaciones adicionales de presentación a través de la red de tratados fiscales estadounidenses."
+    },
+    {
+      "slug": "nhr",
+      "term": "Régimen NHR (Portugal)",
+      "category": "tax",
+      "definition": "Régimen fiscal portugués de Residente No Habitual: un estatus fiscal preferente a 10 años para particulares que se conviertan en residentes fiscales portugueses, que ofrece tipos reducidos sobre ciertos ingresos de fuente extranjera.",
+      "explanation": "El régimen NHR ha sido reestructurado significativamente en los últimos años; la versión disponible para nuevos solicitantes hoy difiere de las versiones anteriores. Para compradores no residentes de propiedad fraccional portuguesa que no planeen convertirse en residentes fiscales portugueses, el NHR no es directamente aplicable, pero sigue siendo contexto relevante para compradores que estén considerando la residencia portuguesa."
+    },
+    {
+      "slug": "beckham-law",
+      "term": "Beckham Law (España)",
+      "category": "tax",
+      "definition": "Régimen fiscal especial español (formalmente el Régimen de Trabajadores Desplazados, a menudo llamado «Beckham Law» en honor al futbolista que lo utilizó) para particulares que se convierten en residentes fiscales españoles a través del trabajo, lo que les permite tributar bajo reglas modificadas durante un máximo de seis años.",
+      "explanation": "La Beckham Law se aplica a particulares que se trasladan a España por trabajo y cumplen criterios específicos de elegibilidad. Puede ser contexto relevante para compradores no españoles que estén considerando la residencia española, pero no se aplica directamente a propietarios no residentes de propiedad fraccional española que sigan siendo residentes fiscales en otro lugar."
+    },
+    {
+      "slug": "supported-resale",
+      "term": "Reventa asistida",
+      "category": "operational",
+      "definition": "Proceso de reventa gestionado por el operador fraccional en nombre del propietario vendedor. El operador comercializa la participación a través de su pipeline existente de prospectos y coordina la transacción.",
+      "explanation": "La reventa asistida es el mecanismo estándar de salida de la copropiedad fraccional. El propietario vendedor notifica al operador, que ofrece orientación de precios basada en datos de mercado, comercializa la participación a prospectos cualificados ya familiarizados con el operador y el tipo de propiedad, y coordina la transferencia de participación a través del proceso legal pertinente. Los plazos típicos de reventa en la cartera de COP son de aproximadamente 1–3 meses desde el anuncio hasta el cierre."
+    },
+    {
+      "slug": "cooling-off-period",
+      "term": "Período de desistimiento",
+      "category": "operational",
+      "definition": "Ventana definida tras la firma de un contrato de compra durante la cual el comprador puede desistir sin penalización financiera. Obligatorio bajo la legislación de protección al consumidor de diversas jurisdicciones.",
+      "explanation": "Las ventanas de desistimiento varían según la jurisdicción: la directiva europea de timeshare impone un período de desistimiento de 14 días para los contratos de timeshare; las compras de propiedad francesas suelen incluir 10 días de desistimiento SRU más ventanas adicionales según la estructura del contrato; los estados de EE. UU. tienen ventanas variables. Para la copropiedad fraccional, las reglas específicas de desistimiento dependen del país del inmueble y de la estructura del acuerdo de compra.",
+      "sameAs": "https://en.wikipedia.org/wiki/Cooling-off_period_(consumer_rights)"
+    },
+    {
+      "slug": "holding-period",
+      "term": "Período mínimo de mantenimiento",
+      "category": "operational",
+      "definition": "Período definido tras la compra durante el cual un propietario fraccional no puede revender su participación. Utilizado por algunos operadores en algunas propiedades para desincentivar la reventa especulativa a corto plazo.",
+      "explanation": "Los períodos mínimos de mantenimiento son específicos del inmueble y se divulgan en la documentación previa a la compra. Un patrón habitual es un período de mantenimiento de 12 meses desde la compra antes de que la participación sea elegible para el proceso de reventa del operador. Tras el período mínimo, los propietarios pueden anunciar su participación en la vía estándar de reventa."
+    },
+    {
+      "slug": "liquidity-window",
+      "term": "Ventana de liquidez",
+      "category": "operational",
+      "definition": "Período definido durante el cual un propietario fraccional tiene acceso estructurado a un mecanismo concreto de reventa o salida, con el operador proporcionando precio, marketing y soporte a la transacción.",
+      "explanation": "Algunos operadores publican marcos multivetana de liquidez: una primera ventana tras el período mínimo de mantenimiento, una ventana abierta continua para reventas estándar a precios de mercado y una ventana a largo plazo para tenedores comprometidos. El marco da a los propietarios vías de salida predecibles en múltiples horizontes."
+    },
+    {
+      "slug": "rotation-calendar",
+      "term": "Calendario de rotación (rotación equitativa)",
+      "category": "operational",
+      "definition": "Sistema de programación utilizado para asignar las semanas de máxima demanda entre los copropietarios de forma equitativa a lo largo del tiempo. Combina asignaciones estacionales fijas con prioridad rotativa para fechas de alta demanda.",
+      "explanation": "Los calendarios de rotación abordan el problema estructural de que todos los copropietarios quieren las mismas semanas pico (Navidad, vacaciones escolares, verano pico). El sistema rota la prioridad anualmente para que ningún propietario obtenga siempre las mismas fechas: a lo largo de un ciclo plurianual, los propietarios acceden a semanas pico y de temporada media de forma aproximadamente equitativa. La mayoría de los operadores modernos administran el calendario a través de su app de propietario, con los copropietarios reservando fechas concretas dentro de la estructura de prioridad."
+    },
+    {
+      "slug": "peak-weeks",
+      "term": "Semanas pico",
+      "category": "operational",
+      "definition": "Los períodos de reserva de mayor demanda en un inmueble: normalmente Navidad/Año Nuevo, vacaciones escolares, Semana Santa y verano pico (julio/agosto en Europa; varía según el destino).",
+      "explanation": "Como todos los copropietarios quieren las semanas pico, la mecánica del calendario de rotación garantiza un acceso equitativo a lo largo de un ciclo plurianual en lugar de una asignación por orden de llegada. Algunos operadores permiten a los propietarios intercambiar o comerciar asignaciones de semanas pico con otros copropietarios a través de su plataforma de reservas."
+    },
+    {
+      "slug": "home-swap",
+      "term": "Intercambio de viviendas / red de intercambio",
+      "category": "operational",
+      "definition": "Mecanismo que permite a un propietario fraccional alojarse en otra propiedad —normalmente otra propiedad dentro de la cartera del mismo operador— a cambio de poner sus propias semanas asignadas a disposición de la red.",
+      "explanation": "Las redes de intercambio permiten a los propietarios utilizar su asignación anual en múltiples destinos en lugar de siempre en una sola propiedad. Las mecánicas difieren según el operador: algunos ejecutan swaps directos 1:1 en los que dos propietarios intercambian estancias, algunos ejecutan sistemas basados en puntos en los que publicar una semana genera créditos canjeables contra cualquier otra semana publicada, y algunos ejecutan emparejamiento mediado por conserjería. El acceso al intercambio suele ser interno a la red de cada operador."
+    },
+    {
+      "slug": "lombard-loan",
+      "term": "Préstamo lombardo",
+      "category": "operational",
+      "definition": "Préstamo garantizado contra una cartera de inversión existente (acciones, bonos, fondos) mantenida en un banco, con el banco prestando contra el valor de la cartera pignorada mientras el prestatario conserva los rendimientos de la inversión subyacente.",
+      "explanation": "Algunos operadores fraccionales han organizado líneas de préstamo lombardo a través de bancos socios para apoyar a compradores que poseen carteras de inversión. El banco presta contra la cartera pignorada en lugar de contra el propio inmueble, lo que permite a los compradores financiar su participación fraccional sin liquidar inversiones. La elegibilidad depende de la aceptación por parte del banco de la composición de la cartera del comprador.",
+      "sameAs": "https://en.wikipedia.org/wiki/Lombard_credit"
+    },
+    {
+      "slug": "non-resident-buyer",
+      "term": "Comprador no residente",
+      "category": "residency",
+      "definition": "Comprador que no es residente fiscal en el país donde se ubica el inmueble. Para las compras fraccionales europeas, esto describe típicamente a compradores británicos, estadounidenses u otros internacionales que adquieren propiedades en España, Francia, Italia, Portugal, etc.",
+      "explanation": "El estatus de no residente afecta al tratamiento fiscal (umbrales del impuesto sobre el patrimonio, mecánica de ganancias de capital, normas de sucesiones), a los requisitos administrativos (NIE en España, equivalentes en otros lugares) y a las cuestiones operativas (reglas Schengen de cómputo de días para estancias en propiedades de la UE). La mayoría de los operadores tienen flujos de trabajo establecidos para la incorporación de compradores no residentes."
+    },
+    {
+      "slug": "nie",
+      "term": "NIE (Número de Identificación de Extranjero)",
+      "category": "residency",
+      "definition": "Número de identificación de extranjero español, requerido para que los extranjeros (residentes y no residentes por igual) realicen la mayoría de las acciones administrativas y legales en España, incluida la compra de propiedades, la apertura de cuentas bancarias y la presentación de impuestos.",
+      "explanation": "Los compradores no españoles de participaciones fraccionales españolas deben obtener un NIE antes del cierre. La solicitud suele realizarse a través de un consulado español en el país de residencia del comprador, o mediante un abogado o gestor español por poder. La mayoría de los operadores fraccionales que venden propiedades españolas coordinan las solicitudes de NIE como parte del proceso de incorporación del comprador.",
+      "sameAs": "https://en.wikipedia.org/wiki/N%C3%BAmero_de_identificaci%C3%B3n_de_extranjero"
+    },
+    {
+      "slug": "schengen-90-180",
+      "term": "Regla Schengen 90/180",
+      "category": "residency",
+      "definition": "Regla que limita a los visitantes no UE/EEE a un máximo de 90 días en el espacio Schengen dentro de cualquier período móvil de 180 días, sin visado ni permiso de residencia.",
+      "explanation": "Tras el Brexit, los compradores británicos y los compradores estadounidenses de participaciones fraccionales europeas están sujetos a la regla 90/180 en el conjunto del espacio Schengen (no por país). Para el propietario de una participación de 1/8 que utiliza aproximadamente 45 días al año en una sola propiedad europea, la regla queda cómodamente dentro de la asignación. Los compradores que adquieran varias participaciones fraccionales europeas deben llevar la cuenta de los días Schengen acumulados para evitar superar el límite.",
+      "sameAs": "https://en.wikipedia.org/wiki/Schengen_Area"
+    },
+    {
+      "slug": "golden-visa",
+      "term": "Golden visa",
+      "category": "residency",
+      "definition": "Programas de residencia ofrecidos por diversos países que permiten a inversores de alto patrimonio obtener permisos de residencia a cambio de inversiones inmobiliarias o de capital que cumplan los requisitos. Los programas varían según el país y han sufrido reformas significativas en los últimos años.",
+      "explanation": "Los programas de golden visa en Portugal, España, Grecia y otros lugares han sido utilizados históricamente por compradores internacionales que adquieren inmuebles por encima de umbrales definidos. La elegibilidad, los umbrales y el papel de la inversión inmobiliaria han cambiado significativamente desde 2023: Portugal eliminó la inversión inmobiliaria de su esquema de golden visa, España anunció un cese progresivo y otros se han reestructurado. Para la copropiedad fraccional específicamente, la participación del comprador generalmente tendría que superar el umbral mínimo del programa para cumplir los requisitos.",
+      "sameAs": "https://en.wikipedia.org/wiki/Immigrant_investor_programs"
+    },
+    {
+      "slug": "beneficial-ownership",
+      "term": "Titularidad real",
+      "category": "residency",
+      "definition": "Persona física que, en última instancia, posee, controla o se beneficia de una entidad legal, incluso cuando el propietario nominal de la entidad es una persona, trust o sociedad distintos.",
+      "explanation": "La normativa de la UE y del Reino Unido contra el blanqueo de capitales exige la divulgación de la titularidad real de las entidades que mantienen propiedades. Para la copropiedad fraccional a través de una LLC, SCI o SL específicas del inmueble, cada copropietario es típicamente titular real de la entidad que ostenta el inmueble en la medida de su participación. Los operadores gestionan la divulgación de la titularidad real como parte del proceso regulado de compra.",
+      "sameAs": "https://en.wikipedia.org/wiki/Beneficial_ownership"
+    },
+    {
+      "slug": "escritura",
+      "term": "Escritura (título de propiedad español)",
+      "category": "property",
+      "definition": "Escritura pública notarial española que acredita la propiedad o transmisión inmobiliaria. La escritura se firma ante un notario español y se inscribe en el registro de la propiedad correspondiente.",
+      "explanation": "Para propiedad fraccional española mantenida en una SL, la escritura se otorgó cuando la SL adquirió originalmente la propiedad. Las transferencias posteriores de participaciones de la SL (cuando los copropietarios revenden) se procesan como transferencias de participación societaria españolas en lugar de transmisiones de la propiedad, lo que significa que no se requiere una nueva escritura sobre el inmueble subyacente, lo que reduce materialmente los costes de transferencia."
+    },
+    {
+      "slug": "conveyancing",
+      "term": "Transmisión de la propiedad (conveyancing)",
+      "category": "property",
+      "definition": "Proceso legal de transferir la propiedad de un inmueble de una parte a otra. Implica búsquedas de titularidad, redacción de contratos, inscripción ante las autoridades correspondientes y pago de tarifas e impuestos asociados.",
+      "explanation": "La transmisión de propiedad convencional es la parte más costosa y lenta de la reventa de una segunda vivienda. Las reventas de copropiedad fraccional evitan la transmisión completa porque la transacción transfiere participaciones en la entidad específica del inmueble en lugar del inmueble subyacente: la entidad sigue ostentando el inmueble; solo cambia su composición de propiedad. Esto reduce los costes de transacción en un orden de magnitud respecto a la reventa convencional.",
+      "sameAs": "https://en.wikipedia.org/wiki/Conveyancing"
+    },
+    {
+      "slug": "concierge-management",
+      "term": "Gestión integral / conserjería",
+      "category": "property",
+      "definition": "Servicios profesionales que se ocupan de los aspectos operativos de la propiedad inmobiliaria —limpieza, mantenimiento, suministros, cumplimiento fiscal local, preparación previa a la llegada, servicios para huéspedes y respuesta a emergencias— en nombre del propietario.",
+      "explanation": "La gestión integral / conserjería está integrada en la copropiedad fraccional; la sociedad de gestión suele ser contratada por la entidad específica del inmueble y pagada a través de la repercusión anual de costes. Para los propietarios de propiedad completa, el servicio equivalente debe organizarse uno mismo o contratarse por separado, lo que añade tiempo y coste significativos. El modelo de gestión integrada es una de las principales ventajas operativas de la copropiedad fraccional frente a la propiedad completa de un inmueble comparable."
+    },
+    {
+      "slug": "bel-etage",
+      "term": "Bel-étage (arquitectura parisina)",
+      "category": "property",
+      "definition": "La «planta hermosa» de un edificio clásico parisino haussmanniano: históricamente la segunda o tercera planta, con los techos más altos, los balcones más ornamentados (típicamente un balcón continuo de hierro forjado) y las ventanas más grandes.",
+      "explanation": "En el París haussmanniano del siglo XIX, la bel-étage era la planta más prestigiosa porque era accesible sin escaleras desde la planta baja en una época anterior a los ascensores, mientras se situaba por encima del ruido y el polvo de la calle. Los compradores modernos de propiedad parisina central —incluidos los compradores fraccionales— pagan una prima significativa por apartamentos genuinos de bel-étage debido a la altura de los techos, el balcón y el detalle arquitectónico original."
+    },
+    {
+      "slug": "vacation-rental",
+      "term": "Alquiler vacacional",
+      "category": "property",
+      "definition": "Inmueble alquilado a corto plazo a huéspedes en vacaciones, normalmente a través de plataformas como Airbnb, Booking.com o Vrbo: distinto del alquiler residencial a largo plazo.",
+      "explanation": "El alquiler vacacional es una alternativa a la propiedad para los compradores que buscan flexibilidad: pagar el alojamiento según sea necesario en lugar de comprometer capital. Comparado con la copropiedad fraccional, el alquiler vacacional no requiere capital inicial, no construye patrimonio y no ofrece consistencia de inmueble. Para compradores con un uso anual bajo (menos de tres semanas al año) o con fuerte preferencia por la variedad de destinos, el alquiler puro puede producir mejor utilidad de estilo de vida por dólar que cualquier modelo de propiedad.",
+      "sameAs": "https://en.wikipedia.org/wiki/Vacation_rental"
+    }
+  ]
+}

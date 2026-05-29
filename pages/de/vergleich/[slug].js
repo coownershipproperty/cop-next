@@ -1,17 +1,15 @@
 /**
- * pages/partners/[slug].js — English partner profile pages
- *
- * Thin wrapper around components/PartnerPageRenderer.
- * Locale siblings live at pages/{es,fr,de}/{socios,partenaires,partner}/[slug].js.
+ * pages/de/vergleich/[slug].js — German comparison pages
+ * URL pattern: /de/vergleich/{slug}/
  */
 
 import fs from 'fs';
 import path from 'path';
-import PartnerPageRenderer from '@/components/PartnerPageRenderer';
+import ComparePageRenderer from '@/components/ComparePageRenderer';
 
-const LOCALE = 'en';
-const META_FILE = 'partners-meta.json';
-const CONTENT_DIR = 'content/partners';
+const LOCALE = 'de';
+const META_FILE = 'compare-meta-de.json';
+const CONTENT_DIR = 'content/compare/de';
 
 function stripTags(html) {
   return String(html || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\s+/g, ' ').trim();
@@ -61,6 +59,6 @@ export async function getStaticProps({ params }) {
   return { props: { locale: LOCALE, slug, entry, body, faqs, wordCount }, revalidate: 3600 };
 }
 
-export default function EnPartnerPage(props) {
-  return <PartnerPageRenderer {...props} />;
+export default function DeComparePage(props) {
+  return <ComparePageRenderer {...props} />;
 }

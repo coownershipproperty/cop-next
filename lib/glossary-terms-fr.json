@@ -1,0 +1,380 @@
+{
+  "intro": "Un glossaire de travail des termes juridiques, fiscaux, opérationnels et structurels qui apparaissent lors de l'achat d'une part de copropriété fractionnée — particulièrement entre juridictions européennes. Les définitions privilégient la clarté opérationnelle à la précision académique&nbsp;; pour les décisions juridiquement conséquentes, consultez un conseiller local qualifié.",
+  "categories": [
+    { "id": "legal-structures", "name": "Structures juridiques" },
+    { "id": "ownership", "name": "Termes de propriété" },
+    { "id": "costs-fees", "name": "Coûts et frais" },
+    { "id": "tax", "name": "Termes fiscaux" },
+    { "id": "operational", "name": "Termes opérationnels" },
+    { "id": "residency", "name": "Termes d'acheteur et de résidence" },
+    { "id": "property", "name": "Termes de propriété et de transaction" }
+  ],
+  "terms": [
+    {
+      "slug": "llc",
+      "term": "LLC (Limited Liability Company)",
+      "category": "legal-structures",
+      "definition": "Une entité juridique américaine qui combine la protection à responsabilité limitée avec un traitement fiscal en transparence. Dans la copropriété fractionnée, une LLC dédiée à la propriété détient 100&nbsp;% du titre du bien, les copropriétaires détenant des intérêts d'adhésion proportionnels.",
+      "explanation": "La plupart des opérateurs fractionnés basés aux États-Unis utilisent des LLC dédiées à la propriété pour détenir les biens individuels — une LLC par bien. La structure signifie que le nom de chaque propriétaire figure sur le registre de propriété de la LLC&nbsp;; la LLC possède l'immobilier&nbsp;; et à la sortie, les propriétaires transfèrent des intérêts d'adhésion à la LLC plutôt que de déclencher un transfert de propriété complet. Cela maintient les coûts de transaction matériellement plus bas qu'une revente classique de résidence secondaire.",
+      "sameAs": "https://en.wikipedia.org/wiki/Limited_liability_company"
+    },
+    {
+      "slug": "sci",
+      "term": "SCI (Société Civile Immobilière)",
+      "category": "legal-structures",
+      "definition": "Une société civile immobilière française utilisée pour détenir collectivement un bien. À peu près l'équivalent français d'une LLC dédiée à la propriété pour les besoins de la copropriété fractionnée.",
+      "explanation": "Les biens fractionnés français sont couramment détenus dans des SCI dédiées à la propriété, immatriculées auprès du notaire local et du registre du commerce français. Les copropriétaires détiennent des parts proportionnelles dans la SCI. La structure a été utilisée par les familles françaises pour détenir un bien partagé depuis des générations&nbsp;; les opérateurs fractionnés modernes l'ont professionnalisée pour un usage transfrontalier par des acheteurs.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Soci%C3%A9t%C3%A9_civile_immobili%C3%A8re"
+    },
+    {
+      "slug": "sl",
+      "term": "SL (Sociedad Limitada)",
+      "category": "legal-structures",
+      "definition": "Une société espagnole à responsabilité limitée. Le véhicule de société espagnol standard utilisé pour détenir des biens — et, pour la copropriété fractionnée, utilisé comme entité dédiée à la propriété avec les copropriétaires comme actionnaires proportionnels.",
+      "explanation": "Les notaires, comptables et le registre des entreprises espagnols traitent les SL comme une activité courante. Pour les acheteurs non-résidents de parts fractionnées espagnoles, la structure SL est familière aux conseillers locaux et produit des résultats standard de droit espagnol des sociétés en matière de gouvernance, de vote et de transfert de parts.",
+      "sameAs": "https://en.wikipedia.org/wiki/Sociedad_de_responsabilidad_limitada"
+    },
+    {
+      "slug": "srl",
+      "term": "Srl (Società a responsabilità limitata)",
+      "category": "legal-structures",
+      "definition": "Une société italienne à responsabilité limitée. L'analogue italien d'une SL ou d'une LLC, parfois utilisée comme véhicule de détention de bien pour la copropriété fractionnée en Italie.",
+      "explanation": "Le droit italien de la propriété et la pratique notariale sont bien développés autour de la forme Srl. La structure produit des résultats d'actionnariat inscrit pour les acheteurs non-résidents et est reconnue dans tout le système notarial régional italien.",
+      "sameAs": "https://en.wikipedia.org/wiki/Limited_liability_company"
+    },
+    {
+      "slug": "gmbh-co-kg",
+      "term": "GmbH & Co. KG",
+      "category": "legal-structures",
+      "definition": "Une société en commandite allemande où une GmbH (société à responsabilité limitée) agit comme associé commandité et où des individus sont commanditaires. Certains opérateurs fractionnés utilisent cette structure dans leurs biens européens pour la cohérence.",
+      "explanation": "La GmbH &amp; Co. KG combine la flexibilité de la société en commandite avec la protection à responsabilité limitée de la GmbH. Lorsqu'elle est utilisée par un opérateur fractionné pour des biens dans plusieurs pays, le même véhicule juridique détient des biens espagnols, italiens, français et autres — simplifiant l'expérience de propriété pour les acheteurs multi-pays tandis que le droit local de la propriété continue de régir le bien lui-même.",
+      "sameAs": "https://en.wikipedia.org/wiki/Gesellschaft_mit_beschr%C3%A4nkter_Haftung_%26_Compagnie_Kommanditgesellschaft"
+    },
+    {
+      "slug": "fideicomiso",
+      "term": "Fideicomiso",
+      "category": "legal-structures",
+      "definition": "Un trust bancaire mexicain par lequel les ressortissants étrangers peuvent détenir des biens dans les zones côtières et frontalières restreintes du Mexique (dans les 50&nbsp;km du littoral ou les 100&nbsp;km d'une frontière).",
+      "explanation": "Le droit mexicain restreint la propriété directe par des étrangers de biens dans ces zones. Le fideicomiso achemine la propriété via une banque mexicaine en tant que fiduciaire, l'acheteur étranger étant bénéficiaire. L'acheteur dispose de pleins droits d'usage, de vente, de transfert et de transmission — comparables à la propriété directe à des fins pratiques. Pour la copropriété fractionnée de biens côtiers mexicains, le fideicomiso est la structure standard.",
+      "sameAs": "https://en.wikipedia.org/wiki/Fideicomiso"
+    },
+    {
+      "slug": "property-specific-entity",
+      "term": "Entité dédiée à la propriété",
+      "category": "legal-structures",
+      "definition": "Une entité juridique (LLC, SCI, SL, Srl, KG, fideicomiso, etc.) créée pour détenir exactement un bien. Chaque bien du portefeuille d'un opérateur fractionné se trouve dans sa propre entité, séparée des autres biens et de la propre société de l'opérateur.",
+      "explanation": "L'entité dédiée à la propriété est la protection structurelle qui rend la copropriété fractionnée distincte des modèles d'adhésion contrôlés par l'opérateur. Comme le bien est détenu par sa propre entité (pas par l'opérateur), le bien continue d'exister si l'opérateur cesse ses activités — les copropriétaires peuvent engager une société de gestion de remplacement. Le capital du propriétaire est dans le bien, pas dans l'activité de l'opérateur."
+    },
+    {
+      "slug": "indivision",
+      "term": "Indivision",
+      "category": "legal-structures",
+      "definition": "Un arrangement juridique français selon lequel plusieurs parties possèdent conjointement un même actif sans société formelle. Courant dans la succession française où les frères et sœurs reçoivent la copropriété d'un bien familial.",
+      "explanation": "L'indivision est une copropriété informelle — chaque copropriétaire détient une part indivise. Les décisions concernant le bien nécessitent généralement un consentement unanime, ce qui crée de la friction. La copropriété fractionnée moderne utilise des SCI dédiées à la propriété plutôt que l'indivision précisément pour éviter cette friction&nbsp;: seuils de vote clairs, gouvernance standardisée et sortie structurée.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Indivision"
+    },
+    {
+      "slug": "fractional-ownership",
+      "term": "Copropriété fractionnée",
+      "category": "ownership",
+      "definition": "Un modèle de propriété immobilière où plusieurs acheteurs possèdent chacun une fraction légalement inscrite d'un bien, généralement via une entité juridique dédiée à la propriété. Chaque propriétaire a le droit d'utiliser le bien pour une période définie chaque année, proportionnelle à sa part.",
+      "explanation": "La copropriété fractionnée moderne est structurellement distincte du timeshare&nbsp;: l'acheteur possède un bien immobilier inscrit via l'entité dédiée à la propriété, la part s'apprécie avec le marché immobilier, et la part peut être vendue sur le marché libre. La taille de part typique est de 1/8, donnant environ 45 jours d'usage par an. La plupart des opérateurs du secteur utilisent une gestion immobilière professionnelle intégrée au modèle.",
+      "sameAs": "https://en.wikipedia.org/wiki/Fractional_ownership"
+    },
+    {
+      "slug": "co-ownership",
+      "term": "Copropriété",
+      "category": "ownership",
+      "definition": "Un terme générique pour les arrangements où plusieurs parties détiennent des droits de propriété sur le même bien. Dans un contexte fractionné, la copropriété signifie spécifiquement une propriété conjointe inscrite via une entité juridique dédiée à la propriété plutôt qu'un titre conjoint informel.",
+      "explanation": "Copropriété et copropriété fractionnée sont généralement utilisées de manière interchangeable dans la catégorie fractionnée moderne. Les termes mettent en avant la même réalité structurelle&nbsp;: un petit groupe de propriétaires (généralement jusqu'à huit, parfois plus) partageant le capital, l'usage et les coûts récurrents d'un même bien de luxe."
+    },
+    {
+      "slug": "deeded-share",
+      "term": "Part détenue en propre",
+      "category": "ownership",
+      "definition": "Une part dans un bien où le nom du propriétaire figure sur les registres légaux de propriété — généralement le registre d'adhésion de la LLC ou société en commandite dédiée à la propriété — et où la part constitue un intérêt en capital immobilier.",
+      "explanation": "La propriété inscrite est la distinction structurelle qui sépare la copropriété fractionnée des produits basés sur un contrat comme le timeshare traditionnel. Avec une part détenue en propre, l'acheteur dispose d'une participation au capital enregistrée qui s'apprécie avec le bien, peut être vendue sur le marché libre, se transmet aux héritiers comme un actif immobilier et produit des résultats fiscaux immobiliers standard."
+    },
+    {
+      "slug": "one-eighth-share",
+      "term": "Part de 1/8",
+      "category": "ownership",
+      "definition": "La taille de part la plus courante dans la copropriété fractionnée moderne&nbsp;: un huitième du bien, donnant au propriétaire environ 45 jours d'usage privé par an.",
+      "explanation": "Une part de 1/8 est dimensionnée pour correspondre à l'usage annuel réaliste de la plupart des acheteurs de résidence secondaire — les recherches montrent invariablement que le propriétaire typique d'une résidence secondaire utilise son bien environ 35 jours par an. Le modèle 1/8 produit huit classes de parts égales par bien, avec une entité dédiée à la propriété détenant l'acte. Certains opérateurs proposent également des parts de 1/4 et 1/2 pour les acheteurs voulant plus de temps d'usage."
+    },
+    {
+      "slug": "rofr",
+      "term": "Droit de préemption (ROFR)",
+      "category": "ownership",
+      "definition": "Une clause contractuelle accordant à une partie le droit de se voir proposer un actif avant qu'il ne soit vendu à quiconque. Dans la copropriété fractionnée, les copropriétaires existants disposent généralement d'un droit de préemption sur la part revendue par un copropriétaire.",
+      "explanation": "Lorsqu'un propriétaire fractionné met sa part en vente, le mécanisme de droit de préemption donne aux copropriétaires existants du même bien la première opportunité d'acquérir la part au prix listé. Si aucun copropriétaire n'exerce le droit de préemption dans une fenêtre définie, la part est commercialisée auprès du pool de prospects plus large. Le droit de préemption existe pour donner au groupe de propriétaires existant un certain contrôle sur qui les rejoint.",
+      "sameAs": "https://en.wikipedia.org/wiki/Right_of_first_refusal"
+    },
+    {
+      "slug": "whole-ownership",
+      "term": "Propriété entière",
+      "category": "ownership",
+      "definition": "Le modèle traditionnel de propriété immobilière&nbsp;: un propriétaire (ou un couple, une famille ou une entité) détient 100&nbsp;% du titre du bien.",
+      "explanation": "La propriété entière engage 100&nbsp;% du capital dans un bien, le propriétaire étant responsable de tous les coûts d'exploitation et de la gestion. Comparée à une part fractionnée de 1/8 sur le même bien, la propriété entière nécessite 8&nbsp;fois plus de capital, produit des droits d'usage illimités (bien que l'usage réaliste se situe généralement autour de 35 jours par an selon les données sectorielles) et expose le propriétaire à la charge opérationnelle complète de la gestion immobilière transfrontalière."
+    },
+    {
+      "slug": "timeshare",
+      "term": "Timeshare",
+      "category": "ownership",
+      "definition": "Un produit d'usage d'un bien où l'acheteur achète le droit contractuel d'utiliser un bien pour une période définie chaque année — généralement une semaine, parfois des points flexibles — sans posséder d'immobilier.",
+      "explanation": "Le timeshare est structurellement distinct de la copropriété fractionnée&nbsp;: l'acheteur possède un contrat, pas un intérêt immobilier inscrit. La plupart des contrats de timeshare n'ont pas de capital immobilier, ne s'apprécient pas avec le marché immobilier et sont notoirement difficiles à revendre — une industrie entière de «&nbsp;sociétés de sortie de timeshare&nbsp;» existe spécifiquement pour aider les propriétaires à se débarrasser de contrats indésirables. Disney Vacation Club est l'exception la plus citée, utilisant une structure de droit d'usage inscrite avec des dynamiques de revente plus solides.",
+      "sameAs": "https://en.wikipedia.org/wiki/Timeshare"
+    },
+    {
+      "slug": "service-fee",
+      "term": "Frais de service",
+      "category": "costs-fees",
+      "definition": "Des frais payés par les propriétaires fractionnés à la société d'exploitation pour les services de plateforme continus, la technologie, le support propriétaire et l'administration de l'opérateur. Distincts des coûts réels d'exploitation du bien.",
+      "explanation": "Les opérateurs structurent les frais de service différemment&nbsp;: certains publient un forfait par part (par ex. un montant fixe par mois par part), d'autres facturent un pourcentage de la valeur du bien par an, d'autres encore intègrent des frais de service ponctuels dans le prix d'achat primaire. Les frais de service sont séparés de la répercussion des coûts des dépenses réelles d'exploitation du bien (assurance, taxes, services publics, entretien)."
+    },
+    {
+      "slug": "cost-passthrough",
+      "term": "Répercussion des coûts",
+      "category": "costs-fees",
+      "definition": "Le modèle où les copropriétaires paient leur part proportionnelle des coûts réels d'exploitation du bien — gestion, assurance, taxes locales, abonnements de services publics, entretien et contributions au fonds de réserve — sans marge opérateur ajoutée par-dessus ces coûts.",
+      "explanation": "La répercussion des coûts est le modèle standard pour la composante d'exploitation du bien dans les frais annuels fractionnés. Un propriétaire à 1/8 paie 1/8 des coûts réels d'exploitation du bien&nbsp;; l'opérateur gagne des frais de service divulgués séparément (ou des frais ponctuels à l'achat) plutôt que d'une marge sur les dépenses d'exploitation. Les coûts évoluent avec le bien — une villa plus chère a des coûts absolus plus élevés — mais le ratio de répartition des coûts reste cohérent."
+    },
+    {
+      "slug": "reserve-fund",
+      "term": "Fonds de réserve",
+      "category": "costs-fees",
+      "definition": "Une réserve de trésorerie mutualisée détenue au sein de l'entité dédiée à la propriété pour couvrir les futures réparations majeures, remplacements et dépenses d'investissement sans nécessiter d'appels de fonds surprises aux propriétaires.",
+      "explanation": "Le fonds de réserve est alimenté par des contributions annuelles intégrées à la répercussion des coûts. Les réparations majeures (remplacement CVC, travaux de toiture, entretien structurel) sont payées sur la réserve plutôt que de déclencher des appels de trésorerie ponctuels. L'adéquation de la réserve fait partie des éléments divulgués dans la documentation pré-achat&nbsp;; les biens sous-réservés peuvent conduire à des appels de fonds exceptionnels par la suite."
+    },
+    {
+      "slug": "special-assessment",
+      "term": "Appel de fonds exceptionnel",
+      "category": "costs-fees",
+      "definition": "Un prélèvement ponctuel de trésorerie sur les propriétaires au-delà des frais annuels standard, généralement appelé lorsque les fonds de réserve sont insuffisants pour couvrir une réparation majeure ou une dépense d'investissement inattendue.",
+      "explanation": "Les appels de fonds exceptionnels sont courants dans le timeshare et dans certains contextes d'association de propriétaires en propriété entière&nbsp;; dans la copropriété fractionnée bien gérée, ils sont rares car les fonds de réserve sont dimensionnés pour absorber les réparations majeures. Lorsqu'un bien nécessite un appel de fonds, celui-ci est partagé proportionnellement entre les copropriétaires selon la taille de la part. Les divulgations pré-achat incluent généralement l'historique des appels de fonds du bien."
+    },
+    {
+      "slug": "notaire-fees",
+      "term": "Frais de notaire",
+      "category": "costs-fees",
+      "definition": "Frais facturés par un notaire français pour exécuter les transactions immobilières. Combinés aux taxes de mutation associées, le total représente généralement 7 à 8&nbsp;% du prix d'achat du bien pour un bien français d'occasion.",
+      "explanation": "Dans les achats classiques de biens français, les frais de notaire couvrent les services professionnels du notaire plus les diverses taxes de mutation et frais d'enregistrement qui transitent par le notaire. Pour la copropriété fractionnée d'un bien français, les frais de notaire ont été payés une fois lorsque la SCI dédiée à la propriété a été initialement constituée et que le bien a été acquis. Lorsqu'une part est revendue par la suite, l'acheteur acquiert des parts de SCI plutôt que de déclencher un nouveau transfert de propriété — ce qui signifie qu'aucun frais de notaire complet ne s'applique sur le transfert de part."
+    },
+    {
+      "slug": "stamp-duty",
+      "term": "Droits de mutation",
+      "category": "costs-fees",
+      "definition": "Une taxe prélevée sur les transactions immobilières dans diverses juridictions, généralement calculée en pourcentage du prix d'achat. Le Stamp Duty Land Tax (SDLT) au Royaume-Uni et l'ITP espagnol (Impuesto de Transmisiones Patrimoniales) en sont des exemples courants.",
+      "explanation": "Les achats classiques de résidence secondaire déclenchent des droits de mutation sur la valeur totale du bien au moment de l'achat. Dans la copropriété fractionnée, les droits de mutation ont été payés une fois lorsque l'entité dédiée à la propriété a initialement acquis le bien&nbsp;; les transferts de parts ultérieurs au sein de l'entité ne déclenchent pas de nouveaux droits de mutation dans la plupart des juridictions, car aucun transfert de bien sous-jacent n'a lieu."
+    },
+    {
+      "slug": "ifi",
+      "term": "IFI (Impôt sur la Fortune Immobilière)",
+      "category": "tax",
+      "definition": "L'impôt français sur la fortune appliqué aux participations immobilières. S'applique aux résidents fiscaux français sur leur patrimoine immobilier mondial et aux non-résidents sur leur patrimoine immobilier français, avec un seuil actuel de 1,3&nbsp;million d'euros de valeur nette immobilière.",
+      "explanation": "L'IFI taxe la valeur nette des biens dans le périmètre au-dessus du seuil de 1,3&nbsp;M€ à des taux progressifs (0,5&nbsp;% à 1,5&nbsp;%). Pour les acheteurs non-résidents, seuls les biens français comptent dans le seuil. Un non-résident avec une part de 1/8 d'une villa française de 5&nbsp;M€ détient 625&nbsp;k€ d'immobilier français — en dessous du seuil IFI pour de nombreux acheteurs. La propriété entière de la même villa placerait l'acheteur largement dans le périmètre de l'IFI.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Imp%C3%B4t_sur_la_fortune_immobili%C3%A8re"
+    },
+    {
+      "slug": "patrimonio",
+      "term": "Patrimonio (impôt espagnol sur la fortune)",
+      "category": "tax",
+      "definition": "L'impôt espagnol sur la fortune appliqué au patrimoine net (y compris immobilier) au-dessus de seuils définis. Les taux et seuils varient selon la communauté autonome — Madrid ne le prélève effectivement pas, tandis que plusieurs autres communautés le font.",
+      "explanation": "Pour les acheteurs non-résidents de biens espagnols, le Patrimonio s'applique à la valeur nette des actifs situés en Espagne, avec un seuil et des taux fixés par la communauté autonome où se trouve le bien. La copropriété fractionnée maintient la valeur de l'actif en dessous des seuils pour de nombreux acheteurs qui feraient sinon face au Patrimonio en propriété entière du même bien. La responsabilité spécifique dépend de l'emplacement du bien, de la résidence de l'acheteur et de toute convention applicable.",
+      "sameAs": "https://en.wikipedia.org/wiki/Wealth_tax"
+    },
+    {
+      "slug": "ibi",
+      "term": "IBI (Impuesto sobre Bienes Inmuebles)",
+      "category": "tax",
+      "definition": "La taxe foncière locale annuelle de l'Espagne, prélevée par la municipalité où se trouve le bien. Les taux varient selon la région et représentent généralement 0,4 à 1,1&nbsp;% de la valeur cadastrale du bien (qui est habituellement bien inférieure à la valeur de marché).",
+      "explanation": "L'IBI est payé annuellement par le propriétaire du bien — pour un bien détenu dans une SL, la SL paie l'IBI. Dans la copropriété fractionnée, l'IBI transite par la répercussion des coûts, chaque copropriétaire contribuant proportionnellement à sa part. Les propriétaires ne paient pas l'IBI séparément&nbsp;; il est intégré aux coûts d'exploitation annuels."
+    },
+    {
+      "slug": "imu",
+      "term": "IMU (Imposta Municipale Unica)",
+      "category": "tax",
+      "definition": "La taxe municipale annuelle italienne sur les biens. S'applique aux résidences secondaires et aux biens de grande valeur&nbsp;; la résidence principale est généralement exonérée pour les résidents italiens.",
+      "explanation": "Les taux IMU varient selon la municipalité et sont calculés sur le revenu cadastral réévalué du bien. Pour les propriétaires non-résidents de biens italiens secondaires — y compris les parts fractionnées — l'IMU s'applique à la valeur totale du bien, chaque copropriétaire contribuant proportionnellement via la répercussion des coûts.",
+      "sameAs": "https://en.wikipedia.org/wiki/Imposta_municipale_propria"
+    },
+    {
+      "slug": "taxe-fonciere",
+      "term": "Taxe foncière",
+      "category": "tax",
+      "definition": "La taxe foncière annuelle française, payée par le propriétaire du bien indépendamment de qui l'occupe. Calculée sur la valeur locative cadastrale du bien.",
+      "explanation": "Les taux et montants absolus de la taxe foncière varient selon la commune. Pour un bien français détenu dans une SCI, la SCI paie la taxe foncière&nbsp;; en copropriété fractionnée, cela transite par la répercussion des coûts proportionnellement. La taxe d'habitation associée a été largement supprimée pour les résidences principales mais peut toujours s'appliquer aux résidences secondaires dans certaines communes.",
+      "sameAs": "https://fr.wikipedia.org/wiki/Taxe_fonci%C3%A8re"
+    },
+    {
+      "slug": "sucesiones",
+      "term": "Sucesiones (droits de succession espagnols)",
+      "category": "tax",
+      "definition": "L'impôt espagnol sur les successions et donations, régulé nationalement mais administré avec une variation significative selon la communauté autonome. Les taux dépendent de la relation de l'héritier avec le défunt et de la résidence de l'héritier.",
+      "explanation": "Les actifs situés en Espagne sont soumis aux Sucesiones pour l'héritier, indépendamment du lieu de résidence de l'héritier. Plusieurs communautés autonomes offrent des réductions ou exonérations substantielles pour les héritiers en ligne directe (conjoints, enfants, parents). Pour les héritiers non-résidents de parts fractionnées espagnoles, la responsabilité spécifique dépend de la communauté autonome où se trouve le bien et de la relation de l'héritier avec le défunt."
+    },
+    {
+      "slug": "capital-gains-tax",
+      "term": "Impôt sur les plus-values",
+      "category": "tax",
+      "definition": "Impôt sur le gain réalisé lorsqu'un actif est vendu à un prix supérieur à sa base de coût. S'applique aux parts fractionnées lorsqu'elles sont vendues avec un gain, avec des taux et mécanismes déterminés par la juridiction du bien et la résidence du vendeur.",
+      "explanation": "Lors de la vente d'une part fractionnée, le gain (prix de vente moins base de coût moins coûts éligibles) est généralement imposable dans le pays du bien, souvent via un mécanisme de retenue à la source pour les vendeurs non-résidents, avec réconciliation via une déclaration fiscale locale. Les arrangements conventionnels entre le pays du bien et le pays d'origine du vendeur peuvent affecter la position fiscale finale.",
+      "sameAs": "https://en.wikipedia.org/wiki/Capital_gains_tax"
+    },
+    {
+      "slug": "k1",
+      "term": "K-1 (US Schedule K-1)",
+      "category": "tax",
+      "definition": "Un formulaire fiscal américain émis annuellement par les sociétés en commandite et LLC imposées comme partenariats à chaque membre, déclarant la part de ce membre dans les revenus, déductions, crédits et autres éléments fiscaux.",
+      "explanation": "Les LLC américaines dédiées à la propriété détenant des biens fractionnés émettent un K-1 à chaque copropriétaire en fin d'année. Le K-1 déclare la part proportionnelle du membre dans les revenus de la LLC (par ex. d'une activité locative le cas échéant), les dépenses et les éléments en capital. Les membres utilisent le K-1 pour préparer leurs déclarations fiscales américaines personnelles. Les membres non résidents américains ont généralement des obligations de déclaration supplémentaires via le réseau de conventions fiscales américaines."
+    },
+    {
+      "slug": "nhr",
+      "term": "Régime NHR (Portugal)",
+      "category": "tax",
+      "definition": "Le régime fiscal portugais du Résident Non Habituel — un statut fiscal préférentiel de 10 ans pour les personnes qui deviennent résidentes fiscales portugaises, offrant des taux réduits sur certains revenus de source étrangère.",
+      "explanation": "Le régime NHR a été significativement restructuré ces dernières années&nbsp;; la version disponible aux nouveaux candidats aujourd'hui diffère des versions antérieures. Pour les acheteurs non-résidents de biens fractionnés portugais qui ne prévoient pas de devenir résidents fiscaux portugais, le NHR n'est pas directement applicable — mais il reste un contexte pertinent pour les acheteurs envisageant la résidence portugaise."
+    },
+    {
+      "slug": "beckham-law",
+      "term": "Beckham Law (Espagne)",
+      "category": "tax",
+      "definition": "Le régime fiscal spécial de l'Espagne (formellement le Régimen de Trabajadores Desplazados, souvent appelé «&nbsp;Beckham Law&nbsp;» d'après le footballeur qui l'a utilisé) pour les personnes qui deviennent résidentes fiscales espagnoles par le travail, leur permettant d'être imposées selon des règles modifiées pendant six ans maximum.",
+      "explanation": "La Beckham Law s'applique aux personnes qui s'installent en Espagne pour le travail et répondent à des critères d'éligibilité spécifiques. Elle peut être un contexte pertinent pour les acheteurs non espagnols envisageant la résidence espagnole, mais ne s'applique pas directement aux propriétaires non-résidents de biens fractionnés espagnols qui restent résidents fiscaux ailleurs."
+    },
+    {
+      "slug": "supported-resale",
+      "term": "Revente accompagnée",
+      "category": "operational",
+      "definition": "Un processus de revente administré par l'opérateur fractionné pour le compte du propriétaire vendeur. L'opérateur commercialise la part via son pipeline de prospects existant et coordonne la transaction.",
+      "explanation": "La revente accompagnée est le mécanisme de sortie standard pour la copropriété fractionnée. Le propriétaire vendeur notifie l'opérateur, qui fournit des indications de prix basées sur les données de marché, commercialise la part auprès de prospects qualifiés déjà familiers avec l'opérateur et le type de bien, et coordonne le transfert de part via le processus juridique concerné. Les délais typiques de revente sur l'ensemble du portefeuille COP sont d'environ 1 à 3 mois entre la mise en vente et la conclusion."
+    },
+    {
+      "slug": "cooling-off-period",
+      "term": "Délai de rétractation",
+      "category": "operational",
+      "definition": "Une fenêtre définie après la signature d'un contrat d'achat pendant laquelle l'acheteur peut se rétracter sans pénalité financière. Obligatoire dans le droit de la consommation de diverses juridictions.",
+      "explanation": "Les fenêtres de rétractation varient selon la juridiction&nbsp;: la directive timeshare de l'UE impose un délai de rétractation de 14 jours pour les contrats de timeshare&nbsp;; les achats immobiliers français incluent généralement un délai de rétractation SRU de 10 jours plus des fenêtres supplémentaires selon la structure du contrat&nbsp;; les États américains ont des fenêtres variables. Pour la copropriété fractionnée, les règles spécifiques de rétractation dépendent du pays du bien et de la structure du contrat d'achat.",
+      "sameAs": "https://en.wikipedia.org/wiki/Cooling-off_period_(consumer_rights)"
+    },
+    {
+      "slug": "holding-period",
+      "term": "Période de détention minimale",
+      "category": "operational",
+      "definition": "Une période définie après l'achat pendant laquelle un propriétaire fractionné ne peut pas revendre sa part. Utilisée par certains opérateurs sur certains biens pour décourager la spéculation à court terme.",
+      "explanation": "Les périodes de détention minimale sont spécifiques au bien et divulguées dans la documentation pré-achat. Un schéma courant est une période de détention de 12 mois à compter de l'achat avant que la part ne devienne éligible au processus de revente de l'opérateur. Une fois la période minimale écoulée, les propriétaires peuvent inscrire leur part dans la voie de revente standard."
+    },
+    {
+      "slug": "liquidity-window",
+      "term": "Fenêtre de liquidité",
+      "category": "operational",
+      "definition": "Une période définie pendant laquelle un propriétaire fractionné a un accès structuré à un mécanisme spécifique de revente ou de sortie, l'opérateur fournissant un support pour la tarification, le marketing et la transaction.",
+      "explanation": "Certains opérateurs publient des cadres de liquidité à plusieurs fenêtres&nbsp;: une première fenêtre après la période de détention minimale, une fenêtre ouverte continue pour les reventes standard au prix du marché et une fenêtre de long terme pour les détenteurs engagés à long terme. Le cadre donne aux propriétaires des voies de sortie prévisibles sur plusieurs horizons."
+    },
+    {
+      "slug": "rotation-calendar",
+      "term": "Calendrier rotatif (rotation équitable)",
+      "category": "operational",
+      "definition": "Un système de planification utilisé pour allouer équitablement les semaines de forte demande entre les copropriétaires dans le temps. Combine des allocations saisonnières fixes avec une priorité rotative pour les dates de forte demande.",
+      "explanation": "Les calendriers rotatifs gèrent le problème structurel selon lequel tous les copropriétaires veulent les mêmes semaines de pointe (Noël, vacances scolaires de mi-trimestre, plein été). Le système fait tourner la priorité annuellement de sorte qu'aucun propriétaire n'obtient toujours les mêmes dates — sur un cycle pluriannuel, les propriétaires accèdent aux semaines de pointe et de mi-saison à peu près équitablement. La plupart des opérateurs modernes administrent le calendrier via leur application propriétaire, les copropriétaires réservant des dates spécifiques dans la structure de priorité."
+    },
+    {
+      "slug": "peak-weeks",
+      "term": "Semaines de pointe",
+      "category": "operational",
+      "definition": "Les périodes de réservation à la plus forte demande dans un bien — généralement Noël/Nouvel An, vacances scolaires de mi-trimestre, Pâques et plein été (juillet/août en Europe&nbsp;; varie selon la destination).",
+      "explanation": "Comme tous les copropriétaires veulent les semaines de pointe, la mécanique du calendrier rotatif garantit un accès équitable sur un cycle pluriannuel plutôt qu'une allocation par ordre d'arrivée. Certains opérateurs permettent aux propriétaires d'échanger ou de troquer les allocations de semaines de pointe avec d'autres copropriétaires via leur plateforme de réservation."
+    },
+    {
+      "slug": "home-swap",
+      "term": "Échange de résidence / réseau d'échange",
+      "category": "operational",
+      "definition": "Un mécanisme qui permet à un propriétaire fractionné de séjourner dans un autre bien — généralement un autre bien du portefeuille du même opérateur — en échange de la mise à disposition de ses propres semaines allouées au réseau.",
+      "explanation": "Les réseaux d'échange permettent aux propriétaires d'utiliser leur allocation annuelle dans plusieurs destinations au lieu de toujours dans un seul bien. Les mécaniques diffèrent selon l'opérateur&nbsp;: certains gèrent des swaps directs 1:1 où deux propriétaires échangent leurs séjours, certains gèrent des systèmes à base de points où la publication d'une semaine rapporte des crédits échangeables contre toute autre semaine publiée, et certains gèrent un appariement encadré par conciergerie. L'accès à l'échange est généralement interne au réseau de chaque opérateur."
+    },
+    {
+      "slug": "lombard-loan",
+      "term": "Prêt lombard",
+      "category": "operational",
+      "definition": "Un prêt garanti sur un portefeuille de placements existant (actions, obligations, fonds) détenu dans une banque, la banque prêtant contre la valeur du portefeuille gagé tandis que l'emprunteur conserve les rendements sous-jacents de l'investissement.",
+      "explanation": "Certains opérateurs fractionnés ont mis en place des facilités de prêt lombard via des banques partenaires pour soutenir les acheteurs qui détiennent des portefeuilles de placements. La banque prête contre le portefeuille gagé plutôt que contre le bien lui-même, permettant aux acheteurs de financer leur part fractionnée sans liquider leurs investissements. L'éligibilité dépend de l'acceptation par la banque de la composition du portefeuille de l'acheteur.",
+      "sameAs": "https://en.wikipedia.org/wiki/Lombard_credit"
+    },
+    {
+      "slug": "non-resident-buyer",
+      "term": "Acheteur non-résident",
+      "category": "residency",
+      "definition": "Un acheteur qui n'est pas résident fiscal du pays où se trouve le bien. Pour les achats fractionnés européens, cela décrit généralement des acheteurs britanniques, américains ou autres internationaux acquérant des biens en Espagne, en France, en Italie, au Portugal, etc.",
+      "explanation": "Le statut de non-résident affecte le traitement fiscal (seuils d'impôt sur la fortune, mécanique des plus-values, règles de transmission), les exigences administratives (NIE en Espagne, équivalents ailleurs) et les questions opérationnelles (règles de décompte des jours Schengen pour les séjours dans les biens UE). La plupart des opérateurs ont mis en place des flux de travail pour l'accueil des acheteurs non-résidents."
+    },
+    {
+      "slug": "nie",
+      "term": "NIE (Número de Identificación de Extranjero)",
+      "category": "residency",
+      "definition": "Le numéro d'identification étranger de l'Espagne, requis pour les étrangers (résidents et non-résidents) afin de réaliser la plupart des actions administratives et juridiques en Espagne — y compris l'achat de biens, l'ouverture de comptes bancaires et le dépôt de déclarations fiscales.",
+      "explanation": "Les acheteurs non espagnols de parts fractionnées espagnoles doivent obtenir un NIE avant la conclusion. La demande se fait généralement via un consulat espagnol dans le pays de résidence de l'acheteur, ou via un avocat ou gestor espagnol par procuration. La plupart des opérateurs fractionnés vendant des biens espagnols coordonnent les demandes de NIE dans le cadre du processus d'accueil de l'acheteur.",
+      "sameAs": "https://en.wikipedia.org/wiki/N%C3%BAmero_de_identificaci%C3%B3n_de_extranjero"
+    },
+    {
+      "slug": "schengen-90-180",
+      "term": "Règle Schengen 90/180",
+      "category": "residency",
+      "definition": "La règle limitant les visiteurs non UE/EEE à un maximum de 90 jours dans l'espace Schengen sur toute période glissante de 180 jours sans visa ni titre de séjour.",
+      "explanation": "Les acheteurs britanniques post-Brexit et les acheteurs américains de parts fractionnées européennes sont soumis à la règle 90/180 dans l'ensemble de l'espace Schengen (pas par pays). Pour un propriétaire d'une part de 1/8 utilisant environ 45 jours par an dans un seul bien européen, la règle est confortablement dans l'allocation. Les acheteurs acquérant plusieurs parts fractionnées européennes doivent suivre les jours Schengen cumulés pour éviter de dépasser le plafond.",
+      "sameAs": "https://en.wikipedia.org/wiki/Schengen_Area"
+    },
+    {
+      "slug": "golden-visa",
+      "term": "Golden visa",
+      "category": "residency",
+      "definition": "Programmes de résidence offerts par divers pays permettant aux investisseurs fortunés d'obtenir des titres de séjour en échange d'investissements éligibles en biens ou en capital. Les programmes varient selon le pays et ont subi une réforme significative ces dernières années.",
+      "explanation": "Les programmes de golden visa au Portugal, en Espagne, en Grèce et ailleurs ont historiquement été utilisés par les acheteurs internationaux acquérant de l'immobilier au-dessus de seuils définis. L'éligibilité, les seuils et le rôle de l'investissement immobilier ont sensiblement changé depuis 2023 — le Portugal a retiré l'investissement immobilier de son dispositif de golden visa, l'Espagne a annoncé une suppression progressive et d'autres ont restructuré. Pour la copropriété fractionnée spécifiquement, la part de l'acheteur devrait généralement dépasser le seuil minimum du programme pour être éligible.",
+      "sameAs": "https://en.wikipedia.org/wiki/Immigrant_investor_programs"
+    },
+    {
+      "slug": "beneficial-ownership",
+      "term": "Bénéficiaire effectif",
+      "category": "residency",
+      "definition": "La personne physique qui possède, contrôle ou bénéficie ultimement d'une entité juridique — même lorsque le propriétaire nominal de l'entité est une autre personne, un trust ou une société.",
+      "explanation": "Les réglementations européennes et britanniques contre le blanchiment d'argent exigent la divulgation du bénéficiaire effectif pour les entités de détention de biens. Pour la copropriété fractionnée via une LLC, SCI ou SL dédiée à la propriété, chaque copropriétaire est généralement un bénéficiaire effectif de l'entité détentrice du bien à hauteur de sa part. Les opérateurs gèrent la divulgation du bénéficiaire effectif dans le cadre du processus d'achat réglementé.",
+      "sameAs": "https://en.wikipedia.org/wiki/Beneficial_ownership"
+    },
+    {
+      "slug": "escritura",
+      "term": "Escritura (acte de propriété espagnol)",
+      "category": "property",
+      "definition": "Un acte authentique notarial espagnol attestant la propriété ou le transfert d'un bien immobilier. L'escritura est signée devant un notaire espagnol et enregistrée auprès du registre foncier concerné.",
+      "explanation": "Pour un bien fractionné espagnol détenu dans une SL, l'escritura a été exécutée lorsque la SL a initialement acquis le bien. Les transferts ultérieurs de parts de SL (lorsque les copropriétaires revendent) sont traités comme des transferts de parts de société espagnole plutôt que des transferts immobiliers — ce qui signifie qu'aucune nouvelle escritura n'est requise sur le bien sous-jacent, ce qui réduit matériellement les coûts de transfert."
+    },
+    {
+      "slug": "conveyancing",
+      "term": "Transfert de propriété",
+      "category": "property",
+      "definition": "Le processus juridique de transfert de la propriété d'un bien d'une partie à une autre. Implique recherches de titre, rédaction de contrat, enregistrement auprès des autorités concernées et paiement des frais et taxes associés.",
+      "explanation": "Le transfert de propriété classique est la partie la plus coûteuse et la plus lente d'une revente de résidence secondaire. Les reventes de copropriété fractionnée évitent le transfert de propriété complet car la transaction transfère des parts dans l'entité dédiée à la propriété plutôt que le bien sous-jacent — l'entité continue de détenir le bien&nbsp;; seule sa composition de propriété change. Cela réduit les coûts de transaction d'un ordre de grandeur par rapport à la revente classique.",
+      "sameAs": "https://en.wikipedia.org/wiki/Conveyancing"
+    },
+    {
+      "slug": "concierge-management",
+      "term": "Conciergerie / gestion du bien",
+      "category": "property",
+      "definition": "Services professionnels qui gèrent les aspects opérationnels de la propriété — ménage, entretien, services publics, conformité fiscale locale, préparation avant arrivée, services aux invités et urgences — pour le compte du propriétaire.",
+      "explanation": "La conciergerie / gestion du bien est intégrée à la copropriété fractionnée&nbsp;; la société de gestion est généralement engagée par l'entité dédiée à la propriété et payée via la répercussion annuelle des coûts. Pour les propriétaires de bien entier, le service équivalent doit être auto-arrangé ou contracté séparément — ajoutant un temps et un coût significatifs. Le modèle de gestion intégrée est l'un des principaux avantages opérationnels de la copropriété fractionnée par rapport à la propriété entière d'un bien comparable."
+    },
+    {
+      "slug": "bel-etage",
+      "term": "Bel étage (architecture parisienne)",
+      "category": "property",
+      "definition": "Le «&nbsp;bel étage&nbsp;» d'un immeuble haussmannien parisien classique — historiquement le deuxième ou troisième étage, avec les plafonds les plus hauts, les balcons les plus ornés (généralement un balcon filant en fer forgé) et les fenêtres les plus grandes.",
+      "explanation": "Dans le Paris haussmannien du XIXe&nbsp;siècle, le bel étage était l'étage le plus prestigieux car il était accessible sans escalier depuis le sol à une époque sans ascenseur, tout en se trouvant au-dessus du bruit et de la poussière de la rue. Les acheteurs modernes de biens centraux parisiens — y compris les acheteurs fractionnés — paient une prime significative pour de véritables appartements au bel étage en raison de la hauteur sous plafond, du balcon et des détails architecturaux d'origine."
+    },
+    {
+      "slug": "vacation-rental",
+      "term": "Location de vacances",
+      "category": "property",
+      "definition": "Un bien loué à court terme à des invités en vacances, généralement via des plateformes comme Airbnb, Booking.com ou Vrbo — distinct de la location résidentielle de long terme.",
+      "explanation": "La location de vacances est une alternative à la propriété pour les acheteurs cherchant de la flexibilité — payer pour l'hébergement selon les besoins plutôt que d'engager du capital. Comparée à la copropriété fractionnée, la location de vacances ne nécessite pas de capital initial, ne construit aucun capital et n'offre aucune constance de bien. Pour les acheteurs avec un faible usage annuel (moins de trois semaines par an) ou une forte préférence pour la variété des destinations, la pure location peut produire une meilleure utilité de mode de vie par dollar que tout modèle de propriété.",
+      "sameAs": "https://en.wikipedia.org/wiki/Vacation_rental"
+    }
+  ]
+}

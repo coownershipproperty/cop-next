@@ -1,17 +1,15 @@
 /**
- * pages/partners/[slug].js — English partner profile pages
- *
- * Thin wrapper around components/PartnerPageRenderer.
- * Locale siblings live at pages/{es,fr,de}/{socios,partenaires,partner}/[slug].js.
+ * pages/fr/partenaires/[slug].js — French partner profile pages
+ * URL pattern: /fr/partenaires/{slug}/
  */
 
 import fs from 'fs';
 import path from 'path';
 import PartnerPageRenderer from '@/components/PartnerPageRenderer';
 
-const LOCALE = 'en';
-const META_FILE = 'partners-meta.json';
-const CONTENT_DIR = 'content/partners';
+const LOCALE = 'fr';
+const META_FILE = 'partners-meta-fr.json';
+const CONTENT_DIR = 'content/partners/fr';
 
 function stripTags(html) {
   return String(html || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\s+/g, ' ').trim();
@@ -61,6 +59,6 @@ export async function getStaticProps({ params }) {
   return { props: { locale: LOCALE, slug, entry, body, faqs, wordCount }, revalidate: 3600 };
 }
 
-export default function EnPartnerPage(props) {
+export default function FrPartnerPage(props) {
   return <PartnerPageRenderer {...props} />;
 }
