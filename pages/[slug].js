@@ -9,6 +9,7 @@ import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import HreflangLinks from '@/components/HreflangLinks';
 import destinationFaqs from '@/lib/destination-faqs.json';
+import destSameAs from '@/lib/destination-sameas.json';
 
 // ─── Destination → property filter map ───────────────────────────────────────
 const DEST_FILTERS = {
@@ -713,6 +714,9 @@ export default function DestinationPage({
     "image": ogImage,
     ...(aggLat != null && aggLng != null ? {
       "geo": { "@type": "GeoCoordinates", "latitude": aggLat, "longitude": aggLng }
+    } : {}),
+    ...(Array.isArray(destSameAs[slug]) && destSameAs[slug].length ? {
+      "sameAs": destSameAs[slug]
     } : {}),
     "touristType": ["Fractional ownership buyers", "Second-home owners", "Vacation-home buyers"],
   });
