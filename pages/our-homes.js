@@ -553,6 +553,37 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
         <meta property="og:type" content="website" />
         <meta property="og:locale" content={locale === 'es' ? 'es_ES' : locale === 'fr' ? 'fr_FR' : 'en_GB'} />
         <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "CollectionPage",
+              "@id": `https://co-ownership-property.com${canonicalPath}#webpage`,
+              "url": `https://co-ownership-property.com${canonicalPath}`,
+              "name": t.title_tag,
+              "description": t.meta_desc,
+              "isPartOf": { "@id": "https://co-ownership-property.com/#website" },
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://co-ownership-property.com/" },
+                { "@type": "ListItem", "position": 2, "name": t.title_tag, "item": `https://co-ownership-property.com${canonicalPath}` },
+              ],
+            },
+            {
+              "@type": "ItemList",
+              "itemListOrder": "https://schema.org/ItemListUnordered",
+              "numberOfItems": allProperties.length,
+              "itemListElement": allProperties.slice(0, 24).map((p, i) => ({
+                "@type": "ListItem",
+                "position": i + 1,
+                "url": `https://co-ownership-property.com/property/${p.slug}/`,
+                "name": (p[`title_${locale}`] || p.title),
+              })),
+            },
+          ],
+        }) }} />
       </Head>
       <Header />
 

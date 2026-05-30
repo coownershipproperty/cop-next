@@ -1,3 +1,5 @@
+import { pingIndexNow } from '@/lib/indexnow';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
@@ -50,6 +52,10 @@ export default async function handler(req, res) {
 
     const uniquePaths = [...new Set(paths)];
     await Promise.all(uniquePaths.map(path => res.revalidate(path)));
+
+    // Notify IndexNow (Bing / Copilot / Yandex) so the changed URLs get recrawled
+    // within minutes. Best-effort — never blocks or fails the revalidate response.
+    await pingIndexNow(uniquePaths);
 
     return res.json({ revalidated: true, slug, paths: uniquePaths });
   } catch (err) {
