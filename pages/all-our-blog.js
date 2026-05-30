@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import HreflangLinks from '@/components/HreflangLinks';
 import Image from 'next/image';
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
@@ -165,6 +166,7 @@ export default function AllOurBlog({ posts }) {
     <>
       <Head>
         <title>{t.title_tag}</title>
+        <HreflangLinks englishPath="/all-our-blog" />
         <meta name="description" content={t.meta_desc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

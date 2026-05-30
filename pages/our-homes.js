@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import HreflangLinks from '@/components/HreflangLinks';
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
@@ -540,6 +541,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     <>
       <Head>
         <title>{t.title_tag}</title>
+        <HreflangLinks englishPath="/our-homes" />
         <meta name="description" content={t.meta_desc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

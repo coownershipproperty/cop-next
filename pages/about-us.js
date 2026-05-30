@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import HreflangLinks from '@/components/HreflangLinks';
 import Image from 'next/image';
 import Script from 'next/script';
 import Header from '@/components/Header';
@@ -12,6 +13,7 @@ export default function AboutUs() {
     <>
       <Head>
         <title>About Us | Co-Ownership Property</title>
+        <HreflangLinks englishPath="/about-us" />
         <meta name="description" content="Meet the team behind Co-Ownership Property. Founded in 2022 by David Olsson, we help smart buyers access luxury second homes through fractional co-ownership." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

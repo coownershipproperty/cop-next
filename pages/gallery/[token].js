@@ -326,7 +326,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
   return (
     <>
       <Head>
-        <title>{property.title} — {t.private_gallery} | Co-Ownership Property</title>
+        <title>{`${property.title} — ${t.private_gallery} | Co-Ownership Property`}</title>
         <meta name="robots" content="noindex, nofollow" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="icon" href="/favicon.ico" />

@@ -394,7 +394,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
   return (
     <>
       <Head>
-        <title>{local.title} | Co-Ownership Property</title>
+        <title>{`${local.title} | Co-Ownership Property`}</title>
         <meta name="description" content={metaDesc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

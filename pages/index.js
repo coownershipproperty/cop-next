@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import HreflangLinks from '@/components/HreflangLinks';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -11,6 +12,21 @@ import { getFeaturedSlugs } from '@/lib/featured-properties';
 import { useState, useRef, useEffect } from 'react';
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
+
+// Single source of truth for the homepage FAQ — drives the FAQPage JSON-LD
+// below. Keep in sync with the visible <details> list in the FAQ section.
+const HOMEPAGE_FAQS = [
+  { q: "What is fractional or co-ownership of a holiday home?", a: "Co-ownership means you and a small number of other owners each purchase a deeded share of a fully managed luxury property. You own a real fraction of the home — typically one-eighth — and unlike a timeshare, you hold genuine legal ownership of the property itself. It combines the pride and financial benefits of real property ownership with the ease of a five-star hotel experience, at a fraction of the cost of buying outright." },
+  { q: "How is co-ownership different from timeshare?", a: "Unlike a timeshare, co-ownership gives you a real share of the property deed, meaning you benefit from any appreciation in value and can sell your share on the open market whenever you choose. Because these are luxury properties in high-demand locations, prices typically do rise over time. There is no membership club, no points system, and no long-term contractual lock-in. You are a genuine property owner with full legal rights over your fraction." },
+  { q: "What does the purchase price include?", a: "Your purchase price covers your deeded share of the property along with its full furnishings, interior design, and equipment. Many of our homes are professionally styled to a turnkey standard, so they are move-in ready from day one. Ongoing costs such as maintenance, insurance, property management, and local taxes are shared proportionally among all co-owners, keeping individual running costs very low." },
+  { q: "How is usage time divided between owners?", a: "Every one-eighth share gives you 45 days — roughly six weeks — which is one-eighth of a year. Each property has a clear usage schedule that rotates fairly so all owners enjoy peak-season access over time. Many operators also offer a digital booking platform so you can swap, extend, or exchange weeks with fellow owners flexibly." },
+  { q: "Can I rent out my weeks when I'm not using them?", a: "In many cases, yes. Many of our properties allow owners to place unused weeks into a managed rental programme. The property management company handles guest screening, check-in, cleaning, and maintenance, while rental income is returned to you. This can offset your annual running costs significantly and, in popular destinations, even generate a net return." },
+  { q: "Who manages the property day to day?", a: "Every home on our platform is looked after by a professional property management company. They handle everything from routine maintenance and housekeeping to landscaping, pool care, and emergency repairs. You arrive to a pristine, hotel-quality home every visit — without lifting a finger." },
+  { q: "Can I sell my share later?", a: "Absolutely. Because you hold a deeded share, you can sell it at any time on the open market — just like any other property. If the home has appreciated in value, you benefit from that growth in proportion to your ownership share. Our team can also assist with resales to our network of qualified buyers." },
+  { q: "Which destinations and property types do you offer?", a: "We curate luxury co-ownership homes across Europe and the United States, including France, Spain, Italy, Portugal, Austria, England, and several US destinations. Properties range from coastal villas and Parisian apartments to Alpine chalets and Tuscan farmhouses. Every home is hand-selected for its location, build quality, and lifestyle appeal." },
+  { q: "Is co-ownership a good investment?", a: "Co-ownership allows you to access a high-value property at a fraction of the cost of buying outright, freeing capital for other investments. You enjoy potential property appreciation, possible rental income, and the personal value of a luxury holiday home — all while sharing costs with fellow owners. It is increasingly recognised as one of the most financially sensible ways to own a second home." },
+  { q: "How do I get started?", a: "Simply browse our collection above or speak to one of our property specialists using the enquiry form. We will walk you through available homes, answer any questions, and guide you through the purchase process from start to finish — with full legal and financial transparency at every step." },
+];
 
 export async function getStaticProps() {
   const supabase = createClient(
@@ -285,6 +301,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
     <>
       <Head>
         <title>Co-Ownership Property | Luxury Fractional Ownership</title>
+        <HreflangLinks englishPath="/" />
         <meta name="description" content="Browse 333+ luxury co-ownership properties across Europe and the USA. Real deeded ownership in the world's finest homes — from a fraction of the cost." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -297,13 +314,30 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "Co-Ownership Property",
-          "url": "https://co-ownership-property.com",
-          "logo": "/wp-content/uploads/2025/10/COP-Logo-Large.png",
-          "description": "The independent guide to luxury fractional ownership across Europe & the USA.",
-          "contactPoint": { "@type": "ContactPoint", "email": "info@co-ownership-property.com", "contactType": "customer service" },
-          "sameAs": ["https://www.linkedin.com/company/co-ownership-property"]
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://co-ownership-property.com/#organization",
+              "name": "Co-Ownership Property",
+              "url": "https://co-ownership-property.com",
+              "logo": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png",
+              "description": "The independent guide to luxury fractional ownership across Europe & the USA.",
+              "contactPoint": { "@type": "ContactPoint", "email": "info@co-ownership-property.com", "contactType": "customer service" },
+              "sameAs": [
+                "https://www.linkedin.com/company/co-ownership-properties/",
+                "https://www.facebook.com/profile.php?id=61582108534258",
+                "https://x.com/fractional_guru"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://co-ownership-property.com/#website",
+              "name": "Co-Ownership Property",
+              "url": "https://co-ownership-property.com",
+              "publisher": { "@id": "https://co-ownership-property.com/#organization" },
+              "inLanguage": "en"
+            }
+          ]
         }) }} />
       </Head>
       <Header />
@@ -768,7 +802,16 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
     </section>
 
     {/* FAQ Structured Data (SEO) */}
-    
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": HOMEPAGE_FAQS.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a },
+      })),
+    }) }} />
+
 
     {/* ===== FOOTER ===== */}
     

@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import HreflangLinks from '@/components/HreflangLinks';
 import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -11,6 +12,7 @@ export default function Contact() {
     <>
       <Head>
         <title>Contact Us | Co-Ownership Property</title>
+        <HreflangLinks englishPath="/contact" />
         <meta name="description" content="Speak to the COP team. Questions about fractional ownership? We respond within a few hours — no sales pressure, no obligation." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
