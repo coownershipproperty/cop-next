@@ -37,7 +37,11 @@ export default async function handler(req, res) {
   if (campErr || !campaign) return res.status(404).json({ error: 'Campaign not found' });
 
   const propertySlugs = campaign.property_slugs || [];
-  if (!propertySlugs.length) {
+  // Some templates (e.g. viewings-france) don't use the per-campaign property
+  // picker — their content list is static (lib/viewings.json). Don't reject
+  // those campaigns just because no property was added.
+  const TEMPLATES_WITHOUT_PROPERTY_PICKER = new Set(['viewings-france']);
+  if (!propertySlugs.length && !TEMPLATES_WITHOUT_PROPERTY_PICKER.has(campaign.template_type)) {
     return res.status(400).json({ error: 'Campaign has no properties selected' });
   }
 

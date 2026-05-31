@@ -327,6 +327,23 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
     }
   }
 
+  // ── Auto-fill subject + intro when the user picks a template that ships ───
+  // with its own opinionated defaults (so they don't have to hand-type and so
+  // the leftover "your weekly picks" copy from another template doesn't ship).
+  useEffect(() => {
+    if (templateType !== 'viewings-france') return;
+    // Only overwrite empty / clearly-from-another-template values; never stomp
+    // on what the user has already customised for this campaign.
+    const defaultSubject = "Private viewings — Côte d'Azur & French Alps";
+    const defaultIntro   = "Hi {{first_name}} — we've got six upcoming viewings across France this season. Pick a date, choose on-site or live video, and we'll confirm within hours.";
+    const looksDefaultish = !subject ||
+      /\{\{\s*region\s*\}\}/i.test(subject) ||
+      /weekly|picks|new listings|spotlight|alert/i.test(subject);
+    if (looksDefaultish) setSubject(defaultSubject);
+    if (!introText) setIntroText(defaultIntro);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [templateType])
+
   // ── Subject preview ─────────────────────────────────────────────────────────
   const subjectPreview = useMemo(() => {
     const regions = [...new Set(selectedProperties.map(p => p.region).filter(Boolean))].slice(0, 2)
@@ -465,7 +482,11 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
           </div>
         </Card>
 
-        {/* ─── Section B: Properties ─── */}
+        {/* ─── Section B: Properties ───
+            Hidden for templates whose property list is static (e.g. the
+            Viewings — France template pulls from lib/viewings.json, not from
+            the per-campaign property picker). */}
+        {templateType !== 'viewings-france' && (
         <Card
           title={`Properties (${propertySlugs.length} selected)`}
           right={
@@ -600,6 +621,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
             </div>
           </Grid>
         </Card>
+        )}
 
         {/* ─── Section C: Audience ─── */}
         <Card title="Audience">
@@ -730,10 +752,10 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
         <Card title="Send">
           <Grid cols={2} gap={16}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <PrimaryButton onClick={() => setPreviewModal(true)} disabled={fieldsDisabled || !propertySlugs.length}>
+              <PrimaryButton onClick={() => setPreviewModal(true)} disabled={fieldsDisabled || (templateType !== 'viewings-france' && !propertySlugs.length)}>
                 ✉ Send preview to me
               </PrimaryButton>
-              <GhostButton onClick={() => setRenderAsModal(true)} disabled={fieldsDisabled || !propertySlugs.length}>
+              <GhostButton onClick={() => setRenderAsModal(true)} disabled={fieldsDisabled || (templateType !== 'viewings-france' && !propertySlugs.length)}>
                 ⚭ Render preview as recipient…
               </GhostButton>
               <GhostButton onClick={handleSaveDraft} disabled={fieldsDisabled || saving}>

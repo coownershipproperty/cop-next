@@ -142,7 +142,9 @@ export default function PropertyEdit() {
           partner_url: data.partner_url || '',
           lat: data.lat || '',
           lng: data.lng || '',
-          amenities: (data.amenities || []).join(', '),
+          // One amenity per line so commas inside an amenity (e.g.
+          // "Private, heated pool (sauna optional)") are preserved intact.
+          amenities: (data.amenities || []).join('\n'),
         })
       })
   }, [slug])
@@ -226,7 +228,11 @@ export default function PropertyEdit() {
 
   async function handleSave() {
     setSaveState('saving')
-    const amenitiesArray = form.amenities.split(',').map(s => s.trim()).filter(Boolean)
+    // Split on NEWLINES, not commas — many amenities (especially MYNE) contain
+    // commas as part of the phrase ("Private, heated pool", etc.). Splitting on
+    // commas mangled those into orphan fragments. See restore-amenities.js for
+    // the cleanup script that repaired previously-corrupted rows.
+    const amenitiesArray = form.amenities.split(/\r?\n/).map(s => s.trim()).filter(Boolean)
     const { error } = await supabase.from('properties').update({
       title: form.title,
       status: form.status,
@@ -598,18 +604,18 @@ export default function PropertyEdit() {
 
           {/* Amenities */}
           <Card title="Amenities">
-            <input
-              style={input}
+            <textarea
+              style={{ ...input, minHeight: 160, fontFamily: 'inherit', lineHeight: 1.5, resize: 'vertical' }}
               value={form.amenities}
               onChange={e => set('amenities', e.target.value)}
-              placeholder="Pool, Sea view, Air conditioning…"
+              placeholder={'Pool\nSea view\nAir conditioning\nPrivate, heated pool (sauna optional)'}
               onFocus={e => e.target.style.borderColor = C.blue}
               onBlur={e => e.target.style.borderColor = C.border}
             />
-            <p style={{ fontSize: 11, color: C.faint, marginTop: 5 }}>Comma-separated list</p>
+            <p style={{ fontSize: 11, color: C.faint, marginTop: 5 }}>One amenity per line. Commas inside an amenity (e.g. &ldquo;Private, heated pool&rdquo;) are preserved.</p>
             {form.amenities && (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 12 }}>
-                {form.amenities.split(',').map(a => a.trim()).filter(Boolean).map(a => (
+                {form.amenities.split(/\r?\n/).map(a => a.trim()).filter(Boolean).map(a => (
                   <span key={a} style={{
                     background: '#f0ede8',
                     color: C.muted,

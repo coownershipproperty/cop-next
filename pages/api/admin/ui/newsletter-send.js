@@ -37,7 +37,11 @@ export default async function handler(req, res) {
   if (campaign.status === 'sending') return res.status(400).json({ error: 'Campaign is already sending' });
 
   const propertySlugs = campaign.property_slugs || [];
-  if (!propertySlugs.length) return res.status(400).json({ error: 'No properties selected' });
+  // Templates with a static content list (e.g. viewings-france pulls from
+  // lib/viewings.json) don't need per-campaign property selection.
+  const TEMPLATES_WITHOUT_PROPERTY_PICKER = new Set(['viewings-france']);
+  const skipPropertyCheck = TEMPLATES_WITHOUT_PROPERTY_PICKER.has(campaign.template_type);
+  if (!propertySlugs.length && !skipPropertyCheck) return res.status(400).json({ error: 'No properties selected' });
 
   // Resolve audience
   const { contacts } = await resolveAudience(db, campaign.audience_segment, campaign.audience_filter);
