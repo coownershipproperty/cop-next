@@ -1,0 +1,934 @@
+<meta charset="utf-8">
+<title>COP AI Visibility Tracker</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #F5F2EC;
+  color: #1a1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 600; color: #2C4A5E; }
+h1 { font-size: 28px; margin: 0 0 4px 0; letter-spacing: -0.01em; }
+h2 { font-size: 19px; margin: 0 0 14px 0; padding-bottom: 8px; border-bottom: 2px solid #C9A84C; }
+h3 { font-size: 14px; margin: 0 0 6px 0; color: #2C4A5E; text-transform: uppercase; letter-spacing: 0.08em; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-weight: 700; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 24px; }
+.subtitle { color: #6B8A9E; font-size: 13px; margin-bottom: 24px; }
+.card {
+  background: white;
+  border: 1px solid #E0DACE;
+  border-radius: 0;
+  padding: 20px;
+  margin-bottom: 18px;
+}
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.stat {
+  background: white;
+  border: 1px solid #E0DACE;
+  padding: 16px;
+  text-align: left;
+}
+.stat .num { font-family: Georgia, serif; font-size: 28px; color: #2C4A5E; font-weight: 600; letter-spacing: -0.02em; }
+.stat .lbl { font-size: 11px; color: #6B8A9E; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; font-weight: 700; }
+.stat .sub { font-size: 11px; color: #6B8A9E; margin-top: 6px; }
+.gold-bar { display: inline-block; background: #C9A84C; color: white; padding: 2px 8px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.navy-bar { display: inline-block; background: #2C4A5E; color: white; padding: 2px 8px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+button {
+  background: #2C4A5E;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+button:hover { background: #1f3445; }
+button.gold { background: #C9A84C; color: #1f3445; }
+button.gold:hover { background: #b39740; }
+button.ghost { background: transparent; color: #2C4A5E; border: 1px solid #2C4A5E; }
+button.ghost:hover { background: #2C4A5E; color: white; }
+button.small { padding: 4px 8px; font-size: 11px; }
+button.danger { background: #a23b3b; }
+input, select, textarea {
+  width: 100%;
+  border: 1px solid #C0B9AB;
+  background: white;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+}
+input:focus, select:focus, textarea:focus { outline: none; border-color: #2C4A5E; }
+label { display: block; font-size: 11px; color: #6B8A9E; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; font-weight: 700; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.form-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+.form-grid.full > * { grid-column: 1 / -1; }
+.tabs { display: flex; gap: 0; border-bottom: 1px solid #E0DACE; margin-bottom: 18px; }
+.tab { padding: 10px 18px; cursor: pointer; font-size: 13px; color: #6B8A9E; border-bottom: 3px solid transparent; font-weight: 600; }
+.tab:hover { color: #2C4A5E; }
+.tab.active { color: #2C4A5E; border-bottom-color: #C9A84C; }
+.hidden { display: none; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 10px 8px; background: #F5F2EC; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #2C4A5E; font-weight: 700; border-bottom: 1px solid #E0DACE; }
+td { padding: 8px; border-bottom: 1px solid #F0EBE0; font-size: 13px; vertical-align: top; }
+.yes { color: #2C7D4D; font-weight: 700; }
+.no { color: #a23b3b; font-weight: 700; }
+.chart-wrap { position: relative; height: 280px; }
+.checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #F0EBE0; }
+.checklist-item input[type=checkbox] { width: auto; margin-top: 3px; }
+.checklist-item .item-body { flex: 1; }
+.checklist-item .item-title { font-weight: 600; color: #2C4A5E; }
+.checklist-item .item-meta { font-size: 11px; color: #6B8A9E; margin-top: 2px; }
+.checklist-item.done .item-title { text-decoration: line-through; color: #6B8A9E; }
+.prompt-row { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid #F0EBE0; }
+.prompt-row .prompt-text { font-size: 13px; }
+.prompt-row .star { color: #C9A84C; font-weight: 700; margin-right: 4px; }
+.section-meta { font-size: 11px; color: #6B8A9E; margin: 4px 0 8px 0; font-style: italic; }
+.empty { text-align: center; padding: 40px 20px; color: #6B8A9E; font-size: 13px; }
+.legend-pill { display: inline-block; padding: 2px 8px; font-size: 10px; margin-right: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+.pill-chatgpt { background: #10A37F; color: white; }
+.pill-perplexity { background: #1B6B7B; color: white; }
+.pill-google-ai-mode { background: #4285F4; color: white; }
+.pill-google-aio { background: #34A853; color: white; }
+.pill-claude { background: #D4622A; color: white; }
+.pill-gemini { background: #8E44AD; color: white; }
+.flash { padding: 10px 14px; background: #C9A84C; color: #1f3445; font-size: 12px; margin-bottom: 12px; font-weight: 600; }
+.flash.success { background: #2C7D4D; color: white; }
+.flash.error { background: #a23b3b; color: white; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 12px; flex-wrap: wrap; }
+.toolbar-actions { display: flex; gap: 8px; }
+.note { font-size: 12px; color: #6B8A9E; font-style: italic; margin-top: 8px; }
+.copy-feedback { color: #2C7D4D; font-size: 11px; font-weight: 600; }
+details summary { cursor: pointer; padding: 6px 0; font-weight: 600; color: #2C4A5E; }
+details[open] summary { margin-bottom: 8px; }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 768px) {
+  .form-grid, .form-grid.three, .compare-grid { grid-template-columns: 1fr; }
+  .wrap { padding: 14px; }
+}
+</style>
+
+<div class="wrap">
+  <div style="margin-bottom: 18px;">
+    <span class="navy-bar">COP &middot; Strategy</span>
+    <h1 style="margin-top: 8px;">AI Visibility Tracker</h1>
+    <div class="subtitle">Are AI engines citing co-ownership-property.com? Log tests, watch the trend, see if the strategy is working. Free.</div>
+  </div>
+
+  <div id="flash" class="hidden"></div>
+
+  <div class="row">
+    <div class="stat">
+      <div class="lbl">Total tests logged</div>
+      <div class="num" id="stat-total">0</div>
+      <div class="sub">across all engines</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">COP citation rate</div>
+      <div class="num" id="stat-citerate">—</div>
+      <div class="sub" id="stat-citerate-sub">no tests yet</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Last 30 days</div>
+      <div class="num" id="stat-recent">—</div>
+      <div class="sub" id="stat-recent-sub">vs prior period</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Last test</div>
+      <div class="num" id="stat-last" style="font-size: 16px; padding-top: 8px;">never</div>
+      <div class="sub" id="stat-last-sub">log one to start</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="log">Log a test</div>
+    <div class="tab" data-tab="history">Test history</div>
+    <div class="tab" data-tab="charts">Trends</div>
+    <div class="tab" data-tab="prompts">Prompt library</div>
+    <div class="tab" data-tab="roadmap">Strategy roadmap</div>
+    <div class="tab" data-tab="data">Data &amp; settings</div>
+  </div>
+
+  <!-- LOG A TEST TAB -->
+  <div class="tab-content" data-content="log">
+    <div class="card">
+      <h2>Log an AI engine test</h2>
+      <div class="section-meta">Paste a prompt into ChatGPT / Perplexity / Google AI / Claude / Gemini, see the answer, then record what happened here.</div>
+
+      <form id="log-form" onsubmit="return false;">
+        <div class="form-grid">
+          <div>
+            <label>Engine</label>
+            <select id="f-engine" required>
+              <option value="chatgpt">ChatGPT</option>
+              <option value="perplexity">Perplexity</option>
+              <option value="google-ai-mode">Google AI Mode</option>
+              <option value="google-aio">Google AI Overviews</option>
+              <option value="claude">Claude</option>
+              <option value="gemini">Gemini</option>
+            </select>
+          </div>
+          <div>
+            <label>Date tested</label>
+            <input type="date" id="f-date" required>
+          </div>
+        </div>
+
+        <div class="form-grid full" style="margin-bottom: 12px;">
+          <div>
+            <label>Prompt used</label>
+            <textarea id="f-prompt" rows="2" placeholder="e.g. Best fractional ownership companies in Europe 2026" required></textarea>
+          </div>
+        </div>
+
+        <div class="form-grid three">
+          <div>
+            <label>Was COP cited?</label>
+            <select id="f-cop-cited">
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </select>
+          </div>
+          <div>
+            <label>COP citation rank</label>
+            <input type="number" id="f-cop-rank" min="1" max="20" placeholder="1 = first cited">
+          </div>
+          <div>
+            <label>Which COP URL</label>
+            <input type="text" id="f-cop-url" placeholder="/spain-fractional-ownership-properties/">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label>#1 cited source domain</label>
+            <input type="text" id="f-top-domain" placeholder="pacaso.com">
+          </div>
+          <div>
+            <label>Competitors cited (comma-separated)</label>
+            <input type="text" id="f-competitors" placeholder="pacaso.com, myne-homes.com, kocomo.com">
+          </div>
+        </div>
+
+        <div class="form-grid full">
+          <div>
+            <label>Notes (quotation patterns, hallucinations, useful observations)</label>
+            <textarea id="f-notes" rows="2" placeholder="optional"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <button id="save-btn" onclick="saveTest()">Save test</button>
+          <button class="ghost" onclick="resetForm()">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- HISTORY TAB -->
+  <div class="tab-content hidden" data-content="history">
+    <div class="card">
+      <div class="toolbar">
+        <h2 style="margin: 0; border: 0; padding: 0;">All logged tests</h2>
+        <div class="toolbar-actions">
+          <select id="filter-engine" onchange="renderHistory()" style="width: auto;">
+            <option value="">All engines</option>
+            <option value="chatgpt">ChatGPT</option>
+            <option value="perplexity">Perplexity</option>
+            <option value="google-ai-mode">Google AI Mode</option>
+            <option value="google-aio">Google AIO</option>
+            <option value="claude">Claude</option>
+            <option value="gemini">Gemini</option>
+          </select>
+          <select id="filter-cited" onchange="renderHistory()" style="width: auto;">
+            <option value="">Cited or not</option>
+            <option value="true">COP cited only</option>
+            <option value="false">COP not cited only</option>
+          </select>
+        </div>
+      </div>
+      <div id="history-table">
+        <div class="empty">No tests logged yet. Switch to the Log tab.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS TAB -->
+  <div class="tab-content hidden" data-content="charts">
+    <div class="card">
+      <h2>COP citation rate over time</h2>
+      <div class="section-meta">Monthly rolling citation rate per engine. Hover for detail.</div>
+      <div class="chart-wrap"><canvas id="chart-citation"></canvas></div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="card">
+        <h2>Share of voice by engine</h2>
+        <div class="section-meta">Citation rate for COP — last 90 days</div>
+        <div class="chart-wrap"><canvas id="chart-engine"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Top cited competitors</h2>
+        <div class="section-meta">Most frequent #1 cited domains (excluding COP) across all logged tests</div>
+        <div class="chart-wrap"><canvas id="chart-competitors"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Cumulative tests run</h2>
+      <div class="section-meta">Growing testing discipline — the more data, the more reliable the read.</div>
+      <div class="chart-wrap"><canvas id="chart-volume"></canvas></div>
+    </div>
+  </div>
+
+  <!-- PROMPT LIBRARY TAB -->
+  <div class="tab-content hidden" data-content="prompts">
+    <div class="card">
+      <h2>Quick prompt picker</h2>
+      <div class="section-meta">Click a prompt to copy it and pre-load it into the log form. Star (★) prompts are the monthly priority set. See <code>research-output/manual-prompt-library.md</code> for the full library with annotations.</div>
+
+      <div id="prompt-sections"></div>
+    </div>
+  </div>
+
+  <!-- ROADMAP TAB -->
+  <div class="tab-content hidden" data-content="roadmap">
+    <div class="card">
+      <h2>30-day quick wins</h2>
+      <div class="section-meta">Single sprint each. Numbered per <code>ai-strategy-master.md</code> §5.1. Check off as you ship.</div>
+      <div id="roadmap-30"></div>
+    </div>
+
+    <div class="card">
+      <h2>90-day strategic content</h2>
+      <div class="section-meta">Bigger investments inside-the-box. Per <code>ai-strategy-master.md</code> §5.2.</div>
+      <div id="roadmap-90"></div>
+    </div>
+
+    <div class="card">
+      <h2>12-month outside-the-box bets</h2>
+      <div class="section-meta">Asymmetric plays — brand-mention density, original research, dataset publishing, podcasts. Per <code>ai-strategy-master.md</code> §5.3–§5.4.</div>
+      <div id="roadmap-12"></div>
+    </div>
+  </div>
+
+  <!-- DATA & SETTINGS TAB -->
+  <div class="tab-content hidden" data-content="data">
+    <div class="card">
+      <h2>Export, import &amp; reset</h2>
+      <div class="section-meta">All data is stored in your browser's local storage. Export occasionally to back up. To use this dashboard across two computers, export from one and import on the other.</div>
+
+      <div style="margin: 14px 0; display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="ghost" onclick="exportData()">Export JSON</button>
+        <button class="ghost" onclick="document.getElementById('import-file').click();">Import JSON</button>
+        <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importData(event);">
+        <button class="danger" onclick="resetAll()">Reset all data</button>
+        <button class="gold" onclick="loadSampleData()">Load sample data</button>
+      </div>
+
+      <div class="note">Roadmap checklist state and test logs are kept separately and you can reset either independently if needed (use export to filter manually).</div>
+    </div>
+
+    <div class="card">
+      <h2>About this tracker</h2>
+      <p style="font-size: 13px;">This dashboard is the manual layer of the AI visibility tracking system in <code>ai-strategy-master.md</code> §6. It records what AI engines surface for COP-relevant queries over time, so you can see whether the strategy is moving the needle.</p>
+
+      <p style="font-size: 13px;">Sister documents in <code>/research-output/</code>:</p>
+      <ul style="font-size: 13px;">
+        <li><code>ai-strategy-master.md</code> — the master strategy doc (read first)</li>
+        <li><code>ai-search-research.md</code> — deep engine fact sheets + AEO/GEO evidence grading</li>
+        <li><code>site-audit.md</code> — full COP technical + content audit</li>
+        <li><code>baseline.md</code> — initial 26-query competitive baseline (May 26, 2026)</li>
+        <li><code>manual-prompt-library.md</code> — the ~120-prompt testing library</li>
+      </ul>
+
+      <p style="font-size: 13px;">A future iteration could call AI engine APIs directly (Perplexity Sonar, OpenAI, Brave Search) to automate the logging. For now this is a fast, friction-free way to keep a running record by hand.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+
+<script>
+// ============== DATA LAYER ==============
+
+const STORE_TESTS = 'cop_ai_tests_v1';
+const STORE_ROADMAP = 'cop_ai_roadmap_v1';
+
+function loadTests() {
+  try {
+    return JSON.parse(localStorage.getItem(STORE_TESTS) || '[]');
+  } catch (e) { return []; }
+}
+function saveTests(tests) { localStorage.setItem(STORE_TESTS, JSON.stringify(tests)); }
+function loadRoadmap() {
+  try { return JSON.parse(localStorage.getItem(STORE_ROADMAP) || '{}'); } catch (e) { return {}; }
+}
+function saveRoadmap(state) { localStorage.setItem(STORE_ROADMAP, JSON.stringify(state)); }
+
+function flash(msg, kind) {
+  const el = document.getElementById('flash');
+  el.className = 'flash ' + (kind || '');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+  setTimeout(() => el.classList.add('hidden'), 4000);
+}
+
+// ============== TAB SWITCHING ==============
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.dataset.tab;
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+    document.querySelector(`[data-content="${target}"]`).classList.remove('hidden');
+    if (target === 'history') renderHistory();
+    if (target === 'charts') renderCharts();
+    if (target === 'prompts') renderPrompts();
+    if (target === 'roadmap') renderRoadmap();
+  });
+});
+
+// ============== FORM ==============
+function setDateDefault() {
+  document.getElementById('f-date').value = new Date().toISOString().slice(0, 10);
+}
+setDateDefault();
+
+function resetForm() {
+  document.getElementById('log-form').reset();
+  setDateDefault();
+}
+
+function saveTest() {
+  const test = {
+    id: Date.now(),
+    date: document.getElementById('f-date').value,
+    engine: document.getElementById('f-engine').value,
+    prompt: document.getElementById('f-prompt').value.trim(),
+    copCited: document.getElementById('f-cop-cited').value === 'true',
+    copRank: parseInt(document.getElementById('f-cop-rank').value) || null,
+    copUrl: document.getElementById('f-cop-url').value.trim() || null,
+    topDomain: document.getElementById('f-top-domain').value.trim() || null,
+    competitors: document.getElementById('f-competitors').value.trim() || null,
+    notes: document.getElementById('f-notes').value.trim() || null,
+  };
+  if (!test.prompt) { flash('Prompt is required', 'error'); return; }
+  const tests = loadTests();
+  tests.push(test);
+  saveTests(tests);
+  flash(`Logged: ${test.engine} — ${test.copCited ? 'COP cited' : 'COP not cited'}`, 'success');
+  resetForm();
+  renderStats();
+}
+
+// ============== STATS ==============
+function renderStats() {
+  const tests = loadTests();
+  document.getElementById('stat-total').textContent = tests.length;
+
+  if (tests.length === 0) {
+    document.getElementById('stat-citerate').textContent = '—';
+    document.getElementById('stat-citerate-sub').textContent = 'no tests yet';
+    document.getElementById('stat-recent').textContent = '—';
+    document.getElementById('stat-recent-sub').textContent = 'log tests to start tracking';
+    document.getElementById('stat-last').textContent = 'never';
+    document.getElementById('stat-last-sub').textContent = 'log one to start';
+    return;
+  }
+
+  const cited = tests.filter(t => t.copCited).length;
+  const rate = (cited / tests.length) * 100;
+  document.getElementById('stat-citerate').textContent = rate.toFixed(0) + '%';
+  document.getElementById('stat-citerate-sub').textContent = `${cited} of ${tests.length} tests`;
+
+  const now = new Date();
+  const d30 = new Date(now); d30.setDate(d30.getDate() - 30);
+  const d60 = new Date(now); d60.setDate(d60.getDate() - 60);
+  const recent = tests.filter(t => new Date(t.date) >= d30);
+  const prior = tests.filter(t => new Date(t.date) >= d60 && new Date(t.date) < d30);
+  if (recent.length > 0) {
+    const recentRate = (recent.filter(t => t.copCited).length / recent.length) * 100;
+    const priorRate = prior.length ? (prior.filter(t => t.copCited).length / prior.length) * 100 : null;
+    document.getElementById('stat-recent').textContent = recentRate.toFixed(0) + '%';
+    let sub = `${recent.length} tests`;
+    if (priorRate !== null) {
+      const delta = recentRate - priorRate;
+      const arrow = delta > 0 ? '▲' : (delta < 0 ? '▼' : '•');
+      sub += ` &nbsp; ${arrow} ${Math.abs(delta).toFixed(0)} pts vs prior 30d`;
+    }
+    document.getElementById('stat-recent-sub').innerHTML = sub;
+  } else {
+    document.getElementById('stat-recent').textContent = '—';
+    document.getElementById('stat-recent-sub').textContent = 'no tests in last 30 days';
+  }
+
+  const sorted = [...tests].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const last = sorted[0];
+  const lastDate = new Date(last.date);
+  document.getElementById('stat-last').textContent = lastDate.toLocaleDateString();
+  document.getElementById('stat-last-sub').innerHTML = `<span class="legend-pill pill-${last.engine}">${last.engine}</span> ${last.copCited ? '<span class="yes">cited</span>' : '<span class="no">not cited</span>'}`;
+}
+
+// ============== HISTORY TABLE ==============
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderHistory() {
+  const tests = loadTests();
+  const engine = document.getElementById('filter-engine').value;
+  const citedFilter = document.getElementById('filter-cited').value;
+
+  let filtered = [...tests].sort((a, b) => new Date(b.date) - new Date(a.date));
+  if (engine) filtered = filtered.filter(t => t.engine === engine);
+  if (citedFilter) filtered = filtered.filter(t => String(t.copCited) === citedFilter);
+
+  const container = document.getElementById('history-table');
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty">No tests match this filter.</div>';
+    return;
+  }
+
+  let html = '<table><thead><tr><th>Date</th><th>Engine</th><th>Prompt</th><th>COP cited</th><th>Rank</th><th>#1 source</th><th>Notes</th><th></th></tr></thead><tbody>';
+  filtered.forEach(t => {
+    html += `<tr>
+      <td>${escapeHtml(t.date)}</td>
+      <td><span class="legend-pill pill-${t.engine}">${t.engine}</span></td>
+      <td style="max-width: 240px;">${escapeHtml(t.prompt)}</td>
+      <td>${t.copCited ? '<span class="yes">YES</span>' : '<span class="no">no</span>'}${t.copUrl ? `<div style="font-size:11px;color:#6B8A9E;">${escapeHtml(t.copUrl)}</div>` : ''}</td>
+      <td>${t.copRank || '—'}</td>
+      <td>${escapeHtml(t.topDomain) || '—'}</td>
+      <td style="max-width: 200px; font-size: 12px;">${escapeHtml(t.notes) || ''}</td>
+      <td><button class="small ghost" onclick="deleteTest(${t.id})">Del</button></td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function deleteTest(id) {
+  if (!confirm('Delete this test?')) return;
+  let tests = loadTests();
+  tests = tests.filter(t => t.id !== id);
+  saveTests(tests);
+  renderHistory();
+  renderStats();
+}
+
+// ============== CHARTS ==============
+let charts = {};
+const ENGINE_COLORS = {
+  'chatgpt': '#10A37F',
+  'perplexity': '#1B6B7B',
+  'google-ai-mode': '#4285F4',
+  'google-aio': '#34A853',
+  'claude': '#D4622A',
+  'gemini': '#8E44AD',
+};
+
+function renderCharts() {
+  const tests = loadTests();
+  ['chart-citation', 'chart-engine', 'chart-competitors', 'chart-volume'].forEach(id => {
+    if (charts[id]) charts[id].destroy();
+  });
+
+  if (tests.length === 0) {
+    return;
+  }
+
+  // chart 1: citation rate over time per engine — monthly buckets
+  const buckets = {};
+  tests.forEach(t => {
+    const m = t.date.slice(0, 7);
+    if (!buckets[m]) buckets[m] = {};
+    if (!buckets[m][t.engine]) buckets[m][t.engine] = { cited: 0, total: 0 };
+    buckets[m][t.engine].total++;
+    if (t.copCited) buckets[m][t.engine].cited++;
+  });
+  const months = Object.keys(buckets).sort();
+  const engines = [...new Set(tests.map(t => t.engine))];
+  const datasets = engines.map(e => ({
+    label: e,
+    data: months.map(m => {
+      const b = buckets[m][e];
+      return b ? (b.cited / b.total) * 100 : null;
+    }),
+    borderColor: ENGINE_COLORS[e] || '#6B8A9E',
+    backgroundColor: ENGINE_COLORS[e] || '#6B8A9E',
+    tension: 0.2,
+    spanGaps: true,
+  }));
+  charts['chart-citation'] = new Chart(document.getElementById('chart-citation'), {
+    type: 'line',
+    data: { labels: months, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'COP citation rate %' }}},
+      plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y == null ? 'no data' : ctx.parsed.y.toFixed(0) + '%'}` }}}
+    }
+  });
+
+  // chart 2: share of voice — bar by engine, last 90 days
+  const now = new Date();
+  const d90 = new Date(now); d90.setDate(d90.getDate() - 90);
+  const recent = tests.filter(t => new Date(t.date) >= d90);
+  const engBuckets = {};
+  recent.forEach(t => {
+    if (!engBuckets[t.engine]) engBuckets[t.engine] = { cited: 0, total: 0 };
+    engBuckets[t.engine].total++;
+    if (t.copCited) engBuckets[t.engine].cited++;
+  });
+  const engLabels = Object.keys(engBuckets);
+  charts['chart-engine'] = new Chart(document.getElementById('chart-engine'), {
+    type: 'bar',
+    data: {
+      labels: engLabels,
+      datasets: [{
+        label: 'COP citation rate (last 90 days)',
+        data: engLabels.map(e => (engBuckets[e].cited / engBuckets[e].total) * 100),
+        backgroundColor: engLabels.map(e => ENGINE_COLORS[e] || '#6B8A9E'),
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      scales: { x: { beginAtZero: true, max: 100, title: { display: true, text: '%' }}},
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.parsed.x.toFixed(0)}% — ${engBuckets[ctx.label].cited} of ${engBuckets[ctx.label].total} tests` }}}
+    }
+  });
+
+  // chart 3: top cited competitors — frequency of being #1
+  const compCounts = {};
+  tests.forEach(t => {
+    if (t.topDomain && !t.topDomain.includes('co-ownership-property')) {
+      compCounts[t.topDomain] = (compCounts[t.topDomain] || 0) + 1;
+    }
+  });
+  const compSorted = Object.entries(compCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  charts['chart-competitors'] = new Chart(document.getElementById('chart-competitors'), {
+    type: 'bar',
+    data: {
+      labels: compSorted.map(c => c[0]),
+      datasets: [{
+        label: 'Times this domain was #1 cited',
+        data: compSorted.map(c => c[1]),
+        backgroundColor: '#C9A84C',
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: 'y',
+      scales: { x: { beginAtZero: true, ticks: { precision: 0 }}},
+      plugins: { legend: { display: false }}
+    }
+  });
+
+  // chart 4: cumulative tests
+  const sortedTests = [...tests].sort((a, b) => new Date(a.date) - new Date(b.date));
+  let cum = 0;
+  const cumData = sortedTests.map(t => ({ x: t.date, y: ++cum }));
+  charts['chart-volume'] = new Chart(document.getElementById('chart-volume'), {
+    type: 'line',
+    data: {
+      labels: cumData.map(d => d.x),
+      datasets: [{
+        label: 'Tests logged (cumulative)',
+        data: cumData.map(d => d.y),
+        borderColor: '#2C4A5E',
+        backgroundColor: 'rgba(44, 74, 94, 0.1)',
+        fill: true,
+        stepped: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }}
+    }
+  });
+}
+
+// ============== PROMPT LIBRARY ==============
+const PROMPT_SECTIONS = [
+  { name: 'Discovery / Top of Funnel', meta: 'Currently the weakest area — Pacaso owns educational queries.', prompts: [
+    { star: true, text: 'What is fractional ownership of a vacation home and how does it work?' },
+    { star: true, text: 'Best fractional ownership companies in 2026' },
+    { star: true, text: 'How does co-owning a luxury vacation home actually work?' },
+    { star: true, text: 'Fractional ownership vs timeshare — what\'s the difference?' },
+    { star: true, text: 'Is fractional ownership a good investment in 2026?' },
+    { star: false, text: 'Pros and cons of fractional vacation home ownership' },
+    { star: false, text: 'Fractional ownership vs second home — which is cheaper?' },
+    { star: false, text: 'What does a 1/8 share in a vacation home actually mean?' },
+    { star: false, text: 'Fractional ownership for British buyers buying abroad' },
+    { star: false, text: 'Why is fractional ownership becoming popular?' },
+  ]},
+  { name: 'Comparison', meta: 'Wide open. COP\'s unique angle as a marketplace selling all 5 operators is unclaimed.', prompts: [
+    { star: true, text: 'Pacaso alternatives in Europe' },
+    { star: true, text: 'Pacaso vs MYNE Homes' },
+    { star: true, text: 'Pacaso vs Vivla' },
+    { star: true, text: 'Pacaso vs August Collection' },
+    { star: true, text: 'MYNE vs Vivla — which is better for Spain?' },
+    { star: false, text: 'Best Pacaso competitors 2026' },
+    { star: false, text: '&Hamlet vs Vivla — comparison' },
+    { star: false, text: 'Fractional ownership Spain — Pacaso vs MYNE vs Vivla' },
+    { star: false, text: 'Best fractional ownership marketplace for buying across operators' },
+  ]},
+  { name: 'Destination', meta: 'COP\'s current stronghold — confirm we\'re still winning here.', prompts: [
+    { star: true, text: 'Best fractional ownership properties in Mallorca' },
+    { star: true, text: 'Fractional villa Mallorca' },
+    { star: true, text: 'Co-ownership ski chalet in the French Alps' },
+    { star: true, text: 'Fractional property Costa del Sol Marbella' },
+    { star: true, text: 'Fractional ownership Ibiza luxury villa' },
+    { star: true, text: 'Fractional ownership Spain' },
+    { star: true, text: 'Fractional ownership Italy' },
+    { star: true, text: 'Fractional ownership Portugal Algarve' },
+    { star: false, text: 'Fractional ownership Lake Como' },
+    { star: false, text: 'Fractional ownership Tuscany' },
+    { star: false, text: 'Fractional ownership Tuscany Amalfi Coast Sardinia Sicily' },
+  ]},
+  { name: 'Due-diligence', meta: 'Almost entirely owned by US law-firm blogs — major whitespace.', prompts: [
+    { star: true, text: 'How to exit a fractional ownership share' },
+    { star: true, text: 'What are typical fractional ownership maintenance fees?' },
+    { star: true, text: 'Fractional ownership Spain tax implications for non-residents' },
+    { star: true, text: 'Fractional ownership LLC structure — how does it work?' },
+    { star: true, text: 'Can I get a mortgage for a fractional ownership share?' },
+    { star: true, text: 'What happens to my fractional share when I die?' },
+    { star: false, text: 'Fractional ownership France SCI structure' },
+    { star: false, text: 'Schengen 90/180 rule for fractional ownership owners' },
+    { star: false, text: 'Cross-border inheritance fractional ownership EU' },
+  ]},
+  { name: 'Buyer-stage decision', meta: 'AI engines often pull personal-experience content (Reddit, forums) here.', prompts: [
+    { star: true, text: 'Is fractional ownership a good idea for retirees?' },
+    { star: true, text: 'Should I buy a fractional share or rent for two months a year?' },
+    { star: true, text: 'Fractional ownership risks and red flags' },
+    { star: false, text: 'Fractional ownership owner reviews' },
+    { star: false, text: 'When does fractional ownership not make sense?' },
+    { star: false, text: 'Honest fractional ownership pros and cons 2026' },
+  ]},
+  { name: 'Brand / Authority', meta: 'Track when COP enters AI consciousness as a named entity.', prompts: [
+    { star: true, text: 'co-ownership-property.com reviews' },
+    { star: true, text: 'Is co-ownership-property.com legit?' },
+    { star: true, text: 'David Olsson fractional ownership' },
+    { star: false, text: 'Dylan Olsson Co-Ownership Property' },
+    { star: false, text: 'Aggregator site for European co-ownership properties' },
+    { star: false, text: 'Fractional ownership marketplace Europe' },
+  ]},
+  { name: 'Long-tail conversational', meta: 'Real conversational queries — trigger query fan-out, the modern AI search behaviour.', prompts: [
+    { star: true, text: 'I want to spend 6 weeks per year in Mallorca but can\'t afford a whole house. What are my options and what\'s the best company to use?' },
+    { star: true, text: 'We\'re a British family thinking about co-owning a ski chalet in France. How does it work, what does it cost, and who should we look at?' },
+    { star: true, text: 'I retire in 18 months and want a vacation property in southern Spain that I\'d use about 7 weeks a year. What\'s the cheapest way to do that?' },
+    { star: false, text: 'Compare the four biggest fractional ownership companies in Europe — Pacaso, MYNE, Vivla, and August — by price, market, and share size.' },
+    { star: false, text: 'I keep seeing ads for Pacaso. Are they legit, and what are the European alternatives?' },
+    { star: false, text: 'I\'m worried fractional ownership is just timeshare with better marketing. What\'s the actual legal difference and how do I protect myself?' },
+  ]},
+];
+
+function renderPrompts() {
+  const container = document.getElementById('prompt-sections');
+  let html = '';
+  PROMPT_SECTIONS.forEach((sec, si) => {
+    html += `<details ${si === 0 ? 'open' : ''}><summary>${escapeHtml(sec.name)} <span style="font-weight:400;color:#6B8A9E;">(${sec.prompts.length})</span></summary>`;
+    html += `<div class="section-meta">${escapeHtml(sec.meta)}</div>`;
+    sec.prompts.forEach(p => {
+      const id = 'p-' + si + '-' + Math.random().toString(36).slice(2, 7);
+      html += `<div class="prompt-row">
+        <div class="prompt-text">${p.star ? '<span class="star">★</span>' : ''}${escapeHtml(p.text)}</div>
+        <button class="small ghost" onclick="copyPrompt('${id}')">Copy</button>
+        <button class="small" onclick="loadPromptIntoForm('${id}')">Use</button>
+        <textarea id="${id}" style="display:none;">${escapeHtml(p.text)}</textarea>
+      </div>`;
+    });
+    html += `</details>`;
+  });
+  container.innerHTML = html;
+}
+
+function copyPrompt(id) {
+  const el = document.getElementById(id);
+  navigator.clipboard.writeText(el.value).then(() => {
+    flash('Copied to clipboard', 'success');
+  }).catch(() => {
+    flash('Copy failed — select the text manually', 'error');
+  });
+}
+
+function loadPromptIntoForm(id) {
+  const el = document.getElementById(id);
+  document.getElementById('f-prompt').value = el.value;
+  document.querySelector('[data-tab="log"]').click();
+  document.getElementById('f-prompt').focus();
+  flash('Prompt loaded — fill in the result and save', 'success');
+}
+
+// ============== ROADMAP ==============
+const ROADMAP_30 = [
+  { id: 'r1', title: 'Patch middleware.js — stop blocking AI crawlers (GPTBot, ClaudeBot, PerplexityBot, etc.)', meta: '30 minutes. Single biggest visibility unlock on the site.' },
+  { id: 'r2', title: 'Ship public/llms.txt and llms-full.txt', meta: '~4 hours. Tier-A hygiene, Tier-D current impact.' },
+  { id: 'r3', title: 'Update public/robots.txt with AI crawler Allow blocks', meta: '~30 lines.' },
+  { id: 'r4', title: 'Add Person schema for David and Dylan on /about-us/', meta: 'Foundation for every bylined article going forward.' },
+  { id: 'r5', title: 'Change blog author from Organization to Person', meta: 'Add byline field to Supabase posts table. Highest-leverage E-E-A-T fix.' },
+  { id: 'r6', title: 'Add FAQPage schema to /how-it-works/', meta: '~2 hours. Page is already a Q&A narrative.' },
+  { id: 'r7', title: 'Add Review schema to the 4 testimonials on /about-us/', meta: '~1 hour. Every field is already on the page.' },
+  { id: 'r8', title: 'Add Accommodation + geo + Offer.availability to property pages', meta: '~3 hours. Data is already in Supabase.' },
+  { id: 'r9', title: 'Link property pages upward to their destination pillar', meta: '~1 hour.' },
+  { id: 'r10', title: 'Ship /api/properties.json and /api/destinations.json', meta: '~1 day. Hand AI engines the entity graph on a plate.' },
+  { id: 'r11', title: 'Verify COP in Bing Webmaster Tools', meta: '10 minutes. Unlocks free AI Performance dashboard.' },
+  { id: 'r12', title: 'Fix the removeSectionByClass renderer bug on France + Italy pillars', meta: 'Two-line fix. Removes duplicate-content penalty.' },
+];
+
+const ROADMAP_90 = [
+  { id: 'r13', title: 'Glossary at /glossary/ — 40–60 DefinedTerm entries', meta: '2 weeks editorial + 2 days templating.' },
+  { id: 'r14', title: 'Comparison pages at /compare/{a}-vs-{b}/ — first batch of 10', meta: 'Single highest-ROI new content surface for COP.' },
+  { id: 'r15', title: 'Country-tax pages at /taxes/{country}-fractional-ownership/', meta: 'Spain, France, Italy first.' },
+  { id: 'r16', title: 'Exit/resale guide at /resale/', meta: 'Single most-asked buyer objection. Zero canonical resource exists today.' },
+  { id: 'r17', title: 'Partner landing pages at /partners/{pacaso|myne|vivla|andhamlet|abitaro}/', meta: 'Inverts the "never mention partner names" rule for a small set of dedicated comparison surfaces.' },
+  { id: 'r18', title: 'Founder profile pages at /team/david-olsson/ and /team/dylan-olsson/', meta: 'Entity-graph entry point for AI engines verifying expert authority.' },
+  { id: 'r19', title: 'Research hub at /research/ — anchored by the 247-buyer survey + quarterly data', meta: 'Citation magnet no operator can match — only marketplace with cross-partner data.' },
+  { id: 'r20', title: 'Calculator pages with rendered HTML output', meta: '/calculator/total-cost-of-ownership/, /calculator/share-vs-whole-property/, /calculator/rental-offset/' },
+  { id: 'r21', title: 'Press page at /press/{outlet}-{article-slug}/ — convert logos to full citations', meta: 'AI engines treat as third-party authority signals.' },
+  { id: 'r22', title: 'Destination expansion + standardization', meta: 'Italy (Tuscany, Amalfi, Puglia, Sicily), Portugal regions, Greece. Translate 28 missing ES + FR mirrors.' },
+  { id: 'r23', title: 'Sitemap split into per-content-type sub-sitemaps', meta: 'Faster selective re-crawls. Use real Supabase/filesystem lastmod.' },
+];
+
+const ROADMAP_12 = [
+  { id: 'r24', title: 'Wikipedia + Wikidata entity work', meta: 'Wikidata entry first; Wikipedia article requires press citation foundation.' },
+  { id: 'r25', title: 'Trustpilot presence — target 30–50 verified reviews', meta: 'Domains with Trustpilot correlate with 3–6× higher ChatGPT citations.' },
+  { id: 'r26', title: 'Reddit presence — transparent, helpful, sustained', meta: '60-day warm-up, then 1–2 helpful posts per week. Disclose affiliation.' },
+  { id: 'r27', title: 'YouTube transcripts — original channel + guest appearances', meta: 'YouTube overtook Reddit as most-cited social platform in some engines.' },
+  { id: 'r28', title: 'Podcast guesting — 1 per month for 12 months', meta: 'BiggerPockets, Property Podcast, Sifted Talks, A Place in the Sun, etc.' },
+  { id: 'r29', title: 'Expert quotes in third-party trade press', meta: 'Mansion Global, FT HTSI, Robb Report, Sifted, Telegraph Property. PR contractor $1–3k/month.' },
+  { id: 'r30', title: 'B2B aggregator listicle inclusion', meta: 'CB Insights, Inven, Product Hunt, Slashdot, Sourceforge, Crunchbase, PitchBook, Owler. 1 day of outreach.' },
+  { id: 'r31', title: 'Hugging Face dataset publishing', meta: 'European fractional listings — quarterly snapshots. First-mover in vertical.' },
+  { id: 'r32', title: 'GitHub repo with structured data exports + MCP server', meta: 'Niche today; first-mover positioning for agentic AI surfaces.' },
+  { id: 'r33', title: 'Zenodo / SSRN research report — "State of European Fractional Vacation-Home Ownership 2026"', meta: 'DOI-minted PDF. Gemini Deep Research cites research repositories heavily.' },
+  { id: 'r34', title: 'University case study collaborations', meta: 'IE Madrid, ESADE Barcelona, INSEAD, NYU Stern, EHL Lausanne, Cornell SHA.' },
+  { id: 'r35', title: 'Quora answer build-out — 30 helpful identified answers', meta: 'Long-tail "is it worth it / how do I exit" queries.' },
+  { id: 'r36', title: 'Quarterly press release on PR Newswire / Business Wire', meta: 'State of Fractional report or milestone announcement. $1–2k per release.' },
+  { id: 'r37', title: 'Co-occurrence by design in editorial', meta: 'Mention competitors by name where genuinely relevant — builds candidate-set cluster.' },
+  { id: 'r38', title: 'Legal-tax handbook PDF — co-authored with notary/notaire/commercialista', meta: '$3–8k in legal fees. Authoritative cross-border guide. Pays back for years.' },
+  { id: 'r39', title: 'Reddit AMA + verified expert flair', meta: 'Quarterly in /r/realestateinvesting and /r/EuropeFIRE. AMAs transcribe heavily.' },
+  { id: 'r40', title: 'Industry-association memberships', meta: 'RESO, Luxury Portfolio International, RICS, FIABCI. $500–$3k each.' },
+];
+
+function renderRoadmap() {
+  ['30', '90', '12'].forEach(period => {
+    const items = period === '30' ? ROADMAP_30 : period === '90' ? ROADMAP_90 : ROADMAP_12;
+    const container = document.getElementById('roadmap-' + period);
+    const state = loadRoadmap();
+    let html = '';
+    items.forEach(item => {
+      const done = !!state[item.id];
+      html += `<div class="checklist-item ${done ? 'done' : ''}">
+        <input type="checkbox" ${done ? 'checked' : ''} onchange="toggleRoadmap('${item.id}')">
+        <div class="item-body">
+          <div class="item-title">${escapeHtml(item.title)}</div>
+          <div class="item-meta">${escapeHtml(item.meta)}</div>
+        </div>
+      </div>`;
+    });
+    container.innerHTML = html;
+  });
+}
+
+function toggleRoadmap(id) {
+  const state = loadRoadmap();
+  state[id] = !state[id];
+  saveRoadmap(state);
+  renderRoadmap();
+}
+
+// ============== DATA MGMT ==============
+function exportData() {
+  const data = {
+    tests: loadTests(),
+    roadmap: loadRoadmap(),
+    exportedAt: new Date().toISOString(),
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `cop-ai-visibility-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  flash('Exported. Save this file somewhere safe.', 'success');
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.tests && Array.isArray(data.tests)) saveTests(data.tests);
+      if (data.roadmap) saveRoadmap(data.roadmap);
+      flash('Imported successfully', 'success');
+      renderStats();
+      renderHistory();
+      renderRoadmap();
+    } catch (err) {
+      flash('Import failed: ' + err.message, 'error');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function resetAll() {
+  if (!confirm('Delete ALL test data and roadmap progress? This cannot be undone (unless you have an export).')) return;
+  localStorage.removeItem(STORE_TESTS);
+  localStorage.removeItem(STORE_ROADMAP);
+  flash('All data reset', 'success');
+  renderStats();
+  renderHistory();
+  renderRoadmap();
+}
+
+function loadSampleData() {
+  if (!confirm('Add 20 sample test entries to demonstrate the dashboard? (This adds to existing data, does not replace.)')) return;
+  const samples = [
+    { date: '2026-05-15', engine: 'chatgpt', prompt: 'Best fractional ownership companies 2026', copCited: false, copRank: null, copUrl: null, topDomain: 'pacaso.com', competitors: 'pacaso.com, august.co, fraxioned.com', notes: 'Pacaso dominates. COP not mentioned.' },
+    { date: '2026-05-15', engine: 'perplexity', prompt: 'Best fractional ownership companies 2026', copCited: false, copRank: null, copUrl: null, topDomain: 'fraxioned.com', competitors: 'fraxioned.com, slashdot.org, cbinsights.com', notes: 'Aggregator-heavy.' },
+    { date: '2026-05-16', engine: 'chatgpt', prompt: 'Fractional villa Mallorca', copCited: true, copRank: 1, copUrl: '/mallorca-fractional-ownership-properties/', topDomain: 'co-ownership-property.com', competitors: 'kocomo.com, lujorca.com', notes: 'Winning destination clearly.' },
+    { date: '2026-05-16', engine: 'perplexity', prompt: 'Fractional villa Mallorca', copCited: true, copRank: 1, copUrl: '/mallorca-fractional-ownership-properties/', topDomain: 'co-ownership-property.com', competitors: 'kocomo.com', notes: '' },
+    { date: '2026-05-16', engine: 'google-aio', prompt: 'Fractional villa Mallorca', copCited: false, copRank: null, copUrl: null, topDomain: null, competitors: '', notes: 'No AIO triggered — 0.14% real-estate rate strikes again.' },
+    { date: '2026-05-18', engine: 'chatgpt', prompt: 'Pacaso alternatives Europe', copCited: false, copRank: null, copUrl: null, topDomain: 'cbinsights.com', competitors: 'cbinsights.com, pacaso.com, inven.ai', notes: 'B2B aggregators own this.' },
+    { date: '2026-05-18', engine: 'perplexity', prompt: 'Pacaso vs MYNE Homes', copCited: false, copRank: null, copUrl: null, topDomain: 'pacaso.com', competitors: 'pacaso.com, myne-homes.com', notes: 'Pacaso self-comparison dominates.' },
+    { date: '2026-05-19', engine: 'chatgpt', prompt: 'How to exit a fractional ownership share', copCited: false, copRank: null, copUrl: null, topDomain: 'pacaso.com', competitors: 'pacaso.com, andysirkin.com, quora.com', notes: 'Whitespace — no neutral resource exists.' },
+    { date: '2026-05-20', engine: 'claude', prompt: 'Fractional ownership Spain', copCited: true, copRank: 2, copUrl: '/spain-fractional-ownership-properties/', topDomain: 'pacaso.com', competitors: 'pacaso.com, fractionalgroup.com', notes: '' },
+    { date: '2026-05-21', engine: 'perplexity', prompt: 'David Olsson fractional ownership', copCited: false, copRank: null, copUrl: null, topDomain: null, competitors: '', notes: 'No relevant results. Founder authority empty.' },
+    { date: '2026-05-22', engine: 'chatgpt', prompt: 'Fractional ownership Ibiza luxury villa', copCited: true, copRank: 1, copUrl: '/ibiza-fractional-ownership-properties/', topDomain: 'co-ownership-property.com', competitors: '', notes: 'Won outright.' },
+    { date: '2026-05-22', engine: 'gemini', prompt: 'Fractional ownership Ibiza luxury villa', copCited: true, copRank: 3, copUrl: '/ibiza-fractional-ownership-properties/', topDomain: 'francisyork.com', competitors: 'francisyork.com, kocomo.com', notes: '' },
+    { date: '2026-05-22', engine: 'google-ai-mode', prompt: 'Best fractional ownership companies in Europe 2026', copCited: false, copRank: null, copUrl: null, topDomain: 'pacaso.com', competitors: 'pacaso.com, august.co, myne-homes.com, kocomo.com', notes: '' },
+    { date: '2026-05-23', engine: 'perplexity', prompt: 'Co-ownership ski chalet in the French Alps', copCited: true, copRank: 1, copUrl: '/french-alps-fractional-ownership-properties/', topDomain: 'co-ownership-property.com', competitors: '', notes: '' },
+    { date: '2026-05-23', engine: 'chatgpt', prompt: 'Fractional ownership maintenance fees', copCited: false, copRank: null, copUrl: null, topDomain: 'planesense.com', competitors: 'planesense.com, avbuyer.com, blackjet.com', notes: 'Almost all jet content. Massive property-side whitespace.' },
+    { date: '2026-05-23', engine: 'claude', prompt: 'Is fractional ownership a good investment 2026', copCited: false, copRank: null, copUrl: null, topDomain: 'fraxioned.com', competitors: 'fraxioned.com, pacaso.com, equityestatesfund.com', notes: 'All partner-authored "yes, here are 7 reasons!" pieces.' },
+    { date: '2026-05-24', engine: 'chatgpt', prompt: 'Fractional property Costa del Sol Marbella', copCited: true, copRank: 1, copUrl: '/costa-del-sol-fractional-ownership-properties/', topDomain: 'co-ownership-property.com', competitors: 'heritagefractional.com, marbellaforsale.com', notes: '' },
+    { date: '2026-05-24', engine: 'perplexity', prompt: 'Fractional ownership Portugal Algarve', copCited: true, copRank: 1, copUrl: '/portugal-fractional-ownership-properties/', topDomain: 'co-ownership-property.com', competitors: 'ourhomeportugal.com, kocomo.com', notes: '' },
+    { date: '2026-05-25', engine: 'gemini', prompt: 'How to exit a fractional ownership share', copCited: false, copRank: null, copUrl: null, topDomain: 'assetmonk.com', competitors: 'assetmonk.com, internationalpropertyshares.com', notes: '' },
+    { date: '2026-05-25', engine: 'chatgpt', prompt: 'Fractional ownership Spain non-resident', copCited: true, copRank: 2, copUrl: '/why-buying-a-fractional-property-makes-sense-for-foreign-residents/', topDomain: 'mylawyerinspain.com', competitors: 'mylawyerinspain.com', notes: '' },
+  ];
+  const existing = loadTests();
+  const merged = [...existing];
+  samples.forEach((s, i) => { merged.push({ id: Date.now() + i, ...s }); });
+  saveTests(merged);
+  flash('Sample data loaded.', 'success');
+  renderStats();
+  renderHistory();
+  renderCharts();
+}
+
+// ============== INIT ==============
+renderStats();
+</script>

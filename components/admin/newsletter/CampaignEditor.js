@@ -42,6 +42,12 @@ const TEMPLATES = [
     desc: 'Themed selection — ski Oct / Med Mar.',
     thumb: '❄',
   },
+  {
+    id: 'viewings-france',
+    name: 'Viewings — France',
+    desc: 'Upcoming private viewings (Côte d\'Azur & Alps). Pulls from lib/viewings.json.',
+    thumb: '🗓',
+  },
 ]
 
 export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {

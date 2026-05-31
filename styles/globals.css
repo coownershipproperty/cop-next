@@ -8972,3 +8972,263 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
     line-height: 1.7;
   }
 }
+
+/* ============================================================
+   /viewings/ page
+   ============================================================ */
+.viewings-grid-sec {
+  background: var(--cream-bg);
+  padding: 80px 3rem 60px;
+}
+.viewings-grid-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.viewings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 1rem;
+}
+@media (max-width: 1024px) {
+  .viewings-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .viewings-grid { grid-template-columns: 1fr; }
+  .viewings-grid-sec { padding: 60px 1.5rem 40px; }
+}
+
+.viewing-card {
+  background: var(--white);
+  border: 1px solid var(--gray-border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.viewing-card:hover {
+  border-color: var(--warm-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(44,74,94,0.08);
+}
+.viewing-card-photo {
+  display: block;
+  height: 260px;
+  background-color: var(--blue);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  text-decoration: none;
+}
+.viewing-date-pill {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--warm-gold);
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+}
+.viewing-card-body {
+  padding: 22px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.viewing-card-location {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--warm-gold);
+  margin: 0 0 10px;
+}
+.viewing-card-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--blue);
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+.viewing-card-blurb {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 18px;
+  flex: 1;
+}
+.viewing-card-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 14px 0;
+  border-top: 1px solid var(--gray-border);
+  border-bottom: 1px solid var(--gray-border);
+  margin-bottom: 16px;
+}
+.viewing-card-price {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--warm-gold);
+}
+.viewing-card-share {
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.viewing-card-ctas {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.viewing-card-btn {
+  flex: 1;
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.viewing-card-btn.ghost {
+  background: transparent;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+}
+.viewing-card-btn.ghost:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+.viewing-card-btn.primary {
+  background: var(--blue);
+  color: var(--white);
+  border: 1px solid var(--blue);
+}
+.viewing-card-btn.primary:hover {
+  background: var(--warm-gold);
+  border-color: var(--warm-gold);
+  color: var(--blue);
+}
+
+/* HOW IT WORKS strip */
+.viewings-how-sec {
+  background: var(--cream-light);
+  padding: 80px 3rem 80px;
+  border-top: 1px solid var(--gray-border);
+}
+.viewings-how-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.viewings-how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 768px) {
+  .viewings-how-grid { grid-template-columns: 1fr; }
+  .viewings-how-sec  { padding: 60px 1.5rem; }
+}
+.viewings-how-card {
+  background: var(--white);
+  border: 1px solid var(--gray-border);
+  padding: 36px 28px 32px;
+  text-align: left;
+}
+.viewings-how-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--warm-gold);
+  margin-bottom: 16px;
+  line-height: 1;
+}
+.viewings-how-card h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--blue);
+  margin: 0 0 10px;
+}
+.viewings-how-card p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* REQUEST FORM section (dark navy) */
+.viewing-form-sec {
+  background: var(--blue);
+  padding: 80px 3rem 80px;
+}
+.viewing-form-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.viewing-form-sec .eyebrow {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--warm-gold);
+  margin: 0 0 14px;
+}
+.viewing-form-sec h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: var(--white);
+  font-weight: 400;
+}
+.viewing-form-sec h2 em {
+  color: var(--warm-gold);
+  font-style: italic;
+}
+@media (max-width: 640px) {
+  .viewing-form-sec { padding: 60px 1.5rem; }
+}
+
+/* Closing prompt */
+.viewings-close-sec {
+  background: var(--cream-bg);
+  padding: 60px 3rem 80px;
+  text-align: center;
+  border-top: 1px solid var(--gray-border);
+}
+.viewings-close-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.viewings-close-inner p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0 0 1.4rem;
+}
+.viewings-close-btn {
+  display: inline-block;
+  background: var(--blue);
+  color: var(--white);
+  padding: 14px 32px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.viewings-close-btn:hover {
+  background: var(--warm-gold);
+  color: var(--blue);
+}
+

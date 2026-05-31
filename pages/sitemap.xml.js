@@ -100,6 +100,7 @@ const LOCALE_ONLY_PAGES = [
 const EN_ONLY_PAGES = [
   { url: '/our-mission/',  priority: '0.5', changefreq: 'monthly' },
   { url: '/ownership/',    priority: '0.5', changefreq: 'monthly' },
+  { url: '/viewings/',     priority: '0.7', changefreq: 'weekly' },
   // /favourites/ intentionally excluded — noindex personal page
 ];
 
