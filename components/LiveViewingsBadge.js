@@ -25,16 +25,24 @@ export default function LiveViewingsBadge() {
   const [dismissed, setDismissed] = useState(true); // start hidden until we know
   const [visible, setVisible] = useState(false);
 
-  // Read dismissal state once
+  // Read dismissal state once + reveal on scroll past the hero (so the chip
+  // never sits on top of hero CTAs like "Browse properties"). Threshold is
+  // intentionally low (220px) so even a small scroll triggers it on desktop,
+  // but it's enough to clear the hero CTAs on mobile.
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const isDismissed = localStorage.getItem(LS_KEY) === '1';
     setDismissed(isDismissed);
-    if (!isDismissed) {
-      // Tiny delay so the entrance animation is noticeable on first load
-      const t = setTimeout(() => setVisible(true), 800);
-      return () => clearTimeout(t);
+    if (isDismissed) return;
+
+    const REVEAL_AT = 220;
+
+    function update() {
+      setVisible(window.scrollY > REVEAL_AT);
     }
+    update(); // in case the user lands deep-scrolled
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
   // Hide on /viewings/ itself and on /gallery/*

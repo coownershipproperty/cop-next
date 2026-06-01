@@ -6,16 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
 <style>
-  body { margin: 0; min-height: 100vh; font-family: 'Nunito Sans', sans-serif; color: #fff;
-    background: linear-gradient(rgba(28,50,66,0.55), rgba(28,50,66,0.75)), url('https://images.unsplash.com/photo-1502780402662-acc01917cf7b?w=2000') center/cover; }
+  body { margin: 0; min-height: 250vh; font-family: 'Nunito Sans', sans-serif; color: #fff;
+    background: linear-gradient(rgba(28,50,66,0.55), rgba(28,50,66,0.75)), url('https://images.unsplash.com/photo-1502780402662-acc01917cf7b?w=2000') center/cover fixed; }
   .doc { padding: 60px 6vw; max-width: 900px; }
+  .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+  .hero .cta { display: inline-block; background: #C9A84C; color: #2C4A5E; padding: 14px 28px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; font-size: 12px; margin-top: 24px; text-decoration: none; }
+  .scroll-hint { font-size: 12px; opacity: 0.6; margin-top: 16px; }
   h1 { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 500; }
   p { line-height: 1.7; opacity: 0.85; }
   .ghost-wa { position: fixed; bottom: 8px; right: 12px; width: 44px; height: 44px; border-radius: 50%; background: #25D366; box-shadow: 0 2px 12px rgba(0,0,0,0.22); display: none; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 12px; }
   @media (max-width: 768px) { .ghost-wa { display: flex; } }
 
   /* ──────────────  LIVE VIEWINGS CHIP — same CSS as styles/globals.css ────────────── */
-  .lvb-wrap { position: fixed; bottom: 24px; right: 24px; z-index: 99998; display: flex; align-items: center; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .45s ease, transform .45s ease; }
+  .lvb-wrap { position: fixed; bottom: 24px; right: 24px; z-index: 99998; display: flex; align-items: center; opacity: 0; transform: translateY(14px); pointer-events: none; transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
   .lvb-wrap.lvb-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
   .lvb-chip { display: inline-flex; align-items: center; gap: 10px; background: #ffffff; color: #2C4A5E; padding: 11px 18px 11px 14px; font-family: 'Nunito Sans', Arial, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border: 1px solid rgba(44,74,94,0.10); box-shadow: 0 10px 28px rgba(44,74,94,0.18), 0 2px 6px rgba(44,74,94,0.10), 0 0 0 0 rgba(224,49,49,0.0); animation: lvb-chip-glow 2.8s ease-in-out infinite; transition: transform 0.2s ease, background 0.2s ease; white-space: nowrap; }
   .lvb-chip:hover { background: #FAF8F5; transform: translateY(-2px); }
@@ -32,7 +35,8 @@
   .lvb-arrow { font-size: 14px; opacity: 0.55; margin-left: 2px; color: #2C4A5E; }
   .lvb-close { position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; border-radius: 50%; background: rgba(0,0,0,0.65); color: #fff; border: none; font-size: 13px; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; z-index: 1; }
   @media (max-width: 768px) {
-    .lvb-wrap { bottom: 60px; right: 12px; }
+    .lvb-wrap { bottom: 64px; right: 12px; transform: translateY(20px); }
+    .lvb-wrap.lvb-visible { transform: translateY(0); }
     .lvb-chip { padding: 9px 14px 9px 12px; font-size: 12px; gap: 8px; }
     .lvb-label-main { font-size: 14px; }
     .lvb-label-eyebrow { font-size: 9px; }
@@ -43,17 +47,21 @@
 </head>
 <body>
   <div class="doc">
-    <h1>Live Viewings chip — preview</h1>
-    <p>Bottom-right corner, navy chip with a pulsing red dot, gold "LIVE" eyebrow + serif "Viewings" → arrow. Hover lifts it. The × dismisses it for the session and remembers in localStorage. Hidden on the <code>/viewings/</code> page itself and on <code>/gallery/*</code>.</p>
-    <p>On mobile (resize the window narrower than ~768 px) it shrinks slightly and parks itself <em>above</em> the WhatsApp button instead of next to it — the green circle bottom-right here simulates the WhatsApp FAB so you can see the stacking.</p>
-    <p style="opacity:0.6;font-size:12px;">Pulse animation runs continuously. Resize the window narrower than 768px to see the mobile version.</p>
+    <div class="hero">
+      <h1>Your window to the<br/><em style="font-style:italic;color:#C9A84C;">world's finest</em><br/>co-ownership</h1>
+      <a href="#" class="cta">Browse properties →</a>
+      <p class="scroll-hint">↓ Scroll to reveal the Live Viewings chip (hidden over the hero so it doesn't cover the CTA).</p>
+    </div>
+    <h1 style="margin-top:60px;">Now the chip is visible</h1>
+    <p>Once you scroll past ~220px the chip slides up in the corner. On mobile it sits above the WhatsApp FAB (green circle bottom-right) but only after the hero is out of the way, so the BROWSE PROPERTIES button is never covered.</p>
+    <p style="opacity:0.6;font-size:12px;">Hover the chip on desktop to see the lift. Resize the window narrower than 768px for the mobile version.</p>
   </div>
 
   <!-- Fake WhatsApp button (only renders on mobile) -->
   <div class="ghost-wa">WA</div>
 
-  <!-- Live Viewings chip -->
-  <div class="lvb-wrap lvb-visible" role="status" aria-label="Live viewings available">
+  <!-- Live Viewings chip — visibility toggled by scroll in the script below -->
+  <div class="lvb-wrap" role="status" aria-label="Live viewings available" id="lvbWrap">
     <a href="/viewings/" class="lvb-chip" aria-label="See upcoming viewings">
       <span class="lvb-dot" aria-hidden="true">
         <span class="lvb-dot-pulse"></span>
@@ -65,5 +73,15 @@
     </a>
     <button type="button" class="lvb-close" aria-label="Dismiss" onclick="this.parentElement.style.display='none'">×</button>
   </div>
+  <script>
+    // Mirror the React component's scroll-reveal logic
+    const wrap = document.getElementById('lvbWrap');
+    function update() {
+      if (window.scrollY > 220) wrap.classList.add('lvb-visible');
+      else wrap.classList.remove('lvb-visible');
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  </script>
 </body>
 </html>

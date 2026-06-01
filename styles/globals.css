@@ -6201,9 +6201,9 @@ section.props-sec,
   display: flex;
   align-items: center;
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateY(14px);
   pointer-events: none;
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .lvb-wrap.lvb-visible {
   opacity: 1;
@@ -6319,10 +6319,12 @@ section.props-sec,
 .lvb-close:hover { background: rgba(0,0,0,0.85); }
 
 /* Mobile: shrink + sit ABOVE the WhatsApp FAB (which is at bottom:8px, right:12px,
-   height:44px). Stacking it at bottom:60px keeps a clear gap. */
+   height:44px). Stacking at bottom:64px keeps ~12px breathing room between them,
+   and the chip only appears after the user scrolls past the hero so it never
+   sits on top of hero CTAs. */
 @media (max-width: 768px) {
   .lvb-wrap {
-    bottom: 60px;
+    bottom: 64px;
     right: 12px;
   }
   .lvb-chip {
@@ -6334,6 +6336,9 @@ section.props-sec,
   .lvb-label-eyebrow { font-size: 9px; }
   .lvb-arrow { font-size: 12px; }
   .lvb-dot { width: 8px; height: 8px; }
+  /* Bigger entry slide so the reveal feels deliberate, not popped-in */
+  .lvb-wrap { transform: translateY(20px); }
+  .lvb-wrap.lvb-visible { transform: translateY(0); }
 }
 
 /* ── WhatsApp floating button ───────────────────────────────── */
