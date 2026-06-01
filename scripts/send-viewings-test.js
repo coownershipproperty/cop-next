@@ -99,7 +99,7 @@ async function main() {
   const unsubscribeUrl = `https://co-ownership-property.com/unsubscribe?email=${encodeURIComponent(to)}`;
 
   const html = await render(
-    React.createElement(Template, { firstName, viewings, unsubscribeUrl })
+    React.createElement(Template, { firstName, viewings, recipientEmail: to, unsubscribeUrl })
   );
 
   // Clean up the bundle now we have the HTML

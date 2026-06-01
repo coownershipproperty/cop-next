@@ -33,6 +33,8 @@ interface ViewingsFranceProps {
   firstName?: string;
   intro?: string;
   viewings?: Viewing[];
+  /** Recipient email — appended to CTA URLs as ?em=… so the form pre-fills */
+  recipientEmail?: string;
   unsubscribeUrl?: string;
 }
 
@@ -136,10 +138,17 @@ export default function ViewingsFrance({
   firstName = '',
   intro,
   viewings = sampleViewings,
+  recipientEmail = '',
   unsubscribeUrl = '#',
 }: ViewingsFranceProps) {
   const previewText = `${viewings.length} private viewings — Côte d'Azur and the French Alps.`;
-  const ctaUrl = `${base}/viewings/`;
+  const emQS = recipientEmail ? `&em=${encodeURIComponent(recipientEmail)}` : '';
+  // Per-card CTA: jumps to the form with viewing + email pre-filled.
+  const ctaUrlFor = (vId: string) => `${base}/viewings/?v=${encodeURIComponent(vId)}${emQS}#viewing-request-form`;
+  // Main "See all viewings" button just lands on the page.
+  const indexUrl = recipientEmail
+    ? `${base}/viewings/?em=${encodeURIComponent(recipientEmail)}`
+    : `${base}/viewings/`;
 
   return (
     <Html lang="en" dir="ltr">
@@ -155,6 +164,11 @@ export default function ViewingsFrance({
             .main-heading { font-size: 30px !important; line-height: 1.25 !important; }
             .card-inner { padding: 20px 18px 22px !important; }
             .hero-sub { font-size: 14px !important; }
+            /* Stack the price block above a full-width CTA on narrow viewports
+               so the button doesn't get squashed next to the price. */
+            .price-cell    { display: block !important; width: 100% !important; padding: 0 0 16px !important; text-align: left !important; }
+            .cta-cell      { display: block !important; width: 100% !important; padding: 0 !important; text-align: center !important; }
+            .cta-cell a    { display: block !important; width: 100% !important; box-sizing: border-box !important; padding: 14px 18px !important; }
           }
         `}</style>
       </Head>
@@ -212,7 +226,7 @@ export default function ViewingsFrance({
                         verticalAlign: 'top',
                       }}
                     >
-                      <Link href={`${ctaUrl}#${v.id}`} style={{ display: 'block', height: '300px', textDecoration: 'none' }}>
+                      <Link href={ctaUrlFor(v.id)} style={{ display: 'block', height: '300px', textDecoration: 'none' }}>
                         <table cellPadding="0" cellSpacing="0" border={0} role="presentation">
                           <tbody><tr><td style={{ padding: '16px 0 0 16px' }}>
                             <Text style={datePill}>{v.dateLabel}</Text>
@@ -230,12 +244,12 @@ export default function ViewingsFrance({
                     {v.blurb && <Text style={cardBlurb}>{v.blurb}</Text>}
                     <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation" style={{ marginTop: 18, borderTop: `1px solid ${C.border}`, paddingTop: 16 }}>
                       <tbody><tr>
-                        <td style={{ verticalAlign: 'middle' }}>
+                        <td className="price-cell" style={{ verticalAlign: 'middle' }}>
                           <Text style={cardPrice}>{v.price}</Text>
                           <Text style={cardPriceLabel}>per {v.share} share</Text>
                         </td>
-                        <td style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
-                          <Link href={ctaUrl} style={viewBtn}>Request viewing →</Link>
+                        <td className="cta-cell" style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
+                          <Link href={ctaUrlFor(v.id)} style={viewBtn}>Request viewing →</Link>
                         </td>
                       </tr></tbody>
                     </table>
@@ -250,7 +264,7 @@ export default function ViewingsFrance({
         <Section style={{ backgroundColor: C.cream, padding: '32px 0 72px' }}>
           <Container style={wrap}>
             <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation"><tbody><tr><td align="center">
-              <Button href={ctaUrl} style={ctaBtn}>See All Viewings</Button>
+              <Button href={indexUrl} style={ctaBtn}>See All Viewings</Button>
             </td></tr></tbody></table>
             <Text style={{ ...bodyText, fontSize: 12, color: C.navy60, marginTop: 18 }}>
               On-site visits and live video tours both available. We confirm within a few hours.

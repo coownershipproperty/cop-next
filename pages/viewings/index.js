@@ -177,7 +177,7 @@ export default function ViewingsPage({ viewings }) {
                     <a href={`/property/${v.propertySlug}/`} className="viewing-card-btn ghost">
                       Property details →
                     </a>
-                    <a href={`#viewing-request-form?id=${v.id}`} className="viewing-card-btn primary" data-viewing-id={v.id}>
+                    <a href={`?v=${encodeURIComponent(v.id)}#viewing-request-form`} className="viewing-card-btn primary" data-viewing-id={v.id}>
                       Request viewing
                     </a>
                   </div>

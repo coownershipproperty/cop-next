@@ -27,6 +27,36 @@ export default function ViewingRequestForm({ viewings = [], selectedId = '' }) {
     if (selectedId) setViewingId(selectedId);
   }, [selectedId]);
 
+  // On mount, read deep-link query params (from emails / direct shares) and
+  // pre-fill the form. Supports:
+  //   ?v=<viewing-id>   → pre-select that viewing in the dropdown
+  //   ?em=<email>       → pre-fill the email field (we use 'em' not 'email' so
+  //                       it's less obviously a tracking parameter)
+  // Then scrolls the form into view if either param is present.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const sp = new URLSearchParams(window.location.search);
+    const v = sp.get('v');
+    const em = sp.get('em');
+    let didPrefill = false;
+    if (v && viewings.some(x => x.id === v)) {
+      setViewingId(v);
+      didPrefill = true;
+    }
+    if (em && /\S+@\S+\.\S+/.test(em)) {
+      setEmail(em);
+      didPrefill = true;
+    }
+    if (didPrefill) {
+      // Wait one tick so React has rendered the selected option before scroll
+      setTimeout(() => {
+        const el = document.getElementById('viewing-request-form');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Allow other components (the cards) to preselect a viewing
   useEffect(() => {
     function handle(e) {
