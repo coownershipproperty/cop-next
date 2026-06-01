@@ -1,22 +1,5 @@
 [
   {
-    "id": "valbonne-flexible",
-    "propertySlug": "valbonne-france-4-bed-villa-with-pool",
-    "displayName": "Maison Valbonne",
-    "city": "Valbonne",
-    "region": "Côte d'Azur",
-    "country": "France",
-    "date": null,
-    "dateLabel": "Flexible viewing",
-    "price": 299000,
-    "currency": "EUR",
-    "share": "1/8",
-    "img": "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/69f9a5fe12c8c767ed66c587_DJI_20260401105417_0480_D.jpeg",
-    "blurb": "A Provençal four-bedroom villa with a private pool, set in the wooded hills above Cannes. Easy reach of Mougins and the Riviera.",
-    "video": null,
-    "tour": null
-  },
-  {
     "id": "grimaud-2026-06-16",
     "propertySlug": "grimaud-france-3-bed-villa-with-pool",
     "displayName": "Villa Verte",
@@ -30,6 +13,23 @@
     "share": "1/8",
     "img": "https://a.storyblok.com/f/148662/2100x1400/ae26c8c38f/villa-verte-5.jpg",
     "blurb": "A south-west-facing three-bedroom villa minutes from the beaches of Saint-Tropez, with a sunny terrace and private garden.",
+    "video": null,
+    "tour": null
+  },
+  {
+    "id": "valbonne-flexible",
+    "propertySlug": "valbonne-france-4-bed-villa-with-pool",
+    "displayName": "Maison Valbonne",
+    "city": "Valbonne",
+    "region": "Côte d'Azur",
+    "country": "France",
+    "date": null,
+    "dateLabel": "Flexible viewing",
+    "price": 299000,
+    "currency": "EUR",
+    "share": "1/8",
+    "img": "https://cdn.prod.website-files.com/63f61b4f9800c52e560f1914/69f9a5fe12c8c767ed66c587_DJI_20260401105417_0480_D.jpeg",
+    "blurb": "A Provençal four-bedroom villa with a private pool, set in the wooded hills above Cannes. Easy reach of Mougins and the Riviera.",
     "video": null,
     "tour": null
   },
