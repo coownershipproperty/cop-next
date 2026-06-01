@@ -300,26 +300,39 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
 
   // ── Preview send ────────────────────────────────────────────────────────────
   async function handleSendPreview() {
-    if (!campaignId) {
+    // saveCampaign returns the freshly-saved campaign row. Use its id directly
+    // instead of reading the React state `campaignId`, which won't have updated
+    // by the time we kick off the preview fetch (state is async).
+    let activeCampaignId = campaignId
+    if (!activeCampaignId) {
       const saved = await saveCampaign({ status: 'draft' })
       if (!saved) return
+      activeCampaignId = saved.id
+    }
+    if (!previewEmail) {
+      setToast({ kind: 'error', text: 'Enter a preview email address first.' })
+      return
     }
     setPreviewBusy(true)
     try {
       const r = await authedFetch('/api/admin/ui/newsletter-preview/', {
         method: 'POST',
         body: JSON.stringify({
-          campaignId,
+          campaignId: activeCampaignId,
           targetEmail: previewEmail,
           renderAsContactId: renderAsContact?.id,
         }),
       })
-      const j = await r.json()
-      if (j.error) {
-        setToast({ kind: 'error', text: j.error })
+      const j = await r.json().catch(() => ({ error: `HTTP ${r.status}` }))
+      if (!r.ok || j.error) {
+        // Surface errors loudly — they used to be invisible behind the
+        // closing modal. 10s so there's time to actually read them.
+        setToast({ kind: 'error', text: j.error || `Preview failed (HTTP ${r.status})`, duration: 10000 })
       } else {
         setToast({ kind: 'ok', text: `Preview sent to ${previewEmail}` })
       }
+    } catch (err) {
+      setToast({ kind: 'error', text: `Preview failed: ${err.message}`, duration: 10000 })
     } finally {
       setPreviewBusy(false)
       setPreviewModal(false)
