@@ -17,15 +17,19 @@
   /* ──────────────  LIVE VIEWINGS CHIP — same CSS as styles/globals.css ────────────── */
   .lvb-wrap { position: fixed; bottom: 24px; right: 24px; z-index: 99998; display: flex; align-items: center; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .45s ease, transform .45s ease; }
   .lvb-wrap.lvb-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .lvb-chip { display: inline-flex; align-items: center; gap: 10px; background: #2C4A5E; color: #fff; padding: 11px 18px 11px 14px; font-family: 'Nunito Sans', Arial, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; box-shadow: 0 10px 28px rgba(44,74,94,0.28), 0 2px 6px rgba(44,74,94,0.18); transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; border: 1px solid rgba(255,255,255,0.08); white-space: nowrap; }
-  .lvb-chip:hover { background: #344f64; transform: translateY(-2px); }
+  .lvb-chip { display: inline-flex; align-items: center; gap: 10px; background: #ffffff; color: #2C4A5E; padding: 11px 18px 11px 14px; font-family: 'Nunito Sans', Arial, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; border: 1px solid rgba(44,74,94,0.10); box-shadow: 0 10px 28px rgba(44,74,94,0.18), 0 2px 6px rgba(44,74,94,0.10), 0 0 0 0 rgba(224,49,49,0.0); animation: lvb-chip-glow 2.8s ease-in-out infinite; transition: transform 0.2s ease, background 0.2s ease; white-space: nowrap; }
+  .lvb-chip:hover { background: #FAF8F5; transform: translateY(-2px); }
+  @keyframes lvb-chip-glow {
+    0%, 100% { box-shadow: 0 10px 28px rgba(44,74,94,0.18), 0 2px 6px rgba(44,74,94,0.10), 0 0 0 0 rgba(224,49,49,0.0); }
+    50%      { box-shadow: 0 10px 28px rgba(44,74,94,0.18), 0 2px 6px rgba(44,74,94,0.10), 0 0 0 6px rgba(224,49,49,0.14); }
+  }
   .lvb-dot { position: relative; width: 10px; height: 10px; display: inline-block; flex-shrink: 0; }
   .lvb-dot-core { position: absolute; inset: 0; background: #E03131; border-radius: 50%; }
   .lvb-dot-pulse { position: absolute; inset: 0; background: #E03131; border-radius: 50%; opacity: 0.7; animation: lvb-pulse 1.6s ease-out infinite; }
   @keyframes lvb-pulse { 0% { transform: scale(1); opacity: 0.7; } 70% { transform: scale(2.4); opacity: 0; } 100% { transform: scale(2.4); opacity: 0; } }
-  .lvb-label-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #C9A84C; }
-  .lvb-label-main { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 500; letter-spacing: 0.02em; }
-  .lvb-arrow { font-size: 14px; opacity: 0.7; margin-left: 2px; }
+  .lvb-label-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #B58C2A; }
+  .lvb-label-main { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 500; letter-spacing: 0.02em; color: #2C4A5E; }
+  .lvb-arrow { font-size: 14px; opacity: 0.55; margin-left: 2px; color: #2C4A5E; }
   .lvb-close { position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; border-radius: 50%; background: rgba(0,0,0,0.65); color: #fff; border: none; font-size: 13px; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; z-index: 1; }
   @media (max-width: 768px) {
     .lvb-wrap { bottom: 60px; right: 12px; }
