@@ -792,7 +792,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
               <PrimaryButton
                 kind="gold"
                 onClick={() => setSendConfirmModal(true)}
-                disabled={fieldsDisabled || !propertySlugs.length || !audienceCount}
+                disabled={fieldsDisabled || (templateType !== 'viewings-france' && !propertySlugs.length) || !audienceCount}
                 style={{ padding: '14px 22px', fontSize: 15 }}
               >
                 ▶ Send now {audienceCount ? `(${audienceCount.toLocaleString()})` : ''}
