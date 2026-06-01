@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { trackConversion } from '@/lib/gtag';
 import { Analytics } from '@vercel/analytics/react';
+import LiveViewingsBadge from '@/components/LiveViewingsBadge';
 
 const GA_ID = 'G-83RBNEXX4E';
 const GADS_ID = 'AW-4882418749';
@@ -109,6 +110,9 @@ export default function App({ Component, pageProps }) {
 
       <Component {...pageProps} />
       <Analytics />
+
+      {/* ── Live Viewings floating chip (bottom-right, sitewide) ── */}
+      {!isGallery && <LiveViewingsBadge />}
 
       {/* ── WhatsApp floating button (mobile only, hidden on gallery) ── */}
       {!isGallery && !waDismissed && (
