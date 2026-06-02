@@ -104,8 +104,19 @@ export default function GeoDestinationNudge() {
   }
 
   // Build the filtered /our-homes/ URL. fromGeo=1 tells the listings page to
-  // show the "Want to visit one of these homes?" banner at the top.
-  const targetUrl = `/our-homes/?country=${encodeURIComponent(match.country)}&region=${encodeURIComponent(match.region)}&fromGeo=1`;
+  // show the visit form at the top. For urlCountryOnly destinations (Lisbon
+  // → all Portugal) we deliberately drop the region filter so visitors see
+  // the full country's inventory rather than an empty Lisbon-only result.
+  const params = new URLSearchParams();
+  params.set('country', match.country);
+  if (!match.urlCountryOnly && match.region) {
+    params.set('region', match.region);
+  }
+  params.set('fromGeo', '1');
+  // Stash the chip's display label so the form can say "I'm in Lisbon" even
+  // when the filter is country-wide (otherwise it'd default to "Portugal").
+  params.set('label', match.label);
+  const targetUrl = `/our-homes/?${params.toString()}`;
 
   // Strip leading articles from labels like "the Côte d'Azur" → "Côte d'Azur"
   // so the chip reads "Côte d'Azur live viewing" not "the Côte d'Azur live viewing".

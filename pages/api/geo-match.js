@@ -72,10 +72,15 @@ export default function handler(req, res) {
 
   // Count live properties in this destination — adds credibility to the nudge
   // ("17 homes nearby") if we ever want to show it inline.
-  const count = properties.filter(p =>
-    normalize(p.country) === normalize(matched.country)
-    && normalize(p.region) === normalize(matched.region)
-  ).length;
+  // For urlCountryOnly destinations (e.g. Lisbon → all Portugal), count by
+  // country alone since the chip routes the visitor to a country-wide listing
+  // page rather than a specific region.
+  const count = matched.urlCountryOnly
+    ? properties.filter(p => normalize(p.country) === normalize(matched.country)).length
+    : properties.filter(p =>
+        normalize(p.country) === normalize(matched.country)
+        && normalize(p.region) === normalize(matched.region)
+      ).length;
 
   // If we have zero matched properties (shouldn't really happen, but possible
   // for newer destinations) — suppress the nudge rather than showing "0 homes".
@@ -89,6 +94,7 @@ export default function handler(req, res) {
     slug: matched.slug,
     country: matched.country,
     region: matched.region,
+    urlCountryOnly: !!matched.urlCountryOnly,
     count,
     city,
   });

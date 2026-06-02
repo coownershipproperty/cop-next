@@ -381,8 +381,10 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   const [alertMaxPrice, setAlertMaxPrice] = useState('');
   // Geo nudge → /our-homes/?country=Spain&region=Mallorca&fromGeo=1 lands the
   // visitor here with the country+region filter pre-applied and a "currently
-  // in Mallorca? want to visit one?" banner at the top.
+  // in Mallorca? want to visit one?" banner at the top. `geoLabel` is the
+  // chip's display label (e.g. "Lisbon" even when filter is country=Portugal).
   const [fromGeo, setFromGeo] = useState(false);
+  const [geoLabel, setGeoLabel] = useState('');
 
   // Seed filter state from URL query on first render (router.isReady gate
   // ensures router.query is populated). Runs once.
@@ -398,6 +400,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
       setRegions(r);
     }
     if (q.fromGeo === '1') setFromGeo(true);
+    if (q.label) setGeoLabel(Array.isArray(q.label) ? q.label[0] : q.label);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady]);
 
@@ -619,11 +622,12 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
       {/* ── "I'm in {destination}, organise a viewing" form ──
           Shown only when the visitor arrived via the geo-aware nudge
           (GeoDestinationNudge.js) which appends ?fromGeo=1 to the URL.
-          Captures name + email + phone, posts to /api/enquiry with the
-          destination preset so the team gets a notification + auto-reply
-          fires using the standard enquiry pipeline. */}
-      {fromGeo && regions.length > 0 && (
-        <GeoVisitForm destination={regions[0]} />
+          Captures name + email + phone, posts to /api/enquiry.
+          The display label honors what the chip showed (e.g. "Lisbon")
+          even when the filter is country-only (Portugal) for routes like
+          Lisbon → all Portugal listings. */}
+      {fromGeo && (geoLabel || regions[0] || countries[0]) && (
+        <GeoVisitForm destination={geoLabel || regions[0] || countries[0]} />
       )}
 
       {/* ── Filter bar ── */}
