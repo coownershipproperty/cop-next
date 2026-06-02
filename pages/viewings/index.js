@@ -51,42 +51,71 @@ function formatPrice(price, currency) {
 
 function buildJsonLd(viewings) {
   const base = 'https://co-ownership-property.com';
+  // Use today as the offer's validFrom (when the viewing slot became bookable)
+  const todayIso = new Date().toISOString().slice(0, 10);
+
   const events = viewings
     .filter(v => v.date) // only dated viewings make sense as Events
-    .map(v => ({
-      '@type': 'Event',
-      '@id': `${base}/viewings/#${v.id}`,
-      'name': `Private viewing — ${v.displayName}, ${v.city}`,
-      'startDate': v.date,
-      'eventAttendanceMode': 'https://schema.org/MixedEventAttendanceMode',
-      'eventStatus': 'https://schema.org/EventScheduled',
-      'location': [
-        {
-          '@type': 'Place',
-          'name': v.displayName,
-          'address': {
-            '@type': 'PostalAddress',
-            'addressLocality': v.city,
-            'addressRegion': v.region,
-            'addressCountry': v.country,
+    .map(v => {
+      // Viewings run for the day. Schema.org wants ISO datetimes — we model
+      // each viewing as a one-day window 09:00–18:00 local. This silences
+      // GSC's "missing endDate" warning while staying truthful (the viewing
+      // is on that day, not at a precise time).
+      const startDate = `${v.date}T09:00:00`;
+      const endDate   = `${v.date}T18:00:00`;
+      return {
+        '@type': 'Event',
+        '@id': `${base}/viewings/#${v.id}`,
+        'name': `Private viewing — ${v.displayName}, ${v.city}`,
+        'startDate': startDate,
+        'endDate': endDate,
+        'eventAttendanceMode': 'https://schema.org/MixedEventAttendanceMode',
+        'eventStatus': 'https://schema.org/EventScheduled',
+        // Image of the property being viewed (resolves the "missing image" warning)
+        'image': v.img ? [v.img] : undefined,
+        'location': [
+          {
+            '@type': 'Place',
+            'name': v.displayName,
+            'address': {
+              '@type': 'PostalAddress',
+              'addressLocality': v.city,
+              'addressRegion': v.region,
+              'addressCountry': v.country,
+            },
           },
+          {
+            '@type': 'VirtualLocation',
+            'url': `${base}/viewings/#viewing-request-form`,
+          },
+        ],
+        // Organizer needs an inline name as well as the @id reference so Google
+        // can render it without resolving the @id graph node first.
+        'organizer': {
+          '@type': 'Organization',
+          '@id': `${base}/#organization`,
+          'name': 'Co-Ownership Property',
+          'url': base + '/',
         },
-        {
-          '@type': 'VirtualLocation',
-          'url': `${base}/viewings/#viewing-request-form`,
+        // Performer = whoever runs the viewing. For a private viewing that's
+        // the COP team. Schema.org Event requires it for rich-result eligibility.
+        'performer': {
+          '@type': 'Organization',
+          'name': 'Co-Ownership Property',
+          'url': base + '/',
         },
-      ],
-      'organizer': { '@id': `${base}/#organization` },
-      'offers': {
-        '@type': 'Offer',
-        'url': `${base}/property/${v.propertySlug}/`,
-        'price': v.price,
-        'priceCurrency': v.currency,
-        'availability': 'https://schema.org/InStock',
-        'description': `${v.share} share`,
-      },
-      'description': v.blurb,
-    }));
+        'offers': {
+          '@type': 'Offer',
+          'url': `${base}/property/${v.propertySlug}/`,
+          'price': v.price,
+          'priceCurrency': v.currency,
+          'availability': 'https://schema.org/InStock',
+          'description': `${v.share} share`,
+          'validFrom': todayIso,
+        },
+        'description': v.blurb,
+      };
+    });
 
   return {
     '@context': 'https://schema.org',
