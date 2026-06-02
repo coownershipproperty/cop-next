@@ -6556,13 +6556,47 @@ body.has-geo-nudge .lvb-wrap { display: none !important; }
 }
 .geo-visit-form-fields {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "name email phone"
+    "message message submit";
   gap: 12px;
   align-items: end;
 }
+.geo-visit-form-fields .geo-visit-field:nth-of-type(1) { grid-area: name; }
+.geo-visit-form-fields .geo-visit-field:nth-of-type(2) { grid-area: email; }
+.geo-visit-form-fields .geo-visit-field:nth-of-type(3) { grid-area: phone; }
+.geo-visit-form-fields .geo-visit-field--message { grid-area: message; }
+.geo-visit-form-fields .geo-visit-submit-wrap { grid-area: submit; }
 .geo-visit-field {
   display: flex;
   flex-direction: column;
+}
+.geo-visit-optional {
+  font-weight: 500;
+  opacity: 0.7;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  font-size: 10px;
+  margin-left: 4px;
+}
+.geo-visit-field textarea {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 12px 14px;
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 14px;
+  outline: none;
+  resize: vertical;
+  min-height: 64px;
+  line-height: 1.5;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.geo-visit-field textarea::placeholder { color: rgba(255,255,255,0.4); }
+.geo-visit-field textarea:focus {
+  border-color: #C9A84C;
+  background: rgba(255,255,255,0.12);
 }
 .geo-visit-field label {
   font-family: 'Nunito Sans', Arial, sans-serif;
@@ -6633,6 +6667,12 @@ body.has-geo-nudge .lvb-wrap { display: none !important; }
   .geo-visit-form-title { font-size: 1.25rem; }
   .geo-visit-form-fields {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "name"
+      "email"
+      "phone"
+      "message"
+      "submit";
     gap: 14px;
   }
   .geo-visit-submit-wrap { margin-top: 4px; }

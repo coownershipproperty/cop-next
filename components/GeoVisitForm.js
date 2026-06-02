@@ -23,6 +23,7 @@ export default function GeoVisitForm({ destination }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState(''); // optional — visitor can leave it blank
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -47,13 +48,17 @@ export default function GeoVisitForm({ destination }) {
 
     const propertyTitle = `Live visit request — ${destination}`;
     const url = `https://co-ownership-property.com/our-homes/?country=&region=${encodeURIComponent(destination)}&fromGeo=1`;
+    const userNote = message.trim();
     const fullMessage = [
       `LIVE GEO-VISIT REQUEST`,
       `Detected destination: ${destination}`,
       `Phone: ${phone}`,
       '',
       `Visitor is currently in or near ${destination} and wants to organise a viewing while in town.`,
-    ].join('\n');
+      userNote ? '' : null,
+      userNote ? `Their note:` : null,
+      userNote ? userNote : null,
+    ].filter(line => line !== null).join('\n');
 
     try {
       const payload = {
@@ -156,6 +161,21 @@ export default function GeoVisitForm({ destination }) {
               placeholder="+34, +44, +33…"
               autoComplete="tel"
               required
+            />
+          </div>
+          {/* Optional message — full-width row below the three required fields,
+              shares the row with the submit button on desktop, stacks above
+              the button on mobile. */}
+          <div className="geo-visit-field geo-visit-field--message">
+            <label htmlFor="gvf-message">
+              Message <span className="geo-visit-optional">(optional)</span>
+            </label>
+            <textarea
+              id="gvf-message"
+              value={message}
+              onChange={e => setMessage(e.target.value)}
+              placeholder="Anything we should know — date range, properties you're curious about, group size…"
+              rows={3}
             />
           </div>
           <div className="geo-visit-submit-wrap">
