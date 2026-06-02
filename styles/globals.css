@@ -6341,6 +6341,177 @@ section.props-sec,
   .lvb-wrap.lvb-visible { transform: translateY(0); }
 }
 
+/* ── Geo-aware destination nudge ─────────────────────────────── */
+/* Sits bottom-right when the visitor's detected city matches a COP
+   destination. Subtler than LiveViewingsBadge — beige/cream chip with a
+   small gold pin icon, no pulse. Pairs visually with LiveViewings rather
+   than competing with it. If both fire at the same time on mobile, this
+   one stacks ABOVE LiveViewings (which is itself above the WhatsApp FAB). */
+.gdn-wrap {
+  position: fixed;
+  bottom: 88px;             /* desktop: ~24px above LiveViewings (which is at 24px) — they cluster bottom-right */
+  right: 24px;
+  z-index: 99997;           /* one less than LiveViewings (99998) so they stack predictably */
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gdn-wrap.gdn-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.gdn-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #FAF8F5;       /* cream-light */
+  color: #2C4A5E;            /* navy text */
+  padding: 11px 18px 11px 14px;
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 1px solid rgba(44,74,94,0.10);
+  box-shadow:
+    0 10px 28px rgba(44,74,94,0.18),
+    0 2px 6px rgba(44,74,94,0.10);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+.gdn-chip strong {
+  font-weight: 700;
+  color: #2C4A5E;
+}
+.gdn-chip:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 32px rgba(44,74,94,0.22),
+    0 3px 8px rgba(44,74,94,0.12);
+}
+.gdn-pin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #C9A84C;            /* gold pin to match LiveViewings eyebrow */
+  flex-shrink: 0;
+}
+.gdn-arrow {
+  font-size: 14px;
+  opacity: 0.55;
+  margin-left: 2px;
+  color: #2C4A5E;
+}
+.gdn-close {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  border: none;
+  font-size: 13px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1;
+}
+.gdn-close:hover { background: rgba(0,0,0,0.85); }
+
+@media (max-width: 768px) {
+  /* Mobile stacking from bottom:
+       WhatsApp FAB         at bottom: 8px (height ~44)
+       LiveViewingsBadge   at bottom: 64px
+       GeoDestinationNudge at bottom: 120px — clear of both */
+  .gdn-wrap {
+    bottom: 120px;
+    right: 12px;
+    transform: translateY(20px);
+  }
+  .gdn-wrap.gdn-visible { transform: translateY(0); }
+  .gdn-chip {
+    padding: 9px 14px 9px 12px;
+    font-size: 12px;
+    gap: 8px;
+  }
+  .gdn-arrow { font-size: 12px; }
+}
+
+/* ── "From your visit" banner shown on /our-homes/?fromGeo=1 ────── */
+.fromgeo-banner {
+  background: linear-gradient(135deg, #2C4A5E 0%, #344f64 100%);
+  color: #fff;
+  padding: 18px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 2px solid #C9A84C;
+  text-align: left;
+}
+.fromgeo-banner-icon {
+  width: 36px; height: 36px;
+  background: rgba(201,168,76,0.15);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #C9A84C;
+  flex-shrink: 0;
+}
+.fromgeo-banner-text {
+  flex: 1;
+  min-width: 220px;
+}
+.fromgeo-banner-text-eyebrow {
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin: 0 0 4px;
+}
+.fromgeo-banner-text-main {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
+}
+.fromgeo-banner-cta {
+  background: #C9A84C;
+  color: #2C4A5E;
+  padding: 10px 22px;
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+.fromgeo-banner-cta:hover {
+  background: #d6b659;
+}
+@media (max-width: 640px) {
+  .fromgeo-banner { padding: 14px 18px; }
+  .fromgeo-banner-text-main { font-size: 0.95rem; }
+}
+
 /* ── WhatsApp floating button ───────────────────────────────── */
 .wa-wrap { display: none; }
 

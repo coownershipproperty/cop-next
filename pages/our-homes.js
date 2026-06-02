@@ -378,6 +378,27 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   const [alertStatus,   setAlertStatus]   = useState('idle'); // idle | sending | done | error
   const [alertRegions,  setAlertRegions]  = useState([]);
   const [alertMaxPrice, setAlertMaxPrice] = useState('');
+  // Geo nudge → /our-homes/?country=Spain&region=Mallorca&fromGeo=1 lands the
+  // visitor here with the country+region filter pre-applied and a "currently
+  // in Mallorca? want to visit one?" banner at the top.
+  const [fromGeo, setFromGeo] = useState(false);
+
+  // Seed filter state from URL query on first render (router.isReady gate
+  // ensures router.query is populated). Runs once.
+  useEffect(() => {
+    if (!router.isReady) return;
+    const q = router.query;
+    if (q.country) {
+      const c = Array.isArray(q.country) ? q.country : [q.country];
+      setCountries(c);
+    }
+    if (q.region) {
+      const r = Array.isArray(q.region) ? q.region : [q.region];
+      setRegions(r);
+    }
+    if (q.fromGeo === '1') setFromGeo(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady]);
 
   // ── Toggle a country in/out of selection ────────────────────────────────────
   function toggleCountry(c) {
@@ -593,6 +614,29 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
         <h1>{t.h1}</h1>
         <p className="page-hero-sub">{t.sub}</p>
       </section>
+
+      {/* ── "Currently in {destination}?" visit banner ──
+          Shown only when the visitor arrived via the geo-aware nudge
+          (GeoDestinationNudge.js) which appends ?fromGeo=1 to the URL.
+          regions[0] is the destination they were detected near. */}
+      {fromGeo && regions.length > 0 && (
+        <div className="fromgeo-banner">
+          <span className="fromgeo-banner-icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 1.5C5.24 1.5 3 3.74 3 6.5c0 3.5 5 8 5 8s5-4.5 5-8c0-2.76-2.24-5-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"/>
+            </svg>
+          </span>
+          <div className="fromgeo-banner-text">
+            <p className="fromgeo-banner-text-eyebrow">Currently in {regions[0]}?</p>
+            <p className="fromgeo-banner-text-main">Browse the homes nearby below — pick one and we&apos;ll arrange a viewing while you&apos;re in town.</p>
+          </div>
+          <a href="#property-enquiry" className="fromgeo-banner-cta" onClick={(e) => {
+            e.preventDefault();
+            const el = document.getElementById('expert-form');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}>Request a visit →</a>
+        </div>
+      )}
 
       {/* ── Filter bar ── */}
       <div className="filter-bar" id="filter-bar">

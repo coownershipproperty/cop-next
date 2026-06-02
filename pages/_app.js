@@ -7,6 +7,7 @@ import Script from 'next/script';
 import { trackConversion } from '@/lib/gtag';
 import { Analytics } from '@vercel/analytics/react';
 import LiveViewingsBadge from '@/components/LiveViewingsBadge';
+import GeoDestinationNudge from '@/components/GeoDestinationNudge';
 
 const GA_ID = 'G-83RBNEXX4E';
 const GADS_ID = 'AW-4882418749';
@@ -113,6 +114,11 @@ export default function App({ Component, pageProps }) {
 
       {/* ── Live Viewings floating chip (bottom-right, sitewide) ── */}
       {!isGallery && <LiveViewingsBadge />}
+
+      {/* ── Geo-aware destination nudge ("In Mallorca? See homes nearby →") ──
+          Hidden on /our-homes/ and /gallery/ — the component handles its own
+          route gating, no need to gate at the mount point. */}
+      {!isGallery && <GeoDestinationNudge />}
 
       {/* ── WhatsApp floating button (mobile only, hidden on gallery) ── */}
       {!isGallery && !waDismissed && (
