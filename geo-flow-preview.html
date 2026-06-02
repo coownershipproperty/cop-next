@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Geo flow preview — chip + form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; font-family: 'Nunito Sans', sans-serif; color: #2C4A5E; background: #F5F2EC; }
+  .page-hero { background: linear-gradient(rgba(28,50,66,0.55), rgba(28,50,66,0.75)), url('https://images.unsplash.com/photo-1502780402662-acc01917cf7b?w=2000') center/cover; color: #fff; padding: 100px 6vw; text-align: center; min-height: 70vh; display: flex; flex-direction: column; justify-content: center; }
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 1rem; font-weight: 500; }
+  .page-hero .eyebrow { color: #C9A84C; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+  .step { background: #fff; padding: 18px 24px; border-bottom: 1px solid #DDD9D4; font-size: 13px; color: #6B8A9E; }
+  .step strong { color: #2C4A5E; }
+  .demo-controls { background: #fff; padding: 28px 6vw; border-top: 1px solid #DDD9D4; }
+  .demo-controls h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 0 0 0.8rem; font-weight: 500; }
+  .demo-controls p { color: #6B8A9E; margin: 0 0 1.2rem; line-height: 1.6; max-width: 720px; }
+  .demo-controls button { background: #2C4A5E; color: #fff; border: none; padding: 12px 22px; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; margin-right: 10px; margin-bottom: 10px; transition: background .2s; }
+  .demo-controls button:hover { background: #344f64; }
+  .demo-controls button.alt { background: #fff; color: #2C4A5E; border: 1px solid #2C4A5E; }
+  .filler { background: #F5F2EC; padding: 80px 6vw; text-align: center; color: #6B8A9E; }
+
+  /* ─── CHIP (matches the production GeoDestinationNudge) ─── */
+  .gdn-wrap { position: fixed; bottom: 24px; right: 24px; z-index: 99998; display: flex; align-items: center; opacity: 0; transform: translateY(14px); pointer-events: none; transition: opacity .5s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+  .gdn-wrap.gdn-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .gdn-chip { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #2C4A5E; padding: 11px 18px 11px 14px; font-size: 13px; font-weight: 600; letter-spacing: .04em; text-decoration: none; border: 1px solid rgba(44,74,94,.10); box-shadow: 0 10px 28px rgba(44,74,94,.18), 0 2px 6px rgba(44,74,94,.10), 0 0 0 0 rgba(224,49,49,0); animation: gdn-chip-glow 2.8s ease-in-out infinite; transition: transform .2s ease, background .2s ease; white-space: nowrap; }
+  .gdn-chip:hover { background: #FAF8F5; transform: translateY(-2px); }
+  @keyframes gdn-chip-glow {
+    0%, 100% { box-shadow: 0 10px 28px rgba(44,74,94,.18), 0 2px 6px rgba(44,74,94,.10), 0 0 0 0 rgba(224,49,49,0); }
+    50%      { box-shadow: 0 10px 28px rgba(44,74,94,.18), 0 2px 6px rgba(44,74,94,.10), 0 0 0 6px rgba(224,49,49,.14); }
+  }
+  .gdn-dot { position: relative; width: 10px; height: 10px; display: inline-block; flex-shrink: 0; }
+  .gdn-dot-core { position: absolute; inset: 0; background: #E03131; border-radius: 50%; }
+  .gdn-dot-pulse { position: absolute; inset: 0; background: #E03131; border-radius: 50%; opacity: 0.7; animation: gdn-pulse 1.6s ease-out infinite; }
+  @keyframes gdn-pulse { 0% { transform: scale(1); opacity: 0.7; } 70% { transform: scale(2.4); opacity: 0; } 100% { transform: scale(2.4); opacity: 0; } }
+  .gdn-label-main { font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 500; letter-spacing: 0.02em; color: #2C4A5E; }
+  .gdn-label-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #B58C2A; }
+  .gdn-arrow { font-size: 14px; opacity: 0.55; margin-left: 2px; color: #2C4A5E; }
+  .gdn-close { position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; border-radius: 50%; background: rgba(0,0,0,.65); color: #fff; border: none; font-size: 13px; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; z-index: 1; }
+
+  /* ─── FORM (matches production GeoVisitForm) ─── */
+  .geo-visit-form { background: linear-gradient(135deg, #2C4A5E 0%, #344f64 100%); border-bottom: 2px solid #C9A84C; padding: 40px 24px; display: none; }
+  .geo-visit-form.show { display: block; }
+  .geo-visit-form-inner { max-width: 980px; margin: 0 auto; }
+  .geo-visit-form-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; color: #fff; }
+  .geo-visit-form-pulse { position: relative; width: 14px; height: 14px; flex-shrink: 0; }
+  .geo-visit-form-pulse-core { position: absolute; inset: 0; background: #E03131; border-radius: 50%; }
+  .geo-visit-form-pulse-ring { position: absolute; inset: 0; background: #E03131; border-radius: 50%; opacity: 0.7; animation: gvf-pulse 1.6s ease-out infinite; }
+  @keyframes gvf-pulse { 0% { transform: scale(1); opacity: 0.7; } 70% { transform: scale(2.4); opacity: 0; } 100% { transform: scale(2.4); opacity: 0; } }
+  .geo-visit-form-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #C9A84C; margin: 0 0 4px; }
+  .geo-visit-form-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 500; margin: 0; line-height: 1.3; color: #fff; }
+  .geo-visit-form-title em { font-style: italic; color: #C9A84C; font-weight: 500; }
+  .geo-visit-form-fields { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; align-items: end; }
+  .geo-visit-field { display: flex; flex-direction: column; }
+  .geo-visit-field label { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #C9A84C; margin-bottom: 6px; }
+  .geo-visit-field input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 12px 14px; font-size: 14px; outline: none; }
+  .geo-visit-field input::placeholder { color: rgba(255,255,255,0.4); }
+  .geo-visit-field input:focus { border-color: #C9A84C; background: rgba(255,255,255,0.12); }
+  .geo-visit-submit { background: #C9A84C; color: #2C4A5E; border: none; padding: 14px 28px; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; }
+  .geo-visit-footnote { font-size: 12px; color: rgba(255,255,255,0.55); margin: 14px 0 0; }
+  .geo-visit-success { background: linear-gradient(135deg, #2C4A5E 0%, #344f64 100%); border-bottom: 2px solid #C9A84C; padding: 36px 24px; color: #fff; display: none; }
+  .geo-visit-success.show { display: block; }
+  .geo-visit-success-inner { max-width: 980px; margin: 0 auto; display: flex; gap: 18px; align-items: center; }
+  .geo-visit-success-icon { width: 48px; height: 48px; background: rgba(201,168,76,0.15); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .geo-visit-success-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 500; margin: 0 0 6px; }
+  .geo-visit-success-sub { font-size: 14px; color: rgba(255,255,255,0.75); margin: 0; line-height: 1.5; }
+  @media (max-width: 800px) {
+    .geo-visit-form-fields { grid-template-columns: 1fr; }
+    .geo-visit-submit { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Form (renders at top of /our-homes/ when fromGeo=1) -->
+<section class="geo-visit-form" id="form">
+  <div class="geo-visit-form-inner">
+    <div class="geo-visit-form-header">
+      <span class="geo-visit-form-pulse" aria-hidden="true">
+        <span class="geo-visit-form-pulse-ring"></span>
+        <span class="geo-visit-form-pulse-core"></span>
+      </span>
+      <div>
+        <p class="geo-visit-form-eyebrow">Live viewing</p>
+        <h2 class="geo-visit-form-title">I'm in <em>Mallorca</em> — organise a viewing</h2>
+      </div>
+    </div>
+    <form class="geo-visit-form-fields" onsubmit="event.preventDefault(); document.getElementById('form').classList.remove('show'); document.getElementById('success').classList.add('show'); window.scrollTo({top:0,behavior:'smooth'});">
+      <div class="geo-visit-field"><label>Name</label><input type="text" placeholder="Your full name" required></div>
+      <div class="geo-visit-field"><label>Email</label><input type="email" placeholder="you@email.com" required></div>
+      <div class="geo-visit-field"><label>Phone</label><input type="tel" placeholder="+34, +44, +33…" required></div>
+      <div><button type="submit" class="geo-visit-submit">Request viewing →</button></div>
+    </form>
+    <p class="geo-visit-footnote">We'll call or email within a few hours — usually faster.</p>
+  </div>
+</section>
+
+<!-- Success state (after form submit) -->
+<section class="geo-visit-success" id="success">
+  <div class="geo-visit-success-inner">
+    <div class="geo-visit-success-icon">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none"><path d="M20 6L9 17l-5-5" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div>
+      <h2 class="geo-visit-success-title">We'll get in touch soon to organise the viewing!</h2>
+      <p class="geo-visit-success-sub">In the meantime, browse the homes nearby below — let us know which one catches your eye and we'll prioritise it for your viewing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Page hero (the homepage / any non-/our-homes/ page) -->
+<div class="page-hero" id="hero">
+  <span class="eyebrow">Your window to the</span>
+  <h1>world's finest co-ownership</h1>
+  <p style="opacity:0.7; margin-top: 1rem; font-size: 14px;">↓ Scroll down to see the chip activate</p>
+</div>
+
+<div class="step">
+  <strong>Step 1:</strong> Visitor in Palma loads any COP page. Vercel attaches geo headers <code>x-vercel-ip-city: Palma</code>, <code>x-vercel-ip-country: ES</code>. <br>
+  <strong>Step 2:</strong> <code>/api/geo-match</code> matches "palma" → Mallorca destination. <br>
+  <strong>Step 3:</strong> Visitor scrolls past 220px → chip appears bottom-right with red pulsing dot. <br>
+  <strong>Step 4:</strong> Click chip → lands on <code>/our-homes/?country=Spain&region=Mallorca&fromGeo=1</code> showing the form above plus 17 Mallorca properties below it.
+</div>
+
+<div class="demo-controls">
+  <h3>Try the flow</h3>
+  <p>This is a clickable preview. The real version detects city automatically from the visitor's IP via Vercel edge geo headers — no dev override needed in production.</p>
+  <button onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'}); setTimeout(() => window.scrollTo({top: 400, behavior: 'smooth'}), 600);">▶ Scroll hero → trigger chip</button>
+  <button class="alt" onclick="document.querySelector('.gdn-wrap').click(); document.getElementById('form').classList.add('show'); document.getElementById('success').classList.remove('show'); window.scrollTo({top: 0, behavior: 'smooth'});">▶ Simulate chip click → form appears at top</button>
+  <button class="alt" onclick="document.getElementById('form').classList.remove('show'); document.getElementById('success').classList.add('show'); window.scrollTo({top: 0, behavior: 'smooth'});">▶ Simulate form submit → success state</button>
+</div>
+
+<div class="filler">↓ (Below this, /our-homes/ would render the filtered Mallorca property grid)</div>
+<div class="filler" style="padding: 60px 6vw; background:#FAF8F5;">Filtered listings would go here</div>
+<div class="filler">More listings…</div>
+<div class="filler" style="background:#FAF8F5;">More listings…</div>
+
+<!-- Chip (production GeoDestinationNudge component) -->
+<div class="gdn-wrap" id="chip">
+  <a href="#" class="gdn-chip" onclick="event.preventDefault(); document.getElementById('form').classList.add('show'); document.getElementById('success').classList.remove('show'); window.scrollTo({top: 0, behavior: 'smooth'});">
+    <span class="gdn-dot"><span class="gdn-dot-pulse"></span><span class="gdn-dot-core"></span></span>
+    <span class="gdn-label-main">Mallorca</span>
+    <span class="gdn-label-eyebrow">Live viewing</span>
+    <span class="gdn-arrow">→</span>
+  </a>
+  <button class="gdn-close" onclick="document.getElementById('chip').style.display='none'">×</button>
+</div>
+
+<script>
+  // Mirror scroll-reveal logic from the React component
+  const chip = document.getElementById('chip');
+  function update() {
+    if (window.scrollY > 220) chip.classList.add('gdn-visible');
+    else chip.classList.remove('gdn-visible');
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+</script>
+
+</body>
+</html>

@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
+import GeoVisitForm from '@/components/GeoVisitForm';
 import { track } from '@vercel/analytics';
 import { localeFromPath } from '@/lib/i18n';
 
@@ -615,27 +616,14 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
         <p className="page-hero-sub">{t.sub}</p>
       </section>
 
-      {/* ── "Currently in {destination}?" visit banner ──
+      {/* ── "I'm in {destination}, organise a viewing" form ──
           Shown only when the visitor arrived via the geo-aware nudge
           (GeoDestinationNudge.js) which appends ?fromGeo=1 to the URL.
-          regions[0] is the destination they were detected near. */}
+          Captures name + email + phone, posts to /api/enquiry with the
+          destination preset so the team gets a notification + auto-reply
+          fires using the standard enquiry pipeline. */}
       {fromGeo && regions.length > 0 && (
-        <div className="fromgeo-banner">
-          <span className="fromgeo-banner-icon" aria-hidden="true">
-            <svg viewBox="0 0 16 16" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 1.5C5.24 1.5 3 3.74 3 6.5c0 3.5 5 8 5 8s5-4.5 5-8c0-2.76-2.24-5-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"/>
-            </svg>
-          </span>
-          <div className="fromgeo-banner-text">
-            <p className="fromgeo-banner-text-eyebrow">Currently in {regions[0]}?</p>
-            <p className="fromgeo-banner-text-main">Browse the homes nearby below — pick one and we&apos;ll arrange a viewing while you&apos;re in town.</p>
-          </div>
-          <a href="#property-enquiry" className="fromgeo-banner-cta" onClick={(e) => {
-            e.preventDefault();
-            const el = document.getElementById('expert-form');
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }}>Request a visit →</a>
-        </div>
+        <GeoVisitForm destination={regions[0]} />
       )}
 
       {/* ── Filter bar ── */}

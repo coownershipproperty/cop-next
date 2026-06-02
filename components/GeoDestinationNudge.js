@@ -65,6 +65,17 @@ export default function GeoDestinationNudge() {
     return () => { cancelled = true; };
   }, [hideOnRoute]);
 
+  // Tag the body when this chip is actively shown so the generic
+  // LiveViewingsBadge can yield via CSS (`body.has-geo-nudge .lvb-wrap{display:none}`).
+  // Avoids the bottom-right cluster showing two near-identical red-pulse chips.
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const shouldTag = !!match && !dismissed && !hideOnRoute;
+    if (shouldTag) document.body.classList.add('has-geo-nudge');
+    else document.body.classList.remove('has-geo-nudge');
+    return () => document.body.classList.remove('has-geo-nudge');
+  }, [match, dismissed, hideOnRoute]);
+
   // Reveal on scroll (mirrors LiveViewingsBadge so the entrance feels consistent)
   useEffect(() => {
     if (!match || dismissed) return;
@@ -96,17 +107,19 @@ export default function GeoDestinationNudge() {
   // show the "Want to visit one of these homes?" banner at the top.
   const targetUrl = `/our-homes/?country=${encodeURIComponent(match.country)}&region=${encodeURIComponent(match.region)}&fromGeo=1`;
 
+  // Strip leading articles from labels like "the Côte d'Azur" → "Côte d'Azur"
+  // so the chip reads "Côte d'Azur live viewing" not "the Côte d'Azur live viewing".
+  const cleanLabel = String(match.label).replace(/^the\s+/i, '');
+
   return (
-    <div className={`gdn-wrap${visible ? ' gdn-visible' : ''}`} role="status" aria-label={`Co-ownership homes near ${match.label}`}>
-      <Link href={targetUrl} className="gdn-chip" onClick={handleClick} aria-label={`See ${match.count} homes near ${match.label}`}>
-        <span className="gdn-pin" aria-hidden="true">
-          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 1.5C5.24 1.5 3 3.74 3 6.5c0 3.5 5 8 5 8s5-4.5 5-8c0-2.76-2.24-5-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"/>
-          </svg>
+    <div className={`gdn-wrap${visible ? ' gdn-visible' : ''}`} role="status" aria-label={`Live viewing available near ${cleanLabel}`}>
+      <Link href={targetUrl} className="gdn-chip" onClick={handleClick} aria-label={`Request a viewing in ${cleanLabel}`}>
+        <span className="gdn-dot" aria-hidden="true">
+          <span className="gdn-dot-pulse" />
+          <span className="gdn-dot-core" />
         </span>
-        <span className="gdn-text">
-          In <strong>{match.label}</strong>? See homes nearby
-        </span>
+        <span className="gdn-label-main">{cleanLabel}</span>
+        <span className="gdn-label-eyebrow">Live viewing</span>
         <span className="gdn-arrow" aria-hidden="true">→</span>
       </Link>
       <button type="button" className="gdn-close" onClick={handleClose} aria-label="Dismiss">

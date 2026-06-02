@@ -6342,16 +6342,17 @@ section.props-sec,
 }
 
 /* ── Geo-aware destination nudge ─────────────────────────────── */
-/* Sits bottom-right when the visitor's detected city matches a COP
-   destination. Subtler than LiveViewingsBadge — beige/cream chip with a
-   small gold pin icon, no pulse. Pairs visually with LiveViewings rather
-   than competing with it. If both fire at the same time on mobile, this
-   one stacks ABOVE LiveViewings (which is itself above the WhatsApp FAB). */
+/* Same visual language as LiveViewingsBadge — white chip, red pulsing dot,
+   navy serif destination name, gold "LIVE VIEWING" eyebrow. When this chip
+   is mounted, the generic LiveViewingsBadge auto-hides (via the body class
+   below) so the bottom-right corner never shows two near-identical chips. */
+body.has-geo-nudge .lvb-wrap { display: none !important; }
+
 .gdn-wrap {
   position: fixed;
-  bottom: 88px;             /* desktop: ~24px above LiveViewings (which is at 24px) — they cluster bottom-right */
+  bottom: 24px;
   right: 24px;
-  z-index: 99997;           /* one less than LiveViewings (99998) so they stack predictably */
+  z-index: 99998;            /* same level as LiveViewings — but LiveViewings is hidden when this is active */
   display: flex;
   align-items: center;
   opacity: 0;
@@ -6368,38 +6369,80 @@ section.props-sec,
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #FAF8F5;       /* cream-light */
-  color: #2C4A5E;            /* navy text */
+  background: #ffffff;
+  color: #2C4A5E;
   padding: 11px 18px 11px 14px;
   font-family: 'Nunito Sans', Arial, sans-serif;
   font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-decoration: none;
   border: 1px solid rgba(44,74,94,0.10);
   box-shadow:
     0 10px 28px rgba(44,74,94,0.18),
-    0 2px 6px rgba(44,74,94,0.10);
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    0 2px 6px rgba(44,74,94,0.10),
+    0 0 0 0 rgba(224,49,49,0.0);
+  animation: gdn-chip-glow 2.8s ease-in-out infinite;
+  transition: transform 0.2s ease, background 0.2s ease;
   white-space: nowrap;
 }
-.gdn-chip strong {
-  font-weight: 700;
+.gdn-chip:hover {
+  background: #FAF8F5;
+  transform: translateY(-2px);
+}
+@keyframes gdn-chip-glow {
+  0%, 100% {
+    box-shadow:
+      0 10px 28px rgba(44,74,94,0.18),
+      0 2px 6px rgba(44,74,94,0.10),
+      0 0 0 0 rgba(224,49,49,0.0);
+  }
+  50% {
+    box-shadow:
+      0 10px 28px rgba(44,74,94,0.18),
+      0 2px 6px rgba(44,74,94,0.10),
+      0 0 0 6px rgba(224,49,49,0.14);
+  }
+}
+.gdn-dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.gdn-dot-core {
+  position: absolute;
+  inset: 0;
+  background: #E03131;
+  border-radius: 50%;
+}
+.gdn-dot-pulse {
+  position: absolute;
+  inset: 0;
+  background: #E03131;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: gdn-pulse 1.6s ease-out infinite;
+}
+@keyframes gdn-pulse {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  70%  { transform: scale(2.4); opacity: 0;   }
+  100% { transform: scale(2.4); opacity: 0;   }
+}
+.gdn-label-main {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   color: #2C4A5E;
 }
-.gdn-chip:hover {
-  background: #ffffff;
-  transform: translateY(-2px);
-  box-shadow:
-    0 14px 32px rgba(44,74,94,0.22),
-    0 3px 8px rgba(44,74,94,0.12);
-}
-.gdn-pin {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #C9A84C;            /* gold pin to match LiveViewings eyebrow */
-  flex-shrink: 0;
+.gdn-label-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #B58C2A;
 }
 .gdn-arrow {
   font-size: 14px;
@@ -6429,12 +6472,8 @@ section.props-sec,
 .gdn-close:hover { background: rgba(0,0,0,0.85); }
 
 @media (max-width: 768px) {
-  /* Mobile stacking from bottom:
-       WhatsApp FAB         at bottom: 8px (height ~44)
-       LiveViewingsBadge   at bottom: 64px
-       GeoDestinationNudge at bottom: 120px — clear of both */
   .gdn-wrap {
-    bottom: 120px;
+    bottom: 64px;
     right: 12px;
     transform: translateY(20px);
   }
@@ -6444,72 +6483,195 @@ section.props-sec,
     font-size: 12px;
     gap: 8px;
   }
+  .gdn-label-main { font-size: 14px; }
+  .gdn-label-eyebrow { font-size: 9px; }
   .gdn-arrow { font-size: 12px; }
+  .gdn-dot { width: 8px; height: 8px; }
 }
 
-/* ── "From your visit" banner shown on /our-homes/?fromGeo=1 ────── */
-.fromgeo-banner {
+/* ── Geo-visit form (shown on /our-homes/?fromGeo=1) ─────────── */
+.geo-visit-form {
   background: linear-gradient(135deg, #2C4A5E 0%, #344f64 100%);
-  color: #fff;
-  padding: 18px 24px;
+  border-bottom: 2px solid #C9A84C;
+  padding: 40px 24px;
+}
+.geo-visit-form-inner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+.geo-visit-form-header {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
-  border-bottom: 2px solid #C9A84C;
-  text-align: left;
+  margin-bottom: 24px;
+  color: #fff;
 }
-.fromgeo-banner-icon {
-  width: 36px; height: 36px;
+.geo-visit-form-pulse {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.geo-visit-form-pulse-core {
+  position: absolute;
+  inset: 0;
+  background: #E03131;
+  border-radius: 50%;
+}
+.geo-visit-form-pulse-ring {
+  position: absolute;
+  inset: 0;
+  background: #E03131;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: gvf-pulse 1.6s ease-out infinite;
+}
+@keyframes gvf-pulse {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  70%  { transform: scale(2.4); opacity: 0;   }
+  100% { transform: scale(2.4); opacity: 0;   }
+}
+.geo-visit-form-eyebrow {
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin: 0 0 4px;
+}
+.geo-visit-form-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.3;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+.geo-visit-form-title em {
+  font-style: italic;
+  color: #C9A84C;
+  font-weight: 500;
+}
+.geo-visit-form-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+.geo-visit-field {
+  display: flex;
+  flex-direction: column;
+}
+.geo-visit-field label {
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin-bottom: 6px;
+}
+.geo-visit-field input {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 12px 14px;
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.geo-visit-field input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+.geo-visit-field input:focus {
+  border-color: #C9A84C;
+  background: rgba(255,255,255,0.12);
+}
+.geo-visit-submit-wrap {
+  display: flex;
+  align-items: flex-end;
+}
+.geo-visit-submit {
+  background: #C9A84C;
+  color: #2C4A5E;
+  border: none;
+  padding: 14px 28px;
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.geo-visit-submit:hover:not(:disabled) {
+  background: #d6b659;
+  transform: translateY(-1px);
+}
+.geo-visit-submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.geo-visit-error {
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 13px;
+  color: #ffb4b4;
+  margin: 12px 0 0;
+}
+.geo-visit-footnote {
+  font-family: 'Nunito Sans', Arial, sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  margin: 14px 0 0;
+}
+@media (max-width: 800px) {
+  .geo-visit-form { padding: 32px 18px; }
+  .geo-visit-form-title { font-size: 1.25rem; }
+  .geo-visit-form-fields {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .geo-visit-submit-wrap { margin-top: 4px; }
+  .geo-visit-submit { width: 100%; }
+}
+
+/* ── Geo-visit success state ─────────────────────────────────── */
+.geo-visit-form--success { padding: 36px 24px; }
+.geo-visit-form--success .geo-visit-form-inner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.geo-visit-success-icon {
+  width: 48px; height: 48px;
   background: rgba(201,168,76,0.15);
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #C9A84C;
   flex-shrink: 0;
 }
-.fromgeo-banner-text {
-  flex: 1;
-  min-width: 220px;
-}
-.fromgeo-banner-text-eyebrow {
-  font-family: 'Nunito Sans', Arial, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #C9A84C;
-  margin: 0 0 4px;
-}
-.fromgeo-banner-text-main {
+.geo-visit-success-title {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   font-weight: 500;
-  margin: 0;
-  line-height: 1.4;
+  color: #fff;
+  margin: 0 0 6px;
 }
-.fromgeo-banner-cta {
-  background: #C9A84C;
-  color: #2C4A5E;
-  padding: 10px 22px;
+.geo-visit-success-sub {
   font-family: 'Nunito Sans', Arial, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.2s ease;
-}
-.fromgeo-banner-cta:hover {
-  background: #d6b659;
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  margin: 0;
+  line-height: 1.5;
 }
 @media (max-width: 640px) {
-  .fromgeo-banner { padding: 14px 18px; }
-  .fromgeo-banner-text-main { font-size: 0.95rem; }
+  .geo-visit-form--success .geo-visit-form-inner { flex-direction: column; text-align: center; }
+  .geo-visit-success-title { font-size: 1.15rem; }
 }
 
 /* ── WhatsApp floating button ───────────────────────────────── */
