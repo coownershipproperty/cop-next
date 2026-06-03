@@ -129,6 +129,68 @@ export default function HowItWorks() {
                   }
                 }
               ]
+            },
+            {
+              "@type": "HowTo",
+              "@id": "https://co-ownership-property.com/how-it-works/#howto",
+              "name": "How to buy a fractional co-ownership share",
+              "description": "The step-by-step process of acquiring a deeded fractional share in a luxury second home through the Co-Ownership Property marketplace.",
+              "totalTime": "P6W",
+              "estimatedCost": {
+                "@type": "MonetaryAmount",
+                "currency": "EUR",
+                "minValue": 100000,
+                "maxValue": 2000000
+              },
+              "tool": [
+                { "@type": "HowToTool", "name": "Reservation contract" },
+                { "@type": "HowToTool", "name": "Cooling-off period waiver (optional)" },
+                { "@type": "HowToTool", "name": "Share-transfer documentation (in English)" }
+              ],
+              "step": [
+                {
+                  "@type": "HowToStep",
+                  "position": 1,
+                  "name": "Browse and compare properties",
+                  "text": "Start at /our-homes/ to browse ~330 live fractional listings across 30+ destinations. Filter by country, region, share price, and partner operator. Use the comparison pages (/compare/) to evaluate operators side-by-side: Pacaso vs MYNE, MYNE vs Vivla, fractional vs timeshare, fractional vs whole second home.",
+                  "url": "https://co-ownership-property.com/our-homes/"
+                },
+                {
+                  "@type": "HowToStep",
+                  "position": 2,
+                  "name": "Request property details and unlock photos",
+                  "text": "On any property page, request exclusive photos and the full property pack. You'll receive the full image gallery and a member of the COP team will be in touch within a few hours to walk you through pricing, the LLC structure, the booking calendar, and any operator-specific nuances.",
+                  "url": "https://co-ownership-property.com/our-homes/"
+                },
+                {
+                  "@type": "HowToStep",
+                  "position": 3,
+                  "name": "Reserve your share",
+                  "text": "Sign the reservation contract and pay a small deposit. The deposit is fully refundable during the cooling-off period (typically 14 days in France, similar in other EU jurisdictions). The reservation locks in your specific share number and entry into the LLC.",
+                  "url": "https://co-ownership-property.com/buying-a-co-ownership-property-faqs/"
+                },
+                {
+                  "@type": "HowToStep",
+                  "position": 4,
+                  "name": "Legal due diligence and share-transfer documentation",
+                  "text": "The operator's legal team prepares the share-transfer documentation in both English and the local language. You receive the LLC operating agreement, the property deed, the management agreement, and the booking rotation rules. Review with your own counsel if you wish — COP can introduce you to specialist cross-border real estate lawyers.",
+                  "url": "https://co-ownership-property.com/buying-a-co-ownership-property-faqs/"
+                },
+                {
+                  "@type": "HowToStep",
+                  "position": 5,
+                  "name": "Settlement and completion",
+                  "text": "On completion (typically 4–8 weeks after reservation for cash buyers; longer if financing is involved), the share is transferred to your name, you receive the keys and booking-system credentials, and the property becomes immediately available for use. You're now a deeded co-owner.",
+                  "url": "https://co-ownership-property.com/buying-a-co-ownership-property-faqs/"
+                },
+                {
+                  "@type": "HowToStep",
+                  "position": 6,
+                  "name": "Use, rent, swap or sell",
+                  "text": "Book your weeks through the operator's booking platform. Rent out unused weeks (where the operator permits) for rental income. Swap weeks with other co-owners or other COP properties via the operator's exchange program. When you're ready to exit, list your share through the operator's supported resale process — typical timeline is around a month, well below the 6–24 months whole-property resales typically take.",
+                  "url": "https://co-ownership-property.com/staying-in-my-co-ownership-property-faqs/"
+                }
+              ]
             }
           ]
         }) }} />
@@ -357,6 +419,9 @@ export default function HowItWorks() {
             <a href="#speak-to-expert" className="btn btn-gold">Speak to an Expert</a>
             <a href="#newsletter" className="btn btn-blue">Join Our Newsletter</a>
         </div>
+        <p style={{marginTop: '1.6rem', fontSize: '0.92rem'}}>
+            Still researching? Browse our <a href="/faq/">independent buyer&rsquo;s Q&amp;A</a> covering pricing, resale, LLC structure, tax and the difference from timeshare.
+        </p>
     </section>
 
     {/* ===== 2. HOW THE LLC MODEL WORKS ===== */}

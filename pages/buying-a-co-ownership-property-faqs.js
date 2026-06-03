@@ -123,6 +123,9 @@ export default function BuyingFAQs() {
         <p className="eyebrow">Buyer Guides</p>
         <h1>Buying a Co-Ownership Property — <em>FAQs</em></h1>
         <p className="subtitle">Everything you need to know about purchasing a fractional share — from legal structure and costs to the buying process and beyond.</p>
+        <p className="subtitle" style={{marginTop: '0.6rem', fontSize: '0.95rem'}}>
+          Looking for shorter, single-question answers? See our independent <a href="/faq/">buyer&rsquo;s Q&amp;A</a> covering pricing, resale, LLC structure, tax, and the difference from timeshare.
+        </p>
       </section>
 
       {/* FAQ Accordion */}

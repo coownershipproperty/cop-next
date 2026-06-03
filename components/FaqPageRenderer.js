@@ -5,13 +5,42 @@
  * Mirrors the structure of ComparePageRenderer.
  *
  * Each page emits Schema.org @graph: WebPage + Article + FAQPage +
- * BreadcrumbList. The Article author is linked by @id to the canonical
- * David Person on /about-us/ for cross-page entity reconciliation.
+ * BreadcrumbList + SpeakableSpecification. When entry.howToSteps is
+ * present, also emits HowTo. When entry.aboutEntities is present, each
+ * is added to Article.about as a structured entity reference (with
+ * Wikidata sameAs URI for AI-engine entity resolution).
  *
- * Each FAQ page is built around ONE question and answer (the headline H1
- * is the question, the body is the answer). Optional sub-questions inside
- * the body are also captured as additional FAQPage entries.
+ * The Article author is linked by @id to the canonical David Person on
+ * /about-us/ for cross-page entity reconciliation.
  */
+
+/**
+ * Canonical Wikidata Q-IDs for the entities we mention most often.
+ * Used by aboutEntities[] in faq-meta.json to wire entity sameAs links
+ * into Article.about — improves AI-engine entity resolution markedly.
+ */
+const WIKIDATA_ENTITIES = {
+  'fractional-ownership': { name: 'Fractional ownership', wikidata: 'https://www.wikidata.org/wiki/Q5475747' },
+  'timeshare': { name: 'Timeshare', wikidata: 'https://www.wikidata.org/wiki/Q1370773' },
+  'llc': { name: 'Limited liability company', wikidata: 'https://www.wikidata.org/wiki/Q213600' },
+  'real-estate': { name: 'Real estate', wikidata: 'https://www.wikidata.org/wiki/Q43229' },
+  'mallorca': { name: 'Mallorca', wikidata: 'https://www.wikidata.org/wiki/Q5765' },
+  'ibiza': { name: 'Ibiza', wikidata: 'https://www.wikidata.org/wiki/Q47554' },
+  'cote-dazur': { name: "Côte d'Azur", wikidata: 'https://www.wikidata.org/wiki/Q170499' },
+  'costa-del-sol': { name: 'Costa del Sol', wikidata: 'https://www.wikidata.org/wiki/Q176760' },
+  'aspen': { name: 'Aspen, Colorado', wikidata: 'https://www.wikidata.org/wiki/Q484672' },
+  'lake-tahoe': { name: 'Lake Tahoe', wikidata: 'https://www.wikidata.org/wiki/Q41183' },
+  'park-city': { name: 'Park City, Utah', wikidata: 'https://www.wikidata.org/wiki/Q500461' },
+  'french-alps': { name: 'French Alps', wikidata: 'https://www.wikidata.org/wiki/Q1372112' },
+  'lake-como': { name: 'Lake Como', wikidata: 'https://www.wikidata.org/wiki/Q14367' },
+  'algarve': { name: 'Algarve', wikidata: 'https://www.wikidata.org/wiki/Q12431' },
+  'tuscany': { name: 'Tuscany', wikidata: 'https://www.wikidata.org/wiki/Q1273' },
+  'cotswolds': { name: 'Cotswolds', wikidata: 'https://www.wikidata.org/wiki/Q1136094' },
+  'sci': { name: 'Société civile immobilière', wikidata: 'https://www.wikidata.org/wiki/Q3488404' },
+  'second-home': { name: 'Second home', wikidata: 'https://www.wikidata.org/wiki/Q2627754' },
+  'ifi': { name: 'French wealth tax (IFI)', wikidata: 'https://www.wikidata.org/wiki/Q3091812' },
+  'stamp-duty': { name: 'Stamp duty', wikidata: 'https://www.wikidata.org/wiki/Q2624037' },
+};
 
 import Head from 'next/head';
 import Header from '@/components/Header';
@@ -35,6 +64,17 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
     ...(Array.isArray(faqs) ? faqs : []),
   ];
 
+  // Resolve aboutEntities[] strings -> structured entity references with
+  // Wikidata sameAs links. Unknown keys are silently dropped.
+  const aboutEntities = (Array.isArray(entry.aboutEntities) ? entry.aboutEntities : [])
+    .map(k => WIKIDATA_ENTITIES[k])
+    .filter(Boolean)
+    .map(e => ({
+      "@type": "Thing",
+      "name": e.name,
+      "sameAs": e.wikidata,
+    }));
+
   const graph = [
     {
       "@type": "WebPage",
@@ -48,6 +88,12 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
       "mainEntity": { "@id": canonicalUrl + "#article" },
       "publisher": { "@id": SITE_URL + "/#organization" },
       "breadcrumb": { "@id": canonicalUrl + "#breadcrumb" },
+      // SpeakableSpecification — marks the TLDR + H1 as the speakable answer
+      // for voice assistants (Alexa, Google Assistant, Siri).
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [".faq-tldr", ".compare-h1"],
+      },
     },
     {
       "@type": "Article",
@@ -69,6 +115,7 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
       "publisher": { "@id": SITE_URL + "/#organization" },
       "isPartOf": { "@id": canonicalUrl + "#webpage" },
       "mainEntityOfPage": { "@id": canonicalUrl + "#webpage" },
+      ...(aboutEntities.length > 0 ? { "about": aboutEntities } : {}),
     },
     {
       "@type": "FAQPage",
@@ -80,6 +127,22 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
         "acceptedAnswer": { "@type": "Answer", "text": f.answer },
       })),
     },
+    // HowTo schema — only emitted when entry.howToSteps is present
+    // (typically on "how does X work" pages). Cleaner AEO signal than
+    // FAQPage alone for procedural answers.
+    ...(Array.isArray(entry.howToSteps) && entry.howToSteps.length > 0 ? [{
+      "@type": "HowTo",
+      "@id": canonicalUrl + "#howto",
+      "name": entry.h1,
+      "description": entry.shortAnswer,
+      "inLanguage": locale,
+      "step": entry.howToSteps.map((s, i) => ({
+        "@type": "HowToStep",
+        "position": i + 1,
+        "name": s.name,
+        "text": s.text,
+      })),
+    }] : []),
     {
       "@type": "BreadcrumbList",
       "@id": canonicalUrl + "#breadcrumb",

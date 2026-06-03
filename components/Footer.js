@@ -22,7 +22,8 @@ const FOOTER_LINKS = {
     ],
     support: [
       { href: '/contact/', label: 'Get in Touch' },
-      { href: '/buying-a-co-ownership-property-faqs/', label: 'FAQ' },
+      { href: '/buying-a-co-ownership-property-faqs/', label: 'Buying FAQ' },
+      { href: '/faq/', label: "Buyer's Q&A" },
       { href: '/favourites/', label: 'Saved Properties' },
     ],
   },

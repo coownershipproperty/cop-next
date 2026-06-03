@@ -8,10 +8,22 @@
     "metaDescription": "Fractional ownership is a deeded property structure where buyers share ownership of one home through a property-specific LLC. Here's how it works, what it costs, and how it differs from timeshare.",
     "category": "foundational",
     "pairedSlug": "what-is-co-ownership-vacation-home",
-    "related": ["fractional-ownership-vs-timeshare", "how-much-does-fractional-ownership-cost-in-europe", "can-you-sell-a-fractional-ownership-share", "fractional-ownership-vs-second-home-cost-comparison"],
+    "related": [
+      "fractional-ownership-vs-timeshare",
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "can-you-sell-a-fractional-ownership-share",
+      "fractional-ownership-vs-second-home-cost-comparison"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate",
+      "second-home",
+      "timeshare"
+    ]
   },
   "what-is-co-ownership-vacation-home": {
     "slug": "what-is-co-ownership-vacation-home",
@@ -22,10 +34,20 @@
     "metaDescription": "Co-ownership is the same deeded model as fractional ownership — a share of one specific vacation home held through a property-specific LLC. UK/EU buyers tend to use the term \"co-ownership\"; US buyers use \"fractional ownership.\"",
     "category": "foundational",
     "pairedSlug": "what-is-fractional-ownership-real-estate",
-    "related": ["fractional-ownership-vs-timeshare", "how-much-does-fractional-ownership-cost-in-europe", "can-you-sell-a-fractional-ownership-share"],
+    "related": [
+      "fractional-ownership-vs-timeshare",
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "can-you-sell-a-fractional-ownership-share"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate",
+      "second-home"
+    ]
   },
   "fractional-ownership-vs-timeshare": {
     "slug": "fractional-ownership-vs-timeshare",
@@ -35,10 +57,21 @@
     "shortAnswer": "A timeshare gives the buyer the right to use a property for a set period each year. Fractional ownership gives the buyer a deeded share of the property itself, held through an LLC. The first is a contract for usage that depreciates; the second is real estate that tracks the underlying property's value.",
     "metaDescription": "Fractional ownership is real estate ownership; timeshare is a usage right. Here's what actually separates them — deed, asset value, exit, and tax treatment.",
     "category": "comparison",
-    "related": ["what-is-fractional-ownership-real-estate", "can-you-sell-a-fractional-ownership-share", "fractional-ownership-vs-second-home-cost-comparison", "is-fractional-ownership-a-smart-investment"],
+    "related": [
+      "what-is-fractional-ownership-real-estate",
+      "can-you-sell-a-fractional-ownership-share",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "is-fractional-ownership-a-smart-investment"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "timeshare",
+      "llc",
+      "real-estate"
+    ]
   },
   "fractional-ownership-vs-second-home-cost-comparison": {
     "slug": "fractional-ownership-vs-second-home-cost-comparison",
@@ -48,10 +81,22 @@
     "shortAnswer": "For a household that uses a second home roughly 6–8 weeks per year, fractional ownership typically costs 40–60% less over a 10-year horizon than buying the same home outright. The exact gap depends on the underlying property price, the local tax regime, and the household's intended usage. Outright ownership only catches up if the household uses the home for more than roughly 16 weeks per year.",
     "metaDescription": "Fractional ownership cuts upfront cost of a luxury second home roughly in proportion to the share size. Annual running cost is reduced more sharply. Here's the realistic 10-year maths, with two worked examples.",
     "category": "comparison",
-    "related": ["how-much-does-fractional-ownership-cost-in-europe", "what-is-fractional-ownership-real-estate", "fractional-ownership-vs-timeshare", "is-fractional-ownership-a-smart-investment"],
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "what-is-fractional-ownership-real-estate",
+      "fractional-ownership-vs-timeshare",
+      "is-fractional-ownership-a-smart-investment"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "second-home",
+      "mallorca",
+      "cote-dazur",
+      "ifi"
+    ]
   },
   "can-you-sell-a-fractional-ownership-share": {
     "slug": "can-you-sell-a-fractional-ownership-share",
@@ -61,10 +106,20 @@
     "shortAnswer": "Yes. A fractional ownership share is a transferable membership interest in an LLC. Owners can list it for sale at any time and transfer it to a new buyer through the LLC's standard process. In healthy markets, established fractional shares typically resell within three to six months at or close to the original price, sometimes higher. The honest caveat: the secondary market is thinner than the primary market, and resale speed depends heavily on the operator's resale process.",
     "metaDescription": "Yes — fractional shares can be sold on the open market. But the secondary market is thinner than the primary market, and resale time depends heavily on the operator's process. Here's the realistic picture.",
     "category": "resale",
-    "related": ["what-happens-if-fractional-operator-fails", "do-fractional-shares-appreciate", "fractional-ownership-vs-timeshare", "is-fractional-ownership-a-smart-investment"],
+    "related": [
+      "what-happens-if-fractional-operator-fails",
+      "do-fractional-shares-appreciate",
+      "fractional-ownership-vs-timeshare",
+      "is-fractional-ownership-a-smart-investment"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate"
+    ]
   },
   "how-much-does-fractional-ownership-cost-in-europe": {
     "slug": "how-much-does-fractional-ownership-cost-in-europe",
@@ -74,10 +129,27 @@
     "shortAnswer": "A 1/8 fractional share of a luxury European second home typically costs between €200,000 and €700,000 upfront. Annual running costs typically sit in the €8,000–€20,000 range per 1/8 share. The variation is driven primarily by destination, secondarily by the operator's service-fee structure, and thirdly by the size and standard of the underlying home.",
     "metaDescription": "A 1/8 fractional share of a luxury European home typically costs €200,000–€700,000, with annual running costs around €8,000–€20,000. The range varies sharply by destination. Here are the working numbers for 2026.",
     "category": "pricing",
-    "related": ["fractional-ownership-vs-second-home-cost-comparison", "what-is-fractional-ownership-real-estate", "do-you-pay-stamp-duty-on-a-fractional-share", "hidden-costs-in-fractional-ownership"],
+    "related": [
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "what-is-fractional-ownership-real-estate",
+      "do-you-pay-stamp-duty-on-a-fractional-share",
+      "hidden-costs-in-fractional-ownership"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "mallorca",
+      "ibiza",
+      "costa-del-sol",
+      "cote-dazur",
+      "french-alps",
+      "lake-como",
+      "algarve",
+      "tuscany",
+      "cotswolds"
+    ]
   },
   "is-fractional-ownership-a-smart-investment": {
     "slug": "is-fractional-ownership-a-smart-investment",
@@ -87,10 +159,20 @@
     "shortAnswer": "Fractional ownership is a smart purchase for a household that would otherwise buy a luxury second home outright but use it only 6–10 weeks per year. It is rarely a smart purchase as a pure financial investment compared with index funds or income real estate. The right framing is asset-backed lifestyle — you get a real estate asset that participates in appreciation, while paying a fraction of the holding cost of whole ownership.",
     "metaDescription": "Fractional ownership is a smart purchase as an asset-backed lifestyle play, not as a pure financial investment. Here's the honest framework, including when it doesn't make sense.",
     "category": "investment",
-    "related": ["fractional-ownership-vs-second-home-cost-comparison", "can-you-sell-a-fractional-ownership-share", "do-fractional-shares-appreciate", "what-is-fractional-ownership-real-estate"],
+    "related": [
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "can-you-sell-a-fractional-ownership-share",
+      "do-fractional-shares-appreciate",
+      "what-is-fractional-ownership-real-estate"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "real-estate",
+      "second-home"
+    ]
   },
   "what-happens-if-fractional-operator-fails": {
     "slug": "what-happens-if-fractional-operator-fails",
@@ -100,10 +182,19 @@
     "shortAnswer": "The property is owned by a property-specific LLC, not by the operator. If the operator fails, owners retain their deeded share of the LLC, which retains its ownership of the home. Owners would need to appoint replacement property management, which is logistically painful but legally straightforward. Their underlying real estate ownership is structurally insulated from the operator's failure.",
     "metaDescription": "The property is owned by a property-specific LLC, not by the operator. Here's exactly what happens to a fractional share if the operator fails — and what the structural protection is worth.",
     "category": "long-tail",
-    "related": ["can-you-sell-a-fractional-ownership-share", "is-fractional-ownership-a-smart-investment", "fractional-ownership-vs-timeshare", "what-is-fractional-ownership-real-estate"],
+    "related": [
+      "can-you-sell-a-fractional-ownership-share",
+      "is-fractional-ownership-a-smart-investment",
+      "fractional-ownership-vs-timeshare",
+      "what-is-fractional-ownership-real-estate"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc"
+    ]
   },
   "do-you-pay-stamp-duty-on-a-fractional-share": {
     "slug": "do-you-pay-stamp-duty-on-a-fractional-share",
@@ -113,10 +204,21 @@
     "shortAnswer": "Usually no. Stamp duty and notarial fees are paid once when the underlying property is first acquired into the property-specific LLC. When you buy a share of that existing LLC, you are not triggering a new property transfer, so no additional stamp duty applies. The transfer-tax saving alone can equate to 7–10% of the share price in markets like France and Spain — a meaningful structural advantage over buying a whole property.",
     "metaDescription": "Usually no. Stamp duty was paid once when the property was acquired into the LLC. Buying a share of the LLC isn't a new property transfer. Here's the country-by-country picture for 2026.",
     "category": "tax-legal",
-    "related": ["how-much-does-fractional-ownership-cost-in-europe", "hidden-costs-in-fractional-ownership", "what-is-fractional-ownership-real-estate", "fractional-ownership-vs-second-home-cost-comparison"],
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "hidden-costs-in-fractional-ownership",
+      "what-is-fractional-ownership-real-estate",
+      "fractional-ownership-vs-second-home-cost-comparison"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "stamp-duty",
+      "llc",
+      "sci"
+    ]
   },
   "do-fractional-shares-appreciate": {
     "slug": "do-fractional-shares-appreciate",
@@ -126,10 +228,23 @@
     "shortAnswer": "Yes. A fractional share is a deeded ownership interest in a property-holding LLC, so the share's value moves with the underlying real estate. In strong destination markets — Mallorca, the Côte d'Azur, Aspen, Lake Como — fractional shares have appreciated in line with whole-property appreciation in the same markets over the past five years. In weaker markets, the same is true in reverse: a fractional share is exposed to the same downside as a whole-property owner, just proportionally.",
     "metaDescription": "Yes — fractional share value tracks the underlying property. The fractional structure does not change how the underlying real estate behaves. Here's what 2020-2026 data shows.",
     "category": "investment",
-    "related": ["can-you-sell-a-fractional-ownership-share", "is-fractional-ownership-a-smart-investment", "fractional-ownership-vs-second-home-cost-comparison", "what-is-fractional-ownership-real-estate"],
+    "related": [
+      "can-you-sell-a-fractional-ownership-share",
+      "is-fractional-ownership-a-smart-investment",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "what-is-fractional-ownership-real-estate"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "real-estate",
+      "mallorca",
+      "cote-dazur",
+      "aspen",
+      "lake-como"
+    ]
   },
   "hidden-costs-in-fractional-ownership": {
     "slug": "hidden-costs-in-fractional-ownership",
@@ -139,10 +254,19 @@
     "shortAnswer": "Fractional ownership is more transparent than buyers expect: most costs are bundled in the headline share price (purchase, transfer taxes, furnishing, set-up) and the headline annual fee (management, taxes, utilities, reserve fund). The genuine hidden costs are predictable: special assessments for major repairs, optional rental-programme fees, the buyer's own legal advisory fees, and personal travel costs. There are no surprise legal fees at completion; the legal work was done once when the LLC was formed.",
     "metaDescription": "Fractional ownership is more transparent than buyers expect — most costs are bundled in the headline. Here's where surprises do hide and what to ask the operator before signing.",
     "category": "pricing",
-    "related": ["how-much-does-fractional-ownership-cost-in-europe", "do-you-pay-stamp-duty-on-a-fractional-share", "fractional-ownership-vs-second-home-cost-comparison", "what-is-fractional-ownership-real-estate"],
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "do-you-pay-stamp-duty-on-a-fractional-share",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "what-is-fractional-ownership-real-estate"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "second-home"
+    ]
   },
   "how-does-fractional-ownership-work": {
     "slug": "how-does-fractional-ownership-work",
@@ -153,10 +277,47 @@
     "metaDescription": "Step-by-step explanation of how fractional ownership of luxury real estate works in 2026 — the LLC structure, share purchase, usage allocation, costs and exit mechanics.",
     "category": "foundational",
     "pairedSlug": "how-does-co-ownership-of-property-work",
-    "related": ["what-is-fractional-ownership-real-estate", "what-is-a-property-specific-llc", "what-is-a-1-8-fractional-share", "fractional-ownership-vs-timeshare"],
+    "related": [
+      "what-is-fractional-ownership-real-estate",
+      "what-is-a-property-specific-llc",
+      "what-is-a-1-8-fractional-share",
+      "fractional-ownership-vs-timeshare"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate",
+      "second-home"
+    ],
+    "howToSteps": [
+      {
+        "name": "The operator acquires and prepares the home",
+        "text": "A specialist operator buys a luxury property, completes any renovation, furnishes it to a turnkey standard, and places it in a newly-incorporated property-specific LLC."
+      },
+      {
+        "name": "The LLC is divided into deeded shares",
+        "text": "The LLC ownership is divided into equal shares — typically eight 1/8 shares. Each share is a deeded membership interest documented in the LLC operating agreement."
+      },
+      {
+        "name": "Buyers acquire shares",
+        "text": "Buyers purchase shares from the operator at a bundled headline price covering pro-rata property cost, transfer taxes, renovation, furniture, set-up and operator service fee."
+      },
+      {
+        "name": "Usage is allocated through fair rotation",
+        "text": "A 1/8 share entitles the owner to approximately 45 days of personal use per year, allocated via a digital booking platform that rotates peak weeks across owners over a multi-year cycle."
+      },
+      {
+        "name": "The operator manages the property day-to-day",
+        "text": "The operator (or contracted property manager) handles cleaning, maintenance, utilities, taxes and insurance. Annual fees split pro-rata fund this."
+      },
+      {
+        "name": "Owners can sell, gift or pass on shares",
+        "text": "A fractional share is a transferable LLC membership interest. The owner can list it for resale, gift it, or pass it through inheritance via standard estate planning."
+      }
+    ]
   },
   "how-does-co-ownership-of-property-work": {
     "slug": "how-does-co-ownership-of-property-work",
@@ -167,10 +328,43 @@
     "metaDescription": "Step-by-step explanation of how co-ownership of a vacation home works in 2026 — the LLC structure, share purchase, usage rights, costs and exit.",
     "category": "foundational",
     "pairedSlug": "how-does-fractional-ownership-work",
-    "related": ["what-is-co-ownership-vacation-home", "what-is-a-property-specific-llc", "fractional-ownership-vs-timeshare", "what-is-a-1-8-fractional-share"],
+    "related": [
+      "what-is-co-ownership-vacation-home",
+      "what-is-a-property-specific-llc",
+      "fractional-ownership-vs-timeshare",
+      "what-is-a-1-8-fractional-share"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate",
+      "second-home"
+    ],
+    "howToSteps": [
+      {
+        "name": "The operator acquires the home",
+        "text": "A specialist co-ownership operator buys a luxury vacation home, renovates and furnishes it, and places it in a property-specific LLC."
+      },
+      {
+        "name": "Shares are sold to co-owners",
+        "text": "The operator sells deeded shares of the LLC — typically eight 1/8 shares — at a bundled all-in headline price."
+      },
+      {
+        "name": "Usage time is allocated fairly",
+        "text": "A 1/8 share gives approximately 45 days of personal use per year, allocated through a fair-rotation booking platform."
+      },
+      {
+        "name": "The operator manages everything day-to-day",
+        "text": "Maintenance, cleaning, taxes, insurance and utilities are all handled by the operator and split pro-rata across owners."
+      },
+      {
+        "name": "Owners can sell or pass on their share",
+        "text": "Shares are transferable LLC membership interests that can be sold via the operator resale process or passed on through inheritance."
+      }
+    ]
   },
   "how-much-does-fractional-ownership-cost-in-the-us": {
     "slug": "how-much-does-fractional-ownership-cost-in-the-us",
@@ -180,10 +374,21 @@
     "shortAnswer": "A 1/8 fractional share of a luxury US second home typically costs between $700,000 and $1.4 million upfront. Annual running costs typically sit in the $10,000–$25,000 range per 1/8 share. Premium resort markets — Aspen, Lake Tahoe, Park City — sit at the top of the range; secondary markets like Palm Springs, Napa and Miami sit lower. US fractional pricing reflects the higher underlying property prices and higher operating cost base versus comparable European markets.",
     "metaDescription": "A 1/8 fractional share of a US luxury home typically costs $700,000–$1.4 million, with annual running costs around $10,000–$25,000. Here are the 2026 ranges by resort market.",
     "category": "pricing",
-    "related": ["how-much-does-fractional-ownership-cost-in-europe", "fractional-ownership-vs-second-home-cost-comparison", "hidden-costs-in-fractional-ownership", "what-is-fractional-ownership-real-estate"],
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "hidden-costs-in-fractional-ownership",
+      "what-is-fractional-ownership-real-estate"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "aspen",
+      "lake-tahoe",
+      "park-city"
+    ]
   },
   "is-fractional-ownership-a-timeshare-definitive-answer": {
     "slug": "is-fractional-ownership-a-timeshare-definitive-answer",
@@ -193,10 +398,21 @@
     "shortAnswer": "No. Fractional ownership is deeded real estate ownership: you hold a documented share of a property-specific LLC that owns one home. Timeshare is a contractual right to use a property for a set period each year — no deed, no equity. The first appears on your balance sheet as a real-estate asset and tracks the underlying property's value. The second is treated as a prepaid expense and historically depreciates. The legal structure is different, the tax treatment is different, the resale market is different.",
     "metaDescription": "No — fractional ownership is deeded real estate held through an LLC. Timeshare is a contractual usage right. Here's the definitive structural answer for 2026.",
     "category": "comparison",
-    "related": ["fractional-ownership-vs-timeshare", "what-is-fractional-ownership-real-estate", "what-is-a-property-specific-llc", "are-fractional-owners-on-the-property-deed"],
+    "related": [
+      "fractional-ownership-vs-timeshare",
+      "what-is-fractional-ownership-real-estate",
+      "what-is-a-property-specific-llc",
+      "are-fractional-owners-on-the-property-deed"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "timeshare",
+      "llc",
+      "real-estate"
+    ]
   },
   "is-co-ownership-the-same-as-fractional-ownership": {
     "slug": "is-co-ownership-the-same-as-fractional-ownership",
@@ -206,10 +422,19 @@
     "shortAnswer": "Yes — \"co-ownership\" and \"fractional ownership\" describe the same model. The legal structure (a property-specific LLC, deeded shares, ~45 days of use per 1/8 share, professional management, secondary-market resale) is identical. The terminology differs mostly by geography: UK and European buyers and operators tend to favour \"co-ownership\" as the more straightforward English term; US buyers, operators and trade press tend to favour \"fractional ownership\" which has been standard in American resort markets since the late 1980s.",
     "metaDescription": "Yes — co-ownership and fractional ownership describe the same deeded model. The terminology varies by geography. Here's why and what to watch for in 2026.",
     "category": "comparison",
-    "related": ["what-is-fractional-ownership-real-estate", "what-is-co-ownership-vacation-home", "fractional-ownership-vs-timeshare", "how-does-fractional-ownership-work"],
+    "related": [
+      "what-is-fractional-ownership-real-estate",
+      "what-is-co-ownership-vacation-home",
+      "fractional-ownership-vs-timeshare",
+      "how-does-fractional-ownership-work"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "real-estate"
+    ]
   },
   "how-long-to-sell-a-fractional-share": {
     "slug": "how-long-to-sell-a-fractional-share",
@@ -219,10 +444,20 @@
     "shortAnswer": "Three to six months is the working average across established operators in healthy markets. The drivers in order: operator pipeline depth (operators with active buyer waitlists clear shares fastest), destination demand (Côte d'Azur, Mallorca and Aspen typically clear faster than smaller markets), listing price (owners pricing at fair-market clear in weeks; those priced 10%+ above market may sit for months), and property condition. Newer or thinner markets — parts of Mexico, Bali — can take longer.",
     "metaDescription": "Three to six months is the working average for selling a fractional share across established operators. Here are the drivers and what to ask the operator before buying.",
     "category": "resale",
-    "related": ["can-you-sell-a-fractional-ownership-share", "do-fractional-shares-appreciate", "what-happens-if-fractional-operator-fails", "is-fractional-ownership-a-smart-investment"],
+    "related": [
+      "can-you-sell-a-fractional-ownership-share",
+      "do-fractional-shares-appreciate",
+      "what-happens-if-fractional-operator-fails",
+      "is-fractional-ownership-a-smart-investment"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "real-estate",
+      "llc"
+    ]
   },
   "true-cost-per-night-fractional-ownership": {
     "slug": "true-cost-per-night-fractional-ownership",
@@ -232,10 +467,19 @@
     "shortAnswer": "Take the all-in purchase price plus 10 years of annual running costs plus the opportunity cost of capital, divide by 10 years × ~45 nights of personal use, and the per-night equivalent for European luxury fractional sits roughly in the €700–€1,800 range. Comparable to a top-tier hotel stay — but you own a real-estate asset that participates in appreciation, the home is yours to leave belongings in, and the experience is residential rather than transactional.",
     "metaDescription": "All-in cost per night of European luxury fractional ownership over 10 years typically lands in the €700–€1,800 range — comparable to a top hotel, but with asset ownership.",
     "category": "pricing",
-    "related": ["fractional-ownership-vs-second-home-cost-comparison", "how-much-does-fractional-ownership-cost-in-europe", "is-fractional-ownership-a-smart-investment", "hidden-costs-in-fractional-ownership"],
+    "related": [
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "is-fractional-ownership-a-smart-investment",
+      "hidden-costs-in-fractional-ownership"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "second-home"
+    ]
   },
   "what-is-a-1-8-fractional-share": {
     "slug": "what-is-a-1-8-fractional-share",
@@ -245,10 +489,20 @@
     "shortAnswer": "A 1/8 fractional share is one-eighth of the deeded equity in a property-specific limited-liability company that owns one specific luxury home. It entitles the owner to approximately 45 days of personal use per year, a proportional share of any appreciation, voting rights in LLC decisions, and the right to sell, gift or pass on the share. 1/8 is the standard share size because it maps cleanly to roughly six weeks of use — enough for most buyers without overlapping with other owners.",
     "metaDescription": "A 1/8 fractional share is one-eighth of the equity in a property-specific LLC that owns one specific luxury home, entitling the owner to ~45 days of use per year.",
     "category": "foundational",
-    "related": ["what-is-fractional-ownership-real-estate", "how-does-fractional-ownership-work", "what-is-a-property-specific-llc", "are-fractional-owners-on-the-property-deed"],
+    "related": [
+      "what-is-fractional-ownership-real-estate",
+      "how-does-fractional-ownership-work",
+      "what-is-a-property-specific-llc",
+      "are-fractional-owners-on-the-property-deed"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate"
+    ]
   },
   "how-is-fractional-ownership-structured-legally": {
     "slug": "how-is-fractional-ownership-structured-legally",
@@ -258,10 +512,21 @@
     "shortAnswer": "Fractional ownership is structured through a property-specific limited-liability company — one company per home. The LLC owns the property; the buyers own deeded membership interests in the LLC. The exact corporate vehicle varies by country (LLC in the US, SCI in France, SL in Spain, GmbH-equivalent in some German-speaking jurisdictions) but the substance is the same: a corporate wrapper that isolates each owner from the others' liabilities, makes shares cleanly transferable, and simplifies cross-border tax filings.",
     "metaDescription": "Fractional ownership is structured through a property-specific LLC (or SCI in France, SL in Spain) that owns the home; buyers hold deeded membership interests.",
     "category": "tax-legal",
-    "related": ["what-is-a-property-specific-llc", "what-is-fractional-ownership-real-estate", "are-fractional-owners-on-the-property-deed", "do-you-pay-stamp-duty-on-a-fractional-share"],
+    "related": [
+      "what-is-a-property-specific-llc",
+      "what-is-fractional-ownership-real-estate",
+      "are-fractional-owners-on-the-property-deed",
+      "do-you-pay-stamp-duty-on-a-fractional-share"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "sci",
+      "real-estate"
+    ]
   },
   "who-buys-fractional-ownership-typical-buyer-profile": {
     "slug": "who-buys-fractional-ownership-typical-buyer-profile",
@@ -271,10 +536,19 @@
     "shortAnswer": "The typical fractional buyer is a household in their late 50s to early 60s, with the capital to buy a luxury second home outright, who has decided the maths doesn't work for a property they'd use 6–8 weeks per year. Multi-generational families and friend groups co-buying together are the next biggest cohort. The common thread: they aren't yield investors. They are buying for use, not for return — and the fractional structure lets them participate in real-estate appreciation on a much smaller capital base than whole ownership.",
     "metaDescription": "The typical fractional buyer is late-50s to early-60s, capital-rich, second-home oriented — using the property 6-8 weeks per year. Here's the full demographic breakdown.",
     "category": "foundational",
-    "related": ["what-is-fractional-ownership-real-estate", "is-fractional-ownership-a-smart-investment", "fractional-ownership-vs-second-home-cost-comparison", "how-much-does-fractional-ownership-cost-in-europe"],
+    "related": [
+      "what-is-fractional-ownership-real-estate",
+      "is-fractional-ownership-a-smart-investment",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "how-much-does-fractional-ownership-cost-in-europe"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "second-home"
+    ]
   },
   "what-is-a-property-specific-llc": {
     "slug": "what-is-a-property-specific-llc",
@@ -284,10 +558,20 @@
     "shortAnswer": "A property-specific LLC is a limited-liability company set up for the sole purpose of holding one specific home. The LLC's only meaningful asset is the property. Fractional buyers hold deeded membership interests in this LLC, which gives them a documented claim on the underlying real estate while keeping their ownership cleanly transferable and isolated from any other LLC's liabilities. The \"one LLC per home\" design is non-negotiable for serious operators — shared corporate vehicles expose each owner to other properties' debts and complications.",
     "metaDescription": "A property-specific LLC holds one home, with buyers holding deeded shares. The one-LLC-per-home structure isolates liability and is core to credible fractional ownership.",
     "category": "tax-legal",
-    "related": ["how-is-fractional-ownership-structured-legally", "what-is-fractional-ownership-real-estate", "what-happens-if-fractional-operator-fails", "are-fractional-owners-on-the-property-deed"],
+    "related": [
+      "how-is-fractional-ownership-structured-legally",
+      "what-is-fractional-ownership-real-estate",
+      "what-happens-if-fractional-operator-fails",
+      "are-fractional-owners-on-the-property-deed"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate"
+    ]
   },
   "is-fractional-ownership-safe": {
     "slug": "is-fractional-ownership-safe",
@@ -297,10 +581,20 @@
     "shortAnswer": "Structurally, fractional ownership is safe: the property is owned by a property-specific LLC, owners hold deeded shares, and standard real-estate law protects the underlying asset. The real risks are not structural — they are practical: choosing an operator whose resale process is weak, choosing a destination that doesn't appreciate, or overpaying for a poorly-renovated home. Due diligence on the operator, the destination and the specific home matters more than worrying about the legal structure itself.",
     "metaDescription": "Structurally, fractional ownership is safe — the LLC protects each owner. The real risks are operator quality, resale liquidity and destination choice. Here's how to assess each.",
     "category": "long-tail",
-    "related": ["is-fractional-ownership-a-scam", "whats-the-catch-with-fractional-ownership", "what-happens-if-fractional-operator-fails", "what-is-a-property-specific-llc"],
+    "related": [
+      "is-fractional-ownership-a-scam",
+      "whats-the-catch-with-fractional-ownership",
+      "what-happens-if-fractional-operator-fails",
+      "what-is-a-property-specific-llc"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate"
+    ]
   },
   "is-fractional-ownership-a-scam": {
     "slug": "is-fractional-ownership-a-scam",
@@ -310,10 +604,21 @@
     "shortAnswer": "No. Fractional ownership is a legitimate deeded real-estate purchase structured through a property-specific LLC — the same legal vehicle that families have used to co-invest in property for decades. Buyers' names sit on the LLC's membership register; the home is registered to the LLC in the local land registry. Where buyers can get burned is on operator quality, not the structure itself: pick a credible operator with a transparent resale record and the structural protections work as designed.",
     "metaDescription": "No — fractional ownership is a legitimate deeded real-estate purchase through an LLC. Here's how to spot a credible operator vs an overhyped one.",
     "category": "long-tail",
-    "related": ["is-fractional-ownership-safe", "whats-the-catch-with-fractional-ownership", "fractional-ownership-vs-timeshare", "what-is-a-property-specific-llc"],
+    "related": [
+      "is-fractional-ownership-safe",
+      "whats-the-catch-with-fractional-ownership",
+      "fractional-ownership-vs-timeshare",
+      "what-is-a-property-specific-llc"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate",
+      "timeshare"
+    ]
   },
   "whats-the-catch-with-fractional-ownership": {
     "slug": "whats-the-catch-with-fractional-ownership",
@@ -323,10 +628,19 @@
     "shortAnswer": "The three catches: first, the secondary market is thinner than the primary market — resale can take 3–6 months in healthy conditions and longer in soft ones. Second, you can't materially customise the property — no knocking down walls or installing your own art collection. Third, the headline share price isn't the only cost — annual running fees are real, and special assessments for major repairs can apply. Each is manageable, and on a 10-year horizon for a household using the home 6–10 weeks per year, the model is still strongly favourable versus whole ownership.",
     "metaDescription": "The three real catches of fractional ownership: thinner resale, no customisation, annual fees and special assessments. Each is manageable. Here's how to think about them.",
     "category": "long-tail",
-    "related": ["is-fractional-ownership-safe", "hidden-costs-in-fractional-ownership", "can-you-sell-a-fractional-ownership-share", "fractional-ownership-vs-second-home-cost-comparison"],
+    "related": [
+      "is-fractional-ownership-safe",
+      "hidden-costs-in-fractional-ownership",
+      "can-you-sell-a-fractional-ownership-share",
+      "fractional-ownership-vs-second-home-cost-comparison"
+    ],
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
-    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "real-estate"
+    ]
   },
   "are-fractional-owners-on-the-property-deed": {
     "slug": "are-fractional-owners-on-the-property-deed",
@@ -336,7 +650,339 @@
     "shortAnswer": "Not personally — the property deed is in the name of the property-specific LLC. Owners are listed on the LLC's membership register, which is a documented, legally enforceable record of ownership of a slice of the LLC and, by extension, the home. The distinction is structural, not protective: ownership is just as real, but it sits one layer up. This is the same mechanism corporations and family holding companies use to own real estate in every developed market.",
     "metaDescription": "Not personally — the property deed is in the LLC's name. Owners are on the LLC's membership register. Here's why that's the structural standard for fractional ownership.",
     "category": "tax-legal",
-    "related": ["what-is-a-property-specific-llc", "how-is-fractional-ownership-structured-legally", "what-is-fractional-ownership-real-estate", "is-fractional-ownership-a-scam"],
+    "related": [
+      "what-is-a-property-specific-llc",
+      "how-is-fractional-ownership-structured-legally",
+      "what-is-fractional-ownership-real-estate",
+      "is-fractional-ownership-a-scam"
+    ],
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate"
+    ]
+  },
+  "how-is-usage-time-divided-between-co-owners": {
+    "title": "How is usage time divided between fractional co-owners? (2026)",
+    "h1": "How is usage time divided between co-owners?",
+    "subtitle": "A digital booking platform allocates weeks across all owners through a fair-rotation system. Peak weeks rotate over a multi-year cycle so every owner gets a fair share of high-season time.",
+    "shortAnswer": "Usage is allocated through a digital booking platform that rotates peak weeks (Christmas, Easter, August, school holidays) across all owners over a multi-year cycle. A 1/8 share gives roughly 45 days per year. Owners book specific dates in advance, swap weeks with other owners through the platform, and have exclusive use of the entire home during their allocated time — never overlapping with another owner.",
+    "metaDescription": "Usage is allocated through a digital booking platform with a multi-year fair-rotation cycle. Here is exactly how peak weeks get divided across co-owners in 2026.",
+    "category": "operational",
+    "related": [
+      "how-does-fractional-ownership-work",
+      "what-is-a-1-8-fractional-share",
+      "who-decides-what-week-i-get-fractional",
+      "can-i-rent-out-my-unused-weeks"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "second-home"
+    ],
+    "slug": "how-is-usage-time-divided-between-co-owners",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "who-decides-what-week-i-get-fractional": {
+    "title": "Who decides what week I get in fractional ownership? (2026)",
+    "h1": "Who decides what week I get?",
+    "subtitle": "The operator’s booking platform applies a transparent rotation algorithm — not the operator’s discretion. The rules are written into the LLC operating agreement.",
+    "shortAnswer": "The booking platform applies a rotation algorithm written into the LLC operating agreement — not the operator’s discretion. Most operators use a multi-year cycle where every owner gets a fair share of peak weeks over time. In any given year you have priority on specific weeks; in the next year your priority slot rotates. You book within those windows through the platform.",
+    "metaDescription": "A transparent rotation algorithm written into the LLC operating agreement decides which weeks each fractional owner gets — not the operator’s discretion.",
+    "category": "operational",
+    "related": [
+      "how-is-usage-time-divided-between-co-owners",
+      "how-does-fractional-ownership-work",
+      "how-do-i-book-peak-weeks-fractional",
+      "how-is-fractional-ownership-structured-legally"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "who-decides-what-week-i-get-fractional",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "how-do-i-book-peak-weeks-fractional": {
+    "title": "How do I book peak weeks (Christmas, August) in fractional ownership? (2026)",
+    "h1": "How do I book peak weeks like Christmas and August?",
+    "subtitle": "Through the operator’s booking platform, subject to the rotation rules. Most operators give every owner priority access to a different set of peak weeks each year, rotating over a multi-year cycle.",
+    "shortAnswer": "Through the operator’s booking platform, subject to the LLC rotation rules. Most operators give every owner priority access to a different set of peak weeks each year — Christmas this year, August next year — rotating so that over a multi-year cycle, every owner gets a fair share of every peak window. Within your priority window you book exactly the dates you want.",
+    "metaDescription": "Peak weeks (Christmas, August, school holidays) are allocated through the operator’s booking platform under a multi-year rotation system. Here is exactly how it works.",
+    "category": "operational",
+    "related": [
+      "how-is-usage-time-divided-between-co-owners",
+      "who-decides-what-week-i-get-fractional",
+      "can-i-book-weeks-at-last-minute-fractional",
+      "how-does-fractional-ownership-work"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "how-do-i-book-peak-weeks-fractional",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "can-i-book-weeks-at-last-minute-fractional": {
+    "title": "Can I book fractional ownership weeks at the last minute? (2026)",
+    "h1": "Can I book weeks at the last minute?",
+    "subtitle": "Yes — last-minute bookings are usually available on top of allocated weeks, subject to availability.",
+    "shortAnswer": "Yes. Most operators allow owners to book additional weeks at short notice on top of their allocated rotation, subject to availability — the home is rarely fully booked, especially outside peak season. Last-minute bookings don’t count against your 45-day annual allocation in most operator setups. Last-minute access is one of the under-marketed benefits of the model versus a holiday rental.",
+    "metaDescription": "Yes — most fractional operators allow last-minute bookings on top of allocated weeks, subject to availability. Here is how it works in practice.",
+    "category": "operational",
+    "related": [
+      "how-is-usage-time-divided-between-co-owners",
+      "how-do-i-book-peak-weeks-fractional",
+      "how-does-fractional-ownership-work",
+      "who-buys-fractional-ownership-typical-buyer-profile"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "can-i-book-weeks-at-last-minute-fractional",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "can-i-rent-out-my-unused-weeks": {
+    "title": "Can I rent out my unused fractional ownership weeks? (2026)",
+    "h1": "Can I rent out my unused weeks?",
+    "subtitle": "In most cases yes — through the operator’s rental programme. Net yield after fees is typically modest; treat it as a cost offset, not a return engine.",
+    "shortAnswer": "In most cases yes. Most operators run an optional rental programme that places owners’ unused weeks into a professionally-managed short-let inventory, handling marketing, booking, check-in and cleaning. The operator takes a fee (typically 20–30% of gross rental) and the owner receives the net. Realistic net yield is typically 2–4% on share value — useful as a cost offset, not a return engine.",
+    "metaDescription": "In most cases yes — through the operator’s rental programme. Here is what owners actually earn after fees, and why to treat rental as a cost offset rather than a return engine.",
+    "category": "operational",
+    "related": [
+      "hidden-costs-in-fractional-ownership",
+      "is-fractional-ownership-a-smart-investment",
+      "how-is-usage-time-divided-between-co-owners",
+      "how-does-fractional-ownership-work"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "can-i-rent-out-my-unused-weeks",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "can-i-have-pets-at-a-fractional-property": {
+    "title": "Can I have pets at a fractional ownership property? (2026)",
+    "h1": "Can I have a pet at a fractional property?",
+    "subtitle": "Usually no for routine bookings, but a growing number of properties are pet-friendly. Always check the operator’s pet policy for the specific home before purchasing.",
+    "shortAnswer": "Most fractional properties prohibit pets in routine bookings out of consideration for other co-owners (allergies, fur, cleaning standards between stays). A growing minority of operators offer specific pet-friendly listings or pet-friendly weeks. If pets matter to you, check the operator’s pet policy for the specific home before purchasing — this is a hard rule to negotiate after the LLC is set up.",
+    "metaDescription": "Most fractional properties prohibit pets, though a growing minority of listings are pet-friendly. Here is what to check before buying if pets matter.",
+    "category": "operational",
+    "related": [
+      "how-is-usage-time-divided-between-co-owners",
+      "how-does-fractional-ownership-work",
+      "who-buys-fractional-ownership-typical-buyer-profile",
+      "whats-the-catch-with-fractional-ownership"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "can-i-have-pets-at-a-fractional-property",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "can-i-leave-belongings-at-fractional-property": {
+    "title": "Can I leave personal belongings at a fractional property between visits? (2026)",
+    "h1": "Can I leave personal belongings at the property between visits?",
+    "subtitle": "Yes — most operators provide each owner with a lockable owner’s closet for personal items.",
+    "shortAnswer": "Yes. Most fractional operators provide each owner with a lockable owner’s closet (typically in the master suite) where personal items can be stored between stays — kitchen gadgets you favour, ski gear, art books, golf clubs, children’s things. This is one of the meaningful residential differences from a hotel or villa rental: the home feels yours because some of your stuff lives there permanently.",
+    "metaDescription": "Yes — most fractional operators provide each owner with a lockable owner’s closet for personal belongings between stays. Here is what fits and what does not.",
+    "category": "operational",
+    "related": [
+      "how-does-fractional-ownership-work",
+      "who-buys-fractional-ownership-typical-buyer-profile",
+      "is-fractional-ownership-a-smart-investment",
+      "fractional-ownership-vs-second-home-cost-comparison"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "can-i-leave-belongings-at-fractional-property",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "who-pays-for-repairs-at-fractional-property": {
+    "title": "Who pays for repairs at a fractional ownership property? (2026)",
+    "h1": "Who pays for repairs at a fractional property?",
+    "subtitle": "Routine maintenance comes from the annual fee. Major repairs come from the reserve fund. Genuinely large repairs that exceed the reserve fund trigger a pro-rata special assessment.",
+    "shortAnswer": "Routine maintenance (cleaning, plumbing call-outs, gardening, minor repairs) is paid for from the annual fee that all owners contribute to. Larger but predictable repairs (roof tile replacement, appliance refresh) come from the reserve fund inside the LLC. Genuinely large repairs — full roof replacement, foundation work, full HVAC overhaul — that exceed the reserve fund trigger a special assessment, paid pro-rata by each owner.",
+    "metaDescription": "Routine maintenance comes from the annual fee. Major repairs from the reserve fund. Special assessments cover exceptional costs. Here is how it works in 2026.",
+    "category": "operational",
+    "related": [
+      "hidden-costs-in-fractional-ownership",
+      "how-does-fractional-ownership-work",
+      "what-happens-if-major-repair-needed",
+      "is-fractional-ownership-safe"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "who-pays-for-repairs-at-fractional-property",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "what-happens-if-major-repair-needed": {
+    "title": "What happens if a major repair (roof, foundation) is needed? (2026)",
+    "h1": "What happens if a major repair is needed?",
+    "subtitle": "Reserve fund covers it first; if costs exceed the reserve, a pro-rata special assessment is levied on each owner.",
+    "shortAnswer": "The LLC’s reserve fund covers the cost first. Reserve funds are sized to cover most expected major repairs over a property’s lifecycle. If the cost exceeds what is in the reserve fund, the LLC levies a special assessment — each owner contributes pro-rata. Operators with well-funded reserves rarely trigger special assessments. Operators that under-fund the reserve to keep annual fees looking low produce more frequent surprises.",
+    "metaDescription": "The reserve fund covers major repairs first. If costs exceed the reserve, a pro-rata special assessment is levied on each owner. Here is how the process works.",
+    "category": "operational",
+    "related": [
+      "who-pays-for-repairs-at-fractional-property",
+      "hidden-costs-in-fractional-ownership",
+      "is-fractional-ownership-safe",
+      "whats-the-catch-with-fractional-ownership"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "what-happens-if-major-repair-needed",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "what-if-co-owner-stops-paying-fees": {
+    "title": "What happens if a co-owner stops paying their share of fees? (2026)",
+    "h1": "What if a co-owner stops paying their share of fees?",
+    "subtitle": "The LLC operating agreement defines a process: late fees, then suspension of usage, then forced share sale. Other owners are not personally liable for the defaulting owner’s share.",
+    "shortAnswer": "The LLC operating agreement defines the process: late fees apply first, then booking rights are suspended, and ultimately the defaulting owner’s share can be forced into resale to recover the arrears. Critically, other owners are not personally liable for a defaulting owner’s share — the LLC ring-fences each owner’s obligations. Choosing operators with clear default-handling clauses in their operating agreements protects you from secondary exposure.",
+    "metaDescription": "The LLC operating agreement defines a process — late fees, suspended usage, forced resale. Other owners are not personally liable. Here is how it works in 2026.",
+    "category": "operational",
+    "related": [
+      "how-is-fractional-ownership-structured-legally",
+      "what-is-a-property-specific-llc",
+      "is-fractional-ownership-safe",
+      "what-happens-if-fractional-operator-fails"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc"
+    ],
+    "slug": "what-if-co-owner-stops-paying-fees",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "can-i-see-property-before-buying-fractional": {
+    "title": "Can I see a fractional property before I buy a share? (2026)",
+    "h1": "Can I see the property before I buy a share?",
+    "subtitle": "Yes — all serious operators offer in-person property viewings before purchase. Always insist on one.",
+    "shortAnswer": "Yes. Every serious fractional operator offers in-person property viewings before purchase, and you should always insist on one before committing six-figure capital. The viewing is your chance to verify renovation quality, sense whether the location matches what the photography promised, and meet the operator’s local team. Operators who pressure you to commit without a viewing are a clear warning sign.",
+    "metaDescription": "Yes — all serious fractional operators offer in-person property viewings before purchase. Here is what to look for during the visit.",
+    "category": "operational",
+    "related": [
+      "is-fractional-ownership-safe",
+      "is-fractional-ownership-a-scam",
+      "how-does-fractional-ownership-work",
+      "whats-the-catch-with-fractional-ownership"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "can-i-see-property-before-buying-fractional",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "best-fractional-ownership-mallorca": {
+    "title": "Best fractional ownership in Mallorca 2026",
+    "h1": "Best fractional ownership in Mallorca",
+    "subtitle": "Mallorca is the most-listed Mediterranean fractional destination. Pricing typically €220k–€600k per 1/8 share with annual fees of €8k–€15k. Strongest inventory in the south-west, Pollença/Alcúdia, and the interior.",
+    "shortAnswer": "Mallorca is the most-listed Mediterranean fractional destination, with a 1/8 share typically priced €220,000–€600,000 fully loaded, and annual running costs of €8,000–€15,000 per share. Strongest inventory in the south-west coast (Andratx, Port d’Andratx), the north (Pollença, Alcúdia), and the interior (Santa Maria, Esporles, Deià). Choice driven by destination preference and the operator’s rotation rules, not by headline price alone.",
+    "metaDescription": "Mallorca pricing: €220k–€600k per 1/8 share, €8k–€15k annual fees. Strongest fractional inventory in the south-west, Pollença, and the interior. 2026 buyer guide.",
+    "category": "destination",
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "how-does-fractional-ownership-work",
+      "what-is-fractional-ownership-real-estate"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "mallorca"
+    ],
+    "slug": "best-fractional-ownership-mallorca",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "best-fractional-ownership-cote-dazur": {
+    "title": "Best fractional ownership on the Côte d’Azur 2026",
+    "h1": "Best fractional ownership on the Côte d’Azur",
+    "subtitle": "The Côte d’Azur is Europe’s premium fractional market by share price. Typical 1/8 shares €350k–€750k+, with the wealth-tax advantage of staying under the €1.3M IFI threshold.",
+    "shortAnswer": "The Côte d’Azur is the premium European fractional market by share price. A 1/8 share typically runs €350,000–€750,000+ fully loaded, with annual fees of €11,000–€20,000. The structural advantage at this price tier is the French IFI wealth-tax: a 1/8 share usually keeps non-resident owners under the €1.3M French real-estate threshold, while a comparable whole property would trigger IFI. Inventory clusters in Saint-Tropez, Cap d’Antibes, Saint-Jean-Cap-Ferrat and the Cannes hinterland.",
+    "metaDescription": "Côte d’Azur fractional pricing: €350k–€750k+ per 1/8 share. The French IFI wealth-tax advantage of fractional vs whole-property ownership at this tier explained.",
+    "category": "destination",
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "how-does-fractional-ownership-work",
+      "what-is-fractional-ownership-real-estate"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "cote-dazur",
+      "ifi"
+    ],
+    "slug": "best-fractional-ownership-cote-dazur",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "best-fractional-ownership-french-alps": {
+    "title": "Best fractional ownership in the French Alps 2026",
+    "h1": "Best fractional ownership in the French Alps",
+    "subtitle": "French Alpine chalets are the largest Alpine fractional category. Typical 1/8 shares €280k–€650k, with strongest inventory in Megève, Courchevel-area, Chamonix and Morzine.",
+    "shortAnswer": "The French Alps are the largest Alpine fractional market. A 1/8 share typically runs €280,000–€650,000 fully loaded, with annual fees of €10,000–€18,000. Strongest inventory in Megève, the Courchevel/Méribel area, Chamonix, Morzine and Saint-Martin-de-Belleville. Alpine fractional buyers should weight the rotation system’s handling of peak ski weeks (Christmas, February half-term, Easter) particularly heavily — these are the weeks the purchase is really for.",
+    "metaDescription": "French Alps fractional pricing: €280k–€650k per 1/8 share, €10k–€18k annual fees. Megève, Courchevel, Chamonix and Morzine lead the inventory in 2026.",
+    "category": "destination",
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "how-do-i-book-peak-weeks-fractional",
+      "what-is-fractional-ownership-real-estate"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "french-alps"
+    ],
+    "slug": "best-fractional-ownership-french-alps",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "best-fractional-ownership-aspen": {
+    "title": "Best fractional ownership in Aspen 2026",
+    "h1": "Best fractional ownership in Aspen",
+    "subtitle": "Aspen is the highest-priced US fractional market. A 1/8 share typically runs .1M–M, with annual fees of 8k–0k. Long-established secondary market.",
+    "shortAnswer": "Aspen is the highest-priced US fractional market — a function of underlying Aspen real-estate prices, not operator margin. A 1/8 share typically runs .1M–M fully loaded, with annual fees of 8,000–0,000. The Aspen fractional secondary market is the deepest and most mature in North America, with documented resale precedent going back to the 1990s. Inventory clusters in Snowmass Village, the West End and core downtown Aspen.",
+    "metaDescription": "Aspen fractional pricing: .1M–M per 1/8 share, 8k–0k annual fees. The deepest secondary market in US fractional ownership. 2026 buyer guide.",
+    "category": "destination",
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-the-us",
+      "how-long-to-sell-a-fractional-share",
+      "do-fractional-shares-appreciate",
+      "what-is-fractional-ownership-real-estate"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "aspen"
+    ],
+    "slug": "best-fractional-ownership-aspen",
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
