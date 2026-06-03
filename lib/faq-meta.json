@@ -986,5 +986,344 @@
     "datePublished": "2026-06-03",
     "dateModified": "2026-06-03",
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "uk-buyer-fractional-spain-tax": {
+    "title": "UK buyer buying a fractional share in Spain — tax implications (2026)",
+    "h1": "UK buyer buying a Spanish fractional share: tax implications",
+    "subtitle": "A UK buyer of a Spanish fractional share faces three tax layers — Spanish corporate tax on the SL, Spanish wealth tax (Patrimonio) above thresholds, and UK reporting on the foreign-corporate interest. The fractional structure usually keeps the buyer below key thresholds.",
+    "shortAnswer": "A UK buyer of a Spanish fractional share holds a membership interest in a Spanish SL that owns the property. Three tax layers apply: Spanish IBI (local property tax) and corporate tax on the SL itself; Spanish wealth tax (Patrimonio) above relevant thresholds; and UK self-assessment reporting of the foreign-corporate interest. The fractional structure usually keeps the buyer below Patrimonio thresholds and dramatically simplifies UK reporting versus owning Spanish property outright.",
+    "metaDescription": "UK buyer of a Spanish fractional share: three tax layers — Spanish SL, Patrimonio, UK reporting. Here is the working picture for 2026.",
+    "category": "tax-legal",
+    "related": [
+      "how-is-fractional-ownership-structured-legally",
+      "do-you-pay-stamp-duty-on-a-fractional-share",
+      "best-fractional-ownership-mallorca",
+      "best-fractional-ownership-costa-del-sol"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "mallorca",
+      "costa-del-sol"
+    ],
+    "slug": "uk-buyer-fractional-spain-tax",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "uk-buyer-fractional-france-tax": {
+    "title": "UK buyer buying a fractional share in France — tax implications (2026)",
+    "h1": "UK buyer buying a French fractional share: tax implications",
+    "subtitle": "A UK buyer of a French fractional share holds a membership interest in a French SCI. The structure usually keeps the buyer under IFI thresholds and simplifies UK reporting.",
+    "shortAnswer": "A UK buyer of a French fractional share holds a membership interest in a French SCI that owns the property. Three tax layers: French taxe foncière + corporate-level tax on the SCI; French IFI (wealth tax) above the €1.3M French-real-estate threshold; UK self-assessment reporting of the foreign-corporate interest. The fractional structure typically keeps non-resident UK buyers under the IFI threshold and treats the SCI as a foreign-company holding on the UK side, dramatically simpler than direct French property ownership.",
+    "metaDescription": "UK buyer of a French fractional share: SCI structure, IFI position, UK reporting. Here is the 2026 working picture for cross-border buyers.",
+    "category": "tax-legal",
+    "related": [
+      "french-ifi-wealth-tax-fractional",
+      "how-is-fractional-ownership-structured-legally",
+      "best-fractional-ownership-cote-dazur",
+      "best-fractional-ownership-french-alps"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "sci",
+      "cote-dazur",
+      "ifi"
+    ],
+    "slug": "uk-buyer-fractional-france-tax",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "us-buyer-fractional-spain-tax": {
+    "title": "US buyer buying a fractional share in Spain — IRS implications (2026)",
+    "h1": "US buyer buying a Spanish fractional share: tax implications",
+    "subtitle": "A US buyer of a Spanish fractional share faces Spanish-side tax on the SL plus US FBAR and FATCA reporting on the foreign-corporate interest. The fractional structure usually clears US reporting more cleanly than owning Spanish property outright.",
+    "shortAnswer": "A US buyer of a Spanish fractional share holds a membership interest in a Spanish SL that owns the property. Three tax layers: Spanish IBI + corporate tax on the SL; Spanish Patrimonio (wealth tax) above thresholds (rarely triggered by single-share buyers); US FBAR (FinCEN 114) if aggregate foreign accounts exceed 0,000 and US Form 8865/8938 reporting of the foreign-corporate interest. The fractional structure dramatically simplifies US side compared with direct Spanish real-estate ownership — but US buyers should always engage a cross-border tax specialist before purchasing.",
+    "metaDescription": "US buyer of a Spanish fractional share: Spanish SL tax, Patrimonio position, US FBAR + FATCA reporting. Here is the 2026 working picture.",
+    "category": "tax-legal",
+    "related": [
+      "how-is-fractional-ownership-structured-legally",
+      "us-buyer-fractional-mexico-fideicomiso",
+      "best-fractional-ownership-mallorca",
+      "best-fractional-ownership-costa-del-sol"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "mallorca"
+    ],
+    "slug": "us-buyer-fractional-spain-tax",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "us-buyer-fractional-mexico-fideicomiso": {
+    "title": "US buyer buying a fractional share in Mexico — fideicomiso explained (2026)",
+    "h1": "US buyer buying a Mexican fractional share: how the fideicomiso works",
+    "subtitle": "Mexican coastal real estate near borders is held through a fideicomiso (bank trust) for foreign owners. Fractional ownership wraps this inside the LLC structure, with the fideicomiso held by the LLC rather than the individual buyer.",
+    "shortAnswer": "Mexican coastal real estate within ~50km of the coast or border zones must be held by foreign owners through a fideicomiso — a 50-year renewable bank trust where a Mexican bank legally holds the title for the foreign beneficiary. In fractional ownership, the fideicomiso is held by the property-specific LLC, not by individual buyers. US buyers hold deeded membership interests in the LLC, which in turn holds the fideicomiso. The structure simplifies US reporting versus holding a personal fideicomiso, and works cleanly for popular Mexican fractional markets like Cabo San Lucas and Riviera Maya.",
+    "metaDescription": "Mexican coastal real estate requires a fideicomiso (bank trust) for foreign owners. Fractional ownership places the fideicomiso inside the LLC. Here is how it works for US buyers in 2026.",
+    "category": "tax-legal",
+    "related": [
+      "us-buyer-fractional-spain-tax",
+      "how-is-fractional-ownership-structured-legally",
+      "how-much-does-fractional-ownership-cost-in-the-us",
+      "what-is-fractional-ownership-real-estate"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate"
+    ],
+    "slug": "us-buyer-fractional-mexico-fideicomiso",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "french-ifi-wealth-tax-fractional": {
+    "title": "French IFI wealth tax and fractional ownership: how the structure helps (2026)",
+    "h1": "French IFI wealth tax and fractional ownership",
+    "subtitle": "French IFI applies above €1.3M of French real estate. A fractional 1/8 share usually keeps a non-resident owner below the threshold, while a comparable whole property would trigger IFI.",
+    "shortAnswer": "French IFI (Impôt sur la Fortune Immobilière) is a wealth tax that applies above €1.3M of French real-estate value. For a non-resident buyer, a 1/8 fractional share of a €5M Côte d Azur villa values at roughly €625k of French real estate — well below the IFI threshold. The same buyer owning the €5M villa outright would trigger IFI and face an annual charge in the tens of thousands. The fractional structure typically delivers this advantage automatically, though buyers with other French real estate need to aggregate carefully.",
+    "metaDescription": "French IFI wealth tax applies above €1.3M of French real estate. Fractional shares typically keep non-resident owners below the threshold. Here is exactly how it works in 2026.",
+    "category": "tax-legal",
+    "related": [
+      "uk-buyer-fractional-france-tax",
+      "best-fractional-ownership-cote-dazur",
+      "best-fractional-ownership-french-alps",
+      "fractional-ownership-vs-second-home-cost-comparison"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "ifi",
+      "cote-dazur",
+      "sci"
+    ],
+    "slug": "french-ifi-wealth-tax-fractional",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "capital-gains-tax-selling-fractional-share": {
+    "title": "Capital gains tax on selling a fractional ownership share (2026)",
+    "h1": "Capital gains tax when you sell your fractional ownership share",
+    "subtitle": "Selling a fractional share triggers capital gains tax in the property's country (and potentially the seller's home country) on any gain. The LLC structure means the share is taxed as a corporate-interest sale, not a real-estate sale — usually a tax-simpler outcome.",
+    "shortAnswer": "Selling a fractional ownership share triggers capital gains tax on any gain — in the property's country, and potentially also in the seller's home country. Because the share is a membership interest in an LLC (rather than direct real estate), the sale is typically taxed as a corporate-interest disposal. This is often simpler than a direct property sale and can produce a more favourable rate in some jurisdictions. The exact treatment depends on the property country, the seller's residency, and any double-taxation treaty between the two. Always model the CGT impact with a cross-border tax specialist before listing for resale.",
+    "metaDescription": "Selling a fractional share triggers capital gains tax in the property country and potentially the seller's home country. Here is the working picture for 2026.",
+    "category": "tax-legal",
+    "related": [
+      "can-you-sell-a-fractional-ownership-share",
+      "how-long-to-sell-a-fractional-share",
+      "how-is-fractional-ownership-structured-legally",
+      "do-fractional-shares-appreciate"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "real-estate"
+    ],
+    "slug": "capital-gains-tax-selling-fractional-share",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "nie-spanish-fractional-ownership": {
+    "title": "Do I need an NIE to buy a Spanish fractional share? (2026)",
+    "h1": "Do I need an NIE to buy a Spanish fractional share?",
+    "subtitle": "Yes. Every foreign buyer of a Spanish fractional share needs an NIE (Número de Identificación de Extranjero) before completion, even though the property is held in an SL rather than personally.",
+    "shortAnswer": "Yes. An NIE (Número de Identificación de Extranjero) is required for any foreign buyer who becomes a member of a Spanish SL — including fractional ownership buyers. The NIE is a tax identification number, not a residency document. It can be obtained from a Spanish consulate in the buyer's country or in Spain directly; the operator usually facilitates the application as part of the purchase process. Allow 4–8 weeks for issuance. The NIE is a one-time obtention and works for any future Spanish dealings (not just this fractional purchase).",
+    "metaDescription": "Yes — every foreign buyer of a Spanish fractional share needs an NIE before completion. Here is how to get one and what to expect in 2026.",
+    "category": "tax-legal",
+    "related": [
+      "uk-buyer-fractional-spain-tax",
+      "us-buyer-fractional-spain-tax",
+      "best-fractional-ownership-mallorca",
+      "how-is-fractional-ownership-structured-legally"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc",
+      "mallorca"
+    ],
+    "slug": "nie-spanish-fractional-ownership",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "can-i-gift-fractional-share-to-children": {
+    "title": "Can I gift a fractional ownership share to my children? (2026)",
+    "h1": "Can I gift a fractional ownership share to my children?",
+    "subtitle": "Yes — fractional shares are gifted through standard LLC membership transfer. Gift-tax implications vary by jurisdiction; the structure is the easy part.",
+    "shortAnswer": "Yes. A fractional share is a transferable LLC membership interest, gifted to a family member through a standard LLC membership transfer documented by the operator. The mechanical process typically takes 4–6 weeks and costs €500–€2,000 in legal fees. The complexity isn't structural — it's tax: the gift triggers gift-tax obligations in the property's country, the giver's home country, and potentially the recipient's country, depending on relevant double-taxation treaties. The fractional structure usually makes the gift smaller (one share rather than a whole property), keeping the gift below relevant thresholds in many jurisdictions. Always model the gift-tax picture with a cross-border specialist.",
+    "metaDescription": "Yes — fractional shares can be gifted to children through standard LLC membership transfer. Here is the structural process and the tax considerations for 2026.",
+    "category": "tax-legal",
+    "related": [
+      "what-happens-to-fractional-share-when-i-die",
+      "how-is-fractional-ownership-structured-legally",
+      "can-you-sell-a-fractional-ownership-share",
+      "who-buys-fractional-ownership-typical-buyer-profile"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc"
+    ],
+    "slug": "can-i-gift-fractional-share-to-children",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "what-happens-to-fractional-share-when-i-die": {
+    "title": "What happens to my fractional ownership share when I die? (2026)",
+    "h1": "What happens to my fractional ownership share when I die?",
+    "subtitle": "The share passes through your will or estate plan like any LLC interest. Inheritance is meaningfully simpler than for outright foreign property — no separate French/Spanish/Italian succession paperwork for the heirs.",
+    "shortAnswer": "A fractional share is an LLC membership interest that passes through your will or estate plan to your heirs. Compared with outright foreign property ownership — where heirs face local succession law in the property's country — the LLC structure is meaningfully simpler: heirs inherit a corporate interest under your home-country estate law, and the property's country isn't involved in the succession itself. Inheritance tax implications still apply per the property country's and the deceased's country's rules, but the operational succession is cleaner. Most operators have a documented inheritance-handling process.",
+    "metaDescription": "A fractional share passes through your will like any LLC interest — meaningfully simpler than inheriting foreign property outright. Here is the 2026 picture.",
+    "category": "tax-legal",
+    "related": [
+      "can-i-gift-fractional-share-to-children",
+      "how-is-fractional-ownership-structured-legally",
+      "capital-gains-tax-selling-fractional-share",
+      "is-fractional-ownership-safe"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc"
+    ],
+    "slug": "what-happens-to-fractional-share-when-i-die",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "cooling-off-period-fractional-purchase": {
+    "title": "Is there a cooling-off period when buying a fractional share? (2026)",
+    "h1": "Is there a cooling-off period when buying a fractional ownership share?",
+    "subtitle": "Yes in most jurisdictions — typically 7–14 days from signing the reservation agreement during which you can withdraw without penalty. French and Spanish purchases have multiple distinct cooling-off windows.",
+    "shortAnswer": "Yes in most jurisdictions. France and Spain have specific consumer-protection rules that give buyers cooling-off windows during the reservation and share-purchase process — typically 7–14 days each. During the window, the buyer can withdraw without financial penalty (deposits are refunded). The UK and US tend to have shorter or no statutory cooling-off, though many fractional operators voluntarily offer a similar 7–14 day window as good practice. Always verify the cooling-off terms in the specific operator's share-purchase agreement before signing.",
+    "metaDescription": "Yes — most fractional ownership purchases include a 7–14 day cooling-off period during which buyers can withdraw without penalty. Here is how it works by country in 2026.",
+    "category": "tax-legal",
+    "related": [
+      "can-i-see-property-before-buying-fractional",
+      "is-fractional-ownership-safe",
+      "how-does-fractional-ownership-work",
+      "is-fractional-ownership-a-scam"
+    ],
+    "aboutEntities": [
+      "fractional-ownership"
+    ],
+    "slug": "cooling-off-period-fractional-purchase",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "best-fractional-ownership-ibiza": {
+    "title": "Best fractional ownership in Ibiza 2026",
+    "h1": "Best fractional ownership in Ibiza",
+    "subtitle": "Ibiza is a tier-up from Mallorca on share price. Typical 1/8 shares €280k–€700k, with annual fees of €10k–€18k. Strongest inventory in the north (San Juan, Santa Eulalia) and the west coast.",
+    "shortAnswer": "Ibiza fractional pricing runs €280,000–€700,000 per 1/8 share fully loaded, with annual fees of €10,000–€18,000. Underlying property prices are higher than Mallorca because the island is smaller, the supply more constrained, and the international demand more intense. Strongest fractional inventory in the north (San Juan, Santa Eulalia, San Carlos) and the west coast (San José area). The genuine peak is tighter than Mallorca — roughly mid-June to mid-September — so rotation system handling of August weeks matters even more.",
+    "metaDescription": "Ibiza fractional pricing: €280k–€700k per 1/8 share, €10k–€18k annual fees. Tighter peak season than Mallorca. 2026 buyer guide.",
+    "category": "destination",
+    "related": [
+      "best-fractional-ownership-mallorca",
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "how-does-fractional-ownership-work"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "ibiza"
+    ],
+    "slug": "best-fractional-ownership-ibiza",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "best-fractional-ownership-costa-del-sol": {
+    "title": "Best fractional ownership on the Costa del Sol 2026",
+    "h1": "Best fractional ownership on the Costa del Sol",
+    "subtitle": "The Costa del Sol offers the longest-season Mediterranean fractional inventory. Typical 1/8 shares €200k–€500k with annual fees of €7.5k–€13.5k. Marbella, Sotogrande and Estepona lead the listings.",
+    "shortAnswer": "Costa del Sol fractional pricing runs €200,000–€500,000 per 1/8 share fully loaded, with annual fees of €7,500–€13,500. The destination's structural advantage is the longest usable season of any Mediterranean fractional market — 300+ days of mild weather mean owners use the home across more weeks than Mallorca or Ibiza-equivalent shares. Strongest inventory in Marbella (Golden Mile, La Zagaleta, Nueva Andalucía), Sotogrande, and Estepona. The longer season eases peak-week rotation pressure considerably.",
+    "metaDescription": "Costa del Sol fractional pricing: €200k–€500k per 1/8 share. Longest usable season of any Mediterranean fractional market. 2026 buyer guide.",
+    "category": "destination",
+    "related": [
+      "best-fractional-ownership-mallorca",
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "how-does-fractional-ownership-work"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "costa-del-sol"
+    ],
+    "slug": "best-fractional-ownership-costa-del-sol",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "best-fractional-ownership-lake-como": {
+    "title": "Best fractional ownership on Lake Como 2026",
+    "h1": "Best fractional ownership on Lake Como",
+    "subtitle": "Lake Como is the fastest-growing Italian fractional market. Typical 1/8 shares €220k–€500k with annual fees of €8.5k–€14k. Inventory concentrated in Bellagio, Tremezzo, Menaggio and Cernobbio.",
+    "shortAnswer": "Lake Como fractional pricing runs €220,000–€500,000 per 1/8 share fully loaded, with annual fees of €8,500–€14,000. The market has grown rapidly since 2022 as a meaningful alternative to French and Spanish destinations for buyers wanting something quieter and more cinematic. Strongest inventory in Bellagio, Tremezzo, Menaggio and Cernobbio. Italian fractional structures use SRL (Italian limited company) vehicles — functionally equivalent to French SCI or Spanish SL.",
+    "metaDescription": "Lake Como fractional pricing: €220k–€500k per 1/8 share, €8.5k–€14k annual fees. Fastest-growing Italian fractional market. 2026 buyer guide.",
+    "category": "destination",
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "how-is-fractional-ownership-structured-legally",
+      "how-does-fractional-ownership-work"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "lake-como"
+    ],
+    "slug": "best-fractional-ownership-lake-como",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "best-fractional-ownership-algarve": {
+    "title": "Best fractional ownership in the Algarve 2026",
+    "h1": "Best fractional ownership in the Algarve",
+    "subtitle": "The Algarve is the most affordable established Mediterranean fractional market. Typical 1/8 shares €170k–€400k with annual fees of €6.5k–€11.5k. Quinta do Lago, Vale do Lobo and Vilamoura dominate inventory.",
+    "shortAnswer": "Algarve fractional pricing runs €170,000–€400,000 per 1/8 share fully loaded, with annual fees of €6,500–€11,500 — the most affordable established Mediterranean fractional market. Strongest inventory in the Golden Triangle (Quinta do Lago, Vale do Lobo, Vilamoura) and Lagos to the west. The destination favours buyers who prioritise golf, year-round mild climate, and lower price entry. Portuguese fractional structures use LDA (Portuguese limited company) vehicles.",
+    "metaDescription": "Algarve fractional pricing: €170k–€400k per 1/8 share, €6.5k–€11.5k annual fees. The most affordable established Mediterranean fractional market. 2026 buyer guide.",
+    "category": "destination",
+    "related": [
+      "how-much-does-fractional-ownership-cost-in-europe",
+      "fractional-ownership-vs-second-home-cost-comparison",
+      "best-fractional-ownership-mallorca",
+      "how-does-fractional-ownership-work"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "algarve"
+    ],
+    "slug": "best-fractional-ownership-algarve",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
+  },
+  "have-any-fractional-companies-gone-bankrupt": {
+    "title": "Have any fractional ownership companies gone bankrupt? (2026)",
+    "h1": "Have any fractional ownership companies gone bankrupt?",
+    "subtitle": "A small number have, mostly in the post-2008 US correction. None of the established 2020-onwards European operators have failed. The LLC structure means owners retained the underlying real estate even where operators failed.",
+    "shortAnswer": "A small number of US fractional operators failed during the 2008–2012 correction — the most prominent was Ritz-Carlton Destination Club (insolvent 2012). In every documented case, owners retained the underlying real estate because the property-specific LLC structure isolated ownership from the operator's insolvency. Owners faced operational disruption (replacement management appointment, booking-platform transition) but not loss of underlying real-estate ownership. No major 2020-onwards European fractional operator has failed. The pattern: the structure works when failure occurs; the disruption is operational, not structural.",
+    "metaDescription": "A small number of fractional operators have failed historically (mostly post-2008 US). In every case, the LLC structure preserved owners' underlying real estate. Here is what happened and what to learn.",
+    "category": "long-tail",
+    "related": [
+      "what-happens-if-fractional-operator-fails",
+      "is-fractional-ownership-safe",
+      "is-fractional-ownership-a-scam",
+      "what-is-a-property-specific-llc"
+    ],
+    "aboutEntities": [
+      "fractional-ownership",
+      "llc"
+    ],
+    "slug": "have-any-fractional-companies-gone-bankrupt",
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-06-03",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg"
   }
 }
