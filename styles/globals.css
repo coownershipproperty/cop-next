@@ -9754,3 +9754,65 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   color: var(--blue);
 }
 
+
+/* ── FAQ / Q&A pages ──
+   Built on top of .compare-page / .compare-body-inner so most rules inherit.
+   These overrides shape the TLDR box, comparison tables inside answers, and
+   the FAQ-hub category blocks. */
+.faq-page .compare-body-inner blockquote.faq-tldr {
+  background: #F5F2EC;
+  border-left: 4px solid #C9A84C;
+  padding: 22px 28px;
+  margin: 0 0 36px;
+  font-style: normal;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: #1f3445;
+}
+.faq-page .compare-body-inner blockquote.faq-tldr p {
+  margin: 0;
+}
+.faq-page .compare-body-inner blockquote.faq-tldr strong {
+  color: #2C4A5E;
+}
+.faq-page .compare-body-inner table.faq-compare {
+  border-collapse: collapse;
+  width: 100%;
+  background: #fff;
+  font-size: 14.5px;
+  margin: 24px 0;
+}
+.faq-page .compare-body-inner table.faq-compare th,
+.faq-page .compare-body-inner table.faq-compare td {
+  border: 1px solid #e5dfd2;
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  color: #1f3445;
+}
+.faq-page .compare-body-inner table.faq-compare thead th {
+  background: #2C4A5E;
+  color: #fff;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.faq-page .compare-body-inner table.faq-compare tbody tr:nth-child(even) td {
+  background: #F5F2EC;
+}
+.faq-page .compare-body-inner .faq-category-block {
+  margin-bottom: 36px;
+}
+.faq-page .compare-body-inner .faq-category-block h2 {
+  margin-top: 36px;
+  border-bottom: 1px solid #e5dfd2;
+  padding-bottom: 8px;
+}
+.faq-page .compare-body-inner .faq-category-block ul {
+  margin: 14px 0 24px;
+}
+.faq-page .compare-body-inner .faq-category-block ul li {
+  margin-bottom: 10px;
+  font-size: 16.5px;
+  line-height: 1.5;
+}

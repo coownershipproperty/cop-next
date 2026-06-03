@@ -235,6 +235,16 @@ export async function getServerSideProps({ res }) {
   if (fs.existsSync(path.join(cwd, 'lib', 'glossary-terms-fr.json'))) glossaryLocales.push('fr');
   if (fs.existsSync(path.join(cwd, 'lib', 'glossary-terms-de.json'))) glossaryLocales.push('de');
 
+  // FAQ / Q&A pages at content/faq/<slug>.html — AI-bait Q&A content.
+  // EN-only for now; ES / FR / DE folders reserved for later translation.
+  const faqDir = path.join(cwd, 'content', 'faq');
+  const faqSlugs = fs.existsSync(faqDir)
+    ? fs.readdirSync(faqDir).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
+    : [];
+  const faqSlugsEsSet = new Set(fs.existsSync(path.join(faqDir, 'es')) ? fs.readdirSync(path.join(faqDir, 'es')).filter(f => f.endsWith('.html')).map(f => f.replace('.html', '')) : []);
+  const faqSlugsFrSet = new Set(fs.existsSync(path.join(faqDir, 'fr')) ? fs.readdirSync(path.join(faqDir, 'fr')).filter(f => f.endsWith('.html')).map(f => f.replace('.html', '')) : []);
+  const faqSlugsDeSet = new Set(fs.existsSync(path.join(faqDir, 'de')) ? fs.readdirSync(path.join(faqDir, 'de')).filter(f => f.endsWith('.html')).map(f => f.replace('.html', '')) : []);
+
 
   // Pillar slugs get higher priority + more frequent crawl signal.
   // Country pillars + regional pillars all rewritten to the new 10k+ word
@@ -335,6 +345,22 @@ export async function getServerSideProps({ res }) {
       });
       return Object.entries(altset).map(([loc, p]) => urlEntry(`${BASE}${p}`, '0.8', 'monthly', today, altset));
     })(),
+
+    // FAQ hub + individual Q&A pages. EN-only for now; ES/FR/DE alternates
+    // emitted if the locale file exists. Priority 0.85 — these are AI-citation
+    // money pages, treat them on par with /compare/.
+    urlEntry(`${BASE}/faq/`, '0.85', 'weekly', today, { en: '/faq/' }),
+    ...faqSlugs.flatMap(slug => {
+      const altset = { en: `/faq/${slug}/` };
+      if (faqSlugsEsSet.has(slug)) altset.es = `/es/preguntas/${slug}/`;
+      if (faqSlugsFrSet.has(slug)) altset.fr = `/fr/questions/${slug}/`;
+      if (faqSlugsDeSet.has(slug)) altset.de = `/de/fragen/${slug}/`;
+      const out = [urlEntry(`${BASE}/faq/${slug}/`, '0.85', 'monthly', today, altset)];
+      if (altset.es) out.push(urlEntry(`${BASE}${altset.es}`, '0.85', 'monthly', today, altset));
+      if (altset.fr) out.push(urlEntry(`${BASE}${altset.fr}`, '0.85', 'monthly', today, altset));
+      if (altset.de) out.push(urlEntry(`${BASE}${altset.de}`, '0.85', 'monthly', today, altset));
+      return out;
+    }),
 
     // Property detail pages — emit EN / ES / FR / DE with reciprocal hreflang
     ...(properties || []).flatMap(p => {
