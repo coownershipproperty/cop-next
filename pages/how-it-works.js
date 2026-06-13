@@ -152,7 +152,7 @@ export default function HowItWorks() {
                   "@type": "HowToStep",
                   "position": 1,
                   "name": "Browse and compare properties",
-                  "text": "Start at /our-homes/ to browse ~330 live fractional listings across 30+ destinations. Filter by country, region, share price, and partner operator. Use the comparison pages (/compare/) to evaluate operators side-by-side: Pacaso vs MYNE, MYNE vs Vivla, fractional vs timeshare, fractional vs whole second home.",
+                  "text": "Start at /our-homes/ to browse 350+ live fractional listings across 30+ destinations. Filter by country, region, share price, and partner operator. Use the comparison pages (/compare/) to evaluate operators side-by-side: Pacaso vs MYNE, MYNE vs Vivla, fractional vs timeshare, fractional vs whole second home.",
                   "url": "https://co-ownership-property.com/our-homes/"
                 },
                 {

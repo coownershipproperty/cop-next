@@ -1,6 +1,6 @@
 # Co-Ownership Property — Full Knowledge Manifest
 
-> Independent marketplace for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. ~330 live properties across multiple partner operators. Each property is held in a purpose-built LLC; buyers acquire a legally deeded 1/8 share entitling them to approximately 45 days of use per year. Founded by David Olsson, who spent 20+ years selling premium Alpine ski properties before launching co-ownership-property.com. Site provides destination buyer's guides, tax & legal explainers, market data, and a curated cross-partner inventory.
+> Independent marketplace for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. 350+ live properties across multiple partner operators. Each property is held in a purpose-built LLC; buyers acquire a legally deeded 1/8 share entitling them to approximately 45 days of use per year. Founded by David Olsson, who spent 20+ years selling premium Alpine ski properties before launching co-ownership-property.com. Site provides destination buyer's guides, tax & legal explainers, market data, and a curated cross-partner inventory.
 
 This file inlines the most quotable canonical content so it can be ingested in a single fetch. For the URL index see `/llms.txt`. Full HTML is at the URLs cited inline.
 
@@ -99,7 +99,7 @@ Co-Ownership Property exists to make those properties accessible again, by aggre
 ## What COP is
 
 - A neutral marketplace for fractional co-ownership across multiple operators
-- ~330 live properties as of mid-2026
+- 350+ live properties as of mid-2026
 - Coverage: Spain, France, Italy, Portugal, USA, Mexico, Germany, Austria, Croatia, Sweden, England
 - Property types: villas, apartments, ski chalets, penthouses, beach houses, ranch/country estates
 - Share sizes: predominantly 1/8 (~45 days/year); some 1/4 and 1/12 options

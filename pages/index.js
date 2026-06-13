@@ -302,12 +302,12 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
       <Head>
         <title>Co-Ownership Property | Luxury Fractional Ownership</title>
         <HreflangLinks englishPath="/" />
-        <meta name="description" content="Browse 333+ luxury co-ownership properties across Europe and the USA. Real deeded ownership in the world's finest homes — from a fraction of the cost." />
+        <meta name="description" content="Browse 350+ luxury co-ownership properties across Europe and the USA. Real deeded ownership in the world's finest homes — from a fraction of the cost." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/" />
         <meta property="og:title" content="Co-Ownership Property | Luxury Fractional Ownership" />
-        <meta property="og:description" content="Browse 333+ luxury fractional ownership properties across Europe and the USA. Real deeded ownership from a fraction of the cost." />
+        <meta property="og:description" content="Browse 350+ luxury fractional ownership properties across Europe and the USA. Real deeded ownership from a fraction of the cost." />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
         <meta property="og:url" content="https://co-ownership-property.com/" />
         <meta property="og:type" content="website" />

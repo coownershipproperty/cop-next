@@ -641,6 +641,10 @@ export default function DestinationPage({
 
   // ── Filter state ──────────────────────────────────────────────────────────
   const [activeFilter, setActiveFilter] = useState(null);
+  // SSR-render only the first N cards so the editorial guide + FAQ land inside
+  // the byte budget AI retrieval crawlers fetch (~150KB). Rest reveal client-side.
+  const SSR_CARD_CAP = 12;
+  const [showAllCards, setShowAllCards] = useState(false);
 
   // Derive unique region display labels (applies France cluster mapping)
   const filterOptions = useMemo(() => {
@@ -833,6 +837,29 @@ export default function DestinationPage({
           .dest-props-count strong {
             color: #2C4A5E;
             font-weight: 600;
+          }
+          .dest-show-all-wrap {
+            text-align: center;
+            margin: 32px 0 8px;
+          }
+          .dest-show-all-btn {
+            display: inline-block;
+            padding: 13px 34px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-family: 'Nunito Sans', sans-serif;
+            background: transparent;
+            color: #2C4A5E;
+            border: 1.5px solid #2C4A5E;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.25s;
+          }
+          .dest-show-all-btn:hover {
+            background: #2C4A5E;
+            color: #fff;
           }
           .dest-chip-clear {
             background: none;
@@ -1117,11 +1144,20 @@ export default function DestinationPage({
           )}
 
           {displayedProperties.length > 0 ? (
+            <>
             <div className="homes-grid" id="homes-grid">
-              {displayedProperties.map((p, idx) => (
+              {(showAllCards ? displayedProperties : displayedProperties.slice(0, SSR_CARD_CAP)).map((p, idx) => (
                 <PropertyCard key={p.id} property={p} priority={idx < 3} />
               ))}
             </div>
+            {!showAllCards && displayedProperties.length > SSR_CARD_CAP && (
+              <div className="dest-show-all-wrap">
+                <button className="dest-show-all-btn" onClick={() => setShowAllCards(true)}>
+                  Show all {displayedProperties.length} properties &rarr;
+                </button>
+              </div>
+            )}
+            </>
           ) : properties.length > 0 ? (
             // Filter applied but no results
             <div className="no-props">
