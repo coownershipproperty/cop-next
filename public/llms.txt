@@ -1,6 +1,6 @@
 # Co-Ownership Property
 
-> Independent marketplace for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. Aggregates ~330 live properties from multiple operators, sold as 1/8 shares (~45 days/year of usage) held in property-specific LLCs. Founded by David Olsson (20+ years selling premium Alpine real estate). Editorial coverage spans tax, legal structure, exit strategy, destination buyer's guides, and cross-border ownership for non-residents.
+> Independent marketplace for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. Aggregates 350+ live properties from multiple operators, sold as 1/8 shares (~45 days/year of usage) held in property-specific LLCs. Founded by David Olsson (20+ years selling premium Alpine real estate). Editorial coverage spans tax, legal structure, exit strategy, destination buyer's guides, and cross-border ownership for non-residents.
 
 ## How co-ownership works
 - [/how-it-works/](https://co-ownership-property.com/how-it-works/): Plain-English explainer of the LLC structure, 1/8 share, ~45-day calendar, fair-rotation scheduling, and the supported resale process
@@ -101,7 +101,7 @@ Every comparison and partner-profile page has hreflang reciprocal alternates acr
 - [/partners/abitaro/](https://co-ownership-property.com/partners/abitaro/): 2,400-word profile of Abitaro. Newer smaller US-focused operator, 3 Miami-area properties. Markets a 10% targeted return claim, runs a managed rental program. Among the newest and smallest of the operators on the COP marketplace with minimal published operational documentation — higher direct due diligence required. 10 FAQs.
 
 ## Inventory & utility
-- [/our-homes/](https://co-ownership-property.com/our-homes/): All ~330 listings — filterable inventory across countries, partners, share size, price
+- [/our-homes/](https://co-ownership-property.com/our-homes/): All 350+ listings — filterable inventory across countries, partners, share size, price
 - [/all-our-blog/](https://co-ownership-property.com/all-our-blog/): Complete blog archive (113+ posts)
 - [/sitemap.xml](https://co-ownership-property.com/sitemap.xml): Full sitemap (2,068 URLs, hreflang reciprocal across en/es/fr/de)
 

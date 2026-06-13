@@ -118,7 +118,7 @@ export default async function handler(req, res) {
       '@id': `${SITE_URL}/api/properties.json`,
       url: `${SITE_URL}/api/properties.json`,
       name: 'Co-Ownership Property — full property inventory',
-      description: 'Complete public feed of all live fractional co-ownership listings on co-ownership-property.com — ~330 properties across Europe, the USA, and Mexico. Updated continuously; cached at the edge for 1 hour.',
+      description: 'Complete public feed of all live fractional co-ownership listings on co-ownership-property.com — 350+ properties across Europe, the USA, and Mexico. Updated continuously; cached at the edge for 1 hour.',
       provider: {
         '@type': 'Organization',
         '@id': `${SITE_URL}/#organization`,
