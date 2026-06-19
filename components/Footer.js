@@ -139,7 +139,7 @@ export default function Footer() {
             ))}
           </div>
           <a className="footer-currency-link" href="/currency-exchange-for-co-ownership-property/">
-            Currency Exchange
+            save on currency exchange when you buy a share
           </a>
         </div>
 
@@ -224,8 +224,9 @@ export default function Footer() {
           font-size: 0.9rem;
           font-weight: 700;
           letter-spacing: 0.03em;
+          line-height: 1.35;
+          max-width: 230px;
           text-decoration: none;
-          text-transform: uppercase;
         }
         .footer-currency-link:hover {
           color: #ffffff;
