@@ -1,0 +1,665 @@
+.hero {
+  position: relative;
+  min-height: 720px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--blue);
+  color: var(--white);
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(23, 42, 56, 0.92), rgba(23, 42, 56, 0.64) 48%, rgba(23, 42, 56, 0.32)),
+    linear-gradient(to top, rgba(23, 42, 56, 0.88), rgba(23, 42, 56, 0.18));
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  width: min(1260px, calc(100vw - 6rem));
+  margin: 0 auto;
+  padding: 8rem 0 5rem;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--warm-gold);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.editorialIntro h2,
+.compare h2,
+.planner h2,
+.timeline h2,
+.deepDive h2,
+.enquiry h2,
+.faq h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+.hero h1 {
+  max-width: 11ch;
+  margin: 0;
+  color: var(--white);
+  font-size: clamp(3.2rem, 6vw, 6.6rem);
+}
+
+.hero p {
+  max-width: 42rem;
+  margin: 1.4rem 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.7;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.4rem;
+}
+
+.primaryCta,
+.secondaryCta,
+.textCta,
+.form button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.1rem;
+  border: 1px solid var(--warm-gold);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  padding: 0.95rem 1.35rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.primaryCta,
+.form button {
+  background: var(--warm-gold);
+  color: var(--blue);
+}
+
+.secondaryCta {
+  color: var(--white);
+}
+
+.primaryCta:hover,
+.secondaryCta:hover,
+.textCta:hover,
+.form button:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+}
+
+.heroPanel {
+  border-top: 3px solid var(--warm-gold);
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--blue);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.24);
+  padding: 2rem;
+}
+
+.heroPanel span,
+.compareGrid span,
+.timelineCards span,
+.calcHeader span,
+.resultGrid span {
+  display: block;
+  color: var(--warm-gold);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.heroPanel strong {
+  display: block;
+  margin-top: 0.7rem;
+  color: var(--blue);
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.heroPanel p {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.editorialIntro,
+.planner,
+.timeline,
+.deepDive,
+.enquiry,
+.faq {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: 6rem 3rem;
+}
+
+.editorialIntro,
+.timeline,
+.faq {
+  background: var(--cream-bg);
+}
+
+.editorialIntro h2,
+.planner h2,
+.timeline h2,
+.deepDive h2,
+.enquiry h2,
+.faq h2 {
+  margin: 0;
+  color: var(--blue);
+  font-size: clamp(2.25rem, 4vw, 4rem);
+}
+
+.editorialIntro p,
+.plannerIntro > p,
+.timelineCopy p,
+.deepDive p,
+.enquiryCopy p,
+.faqHeader p,
+.compareHeader p {
+  color: var(--text-muted);
+  font-size: 0.96rem;
+  line-height: 1.85;
+}
+
+.editorialIntro > div:last-child p + p {
+  margin-top: 1.2rem;
+}
+
+.compare {
+  padding: 6rem 3rem;
+  background: var(--white);
+}
+
+.compareHeader {
+  max-width: 780px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.compare h2 {
+  margin: 0 0 1rem;
+  color: var(--blue);
+  font-size: clamp(2.25rem, 4vw, 3.7rem);
+}
+
+.compareGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  max-width: 1160px;
+  margin: 0 auto;
+  background: var(--gray-border);
+  border: 1px solid var(--gray-border);
+}
+
+.compareGrid article {
+  min-height: 260px;
+  background: var(--cream-light);
+  padding: 2rem;
+}
+
+.compareGrid h3,
+.deepDiveGrid h3,
+.timelineCards h3 {
+  margin: 0.9rem 0 0.7rem;
+  color: var(--blue);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.compareGrid p,
+.timelineCards p,
+.deepDiveGrid p,
+.resultGrid p,
+.rateSmall,
+.editorNote p,
+.disclaimer {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  line-height: 1.7;
+}
+
+.planner {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.planner h2 {
+  color: var(--white);
+}
+
+.plannerIntro > p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.editorNote {
+  margin-top: 2rem;
+  border-top: 3px solid var(--warm-gold);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1.4rem;
+}
+
+.editorNote span {
+  color: var(--warm-gold);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.editorNote strong {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--white);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+}
+
+.editorNote p {
+  margin-top: 0.8rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.calcCard,
+.form {
+  border-top: 3px solid var(--warm-gold);
+  background: var(--cream-light);
+  color: var(--blue);
+  box-shadow: 0 24px 64px rgba(23, 42, 56, 0.16);
+  padding: 1.6rem;
+}
+
+.calcHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.calcHeader strong {
+  color: var(--blue);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-align: right;
+}
+
+.fieldGrid,
+.twoCols,
+.threeCols {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.fieldGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.twoCols {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.threeCols {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.fieldGrid label,
+.form label {
+  display: grid;
+  gap: 0.42rem;
+  color: var(--blue);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.fieldGrid input,
+.fieldGrid select,
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  border: 1px solid rgba(44, 74, 94, 0.18);
+  border-radius: 0;
+  background: var(--white);
+  color: var(--blue);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  outline: none;
+  padding: 0.9rem 1rem;
+}
+
+.fieldGrid input:focus,
+.fieldGrid select:focus,
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  border-color: var(--warm-gold);
+}
+
+.resultGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.resultGrid > div {
+  background: var(--white);
+  padding: 1.2rem;
+}
+
+.resultGrid strong {
+  display: block;
+  margin: 0.5rem 0 0.35rem;
+  color: var(--blue);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  line-height: 1.05;
+}
+
+.rateSmall {
+  margin: 1rem 0 0;
+}
+
+.timelineCards {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+}
+
+.timelineCards::before {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  left: 1.1rem;
+  width: 2px;
+  background: var(--warm-gold);
+}
+
+.timelineCards article {
+  position: relative;
+  margin-left: 3rem;
+  border-left: 3px solid var(--warm-gold);
+  background: var(--white);
+  padding: 1.5rem;
+}
+
+.timelineCards article::before {
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  left: -4rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 2px solid var(--cream-bg);
+  border-radius: 50%;
+  background: var(--warm-gold);
+  box-shadow: 0 0 0 2px var(--warm-gold);
+}
+
+.timelineCards strong {
+  display: block;
+  margin-bottom: 0.7rem;
+  color: var(--blue);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.textCta {
+  margin-top: 1.5rem;
+  background: var(--warm-gold);
+  color: var(--blue);
+}
+
+.deepDive {
+  background: var(--white);
+}
+
+.deepDiveGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.deepDiveGrid article {
+  border-top: 3px solid var(--warm-gold);
+  background: var(--cream-bg);
+  padding: 1.4rem;
+}
+
+.enquiry {
+  background: var(--blue);
+}
+
+.enquiry h2 {
+  color: var(--white);
+}
+
+.enquiryCopy p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.disclaimer {
+  margin-top: 1.5rem;
+  border-left: 3px solid var(--warm-gold);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
+  padding: 1rem 1.2rem;
+}
+
+.form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.form textarea {
+  resize: vertical;
+}
+
+.consent {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.75rem;
+  border: 1px solid rgba(201, 168, 76, 0.24);
+  background: rgba(201, 168, 76, 0.1);
+  padding: 1rem;
+}
+
+.consent input {
+  width: auto;
+  margin-top: 0.2rem;
+}
+
+.consent span {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.form button {
+  width: 100%;
+}
+
+.form button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.success,
+.error {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.success {
+  color: #2f8f5b;
+}
+
+.error {
+  color: #a33a3a;
+}
+
+.faq {
+  grid-template-columns: 0.72fr 1.28fr;
+}
+
+.faqList {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--gray-border);
+}
+
+.faqList details {
+  border-bottom: 1px solid var(--gray-border);
+  background: transparent;
+  padding: 1.15rem 0;
+}
+
+.faqList summary {
+  color: var(--blue);
+  cursor: pointer;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.96rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.faqList p {
+  max-width: 68ch;
+  margin-top: 0.8rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.78;
+}
+
+@media (max-width: 1080px) {
+  .heroInner,
+  .editorialIntro,
+  .planner,
+  .timeline,
+  .deepDive,
+  .enquiry,
+  .faq {
+    grid-template-columns: 1fr;
+  }
+
+  .heroPanel {
+    max-width: 520px;
+  }
+
+  .compareGrid,
+  .deepDiveGrid,
+  .resultGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 0;
+  }
+
+  .heroInner {
+    width: auto;
+    padding: 7rem 1.25rem 3.5rem;
+  }
+
+  .hero h1 {
+    max-width: 10ch;
+    font-size: clamp(2.75rem, 13vw, 4.1rem);
+  }
+
+  .heroActions,
+  .primaryCta,
+  .secondaryCta,
+  .textCta {
+    width: 100%;
+  }
+
+  .heroPanel {
+    display: none;
+  }
+
+  .editorialIntro,
+  .compare,
+  .planner,
+  .timeline,
+  .deepDive,
+  .enquiry,
+  .faq {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .fieldGrid,
+  .twoCols,
+  .threeCols {
+    grid-template-columns: 1fr;
+  }
+
+  .calcCard,
+  .form {
+    padding: 1rem;
+  }
+
+  .compareGrid article {
+    min-height: auto;
+    padding: 1.5rem;
+  }
+
+  .timelineCards::before {
+    left: 0.6rem;
+  }
+
+  .timelineCards article {
+    margin-left: 2rem;
+  }
+
+  .timelineCards article::before {
+    left: -3rem;
+  }
+}
