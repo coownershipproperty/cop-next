@@ -7421,6 +7421,9 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .eq-done{text-align:center;padding:24px 0}
 .eq-tick{font-size:2rem;color:#C9A84C;display:block;margin-bottom:8px}
 .eq-done p{font-family:'Nunito Sans',sans-serif;color:#4a5568}
+.pp-currency-link{display:block;margin-top:22px;padding-top:18px;border-top:1px solid var(--border);font-family:'Nunito Sans',sans-serif;font-size:.82rem;font-weight:800;line-height:1.35;color:#143047;text-decoration:none}
+.pp-currency-link::after{content:' →';color:#C9A84C}
+.pp-currency-link:hover{color:#C9A84C}
 
 /* ── Lightbox ── */
 .pp-lb{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:10100;display:flex;align-items:center;justify-content:center}

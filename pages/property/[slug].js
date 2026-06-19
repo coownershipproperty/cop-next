@@ -714,6 +714,13 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             <h3 className="pp-form-title">{t.form_title}</h3>
             <p className="pp-form-sub">{t.form_sub}</p>
             <EnquiryForm propertyTitle={local.title} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} locale={locale} />
+            <a
+              className="pp-currency-link"
+              href="/currency-exchange-for-co-ownership-property/"
+              onClick={() => track('property_currency_cta_click', { property: local.title, slug: p.slug, locale })}
+            >
+              save on currency exchange when you buy a share
+            </a>
           </div>
         </div>
 
