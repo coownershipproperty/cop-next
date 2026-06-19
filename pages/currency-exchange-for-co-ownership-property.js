@@ -393,15 +393,14 @@ function CurrencyEnquiryForm() {
           </label>
           <label>
             Approx. amount
-            <select name="amount" defaultValue="EUR 200,000-250,000">
-              <option>Under EUR 100,000</option>
-              <option>EUR 100,000-150,000</option>
-              <option>EUR 150,000-200,000</option>
-              <option>EUR 200,000-250,000</option>
-              <option>EUR 250,000-350,000</option>
-              <option>EUR 350,000-500,000</option>
-              <option>USD 200,000-300,000</option>
-              <option>USD 300,000-500,000</option>
+            <select name="amount" defaultValue="200,000-250,000">
+              <option>Under 100,000</option>
+              <option>100,000-150,000</option>
+              <option>150,000-200,000</option>
+              <option>200,000-250,000</option>
+              <option>250,000-350,000</option>
+              <option>350,000-500,000</option>
+              <option>500,000+</option>
               <option>Other / not sure</option>
             </select>
           </label>
