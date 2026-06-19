@@ -415,10 +415,7 @@ function CurrencyEnquiryForm() {
         </label>
         <label className={styles.consent}>
           <input type="checkbox" required />
-          <span>
-            I agree for my details to be shared with a specialist currency provider so they
-            can contact me about currency exchange.
-          </span>
+          <span>I agree to be contacted about currency exchange.</span>
         </label>
         <button type="submit" disabled={status === 'sending'}>
           {status === 'sending' ? 'Sending...' : 'Get a quote'}
