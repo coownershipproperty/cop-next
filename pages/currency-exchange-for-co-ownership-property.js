@@ -8,6 +8,7 @@ import styles from '@/styles/CurrencyExchange.module.css';
 
 const pageUrl = 'https://co-ownership-property.com/currency-exchange-for-co-ownership-property/';
 const heroImage = '/wp-content/uploads/2026/04/foreign-buyer-international-property-hero.jpg';
+const currencyVisualImage = '/wp-content/uploads/2026/06/cop-currency-villa-notes.jpg';
 const exampleSharePrice = 215000;
 const defaultRateMove = 2;
 
@@ -70,7 +71,7 @@ const faqItems = [
   {
     question: 'What about Wise or Revolut?',
     answer:
-      'They can work well for straightforward spot transfers and smaller amounts. For larger share purchases, check transfer limits, beneficiary rules, support and payment timing. They are not usually the forward-contract route for a future share-completion payment.'
+      'They can work well for straightforward spot transfers and smaller amounts. For larger share purchases, check transfer limits, beneficiary rules, support and payment timing, and note there is usually no forward cover for a later share-completion payment.'
   },
   {
     question: 'Can I lock in a rate before share purchase completion?',
@@ -186,7 +187,7 @@ function CurrencyPlanner() {
         </p>
         <div className={styles.editorNote}>
           <span>Example</span>
-          <strong>Median 1/8 share: EUR 215,000.</strong>
+          <strong>Example 1/8th Share: EUR 215,000.</strong>
           <p>
             A 1% all-in exchange difference on that share is EUR 2,150. On several shares,
             or a higher-value US dollar property, it becomes a real line item.
@@ -230,7 +231,10 @@ function CurrencyPlanner() {
             />
           </label>
           <label>
-            Test a rate move
+            Test a % rate move
+            <span className={styles.fieldHint}>
+              Typical rate move compared to high street banks: 1-2%
+            </span>
             <input
               type="number"
               min="0.1"
@@ -280,19 +284,19 @@ function CurrencyEnquiryForm() {
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const name = String(formData.get('name') || '').trim();
+    const firstName = String(formData.get('first_name') || '').trim();
+    const surname = String(formData.get('surname') || '').trim();
     const email = String(formData.get('email') || '').trim();
     const phone = String(formData.get('phone') || '').trim();
     const shareCurrency = String(formData.get('share_currency') || '').trim();
     const fundCurrency = String(formData.get('fund_currency') || '').trim();
     const amount = String(formData.get('amount') || '').trim();
-    const timing = String(formData.get('timing') || '').trim();
-    const destination = String(formData.get('destination') || '').trim();
     const extra = String(formData.get('extra') || '').trim();
+    const name = `${firstName} ${surname}`.trim();
 
-    if (!name || !email) {
+    if (!firstName || !surname || !email) {
       setStatus('error');
-      setMessage('Please add your name and email.');
+      setMessage('Please add your first name, surname and email.');
       return;
     }
 
@@ -304,8 +308,6 @@ function CurrencyEnquiryForm() {
       `Share currency: ${shareCurrency || 'Not provided'}`,
       `Funding currency: ${fundCurrency || 'Not provided'}`,
       `Approximate amount: ${amount || 'Not provided'}`,
-      `Timing: ${timing || 'Not provided'}`,
-      `Destination/property: ${destination || 'Not provided'}`,
       extra ? `Extra context: ${extra}` : ''
     ].filter(Boolean).join('\n');
 
@@ -318,7 +320,7 @@ function CurrencyEnquiryForm() {
           email,
           phone,
           budget: amount,
-          destination: destination || 'Currency exchange',
+          destination: 'Currency exchange',
           property: 'Currency exchange for co-ownership property',
           url: pageUrl,
           message: enquiryMessage
@@ -329,7 +331,7 @@ function CurrencyEnquiryForm() {
       if (!response.ok || !data.ok) throw new Error('Enquiry failed');
 
       setStatus('success');
-      setMessage('Thanks. We received your currency enquiry and will come back to you shortly.');
+      setMessage('Thanks. We received your currency quote request and will come back to you shortly.');
       event.currentTarget.reset();
     } catch {
       setStatus('error');
@@ -342,10 +344,6 @@ function CurrencyEnquiryForm() {
       <div className={styles.enquiryCopy}>
         <p className={styles.eyebrow}>Currency Introduction</p>
         <h2>Get a currency plan before you reserve the share.</h2>
-        <p>
-          Share the basic details and we will route the enquiry to a specialist currency
-          provider used to large international property payments.
-        </p>
         <div className={styles.disclaimer}>
           This page is general information only and is not financial, tax or legal advice.
         </div>
@@ -354,22 +352,22 @@ function CurrencyEnquiryForm() {
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.twoCols}>
           <label>
-            Name
-            <input name="name" type="text" required placeholder="Your full name" />
+            First name
+            <input name="first_name" type="text" required placeholder="First name" />
           </label>
           <label>
-            Email
-            <input name="email" type="email" required placeholder="you@example.com" />
+            Surname
+            <input name="surname" type="text" required placeholder="Surname" />
           </label>
         </div>
         <div className={styles.twoCols}>
           <label>
-            Phone
-            <input name="phone" type="tel" placeholder="+44 or +1..." />
+            Email
+            <input name="email" type="email" required placeholder="you@example.com" />
           </label>
           <label>
-            Destination or property
-            <input name="destination" type="text" placeholder="Mallorca, Miami, Lake Como..." />
+            Phone
+            <input name="phone" type="tel" placeholder="+44 or +1..." />
           </label>
         </div>
         <div className={styles.threeCols}>
@@ -409,16 +407,6 @@ function CurrencyEnquiryForm() {
           </label>
         </div>
         <label>
-          Timing
-          <select name="timing" defaultValue="Reservation soon, completion in 4-8 weeks">
-            <option>Reservation soon, completion in 4-8 weeks</option>
-            <option>Already reserved</option>
-            <option>Comparing properties</option>
-            <option>Ready to transfer now</option>
-            <option>Future purchase, just planning</option>
-          </select>
-        </label>
-        <label>
           Anything useful to know?
           <textarea
             name="extra"
@@ -434,7 +422,7 @@ function CurrencyEnquiryForm() {
           </span>
         </label>
         <button type="submit" disabled={status === 'sending'}>
-          {status === 'sending' ? 'Sending...' : 'Request currency introduction'}
+          {status === 'sending' ? 'Sending...' : 'Get a quote'}
         </button>
         {message && <p className={status === 'success' ? styles.success : styles.error}>{message}</p>}
       </form>
@@ -574,7 +562,7 @@ export default function CoOwnershipCurrencyExchange() {
             <h3>Wise or Revolut</h3>
             <p>
               Often strong for spot transfers. Check limits, beneficiary rules, support
-              and whether you need forward cover for a later completion payment.
+              and no forward cover for a later completion payment.
             </p>
           </article>
           <article>
@@ -595,8 +583,10 @@ export default function CoOwnershipCurrencyExchange() {
             Co-ownership share purchases are often quicker than whole-property purchases,
             but the currency exposure is still real. The reservation payment may be due
             quickly. The larger completion balance may follow several weeks later.
+            Forward cover gives you the time between paying the deposit and paying at
+            share purchase completion.
           </p>
-          <a href="#currency-enquiry" className={styles.textCta}>Discuss this payment schedule</a>
+          <a href="#currency-enquiry" className={styles.textCta}>Get a currency quote</a>
         </div>
         <div className={styles.timelineCards}>
           <article>
@@ -621,9 +611,18 @@ export default function CoOwnershipCurrencyExchange() {
       </section>
 
       <section className={styles.deepDive}>
-        <div>
+        <div className={styles.deepDiveLead}>
           <p className={styles.eyebrow}>Spot, target or forward?</p>
           <h2>Pick the tool that matches the share purchase.</h2>
+          <div className={styles.currencyImage}>
+            <Image
+              src={currencyVisualImage}
+              alt="Villa background with stylized euro, dollar and pound note stacks"
+              width={1280}
+              height={720}
+              sizes="(max-width: 1080px) 100vw, 38vw"
+            />
+          </div>
         </div>
         <div className={styles.deepDiveGrid}>
           <article>
@@ -636,7 +635,11 @@ export default function CoOwnershipCurrencyExchange() {
           </article>
           <article>
             <h3>Forward contract</h3>
-            <p>Secure a rate for a known future payment, often up to 12 months ahead, subject to provider terms.</p>
+            <p>
+              Secure a rate for a known future payment, often up to 12 months ahead,
+              subject to provider terms. Ideal when you need to send the remaining 90%
+              to complete the share purchase, typically 1-4 months on average.
+            </p>
           </article>
         </div>
       </section>

@@ -264,6 +264,10 @@
   color: var(--white);
 }
 
+.plannerIntro > h2 + p {
+  margin-top: 1.8rem;
+}
+
 .plannerIntro > p {
   color: rgba(255, 255, 255, 0.72);
 }
@@ -350,6 +354,13 @@
   font-family: 'Nunito Sans', sans-serif;
   font-size: 0.74rem;
   font-weight: 800;
+}
+
+.fieldHint {
+  color: rgba(44, 74, 94, 0.62);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 .fieldGrid input,
@@ -456,6 +467,25 @@
 
 .deepDive {
   background: var(--white);
+}
+
+.deepDiveLead {
+  min-width: 0;
+}
+
+.currencyImage {
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+  border-top: 3px solid var(--warm-gold);
+  background: var(--cream-bg);
+  box-shadow: 0 24px 64px rgba(23, 42, 56, 0.13);
+}
+
+.currencyImage img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .deepDiveGrid {
