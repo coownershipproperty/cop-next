@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   const { q, partner, country, slugs, limit } = req.body || {};
   const max = Math.min(Number(limit) || 20, 1000);
 
-  const cols = 'slug, title, region, city, country, beds, price, currency, img, partner, date_added, status';
+  const cols = 'slug, title, region, city, country, beds, price, currency, img, partner, date_added, created_at, status';
 
   if (Array.isArray(slugs) && slugs.length) {
     const { data, error } = await db
@@ -38,13 +38,12 @@ export default async function handler(req, res) {
 
   let query = db
     .from('properties')
+    // Match the main admin Properties list: include Live + for-sale (exclude
+    // sold/hidden), and use its exact "Newest first" ordering below.
     .select(cols)
-    .eq('status', 'Live')
-    // Newest first. Sort by created_at (the real insert timestamp — always set,
-    // granular to the second) so recently-added properties always surface at the
-    // top, even when date_added is null (117 live rows have no date_added).
-    .order('created_at', { ascending: false, nullsFirst: false })
+    .in('status', ['Live', 'for_sale'])
     .order('date_added', { ascending: false, nullsFirst: false })
+    .order('created_at', { ascending: false, nullsFirst: false })
     .order('slug', { ascending: true })
     .limit(max);
 
@@ -57,5 +56,10 @@ export default async function handler(req, res) {
 
   const { data, error } = await query;
   if (error) return res.status(500).json({ error: error.message });
-  return res.json({ properties: data || [] });
+
+  // Sort identically to the main admin Properties page "Newest first":
+  // date_added, falling back to created_at, descending (a single coalesced key).
+  const dv = (p) => p.date_added || p.created_at || '';
+  const sorted = (data || []).slice().sort((a, b) => String(dv(b)).localeCompare(String(dv(a))));
+  return res.json({ properties: sorted });
 }
