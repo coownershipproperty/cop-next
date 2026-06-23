@@ -51,8 +51,12 @@ const DEST_FILTERS = {
   // ── ITALY ──────────────────────────────────────────────────────
   "sardinia-fractional-ownership-properties":       { country: "Italy", region: "Sardinia" },
   "lake-como-fractional-ownership-properties":      { country: "Italy", region: "Lake Como" },
+  "lake-garda-fractional-ownership-properties":     { country: "Italy", region: "Lake Garda" },
   "italian-lakes-fractional-ownership-properties":  { country: "Italy", regions: ["Lake Garda", "Lake Como", "Lago Maggiore"] },
   "liguria-fractional-ownership-properties":        { country: "Italy", region: "Liguria" },
+
+  // ── MEXICO ─────────────────────────────────────────────────────
+  "los-cabos-fractional-ownership-properties":      { country: "Mexico", cities: ["Cabo San Lucas", "San Jose Del Cabo", "San José Del Cabo", "Cabo"] },
 
   // ── UK ─────────────────────────────────────────────────────────
   "london-fractional-ownership-properties":         { country: "England", region: "London" },
@@ -102,8 +106,10 @@ const PARENT = {
   "pyrenees-mountains-fractional-ownership-properties":"spain-fractional-ownership-properties",
   "sardinia-fractional-ownership-properties":          "italy-fractional-ownership-properties",
   "lake-como-fractional-ownership-properties":         "italy-fractional-ownership-properties",
+  "lake-garda-fractional-ownership-properties":        "italy-fractional-ownership-properties",
   "italian-lakes-fractional-ownership-properties":     "italy-fractional-ownership-properties",
   "liguria-fractional-ownership-properties":           "italy-fractional-ownership-properties",
+  "los-cabos-fractional-ownership-properties":         "mexico-fractional-ownership-properties",
   "london-fractional-ownership-properties":            "england-fractional-ownership-properties",
   "california-fractional-ownership-properties":        "usa-fractional-ownership-properties",
   "colorado-fractional-ownership-properties":          "usa-fractional-ownership-properties",
@@ -147,8 +153,9 @@ const RELATED = {
   "paris-fractional-ownership-properties":           ["french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","france-fractional-ownership-properties"],
   "france-fractional-ownership-properties":          ["french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties"],
   "sardinia-fractional-ownership-properties":    ["italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
-  "lake-como-fractional-ownership-properties":   ["italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
-  "italian-lakes-fractional-ownership-properties": ["lake-como-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "lake-como-fractional-ownership-properties":   ["lake-garda-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "lake-garda-fractional-ownership-properties":  ["lake-como-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "italian-lakes-fractional-ownership-properties": ["lake-como-fractional-ownership-properties","lake-garda-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
   "liguria-fractional-ownership-properties":     ["italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
   "italy-fractional-ownership-properties":       ["sardinia-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties"],
   "london-fractional-ownership-properties":      ["england-fractional-ownership-properties"],
@@ -181,7 +188,8 @@ const RELATED = {
   "germany-fractional-ownership-properties":     ["french-alps-fractional-ownership-properties","austria-fractional-ownership-properties","france-fractional-ownership-properties"],
   "portugal-fractional-ownership-properties":    ["spain-fractional-ownership-properties","balearics-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties"],
   "sweden-fractional-ownership-properties":      ["england-fractional-ownership-properties","france-fractional-ownership-properties","spain-fractional-ownership-properties"],
-  "mexico-fractional-ownership-properties":      ["usa-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  "mexico-fractional-ownership-properties":      ["los-cabos-fractional-ownership-properties","usa-fractional-ownership-properties","spain-fractional-ownership-properties"],
+  "los-cabos-fractional-ownership-properties":   ["mexico-fractional-ownership-properties","palm-springs-fractional-ownership-desert-modern-luxury","california-fractional-ownership-properties","usa-fractional-ownership-properties"],
 };
 
 // ── Keywords to recognise in content per destination slug ────────────────────
@@ -202,8 +210,10 @@ const DEST_KEYWORDS = {
   "costa-blanca-fractional-ownership-properties": ["Costa Blanca", "Alicante"],
   "costa-de-la-luz-fractional-ownership-properties": ["Costa de la Luz"],
   "spanish-costas-fractional-ownership-properties": ["Spanish Costas"],
-  "italian-lakes-fractional-ownership-properties": ["Italian Lakes", "Lake Garda", "Lago Maggiore"],
+  "italian-lakes-fractional-ownership-properties": ["Italian Lakes", "Lago Maggiore"],
   "lake-como-fractional-ownership-properties": ["Lake Como", "Como"],
+  "lake-garda-fractional-ownership-properties": ["Lake Garda"],
+  "los-cabos-fractional-ownership-properties": ["Los Cabos", "Cabo San Lucas", "San José del Cabo"],
   "sardinia-fractional-ownership-properties": ["Sardinia"],
   "liguria-fractional-ownership-properties": ["Liguria", "Ligurian"],
   "mallorca-fractional-ownership-properties": ["Mallorca"],
@@ -240,7 +250,7 @@ const DEST_KEYWORDS = {
   "germany-fractional-ownership-properties": ["Germany", "Bavaria"],
   "portugal-fractional-ownership-properties": ["Portugal", "Lisbon", "Algarve"],
   "sweden-fractional-ownership-properties": ["Sweden", "Stockholm"],
-  "mexico-fractional-ownership-properties": ["Mexico", "Tulum", "Los Cabos"],
+  "mexico-fractional-ownership-properties": ["Mexico", "Tulum"],
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

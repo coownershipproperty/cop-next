@@ -7343,6 +7343,8 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Price row ── */
 .pp-price-row{display:flex;align-items:center;gap:16px;margin-bottom:10px;flex-wrap:wrap;margin-top:8px}
 .pp-price{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:400;color:#C9A84C;line-height:1}
+.pp-price-row{column-gap:10px}
+.pp-price-qualifier{font-family:'Nunito Sans',sans-serif;font-size:0.95rem;font-weight:600;color:#6B8A9E;letter-spacing:0.01em;margin-left:-6px}
 .pp-badge{display:none}
 
 /* ── Breadcrumb ── */
