@@ -40,8 +40,11 @@ export default async function handler(req, res) {
     .from('properties')
     .select(cols)
     .eq('status', 'Live')
-    .order('date_added', { ascending: false, nullsFirst: false })
+    // Newest first. Sort by created_at (the real insert timestamp — always set,
+    // granular to the second) so recently-added properties always surface at the
+    // top, even when date_added is null (117 live rows have no date_added).
     .order('created_at', { ascending: false, nullsFirst: false })
+    .order('date_added', { ascending: false, nullsFirst: false })
     .order('slug', { ascending: true })
     .limit(max);
 

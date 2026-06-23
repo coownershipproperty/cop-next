@@ -22,6 +22,7 @@ import { HONEYPOT_FIELD } from '@/lib/honeypot';
 const COPY = {
   en: {
     cobadge: (n) => `1/${n} Co-Ownership`,
+    price_qualifier: (n) => `for a 1/${n} share`,
     bedrooms: 'Bedrooms', bathrooms: 'Bathrooms', total_size: 'Total size', per_year: 'Per year', share_size: 'Share size',
     days_label: (n) => `~${Math.floor(365 / n)} days`,
     about_heading: 'About This Property',
@@ -50,6 +51,7 @@ const COPY = {
   },
   es: {
     cobadge: (n) => `1/${n} de copropiedad`,
+    price_qualifier: (n) => `por una participación de 1/${n}`,
     bedrooms: 'Dormitorios', bathrooms: 'Baños', total_size: 'Superficie total', per_year: 'Al año', share_size: 'Tamaño de fracción',
     days_label: (n) => `~${Math.floor(365 / n)} días`,
     about_heading: 'Sobre esta propiedad',
@@ -78,6 +80,7 @@ const COPY = {
   },
   fr: {
     cobadge: (n) => `1/${n} en copropriété`,
+    price_qualifier: (n) => `pour une part de 1/${n}`,
     bedrooms: 'Chambres', bathrooms: 'Salles de bain', total_size: 'Surface totale', per_year: 'Par an', share_size: 'Taille de la part',
     days_label: (n) => `~${Math.floor(365 / n)} jours`,
     about_heading: 'À propos de ce bien',
@@ -106,6 +109,7 @@ const COPY = {
   },
   de: {
     cobadge: (n) => `1/${n} Miteigentum`,
+    price_qualifier: (n) => `für einen 1/${n}-Anteil`,
     bedrooms: 'Schlafzimmer', bathrooms: 'Badezimmer', total_size: 'Gesamtfläche', per_year: 'Pro Jahr', share_size: 'Anteilsgröße',
     days_label: (n) => `~${Math.floor(365 / n)} Tage`,
     about_heading: 'Über diese Immobilie',
@@ -606,6 +610,9 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
                 return p.price ? fmt(p.price, fromCcy, localeNumberFmt) : null;
               })()}
             </span>
+            {p.price > 0 && (
+              <span className="pp-price-qualifier">{t.price_qualifier(p.share_denominator || 8)}</span>
+            )}
             {p.status && String(p.status).toLowerCase().includes('sold') && (
               <span className="pp-badge pp-badge-sold-out">Sold Out</span>
             )}
