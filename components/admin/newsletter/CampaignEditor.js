@@ -488,7 +488,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
                 style={{ ...input, resize: 'vertical', lineHeight: 1.55, fontSize: 13 }}
                 rows={3}
                 disabled={fieldsDisabled}
-                placeholder="Hi {{first_name}}, fresh on Co-Ownership Property this week — six homes hand-picked for you."
+                placeholder={`Hi {{first_name}}, fresh on Co-Ownership Property this week — ${selectedProperties.length || 'the latest'} homes hand-picked for you.`}
                 value={introText}
                 onChange={e => setIntroText(e.target.value)}
                 onFocus={e => e.target.style.borderColor = C.blue}
