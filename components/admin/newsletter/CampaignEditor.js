@@ -361,7 +361,10 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
   const subjectPreview = useMemo(() => {
     const regions = [...new Set(selectedProperties.map(p => p.region).filter(Boolean))].slice(0, 2)
     const regionStr = regions.length > 1 ? regions[0] + ' & ' + regions[1] : (regions[0] || 'Costa del Sol')
-    return (subject || '').replace(/\{\{\s*first_name\s*\}\}/gi, 'Sophie').replace(/\{\{\s*region\s*\}\}/gi, regionStr)
+    return (subject || '')
+      .replace(/\{\{\s*first_name\s*\}\}/gi, 'Sophie')
+      .replace(/\{\{\s*region\s*\}\}/gi, regionStr)
+      .replace(/\{\{\s*count\s*\}\}/gi, String(selectedProperties.length))
   }, [subject, selectedProperties])
 
   // ── Render ──────────────────────────────────────────────────────────────────
@@ -438,7 +441,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
 
             <Field
               l="Subject line"
-              hint='Supports {{first_name}} and {{region}} merge tags.'
+              hint='Supports {{first_name}}, {{region}} and {{count}} merge tags.'
             >
               <input
                 style={input}
@@ -480,7 +483,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
               </button>
             </Field>
 
-            <Field l="Intro text" hint='Lead paragraph above the property grid. Supports {{first_name}}.'>
+            <Field l="Intro text" hint='Lead paragraph above the property grid. Supports {{first_name}}, {{region}} and {{count}}.'>
               <textarea
                 style={{ ...input, resize: 'vertical', lineHeight: 1.55, fontSize: 13 }}
                 rows={3}
