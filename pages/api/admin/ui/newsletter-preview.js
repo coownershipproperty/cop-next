@@ -53,21 +53,35 @@ export default async function handler(req, res) {
   const propBySlug = {};
   for (const p of properties || []) propBySlug[p.slug] = p;
 
-  // Figure out the recipient
+  // Figure out the recipient. If no contact was explicitly picked in the modal,
+  // fall back to matching a contact by the preview email — so previewing to a
+  // real contact's address personalises automatically (their gallery/enquiry
+  // region order), matching how a real send behaves.
   let firstName = 'there';
   let primarySlugs = propertySlugs;
   let fallbackSlugs = [];
 
-  if (renderAsContactId) {
+  let contactId = renderAsContactId || null;
+  if (!contactId && targetEmail) {
+    const { data: byEmail } = await db
+      .from('contacts')
+      .select('id')
+      .ilike('email', targetEmail.trim())
+      .limit(1)
+      .maybeSingle();
+    if (byEmail?.id) contactId = byEmail.id;
+  }
+
+  if (contactId) {
     const { data: contact } = await db
       .from('contacts')
       .select('first_name')
-      .eq('id', renderAsContactId)
-      .single();
+      .eq('id', contactId)
+      .maybeSingle();
     if (contact?.first_name) firstName = contact.first_name;
 
     if (campaign.personalize_by_region) {
-      const { interests } = await getContactInterests(db, renderAsContactId);
+      const { interests } = await getContactInterests(db, contactId);
       const ordered = reorderForRecipient(propertySlugs, propBySlug, interests);
       primarySlugs = ordered.primary;
       fallbackSlugs = ordered.fallback;
