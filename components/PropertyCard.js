@@ -13,6 +13,7 @@ import { localeFromPath, propertyHref } from '@/lib/i18n';
 const COPY = {
   en: {
     bed_singular: 'Bed', bed_plural: 'Beds',
+    share_label: 'share',
     view_property: 'View Property →',
     fav_add: 'Add to favourites', fav_remove: 'Remove from favourites',
     prev_photo: 'Previous photo', next_photo: 'Next photo',
@@ -22,6 +23,7 @@ const COPY = {
   },
   es: {
     bed_singular: 'Dormitorio', bed_plural: 'Dormitorios',
+    share_label: 'fracción',
     view_property: 'Ver propiedad →',
     fav_add: 'Añadir a favoritos', fav_remove: 'Quitar de favoritos',
     prev_photo: 'Foto anterior', next_photo: 'Siguiente foto',
@@ -31,6 +33,7 @@ const COPY = {
   },
   fr: {
     bed_singular: 'Chambre', bed_plural: 'Chambres',
+    share_label: 'part',
     view_property: 'Voir le bien →',
     fav_add: 'Ajouter aux favoris', fav_remove: 'Retirer des favoris',
     prev_photo: 'Photo précédente', next_photo: 'Photo suivante',
@@ -128,6 +131,10 @@ export default function PropertyCard({ property: p, priority = false }) {
   const priceDisplay = convertedAmount != null
     ? `~${convertedSym}${formatApprox(convertedAmount, localeNumberFmt)}`
     : priceFormatted;
+  const shareDenominator = Number(p.share_denominator);
+  const shareDisplay = Number.isFinite(shareDenominator) && shareDenominator > 0
+    ? `1/${shareDenominator}`
+    : null;
 
   return (
     <>
@@ -228,9 +235,16 @@ export default function PropertyCard({ property: p, priority = false }) {
             </div>
           )}
           {priceDisplay && (
-            <p className="prop-price" title={convertedAmount != null ? `Listed at ${priceFormatted}` : undefined}>
-              {priceDisplay}
-            </p>
+            <div className="prop-price-row">
+              <p className="prop-price" title={convertedAmount != null ? `Listed at ${priceFormatted}` : undefined}>
+                {priceDisplay}
+              </p>
+              {shareDisplay && (
+                <span className="prop-share-size">
+                  {shareDisplay} {t.share_label}
+                </span>
+              )}
+            </div>
           )}
           <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>{t.view_property}</a>
         </div>

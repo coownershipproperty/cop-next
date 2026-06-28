@@ -3817,6 +3817,35 @@ img { display:block; max-width:100%; height:auto; }
             padding-top:0.6rem;
         }
 
+.prop-price-row {
+            display:flex;
+            align-items:baseline;
+            justify-content:space-between;
+            gap:0.75rem;
+            margin-bottom:0.6rem;
+            border-top:1px solid rgba(201,168,76,0.18);
+            padding-top:0.6rem;
+        }
+
+.prop-price-row .prop-price {
+            margin:0;
+            border-top:0;
+            padding-top:0;
+            min-width:0;
+        }
+
+.prop-share-size {
+            flex-shrink:0;
+            color:var(--text-muted);
+            font-family:'Nunito Sans',sans-serif;
+            font-size:0.68rem;
+            font-weight:700;
+            letter-spacing:0.13em;
+            line-height:1;
+            text-transform:uppercase;
+            white-space:nowrap;
+        }
+
 .prop-view-btn {
             display:inline-block;
             font-size:0.72rem;

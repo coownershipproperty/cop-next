@@ -199,7 +199,7 @@ export async function getStaticProps({ params }) {
     try {
       const { data: similarRaw } = await supabase
         .from('properties')
-        .select('slug, title, title_es, title_fr, img, price, currency, country, region, city, beds, size, status')
+        .select('slug, title, title_es, title_fr, img, price, currency, share_denominator, country, region, city, beds, size, status')
         .eq('country', property.country)
         .neq('slug', property.slug)
         .limit(3);

@@ -21,6 +21,7 @@ const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
 // Locale → BCP-47 tag for Number.toLocaleString price formatting (Spanish
 // uses dots as thousand separators, French uses thin spaces, English commas).
 const LOCALE_TAG = { en: 'en-GB', es: 'es-ES', fr: 'fr-FR' };
+const SHARE_LABEL = { en: 'share', es: 'fracción', fr: 'part', de: 'Anteil' };
 
 // Locale → href for the "Browse Properties" empty-state CTA. Each locale's
 // own properties index keeps the visitor in their language stream.
@@ -80,7 +81,7 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
     setLoading(true);
     getSupabase()
       .from('properties')
-      .select('slug, title, img, images, price, currency, country, region, city, beds, size, status')
+      .select('slug, title, img, images, price, currency, share_denominator, country, region, city, beds, size, status')
       .in('slug', slugs)
       .then(({ data }) => {
         if (cancelled) return;
@@ -167,6 +168,10 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
                   const price    = p.price
                     ? `${CURRENCY_SYM[p.currency] || p.currency}${p.price.toLocaleString(numberLocale)}`
                     : null;
+                  const shareDenominator = Number(p.share_denominator);
+                  const shareDisplay = Number.isFinite(shareDenominator) && shareDenominator > 0
+                    ? `1/${shareDenominator}`
+                    : null;
                   const location = [p.city, p.region, p.country].filter(Boolean).join(', ');
 
                   return (
@@ -202,7 +207,16 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
                             {p.size > 0 && <span className="prop-stat"><SizeIcon />{p.size} m²</span>}
                           </div>
                         )}
-                        {price && <p className="prop-price">{price}</p>}
+                        {price && (
+                          <div className="prop-price-row">
+                            <p className="prop-price">{price}</p>
+                            {shareDisplay && (
+                              <span className="prop-share-size">
+                                {shareDisplay} {SHARE_LABEL[locale] || SHARE_LABEL.en}
+                              </span>
+                            )}
+                          </div>
+                        )}
                         <a href={propUrl} className="prop-view-btn" onClick={e => e.stopPropagation()}>{tr('view_button')}</a>
                       </div>
                     </article>

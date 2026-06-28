@@ -8,6 +8,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import HreflangLinks from '@/components/HreflangLinks';
+import { createClient } from '@supabase/supabase-js';
 import destinationFaqs from '@/lib/destination-faqs.json';
 import destSameAs from '@/lib/destination-sameas.json';
 
@@ -302,6 +303,38 @@ function matchesFilter(prop, filter) {
   return true;
 }
 
+async function withShareDenominators(properties) {
+  if (!properties.length) return properties;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return properties;
+
+  try {
+    const supabase = createClient(url, key);
+    const rows = [];
+    const slugs = properties.map(p => p.slug).filter(Boolean);
+    for (let i = 0; i < slugs.length; i += 80) {
+      const { data, error } = await supabase
+        .from('properties')
+        .select('slug, share_denominator')
+        .in('slug', slugs.slice(i, i + 80));
+
+      if (error) return properties;
+      rows.push(...(data || []));
+    }
+
+    const bySlug = Object.fromEntries(
+      rows.map(p => [p.slug, p.share_denominator || null])
+    );
+    return properties.map(p => ({
+      ...p,
+      share_denominator: bySlug[p.slug] || p.share_denominator || null,
+    }));
+  } catch (_) {
+    return properties;
+  }
+}
+
 function decodeEntities(str) {
   return str
     .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code)))
@@ -526,7 +559,8 @@ export async function getStaticProps({ params }) {
 
   const allProps = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
   const filter = DEST_FILTERS[slug] || null;
-  const matchedProps = filter ? allProps.filter(p => matchesFilter(p, filter)) : [];
+  let matchedProps = filter ? allProps.filter(p => matchesFilter(p, filter)) : [];
+  matchedProps = await withShareDenominators(matchedProps);
 
   const splitMarkers = ['class="dest-mid-cta"', 'class="dest-mid-cta ', 'id="dest-mid-cta"'];
   let splitIdx = -1;

@@ -20,7 +20,7 @@ export async function getStaticProps() {
   );
   const { data } = await supabase
     .from('properties')
-    .select('slug, title, title_es, title_fr, img, images, total_images, drive_url, price, currency, country, region, city, beds, size, status, property_type')
+    .select('slug, title, title_es, title_fr, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type')
     .eq('country', 'Spain')
     .eq('region', 'Mallorca')
     .limit(24);
@@ -30,6 +30,7 @@ export async function getStaticProps() {
     img: p.img, images: (p.images || []).slice(0, 3),
     totalImages: p.total_images || 0, driveUrl: p.drive_url || null,
     price: p.price || null, currency: p.currency || 'EUR',
+    share_denominator: p.share_denominator || null,
     country: p.country, region: p.region, city: p.city || '',
     beds: p.beds || 0, size: p.size || 0,
     label: '', status: p.status || '', property_type: p.property_type || '',
