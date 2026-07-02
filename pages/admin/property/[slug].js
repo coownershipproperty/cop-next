@@ -531,11 +531,9 @@ export default function PropertyEdit() {
               </Field>
               <Field l="Share">
                 <select style={input} value={form.share_denominator} onChange={e => set('share_denominator', e.target.value)}>
-                  <option value="4">1/4</option>
-                  <option value="6">1/6</option>
-                  <option value="8">1/8</option>
-                  <option value="10">1/10</option>
-                  <option value="12">1/12</option>
+                  {[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,24].map(n => (
+                    <option key={n} value={n}>1/{n}</option>
+                  ))}
                 </select>
               </Field>
             </Grid>
