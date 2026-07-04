@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { trackConversion } from '@/lib/gtag';
 import { Analytics } from '@vercel/analytics/react';
-import LiveViewingsBadge from '@/components/LiveViewingsBadge';
 import GeoDestinationNudge from '@/components/GeoDestinationNudge';
 
 const GA_ID = 'G-83RBNEXX4E';
@@ -112,8 +111,6 @@ export default function App({ Component, pageProps }) {
       <Component {...pageProps} />
       <Analytics />
 
-      {/* ── Live Viewings floating chip (bottom-right, sitewide) ── */}
-      {!isGallery && <LiveViewingsBadge />}
 
       {/* ── Geo-aware destination nudge ("In Mallorca? See homes nearby →") ──
           Hidden on /our-homes/ and /gallery/ — the component handles its own
