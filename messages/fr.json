@@ -57,6 +57,7 @@
     },
     "floor_plan": {
       "subject_prefix": "Votre galerie de photos —",
+      "subject": "Vos photos et plans — {city}",
       "preview": "Votre galerie de photos pour {propertyTitle} est prête.",
       "greeting": "Bonjour {firstName},",
       "intro": "Merci de votre intérêt. Comme demandé, nous avons rassemblé l'ensemble des photos du bien présenté ci-dessous.",

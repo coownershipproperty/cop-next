@@ -57,6 +57,7 @@
     },
     "floor_plan": {
       "subject_prefix": "Your Photo Gallery —",
+      "subject": "Your {city} photos & floor plans",
       "preview": "Your photo gallery for {propertyTitle} is ready.",
       "greeting": "Dear {firstName},",
       "intro": "Thank you for your interest. As requested, we've put together the complete photo gallery for the property below.",
