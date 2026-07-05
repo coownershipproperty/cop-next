@@ -300,7 +300,9 @@ export default async function handler(req, res) {
   }
 
   // ── Follow-up sequences: an enquiry cancels every pending gallery_nurture
-  // email and schedules the Day-7 "did the team look after you?" check-in.
+  // email. (The Day-7 "did the team look after you?" check-in is disabled —
+  // see lib/followupSequence.js scheduleEnquiryCheckD7, kept dormant until
+  // the CRM has a sent_to_partner handoff signal.)
   try {
     await handleEnquiryFollowups({
       contactId:     contact?.id || null,

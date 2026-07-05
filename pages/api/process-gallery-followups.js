@@ -77,6 +77,8 @@ const COPY = {
     closeMulti:  `And whenever you're ready, I'm happy to connect you directly with the teams that manage them.`,
     sign: 'Dylan',
     and: ' and ',
+    galleryLinksIntro: 'Here are your photo & floor-plan links, in case you need them again:',
+    galleryLinkLabel: 'photos & floor plans',
   },
   es: {
     role: 'Cofundador · Co-Ownership Property',
@@ -91,6 +93,8 @@ const COPY = {
     closeMulti:  `Y cuando quieras, con mucho gusto te pongo en contacto directo con los equipos que las gestionan.`,
     sign: 'Dylan',
     and: ' y ',
+    galleryLinksIntro: 'Aquí tienes tus enlaces a las fotos y los planos, por si los necesitas de nuevo:',
+    galleryLinkLabel: 'fotos y planos',
   },
   fr: {
     role: 'Cofondateur · Co-Ownership Property',
@@ -105,6 +109,8 @@ const COPY = {
     closeMulti:  `Et quand vous le souhaitez, je vous mets volontiers en relation directe avec les équipes qui les gèrent.`,
     sign: 'Dylan',
     and: ' et ',
+    galleryLinksIntro: 'Voici vos liens vers les photos et les plans, si vous en avez encore besoin :',
+    galleryLinkLabel: 'photos et plans',
   },
 };
 
@@ -117,6 +123,23 @@ function escapeHtml(s) {
 function joinList(items, andWord) {
   if (items.length <= 1) return items[0] || '';
   return items.slice(0, -1).join(', ') + andWord + items[items.length - 1];
+}
+
+/**
+ * Per-property "photos & floor plans" links block. Rapid multi-unlocks SKIP
+ * the individual per-property gallery emails (see /api/unlock-drive's 24h
+ * batching), so THIS email is what delivers the gallery links — every
+ * property in the batch with a known gallery URL is listed here.
+ */
+function galleryLinksHtml(properties, t) {
+  const withLinks = (properties || []).filter(p => p.galleryUrl);
+  if (!withLinks.length) return '';
+  const items = withLinks.map(p =>
+    `<li style="margin:0 0 6px;">${escapeHtml(p.title)} — <a href="${escapeHtml(p.galleryUrl)}" style="color:#C9A84C;text-decoration:underline;">${t.galleryLinkLabel}</a></li>`
+  ).join('');
+  return `
+    <p style="margin:0 0 8px;">${t.galleryLinksIntro}</p>
+    <ul style="margin:0 0 20px;padding-left:22px;">${items}</ul>`;
 }
 
 function signatureHtml(role) {
@@ -176,7 +199,7 @@ function buildEmail({ firstName, properties, locale }) {
 
   const body = `
     <p style="margin:0 0 20px;">${greeting}</p>
-    <p style="margin:0 0 20px;">${t.intro(links)}</p>
+    <p style="margin:0 0 20px;">${t.intro(links)}</p>${galleryLinksHtml(properties, t)}
     <p style="margin:0 0 20px;">${offer}</p>
     <p style="margin:0 0 32px;">${single ? t.closeSingle : t.closeMulti}</p>
     <p style="margin:0;">${t.sign}</p>`;
@@ -337,11 +360,17 @@ export default async function handler(req, res) {
     for (const a of acts) {
       const title = a.metadata && a.metadata.propertyTitle;
       const url   = (a.metadata && a.metadata.propertyUrl) || null;
+      // Written by /api/unlock-drive since the 24h email batching landed;
+      // older activities fall back to the slug, or carry no gallery link.
+      const galleryUrl = (a.metadata && a.metadata.galleryUrl)
+        || (a.metadata && a.metadata.propertySlug
+            ? `https://co-ownership-property.com/gallery/${a.metadata.propertySlug}`
+            : null);
       if (!title) continue;
       const key = String(url || title).toLowerCase();
       if (seen.has(key)) continue;
       seen.add(key);
-      properties.push({ title, url });
+      properties.push({ title, url, galleryUrl });
     }
 
     if (hasEnquiry) {
