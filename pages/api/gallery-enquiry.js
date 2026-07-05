@@ -3,6 +3,7 @@ import { upsertContact, createLead, logActivity, incrementScore } from '@/lib/cr
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendHtml, sendTeamNotification } from '@/lib/resend';
+import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
@@ -127,11 +128,13 @@ export default async function handler(req, res) {
   }
 
   // ── CRM ───────────────────────────────────────────────────────────────────
+  let contact = null;
+  let lead    = null;
   try {
-    const contact = await upsertContact({ email, firstName, lastName, phone: phone || null, source: 'gallery_enquiry', locale });
+    contact = await upsertContact({ email, firstName, lastName, phone: phone || null, source: 'gallery_enquiry', locale });
     if (contact) {
       await incrementScore(contact.id, 20);
-      await createLead({ contactId: contact.id, propertySlug: resolvedSlug, propertyTitle, mainRegion: resolvedRegion, subregion: resolvedCity });
+      lead = await createLead({ contactId: contact.id, propertySlug: resolvedSlug, propertyTitle, mainRegion: resolvedRegion, subregion: resolvedCity });
       await logActivity({ contactId: contact.id, type: 'gallery_enquiry', description: `Gallery enquiry for ${propertyTitle || propertySlug}`, metadata: { propertyTitle, propertyUrl, phone, message } });
     }
   } catch (e) { console.error('[CRM] gallery-enquiry failed:', e.message); }
@@ -193,6 +196,22 @@ export default async function handler(req, res) {
       });
     }
   } catch (e) { console.error('[Mail] auto-reply failed:', e.message); }
+
+  // ── Follow-up sequences: an enquiry cancels every pending gallery_nurture
+  // email and schedules the Day-7 "did the team look after you?" check-in.
+  try {
+    await handleEnquiryFollowups({
+      contactId:     contact?.id || null,
+      leadId:        lead?.id    || null,
+      email,
+      firstName:     firstName || name || null,
+      locale,
+      propertyTitle: propertyTitle || propertySlug || null,
+      propertyUrl:   propertyUrl   || null,
+    });
+  } catch (e) {
+    console.error('[Mail] follow-up sequence handling failed:', e.message);
+  }
 
   return res.status(200).json({ ok: true });
 }

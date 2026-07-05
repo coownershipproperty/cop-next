@@ -3,6 +3,7 @@ import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel,
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
+import { scheduleGalleryNurture } from '@/lib/followupSequence';
 import FloorPlanEmail from '@/emails/floor-plan';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import * as React from 'react';
@@ -103,8 +104,12 @@ export default async function handler(req, res) {
 
   // Resolve locale — only accept supported values, default to English
   const locale = SUPPORTED_LOCALES.includes(rawLocale) ? rawLocale : DEFAULT_LOCALE;
-  const subjectPrefix = t('emails.floor_plan.subject_prefix', locale);
-  const subjectLine = `${subjectPrefix} ${propertyTitle}`;
+  // Short per-locale subject, e.g. "Your Marbella photos & floor plans" —
+  // {city} is the first segment of the property title before the first comma.
+  const city = ((propertyTitle || '').split(',')[0] || '').trim();
+  const subjectLine = city
+    ? t('emails.floor_plan.subject', locale).replace('{city}', city)
+    : `${t('emails.floor_plan.subject_prefix', locale)} ${propertyTitle || ''}`.trim();
 
   // Rate limit: max 5 unlock requests per email per 5 minutes
   const { limited } = await checkRateLimit(email, 'unlock', 5 * 60 * 1000, 5);
@@ -301,6 +306,22 @@ export default async function handler(req, res) {
         description: `Floor plan email queued for ${email}`,
         metadata:  { email_send_id: emailSend.id },
       });
+    }
+
+    // ── Queue the Day-2 / Day-5 nurture sequence (SEQ-A, upgraded to SEQ-B
+    // on a second unlock). Best-effort — never blocks the unlock response.
+    try {
+      await scheduleGalleryNurture({
+        contactId:     contact?.id || null,
+        email,
+        firstName:     firstName || name || null,
+        locale,
+        propertySlug,
+        propertyTitle,
+        propertyUrl:   cleanPropertyUrl || (propertySlug ? `https://co-ownership-property.com/property/${propertySlug}/` : null),
+      });
+    } catch (e) {
+      console.error('[unlock-drive] nurture scheduling failed:', e.message);
     }
 
     // Team notification (always immediate)

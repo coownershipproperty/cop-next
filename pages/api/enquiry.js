@@ -3,6 +3,7 @@ import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel,
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendTeamNotification, cancelPendingSequence } from '@/lib/resend';
+import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { expandRegions } from '@/lib/regionMap';
 import { sendEnquiryReply } from '@/lib/enquiryReply';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
@@ -296,6 +297,22 @@ export default async function handler(req, res) {
     } catch (e) {
       console.error('[Mail] cancel sequences failed:', e.message);
     }
+  }
+
+  // ── Follow-up sequences: an enquiry cancels every pending gallery_nurture
+  // email and schedules the Day-7 "did the team look after you?" check-in.
+  try {
+    await handleEnquiryFollowups({
+      contactId:     contact?.id || null,
+      leadId:        lead?.id    || null,
+      email,
+      firstName:     firstName || name || null,
+      locale,
+      propertyTitle: property || null,
+      propertyUrl:   url      || null,
+    });
+  } catch (e) {
+    console.error('[Mail] follow-up sequence handling failed:', e.message);
   }
 
   res.status(200).json({ ok: true });
