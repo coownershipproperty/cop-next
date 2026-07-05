@@ -3,6 +3,7 @@ import PersonalisedNewsletterEmail from '../../../../emails/personalised-newslet
 import { sendHtml } from '../../../../lib/resend';
 import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
+import { unsubUrl } from '@/lib/unsub';
 
 function getDb() {
   return createSupabaseAdminClient();
@@ -82,7 +83,7 @@ export default async function handler(req, res) {
       firstName:           testFirstName,
       primaryProperties:   primaryProps,
       fallbackProperties:  fallbackProps,
-      unsubscribeUrl:      `https://co-ownership-property.com/unsubscribe?email=${encodeURIComponent(testEmail)}`,
+      unsubscribeUrl:      unsubUrl(testEmail), // tokenised — see lib/unsub.js
     })
   );
 
@@ -90,8 +91,8 @@ export default async function handler(req, res) {
     to:      testEmail,
     subject: '[TEST] David, properties selected for you',
     html,
-    from:    'Co-Ownership Property <info@co-ownership-property.com>',
-    replyTo: 'info@co-ownership-property.com',
+    from:    'Dylan Olsson <dylan@co-ownership-property.com>',
+    replyTo: 'dylan@co-ownership-property.com',
   });
 
   return res.json({ ok: true, usedSend: sendRow.id, propertiesCount: allSlugs.length });
