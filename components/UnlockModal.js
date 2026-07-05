@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { trackConversion } from '@/lib/gtag';
 import { track } from '@vercel/analytics';
@@ -18,6 +18,7 @@ const COPY = {
     btn_sending: 'Sending…',
     success_heading: 'Check your inbox!',
     success_msg: "We've sent the photos & floor plans to",
+    success_redirect: "Opening your gallery… We've also emailed you a permanent link.",
     error: 'Something went wrong. Please try again.',
   },
   es: {
@@ -30,6 +31,7 @@ const COPY = {
     btn_sending: 'Enviando…',
     success_heading: '¡Revisa tu bandeja de entrada!',
     success_msg: 'Hemos enviado las fotos y los planos a',
+    success_redirect: 'Abriendo tu galería… También te hemos enviado un enlace permanente por correo.',
     error: 'Algo salió mal. Inténtalo de nuevo.',
   },
   fr: {
@@ -42,11 +44,44 @@ const COPY = {
     btn_sending: 'Envoi en cours…',
     success_heading: 'Consultez votre boîte mail !',
     success_msg: 'Nous avons envoyé les photos et plans à',
+    success_redirect: 'Ouverture de votre galerie… Nous vous avons également envoyé un lien permanent par email.',
     error: "Une erreur s'est produite. Veuillez réessayer.",
+  },
+  de: {
+    eyebrow: 'Exklusiver Zugang',
+    heading: 'Grundrisse & weitere Fotos',
+    sub: 'Geben Sie Ihre Daten ein und wir senden Ihnen die vollständige Galerie und die Grundrisse direkt in Ihr Postfach.',
+    name_placeholder: 'Ihr Name',
+    email_placeholder: 'Ihre E-Mail-Adresse',
+    btn_idle: 'Fotos zusenden →',
+    btn_sending: 'Wird gesendet…',
+    success_heading: 'Prüfen Sie Ihr Postfach!',
+    success_msg: 'Wir haben die Fotos & Grundrisse gesendet an',
+    success_redirect: 'Ihre Galerie wird geöffnet… Wir haben Ihnen außerdem einen dauerhaften Link per E-Mail geschickt.',
+    error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
   },
 };
 
-export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, propertyCountry, onClose }) {
+// URL-safe base64 (matches the ?t= visitor token the gallery emails use).
+function toBase64Url(str) {
+  try {
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    bytes.forEach(b => { bin += String.fromCharCode(b); });
+    return window.btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  } catch {
+    return '';
+  }
+}
+
+function slugFromPropertyUrl(url) {
+  if (!url) return '';
+  const clean = url.split('?')[0].split('#')[0];
+  const m = clean.match(/\/property\/([^/]+)\/?$/);
+  return m ? m[1] : '';
+}
+
+export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, propertySlug, propertyCountry, onClose }) {
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
@@ -55,6 +90,13 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
   const [name, setName] = useState(saved.name);
   const [email, setEmail] = useState(saved.email);
   const [status, setStatus] = useState('idle');
+  const redirectTimer = useRef(null);
+
+  // The public gallery page lives at /gallery/{slug} (see pages/gallery/[token].js —
+  // the ?t= visitor token is optional; the page renders from the slug alone).
+  const gallerySlug = propertySlug || slugFromPropertyUrl(propertyUrl);
+
+  useEffect(() => () => clearTimeout(redirectTimer.current), []);
 
   async function submit(e) {
     e.preventDefault(); setStatus('sending');
@@ -77,6 +119,17 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
           country: propertyCountry || 'unspecified',
           locale,
         });
+        // Open the gallery right here on the site — the email is the permanent link.
+        if (gallerySlug) {
+          const tok = toBase64Url(JSON.stringify({ n: name || '', e: email }));
+          const params = [];
+          if (tok) params.push(`t=${tok}`);
+          if (locale !== 'en') params.push(`lang=${locale}`);
+          const qs = params.length ? `?${params.join('&')}` : '';
+          redirectTimer.current = setTimeout(() => {
+            window.location.assign(`/gallery/${gallerySlug}${qs}`);
+          }, 1500);
+        }
       }
       setStatus(r.ok ? 'done' : 'error');
     } catch { setStatus('error'); }
@@ -90,7 +143,9 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
           <div className="ul-success">
             <div className="ul-tick">✓</div>
             <h3>{t.success_heading}</h3>
-            <p>{t.success_msg} <strong>{email}</strong>.</p>
+            {gallerySlug
+              ? <p>{t.success_redirect}</p>
+              : <p>{t.success_msg} <strong>{email}</strong>.</p>}
           </div>
         ) : (
           <>

@@ -254,6 +254,8 @@ export default function PropertyCard({ property: p, priority = false }) {
         <UnlockModal
           propertyTitle={title}
           driveUrl={p.driveUrl}
+          propertySlug={p.slug}
+          propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`}
           propertyCountry={p.country || null}
           onClose={() => setUnlockOpen(false)}
         />
