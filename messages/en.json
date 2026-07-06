@@ -57,7 +57,7 @@
     },
     "floor_plan": {
       "subject_prefix": "Your Photo Gallery —",
-      "subject": "Your {city} photos & floor plans",
+      "subject": "Your {city} photos",
       "preview": "Your photo gallery for {propertyTitle} is ready.",
       "greeting": "Dear {firstName},",
       "intro": "Thank you for your interest. As requested, we've put together the complete photo gallery for the property below.",
@@ -79,7 +79,7 @@
       "summary_destination": "Destination",
       "summary_budget": "Budget",
       "cta_label_drive": "Your exclusive access",
-      "cta_button_drive": "View Floor Plans & Gallery",
+      "cta_button_drive": "View Gallery",
       "cta_browse_link": "Browse Our Homes →",
       "cta_label_no_drive": "In the meantime",
       "cta_button_no_drive": "Browse Our Homes",
