@@ -57,7 +57,7 @@
     },
     "floor_plan": {
       "subject_prefix": "Votre galerie de photos —",
-      "subject": "Vos photos et plans — {city}",
+      "subject": "Vos photos — {city}",
       "preview": "Votre galerie de photos pour {propertyTitle} est prête.",
       "greeting": "Bonjour {firstName},",
       "intro": "Merci de votre intérêt. Comme demandé, nous avons rassemblé l'ensemble des photos du bien présenté ci-dessous.",
@@ -79,7 +79,7 @@
       "summary_destination": "Destination",
       "summary_budget": "Budget",
       "cta_label_drive": "Votre accès exclusif",
-      "cta_button_drive": "Voir les plans et la galerie",
+      "cta_button_drive": "Voir la galerie",
       "cta_browse_link": "Découvrir nos biens →",
       "cta_label_no_drive": "En attendant",
       "cta_button_no_drive": "Découvrir nos biens",
