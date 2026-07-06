@@ -57,7 +57,7 @@
     },
     "floor_plan": {
       "subject_prefix": "Ihre Fotogalerie —",
-      "subject": "Ihre Fotos & Grundrisse — {city}",
+      "subject": "Ihre Fotos — {city}",
       "preview": "Ihre Fotogalerie für {propertyTitle} ist bereit.",
       "greeting": "Hallo {firstName},",
       "intro": "Vielen Dank für Ihr Interesse. Wie gewünscht haben wir alle Fotos für die unten aufgeführte Immobilie zusammengestellt.",
@@ -79,7 +79,7 @@
       "summary_destination": "Destination",
       "summary_budget": "Budget",
       "cta_label_drive": "Ihr exklusiver Zugang",
-      "cta_button_drive": "Grundrisse & Galerie ansehen",
+      "cta_button_drive": "Galerie ansehen",
       "cta_browse_link": "Unsere Immobilien entdecken →",
       "cta_label_no_drive": "In der Zwischenzeit",
       "cta_button_no_drive": "Unsere Immobilien entdecken",
