@@ -171,6 +171,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
     const sendEmail = String(overrideEmail !== undefined ? overrideEmail : email).trim();
     const sendName  = String(name || '').trim();
     setStatus('sending'); setErrMsg('');
+    const galleryWin = window.open('about:blank', '_blank');
     try {
       const r = await fetch('/api/unlock-drive/', {
         method: 'POST',
@@ -202,14 +203,15 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
           const qs = params.length ? `?${params.join('&')}` : '';
           redirectTimer.current = setTimeout(() => {
             const galleryHref = `/gallery/${gallerySlug}${qs}`;
-      const galleryWin = window.open(galleryHref, '_blank', 'noopener');
-      if (!galleryWin) window.location.assign(galleryHref);
+      if (galleryWin && !galleryWin.closed) galleryWin.location.href = galleryHref;
+      else window.location.assign(galleryHref);
           }, 1500);
         }
         setStatus('done');
         return;
       }
 
+      if (galleryWin && !galleryWin.closed) galleryWin.close();
       // Structured server rejections.
       let j = null;
       try { j = await r.json(); } catch { /* non-JSON error body */ }
@@ -232,6 +234,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
       }
       setStatus('error');
     } catch {
+      if (galleryWin && !galleryWin.closed) galleryWin.close();
       setStatus('error');
     }
   }
