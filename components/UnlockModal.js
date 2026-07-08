@@ -201,7 +201,9 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
           if (locale !== 'en') params.push(`lang=${locale}`);
           const qs = params.length ? `?${params.join('&')}` : '';
           redirectTimer.current = setTimeout(() => {
-            window.location.assign(`/gallery/${gallerySlug}${qs}`);
+            const galleryHref = `/gallery/${gallerySlug}${qs}`;
+      const galleryWin = window.open(galleryHref, '_blank', 'noopener');
+      if (!galleryWin) window.location.assign(galleryHref);
           }, 1500);
         }
         setStatus('done');
