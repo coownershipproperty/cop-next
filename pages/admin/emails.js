@@ -99,7 +99,7 @@ export default function AdminEmails() {
       const unlockWindow = new Date(Date.now() - 25 * 60000).toISOString()
       const cooldownAgo  = new Date(Date.now() - 30 * 86400000).toISOString()
 
-      const [list, sends, sentTotal, sentWeek, sentDay, stoppedWeek, queued, failed, replyTotal, replyWeek, replyDay, unlocks, markers] = await Promise.all([
+      const [list, sends, sentTotal, sentWeek, sentDay, stoppedWeek, queued, failed, replyTotal, replyWeek, replyDay, unlocks, markers, activity] = await Promise.all([
         supabase.from('email_queue')
           .select('to_email,to_name,subject,status,trigger,template_name,sequence_type,created_at,sent_at')
           .order('created_at', { ascending: false })
@@ -128,6 +128,11 @@ export default function AdminEmails() {
           .eq('trigger', 'gallery_followup')
           .gte('created_at', cooldownAgo)
           .not('contact_id', 'is', null),
+        // Open tracking — the email_activity view (email_sends × email_opens).
+        supabase.from('email_activity')
+          .select('to_email,subject,sent_at,opened,open_count,first_opened_at')
+          .order('sent_at', { ascending: false })
+          .limit(500),
       ])
 
       if (list.error) throw list.error
@@ -150,7 +155,29 @@ export default function AdminEmails() {
         .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
         .slice(0, 250)
 
-      setEmails(merged)
+      // Attach open-tracking to each row. email_queue rows aren't linked to
+      // email_sends by id, so this is a display-level join: recipient +
+      // subject, nearest send time wins when the same email went out twice.
+      const actRows = (activity && !activity.error ? (activity.data || []) : [])
+      const actKey = (em, su) => `${String(em || '').toLowerCase()}||${String(su || '')}`
+      const actMap = new Map()
+      for (const a of actRows) {
+        const k = actKey(a.to_email, a.subject)
+        if (!actMap.has(k)) actMap.set(k, [])
+        actMap.get(k).push(a)
+      }
+      const withOpens = merged.map(r => {
+        const candidates = actMap.get(actKey(r.to_email, r.subject)) || []
+        const t = new Date(r.sent_at || r.created_at || 0).getTime()
+        let best = null
+        for (const a of candidates) {
+          const dt = Math.abs(new Date(a.sent_at || 0).getTime() - t)
+          if (!best || dt < best.dt) best = { a, dt }
+        }
+        return { ...r, open_info: best ? best.a : null }
+      })
+
+      setEmails(withOpens)
       setCounts({
         sentTotal:   (sentTotal.count || 0) + (replyTotal.count || 0),
         sentWeek:    (sentWeek.count  || 0) + (replyWeek.count  || 0),
@@ -367,19 +394,20 @@ export default function AdminEmails() {
                 <th style={thStyle}>Subject</th>
                 <th style={thStyle}>Type</th>
                 <th style={thStyle}>Status</th>
+                <th style={thStyle}>Opened</th>
               </tr>
             </thead>
             <tbody>
               {loading && (
-                <tr><td colSpan={5} style={{ ...tdStyle, textAlign: 'center', color: '#8a9aaa', padding: '40px 14px' }}>Loading recent emails…</td></tr>
+                <tr><td colSpan={6} style={{ ...tdStyle, textAlign: 'center', color: '#8a9aaa', padding: '40px 14px' }}>Loading recent emails…</td></tr>
               )}
               {!loading && error && (
-                <tr><td colSpan={5} style={{ ...tdStyle, textAlign: 'center', color: '#991b1b', padding: '40px 14px' }}>
+                <tr><td colSpan={6} style={{ ...tdStyle, textAlign: 'center', color: '#991b1b', padding: '40px 14px' }}>
                   {error}<br /><br />Try the Refresh button above.
                 </td></tr>
               )}
               {!loading && !error && visible.length === 0 && (
-                <tr><td colSpan={5} style={{ ...tdStyle, textAlign: 'center', color: '#8a9aaa', padding: '40px 14px' }}>No emails in this view.</td></tr>
+                <tr><td colSpan={6} style={{ ...tdStyle, textAlign: 'center', color: '#8a9aaa', padding: '40px 14px' }}>No emails in this view.</td></tr>
               )}
               {!loading && !error && visible.map((e, i) => {
                 const meta = STATUS_META[e.status] || { label: e.status || '?', bg: '#f3f4f6', color: '#6b7280', border: '#d1d5db' }
@@ -405,6 +433,28 @@ export default function AdminEmails() {
                         {meta.label}
                       </span>
                     </td>
+                    <td style={{ ...tdStyle, whiteSpace: 'nowrap' }}>
+                      {(() => {
+                        const wasSent = e.status === 'sent' || e.status === 'approved'
+                        const oi = e.open_info
+                        if (!wasSent || !oi) return <span style={{ color: '#c2bcb2' }}>—</span>
+                        if (oi.opened) {
+                          return (
+                            <span
+                              title={oi.first_opened_at ? `First opened ${new Date(oi.first_opened_at).toLocaleString('en-GB')}` : ''}
+                              style={{
+                                display: 'inline-block', fontSize: 11, fontWeight: 700, padding: '3px 9px',
+                                borderRadius: 20, background: '#eff6ff', color: '#1d4ed8', border: '1px solid #bfdbfe',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              Opened{oi.open_count > 1 ? ` ×${oi.open_count}` : ''}
+                            </span>
+                          )
+                        }
+                        return <span style={{ fontSize: 12, color: '#8a9aaa' }}>Not yet</span>
+                      })()}
+                    </td>
                   </tr>
                 )
               })}
@@ -419,7 +469,9 @@ export default function AdminEmails() {
         <strong style={{ color: '#5A6B73' }}>Stopped</strong> — the system deliberately did not send: a duplicate prevented,
         a follow-up cancelled because the person enquired, or a retired email switched off. This is the spam protection working.{' '}
         <strong style={{ color: '#5A6B73' }}>Failed</strong> — a genuine send error worth a look (you want this at zero).{' '}
-        <strong style={{ color: '#5A6B73' }}>Queued</strong> — scheduled, not yet due.
+        <strong style={{ color: '#5A6B73' }}>Queued</strong> — scheduled, not yet due.{' '}
+        <strong style={{ color: '#5A6B73' }}>Opened</strong> — the recipient opened the email at least once (tracking pixel).
+        &ldquo;Not yet&rdquo; or &ldquo;—&rdquo; can also mean their mail app blocks tracking, so treat it as a floor, not an exact count.
       </div>
     </AdminLayout>
   )
