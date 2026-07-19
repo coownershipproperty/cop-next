@@ -83,6 +83,9 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
       .from('properties')
       .select('slug, title, img, images, price, currency, share_denominator, country, region, city, beds, size, status')
       .in('slug', slugs)
+      // Favourites keep sold homes visible (with the Sold badge) but must
+      // never surface hidden/staged rows.
+      .in('status', ['Live', 'for_sale', 'sold'])
       .then(({ data }) => {
         if (cancelled) return;
         // Preserve the order the user saved them (most recent last → show most recent first)

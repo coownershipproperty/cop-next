@@ -324,7 +324,8 @@ export async function getStaticProps({ params }) {
   );
   const { data: allProps } = await supabase
     .from('properties')
-    .select('slug, title, title_fr, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type');
+    .select('slug, title, title_fr, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type')
+    .in('status', ['Live', 'for_sale']);
 
   const filter = DEST_FILTERS[slug] || null;
   const matchedRaw = filter ? (allProps || []).filter(p => matchesFilter(p, filter)) : [];

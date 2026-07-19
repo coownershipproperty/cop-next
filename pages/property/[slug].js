@@ -159,7 +159,10 @@ function getSupabase() {
 
 export async function getStaticPaths() {
   const supabase = getSupabase();
-  const { data } = await supabase.from('properties').select('slug');
+  const { data } = await supabase
+    .from('properties')
+    .select('slug')
+    .in('status', ['Live', 'for_sale']);
   return {
     paths: (data || []).map(p => ({ params: { slug: p.slug } })),
     fallback: 'blocking',
@@ -187,6 +190,13 @@ export async function getStaticProps({ params }) {
 
     if (propErr || !property) return { notFound: true };
 
+    // Hidden/sold rows must never render publicly (19 Jul incident): only
+    // Live / for_sale get a page. `revalidate` lets the page reappear
+    // automatically if the status goes back to Live.
+    if (!['Live', 'for_sale'].includes(property.status)) {
+      return { notFound: true, revalidate: 3600 };
+    }
+
     const prop = {
       ...property,
       driveUrl: property.drive_url,
@@ -202,6 +212,7 @@ export async function getStaticProps({ params }) {
         .select('slug, title, title_es, title_fr, img, price, currency, share_denominator, country, region, city, beds, size, status')
         .eq('country', property.country)
         .neq('slug', property.slug)
+        .in('status', ['Live', 'for_sale'])
         .limit(3);
       similar = (similarRaw || []).map(p => ({ ...p, driveUrl: null }));
     } catch (_) {

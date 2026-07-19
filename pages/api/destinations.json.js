@@ -137,7 +137,7 @@ export default async function handler(req, res) {
       const { data } = await supabase
         .from('properties')
         .select('country')
-        .eq('status', 'Live');
+        .in('status', ['Live', 'for_sale']);
       (data || []).forEach(p => {
         if (p.country) countByCountry[p.country] = (countByCountry[p.country] || 0) + 1;
       });

@@ -23,6 +23,7 @@ export async function getStaticProps() {
     .select('slug, title, title_es, title_fr, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type')
     .eq('country', 'Spain')
     .eq('region', 'Mallorca')
+    .in('status', ['Live', 'for_sale'])
     .limit(24);
 
   const properties = (data || []).map(p => ({

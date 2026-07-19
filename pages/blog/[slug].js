@@ -276,7 +276,8 @@ export async function getStaticProps({ params }) {
   const { data: featuredRows } = await supabase
     .from('properties')
     .select('slug, title, title_es, title_fr, img, price, currency, city, region, country')
-    .in('slug', FEATURED_PROPERTY_SLUGS);
+    .in('slug', FEATURED_PROPERTY_SLUGS)
+    .in('status', ['Live', 'for_sale']);
 
   const featuredProperties = pickSidebarProperties(featuredRows, post).map(p => ({
     slug: p.slug,

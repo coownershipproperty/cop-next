@@ -32,7 +32,8 @@ export async function getStaticProps() {
   const { data: rows } = await supabase
     .from('properties')
     .select('slug, title, title_fr, img, region, country, price, currency, beds, size')
-    .in('slug', FEATURED_PROPERTY_SLUGS);
+    .in('slug', FEATURED_PROPERTY_SLUGS)
+    .in('status', ['Live', 'for_sale']);
 
   const bySlug = Object.fromEntries((rows || []).map(p => [p.slug, p]));
   const featuredProps = FEATURED_PROPERTY_SLUGS
@@ -52,7 +53,8 @@ export async function getStaticProps() {
 
   const { count: propertyCount } = await supabase
     .from('properties')
-    .select('*', { count: 'exact', head: true });
+    .select('*', { count: 'exact', head: true })
+    .in('status', ['Live', 'for_sale']);
 
   const { data: postRows } = await supabase
     .from('posts')

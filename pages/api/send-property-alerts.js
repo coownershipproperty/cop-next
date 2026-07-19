@@ -31,7 +31,9 @@ export default async function handler(req, res) {
     .from('properties')
     .select('slug, title, img, price, currency, beds, size, country, city, status')
     .gte('date_added', since)
-    .in('status', ['available', 'new']);
+    // 'available'/'new' never existed in the DB (statuses are Live/for_sale/
+    // sold/hidden) — alerts silently matched nothing until this was fixed.
+    .in('status', ['Live', 'for_sale']);
 
   if (!newProps || newProps.length === 0) {
     return res.status(200).json({ ok: true, message: 'No new properties', sent: 0 });

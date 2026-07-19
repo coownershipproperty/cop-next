@@ -15,7 +15,9 @@ export async function getStaticProps() {
   const { data } = await supabase
     .from('properties')
     .select('slug, title, title_es, title_fr, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type')
-    .eq('country', 'Spain').eq('region', 'Ibiza').limit(24);
+    .eq('country', 'Spain').eq('region', 'Ibiza')
+    .in('status', ['Live', 'for_sale'])
+    .limit(24);
 
   const properties = (data || []).map(p => ({
     slug: p.slug, title: p.title, title_es: p.title_es || null, title_fr: p.title_fr || null,

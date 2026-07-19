@@ -36,7 +36,9 @@ export async function getStaticProps() {
 
   const { data: raw, error } = await supabase
     .from('properties')
-    .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added');
+    .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added')
+    // Public listings: only Live / for_sale — hidden & sold must never render (19 Jul incident).
+    .in('status', ['Live', 'for_sale']);
 
   if (error) {
     console.error('Supabase error (our-homes):', error);

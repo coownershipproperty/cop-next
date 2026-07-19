@@ -65,11 +65,12 @@ export default async function handler(req, res) {
     const { data: properties, error } = await supabase
       .from('properties')
       .select('id, slug, title, img, images, price, currency, country, region, city, beds, size, status')
+      .in('status', ['Live', 'for_sale'])
       .order('date_added', { ascending: false });
 
     if (error) throw error;
 
-    const active = (properties || []).filter(p => p.status !== 'sold' && p.slug && p.title);
+    const active = (properties || []).filter(p => p.slug && p.title);
 
     // TSV header
     const headers = [

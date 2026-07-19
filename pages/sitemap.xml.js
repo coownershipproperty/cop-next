@@ -170,6 +170,7 @@ export async function getServerSideProps({ res }) {
   const { data: properties } = await supabase
     .from('properties')
     .select('slug, date_added')
+    .in('status', ['Live', 'for_sale'])
     .order('date_added', { ascending: false });
 
   // Blog posts (from static JSON for stability)

@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     const { data, error } = await supabase
       .from('properties')
       .select('slug, title, description, country, region, city, beds, baths, size, price, currency, lat, lng, img, images, status, partner, date_added')
-      .eq('status', 'Live')
+      .in('status', ['Live', 'for_sale'])
       .order('date_added', { ascending: false });
 
     if (error) {
