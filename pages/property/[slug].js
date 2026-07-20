@@ -257,6 +257,12 @@ export async function getStaticProps({ params }) {
       dateAdded: property.date_added,
     };
 
+    // Enhanced sections (tab bar, Look inside + 3D tour, Co-ownership,
+    // Financing) render on Pacaso-partner listings only (Dylan, 20 Jul 2026).
+    // Computed HERE, server-side, and passed as a plain boolean so the
+    // partner name itself never reaches the client.
+    const showEnhancedSections = property.partner === 'pacaso';
+
     // Partner-agnostic mandate: partner identity must never reach the
     // browser. The rendered page never shows it, but getStaticProps props are
     // serialised into __NEXT_DATA__ verbatim — so strip the partner fields
@@ -321,7 +327,7 @@ export async function getStaticProps({ params }) {
       similar = [];
     }
 
-    return { props: { property: prop, similar }, revalidate: 3600 };
+    return { props: { property: prop, similar, showEnhancedSections }, revalidate: 3600 };
   } catch (err) {
     // Any unexpected error → 404, never let it become a 5xx.
     console.error(`property/[slug] getStaticProps failed for "${params.slug}":`, err);
@@ -435,7 +441,7 @@ function EnquiryForm({ propertyTitle, propertyUrl, locale }) {
 }
 
 /* ── Main page ── */
-export default function PropertyPage({ property: p, similar, forceLocale = null }) {
+export default function PropertyPage({ property: p, similar, showEnhancedSections = false, forceLocale = null }) {
   const router = useRouter();
   // forceLocale wins for SSG'd /es/propiedades/[slug] and /fr/proprietes/[slug]
   // wrappers — those pages know their locale at build time. For the canonical
@@ -706,7 +712,8 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
         </div>
       </div>
 
-      {/* ── Anchor tabs: Overview / Look inside / Co-ownership / Financing ── */}
+      {/* ── Anchor tabs (Pacaso listings only) ── */}
+      {showEnhancedSections && (
       <nav className="pp-tabs" aria-label="Property sections">
         <a href="#overview" className="pp-tab">{t.tab_overview}</a>
         <a href="#look-inside" className="pp-tab">{t.tab_look}</a>
@@ -715,6 +722,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
         <a href="#co-ownership" className="pp-tab">{t.tab_coown}</a>
         {Number(p.price) > 0 && <a href="#financing" className="pp-tab">{t.tab_fin}</a>}
       </nav>
+      )}
 
       {/* ── Content ── */}
       <div className="pp-content" id="overview">
@@ -791,7 +799,9 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
           </div>
 
           {/* ── Look inside: gallery + 3D tour request (no tour is ever
-                 embedded or linked — the team sends it by email) ── */}
+                 embedded or linked — the team sends it by email).
+                 Pacaso listings only. ── */}
+          {showEnhancedSections && (
           <div className="pp-look" id="look-inside">
             <h2 className="pp-heading">{t.look_heading}</h2>
             <p className="pp-look-sub">{t.look_sub}</p>
@@ -811,6 +821,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
               </button>
             </div>
           </div>
+          )}
 
           {local.amenities.length > 0 && (
             <div className={`pp-amenities${amenExpanded ? ' expanded' : ''}`} id="amenities">
@@ -846,7 +857,8 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             </div>
           )}
 
-          {/* ── Co-ownership: how the model works, partner-agnostic ── */}
+          {/* ── Co-ownership: how the model works (Pacaso listings only) ── */}
+          {showEnhancedSections && (
           <div className="pp-coown" id="co-ownership">
             <h2 className="pp-heading">{t.coown_heading}</h2>
             <ul className="pp-coown-list">
@@ -858,10 +870,11 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
               ))}
             </ul>
           </div>
+          )}
 
           {/* ── Financing calculator — COP's own widget, generic maths, no
-                 partner claims. Rendered for every priced listing. ── */}
-          {Number(p.price) > 0 && (
+                 partner claims. Pacaso listings only. ── */}
+          {showEnhancedSections && Number(p.price) > 0 && (
             <div className="pp-financing" id="financing">
               <FinancingCalculator
                 sharePrice={Number(p.price)}
@@ -955,7 +968,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
       })()}
 
       {showUnlock && <UnlockModal propertyTitle={local.title} driveUrl={p.driveUrl} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} onClose={() => setShowUnlock(false)} />}
-      {showTour && (
+      {showEnhancedSections && showTour && (
         <TourRequestModal
           propertyTitle={local.title}
           propertySlug={p.slug}
