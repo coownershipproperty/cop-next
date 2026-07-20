@@ -14,6 +14,7 @@ const COPY = {
     sub: "Enter your details and we'll send the full photo gallery straight to your inbox.",
     name_placeholder: 'Your name',
     email_placeholder: 'Your email address',
+    phone_placeholder: 'Phone number (optional)',
     btn_idle: 'Send me the photos →',
     btn_sending: 'Sending…',
     success_heading: 'Check your inbox!',
@@ -33,6 +34,7 @@ const COPY = {
     sub: 'Introduce tus datos y te enviaremos la galería de fotos completa directamente a tu correo electrónico.',
     name_placeholder: 'Tu nombre',
     email_placeholder: 'Tu correo electrónico',
+    phone_placeholder: 'Teléfono (opcional)',
     btn_idle: 'Enviar las fotos →',
     btn_sending: 'Enviando…',
     success_heading: '¡Revisa tu bandeja de entrada!',
@@ -52,6 +54,7 @@ const COPY = {
     sub: 'Renseignez vos coordonnées et nous vous enverrons la galerie de photos complète directement par email.',
     name_placeholder: 'Votre nom',
     email_placeholder: 'Votre adresse email',
+    phone_placeholder: 'Téléphone (facultatif)',
     btn_idle: 'Envoyez-moi les photos →',
     btn_sending: 'Envoi en cours…',
     success_heading: 'Consultez votre boîte mail !',
@@ -71,6 +74,7 @@ const COPY = {
     sub: 'Geben Sie Ihre Daten ein und wir senden Ihnen die vollständige Fotogalerie direkt in Ihr Postfach.',
     name_placeholder: 'Ihr Name',
     email_placeholder: 'Ihre E-Mail-Adresse',
+    phone_placeholder: 'Telefonnummer (optional)',
     btn_idle: 'Fotos zusenden →',
     btn_sending: 'Wird gesendet…',
     success_heading: 'Prüfen Sie Ihr Postfach!',
@@ -151,6 +155,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
   const saved = getSavedUser();
   const [name, setName]   = useState(saved.name);
   const [email, setEmail] = useState(saved.email);
+  const [phone, setPhone] = useState(saved.phone || '');
   const [status, setStatus] = useState('idle');
   const [errMsg, setErrMsg] = useState('');
   // One-click "Continue as {email}" — only for a saved user whose address has
@@ -170,6 +175,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
   async function doSubmit({ overrideEmail, honeypot = '' } = {}) {
     const sendEmail = String(overrideEmail !== undefined ? overrideEmail : email).trim();
     const sendName  = String(name || '').trim();
+    const sendPhone = String(phone || '').trim();
     setStatus('sending'); setErrMsg('');
     const _tok = toBase64Url(JSON.stringify({ n: sendName || '', e: sendEmail }));
     const _qs = [ _tok ? ('t=' + _tok) : '', locale !== 'en' ? ('lang=' + locale) : '' ].filter(Boolean).join('&');
@@ -179,13 +185,13 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: sendName, email: sendEmail, propertyTitle, driveUrl, propertyUrl,
+          name: sendName, email: sendEmail, phone: sendPhone, propertyTitle, driveUrl, propertyUrl,
           propertyCountry, locale, [HONEYPOT_FIELD]: honeypot,
         }),
       });
       if (r.ok) {
         // validated: this address demonstrably works → next time is one-click.
-        saveUser({ name: sendName, email: sendEmail, validated: true });
+        saveUser({ name: sendName, email: sendEmail, phone: sendPhone, validated: true });
         trackConversion('generate_lead', 'Lead', {
           event_category: 'floor_plan_unlock',
           property_title: propertyTitle,
@@ -331,6 +337,14 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
                   if (suggestedFor.current !== e.target.value) suggestedFor.current = null;
                 }}
                 required
+              />
+              <input
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder={t.phone_placeholder}
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
               />
               {suggestion && (
                 <button
