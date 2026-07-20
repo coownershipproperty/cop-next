@@ -22,7 +22,7 @@ const COPY = {
     btn_idle: 'Request 3D tour →',
     btn_sending: 'Sending…',
     success_heading: 'Request received!',
-    success_msg: "We're preparing your 3D walkthrough and will email it to",
+    success_msg: 'Your personal walkthrough link is on its way — within the hour.',
     error: 'Something went wrong. Please try again.',
     error_domain: "That email domain doesn't seem to exist — double-check the spelling?",
   },
@@ -36,7 +36,7 @@ const COPY = {
     btn_idle: 'Solicitar tour 3D →',
     btn_sending: 'Enviando…',
     success_heading: '¡Solicitud recibida!',
-    success_msg: 'Estamos preparando tu recorrido 3D y lo enviaremos a',
+    success_msg: 'Tu enlace personal para la visita virtual está en camino — en menos de una hora.',
     error: 'Algo salió mal. Inténtalo de nuevo.',
     error_domain: 'Ese dominio de correo no parece existir — ¿revisas la ortografía?',
   },
@@ -50,7 +50,7 @@ const COPY = {
     btn_idle: 'Demander la visite 3D →',
     btn_sending: 'Envoi en cours…',
     success_heading: 'Demande reçue !',
-    success_msg: 'Nous préparons votre visite 3D et vous l’enverrons à',
+    success_msg: 'Votre lien personnel de visite virtuelle est en route — sous une heure.',
     error: "Une erreur s'est produite. Veuillez réessayer.",
     error_domain: "Ce domaine email ne semble pas exister — vérifiez l'orthographe ?",
   },
@@ -64,7 +64,7 @@ const COPY = {
     btn_idle: '3D-Rundgang anfragen →',
     btn_sending: 'Wird gesendet…',
     success_heading: 'Anfrage erhalten!',
-    success_msg: 'Wir bereiten Ihren 3D-Rundgang vor und senden ihn an',
+    success_msg: 'Ihr persönlicher Link zum virtuellen Rundgang ist unterwegs — innerhalb einer Stunde.',
     error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
     error_domain: 'Diese E-Mail-Domain scheint nicht zu existieren — bitte prüfen Sie die Schreibweise.',
   },
@@ -134,7 +134,7 @@ export default function TourRequestModal({ propertyTitle, propertyUrl, propertyS
           <div className="ul-success">
             <div className="ul-tick">✓</div>
             <h3>{t.success_heading}</h3>
-            <p>{t.success_msg} <strong>{email}</strong>.</p>
+            <p>{t.success_msg}</p>
           </div>
         ) : (
           <>
