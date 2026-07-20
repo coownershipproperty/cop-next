@@ -77,8 +77,8 @@ const COPY = {
     closeMulti:  `And whenever you're ready, I'm happy to connect you directly with the teams that manage them.`,
     sign: 'Dylan',
     and: ' and ',
-    galleryLinksIntro: 'Here are your photo & floor-plan links, in case you need them again:',
-    galleryLinkLabel: 'photos & floor plans',
+    galleryLinksIntro: 'Here are your photo links, in case you need them again:',
+    galleryLinkLabel: 'photos',
   },
   es: {
     role: 'Cofundador · Co-Ownership Property',
@@ -93,8 +93,8 @@ const COPY = {
     closeMulti:  `Y cuando quieras, con mucho gusto te pongo en contacto directo con los equipos que las gestionan.`,
     sign: 'Dylan',
     and: ' y ',
-    galleryLinksIntro: 'Aquí tienes tus enlaces a las fotos y los planos, por si los necesitas de nuevo:',
-    galleryLinkLabel: 'fotos y planos',
+    galleryLinksIntro: 'Aquí tienes tus enlaces a las fotos, por si los necesitas de nuevo:',
+    galleryLinkLabel: 'fotos',
   },
   fr: {
     role: 'Cofondateur · Co-Ownership Property',
@@ -109,8 +109,8 @@ const COPY = {
     closeMulti:  `Et quand vous le souhaitez, je vous mets volontiers en relation directe avec les équipes qui les gèrent.`,
     sign: 'Dylan',
     and: ' et ',
-    galleryLinksIntro: 'Voici vos liens vers les photos et les plans, si vous en avez encore besoin :',
-    galleryLinkLabel: 'photos et plans',
+    galleryLinksIntro: 'Voici vos liens vers les photos, si vous en avez encore besoin :',
+    galleryLinkLabel: 'photos',
   },
 };
 
@@ -126,7 +126,8 @@ function joinList(items, andWord) {
 }
 
 /**
- * Per-property "photos & floor plans" links block. Rapid multi-unlocks SKIP
+ * Per-property "photos" links block (no floor-plan promise — galleries vary
+ * and not every listing has plans). Rapid multi-unlocks SKIP
  * the individual per-property gallery emails (see /api/unlock-drive's 24h
  * batching), so THIS email is what delivers the gallery links — every
  * property in the batch with a known gallery URL is listed here.
