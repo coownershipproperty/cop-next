@@ -53,19 +53,19 @@ export default function NurtureFloorPlan({
 
   const waMsg      = isMulti
     ? encodeURIComponent(`Hi, I've been looking at a few properties on Co-Ownership Property and I'd love to find out more.`)
-    : encodeURIComponent(`Hi, I requested the floor plan for ${primaryTitle} and I'd love to find out more.`);
+    : encodeURIComponent(`Hi, I requested the photos for ${primaryTitle} and I'd love to find out more.`);
   const mailSubject = isMulti
     ? encodeURIComponent(`Enquiry about co-ownership properties`)
     : encodeURIComponent(`Enquiry: ${primaryTitle}`);
   const mailBody    = isMulti
     ? encodeURIComponent(`Hi,\n\nI've been looking at a few properties on Co-Ownership Property and I have some questions.\n\nThank you`)
-    : encodeURIComponent(`Hi,\n\nI recently requested the floor plan for ${primaryTitle} and I have a few questions.\n\nThank you`);
+    : encodeURIComponent(`Hi,\n\nI recently requested the photos for ${primaryTitle} and I have a few questions.\n\nThank you`);
   const mailHref = `mailto:${enquiryEmail}?subject=${mailSubject}&body=${mailBody}`;
   const waHref   = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
 
   const previewText = isMulti
     ? `You've been exploring ${properties.length} properties — here's a recap`
-    : `You requested the floor plans for ${primaryTitle} — here's a closer look`;
+    : `You requested more photos of ${primaryTitle} — here's a closer look`;
 
   return (
     <Html lang="en">
@@ -164,7 +164,7 @@ export default function NurtureFloorPlan({
             {!isMulti ? (
               <>
                 <Text style={s.bodyText} className="body-text">
-                  You recently requested the floor plans and extra photos for{' '}
+                  You recently requested extra photos of{' '}
                   <strong style={{ color: C.navy }}>{primaryTitle}</strong>.
                   We hope they gave you a clearer picture of what's on offer.
                 </Text>
@@ -296,7 +296,7 @@ export default function NurtureFloorPlan({
             </Text>
             <Hr style={s.footDivider} />
             <Text style={s.footFine}>
-              You're receiving this because you requested floor plans on co-ownership-property.com.
+              You're receiving this because you requested photos on co-ownership-property.com.
             </Text>
             <Text style={s.footFine}>
               <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>

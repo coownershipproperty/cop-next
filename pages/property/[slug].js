@@ -13,7 +13,9 @@ import Newsletter from '@/components/Newsletter';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
 import ExpertForm from '@/components/ExpertForm';
 import UnlockModal from '@/components/UnlockModal';
+import TourRequestModal from '@/components/TourRequestModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
+import PropertyCard from '@/components/PropertyCard';
 import { localeFromPath } from '@/lib/i18n';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
@@ -33,6 +35,19 @@ const COPY = {
     location_heading: 'Location',
     similar_heading: (country) => `Similar Properties in ${country}`,
     pillar_link: (country) => `See all ${country} fractional ownership properties →`,
+    tab_overview: 'Overview', tab_look: 'Look inside', tab_coown: 'Co-ownership', tab_fin: 'Financing',
+    look_heading: 'Look Inside',
+    look_sub: 'Browse the photo gallery, or ask us for a full 3D walkthrough of this home.',
+    look_gallery_btn: 'View photo gallery',
+    tour_btn: 'Request 3D Tour',
+    coown_heading: 'How Co-Ownership Works',
+    coown_points: (n, days) => [
+      [`You own 1/${n} of the home`, 'Real, deeded property ownership — not a timeshare, not points.'],
+      [`~${days} days a year`, 'Stays are scheduled fairly between the co-owners across the whole year.'],
+      ['Costs are shared', `You pay 1/${n}th of the home's total running costs, shared between all owners.`],
+      ['Fully managed', 'Maintenance, cleaning and scheduling are handled for you — just arrive and enjoy.'],
+      ['Sell whenever you like', 'Your share is a real asset: sell it at a price you set.'],
+    ],
     missing_photos: (n) => `You're missing ${n} photos`,
     unlock_sub: 'Unlock the full gallery & floor plans — free',
     unlock_now: 'Unlock Now →',
@@ -62,6 +77,19 @@ const COPY = {
     location_heading: 'Ubicación',
     similar_heading: (country) => `Propiedades similares en ${country}`,
     pillar_link: (country) => `Ver todas las propiedades de copropiedad en ${country} →`,
+    tab_overview: 'Resumen', tab_look: 'Por dentro', tab_coown: 'Copropiedad', tab_fin: 'Financiación',
+    look_heading: 'Por dentro',
+    look_sub: 'Explora la galería de fotos o pídenos un recorrido 3D completo de esta casa.',
+    look_gallery_btn: 'Ver galería de fotos',
+    tour_btn: 'Solicitar tour 3D',
+    coown_heading: 'Cómo funciona la copropiedad',
+    coown_points: (n, days) => [
+      [`Eres dueño de 1/${n} de la casa`, 'Propiedad real inscrita a tu nombre — no es multipropiedad ni puntos.'],
+      [`~${days} días al año`, 'Las estancias se reparten de forma equitativa entre los copropietarios durante todo el año.'],
+      ['Los gastos se comparten', `Pagas 1/${n} de los gastos totales de la casa, repartidos entre todos los propietarios.`],
+      ['Gestión integral', 'Mantenimiento, limpieza y calendario gestionados por el equipo — tú solo llega y disfruta.'],
+      ['Vende cuando quieras', 'Tu participación es un activo real: véndela al precio que tú fijes.'],
+    ],
     missing_photos: (n) => `Te faltan ${n} fotos`,
     unlock_sub: 'Desbloquea la galería completa y los planos — gratis',
     unlock_now: 'Desbloquear ahora →',
@@ -91,6 +119,19 @@ const COPY = {
     location_heading: 'Localisation',
     similar_heading: (country) => `Biens immobiliers similaires en ${country}`,
     pillar_link: (country) => `Voir toutes les propriétés en copropriété en ${country} →`,
+    tab_overview: "Vue d'ensemble", tab_look: "À l'intérieur", tab_coown: 'Copropriété', tab_fin: 'Financement',
+    look_heading: "À l'intérieur",
+    look_sub: 'Parcourez la galerie photo ou demandez-nous une visite 3D complète de cette maison.',
+    look_gallery_btn: 'Voir la galerie photo',
+    tour_btn: 'Demander une visite 3D',
+    coown_heading: 'Comment fonctionne la copropriété',
+    coown_points: (n, days) => [
+      [`Vous possédez 1/${n} de la maison`, 'Une propriété réelle, inscrite à votre nom — ni timeshare, ni points.'],
+      [`~${days} jours par an`, "Les séjours sont répartis équitablement entre les copropriétaires sur toute l'année."],
+      ['Les frais sont partagés', `Vous payez 1/${n} des frais totaux de la maison, répartis entre tous les propriétaires.`],
+      ['Gestion complète', "Entretien, ménage et calendrier sont pris en charge — vous n'avez qu'à profiter."],
+      ['Revendez quand vous voulez', 'Votre part est un actif réel : revendez-la au prix que vous fixez.'],
+    ],
     missing_photos: (n) => `Il vous manque ${n} photos`,
     unlock_sub: "Débloquez la galerie complète et les plans — gratuit",
     unlock_now: 'Débloquer maintenant →',
@@ -120,6 +161,19 @@ const COPY = {
     location_heading: 'Lage',
     similar_heading: (country) => `Ähnliche Immobilien in ${country}`,
     pillar_link: (country) => `Alle Miteigentumsimmobilien in ${country} ansehen →`,
+    tab_overview: 'Überblick', tab_look: 'Einblicke', tab_coown: 'Miteigentum', tab_fin: 'Finanzierung',
+    look_heading: 'Einblicke',
+    look_sub: 'Stöbern Sie durch die Fotogalerie oder fordern Sie einen vollständigen 3D-Rundgang durch dieses Zuhause an.',
+    look_gallery_btn: 'Fotogalerie ansehen',
+    tour_btn: '3D-Rundgang anfragen',
+    coown_heading: 'So funktioniert Miteigentum',
+    coown_points: (n, days) => [
+      [`Ihnen gehört 1/${n} des Hauses`, 'Echtes, grundbuchlich eingetragenes Eigentum — kein Timesharing, keine Punkte.'],
+      [`~${days} Tage pro Jahr`, 'Die Aufenthalte werden fair über das ganze Jahr zwischen den Miteigentümern verteilt.'],
+      ['Kosten werden geteilt', `Sie zahlen 1/${n} der gesamten laufenden Kosten des Hauses, geteilt unter allen Eigentümern.`],
+      ['Komplett verwaltet', 'Instandhaltung, Reinigung und Kalender werden für Sie übernommen — einfach ankommen und genießen.'],
+      ['Verkaufen, wann Sie möchten', 'Ihr Anteil ist ein echter Vermögenswert: Verkaufen Sie ihn zum Preis, den Sie festlegen.'],
+    ],
     missing_photos: (n) => `Ihnen fehlen ${n} Fotos`,
     unlock_sub: 'Galerie und Grundrisse freischalten — kostenlos',
     unlock_now: 'Jetzt freischalten →',
@@ -203,18 +257,66 @@ export async function getStaticProps({ params }) {
       dateAdded: property.date_added,
     };
 
-    // Similar-properties query is best-effort. If it errors we just render
+    // Partner-agnostic mandate: partner identity must never reach the
+    // browser. The rendered page never shows it, but getStaticProps props are
+    // serialised into __NEXT_DATA__ verbatim — so strip the partner fields
+    // and any raw scraped/AI text variants that may mention the partner.
+    delete prop.partner;
+    delete prop.partner_url;
+    delete prop.notes;
+    delete prop.description_scraped;
+    delete prop.description_original;
+    delete prop.description_ai;
+    delete prop.description_ai_es;
+    delete prop.description_ai_fr;
+    delete prop.description_ai_de;
+
+    // Similar homes — COP's own catalog only, never a partner feed:
+    // same country (same region preferred), price within ±30%, Live/for_sale,
+    // current property excluded, max 3. Best-effort: if it errors we render
     // the page with an empty similar list instead of breaking the whole page.
     let similar = [];
     try {
       const { data: similarRaw } = await supabase
         .from('properties')
-        .select('slug, title, title_es, title_fr, img, price, currency, share_denominator, country, region, city, beds, size, status')
+        .select('slug, title, title_es, title_fr, title_de, img, images, price, currency, share_denominator, country, region, city, beds, size, status')
         .eq('country', property.country)
         .neq('slug', property.slug)
         .in('status', ['Live', 'for_sale'])
-        .limit(3);
-      similar = (similarRaw || []).map(p => ({ ...p, driveUrl: null }));
+        .limit(200);
+      const basePrice = Number(property.price) > 0 ? Number(property.price) : null;
+      const candidates = (similarRaw || [])
+        // ±30% price band (skipped when the current home has no price)
+        .filter(c => !basePrice || (Number(c.price) > 0
+          && Number(c.price) >= basePrice * 0.7
+          && Number(c.price) <= basePrice * 1.3))
+        // Same region first, then closest by price
+        .sort((a, b) => {
+          const aRegion = property.region && a.region === property.region ? 0 : 1;
+          const bRegion = property.region && b.region === property.region ? 0 : 1;
+          if (aRegion !== bRegion) return aRegion - bRegion;
+          if (!basePrice) return 0;
+          return Math.abs(Number(a.price) - basePrice) - Math.abs(Number(b.price) - basePrice);
+        });
+      similar = candidates.slice(0, 3).map(p => ({
+        slug: p.slug,
+        title: p.title,
+        title_es: p.title_es || null,
+        title_fr: p.title_fr || null,
+        title_de: p.title_de || null,
+        img: p.img || null,
+        images: Array.isArray(p.images) ? p.images.slice(0, 3) : [],
+        price: p.price || null,
+        currency: p.currency || 'EUR',
+        share_denominator: p.share_denominator || null,
+        country: p.country || null,
+        region: p.region || null,
+        city: p.city || null,
+        beds: p.beds || null,
+        size: p.size || null,
+        status: p.status || null,
+        driveUrl: null, // no gallery-lock slide on similar cards
+      }));
     } catch (_) {
       similar = [];
     }
@@ -232,7 +334,6 @@ function fmt(price, currency, locale = 'en-GB') { return `${SYM[currency] || cur
 function fmtApprox(amount, locale = 'en-GB') {
   return (Math.round(amount / 1_000) * 1_000).toLocaleString(locale);
 }
-const PARTNER_LABEL = { pacaso: 'Pacaso', andhamlet: '&Hamlet', vivla: 'Vivla', myne: 'Myne' };
 const SITE_URL = 'https://co-ownership-property.com';
 const PROPERTY_HREFLANG_LOCALES = ['en', 'es', 'fr', 'de'];
 
@@ -347,6 +448,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
   const local = localizedFields(p, locale);
 
   const [showUnlock, setShowUnlock] = useState(false);
+  const [showTour, setShowTour] = useState(false);
   const [lightbox, setLightbox] = useState(null);
   const [mobileSlide, setMobileSlide] = useState(0);
   const [saved, setSaved] = useState(false);
@@ -361,7 +463,6 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
   const descParas = local.description ? local.description.split('\n').filter(Boolean) : [];
   const descVisible = descExpanded ? descParas : descParas.slice(0, 2);
   const descHasMore = descParas.length > 2;
-  const partnerLabel = PARTNER_LABEL[p.partner] || p.partner;
   const touchStartX = useRef(null);
 
   useEffect(() => {
@@ -605,8 +706,16 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
         </div>
       </div>
 
+      {/* ── Anchor tabs: Overview / Look inside / Co-ownership / Financing ── */}
+      <nav className="pp-tabs" aria-label="Property sections">
+        <a href="#overview" className="pp-tab">{t.tab_overview}</a>
+        <a href="#look-inside" className="pp-tab">{t.tab_look}</a>
+        <a href="#co-ownership" className="pp-tab">{t.tab_coown}</a>
+        {Number(p.price) > 0 && <a href="#financing" className="pp-tab">{t.tab_fin}</a>}
+      </nav>
+
       {/* ── Content ── */}
-      <div className="pp-content">
+      <div className="pp-content" id="overview">
         <div className="pp-left">
 
           <div className="pp-price-row">
@@ -679,6 +788,28 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             ) : <p className="pp-desc-empty">{t.desc_empty}</p>}
           </div>
 
+          {/* ── Look inside: gallery + 3D tour request (no tour is ever
+                 embedded or linked — the team sends it by email) ── */}
+          <div className="pp-look" id="look-inside">
+            <h2 className="pp-heading">{t.look_heading}</h2>
+            <p className="pp-look-sub">{t.look_sub}</p>
+            <div className="pp-look-actions">
+              <button type="button" className="pp-look-btn" onClick={() => setLightbox(0)}>
+                {t.look_gallery_btn}
+              </button>
+              <button
+                type="button"
+                className="pp-look-btn pp-look-btn-tour"
+                onClick={() => {
+                  setShowTour(true);
+                  track('tour_request_opened', { property: local.title, slug: p.slug, locale });
+                }}
+              >
+                {t.tour_btn}
+              </button>
+            </div>
+          </div>
+
           {local.amenities.length > 0 && (
             <div className={`pp-amenities${amenExpanded ? ' expanded' : ''}`}>
               <h2 className="pp-heading">{t.amenities_heading}</h2>
@@ -713,15 +844,30 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
             </div>
           )}
 
-          {/* Financing calculator — Pacaso-partner properties only.
-              Sits between Location and Similar Properties so visitors see it
-              after the spec/location facts but before browsing alternatives. */}
-          {p.partner === 'pacaso' && Number(p.price) > 0 && (
-            <FinancingCalculator
-              sharePrice={Number(p.price)}
-              currency={p.currency || 'USD'}
-              locale={locale}
-            />
+          {/* ── Co-ownership: how the model works, partner-agnostic ── */}
+          <div className="pp-coown" id="co-ownership">
+            <h2 className="pp-heading">{t.coown_heading}</h2>
+            <ul className="pp-coown-list">
+              {t.coown_points(p.share_denominator || 8, Math.floor(365 / (p.share_denominator || 8))).map(([pointTitle, pointText], i) => (
+                <li key={i} className="pp-coown-item">
+                  <strong>{pointTitle}</strong>
+                  <span>{pointText}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── Financing calculator — COP's own widget, generic maths, no
+                 partner claims. Rendered for every priced listing. ── */}
+          {Number(p.price) > 0 && (
+            <div className="pp-financing" id="financing">
+              <FinancingCalculator
+                sharePrice={Number(p.price)}
+                currency={p.currency || 'EUR'}
+                shareDenominator={p.share_denominator || 8}
+                locale={locale}
+              />
+            </div>
           )}
 
         </div>{/* /pp-left */}
@@ -750,18 +896,9 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
                 <>
                   <h2 className="pp-heading">{t.similar_heading(p.country)}</h2>
                   <div className="pp-similar-grid">
-                    {similar.map(s => {
-                      const sTitle = s[`title_${locale}`] || s.title;
-                      return (
-                        <a key={s.slug} href={`/property/${s.slug}`} className="pp-sim-card">
-                          <div className="pp-sim-img"><Img src={s.img} alt={sTitle} sizes="(max-width: 768px) 100vw, 33vw" /></div>
-                          <div className="pp-sim-body">
-                            <h4>{sTitle}</h4>
-                            <p>{fmt(s.price, s.currency, localeNumberFmt)}</p>
-                          </div>
-                        </a>
-                      );
-                    })}
+                    {similar.map(s => (
+                      <PropertyCard key={s.slug} property={s} />
+                    ))}
                   </div>
                 </>
               )}
@@ -816,6 +953,15 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
       })()}
 
       {showUnlock && <UnlockModal propertyTitle={local.title} driveUrl={p.driveUrl} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} onClose={() => setShowUnlock(false)} />}
+      {showTour && (
+        <TourRequestModal
+          propertyTitle={local.title}
+          propertySlug={p.slug}
+          propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`}
+          propertyCountry={p.country || null}
+          onClose={() => setShowTour(false)}
+        />
+      )}
 
       <Newsletter />
       <Footer />

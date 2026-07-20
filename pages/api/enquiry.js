@@ -208,7 +208,10 @@ export default async function handler(req, res) {
           .from('properties')
           .select('img, drive_url')
           .eq('slug', slug)
-          .single();
+          // Never attach a hidden/staged row's image or Drive gallery to an
+          // outbound email (19 Jul incident) — sold is fine, they enquired.
+          .in('status', ['Live', 'for_sale', 'sold'])
+          .maybeSingle();
         propertyImg = prop?.img       || null;
         driveUrl    = prop?.drive_url || null;
       }

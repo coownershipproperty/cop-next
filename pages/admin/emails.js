@@ -448,7 +448,7 @@ export default function AdminEmails() {
                                 whiteSpace: 'nowrap',
                               }}
                             >
-                              Opened{oi.open_count > 1 ? ` ×${oi.open_count}` : ''}
+                              ✓ Opened{oi.open_count > 1 ? ` ×${oi.open_count}` : ''}
                             </span>
                           )
                         }

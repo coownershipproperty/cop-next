@@ -56,13 +56,18 @@ export async function getServerSideProps({ params, query }) {
   if (!slug) return { notFound: true };
 
   const supabase = getSupabase();
+  // Publicly reachable by slug alone (the ?t= visitor token is optional), so
+  // hidden/staged rows must never render here (19 Jul incident). Sold homes
+  // stay viewable — gallery emails promise a permanent link and a lead's
+  // saved link should not 404 the day the last share sells.
   const { data: prop } = await supabase
     .from('properties')
-    .select('slug, title, img, images, photos, extra_photos, documents, country, city, region, price, currency, beds, size')
+    .select('slug, title, img, images, photos, extra_photos, documents, country, city, region, price, currency, beds, size, status')
     .eq('slug', slug)
-    .single();
+    .in('status', ['Live', 'for_sale', 'sold'])
+    .maybeSingle();
 
-  if (!prop) return { notFound: true };
+  if (!prop) return { redirect: { destination: '/our-homes/', permanent: false } };
 
   return {
     props: {
