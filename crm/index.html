@@ -2358,12 +2358,15 @@ async function scanGmailEnquiries() {
           let contact = contacts?.[0];
           if(!contact) {
             const nameParts = (rm.name||'').trim().split(/\s+/);
+            const enquiredAt = rm.date || new Date().toISOString();
             const {data:created, error:ce} = await db.from('contacts').insert({
               email,
               first_name: nameParts[0]||null,
               last_name: nameParts.slice(1).join(' ')||null,
               phone: rm.phone||null,
               source: 'rightmove',
+              created_at: enquiredAt,
+              updated_at: enquiredAt,
             }).select('id,phone').single();
             if(ce) { console.warn('rm contact insert', ce); continue; }
             contact = created; rmContacts++;
@@ -2379,13 +2382,15 @@ async function scanGmailEnquiries() {
             if(rm.message) msgParts.push(rm.message);
             if(rm.property) msgParts.push(`Property: ${rm.property}`);
             if(rm.reference) msgParts.push(`Rightmove ref: ${rm.reference}`);
+            const enqAt = rm.date||new Date().toISOString();
             const {data:newLead, error:le} = await db.from('leads').insert({
               contact_id: contact.id,
               status: 'new_lead',
               partner: rm.partner||null,
               message: msgParts.join('\n'),
               property_title: rm.property||null,
-              created_at: rm.date||new Date().toISOString(),
+              created_at: enqAt,
+              updated_at: enqAt,
             }).select('id').single();
             if(!le && newLead) {
               rmLeads++;
@@ -2394,6 +2399,7 @@ async function scanGmailEnquiries() {
                 type: 'enquiry_submitted',
                 description: 'Rightmove enquiry (imported by Gmail scan)',
                 metadata: { source:'rightmove', reference: rm.reference||null },
+                created_at: enqAt,
               });
             }
           }
