@@ -215,7 +215,10 @@ export default async function handler(req, res) {
       .from('properties')
       .select('city, price, img, country, region, partner, photos')
       .eq('slug', propertySlug)
-      .single();
+      // Hidden/staged rows must never be resolvable through the public unlock
+      // flow (19 Jul incident) — sold stays, permanent gallery links survive.
+      .in('status', ['Live', 'for_sale', 'sold'])
+      .maybeSingle();
     propertyCity    = prop?.city    || null;
     propertyPrice   = prop?.price   ? Number(prop.price) : null;
     propertyImg     = prop?.img     || null;
@@ -232,7 +235,8 @@ export default async function handler(req, res) {
       .from('properties')
       .select('slug, city, price, img, country, region, partner')
       .eq('title', propertyTitle)
-      .single();
+      .in('status', ['Live', 'for_sale', 'sold'])
+      .maybeSingle();
     if (prop) {
       propertySlug    = prop.slug;
       propertyCity    = propertyCity    || prop.city    || null;

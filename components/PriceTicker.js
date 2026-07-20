@@ -41,7 +41,9 @@ export default function PriceTicker() {
   useEffect(() => {
     let cancelled = false;
     fetch(
-      `${SUPABASE_URL}/rest/v1/properties?select=country,price,currency&price=gt.0&order=price.asc&limit=1000`,
+      // Public ticker: only Live / for_sale rows — hidden/staged/sold prices
+      // must never feed public aggregates (19 Jul incident).
+      `${SUPABASE_URL}/rest/v1/properties?select=country,price,currency&price=gt.0&status=in.(Live,for_sale)&order=price.asc&limit=1000`,
       { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } }
     )
       .then((r) => r.json())
