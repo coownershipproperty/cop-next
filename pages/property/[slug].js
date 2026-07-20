@@ -35,7 +35,7 @@ const COPY = {
     location_heading: 'Location',
     similar_heading: (country) => `Similar Properties in ${country}`,
     pillar_link: (country) => `See all ${country} fractional ownership properties →`,
-    tab_overview: 'Overview', tab_look: 'Look inside', tab_coown: 'Co-ownership', tab_fin: 'Financing',
+    tab_overview: 'Overview', tab_look: 'Look inside', tab_amenities: 'Amenities', tab_location: 'Location', tab_coown: 'Co-ownership', tab_fin: 'Financing',
     look_heading: 'Look Inside',
     look_sub: 'Browse the photo gallery, or ask us for a full 3D walkthrough of this home.',
     look_gallery_btn: 'View photo gallery',
@@ -77,7 +77,7 @@ const COPY = {
     location_heading: 'Ubicación',
     similar_heading: (country) => `Propiedades similares en ${country}`,
     pillar_link: (country) => `Ver todas las propiedades de copropiedad en ${country} →`,
-    tab_overview: 'Resumen', tab_look: 'Por dentro', tab_coown: 'Copropiedad', tab_fin: 'Financiación',
+    tab_overview: 'Resumen', tab_look: 'Por dentro', tab_amenities: 'Servicios', tab_location: 'Ubicación', tab_coown: 'Copropiedad', tab_fin: 'Financiación',
     look_heading: 'Por dentro',
     look_sub: 'Explora la galería de fotos o pídenos un recorrido 3D completo de esta casa.',
     look_gallery_btn: 'Ver galería de fotos',
@@ -119,7 +119,7 @@ const COPY = {
     location_heading: 'Localisation',
     similar_heading: (country) => `Biens immobiliers similaires en ${country}`,
     pillar_link: (country) => `Voir toutes les propriétés en copropriété en ${country} →`,
-    tab_overview: "Vue d'ensemble", tab_look: "À l'intérieur", tab_coown: 'Copropriété', tab_fin: 'Financement',
+    tab_overview: "Vue d'ensemble", tab_look: "À l'intérieur", tab_amenities: 'Équipements', tab_location: 'Localisation', tab_coown: 'Copropriété', tab_fin: 'Financement',
     look_heading: "À l'intérieur",
     look_sub: 'Parcourez la galerie photo ou demandez-nous une visite 3D complète de cette maison.',
     look_gallery_btn: 'Voir la galerie photo',
@@ -161,7 +161,7 @@ const COPY = {
     location_heading: 'Lage',
     similar_heading: (country) => `Ähnliche Immobilien in ${country}`,
     pillar_link: (country) => `Alle Miteigentumsimmobilien in ${country} ansehen →`,
-    tab_overview: 'Überblick', tab_look: 'Einblicke', tab_coown: 'Miteigentum', tab_fin: 'Finanzierung',
+    tab_overview: 'Überblick', tab_look: 'Einblicke', tab_amenities: 'Ausstattung', tab_location: 'Lage', tab_coown: 'Miteigentum', tab_fin: 'Finanzierung',
     look_heading: 'Einblicke',
     look_sub: 'Stöbern Sie durch die Fotogalerie oder fordern Sie einen vollständigen 3D-Rundgang durch dieses Zuhause an.',
     look_gallery_btn: 'Fotogalerie ansehen',
@@ -710,6 +710,8 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
       <nav className="pp-tabs" aria-label="Property sections">
         <a href="#overview" className="pp-tab">{t.tab_overview}</a>
         <a href="#look-inside" className="pp-tab">{t.tab_look}</a>
+        {local.amenities.length > 0 && <a href="#amenities" className="pp-tab">{t.tab_amenities}</a>}
+        {(p.lat || p.city) && <a href="#location" className="pp-tab">{t.tab_location}</a>}
         <a href="#co-ownership" className="pp-tab">{t.tab_coown}</a>
         {Number(p.price) > 0 && <a href="#financing" className="pp-tab">{t.tab_fin}</a>}
       </nav>
@@ -811,7 +813,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
           </div>
 
           {local.amenities.length > 0 && (
-            <div className={`pp-amenities${amenExpanded ? ' expanded' : ''}`}>
+            <div className={`pp-amenities${amenExpanded ? ' expanded' : ''}`} id="amenities">
               <h2 className="pp-heading">{t.amenities_heading}</h2>
               <ul className="pp-amenity-list">
                 {local.amenities.map((a, i) => (
@@ -829,7 +831,7 @@ export default function PropertyPage({ property: p, similar, forceLocale = null 
           )}
 
           {(p.lat || p.city) && (
-            <div className="pp-location-section">
+            <div className="pp-location-section" id="location">
               <h2 className="pp-heading">{t.location_heading}</h2>
               <p className="pp-location-text">{[p.city, p.region, p.country].filter(Boolean).join(', ')}</p>
               {p.lat && p.lng && (
