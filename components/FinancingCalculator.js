@@ -7,9 +7,8 @@ const COPY = {
     eyebrow: 'Financing',
     h1_a: 'Your way into',
     h1_b: 'ownership',
-    sub: 'Own starting at 30% down',
-    body: 'As a co-ownership buyer, you can qualify for financing — an option typically unheard of for second-home purchases. We work with partner financial institutions to offer competitive rates to qualifying buyers. With as little as 30% down on an interest-only loan, you can own at a lower upfront cost.',
-    cta: 'Get Pre-Approved →',
+    sub: 'Estimate a purchase from 30% down',
+    body: 'Many co-ownership buyers finance part of their share. The calculator below gives an illustrative idea of what a financed purchase could look like — adjust the ownership share, down payment and interest rate to match your situation.',
     calc_heading: 'Estimate your monthly financing',
     label_share: 'Ownership',
     label_down: 'Down Payment',
@@ -19,18 +18,17 @@ const COPY = {
     share_one_eighth: '1/8 share',
     share_one_fourth: '1/4 share',
     share_one_half: '1/2 share',
-    share_full: 'Full ownership',
+    financed_label: 'Financed amount',
     monthly_label: (share) => `${share} ownership financing`,
     per_month: '/month',
-    note: 'Estimates only — final terms depend on the lender and your credit profile.',
+    note: 'Illustrative only — financing subject to individual approval.',
   },
   es: {
     eyebrow: 'Financiación',
     h1_a: 'Tu camino hacia',
     h1_b: 'la propiedad',
-    sub: 'Adquirir desde el 30% de entrada',
-    body: 'Como comprador en copropiedad, puedes optar a financiación — una opción poco habitual en la compra de segundas residencias. Trabajamos con entidades financieras asociadas para ofrecer tipos competitivos a los compradores cualificados. Desde solo un 30% de entrada con un préstamo de solo intereses, puedes comprar con menor desembolso inicial.',
-    cta: 'Solicitar pre-aprobación →',
+    sub: 'Calcula una compra desde el 30% de entrada',
+    body: 'Muchos compradores en copropiedad financian parte de su participación. La calculadora te ofrece una idea orientativa de cómo podría ser una compra financiada — ajusta la participación, la entrada y el tipo de interés a tu situación.',
     calc_heading: 'Calcula tu cuota mensual',
     label_share: 'Propiedad',
     label_down: 'Entrada',
@@ -40,18 +38,17 @@ const COPY = {
     share_one_eighth: '1/8 de propiedad',
     share_one_fourth: '1/4 de propiedad',
     share_one_half: '1/2 propiedad',
-    share_full: 'Propiedad completa',
+    financed_label: 'Importe financiado',
     monthly_label: (share) => `Financiación de ${share}`,
     per_month: '/mes',
-    note: 'Solo estimación — las condiciones finales dependen del prestamista y de tu perfil crediticio.',
+    note: 'Solo a título ilustrativo — la financiación está sujeta a aprobación individual.',
   },
   fr: {
     eyebrow: 'Financement',
     h1_a: 'Votre accès à',
     h1_b: 'la propriété',
-    sub: 'Acquérir avec 30 % d\'apport',
-    body: 'En tant qu\'acheteur en copropriété, vous pouvez prétendre à un financement — une option rarement disponible pour une résidence secondaire. Nous collaborons avec des établissements financiers partenaires pour proposer des taux compétitifs aux acheteurs éligibles. Avec seulement 30 % d\'apport et un prêt in fine, vous accédez à la propriété à moindre coût initial.',
-    cta: 'Obtenir un pré-accord →',
+    sub: 'Estimez un achat à partir de 30 % d\'apport',
+    body: 'De nombreux acheteurs en copropriété financent une partie de leur part. Le calculateur ci-dessous vous donne une idée indicative de ce que pourrait représenter un achat financé — ajustez la part, l\'apport et le taux d\'intérêt selon votre situation.',
     calc_heading: 'Estimez votre mensualité',
     label_share: 'Propriété',
     label_down: 'Apport',
@@ -61,18 +58,17 @@ const COPY = {
     share_one_eighth: '1/8 de la propriété',
     share_one_fourth: '1/4 de la propriété',
     share_one_half: '1/2 propriété',
-    share_full: 'Propriété complète',
+    financed_label: 'Montant financé',
     monthly_label: (share) => `Financement de ${share}`,
     per_month: '/mois',
-    note: 'Estimation indicative — les conditions définitives dépendent du prêteur et de votre profil.',
+    note: 'À titre indicatif uniquement — le financement est soumis à une approbation individuelle.',
   },
   de: {
     eyebrow: 'Finanzierung',
     h1_a: 'Ihr Weg zur',
     h1_b: 'Eigentümerschaft',
-    sub: 'Erwerb ab 30 % Eigenkapital',
-    body: 'Als Miteigentums-Käufer können Sie eine Finanzierung erhalten — eine Option, die bei Zweitimmobilien sonst kaum verfügbar ist. Wir arbeiten mit Partner-Finanzinstituten zusammen, um qualifizierten Käufern wettbewerbsfähige Konditionen anzubieten. Mit nur 30 % Eigenkapital bei einem endfälligen Darlehen erwerben Sie zu deutlich geringeren Anfangskosten.',
-    cta: 'Vorab-Genehmigung anfragen →',
+    sub: 'Kalkulieren Sie einen Kauf ab 30 % Eigenkapital',
+    body: 'Viele Miteigentums-Käufer finanzieren einen Teil ihres Anteils. Der Rechner unten gibt Ihnen eine unverbindliche Vorstellung davon, wie ein finanzierter Kauf aussehen könnte — passen Sie Anteil, Anzahlung und Zinssatz an Ihre Situation an.',
     calc_heading: 'Monatliche Finanzierung berechnen',
     label_share: 'Eigentum',
     label_down: 'Eigenkapital',
@@ -82,10 +78,10 @@ const COPY = {
     share_one_eighth: '1/8-Anteil',
     share_one_fourth: '1/4-Anteil',
     share_one_half: '1/2-Anteil',
-    share_full: 'Volles Eigentum',
+    financed_label: 'Finanzierungsbetrag',
     monthly_label: (share) => `${share}-Finanzierung`,
     per_month: '/Monat',
-    note: 'Nur Schätzung — die endgültigen Konditionen hängen vom Kreditgeber und Ihrer Bonität ab.',
+    note: 'Nur zur Veranschaulichung — die Finanzierung unterliegt einer individuellen Genehmigung.',
   },
 };
 
@@ -109,33 +105,49 @@ function formatMoney(amount, currency, locale) {
   return `${sym}${Math.round(amount).toLocaleString(localeFmt)}`;
 }
 
+// Ownership options (1/8 – 1/2) → fraction denominator.
+const SHARE_DENOMS = { one_eighth: 8, one_fourth: 4, one_half: 2 };
+
+// 25-year amortisation — generic mortgage math, no partner claims.
+const AMORT_MONTHS = 25 * 12;
+
 /**
- * Financing calculator for property detail pages.
+ * Financing calculator for property detail pages. COP's own widget —
+ * generic maths only, no lender or partner claims.
  *
  * @param {object} props
- * @param {number}    props.sharePrice  — the price per share, as a number
- * @param {string}    props.currency    — 'USD' | 'EUR' | 'GBP'
- * @param {string}    [props.locale]    — 'en' | 'es' | 'fr' | 'de'
- * @param {function}  [props.onCtaClick] — invoked when "Get Pre-Approved" is clicked
- *                                         (default: scrolls to the on-page enquiry form)
+ * @param {number}  props.sharePrice       — the listed price per share, as a number
+ * @param {string}  props.currency         — 'USD' | 'EUR' | 'GBP'
+ * @param {number}  [props.shareDenominator] — denominator of the LISTED share
+ *                                             (price is for a 1/n share; default 8)
+ * @param {string}  [props.locale]         — 'en' | 'es' | 'fr' | 'de'
  */
-export default function FinancingCalculator({ sharePrice, currency = 'USD', locale = 'en', onCtaClick }) {
+export default function FinancingCalculator({ sharePrice, currency = 'USD', shareDenominator = 8, locale = 'en' }) {
   const t = COPY[locale] || COPY.en;
 
-  const [shareKey, setShareKey] = useState('one_eighth');  // one_eighth | one_fourth | one_half | full
-  const [downPct, setDownPct]   = useState(30);            // 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100
+  const [shareKey, setShareKey] = useState('one_eighth');  // one_eighth | one_fourth | one_half
+  const [downPct, setDownPct]   = useState(30);            // 30 | 40 | 50 | 60 | 70
   const [ratePct, setRatePct]   = useState(6.5);           // 0.0–10.0
 
   // Display-share label
   const shareLabel = t[`share_${shareKey}`];
 
-  // Loan math — interest-only (matches Pacaso's behaviour)
-  const downAmount = sharePrice * (downPct / 100);
-  const loanAmount = sharePrice - downAmount;
+  // Price of the selected ownership share. The listed price buys 1/n of the
+  // home (n = shareDenominator, usually 8), so whole-home ≈ price × n and a
+  // 1/f share ≈ price × n / f.
+  const listedDenom = Number(shareDenominator) > 0 ? Number(shareDenominator) : 8;
+  const selectedDenom = SHARE_DENOMS[shareKey] || 8;
+  const selectedPrice = sharePrice * (listedDenom / selectedDenom);
+
+  // Loan math — financed amount + estimated monthly payment over a 25-year
+  // amortisation (rate 0% → straight-line principal repayment).
+  const downAmount = selectedPrice * (downPct / 100);
+  const loanAmount = selectedPrice - downAmount;
   const monthlyRate = (ratePct / 100) / 12;
   const monthlyPayment = useMemo(() => {
-    if (loanAmount <= 0 || monthlyRate <= 0) return 0;
-    return loanAmount * monthlyRate;
+    if (loanAmount <= 0) return 0;
+    if (monthlyRate <= 0) return loanAmount / AMORT_MONTHS;
+    return (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -AMORT_MONTHS));
   }, [loanAmount, monthlyRate]);
 
   function bumpRate(delta) {
@@ -174,11 +186,10 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
                   <option value="one_eighth">{t.share_one_eighth}</option>
                   <option value="one_fourth">{t.share_one_fourth}</option>
                   <option value="one_half">{t.share_one_half}</option>
-                  <option value="full">{t.share_full}</option>
                 </select>
                 <p className="cop-fin-helper">
                   <span className="cop-fin-helper-label">{t.helper_share}</span>
-                  <span className="cop-fin-helper-val">{formatMoney(sharePrice, currency, locale)}</span>
+                  <span className="cop-fin-helper-val">{formatMoney(selectedPrice, currency, locale)}</span>
                 </p>
               </div>
 
@@ -189,7 +200,7 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
                   value={downPct}
                   onChange={e => setDownPct(Number(e.target.value))}
                 >
-                  {[30, 40, 50, 60, 70, 80, 90, 100].map(v => (
+                  {[30, 40, 50, 60, 70].map(v => (
                     <option key={v} value={v}>{v}%</option>
                   ))}
                 </select>
@@ -224,8 +235,10 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
               </div>
             </div>
 
-            {/* Monthly result */}
+            {/* Financed amount + monthly result */}
             <div className="cop-fin-result">
+              <p className="cop-fin-result-label">{t.financed_label}</p>
+              <p className="cop-fin-result-financed">{formatMoney(loanAmount, currency, locale)}</p>
               <p className="cop-fin-result-label">{t.monthly_label(shareLabel)}</p>
               <p className="cop-fin-result-amount">
                 {formatMoney(monthlyPayment, currency, locale)}
@@ -466,6 +479,14 @@ export default function FinancingCalculator({ sharePrice, currency = 'USD', loca
           text-transform: uppercase;
           color: ${C.gold};
           margin: 0;
+        }
+        .cop-fin-result-financed {
+          font-family: 'Nunito Sans', Arial, sans-serif;
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 1;
+          color: rgba(255,255,255,0.92);
+          margin: 0 0 10px;
         }
         .cop-fin-result-amount {
           font-family: 'Playfair Display', Georgia, serif;
