@@ -375,8 +375,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       Newsletters
     </div>
+    <div class="nav-item" onclick="showView('settings')" id="nav-settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Settings
+    </div>
     <div class="sidebar-footer">
-      <span class="live-dot"></span>Live data
+      <span class="live-dot"></span>Live data <span style="color:#4b4540;margin-left:6px">v2.0</span>
       <div id="gmail-sidebar-bar" class="gmail-bar gmail-bar-disconnected" style="margin-top:10px">
         <div class="gmail-status-dot" id="gmail-dot" style="background:#f97316"></div>
         <span id="gmail-sidebar-label" style="font-size:11px;color:var(--text3)">Gmail not connected</span>
@@ -384,6 +388,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       </div>
       <button id="gmail-scan-btn" onclick="scanGmailEnquiries()" style="display:none;width:100%;margin-top:6px;padding:6px 10px;background:rgba(201,153,58,0.15);border:1px solid rgba(201,153,58,0.3);border-radius:7px;color:var(--gold);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;align-items:center;justify-content:center;gap:5px">⚡ Scan enquiry emails</button>
       <div id="gmail-scan-status" style="font-size:11px;color:var(--text3);margin-top:4px;display:none"></div>
+      <div style="font-size:10px;color:#4b4540;margin-top:4px;line-height:1.35">Rightmove leads: connect the mailbox that receives Rightmove emails (info@…), then Scan — enquiries are imported automatically.</div>
       <div class="account-tools">
         <div id="crm-user" style="font-size:10px;color:var(--text3);word-break:break-all"></div>
         <input type="password" id="new-crm-password" placeholder="new password" autocomplete="new-password" />
@@ -404,6 +409,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <div class="page-title">Dashboard</div>
           <div class="page-sub" id="dash-date"></div>
         </div>
+        <div class="header-actions" style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:11px;color:var(--text3)">Showing:</span>
+          <select id="dash-range" class="lt-filter" onchange="setDashRange(this.value)" style="font-size:12px">
+            <option value="revamp" selected>Since site revamp</option>
+            <option value="30">Last 30 days</option>
+            <option value="90">Last 90 days</option>
+            <option value="365">Last 12 months</option>
+            <option value="all">All time</option>
+          </select>
+        </div>
       </div>
       <div class="content">
         <!-- KPIs -->
@@ -412,6 +427,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <div class="kpi-card gold"><div class="kpi-label">New This Week</div><div class="kpi-value" id="kpi-week">—</div><div class="kpi-sub" id="kpi-week-sub">Loading...</div></div>
           <div class="kpi-card red"><div class="kpi-label">Hot Leads</div><div class="kpi-value" id="kpi-hot">—</div><div class="kpi-sub">Require follow-up</div></div>
           <div class="kpi-card green"><div class="kpi-label">Won Deals</div><div class="kpi-value" id="kpi-won">—</div><div class="kpi-sub" id="kpi-conv">Conversion rate</div></div>
+        </div>
+
+        <!-- Funnel + Commission row -->
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="chart-title">Pipeline funnel</div>
+            <div class="chart-sub" id="funnel-sub">From new enquiry to won deal</div>
+            <div class="chart-wrap"><canvas id="chart-funnel" height="180"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Commission pipeline</div>
+            <div class="chart-sub">Share price × partner rate — all time, based on lead status</div>
+            <div id="commission-card" style="padding:10px 4px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+                <div>
+                  <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px">In play (registered / reserved)</div>
+                  <div style="font-size:26px;font-weight:700;color:var(--gold)" id="comm-potential">—</div>
+                  <div style="font-size:11px;color:var(--text3)" id="comm-potential-sub"></div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px">Earned (won)</div>
+                  <div style="font-size:26px;font-weight:700;color:var(--success)" id="comm-earned">—</div>
+                  <div style="font-size:11px;color:var(--text3)" id="comm-earned-sub"></div>
+                </div>
+              </div>
+              <div id="comm-breakdown" style="font-size:12px;color:var(--text2)"></div>
+            </div>
+          </div>
         </div>
 
         <!-- Charts row 1 -->
@@ -466,12 +509,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           </div>
           <div class="chart-card">
             <div class="chart-title">Buyer countries</div>
-            <div class="chart-sub">Where buyers are based</div>
+            <div class="chart-sub" id="countries-sub">Based on phone country codes</div>
             <div class="chart-wrap"><canvas id="chart-countries" height="180"></canvas></div>
           </div>
           <div class="chart-card">
             <div class="chart-title">Budget distribution</div>
-            <div class="chart-sub">Budget ranges across active leads</div>
+            <div class="chart-sub">Price of the properties leads enquired about (EUR)</div>
             <div class="chart-wrap"><canvas id="chart-budget" height="180"></canvas></div>
           </div>
         </div>
@@ -502,6 +545,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <select id="lead-region" class="lt-filter" onchange="filterLeads()">
             <option value="">All regions</option>
           </select>
+          <select id="lead-partner" class="lt-filter" onchange="filterLeads()">
+            <option value="">All partners</option>
+          </select>
+          <select id="lead-source" class="lt-filter" onchange="filterLeads()">
+            <option value="">All sources</option>
+          </select>
+          <button class="btn" onclick="exportLeadsCsv()" style="margin-left:auto;font-size:12px">⬇ CSV</button>
         </div>
         <div class="leads-table-wrap">
           <table class="leads-table" id="leads-table">
@@ -512,8 +562,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
                 <th onclick="sortLeads('status')">Status <span class="lt-sort" id="sort-status"></span></th>
                 <th onclick="sortLeads('main_region')">Region <span class="lt-sort" id="sort-main_region"></span></th>
                 <th onclick="sortLeads('subregion')">Subregion <span class="lt-sort" id="sort-subregion"></span></th>
-                <th onclick="sortLeads('country')">Country <span class="lt-sort" id="sort-country"></span></th>
-                <th onclick="sortLeads('budget_min')">Budget <span class="lt-sort" id="sort-budget_min"></span></th>
+                <th onclick="sortLeads('_buyer_country')" title="Derived from phone country code">Buyer Country <span class="lt-sort" id="sort-_buyer_country"></span></th>
+                <th onclick="sortLeads('_partner')">Partner <span class="lt-sort" id="sort-_partner"></span></th>
+                <th onclick="sortLeads('_price_eur')" title="Share price of the property they enquired about">Price <span class="lt-sort" id="sort-_price_eur"></span></th>
                 <th onclick="sortLeads('timeframe')">Timeframe <span class="lt-sort" id="sort-timeframe"></span></th>
                 <th onclick="sortLeads('source')">Source <span class="lt-sort" id="sort-source"></span></th>
                 <th onclick="sortLeads('contact_created')">First seen <span class="lt-sort" id="sort-contact_created"></span></th>
@@ -521,7 +572,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
                 <th>Emails / Opens</th>
               </tr>
             </thead>
-            <tbody id="leads-tbody"><tr><td colspan="12" style="text-align:center;padding:40px;color:var(--text3)"><div class="spinner" style="margin:0 auto 8px"></div>Loading leads...</td></tr></tbody>
+            <tbody id="leads-tbody"><tr><td colspan="13" style="text-align:center;padding:40px;color:var(--text3)"><div class="spinner" style="margin:0 auto 8px"></div>Loading leads...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -673,6 +724,41 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <span id="nl-action-msg" style="font-size:11px;color:var(--text3);margin-left:8px"></span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div id="view-settings" style="display:none">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Settings</div>
+          <div class="page-sub">Customise how the CRM measures and flags things — saved for all admins</div>
+        </div>
+      </div>
+      <div class="content" style="max-width:720px">
+        <div class="chart-card" style="margin-bottom:16px">
+          <div class="chart-title">Stats cutoff</div>
+          <div class="chart-sub">Dashboard default is "Since site revamp" — everything before this date is excluded from stats (no data is deleted; pick All time in the dashboard to see it)</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+            <input type="date" id="set-cutoff" class="lt-filter" />
+          </div>
+        </div>
+        <div class="chart-card" style="margin-bottom:16px">
+          <div class="chart-title">Commission rates (%)</div>
+          <div class="chart-sub">Used for the commission pipeline card — rate × share price</div>
+          <div id="set-commissions" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px"></div>
+        </div>
+        <div class="chart-card" style="margin-bottom:16px">
+          <div class="chart-title">Needs Attention rules</div>
+          <div class="chart-sub">When leads appear in the Needs Attention list</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px">
+            <label style="font-size:11px;color:var(--text3)">Gone quiet after (days)<input type="number" id="set-silent" class="lt-filter" style="width:100%;margin-top:4px" min="1"/></label>
+            <label style="font-size:11px;color:var(--text3)">Check-in after handover (days)<input type="number" id="set-checkin" class="lt-filter" style="width:100%;margin-top:4px" min="1"/></label>
+            <label style="font-size:11px;color:var(--text3)">Uncontacted new lead (days)<input type="number" id="set-uncontacted" class="lt-filter" style="width:100%;margin-top:4px" min="1"/></label>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="saveCrmSettings()" id="btn-save-settings">Save settings</button>
+        <span id="settings-msg" style="font-size:12px;color:var(--text3);margin-left:10px"></span>
       </div>
     </div>
   </div>
@@ -942,6 +1028,108 @@ function regionToCountry(region){
   return countries.join('; ');
 }
 
+// ─── v2: settings, property index, phone→country, commissions ──
+let CRM_SETTINGS = {
+  stats_cutoff: '2026-04-20',
+  commission_rates: { myne:2.5, pacaso:3, vivla:3, parispropertygroup:3, andhamlet:5, abitaro:7, default:3 },
+  attention_rules: { silent_days:7, checkin_days:14, uncontacted_days:2 },
+};
+let PROP_INDEX = {};   // slug -> {price, currency, partner, title}
+let USD_EUR = 0.86;
+let dashRange = 'revamp';
+
+async function loadCrmSettings() {
+  try {
+    const {data} = await db.from('crm_settings').select('key,value');
+    (data||[]).forEach(r => { CRM_SETTINGS[r.key] = r.value; });
+  } catch(e) { console.warn('settings load failed, using defaults', e); }
+}
+
+async function loadPropIndex() {
+  try {
+    const [{data:props},{data:fx}] = await Promise.all([
+      db.from('properties').select('slug,price,currency,partner,title,status'),
+      db.from('exchange_rates').select('rates').limit(1),
+    ]);
+    (props||[]).forEach(p => { PROP_INDEX[p.slug] = p; });
+    const eur = fx?.[0]?.rates?.EUR;
+    if(eur > 0) USD_EUR = Number(eur);
+  } catch(e) { console.warn('property index load failed', e); }
+}
+
+function rangeStartISO() {
+  if(dashRange === 'all') return null;
+  if(dashRange === 'revamp') return (CRM_SETTINGS.stats_cutoff || '2026-04-20') + 'T00:00:00Z';
+  const days = Number(dashRange);
+  return new Date(Date.now() - days*86400000).toISOString();
+}
+
+const PHONE_CC = [
+  ['+1','USA/Canada'],['+7','Russia'],['+20','Egypt'],['+27','South Africa'],['+30','Greece'],
+  ['+31','Netherlands'],['+32','Belgium'],['+33','France'],['+34','Spain'],['+351','Portugal'],
+  ['+352','Luxembourg'],['+353','Ireland'],['+354','Iceland'],['+356','Malta'],['+357','Cyprus'],
+  ['+358','Finland'],['+36','Hungary'],['+39','Italy'],['+40','Romania'],['+41','Switzerland'],
+  ['+420','Czechia'],['+421','Slovakia'],['+43','Austria'],['+44','UK'],['+45','Denmark'],
+  ['+46','Sweden'],['+47','Norway'],['+48','Poland'],['+49','Germany'],['+52','Mexico'],
+  ['+54','Argentina'],['+55','Brazil'],['+60','Malaysia'],['+61','Australia'],['+64','New Zealand'],
+  ['+65','Singapore'],['+66','Thailand'],['+81','Japan'],['+82','South Korea'],['+852','Hong Kong'],
+  ['+853','Macau'],['+86','China'],['+90','Turkey'],['+91','India'],['+92','Pakistan'],
+  ['+960','Maldives'],['+961','Lebanon'],['+962','Jordan'],['+965','Kuwait'],['+966','Saudi Arabia'],
+  ['+968','Oman'],['+971','UAE'],['+972','Israel'],['+973','Bahrain'],['+974','Qatar'],
+].sort((a,b)=>b[0].length-a[0].length); // longest prefix first
+
+function phoneCountry(raw) {
+  if(!raw) return '';
+  let p = String(raw).replace(/[\s\-\(\)\.]/g,'');
+  if(p.startsWith('00')) p = '+' + p.slice(2);
+  if(p.startsWith('+')) {
+    for(const [cc,name] of PHONE_CC) if(p.startsWith(cc)) return name;
+    return 'Other';
+  }
+  if(/^07\d{9}$/.test(p)) return 'UK';           // UK mobile in national format
+  if(/^0[1-9]\d{8,9}$/.test(p)) return '';        // ambiguous national format
+  if(/^[2-9]\d{9}$/.test(p)) return 'USA/Canada'; // bare 10-digit NANP
+  return '';
+}
+
+function partnerOf(l) {
+  const p = (l.partner || PROP_INDEX[l.property_slug]?.partner || '').toLowerCase().replace(/[^a-z]/g,'');
+  if(p.includes('pacaso')) return 'pacaso';
+  if(p.includes('myne')) return 'myne';
+  if(p.includes('vivla')) return 'vivla';
+  if(p.includes('hamlet')) return 'andhamlet';
+  if(p.includes('paris')) return 'parispropertygroup';
+  if(p.includes('abitaro')) return 'abitaro';
+  return p || '';
+}
+const PARTNER_LABEL = { pacaso:'Pacaso', myne:'MYNE', vivla:'Vivla', andhamlet:'&Hamlet', parispropertygroup:'Paris PG', abitaro:'Abitaro' };
+
+function leadPriceEUR(l) {
+  const prop = PROP_INDEX[l.property_slug];
+  if(!prop || !prop.price) return null;
+  const v = Number(prop.price);
+  if(!v) return null;
+  return (prop.currency === 'USD') ? Math.round(v * USD_EUR) : v;
+}
+
+function commissionEUR(l) {
+  const price = leadPriceEUR(l);
+  if(!price) return null;
+  const rates = CRM_SETTINGS.commission_rates || {};
+  const rate = rates[partnerOf(l)] ?? rates.default ?? 3;
+  return price * (Number(rate)/100);
+}
+
+function fmtEUR(v) {
+  if(v == null) return '—';
+  return '€' + Math.round(v).toLocaleString();
+}
+
+function setDashRange(v) {
+  dashRange = v;
+  loadDashboard();
+}
+
 // ─── Lead communications ─────────────────────────────────
 const KNOWN_COUNTRY_CODES = ['1','27','31','32','33','34','39','41','43','44','45','46','47','48','49','61','64','65','351','352','353','966','971'];
 let telnyxClient = null;
@@ -1154,7 +1342,7 @@ function renderLeadCommunicationPanel(lead) {
 
 // ─── Router ───────────────────────────────────────────────
 function showView(view) {
-  ['dashboard','leads','attention','queue','scheduled','newsletters'].forEach(v => {
+  ['dashboard','leads','attention','queue','scheduled','newsletters','settings'].forEach(v => {
     document.getElementById('view-'+v).style.display = v===view ? 'block' : 'none';
     document.getElementById('nav-'+v)?.classList.toggle('active', v===view);
   });
@@ -1163,6 +1351,60 @@ function showView(view) {
   if(view==='queue') { setQueueTab(activeQueueTab || 'sent'); }
   if(view==='scheduled') loadScheduled();
   if(view==='newsletters') loadNewsletters();
+  if(view==='settings') renderSettings();
+}
+
+// ─── Settings view ────────────────────────────────────────
+function renderSettings() {
+  document.getElementById('set-cutoff').value = CRM_SETTINGS.stats_cutoff || '2026-04-20';
+  const rates = CRM_SETTINGS.commission_rates || {};
+  const box = document.getElementById('set-commissions');
+  const order = ['myne','pacaso','vivla','andhamlet','parispropertygroup','abitaro','default'];
+  box.innerHTML = order.map(p => `
+    <label style="font-size:11px;color:var(--text3)">${PARTNER_LABEL[p]||'Default'}
+      <input type="number" step="0.1" min="0" max="20" data-partner="${p}" class="lt-filter set-rate" style="width:100%;margin-top:4px" value="${rates[p] ?? ''}"/>
+    </label>`).join('');
+  const rules = CRM_SETTINGS.attention_rules || {};
+  document.getElementById('set-silent').value = rules.silent_days ?? 7;
+  document.getElementById('set-checkin').value = rules.checkin_days ?? 14;
+  document.getElementById('set-uncontacted').value = rules.uncontacted_days ?? 2;
+}
+
+async function saveCrmSettings() {
+  const btn = document.getElementById('btn-save-settings');
+  const msg = document.getElementById('settings-msg');
+  btn.disabled = true; btn.textContent = 'Saving…'; msg.textContent = '';
+  try {
+    const cutoff = document.getElementById('set-cutoff').value || '2026-04-20';
+    const rates = {};
+    document.querySelectorAll('.set-rate').forEach(el => {
+      const v = parseFloat(el.value);
+      if(!isNaN(v)) rates[el.dataset.partner] = v;
+    });
+    const rules = {
+      silent_days: parseInt(document.getElementById('set-silent').value)||7,
+      checkin_days: parseInt(document.getElementById('set-checkin').value)||14,
+      uncontacted_days: parseInt(document.getElementById('set-uncontacted').value)||2,
+    };
+    const now = new Date().toISOString();
+    const {error} = await db.from('crm_settings').upsert([
+      {key:'stats_cutoff', value: cutoff, updated_at: now},
+      {key:'commission_rates', value: rates, updated_at: now},
+      {key:'attention_rules', value: rules, updated_at: now},
+    ]);
+    if(error) throw error;
+    CRM_SETTINGS.stats_cutoff = cutoff;
+    CRM_SETTINGS.commission_rates = rates;
+    CRM_SETTINGS.attention_rules = rules;
+    msg.textContent = '✓ Saved';
+    msg.style.color = 'var(--success)';
+    loadDashboard();
+  } catch(e) {
+    msg.textContent = '✗ ' + (e.message||'Save failed');
+    msg.style.color = 'var(--danger)';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save settings';
+  }
 }
 
 // ─── Charts store ─────────────────────────────────────────
@@ -1286,43 +1528,50 @@ async function loadDashboard() {
   try {
     const weekAgo = new Date(Date.now()-7*86400000).toISOString();
     const twoWeeksAgo = new Date(Date.now()-14*86400000).toISOString();
+    const rangeStart = rangeStartISO();
 
-    // Use lead_pipeline view for all lead queries (consistent with other views)
+    const totalQ = db.from('lead_pipeline').select('*',{count:'exact',head:true});
+    if(rangeStart) totalQ.gte('lead_created', rangeStart);
+
     const [
-      {count:total}, {count:weekCount}, {count:hot}, {count:won}, {count:prevWeek}
+      {count:total}, {count:weekCount}, {count:hot}, {count:won}, {count:prevWeek}, {count:allTotal}
     ] = await Promise.all([
-      db.from('lead_pipeline').select('*',{count:'exact',head:true}),
+      totalQ,
       db.from('lead_pipeline').select('*',{count:'exact',head:true}).gte('lead_created',weekAgo),
       db.from('lead_pipeline').select('*',{count:'exact',head:true}).eq('status','hot_lead'),
       db.from('lead_pipeline').select('*',{count:'exact',head:true}).eq('status','won'),
       db.from('lead_pipeline').select('*',{count:'exact',head:true}).gte('lead_created',twoWeeksAgo).lt('lead_created',weekAgo),
+      db.from('lead_pipeline').select('*',{count:'exact',head:true}),
     ]);
 
     // KPIs
+    const rangeLabels = { revamp:'since revamp', 30:'last 30 days', 90:'last 90 days', 365:'last 12 months', all:'all time' };
     document.getElementById('kpi-total').textContent = total||0;
     document.getElementById('kpi-week').textContent = weekCount||0;
     document.getElementById('kpi-hot').textContent = hot||0;
     document.getElementById('kpi-won').textContent = won||0;
     const weekDiff = (weekCount||0)-(prevWeek||0);
-    document.getElementById('kpi-total-sub').textContent = `${total||0} total enquiries`;
+    document.getElementById('kpi-total-sub').textContent = rangeStart ? `${rangeLabels[dashRange]||''} · ${allTotal||0} all time` : `${total||0} total enquiries`;
     document.getElementById('kpi-week-sub').innerHTML = weekDiff>=0
       ? `<span class="up">+${weekDiff} vs last week</span>`
       : `<span class="down">${weekDiff} vs last week</span>`;
     document.getElementById('kpi-conv').textContent = total ? `${(((won||0)/total)*100).toFixed(1)}% conversion` : '';
-    document.getElementById('badge-leads').textContent = total||0;
+    document.getElementById('badge-leads').textContent = allTotal||0;
   } catch(e) {
     console.error('KPI load error:', e);
     ['kpi-total','kpi-week','kpi-hot','kpi-won'].forEach(id=>{document.getElementById(id).textContent='—';});
   }
 
   try {
-    // Load all lead data for charts in one query
+    // Load all lead data for charts in one query (all time, filtered client-side)
     const {data:ld, error} = await db.from('lead_pipeline')
-      .select('property_title,status,lead_created,main_region,source,country,budget_min')
-      .limit(2000);
+      .select('contact_id,phone,property_slug,partner,property_title,status,lead_created,main_region,source,country,budget_min')
+      .limit(5000);
 
     if(error) throw error;
-    const rows = ld || [];
+    const allRows = ld || [];
+    const rangeStart = rangeStartISO();
+    const rows = rangeStart ? allRows.filter(r => (r.lead_created||'') >= rangeStart) : allRows;
 
     // Property chart — store rows globally so date-range filter can re-render
     window._dashRows = rows;
@@ -1463,20 +1712,32 @@ async function loadDashboard() {
       { backgroundColor:CHART_COLORS, borderWidth:0, hoverOffset:4 }
     );
 
-    // Country bar
+    // Buyer countries — derived from phone country codes ONLY (one vote per contact)
+    const seenContacts = new Set();
     const ctryMap = {};
-    rows.forEach(r=>{ if(r.country) ctryMap[r.country]=(ctryMap[r.country]||0)+1; });
-    const ctryData = Object.entries(ctryMap).sort((a,b)=>b[1]-a[1]).slice(0,8);
+    let phonedContacts = 0, totalContacts = 0;
+    rows.forEach(r=>{
+      if(seenContacts.has(r.contact_id)) return;
+      seenContacts.add(r.contact_id);
+      totalContacts++;
+      const c = phoneCountry(r.phone);
+      if(!c) return;
+      phonedContacts++;
+      ctryMap[c]=(ctryMap[c]||0)+1;
+    });
+    const ctryData = Object.entries(ctryMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    const ctrySub = document.getElementById('countries-sub');
+    if(ctrySub) ctrySub.textContent = `Based on phone country codes — ${phonedContacts} of ${totalContacts} contacts identifiable`;
     makeChart('chart-countries','bar',
       ctryData.map(([k])=>k),
       ctryData.map(([,v])=>v),
       { backgroundColor:CHART_COLORS[2], borderRadius:4 }
     );
 
-    // Budget distribution
+    // Budget distribution — based on the price of the property each lead enquired about
     const budgetBuckets = {'< €100k':0,'€100–200k':0,'€200–400k':0,'€400–700k':0,'€700k+':0};
     rows.forEach(r=>{
-      const b = Number(r.budget_min);
+      const b = leadPriceEUR(r);
       if(!b) return;
       if(b<100000) budgetBuckets['< €100k']++;
       else if(b<200000) budgetBuckets['€100–200k']++;
@@ -1489,6 +1750,51 @@ async function loadDashboard() {
       Object.values(budgetBuckets),
       { backgroundColor:CHART_COLORS[3], borderRadius:4 }
     );
+
+    // Pipeline funnel (range-filtered)
+    const FUNNEL_STAGES = [
+      ['New', ['new_lead']],
+      ['Engaged', ['contacted','lead_replied','hot_lead','qualified','passive_interest']],
+      ['Registered', ['registered','transferred_to_partner']],
+      ['Reserved', ['reservation_confirmed']],
+      ['Won', ['won']],
+    ];
+    const funnelData = FUNNEL_STAGES.map(([label, sts]) => rows.filter(r=>sts.includes(r.status)).length);
+    makeChart('chart-funnel','bar',
+      FUNNEL_STAGES.map(([l])=>l),
+      funnelData,
+      { backgroundColor:['#a09890','#2563eb','#c9993a','#9333ea','#16a34a'], borderRadius:4 },
+      { indexAxis:'y' }
+    );
+    const lost = rows.filter(r=>r.status==='lost').length;
+    const funnelSub = document.getElementById('funnel-sub');
+    if(funnelSub) funnelSub.textContent = `From new enquiry to won deal · ${lost} lost`;
+
+    // Commission pipeline (all time — it reflects current lead statuses)
+    const ACTIVE_STATUSES = ['registered','transferred_to_partner','reservation_confirmed','hot_lead','qualified'];
+    let potential = 0, potentialN = 0, earned = 0, earnedN = 0;
+    const byPartner = {};
+    allRows.forEach(r=>{
+      const c = commissionEUR(r);
+      if(c == null) return;
+      if(r.status === 'won') { earned += c; earnedN++; }
+      else if(ACTIVE_STATUSES.includes(r.status)) {
+        potential += c; potentialN++;
+        const p = PARTNER_LABEL[partnerOf(r)] || 'Other';
+        byPartner[p] = (byPartner[p]||0) + c;
+      }
+    });
+    const elP = document.getElementById('comm-potential');
+    if(elP) {
+      elP.textContent = fmtEUR(potential);
+      document.getElementById('comm-potential-sub').textContent = `${potentialN} active lead${potentialN!==1?'s':''}`;
+      document.getElementById('comm-earned').textContent = fmtEUR(earned);
+      document.getElementById('comm-earned-sub').textContent = `${earnedN} won deal${earnedN!==1?'s':''}`;
+      document.getElementById('comm-breakdown').innerHTML = Object.entries(byPartner)
+        .sort((a,b)=>b[1]-a[1])
+        .map(([p,v])=>`<span style="display:inline-block;margin:2px 10px 2px 0"><strong>${esc(p)}</strong> ${fmtEUR(v)}</span>`)
+        .join('') || '<span style="color:var(--text3)">Register leads with partners to build the pipeline</span>';
+    }
   } catch(e) {
     console.error('Chart load error:', e);
   }
@@ -1504,7 +1810,18 @@ async function loadLeads() {
   // Populate region filter
   const regions = [...new Set(allLeads.map(l=>l.main_region).filter(Boolean))].sort();
   const rSel = document.getElementById('lead-region');
-  regions.forEach(r=>{ const o=document.createElement('option'); o.value=r; o.textContent=r; rSel.appendChild(o); });
+  if(rSel.options.length <= 1) regions.forEach(r=>{ const o=document.createElement('option'); o.value=r; o.textContent=r; rSel.appendChild(o); });
+  // Populate partner + source filters
+  const pSel = document.getElementById('lead-partner');
+  if(pSel && pSel.options.length <= 1) {
+    const partners = [...new Set(allLeads.map(l=>partnerOf(l)).filter(Boolean))].sort();
+    partners.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=PARTNER_LABEL[p]||p; pSel.appendChild(o); });
+  }
+  const sSel = document.getElementById('lead-source');
+  if(sSel && sSel.options.length <= 1) {
+    const sources = [...new Set(allLeads.map(l=>l.source).filter(Boolean))].sort();
+    sources.forEach(s=>{ const o=document.createElement('option'); o.value=s; o.textContent=s; sSel.appendChild(o); });
+  }
   filterLeads();
 }
 
@@ -1520,9 +1837,11 @@ function filterLeads() {
   const q = (document.getElementById('lead-search').value||'').toLowerCase();
   const s = document.getElementById('lead-status').value;
   const r = document.getElementById('lead-region').value;
+  const pf = document.getElementById('lead-partner')?.value || '';
+  const sf = document.getElementById('lead-source')?.value || '';
   let filtered = allLeads.filter(l => {
     const mq = !q||(l.name||'').toLowerCase().includes(q)||(l.email||'').toLowerCase().includes(q)||(l.phone||'').toLowerCase().includes(q)||(l.main_region||'').toLowerCase().includes(q)||(l.subregion||'').toLowerCase().includes(q)||(l.country||'').toLowerCase().includes(q);
-    return mq && (!s||l.status===s) && (!r||l.main_region===r);
+    return mq && (!s||l.status===s) && (!r||l.main_region===r) && (!pf||partnerOf(l)===pf) && (!sf||l.source===sf);
   });
   // Group by contact — one row per person, best lead wins
   const contactMap = {};
@@ -1546,6 +1865,8 @@ function filterLeads() {
     const _first_seen = leads.map(l=>l.contact_created).filter(Boolean).sort()[0] || null;
     // last_activity = most recent of last_activity, lead_updated across all leads
     const _last_activity = leads.map(l=>l.last_activity||l.lead_updated).filter(Boolean).sort().reverse()[0] || null;
+    const _partners = [...new Set(leads.map(l=>partnerOf(l)).filter(Boolean))];
+    const _prices = leads.map(l=>leadPriceEUR(l)).filter(Boolean);
     return {
       ...best,
       _lead_count: leads.length,
@@ -1556,17 +1877,22 @@ function filterLeads() {
       last_activity: _last_activity,
       _total_emails_sent: leads.reduce((s,l)=>s+(l.emails_sent||0),0),
       _total_opens: leads.reduce((s,l)=>s+(l.total_opens||0),0),
+      _buyer_country: phoneCountry(leads.map(l=>l.phone).find(Boolean)) || '',
+      _partners,
+      _partner: _partners.map(p=>PARTNER_LABEL[p]||p).join(' / '),
+      _price_eur: _prices.length ? Math.max(..._prices) : 0,
     };
   });
   // Sort grouped contacts
   grouped.sort((a,b)=>{
     let av=a[sortCol]??'', bv=b[sortCol]??'';
-    if(sortCol==='budget_min'){av=Number(av)||0;bv=Number(bv)||0;}
+    if(sortCol==='budget_min'||sortCol==='_price_eur'){av=Number(av)||0;bv=Number(bv)||0;}
     return av<bv?-sortDir:av>bv?sortDir:0;
   });
+  window._lastGrouped = grouped;
   document.getElementById('leads-count').textContent = `${grouped.length} contact${grouped.length!==1?'s':''}`;
   const tbody = document.getElementById('leads-tbody');
-  if(!grouped.length){tbody.innerHTML='<tr><td colspan="12" style="text-align:center;padding:32px;color:var(--text3)">No leads found</td></tr>';return;}
+  if(!grouped.length){tbody.innerHTML='<tr><td colspan="13" style="text-align:center;padding:32px;color:var(--text3)">No leads found</td></tr>';return;}
   tbody.innerHTML = grouped.map(l=>`
     <tr class="${l._all_lead_ids.includes(currentLeadId)?'lt-active':''}" onclick="selectLead('${l.lead_id}','${l.contact_id}')">
       <td style="min-width:160px">
@@ -1577,14 +1903,35 @@ function filterLeads() {
       <td>${badge(l.status)}</td>
       <td>${l._all_regions.length?l._all_regions.map(r=>esc(r)).join('<span style="color:var(--text3);margin:0 3px">/</span>'):'—'}</td>
       <td class="lt-muted">${l._all_subregions.length?l._all_subregions.map(r=>esc(r)).join('<span style="color:var(--text3);margin:0 3px">/</span>'):'—'}</td>
-      <td class="lt-muted">${esc(regionToCountry(l.main_region)||l.country||'—')}</td>
-      <td>${l.budget_min?'€'+Number(l.budget_min).toLocaleString():'<span class="lt-muted">—</span>'}</td>
+      <td class="lt-muted">${esc(l._buyer_country||'—')}</td>
+      <td class="lt-muted">${l._partner?esc(l._partner):'—'}</td>
+      <td>${l._price_eur?'€'+Number(l._price_eur).toLocaleString():'<span class="lt-muted">—</span>'}</td>
       <td class="lt-muted">${esc(l.timeframe||'—')}</td>
       <td class="lt-muted">${esc(l.source||'—')}</td>
       <td class="lt-muted">${l._first_seen?new Date(l._first_seen).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'—'}</td>
       <td class="lt-muted">${l.last_activity?new Date(l.last_activity).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'—'}</td>
       <td class="lt-muted">${l._total_emails_sent} / ${l._total_opens}</td>
     </tr>`).join('');
+}
+
+function exportLeadsCsv() {
+  const rows = window._lastGrouped || [];
+  const cols = ['name','email','phone','_buyer_country','status','_partner','property_title','main_region','subregion','_price_eur','timeframe','source','_first_seen','last_activity','_total_emails_sent','_total_opens'];
+  const headers = ['Name','Email','Phone','Buyer Country','Status','Partner','Property','Region','Subregion','Price EUR','Timeframe','Source','First Seen','Last Activity','Emails Sent','Opens'];
+  const csv = [headers.join(',')].concat(rows.map(l =>
+    cols.map(c => {
+      let v = l[c] ?? '';
+      if(c==='status') v = STATUS_LABELS[v]||v;
+      v = String(v).replace(/"/g,'""');
+      return /[",\n]/.test(v) ? `"${v}"` : v;
+    }).join(',')
+  )).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `cop-leads-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
 function closeLeadDetail() {
@@ -1686,10 +2033,12 @@ async function selectLead(lid, cid) {
       <div class="ld-grid">
         <div class="ld-field"><label>Property</label><span>${esc(lead?.property_title||'—')}</span></div>
         <div class="ld-field"><label>Region</label><span>${(()=>{const rs=[...new Set(contactLeads.map(l=>l.main_region).filter(Boolean))];const ss=[...new Set(contactLeads.map(l=>l.subregion).filter(Boolean))];return (rs.length?rs.join(' / '):'—')+(ss.length?`<span style="color:var(--text3);font-size:12px;margin-left:6px">(${ss.join(', ')})</span>`:'');})()}</span></div>
-        <div class="ld-field"><label>Budget</label><span>${lead?.budget_min?'€'+Number(lead.budget_min).toLocaleString():'—'}</span></div>
+        <div class="ld-field"><label>Property price</label><span>${leadPriceEUR(lead)?fmtEUR(leadPriceEUR(lead)):'—'}${(()=>{const c=commissionEUR(lead);return c?`<span style="color:var(--gold);font-size:11px;margin-left:6px">(≈${fmtEUR(c)} commission)</span>`:'';})()}</span></div>
+        <div class="ld-field"><label>Partner</label><span>${PARTNER_LABEL[partnerOf(lead||{})]||'—'}</span></div>
+        <div class="ld-field"><label>Budget (stated)</label><span>${lead?.budget_min?'€'+Number(lead.budget_min).toLocaleString():'—'}</span></div>
         <div class="ld-field"><label>Timeframe</label><span>${esc(lead?.timeframe||'—')}</span></div>
         <div class="ld-field"><label>Phone</label><span>${lead?.phone?`<a href="tel:${esc(lead.phone)}" style="color:var(--text)">${esc(lead.phone)}</a>`:'—'}</span></div>
-        <div class="ld-field"><label>Country</label><span>${esc(regionToCountry(lead?.main_region)||lead?.country||'—')}</span></div>
+        <div class="ld-field"><label>Buyer country</label><span>${esc(phoneCountry(lead?.phone)||'—')} <span style="color:var(--text3);font-size:11px">${lead?.phone?'(from phone)':''}</span></span></div>
         <div class="ld-field"><label>Source</label><span>${esc(lead?.source||'—')}</span></div>
         <div class="ld-field"><label>Emails sent / opens</label><span>${lead?.emails_sent??0} / ${lead?.total_opens??0}</span></div>
         ${lead?.message?`<div class="ld-message">"${esc(lead.message)}"</div>`:''}
@@ -1737,26 +2086,60 @@ async function addNote(lid, cid) {
 
 // ─── Needs Attention ──────────────────────────────────────
 async function loadAttention() {
-  const cutoff = new Date(Date.now()-7*86400000).toISOString();
-  const {data} = await db.from('lead_pipeline').select('*')
-    .in('status',['contacted','lead_replied','hot_lead'])
-    .or(`last_email_sent.lt.${cutoff},last_email_sent.is.null`)
-    .order('lead_updated',{ascending:true})
-    .limit(50);
+  const rules = CRM_SETTINGS.attention_rules || {};
+  const silentDays = Number(rules.silent_days)||7;
+  const checkinDays = Number(rules.checkin_days)||14;
+  const uncontactedDays = Number(rules.uncontacted_days)||2;
+  const silentCut = new Date(Date.now()-silentDays*86400000).toISOString();
+  const checkinCut = new Date(Date.now()-checkinDays*86400000).toISOString();
+  const uncontactedCut = new Date(Date.now()-uncontactedDays*86400000).toISOString();
+  const revampCut = (CRM_SETTINGS.stats_cutoff||'2026-04-20')+'T00:00:00Z';
+
+  const [{data:quiet},{data:handedOver},{data:fresh}] = await Promise.all([
+    // 1. Engaged leads gone quiet
+    db.from('lead_pipeline').select('*')
+      .in('status',['contacted','lead_replied','hot_lead'])
+      .or(`last_email_sent.lt.${silentCut},last_email_sent.is.null`)
+      .order('lead_updated',{ascending:true}).limit(50),
+    // 2. Registered with a partner but no check-in for a while (Dylan's 2-week check-in rule)
+    db.from('lead_pipeline').select('*')
+      .in('status',['registered','transferred_to_partner','reservation_confirmed'])
+      .lt('lead_updated', checkinCut)
+      .or(`last_email_sent.lt.${checkinCut},last_email_sent.is.null`)
+      .order('lead_updated',{ascending:true}).limit(50),
+    // 3. Recent new leads that never got any email
+    db.from('lead_pipeline').select('*')
+      .eq('status','new_lead')
+      .gte('lead_created', revampCut)
+      .lt('lead_created', uncontactedCut)
+      .eq('emails_sent', 0)
+      .order('lead_created',{ascending:false}).limit(50),
+  ]);
+
   const list = document.getElementById('attention-list');
-  document.getElementById('badge-attention').textContent = (data||[]).length;
-  if(!data?.length){list.innerHTML='<div class="loading-state">No leads need attention right now</div>';return;}
-  list.innerHTML = (data||[]).map(l=>{
-    const days = l.last_email_sent ? daysAgo(l.last_email_sent) : daysAgo(l.lead_created);
-    return `<div class="attention-row">
+  const totalCount = (quiet||[]).length + (handedOver||[]).length + (fresh||[]).length;
+  document.getElementById('badge-attention').textContent = totalCount;
+  if(!totalCount){list.innerHTML='<div class="loading-state">No leads need attention right now</div>';return;}
+
+  const row = (l, daysLabel) => `<div class="attention-row">
       <div>
         <div class="at-name">${esc(l.name||l.email||'Unknown')}</div>
         <div class="at-prop">${esc(l.property_title||'')} ${badge(l.status)}</div>
       </div>
-      <div class="at-days">${days}d silent</div>
+      <div class="at-days">${daysLabel}</div>
       <button class="at-btn" onclick="goToLead('${l.lead_id}','${l.contact_id}')">View lead</button>
     </div>`;
-  }).join('');
+  const section = (title, sub, rows) => rows.length ? `
+    <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 4px">${title} <span style="color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">— ${sub}</span></div>
+    ${rows.join('')}` : '';
+
+  list.innerHTML =
+    section('Check-in due', `registered with partner, quiet ${checkinDays}+ days — send your 2-week check-in`,
+      (handedOver||[]).map(l=>row(l, `${daysAgo(l.last_email_sent||l.lead_updated)}d`))) +
+    section('Gone quiet', `contacted but silent ${silentDays}+ days`,
+      (quiet||[]).map(l=>row(l, `${l.last_email_sent?daysAgo(l.last_email_sent):daysAgo(l.lead_created)}d silent`))) +
+    section('Never contacted', `new leads with zero emails after ${uncontactedDays}+ days`,
+      (fresh||[]).map(l=>row(l, `${daysAgo(l.lead_created)}d old`)));
 }
 
 function goToLead(lid, cid) {
@@ -1854,12 +2237,14 @@ async function scanGmailEnquiries() {
   statusEl.style.display = 'block';
   statusEl.textContent = 'Searching Gmail for enquiry emails…';
   try {
-    // Search for enquiry notification emails (Elementor form)
+    // Search for enquiry notification emails (Elementor form + Rightmove)
     const queries = [
       'label:COP-Enquiry',
       'subject:"COP Enquiry" from:email@co-ownership-property.com',
       'subject:"Domosno Enquiry"',
-      '"Maximum Budget" "Page URL" site:co-ownership-property.com'
+      '"Maximum Budget" "Page URL" site:co-ownership-property.com',
+      'from:rightmove.co.uk OR from:rightmove.com',
+      'label:COP-Rightmove',
     ];
     const allThreadIds = new Set();
     for(const q of queries) {
@@ -1877,6 +2262,7 @@ async function scanGmailEnquiries() {
     }
     // Fetch full message body for each thread (first message = original enquiry)
     const updates = []; // {email, phone, budget_min, budget_max}
+    const rmEnquiries = []; // Rightmove: {email, name, phone, message, reference, property, date}
     let processed = 0;
     for(const tid of allThreadIds) {
       try {
@@ -1889,6 +2275,14 @@ async function scanGmailEnquiries() {
         for(const msg of (thread.messages||[])) {
           const body = extractGmailBody(msg);
           if(!body) continue;
+          const fromHdr = getHdr(msg.payload?.headers, 'From').toLowerCase();
+          const dateHdr = getHdr(msg.payload?.headers, 'Date');
+          // Rightmove lead notification?
+          if(fromHdr.includes('rightmove') || /rightmove\.co\.uk/i.test(body)) {
+            const rm = parseRightmoveEmail(body, dateHdr);
+            if(rm.email) rmEnquiries.push(rm);
+            break;
+          }
           // Check if it looks like an Elementor enquiry
           if(!body.includes('Page URL') && !body.includes('Maximum Budget') && !body.includes('co-ownership-property.com')) continue;
           const parsed = parseEnquiryEmail(body);
@@ -1927,7 +2321,67 @@ async function scanGmailEnquiries() {
         }
       }
     }
-    statusEl.innerHTML = `✅ Done — <strong>${phones}</strong> phones & <strong>${budgets}</strong> budgets updated. <a href="#" onclick="location.reload()">Reload</a> to see changes.`;
+    // Import Rightmove enquiries — create missing contacts + leads
+    let rmContacts=0, rmLeads=0, rmPhones=0;
+    if(rmEnquiries.length) {
+      statusEl.textContent = `Importing ${rmEnquiries.length} Rightmove enquiries…`;
+      // Deduplicate within this scan by email+reference
+      const seen = new Set();
+      for(const rm of rmEnquiries) {
+        const key = rm.email + '|' + (rm.reference||rm.property||'');
+        if(seen.has(key)) continue;
+        seen.add(key);
+        try {
+          const email = rm.email.toLowerCase();
+          let {data:contacts} = await db.from('contacts').select('id,phone').eq('email',email).limit(1);
+          let contact = contacts?.[0];
+          if(!contact) {
+            const nameParts = (rm.name||'').trim().split(/\s+/);
+            const {data:created, error:ce} = await db.from('contacts').insert({
+              email,
+              first_name: nameParts[0]||null,
+              last_name: nameParts.slice(1).join(' ')||null,
+              phone: rm.phone||null,
+              source: 'rightmove',
+            }).select('id,phone').single();
+            if(ce) { console.warn('rm contact insert', ce); continue; }
+            contact = created; rmContacts++;
+          } else if(rm.phone && !contact.phone) {
+            await db.from('contacts').update({phone:rm.phone}).eq('id',contact.id);
+            rmPhones++;
+          }
+          // Create a lead unless one already exists with the same reference/message
+          const {data:existing} = await db.from('leads').select('id,message').eq('contact_id',contact.id);
+          const dup = (existing||[]).some(l => (rm.reference && (l.message||'').includes(rm.reference)) || (rm.message && l.message === rm.message));
+          if(!dup) {
+            const msgParts = [];
+            if(rm.message) msgParts.push(rm.message);
+            if(rm.property) msgParts.push(`Property: ${rm.property}`);
+            if(rm.reference) msgParts.push(`Rightmove ref: ${rm.reference}`);
+            const {data:newLead, error:le} = await db.from('leads').insert({
+              contact_id: contact.id,
+              status: 'new_lead',
+              partner: rm.partner||null,
+              message: msgParts.join('\n'),
+              property_title: rm.property||null,
+              created_at: rm.date||new Date().toISOString(),
+            }).select('id').single();
+            if(!le && newLead) {
+              rmLeads++;
+              await db.from('activities').insert({
+                contact_id: contact.id, lead_id: newLead.id,
+                type: 'enquiry_submitted',
+                description: 'Rightmove enquiry (imported by Gmail scan)',
+                metadata: { source:'rightmove', reference: rm.reference||null },
+              });
+            }
+          }
+        } catch(e) { console.warn('rm import error', e); }
+      }
+    }
+    statusEl.innerHTML = `✅ Done — <strong>${phones}</strong> phones & <strong>${budgets}</strong> budgets updated`
+      + (rmEnquiries.length ? ` · Rightmove: <strong>${rmContacts}</strong> new contacts, <strong>${rmLeads}</strong> new leads, ${rmPhones} phones` : '')
+      + `. <a href="#" onclick="location.reload()">Reload</a> to see changes.`;
     allLeads = []; // force reload
   } catch(e) {
     statusEl.textContent = `Error: ${e.message}`;
@@ -1953,6 +2407,45 @@ function extractGmailBody(msg) {
     return null;
   }
   return findPart(msg.payload) || '';
+}
+
+// Rightmove partner-suffix in references like "299894_fayenceandhamlet"
+function rmPartnerFromRef(ref) {
+  if(!ref) return null;
+  const s = ref.toLowerCase();
+  if(s.includes('hamlet')) return 'andhamlet';
+  if(s.includes('myne')) return 'myne';
+  if(s.includes('pacaso')) return 'pacaso';
+  if(s.includes('vivla')) return 'vivla';
+  if(s.includes('abitaro')) return 'abitaro';
+  if(s.includes('paris')) return 'parispropertygroup';
+  return null;
+}
+
+function parseRightmoveEmail(body, dateHdr) {
+  const out = {email:null, name:null, phone:null, message:null, property:null, reference:null, partner:null, date:null};
+  try { if(dateHdr) out.date = new Date(dateHdr).toISOString(); } catch(e){}
+  const line = (labels) => {
+    for(const lb of labels) {
+      const m = body.match(new RegExp(`${lb}\\s*[:\\-]\\s*([^\\n\\r]+)`,'i'));
+      if(m && m[1].trim()) return m[1].trim();
+    }
+    return null;
+  };
+  out.name  = line(['Name','Full name','From']);
+  const emailLine = line(['Email address','Email','E-mail']);
+  const emailMatch = (emailLine||body).match(/\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b/);
+  if(emailMatch && !/rightmove|co-ownership-property|domosno/i.test(emailMatch[0])) out.email = emailMatch[0].toLowerCase();
+  const phoneLine = line(['Telephone','Phone','Tel','Mobile','Contact number','Phone number']);
+  if(phoneLine) {
+    const pm = phoneLine.match(/\+?[\d\s\-\(\)]{7,18}/);
+    if(pm && pm[0].replace(/\D/g,'').length >= 7) out.phone = pm[0].trim();
+  }
+  out.message = line(['Comments','Message','Enquiry','Additional comments']);
+  out.property = line(['Property address','Property','Regarding','Address']);
+  const refMatch = body.match(/\b(\d{4,}_[a-z][a-z0-9]+)\b/i) || body.match(/\b(?:ref(?:erence)?)\s*[:#]?\s*([A-Za-z0-9_\-]{4,})\b/i);
+  if(refMatch) { out.reference = refMatch[1]; out.partner = rmPartnerFromRef(refMatch[1]); }
+  return out;
 }
 
 function parseEnquiryEmail(body) {
@@ -2631,7 +3124,8 @@ async function cancelScheduled() {
 }
 
 // ─── Boot ─────────────────────────────────────────────────
-function init() {
+async function init() {
+  await Promise.all([loadCrmSettings(), loadPropIndex()]);
   loadDashboard();
   subscribeRealtime();
   loadQueueBadge();
