@@ -2260,9 +2260,22 @@ async function scanGmailEnquiries() {
       statusEl.textContent = 'No enquiry emails found. Try connecting the email that receives form notifications.';
       btn.disabled=false; btn.textContent='⚡ Scan enquiry emails'; return;
     }
+    // Resolve the "COP Rightmove" label id so we can tell COP enquiries apart from
+    // Domosno ones (both businesses receive Rightmove mail in this mailbox)
+    let copRmLabelId = null;
+    try {
+      const lr = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/labels', {headers:{Authorization:`Bearer ${gmailToken}`}});
+      if(lr.ok) {
+        const ld = await lr.json();
+        const lab = (ld.labels||[]).find(l => /cop/i.test(l.name||'') && /rightmove/i.test(l.name||''));
+        if(lab) copRmLabelId = lab.id;
+      }
+    } catch(e) { /* label check optional */ }
+
     // Fetch full message body for each thread (first message = original enquiry)
     const updates = []; // {email, phone, budget_min, budget_max}
     const rmEnquiries = []; // Rightmove: {email, name, phone, message, reference, property, date}
+    let rmSkippedOther = 0; // Rightmove emails that belong to Domosno (or other), not COP
     let processed = 0;
     for(const tid of allThreadIds) {
       try {
@@ -2279,6 +2292,14 @@ async function scanGmailEnquiries() {
           const dateHdr = getHdr(msg.payload?.headers, 'Date');
           // Rightmove lead notification?
           if(fromHdr.includes('rightmove') || /rightmove\.co\.uk/i.test(body)) {
+            // Is it a COP one? Accept only if it carries the "COP Rightmove" label,
+            // is addressed to a co-ownership-property.com address, or mentions COP in the body.
+            const h = msg.payload?.headers;
+            const addrHdrs = (getHdr(h,'To')+' '+getHdr(h,'Cc')+' '+getHdr(h,'Delivered-To')).toLowerCase();
+            const isCop = (copRmLabelId && (msg.labelIds||[]).includes(copRmLabelId))
+              || addrHdrs.includes('co-ownership-property.com')
+              || /co-ownership-property/i.test(body);
+            if(!isCop) { rmSkippedOther++; break; }
             const rm = parseRightmoveEmail(body, dateHdr);
             if(rm.email) rmEnquiries.push(rm);
             break;
@@ -2381,6 +2402,7 @@ async function scanGmailEnquiries() {
     }
     statusEl.innerHTML = `✅ Done — <strong>${phones}</strong> phones & <strong>${budgets}</strong> budgets updated`
       + (rmEnquiries.length ? ` · Rightmove: <strong>${rmContacts}</strong> new contacts, <strong>${rmLeads}</strong> new leads, ${rmPhones} phones` : '')
+      + (rmSkippedOther ? ` · ${rmSkippedOther} non-COP Rightmove emails ignored` : '')
       + `. <a href="#" onclick="location.reload()">Reload</a> to see changes.`;
     allLeads = []; // force reload
   } catch(e) {
