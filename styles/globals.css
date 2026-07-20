@@ -9847,3 +9847,24 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   font-size: 16.5px;
   line-height: 1.5;
 }
+
+/* ── Property page: anchor tabs + Look inside / Co-ownership sections ────── */
+.pp-tabs{display:flex;gap:4px;flex-wrap:wrap;max-width:1200px;margin:18px auto 0;padding:0 32px;border-bottom:1px solid #E7E0D2}
+.pp-tab{font-family:'Nunito Sans',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B8A9E;text-decoration:none;padding:10px 14px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.pp-tab:hover{color:#143047;border-bottom-color:#C9A84C}
+@media(max-width:640px){.pp-tabs{padding:0 16px}.pp-tab{padding:9px 10px;font-size:11px;letter-spacing:.1em}}
+#overview,#look-inside,#co-ownership,#financing{scroll-margin-top:96px}
+.pp-look{margin:0 0 32px}
+.pp-look-sub{font-family:'Nunito Sans',Arial,sans-serif;font-size:.95rem;line-height:1.6;color:#44535B;margin:0 0 16px}
+.pp-look-actions{display:flex;gap:12px;flex-wrap:wrap}
+.pp-look-btn{font-family:'Nunito Sans',Arial,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#143047;color:#fff;border:none;padding:13px 22px;cursor:pointer;transition:background .2s}
+.pp-look-btn:hover{background:#0e2434}
+.pp-look-btn-tour{background:#C9A84C}
+.pp-look-btn-tour:hover{background:#b8943d}
+.pp-coown{margin:0 0 32px}
+.pp-coown-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pp-coown-item{background:#FAF7F2;border:1px solid #EEE7DA;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.pp-coown-item strong{font-family:'Nunito Sans',Arial,sans-serif;font-size:.9rem;color:#143047}
+.pp-coown-item span{font-family:'Nunito Sans',Arial,sans-serif;font-size:.85rem;line-height:1.55;color:#44535B}
+@media(max-width:640px){.pp-coown-list{grid-template-columns:1fr}}
+.pp-financing{margin:0 0 32px}
