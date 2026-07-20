@@ -8,7 +8,6 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
-import GeoVisitForm from '@/components/GeoVisitForm';
 import { track } from '@vercel/analytics';
 import { localeFromPath } from '@/lib/i18n';
 
@@ -382,12 +381,6 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   const [alertStatus,   setAlertStatus]   = useState('idle'); // idle | sending | done | error
   const [alertRegions,  setAlertRegions]  = useState([]);
   const [alertMaxPrice, setAlertMaxPrice] = useState('');
-  // Geo nudge → /our-homes/?country=Spain&region=Mallorca&fromGeo=1 lands the
-  // visitor here with the country+region filter pre-applied and a "currently
-  // in Mallorca? want to visit one?" banner at the top. `geoLabel` is the
-  // chip's display label (e.g. "Lisbon" even when filter is country=Portugal).
-  const [fromGeo, setFromGeo] = useState(false);
-  const [geoLabel, setGeoLabel] = useState('');
 
   // Seed filter state from URL query on first render (router.isReady gate
   // ensures router.query is populated). Runs once.
@@ -402,8 +395,6 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
       const r = Array.isArray(q.region) ? q.region : [q.region];
       setRegions(r);
     }
-    if (q.fromGeo === '1') setFromGeo(true);
-    if (q.label) setGeoLabel(Array.isArray(q.label) ? q.label[0] : q.label);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady]);
 
@@ -621,17 +612,6 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
         <h1>{t.h1}</h1>
         <p className="page-hero-sub">{t.sub}</p>
       </section>
-
-      {/* ── "I'm in {destination}, organise a viewing" form ──
-          Shown only when the visitor arrived via the geo-aware nudge
-          (GeoDestinationNudge.js) which appends ?fromGeo=1 to the URL.
-          Captures name + email + phone, posts to /api/enquiry.
-          The display label honors what the chip showed (e.g. "Lisbon")
-          even when the filter is country-only (Portugal) for routes like
-          Lisbon → all Portugal listings. */}
-      {fromGeo && (geoLabel || regions[0] || countries[0]) && (
-        <GeoVisitForm destination={geoLabel || regions[0] || countries[0]} />
-      )}
 
       {/* ── Filter bar ── */}
       <div className="filter-bar" id="filter-bar">
