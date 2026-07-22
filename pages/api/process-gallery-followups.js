@@ -71,6 +71,7 @@ const COPY = {
     greetingName:  (n) => `Hi ${n},`,
     greetingNoName: 'Hi there,',
     intro: (links) => `Thanks for taking a look at ${links}!`,
+    home: (city) => `the ${city} home`,
     offerSingle: `Is there anything I can help with — questions about the home, or how co-ownership actually works? Just reply to this email.`,
     offerMulti:  `Is there anything I can help with — questions about the homes, or how co-ownership actually works? Just reply to this email.`,
     closeSingle: `And whenever you're ready, I'm happy to connect you directly with the team that manages it.`,
@@ -87,6 +88,7 @@ const COPY = {
     greetingName:  (n) => `Hola ${n},`,
     greetingNoName: 'Hola,',
     intro: (links) => `¡Gracias por echar un vistazo a ${links}!`,
+    home: (city) => `la propiedad en ${city}`,
     offerSingle: `¿Hay algo en lo que pueda ayudarte — alguna duda sobre la propiedad o sobre cómo funciona la copropiedad? Solo tienes que responder a este correo.`,
     offerMulti:  `¿Hay algo en lo que pueda ayudarte — alguna duda sobre las propiedades o sobre cómo funciona la copropiedad? Solo tienes que responder a este correo.`,
     closeSingle: `Y cuando quieras, con mucho gusto te pongo en contacto directo con el equipo que la gestiona.`,
@@ -103,6 +105,7 @@ const COPY = {
     greetingName:  (n) => `Bonjour ${n},`,
     greetingNoName: 'Bonjour,',
     intro: (links) => `Merci d'avoir jeté un œil à ${links} !`,
+    home: (city) => `la propriété à ${city}`,
     offerSingle: `Puis-je vous aider en quoi que ce soit — une question sur le bien, ou sur le fonctionnement de la copropriété ? Il vous suffit de répondre à cet e-mail.`,
     offerMulti:  `Puis-je vous aider en quoi que ce soit — une question sur les biens, ou sur le fonctionnement de la copropriété ? Il vous suffit de répondre à cet e-mail.`,
     closeSingle: `Et quand vous le souhaitez, je vous mets volontiers en relation directe avec l'équipe qui le gère.`,
@@ -126,6 +129,24 @@ function joinList(items, andWord) {
 }
 
 /**
+ * Turn the full SEO title ("Rosemary Beach, Florida, USA — 6-Bed House With
+ * Beach Access") into a short, human name for prose ("the Rosemary Beach home")
+ * so the email doesn't read like a machine repeating a listing title. Falls
+ * back to the raw title for any title that isn't in the standard format.
+ */
+function friendlyName(title, t) {
+  const raw = String(title || '').trim();
+  const structured = raw.includes(',') || /\s[—–-]\s/.test(raw);
+  if (!structured) return raw;
+  const city = raw.split(/\s[—–-]\s/)[0].split(',')[0].trim();
+  return city ? t.home(city) : raw;
+}
+
+function capitalize(s) {
+  return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
+
+/**
  * Per-property "photos" links block (no floor-plan promise — galleries vary
  * and not every listing has plans). Rapid multi-unlocks SKIP
  * the individual per-property gallery emails (see /api/unlock-drive's 24h
@@ -136,7 +157,7 @@ function galleryLinksHtml(properties, t) {
   const withLinks = (properties || []).filter(p => p.galleryUrl);
   if (!withLinks.length) return '';
   const items = withLinks.map(p =>
-    `<li style="margin:0 0 6px;">${escapeHtml(p.title)} — <a href="${escapeHtml(p.galleryUrl)}" style="color:#C9A84C;text-decoration:underline;">${t.galleryLinkLabel}</a></li>`
+    `<li style="margin:0 0 6px;">${escapeHtml(capitalize(friendlyName(p.title, t)))} — <a href="${escapeHtml(p.galleryUrl)}" style="color:#C9A84C;text-decoration:underline;">${t.galleryLinkLabel}</a></li>`
   ).join('');
   return `
     <p style="margin:0 0 8px;">${t.galleryLinksIntro}</p>
@@ -187,14 +208,14 @@ function buildEmail({ firstName, properties, locale }) {
   const single = properties.length === 1;
 
   const linkParts = properties.map(p => {
-    const title = escapeHtml(p.title);
+    const label = escapeHtml(friendlyName(p.title, t));
     return p.url
-      ? `<a href="${escapeHtml(p.url)}" style="color:#1E3448;text-decoration:underline;">${title}</a>`
-      : `<strong>${title}</strong>`;
+      ? `<a href="${escapeHtml(p.url)}" style="color:#1E3448;text-decoration:underline;">${label}</a>`
+      : `<strong>${label}</strong>`;
   });
   const links = joinList(linkParts, t.and);
 
-  const subject  = single ? t.subjectSingle(properties[0].title) : t.subjectMulti();
+  const subject  = single ? t.subjectSingle(friendlyName(properties[0].title, t)) : t.subjectMulti();
   const greeting = firstName ? t.greetingName(escapeHtml(firstName)) : t.greetingNoName;
   const offer    = single ? t.offerSingle : t.offerMulti;
 
