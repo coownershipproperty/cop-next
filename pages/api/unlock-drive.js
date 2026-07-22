@@ -473,6 +473,7 @@ export default async function handler(req, res) {
         <p><strong>Property:</strong> ${propertyTitle}${propertyUrl ? ` — <a href="${propertyUrl}">${propertyUrl}</a>` : ''}</p>
         <p><strong>Name:</strong> ${name || 'Not provided'}</p>
         <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone ? phone : '<em>not provided (optional field)</em>'}</p>
         <p>Gallery email: ${galleryEmailLine}</p>
       `,
     });
