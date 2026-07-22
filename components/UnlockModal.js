@@ -25,8 +25,9 @@ const COPY = {
     error_bounced: "Emails to your saved address kept bouncing — please double-check it or use a different one.",
     did_you_mean: 'Did you mean {s}?',
     oneclick_continue: 'Continue as',
-    oneclick_btn: 'Unlock gallery →',
+    oneclick_btn: 'View gallery →',
     oneclick_notyou: 'Not you?',
+    all_galleries: 'One unlock opens every property gallery on the site.',
   },
   es: {
     eyebrow: 'Acceso exclusivo',
@@ -45,8 +46,9 @@ const COPY = {
     error_bounced: 'Los correos a tu dirección guardada rebotaban — revísala o usa otra dirección.',
     did_you_mean: '¿Quisiste decir {s}?',
     oneclick_continue: 'Continuar como',
-    oneclick_btn: 'Desbloquear la galería →',
+    oneclick_btn: 'Ver galería →',
     oneclick_notyou: '¿No eres tú?',
+    all_galleries: 'Un solo desbloqueo abre todas las galerías del sitio.',
   },
   fr: {
     eyebrow: 'Accès exclusif',
@@ -65,8 +67,9 @@ const COPY = {
     error_bounced: 'Les emails vers votre adresse enregistrée revenaient en erreur — vérifiez-la ou utilisez-en une autre.',
     did_you_mean: 'Vouliez-vous dire {s} ?',
     oneclick_continue: 'Continuer en tant que',
-    oneclick_btn: 'Débloquer la galerie →',
+    oneclick_btn: 'Voir la galerie →',
     oneclick_notyou: "Ce n'est pas vous ?",
+    all_galleries: 'Un seul déblocage ouvre toutes les galeries du site.',
   },
   de: {
     eyebrow: 'Exklusiver Zugang',
@@ -85,8 +88,9 @@ const COPY = {
     error_bounced: 'E-Mails an Ihre gespeicherte Adresse kamen zurück — bitte prüfen Sie sie oder verwenden Sie eine andere.',
     did_you_mean: 'Meinten Sie {s}?',
     oneclick_continue: 'Weiter als',
-    oneclick_btn: 'Galerie freischalten →',
+    oneclick_btn: 'Galerie ansehen →',
     oneclick_notyou: 'Nicht Sie?',
+    all_galleries: 'Einmal freischalten und alle Galerien der Website öffnen sich.',
   },
 };
 
@@ -301,6 +305,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
             <p className="ul-eye">{t.eyebrow}</p>
             <h3>{t.heading}</h3>
             <p className="ul-sub">{t.oneclick_continue} <strong style={{ color: '#143047' }}>{email}</strong></p>
+            <p style={{ margin: '-4px 0 14px', fontSize: '.82rem', color: '#C9A84C', fontWeight: 700, fontFamily: "'Nunito Sans',sans-serif" }}>✓ {t.all_galleries}</p>
             <form onSubmit={submitOneClick} className="ul-form">
               <button type="submit" disabled={status === 'sending'}>
                 {status === 'sending' ? t.btn_sending : t.oneclick_btn}
@@ -324,6 +329,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
             <p className="ul-eye">{t.eyebrow}</p>
             <h3>{t.heading}</h3>
             <p className="ul-sub">{t.sub}</p>
+            <p style={{ margin: '-4px 0 14px', fontSize: '.82rem', color: '#C9A84C', fontWeight: 700, fontFamily: "'Nunito Sans',sans-serif" }}>✓ {t.all_galleries}</p>
             <form onSubmit={submitForm} className="ul-form">
               <HoneypotField />
               <input type="text" placeholder={t.name_placeholder} value={name} onChange={e => setName(e.target.value)} required />

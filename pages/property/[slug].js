@@ -49,8 +49,11 @@ const COPY = {
       ['Sell whenever you like', 'Your share is a real asset: sell it at a price you set.'],
     ],
     missing_photos: (n) => `You're missing ${n} photos`,
-    unlock_sub: 'Unlock the full gallery & floor plans — free',
+    unlock_sub: 'Unlock once — see every gallery on the site, free',
     unlock_now: 'Unlock Now →',
+    unlocked_title: 'Your galleries are unlocked',
+    unlocked_sub: 'View the full photo gallery for this home',
+    view_gallery_btn: 'View Gallery →',
     form_eye: 'Get in touch',
     form_title: 'Enquire About This Property',
     form_sub: 'Our team typically responds within a few hours. No obligation.',
@@ -91,8 +94,11 @@ const COPY = {
       ['Vende cuando quieras', 'Tu participación es un activo real: véndela al precio que tú fijes.'],
     ],
     missing_photos: (n) => `Te faltan ${n} fotos`,
-    unlock_sub: 'Desbloquea la galería completa y los planos — gratis',
+    unlock_sub: 'Desbloquea una vez — ve todas las galerías del sitio, gratis',
     unlock_now: 'Desbloquear ahora →',
+    unlocked_title: 'Tus galerías están desbloqueadas',
+    unlocked_sub: 'Ver la galería de fotos completa de esta vivienda',
+    view_gallery_btn: 'Ver galería →',
     form_eye: 'Contáctanos',
     form_title: 'Consulta sobre esta propiedad',
     form_sub: 'Nuestro equipo suele responder en pocas horas. Sin compromiso.',
@@ -133,8 +139,11 @@ const COPY = {
       ['Revendez quand vous voulez', 'Votre part est un actif réel : revendez-la au prix que vous fixez.'],
     ],
     missing_photos: (n) => `Il vous manque ${n} photos`,
-    unlock_sub: "Débloquez la galerie complète et les plans — gratuit",
+    unlock_sub: "Débloquez une fois — voyez toutes les galeries du site, gratuit",
     unlock_now: 'Débloquer maintenant →',
+    unlocked_title: 'Vos galeries sont débloquées',
+    unlocked_sub: 'Voir la galerie photo complète de ce bien',
+    view_gallery_btn: 'Voir la galerie →',
     form_eye: 'Nous contacter',
     form_title: 'Ce bien vous intéresse ?',
     form_sub: 'Notre équipe répond généralement sous quelques heures. Sans engagement.',
@@ -175,8 +184,11 @@ const COPY = {
       ['Verkaufen, wann Sie möchten', 'Ihr Anteil ist ein echter Vermögenswert: Verkaufen Sie ihn zum Preis, den Sie festlegen.'],
     ],
     missing_photos: (n) => `Ihnen fehlen ${n} Fotos`,
-    unlock_sub: 'Galerie und Grundrisse freischalten — kostenlos',
+    unlock_sub: 'Einmal freischalten — alle Galerien der Website sehen, kostenlos',
     unlock_now: 'Jetzt freischalten →',
+    unlocked_title: 'Ihre Galerien sind freigeschaltet',
+    unlocked_sub: 'Die vollständige Fotogalerie dieses Objekts ansehen',
+    view_gallery_btn: 'Galerie ansehen →',
     form_eye: 'Kontakt aufnehmen',
     form_title: 'Anfrage zu dieser Immobilie',
     form_sub: 'Unser Team antwortet in der Regel innerhalb weniger Stunden. Unverbindlich.',
@@ -458,6 +470,26 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
   const [lightbox, setLightbox] = useState(null);
   const [mobileSlide, setMobileSlide] = useState(0);
   const [saved, setSaved] = useState(false);
+  const [unlocked, setUnlocked] = useState(false);
+  useEffect(() => { try { setUnlocked(!!getSavedUser().validated); } catch (e) {} }, []);
+  function viewGallery() {
+    const su = getSavedUser();
+    const qs = locale !== 'en' ? `?lang=${locale}` : '';
+    if (typeof window !== 'undefined') window.open(`/gallery/${p.slug}${qs}`, '_blank');
+    // Log this property view + queue its photos email (server batches so it's never spammy)
+    if (su.email) {
+      fetch('/api/unlock-drive/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: su.name, email: su.email, phone: su.phone,
+          propertyTitle: local.title, driveUrl: p.driveUrl,
+          propertyUrl: `https://co-ownership-property.com/property/${p.slug}/`,
+          propertyCountry: p.country, locale, [HONEYPOT_FIELD]: '',
+        }),
+      }).catch(() => {});
+    }
+  }
   const [descExpanded, setDescExpanded] = useState(false);
   const cx = useCurrency();
   const [amenExpanded, setAmenExpanded] = useState(false);
@@ -659,14 +691,14 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
                 <Img src={slide.src} alt={`${local.title} ${i + 1}`} priority={i === 0} loading={i === 0 ? 'eager' : 'lazy'} />
               </div>
             ) : (
-              <div key={i} className="pp-mob-slide pp-mob-lock" onClick={() => setShowUnlock(true)}>
+              <div key={i} className="pp-mob-slide pp-mob-lock" onClick={() => unlocked ? viewGallery() : setShowUnlock(true)}>
                 <div className="pp-lock-blur-bg" style={{ backgroundImage: `url('${heroImg}')` }} />
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+                  <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
                 </svg>
-                <span className="pp-mob-lock-title">{t.missing_photos(missingCount)}</span>
-                <span className="pp-mob-lock-sub">{t.unlock_sub}</span>
-                <span className="pp-mob-lock-btn">{t.unlock_now}</span>
+                <span className="pp-mob-lock-title">{unlocked ? t.unlocked_title : t.missing_photos(missingCount)}</span>
+                <span className="pp-mob-lock-sub">{unlocked ? t.unlocked_sub : t.unlock_sub}</span>
+                <span className="pp-mob-lock-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
               </div>
             )
           )}
@@ -701,14 +733,14 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
         <div className="pp-gallery-thumb" onClick={() => p.images[2] && setLightbox(2)}>
           {p.images[2] ? <Img src={p.images[2]} alt={`${local.title} 3`} sizes="(max-width: 960px) 33vw, 25vw" /> : <div className="pp-gallery-blank" />}
         </div>
-        <div className="pp-gallery-lock" onClick={() => setShowUnlock(true)}>
+        <div className="pp-gallery-lock" onClick={() => unlocked ? viewGallery() : setShowUnlock(true)}>
           <div className="pp-lock-blur-bg" style={{ backgroundImage: `url('${heroImg}')` }} />
           <svg className="pp-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+            <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
           </svg>
-          <span className="pp-lock-title">{t.missing_photos(missingCount)}</span>
-          <span className="pp-lock-sub">{t.unlock_sub}</span>
-          <span className="pp-lock-cta-btn">{t.unlock_now}</span>
+          <span className="pp-lock-title">{unlocked ? t.unlocked_title : t.missing_photos(missingCount)}</span>
+          <span className="pp-lock-sub">{unlocked ? t.unlocked_sub : t.unlock_sub}</span>
+          <span className="pp-lock-cta-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
         </div>
       </div>
 
@@ -945,14 +977,14 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
               </svg>
             </button>
             {isLockSlide ? (
-              <div className="pp-lb-lock" onClick={e => { e.stopPropagation(); setLightbox(null); setShowUnlock(true); }}>
+              <div className="pp-lb-lock" onClick={e => { e.stopPropagation(); setLightbox(null); unlocked ? viewGallery() : setShowUnlock(true); }}>
                 <div className="pp-lb-lock-blur" style={{ backgroundImage: `url('${heroImg}')` }} />
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{width:40,height:40,marginBottom:12,color:'#fff'}}>
-                  <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+                  <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
                 </svg>
-                <span className="pp-lb-lock-title">{t.missing_photos(missingCount)}</span>
-                <span className="pp-lb-lock-sub">{t.unlock_sub}</span>
-                <span className="pp-lb-lock-btn">{t.unlock_now}</span>
+                <span className="pp-lb-lock-title">{unlocked ? t.unlocked_title : t.missing_photos(missingCount)}</span>
+                <span className="pp-lb-lock-sub">{unlocked ? t.unlocked_sub : t.unlock_sub}</span>
+                <span className="pp-lb-lock-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
               </div>
             ) : (
               <img src={lbImages[lightbox]} alt={local.title} onClick={e => e.stopPropagation()} />
