@@ -36,6 +36,7 @@ import crypto from 'crypto';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { safeStatusUpdate } from '@/lib/followupSequence';
 import { logActivity } from '@/lib/crm';
+import { tagContactsUnsubscribed } from '@/lib/suppressions';
 
 export const config = { api: { bodyParser: false } };
 
@@ -95,7 +96,20 @@ function verifySvixSignature({ secret, id, timestamp, signature, payload }) {
   }
 }
 
-/** Insert or upgrade a suppressions row (bounced > complained > unsubscribed). */
+/**
+ * Insert or upgrade a suppressions row (bounced > complained > unsubscribed),
+ * then mirror the opt-out onto contacts.tags.
+ *
+ * The tag mirror was added 26 Jul 2026. Until then this route wrote the
+ * suppressions row only — which the sequence engine honours but the newsletter
+ * does not, since the newsletter audience filters on
+ * contacts.tags @> {unsubscribed}. A hard-bounced or complaining address was
+ * therefore still mailed by every subsequent newsletter. See lib/suppressions.js.
+ *
+ * This keeps its own row logic rather than calling suppress(): the reason
+ * ladder below must be able to UPGRADE an existing row, whereas suppress()
+ * deliberately preserves the first reason recorded.
+ */
 async function suppressAddress(db, email, reason, note) {
   const { data: existing, error: selErr } = await db
     .from('suppressions')
@@ -106,6 +120,7 @@ async function suppressAddress(db, email, reason, note) {
     console.error('[resend-webhook] suppression lookup failed:', selErr.message);
     return false;
   }
+
   if (!existing) {
     const { error } = await db
       .from('suppressions')
@@ -115,9 +130,7 @@ async function suppressAddress(db, email, reason, note) {
       console.error('[resend-webhook] suppression insert failed:', error.message);
       return false;
     }
-    return true;
-  }
-  if ((REASON_RANK[reason] || 0) > (REASON_RANK[existing.reason] || 0)) {
+  } else if ((REASON_RANK[reason] || 0) > (REASON_RANK[existing.reason] || 0)) {
     const { error } = await db
       .from('suppressions')
       .update({ reason, note })
@@ -127,7 +140,12 @@ async function suppressAddress(db, email, reason, note) {
       return false;
     }
   }
-  return true; // already suppressed at equal/stronger level — idempotent
+  // else: already suppressed at an equal/stronger level — idempotent.
+
+  // Mirror to the tag register every time, including on the idempotent path:
+  // the row may predate this fix and have no tag written for it.
+  await tagContactsUnsubscribed(db, email, reason);
+  return true;
 }
 
 /** Cancel every still-pending email_queue row for an address. Returns count. */

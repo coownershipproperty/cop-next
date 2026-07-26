@@ -20,6 +20,7 @@
  */
 import { createClient } from '@supabase/supabase-js';
 import { sendHtml } from '@/lib/resend';
+import { isSuppressed } from '@/lib/suppressions';
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
 const DYLAN_REPLY = 'dylan@co-ownership-property.com';
@@ -181,7 +182,8 @@ export default async function handler(req, res) {
   const alreadySent = new Set((sentMarkers || []).map(m => m.contact_id));
 
   const results = [];
-  let sent = 0, skippedEnquiry = 0, skippedAlready = 0, skippedNoProp = 0, errors = 0;
+  let sent = 0, skippedEnquiry = 0, skippedAlready = 0, skippedNoProp = 0,
+      optedOut = 0, errors = 0;
 
   for (const [contactId, acts] of byContact) {
     if (alreadySent.has(contactId)) {
@@ -192,10 +194,20 @@ export default async function handler(req, res) {
 
     const { data: contact } = await db
       .from('contacts')
-      .select('id, email, first_name, locale')
+      .select('id, email, first_name, locale, tags')
       .eq('id', contactId)
       .maybeSingle();
     if (!contact || !contact.email) { errors++; continue; }
+
+    // Opt-out guard (added 26 Jul 2026). This route had no suppression check
+    // at all — a bulk sender that could mail people who had unsubscribed or
+    // hard-bounced. Both registers are checked.
+    const taggedOut = Array.isArray(contact.tags) && contact.tags.includes('unsubscribed');
+    if (taggedOut || await isSuppressed(db, contact.email.toLowerCase())) {
+      optedOut++;
+      results.push({ email: contact.email, decision: 'skipped_opted_out' });
+      continue;
+    }
 
     // Enquiry today? → skip (the enquiry auto-reply already covers them).
     const { data: enq } = await db
@@ -274,7 +286,8 @@ export default async function handler(req, res) {
     ok: true,
     mode: isLive ? 'LIVE' : 'dry-preview',
     contactsScanned: byContact.size,
-    sent, skippedEnquiry, skippedAlready, skippedNoProperty: skippedNoProp, errors,
+    sent, skippedEnquiry, skippedAlready, skippedNoProperty: skippedNoProp,
+    optedOut, errors,
     results,
   });
 }

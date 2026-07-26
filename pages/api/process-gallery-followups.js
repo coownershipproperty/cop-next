@@ -39,6 +39,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { sendHtml } from '@/lib/resend';
 import { isEnvTrue } from '@/lib/email/engine';
+import { isSuppressed } from '@/lib/suppressions';
 
 // ── Tunables ────────────────────────────────────────────────────────────────
 const WINDOW_MIN    = 10;   // wait at least this long after the first unlock
@@ -312,7 +313,7 @@ export default async function handler(req, res) {
   const onCooldown = new Set((markers || []).map(m => m.contact_id));
 
   const results = [];
-  let sent = 0, suppressed = 0, expired = 0, notDue = 0,
+  let sent = 0, suppressed = 0, expired = 0, notDue = 0, optedOut = 0,
       skippedCooldown = 0, skippedTest = 0, skippedNoProp = 0, errors = 0;
 
   for (const [contactId, allActs] of byContact) {
@@ -337,7 +338,7 @@ export default async function handler(req, res) {
     // Contact details.
     const { data: contact } = await db
       .from('contacts')
-      .select('id, email, first_name, locale')
+      .select('id, email, first_name, locale, tags')
       .eq('id', contactId)
       .maybeSingle();
     if (!contact || !contact.email) { errors++; continue; }
@@ -349,6 +350,30 @@ export default async function handler(req, res) {
     if (testMode && !allowed && !dryRun) {
       skippedTest++;
       results.push({ email: contact.email, decision: 'skipped_test_mode' });
+      continue;
+    }
+
+    // ── Opt-out guard (added 26 Jul 2026) ───────────────────────────────────
+    // NOTE: `suppressed` elsewhere in this file means "an enquiry arrived in
+    // the window, stand down" — nothing to do with the suppression LIST. This
+    // cron had no opt-out check at all, so an unsubscribed or hard-bounced
+    // person who opened a gallery was still emailed ten minutes later. It runs
+    // every 5 minutes, which made it the most frequently firing unguarded
+    // sender in the system. Both registers are checked: the suppressions row
+    // and the contacts.tags mirror.
+    const taggedOut = Array.isArray(contact.tags) && contact.tags.includes('unsubscribed');
+    if (taggedOut || await isSuppressed(db, email)) {
+      if (!dryRun) {
+        await insertMarker(db, {
+          contact, status: 'rejected',
+          subject: 'Gallery follow-up — not sent (recipient opted out)',
+          notes: taggedOut
+            ? 'contact is tagged unsubscribed in the CRM'
+            : 'address is on the suppression list',
+        });
+      }
+      optedOut++;
+      results.push({ email: contact.email, decision: dryRun ? 'would_skip_opted_out' : 'skipped_opted_out' });
       continue;
     }
 
@@ -464,7 +489,7 @@ export default async function handler(req, res) {
     testMode,
     testEmails: testMode ? testEmails : undefined,
     contactsScanned: byContact.size,
-    sent, suppressed, expired,
+    sent, suppressed, expired, optedOut,
     notDue, skippedCooldown, skippedTestMode: skippedTest, skippedNoProperty: skippedNoProp,
     errors,
     results,

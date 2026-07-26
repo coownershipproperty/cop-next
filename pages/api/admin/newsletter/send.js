@@ -4,6 +4,7 @@ import { sendHtml } from '../../../../lib/resend';
 import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { unsubUrl } from '@/lib/unsub';
+import { filterSuppressed } from '@/lib/suppressions';
 
 function getDb() {
   return createSupabaseAdminClient();
@@ -51,8 +52,24 @@ export default async function handler(req, res) {
     if (sendsErr) throw sendsErr;
     if (!sends || sends.length === 0) return res.json({ ok: true, sent: 0, failed: 0 });
 
+    // ── Suppression guard ────────────────────────────────────────────────────
+    // These rows were written when the campaign was prepared, which may have
+    // been days ago. Anyone who unsubscribed in between must not be mailed, so
+    // re-check at send time rather than trusting the prepared list.
+    const { kept: sendable, dropped: suppressedRows } = await filterSuppressed(db, sends);
+    if (suppressedRows.length) {
+      await db
+        .from('newsletter_sends')
+        .update({ status: 'cancelled', error: 'Recipient is on the suppression list' })
+        .in('id', suppressedRows.map(r => r.id));
+      console.log(`[newsletter/send] skipped ${suppressedRows.length} suppressed recipient(s)`);
+    }
+    if (!sendable.length) {
+      return res.json({ ok: true, sent: 0, failed: 0, suppressed: suppressedRows.length });
+    }
+
     // Prefetch all properties needed
-    const allSlugs = [...new Set(sends.flatMap(s => s.property_slugs || []))];
+    const allSlugs = [...new Set(sendable.flatMap(s => s.property_slugs || []))];
     const { data: properties } = await db
       .from('properties')
       .select('slug, title, region, city, country, price, currency, img, beds, size')
@@ -63,7 +80,7 @@ export default async function handler(req, res) {
 
     // Prefetch contact first names — skip anyone tagged 'unsubscribed' or whose
     // email has been anonymised to the @deleted.local GDPR-erasure placeholder.
-    const contactIds = sends.map(s => s.contact_id);
+    const contactIds = sendable.map(s => s.contact_id);
     const { data: contacts } = await db
       .from('contacts')
       .select('id, first_name, email, tags')
@@ -76,7 +93,7 @@ export default async function handler(req, res) {
 
     let sent = 0, failed = 0;
 
-    for (const sendRow of sends) {
+    for (const sendRow of sendable) {
       try {
         const contact   = contactById[sendRow.contact_id] || {};
         const firstName = contact.first_name || 'there';
@@ -156,7 +173,7 @@ export default async function handler(req, res) {
       .update({ status: 'sent', sent_count: sent, sent_at: new Date().toISOString() })
       .eq('id', campaignId);
 
-    return res.json({ ok: true, sent, failed });
+    return res.json({ ok: true, sent, failed, suppressed: suppressedRows.length });
   } catch (err) {
     console.error('[newsletter/send]', err);
     return res.status(500).json({ error: err.message });

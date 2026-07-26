@@ -13,6 +13,7 @@ import { Resend } from 'resend';
 import { FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
 import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
+import { filterSuppressed } from '@/lib/suppressions';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const BATCH_SIZE = 100; // Resend batch limit
@@ -49,13 +50,43 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, sent: 0, message: 'No pending emails found for this campaign.' });
   }
 
+  // ── Suppression guard (added 26 Jul 2026) ───────────────────────────────────
+  // This route is a SECOND, manual drain of the same `email_queue` pending pool
+  // that /api/process-email-queue drains on a 5-minute cron. The cron runs every
+  // row through preflightSequenceEmail (suppression list, late cancel, frequency
+  // cap). This route used to run them through nothing at all — it pushed straight
+  // to Resend's batch API — so clicking "Send Campaign" in the CRM bypassed every
+  // guard rail the cron applies to the very same rows.
+  //
+  // TODO: ideally this route should call preflightSequenceEmail so the manual
+  // button and the cron are provably identical. The suppression check below is
+  // the minimum that stops an opted-out person being mailed.
+  const { kept: sendableRows, dropped: suppressedRows } =
+    await filterSuppressed(db, rows, r => r.to_email);
+
+  if (suppressedRows.length) {
+    await db.from('email_queue').update({
+      status:      'cancelled',
+      rejected_at: new Date().toISOString(),
+      notes:       'Cancelled — recipient is on the suppression list',
+    }).in('id', suppressedRows.map(r => r.id));
+    console.log(`[Campaign] skipped ${suppressedRows.length} suppressed recipient(s)`);
+  }
+
+  if (!sendableRows.length) {
+    return res.status(200).json({
+      ok: true, sent: 0, suppressed: suppressedRows.length,
+      message: 'Every pending recipient for this campaign is on the suppression list.',
+    });
+  }
+
   let sent = 0;
   let failed = 0;
   const now = new Date().toISOString();
 
   // Send in batches of BATCH_SIZE via Resend batch API
-  for (let i = 0; i < rows.length; i += BATCH_SIZE) {
-    const batch = rows.slice(i, i + BATCH_SIZE);
+  for (let i = 0; i < sendableRows.length; i += BATCH_SIZE) {
+    const batch = sendableRows.slice(i, i + BATCH_SIZE);
 
     const batchPayload = batch.map(row => ({
       from:     FROM_ADDRESS,
@@ -85,5 +116,5 @@ export default async function handler(req, res) {
     }
   }
 
-  return res.status(200).json({ ok: true, sent, failed, campaignId });
+  return res.status(200).json({ ok: true, sent, failed, suppressed: suppressedRows.length, campaignId });
 }

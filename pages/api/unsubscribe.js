@@ -7,13 +7,22 @@
  * email footer, so only the recipient of that email can produce it.
  *
  * On a valid token:
- *   1. Upserts the address into `suppressions` (email PK, reason, scope,
- *      note). Every sender path checks this table before sending:
- *      lib/email/engine.js, lib/followupSequence.js and the
- *      /api/process-email-queue preflight.
+ *   1. Records the opt-out via lib/suppressions.js `suppress()`, which writes
+ *      BOTH registers — the `suppressions` row AND the `unsubscribed` tag on
+ *      any matching contact.
  *   2. Cancels every still-pending email_queue row addressed to them, using
  *      the same verified status write ('cancelled', falling back to
  *      'rejected') as the rest of the sequence code.
+ *
+ * WHY BOTH REGISTERS (fixed 26 Jul 2026)
+ * --------------------------------------
+ * This route used to write the `suppressions` row only, and its comment here
+ * wrongly claimed "every sender path checks this table". That was false: the
+ * sequence engine checks `suppressions`, but the newsletter audience resolver
+ * and /api/admin/newsletter/send checked ONLY `contacts.tags @> {unsubscribed}`.
+ * So everyone who clicked this link stayed in the newsletter audience and kept
+ * being mailed — seven real people, two of whom had asked in writing to be
+ * removed. Writing through `suppress()` keeps the two registers in lockstep.
  *
  * Idempotent — clicking the link twice, or after a manual suppression, is a
  * no-op that still returns 200.
@@ -21,6 +30,7 @@
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { normalizeEmail, verifyUnsubToken } from '@/lib/unsub';
 import { safeStatusUpdate } from '@/lib/followupSequence';
+import { suppress } from '@/lib/suppressions';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -42,20 +52,17 @@ export default async function handler(req, res) {
 
   const db = getDb();
 
-  // ── 1. Suppression list ───────────────────────────────────────────────────
-  // ignoreDuplicates keeps the original row (and its reason/note) if the
-  // address was already suppressed — repeat clicks change nothing.
-  const { error: supErr } = await db.from('suppressions').upsert(
-    {
-      email,
-      reason: 'unsubscribed',
-      scope:  'all',
-      note:   'Via /unsubscribe link',
-    },
-    { onConflict: 'email', ignoreDuplicates: true },
-  );
-  if (supErr) {
-    console.error('[unsubscribe] suppression upsert failed:', supErr.message);
+  // ── 1. Record the opt-out in BOTH registers ──────────────────────────────
+  // suppress() upserts the suppressions row (ignoreDuplicates, so repeat
+  // clicks keep the original reason/note) and mirrors the `unsubscribed` tag
+  // onto every matching contact, which is what the newsletter filters on.
+  const { ok, error: supErr } = await suppress(db, email, {
+    reason: 'unsubscribed',
+    scope:  'all',
+    note:   'Via /unsubscribe link',
+  });
+  if (!ok) {
+    console.error('[unsubscribe] suppression write failed:', supErr);
     return res.status(500).json({ error: 'Could not save your preference' });
   }
 
