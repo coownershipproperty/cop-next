@@ -15,6 +15,7 @@ import NewListingsDigest from '@/emails/new-listings-digest';
 import * as React from 'react';
 import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
+import { unsubUrl } from '@/lib/unsub';
 
 const BASE = 'https://co-ownership-property.com';
 
@@ -109,7 +110,8 @@ export default async function handler(req, res) {
 
   for (const contact of toQueue) {
     try {
-      const unsubscribeUrl = `${BASE}/unsubscribe/?email=${encodeURIComponent(contact.email)}`;
+      // Tokenised — the plain `?email=` form dead-ends. See lib/unsub.js.
+      const unsubscribeUrl = unsubUrl(contact.email);
       await queueEmail({
         to:            contact.email,
         toName:        [contact.first_name, contact.last_name].filter(Boolean).join(' ') || null,

@@ -4,6 +4,7 @@ import { upsertContact, logActivity } from '@/lib/crm';
 import { queueEmail, sendTeamNotification, addToAudience } from '@/lib/resend';
 import Welcome1 from '@/emails/welcome-1';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
+import { unsubUrl } from '@/lib/unsub';
 import * as React from 'react';
 
 const base = 'https://co-ownership-property.com';
@@ -58,7 +59,9 @@ export default async function handler(req, res) {
     console.error('[Mail] team notification failed:', e.message);
   }
 
-  const unsubscribeUrl = `${base}/unsubscribe/?email=${encodeURIComponent(email)}`;
+  // Tokenised — the plain `?email=` form is rejected by /api/unsubscribe and
+  // dead-ends on /unsubscribe. See lib/unsub.js.
+  const unsubscribeUrl = unsubUrl(email);
   const contactId = contact?.id || null;
 
   // ── Welcome email — sent immediately ───────────────────────────────────────

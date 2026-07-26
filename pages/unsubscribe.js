@@ -10,6 +10,18 @@
  * can't be verified, so they get a polite mailto fallback instead of a 404
  * (which is what this page replaced).
  *
+ * NOTE (26 Jul 2026): that fallback was doing far more work than intended.
+ * Five live senders — including lib/newsletter/render.js, which built the
+ * footer for every newsletter — were still emitting the tokenless form, so
+ * 2,671 marketing emails to 742 people carried a link that landed on the
+ * 'legacy' message and unsubscribed nobody: 2,241 newsletters (four campaigns,
+ * 20 May – 7 Jul), 372 new-listings digests (27 Apr) and 58 welcome emails
+ * (26 Apr – 22 Jul, i.e. still going out four days before this was found).
+ * The suppressions table confirms it — every row in it was written by hand;
+ * not one came from this page. All five senders now use unsubUrl(). If you
+ * see the 'legacy' state in the wild from here on it really is an old email —
+ * grep for `/unsubscribe/?email=` before assuming so.
+ *
  * Standalone and minimal on purpose (like /gallery): no header, no footer,
  * no newsletter form — nobody arriving here wants another signup box.
  */

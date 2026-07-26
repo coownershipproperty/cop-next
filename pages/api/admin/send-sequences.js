@@ -14,6 +14,7 @@ import { queueEmail } from '@/lib/resend';
 import ReEngagement from '@/emails/re-engagement';
 import * as React from 'react';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
+import { unsubUrl } from '@/lib/unsub';
 
 const base = 'https://co-ownership-property.com';
 
@@ -70,7 +71,8 @@ export default async function handler(req, res) {
   for (const contact of toQueue) {
     try {
       const firstName = contact.first_name || undefined;
-      const unsubscribeUrl = `${base}/unsubscribe/?email=${encodeURIComponent(contact.email)}`;
+      // Tokenised — the plain `?email=` form dead-ends. See lib/unsub.js.
+      const unsubscribeUrl = unsubUrl(contact.email);
 
       await queueEmail({
         to:            contact.email,

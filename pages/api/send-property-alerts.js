@@ -7,6 +7,7 @@
  */
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { queueEmail } from '@/lib/resend';
+import { unsubUrl } from '@/lib/unsub';
 import PropertyAlert from '@/emails/property-alert';
 import * as React from 'react';
 
@@ -105,7 +106,8 @@ export default async function handler(req, res) {
           matchCount:    matches.length,
           properties:    alertProperties,
           editAlertUrl:  `https://co-ownership-property.com/our-homes/`,
-          unsubscribeUrl: `https://co-ownership-property.com/unsubscribe/?email=${encodeURIComponent(search.email)}`,
+          // Tokenised — the plain `?email=` form dead-ends. See lib/unsub.js.
+          unsubscribeUrl: unsubUrl(search.email),
         }),
         templateName:  'property-alert',
         templateProps: { searchCriteria, matchCount: matches.length },
