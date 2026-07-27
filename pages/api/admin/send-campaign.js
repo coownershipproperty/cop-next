@@ -14,6 +14,7 @@ import { FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
 import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { filterSuppressed } from '@/lib/suppressions';
+import { resolveUnsubPlaceholder } from '@/lib/unsub';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const BATCH_SIZE = 100; // Resend batch limit
@@ -92,7 +93,9 @@ export default async function handler(req, res) {
       from:     FROM_ADDRESS,
       to:       [row.to_email],
       subject:  row.subject,
-      html:     row.html,
+      // Campaigns staged outside the app carry {{UNSUB_URL}} rather than a real
+      // link, because the signing secret only exists here. No-op otherwise.
+      html:     resolveUnsubPlaceholder(row.html, row.to_email),
       reply_to: REPLY_TO,
     }));
 

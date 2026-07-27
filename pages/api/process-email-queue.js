@@ -23,6 +23,7 @@
  * constraint), so a failed row always leaves the 'pending' pool.
  */
 import { sendHtml, FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
+import { resolveUnsubPlaceholder } from '@/lib/unsub';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { createEmailSend } from '@/lib/crm';
 import { preflightSequenceEmail, MANAGED_SEQUENCE_TYPES } from '@/lib/followupSequence';
@@ -112,7 +113,14 @@ export default async function handler(req, res) {
       const from    = row.template_props?.from    || FROM_ADDRESS;
       const replyTo = row.template_props?.replyTo || REPLY_TO;
 
-      await sendHtml({ to: row.to_email, subject: row.subject, html: row.html, from, replyTo });
+      await sendHtml({
+        to:      row.to_email,
+        subject: row.subject,
+        // Rows staged outside the app carry {{UNSUB_URL}}; no-op for the rest.
+        html:    resolveUnsubPlaceholder(row.html, row.to_email),
+        from,
+        replyTo,
+      });
 
       const { error: uErr } = await db.from('email_queue').update({
         status:  'sent',
