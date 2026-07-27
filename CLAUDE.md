@@ -4,12 +4,31 @@
 
 ## Stack & Deployment
 - Next.js SSG site deployed on **Vercel** — every `git push origin main` auto-deploys
-- Primary data file: `lib/properties.json` (source of truth for all property pages)
 - Google Sheet (master import): `https://docs.google.com/spreadsheets/d/1EPOcoylQ11dBqutw0zsyasviSwjs1Fmsg8AhoDuseXw`
 - Sync sheet → JSON: `node scripts/sync-sheet.js` (preserves longer descriptions/amenities/notes)
 - Google Drive parent folder: `1tO1sgQ4_LEylvdjkySFDKSi6CzAf98Zl` (COP Property Photos CLAUDE)
 - Drive service account: `cop-drive-bot@tidy-bliss-493400-p4.iam.gserviceaccount.com`
 - Drive credentials: `/sessions/laughing-dreamy-cannon/mnt/uploads/tidy-bliss-493400-p4-1a35d5ceba63.json`
+
+## Where property data comes from — read this before touching a listing page
+
+**Supabase (project `iotzzoxyckpyatzqcjbo`, table `properties`) is the source of truth.**
+Every public page that lists or renders a property queries it live and filters
+`status IN ('Live','for_sale')` — hidden and sold rows must never render publicly.
+
+Pages on that contract: `pages/property/[slug].js`, `pages/our-homes.js`,
+`pages/[slug].js` (English destination hubs), `pages/es/destinos/[slug].js`,
+`pages/fr/destinations/[slug].js`, `pages/de/destinationen/[slug].js`,
+`pages/viewings/index.js`. They all set `revalidate` (3600s), so a home listed or
+sold in Supabase appears or disappears within the hour without a deploy.
+
+`lib/properties.json` is **NOT the source of truth**, and as of 27 Jul 2026 no page
+reads it. It used to back the English destination hubs, and by the time they were
+moved to Supabase the snapshot had been drifting since April — it advertised homes
+that had already sold and hid roughly 38 homes that had since been listed. It
+survives only as an input to the scraper/import scripts below and to the
+`destination-page-rewrite` skill's photo inventory. **Never add a page that reads
+it, and never treat its contents as what the site is currently showing.**
 
 ## Partners
 | Partner | Status | Notes |

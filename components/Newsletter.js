@@ -15,6 +15,7 @@ const COPY = {
     heading: 'Be The First To Know',
     subtitle: 'Join our community for exclusive listings and destination insights delivered straight to your inbox.',
     placeholder: 'Enter your email address',
+    phone_placeholder: 'Phone number (optional)',
     button_idle: 'Join Newsletter',
     button_sending: 'Subscribing…',
     button_success: 'Subscribed!',
@@ -26,6 +27,7 @@ const COPY = {
     heading: 'Sé el primero en enterarte',
     subtitle: 'Únete a nuestra comunidad para recibir propiedades exclusivas y análisis de destinos directamente en tu bandeja de entrada.',
     placeholder: 'Tu correo electrónico',
+    phone_placeholder: 'Teléfono (opcional)',
     button_idle: 'Suscribirme',
     button_sending: 'Enviando…',
     button_success: '¡Suscrito!',
@@ -37,6 +39,7 @@ const COPY = {
     heading: 'Soyez les premiers informés',
     subtitle: 'Rejoignez notre communauté pour recevoir notre offre exclusive et nos analyses de destinations directement dans votre boîte mail.',
     placeholder: 'Votre adresse email',
+    phone_placeholder: 'Téléphone (facultatif)',
     button_idle: "M'inscrire",
     button_sending: 'Envoi en cours…',
     button_success: 'Inscrit !',
@@ -48,6 +51,7 @@ const COPY = {
     heading: 'Erfahren Sie es als Erste(r)',
     subtitle: 'Werden Sie Teil unserer Community und erhalten Sie exklusive Immobilien sowie Reiseziel-Analysen direkt in Ihr Postfach.',
     placeholder: 'Ihre E-Mail-Adresse',
+    phone_placeholder: 'Telefonnummer (optional)',
     button_idle: 'Newsletter abonnieren',
     button_sending: 'Wird gesendet…',
     button_success: 'Abonniert!',
@@ -62,7 +66,12 @@ export default function Newsletter() {
   const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
 
-  const [email, setEmail] = useState(getSavedUser().email);
+  const savedUser = getSavedUser();
+  const [email, setEmail] = useState(savedUser.email);
+  // Optional, never required — the same field, copy and behaviour as the
+  // gallery unlock. A newsletter subscriber with a number is a lead a partner
+  // will accept; one without is a name on a list.
+  const [phone, setPhone] = useState(savedUser.phone || '');
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [msg, setMsg] = useState('');
 
@@ -70,6 +79,7 @@ export default function Newsletter() {
     e.preventDefault();
     const honeypot = e.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
     if (!email) return;
+    const sendPhone = String(phone || '').trim();
 
     setStatus('sending');
     setMsg('');
@@ -78,11 +88,11 @@ export default function Newsletter() {
       const res = await fetch('/api/newsletter/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, locale, [HONEYPOT_FIELD]: honeypot }),
+        body: JSON.stringify({ email, phone: sendPhone, locale, [HONEYPOT_FIELD]: honeypot }),
       });
       const data = await res.json();
       if (data.ok) {
-        saveUser({ email });
+        saveUser({ email, phone: sendPhone });
         setStatus('success');
         setMsg(t.msg_success);
         trackConversion('sign_up', 'Lead', { method: 'newsletter', locale });
@@ -104,6 +114,7 @@ export default function Newsletter() {
       <form className="newsletter-form" id="cop-newsletter-form" onSubmit={handleSubmit} noValidate>
         <HoneypotField />
         <input type="email" name="email" placeholder={t.placeholder} required value={email} onChange={e => setEmail(e.target.value)} />
+        <input type="tel" name="phone" inputMode="tel" autoComplete="tel" placeholder={t.phone_placeholder} value={phone} onChange={e => setPhone(e.target.value)} />
         <button type="submit" className="newsletter-btn" disabled={status === 'sending'}>
           {status === 'sending' ? t.button_sending : status === 'success' ? t.button_success : t.button_idle}
         </button>

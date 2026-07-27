@@ -123,6 +123,7 @@ const COPY = {
     alert_max_budget: 'Max Budget', alert_any_budget: 'Any budget',
     alert_under_100: 'Under €100,000', alert_up_to: 'Up to', alert_over_1m: '€1,000,000+',
     alert_name_ph: 'Your name (optional)', alert_email_ph: 'Your email address *',
+    alert_phone_ph: 'Phone number (optional)',
     alert_save: 'Save Alert →', alert_saving: 'Saving…',
     alert_saved: 'Alert saved!',
     alert_saved_msg: "We'll email you at",
@@ -162,6 +163,7 @@ const COPY = {
     alert_max_budget: 'Presupuesto máximo', alert_any_budget: 'Cualquier presupuesto',
     alert_under_100: 'Menos de €100.000', alert_up_to: 'Hasta', alert_over_1m: '€1.000.000+',
     alert_name_ph: 'Tu nombre (opcional)', alert_email_ph: 'Tu correo electrónico *',
+    alert_phone_ph: 'Teléfono (opcional)',
     alert_save: 'Guardar alerta →', alert_saving: 'Guardando…',
     alert_saved: '¡Alerta guardada!',
     alert_saved_msg: 'Te avisaremos en',
@@ -229,6 +231,7 @@ const COPY = {
     alert_max_budget: 'Budget maximum', alert_any_budget: 'Tout budget',
     alert_under_100: 'Moins de 100 000 €', alert_up_to: "Jusqu'à", alert_over_1m: '1 000 000 €+',
     alert_name_ph: 'Votre nom (optionnel)', alert_email_ph: 'Votre adresse email *',
+    alert_phone_ph: 'Téléphone (facultatif)',
     alert_save: "Enregistrer l'alerte →", alert_saving: 'Enregistrement…',
     alert_saved: 'Alerte enregistrée !',
     alert_saved_msg: 'Nous vous enverrons un email à',
@@ -296,6 +299,7 @@ const COPY = {
     alert_max_budget: 'Maximalbudget', alert_any_budget: 'Beliebiges Budget',
     alert_under_100: 'Unter 100.000 €', alert_up_to: 'Bis zu', alert_over_1m: 'Über 1.000.000 €',
     alert_name_ph: 'Ihr Name (optional)', alert_email_ph: 'Ihre E-Mail-Adresse *',
+    alert_phone_ph: 'Telefonnummer (optional)',
     alert_save: 'Benachrichtigung speichern →', alert_saving: 'Wird gespeichert…',
     alert_saved: 'Benachrichtigung gespeichert!',
     alert_saved_msg: 'Wir senden Ihnen eine E-Mail an',
@@ -378,6 +382,10 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   const [alertOpen,     setAlertOpen]     = useState(false);
   const [alertEmail,    setAlertEmail]    = useState('');
   const [alertName,     setAlertName]     = useState('');
+  // Optional — never required. The gallery unlock proved that asking without
+  // demanding raises capture rather than costing conversions (see the 20 Jul
+  // change); this is the same field, same copy, same behaviour.
+  const [alertPhone,    setAlertPhone]    = useState('');
   const [alertStatus,   setAlertStatus]   = useState('idle'); // idle | sending | done | error
   const [alertRegions,  setAlertRegions]  = useState([]);
   const [alertMaxPrice, setAlertMaxPrice] = useState('');
@@ -537,6 +545,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
         body: JSON.stringify({
           email:    alertEmail,
           name:     alertName || null,
+          phone:    String(alertPhone || '').trim() || null,
           regions:  alertRegions.length > 0 ? alertRegions : ['All'],
           maxPrice: alertMaxPrice || null,
         }),
@@ -829,6 +838,17 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
                     value={alertEmail}
                     onChange={e => setAlertEmail(e.target.value)}
                     required
+                  />
+                  {/* Deliberately not `required` — the label says optional and
+                      the field means it. Partners need a number to accept a
+                      lead, so every one collected here is a lead we can act on. */}
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    placeholder={t.alert_phone_ph}
+                    value={alertPhone}
+                    onChange={e => setAlertPhone(e.target.value)}
                   />
 
                   <button type="submit" disabled={alertStatus === 'sending'}>

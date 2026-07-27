@@ -3,7 +3,12 @@
  * Saves a visitor's search criteria so they can receive alerts when matching
  * properties are added.
  *
- * Body: { email, name?, regions[], maxPrice?, minBeds? }
+ * Body: { email, name?, phone?, regions[], maxPrice?, minBeds? }
+ *
+ * `phone` is optional and is stored on the CONTACT, not on the saved search —
+ * saved_searches has no phone column and does not need one. A number here is
+ * what turns an alert subscriber into a lead we can hand to a partner, so it is
+ * worth collecting even though nothing in this handler depends on it.
  */
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { upsertContact, createLead, incrementScore, logActivity } from '@/lib/crm';
@@ -55,7 +60,7 @@ async function getMatchingProperties(regions, maxPrice, minBeds) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { email, name, regions, maxPrice, minBeds } = req.body;
+  const { email, name, phone, regions, maxPrice, minBeds } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
   if (!regions || regions.length === 0) return res.status(400).json({ error: 'Select at least one region' });
 
@@ -93,6 +98,9 @@ export default async function handler(req, res) {
       email,
       firstName: nameParts[0] || null,
       lastName:  nameParts.slice(1).join(' ') || null,
+      // upsertContact ignores a blank/short value rather than overwriting an
+      // existing number with null, so passing it unconditionally is safe.
+      phone:     phone || null,
       source:    'saved_search',
     });
     if (contact) {
@@ -110,7 +118,7 @@ export default async function handler(req, res) {
         contactId:   contact.id,
         type:        'search_saved',
         description: `Saved search: ${regions.join(', ')}${maxPrice ? `, max \u20ac${parseInt(maxPrice).toLocaleString()}` : ''}`,
-        metadata:    { regions, maxPrice, minBeds },
+        metadata:    { regions, maxPrice, minBeds, phone: phone || null },
       });
     }
   } catch (e) {
@@ -248,6 +256,7 @@ export default async function handler(req, res) {
         <h2>New Property Alert</h2>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Name:</strong> ${name || 'Not provided'}</p>
+        <p><strong>Phone:</strong> ${phone ? phone : '<em>not provided (optional field)</em>'}</p>
         <p><strong>Regions:</strong> ${regions.join(', ')}</p>
         ${maxPrice ? `<p><strong>Max Budget:</strong> \u20ac${parseInt(maxPrice).toLocaleString()}</p>` : ''}
         ${minBeds  ? `<p><strong>Min Beds:</strong> ${minBeds}</p>` : ''}

@@ -1803,13 +1803,18 @@ img {
 
 .newsletter-form {
             display: flex;
+            /* Widened from 620px when the optional phone field was added, so
+               email + phone + button still fit on one line. flex-wrap is the
+               safety valve: a long button label (DE) drops to a second row
+               instead of squeezing the inputs to nothing. */
+            flex-wrap: wrap;
             gap: 1rem;
-            max-width: 620px;
+            max-width: 780px;
             margin: 0 auto;
         }
 
 .newsletter-form input {
-            flex: 1;
+            flex: 1 1 200px;
             padding: 0.9rem 1.5rem;
             border: 1px solid #ddd;
             background: var(--white);
@@ -1818,6 +1823,10 @@ img {
             border-radius: 0;
             outline: none;
         }
+
+/* The phone field is optional and secondary — it takes the smaller share of
+   the row so the email input stays the obvious primary action. */
+.newsletter-form input[type="tel"] { flex: 0 1 190px; }
 
 .newsletter-form input::placeholder { color: var(--text-muted); }
 
@@ -5468,14 +5477,22 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             line-height: 1.6;
             color: var(--text-muted);
         }
+        /* NOTE: this block is a later duplicate of the .newsletter-form rules
+           around line 1804 and, being last, is the one that actually applies.
+           Any change up there must be mirrored here or it will do nothing. */
         .newsletter-form {
             display: flex;
+            /* Widened from 620px when the optional phone field was added, so
+               email + phone + button still fit on one line. flex-wrap is the
+               safety valve: a long button label (DE) drops to a second row
+               instead of squeezing the inputs to nothing. */
+            flex-wrap: wrap;
             gap: 1rem;
-            max-width: 620px;
+            max-width: 780px;
             margin: 0 auto;
         }
         .newsletter-form input {
-            flex: 1;
+            flex: 1 1 200px;
             padding: 0.9rem 1.5rem;
             border: 1px solid #ddd;
             background: var(--white);
@@ -5484,6 +5501,9 @@ details[open] .dest-faq-chevron{transform:rotate(-135deg)}
             border-radius: 0;
             outline: none;
         }
+        /* The phone field is optional and secondary — it takes the smaller
+           share of the row so the email input stays the primary action. */
+        .newsletter-form input[type="tel"] { flex: 0 1 190px; }
         .newsletter-form input::placeholder { color: var(--text-muted); }
         .newsletter-form input:focus { border-color: var(--warm-gold); }
         .newsletter-btn {
@@ -9868,3 +9888,42 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-coown-item span{font-family:'Nunito Sans',Arial,sans-serif;font-size:.85rem;line-height:1.55;color:#44535B}
 @media(max-width:640px){.pp-coown-list{grid-template-columns:1fr}}
 .pp-financing{margin:0 0 32px}
+
+/* ── Exit-intent / scroll-depth capture popup (components/ExitPopup.js) ──────
+   Deliberately a quieter sibling of the gallery unlock (.ul-*) rather than a
+   copy of it: the unlock is something the visitor asked for, this one arrives
+   uninvited, so it sits lower in the corner on desktop and only takes the
+   whole screen on mobile where a corner card would be unreadable. Square
+   corners, navy/gold, Playfair heading — same brand rules as the rest.
+   No .cp- rules exist anywhere above; this is the only block. */
+.cp-overlay{position:fixed;inset:0;background:rgba(20,48,71,.45);z-index:10002;display:flex;align-items:flex-end;justify-content:flex-end;padding:28px}
+.cp-modal{background:#fff;max-width:400px;width:100%;padding:34px 32px 28px;position:relative;box-shadow:0 18px 50px rgba(20,48,71,.28);max-height:calc(100vh - 56px);overflow-y:auto;animation:cp-rise .28s ease-out}
+@keyframes cp-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.cp-close{position:absolute;top:10px;right:14px;font-size:1.7rem;background:none;border:none;color:#6b8a9e;cursor:pointer;line-height:1;padding:4px}
+.cp-close:hover{color:#143047}
+.cp-eye{font-family:'Nunito Sans',Arial,sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#C9A84C;margin:0 0 8px}
+.cp-modal h3{font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;font-weight:400;color:#143047;margin:0 0 10px;line-height:1.3}
+.cp-sub{font-family:'Nunito Sans',Arial,sans-serif;font-size:.88rem;color:#4a5568;margin:0 0 22px;line-height:1.6}
+.cp-form{display:flex;flex-direction:column;gap:14px}
+.cp-form input{font-family:'Nunito Sans',Arial,sans-serif;font-size:.9rem;color:#143047;border:none;border-bottom:1px solid #ddd;background:transparent;padding:8px 0;outline:none;transition:border-color .2s;width:100%}
+.cp-form input:focus{border-bottom-color:#143047}
+.cp-form button[type="submit"]{font-family:'Nunito Sans',Arial,sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#C9A84C;color:#fff;border:none;padding:14px;cursor:pointer;width:100%;transition:background .2s;margin-top:4px}
+.cp-form button[type="submit"]:hover{background:#b8943d}
+.cp-form button[type="submit"]:disabled{opacity:.6;cursor:not-allowed}
+.cp-err{font-family:'Nunito Sans',Arial,sans-serif;font-size:.8rem;color:#c0392b;margin:4px 0 0}
+.cp-fine{font-family:'Nunito Sans',Arial,sans-serif;font-size:.72rem;color:#8a9aa5;margin:14px 0 0;text-align:center}
+.cp-success{text-align:center;padding:14px 0}
+.cp-tick{font-size:2.4rem;color:#C9A84C;margin-bottom:10px;display:block;line-height:1}
+.cp-success h3{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;font-weight:400;color:#143047;margin:0 0 8px}
+.cp-success p{font-family:'Nunito Sans',Arial,sans-serif;font-size:.88rem;color:#4a5568;line-height:1.6;margin:0}
+/* Mobile: centre it and let it breathe — a 400px corner card on a phone is
+   just a cramped full-width card with wasted margin. */
+@media(max-width:640px){
+  .cp-overlay{align-items:center;justify-content:center;padding:18px}
+  .cp-modal{padding:30px 24px 24px;max-height:calc(100vh - 36px)}
+}
+/* Respect the OS "reduce motion" setting — an uninvited overlay that also
+   animates is the exact combination motion-sensitive visitors opt out of. */
+@media(prefers-reduced-motion:reduce){
+  .cp-modal{animation:none}
+}

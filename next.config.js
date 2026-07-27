@@ -889,6 +889,80 @@ nextConfig.redirects = async () => [
   { source: '/blog/your-path-to-fractional-ownership-a-simple-4-step-guide/', destination: '/all-our-blog/', permanent: true },
   { source: '/blog/your-pied-a-terre-in-central-paris-close-to-all-the-amenities/', destination: '/all-our-blog/', permanent: true },
 
+
+  // ── Locale FAQ 404s ──────────────────────────────────────────────────────────
+  // The ES and FR footers linked at /es/preguntas-frecuentes/ and /fr/faq/, which
+  // have never existed — the real pages are the ROUTE_MAP names in lib/i18n.js.
+  // The footer is fixed too; these catch the links already in the wild (GA4 shows
+  // them as live 404 traffic, and other sites link them).
+  { source: '/es/preguntas-frecuentes/', destination: '/es/comprar-copropiedad-preguntas-frecuentes/', permanent: true },
+  { source: '/fr/faq/', destination: '/fr/acheter-copropriete-questions-frequentes/', permanent: true },
+
+  // ── GA4 404 fixes – legacy /property/* slugs (batch 2, Jul 2026) ─────────────
+  // WordPress-era slugs that were never migrated. Each target is the same place
+  // with the same bedroom count, verified Live/for_sale in Supabase; where the
+  // home itself is gone the redirect goes to its destination hub rather than to
+  // /our-homes/, so the visitor still lands on comparable properties.
+  { source: '/property/apricale-italy-3-bed-villa-with-spectacular-views/', destination: '/property/apricale-italy-3-bed-villa-with-infinity-pool/', permanent: true },
+  { source: '/property/aspen-co-4-bed-villa-ski-in-ski-out/', destination: '/property/aspen-colorado-4-bed-house-ski-inski-out/', permanent: true },
+  { source: '/property/asturias-spain-4-bed-villa-with-private-pool/', destination: '/property/asturias-spain-4-bed-villa-with-garden/', permanent: true },
+  { source: '/property/baqueira-spain-3-bed-chalet-ski-in-ski-out/', destination: '/property/baqueira-spain-3-bed-apartment-ski-inski-out/', permanent: true },
+  { source: '/property/baqueira-spain-3-bed-chalet-with-garden/', destination: '/property/baqueira-spain-3-bed-penthouse-with-fireplace/', permanent: true },
+  { source: '/property/baqueira-spain-4-bed-chalet-ski-in-ski-out/', destination: '/property/baqueira-spain-4-bed-chalet-with-fireplace-x/', permanent: true },
+  { source: '/property/baqueira-spain-5-bed-chalet-with-garden/', destination: '/property/baqueira-spain-5-bed-chalet-with-pool/', permanent: true },
+  { source: '/property/bend-or-7-bed-villa-with-hot-tub/', destination: '/property/bend-oregon-7-bed-house-with-pool/', permanent: true },
+  { source: '/property/cantabria-spain-4-bed-villa-with-private-garden/', destination: '/property/cantabria-spain-4-bed-house-with-fireplace-3/', permanent: true },
+  { source: '/property/costa-de-la-luz-spain-4-bed-villa-with-sea-views-2/', destination: '/property/costa-de-la-luz-spain-4-bed-villa-with-sea-views-x/', permanent: true },
+  { source: '/property/costa-del-sol-spain-2-bed-villa-with-sea-views/', destination: '/property/costa-del-sol-spain-2-bed-apartment-with-sea-views/', permanent: true },
+  { source: '/property/costa-del-sol-spain-3-bed-villa-with-private-garden/', destination: '/property/costa-del-sol-spain-3-bed-house-with-fireplace/', permanent: true },
+  { source: '/property/ibiza-spain-3-bed-villa-with-private-garden/', destination: '/property/ibiza-spain-3-bed-apartment-with-pool/', permanent: true },
+  { source: '/property/ibiza-spain-3-bed-villa-with-sea-views-2/', destination: '/property/ibiza-spain-3-bed-house-with-sea-views/', permanent: true },
+  { source: '/property/ibiza-spain-3-bed-villa-with-sea-views-3/', destination: '/property/ibiza-spain-3-bed-house-with-sea-views/', permanent: true },
+  { source: '/property/ibiza-spain-3-bed-villa-with-sea-views-4/', destination: '/property/ibiza-spain-3-bed-house-with-sea-views/', permanent: true },
+  { source: '/property/ibiza-spain-3-bed-villa-with-sea-views-5/', destination: '/property/ibiza-spain-3-bed-house-with-sea-views/', permanent: true },
+  { source: '/property/ibiza-spain-3-bed-villa-with-sea-views/', destination: '/property/ibiza-spain-3-bed-house-with-sea-views/', permanent: true },
+  { source: '/property/ibiza-spain-4-bed-villa-with-sea-views/', destination: '/property/ibiza-spain-4-bed-apartment-with-sea-views/', permanent: true },
+  { source: '/property/isle-of-palms-sc-5-bed-cabin-with-hot-tub/', destination: '/property/isle-of-palms-south-carolina-5-bed-house-with-beach-access/', permanent: true },
+  { source: '/property/jackson-wy-3-bed-cabin-with-hot-tub/', destination: '/property/jackson-wyoming-3-bed-house-with-hot-tub-2/', permanent: true },
+  { source: '/property/la-jolla-ca-3-bed-villa-with-hot-tub/', destination: '/property/la-jolla-california-3-bed-house-with-beach-access/', permanent: true },
+  { source: '/property/malibu-ca-3-bed-cabin-with-hot-tub/', destination: '/property/malibu-california-3-bed-estate-with-beach-access/', permanent: true },
+  { source: '/property/menorca-spain-4-bed-villa-with-private-pool-2/', destination: '/property/menorca-spain-4-bed-house-with-pool/', permanent: true },
+  { source: '/property/menorca-spain-4-bed-villa-with-private-pool-3/', destination: '/property/menorca-spain-4-bed-house-with-pool/', permanent: true },
+  { source: '/property/menorca-spain-4-bed-villa-with-private-pool-4/', destination: '/property/menorca-spain-4-bed-house-with-pool/', permanent: true },
+  { source: '/property/menorca-spain-4-bed-villa-with-private-pool/', destination: '/property/menorca-spain-4-bed-house-with-pool/', permanent: true },
+  { source: '/property/menorca-spain-5-bed-villa-with-sea-views/', destination: '/property/menorca-spain-5-bed-house-with-sea-views/', permanent: true },
+  { source: '/property/mountain-village-co-4-bed-villa-ski-in-ski-out/', destination: '/property/mountain-village-colorado-4-bed-house-ski-inski-out/', permanent: true },
+  { source: '/property/napa-ca-5-bed-cabin-with-garden/', destination: '/property/napa-california-5-bed-house-with-pool-2/', permanent: true },
+  { source: '/property/newport-beach-ca-3-bed-villa-2/', destination: '/property/newport-beach-california-3-bed-house-with-beach-access/', permanent: true },
+  { source: '/property/olympic-valley-ca-4-bed-cabin-with-hot-tub-2/', destination: '/property/olympic-valley-california-4-bed-house-with-hot-tub-2/', permanent: true },
+  { source: '/property/olympic-valley-ca-4-bed-cabin-with-mountain-views-2/', destination: '/property/olympic-valley-california-4-bed-house-with-hot-tub-2/', permanent: true },
+  { source: '/property/olympic-valley-ca-4-bed-villa-with-hot-tub/', destination: '/property/olympic-valley-california-4-bed-house-with-hot-tub-2/', permanent: true },
+  { source: '/property/palma-spain-3-bed-villa-with-terrace/', destination: '/property/palma-spain-3-bed-townhouse-with-pool/', permanent: true },
+  { source: '/property/paris-6th-arrondissement-france-2-bed-apartment-with-fireplace/', destination: '/property/6th-arrondissement-paris-france-2-bed-apartment-with-fireplace/', permanent: true },
+  { source: '/property/paris-6th-arrondissement-france-2-bed-apartment/', destination: '/property/6th-arrondissement-paris-france-2-bed-apartment/', permanent: true },
+  { source: '/property/paris-6th-arrondissement-france-3-bed-apartment/', destination: '/property/6th-arrondissement-paris-france-3-bed-apartment/', permanent: true },
+  { source: '/property/paris-7th-arrondissement-france-2-bed-apartment-2/', destination: '/property/7th-arrondissement-paris-france-2-bed-apartment/', permanent: true },
+  { source: '/property/paris-7th-arrondissement-france-2-bed-apartment/', destination: '/property/7th-arrondissement-paris-france-2-bed-apartment/', permanent: true },
+  { source: '/property/paris-7th-arrondissement-france-3-bed-apartment/', destination: '/property/7th-arrondissement-paris-france-3-bed-apartment/', permanent: true },
+  { source: '/property/park-city-ut-4-bed-villa-with-mountain-views/', destination: '/property/park-city-utah-4-bed-house-with-hot-tub/', permanent: true },
+  { source: '/property/park-city-ut-5-bed-villa-ski-in-ski-out/', destination: '/property/park-city-utah-5-bed-townhouse-ski-inski-out/', permanent: true },
+  { source: '/property/san-jos-del-cabo-mex-5-bed-villa-with-pool/', destination: '/property/san-jose-del-cabo-mexico-5-bed-villa/', permanent: true },
+  { source: '/property/santanyi-spain-5-bed-villa-with-spectacular-views/', destination: '/property/santanyi-spain-5-bed-finca-with-pool/', permanent: true },
+  { source: '/property/south-lake-tahoe-ca-5-bed-cabin-ski-in-ski-out/', destination: '/property/south-lake-tahoe-california-5-bed-house-ski-inski-out/', permanent: true },
+  { source: '/property/steamboat-springs-co-3-bed-villa-with-hot-tub/', destination: '/property/steamboat-springs-colorado-3-bed-house-with-pool/', permanent: true },
+  { source: '/property/steamboat-springs-co-4-bed-villa-with-hot-tub/', destination: '/property/steamboat-springs-colorado-4-bed-house-with-hot-tub/', permanent: true },
+  { source: '/property/tahoma-ca-3-bed-cabin-with-hot-tub/', destination: '/property/tahoma-california-3-bed-house-with-hot-tub/', permanent: true },
+  { source: '/property/truckee-ca-3-bed-villa-ski-in-ski-out/', destination: '/property/truckee-california-3-bed-house-ski-inski-out/', permanent: true },
+  { source: '/property/truckee-ca-4-bed-villa-ski-in-ski-out/', destination: '/property/truckee-california-4-bed-house-ski-inski-out/', permanent: true },
+  { source: '/property/truckee-ca-4-bed-villa-with-hot-tub-2/', destination: '/property/truckee-california-4-bed-house-with-hot-tub/', permanent: true },
+  { source: '/property/truckee-ca-4-bed-villa-with-hot-tub-3/', destination: '/property/truckee-california-4-bed-house-with-hot-tub/', permanent: true },
+  { source: '/property/truckee-ca-4-bed-villa-with-hot-tub/', destination: '/property/truckee-california-4-bed-house-with-hot-tub/', permanent: true },
+  { source: '/property/truckee-ca-5-bed-villa-with-hot-tub/', destination: '/property/truckee-california-5-bed-house-with-pool/', permanent: true },
+  { source: '/property/vail-co-4-bed-villa-with-hot-tub/', destination: '/property/vail-colorado-4-bed-house-with-hot-tub/', permanent: true },
+  { source: '/property/vail-co-5-bed-villa-with-mountain-views-2/', destination: '/property/vail-colorado-5-bed-house/', permanent: true },
+
+  // No same-place home is on the market any more — send these to the region hub.
+  { source: '/property/benahavis-spain-3-bed-villa-with-sea-views/', destination: '/costa-del-sol-fractional-ownership-properties/', permanent: true },
 ];
 
 // CORS for CRM dashboard — set at edge so OPTIONS preflight is handled before auth

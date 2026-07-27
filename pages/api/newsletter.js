@@ -16,8 +16,19 @@ export default async function handler(req, res) {
   // the bot sees a normal success response and does not retry or adapt.
   if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
-  const { email, locale: rawLocale } = req.body;
+  // `phone` is optional — the signup form asks but never requires. A subscriber
+  // who leaves a number is a lead a partner will accept; one who doesn't is
+  // still a perfectly good subscriber, so nothing below depends on it.
+  const { email, phone, source: rawSource, locale: rawLocale } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
+
+  // Every surface that subscribes someone to the list lands here, and each one
+  // needs to stay separable in reporting — `popup_cop` in particular is a
+  // long-running historical series (181 contacts, 28.7% phone capture) that the
+  // rebuilt exit popup rejoins rather than restarts. Allowlisted rather than
+  // free-text so a spoofed body cannot invent a channel and poison the numbers.
+  const ALLOWED_SOURCES = ['newsletter', 'popup_cop'];
+  const source = ALLOWED_SOURCES.includes(rawSource) ? rawSource : 'newsletter';
 
   // Locale handling — validates against SUPPORTED_LOCALES, falls back to default ('en')
   const locale = SUPPORTED_LOCALES.includes(rawLocale) ? rawLocale : DEFAULT_LOCALE;
@@ -29,13 +40,17 @@ export default async function handler(req, res) {
   // CRM: upsert contact + log activity
   let contact = null;
   try {
-    contact = await upsertContact({ email, source: 'newsletter', locale });
+    // upsertContact ignores a blank or implausibly short value rather than
+    // overwriting an existing number with null, so passing it is always safe.
+    contact = await upsertContact({ email, phone: phone || null, source, locale });
     if (contact) {
       await logActivity({
         contactId: contact.id,
         type: 'newsletter_signup',
-        description: 'Subscribed to newsletter',
-        metadata: {},
+        description: source === 'popup_cop'
+          ? 'Subscribed to newsletter via site popup'
+          : 'Subscribed to newsletter',
+        metadata: { phone: phone || null, source },
       });
     }
   } catch (e) {
@@ -53,7 +68,9 @@ export default async function handler(req, res) {
   try {
     await sendTeamNotification({
       subject: `New Newsletter Subscriber — ${email}`,
-      html: `<h2>New Newsletter Subscriber</h2><p><strong>Email:</strong> ${email}</p>`,
+      html: `<h2>New Newsletter Subscriber</h2><p><strong>Email:</strong> ${email}</p>`
+        + `<p><strong>Phone:</strong> ${phone ? phone : '<em>not provided (optional field)</em>'}</p>`
+        + `<p><strong>Source:</strong> ${source === 'popup_cop' ? 'Site popup' : 'Newsletter signup form'}</p>`,
     });
   } catch (e) {
     console.error('[Mail] team notification failed:', e.message);

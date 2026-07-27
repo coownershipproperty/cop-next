@@ -303,35 +303,74 @@ function matchesFilter(prop, filter) {
   return true;
 }
 
-async function withShareDenominators(properties) {
-  if (!properties.length) return properties;
+/**
+ * Every property a public page is allowed to show, straight from Supabase.
+ *
+ * This used to read a checked-in snapshot (lib/properties.json). That snapshot
+ * stopped tracking the database in April 2026, so hub pages advertised homes
+ * that had been sold and hid homes that had just been listed. Supabase is the
+ * only source of truth — the ES/FR/DE hubs, /our-homes and /property/[slug]
+ * already work this way and this brings the English hubs in line.
+ *
+ * The status filter is not optional: hidden and sold rows must never render
+ * publicly (the 19 Jul incident). Field names are mapped to the shape
+ * PropertyCard expects, exactly as pages/our-homes.js does.
+ *
+ * Returns null — not [] — when the query fails, so the caller can tell
+ * "Supabase is down" apart from "this destination genuinely has no homes"
+ * and shorten its revalidate window accordingly.
+ */
+async function fetchLiveProperties() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return properties;
+  if (!url || !key) {
+    console.error('[slug] Supabase env vars missing — destination hubs cannot list properties');
+    return null;
+  }
 
   try {
     const supabase = createClient(url, key);
-    const rows = [];
-    const slugs = properties.map(p => p.slug).filter(Boolean);
-    for (let i = 0; i < slugs.length; i += 80) {
-      const { data, error } = await supabase
-        .from('properties')
-        .select('slug, share_denominator')
-        .in('slug', slugs.slice(i, i + 80));
+    const { data, error } = await supabase
+      .from('properties')
+      .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, lat, lng, date_added')
+      // Public listings: only Live / for_sale — hidden & sold must never render.
+      .in('status', ['Live', 'for_sale']);
 
-      if (error) return properties;
-      rows.push(...(data || []));
+    if (error) {
+      console.error('Supabase error (destination hub):', error);
+      return null;
     }
 
-    const bySlug = Object.fromEntries(
-      rows.map(p => [p.slug, p.share_denominator || null])
-    );
-    return properties.map(p => ({
-      ...p,
-      share_denominator: bySlug[p.slug] || p.share_denominator || null,
+    return (data || []).map(p => ({
+      slug:     p.slug,
+      title:    p.title,
+      // Translated titles flow straight through; PropertyCard picks the right
+      // one based on its own locale detection.
+      title_es: p.title_es || null,
+      title_fr: p.title_fr || null,
+      title_de: p.title_de || null,
+      img:      p.img,
+      images:      (p.images || []).slice(0, 3),
+      totalImages: p.total_images || 0,
+      driveUrl:    p.drive_url   || null,
+      price:    p.price    || null,
+      currency: p.currency || 'EUR',
+      share_denominator: p.share_denominator || null,
+      country:  p.country  || '',
+      region:   p.region   || '',
+      city:     p.city     || '',
+      beds:     p.beds     || 0,
+      size:     p.size     || 0,
+      lat:      p.lat      || null,
+      lng:      p.lng      || null,
+      label:         '',
+      status:        p.status        || '',
+      property_type: p.property_type || '',
+      dateAdded:     p.date_added    || null,
     }));
-  } catch (_) {
-    return properties;
+  } catch (err) {
+    console.error('Supabase threw (destination hub):', err);
+    return null;
   }
 }
 
@@ -557,10 +596,10 @@ export async function getStaticProps({ params }) {
   body = body.replace(/<footer\b[^>]*>[\s\S]*?<\/footer>/g, '');
   body = body.replace(/<section[^>]*class="props-sec"[^>]*>[\s\S]*?<\/section>/g, '');
 
-  const allProps = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8'));
+  const allProps = await fetchLiveProperties();
+  const propsUnavailable = allProps === null;
   const filter = DEST_FILTERS[slug] || null;
-  let matchedProps = filter ? allProps.filter(p => matchesFilter(p, filter)) : [];
-  matchedProps = await withShareDenominators(matchedProps);
+  const matchedProps = filter ? (allProps || []).filter(p => matchesFilter(p, filter)) : [];
 
   const splitMarkers = ['class="dest-mid-cta"', 'class="dest-mid-cta ', 'id="dest-mid-cta"'];
   let splitIdx = -1;
@@ -663,6 +702,11 @@ export async function getStaticProps({ params }) {
       breadcrumbItems: buildBreadcrumbs(slug, destLabel(slug)),
       hreflangLocales,
     },
+    // Properties now come from Supabase, so the page has to refresh itself:
+    // a home listed or sold today shows up within the hour instead of waiting
+    // for the next deploy. If the query failed we retry in a minute rather
+    // than serving an empty destination for an hour.
+    revalidate: propsUnavailable ? 60 : 3600,
   };
 }
 
@@ -1191,7 +1235,7 @@ export default function DestinationPage({
             <>
             <div className="homes-grid" id="homes-grid">
               {(showAllCards ? displayedProperties : displayedProperties.slice(0, SSR_CARD_CAP)).map((p, idx) => (
-                <PropertyCard key={p.id} property={p} priority={idx < 3} />
+                <PropertyCard key={p.slug} property={p} priority={idx < 3} />
               ))}
             </div>
             {!showAllCards && displayedProperties.length > SSR_CARD_CAP && (

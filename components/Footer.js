@@ -43,7 +43,8 @@ const FOOTER_LINKS = {
     ],
     support: [
       { href: '/es/contacto/', label: 'Contáctanos' },
-      { href: '/es/preguntas-frecuentes/', label: 'Preguntas frecuentes' },
+      { href: '/es/comprar-copropiedad-preguntas-frecuentes/', label: 'Preguntas frecuentes: comprar' },
+      { href: '/es/disfrutar-copropiedad-preguntas-frecuentes/', label: 'Preguntas frecuentes: disfrutar' },
       { href: '/favourites/', label: 'Propiedades guardadas' },
     ],
   },
@@ -63,7 +64,8 @@ const FOOTER_LINKS = {
     ],
     support: [
       { href: '/fr/contact/', label: 'Nous contacter' },
-      { href: '/fr/faq/', label: 'FAQ' },
+      { href: '/fr/acheter-copropriete-questions-frequentes/', label: 'FAQ : acheter' },
+      { href: '/fr/profiter-copropriete-questions-frequentes/', label: 'FAQ : profiter' },
       { href: '/favourites/', label: 'Propriétés sauvegardées' },
     ],
   },
@@ -83,7 +85,8 @@ const FOOTER_LINKS = {
     ],
     support: [
       { href: '/de/kontakt/', label: 'Kontakt aufnehmen' },
-      { href: '/de/ferienimmobilie-kaufen-haeufige-fragen/', label: 'Häufige Fragen' },
+      { href: '/de/ferienimmobilie-kaufen-haeufige-fragen/', label: 'Häufige Fragen: kaufen' },
+      { href: '/de/aufenthalt-ferienimmobilie-haeufige-fragen/', label: 'Häufige Fragen: Aufenthalt' },
       { href: '/de/favoriten/', label: 'Gespeicherte Immobilien' },
     ],
   },

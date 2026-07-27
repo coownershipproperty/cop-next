@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { trackConversion } from '@/lib/gtag';
 import { Analytics } from '@vercel/analytics/react';
+import ExitPopup from '@/components/ExitPopup';
 
 const GA_ID = 'G-83RBNEXX4E';
 const GADS_ID = 'AW-4882418749';
@@ -26,9 +27,31 @@ const nunito = Nunito_Sans({
   display: 'swap',
 });
 
+// ── Where the capture popup is allowed to appear ─────────────────────────────
+// Destination hubs and blog articles only. These are the pages that pull in
+// research traffic with no obvious next step — a visitor reading about Mallorca
+// has shown intent but has nothing in front of them to submit.
+//
+// Property pages are POINTEDLY absent: the gallery-unlock CTA already fires
+// there and converts well, so a second overlay competing for the same click
+// would cost more than it wins. Also absent by omission: /our-homes/ (the saved-search
+// dialog is that page's capture surface), /gallery/ (the visitor is mid-unlock)
+// and every legal or contact page.
+//
+// Matched against router.pathname — the ROUTE pattern, not the URL — so
+// '/[slug]' means exactly the English destination hubs and cannot accidentally
+// swallow a top-level page that has its own file.
+const POPUP_ROUTES = [
+  /^\/\[slug\]$/,                                               // EN destination hubs
+  /^\/(es\/destinos|fr\/destinations|de\/destinationen)(\/|$)/,  // ES/FR/DE hubs
+  /^\/(blog|all-our-blog)(\/|$)/,                                // EN blog + index
+  /^\/(es|fr|de)\/blog(\/|$)/,                                   // ES/FR/DE blog
+];
+
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const isGallery = router.pathname.startsWith('/gallery');
+  const popupAllowed = POPUP_ROUTES.some(re => re.test(router.pathname));
   const [waVisible, setWaVisible] = useState(false);
   const [waDismissed, setWaDismissed] = useState(false);
 
@@ -109,6 +132,12 @@ export default function App({ Component, pageProps }) {
 
       <Component {...pageProps} />
       <Analytics />
+
+      {/* ── Exit-intent / scroll-depth capture popup ──
+          Keyed on the path so the triggers re-arm per page rather than keeping
+          stale listeners across a client-side navigation. Its own localStorage
+          stamp is what stops it appearing more than once a month. */}
+      {popupAllowed && <ExitPopup key={router.asPath} />}
 
 
       {/* ── Geo-aware destination nudge ("In Mallorca? See homes nearby →") ──

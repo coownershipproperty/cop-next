@@ -9,6 +9,7 @@
 import Head from 'next/head';
 import fs from 'fs';
 import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -16,29 +17,76 @@ import ViewingRequestForm from '@/components/ViewingRequestForm';
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
 
+/**
+ * Hero images for the slugs listed in viewings.json, read live from Supabase.
+ * Previously this came from the checked-in lib/properties.json snapshot, which
+ * had drifted months out of date — so "always resolve from the live property
+ * record" was not actually true. Returns {} on any failure; every card then
+ * falls back to the image in viewings.json, which is why this never throws.
+ */
+async function liveHeroImages(slugs) {
+  if (!slugs.length) return {};
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return {};
+
+  try {
+    const supabase = createClient(url, key);
+    const { data, error } = await supabase
+      .from('properties')
+      .select('slug, img, status')
+      .in('slug', slugs);
+
+    if (error) {
+      console.error('Supabase error (viewings):', error);
+      return {};
+    }
+
+    const bySlug = {};
+    for (const p of data || []) bySlug[p.slug] = p;
+
+    // A viewing pointing at a home that is no longer on sale is a page we do
+    // not want to be advertising. We do not drop it silently — viewings.json is
+    // hand-maintained and its author's intent wins — but it is logged loudly so
+    // it is visible in the deploy logs.
+    for (const slug of slugs) {
+      const row = bySlug[slug];
+      if (!row) {
+        console.warn(`[viewings] "${slug}" has no property row — check lib/viewings.json`);
+      } else if (!['Live', 'for_sale'].includes(row.status)) {
+        console.warn(`[viewings] "${slug}" is status "${row.status}" — still advertised on /viewings/`);
+      }
+    }
+
+    return bySlug;
+  } catch (err) {
+    console.error('Supabase threw (viewings):', err);
+    return {};
+  }
+}
+
 export async function getStaticProps() {
   const file = path.join(process.cwd(), 'lib', 'viewings.json');
   const raw = JSON.parse(fs.readFileSync(file, 'utf-8'));
 
-  // Always resolve the hero image and price from the live property record,
-  // so if you update a property's main photo or share price in admin, the
-  // /viewings/ page picks it up on next revalidate without touching this JSON.
-  const props = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), 'lib', 'properties.json'), 'utf-8')
-  );
-  const bySlug = Object.fromEntries(props.map(p => [p.slug, p]));
-
   const today = new Date().toISOString().slice(0, 10);
-  const viewings = raw
-    .filter(v => !v.date || v.date >= today)
-    .map(v => {
-      const p = bySlug[v.propertySlug];
-      return {
-        ...v,
-        // Prefer live property hero; fall back to whatever's in viewings.json
-        img: (p && p.img) || v.img,
-      };
-    });
+  const upcoming = raw.filter(v => !v.date || v.date >= today);
+
+  // Always resolve the hero image from the live property record, so updating a
+  // property's main photo in admin flows through on the next revalidate
+  // without anyone touching this JSON.
+  const bySlug = await liveHeroImages(
+    [...new Set(upcoming.map(v => v.propertySlug).filter(Boolean))]
+  );
+
+  const viewings = upcoming.map(v => {
+    const p = bySlug[v.propertySlug];
+    return {
+      ...v,
+      // Prefer live property hero; fall back to whatever's in viewings.json
+      img: (p && p.img) || v.img,
+    };
+  });
 
   return { props: { viewings }, revalidate: 3600 };
 }
