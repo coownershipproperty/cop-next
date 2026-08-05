@@ -22,7 +22,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import { rankProperties, FACET_LABELS } from '../lib/search/rank.js';
-import { fallbackIntent, fallbackCopy, buildCopyPayload } from '../lib/search/prompts.js';
+import { fallbackIntent, fallbackCopy, buildCopyPayload, directAnswers, mapCopyWhy } from '../lib/search/prompts.js';
 
 // Evidence borrowed by a composite facet reports `via` as a human label, so
 // tracing it back to the enrichment file needs the label read backwards.
@@ -389,6 +389,113 @@ function invariants(q, r) {
     !PARTNER_RE.test(copyStr), `found "${leak(copyStr)}"`);
 }
 
+/**
+ * The 5 August regression, verbatim. A father asked for a family beach home in
+ * the south of France, plus two direct questions, and got: Baltic Germany in
+ * the shortlist above nearer options, a headline claiming everything "fit",
+ * and neither question answered. Each assertion below is one of those wounds.
+ */
+function southOfFranceRegression() {
+  const q = 'so i have 2 kids, looking for something south of france, we are an active family, like beach and activities. can i rent it out when not using? and do u have costs?';
+
+  // The intent as the model actually produced it that day: the raw phrase,
+  // unmapped. The ranker has to survive this shape, not the ideal one.
+  const intent = fallbackIntent(q, vocab);
+  intent.filters.places = ['south of france'];
+
+  const r = rankProperties(intent, props, facets, { limit: 12 });
+  invariants(q, r);
+
+  check('sof: the raw phrase was resolved to a place we actually have',
+    r.intent.filters.places.some(p => /france/i.test(p)), JSON.stringify(r.intent.filters.places));
+  check('sof: the buyer\'s own words survive for display',
+    r.meta.asked_place_label === 'south of france', r.meta.asked_place_label);
+
+  // The actual wound from 5 August: Baltic Germany in the shortlist with no
+  // explanation. The rule now is either/or — every result honours the asked
+  // place, or the widening is declared and every outside home carries a
+  // measured distance. Both at once is the one forbidden state: an
+  // out-of-area home presented as though it were not.
+  if (!r.meta.place_widened) {
+    check('sof: place held, so every result is in France',
+      r.results.every(x => /france/i.test(String(x.country))),
+      r.results.map(x => x.country).join(', '));
+  } else {
+    check('sof: widening declared',
+      r.meta.relaxations.some(t => /beyond the area/i.test(t)), JSON.stringify(r.meta.relaxations));
+    check('sof: out-of-area homes carry a measured distance',
+      r.results.filter(x => !/france/i.test(String(x.country))).every(x => x.km_from_asked != null));
+    check('sof: no 1000km+ home in the top three',
+      r.results.slice(0, 3).every(x => x.km_from_asked == null || x.km_from_asked < 1000),
+      r.results.slice(0, 3).map(x => `${x.country}:${x.km_from_asked}km`).join(', '));
+    const copy = fallbackCopy(r);
+    check('sof: headline admits the area miss', /south of france/i.test(copy.headline), copy.headline);
+  }
+  check('sof: a real match leads',
+    r.results.length > 0 && r.results[0].score >= 62,
+    r.results[0] && `top=${r.results[0].score}`);
+
+  // Both direct questions get direct, figure-free answers.
+  check('sof: rental question detected', r.intent.filters.needs_rental === true);
+  check('sof: costs question detected', r.intent.filters.asks_costs === true);
+  const answers = directAnswers(r.intent.filters);
+  check('sof: both questions answered', answers.length === 2);
+  check('sof: the costs answer quotes the 1/8th rule and no money figure',
+    answers.every(a => /1\/8th/.test(a.answer) ? !/[€$£]|\d{3,}/.test(a.answer) : true) &&
+    answers.some(a => /1\/8th of the home/.test(a.answer)),
+    JSON.stringify(answers));
+  check('sof: answers never use the banned phrase or name a partner',
+    answers.every(a => !/floor plan|myne|pacaso|vivla|andhamlet|abitaro|parisproperty/i.test(a.answer)));
+
+  // And since letting was asked for: nothing shown may forbid it.
+  check('sof: no rental-forbidden home in the shortlist',
+    r.results.every(x => !['pacaso', 'andhamlet'].includes(String(x.partner).toLowerCase())));
+}
+
+/**
+ * The widen-and-blend machinery, exercised deliberately: a ski search pinned
+ * to Paris. Paris exists in the corpus (so the place filter holds and the
+ * count-based waterfall never fires) but nothing there can score on ski —
+ * exactly the shape where the old code served up 30% Paris homes under a
+ * headline claiming they fit, and the buyer deserved the Alps with distances.
+ */
+function widenBlendChecks() {
+  const intent = fallbackIntent('a ski chalet, walking distance to the lifts', vocab);
+  intent.filters.places = ['paris'];
+  const r = rankProperties(intent, props, facets, { limit: 12 });
+  invariants('ski in paris (synthetic)', r);
+
+  check('blend: widening happened and was declared',
+    r.meta.place_widened === true && r.meta.relaxations.some(t => /beyond the area/i.test(t)),
+    JSON.stringify(r.meta.relaxations));
+  check('blend: a real ski place leads, not a Paris consolation prize',
+    r.results.length > 0 && r.results[0].score >= 62 && !/paris/i.test(String(r.results[0].city)),
+    r.results[0] && `${r.results[0].score} ${r.results[0].city}`);
+  check('blend: every out-of-area home carries its distance from Paris',
+    r.results.filter(x => !/paris/i.test(placeStr(x))).every(x => x.km_from_asked != null),
+    r.results.slice(0, 3).map(x => `${x.city}:${x.km_from_asked}`).join(', '));
+  check('blend: nothing absurdly far outranks the Alps',
+    r.results.slice(0, 3).every(x => x.km_from_asked == null || x.km_from_asked < 1500),
+    r.results.slice(0, 3).map(x => `${x.city}:${x.km_from_asked}km`).join(', '));
+
+  function placeStr(x) { return [x.city, x.region, x.country].filter(Boolean).join(' '); }
+}
+
+/** The copy model now keys its lines by position; mapping back must be exact. */
+function copyMappingChecks() {
+  const r = search('Near a beach, under 150k');
+  const modelShaped = { headline: 'H.', why: { 1: 'First line.', 3: 'Third line.' } };
+  const mapped = mapCopyWhy(modelShaped, r);
+  check('map: index 1 lands on the first slug', mapped.why[r.results[0].slug] === 'First line.');
+  check('map: index 3 lands on the third slug', mapped.why[r.results[2].slug] === 'Third line.');
+  check('map: uncovered homes keep a generated line',
+    typeof mapped.why[r.results[1].slug] === 'string' && mapped.why[r.results[1].slug].length > 0);
+  check('map: model headline wins', mapped.headline === 'H.');
+  const noCopy = mapCopyWhy(null, r);
+  check('map: no model copy still yields a full set',
+    r.results.every(x => typeof noCopy.why[x.slug] === 'string' && noCopy.why[x.slug].length > 0));
+}
+
 // --- run -------------------------------------------------------------------
 
 console.log(`corpus     : ${props.length} live homes`);
@@ -431,6 +538,10 @@ for (const c of CASES) {
   }
   console.log('');
 }
+
+southOfFranceRegression();
+widenBlendChecks();
+copyMappingChecks();
 
 console.log('─'.repeat(60));
 if (fail) {

@@ -36,7 +36,6 @@ const STAGES = [
   'Reading what you asked for',
   'Checking what is actually near each home',
   'Ranking 355 homes',
-  'Writing up the shortlist',
 ];
 
 const SYM = { EUR: '€', USD: '$', GBP: '£' };
@@ -98,7 +97,7 @@ export default function SmartSearch({ variant = 'hero' }) {
   useEffect(() => {
     if (phase !== 'thinking') return undefined;
     setStage(0);
-    const t = setInterval(() => setStage(s => Math.min(s + 1, STAGES.length - 1)), 900);
+    const t = setInterval(() => setStage(s => Math.min(s + 1, STAGES.length - 1)), 700);
     return () => clearInterval(t);
   }, [phase]);
 
@@ -117,6 +116,13 @@ export default function SmartSearch({ variant = 'hero' }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * Two requests, not one slow one. The first ("rank") returns the shortlist
+   * with generated copy in a couple of seconds — the buyer starts reading. The
+   * second ("explain") brings the written headline and per-home lines, which
+   * fade in over the generated ones when they arrive. If it never arrives, the
+   * generated copy was already honest and complete, so nothing breaks.
+   */
   async function run(q) {
     const text = (q ?? query).trim();
     if (text.length < 3) return;
@@ -127,7 +133,7 @@ export default function SmartSearch({ variant = 'hero' }) {
       const res = await fetch('/api/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: text }),
+        body: JSON.stringify({ query: text, phase: 'rank' }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Search failed');
@@ -136,6 +142,39 @@ export default function SmartSearch({ variant = 'hero' }) {
       setDirty(false);
       setPhase('done');
       setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+
+      // Round two, in the background. Send back what the search understood so
+      // the server can rebuild the identical shortlist without re-parsing.
+      if (json.meta?.model) {
+        fetch('/api/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: text,
+            phase: 'explain',
+            intent: {
+              summary: json.understood,
+              filters: json.filters,
+              weights: Object.fromEntries(json.chips.map(c => [c.facet, c.weight])),
+            },
+          }),
+        })
+          .then(r => (r.ok ? r.json() : null))
+          .then(copy => {
+            if (!copy || copy.copy_source !== 'model') return;
+            setData(d => {
+              // The buyer may have started a different search meanwhile.
+              if (!d || d.query !== json.query) return d;
+              return {
+                ...d,
+                headline: copy.headline || d.headline,
+                results: d.results.map(r => ({ ...r, why: copy.why?.[r.slug] || r.why, polished: !!copy.why?.[r.slug] })),
+                meta: { ...d.meta, copy_source: 'model' },
+              };
+            });
+          })
+          .catch(() => { /* the generated copy already on screen is fine */ });
+      }
     } catch (err) {
       setError(err.message || 'Something went wrong.');
       setPhase('error');
@@ -160,7 +199,9 @@ export default function SmartSearch({ variant = 'hero' }) {
       const { score } = scoreHome(enrich, weights);
       return {
         ...r,
-        score,
+        // Re-apply the server's distance penalty so a chip edit cannot quietly
+        // float a far-away alternative back above a nearer one.
+        score: Math.max(0, score - (r.place_penalty || 0)),
         // The composites map travels with the response so a browser re-rank
         // borrows proof from constituent facets exactly as the server did —
         // otherwise "the outdoors" would score locally but show no evidence.
@@ -192,6 +233,26 @@ export default function SmartSearch({ variant = 'hero' }) {
 
   const shown = showAll ? view : view.slice(0, 6);
   const isHero = variant === 'hero';
+
+  /**
+   * Evidence, tidied for reading. The ranker may prove two facets with the
+   * same beach — "family-friendly · beaches: Cala Llenya" and "beaches: Cala
+   * Llenya" — which is sound scoring and terrible prose. One named place gets
+   * one line, and three lines is plenty.
+   */
+  function tidyEvidence(evidence) {
+    const seen = new Set();
+    const out = [];
+    for (const e of evidence || []) {
+      const name = e.named && e.named[0] ? e.named[0].name : null;
+      const key = name || `${e.facet}:${e.nearest_km}:${e.within_15km}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(e);
+      if (out.length === 3) break;
+    }
+    return out;
+  }
 
   return (
     <div className={`ss ${isHero ? 'ss-hero' : 'ss-page'}`}>
@@ -240,6 +301,19 @@ export default function SmartSearch({ variant = 'hero' }) {
           <p className="ss-head">{data.headline}</p>
           {data.understood && <p className="ss-understood">{data.understood}</p>}
 
+          {/* Direct questions get direct answers, before any property card.
+              Deterministic text from the server — never model prose. */}
+          {!!(data.answers || []).length && (
+            <div className="ss-answers">
+              {data.answers.map(a => (
+                <div key={a.asked} className="ans">
+                  <span className="ans-q">{a.asked}</span>
+                  <span className="ans-a">{a.answer}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
           {!!data.chips.length && (
             <div className="ss-chips">
               {data.chips.map(({ facet }) => {
@@ -272,9 +346,14 @@ export default function SmartSearch({ variant = 'hero' }) {
             </p>
           )}
 
-          {!!data.meta.relaxations.length && (
-            <p className="ss-note">To find these, we {data.meta.relaxations.join(', and ')}.</p>
-          )}
+          {/* The headline already carries the went-outside-your-area truth, so
+              the small print only lists the OTHER concessions. */}
+          {(() => {
+            const rest = data.meta.relaxations.filter(t => !/beyond the area/i.test(t));
+            return rest.length
+              ? <p className="ss-note">To find these, we {rest.join(', and ')}.</p>
+              : null;
+          })()}
 
           <div className="ss-grid">
             {shown.map(r => (
@@ -287,29 +366,35 @@ export default function SmartSearch({ variant = 'hero' }) {
                 </div>
                 <div className="card-body">
                   <h4>{r.title}</h4>
-                  <p className="where">{[r.city, r.region, r.country].filter(Boolean).join(', ')}</p>
-                  {r.why && <p className="why">{r.why}</p>}
+                  <p className="where">
+                    {[r.city, r.region, r.country].filter(Boolean).join(', ')}
+                    {/* An alternative outside the asked area says how far
+                        outside, plainly, on the card itself. */}
+                    {r.km_from_asked != null && data.meta.asked_place_label && (
+                      <em className="afar"> · ~{r.km_from_asked.toLocaleString('en-GB')} km from {data.meta.asked_place_label}</em>
+                    )}
+                  </p>
+                  {r.why && <p className={`why ${r.polished ? 'polished' : ''}`}>{r.why}</p>}
 
                   {!!r.evidence.length && (
                     <ul className="ev">
-                      {r.evidence.map(e => (
+                      {tidyEvidence(r.evidence).map(e => (
                         <li key={e.facet}>
-                          <b>{e.label}{e.via ? ` · ${e.via}` : ''}</b>
                           {/* A trail or a park has a name but no honest single
                               distance, so it shows the name and says so rather
                               than printing a number nobody could stand behind. */}
                           {e.named[0]
-                            ? <span>{e.named[0].name}{e.named[0].km != null ? ` · ${e.named[0].km}km` : ' · in the area'}</span>
+                            ? <><b>{e.named[0].name}</b><span>{e.via || e.label}{e.named[0].km != null ? ` · ${e.named[0].km} km` : ' · reaches this area'}</span></>
                             : e.nearest_km != null
-                              ? <span>nearest {e.nearest_km}km</span>
-                              : <span>{e.within_15km} within 15km</span>}
+                              ? <><b>{e.label}</b><span>nearest {e.nearest_km} km</span></>
+                              : <><b>{e.label}</b><span>{e.within_15km} within 15 km</span></>}
                         </li>
                       ))}
                     </ul>
                   )}
 
                   {!!r.listing_hits.length && (
-                    <p className="has">This home has {r.listing_hits.slice(0, 4).join(', ')}</p>
+                    <p className="has">From the listing: {r.listing_hits.slice(0, 4).join(' · ')}</p>
                   )}
 
                   <p className="meta">
@@ -398,6 +483,12 @@ export default function SmartSearch({ variant = 'hero' }) {
 
         .ss-note { font-size: 13px; color: ${MUTED}; margin: 0 0 14px; }
 
+        /* ---- direct answers ---- */
+        .ss-answers { margin: 0 0 18px; }
+        .ans { display: block; background: ${CREAM}; border-left: 3px solid ${GOLD}; padding: 12px 16px; margin-bottom: 8px; }
+        .ans-q { display: block; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: ${GOLD}; margin-bottom: 4px; }
+        .ans-a { display: block; font-size: 14px; line-height: 1.55; color: ${NAVY}; }
+
         /* ---- results ---- */
         .ss-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
         @media (max-width: 900px) { .ss-grid { grid-template-columns: repeat(2, 1fr) } }
@@ -413,11 +504,14 @@ export default function SmartSearch({ variant = 'hero' }) {
         .card-body { padding: 15px 16px 17px; }
         .card-body h4 { font-family: 'Playfair Display', serif; font-size: 16px; line-height: 1.3; color: ${NAVY}; margin: 0 0 3px; }
         .where { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: ${MUTED}; margin: 0 0 9px; }
+        .where .afar { font-style: normal; text-transform: none; letter-spacing: 0; color: ${GOLD}; }
         .why { font-size: 13.5px; line-height: 1.5; color: ${NAVY}; margin: 0 0 10px; }
+        .why.polished { animation: fadeSwap .5s ease; }
+        @keyframes fadeSwap { from { opacity: .25 } to { opacity: 1 } }
 
         .ev { list-style: none; padding: 0; margin: 0 0 10px; border-left: 2px solid ${GOLD}; }
-        .ev li { display: flex; gap: 8px; padding: 2px 0 2px 9px; font-size: 12px; color: ${MUTED}; }
-        .ev li b { color: ${NAVY}; font-weight: 700; white-space: nowrap; }
+        .ev li { display: flex; gap: 8px; padding: 3px 0 3px 10px; font-size: 12.5px; color: ${MUTED}; align-items: baseline; }
+        .ev li b { color: ${NAVY}; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 60%; }
         .ev li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         .has { font-size: 12px; color: ${MUTED}; margin: 0 0 10px; }
