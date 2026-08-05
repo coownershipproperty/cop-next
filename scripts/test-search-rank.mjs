@@ -406,8 +406,15 @@ function southOfFranceRegression() {
   const r = rankProperties(intent, props, facets, { limit: 12 });
   invariants(q, r);
 
-  check('sof: the raw phrase was resolved to a place we actually have',
-    r.intent.filters.places.some(p => /france/i.test(p)), JSON.stringify(r.intent.filters.places));
+  // "south of france" now resolves to the actual southern localities we hold
+  // (Antibes, Vallauris, ...), never to bare "France" with Paris inside it.
+  check('sof: the raw phrase was resolved to real places',
+    r.intent.filters.places.length > 0 &&
+    r.intent.filters.places.every(p => props.some(h => [h.city, h.region, h.country].filter(Boolean).join(' ').toLowerCase().includes(p.toLowerCase()))),
+    JSON.stringify(r.intent.filters.places));
+  check('sof: the direction was understood — Paris is not in the top three',
+    r.results.slice(0, 3).every(x => !/paris/i.test(String(x.city))),
+    r.results.slice(0, 3).map(x => x.city).join(', '));
   check('sof: the buyer\'s own words survive for display',
     r.meta.asked_place_label === 'south of france', r.meta.asked_place_label);
 
@@ -453,6 +460,40 @@ function southOfFranceRegression() {
 }
 
 /**
+ * The same understanding, generalised: any "direction of place" phrase must
+ * either hold to that side of the place or declare its widening with measured
+ * distances. No hand-tuned cases — this is the machinery, not a patch.
+ */
+function directionGeneralisation() {
+  for (const phrase of ['south of italy', 'north of spain', 'west of austria']) {
+    const country = phrase.split(' of ')[1];
+    const intent = fallbackIntent(`a family home near a beach, ${phrase}`, vocab);
+    intent.filters.places = [phrase];
+    const r = rankProperties(intent, props, facets, { limit: 12 });
+    invariants(`(${phrase})`, r);
+
+    if (!r.meta.place_widened) {
+      check(`dir(${phrase}): place held, every result is in ${country}`,
+        r.results.every(x => new RegExp(country, 'i').test(String(x.country))),
+        r.results.map(x => x.country).join(', '));
+    } else {
+      check(`dir(${phrase}): widening declared`,
+        r.meta.relaxations.some(t => /beyond the area/i.test(t)));
+      check(`dir(${phrase}): outside homes carry distances`,
+        r.results.every(x => x.km_from_asked == null || x.km_from_asked >= 0));
+    }
+    check(`dir(${phrase}): buyer's words kept for display`,
+      r.meta.asked_place_label === phrase, r.meta.asked_place_label);
+  }
+
+  // And the deterministic half on its own: the fallback parser must carry the
+  // direction through extraction rather than stripping it to a bare country.
+  const fi = fallbackIntent('somewhere quiet in the south of France with good food', vocab);
+  check('dir: fallback parser keeps the direction with the place',
+    fi.filters.places.some(p => /south of france/i.test(p)), JSON.stringify(fi.filters.places));
+}
+
+/**
  * The widen-and-blend machinery, exercised deliberately: a ski search pinned
  * to Paris. Paris exists in the corpus (so the place filter holds and the
  * count-based waterfall never fires) but nothing there can score on ski —
@@ -479,6 +520,65 @@ function widenBlendChecks() {
     r.results.slice(0, 3).map(x => `${x.city}:${x.km_from_asked}km`).join(', '));
 
   function placeStr(x) { return [x.city, x.region, x.country].filter(Boolean).join(' '); }
+}
+
+/**
+ * The assistant's education, audited like copy. The knowledge pack and rules
+ * are the ONLY prose the chat model is given about the business, so the bans
+ * are checked at the source: no partner name, no "partners" concept, no
+ * running-cost figure, no banned phrase.
+ */
+async function knowledgeChecks() {
+  const { COP_KNOWLEDGE, CHAT_RULES, chatSystemPrompt, SEARCH_HOMES_TOOL } =
+    await import('../lib/search/knowledge.js');
+  const all = COP_KNOWLEDGE + CHAT_RULES + JSON.stringify(SEARCH_HOMES_TOOL);
+
+  check('knowledge: no partner name anywhere',
+    !/myne|pacaso|vivla|andhamlet|&\s?hamlet|abitaro|parisproperty/i.test(all));
+  check('knowledge: the word "partner" never appears',
+    !/partner/i.test(all));
+  check('knowledge: no running-cost figure (only the 1/8th rule)',
+    !/€\s?\d[\d,.]*\s?(?:\/|per\s)?(?:year|yr|month|mo|annum)/i.test(all) &&
+    /1\/8th of the\s+home/.test(COP_KNOWLEDGE));
+  // The phrase may never appear in the speakable facts. In the rules it may
+  // appear exactly once — inside the sentence that bans it.
+  check('knowledge: banned phrase absent from the facts', !/floor\s?plan/i.test(COP_KNOWLEDGE));
+  check('knowledge: rules mention the phrase only to ban it',
+    (CHAT_RULES.match(/floor\s?plans?/gi) || []).length <= 2 &&
+    /Never use the phrase "floor plan"/.test(CHAT_RULES));
+  check('knowledge: the system prompt builds and carries the fence',
+    /Never name or hint/.test(chatSystemPrompt({ countries: ['Spain'], cities: ['Palma'] })));
+}
+
+/** The streaming scrubber — the last line of defence on the chat's output. */
+async function scrubberChecks() {
+  // The scrubber lives inside the API route; test the same regex + holdback
+  // logic through a minimal reimplementation harness by importing the route
+  // is not possible (Next module), so the pattern itself is asserted here and
+  // a split-across-chunks case is simulated the way the route processes it.
+  const BANNED = /(myne\s?homes|myne|pacaso|vivla|andhamlet|&\s?hamlet|and\s?hamlet\b|abitaro|paris\s?property\s?group|floor\s?plans?)/gi;
+  const HOLDBACK = 24;
+  const scrubStream = (chunks) => {
+    let out = '', tail = '';
+    for (const c of chunks) {
+      let s = tail + c;
+      s = s.replace(BANNED, 'the managing team');
+      tail = s.slice(-HOLDBACK);
+      out += s.slice(0, -HOLDBACK);
+    }
+    return out + tail.replace(BANNED, 'the managing team');
+  };
+
+  check('scrub: whole name replaced',
+    scrubStream(['This home is managed by Pacaso in Miami.']) ===
+    'This home is managed by the managing team in Miami.');
+  check('scrub: name split across two chunks still caught',
+    !/pacaso/i.test(scrubStream(['run by Paca', 'so, who handle everything'])));
+  check('scrub: banned phrase caught across chunks',
+    !/floor plan/i.test(scrubStream(['we can send the floor', ' plans over'])));
+  check('scrub: innocent text untouched',
+    scrubStream(['A lovely villa near the marina, 2.1km from the beach.']) ===
+    'A lovely villa near the marina, 2.1km from the beach.');
 }
 
 /** The copy model now keys its lines by position; mapping back must be exact. */
@@ -540,8 +640,11 @@ for (const c of CASES) {
 }
 
 southOfFranceRegression();
+directionGeneralisation();
 widenBlendChecks();
 copyMappingChecks();
+await knowledgeChecks();
+await scrubberChecks();
 
 console.log('─'.repeat(60));
 if (fail) {
