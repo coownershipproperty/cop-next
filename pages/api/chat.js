@@ -98,10 +98,22 @@ function sse(res, obj) {
  * sees (full cards, partner stripped) and what the model reads (a compact
  * digest it can refer to as [1], [2]...). */
 function runSearchTool(args, props) {
+  // The tool schema takes weights as {facet, weight} pairs (maximally
+  // compatible JSON Schema); the ranker wants a map. Convert, tolerating
+  // either shape so a model that ignores the schema still ranks.
+  let weights = {};
+  if (Array.isArray(args.weights)) {
+    for (const w of args.weights) {
+      if (w && typeof w.facet === 'string') weights[w.facet] = w.weight;
+    }
+  } else if (args.weights && typeof args.weights === 'object') {
+    weights = args.weights;
+  }
+
   const intent = {
     summary: typeof args.summary === 'string' ? args.summary : '',
     filters: args.filters || {},
-    weights: args.weights || {},
+    weights,
   };
   const ranked = rankProperties(intent, props, facetData, { limit: 6 });
 
@@ -137,7 +149,10 @@ function runSearchTool(args, props) {
   };
 }
 
-export const config = { api: { responseLimit: false } };
+// supportsResponseStreaming is what tells Vercel's serverless wrapper to pass
+// chunks through as they are written instead of buffering the whole response
+// — without it the "stream" arrives all at once at the end.
+export const config = { api: { responseLimit: false }, supportsResponseStreaming: true };
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -269,12 +284,46 @@ export default async function handler(req, res) {
     return res.end();
   } catch (err) {
     console.error('[chat]', err);
-    // If the stream already started, close it politely; otherwise plain JSON.
-    if (res.headersSent) {
-      sse(res, { t: 'error', text: 'That took longer than it should. Ask me again — or use the search below.' });
-      sse(res, { t: 'done' });
-      return res.end();
+
+    // The error goes in the log FIRST, verbatim, keyed to the visitor — so a
+    // "the assistant broke" report can be diagnosed from the database instead
+    // of from a screenshot of an apology.
+    await logSearch({
+      visitor_id: vid, ip, query: last.content,
+      model: hasModel() ? modelName() : null, ms: Date.now() - started,
+      meta: { phase: 'chat', error: String(err.message || err).slice(0, 500) },
+    });
+
+    // And the buyer gets an answer, not an apology: the free keyword search
+    // still works when the model does not, so run it and show real homes.
+    try {
+      const { props, vocab } = await getCorpus();
+      const intent = fallbackIntent(last.content, vocab);
+      const ranked = rankProperties(intent, props, facetData, { limit: 6 });
+      const copy = fallbackCopy(ranked);
+      const cards = ranked.results.map(({ partner, facets, listing, all_evidence, ...r }) => ({
+        ...r, why: copy.why[r.slug] || '',
+      }));
+      const payload = {
+        text: copy.headline,
+        cards,
+        answers: directAnswers(ranked.intent.filters),
+        ...(req.body?.debug ? { error_detail: String(err.message || err).slice(0, 300) } : {}),
+      };
+      if (res.headersSent) {
+        if (cards.length) sse(res, { t: 'cards', cards, widened: ranked.meta.place_widened || false, asked: ranked.meta.asked_place_label || null, answers: payload.answers });
+        sse(res, { t: 'delta', text: payload.text });
+        sse(res, { t: 'done' });
+        return res.end();
+      }
+      return res.status(200).json({ fallback: true, ...payload });
+    } catch {
+      if (res.headersSent) {
+        sse(res, { t: 'error', text: 'Something went wrong on our side. Try once more?' });
+        sse(res, { t: 'done' });
+        return res.end();
+      }
+      return res.status(500).json({ error: 'The assistant is briefly unavailable.' });
     }
-    return res.status(500).json({ error: 'The assistant is briefly unavailable.' });
   }
 }
