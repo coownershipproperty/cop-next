@@ -5,6 +5,7 @@ import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendTeamNotification } from '@/lib/resend';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
+import { identifyVisitor } from '@/lib/search/searchlog';
 
 /**
  * POST /api/tour-request — "Request 3D Tour" popup on property pages.
@@ -112,6 +113,10 @@ export default async function handler(req, res) {
   let contact = null;
   try {
     contact = await upsertContact({ email, firstName, lastName, phone, source: 'tour_request', locale });
+
+    // If this browser used the AI search before requesting a tour, tie that
+    // search history to this email. Never throws; no cookie means no-op.
+    await identifyVisitor(req, email, 'tour_request');
 
     if (contact) {
       // +10 points — same high-intent weighting as a floor-plan request

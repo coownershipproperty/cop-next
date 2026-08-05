@@ -173,10 +173,16 @@ const CASES = [
     name: 'rental derived from the partner, since the column is useless',
     assert(r) {
       check('rental: needs_rental set', r.intent.filters.needs_rental === true);
+      // No relaxation can ever admit these: a buyer who needs to let the home
+      // out cannot use one whose management forbids letting, full stop.
       const forbidden = r.results.filter(x => ['pacaso', 'andhamlet'].includes(String(x.partner).toLowerCase()));
-      check('rental: no rental-forbidden partner unless relaxation was announced',
-        forbidden.length === 0 || r.meta.relaxations.some(t => /rental/i.test(t)),
+      check('rental: rental-forbidden homes never shown to a yield-seeker',
+        forbidden.length === 0,
         `${forbidden.length} forbidden, relaxations=${JSON.stringify(r.meta.relaxations)}`);
+      // And the copy model is told the stance in neutral words, per home.
+      const payload = buildCopyPayload('Somewhere I can rent out when I am not using it', r);
+      check('rental: copy payload states the letting stance for every home',
+        payload.homes.every(h => typeof h.letting_out === 'string' && h.letting_out.length > 0));
     },
   },
   {
@@ -355,7 +361,8 @@ function invariants(q, r) {
   const RELAXATION_REQUIRES = [
     [/bedroom/i, f.beds_min != null || f.beds_max != null, 'no bedroom filter was set'],
     [/budget/i, f.budget_max != null, 'no budget was set'],
-    [/rental/i, f.needs_rental === true, 'rental income was never asked for'],
+    // No /rental/ entry: the rental filter never relaxes, so a label matching
+    // it should fail below as "matches no known relaxation".
     [/kinds of home/i, (f.property_types || []).length > 0, 'no property type was named'],
     [/beyond the area/i, (f.places || []).length > 0, 'no place was named'],
   ];
@@ -364,6 +371,22 @@ function invariants(q, r) {
     check(`[${tag}] relaxation is truthful: "${label}"`,
       !!rule && rule[1], rule ? rule[2] : 'label matches no known relaxation');
   }
+
+  // Partner names must never reach a buyer. The API strips `partner` from each
+  // result before responding, so the public JSON — reproduced here exactly as
+  // pages/api/search.js builds it — and the copy-model payload must both be
+  // clean. `parisproperty` collapses the spaced and unspaced spellings; plain
+  // "hamlet" is skipped because it is an ordinary English word, and the DB
+  // value is 'andhamlet' anyway.
+  const PARTNER_RE = /myne|pacaso|vivla|andhamlet|abitaro|parisproperty/i;
+  const publicResults = r.results.map(({ partner, ...rest }) => rest);
+  const leak = (s) => (String(s).match(PARTNER_RE) || [null])[0];
+  check(`[${tag}] public payload never contains a partner name`,
+    !PARTNER_RE.test(JSON.stringify(publicResults)),
+    `found "${leak(JSON.stringify(publicResults))}"`);
+  const copyStr = JSON.stringify(buildCopyPayload(q, r));
+  check(`[${tag}] copy-model payload never contains a partner name`,
+    !PARTNER_RE.test(copyStr), `found "${leak(copyStr)}"`);
 }
 
 // --- run -------------------------------------------------------------------

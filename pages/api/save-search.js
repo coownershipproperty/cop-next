@@ -12,6 +12,7 @@
  */
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { upsertContact, createLead, incrementScore, logActivity } from '@/lib/crm';
+import { identifyVisitor } from '@/lib/search/searchlog';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { FROM_ADDRESS, REPLY_TO, sendTeamNotification } from '@/lib/resend';
 import { expandRegions } from '@/lib/regionMap';
@@ -93,6 +94,10 @@ export default async function handler(req, res) {
 
   // CRM: upsert contact + log activity
   try {
+    // If this browser used the AI search before saving one, tie that search
+    // history to this email. Never throws; no cookie means no-op.
+    await identifyVisitor(req, email, 'saved_search');
+
     const nameParts = (name || '').trim().split(' ');
     const contact = await upsertContact({
       email,

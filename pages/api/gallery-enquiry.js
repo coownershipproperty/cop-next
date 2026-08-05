@@ -5,6 +5,7 @@ import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendHtml, sendTeamNotification } from '@/lib/resend';
 import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
+import { identifyVisitor } from '@/lib/search/searchlog';
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
 const DYLAN_REPLY = 'dylan@co-ownership-property.com';
@@ -132,6 +133,10 @@ export default async function handler(req, res) {
   let lead    = null;
   try {
     contact = await upsertContact({ email, firstName, lastName, phone: phone || null, source: 'gallery_enquiry', locale });
+
+    // If this browser used the AI search before asking for the gallery, tie
+    // that search history to this email. Never throws; no cookie means no-op.
+    await identifyVisitor(req, email, 'gallery_enquiry');
     if (contact) {
       await incrementScore(contact.id, 20);
       lead = await createLead({ contactId: contact.id, propertySlug: resolvedSlug, propertyTitle, mainRegion: resolvedRegion, subregion: resolvedCity });

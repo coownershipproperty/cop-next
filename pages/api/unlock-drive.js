@@ -7,6 +7,7 @@ import { queueEmail, sendTeamNotification } from '@/lib/resend';
 import { scheduleGalleryNurture } from '@/lib/followupSequence';
 import FloorPlanEmail from '@/emails/floor-plan';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
+import { identifyVisitor } from '@/lib/search/searchlog';
 import * as React from 'react';
 
 function getDb() {
@@ -334,6 +335,10 @@ export default async function handler(req, res) {
 
   try {
     contact = await upsertContact({ email, firstName, lastName, phone, source: 'floor_plan', locale });
+
+    // If this browser used the AI search before requesting the photos, tie
+    // that search history to this email. Never throws; no cookie means no-op.
+    await identifyVisitor(req, email, 'floor_plan');
 
     if (contact) {
       // +10 points for requesting floor plans (high-intent action)

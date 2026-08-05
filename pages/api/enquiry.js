@@ -7,6 +7,7 @@ import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { expandRegions } from '@/lib/regionMap';
 import { sendEnquiryReply } from '@/lib/enquiryReply';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
+import { identifyVisitor } from '@/lib/search/searchlog';
 
 function getDb() {
   return createSupabaseAdminClient();
@@ -161,6 +162,10 @@ export default async function handler(req, res) {
 
   try {
     contact = await upsertContact({ email, firstName, lastName, phone, source: 'website_enquiry', locale });
+
+    // If this browser used the AI search before enquiring, tie that search
+    // history to this email. One insert; never throws; no cookie means no-op.
+    await identifyVisitor(req, email, 'website_enquiry');
 
     if (contact) {
       // +20 points for submitting an enquiry

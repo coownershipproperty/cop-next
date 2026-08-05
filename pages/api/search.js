@@ -27,6 +27,7 @@ import {
   fallbackIntent, fallbackCopy,
 } from '@/lib/search/prompts';
 import { validateQuery, checkOrigin, checkIp, takeModelBudget, clientIp } from '@/lib/search/guard';
+import { visitorId, logSearch } from '@/lib/search/searchlog';
 import facetData from '@/lib/search/place-facets.json';
 
 const CORPUS_TTL_MS = 10 * 60 * 1000;
@@ -104,10 +105,24 @@ export default async function handler(req, res) {
   const perIp = await checkIp(ip);
   if (!perIp.ok) return res.status(429).json({ error: perIp.error });
 
-  // 6. Answer cache. A repeat costs nothing and never touches the budget.
+  // Who is asking. A first-party cookie, minted on the first search, so that
+  // when this browser later submits an enquiry form the searches join to the
+  // lead. HttpOnly — no script on either side ever sees it.
+  const vid = visitorId(req, res);
+
+  // 6. Answer cache. A repeat costs nothing and never touches the budget —
+  // but it is still a question someone asked, so it is still logged.
   const cached = cacheGet(cacheKey(query));
   if (cached && !debug) {
     res.setHeader('X-Search-Cache', 'hit');
+    await logSearch({
+      visitor_id: vid, ip, query,
+      understood: cached.understood, chips: cached.chips, filters: cached.filters,
+      results_count: cached.results.length,
+      top_slugs: cached.results.slice(0, 5).map(r => r.slug),
+      model: cached.meta?.model || null, ms: 0,
+      meta: { cache: 'hit' },
+    });
     return res.status(200).json(cached);
   }
 
@@ -178,7 +193,11 @@ export default async function handler(req, res) {
         .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))
         .map(([facet, weight]) => ({ facet, weight })),
       filters: ranked.intent.filters,
-      results: ranked.results.map(r => ({
+      // `partner` is deliberately dropped. The rule sitewide is that partner
+      // companies are never named or hinted at, and a JSON response is public
+      // even when nothing renders it. The neutral `rental` stance stays —
+      // that is the part of the partner's rules a buyer is allowed to feel.
+      results: ranked.results.map(({ partner, ...r }) => ({
         ...r,
         why: (copy.why && copy.why[r.slug]) || '',
       })),
@@ -195,6 +214,24 @@ export default async function handler(req, res) {
     // and caching it would keep serving the degraded result for fifteen minutes
     // after the budget frees up again.
     if (!debug && useModel) cacheSet(cacheKey(query), payload);
+
+    // The visibility trail: the sentence, what we understood, what we showed.
+    // Awaited because serverless kills stray work after the response goes out,
+    // but a failure in here costs a log row, never the search.
+    await logSearch({
+      visitor_id: vid, ip, query,
+      understood: payload.understood, chips: payload.chips, filters: payload.filters,
+      results_count: payload.results.length,
+      top_slugs: payload.results.slice(0, 5).map(r => r.slug),
+      model: payload.meta.model, ms: payload.meta.ms,
+      meta: {
+        weak: ranked.meta.weak || false,
+        relaxations: ranked.meta.relaxations,
+        coverage_gap: ranked.meta.coverage_gap,
+        notes,
+      },
+    });
+
     res.setHeader('X-Search-Cache', 'miss');
     return res.status(200).json(payload);
   } catch (err) {
