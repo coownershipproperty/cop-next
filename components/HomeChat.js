@@ -49,11 +49,14 @@ function Card({ r, asked }) {
           <ul className="ev">
             {r.evidence.slice(0, 2).map(e => {
               const n0 = e.named && e.named[0];
+              // What it is, then what it is called, then how far. A bare
+              // venue name ("Nets") means nothing to a buyer without the
+              // "padel courts" in front of it.
               return (
                 <li key={e.facet}>
                   {n0
-                    ? <><b>{n0.name}</b> {n0.km != null ? `${n0.km} km` : 'reaches this area'}</>
-                    : <><b>{e.label}</b>{e.nearest_km != null ? ` ${e.nearest_km} km` : ''}</>}
+                    ? <><i>{e.via || e.label}</i> <b>{n0.name}</b> {n0.km != null ? `· ${n0.km} km` : '· reaches this area'}</>
+                    : <><i>{e.label}</i>{e.nearest_km != null ? ` · nearest ${e.nearest_km} km` : e.within_15km ? ` · ${e.within_15km} within 15 km` : ''}</>}
                 </li>
               );
             })}
@@ -78,6 +81,7 @@ function Card({ r, asked }) {
         .ev { list-style: none; margin: 0 0 8px; padding: 0 0 0 9px; border-left: 2px solid ${GOLD}; }
         .ev li { font-size: 12px; color: ${MUTED}; padding: 1px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .ev b { color: ${NAVY}; font-weight: 700; }
+        .ev i { font-style: normal; text-transform: lowercase; color: ${MUTED}; }
         .meta { display: flex; gap: 10px; font-size: 12px; color: ${MUTED}; margin: 0; padding-top: 8px; border-top: 1px solid rgba(44,74,94,.1); }
         .price { color: ${NAVY}; font-weight: 700; margin-left: auto; }
       `}</style>
@@ -263,58 +267,62 @@ export default function HomeChat({ variant = 'hero' }) {
         </div>
       )}
 
-      <style jsx>{`
+      {/* Global (scoped by the .hc prefix): the thread markup lives inside the
+          nested Turn component, which styled-jsx's per-component scoping does
+          not reach — that is precisely why the card grid silently collapsed to
+          one giant column on the first preview. */}
+      <style jsx global>{`
         .hc { width: 100%; max-width: 1180px; margin: 0 auto; font-family: 'Nunito Sans', sans-serif; }
 
-        .thread { background: rgba(255,255,255,.97); padding: 22px 22px 8px; margin-bottom: 0; max-height: 62vh; overflow-y: auto; text-align: left; }
-        .turn { display: flex; gap: 10px; margin-bottom: 16px; }
-        .turn.user { justify-content: flex-end; }
-        .tick { width: 8px; height: 8px; background: ${GOLD}; margin-top: 8px; flex: 0 0 8px; }
-        .bubblewrap { max-width: 92%; min-width: 0; }
-        .turn.user .bubblewrap { max-width: 78%; }
-        .bubble { font-size: 14.5px; line-height: 1.6; white-space: pre-wrap; }
-        .bubble.user { background: ${NAVY}; color: #fff; padding: 10px 14px; }
-        .bubble.assistant { color: ${NAVY}; padding: 6px 0; }
-        .caret { display: inline-block; width: 7px; height: 15px; background: ${GOLD}; margin-left: 3px; vertical-align: text-bottom; animation: blink 0.9s infinite; }
-        @keyframes blink { 0%,100% { opacity: 0 } 50% { opacity: 1 } }
+        .hc .thread { background: rgba(255,255,255,.97); padding: 22px 22px 8px; margin-bottom: 0; max-height: 62vh; overflow-y: auto; text-align: left; }
+        .hc .turn { display: flex; gap: 10px; margin-bottom: 16px; }
+        .hc .turn.user { justify-content: flex-end; }
+        .hc .tick { width: 8px; height: 8px; background: ${GOLD}; margin-top: 8px; flex: 0 0 8px; }
+        .hc .bubblewrap { max-width: 92%; min-width: 0; flex: 1; }
+        .hc .turn.user .bubblewrap { max-width: 78%; flex: 0 1 auto; }
+        .hc .bubble { font-size: 14.5px; line-height: 1.6; white-space: pre-wrap; }
+        .hc .bubble.user { background: ${NAVY}; color: #fff; padding: 10px 14px; }
+        .hc .bubble.assistant { color: ${NAVY}; padding: 6px 0; }
+        .hc .caret { display: inline-block; width: 7px; height: 15px; background: ${GOLD}; margin-left: 3px; vertical-align: text-bottom; animation: hcblink 0.9s infinite; }
+        @keyframes hcblink { 0%,100% { opacity: 0 } 50% { opacity: 1 } }
 
-        .answers { margin: 8px 0 4px; }
-        .ans { background: ${CREAM}; border-left: 3px solid ${GOLD}; padding: 10px 14px; margin-bottom: 6px; }
-        .ans-q { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: ${GOLD}; margin-bottom: 3px; }
-        .ans-a { display: block; font-size: 13.5px; line-height: 1.55; color: ${NAVY}; }
+        .hc .answers { margin: 8px 0 4px; }
+        .hc .ans { background: ${CREAM}; border-left: 3px solid ${GOLD}; padding: 10px 14px; margin-bottom: 6px; }
+        .hc .ans-q { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: ${GOLD}; margin-bottom: 3px; }
+        .hc .ans-a { display: block; font-size: 13.5px; line-height: 1.55; color: ${NAVY}; }
 
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0 4px; }
-        @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr) } }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr } }
+        .hc .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0 4px; }
+        @media (max-width: 900px) { .hc .grid { grid-template-columns: repeat(2, 1fr) } }
+        @media (max-width: 600px) { .hc .grid { grid-template-columns: 1fr } }
 
-        .bar { display: flex; width: 100%; max-width: 780px; margin: 0 auto; }
-        .thread + .bar { max-width: none; }
-        .bar input {
+        .hc .bar { display: flex; width: 100%; max-width: 780px; margin: 0 auto; }
+        .hc .thread + .bar { max-width: none; }
+        .hc .bar input {
           flex: 1; min-width: 0; padding: 17px 20px; font-size: 16px; font-family: inherit;
           border: 1px solid ${isHero ? 'rgba(255,255,255,.35)' : 'rgba(44,74,94,.2)'};
           border-right: 0; background: ${isHero ? 'rgba(255,255,255,.94)' : '#fff'};
           color: ${NAVY}; outline: none;
         }
-        .thread + .bar input { border-color: rgba(44,74,94,.18); background: #fff; border-top: 0; }
-        .bar input::placeholder { color: ${MUTED}; opacity: .85; }
-        .bar input:focus { background: #fff; border-color: ${GOLD}; }
-        .bar button {
+        .hc .thread + .bar input { border-color: rgba(44,74,94,.18); background: #fff; border-top: 0; }
+        .hc .bar input::placeholder { color: ${MUTED}; opacity: .85; }
+        .hc .bar input:focus { background: #fff; border-color: ${GOLD}; }
+        .hc .bar button {
           padding: 0 30px; font-size: 15px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
           font-family: inherit; background: ${GOLD}; color: ${NAVY}; border: 1px solid ${GOLD};
           cursor: pointer; transition: background .18s;
         }
-        .bar button:hover:not(:disabled) { background: #b8973f; }
-        .bar button:disabled { opacity: .55; cursor: default; }
+        .hc .bar button:hover:not(:disabled) { background: #b8973f; }
+        .hc .bar button:disabled { opacity: .55; cursor: default; }
 
-        .tries { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; margin-top: 14px; }
-        .tries span { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: ${isHero ? 'rgba(255,255,255,.75)' : MUTED}; }
-        .tries button {
+        .hc .tries { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; margin-top: 14px; }
+        .hc .tries span { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: ${isHero ? 'rgba(255,255,255,.75)' : MUTED}; }
+        .hc .tries button {
           font-family: inherit; font-size: 13px; padding: 7px 13px; cursor: pointer;
           background: ${isHero ? 'rgba(255,255,255,.14)' : '#fff'};
           border: 1px solid ${isHero ? 'rgba(255,255,255,.3)' : 'rgba(44,74,94,.2)'};
           color: ${isHero ? '#fff' : NAVY}; transition: background .18s;
         }
-        .tries button:hover { background: ${isHero ? 'rgba(255,255,255,.26)' : CREAM}; }
+        .hc .tries button:hover { background: ${isHero ? 'rgba(255,255,255,.26)' : CREAM}; }
       `}</style>
     </div>
   );
