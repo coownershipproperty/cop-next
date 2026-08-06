@@ -143,6 +143,14 @@ export default function NewListingsDigest({
                         </td>
                       </tr></tbody>
                     </table>
+                    <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation" style={{ marginTop: 14 }}>
+                      <tbody><tr><td align="center">
+                        <Link
+                          href={`mailto:info@co-ownership-property.com?subject=${encodeURIComponent(`I'm interested — ${p.title}`)}&body=${encodeURIComponent(`Hi COP team,\n\nI'm interested in ${p.title} (${p.price} per share). Please send me more information.\n\nThanks,\n`)}`}
+                          style={interestedBtn}
+                        >I'm Interested →</Link>
+                      </td></tr></tbody>
+                    </table>
                   </td></tr></tbody>
                 </table>
               </Section>
@@ -209,6 +217,7 @@ const cardBeds: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif",
 const cardPrice: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 24, fontWeight: 500, color: C.gold, margin: '0 0 2px', lineHeight: '1' };
 const cardPriceLabel: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, color: C.navy60, letterSpacing: '0.1em', textTransform: 'uppercase' as const, margin: 0 };
 const viewBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', border: `1px solid ${C.navy}`, padding: '10px 18px', display: 'inline-block', whiteSpace: 'nowrap' as const };
+const interestedBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", backgroundColor: C.gold, color: C.white, fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, textDecoration: 'none', padding: '13px 22px', display: 'block', textAlign: 'center' as const, whiteSpace: 'nowrap' as const };
 const ctaBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", backgroundColor: C.navy, color: C.white, fontSize: 11, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase' as const, padding: '16px 48px', textDecoration: 'none', display: 'inline-block' };
 const signOffBody: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 14, color: '#4A6070', lineHeight: '1.9', margin: '0 0 28px' };
 const goldRule: React.CSSProperties = { borderColor: C.gold, borderTopWidth: 1, width: 28, margin: '0 0 18px' };
