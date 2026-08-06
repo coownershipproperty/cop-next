@@ -5,61 +5,49 @@
  *
  * For each contact in the resolved audience:
  *   1. Upsert a newsletter_sends row with primary/fallback property slugs
- *   2. Render the email and call Resend
- *   3. Update the send row + campaign counters
+ *   2. Render the email
+ *   3. Dispatch via Resend and mark the row 'sent'
  *
  * Marks campaign.status = 'sending' while in progress, then 'sent' on completion.
  *
  * ---------------------------------------------------------------------------
- * THE 300-SECOND WALL (fixed 26 Jul 2026 — read this before changing the loop)
+ * SPEED (added 6 Aug 2026 — read before touching the loop)
  * ---------------------------------------------------------------------------
- * This route sends the entire audience inside ONE serverless invocation, at
- * roughly 0.5 s per recipient. Vercel kills a function at 300 s. Once the
- * audience passed ~600 people the function was killed mid-loop and everything
- * after the loop — the status:'sent' write, sent_count, sent_at — never ran.
+ * The original loop did TWO things per recipient that made a 1,000-person send
+ * take ~8 minutes and blow the 300 s function limit (which is what left the
+ * 6 Aug EU campaign stuck at 391/991):
+ *   - a separate `leads` query per contact to get their region interests, and
+ *   - a separate Resend API round-trip per email.
+ * Both are now amortised:
+ *   - interests are PRE-FETCHED for the whole audience in chunked bulk queries
+ *     (prefetchInterests), so the per-recipient DB round-trip is gone;
+ *   - emails are rendered per recipient (personalisation is preserved) but sent
+ *     in BATCHES of up to 100 via resend.batch.send, so ~1,000 emails cost ~10
+ *     API calls, not ~1,000. A full list now dispatches in well under a minute,
+ *     inside a single invocation.
  *
- * That was not merely a cosmetic "stuck at sending" bug. Because a row is
- * inserted only when the loop REACHES that person, everyone below the cut had
- * no row at all: not failed, not skipped, invisible. Two real campaigns:
+ * ---------------------------------------------------------------------------
+ * THE 300-SECOND WALL (fixed 26 Jul 2026 — the defences below still apply)
+ * ---------------------------------------------------------------------------
+ * Vercel kills a function at 300 s. Even though batching makes that unlikely to
+ * be reached, all three defences stay, because the audience can always grow:
  *
- *   7 Jul 2026 — audience 774, reached 597, sent 596. Ran 298 s.
- *   23 Jun 2026 — audience 702, reached 623, sent 621. Ran 298 s.
- *
- * ~256 people were silently dropped, and because the audience resolves in a
- * stable order the SAME 95 people were dropped both times. They were also the
- * newest leads — 70 % had signed up in the previous four months, including 19
- * paid Rightmove leads.
- *
- * Three defences, all of which must stay:
- *
- *   1. TIME BUDGET. The loop stops cleanly at MAX_RUN_MS with headroom to
- *      spare and returns { done: false, remaining }. Never rely on raising
- *      maxDuration alone — the audience grows, the ceiling does not.
- *   2. RESUMABLE. A campaign already at status 'sending' may be re-entered;
- *      contacts that already have a 'sent' row are skipped. Pressing Send
- *      again picks up exactly where the previous invocation stopped. The old
- *      code rejected any campaign at 'sending', which made a killed run
- *      permanently unresumable.
+ *   1. TIME BUDGET. Stop cleanly at MAX_RUN_MS between batches and return
+ *      { done: false, remaining }. Never rely on raising maxDuration alone.
+ *   2. RESUMABLE. A campaign at status 'sending' may be re-entered; contacts
+ *      that already have a 'sent'/'cancelled' row are skipped, so nobody is
+ *      mailed twice. (Also enforced by UNIQUE (campaign_id, contact_id) — every
+ *      write is an upsert.) A row is marked 'sent' only AFTER its batch call
+ *      returns without error; a batch that throws leaves its rows 'pending'
+ *      (loud on resume, never a silent drop).
  *   3. RECONCILED COUNTS. sent_count is read back from an actual count of
- *      'sent' rows, not from a counter local to one invocation. The old
- *      per-invocation counter is why "30 april 2026" recorded 137 against 351
- *      real sends.
- *
- * Also note UNIQUE (campaign_id, contact_id) on newsletter_sends. The previous
- * error path in THIS file INSERTed a fresh row with status 'failed', which
- * ALWAYS collided with the 'pending' row written moments earlier, returned
- * 23505, and was swallowed by a bare catch {} — so a genuine send failure was
- * recorded as, and indistinguishable from, an interrupted 'pending'. (No
- * 'failed' row has ever existed in the table; the sibling route
- * /api/admin/newsletter/send does update correctly, it simply was not the route
- * that ran these campaigns.) Every write here is now an upsert or an update on
- * a known id, and every error is checked.
+ *      'sent' rows, never a per-invocation counter.
  */
 import { requireAdmin } from '@/lib/newsletter/auth';
-import { resolveAudience, excludeAlreadyEnquired, getContactInterests } from '@/lib/newsletter/audience';
+import { resolveAudience, excludeAlreadyEnquired } from '@/lib/newsletter/audience';
 import { reorderForRecipient } from '@/lib/newsletter/personalize';
 import { renderRecipient } from '@/lib/newsletter/render';
-import { sendHtml } from '@/lib/resend';
+import { sendHtmlBatch } from '@/lib/resend';
 
 /** Platform ceiling for this function. Declared explicitly so a change to the
  *  Vercel default cannot silently shorten the window. The time budget below is
@@ -70,11 +58,50 @@ export const maxDuration = 300;
  *  and the HTTP response. Deliberately well under maxDuration. */
 const MAX_RUN_MS = 240_000;
 
+/** Resend caps a single batch at 100 messages. */
+const BATCH_SIZE = 100;
+
+/** PostgREST puts filters in the URL, so keep bulk `in` lists modest. */
+const LOOKUP_CHUNK = 200;
+
 /** Cheap sanity check so an unsendable address costs no Resend round-trip.
  *  Catches the real-world case: a floor-plan form capturing "name@gmail". */
 function looksSendable(email) {
   const e = String(email || '').trim();
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
+}
+
+/**
+ * Bulk version of getContactInterests: one region/budget profile per contact,
+ * built from a handful of chunked `leads` queries instead of one query per
+ * recipient. Returns Map<contactId, { interests, budgetMax }>.
+ */
+async function prefetchInterests(db, contactIds) {
+  const byContact = new Map();
+  for (let i = 0; i < contactIds.length; i += LOOKUP_CHUNK) {
+    const slice = contactIds.slice(i, i + LOOKUP_CHUNK);
+    const { data: leads, error } = await db
+      .from('leads')
+      .select('contact_id, main_region, subregion, budget_max')
+      .in('contact_id', slice);
+    if (error) throw new Error('interest prefetch failed: ' + error.message);
+    for (const l of leads || []) {
+      let entry = byContact.get(l.contact_id);
+      if (!entry) { entry = { interests: [], budgetMax: null }; byContact.set(l.contact_id, entry); }
+      const main = (l.main_region || '').trim() || null;
+      const sub  = (l.subregion  || '').trim() || null;
+      if (main || sub) {
+        if (!entry.interests.some(x => x.mainRegion === main && x.subregion === sub)) {
+          entry.interests.push({ mainRegion: main, subregion: sub });
+        }
+      }
+      if (l.budget_max) {
+        const b = Number(l.budget_max);
+        if (!entry.budgetMax || b > entry.budgetMax) entry.budgetMax = b;
+      }
+    }
+  }
+  return byContact;
 }
 
 export default async function handler(req, res) {
@@ -98,12 +125,10 @@ export default async function handler(req, res) {
   if (!campaign) return res.status(404).json({ error: 'Campaign not found' });
   if (campaign.status === 'sent') return res.status(400).json({ error: 'Campaign already sent' });
   // status 'sending' is NOT rejected — that is a resume of a run the platform
-  // killed. See the header note. Already-sent recipients are skipped below.
+  // killed. Already-sent recipients are skipped below.
   const isResume = campaign.status === 'sending';
 
   const propertySlugs = campaign.property_slugs || [];
-  // Templates with a static content list (e.g. viewings-france pulls from
-  // lib/viewings.json) don't need per-campaign property selection.
   const TEMPLATES_WITHOUT_PROPERTY_PICKER = new Set(['viewings-france']);
   const skipPropertyCheck = TEMPLATES_WITHOUT_PROPERTY_PICKER.has(campaign.template_type);
   if (!propertySlugs.length && !skipPropertyCheck) return res.status(400).json({ error: 'No properties selected' });
@@ -118,8 +143,7 @@ export default async function handler(req, res) {
   if (!recipients.length) return res.status(400).json({ error: 'Audience is empty' });
 
   // Who has already been dealt with on a previous invocation? Only 'sent' and
-  // 'cancelled' are terminal — 'pending' means a run died mid-recipient and
-  // 'failed' may have been transient, so both are retried.
+  // 'cancelled' are terminal; 'pending'/'failed' are retried.
   const alreadyDone = new Set();
   {
     const { data: priorRows, error: priorErr } = await db
@@ -129,7 +153,6 @@ export default async function handler(req, res) {
       .in('status', ['sent', 'cancelled']);
     if (priorErr) {
       console.error('[newsletter-send] could not read prior sends:', priorErr.message);
-      // Fail closed: without this list a resume would re-mail everyone already sent.
       return res.status(500).json({ error: 'Could not determine which recipients were already sent' });
     }
     for (const r of priorRows || []) if (r.contact_id) alreadyDone.add(r.contact_id);
@@ -143,12 +166,7 @@ export default async function handler(req, res) {
   const propBySlug = {};
   for (const p of properties || []) propBySlug[p.slug] = p;
 
-  // Mark sending. total_recipients is the full resolved audience — it is the
-  // target, and leaving it at the true figure is what makes the shortfall
-  // (total_recipients - sent_count) visible in the CRM if anything goes wrong.
-  // On a resume never lower it: the audience is re-resolved live, so people who
-  // unsubscribed since the first invocation would otherwise quietly shrink the
-  // target and erase the evidence of the shortfall.
+  // Mark sending. Never lower total_recipients on a resume.
   {
     const targetTotal = Math.max(recipients.length, campaign.total_recipients || 0);
     const { error } = await db.from('newsletter_campaigns')
@@ -160,106 +178,130 @@ export default async function handler(req, res) {
     }
   }
 
-  let sent = 0, failed = 0, skipped = 0, remaining = 0;
+  // Everyone still to do (skip those already sent). skipped counts the rest.
+  const todo = recipients.filter(c => !alreadyDone.has(c.id));
+  const skipped = recipients.length - todo.length;
+
+  // Pre-fetch region interests for the whole audience in bulk (one profile per
+  // contact) — replaces the old per-recipient leads query.
+  let interestsByContact = new Map();
+  if (campaign.personalize_by_region && todo.length) {
+    interestsByContact = await prefetchInterests(db, todo.map(c => c.id));
+  }
+
+  let sent = 0, failed = 0, remaining = 0;
   let timedOut = false;
 
-  for (const contact of recipients) {
-    if (alreadyDone.has(contact.id)) { skipped++; continue; }
-
+  for (let i = 0; i < todo.length; i += BATCH_SIZE) {
     // Out of budget: stop cleanly and leave the rest for the next invocation.
-    if (Date.now() - startedAt > MAX_RUN_MS) { timedOut = true; remaining++; continue; }
+    if (Date.now() - startedAt > MAX_RUN_MS) {
+      timedOut = true;
+      remaining = todo.length - i;
+      break;
+    }
 
-    let primarySlugs = propertySlugs;
-    let fallbackSlugs = [];
-    let sendRowId = null;
+    const chunk = todo.slice(i, i + BATCH_SIZE);
+
+    // Render every email in the chunk (personalised per recipient). A single
+    // recipient that fails to render is recorded 'failed' and dropped from the
+    // batch; the rest still go.
+    const prepared = await Promise.all(chunk.map(async (contact) => {
+      try {
+        let primarySlugs = propertySlugs;
+        let fallbackSlugs = [];
+        if (campaign.personalize_by_region) {
+          const { interests } = interestsByContact.get(contact.id) || { interests: [] };
+          const ordered = reorderForRecipient(propertySlugs, propBySlug, interests);
+          primarySlugs = ordered.primary;
+          fallbackSlugs = ordered.fallback;
+        }
+        if (!looksSendable(contact.email)) {
+          return { contact, primarySlugs, fallbackSlugs, error: `Unsendable address "${contact.email}"` };
+        }
+        const primaryProps  = primarySlugs.map(s => propBySlug[s]).filter(Boolean);
+        const fallbackProps = fallbackSlugs.map(s => propBySlug[s]).filter(Boolean);
+        const { html, subject } = await renderRecipient({
+          templateType:    campaign.template_type || 'personalised-newsletter',
+          firstName:       contact.first_name || 'there',
+          email:           contact.email,
+          primaryProps,
+          fallbackProps,
+          subjectTemplate: campaign.subject,
+          introText:       campaign.intro_text,
+        });
+        return { contact, primarySlugs, fallbackSlugs, html, subject };
+      } catch (err) {
+        return { contact, primarySlugs: propertySlugs, fallbackSlugs: [], error: String(err.message).slice(0, 500) };
+      }
+    }));
+
+    // Upsert one row per recipient in the chunk (status 'pending'), then read
+    // the ids back so we can flip them to 'sent' after the batch call.
+    const rows = prepared.map(p => ({
+      campaign_id:    campaignId,
+      contact_id:     p.contact.id,
+      email:          p.contact.email,
+      property_slugs: propertySlugs,
+      primary_slugs:  p.primarySlugs,
+      fallback_slugs: p.fallbackSlugs,
+      status:         'pending',
+      error:          null,
+    }));
+    const { data: upserted, error: upsertErr } = await db
+      .from('newsletter_sends')
+      .upsert(rows, { onConflict: 'campaign_id,contact_id' })
+      .select('id, contact_id');
+    if (upsertErr) {
+      // Can't track this chunk safely — stop rather than send untracked mail.
+      console.error('[newsletter-send] chunk upsert failed:', upsertErr.message);
+      timedOut = true;
+      remaining = todo.length - i;
+      break;
+    }
+    const rowIdByContact = new Map((upserted || []).map(r => [r.contact_id, r.id]));
+
+    // Records that failed to render / are unsendable: mark 'failed' now, keep
+    // them out of the batch.
+    const badIds = prepared.filter(p => p.error).map(p => rowIdByContact.get(p.contact.id)).filter(Boolean);
+    if (badIds.length) {
+      await db.from('newsletter_sends')
+        .update({ status: 'failed', error: 'render/address error' })
+        .in('id', badIds);
+      failed += badIds.length;
+    }
+
+    // The sendable remainder → one Resend batch call.
+    const sendable = prepared.filter(p => !p.error && p.html);
+    if (!sendable.length) continue;
+
+    const messages = sendable.map(p => ({
+      to:      p.contact.email,
+      subject: p.subject,
+      html:    p.html,
+      from:    'Dylan at Co-Ownership Property <dylan@co-ownership-property.com>',
+      replyTo: 'dylan@co-ownership-property.com',
+    }));
 
     try {
-      if (campaign.personalize_by_region) {
-        const { interests } = await getContactInterests(db, contact.id);
-        const ordered = reorderForRecipient(propertySlugs, propBySlug, interests);
-        primarySlugs = ordered.primary;
-        fallbackSlugs = ordered.fallback;
-      }
-
-      // Upsert, not insert — UNIQUE (campaign_id, contact_id) means a retry of
-      // an interrupted or failed recipient would otherwise throw 23505.
-      const { data: sendRow, error: rowErr } = await db.from('newsletter_sends').upsert({
-        campaign_id:    campaignId,
-        contact_id:     contact.id,
-        email:          contact.email,
-        property_slugs: propertySlugs,
-        primary_slugs:  primarySlugs,
-        fallback_slugs: fallbackSlugs,
-        status:         'pending',
-        error:          null,
-      }, { onConflict: 'campaign_id,contact_id' }).select().single();
-      if (rowErr) throw new Error('send-row upsert failed: ' + rowErr.message);
-      sendRowId = sendRow?.id || null;
-
-      if (!looksSendable(contact.email)) {
-        throw new Error(`Unsendable address "${contact.email}" — not attempted`);
-      }
-
-      const firstName = contact.first_name || 'there';
-      const primaryProps  = primarySlugs.map(s => propBySlug[s]).filter(Boolean);
-      const fallbackProps = fallbackSlugs.map(s => propBySlug[s]).filter(Boolean);
-
-      const { html, subject } = await renderRecipient({
-        templateType:    campaign.template_type || 'personalised-newsletter',
-        firstName,
-        email:           contact.email,
-        primaryProps,
-        fallbackProps,
-        subjectTemplate: campaign.subject,
-        introText:       campaign.intro_text,
-      });
-
-      await sendHtml({
-        to:      contact.email,
-        subject,
-        html,
-        from:    'Dylan at Co-Ownership Property <dylan@co-ownership-property.com>',
-        replyTo: 'dylan@co-ownership-property.com',
-      });
-
-      if (sendRowId) {
+      await sendHtmlBatch(messages);
+      // Batch accepted → mark every row in it 'sent'.
+      const sentIds = sendable.map(p => rowIdByContact.get(p.contact.id)).filter(Boolean);
+      if (sentIds.length) {
         const { error: updErr } = await db.from('newsletter_sends')
           .update({ status: 'sent', sent_at: new Date().toISOString() })
-          .eq('id', sendRowId);
-        // The email HAS gone out. A failed status write means the row will be
-        // retried on resume and the person mailed twice — loud, not silent.
-        if (updErr) console.error(`[newsletter-send] SENT but status write failed for ${contact.email}:`, updErr.message);
+          .in('id', sentIds);
+        if (updErr) console.error('[newsletter-send] batch SENT but status write failed:', updErr.message);
       }
-      sent++;
+      sent += sendable.length;
     } catch (err) {
-      console.error(`[newsletter-send] ${contact.email}:`, err.message);
-      // UPDATE the row we already own. The old code INSERTed a second row here,
-      // which always violated UNIQUE (campaign_id, contact_id) and was thrown
-      // away by an empty catch — which is why no send has ever been recorded
-      // as failed.
-      const failWrite = sendRowId
-        ? db.from('newsletter_sends')
-            .update({ status: 'failed', error: String(err.message).slice(0, 500) })
-            .eq('id', sendRowId)
-        : db.from('newsletter_sends')
-            .upsert({
-              campaign_id:    campaignId,
-              contact_id:     contact.id,
-              email:          contact.email,
-              property_slugs: propertySlugs,
-              primary_slugs:  primarySlugs,
-              fallback_slugs: fallbackSlugs,
-              status:         'failed',
-              error:          String(err.message).slice(0, 500),
-            }, { onConflict: 'campaign_id,contact_id' });
-      const { error: failErr } = await failWrite;
-      if (failErr) console.error(`[newsletter-send] could not record failure for ${contact.email}:`, failErr.message);
-      failed++;
+      // Whole batch rejected — leave the rows 'pending' so the next run retries
+      // them. Nobody in this batch is marked 'sent'.
+      console.error('[newsletter-send] batch send failed:', err.message);
+      failed += sendable.length;
     }
   }
 
-  // Reconcile from the rows themselves. A counter local to this invocation
-  // undercounts every time the send spans more than one invocation.
+  // Reconcile sent_count from the rows themselves.
   const { count: totalSent } = await db
     .from('newsletter_sends')
     .select('id', { count: 'exact', head: true })
@@ -293,7 +335,6 @@ export default async function handler(req, res) {
     totalSent: totalSent ?? sent,
     total: recipients.length,
     resumed: isResume,
-    // Surfaced so the admin UI can tell the operator what to do next.
     message: done
       ? null
       : `Stopped at the time limit with ${remaining} recipients left. Press Send again to resume — nobody will be mailed twice.`,
