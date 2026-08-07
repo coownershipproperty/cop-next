@@ -109,6 +109,7 @@ const COPY = {
     prev_aria: 'Previous', next_aria: 'Next',
     slide_aria: (n) => `Go to slide ${n}`,
     private_gallery: 'Private Gallery',
+    zoom_in: 'Zoom in', zoom_out: 'Zoom out', zoom_reset: 'Reset zoom',
   },
   es: {
     eyebrow: 'Consulta privada',
@@ -136,6 +137,7 @@ const COPY = {
     prev_aria: 'Anterior', next_aria: 'Siguiente',
     slide_aria: (n) => `Ir a la diapositiva ${n}`,
     private_gallery: 'Galería privada',
+    zoom_in: 'Acercar', zoom_out: 'Alejar', zoom_reset: 'Restablecer zoom',
   },
   fr: {
     eyebrow: 'Demande privée',
@@ -163,6 +165,7 @@ const COPY = {
     prev_aria: 'Précédent', next_aria: 'Suivant',
     slide_aria: (n) => `Aller à la diapositive ${n}`,
     private_gallery: 'Galerie privée',
+    zoom_in: 'Zoomer', zoom_out: 'Dézoomer', zoom_reset: 'Réinitialiser le zoom',
   },
   de: {
     eyebrow: 'Persönliche Anfrage',
@@ -190,8 +193,21 @@ const COPY = {
     prev_aria: 'Zurück', next_aria: 'Weiter',
     slide_aria: (n) => `Zu Folie ${n}`,
     private_gallery: 'Private Galerie',
+    zoom_in: 'Vergrößern', zoom_out: 'Verkleinern', zoom_reset: 'Zoom zurücksetzen',
   },
 };
+
+// ── Zoom helpers ──
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 4;
+const ZOOM_STEP = 1.5; // per +/- button press or keyboard +/- press
+const clampScale = (v) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, v));
+const clampPan = (v, scale, dim) => {
+  const max = ((scale - 1) * dim) / 2;
+  return Math.min(max, Math.max(-max, v));
+};
+const touchDist = (t) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+const touchMid = (t) => ({ x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 });
 
 export default function GalleryPage({ name, email, property, locale = 'en' }) {
   const t = COPY[locale] || COPY.en;
@@ -244,6 +260,52 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
   const [error, setError] = useState('');
   const touchStartX = useRef(null);
 
+  // ── Zoom & pan state (image slides only — never the enquiry slide) ──
+  const [zoom, setZoom] = useState({ scale: 1, x: 0, y: 0, smooth: false });
+  const [panning, setPanning] = useState(false);
+  const stageRef = useRef(null);
+  const zoomRef = useRef(zoom);
+  const indexRef = useRef(index);
+  const gestureRef = useRef({ lastDist: null, lastMid: null, lastTouch: null, pinched: false });
+  useEffect(() => { zoomRef.current = zoom; }, [zoom]);
+  useEffect(() => { indexRef.current = index; }, [index]);
+
+  // Changing slide always starts fresh at 1×
+  useEffect(() => { setZoom({ scale: 1, x: 0, y: 0, smooth: false }); }, [index]);
+
+  // Multiply the current scale by `factor`, keeping the screen point (cx, cy)
+  // anchored (defaults to the stage centre). Zooming back to 1× recentres.
+  const zoomBy = useCallback((factor, cx, cy, smooth = false) => {
+    const el = stageRef.current;
+    const w = el ? el.clientWidth : 0;
+    const h = el ? el.clientHeight : 0;
+    setZoom(z => {
+      const scale = clampScale(z.scale * factor);
+      if (scale === z.scale) return z;
+      if (scale <= 1) return { scale: 1, x: 0, y: 0, smooth };
+      const px = (cx == null ? w / 2 : cx) - w / 2;
+      const py = (cy == null ? h / 2 : cy) - h / 2;
+      const ratio = scale / z.scale;
+      const x = px - (px - z.x) * ratio;
+      const y = py - (py - z.y) * ratio;
+      return { scale, x: clampPan(x, scale, w), y: clampPan(y, scale, h), smooth };
+    });
+  }, []);
+
+  const panBy = useCallback((dx, dy) => {
+    const el = stageRef.current;
+    const w = el ? el.clientWidth : 0;
+    const h = el ? el.clientHeight : 0;
+    setZoom(z => z.scale <= 1 ? z : {
+      ...z,
+      x: clampPan(z.x + dx, z.scale, w),
+      y: clampPan(z.y + dy, z.scale, h),
+      smooth: false,
+    });
+  }, []);
+
+  const resetZoom = useCallback(() => setZoom({ scale: 1, x: 0, y: 0, smooth: true }), []);
+
   const firstName = name ? name.split(' ')[0] : null;
   const sym = { EUR: '€', USD: '$', GBP: '£', CHF: 'CHF ' }[property.currency] || '€';
   const priceStr = property.price ? `${sym}${Number(property.price).toLocaleString('en-GB')}` : null;
@@ -276,9 +338,117 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
     return () => window.removeEventListener('keydown', handler);
   }, [goNext, goPrev]);
 
+  // Keyboard zoom: + / - / 0 (skip while typing in the enquiry form)
+  useEffect(() => {
+    const handler = (e) => {
+      if (index === enquiryIndex) return;
+      if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+      if (e.key === '+' || e.key === '=') zoomBy(ZOOM_STEP, null, null, true);
+      else if (e.key === '-' || e.key === '_') zoomBy(1 / ZOOM_STEP, null, null, true);
+      else if (e.key === '0') resetZoom();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [index, enquiryIndex, zoomBy, resetZoom]);
+
+  // Wheel zoom + touch pinch-zoom & pan. Native NON-passive listeners so we can
+  // preventDefault() — React's delegated wheel/touch handlers are passive and
+  // can't stop browser page-zoom (trackpad pinch arrives as wheel+ctrlKey).
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const g = gestureRef.current;
+
+    const onWheel = (e) => {
+      if (indexRef.current === enquiryIndex) return; // enquiry form scrolls natively
+      e.preventDefault();
+      // ctrlKey ⇒ trackpad pinch — browsers report a larger effective delta
+      const factor = Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0022));
+      zoomBy(factor, e.clientX, e.clientY);
+    };
+
+    const isInteractive = (target) =>
+      target && target.closest && target.closest('button, a, input, textarea, select');
+
+    const onTouchStart = (e) => {
+      if (indexRef.current === enquiryIndex) return;
+      if (isInteractive(e.target)) return; // never swallow taps on buttons/links
+      if (e.touches.length === 2) {
+        g.pinched = true; // suppress swipe navigation for this whole gesture
+        g.lastDist = touchDist(e.touches);
+        g.lastMid = touchMid(e.touches);
+        e.preventDefault();
+      } else if (e.touches.length === 1 && zoomRef.current.scale > 1) {
+        g.lastTouch = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        e.preventDefault();
+      }
+    };
+
+    const onTouchMove = (e) => {
+      if (indexRef.current === enquiryIndex) return;
+      if (e.touches.length === 2 && g.lastDist) {
+        e.preventDefault();
+        const d = touchDist(e.touches);
+        const m = touchMid(e.touches);
+        zoomBy(d / g.lastDist, m.x, m.y);
+        panBy(m.x - g.lastMid.x, m.y - g.lastMid.y); // two-finger pan
+        g.lastDist = d;
+        g.lastMid = m;
+      } else if (e.touches.length === 1 && g.lastTouch && zoomRef.current.scale > 1) {
+        e.preventDefault();
+        const t2 = e.touches[0];
+        panBy(t2.clientX - g.lastTouch.x, t2.clientY - g.lastTouch.y);
+        g.lastTouch = { x: t2.clientX, y: t2.clientY };
+      }
+    };
+
+    const onTouchEnd = (e) => {
+      if (e.touches.length < 2) { g.lastDist = null; g.lastMid = null; }
+      if (e.touches.length === 0) {
+        g.lastTouch = null;
+        // let the (suppressed) swipe touchend run before clearing the flag
+        setTimeout(() => { g.pinched = false; }, 60);
+      }
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    el.addEventListener('touchstart', onTouchStart, { passive: false });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    el.addEventListener('touchend', onTouchEnd);
+    el.addEventListener('touchcancel', onTouchEnd);
+    return () => {
+      el.removeEventListener('wheel', onWheel);
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
+      el.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, [enquiryIndex, zoomBy, panBy]);
+
+  // Mouse drag-to-pan (desktop, while zoomed)
+  const handlePanMouseDown = (e) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    setPanning(true);
+    let last = { x: e.clientX, y: e.clientY };
+    const move = (ev) => {
+      panBy(ev.clientX - last.x, ev.clientY - last.y);
+      last = { x: ev.clientX, y: ev.clientY };
+    };
+    const up = () => {
+      setPanning(false);
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
   const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
   const handleTouchEnd = (e) => {
     if (touchStartX.current === null) return;
+    // While zoomed (or mid-pinch) the finger is panning, not swiping to navigate
+    if (gestureRef.current.pinched || zoom.scale > 1) { touchStartX.current = null; return; }
     const dx = e.changedTouches[0].clientX - touchStartX.current;
     if (Math.abs(dx) > 50) { dx < 0 ? goNext() : goPrev(); }
     touchStartX.current = null;
@@ -322,6 +492,7 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
   };
 
   const isEnquiry    = index === enquiryIndex;
+  const isZoomed     = zoom.scale > 1;
   const isPrevEnquiry = prev === enquiryIndex;
   const currentType  = !isEnquiry ? slides[index]?.type : null;
   const isDocument   = currentType === 'document';
@@ -346,7 +517,13 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
       </Head>
 
       <div
-        style={s.stage}
+        ref={stageRef}
+        style={{
+          ...s.stage,
+          // Disable the browser's own pan/zoom on image slides so our pinch/pan
+          // handlers own the gesture; the enquiry slide keeps native scrolling.
+          touchAction: isEnquiry ? 'auto' : 'none',
+        }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -375,7 +552,15 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
               <img
                 src={slide.url}
                 alt={`${property.title} — ${isDoc ? 'document' : isExtr ? 'extra' : 'photo'} ${i + 1}`}
-                style={isDoc ? s.slideImgDoc : isExtr ? s.slideImgExtra : s.slideImg}
+                draggable={false}
+                style={{
+                  ...(isDoc ? s.slideImgDoc : isExtr ? s.slideImgExtra : s.slideImg),
+                  ...(isCurrent ? {
+                    transform: `translate(${zoom.x}px, ${zoom.y}px) scale(${zoom.scale})`,
+                    transition: zoom.smooth ? 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)' : 'none',
+                    willChange: 'transform',
+                  } : {}),
+                }}
               />
               {/* gradient only on full-bleed photos */}
               {isPhoto && <div style={s.gradient} />}
@@ -520,8 +705,8 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
           }
         </div>
 
-        {/* ── CLICK ZONES (left half = prev, right half = next) ── */}
-        {!isEnquiry && (
+        {/* ── CLICK ZONES (left half = prev, right half = next) — hidden while zoomed so dragging pans instead of navigating ── */}
+        {!isEnquiry && !isZoomed && (
           <>
             {index > 0 && (
               <div
@@ -536,6 +721,56 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
               />
             )}
           </>
+        )}
+
+        {/* ── PAN LAYER (drag to pan while zoomed; double-click resets) ── */}
+        {!isEnquiry && isZoomed && (
+          <div
+            onMouseDown={handlePanMouseDown}
+            onDoubleClick={resetZoom}
+            style={{
+              position: 'absolute', inset: 0, zIndex: 5,
+              cursor: panning ? 'grabbing' : 'grab',
+            }}
+          />
+        )}
+
+        {/* ── ZOOM CONTROLS ── */}
+        {!isEnquiry && (
+          <div style={s.zoomWrap} className="gallery-zoom">
+            <button
+              type="button"
+              className="gallery-zoom-btn"
+              onClick={() => zoomBy(ZOOM_STEP, null, null, true)}
+              disabled={zoom.scale >= MAX_ZOOM}
+              aria-label={t.zoom_in}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </button>
+            <button
+              type="button"
+              className="gallery-zoom-btn"
+              onClick={() => zoomBy(1 / ZOOM_STEP, null, null, true)}
+              disabled={!isZoomed}
+              aria-label={t.zoom_out}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M1 7h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </button>
+            {isZoomed && (
+              <button
+                type="button"
+                className="gallery-zoom-btn"
+                onClick={resetZoom}
+                aria-label={t.zoom_reset}
+              >
+                <span style={{ fontSize: 10, letterSpacing: '0.08em', fontFamily: "'Jost', Arial, sans-serif" }}>1×</span>
+              </button>
+            )}
+          </div>
         )}
 
         {/* ── I'M INTERESTED BUTTON ── */}
@@ -622,6 +857,22 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
           border-color: #C9A84C;
           color: #0F1D2A;
         }
+        .gallery-zoom-btn {
+          width: 40px; height: 40px;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(15,29,42,0.45);
+          border: 1px solid rgba(255,255,255,0.22);
+          color: rgba(255,255,255,0.9);
+          cursor: pointer;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          transition: border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+        }
+        .gallery-zoom-btn:hover:not(:disabled) {
+          border-color: #C9A84C;
+          color: #C9A84C;
+        }
+        .gallery-zoom-btn:disabled { opacity: 0.35; cursor: default; }
         @media (max-width: 640px) {
           /* Nav */
           .gallery-nav { padding: 0 18px !important; height: 52px !important; }
@@ -665,6 +916,10 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
 
           /* Prev arrow: shift further left on enquiry slide so it clears the email field */
           .gallery-prev-enquiry { left: -14px !important; }
+
+          /* Zoom controls: tuck in under the shorter mobile nav */
+          .gallery-zoom { top: 64px !important; right: 14px !important; gap: 6px !important; }
+          .gallery-zoom-btn { width: 36px; height: 36px; }
         }
       `}</style>
     </>
@@ -799,6 +1054,12 @@ const s = {
     background: '#C9A84C', border: 'none',
     padding: '10px 28px', cursor: 'pointer',
     whiteSpace: 'nowrap',
+  },
+
+  // Zoom controls (top right, below the nav)
+  zoomWrap: {
+    position: 'absolute', top: 76, right: 20, zIndex: 12,
+    display: 'flex', flexDirection: 'column', gap: 8,
   },
 
   // Dot indicators
