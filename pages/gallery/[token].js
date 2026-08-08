@@ -745,8 +745,10 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
               disabled={zoom.scale >= MAX_ZOOM}
               aria-label={t.zoom_in}
             >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.7"/>
+                <path d="M16.2 16.2L21 21" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+                <path d="M11 8.2v5.6M8.2 11h5.6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
               </svg>
             </button>
             <button
@@ -756,8 +758,10 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
               disabled={!isZoomed}
               aria-label={t.zoom_out}
             >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M1 7h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.7"/>
+                <path d="M16.2 16.2L21 21" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
+                <path d="M8.2 11h5.6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/>
               </svg>
             </button>
             {isZoomed && (
@@ -767,9 +771,10 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
                 onClick={resetZoom}
                 aria-label={t.zoom_reset}
               >
-                <span style={{ fontSize: 10, letterSpacing: '0.08em', fontFamily: "'Jost', Arial, sans-serif" }}>1×</span>
+                <span style={{ fontSize: 12, fontWeight: 500, letterSpacing: '0.08em', fontFamily: "'Jost', Arial, sans-serif" }}>1×</span>
               </button>
             )}
+            <span style={s.zoomHintLabel} className="gallery-zoom-label">ZOOM</span>
           </div>
         )}
 
@@ -858,21 +863,23 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
           color: #0F1D2A;
         }
         .gallery-zoom-btn {
-          width: 40px; height: 40px;
+          width: 44px; height: 44px;
           display: flex; align-items: center; justify-content: center;
-          background: rgba(15,29,42,0.45);
-          border: 1px solid rgba(255,255,255,0.22);
-          color: rgba(255,255,255,0.9);
+          background: rgba(10,20,32,0.6);
+          border: 1px solid rgba(255,255,255,0.4);
+          color: #fff;
           cursor: pointer;
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
-          transition: border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+          box-shadow: 0 2px 16px rgba(0,0,0,0.35);
+          transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease, opacity 0.3s ease;
         }
         .gallery-zoom-btn:hover:not(:disabled) {
           border-color: #C9A84C;
           color: #C9A84C;
+          background: rgba(10,20,32,0.8);
         }
-        .gallery-zoom-btn:disabled { opacity: 0.35; cursor: default; }
+        .gallery-zoom-btn:disabled { opacity: 0.4; cursor: default; }
         @media (max-width: 640px) {
           /* Nav */
           .gallery-nav { padding: 0 18px !important; height: 52px !important; }
@@ -917,9 +924,8 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
           /* Prev arrow: shift further left on enquiry slide so it clears the email field */
           .gallery-prev-enquiry { left: -14px !important; }
 
-          /* Zoom controls: tuck in under the shorter mobile nav */
-          .gallery-zoom { top: 64px !important; right: 14px !important; gap: 6px !important; }
-          .gallery-zoom-btn { width: 36px; height: 36px; }
+          /* Zoom controls: keep full 44px touch targets under the shorter mobile nav */
+          .gallery-zoom { top: 60px !important; right: 12px !important; gap: 8px !important; }
         }
       `}</style>
     </>
@@ -1059,7 +1065,15 @@ const s = {
   // Zoom controls (top right, below the nav)
   zoomWrap: {
     position: 'absolute', top: 76, right: 20, zIndex: 12,
-    display: 'flex', flexDirection: 'column', gap: 8,
+    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+  },
+  zoomHintLabel: {
+    fontFamily: "'Jost', Arial, sans-serif",
+    fontSize: 8, fontWeight: 600, letterSpacing: '0.3em',
+    color: 'rgba(255,255,255,0.75)',
+    textShadow: '0 1px 8px rgba(0,0,0,0.7)',
+    marginTop: 2, paddingLeft: '0.3em', // optically recentre the letterspaced text
+    pointerEvents: 'none', userSelect: 'none',
   },
 
   // Dot indicators
