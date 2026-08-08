@@ -35,7 +35,8 @@ async function liveHeroImages(slugs) {
     const { data, error } = await supabase
       .from('properties')
       .select('slug, img, status')
-      .in('slug', slugs);
+      .in('slug', slugs)
+      .in('status', ['Live', 'for_sale']);
 
     if (error) {
       console.error('Supabase error (viewings):', error);
