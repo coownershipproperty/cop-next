@@ -468,6 +468,8 @@ export default async function handler(req, res) {
       : `sent — <a href="${galleryUrl}">${galleryUrl}</a>`;
     await sendTeamNotification({
       subject: `Floor Plan Request — ${name || email}`,
+      // Same person → same Gmail conversation (see sendTeamNotification)
+      threadKey: `floorplan-${email}`,
       html: `
         <h2>Floor Plan / Photo Request</h2>
         <p><strong>Property:</strong> ${propertyTitle}${propertyUrl ? ` — <a href="${propertyUrl}">${propertyUrl}</a>` : ''}</p>
