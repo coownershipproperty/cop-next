@@ -1509,7 +1509,7 @@ function Home() {
   const activePartnerContact = partnerContacts[activePartner];
   const partnerLeadCount = leadRecords.filter((lead) => lead.partner === activePartner).length;
   const nav = role === "admin" ? [{ id: "overview", label: "Overview", icon: "\u2302" }, { id: "leads", label: "Leads", icon: "\u25EB", count: String(leadRecords.length) }, { id: "submit", label: "Submit lead", icon: "\uFF0B" }, { id: "partners", label: "Partners", icon: "\u25CE" }, { id: "rates", label: "Commission rates", icon: "%" }, { id: "invoices", label: "Invoices", icon: "\u25A4", count: "2" }] : [{ id: "leads", label: "My leads", icon: "\u25EB", count: String(partnerLeadCount) }, { id: "invoices", label: "Invoices", icon: "\u25A4", count: activePartner === "21-5" ? "2" : "0" }];
-  const titles = { overview: { eyebrow: "THURSDAY, 14 AUGUST", title: "Good morning, David" }, leads: { eyebrow: role === "admin" ? "LEAD MANAGEMENT" : `${activePartner.toUpperCase()} \xB7 PRIVATE PARTNER WORKSPACE`, title: role === "admin" ? "Your pipeline" : "Your assigned leads" }, submit: { eyebrow: "SECURE INTRODUCTION", title: "New lead" }, partners: { eyebrow: "PARTNER NETWORK", title: "Partner access" }, rates: { eyebrow: "COMMERCIAL TERMS", title: "Partner rates" }, invoices: { eyebrow: role === "admin" ? "COMMERCIAL OVERVIEW" : activePartner.toUpperCase(), title: "Invoices & commission" } };
+  const titles = { overview: { eyebrow: "THURSDAY, 14 AUGUST", title: "Good morning, Dylan" }, leads: { eyebrow: role === "admin" ? "LEAD MANAGEMENT" : `${activePartner.toUpperCase()} \xB7 PRIVATE PARTNER WORKSPACE`, title: role === "admin" ? "Your pipeline" : "Your assigned leads" }, submit: { eyebrow: "SECURE INTRODUCTION", title: "New lead" }, partners: { eyebrow: "PARTNER NETWORK", title: "Partner access" }, rates: { eyebrow: "COMMERCIAL TERMS", title: "Partner rates" }, invoices: { eyebrow: role === "admin" ? "COMMERCIAL OVERVIEW" : activePartner.toUpperCase(), title: "Invoices & commission" } };
   return /* @__PURE__ */ jsxs("main", { className: "portal-shell", children: [
     /* @__PURE__ */ jsxs("aside", { className: "sidebar", children: [
       /* @__PURE__ */ jsx(Brand, {}),
@@ -1595,4 +1595,3 @@ function AdminPartnersPage() {
 export {
   AdminPartnersPage as default
 };
-
