@@ -52,6 +52,7 @@ const POPUP_ROUTES = [
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const isGallery = router.pathname.startsWith('/gallery');
+  const isAdmin = router.pathname.startsWith('/admin');
   const popupAllowed = POPUP_ROUTES.some(re => re.test(router.pathname));
   const [waVisible, setWaVisible] = useState(false);
   const [waDismissed, setWaDismissed] = useState(false);
@@ -146,7 +147,7 @@ export default function App({ Component, pageProps }) {
           route gating, no need to gate at the mount point. */}
 
       {/* ── WhatsApp floating button (mobile only, hidden on gallery) ── */}
-      {!isGallery && !waDismissed && (
+      {!isGallery && !isAdmin && !waDismissed && (
         <div className={`wa-wrap${waVisible ? ' wa-visible' : ''}`}>
           <a
             href="https://wa.me/447901002763?text=Hi%2C%20I%27d%20like%20to%20find%20out%20more%20about%20co-ownership%20properties."
