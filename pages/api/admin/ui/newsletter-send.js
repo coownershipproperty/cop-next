@@ -44,7 +44,7 @@
  *      'sent' rows, never a per-invocation counter.
  */
 import { requireAdmin } from '@/lib/newsletter/auth';
-import { resolveAudience, excludeAlreadyEnquired } from '@/lib/newsletter/audience';
+import { resolveAudience, excludeAlreadyEnquired, fetchAllRows } from '@/lib/newsletter/audience';
 import { reorderForRecipient } from '@/lib/newsletter/personalize';
 import { renderRecipient } from '@/lib/newsletter/render';
 import { sendHtmlBatch } from '@/lib/resend';
@@ -145,17 +145,18 @@ export default async function handler(req, res) {
   // Who has already been dealt with on a previous invocation? Only 'sent' and
   // 'cancelled' are terminal; 'pending'/'failed' are retried.
   const alreadyDone = new Set();
-  {
-    const { data: priorRows, error: priorErr } = await db
+  try {
+    // Paged: an unbounded select caps at 1,000 rows, which above 1,000
+    // recipients would hide prior sends and re-mail people (see audience.js).
+    const priorRows = await fetchAllRows(() => db
       .from('newsletter_sends')
-      .select('contact_id, status')
+      .select('id, contact_id, status')
       .eq('campaign_id', campaignId)
-      .in('status', ['sent', 'cancelled']);
-    if (priorErr) {
-      console.error('[newsletter-send] could not read prior sends:', priorErr.message);
-      return res.status(500).json({ error: 'Could not determine which recipients were already sent' });
-    }
-    for (const r of priorRows || []) if (r.contact_id) alreadyDone.add(r.contact_id);
+      .in('status', ['sent', 'cancelled']));
+    for (const r of priorRows) if (r.contact_id) alreadyDone.add(r.contact_id);
+  } catch (priorErr) {
+    console.error('[newsletter-send] could not read prior sends:', priorErr.message);
+    return res.status(500).json({ error: 'Could not determine which recipients were already sent' });
   }
 
   // Fetch properties once

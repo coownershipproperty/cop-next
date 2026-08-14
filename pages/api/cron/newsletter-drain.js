@@ -32,7 +32,7 @@
  * pages/api/admin/ui/newsletter-send.js — that route is the source of truth for
  * the send semantics; if you change one, change both.
  */
-import { resolveAudience, excludeAlreadyEnquired, getContactInterests } from '@/lib/newsletter/audience';
+import { resolveAudience, excludeAlreadyEnquired, getContactInterests, fetchAllRows } from '@/lib/newsletter/audience';
 import { reorderForRecipient } from '@/lib/newsletter/personalize';
 import { renderRecipient } from '@/lib/newsletter/render';
 import { sendHtml } from '@/lib/resend';
@@ -120,18 +120,19 @@ export default async function handler(req, res) {
 
   // Who is already done (skipped so nobody is mailed twice).
   const alreadyDone = new Set();
-  {
-    const { data: priorRows, error: priorErr } = await db
+  try {
+    // Paged: an unbounded select caps at 1,000 rows, which above 1,000
+    // recipients would hide prior sends and re-mail people (see audience.js).
+    const priorRows = await fetchAllRows(() => db
       .from('newsletter_sends')
-      .select('contact_id, status')
+      .select('id, contact_id, status')
       .eq('campaign_id', campaignId)
-      .in('status', ['sent', 'cancelled']);
-    if (priorErr) {
-      // Fail closed: without this list a drain would re-mail everyone already sent.
-      console.error('[newsletter-drain] could not read prior sends:', priorErr.message);
-      return res.status(500).json({ error: 'Could not determine which recipients were already sent' });
-    }
-    for (const r of priorRows || []) if (r.contact_id) alreadyDone.add(r.contact_id);
+      .in('status', ['sent', 'cancelled']));
+    for (const r of priorRows) if (r.contact_id) alreadyDone.add(r.contact_id);
+  } catch (priorErr) {
+    // Fail closed: without this list a drain would re-mail everyone already sent.
+    console.error('[newsletter-drain] could not read prior sends:', priorErr.message);
+    return res.status(500).json({ error: 'Could not determine which recipients were already sent' });
   }
 
   // Fetch properties once.
