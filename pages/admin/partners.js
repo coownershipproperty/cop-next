@@ -257,7 +257,8 @@ function Brand() {
   ] });
 }
 function PartnerLogo({ name, mark, big = false }) {
-  return /* @__PURE__ */ jsx("div", { className: `partner-logo${big ? " big" : ""}${name === "21-5" ? " has-logo" : ""}`, children: name === "21-5" ? /* @__PURE__ */ jsx("img", { src: "/21-5-logo.svg", alt: "21.5" }) : mark });
+  const logoSrc = name === "21-5" ? "/21-5-logo.svg" : name === "Vivla" ? "/vivla-logo.svg" : null;
+  return /* @__PURE__ */ jsx("div", { className: `partner-logo${big ? " big" : ""}${logoSrc ? " has-logo" : ""}${name === "Vivla" ? " vivla-logo" : ""}`, children: logoSrc ? /* @__PURE__ */ jsx("img", { src: logoSrc, alt: name }) : mark });
 }
 function OverviewView({ leadRecords, onNavigate, onLead }) {
   return /* @__PURE__ */ jsxs(Fragment, { children: [

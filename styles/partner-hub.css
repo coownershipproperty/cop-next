@@ -89,6 +89,7 @@
 .card-heading button { border: 0; background: transparent; color: #9aa6b3; letter-spacing: 2px; }
 .partner-logo { width: 62px; height: 62px; margin: 22px 0 17px; border-radius: 14px; display: grid; place-items: center; color: white; background: linear-gradient(145deg, #7b73dc, #5d56bd); font-family: Georgia, serif; font-size: 22px; box-shadow: 0 10px 24px rgba(123,115,220,.2); }
 .partner-logo.has-logo { overflow: visible; border-radius: 50%; background: transparent; box-shadow: none; }.partner-logo.has-logo img { width: 100%; height: 100%; display: block; object-fit: contain; }
+.partner-logo.has-logo.vivla-logo { border-radius: 0; }
 .partner-status { display: grid; grid-template-columns: 10px 1fr; align-items: center; column-gap: 8px; padding-bottom: 18px; border-bottom: 1px solid #eef1f4; }
 .partner-status > span { grid-row: span 2; width: 8px; height: 8px; background: var(--mint); border-radius: 50%; }
 .partner-status strong { font-size: 11px; }
@@ -392,4 +393,3 @@
 @media (max-width: 560px) {
   .form-grid, .notification-options, .assignment-grid, .partner-contact-editor { grid-template-columns: 1fr; }.form-grid label.wide { grid-column: auto; }.partner-contact-editor > *, .contact-editor-actions { grid-column: 1; }.notification-copy-policy { align-items: flex-start; flex-wrap: wrap; }.notification-copy-policy > b { margin-left: 52px; }.partner-numbers { display: grid; grid-template-columns: repeat(3,1fr); width: 100%; }.partner-numbers span { min-width: 0; padding: 0 8px; }.partner-detail-card { padding: 18px; }.commission-partner-list { padding-left: 20px; padding-right: 20px; }.commission-partner-card > header { grid-template-columns: 48px 1fr; }.commission-partner-card header > b { grid-column: 1 / -1; }.agreement-upload { grid-template-columns: 1fr 1fr; }.agreement-upload > div { grid-column: 1 / -1; }.agreement-upload > label, .agreement-upload > button { justify-content: center; }.login-brand-panel { padding: 30px 25px; }.login-form-panel { padding: 36px 22px; }.role-choice { grid-template-columns: 1fr; }.toast { left: 15px; right: 15px; bottom: 15px; }.lead-drawer { padding: 26px 22px; }.collection-options, .destination-regions { grid-template-columns: repeat(2, minmax(0, 1fr)); }.destination-heading, .destination-selection-note { align-items: flex-start; flex-direction: column; }
 }
-
