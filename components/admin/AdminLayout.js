@@ -49,7 +49,7 @@ const s = {
   loadingText: { fontSize: 14, color: '#8a9aaa' },
 }
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout({ children, fullBleed = false }) {
   const router = useRouter()
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -89,6 +89,7 @@ export default function AdminLayout({ children }) {
   const isFeatured = router.pathname.startsWith('/admin/featured')
   const isNewsletters = router.pathname.startsWith('/admin/newsletters')
   const isEmails = router.pathname.startsWith('/admin/emails')
+  const isPartners = router.pathname.startsWith('/admin/partners')
 
   return (
     <div style={s.root}>
@@ -109,6 +110,9 @@ export default function AdminLayout({ children }) {
             <Link href="/admin/emails" style={isEmails ? s.navLinkActive : s.navLink}>
               Emails
             </Link>
+            <Link href="/admin/partners" style={isPartners ? s.navLinkActive : s.navLink}>
+              Partner Hub
+            </Link>
           </div>
           <div style={s.navRight}>
             <Link href="/our-homes" target="_blank" style={s.viewSite}>
@@ -120,7 +124,7 @@ export default function AdminLayout({ children }) {
           </div>
         </div>
       </nav>
-      <main style={s.main}>
+      <main style={fullBleed ? { ...s.main, maxWidth: 'none', padding: 0 } : s.main}>
         {children}
       </main>
     </div>
