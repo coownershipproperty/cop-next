@@ -252,6 +252,7 @@ export async function getStaticProps({ params }) {
       .from('properties')
       .select('*')
       .eq('slug', params.slug)
+      .in('status', ['Live', 'for_sale'])
       .maybeSingle();
 
     if (propErr || !property) return { notFound: true };
