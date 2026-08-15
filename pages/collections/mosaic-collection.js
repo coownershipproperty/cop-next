@@ -448,10 +448,10 @@ export default function MosaicCollectionPage() {
 
           <div className={styles.locationLayout}>
             <div className={styles.mapPanel}>
-              <svg viewBox="0 0 1004 500" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mosaic-map-title mosaic-map-description">
+              <svg viewBox="-28 -20 1060 540" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mosaic-map-title mosaic-map-description">
                 <title id="mosaic-map-title">{`The five homes in ${COLLECTION_NAME}`}</title>
                 <desc id="mosaic-map-description">A map of Europe showing home icons at Port d’Andratx, Chianni, Les Rosières, Barri Gòtic and Callian.</desc>
-                <rect width="1004" height="500" className={styles.mapSea} />
+                <rect x="-28" y="-20" width="1060" height="540" className={styles.mapSea} />
                 <g className={styles.mapLand}>{MAP_PATHS.map((path, index) => <path d={path} key={index} />)}</g>
                 <g className={styles.mapIslands} aria-hidden="true">
                   {BALEARIC_ISLANDS.map((island) => <ellipse key={`${island.cx}-${island.cy}`} cx={island.cx} cy={island.cy} rx={island.rx} ry={island.ry} transform={`rotate(${island.rotate} ${island.cx} ${island.cy})`} />)}
