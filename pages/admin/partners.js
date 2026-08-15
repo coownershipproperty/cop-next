@@ -614,7 +614,8 @@ function SubmitView({ partnerContacts, onDone }) {
     const budgetFrom = String(data.get("budgetFrom") || "");
     const budgetTo = String(data.get("budgetTo") || "");
     const formatBudget = (value) => value ? `\u20AC${Number(value).toLocaleString("en-GB")}` : "";
-    const budget = budgetFrom && budgetTo ? `${formatBudget(budgetFrom)} \u2013 ${formatBudget(budgetTo)}` : formatBudget(budgetFrom || budgetTo) || "Not specified";
+    const formattedBudgetTo = budgetTo ? `${formatBudget(budgetTo)}${Number(budgetTo) >= 1e6 ? "+" : ""}` : "";
+    const budget = budgetFrom && budgetTo ? `${formatBudget(budgetFrom)} \u2013 ${formattedBudgetTo}` : formatBudget(budgetFrom) || formattedBudgetTo || "Not specified";
     const propertyPreferences = String(data.get("propertyPreferences") || "").trim();
     const partnerNote = String(data.get("partnerNote") || "").trim();
     const newLead = {
@@ -759,7 +760,7 @@ function SubmitView({ partnerContacts, onDone }) {
                   /* @__PURE__ */ jsx("i", { children: "\u20AC" }),
                   /* @__PURE__ */ jsxs("select", { name: "budgetTo", defaultValue: "", "aria-label": "Maximum approximate budget", children: [
                     /* @__PURE__ */ jsx("option", { value: "", children: "Select maximum" }),
-                    budgetOptions.slice(1).map((option) => /* @__PURE__ */ jsx("option", { value: option.value, children: option.label }, option.value))
+                    budgetOptions.slice(1).map((option) => /* @__PURE__ */ jsx("option", { value: option.value, children: Number(option.value) >= 1e6 ? `${option.label} +` : option.label }, option.value))
                   ] })
                 ] })
               ] })
