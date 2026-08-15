@@ -37,7 +37,7 @@
 
 .galleryAccess {
   position: absolute;
-  left: 62%;
+  left: 50%;
   top: 50%;
   z-index: 4;
   display: grid;
@@ -46,7 +46,7 @@
   width: min(510px, calc(100% - 40px));
   padding: 25px 28px;
   transform: translate(-50%, -50%);
-  background: rgba(16, 45, 69, .96);
+  background: rgba(16, 45, 69, .84);
   color: white;
   text-align: left;
   box-shadow: 0 18px 55px rgba(8, 28, 44, .24);
