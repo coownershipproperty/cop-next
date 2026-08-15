@@ -340,22 +340,24 @@ export default function MosaicCollectionPage() {
           <div className={styles.heroGrid}>
             {HOMES.map((home, index) => (
               <div key={home.id} className={`${styles.heroImage} ${styles[`heroImage${index + 1}`]}`}>
-                <Image src={home.image} alt={`${home.name}, ${home.region}`} fill priority={index < 2} loading={index < 2 ? 'eager' : 'lazy'} sizes={index === 0 ? '(max-width: 800px) 100vw, 52vw' : '(max-width: 800px) 50vw, 24vw'} style={{ objectFit: 'cover', objectPosition: home.imagePosition }} />
+                <Image src={home.image} alt={`${home.name}, ${home.region}`} fill priority={index < 2} loading={index < 2 ? 'eager' : 'lazy'} sizes="(max-width: 620px) 50vw, 33vw" style={{ objectFit: 'cover', objectPosition: home.imagePosition }} />
                 <span>{home.region}</span>
               </div>
             ))}
-            {!unlocked && (
-              <div className={styles.galleryAccess}>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <rect x="5" y="10" width="14" height="11" rx="1" />
-                  <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-                </svg>
-                <p>Private collection access</p>
-                <h2>More photos from every home</h2>
-                <span>Receive more photos for each home, plus its features, fixtures and home details.</span>
+            <div className={styles.galleryAccess}>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="11" rx="1" />
+                <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+              </svg>
+              <p>Private collection access</p>
+              <h2>{unlocked ? 'Collection details unlocked' : 'More photos from every home'}</h2>
+              <span>{unlocked ? 'Explore the complete home details, features and fixtures below.' : 'Receive more photos for each home, plus its features, fixtures and home details.'}</span>
+              {unlocked ? (
+                <a href="#homes">View the homes →</a>
+              ) : (
                 <button type="button" onClick={() => setShowAccess(true)}>Send it to me →</button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           <div className={styles.overviewWrap}>
@@ -378,6 +380,15 @@ export default function MosaicCollectionPage() {
                 <h2>One collection. Five distinct rhythms.</h2>
                 <p>{COLLECTION_NAME} brings together five homes shaped by atmosphere and a strong sense of place: Mediterranean coast, Tuscan countryside, the French Alps, Barcelona’s historic centre and a Provençal hill village.</p>
                 <p>From sea-view mornings in Port d’Andratx to evenings on a Callian rooftop, every stay offers a different way to slow down, reconnect and experience Europe throughout the year.</p>
+                <div className={styles.homeRhythms}>
+                  {HOMES.map((home) => (
+                    <article key={home.id}>
+                      <p>Home in {home.region}</p>
+                      <h3>{home.name}</h3>
+                      <span>{home.description}</span>
+                    </article>
+                  ))}
+                </div>
               </div>
             </div>
             <aside className={styles.overviewEnquiry} aria-label={`Enquire about ${COLLECTION_NAME}`}>
@@ -406,7 +417,6 @@ export default function MosaicCollectionPage() {
                 <div className={styles.homeCardBody}>
                   <p>{home.name}</p>
                   <h3>{home.region}</h3>
-                  <span>{home.description}</span>
                   {unlocked && <ul>{home.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>}
                 </div>
               </article>
