@@ -89,7 +89,9 @@ export default function AdminLayout({ children, fullBleed = false }) {
   const isFeatured = router.pathname.startsWith('/admin/featured')
   const isNewsletters = router.pathname.startsWith('/admin/newsletters')
   const isEmails = router.pathname.startsWith('/admin/emails')
-  const isPartners = router.pathname.startsWith('/admin/partners')
+  const isCrm = router.pathname.startsWith('/admin/crm')
+  const isQueue = router.pathname.startsWith('/admin/partners/queue')
+  const isPartners = router.pathname.startsWith('/admin/partners') && !isQueue
 
   return (
     <div style={s.root}>
@@ -109,6 +111,12 @@ export default function AdminLayout({ children, fullBleed = false }) {
             </Link>
             <Link href="/admin/emails" style={isEmails ? s.navLinkActive : s.navLink}>
               Emails
+            </Link>
+            <Link href="/admin/crm" style={isCrm ? s.navLinkActive : s.navLink}>
+              CRM
+            </Link>
+            <Link href="/admin/partners/queue" style={isQueue ? s.navLinkActive : s.navLink}>
+              Referrals
             </Link>
             <Link href="/admin/partners" style={isPartners ? s.navLinkActive : s.navLink}>
               Partner Hub
