@@ -141,14 +141,16 @@ function PlaneIcon() {
 }
 
 function CollectionEnquiryForm() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [form, setForm] = useState({ firstName: '', surname: '', email: '', phone: '', message: '' });
   const [status, setStatus] = useState('idle');
 
   useEffect(() => {
     const saved = getSavedUser();
+    const nameParts = (saved.name || '').trim().split(/\s+/).filter(Boolean);
     setForm((current) => ({
       ...current,
-      name: saved.name || '',
+      firstName: nameParts[0] || '',
+      surname: nameParts.slice(1).join(' '),
       email: saved.email || '',
       phone: saved.phone || '',
     }));
@@ -162,13 +164,14 @@ function CollectionEnquiryForm() {
     event.preventDefault();
     setStatus('sending');
     const honeypot = event.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
+    const fullName = `${form.firstName.trim()} ${form.surname.trim()}`.trim();
 
     try {
       const response = await fetch('/api/enquiry/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: form.name.trim(),
+          name: fullName,
           email: form.email.trim(),
           phone: form.phone.trim(),
           message: form.message.trim(),
@@ -184,7 +187,7 @@ function CollectionEnquiryForm() {
       if (!response.ok) throw new Error('Unable to send enquiry');
 
       saveUser({
-        name: form.name.trim(),
+        name: fullName,
         email: form.email.trim(),
         phone: form.phone.trim(),
       });
@@ -206,7 +209,7 @@ function CollectionEnquiryForm() {
   }
 
   if (status === 'done') {
-    const firstName = form.name.trim().split(/\s+/)[0];
+    const firstName = form.firstName.trim();
     return (
       <div className={styles.enquirySuccess} role="status">
         <span aria-hidden="true">✓</span>
@@ -219,10 +222,16 @@ function CollectionEnquiryForm() {
   return (
     <form className={styles.enquiryForm} onSubmit={submit}>
       <HoneypotField />
-      <label>
-        Your name <span>*</span>
-        <input type="text" value={form.name} onChange={update('name')} placeholder="Full name" autoComplete="name" required />
-      </label>
+      <div className={styles.nameFields}>
+        <label>
+          First name <span>*</span>
+          <input type="text" value={form.firstName} onChange={update('firstName')} placeholder="First name" autoComplete="given-name" required />
+        </label>
+        <label>
+          Surname <span>*</span>
+          <input type="text" value={form.surname} onChange={update('surname')} placeholder="Surname" autoComplete="family-name" required />
+        </label>
+      </div>
       <label>
         Email <span>*</span>
         <input type="email" value={form.email} onChange={update('email')} placeholder="your@email.com" autoComplete="email" required />
@@ -353,6 +362,14 @@ export default function MosaicCollectionPage() {
                 <p>From sea-view mornings in Port d’Andratx to evenings on a Callian rooftop, every stay offers a different way to slow down, reconnect and experience Europe throughout the year.</p>
               </div>
             </div>
+            <aside className={styles.overviewEnquiry} aria-label="Enquire about The Mosaic Collection">
+              <div className={styles.enquiryCard}>
+                <p className={styles.eyebrow}>Get in touch</p>
+                <h2>Enquire About This Collection</h2>
+                <p>Our team typically responds within a few hours.<br />No obligation.</p>
+                <CollectionEnquiryForm />
+              </div>
+            </aside>
           </div>
         </section>
 
@@ -456,21 +473,6 @@ export default function MosaicCollectionPage() {
           </div>
           <div className={styles.faqGrid}>
             {FAQS.map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}
-          </div>
-        </section>
-
-        <section className={styles.enquirySection} id="collection-enquiry">
-          <div className={styles.enquiryCopy}>
-            <p className={styles.eyebrow}>Personal guidance</p>
-            <h2>Have a question about the collection?</h2>
-            <p>Ask us about ownership, availability, how time is shared between the homes, or any of the five destinations.</p>
-            <p>This is a direct enquiry to our team. The private access form remains available separately if you would also like the complete collection guide by email.</p>
-          </div>
-          <div className={styles.enquiryCard}>
-            <p className={styles.eyebrow}>Get in touch</p>
-            <h2>Enquire About This Collection</h2>
-            <p>Our team typically responds within a few hours.<br />No obligation.</p>
-            <CollectionEnquiryForm />
           </div>
         </section>
 
