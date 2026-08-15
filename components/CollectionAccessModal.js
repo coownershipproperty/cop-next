@@ -122,11 +122,19 @@ export default function CollectionAccessModal({ onClose, collectionTitle = 'Mosa
         .collection-access-modal {
           position: relative;
           width: min(100%, 510px);
+          max-height: calc(100vh - 44px);
+          overflow-y: auto;
+          overscroll-behavior: contain;
           padding: 48px;
           background: #fbf8f2;
           color: #18364f;
           box-shadow: 0 28px 90px rgba(10, 30, 45, 0.35);
+          scrollbar-width: thin;
+          scrollbar-color: rgba(24, 54, 79, 0.3) transparent;
         }
+        .collection-access-modal::-webkit-scrollbar { width: 6px; }
+        .collection-access-modal::-webkit-scrollbar-track { background: transparent; }
+        .collection-access-modal::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(24, 54, 79, 0.3); }
         .collection-access-close {
           position: absolute;
           top: 12px;
@@ -219,7 +227,7 @@ export default function CollectionAccessModal({ onClose, collectionTitle = 'Mosa
         }
         @media (max-width: 560px) {
           .collection-access-overlay { padding: 12px; }
-          .collection-access-modal { padding: 40px 24px 28px; }
+          .collection-access-modal { max-height: calc(100vh - 24px); padding: 40px 24px 28px; }
           .collection-access-name-fields { grid-template-columns: 1fr; }
         }
       `}</style>
