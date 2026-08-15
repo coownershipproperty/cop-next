@@ -25,6 +25,8 @@ const HOMES = [
     airport: 'Palma de Mallorca Airport (PMI)',
     image: '/images/collections/mosaic/mallorca-port-d-andratx.jpg',
     imagePosition: 'center',
+    locationImage: '/images/collections/mosaic/location-mallorca-port-d-andratx.webp',
+    locationImagePosition: 'center',
     description: 'A light-filled duplex with exceptional sea views, two terraces and access to a shared pool, moments from Cala Fonoll beach and the harbour promenade.',
     facts: ['Approx. 104 m²', '2 bedrooms', '2 bathrooms', 'Shared pool', 'Two terraces', 'Parking'],
     point: [321.43, 458],
@@ -37,6 +39,8 @@ const HOMES = [
     airport: 'Pisa International Airport (PSA)',
     image: '/images/collections/mosaic/tuscany-chianni.jpg',
     imagePosition: 'center',
+    locationImage: '/images/collections/mosaic/location-tuscany-chianni.webp',
+    locationImagePosition: 'center',
     description: 'An authentic Tuscan villa with a private pool, pergola and far-reaching countryside views, combining traditional materials with modern comfort.',
     facts: ['Approx. 100 m²', '3 bedrooms', '2 bathrooms', 'Private pool', 'Terrace and garden', 'Parking'],
     point: [696.62, 218.89],
@@ -49,6 +53,8 @@ const HOMES = [
     airport: 'Geneva Airport (GVA)',
     image: '/images/collections/mosaic/chamonix-les-rosieres.jpg',
     imagePosition: 'center',
+    locationImage: '/images/collections/mosaic/location-chamonix-les-rosieres.webp',
+    locationImagePosition: 'center',
     description: 'A contemporary Alpine apartment in Les Praz with Mont Blanc views, a private terrace and access to a shared pool, sauna and fitness room.',
     facts: ['Approx. 70 m²', '2 bedrooms', '2 bathrooms', 'Shared pool and sauna', 'Private balcony', 'Basement parking'],
     point: [525.62, 62.19],
@@ -61,6 +67,8 @@ const HOMES = [
     airport: 'Barcelona–El Prat Airport (BCN)',
     image: '/images/collections/mosaic/barcelona-barri-gotic.jpg',
     imagePosition: 'center',
+    locationImage: '/images/collections/mosaic/location-barcelona-barri-gotic.webp',
+    locationImagePosition: 'center',
     description: 'An atmospheric apartment in the Gothic Quarter with a private courtyard—a rare quiet retreat close to La Rambla, tapas bars, culture and the beach.',
     facts: ['Approx. 103 m²', '2 bedrooms', '1 bathroom and guest WC', 'Private courtyard', 'First floor', 'Beach nearby'],
     point: [311.79, 348.15],
@@ -73,6 +81,8 @@ const HOMES = [
     airport: 'Nice Côte d’Azur Airport (NCE)',
     image: '/images/collections/mosaic/south-france-callian.jpg',
     imagePosition: 'center',
+    locationImage: '/images/collections/mosaic/location-south-france-callian.webp',
+    locationImagePosition: 'center',
     description: 'A four-bedroom village townhouse with a rooftop terrace, surrounded by cobbled streets, local artisans and the easy rhythm of Provençal life.',
     facts: ['Approx. 160 m²', '4 bedrooms', '3 bathrooms', 'Rooftop terrace', 'Village views', 'Parking nearby'],
     point: [519.85, 210.05],
@@ -383,7 +393,7 @@ export default function MosaicCollectionPage() {
             {HOMES.map((home, index) => (
               <article key={home.id} className={styles.homeCard}>
                 <div className={styles.homeCardImage}>
-                  <Image src={home.image} alt={`${home.name} holiday home`} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 20vw" style={{ objectFit: 'cover', objectPosition: home.imagePosition }} />
+                  <Image src={home.locationImage} alt={`${home.name}, ${home.region} destination`} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 20vw" style={{ objectFit: 'cover', objectPosition: home.locationImagePosition }} />
                 </div>
                 <div className={styles.homeCardBody}>
                   <p>{home.region}</p>
