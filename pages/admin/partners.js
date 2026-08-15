@@ -231,14 +231,16 @@ const countries = [
   "Zimbabwe"
 ];
 const leadCountryOptions = ["United Kingdom", "USA", ...countries.filter((country) => country !== "United Kingdom" && country !== "United States")];
+const pipelineStages = ["New", "Contacted", "Viewing", "Reserved", "Deposit paid", "Won", "Lost", "Paused"];
+const stageClassName = (stage) => stage.toLowerCase().replace(/\s+/g, "-");
 const leads = [
-  { initials: "ET", name: "Emma Thompson", email: "emma.thompson@example.com", phone: "+44 7700 900 142", nationality: "United Kingdom", collection: "City Retreats", location: "Mallorca", partner: "21-5", stage: "Unable to contact", age: "12 min ago", budget: "\u20AC350,000", note: "Looking for a 2\u20133 bedroom home with sea views. Prefers email for the first introduction." },
-  { initials: "LN", name: "Lars Nystr\xF6m", email: "lars.nystrom@example.com", phone: "+46 70 123 45 67", nationality: "Sweden", collection: "Large Nordic", location: "C\xF4te d\u2019Azur", partner: "21-5", stage: "Consultation", age: "Yesterday", budget: "\u20AC500,000", note: "Already familiar with co-ownership and ready to arrange an introductory call." },
+  { initials: "ET", name: "Emma Thompson", email: "emma.thompson@example.com", phone: "+44 7700 900 142", nationality: "United Kingdom", collection: "City Retreats", location: "Mallorca", partner: "21-5", stage: "Contacted", age: "12 min ago", budget: "\u20AC350,000", note: "Looking for a 2\u20133 bedroom home with sea views. Prefers email for the first introduction." },
+  { initials: "LN", name: "Lars Nystr\xF6m", email: "lars.nystrom@example.com", phone: "+46 70 123 45 67", nationality: "Sweden", collection: "Large Nordic", location: "C\xF4te d\u2019Azur", partner: "21-5", stage: "Paused", age: "Yesterday", budget: "\u20AC500,000", note: "Already familiar with co-ownership and ready to arrange an introductory call." },
   { initials: "SR", name: "Sofia Rossi", email: "sofia.rossi@example.com", phone: "+39 320 555 0184", nationality: "Italy", collection: "READY TO GO INT-12", location: "Lake Como", partner: "21-5", stage: "Viewing", age: "2 days ago", budget: "\u20AC420,000", note: "Viewing confirmed for next week. Interested in lake access and a managed property." },
-  { initials: "JM", name: "James Miller", email: "james.miller@example.com", phone: "+1 917 555 0142", nationality: "United States", collection: "Beyond", location: "Ibiza", partner: "21-5", stage: "Contract", age: "4 days ago", budget: "\u20AC625,000", note: "Agreement sent. Partner is awaiting proof of funds before countersigning." },
+  { initials: "JM", name: "James Miller", email: "james.miller@example.com", phone: "+1 917 555 0142", nationality: "United States", collection: "Beyond", location: "Ibiza", partner: "21-5", stage: "Reserved", age: "4 days ago", budget: "\u20AC625,000", note: "Agreement sent. Partner is awaiting proof of funds before countersigning." },
   { initials: "AB", name: "Amelia Brooks", email: "amelia.brooks@example.com", phone: "+44 7700 900 308", nationality: "United Kingdom", collection: "Grande", location: "Marbella", partner: "21-5", stage: "Won", age: "8 days ago", budget: "\u20AC290,000", note: "Closed won. Final share value \u20AC278,000; invoice is ready for review." },
   { initials: "CM", name: "Chloe Martin", email: "chloe.martin@example.com", phone: "+44 7700 900 624", nationality: "United Kingdom", collection: "\u2014", location: "Mallorca", partner: "Vivla", stage: "New", age: "18 min ago", budget: "\u20AC250,000 \u2013 \u20AC300,000", note: "Synthetic preview lead. Interested in a managed home in Mallorca and available for an introductory call next week." },
-  { initials: "JM", name: "Javier Morales", email: "javier.morales@example.com", phone: "+34 612 345 870", nationality: "Spain", collection: "\u2014", location: "Costa del Sol, Madrid", partner: "Vivla", stage: "Consultation", age: "Yesterday", budget: "\u20AC500,000 \u2013 \u20AC750,000", note: "Synthetic preview lead. Considering Costa del Sol or Madrid and comparing family-friendly locations." }
+  { initials: "JM", name: "Javier Morales", email: "javier.morales@example.com", phone: "+34 612 345 870", nationality: "Spain", collection: "\u2014", location: "Costa del Sol, Madrid", partner: "Vivla", stage: "Contacted", age: "Yesterday", budget: "\u20AC500,000 \u2013 \u20AC750,000", note: "Synthetic preview lead. Considering Costa del Sol or Madrid and comparing family-friendly locations." }
 ];
 function PhoneDisplay({ phone }) {
   const [dialCode, ...number] = phone.split(" ");
@@ -347,7 +349,7 @@ function OverviewView({ leadRecords, onNavigate, onLead }) {
         /* @__PURE__ */ jsxs("div", { children: [
           /* @__PURE__ */ jsx("small", { children: "NEEDS ATTENTION" }),
           /* @__PURE__ */ jsx("strong", { children: "3" }),
-          /* @__PURE__ */ jsx("em", { children: "Includes 1 contact issue" })
+          /* @__PURE__ */ jsx("em", { children: "Includes paused opportunities" })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("article", { children: [
@@ -386,7 +388,7 @@ function OverviewView({ leadRecords, onNavigate, onLead }) {
             ] }),
             /* @__PURE__ */ jsx("span", { children: lead.location }),
             /* @__PURE__ */ jsx("span", { children: lead.partner }),
-            /* @__PURE__ */ jsx("span", { children: /* @__PURE__ */ jsx("b", { className: `stage ${lead.stage.toLowerCase()}`, children: lead.stage }) }),
+            /* @__PURE__ */ jsx("span", { children: /* @__PURE__ */ jsx("b", { className: `stage ${stageClassName(lead.stage)}`, children: lead.stage }) }),
             /* @__PURE__ */ jsxs("span", { className: "updated", children: [
               lead.age,
               /* @__PURE__ */ jsx("i", { children: "\u203A" })
@@ -405,9 +407,9 @@ function OverviewView({ leadRecords, onNavigate, onLead }) {
         /* @__PURE__ */ jsxs("button", { className: "activity-item activity-alert", type: "button", onClick: () => leadRecords[0] && onLead(leadRecords[0]), children: [
           /* @__PURE__ */ jsx("span", { className: "activity-bullet coral", children: "!" }),
           /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("strong", { children: "Partner could not reach Emma" }),
-            /* @__PURE__ */ jsx("p", { children: "21-5 tried by email and phone. COP follow-up requested." }),
-            /* @__PURE__ */ jsx("small", { children: "12 MIN AGO \xB7 EMAIL + WHATSAPP SENT" })
+            /* @__PURE__ */ jsx("strong", { children: "Emma moved to Contacted" }),
+            /* @__PURE__ */ jsx("p", { children: "21-5 updated the pipeline. COP Admin was notified." }),
+            /* @__PURE__ */ jsx("small", { children: "12 MIN AGO \xB7 ADMIN NOTIFIED" })
           ] })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "activity-item", children: [
@@ -471,13 +473,7 @@ function LeadsView({ partnerMode, partnerId, leadRecords, onLead }) {
         "Pipeline stage",
         /* @__PURE__ */ jsxs("select", { value: stageFilter, onChange: (event) => setStageFilter(event.target.value), children: [
           /* @__PURE__ */ jsx("option", { value: "", children: "All stages" }),
-          /* @__PURE__ */ jsx("option", { children: "New" }),
-          /* @__PURE__ */ jsx("option", { children: "Consultation" }),
-          /* @__PURE__ */ jsx("option", { children: "Viewing" }),
-          /* @__PURE__ */ jsx("option", { children: "Contract" }),
-          /* @__PURE__ */ jsx("option", { children: "Won" }),
-          /* @__PURE__ */ jsx("option", { children: "Unable to contact" }),
-          /* @__PURE__ */ jsx("option", { children: "Closed Lost" })
+          pipelineStages.map((stage) => /* @__PURE__ */ jsx("option", { value: stage, children: stage }, stage))
         ] })
       ] }),
       /* @__PURE__ */ jsxs("label", { children: [
@@ -527,7 +523,7 @@ function LeadsView({ partnerMode, partnerId, leadRecords, onLead }) {
         /* @__PURE__ */ jsx(PhoneDisplay, { phone: lead.phone }),
         /* @__PURE__ */ jsx("span", { children: lead.nationality || "\u2014" }),
         /* @__PURE__ */ jsx("span", { className: "collection-cell", children: isDestinationPartner ? lead.location : lead.collection }),
-        /* @__PURE__ */ jsx("span", { children: /* @__PURE__ */ jsx("b", { className: `stage ${lead.stage.toLowerCase()}`, children: lead.stage }) }),
+        /* @__PURE__ */ jsx("span", { children: /* @__PURE__ */ jsx("b", { className: `stage ${stageClassName(lead.stage)}`, children: lead.stage }) }),
         /* @__PURE__ */ jsxs("span", { className: "updated", children: [
           lead.age,
           /* @__PURE__ */ jsx("i", { children: "\u203A" })
@@ -542,7 +538,7 @@ function LeadsView({ partnerMode, partnerId, leadRecords, onLead }) {
         ] }),
         /* @__PURE__ */ jsx("span", { children: lead.location }),
         /* @__PURE__ */ jsx("span", { children: lead.budget }),
-        /* @__PURE__ */ jsx("span", { children: /* @__PURE__ */ jsx("b", { className: `stage ${lead.stage.toLowerCase()}`, children: lead.stage }) }),
+        /* @__PURE__ */ jsx("span", { children: /* @__PURE__ */ jsx("b", { className: `stage ${stageClassName(lead.stage)}`, children: lead.stage }) }),
         /* @__PURE__ */ jsxs("span", { className: "updated", children: [
           lead.age,
           /* @__PURE__ */ jsx("i", { children: "\u203A" })
@@ -1224,14 +1220,13 @@ function CommissionRatesView() {
     }) })
   ] });
 }
-function LeadDrawer({ lead, role, partnerContacts, onClose, onNotify, onDelete }) {
+function LeadDrawer({ lead, role, partnerContacts, onClose, onNotify, onDelete, onStageChange }) {
   const [editing, setEditing] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [updateNote, setUpdateNote] = useState("");
   const [selectedStage, setSelectedStage] = useState(lead.stage);
   const isAdmin = role === "admin";
-  const isContactIssue = lead.stage === "Unable to contact";
-  const reportingContactIssue = selectedStage === "Unable to contact";
+  const stageChanged = selectedStage !== lead.stage;
   const assignedContact = partnerContacts[lead.partner];
   const partnerLeadType = lead.partner === "Vivla" ? lead.location : lead.collection;
   function sendAdminNote() {
@@ -1241,7 +1236,7 @@ function LeadDrawer({ lead, role, partnerContacts, onClose, onNotify, onDelete }
   }
   return /* @__PURE__ */ jsx("div", { className: "drawer-backdrop", onMouseDown: onClose, children: /* @__PURE__ */ jsxs("aside", { className: "lead-drawer", onMouseDown: (event) => event.stopPropagation(), children: [
     /* @__PURE__ */ jsx("button", { className: "drawer-close", type: "button", "aria-label": "Close lead details", onClick: onClose, children: "\xD7" }),
-    /* @__PURE__ */ jsx("span", { className: `stage ${lead.stage.toLowerCase()}`, children: lead.stage }),
+    /* @__PURE__ */ jsx("span", { className: `stage ${stageClassName(lead.stage)}`, children: lead.stage }),
     /* @__PURE__ */ jsxs("div", { className: "drawer-person", children: [
       /* @__PURE__ */ jsx("span", { children: lead.initials }),
       /* @__PURE__ */ jsxs("div", { children: [
@@ -1255,22 +1250,6 @@ function LeadDrawer({ lead, role, partnerContacts, onClose, onNotify, onDelete }
         /* @__PURE__ */ jsx("strong", { children: isAdmin ? "Pipeline managed by the partner" : "You manage this sales pipeline" }),
         /* @__PURE__ */ jsx("small", { children: isAdmin ? `The current stage is visible to you, but only ${lead.partner} can change it.` : "Update the stage whenever this opportunity moves forward." })
       ] })
-    ] }),
-    isAdmin && isContactIssue && /* @__PURE__ */ jsxs("div", { className: "contact-alert", children: [
-      /* @__PURE__ */ jsx("span", { children: "!" }),
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("small", { children: "CONTACT ATTEMPT ALERT" }),
-        /* @__PURE__ */ jsxs("strong", { children: [
-          lead.partner,
-          " could not reach this lead"
-        ] }),
-        /* @__PURE__ */ jsx("p", { children: "The partner tried by email and phone and has asked COP to help reconnect with the client." }),
-        /* @__PURE__ */ jsxs("div", { className: "contact-alert-channels", children: [
-          /* @__PURE__ */ jsx("span", { children: "\u2709 info@co-ownership-property.com" }),
-          /* @__PURE__ */ jsx("span", { children: "\u25C9 WhatsApp +34 626 786 678" })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("b", { children: "EMAIL + WHATSAPP" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "drawer-section", children: [
       /* @__PURE__ */ jsxs("div", { className: "drawer-section-heading", children: [
@@ -1397,15 +1376,15 @@ function LeadDrawer({ lead, role, partnerContacts, onClose, onNotify, onDelete }
           /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("i", { className: "partner-event", children: lead.partner }),
             /* @__PURE__ */ jsxs("span", { children: [
-              /* @__PURE__ */ jsx("strong", { children: isContactIssue ? "Unable to make contact by email or phone" : `Stage updated to ${lead.stage}` }),
+              /* @__PURE__ */ jsx("strong", { children: `Stage updated to ${lead.stage}` }),
               /* @__PURE__ */ jsx("small", { children: "Partner office \xB7 Yesterday" })
             ] })
           ] }),
-          isContactIssue && /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("i", { className: "alert-event", children: "!" }),
             /* @__PURE__ */ jsxs("span", { children: [
-              /* @__PURE__ */ jsx("strong", { children: "COP admin notified" }),
-              /* @__PURE__ */ jsx("small", { children: "Email + WhatsApp alert \xB7 Yesterday" })
+              /* @__PURE__ */ jsx("strong", { children: "COP admin notified of this stage" }),
+              /* @__PURE__ */ jsx("small", { children: "Admin notification \xB7 Yesterday" })
             ] })
           ] })
         ] })
@@ -1446,31 +1425,27 @@ function LeadDrawer({ lead, role, partnerContacts, onClose, onNotify, onDelete }
       /* @__PURE__ */ jsxs("div", { className: "partner-pipeline-form", children: [
         /* @__PURE__ */ jsxs("label", { className: "drawer-stage", children: [
           "Update pipeline stage",
-          /* @__PURE__ */ jsxs("select", { value: selectedStage, onChange: (event) => setSelectedStage(event.target.value), children: [
-            /* @__PURE__ */ jsx("option", { children: "New" }),
-            /* @__PURE__ */ jsx("option", { children: "Consultation" }),
-            /* @__PURE__ */ jsx("option", { children: "Viewing" }),
-            /* @__PURE__ */ jsx("option", { children: "Contract" }),
-            /* @__PURE__ */ jsx("option", { children: "Won" }),
-            /* @__PURE__ */ jsx("option", { children: "Unable to contact" }),
-            /* @__PURE__ */ jsx("option", { children: "Closed Lost" })
-          ] })
+          /* @__PURE__ */ jsx("select", { value: selectedStage, onChange: (event) => setSelectedStage(event.target.value), children: pipelineStages.map((stage) => /* @__PURE__ */ jsx("option", { value: stage, children: stage }, stage)) })
         ] }),
-        reportingContactIssue && /* @__PURE__ */ jsxs("div", { className: "contact-help-copy", children: [
-          /* @__PURE__ */ jsx("span", { children: "!" }),
+        /* @__PURE__ */ jsxs("div", { className: "contact-help-copy", children: [
+          /* @__PURE__ */ jsx("span", { children: stageChanged ? "!" : "\u2713" }),
           /* @__PURE__ */ jsxs("p", { children: [
-            /* @__PURE__ */ jsx("strong", { children: "COP will be notified automatically by email and WhatsApp." }),
-            /* @__PURE__ */ jsx("small", { children: "info@co-ownership-property.com \xB7 +34 626 786 678" })
+            /* @__PURE__ */ jsx("strong", { children: stageChanged ? `COP Admin will be notified when this moves to ${selectedStage}.` : "COP Admin is notified automatically at every stage change." }),
+            /* @__PURE__ */ jsx("small", { children: "The lead, partner, new stage and progress note are included." })
           ] })
         ] }),
         /* @__PURE__ */ jsxs("label", { children: [
-          reportingContactIssue ? "Contact attempt note" : "Add a progress note",
-          /* @__PURE__ */ jsx("textarea", { required: reportingContactIssue, value: updateNote, onChange: (event) => setUpdateNote(event.target.value), placeholder: reportingContactIssue ? "For example: Two calls and one email sent over the last five days, with no response\u2026" : "Add context for the stage change or next step\u2026" })
+          "Add a progress note",
+          /* @__PURE__ */ jsx("textarea", { value: updateNote, onChange: (event) => setUpdateNote(event.target.value), placeholder: "Add context for the stage change or next step\u2026" })
         ] }),
-        /* @__PURE__ */ jsx("button", { className: "drawer-action", disabled: reportingContactIssue && !updateNote.trim(), type: "button", onClick: () => {
+        /* @__PURE__ */ jsx("button", { className: "drawer-action", disabled: !stageChanged && !updateNote.trim(), type: "button", onClick: () => {
+          if (stageChanged) {
+            onStageChange(lead, selectedStage, updateNote.trim());
+            return;
+          }
           onClose();
-          onNotify(reportingContactIssue ? "COP admin notified by email and WhatsApp" : "Partner pipeline update saved");
-        }, children: reportingContactIssue ? "Save & notify COP admin" : "Save pipeline update" })
+          onNotify("Progress note saved");
+        }, children: stageChanged ? "Save stage & notify COP Admin" : "Save progress note" })
       ] })
     ] })
   ] }) });
@@ -1482,6 +1457,8 @@ function Home() {
   const [partnerContacts, setPartnerContacts] = useState(partnerDirectory);
   const [activePartner, setActivePartner] = useState("21-5");
   const [selectedLead, setSelectedLead] = useState(null);
+  const [adminNotifications, setAdminNotifications] = useState([]);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [toast, setToast] = useState("");
   function switchRole(nextRole, partner = activePartner) {
     setSelectedLead(null);
@@ -1506,6 +1483,12 @@ function Home() {
     setLeadRecords((current) => current.filter((candidate) => !(candidate.partner === lead.partner && candidate.email === lead.email)));
     setSelectedLead(null);
     notify(`${lead.name} deleted from Admin and ${lead.partner}`);
+  }
+  function updateLeadStage(lead, nextStage, note) {
+    setLeadRecords((current) => current.map((candidate) => candidate.partner === lead.partner && candidate.email === lead.email ? { ...candidate, stage: nextStage, age: "Just now" } : candidate));
+    setAdminNotifications((current) => [{ id: `${lead.partner}-${lead.email}-${Date.now()}`, leadName: lead.name, email: lead.email, partner: lead.partner, stage: nextStage, note, time: "Just now" }, ...current]);
+    setSelectedLead(null);
+    notify(`COP Admin notified \xB7 ${lead.name} moved to ${nextStage}`);
   }
   const activePartnerContact = partnerContacts[activePartner];
   const partnerLeadCount = leadRecords.filter((lead) => lead.partner === activePartner).length;
@@ -1558,13 +1541,34 @@ function Home() {
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "top-actions", children: [
           /* @__PURE__ */ jsx("span", { className: `access-chip ${role}`, children: role === "admin" ? "ADMIN VIEW" : `${activePartner.toUpperCase()} PREVIEW` }),
-          /* @__PURE__ */ jsxs("button", { className: "icon-button", type: "button", "aria-label": "Notifications", children: [
+          /* @__PURE__ */ jsxs("button", { className: "icon-button", type: "button", "aria-label": role === "admin" ? `Admin notifications${adminNotifications.length ? `, ${adminNotifications.length} new` : ""}` : "Notifications", onClick: () => role === "admin" ? setNotificationsOpen((current) => !current) : notify("COP Admin receives every stage update"), children: [
             "\u2662",
-            /* @__PURE__ */ jsx("span", {})
+            adminNotifications.length > 0 && /* @__PURE__ */ jsx("span", {})
           ] }),
           role === "admin" && /* @__PURE__ */ jsx("button", { className: "secondary-button", type: "button", onClick: () => notify("Partner invitation mockup opened"), children: "\uFF0B Add partner" }),
           /* @__PURE__ */ jsx("button", { className: "primary-button", type: "button", onClick: () => role === "admin" ? navigate("submit") : notify("Partner note saved"), children: role === "admin" ? "\uFF0B New lead" : "\uFF0B Add update" })
         ] })
+      ] }),
+      role === "admin" && notificationsOpen && /* @__PURE__ */ jsxs("section", { className: "notification-menu", "aria-label": "Admin pipeline notifications", children: [
+        /* @__PURE__ */ jsxs("header", { children: [
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Admin notifications" }),
+            /* @__PURE__ */ jsx("small", { children: "Every partner stage change appears here" })
+          ] }),
+          /* @__PURE__ */ jsx("b", { children: adminNotifications.length })
+        ] }),
+        adminNotifications.length === 0 ? /* @__PURE__ */ jsx("p", { className: "notification-empty", children: "No new pipeline updates." }) : /* @__PURE__ */ jsx("div", { children: adminNotifications.map((item) => /* @__PURE__ */ jsxs("button", { type: "button", onClick: () => {
+          const lead = leadRecords.find((candidate) => candidate.partner === item.partner && candidate.email === item.email);
+          if (lead) setSelectedLead(lead);
+          setNotificationsOpen(false);
+        }, children: [
+          /* @__PURE__ */ jsx("span", { className: `stage ${stageClassName(item.stage)}`, children: item.stage }),
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsxs("strong", { children: [item.leadName, " \xB7 ", item.partner] }),
+            /* @__PURE__ */ jsx("p", { children: item.note || `Pipeline moved to ${item.stage}` }),
+            /* @__PURE__ */ jsx("small", { children: `${item.time} \xB7 COP Admin notified` })
+          ] })
+        ] }, item.id)) })
       ] }),
       view === "overview" && /* @__PURE__ */ jsx(OverviewView, { leadRecords, onNavigate: navigate, onLead: setSelectedLead }),
       view === "leads" && /* @__PURE__ */ jsx(LeadsView, { partnerMode: role === "partner", partnerId: activePartner, leadRecords, onLead: setSelectedLead }),
@@ -1577,7 +1581,7 @@ function Home() {
       view === "rates" && /* @__PURE__ */ jsx(CommissionRatesView, {}),
       view === "invoices" && /* @__PURE__ */ jsx(InvoicesView, { adminMode: role === "admin", partnerId: activePartner })
     ] }),
-    selectedLead && /* @__PURE__ */ jsx(LeadDrawer, { lead: selectedLead, role, partnerContacts, onClose: () => setSelectedLead(null), onNotify: notify, onDelete: deleteLead }, `${role}-${selectedLead.name}`),
+    selectedLead && /* @__PURE__ */ jsx(LeadDrawer, { lead: selectedLead, role, partnerContacts, onClose: () => setSelectedLead(null), onNotify: notify, onDelete: deleteLead, onStageChange: updateLeadStage }, `${role}-${selectedLead.name}`),
     toast && /* @__PURE__ */ jsxs("div", { className: "toast", children: [
       /* @__PURE__ */ jsx("span", { children: "\u2713" }),
       toast
