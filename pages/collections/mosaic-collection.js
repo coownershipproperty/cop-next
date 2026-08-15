@@ -92,7 +92,7 @@ const MAP_PATHS = [
 ];
 
 const FEATURES = [
-  ['homes', 'Five fully furnished homes'],
+  ['extraBeds', 'Extra beds at every home'],
   ['pool', 'Pools at three homes'],
   ['wellness', 'Wellness and fitness facilities'],
   ['terrace', 'Terraces, balcony and private courtyard'],
@@ -100,6 +100,8 @@ const FEATURES = [
   ['wifi', 'Wi-Fi throughout'],
   ['parking', 'Parking at four homes'],
   ['dining', 'Restaurants and experiences nearby'],
+  ['bedrooms', 'Two to four bedrooms per home'],
+  ['airport', 'International airports within easy reach'],
 ];
 
 const FAQS = [
@@ -120,7 +122,7 @@ function HomeIcon({ active = false }) {
 function FeatureIcon({ type }) {
   const common = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round', strokeLinejoin: 'round' };
   const paths = {
-    homes: <><path d="M3 11 12 4l9 7v9H3z"/><path d="M8 20v-6h8v6M7 9h10"/></>,
+    extraBeds: <><path d="M4 8h7a3 3 0 0 1 3 3v6H4z"/><path d="M14 11h3a3 3 0 0 1 3 3v3h-6M4 17v3M20 17v3"/><path d="M6 10h4v4H6z"/></>,
     pool: <><path d="M7 3v7M11 3v7M7 6h4M4 13c2 2 4 2 6 0 2 2 4 2 6 0 2 2 4 2 6 0M4 18c2 2 4 2 6 0 2 2 4 2 6 0 2 2 4 2 6 0"/></>,
     wellness: <><path d="M3 12h18M6 8v8M18 8v8M8 7v10M16 7v10"/></>,
     terrace: <><path d="M4 10h16M6 10l6-6 6 6M7 20v-7M17 20v-7M9 16h6M12 16v4"/></>,
@@ -128,6 +130,8 @@ function FeatureIcon({ type }) {
     wifi: <><path d="M4 9a12 12 0 0 1 16 0M7 13a8 8 0 0 1 10 0M10 17a3 3 0 0 1 4 0"/><circle cx="12" cy="20" r=".8" fill="currentColor" stroke="none"/></>,
     parking: <><path d="M5 18v2M19 18v2M4 11l2-5h12l2 5M3 12h18v6H3z"/><circle cx="7" cy="15" r="1"/><circle cx="17" cy="15" r="1"/></>,
     dining: <><path d="M5 4v7M8 4v7M5 8h3M6.5 11v9M15 4v16M15 4c4 2 4 7 0 9"/></>,
+    bedrooms: <><path d="M3 11h18v8H3zM3 8v11M21 8v11"/><path d="M5 8h6a3 3 0 0 1 3 3H5z"/></>,
+    airport: <><path d="m21 16-8-4.5V5a1 1 0 0 0-2 0v6.5L3 16v2l8-2v4l-2 1v1l3-1 3 1v-1l-2-1v-4l8 2z"/></>,
   };
   return <svg viewBox="0 0 24 24" {...common}>{paths[type]}</svg>;
 }
@@ -305,24 +309,26 @@ export default function MosaicCollectionPage() {
 
       <Header />
       <main className={styles.page}>
-        <nav className={styles.collectionNav} aria-label="Mosaic Collection sections">
-          <a href="#overview" className={styles.collectionName}>The Mosaic Collection</a>
-          <div>
-            <a href="#overview">Overview</a>
-            <a href="#the-homes">The homes</a>
-            <a href="#features">Features</a>
-            <a href="#locations">Locations</a>
-          </div>
-        </nav>
-
         <section className={styles.hero} id="overview">
           <div className={styles.heroGrid}>
-            {HOMES.map((home, index) => (
+            {HOMES.slice(0, 3).map((home, index) => (
               <div key={home.id} className={`${styles.heroImage} ${styles[`heroImage${index + 1}`]}`}>
-                <Image src={home.image} alt={`${home.name}, ${home.region}`} fill priority={index < 2} loading={index < 2 ? 'eager' : 'lazy'} sizes={index === 0 ? '(max-width: 800px) 100vw, 52vw' : '(max-width: 800px) 50vw, 24vw'} style={{ objectFit: 'cover', objectPosition: home.imagePosition }} />
+                <Image src={home.image} alt={`${home.name}, ${home.region}`} fill priority={index < 2} loading={index < 2 ? 'eager' : 'lazy'} sizes={index === 0 ? '(max-width: 800px) 100vw, 60vw' : '(max-width: 800px) 50vw, 40vw'} style={{ objectFit: 'cover', objectPosition: home.imagePosition }} />
                 <span>{home.region}</span>
               </div>
             ))}
+            {!unlocked && (
+              <div className={styles.galleryAccess}>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="5" y="10" width="14" height="11" rx="1" />
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                </svg>
+                <p>Want to see more?</p>
+                <h2>More photos from every home</h2>
+                <span>Unlock the complete galleries, features, home details and collection documents.</span>
+                <button type="button" onClick={() => setShowAccess(true)}>Send my access link →</button>
+              </div>
+            )}
           </div>
 
           <div className={styles.overviewWrap}>
@@ -347,13 +353,6 @@ export default function MosaicCollectionPage() {
                 <p>From sea-view mornings in Port d’Andratx to evenings on a Callian rooftop, every stay offers a different way to slow down, reconnect and experience Europe throughout the year.</p>
               </div>
             </div>
-            <aside className={styles.accessCard}>
-              <p>Get private access</p>
-              <h2>Receive the complete collection guide</h2>
-              <span>Detailed home information and your personal link, delivered by email.</span>
-              <button type="button" onClick={() => setShowAccess(true)}>Send my access link →</button>
-              {unlocked && <em>Private guide access is active on this device.</em>}
-            </aside>
           </div>
         </section>
 
