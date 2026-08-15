@@ -1,10 +1,15 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { track } from '@vercel/analytics';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CollectionAccessModal from '@/components/CollectionAccessModal';
+import HoneypotField from '@/components/HoneypotField';
+import { HONEYPOT_FIELD } from '@/lib/honeypot';
+import { trackConversion } from '@/lib/gtag';
+import { getSavedUser, saveUser } from '@/lib/savedUser';
 import styles from '@/styles/MosaicCollection.module.css';
 
 const CANONICAL = 'https://co-ownership-property.com/collections/mosaic-collection/';
@@ -129,6 +134,109 @@ function FeatureIcon({ type }) {
 
 function PlaneIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" /></svg>;
+}
+
+function CollectionEnquiryForm() {
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [status, setStatus] = useState('idle');
+
+  useEffect(() => {
+    const saved = getSavedUser();
+    setForm((current) => ({
+      ...current,
+      name: saved.name || '',
+      email: saved.email || '',
+      phone: saved.phone || '',
+    }));
+  }, []);
+
+  function update(field) {
+    return (event) => setForm((current) => ({ ...current, [field]: event.target.value }));
+  }
+
+  async function submit(event) {
+    event.preventDefault();
+    setStatus('sending');
+    const honeypot = event.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
+
+    try {
+      const response = await fetch('/api/enquiry/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          message: form.message.trim(),
+          property: 'The Mosaic Collection',
+          destination: 'Mallorca; Tuscany; Chamonix; Barcelona; South of France',
+          url: CANONICAL,
+          enquiryType: 'collection',
+          locale: 'en',
+          [HONEYPOT_FIELD]: honeypot,
+        }),
+      });
+
+      if (!response.ok) throw new Error('Unable to send enquiry');
+
+      saveUser({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+      });
+      trackConversion('generate_lead', 'Lead', {
+        event_category: 'collection_enquiry',
+        collection_title: 'The Mosaic Collection',
+        locale: 'en',
+      });
+      track('enquiry_submitted', {
+        source: 'collection_page',
+        collection: 'The Mosaic Collection',
+        url: CANONICAL,
+        locale: 'en',
+      });
+      setStatus('done');
+    } catch {
+      setStatus('error');
+    }
+  }
+
+  if (status === 'done') {
+    const firstName = form.name.trim().split(/\s+/)[0];
+    return (
+      <div className={styles.enquirySuccess} role="status">
+        <span aria-hidden="true">✓</span>
+        <h3>Thank you{firstName ? `, ${firstName}` : ''}.</h3>
+        <p>Your enquiry about The Mosaic Collection has been received. Our team will be in touch shortly.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form className={styles.enquiryForm} onSubmit={submit}>
+      <HoneypotField />
+      <label>
+        Your name <span>*</span>
+        <input type="text" value={form.name} onChange={update('name')} placeholder="Full name" autoComplete="name" required />
+      </label>
+      <label>
+        Email <span>*</span>
+        <input type="email" value={form.email} onChange={update('email')} placeholder="your@email.com" autoComplete="email" required />
+      </label>
+      <label>
+        Phone <span>*</span>
+        <input type="tel" value={form.phone} onChange={update('phone')} placeholder="+1 or +44…" autoComplete="tel" required />
+      </label>
+      <label>
+        Message
+        <textarea value={form.message} onChange={update('message')} placeholder="Any questions about this collection…" rows={4} />
+      </label>
+      <button type="submit" disabled={status === 'sending'}>
+        {status === 'sending' ? 'Sending…' : 'Send enquiry →'}
+      </button>
+      {status === 'error' && <p className={styles.enquiryError} role="alert">Something went wrong. Please try again.</p>}
+    </form>
+  );
 }
 
 export default function MosaicCollectionPage() {
@@ -344,6 +452,21 @@ export default function MosaicCollectionPage() {
           </div>
           <div className={styles.faqGrid}>
             {FAQS.map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}
+          </div>
+        </section>
+
+        <section className={styles.enquirySection} id="collection-enquiry">
+          <div className={styles.enquiryCopy}>
+            <p className={styles.eyebrow}>Personal guidance</p>
+            <h2>Have a question about the collection?</h2>
+            <p>Ask us about ownership, availability, how time is shared between the homes, or any of the five destinations.</p>
+            <p>This is a direct enquiry to our team. The private access form remains available separately if you would also like the complete collection guide by email.</p>
+          </div>
+          <div className={styles.enquiryCard}>
+            <p className={styles.eyebrow}>Get in touch</p>
+            <h2>Enquire About This Collection</h2>
+            <p>Our team typically responds within a few hours.<br />No obligation.</p>
+            <CollectionEnquiryForm />
           </div>
         </section>
 

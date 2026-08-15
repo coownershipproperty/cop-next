@@ -135,8 +135,9 @@ export default async function handler(req, res) {
   // the bot sees a normal success response and does not retry or adapt.
   if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
-  const { name, email, phone, message, property, url, destination, budget, locale: rawLocale } = req.body;
+  const { name, email, phone, message, property, url, destination, budget, enquiryType, locale: rawLocale } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
+  const isCollectionEnquiry = enquiryType === 'collection';
 
   // Locale handling — validates against SUPPORTED_LOCALES, falls back to default ('en')
   const locale = SUPPORTED_LOCALES.includes(rawLocale) ? rawLocale : DEFAULT_LOCALE;
@@ -188,8 +189,8 @@ export default async function handler(req, res) {
         contactId:   contact.id,
         leadId:      lead?.id || null,
         type:        'enquiry_submitted',
-        description: `Enquiry submitted${property ? ` for ${property}` : ''}`,
-        metadata:    { property, url, destination, budget, message },
+        description: `${isCollectionEnquiry ? 'Collection enquiry' : 'Enquiry'} submitted${property ? ` for ${property}` : ''}`,
+        metadata:    { property, url, destination, budget, message, enquiryType: isCollectionEnquiry ? 'collection' : (property ? 'property' : 'general') },
       });
     }
   } catch (e) {
@@ -245,10 +246,10 @@ export default async function handler(req, res) {
   // ── Send team notification (always immediate — internal only) ───────────────
   try {
     await sendTeamNotification({
-      subject: `New Enquiry${property ? ` — ${property}` : ''} from ${name}`,
+      subject: `New ${isCollectionEnquiry ? 'Collection ' : ''}Enquiry${property ? ` — ${property}` : ''} from ${name}`,
       html: `
-        <h2>New Enquiry</h2>
-        ${property ? `<p><strong>Property:</strong> ${property}${url ? ` — <a href="${url}">${url}</a>` : ''}</p>` : ''}
+        <h2>New ${isCollectionEnquiry ? 'Collection ' : ''}Enquiry</h2>
+        ${property ? `<p><strong>${isCollectionEnquiry ? 'Collection' : 'Property'}:</strong> ${property}${url ? ` — <a href="${url}">${url}</a>` : ''}</p>` : ''}
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
