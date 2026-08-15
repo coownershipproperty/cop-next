@@ -7,11 +7,16 @@
  * the standalone CRM 1:1. Grouping, filtering and sorting all happen
  * client-side over the full dataset — every column header sorts.
  *
+ * The contact drawer is a full workbench, ported from the standalone CRM:
+ * editable lead status, Telnyx browser calling (same /api/admin/telnyx/*
+ * routes), WhatsApp / email shortcuts, per-lead cards with price + estimated
+ * commission, notes, and the outbound email history.
+ *
  * One deliberate difference: the standalone CRM's unbounded select silently
  * caps at 1,000 rows (most recent leads only). This page pages through the
  * view and loads ALL leads.
  */
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
@@ -54,6 +59,8 @@ const PHONE_CC = [
   ['+968', 'Oman'], ['+971', 'UAE'], ['+972', 'Israel'], ['+973', 'Bahrain'], ['+974', 'Qatar'],
 ].sort((a, b) => b[0].length - a[0].length)
 
+const KNOWN_COUNTRY_CODES = PHONE_CC.map(([cc]) => cc.slice(1))
+
 function phoneCountry(raw) {
   if (!raw) return ''
   let p = String(raw).replace(/[\s\-().]/g, '')
@@ -67,6 +74,22 @@ function phoneCountry(raw) {
   if (/^[2-9]\d{9}$/.test(p)) return 'USA/Canada'
   return ''
 }
+
+// Same normalisation as the standalone CRM (default +44 for national formats).
+function normalizePhone(raw, defaultCountryCode = '+44') {
+  if (!raw) return null
+  const compact = String(raw).replace(/[^\d+]/g, '')
+  if (!compact) return null
+  if (compact.startsWith('+')) return compact
+  if (compact.startsWith('00')) return '+' + compact.slice(2)
+  if (/^[2-9]\d{9}$/.test(compact)) return '+1' + compact
+  if (compact.startsWith('0')) return defaultCountryCode + compact.slice(1)
+  if (KNOWN_COUNTRY_CODES.some((code) => compact.startsWith(code))) return '+' + compact
+  return defaultCountryCode + compact
+}
+
+/** Dynamic import that the bundler leaves alone (runtime browser import). */
+const dynImport = (u) => new Function('u', 'return import(u)')(u)
 
 const COLUMNS = [
   { key: '_name', label: 'Name' },
@@ -103,12 +126,18 @@ const s = {
   queueChip: { fontSize: 10.5, fontWeight: 700, color: '#8a5a00', background: '#FDF3E3', padding: '2px 7px', borderRadius: 10, marginLeft: 6, whiteSpace: 'nowrap' },
   pager: { display: 'flex', alignItems: 'center', gap: 14, padding: '14px 2px', fontSize: 13, color: C.sub },
   drawerWrap: { position: 'fixed', inset: 0, background: 'rgba(31,47,59,0.35)', zIndex: 60 },
-  drawer: { position: 'fixed', top: 0, right: 0, bottom: 0, width: 'min(560px, 94vw)', background: C.white, zIndex: 61, boxShadow: '-12px 0 40px rgba(0,0,0,0.18)', overflowY: 'auto', padding: '26px 28px' },
+  drawer: { position: 'fixed', top: 0, right: 0, bottom: 0, width: 'min(580px, 94vw)', background: C.white, zIndex: 61, boxShadow: '-12px 0 40px rgba(0,0,0,0.18)', overflowY: 'auto', padding: '26px 28px' },
   drawerH: { fontFamily: '"Playfair Display", serif', fontSize: 22, color: C.ink, margin: '0 0 2px' },
+  drawerTop: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' },
+  actionRow: { display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', margin: '14px 0 0', padding: '12px', background: '#FCFBF8', border: `1px solid ${C.line}`, borderRadius: 9 },
+  actBtn: (bg, fg, border) => ({ fontSize: 12.5, fontWeight: 700, padding: '8px 14px', borderRadius: 7, cursor: 'pointer', border: border || 'none', background: bg, color: fg }),
+  callChip: { fontSize: 12, color: C.sub, marginLeft: 4 },
   section: { margin: '20px 0 0' },
   sectionH: { fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.07em', color: C.sub, marginBottom: 8 },
   leadRow: { border: `1px solid ${C.line}`, borderRadius: 8, padding: '10px 12px', marginBottom: 8, fontSize: 13 },
   actRow: { display: 'flex', gap: 10, fontSize: 12.5, color: C.ink, padding: '7px 0', borderBottom: '1px dashed #F0EBE2' },
+  noteBox: { width: '100%', fontSize: 13, padding: '8px 10px', border: `1px solid ${C.line}`, borderRadius: 7, minHeight: 54, resize: 'vertical', boxSizing: 'border-box', fontFamily: 'inherit', background: '#FCFBF8' },
+  miniSelect: { fontSize: 12, padding: '4px 6px', border: `1px solid ${C.line}`, borderRadius: 6, background: C.white, color: C.ink },
   empty: { padding: '48px 0', textAlign: 'center', color: C.sub, fontSize: 14 },
 }
 
@@ -142,6 +171,7 @@ export default function CrmLeads() {
   const [allLeads, setAllLeads] = useState([])
   const [propIndex, setPropIndex] = useState({})
   const [usdEur, setUsdEur] = useState(0.86)
+  const [crmSettings, setCrmSettings] = useState({})
   const [queueContacts, setQueueContacts] = useState(new Set())
   const [queueCount, setQueueCount] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -158,11 +188,14 @@ export default function CrmLeads() {
 
   const [openRow, setOpenRow] = useState(null)
   const [detail, setDetail] = useState(null)
+  const [noteText, setNoteText] = useState('')
+  const [callState, setCallState] = useState(null)
+  const telnyxRef = useRef({ client: null, call: null, logged: new Set() })
 
   useEffect(() => {
     (async () => {
       try {
-        const [leads, props, queue, fx] = await Promise.all([
+        const [leads, props, queue, fx, settings] = await Promise.all([
           // Same source + same internal-address exclusion as the standalone
           // CRM, but paged so ALL leads load (the CRM caps at 1,000).
           fetchAllPages(() => supabase
@@ -173,11 +206,13 @@ export default function CrmLeads() {
           fetchAllPages(() => supabase.from('properties').select('slug, title, price, currency, partner').order('slug')),
           supabase.from('partner_referrals').select('contact_id, status').in('status', ['pending_review', 'qualified']).limit(1000),
           supabase.from('exchange_rates').select('rates').limit(1),
+          supabase.from('crm_settings').select('key,value'),
         ])
         setAllLeads(leads)
         setPropIndex(Object.fromEntries(props.map((p) => [p.slug, p])))
         setQueueContacts(new Set((queue.data || []).map((r) => r.contact_id)))
         setQueueCount((queue.data || []).length)
+        setCrmSettings(Object.fromEntries((settings.data || []).map((r) => [r.key, r.value])))
         const usd = Number(fx.data?.[0]?.rates?.USD)
         if (usd) {
           const rate = usd > 1 ? 1 / usd : usd // stored either direction; EUR≈0.8–0.95 per USD
@@ -190,6 +225,16 @@ export default function CrmLeads() {
       }
     })()
   }, [])
+
+  // Tear down any live call/client when the drawer closes or page unmounts.
+  useEffect(() => {
+    if (openRow) return
+    const t = telnyxRef.current
+    try { t.call?.hangup?.() } catch (_) {}
+    try { t.client?.disconnect?.() } catch (_) {}
+    t.client = null; t.call = null; t.logged = new Set()
+    setCallState(null)
+  }, [openRow])
 
   const partnerOf = useCallback((l) => {
     const p = (l.partner || propIndex[l.property_slug]?.partner || '').toLowerCase().replace(/[^a-z0-9]/g, '')
@@ -210,6 +255,14 @@ export default function CrmLeads() {
     if (!v) return null
     return prop.currency === 'USD' ? Math.round(v * usdEur) : v
   }, [propIndex, usdEur])
+
+  const commissionEUR = useCallback((l) => {
+    const price = leadPriceEUR(l)
+    if (!price) return null
+    const rates = crmSettings.commission_rates || {}
+    const rate = rates[partnerOf(l)] ?? rates.default ?? 3
+    return price * (Number(rate) / 100)
+  }, [leadPriceEUR, crmSettings, partnerOf])
 
   // Group leads by contact — same derivations as the standalone CRM.
   const grouped = useMemo(() => {
@@ -278,11 +331,126 @@ export default function CrmLeads() {
   async function openDrawer(row) {
     setOpenRow(row)
     setDetail(null)
-    const [acts, referrals] = await Promise.all([
+    setNoteText('')
+    const [acts, referrals, notes, emails] = await Promise.all([
       supabase.from('activities').select('*').eq('contact_id', row.contact_id).order('created_at', { ascending: false }).limit(50),
       supabase.from('partner_referrals').select('id,status,partner,source,created_at,sent_at').eq('contact_id', row.contact_id).order('created_at', { ascending: false }).limit(10),
+      supabase.from('notes').select('*').eq('contact_id', row.contact_id).order('created_at', { ascending: false }).limit(30),
+      supabase.from('email_queue').select('id,subject,template_name,status,sent_at,send_after,sequence_type,created_at').eq('contact_id', row.contact_id).order('created_at', { ascending: false }).limit(30),
     ])
-    setDetail({ activities: acts.data || [], referrals: referrals.data || [] })
+    setDetail({ activities: acts.data || [], referrals: referrals.data || [], notes: notes.data || [], emails: emails.data || [] })
+  }
+
+  async function updateLeadStatus(leadId, newStatus) {
+    const { error: err } = await supabase.from('leads')
+      .update({ status: newStatus, updated_at: new Date().toISOString() })
+      .eq('id', leadId)
+    if (err) { setError('Status update failed: ' + err.message); return }
+    setAllLeads((rows) => rows.map((l) => (l.lead_id === leadId ? { ...l, status: newStatus } : l)))
+    setOpenRow((r) => r && {
+      ...r,
+      status: r._leads[0]?.lead_id === leadId ? newStatus : r.status,
+      _leads: r._leads.map((l) => (l.lead_id === leadId ? { ...l, status: newStatus } : l)),
+    })
+  }
+
+  async function addNote(row) {
+    const body = noteText.trim()
+    if (!body) return
+    const { data: { session } } = await supabase.auth.getSession()
+    const { error: err } = await supabase.from('notes').insert({
+      contact_id: row.contact_id,
+      lead_id: row._leads[0]?.lead_id || null,
+      body,
+      created_by: session?.user?.email || 'admin',
+    })
+    if (err) { setError('Note failed: ' + err.message); return }
+    setNoteText('')
+    openDrawer(row)
+  }
+
+  async function logCall(row, dial, callerId, callObj, callStatus, extra = {}) {
+    const key = `${callObj?.id || 'call'}:${callStatus}`
+    if (telnyxRef.current.logged.has(key)) return
+    telnyxRef.current.logged.add(key)
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      await fetch('/api/admin/telnyx/calls', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+        body: JSON.stringify({
+          leadId: row._leads[0]?.lead_id,
+          contactId: row.contact_id,
+          destinationNumber: dial,
+          callerNumber: callerId || null,
+          telnyxCallId: callObj?.id || null,
+          status: callStatus,
+          ...extra,
+        }),
+      })
+    } catch (e) { console.error('[call-log]', e.message) }
+  }
+
+  async function startCall(row) {
+    const dial = normalizePhone(row.phone)
+    if (!dial) { setCallState('error: no dialable number'); return }
+    setCallState('connecting…')
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      const r = await fetch('/api/admin/telnyx/token', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      })
+      const tok = await r.json()
+      if (!r.ok) throw new Error(tok.error || 'Could not get a calling token')
+
+      const mod = await dynImport('https://esm.sh/@telnyx/webrtc@2.26.4?bundle')
+      const TelnyxRTC = mod.TelnyxRTC || mod.default?.TelnyxRTC || mod.default
+      if (!TelnyxRTC) throw new Error('Could not load the Telnyx client')
+
+      const clientOptions = tok.auth?.type === 'token'
+        ? { login_token: tok.auth.loginToken }
+        : { login: tok.auth?.login, password: tok.auth?.password }
+      const client = new TelnyxRTC(clientOptions)
+      client.remoteElement = 'telnyx-remote-audio'
+      telnyxRef.current.client = client
+
+      await new Promise((resolve, reject) => {
+        let settled = false
+        const timeout = window.setTimeout(() => { if (!settled) { settled = true; reject(new Error('Telnyx connection timed out')) } }, 12000)
+        client.on('telnyx.ready', () => { if (!settled) { settled = true; window.clearTimeout(timeout); resolve() } })
+        client.on('telnyx.error', () => { if (!settled) { settled = true; window.clearTimeout(timeout); reject(new Error('Telnyx connection error')) } })
+        client.connect()
+      })
+
+      client.on('telnyx.notification', (n) => {
+        if (n?.type !== 'callUpdate' || !n.call) return
+        telnyxRef.current.call = n.call
+        const st = n.call.state
+        if (st === 'active') { setCallState('connected'); logCall(row, dial, tok.callerId, n.call, 'answered', { state: st }) }
+        else if (st === 'hangup' || st === 'destroy') { setCallState('call ended'); logCall(row, dial, tok.callerId, n.call, 'ended', { state: st }) }
+        else if (st === 'ringing' || st === 'trying' || st === 'requesting') setCallState('calling…')
+      })
+
+      const call = client.newCall({
+        destinationNumber: dial,
+        callerNumber: tok.callerId,
+        callerName: 'Co-Ownership Property',
+        remoteElement: 'telnyx-remote-audio',
+        audio: true,
+        video: false,
+      })
+      telnyxRef.current.call = call
+      setCallState('calling…')
+      logCall(row, dial, tok.callerId, call, 'started')
+    } catch (e) {
+      setCallState('error: ' + e.message)
+    }
+  }
+
+  function hangup() {
+    try { telnyxRef.current.call?.hangup?.() } catch (_) {}
+    setCallState('call ended')
   }
 
   function exportCsv() {
@@ -311,6 +479,9 @@ export default function CrmLeads() {
     const cutoff = Date.now() - 7 * 86400e3
     return grouped.filter((r) => r._first_seen && new Date(r._first_seen).getTime() > cutoff).length
   }, [grouped])
+
+  const waLink = openRow?.phone ? `https://wa.me/${(normalizePhone(openRow.phone) || '').replace(/[^\d]/g, '')}` : null
+  const inCall = callState && !callState.startsWith('error') && callState !== 'call ended'
 
   return (
     <AdminLayout>
@@ -350,7 +521,7 @@ export default function CrmLeads() {
         <button style={s.btn} onClick={exportCsv}>↓ CSV</button>
       </div>
 
-      {error && <div style={{ ...s.empty, color: '#b91c1c' }}>{error}</div>}
+      {error && <div style={{ ...s.empty, color: '#b91c1c', padding: '12px 0' }}>{error}</div>}
 
       <div style={s.tableWrap}>
         <table style={s.table}>
@@ -407,15 +578,46 @@ export default function CrmLeads() {
         <button style={s.btn} disabled={page + 1 >= pages} onClick={() => setPage((p) => p + 1)}>Next →</button>
       </div>
 
+      <audio id="telnyx-remote-audio" autoPlay style={{ display: 'none' }} />
+
       {openRow && (
         <>
           <div style={s.drawerWrap} onClick={() => setOpenRow(null)} />
           <div style={s.drawer}>
-            <h2 style={s.drawerH}>{openRow._name}</h2>
-            <div style={s.dim}>
-              {openRow.email}{openRow.phone ? ` · ${openRow.phone}` : ''}
-              {openRow._buyer_country ? ` · ${openRow._buyer_country}` : ''}
-              {' · '}first seen {fmtDate(openRow._first_seen)}
+            <div style={s.drawerTop}>
+              <div>
+                <h2 style={s.drawerH}>{openRow._name}</h2>
+                <div style={s.dim}>
+                  {openRow.email}{openRow.phone ? ` · ${openRow.phone}` : ''}
+                  {openRow._buyer_country ? ` · ${openRow._buyer_country}` : ''}
+                  {' · '}first seen {fmtDate(openRow._first_seen)}
+                </div>
+              </div>
+              <select
+                style={s.select}
+                value={openRow._leads[0]?.status || 'new_lead'}
+                onChange={(e) => updateLeadStatus(openRow._leads[0]?.lead_id, e.target.value)}
+                title="Status of the most recent lead"
+              >
+                {Object.entries(STATUS_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </div>
+
+            <div style={s.actionRow}>
+              {!inCall
+                ? <button style={s.actBtn('#C05B4D', '#fff')} onClick={() => startCall(openRow)} disabled={!openRow.phone}>Call</button>
+                : <button style={s.actBtn('#fff', '#C05B4D', `1px solid #C05B4D`)} onClick={hangup}>Hang up</button>}
+              <button
+                style={s.actBtn('#1FA855', '#fff')}
+                disabled={!waLink}
+                onClick={() => waLink && window.open(waLink, '_blank')}
+              >WhatsApp</button>
+              <button
+                style={s.actBtn('#fff', C.ink, `1px solid ${C.line}`)}
+                onClick={() => { window.location.href = `mailto:${openRow.email}` }}
+              >Email</button>
+              {callState && <span style={s.callChip}>{callState}</span>}
+              {!openRow.phone && <span style={s.callChip}>no phone on file</span>}
             </div>
 
             {detail?.referrals?.length > 0 && (
@@ -432,21 +634,57 @@ export default function CrmLeads() {
 
             <div style={s.section}>
               <div style={s.sectionH}>Leads ({openRow._leads.length})</div>
-              {openRow._leads.map((l) => (
-                <div key={l.lead_id} style={s.leadRow}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
-                    <strong>{l.property_title || l.main_region || 'General enquiry'}</strong>
-                    <span style={s.chip(STATUS_COLORS[l.status])}>{STATUS_LABELS[l.status] || l.status}</span>
+              {openRow._leads.map((l) => {
+                const price = leadPriceEUR(l)
+                const comm = commissionEUR(l)
+                return (
+                  <div key={l.lead_id} style={s.leadRow}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
+                      <strong style={{ whiteSpace: 'normal' }}>{l.property_title || l.main_region || 'General enquiry'}</strong>
+                      <select
+                        style={s.miniSelect}
+                        value={l.status || 'new_lead'}
+                        onChange={(e) => updateLeadStatus(l.lead_id, e.target.value)}
+                      >
+                        {Object.entries(STATUS_LABELS).map(([v, lab]) => <option key={v} value={v}>{lab}</option>)}
+                      </select>
+                    </div>
+                    <div style={s.dim}>
+                      {[l.main_region, l.subregion].filter(Boolean).join(' / ')}
+                      {price ? ` · ${fmtEUR(price)}` : (l.budget_max ? ` · up to €${Number(l.budget_max).toLocaleString()}` : '')}
+                      {comm ? ` (≈${fmtEUR(comm)} commission)` : ''}
+                      {l.timeframe ? ` · ${l.timeframe}` : ''}
+                      {` · ${fmtDate(l.lead_created)}`}
+                      {` · emails ${l.emails_sent || 0}/${l.total_opens || 0}`}
+                    </div>
+                    {l.message && <div style={{ marginTop: 4, whiteSpace: 'normal' }}>{l.message}</div>}
                   </div>
-                  <div style={s.dim}>
-                    {[l.main_region, l.subregion].filter(Boolean).join(' / ')}
-                    {leadPriceEUR(l) ? ` · ${fmtEUR(leadPriceEUR(l))}` : (l.budget_max ? ` · up to €${Number(l.budget_max).toLocaleString()}` : '')}
-                    {l.timeframe ? ` · ${l.timeframe}` : ''}
-                    {` · ${fmtDate(l.lead_created)}`}
-                  </div>
-                  {l.message && <div style={{ marginTop: 4, whiteSpace: 'normal' }}>{l.message}</div>}
+                )
+              })}
+            </div>
+
+            <div style={s.section}>
+              <div style={s.sectionH}>Notes</div>
+              <textarea style={s.noteBox} placeholder="Add a note…" value={noteText} onChange={(e) => setNoteText(e.target.value)} />
+              <button style={{ ...s.btn, marginTop: 6 }} onClick={() => addNote(openRow)} disabled={!noteText.trim()}>Add note</button>
+              {detail?.notes?.map((n) => (
+                <div key={n.id} style={{ ...s.leadRow, marginTop: 8 }}>
+                  <div style={{ whiteSpace: 'normal' }}>{n.body}</div>
+                  <div style={s.dim}>{n.created_by || '—'} · {fmtDate(n.created_at, true)}</div>
                 </div>
               ))}
+            </div>
+
+            <div style={s.section}>
+              <div style={s.sectionH}>Emails ({detail?.emails?.length ?? '…'})</div>
+              {detail?.emails?.map((e) => (
+                <div key={e.id} style={s.actRow}>
+                  <span style={{ ...s.dim, minWidth: 118 }}>{fmtDate(e.sent_at || e.send_after || e.created_at)}</span>
+                  <span style={{ whiteSpace: 'normal', flex: 1 }}>{e.subject || e.template_name}</span>
+                  <span style={s.chip(e.status === 'sent' ? '#16a34a' : e.status === 'pending' ? '#d97706' : '#6b7280')}>{e.status}</span>
+                </div>
+              ))}
+              {detail && detail.emails.length === 0 && <div style={s.dim}>No emails yet.</div>}
             </div>
 
             <div style={s.section}>
