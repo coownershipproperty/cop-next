@@ -24,7 +24,7 @@ export default function CollectionAccessEmail({
   return (
     <Html lang="en">
       <Head />
-      <Preview>Your private access to The Mosaic Collection</Preview>
+      <Preview>Your private access to Mosaic Collection 14</Preview>
       <Body style={body}>
         <Container style={container}>
           <Section style={header}>
@@ -32,12 +32,12 @@ export default function CollectionAccessEmail({
           </Section>
           <Img
             src="https://co-ownership-property.com/images/collections/mosaic/mallorca-port-d-andratx.jpg"
-            alt="The Mosaic Collection"
+            alt="Mosaic Collection 14"
             width="600"
             style={hero}
           />
           <Section style={content}>
-            <Text style={eyebrow}>THE MOSAIC COLLECTION</Text>
+            <Text style={eyebrow}>MOSAIC COLLECTION 14</Text>
             <Heading style={heading}>Your private collection guide is ready</Heading>
             <Text style={paragraph}>Hello {firstName},</Text>
             <Text style={paragraph}>

@@ -17,31 +17,35 @@
 .heroGrid {
   position: relative;
   display: grid;
-  grid-template-columns: 1.45fr 1fr;
+  grid-template-columns: 1.08fr repeat(2, .5fr);
   grid-template-rows: repeat(2, minmax(235px, 34vh));
   gap: 3px;
-  margin-bottom: 72px;
+  margin-bottom: 92px;
   background: white;
 }
 
 .heroImage { position: relative; min-height: 0; overflow: hidden; }
 .heroImage1 { grid-row: 1 / 3; }
 .heroImage2 { grid-column: 2; grid-row: 1; }
-.heroImage3 { grid-column: 2; grid-row: 2; }
+.heroImage3 { grid-column: 3; grid-row: 1; }
+.heroImage4 { grid-column: 2; grid-row: 2; }
+.heroImage5 { grid-column: 3; grid-row: 2; }
 .heroImage::after { content: ''; position: absolute; inset: auto 0 0; height: 42%; background: linear-gradient(transparent, rgba(8, 28, 44, 0.58)); }
 .heroImage > span { position: absolute; z-index: 2; left: 18px; bottom: 15px; color: white; font: 800 10px/1.2 var(--font-nunito), sans-serif; letter-spacing: 0.15em; text-transform: uppercase; }
+.heroImage2 > span,
+.heroImage3 > span { top: 15px; bottom: auto; text-shadow: 0 1px 8px rgba(8, 28, 44, .65); }
 
 .galleryAccess {
   position: absolute;
-  right: clamp(18px, 4vw, 58px);
-  bottom: 0;
+  left: 62%;
+  top: 50%;
   z-index: 4;
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr);
   column-gap: 16px;
-  width: min(470px, calc(100% - 36px));
-  padding: 22px 24px;
-  transform: translateY(34%);
+  width: min(510px, calc(100% - 40px));
+  padding: 25px 28px;
+  transform: translate(-50%, -50%);
   background: rgba(16, 45, 69, .96);
   color: white;
   text-align: left;
@@ -71,8 +75,7 @@
 .destinations { margin: 0 0 30px; font: 800 11px/1.6 var(--font-nunito), sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
 .eyebrow { margin: 0 0 12px; color: var(--gold); font: 800 11px/1.3 var(--font-nunito), sans-serif; letter-spacing: 0.18em; text-transform: uppercase; }
 .overviewCopy > h1,
-.sectionHead h2,
-.finalCta h2 { margin: 0; font: 400 clamp(42px, 5.1vw, 72px)/1.07 var(--font-playfair), serif; letter-spacing: -0.025em; }
+.sectionHead h2 { margin: 0; font: 400 clamp(42px, 5.1vw, 72px)/1.07 var(--font-playfair), serif; letter-spacing: -0.025em; }
 
 .stats {
   display: grid;
@@ -108,17 +111,6 @@
 .about h2 { margin: 0 0 14px; font: 400 clamp(28px, 3vw, 38px)/1.2 var(--font-playfair), serif; }
 .about p { max-width: 760px; margin: 0 0 14px; color: #51687b; font: 400 16px/1.75 var(--font-nunito), sans-serif; }
 
-.homeCardBody button,
-.finalCta button {
-  border: 0;
-  background: var(--gold);
-  color: white;
-  font: 800 11px/1 var(--font-nunito), sans-serif;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
 .homesSection,
 .featuresSection,
 .locationsSection,
@@ -141,7 +133,6 @@
 .homeCardBody > p { margin: 0 0 8px; color: var(--gold); font: 800 9px/1.2 var(--font-nunito), sans-serif; letter-spacing: 0.13em; text-transform: uppercase; }
 .homeCardBody h3 { margin: 0 0 12px; font: 400 clamp(24px, 2vw, 32px)/1.12 var(--font-playfair), serif; }
 .homeCardBody > span { display: block; margin-bottom: 19px; color: var(--muted); font: 400 13px/1.58 var(--font-nunito), sans-serif; }
-.homeCardBody button { align-self: flex-start; margin-top: auto; padding: 0 0 7px; border-bottom: 1px solid var(--gold); background: transparent; color: var(--gold); }
 .homeCardBody ul { display: grid; gap: 6px; margin: auto 0 0; padding: 16px 0 0; border-top: 1px solid var(--line); list-style: none; }
 .homeCardBody li { color: #53697c; font: 600 12px/1.4 var(--font-nunito), sans-serif; }
 .homeCardBody li::before { content: '·'; margin-right: 8px; color: var(--gold); }
@@ -153,11 +144,12 @@
 .feature p { max-width: 180px; margin: 0; font: 400 17px/1.4 var(--font-playfair), serif; }
 
 .locationsSection { padding: clamp(76px, 9vw, 120px) clamp(22px, 4vw, 62px); }
-.locationLayout { display: grid; grid-template-columns: minmax(0, 1fr) 370px; width: min(1180px, 100%); margin: 0 auto; border: 1px solid var(--line); background: #fff; }
-.mapPanel { min-width: 0; overflow: auto; background: #eef1ef; }
-.mapPanel svg { display: block; width: 100%; min-width: 720px; height: auto; min-height: 510px; }
+.locationLayout { display: grid; grid-template-columns: minmax(0, 1fr) 370px; align-items: stretch; width: min(1180px, 100%); margin: 0 auto; border: 1px solid var(--line); background: #fff; }
+.mapPanel { position: relative; min-width: 0; min-height: 500px; overflow: hidden; background: #eef1ef; }
+.mapPanel svg { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; }
 .mapSea { fill: #edf1ef; }
 .mapLand path { fill: #f9f7f2; stroke: #d3d9d5; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mapIslands ellipse { fill: #f9f7f2; stroke: #d3d9d5; stroke-width: 1; vector-effect: non-scaling-stroke; }
 .svgHome { cursor: pointer; outline: none; }
 .svgHome circle { fill: #fff; stroke: var(--navy); stroke-width: 2; transition: r .2s ease, fill .2s ease; }
 .svgHome path { fill: var(--gold); }
@@ -217,12 +209,6 @@
 .enquirySuccess h3 { margin: 0 0 12px; font: 400 34px/1.2 var(--font-playfair), serif; }
 .enquirySuccess p { max-width: 430px; margin: 0; color: var(--muted); font: 400 15px/1.7 var(--font-nunito), sans-serif; }
 
-.finalCta { padding: clamp(72px, 9vw, 112px) 24px; background: var(--navy-deep); color: white; text-align: center; }
-.finalCta > p { margin: 0 0 13px; color: var(--gold); font: 800 11px/1.3 var(--font-nunito), sans-serif; letter-spacing: .18em; text-transform: uppercase; }
-.finalCta h2 { font-size: clamp(42px, 5vw, 64px); }
-.finalCta > span { display: block; margin: 18px auto 28px; color: rgba(255,255,255,.72); font: 400 15px/1.6 var(--font-nunito), sans-serif; }
-.finalCta button { padding: 17px 25px; }
-
 @media (max-width: 1100px) {
   .overviewWrap { grid-template-columns: minmax(0, 1fr) minmax(340px, 390px); width: min(100% - 48px, 1060px); gap: 42px; }
   .homeGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -236,13 +222,17 @@
   .locationList .mapHomeIcon { width: 34px; height: 34px; }
   .locationList strong { font-size: 15px; }
   .locationList small { font-size: 9px; }
+  .mapPanel { min-height: 470px; }
 }
 
 @media (max-width: 850px) {
-  .heroGrid { grid-template-columns: 1.4fr 1fr; grid-template-rows: 230px 230px; }
+  .heroGrid { grid-template-columns: 1.12fr 1fr 1fr; grid-template-rows: 230px 230px; }
   .heroImage1 { grid-column: 1; grid-row: 1 / 3; }
   .heroImage2 { grid-column: 2; grid-row: 1; }
-  .heroImage3 { grid-column: 2; grid-row: 2; }
+  .heroImage3 { grid-column: 3; grid-row: 1; }
+  .heroImage4 { grid-column: 2; grid-row: 2; }
+  .heroImage5 { grid-column: 3; grid-row: 2; }
+  .galleryAccess { left: 50%; }
   .overviewWrap { grid-template-columns: 1fr; width: min(100% - 36px, 720px); }
   .overviewEnquiry .enquiryCard { position: static; }
   .stats { grid-template-columns: repeat(2, 1fr); }
@@ -259,14 +249,19 @@
 @media (max-width: 620px) {
   .page { padding-top: 64px; }
   .hero, .homesSection, .featuresSection, .locationsSection, .faqSection { scroll-margin-top: 64px; }
-  .heroGrid { grid-template-columns: 1.35fr 1fr; grid-template-rows: 180px 180px; margin-bottom: 108px; }
-  .galleryAccess { right: 12px; width: calc(100% - 24px); padding: 18px; transform: translateY(62%); }
+  .heroGrid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 140px 140px; margin-bottom: 162px; }
+  .heroImage1 { grid-column: 1 / 3; grid-row: 1; }
+  .heroImage2 { grid-column: 1; grid-row: 2; }
+  .heroImage3 { grid-column: 2; grid-row: 2; }
+  .heroImage4 { grid-column: 1; grid-row: 3; }
+  .heroImage5 { grid-column: 2; grid-row: 3; }
+  .galleryAccess { left: 12px; top: auto; bottom: 0; width: calc(100% - 24px); padding: 18px; transform: translateY(68%); }
   .galleryAccess svg { width: 31px; height: 31px; }
   .galleryAccess h2 { font-size: 22px; }
   .galleryAccess > span { margin: 5px 0 9px; font-size: 11px; }
   .galleryAccess button { padding: 11px 13px; }
   .overviewWrap { padding: 48px 0 64px; }
-  .overviewCopy > h1, .sectionHead h2, .finalCta h2 { font-size: 40px; }
+  .overviewCopy > h1, .sectionHead h2 { font-size: 40px; }
   .stats { margin-top: 28px; }
   .homesSection, .featuresSection, .locationsSection, .faqSection { padding-left: 18px; padding-right: 18px; }
   .homeGrid { grid-template-columns: 1fr; }
@@ -276,7 +271,8 @@
   .feature { min-height: 165px; padding: 20px 12px; }
   .feature svg { width: 45px; height: 45px; }
   .feature p { font-size: 15px; }
-  .mapPanel svg { min-width: 760px; min-height: 378px; }
+  .mapPanel { min-height: 340px; overflow: hidden; }
+  .mapPanel svg { min-width: 0; min-height: 0; }
   .locationList { grid-template-columns: 1fr; }
   .locationList button { grid-template-columns: 40px minmax(0, 1fr) auto; border-right: 0; border-bottom: 1px solid var(--line); }
   .locationList button > b { display: block; }

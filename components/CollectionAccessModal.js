@@ -3,9 +3,11 @@ import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 
-export default function CollectionAccessModal({ onClose }) {
+export default function CollectionAccessModal({ onClose, collectionTitle = 'Mosaic Collection 14' }) {
   const saved = getSavedUser();
-  const [name, setName] = useState(saved.name || '');
+  const nameParts = (saved.name || '').trim().split(/\s+/).filter(Boolean);
+  const [firstName, setFirstName] = useState(nameParts[0] || '');
+  const [surname, setSurname] = useState(nameParts.slice(1).join(' '));
   const [email, setEmail] = useState(saved.email || '');
   const [phone, setPhone] = useState(saved.phone || '');
   const [status, setStatus] = useState('idle');
@@ -24,18 +26,20 @@ export default function CollectionAccessModal({ onClose }) {
     setStatus('sending');
     setError('');
     const honeypot = event.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
+    const name = `${firstName.trim()} ${surname.trim()}`.trim();
 
     try {
       const response = await fetch('/api/unlock-collection/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: name.trim(),
+          name,
           email: email.trim(),
           phone: phone.trim(),
-          collectionTitle: 'The Mosaic Collection',
+          collectionTitle,
           collectionSlug: 'mosaic-collection',
           pageUrl: 'https://co-ownership-property.com/collections/mosaic-collection/',
+          message: `I’d like to enquire about ${collectionTitle}.`,
           [HONEYPOT_FIELD]: honeypot,
         }),
       });
@@ -43,7 +47,7 @@ export default function CollectionAccessModal({ onClose }) {
       const payload = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(payload.error || 'Unable to send your access link.');
 
-      saveUser({ name: name.trim(), email: email.trim(), phone: phone.trim(), validated: true });
+      saveUser({ name, email: email.trim(), phone: phone.trim(), validated: true });
       setStatus('done');
       window.setTimeout(() => {
         if (payload.accessUrl) window.location.assign(payload.accessUrl);
@@ -68,29 +72,35 @@ export default function CollectionAccessModal({ onClose }) {
           <div className="collection-access-success">
             <span aria-hidden="true">✓</span>
             <h2 id="collection-access-title">Check your inbox</h2>
-            <p>Your personal Mosaic Collection link is on its way to <strong>{email}</strong>.</p>
+            <p>Your personal {collectionTitle} link is on its way to <strong>{email}</strong>.</p>
           </div>
         ) : (
           <>
             <p className="collection-access-eyebrow">Private collection access</p>
-            <h2 id="collection-access-title">Receive your personal link</h2>
-            <p className="collection-access-intro">We’ll email you the complete collection guide, detailed home information and a permanent access link.</p>
+            <h2 id="collection-access-title">More from every home</h2>
+            <p className="collection-access-intro">See more photos from all five homes, with more details, features and fixtures. We’ll send your private {collectionTitle} access link by email.</p>
             <form onSubmit={submit}>
               <HoneypotField />
-              <label>
-                Your name
-                <input type="text" value={name} onChange={(event) => setName(event.target.value)} required autoComplete="name" />
-              </label>
+              <div className="collection-access-name-fields">
+                <label>
+                  First name
+                  <input type="text" value={firstName} onChange={(event) => setFirstName(event.target.value)} required autoComplete="given-name" />
+                </label>
+                <label>
+                  Surname
+                  <input type="text" value={surname} onChange={(event) => setSurname(event.target.value)} required autoComplete="family-name" />
+                </label>
+              </div>
               <label>
                 Email
                 <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required autoComplete="email" />
               </label>
               <label>
-                Phone <span>(optional)</span>
-                <input type="tel" value={phone} onChange={(event) => setPhone(event.target.value)} autoComplete="tel" />
+                Phone
+                <input type="tel" value={phone} onChange={(event) => setPhone(event.target.value)} required autoComplete="tel" />
               </label>
               <button type="submit" disabled={status === 'sending'}>
-                {status === 'sending' ? 'Sending…' : 'Send my access link →'}
+                {status === 'sending' ? 'Sending…' : 'Send it to me →'}
               </button>
               {error && <p className="collection-access-error" role="alert">{error}</p>}
             </form>
@@ -153,6 +163,7 @@ export default function CollectionAccessModal({ onClose }) {
           line-height: 1.65;
         }
         form { display: grid; gap: 18px; }
+        .collection-access-name-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         label {
           display: grid;
           gap: 7px;
@@ -209,6 +220,7 @@ export default function CollectionAccessModal({ onClose }) {
         @media (max-width: 560px) {
           .collection-access-overlay { padding: 12px; }
           .collection-access-modal { padding: 40px 24px 28px; }
+          .collection-access-name-fields { grid-template-columns: 1fr; }
         }
       `}</style>
     </div>

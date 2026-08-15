@@ -7,7 +7,7 @@ import CollectionAccessEmail from '@/emails/collection-access';
 
 const COLLECTIONS = {
   'mosaic-collection': {
-    title: 'The Mosaic Collection',
+    title: 'Mosaic Collection 14',
     baseUrl: 'https://co-ownership-property.com/collections/mosaic-collection/',
     destinations: 'Mallorca; Tuscany; Chamonix; Barcelona; South of France',
   },
@@ -28,12 +28,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
   if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
-  const { name, email, phone, collectionSlug } = req.body;
+  const { name, email, phone, collectionSlug, message } = req.body;
   const collection = COLLECTIONS[collectionSlug];
   const cleanEmail = String(email).trim().toLowerCase();
   const cleanName = String(name || '').trim();
   const cleanPhone = String(phone || '').trim();
-  if (!collection || !cleanName || !EMAIL_PATTERN.test(cleanEmail)) {
+  const cleanMessage = String(message || `I’d like to enquire about ${collection?.title || 'this collection'}.`).trim();
+  if (!collection || !cleanName || !cleanPhone || !EMAIL_PATTERN.test(cleanEmail)) {
     return res.status(400).json({ error: 'Missing or invalid fields.' });
   }
 
@@ -65,7 +66,7 @@ export default async function handler(req, res) {
         contactId: contact.id,
         propertyTitle: collection.title,
         mainRegion: collection.destinations,
-        message: 'Requested private access to the Mosaic Collection guide.',
+        message: cleanMessage,
       });
       await logActivity({
         contactId: contact.id,
@@ -84,7 +85,7 @@ export default async function handler(req, res) {
       autoSend: true,
       to: cleanEmail,
       toName: cleanName || null,
-      subject: 'Your private access to The Mosaic Collection',
+      subject: `Your private access to ${collection.title}`,
       template: React.createElement(CollectionAccessEmail, { firstName: firstName || 'there', accessUrl }),
       templateName: 'collection-access',
       templateProps: { firstName, accessUrl, collectionSlug },
@@ -103,6 +104,7 @@ export default async function handler(req, res) {
         <p><strong>Name:</strong> ${escapeHtml(cleanName)}</p>
         <p><strong>Email:</strong> ${escapeHtml(cleanEmail)}</p>
         <p><strong>Phone:</strong> ${cleanPhone ? escapeHtml(cleanPhone) : '<em>not provided</em>'}</p>
+        <p><strong>Message:</strong> ${escapeHtml(cleanMessage)}</p>
         <p><strong>Access link:</strong> <a href="${escapeHtml(accessUrl)}">${escapeHtml(accessUrl)}</a></p>
       `,
     });

@@ -13,8 +13,9 @@ import { getSavedUser, saveUser } from '@/lib/savedUser';
 import styles from '@/styles/MosaicCollection.module.css';
 
 const CANONICAL = 'https://co-ownership-property.com/collections/mosaic-collection/';
-const META_TITLE = 'The Mosaic Collection: Five Luxury Holiday Homes Across Europe | COP';
-const META_DESCRIPTION = 'Co-own five luxury holiday homes across Europe from €325,000, with a minimum 12.38 weeks (2.85 months) of annual use and up to 20 weeks.';
+const COLLECTION_NAME = 'Mosaic Collection 14';
+const META_TITLE = 'Mosaic Collection 14: Five Luxury Holiday Homes Across Europe | COP';
+const META_DESCRIPTION = 'Co-own five luxury holiday homes across Europe for €325,000, with 12.4 weeks (86.8 days or 2.85 months) of use on average each year and up to 20 weeks.';
 
 const HOMES = [
   {
@@ -29,7 +30,7 @@ const HOMES = [
     locationImagePosition: 'center',
     description: 'A light-filled duplex with exceptional sea views, two terraces and access to a shared pool, moments from Cala Fonoll beach and the harbour promenade.',
     facts: ['Approx. 104 m²', '2 bedrooms', '2 bathrooms', 'Shared pool', 'Two terraces', 'Parking'],
-    point: [321.43, 458],
+    point: [354, 426],
   },
   {
     id: 'tuscany',
@@ -101,6 +102,12 @@ const MAP_PATHS = [
   'M1003.938,228.233L999.218,221.091L981.868,207.146L961.08,183.606L951.096,164.005L928.835,134.074L938.492,107.376L954.697,122.257L964.518,108.833L985.796,107.376L1003.938,112.36L1003.938,228.233Z',
 ];
 
+const BALEARIC_ISLANDS = [
+  { cx: 368, cy: 422, rx: 24, ry: 9, rotate: -18 },
+  { cx: 397, cy: 404, rx: 10, ry: 4, rotate: -12 },
+  { cx: 340, cy: 442, rx: 7, ry: 3, rotate: -24 },
+];
+
 const FEATURES = [
   ['extraBeds', 'Extra beds at every home'],
   ['pool', 'Pools at three homes'],
@@ -115,9 +122,9 @@ const FEATURES = [
 ];
 
 const FAQS = [
-  ['What is The Mosaic Collection?', 'It is one ownership opportunity connecting five furnished holiday homes in Mallorca, Tuscany, Chamonix, Barcelona and the South of France.'],
-  ['How much does The Mosaic Collection cost?', 'The current asking price is €325,000.'],
-  ['How much time can owners use the homes?', 'The minimum annual use is 12.38 weeks—equal to 86.7 days or 2.85 months, which is almost three months. By combining standard and low-season stays, annual use can extend to as much as 20 weeks across the five homes.'],
+  ['What is the Mosaic Collection?', 'Mosaic Collection 14 is one ownership opportunity connecting five holiday homes in Mallorca, Tuscany, Chamonix, Barcelona and the South of France.'],
+  ['How much time can owners use the homes?', 'The minimum annual use is 12.38 weeks—86.7 days or approximately 2.85 months. Average annual use is 12.4 weeks—86.8 days or approximately 2.85 months. By combining standard and low-season stays, use can extend to as much as 20 weeks across the collection.'],
+  ['How much does the Mosaic Collection cost?', 'The price is €325,000.'],
   ['Which destinations are included?', 'Port d’Andratx in Mallorca, Chianni in Tuscany, Les Rosières in Chamonix, Barri Gòtic in Barcelona and Callian in the South of France.'],
 ];
 
@@ -151,7 +158,7 @@ function PlaneIcon() {
 }
 
 function CollectionEnquiryForm() {
-  const [form, setForm] = useState({ firstName: '', surname: '', email: '', phone: '', message: '' });
+  const [form, setForm] = useState({ firstName: '', surname: '', email: '', phone: '', message: `I’d like to enquire about ${COLLECTION_NAME}.` });
   const [status, setStatus] = useState('idle');
 
   useEffect(() => {
@@ -185,7 +192,7 @@ function CollectionEnquiryForm() {
           email: form.email.trim(),
           phone: form.phone.trim(),
           message: form.message.trim(),
-          property: 'The Mosaic Collection',
+          property: COLLECTION_NAME,
           destination: 'Mallorca; Tuscany; Chamonix; Barcelona; South of France',
           url: CANONICAL,
           enquiryType: 'collection',
@@ -203,12 +210,12 @@ function CollectionEnquiryForm() {
       });
       trackConversion('generate_lead', 'Lead', {
         event_category: 'collection_enquiry',
-        collection_title: 'The Mosaic Collection',
+        collection_title: COLLECTION_NAME,
         locale: 'en',
       });
       track('enquiry_submitted', {
         source: 'collection_page',
-        collection: 'The Mosaic Collection',
+        collection: COLLECTION_NAME,
         url: CANONICAL,
         locale: 'en',
       });
@@ -224,7 +231,7 @@ function CollectionEnquiryForm() {
       <div className={styles.enquirySuccess} role="status">
         <span aria-hidden="true">✓</span>
         <h3>Thank you{firstName ? `, ${firstName}` : ''}.</h3>
-        <p>Your enquiry about The Mosaic Collection has been received. Our team will be in touch shortly.</p>
+        <p>Your enquiry about {COLLECTION_NAME} has been received. Our team will be in touch shortly.</p>
       </div>
     );
   }
@@ -275,20 +282,21 @@ export default function MosaicCollectionPage() {
       {
         '@type': 'Product',
         '@id': `${CANONICAL}#collection`,
-        name: 'The Mosaic Collection',
+        name: COLLECTION_NAME,
         description: META_DESCRIPTION,
         image: HOMES.map((home) => `https://co-ownership-property.com${home.image}`),
         brand: { '@type': 'Brand', name: 'Co-Ownership Property' },
         offers: { '@type': 'Offer', priceCurrency: 'EUR', price: '325000', url: CANONICAL, availability: 'https://schema.org/InStock' },
         additionalProperty: [
           { '@type': 'PropertyValue', name: 'Homes', value: '5' },
+          { '@type': 'PropertyValue', name: 'Average annual use', value: '12.4 weeks (86.8 days or 2.85 months)' },
           { '@type': 'PropertyValue', name: 'Minimum annual use', value: '12.38 weeks (86.7 days or 2.85 months)' },
           { '@type': 'PropertyValue', name: 'Potential annual use', value: 'Up to 20 weeks including low-season stays' },
         ],
       },
       {
         '@type': 'ItemList',
-        name: 'Homes in The Mosaic Collection',
+        name: `Homes in ${COLLECTION_NAME}`,
         itemListElement: HOMES.map((home, index) => ({
           '@type': 'ListItem',
           position: index + 1,
@@ -300,7 +308,7 @@ export default function MosaicCollectionPage() {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://co-ownership-property.com/' },
           { '@type': 'ListItem', position: 2, name: 'Collections', item: 'https://co-ownership-property.com/collections/' },
-          { '@type': 'ListItem', position: 3, name: 'The Mosaic Collection', item: CANONICAL },
+          { '@type': 'ListItem', position: 3, name: COLLECTION_NAME, item: CANONICAL },
         ],
       },
       {
@@ -330,9 +338,9 @@ export default function MosaicCollectionPage() {
       <main className={styles.page}>
         <section className={styles.hero} id="overview">
           <div className={styles.heroGrid}>
-            {HOMES.slice(0, 3).map((home, index) => (
+            {HOMES.map((home, index) => (
               <div key={home.id} className={`${styles.heroImage} ${styles[`heroImage${index + 1}`]}`}>
-                <Image src={home.image} alt={`${home.name}, ${home.region}`} fill priority={index < 2} loading={index < 2 ? 'eager' : 'lazy'} sizes={index === 0 ? '(max-width: 800px) 100vw, 60vw' : '(max-width: 800px) 50vw, 40vw'} style={{ objectFit: 'cover', objectPosition: home.imagePosition }} />
+                <Image src={home.image} alt={`${home.name}, ${home.region}`} fill priority={index < 2} loading={index < 2 ? 'eager' : 'lazy'} sizes={index === 0 ? '(max-width: 800px) 100vw, 52vw' : '(max-width: 800px) 50vw, 24vw'} style={{ objectFit: 'cover', objectPosition: home.imagePosition }} />
                 <span>{home.region}</span>
               </div>
             ))}
@@ -342,10 +350,10 @@ export default function MosaicCollectionPage() {
                   <rect x="5" y="10" width="14" height="11" rx="1" />
                   <path d="M8 10V7a4 4 0 0 1 8 0v3" />
                 </svg>
-                <p>Want to see more?</p>
+                <p>Private collection access</p>
                 <h2>More photos from every home</h2>
-                <span>Unlock the complete galleries, features, home details and collection documents.</span>
-                <button type="button" onClick={() => setShowAccess(true)}>Send my access link →</button>
+                <span>Receive more photos for each home, plus its features, fixtures and home details.</span>
+                <button type="button" onClick={() => setShowAccess(true)}>Send it to me →</button>
               </div>
             )}
           </div>
@@ -354,25 +362,25 @@ export default function MosaicCollectionPage() {
             <div className={styles.overviewCopy}>
               <p className={styles.price}>€325,000</p>
               <p className={styles.destinations}>Mallorca · Tuscany · Chamonix · Barcelona · South of France</p>
-              <p className={styles.eyebrow}>The Mosaic Collection</p>
+              <p className={styles.eyebrow}>{COLLECTION_NAME}</p>
               <h1>Five Luxury Holiday Homes Across Europe</h1>
               <div className={styles.stats}>
                 <div><strong>5</strong><span>Homes</span></div>
                 <div><strong>5</strong><span>Destinations</span></div>
-                <div><strong>12.38 weeks</strong><span>Minimum per year</span></div>
+                <div><strong>12.4 weeks</strong><span>On average each year</span></div>
                 <div><strong>Available now</strong><span>Ready to enjoy</span></div>
               </div>
               <div className={styles.usageHighlight}>
-                <p><strong>86.7 days</strong><span>or 2.85 months—almost three months of use every year.</span></p>
-                <p>By combining standard and low-season stays, annual use can extend to <strong>as much as 20 weeks</strong> across the collection.</p>
+                <p><strong>12.4 weeks</strong><span>86.8 days or 2.85 months of use on average each year.</span></p>
+                <p>By combining standard and low-season stays, your use can extend to <strong>as much as 20 weeks</strong> across the collection.</p>
               </div>
               <div className={styles.about}>
                 <h2>One collection. Five distinct rhythms.</h2>
-                <p>The Mosaic Collection brings together five homes shaped by atmosphere and a strong sense of place: Mediterranean coast, Tuscan countryside, the French Alps, Barcelona’s historic centre and a Provençal hill village.</p>
+                <p>{COLLECTION_NAME} brings together five homes shaped by atmosphere and a strong sense of place: Mediterranean coast, Tuscan countryside, the French Alps, Barcelona’s historic centre and a Provençal hill village.</p>
                 <p>From sea-view mornings in Port d’Andratx to evenings on a Callian rooftop, every stay offers a different way to slow down, reconnect and experience Europe throughout the year.</p>
               </div>
             </div>
-            <aside className={styles.overviewEnquiry} aria-label="Enquire about The Mosaic Collection">
+            <aside className={styles.overviewEnquiry} aria-label={`Enquire about ${COLLECTION_NAME}`}>
               <div className={styles.enquiryCard}>
                 <p className={styles.eyebrow}>Get in touch</p>
                 <h2>Enquire About This Collection</h2>
@@ -396,14 +404,10 @@ export default function MosaicCollectionPage() {
                   <Image src={home.locationImage} alt={`${home.name}, ${home.region} destination`} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 20vw" style={{ objectFit: 'cover', objectPosition: home.locationImagePosition }} />
                 </div>
                 <div className={styles.homeCardBody}>
-                  <p>{home.region}</p>
-                  <h3>{home.name}</h3>
+                  <p>{home.name}</p>
+                  <h3>{home.region}</h3>
                   <span>{home.description}</span>
-                  {unlocked ? (
-                    <ul>{home.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
-                  ) : (
-                    <button type="button" onClick={() => setShowAccess(true)}>Unlock home details →</button>
-                  )}
+                  {unlocked && <ul>{home.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>}
                 </div>
               </article>
             ))}
@@ -434,11 +438,14 @@ export default function MosaicCollectionPage() {
 
           <div className={styles.locationLayout}>
             <div className={styles.mapPanel}>
-              <svg viewBox="0 0 1004 500" role="img" aria-labelledby="mosaic-map-title mosaic-map-description">
-                <title id="mosaic-map-title">The five homes in The Mosaic Collection</title>
+              <svg viewBox="0 0 1004 500" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mosaic-map-title mosaic-map-description">
+                <title id="mosaic-map-title">{`The five homes in ${COLLECTION_NAME}`}</title>
                 <desc id="mosaic-map-description">A map of Europe showing home icons at Port d’Andratx, Chianni, Les Rosières, Barri Gòtic and Callian.</desc>
                 <rect width="1004" height="500" className={styles.mapSea} />
                 <g className={styles.mapLand}>{MAP_PATHS.map((path, index) => <path d={path} key={index} />)}</g>
+                <g className={styles.mapIslands} aria-hidden="true">
+                  {BALEARIC_ISLANDS.map((island) => <ellipse key={`${island.cx}-${island.cy}`} cx={island.cx} cy={island.cy} rx={island.rx} ry={island.ry} transform={`rotate(${island.rotate} ${island.cx} ${island.cy})`} />)}
+                </g>
                 {HOMES.map((home, index) => (
                   <g key={home.id} className={`${styles.svgHome}${selectedHome === index ? ` ${styles.svgHomeActive}` : ''}`} onClick={() => setSelectedHome(index)} role="button" tabIndex="0" aria-label={`Select ${home.name}`} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') setSelectedHome(index); }}>
                     <circle cx={home.point[0]} cy={home.point[1]} r={selectedHome === index ? 18 : 15} />
@@ -479,22 +486,16 @@ export default function MosaicCollectionPage() {
         <section className={styles.faqSection}>
           <div className={styles.sectionHead}>
             <p className={styles.eyebrow}>Collection essentials</p>
-            <h2>The Mosaic Collection at a glance</h2>
+            <h2>Mosaic Collection at a glance</h2>
           </div>
           <div className={styles.faqGrid}>
             {FAQS.map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}
           </div>
         </section>
 
-        <section className={styles.finalCta}>
-          <p>The Mosaic Collection</p>
-          <h2>Unlock the complete collection</h2>
-          <span>Receive detailed home information and your personal access link by email.</span>
-          <button type="button" onClick={() => setShowAccess(true)}>Send my access link →</button>
-        </section>
       </main>
       <Footer />
-      {showAccess && <CollectionAccessModal onClose={() => setShowAccess(false)} />}
+      {showAccess && <CollectionAccessModal onClose={() => setShowAccess(false)} collectionTitle={COLLECTION_NAME} />}
     </>
   );
 }
