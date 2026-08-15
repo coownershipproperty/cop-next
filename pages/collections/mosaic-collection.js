@@ -14,7 +14,7 @@ import styles from '@/styles/MosaicCollection.module.css';
 
 const CANONICAL = 'https://co-ownership-property.com/collections/mosaic-collection/';
 const META_TITLE = 'The Mosaic Collection: Five Luxury Holiday Homes Across Europe | COP';
-const META_DESCRIPTION = 'Co-own five holiday homes in Mallorca, Tuscany, Chamonix, Barcelona and the South of France from €325,000, with a minimum of seven weeks’ use each year.';
+const META_DESCRIPTION = 'Co-own five luxury holiday homes across Europe from €325,000, with a minimum 12.38 weeks (2.85 months) of annual use and up to 20 weeks.';
 
 const HOMES = [
   {
@@ -105,7 +105,7 @@ const FEATURES = [
 const FAQS = [
   ['What is The Mosaic Collection?', 'It is one ownership opportunity connecting five furnished holiday homes in Mallorca, Tuscany, Chamonix, Barcelona and the South of France.'],
   ['How much does The Mosaic Collection cost?', 'The current asking price is €325,000.'],
-  ['How much time can owners use the homes?', 'Ownership includes a minimum of seven weeks of use per year across the five homes.'],
+  ['How much time can owners use the homes?', 'The minimum annual use is 12.38 weeks—equal to 86.7 days or 2.85 months, which is almost three months. By combining standard and low-season stays, annual use can extend to as much as 20 weeks across the five homes.'],
   ['Which destinations are included?', 'Port d’Andratx in Mallorca, Chianni in Tuscany, Les Rosières in Chamonix, Barri Gòtic in Barcelona and Callian in the South of France.'],
 ];
 
@@ -259,7 +259,8 @@ export default function MosaicCollectionPage() {
         offers: { '@type': 'Offer', priceCurrency: 'EUR', price: '325000', url: CANONICAL, availability: 'https://schema.org/InStock' },
         additionalProperty: [
           { '@type': 'PropertyValue', name: 'Homes', value: '5' },
-          { '@type': 'PropertyValue', name: 'Annual use', value: 'Minimum 7 weeks' },
+          { '@type': 'PropertyValue', name: 'Minimum annual use', value: '12.38 weeks (86.7 days or 2.85 months)' },
+          { '@type': 'PropertyValue', name: 'Potential annual use', value: 'Up to 20 weeks including low-season stays' },
         ],
       },
       {
@@ -333,8 +334,12 @@ export default function MosaicCollectionPage() {
               <div className={styles.stats}>
                 <div><strong>5</strong><span>Homes</span></div>
                 <div><strong>5</strong><span>Destinations</span></div>
-                <div><strong>Min. 7 weeks</strong><span>Per year</span></div>
+                <div><strong>12.38 weeks</strong><span>Minimum per year</span></div>
                 <div><strong>Available now</strong><span>Ready to enjoy</span></div>
+              </div>
+              <div className={styles.usageHighlight}>
+                <p><strong>86.7 days</strong><span>or 2.85 months—almost three months of use every year.</span></p>
+                <p>By combining standard and low-season stays, annual use can extend to <strong>as much as 20 weeks</strong> across the collection.</p>
               </div>
               <div className={styles.about}>
                 <h2>One collection. Five distinct rhythms.</h2>
