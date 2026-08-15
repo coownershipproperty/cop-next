@@ -7,6 +7,7 @@ import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { expandRegions } from '@/lib/regionMap';
 import { sendEnquiryReply } from '@/lib/enquiryReply';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
+import { createPartnerReferral } from '@/lib/partnerReferrals';
 
 function getDb() {
   return createSupabaseAdminClient();
@@ -192,6 +193,17 @@ export default async function handler(req, res) {
         description: `${isCollectionEnquiry ? 'Collection enquiry' : 'Enquiry'} submitted${property ? ` for ${property}` : ''}`,
         metadata:    { property, url, destination, budget, message, enquiryType: isCollectionEnquiry ? 'collection' : (property ? 'property' : 'general') },
       });
+
+      // Collection enquiries queue a partner referral for manual review in the
+      // Admin Partner Hub (never auto-sent to the partner). Helper never throws.
+      if (isCollectionEnquiry) {
+        await createPartnerReferral({
+          contactId: contact.id,
+          leadId:    lead?.id || null,
+          source:    'collection_enquiry',
+          payload:   { name, email, phone, collection: property || null, destination, budget, message, url, locale },
+        });
+      }
     }
   } catch (e) {
     console.error('[CRM] enquiry CRM write failed:', e.message);

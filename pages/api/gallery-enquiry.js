@@ -5,6 +5,7 @@ import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendHtml, sendTeamNotification } from '@/lib/resend';
 import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
+import { createPartnerReferral, is215Partner } from '@/lib/partnerReferrals';
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
 const DYLAN_REPLY = 'dylan@co-ownership-property.com';
@@ -98,18 +99,18 @@ export default async function handler(req, res) {
   const db = getDb();
 
   // ── Resolve property ──────────────────────────────────────────────────────
-  let resolvedRegion = null, resolvedCity = null, resolvedSlug = propertySlug || null;
+  let resolvedRegion = null, resolvedCity = null, resolvedSlug = propertySlug || null, resolvedPartner = null;
   try {
     let prop = null;
     if (propertySlug) {
-      const { data } = await db.from('properties').select('slug,region,city').eq('slug', propertySlug).single();
+      const { data } = await db.from('properties').select('slug,region,city,partner').eq('slug', propertySlug).single();
       prop = data;
     }
     if (!prop && propertyTitle) {
-      const { data } = await db.from('properties').select('slug,region,city').eq('title', propertyTitle).single();
+      const { data } = await db.from('properties').select('slug,region,city,partner').eq('title', propertyTitle).single();
       prop = data;
     }
-    if (prop) { resolvedSlug = prop.slug || resolvedSlug; resolvedRegion = prop.region; resolvedCity = prop.city; }
+    if (prop) { resolvedSlug = prop.slug || resolvedSlug; resolvedRegion = prop.region; resolvedCity = prop.city; resolvedPartner = prop.partner || null; }
   } catch (_) {}
 
   // If no locale came in from the form, fall back to the contact's stored preference
@@ -136,6 +137,17 @@ export default async function handler(req, res) {
       await incrementScore(contact.id, 20);
       lead = await createLead({ contactId: contact.id, propertySlug: resolvedSlug, propertyTitle, mainRegion: resolvedRegion, subregion: resolvedCity });
       await logActivity({ contactId: contact.id, type: 'gallery_enquiry', description: `Gallery enquiry for ${propertyTitle || propertySlug}`, metadata: { propertyTitle, propertyUrl, phone, message } });
+
+      // Gallery interest in a 21-5 collection home → queue for manual review
+      // in the Admin Partner Hub (never auto-sent). Helper never throws.
+      if (is215Partner(resolvedPartner)) {
+        await createPartnerReferral({
+          contactId: contact.id,
+          leadId:    lead?.id || null,
+          source:    'gallery_request',
+          payload:   { name, email, phone, property: propertyTitle || resolvedSlug, url: propertyUrl, message, region: resolvedRegion, city: resolvedCity },
+        });
+      }
     }
   } catch (e) { console.error('[CRM] gallery-enquiry failed:', e.message); }
 

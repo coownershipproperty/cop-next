@@ -4,6 +4,7 @@ import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel,
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
+import { createPartnerReferral, is215Partner } from '@/lib/partnerReferrals';
 import { scheduleGalleryNurture } from '@/lib/followupSequence';
 import FloorPlanEmail from '@/emails/floor-plan';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
@@ -370,6 +371,16 @@ export default async function handler(req, res) {
         // per-property gallery links (process-gallery-followups / email engine).
         metadata: { propertyTitle, propertyUrl, propertySlug, galleryUrl },
       });
+
+      // Gallery/floor-plan interest in a 21-5 collection home → queue for
+      // manual review in the Admin Partner Hub (never auto-sent).
+      if (is215Partner(propertyPartner)) {
+        await createPartnerReferral({
+          contactId: contact.id,
+          source:    'gallery_request',
+          payload:   { name, email, phone, property: propertyTitle || propertySlug, url: propertyUrl, region: propertyRegion, city: propertyCity, locale },
+        });
+      }
     }
   } catch (e) {
     console.error('[CRM] unlock-drive write failed:', e.message);
