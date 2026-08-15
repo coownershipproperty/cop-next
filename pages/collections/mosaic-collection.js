@@ -384,7 +384,7 @@ export default function MosaicCollectionPage() {
               <div className={styles.enquiryCard}>
                 <p className={styles.eyebrow}>Get in touch</p>
                 <h2>Enquire About This Collection</h2>
-                <p>Our team typically responds within a few hours.<br />No obligation.</p>
+                <p>Our team typically responds within a few hours.</p>
                 <CollectionEnquiryForm />
               </div>
             </aside>
