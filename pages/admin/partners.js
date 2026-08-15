@@ -2,10 +2,11 @@ import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import Head from "next/head";
 import AdminLayout from "@/components/admin/AdminLayout";
-const partnerContact = { firstName: "David", lastName: "Olsson", email: "davson@hotmail.com", phone: "+34 626 786 678" };
+import { supabase } from "@/lib/supabase";
+const partnerContact = { firstName: "David", lastName: "Olsson", email: "davson@hotmail.com", phone: "+34 626 786 678", testRouting: true };
 const partnerDirectory = {
-  "21-5": partnerContact,
-  "Vivla": { firstName: "Vivla", lastName: "Preview", email: "info@co-ownership-property.com", phone: "+34 626 786 678", testRouting: true }
+  "21-5": { ...partnerContact },
+  "Vivla": { ...partnerContact }
 };
 const vivlaRegions = [
   "Mallorca",
@@ -233,6 +234,21 @@ const countries = [
 const leadCountryOptions = ["United Kingdom", "USA", ...countries.filter((country) => country !== "United Kingdom" && country !== "United States")];
 const pipelineStages = ["New", "Contacted", "Viewing", "Reserved", "Deposit paid", "Won", "Lost", "Paused"];
 const stageClassName = (stage) => stage.toLowerCase().replace(/\s+/g, "-");
+async function sendPartnerHubNotification(payload) {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session?.access_token) throw new Error("Your admin session has expired. Sign in again to send notifications.");
+  const response = await fetch("/api/admin/partner-hub/notify", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.access_token}`
+    },
+    body: JSON.stringify(payload)
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.error || "The notification could not be sent.");
+  return result;
+}
 const leads = [
   { initials: "ET", name: "Emma Thompson", email: "emma.thompson@example.com", phone: "+44 7700 900 142", nationality: "United Kingdom", collection: "City Retreats", location: "Mallorca", partner: "21-5", stage: "Contacted", age: "12 min ago", budget: "\u20AC350,000", note: "Looking for a 2\u20133 bedroom home with sea views. Prefers email for the first introduction." },
   { initials: "LN", name: "Lars Nystr\xF6m", email: "lars.nystrom@example.com", phone: "+46 70 123 45 67", nationality: "Sweden", collection: "Large Nordic", location: "C\xF4te d\u2019Azur", partner: "21-5", stage: "Paused", age: "Yesterday", budget: "\u20AC500,000", note: "Already familiar with co-ownership and ready to arrange an introductory call." },
@@ -579,13 +595,13 @@ function SubmitView({ partnerContacts, onDone }) {
     setSelectedRegions([]);
     setRegionError("");
     setEmail(Boolean(contact?.email));
-    setWhatsapp(Boolean(contact?.phone));
+    setWhatsapp(false);
   }
   function toggleRegion(region) {
     setSelectedRegions((current) => current.includes(region) ? current.filter((item) => item !== region) : [...current, region]);
     setRegionError("");
   }
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
     if (selectedPartner === "Vivla" && selectedRegions.length === 0) {
       setRegionError("Select at least one destination region for Vivla.");
@@ -615,7 +631,7 @@ function SubmitView({ partnerContacts, onDone }) {
       budget,
       note: [propertyPreferences, partnerNote].filter(Boolean).join(" ") || "New lead shared from the COP admin preview."
     };
-    onDone(selectedPartner, newLead);
+    await onDone(selectedPartner, newLead, { email, whatsapp });
   }
   return /* @__PURE__ */ jsxs("section", { className: "submit-layout", children: [
     /* @__PURE__ */ jsxs("form", { className: "view-card lead-form", onSubmit: submit, children: [
@@ -642,7 +658,7 @@ function SubmitView({ partnerContacts, onDone }) {
           selectedPartner ? /* @__PURE__ */ jsxs("div", { className: `assignment-recipient ${selectedContact?.email && selectedContact?.phone ? "ready" : "incomplete"}`, children: [
             /* @__PURE__ */ jsx("span", { children: selectedContact?.email && selectedContact?.phone ? "\u2713" : "!" }),
             /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("strong", { children: selectedContact?.testRouting ? "Vivla mock routing is safe" : `${selectedPartner} notification details confirmed` }),
+              /* @__PURE__ */ jsx("strong", { children: selectedContact?.testRouting ? `${selectedPartner} test routing is safe` : `${selectedPartner} notification details confirmed` }),
               /* @__PURE__ */ jsxs("small", { children: [
                 selectedContact?.email || "Email required",
                 " \xB7 ",
@@ -860,7 +876,7 @@ function SubmitView({ partnerContacts, onDone }) {
       ] }),
       /* @__PURE__ */ jsxs("fieldset", { disabled: !selectedPartner, className: !selectedPartner ? "form-section-locked" : "", children: [
         /* @__PURE__ */ jsx("legend", { children: "Notifications to selected partner" }),
-        /* @__PURE__ */ jsx("p", { className: "notification-routing-copy", children: "Recipients come from the selected partner\u2019s account. Delivery and activity are recorded in your CRM without duplicate COP email copies." }),
+        /* @__PURE__ */ jsx("p", { className: "notification-routing-copy", children: selectedContact?.testRouting ? "Test mode is active. Email goes to the saved COP test recipient and info@co-ownership-property.com is copied." : "Live mode is active. Email goes to the selected partner contact and info@co-ownership-property.com is copied." }),
         /* @__PURE__ */ jsxs("div", { className: "notification-options", children: [
           /* @__PURE__ */ jsxs("button", { disabled: !selectedContact?.email, className: email && selectedContact?.email ? "selected" : "", type: "button", onClick: () => setEmail(!email), children: [
             /* @__PURE__ */ jsx("span", { children: "\u2709" }),
@@ -870,13 +886,13 @@ function SubmitView({ partnerContacts, onDone }) {
             ] }),
             /* @__PURE__ */ jsx("i", { children: email && selectedContact?.email ? "\u2713" : "" })
           ] }),
-          /* @__PURE__ */ jsxs("button", { disabled: !selectedContact?.phone, className: whatsapp && selectedContact?.phone ? "selected" : "", type: "button", onClick: () => setWhatsapp(!whatsapp), children: [
+          /* @__PURE__ */ jsxs("button", { disabled: true, className: "", type: "button", children: [
             /* @__PURE__ */ jsx("span", { children: "\u25C9" }),
             /* @__PURE__ */ jsxs("div", { children: [
               /* @__PURE__ */ jsx("strong", { children: "WhatsApp alert" }),
-              /* @__PURE__ */ jsx("small", { children: selectedContact?.phone ? `To ${selectedContact.phone}` : selectedPartner ? `Add ${selectedPartner} WhatsApp number first` : "Choose a partner first" })
+              /* @__PURE__ */ jsx("small", { children: selectedContact?.phone ? `${selectedContact.phone} saved \u00B7 provider not connected` : selectedPartner ? `Add ${selectedPartner} WhatsApp number first` : "Choose a partner first" })
             ] }),
-            /* @__PURE__ */ jsx("i", { children: whatsapp && selectedContact?.phone ? "\u2713" : "" })
+            /* @__PURE__ */ jsx("i", { children: "" })
           ] })
         ] })
       ] }),
@@ -925,9 +941,10 @@ function SubmitView({ partnerContacts, onDone }) {
     ] })
   ] });
 }
-function PartnersView({ leadRecords, partnerContacts, onPartnerPreview, onUpdateContact }) {
+function PartnersView({ leadRecords, partnerContacts, onPartnerPreview, onUpdateContact, onTestContact }) {
   const [editingPartner, setEditingPartner] = useState(null);
   const [contactDraft, setContactDraft] = useState(null);
+  const [testingPartner, setTestingPartner] = useState(null);
   const partnerCards = [
     { id: "21-5", mark: "21-5", subtitle: "Luxury co-ownership collections", pipeline: "\u20AC1.24m", lastActive: "24m", status: "ACTIVE" },
     { id: "Vivla", mark: "VI", subtitle: "Spanish destination preview workspace", pipeline: "TEST DATA", lastActive: "Preview", status: "MOCK PARTNER" }
@@ -1008,6 +1025,11 @@ function PartnersView({ leadRecords, partnerContacts, onPartnerPreview, onUpdate
             /* @__PURE__ */ jsx("span", { children: "\u260F" }),
             contact.phone
           ] }),
+          /* @__PURE__ */ jsx("button", { className: "test-contact-button", disabled: !contact.testRouting || testingPartner === partner.id, type: "button", onClick: async () => {
+            setTestingPartner(partner.id);
+            await onTestContact(partner.id, contact);
+            setTestingPartner(null);
+          }, children: !contact.testRouting ? "Live routing active" : testingPartner === partner.id ? "Sending test\u2026" : "Send test email" }),
           /* @__PURE__ */ jsx("button", { className: "edit-contact-button", type: "button", onClick: () => editContact(partner.id), children: "Edit contact details" })
         ] }),
         editingPartner === partner.id && contactDraft && /* @__PURE__ */ jsxs("form", { className: "partner-contact-editor", onSubmit: saveContact, children: [
@@ -1037,6 +1059,14 @@ function PartnersView({ leadRecords, partnerContacts, onPartnerPreview, onUpdate
             /* @__PURE__ */ jsx("small", { children: "Include country code" }),
             /* @__PURE__ */ jsx("input", { required: true, type: "tel", value: contactDraft.phone, onChange: (event) => setContactDraft({ ...contactDraft, phone: event.target.value }), placeholder: "+34 600 000 000" })
           ] }),
+          /* @__PURE__ */ jsxs("label", { children: [
+            "Notification mode",
+            /* @__PURE__ */ jsx("small", { children: "Keep Test until partner sign-off" }),
+            /* @__PURE__ */ jsxs("select", { value: contactDraft.testRouting ? "test" : "live", onChange: (event) => setContactDraft({ ...contactDraft, testRouting: event.target.value === "test" }), children: [
+              /* @__PURE__ */ jsx("option", { value: "test", children: "Test \u2014 use COP details" }),
+              /* @__PURE__ */ jsx("option", { value: "live", children: "Live \u2014 use partner details" })
+            ] })
+          ] }),
           /* @__PURE__ */ jsxs("div", { className: "contact-editor-actions", children: [
             /* @__PURE__ */ jsx("button", { type: "button", onClick: () => {
               setEditingPartner(null);
@@ -1051,10 +1081,10 @@ function PartnersView({ leadRecords, partnerContacts, onPartnerPreview, onUpdate
       /* @__PURE__ */ jsx("span", { children: "\u25CE" }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("small", { children: "CRM NOTIFICATION ROUTING" }),
-        /* @__PURE__ */ jsx("strong", { children: "Partner notifications are managed in your CRM" }),
-        /* @__PURE__ */ jsx("p", { children: "Emails and WhatsApp alerts go only to the selected partner contact; delivery and activity are tracked centrally." })
+        /* @__PURE__ */ jsx("strong", { children: "Test first, then switch the partner live" }),
+        /* @__PURE__ */ jsx("p", { children: "Resend emails use the saved test address until you replace it with the partner email and select Live mode. WhatsApp numbers are saved, but delivery still needs a provider." })
       ] }),
-      /* @__PURE__ */ jsx("b", { children: "NO DUPLICATE COPY" })
+      /* @__PURE__ */ jsx("b", { children: "COP EMAIL COPIED" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "permissions-grid", id: "security", children: [
       /* @__PURE__ */ jsxs("article", { children: [
@@ -1220,7 +1250,7 @@ function CommissionRatesView() {
     }) })
   ] });
 }
-function LeadDrawer({ lead, role, partnerContacts, onClose, onNotify, onDelete, onStageChange }) {
+function LeadDrawer({ lead, role, partnerContacts, onClose, onNotify, onDelete, onStageChange, onSendPartnerNote }) {
   const [editing, setEditing] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [updateNote, setUpdateNote] = useState("");
@@ -1229,10 +1259,10 @@ function LeadDrawer({ lead, role, partnerContacts, onClose, onNotify, onDelete, 
   const stageChanged = selectedStage !== lead.stage;
   const assignedContact = partnerContacts[lead.partner];
   const partnerLeadType = lead.partner === "Vivla" ? lead.location : lead.collection;
-  function sendAdminNote() {
+  async function sendAdminNote() {
     if (!updateNote.trim()) return;
+    await onSendPartnerNote(lead, updateNote.trim());
     setUpdateNote("");
-    onNotify(`Note sent to ${lead.partner} \xB7 COP copied`);
   }
   return /* @__PURE__ */ jsx("div", { className: "drawer-backdrop", onMouseDown: onClose, children: /* @__PURE__ */ jsxs("aside", { className: "lead-drawer", onMouseDown: (event) => event.stopPropagation(), children: [
     /* @__PURE__ */ jsx("button", { className: "drawer-close", type: "button", "aria-label": "Close lead details", onClick: onClose, children: "\xD7" }),
@@ -1477,18 +1507,40 @@ function Home() {
   }
   function updatePartnerContact(partner, contact) {
     setPartnerContacts((current) => ({ ...current, [partner]: contact }));
-    notify(`${partner} contact details saved`);
+    notify(`${partner} contact details saved \xB7 ${contact.testRouting ? "Test mode" : "Live mode"}`);
+  }
+  async function testPartnerContact(partner, contact) {
+    try {
+      await sendPartnerHubNotification({ eventType: "test", partner, contact });
+      notify(`Test email sent to ${contact.email} \xB7 WhatsApp not connected`);
+    } catch (error) {
+      notify(`Test email failed \xB7 ${error.message}`);
+    }
+  }
+  async function sendPartnerNote(lead, note) {
+    const contact = partnerContacts[lead.partner];
+    try {
+      await sendPartnerHubNotification({ eventType: "partner_note", partner: lead.partner, contact, lead, note });
+      notify(`Email sent to ${contact.email} \xB7 COP copied`);
+    } catch (error) {
+      notify(`Partner note saved, but email failed \xB7 ${error.message}`);
+    }
   }
   function deleteLead(lead) {
     setLeadRecords((current) => current.filter((candidate) => !(candidate.partner === lead.partner && candidate.email === lead.email)));
     setSelectedLead(null);
     notify(`${lead.name} deleted from Admin and ${lead.partner}`);
   }
-  function updateLeadStage(lead, nextStage, note) {
+  async function updateLeadStage(lead, nextStage, note) {
     setLeadRecords((current) => current.map((candidate) => candidate.partner === lead.partner && candidate.email === lead.email ? { ...candidate, stage: nextStage, age: "Just now" } : candidate));
     setAdminNotifications((current) => [{ id: `${lead.partner}-${lead.email}-${Date.now()}`, leadName: lead.name, email: lead.email, partner: lead.partner, stage: nextStage, note, time: "Just now" }, ...current]);
     setSelectedLead(null);
-    notify(`COP Admin notified \xB7 ${lead.name} moved to ${nextStage}`);
+    try {
+      await sendPartnerHubNotification({ eventType: "stage_changed", partner: lead.partner, contact: partnerContacts[lead.partner], lead, stage: nextStage, note });
+      notify(`COP Admin emailed \xB7 ${lead.name} moved to ${nextStage}`);
+    } catch (error) {
+      notify(`Stage saved, but admin email failed \xB7 ${error.message}`);
+    }
   }
   const activePartnerContact = partnerContacts[activePartner];
   const partnerLeadCount = leadRecords.filter((lead) => lead.partner === activePartner).length;
@@ -1572,16 +1624,24 @@ function Home() {
       ] }),
       view === "overview" && /* @__PURE__ */ jsx(OverviewView, { leadRecords, onNavigate: navigate, onLead: setSelectedLead }),
       view === "leads" && /* @__PURE__ */ jsx(LeadsView, { partnerMode: role === "partner", partnerId: activePartner, leadRecords, onLead: setSelectedLead }),
-      view === "submit" && /* @__PURE__ */ jsx(SubmitView, { partnerContacts, onDone: (partner, lead) => {
+      view === "submit" && /* @__PURE__ */ jsx(SubmitView, { partnerContacts, onDone: async (partner, lead, channels) => {
         setLeadRecords((current) => [lead, ...current]);
-        notify(`Lead added to ${partner} \xB7 notification logged in CRM`);
+        const contact = partnerContacts[partner];
+        if (channels.email) {
+          try {
+            await sendPartnerHubNotification({ eventType: "lead_assigned", partner, contact, lead });
+            notify(`Lead added to ${partner} \xB7 email sent to ${contact.email}`);
+          } catch (error) {
+            notify(`Lead saved, but partner email failed \xB7 ${error.message}`);
+          }
+        }
         setView("leads");
       } }),
-      view === "partners" && /* @__PURE__ */ jsx(PartnersView, { leadRecords, partnerContacts, onUpdateContact: updatePartnerContact, onPartnerPreview: (partner) => switchRole("partner", partner) }),
+      view === "partners" && /* @__PURE__ */ jsx(PartnersView, { leadRecords, partnerContacts, onUpdateContact: updatePartnerContact, onTestContact: testPartnerContact, onPartnerPreview: (partner) => switchRole("partner", partner) }),
       view === "rates" && /* @__PURE__ */ jsx(CommissionRatesView, {}),
       view === "invoices" && /* @__PURE__ */ jsx(InvoicesView, { adminMode: role === "admin", partnerId: activePartner })
     ] }),
-    selectedLead && /* @__PURE__ */ jsx(LeadDrawer, { lead: selectedLead, role, partnerContacts, onClose: () => setSelectedLead(null), onNotify: notify, onDelete: deleteLead, onStageChange: updateLeadStage }, `${role}-${selectedLead.name}`),
+    selectedLead && /* @__PURE__ */ jsx(LeadDrawer, { lead: selectedLead, role, partnerContacts, onClose: () => setSelectedLead(null), onNotify: notify, onDelete: deleteLead, onStageChange: updateLeadStage, onSendPartnerNote: sendPartnerNote }, `${role}-${selectedLead.name}`),
     toast && /* @__PURE__ */ jsxs("div", { className: "toast", children: [
       /* @__PURE__ */ jsx("span", { children: "\u2713" }),
       toast
