@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COP Partner Portal — Preview for 21-5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600&family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B2F40; --navy-deep:#152636; --cream:#F7F5F0; --panel:#FFFFFF;
+    --ink:#1F2F3B; --sub:#8A94A0; --line:#E9E4DA; --line-soft:#F1EDE5;
+    --gold:#B99A5F; --gold-soft:#D9C79F;
+    --green:#1E7F4F; --blue:#2563EB; --amber:#B45309; --red:#B91C1C; --violet:#6D28D9; --grey:#6B7280;
+    --serif:'Playfair Display',serif; --sans:'Nunito Sans',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--cream);color:var(--ink);font:400 15px/1.6 var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh}
+  button{font-family:inherit;cursor:pointer}
+  ::placeholder{color:#AEB5BD}
+
+  .demoBar{background:#fff;border-bottom:1px solid var(--line);color:var(--sub);text-align:center;font:700 10px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;padding:10px 12px}
+  .demoBar b{color:var(--gold);font-weight:800}
+
+  .app{display:grid;grid-template-columns:252px 1fr;min-height:calc(100vh - 34px)}
+  @media(max-width:900px){.app{grid-template-columns:1fr}.side{display:none}}
+
+  /* ── sidebar ── */
+  .side{background:linear-gradient(178deg,var(--navy),var(--navy-deep));color:#fff;padding:34px 24px;display:flex;flex-direction:column}
+  .brand{display:flex;align-items:center;gap:13px;margin-bottom:44px}
+  .brand .mark{width:40px;height:40px;border-radius:50%;border:1px solid rgba(217,199,159,.55);display:grid;place-items:center;font:500 17px var(--serif);color:var(--gold-soft)}
+  .brand b{display:block;font:800 12px/1.3 var(--sans);letter-spacing:.14em}
+  .brand span{display:block;font:600 8.5px/1 var(--sans);letter-spacing:.3em;color:rgba(255,255,255,.5);margin-top:4px}
+  .navlbl{font:800 9px/1 var(--sans);letter-spacing:.28em;color:rgba(255,255,255,.38);margin:0 0 12px}
+  .navbtn{all:unset;display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:9px;color:rgba(255,255,255,.72);font:600 13.5px/1 var(--sans);cursor:pointer;transition:.25s;margin-bottom:4px}
+  .navbtn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .navbtn:hover{background:rgba(255,255,255,.06)}
+  .navbtn.on{background:rgba(185,154,95,.14);color:#fff;box-shadow:inset 2px 0 0 var(--gold)}
+  .navbtn .pill{margin-left:auto;background:rgba(255,255,255,.12);font:700 10.5px/1 var(--sans);padding:4px 8px;border-radius:10px}
+  .side .foot{margin-top:auto;padding-top:22px;border-top:1px solid rgba(255,255,255,.09);font:600 10px/1.9 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.42)}
+
+  /* ── main ── */
+  .main{padding:40px clamp(22px,3.5vw,64px) 64px;width:100%}
+  .crumb{font:800 10px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+  h1{font:500 clamp(27px,3vw,35px)/1.1 var(--serif);margin-top:10px}
+  .sub{color:var(--sub);font-size:13.5px;margin-top:6px}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:14px;background:var(--panel);margin:28px 0;overflow:hidden}
+  .stat{padding:22px 26px;border-left:1px solid var(--line-soft)}
+  .stat:first-child{border-left:0}
+  .stat b{display:block;font:500 27px/1 var(--serif)}
+  .stat span{display:block;margin-top:8px;font:700 9.5px/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--sub)}
+  @media(max-width:700px){.stats{grid-template-columns:1fr}.stat{border-left:0;border-top:1px solid var(--line-soft)}.stat:first-child{border-top:0}}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:14px;background:var(--panel);margin-bottom:30px;overflow:hidden}
+  .step{padding:20px 26px;border-left:1px solid var(--line-soft);position:relative}
+  .step:first-child{border-left:0}
+  .step em{font:500 13px/1 var(--serif);font-style:normal;color:var(--gold);letter-spacing:.1em}
+  .step b{display:block;font:700 13.5px/1.4 var(--sans);margin:8px 0 4px}
+  .step p{font-size:12.5px;color:var(--sub);line-height:1.55}
+  @media(max-width:700px){.steps{grid-template-columns:1fr}.step{border-left:0;border-top:1px solid var(--line-soft)}.step:first-child{border-top:0}}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .cardHead{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px 26px;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+  .cardHead h2{font:500 19px/1.2 var(--serif)}
+  .cardHead p{font-size:12.5px;color:var(--sub);margin-top:4px}
+  .tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:9px;padding:9px 13px;background:#FCFBF8;min-width:230px}
+  .search input{all:unset;font:400 13px var(--sans);width:100%}
+  .search svg{width:14px;height:14px;stroke:var(--sub);fill:none;stroke-width:1.8}
+  select.flt{font:600 12.5px var(--sans);padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:#FCFBF8;color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font:800 9.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--sub);padding:14px 20px;border-bottom:1px solid var(--line-soft);white-space:nowrap}
+  td{padding:16px 20px;border-bottom:1px solid var(--line-soft);vertical-align:middle;white-space:nowrap}
+  tr.lead{cursor:pointer;transition:background .2s}
+  tr.lead:hover{background:#FAF8F3}
+  tr.lead:last-child td{border-bottom:0}
+  .who{display:flex;align-items:center;gap:13px}
+  .av{width:34px;height:34px;border-radius:50%;background:#EFEAE0;color:var(--navy);display:grid;place-items:center;font:800 11px var(--sans);flex:none}
+  .who b{font-weight:700}
+  .who small{display:block;color:var(--sub);font-size:12px}
+  .chip{display:inline-block;font:700 10.5px/1 var(--sans);letter-spacing:.06em;padding:5px 10px;border-radius:11px}
+  .coll{background:#F4EFE4;color:#7A6233;margin-right:5px}
+  .dim{color:var(--sub);font-size:12.5px}
+  .arrow{color:#CCC4B4;font-size:16px}
+  .tfoot{display:flex;align-items:center;justify-content:space-between;padding:15px 26px;font-size:11.5px;color:var(--sub);border-top:1px solid var(--line-soft)}
+
+  .s-New{background:#EBF1FE;color:var(--blue)}
+  .s-Contacted{background:#F0EBFB;color:var(--violet)}
+  .s-Viewing{background:#E7F3FA;color:#0369A1}
+  .s-Reserved{background:#FBF3E3;color:var(--amber)}
+  .s-Depositpaid{background:#EAF6EF;color:var(--green)}
+  .s-Won{background:#EAF6EF;color:var(--green)}
+  .s-Lost{background:#FBEDED;color:var(--red)}
+  .s-Paused{background:#F2F3F5;color:var(--grey)}
+
+  /* ── drawer ── */
+  .ov{position:fixed;inset:0;background:rgba(21,38,54,.38);z-index:40;opacity:0;pointer-events:none;transition:.3s}
+  .ov.on{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(470px,95vw);background:#fff;z-index:41;box-shadow:-16px 0 44px rgba(16,30,42,.22);transform:translateX(102%);transition:transform .38s cubic-bezier(.2,.7,.2,1);overflow-y:auto}
+  .drawer.on{transform:none}
+  .dHead{background:linear-gradient(178deg,var(--navy),var(--navy-deep));color:#fff;padding:30px}
+  .dHead .close{all:unset;float:right;cursor:pointer;color:rgba(255,255,255,.55);font-size:20px;line-height:1;padding:2px 6px}
+  .dHead h3{font:500 24px/1.15 var(--serif)}
+  .dHead p{color:rgba(255,255,255,.62);font-size:13px;margin-top:6px}
+  .dBody{padding:26px 30px 44px}
+  .dGrid{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+  .dGrid span{font:800 9px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--sub);display:block;margin-bottom:6px}
+  .dGrid b{font-weight:700;font-size:14px}
+  .dSec{margin-top:24px;padding-top:20px;border-top:1px solid var(--line-soft)}
+  .dSec h4{font:800 10px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .tl{position:relative;padding-left:20px}
+  .tl::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line)}
+  .tlItem{position:relative;padding-bottom:16px;font-size:13px}
+  .tlItem::before{content:'';position:absolute;left:-19px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+  .tlItem small{display:block;color:var(--sub);font-size:11px;margin-top:2px}
+  .noteBox{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font:400 13px var(--sans);min-height:56px;resize:vertical;background:#FCFBF8}
+  .btn{border:none;background:var(--navy);color:#fff;font:800 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;padding:13px 21px;border-radius:9px;transition:.25s}
+  .btn:hover{background:var(--gold)}
+  .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .btn.ghost:hover{background:#FAF8F3}
+
+  .amount{font-weight:800}
+  .pillPaid{background:#EAF6EF;color:var(--green)}
+  .pillDue{background:#FBF3E3;color:var(--amber)}
+  .viewWrap{display:none}
+  .viewWrap.on{display:block}
+
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;font:600 13px var(--sans);padding:13px 20px;border-radius:10px;box-shadow:0 14px 34px rgba(16,30,42,.28);opacity:0;transform:translateY(10px);transition:.35s;z-index:60;pointer-events:none}
+  .toast.on{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div class="demoBar"><b>Preview</b> &nbsp;·&nbsp; interactive demonstration with sample data</div>
+
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <div class="mark">C</div>
+      <div><b>CO-OWNERSHIP</b><span>PARTNER HUB</span></div>
+    </div>
+    <p class="navlbl">21-5 · Workspace</p>
+    <button class="navbtn on" data-view="leads" onclick="switchView('leads')">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      My leads <span class="pill" id="leadCount">6</span>
+    </button>
+    <button class="navbtn" data-view="invoices" onclick="switchView('invoices')">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+      Invoices <span class="pill">2</span>
+    </button>
+    <div class="foot">Co-Ownership Property<br>co-ownership-property.com</div>
+  </aside>
+
+  <main class="main">
+    <p class="crumb">21-5 · Private partner workspace</p>
+
+    <div class="viewWrap on" id="view-leads">
+      <h1>Your leads</h1>
+      <p class="sub">Buyers introduced by Co-Ownership Property — live and always up to date.</p>
+
+      <div class="stats">
+        <div class="stat"><b id="stTotal">6</b><span>Registered buyers</span></div>
+        <div class="stat"><b id="stActive">4</b><span>Active in pipeline</span></div>
+        <div class="stat"><b id="stWon">1</b><span>Completed</span></div>
+      </div>
+
+      <div class="steps">
+        <div class="step"><em>01</em><b>New buyers appear here</b><p>Each introduction arrives with name, contact details, nationality, budget and the collections they're interested in.</p></div>
+        <div class="step"><em>02</em><b>Your team takes it from there</b><p>Contact the buyer directly and update the stage as things progress.</p></div>
+        <div class="step"><em>03</em><b>Always in sync</b><p>Both teams see the same picture, so nothing is lost or doubled.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="cardHead">
+          <div>
+            <h2>Registered buyers</h2>
+            <p>Click any lead for the full profile and history.</p>
+          </div>
+          <div class="tools">
+            <label class="search">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>
+              <input id="q" placeholder="Name, email or phone…" oninput="renderLeads()">
+            </label>
+            <select class="flt" id="fStage" onchange="renderLeads()">
+              <option value="">All stages</option>
+              <option>New</option><option>Contacted</option><option>Viewing</option><option>Reserved</option>
+              <option>Deposit paid</option><option>Won</option><option>Lost</option><option>Paused</option>
+            </select>
+          </div>
+        </div>
+        <div style="overflow:auto">
+          <table>
+            <thead><tr>
+              <th>Lead</th><th>Phone</th><th>Nationality</th><th>Collections</th><th>Stage</th><th>Updated</th><th></th>
+            </tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <div class="tfoot"><span id="showing"></span><span>COP Partner Hub</span></div>
+      </div>
+    </div>
+
+    <div class="viewWrap" id="view-invoices">
+      <h1>Invoices</h1>
+      <p class="sub">Success fees on completed sales only — issued month-end.</p>
+      <div class="card" style="margin-top:28px">
+        <div style="overflow:auto">
+          <table>
+            <thead><tr><th>Invoice</th><th>Relates to</th><th>Basis</th><th>Amount</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><b>INV-2026-014</b><div class="dim">31 Jul 2026</div></td>
+                <td>Completed sale — City Retreats share<div class="dim">Buyer registered 14 Apr 2026</div></td>
+                <td class="dim">3% · new share</td>
+                <td class="amount">€9,750</td>
+                <td><span class="chip pillPaid">Paid</span></td>
+              </tr>
+              <tr>
+                <td><b>INV-2026-019</b><div class="dim">31 Aug 2026</div></td>
+                <td>Completed sale — resale share, running group<div class="dim">Buyer registered 2 Jun 2026</div></td>
+                <td class="dim">1% · resale</td>
+                <td class="amount">€2,250</td>
+                <td><span class="chip pillDue">Due</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tfoot"><span>Sample data</span><span>COP Partner Hub</span></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="ov" id="ov" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer"></aside>
+<div class="toast" id="toast"></div>
+
+<script>
+const STAGES = ['New','Contacted','Viewing','Reserved','Deposit paid','Won','Lost','Paused'];
+const LEADS = [
+  { id:1, name:'Michael Chen', email:'michael.chen@example.com', phone:'+1 415 555 0198', nat:'United States',
+    colls:['City Retreats'], stage:'New', upd:'2 h ago', budget:'€300,000 – €400,000',
+    note:'Family of four from San Francisco. Looking for school-holiday weeks in Europe; City Retreats is the best fit to start with.',
+    tl:[['Registered by Co-Ownership Property','Today, 12:04'],['Note from COP — enquiry received via our collection page','Yesterday, 21:12']] },
+  { id:2, name:'Emma Thompson', email:'emma.thompson@example.com', phone:'+44 7700 900142', nat:'United Kingdom',
+    colls:['City Retreats','Grande'], stage:'Contacted', upd:'12 min ago', budget:'€250,000 – €350,000',
+    note:'London, two children. Wants walkable cities plus one ski destination — open to either City Retreats or Grande. Prefers WhatsApp.',
+    tl:[['Stage updated to Contacted by 21-5','12 min ago'],['Registered by Co-Ownership Property','3 days ago']] },
+  { id:3, name:'Sofia Rossi', email:'sofia.rossi@example.com', phone:'+39 320 555 0184', nat:'Italy',
+    colls:['Ready to Go · INT-12'], stage:'Viewing', upd:'2 days ago', budget:'Up to €300,000',
+    note:'Milan. Specifically wants a Ready to Go association — prefers not to wait for a new group to fill.',
+    tl:[['Viewing arranged for 22 Aug','2 days ago'],['Stage updated to Viewing by 21-5','2 days ago'],['Registered by Co-Ownership Property','1 week ago']] },
+  { id:4, name:'James Miller', email:'james.miller@example.com', phone:'+1 917 555 0142', nat:'United States',
+    colls:['Beyond'], stage:'Reserved', upd:'4 days ago', budget:'€800,000+',
+    note:'New York. Drawn to the Beyond tier — travels to Europe 8–10 weeks a year.',
+    tl:[['Reservation confirmed by 21-5','4 days ago'],['Second call with 21-5 team','1 week ago'],['Registered by Co-Ownership Property','3 weeks ago']] },
+  { id:5, name:'Lars Nyström', email:'lars.nystrom@example.com', phone:'+46 70 123 45 67', nat:'Sweden',
+    colls:['Large Nordic'], stage:'Paused', upd:'Yesterday', budget:'€400,000 – €500,000',
+    note:'Stockholm. Keen, but waiting on a property sale of his own — asked to be re-contacted in October.',
+    tl:[['Paused until October at buyer’s request','Yesterday'],['Registered by Co-Ownership Property','2 weeks ago']] },
+  { id:6, name:'Amelia Brooks', email:'amelia.brooks@example.com', phone:'+44 7700 900308', nat:'United Kingdom',
+    colls:['Grande'], stage:'Won', upd:'8 days ago', budget:'€500,000 – €650,000',
+    note:'Completed the purchase of a Grande share.',
+    tl:[['Purchase completed','8 days ago'],['Deposit paid','1 month ago'],['Registered by Co-Ownership Property','2 months ago']] },
+];
+
+const rows = document.getElementById('rows');
+function initials(n){ return n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase(); }
+function stageClass(s){ return 's-'+s.replaceAll(' ',''); }
+function collChips(l){ return l.colls.map(c=>`<span class="chip coll">${c}</span>`).join(''); }
+
+function renderLeads(){
+  const q = (document.getElementById('q').value||'').toLowerCase();
+  const f = document.getElementById('fStage').value;
+  rows.innerHTML='';
+  let shown=0;
+  LEADS.forEach(l=>{
+    if(f && l.stage!==f) return;
+    if(q && !(`${l.name} ${l.email} ${l.phone}`.toLowerCase().includes(q))) return;
+    shown++;
+    const tr=document.createElement('tr');
+    tr.className='lead';
+    tr.innerHTML=`
+      <td><div class="who"><span class="av">${initials(l.name)}</span><span><b>${l.name}</b><small>${l.email}</small></span></div></td>
+      <td class="dim">${l.phone}</td>
+      <td class="dim">${l.nat}</td>
+      <td>${collChips(l)}</td>
+      <td><span class="chip ${stageClass(l.stage)}">${l.stage}</span></td>
+      <td class="dim">${l.upd}</td>
+      <td class="arrow">›</td>`;
+    tr.onclick=()=>openDrawer(l.id);
+    rows.appendChild(tr);
+  });
+  document.getElementById('showing').textContent=`Showing ${shown} of ${LEADS.length} leads`;
+  document.getElementById('leadCount').textContent=LEADS.length;
+  document.getElementById('stTotal').textContent=LEADS.length;
+  document.getElementById('stActive').textContent=LEADS.filter(l=>!['Won','Lost','Paused'].includes(l.stage)).length;
+  document.getElementById('stWon').textContent=LEADS.filter(l=>l.stage==='Won').length;
+}
+
+function openDrawer(id){
+  const l=LEADS.find(x=>x.id===id);
+  const d=document.getElementById('drawer');
+  d.innerHTML=`
+    <div class="dHead">
+      <button class="close" onclick="closeDrawer()">×</button>
+      <h3>${l.name}</h3>
+      <p>${l.email} · ${l.phone}</p>
+    </div>
+    <div class="dBody">
+      <div class="dGrid">
+        <div style="grid-column:1/-1"><span>Interested in</span><b>${l.colls.join(' · ')}</b></div>
+        <div><span>Nationality</span><b>${l.nat}</b></div>
+        <div><span>Budget</span><b>${l.budget}</b></div>
+      </div>
+      <div class="dSec">
+        <h4>Stage</h4>
+        <select class="flt" style="width:100%;padding:12px" onchange="setStage(${l.id}, this.value)">
+          ${STAGES.map(s=>`<option ${s===l.stage?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div class="dSec">
+        <h4>Notes</h4>
+        <p style="font-size:13.5px">${l.note}</p>
+      </div>
+      <div class="dSec">
+        <h4>History</h4>
+        <div class="tl">${l.tl.map(t=>`<div class="tlItem">${t[0]}<small>${t[1]}</small></div>`).join('')}</div>
+      </div>
+      <div class="dSec">
+        <h4>Add an update</h4>
+        <textarea class="noteBox" id="newNote" placeholder="e.g. Spoke today — viewing booked for next week"></textarea>
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <button class="btn" onclick="addNote(${l.id})">Save update</button>
+          <button class="btn ghost" onclick="closeDrawer()">Close</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('ov').classList.add('on');
+  d.classList.add('on');
+}
+function closeDrawer(){
+  document.getElementById('ov').classList.remove('on');
+  document.getElementById('drawer').classList.remove('on');
+}
+function setStage(id,stage){
+  const l=LEADS.find(x=>x.id===id);
+  l.stage=stage; l.upd='Just now';
+  l.tl.unshift([`Stage updated to ${stage} by 21-5`,'Just now']);
+  renderLeads(); toast('Stage updated');
+}
+function addNote(id){
+  const v=document.getElementById('newNote').value.trim();
+  if(!v) return;
+  const l=LEADS.find(x=>x.id===id);
+  l.tl.unshift([v,'Just now']); l.upd='Just now';
+  openDrawer(id); renderLeads(); toast('Update saved');
+}
+function switchView(v){
+  document.querySelectorAll('.viewWrap').forEach(x=>x.classList.remove('on'));
+  document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('on', b.dataset.view===v));
+}
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('on');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('on'),2400);
+}
+renderLeads();
+</script>
+</body>
+</html>
