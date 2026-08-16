@@ -70,10 +70,14 @@
   position: sticky;
   top: 112px;
   align-self: start;
+  scroll-margin-top: 112px;
 }
 
-.price { margin: 0 0 6px; color: var(--gold); font: 400 clamp(34px, 4vw, 50px)/1 var(--font-playfair), serif; }
-.destinations { margin: 0 0 30px; font: 800 11px/1.6 var(--font-nunito), sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
+.price { margin: 0 0 18px; color: var(--gold); font: 400 clamp(34px, 4vw, 50px)/1 var(--font-playfair), serif; }
+.destinations { display: flex; align-items: center; gap: 12px; margin: 0 0 30px; font: 800 11px/1.6 var(--font-nunito), sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
+.destinations > span:last-child { min-width: 0; }
+.destinationPin { flex: 0 0 40px; width: 40px; height: 40px; }
+.destinationPin svg { display: block; width: 100%; height: 100%; fill: none; stroke: var(--navy); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .eyebrow { margin: 0 0 12px; color: var(--gold); font: 800 11px/1.3 var(--font-nunito), sans-serif; letter-spacing: 0.18em; text-transform: uppercase; }
 .overviewCopy > h1,
 .sectionHead h2 { margin: 0; font: 400 clamp(42px, 5.1vw, 72px)/1.07 var(--font-playfair), serif; letter-spacing: -0.025em; }
@@ -155,14 +159,14 @@
 .feature { display: grid; min-height: 190px; place-items: center; align-content: center; gap: 20px; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
 .feature svg { width: 54px; height: 54px; color: var(--gold); }
 .feature p { max-width: 180px; margin: 0; font: 400 17px/1.4 var(--font-playfair), serif; }
+.featuresContact { width: min(1180px, 100%); margin: 30px auto 0; color: var(--muted); font: 400 14px/1.6 var(--font-nunito), sans-serif; text-align: center; }
+.featuresContact a { color: var(--navy); font-weight: 800; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 5px; }
 
 .locationsSection { padding: clamp(76px, 9vw, 120px) clamp(22px, 4vw, 62px); }
 .locationLayout { display: grid; grid-template-columns: minmax(0, 1fr) 350px; align-items: stretch; width: min(1180px, 100%); height: 500px; margin: 0 auto; overflow: hidden; border: 1px solid var(--line); background: #fff; }
-.mapPanel { position: relative; min-width: 0; min-height: 0; height: 100%; overflow: hidden; background: #eef1ef; }
-.mapPanel svg { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; }
-.mapSea { fill: #edf1ef; }
-.mapLand path { fill: #f9f7f2; stroke: #d3d9d5; stroke-width: 1; vector-effect: non-scaling-stroke; }
-.mapIslands ellipse { fill: #f9f7f2; stroke: #d3d9d5; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mapPanel { position: relative; display: grid; min-width: 0; min-height: 0; height: 100%; place-items: center; padding: 26px; overflow: hidden; background: #e9eeec; }
+.mapInset { width: 100%; height: 100%; min-width: 0; min-height: 0; overflow: hidden; border: 1px solid var(--line); background: #edf1ef; }
+.mapInset svg { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; }
 .svgHome { cursor: pointer; outline: none; }
 .svgHome circle { fill: #fff; stroke: var(--navy); stroke-width: 2; transition: r .2s ease, fill .2s ease; }
 .svgHome path { fill: var(--gold); }
@@ -282,6 +286,8 @@
   .galleryAccess a { margin-top: 12px; padding: 10px 11px; font-size: 8px; }
   .overviewWrap { padding: 48px 0 64px; }
   .overviewCopy > h1, .sectionHead h2 { font-size: 40px; }
+  .destinations { align-items: flex-start; gap: 10px; }
+  .destinationPin { flex-basis: 34px; width: 34px; height: 34px; }
   .stats { margin-top: 28px; }
   .homesSection, .featuresSection, .locationsSection, .faqSection { padding-left: 18px; padding-right: 18px; }
   .homeGrid { grid-template-columns: 1fr; }
@@ -292,8 +298,8 @@
   .feature svg { width: 45px; height: 45px; }
   .feature p { font-size: 15px; }
   .locationLayout { grid-template-columns: 1fr; height: auto; overflow: visible; }
-  .mapPanel { min-height: 0; height: 330px; overflow: hidden; }
-  .mapPanel svg { min-width: 0; min-height: 0; }
+  .mapPanel { min-height: 0; height: 330px; padding: 10px; overflow: hidden; }
+  .mapInset svg { min-width: 0; min-height: 0; }
   .locationList { height: auto; grid-template-columns: 1fr; grid-template-rows: repeat(5, auto); border-top: 1px solid var(--line); border-left: 0; }
   .locationList button { grid-template-columns: 40px minmax(0, 1fr) auto; border-right: 0; border-bottom: 1px solid var(--line); }
   .locationList button > b { display: block; }
