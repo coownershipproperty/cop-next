@@ -47,6 +47,7 @@ const DEST_FILTERS = {
   // ── FRANCE ─────────────────────────────────────────────────────
   "french-alps-fractional-ownership-properties":    { country: "France", regions: ["French Alps", "Portes du Soleil"] },
   "south-of-france-fractional-ownership-properties": { country: "France", region: "Côte d'Azur" },
+  "cote-dazur-fractional-ownership-properties":      { country: "France", region: "Côte d'Azur" },
   "paris-fractional-ownership-properties":           { country: "France", region: "Paris" },
 
   // ── ITALY ──────────────────────────────────────────────────────
@@ -92,6 +93,7 @@ const DEST_FILTERS = {
 const PARENT = {
   "french-alps-fractional-ownership-properties":      "france-fractional-ownership-properties",
   "south-of-france-fractional-ownership-properties":  "france-fractional-ownership-properties",
+  "cote-dazur-fractional-ownership-properties":       "south-of-france-fractional-ownership-properties",
   "paris-fractional-ownership-properties":             "france-fractional-ownership-properties",
   "balearics-fractional-ownership-properties":         "spain-fractional-ownership-properties",
   "mallorca-fractional-ownership-properties":          "spain-fractional-ownership-properties",
@@ -149,10 +151,11 @@ const RELATED = {
   "madrid-fractional-ownership-properties":      ["spain-fractional-ownership-properties","barcelona-fractional-ownership-for-sale","balearics-fractional-ownership-properties"],
   "barcelona-fractional-ownership-for-sale":     ["spain-fractional-ownership-properties","madrid-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties"],
   "spain-fractional-ownership-properties":       ["balearics-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties","pyrenees-mountains-fractional-ownership-properties","madrid-fractional-ownership-properties","barcelona-fractional-ownership-for-sale"],
-  "french-alps-fractional-ownership-properties":     ["south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties","pyrenees-mountains-fractional-ownership-properties"],
-  "south-of-france-fractional-ownership-properties": ["french-alps-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties"],
-  "paris-fractional-ownership-properties":           ["french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","france-fractional-ownership-properties"],
-  "france-fractional-ownership-properties":          ["french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties"],
+  "french-alps-fractional-ownership-properties":     ["cote-dazur-fractional-ownership-properties","south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties","pyrenees-mountains-fractional-ownership-properties"],
+  "cote-dazur-fractional-ownership-properties": ["south-of-france-fractional-ownership-properties","french-alps-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "south-of-france-fractional-ownership-properties": ["cote-dazur-fractional-ownership-properties","french-alps-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "paris-fractional-ownership-properties":           ["cote-dazur-fractional-ownership-properties","french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "france-fractional-ownership-properties":          ["cote-dazur-fractional-ownership-properties","french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties"],
   "sardinia-fractional-ownership-properties":    ["italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
   "lake-como-fractional-ownership-properties":   ["lake-garda-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
   "lake-garda-fractional-ownership-properties":  ["lake-como-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
@@ -203,7 +206,8 @@ const DEST_KEYWORDS = {
   "italy-fractional-ownership-properties":  ["Italy"],
   "usa-fractional-ownership-properties":    ["United States", "the USA", "USA"],
   "french-alps-fractional-ownership-properties": ["French Alps", "Alps", "Chamonix", "Courchevel", "Méribel", "Megève", "Val d'Isère"],
-  "south-of-france-fractional-ownership-properties": ["South of France", "Côte d'Azur", "Riviera", "Provence"],
+  "south-of-france-fractional-ownership-properties": ["South of France", "Provence", "Luberon", "Languedoc"],
+  "cote-dazur-fractional-ownership-properties": ["Côte d'Azur", "French Riviera", "Riviera", "Antibes", "Saint-Tropez", "Sainte-Maxime", "Grimaud", "Valbonne", "Fayence"],
   "paris-fractional-ownership-properties": ["Paris"],
   "balearics-fractional-ownership-properties": ["Balearics", "Balearic Islands"],
   "canary-islands-fractional-ownership-properties": ["Canary Islands", "Tenerife"],
@@ -265,6 +269,7 @@ function destLabel(slug) {
     .replace(/-fractional-ownership-desert-modern-luxury$/, '')
     .replace(/-/g, ' ')
     .replace(/\b\w/g, c => c.toUpperCase())
+    .replace(/^Cote Dazur.*/, "Côte d'Azur")
     .replace(/^Park City.*/, 'Park City')
     .replace(/^30A.*/, '30A / Emerald Coast')
     .trim();
