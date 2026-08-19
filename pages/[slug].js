@@ -57,6 +57,7 @@ const DEST_FILTERS = {
   "lake-garda-fractional-ownership-properties":     { country: "Italy", region: "Lake Garda" },
   "italian-lakes-fractional-ownership-properties":  { country: "Italy", regions: ["Lake Garda", "Lake Como", "Lago Maggiore"] },
   "liguria-fractional-ownership-properties":        { country: "Italy", region: "Liguria" },
+  "tuscany-fractional-ownership-properties":       { country: "Italy", region: "Tuscany" },
 
   // ── MEXICO ─────────────────────────────────────────────────────
   "los-cabos-fractional-ownership-properties":      { country: "Mexico", cities: ["Cabo San Lucas", "San Jose Del Cabo", "San José Del Cabo", "Cabo"] },
@@ -113,6 +114,7 @@ const PARENT = {
   "lake-garda-fractional-ownership-properties":        "italy-fractional-ownership-properties",
   "italian-lakes-fractional-ownership-properties":     "italy-fractional-ownership-properties",
   "liguria-fractional-ownership-properties":           "italy-fractional-ownership-properties",
+  "tuscany-fractional-ownership-properties":           "italy-fractional-ownership-properties",
   "los-cabos-fractional-ownership-properties":         "mexico-fractional-ownership-properties",
   "london-fractional-ownership-properties":            "england-fractional-ownership-properties",
   "california-fractional-ownership-properties":        "usa-fractional-ownership-properties",
@@ -159,12 +161,13 @@ const RELATED = {
   "south-of-france-fractional-ownership-properties": ["cote-dazur-fractional-ownership-properties","french-alps-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties"],
   "paris-fractional-ownership-properties":           ["cote-dazur-fractional-ownership-properties","french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","france-fractional-ownership-properties"],
   "france-fractional-ownership-properties":          ["cote-dazur-fractional-ownership-properties","french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties"],
-  "sardinia-fractional-ownership-properties":    ["italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
-  "lake-como-fractional-ownership-properties":   ["lake-garda-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
-  "lake-garda-fractional-ownership-properties":  ["lake-como-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
-  "italian-lakes-fractional-ownership-properties": ["lake-como-fractional-ownership-properties","lake-garda-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
-  "liguria-fractional-ownership-properties":     ["italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
-  "italy-fractional-ownership-properties":       ["sardinia-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties"],
+  "sardinia-fractional-ownership-properties":    ["tuscany-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "lake-como-fractional-ownership-properties":   ["tuscany-fractional-ownership-properties","lake-garda-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "lake-garda-fractional-ownership-properties":  ["tuscany-fractional-ownership-properties","lake-como-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "italian-lakes-fractional-ownership-properties": ["tuscany-fractional-ownership-properties","lake-como-fractional-ownership-properties","lake-garda-fractional-ownership-properties","liguria-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "liguria-fractional-ownership-properties":     ["tuscany-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","sardinia-fractional-ownership-properties","italy-fractional-ownership-properties"],
+  "tuscany-fractional-ownership-properties":     ["italy-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties","sardinia-fractional-ownership-properties"],
+  "italy-fractional-ownership-properties":       ["tuscany-fractional-ownership-properties","sardinia-fractional-ownership-properties","italian-lakes-fractional-ownership-properties","liguria-fractional-ownership-properties"],
   "london-fractional-ownership-properties":      ["england-fractional-ownership-properties"],
   "england-fractional-ownership-properties":     ["london-fractional-ownership-properties"],
   "california-fractional-ownership-properties":  ["colorado-fractional-ownership-properties","florida-fractional-ownership-properties","utah-fractional-ownership-properties","usa-fractional-ownership-properties"],
@@ -190,8 +193,8 @@ const RELATED = {
   "florida-keys-fractional-ownership":           ["miami-fractional-ownership","florida-fractional-ownership-properties","usa-fractional-ownership-properties"],
   "brickell-fractional-ownership-miami":         ["miami-fractional-ownership","florida-fractional-ownership-properties","usa-fractional-ownership-properties"],
   "30a-fractional-ownership-emerald-coast-co-ownership-beach-homes": ["florida-fractional-ownership-properties","usa-fractional-ownership-properties","california-fractional-ownership-properties"],
-  "austria-fractional-ownership-properties":     ["french-alps-fractional-ownership-properties","italy-fractional-ownership-properties","france-fractional-ownership-properties"],
-  "croatia-fractional-ownership-properties":     ["italy-fractional-ownership-properties","sardinia-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "austria-fractional-ownership-properties":     ["tuscany-fractional-ownership-properties","french-alps-fractional-ownership-properties","italy-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "croatia-fractional-ownership-properties":     ["tuscany-fractional-ownership-properties","italy-fractional-ownership-properties","sardinia-fractional-ownership-properties","france-fractional-ownership-properties"],
   "germany-fractional-ownership-properties":     ["french-alps-fractional-ownership-properties","austria-fractional-ownership-properties","france-fractional-ownership-properties"],
   "portugal-fractional-ownership-properties":    ["spain-fractional-ownership-properties","balearics-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties"],
   "sweden-fractional-ownership-properties":      ["england-fractional-ownership-properties","france-fractional-ownership-properties","spain-fractional-ownership-properties"],
@@ -207,6 +210,7 @@ const DEST_KEYWORDS = {
   "spain-fractional-ownership-properties":  ["Spain"],
   "france-fractional-ownership-properties": ["France"],
   "italy-fractional-ownership-properties":  ["Italy"],
+  "tuscany-fractional-ownership-properties": ["Tuscany", "Tuscan", "Florence", "Chianti", "Val d'Orcia", "Siena", "Montalcino", "Montepulciano", "Lucca", "Maremma", "Florentine"],
   "usa-fractional-ownership-properties":    ["United States", "the USA", "USA"],
   "french-alps-fractional-ownership-properties": ["French Alps", "Alps", "Chamonix", "Courchevel", "Méribel", "Megève", "Val d'Isère"],
   "south-of-france-fractional-ownership-properties": ["South of France", "Provence", "Luberon", "Languedoc"],
@@ -274,6 +278,7 @@ function destLabel(slug) {
     .replace(/-/g, ' ')
     .replace(/\b\w/g, c => c.toUpperCase())
     .replace(/^Cote Dazur.*/, "Côte d'Azur")
+    .replace(/^South Of France.*/, 'South of France')
     .replace(/^Park City.*/, 'Park City')
     .replace(/^30A.*/, '30A / Emerald Coast')
     .trim();
