@@ -43,6 +43,7 @@ const DEST_FILTERS = {
   "barcelona-fractional-ownership-for-sale":        { country: "Spain", city: "Barcelona" },
   "madrid-fractional-ownership-properties":         { country: "Spain", region: "Madrid" },
   "pyrenees-mountains-fractional-ownership-properties": { country: "Spain", region: "Baqueira" },
+  "baqueira-fractional-ownership-properties": { country: "Spain", region: "Baqueira" },
 
   // ── FRANCE ─────────────────────────────────────────────────────
   "french-alps-fractional-ownership-properties":    { country: "France", regions: ["French Alps", "Portes du Soleil"] },
@@ -135,6 +136,7 @@ const PARENT = {
   "napa-sonoma-fractional-ownership-wine-country-estates": "california-fractional-ownership-properties",
   "lake-tahoe-fractional-ownership-properties":        "california-fractional-ownership-properties",
   "palm-springs-fractional-ownership-desert-modern-luxury": "california-fractional-ownership-properties",
+  "baqueira-fractional-ownership-properties": "pyrenees-mountains-fractional-ownership-properties",
 };
 
 // ── Related destinations ──────────────────────────────────────────────────────
@@ -147,11 +149,12 @@ const RELATED = {
   "costa-blanca-fractional-ownership-properties":    ["costa-del-sol-fractional-ownership-properties","costa-de-la-luz-fractional-ownership-properties","spanish-costas-fractional-ownership-properties","spain-fractional-ownership-properties"],
   "costa-de-la-luz-fractional-ownership-properties": ["costa-del-sol-fractional-ownership-properties","costa-blanca-fractional-ownership-properties","spanish-costas-fractional-ownership-properties","spain-fractional-ownership-properties"],
   "spanish-costas-fractional-ownership-properties":  ["costa-del-sol-fractional-ownership-properties","costa-blanca-fractional-ownership-properties","costa-de-la-luz-fractional-ownership-properties","spain-fractional-ownership-properties"],
-  "pyrenees-mountains-fractional-ownership-properties": ["french-alps-fractional-ownership-properties","spain-fractional-ownership-properties","france-fractional-ownership-properties"],
+  "baqueira-fractional-ownership-properties": ["pyrenees-mountains-fractional-ownership-properties","spain-fractional-ownership-properties","french-alps-fractional-ownership-properties","balearics-fractional-ownership-properties"],
+  "pyrenees-mountains-fractional-ownership-properties": ["baqueira-fractional-ownership-properties","french-alps-fractional-ownership-properties","spain-fractional-ownership-properties","france-fractional-ownership-properties"],
   "madrid-fractional-ownership-properties":      ["spain-fractional-ownership-properties","barcelona-fractional-ownership-for-sale","balearics-fractional-ownership-properties"],
   "barcelona-fractional-ownership-for-sale":     ["spain-fractional-ownership-properties","madrid-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties"],
-  "spain-fractional-ownership-properties":       ["balearics-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties","pyrenees-mountains-fractional-ownership-properties","madrid-fractional-ownership-properties","barcelona-fractional-ownership-for-sale"],
-  "french-alps-fractional-ownership-properties":     ["cote-dazur-fractional-ownership-properties","south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties","pyrenees-mountains-fractional-ownership-properties"],
+  "spain-fractional-ownership-properties":       ["baqueira-fractional-ownership-properties","balearics-fractional-ownership-properties","costa-del-sol-fractional-ownership-properties","pyrenees-mountains-fractional-ownership-properties","madrid-fractional-ownership-properties","barcelona-fractional-ownership-for-sale"],
+  "french-alps-fractional-ownership-properties":     ["baqueira-fractional-ownership-properties","cote-dazur-fractional-ownership-properties","south-of-france-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties","pyrenees-mountains-fractional-ownership-properties"],
   "cote-dazur-fractional-ownership-properties": ["south-of-france-fractional-ownership-properties","french-alps-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties"],
   "south-of-france-fractional-ownership-properties": ["cote-dazur-fractional-ownership-properties","french-alps-fractional-ownership-properties","paris-fractional-ownership-properties","france-fractional-ownership-properties"],
   "paris-fractional-ownership-properties":           ["cote-dazur-fractional-ownership-properties","french-alps-fractional-ownership-properties","south-of-france-fractional-ownership-properties","france-fractional-ownership-properties"],
@@ -226,7 +229,8 @@ const DEST_KEYWORDS = {
   "menorca-fractional-ownership-properties": ["Menorca"],
   "barcelona-fractional-ownership-for-sale": ["Barcelona"],
   "madrid-fractional-ownership-properties": ["Madrid"],
-  "pyrenees-mountains-fractional-ownership-properties": ["Pyrenees", "Baqueira"],
+  "pyrenees-mountains-fractional-ownership-properties": ["Pyrenees", "Spanish Pyrenees", "Formigal", "Cerler", "La Molina"],
+  "baqueira-fractional-ownership-properties": ["Baqueira-Beret", "Baqueira", "Val d'Aran", "Aran Valley", "Bagergue", "Naut Aran"],
   "malibu-santa-barbara-fractional-ownership": ["Malibu", "Santa Barbara", "Montecito"],
   "napa-sonoma-fractional-ownership-wine-country-estates": ["Napa Valley", "Napa", "Sonoma", "Wine Country"],
   "lake-tahoe-fractional-ownership-properties": ["Lake Tahoe", "Tahoe"],
