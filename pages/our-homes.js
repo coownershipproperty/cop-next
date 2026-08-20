@@ -36,15 +36,26 @@ export async function getStaticProps() {
   const { data: raw, error } = await supabase
     .from('properties')
     .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added')
-    // Public listings: only Live / for_sale — hidden & sold must never render (19 Jul incident).
-    .in('status', ['Live', 'for_sale']);
+    // Public listings: hidden & staged rows must never render (19 Jul incident).
+    // Sold homes DO stay in the catalogue — PropertyCard puts the Sold Out
+    // banner across the photo — but they are pushed to the end of the grid
+    // below, so live inventory always leads.
+    .in('status', ['Live', 'for_sale', 'sold']);
 
   if (error) {
     console.error('Supabase error (our-homes):', error);
     return { props: { allProperties: [] }, revalidate: 60 };
   }
 
-  const allProperties = shuffle((raw || []).map(p => ({
+  const isSold = p => String(p.status || '').toLowerCase().includes('sold');
+  // Shuffle live and sold independently, then concatenate: the grid stays
+  // randomised on each build, but a sold home never takes a top slot.
+  const ordered = [
+    ...shuffle((raw || []).filter(p => !isSold(p))),
+    ...shuffle((raw || []).filter(isSold)),
+  ];
+
+  const allProperties = (ordered.map(p => ({
     slug:     p.slug,
     title:    p.title,
     // Translated titles flow straight through; PropertyCard picks the right

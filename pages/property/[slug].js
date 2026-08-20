@@ -223,12 +223,25 @@ function getSupabase() {
   );
 }
 
+// Statuses that get a public detail page.
+//
+// `hidden` means hidden — staged rows from the listing-sync pipeline must never
+// be reachable (19 Jul incident). `sold` is NOT hidden: a sold home keeps its
+// page and renders the Sold Out treatment (the badge in the price row, an
+// OutOfStock offer in the schema, and the Live-only "similar homes" block as
+// the recovery path). Those URLs are indexed and are handed out in enquiry,
+// unlock and gallery emails, so 404ing them loses the link equity and dead-ends
+// the lead. Discovery surfaces that publish a headline count -- destination
+// grids, homepages, sitemap, feeds, alerts, price ticker, "similar homes" --
+// stay Live/for_sale, so counts still describe what is actually buyable.
+const PUBLIC_STATUSES = ['Live', 'for_sale', 'sold'];
+
 export async function getStaticPaths() {
   const supabase = getSupabase();
   const { data } = await supabase
     .from('properties')
     .select('slug')
-    .in('status', ['Live', 'for_sale']);
+    .in('status', PUBLIC_STATUSES);
   return {
     paths: (data || []).map(p => ({ params: { slug: p.slug } })),
     fallback: 'blocking',
@@ -252,15 +265,15 @@ export async function getStaticProps({ params }) {
       .from('properties')
       .select('*')
       .eq('slug', params.slug)
-      .in('status', ['Live', 'for_sale'])
+      .in('status', PUBLIC_STATUSES)
       .maybeSingle();
 
     if (propErr || !property) return { notFound: true };
 
-    // Hidden/sold rows must never render publicly (19 Jul incident): only
-    // Live / for_sale get a page. `revalidate` lets the page reappear
-    // automatically if the status goes back to Live.
-    if (!['Live', 'for_sale'].includes(property.status)) {
+    // Hidden/staged rows must never render publicly (19 Jul incident).
+    // Sold rows do get a page -- see PUBLIC_STATUSES above. `revalidate` lets a
+    // page appear or disappear automatically when the status changes.
+    if (!PUBLIC_STATUSES.includes(property.status)) {
       return { notFound: true, revalidate: 3600 };
     }
 
@@ -301,6 +314,8 @@ export async function getStaticProps({ params }) {
         .select('slug, title, title_es, title_fr, title_de, img, images, price, currency, share_denominator, country, region, city, beds, size, status')
         .eq('country', property.country)
         .neq('slug', property.slug)
+        // Deliberately NOT PUBLIC_STATUSES: never recommend a sold home.
+        // On a sold page this block is the recovery path to buyable stock.
         .in('status', ['Live', 'for_sale'])
         .limit(200);
       const basePrice = Number(property.price) > 0 ? Number(property.price) : null;
