@@ -4617,6 +4617,11 @@ h1,h2,h3{font-family:'Playfair Display',serif;font-weight:400}
 
 /* Detail page (in price row, inline next to cobadge) */
 .pp-badge.pp-badge-sold-out{
+  /* `.pp-badge{display:none}` further down hides the 1/8 Co-Ownership chip
+     (the "for a 1/8 share" qualifier already says it) and was silently taking
+     this badge with it, so sold homes rendered with no sold treatment at all.
+     Two class selectors outrank the single-class rule, in every media query. */
+  display:inline-block !important;
   background:#143047 !important;
   color:#fff !important;
   border:1px solid rgba(201,168,76,0.50) !important;
