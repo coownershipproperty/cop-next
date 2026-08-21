@@ -379,7 +379,7 @@ function OverviewView({ leadRecords, onNavigate, onLead }) {
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "content-grid", children: [
       /* @__PURE__ */ jsxs("article", { className: "leads-card", children: [
-        /* @__PURE__ */ jsxs("div", { className: "section-heading", children: [
+        /* @__PURE__ */ jsxs("div", { className: "ph-section-heading", children: [
           /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("h3", { children: "Recent leads" }),
             /* @__PURE__ */ jsx("p", { children: "Latest activity across your partner network" })
@@ -413,7 +413,7 @@ function OverviewView({ leadRecords, onNavigate, onLead }) {
         ] })
       ] }),
       /* @__PURE__ */ jsxs("aside", { className: "activity-card", children: [
-        /* @__PURE__ */ jsxs("div", { className: "section-heading", children: [
+        /* @__PURE__ */ jsxs("div", { className: "ph-section-heading", children: [
           /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("h3", { children: "Activity" }),
             /* @__PURE__ */ jsx("p", { children: "What needs your eye" })
@@ -1589,7 +1589,7 @@ function Home() {
     /* @__PURE__ */ jsxs("section", { className: "workspace", children: [
       /* @__PURE__ */ jsxs("header", { className: "topbar", children: [
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("p", { className: "eyebrow", children: titles[view].eyebrow }),
+          /* @__PURE__ */ jsx("p", { className: "ph-eyebrow", children: titles[view].eyebrow }),
           /* @__PURE__ */ jsx("h1", { children: titles[view].title })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "top-actions", children: [
