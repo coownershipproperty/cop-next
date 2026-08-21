@@ -47,7 +47,7 @@ export default function Contact() {
         <meta property="og:type" content="website" />
         <meta
           property="og:image"
-          content="https://co-ownership-property.com/images/contact/family-alpine-lake.webp"
+          content="https://co-ownership-property.com/images/contact/family-mediterranean-cove.webp"
         />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
@@ -59,8 +59,8 @@ export default function Contact() {
           <div className={styles.imagePanel}>
             <Image
               className={styles.heroImage}
-              src="/images/contact/family-alpine-lake.webp"
-              alt="A family enjoying time together beside an Alpine lake"
+              src="/images/contact/family-mediterranean-cove.webp"
+              alt="A family spending the day at a quiet Mediterranean cove"
               fill
               priority
               sizes="(max-width: 900px) 100vw, 54vw"
