@@ -1,11 +1,29 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import HreflangLinks from '@/components/HreflangLinks';
-import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
+import styles from '@/styles/Contact.module.css';
 
+const assurances = [
+  {
+    number: '01',
+    title: 'Direct answers',
+    text: 'Your enquiry goes to a co-ownership specialist, not a call centre.',
+  },
+  {
+    number: '02',
+    title: 'A reply within hours',
+    text: 'We respond personally across European and US time zones.',
+  },
+  {
+    number: '03',
+    title: 'No pressure',
+    text: 'Independent guidance, whether you buy now or keep researching.',
+  },
+];
 
 export default function Contact() {
   return (
@@ -13,90 +31,90 @@ export default function Contact() {
       <Head>
         <title>Contact Us | Co-Ownership Property</title>
         <HreflangLinks englishPath="/contact" />
-        <meta name="description" content="Speak to the COP team. Questions about fractional ownership? We respond within a few hours — no sales pressure, no obligation." />
+        <meta
+          name="description"
+          content="Speak to the COP team. Questions about fractional ownership? We respond within a few hours — no sales pressure, no obligation."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/contact/" />
         <meta property="og:title" content="Contact Co-Ownership Property" />
-        <meta property="og:description" content="Questions about fractional ownership? Speak to our team — no sales pressure, no obligation. We respond within a few hours." />
+        <meta
+          property="og:description"
+          content="Questions about fractional ownership? Speak to our team — no sales pressure, no obligation. We respond within a few hours."
+        />
         <meta property="og:url" content="https://co-ownership-property.com/contact/" />
         <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://co-ownership-property.com/images/contact/family-alpine-lake.webp"
+        />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
+
       <Header />
-{/* HERO */}
-    <section className="page-hero">
-        <p className="eyebrow">We're Here to Help</p>
-        <h1>Get in <em>Touch</em></h1>
-        <p className="subtitle">Questions about co-ownership, a specific property, or just want to understand how it all works? We'll give you straight answers — no sales pressure.</p>
-    </section>
 
-    {/* TRUST STRIP */}
-    <section className="trust-sec">
-        <div className="trust-inner">
-            <p className="eyebrow" style={{textAlign: 'center'}}>How We Work</p>
-            <h2 style={{textAlign: 'center', fontSize: 'clamp(1.8rem,3.5vw,2.4rem)', marginBottom: '0'}}>What to Expect When You Contact Us</h2>
-            <div className="trust-grid">
-                <div className="trust-card">
-                    <div className="trust-icon">&#x2709;</div>
-                    <h3>Email Us Directly</h3>
-                    <p>Prefer to write? Reach us at<br /><a href="mailto:info@co-ownership-property.com">info@co-ownership-property.com</a><br />We read every message personally.</p>
-                </div>
-                <div className="trust-card">
-                    <div className="trust-icon">&#x23F0;</div>
-                    <h3>Fast Response</h3>
-                    <p>We typically respond within a few hours — often faster. For USA enquiries, please allow for the time difference. We'll always get back to you.</p>
-                </div>
-                <div className="trust-card">
-                    <div className="trust-icon">&#x2713;</div>
-                    <h3>No Pressure, No Obligation</h3>
-                    <p>We ask questions, point you to the right properties, and leave the decision entirely to you. We're independent — not tied to any platform or developer.</p>
-                </div>
+      <div className={styles.page}>
+        <section className={styles.editorialSplit} aria-labelledby="contact-heading">
+          <div className={styles.imagePanel}>
+            <Image
+              className={styles.heroImage}
+              src="/images/contact/family-alpine-lake.webp"
+              alt="A family enjoying time together beside an Alpine lake"
+              fill
+              priority
+              sizes="(max-width: 900px) 100vw, 54vw"
+            />
+            <div className={styles.imageWash} />
+            <div className={styles.imageCaption}>
+              <span>01 / 03</span>
+              <p>A conversation is the beginning of every good journey.</p>
             </div>
-        </div>
-    </section>
+          </div>
 
-    {/* EXPERT FORM (shared partial = the main contact form) */}
-        {/* ===== SPEAK TO AN EXPERT (shared partial) ===== */}
-    
+          <div className={styles.contactPanel}>
+            <p className={styles.eyebrow}>Begin the conversation</p>
+            <h1 id="contact-heading">
+              Let&apos;s find the right <em>place</em> for you.
+            </h1>
+            <p className={styles.intro}>
+              Tell us what you are looking for. You will hear from a co-ownership
+              specialist within a few hours, with clear answers and no pressure.
+            </p>
+            <p className={styles.directEmail}>
+              Prefer to write directly?{' '}
+              <a href="mailto:info@co-ownership-property.com">
+                info@co-ownership-property.com
+              </a>
+            </p>
 
-    {/* HELPFUL LINKS */}
-    <section className="links-sec">
-        <div className="links-inner">
-            <p className="eyebrow" style={{textAlign: 'center'}}>Still Researching?</p>
-            <h2 style={{textAlign: 'center', fontSize: 'clamp(1.6rem,3vw,2.2rem)', marginBottom: '0'}}>Not Ready to Get in Touch Yet?</h2>
-            <div className="links-grid">
-                <a href="/how-it-works/" className="link-card">
-                    <span className="link-cat">How It Works</span>
-                    <span className="link-title">The buying process, step by step</span>
-                    <span className="link-desc">From first enquiry to signed contracts — what happens, in what order, and what you need to prepare.</span>
-                    <span className="link-arrow">Read the guide &rarr;</span>
-                </a>
-                <a href="/how-it-works/#faq" className="link-card">
-                    <span className="link-cat">The Comparison</span>
-                    <span className="link-title">Co-ownership vs. buying the whole property</span>
-                    <span className="link-desc">Usage, costs, appreciation, and exit — laid out side by side without the marketing spin.</span>
-                    <span className="link-arrow">See the comparison &rarr;</span>
-                </a>
-                <a href="/all-our-blog/" className="link-card">
-                    <span className="link-cat">Our Blog</span>
-                    <span className="link-title">Market insights &amp; buyer guides</span>
-                    <span className="link-desc">In-depth articles on destinations, legals, investment returns, and everything a smart buyer needs to know.</span>
-                    <span className="link-arrow">Browse articles &rarr;</span>
-                </a>
+            <div className={styles.formShell}>
+              <ExpertForm hideIntro />
+              <p className={styles.privacyNote}>
+                Private, personal and obligation-free.
+              </p>
             </div>
+          </div>
+        </section>
+
+        <section className={styles.assurances} aria-label="What to expect">
+          {assurances.map((item) => (
+            <article key={item.number}>
+              <span>{item.number}</span>
+              <div>
+                <h2>{item.title}</h2>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <div className={styles.newsletterWrap}>
+          <Newsletter />
         </div>
-    </section>
+      </div>
 
-    {/* NEWSLETTER */}
-        {/* ===== NEWSLETTER SIGNUP (shared partial) ===== */}
-    
-
-    {/* FOOTER */}
-      <Newsletter />
-      <ExpertForm />
       <Footer />
-      <Script src="/js/contact.js" strategy="afterInteractive" />
     </>
   );
 }

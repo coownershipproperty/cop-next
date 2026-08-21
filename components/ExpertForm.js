@@ -301,7 +301,7 @@ function DestinationPicker({ selected, onChange, locale, t }) {
   );
 }
 
-export default function ExpertForm({ property }) {
+export default function ExpertForm({ property, hideIntro = false }) {
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
@@ -371,9 +371,13 @@ export default function ExpertForm({ property }) {
   return (
     <section className="expert-section" id="speak-to-expert">
       <div className="expert-inner">
-        <p className="expert-eyebrow">{t.eyebrow}</p>
-        <h2 className="expert-heading">{t.heading_pre} <em>{t.heading_em}</em></h2>
-        <p className="expert-sub">{t.sub}</p>
+        {!hideIntro && (
+          <>
+            <p className="expert-eyebrow">{t.eyebrow}</p>
+            <h2 className="expert-heading">{t.heading_pre} <em>{t.heading_em}</em></h2>
+            <p className="expert-sub">{t.sub}</p>
+          </>
+        )}
 
         <form className="expert-form" id="expert-enquiry-form" onSubmit={handleSubmit} noValidate ref={formRef}>
           <HoneypotField />
