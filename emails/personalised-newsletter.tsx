@@ -90,7 +90,7 @@ function HeroCard({ p }: { p: Property }) {
               <Link href={mailHref} style={outlineBtn}>Email Enquiry</Link>
             </td>
             <td width="50%" style={{ paddingLeft: 6 }}>
-              <Link href={waHref} style={outlineBtn}>WhatsApp Us</Link>
+              <Link href={waHref} style={waBtn}>WhatsApp Us</Link>
             </td>
           </tr></tbody>
         </table>
@@ -101,7 +101,12 @@ function HeroCard({ p }: { p: Property }) {
 
 // ── Secondary card (properties 3–6) ──────────────────────────────────────────
 function SecondaryCard({ p }: { p: Property }) {
-  const href = p.galleryUrl || `${base}/property/${p.slug}`;
+  const waMsg    = encodeURIComponent(`Hi, I saw ${p.title} on Co-Ownership Property and I'd love to find out more.`);
+  const mailSub  = encodeURIComponent(`Enquiry: ${p.title}`);
+  const mailBody = encodeURIComponent(`Hi,\n\nI'm interested in ${p.title}.\n\nThank you`);
+  const href     = p.galleryUrl || `${base}/property/${p.slug}`;
+  const waHref   = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
+  const mailHref = `mailto:${enquiryEmail}?subject=${mailSub}&body=${mailBody}`;
 
   return (
     <Section style={secondaryCard}>
@@ -115,7 +120,17 @@ function SecondaryCard({ p }: { p: Property }) {
         <Text style={secondaryPrice}>
           {p.price}&ensp;<span style={{ ...perShare, fontSize: 9 }}>per share</span>
         </Text>
-        <Link href={href} style={goldBtnSm}>View Gallery</Link>
+        <Link href={href} style={{ ...goldBtnSm, marginBottom: 12 }}>View Gallery</Link>
+        <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
+          <tbody><tr>
+            <td width="50%" style={{ paddingRight: 6 }}>
+              <Link href={mailHref} style={outlineBtn}>Email Enquiry</Link>
+            </td>
+            <td width="50%" style={{ paddingLeft: 6 }}>
+              <Link href={waHref} style={waBtn}>WhatsApp Us</Link>
+            </td>
+          </tr></tbody>
+        </table>
       </Section>
     </Section>
   );
@@ -240,7 +255,7 @@ const body: React.CSSProperties = {
 const wrap: React.CSSProperties = { maxWidth: 560, margin: '0 auto', padding: '0 20px' };
 
 // Header — same dark shade as footer for visual unity
-const header: React.CSSProperties = { backgroundColor: '#111f2e', padding: '44px 0 40px' };
+const header: React.CSSProperties = { backgroundColor: C.navy, padding: '44px 0 40px' };
 
 // Wordmark — bigger, more air
 const wordmarkFull: React.CSSProperties = {
@@ -383,7 +398,7 @@ const goldBtn: React.CSSProperties = {
 };
 const goldBtnSm: React.CSSProperties = { ...goldBtn, padding: '13px 24px', marginBottom: 0 };
 
-// Outlined secondary buttons — Email Enquiry / WhatsApp (mirrors the digest's viewBtn)
+// Secondary buttons — Email Enquiry (outlined) / WhatsApp (brand green)
 const outlineBtn: React.CSSProperties = {
   display: 'block',
   border: `1px solid ${C.navy}`,
@@ -396,6 +411,12 @@ const outlineBtn: React.CSSProperties = {
   textDecoration: 'none',
   textAlign: 'center' as const,
   padding: '12px 0',
+};
+const waBtn: React.CSSProperties = {
+  ...outlineBtn,
+  border: '1px solid #25D366',
+  backgroundColor: '#25D366',
+  color: C.white,
 };
 
 const contactLine: React.CSSProperties = {
@@ -423,7 +444,7 @@ const replyNudge: React.CSSProperties = {
 
 // Footer
 const footer: React.CSSProperties = {
-  backgroundColor: '#111f2e',
+  backgroundColor: C.navy,
   padding: '44px 0 36px',
   borderTop: `2px solid ${C.gold}`,
 };
