@@ -78,17 +78,22 @@ function HeroCard({ p }: { p: Property }) {
       </Link>
       <Section style={heroBody}>
         {p.regionTag && <Text style={regionPill}>{p.regionTag}</Text>}
-        <Heading style={heroTitle}><em>{p.title}</em></Heading>
+        <Heading style={heroTitle}>{p.title}</Heading>
         <GoldRule width={28} />
         <Text style={heroPrice}>
           {p.price}&ensp;<span style={perShare}>per share</span>
         </Text>
-        <Link href={href} style={goldBtn}>View Gallery →</Link>
-        <Text style={contactLine}>
-          <Link href={mailHref} style={contactLink}>Email enquiry</Link>
-          <span style={{ color: C.gold, padding: '0 8px' }}>·</span>
-          <Link href={waHref} style={contactLink}>WhatsApp</Link>
-        </Text>
+        <Link href={href} style={goldBtn}>View Gallery</Link>
+        <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={{ marginTop: 0 }}>
+          <tbody><tr>
+            <td width="50%" style={{ paddingRight: 6 }}>
+              <Link href={mailHref} style={outlineBtn}>Email Enquiry</Link>
+            </td>
+            <td width="50%" style={{ paddingLeft: 6 }}>
+              <Link href={waHref} style={outlineBtn}>WhatsApp Us</Link>
+            </td>
+          </tr></tbody>
+        </table>
       </Section>
     </Section>
   );
@@ -105,12 +110,12 @@ function SecondaryCard({ p }: { p: Property }) {
       </Link>
       <Section style={secondaryBody}>
         {p.regionTag && <Text style={regionPill}>{p.regionTag}</Text>}
-        <Heading style={secondaryTitle}><em>{p.title}</em></Heading>
+        <Heading style={secondaryTitle}>{p.title}</Heading>
         <GoldRule width={22} />
         <Text style={secondaryPrice}>
           {p.price}&ensp;<span style={{ ...perShare, fontSize: 9 }}>per share</span>
         </Text>
-        <Link href={href} style={goldBtnSm}>View Gallery →</Link>
+        <Link href={href} style={goldBtnSm}>View Gallery</Link>
       </Section>
     </Section>
   );
@@ -146,9 +151,6 @@ export default function PersonalisedNewsletterEmail({
           .logo-full { display: block !important; }
           .logo-cop  { display: none  !important; }
           @media only screen and (max-width: 480px) {
-            .prop-section  { background-color: #F7F4EE !important; }
-            .prop-nudge    { background-color: #F7F4EE !important; }
-            .intro-text    { color: #1E3448 !important; }
             .wordmark-text { font-size: 18px !important; }
           }
         `}</style>
@@ -171,7 +173,7 @@ export default function PersonalisedNewsletterEmail({
         <GoldBorder />
 
         {/* ── Intro ── */}
-        <Section className="prop-section" style={{ backgroundColor: C.navy }}>
+        <Section className="prop-section" style={{ backgroundColor: C.cream }}>
           <Container style={wrap}>
             <Section style={{ padding: '32px 0 24px', textAlign: 'center' as const }}>
               <Text className="intro-text" style={introStyle}>{introLine}</Text>
@@ -181,7 +183,7 @@ export default function PersonalisedNewsletterEmail({
         </Section>
 
         {/* ── Hero properties (1 & 2) ── */}
-        <Section className="prop-section" style={{ backgroundColor: C.navy, paddingBottom: 0 }}>
+        <Section className="prop-section" style={{ backgroundColor: C.cream, paddingBottom: 0 }}>
           <Container style={wrap}>
             {heroProps.map((p, i) => <HeroCard key={i} p={p} />)}
           </Container>
@@ -189,7 +191,7 @@ export default function PersonalisedNewsletterEmail({
 
         {/* ── Secondary properties (3–6, single column) ── */}
         {secondaryProps.length > 0 && (
-          <Section className="prop-section" style={{ backgroundColor: C.navy, paddingBottom: 0 }}>
+          <Section className="prop-section" style={{ backgroundColor: C.cream, paddingBottom: 0 }}>
             <Container style={wrap}>
               {secondaryProps.map((p, i) => <SecondaryCard key={i} p={p} />)}
             </Container>
@@ -197,7 +199,7 @@ export default function PersonalisedNewsletterEmail({
         )}
 
         {/* ── Reply nudge ── */}
-        <Section className="prop-nudge" style={{ backgroundColor: C.navy, padding: '12px 0 52px' }}>
+        <Section className="prop-nudge" style={{ backgroundColor: C.cream, padding: '12px 0 52px' }}>
           <Container style={wrap}>
             <Text style={replyNudge}>Anything catch your eye? Just reply to this email.</Text>
           </Container>
@@ -230,7 +232,7 @@ export default function PersonalisedNewsletterEmail({
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 const body: React.CSSProperties = {
-  backgroundColor: C.navy,
+  backgroundColor: C.cream,
   margin: 0,
   padding: 0,
   fontFamily: "'Cormorant Garamond', Georgia, serif",
@@ -283,10 +285,9 @@ const wordmarkCOP: React.CSSProperties = {
 // Intro
 const introStyle: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 24,
-  fontWeight: 300,
-  fontStyle: 'italic',
-  color: C.white,
+  fontSize: 26,
+  fontWeight: 400,
+  color: C.navy,
   margin: '0 0 24px',
   lineHeight: '1.35',
   textAlign: 'center' as const,
@@ -314,7 +315,7 @@ const regionPill: React.CSSProperties = {
 };
 
 // Hero card
-const heroCard: React.CSSProperties  = { backgroundColor: C.white, marginBottom: 20 };
+const heroCard: React.CSSProperties  = { backgroundColor: C.white, border: '1px solid #E8E3DC', marginBottom: 24 };
 const heroImg: React.CSSProperties   = { width: '100%', height: 300, objectFit: 'cover' as const, display: 'block' };
 const heroBody: React.CSSProperties  = { padding: '28px 32px 32px' };
 const heroTitle: React.CSSProperties = {
@@ -335,7 +336,7 @@ const heroPrice: React.CSSProperties = {
 };
 
 // Secondary card
-const secondaryCard: React.CSSProperties  = { backgroundColor: C.white, marginBottom: 20 };
+const secondaryCard: React.CSSProperties  = { backgroundColor: C.white, border: '1px solid #E8E3DC', marginBottom: 24 };
 const secondaryImg: React.CSSProperties   = { width: '100%', height: 220, objectFit: 'cover' as const, display: 'block' };
 const secondaryBody: React.CSSProperties  = { padding: '22px 32px 26px' };
 const secondaryTitle: React.CSSProperties = {
@@ -382,6 +383,21 @@ const goldBtn: React.CSSProperties = {
 };
 const goldBtnSm: React.CSSProperties = { ...goldBtn, padding: '13px 24px', marginBottom: 0 };
 
+// Outlined secondary buttons — Email Enquiry / WhatsApp (mirrors the digest's viewBtn)
+const outlineBtn: React.CSSProperties = {
+  display: 'block',
+  border: `1px solid ${C.navy}`,
+  color: C.navy,
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 600,
+  letterSpacing: '0.18em',
+  textTransform: 'uppercase' as const,
+  textDecoration: 'none',
+  textAlign: 'center' as const,
+  padding: '12px 0',
+};
+
 const contactLine: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 10,
@@ -400,7 +416,7 @@ const replyNudge: React.CSSProperties = {
   fontSize: 17,
   fontStyle: 'italic',
   fontWeight: 300,
-  color: C.navy60,
+  color: '#4A6070',
   textAlign: 'center' as const,
   margin: '12px 0 0',
 };
