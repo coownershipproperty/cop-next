@@ -77,9 +77,8 @@ function HeroCard({ p }: { p: Property }) {
         <Img src={p.imageUrl} alt={p.title} width="560" style={heroImg} />
       </Link>
       <Section style={heroBody}>
-        {p.regionTag && <Text style={regionPill}>{p.regionTag}</Text>}
+        <Hr style={cardGoldRule} />
         <Heading style={heroTitle}>{p.title}</Heading>
-        <GoldRule width={28} />
         <Text style={heroPrice}>
           {p.price}&ensp;<span style={perShare}>per share</span>
         </Text>
@@ -114,9 +113,8 @@ function SecondaryCard({ p }: { p: Property }) {
         <Img src={p.imageUrl} alt={p.title} width="560" style={secondaryImg} />
       </Link>
       <Section style={secondaryBody}>
-        {p.regionTag && <Text style={regionPill}>{p.regionTag}</Text>}
+        <Hr style={cardGoldRule} />
         <Heading style={secondaryTitle}>{p.title}</Heading>
-        <GoldRule width={22} />
         <Text style={secondaryPrice}>
           {p.price}&ensp;<span style={{ ...perShare, fontSize: 9 }}>per share</span>
         </Text>
@@ -314,7 +312,15 @@ const goldBar: React.CSSProperties = {
   margin: '0 auto',
 };
 
-// Region pill
+// Left-aligned short gold rule above card titles — same as the digest's cardGoldRule
+const cardGoldRule: React.CSSProperties = {
+  borderColor: C.gold,
+  borderTopWidth: 1,
+  width: 28,
+  margin: '0 0 14px',
+};
+
+// Region pill (unused — kept for reference)
 const regionPill: React.CSSProperties = {
   display: 'inline-block',
   fontFamily: "'Jost', Arial, sans-serif",
@@ -346,7 +352,7 @@ const heroPrice: React.CSSProperties = {
   fontSize: 28,
   fontWeight: 300,
   color: C.navy,
-  margin: '16px 0 22px',
+  margin: '6px 0 22px',
   lineHeight: 1,
 };
 
@@ -367,7 +373,7 @@ const secondaryPrice: React.CSSProperties = {
   fontSize: 22,
   fontWeight: 300,
   color: C.navy,
-  margin: '14px 0 18px',
+  margin: '6px 0 18px',
   lineHeight: 1,
 };
 
