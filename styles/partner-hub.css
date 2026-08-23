@@ -428,12 +428,19 @@
 
 @media (max-width: 780px) {
   .view-intro { align-items: flex-start; flex-direction: column; padding: 24px 20px; }.view-tools { width: 100%; }.search-box { min-width: 0; flex: 1; }.filter-panel { padding: 14px 20px; flex-wrap: wrap; justify-content: stretch; }.filter-panel label { flex: 1 1 180px; }.access-chip { display: none; }.form-aside { grid-template-columns: 1fr; }.lead-form fieldset { padding-inline: 20px; }.form-actions, .form-consent { margin-left: 20px; margin-right: 20px; }.form-actions { padding-inline: 0; }.partner-detail-card, .partner-contact-strip, .partner-contact-editor, .notification-copy-policy { margin-left: 20px; margin-right: 20px; }.permissions-grid, .invoice-summary { padding-left: 20px; padding-right: 20px; }.agreement-card, .invoice-list { margin-left: 20px; margin-right: 20px; }
+  .sidebar { flex-wrap: wrap; }
+  .main-nav { order: 3; width: 100%; margin-top: 13px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
+  .main-nav button { min-width: 0; height: 54px; padding: 6px 3px; flex-direction: column; justify-content: center; gap: 3px; font-size: 8px; line-height: 1.1; }
+  .main-nav button > span { width: auto; font-size: 16px; line-height: 1; }
+  .main-nav button b, .main-nav button i { display: none; }
   .admin-lead-backdrop { padding: 14px; }
   .admin-lead-workspace { height: calc(100vh - 28px); padding: 30px 26px; border-radius: 14px; }
   .admin-lead-workspace .lead-detail-list { grid-template-columns: 1fr; }
   .lead-table, .large-table { overflow-x: visible; }
   .lead-table .table-head, .large-table .large-table-head { display: none; }
   .lead-table .table-row:not(.table-head) { min-width: 0; min-height: 0; padding: 17px 18px; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 14px; align-items: start; }
+  .lead-table .lead-person span, .large-table .lead-person span { min-width: 0; }
+  .lead-table .lead-person strong, .large-table .lead-person strong { white-space: normal; }
   .lead-table .table-row:not(.table-head) .lead-person { grid-column: 1; grid-row: 1; }
   .lead-table .table-row:not(.table-head) .email-cell { grid-column: 1; grid-row: 2; }
   .lead-table .table-row:not(.table-head) .collection-cell { grid-column: 1; grid-row: 3; }
