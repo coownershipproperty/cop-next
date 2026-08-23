@@ -1,12 +1,41 @@
 import { requirePartnerHubAccess } from '@/lib/partnerHubAuth';
 import { cleanPartnerHubText, isPartnerHubEmail } from '@/lib/partnerHub';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://co-ownership-property.com';
+import { sendPartnerAccessCode } from '@/lib/partnerHubAccessCodes';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const access = await requirePartnerHubAccess(req, res, { adminOnly: true });
   if (!access) return;
+
+  if (req.body?.action === 'send_code') {
+    const memberId = cleanPartnerHubText(req.body?.memberId, 80);
+    const { data: membership, error: membershipError } = await access.db
+      .from('partner_hub_memberships')
+      .select('*')
+      .eq('id', memberId)
+      .maybeSingle();
+    if (membershipError) return res.status(500).json({ error: membershipError.message });
+    if (!membership?.active) return res.status(400).json({ error: 'Restore this login before sending a new code' });
+
+    const [{ data: userData, error: userError }, { data: partner }] = await Promise.all([
+      access.db.auth.admin.getUserById(membership.user_id),
+      access.db.from('partner_hub_partners').select('id, display_name, active').eq('id', membership.partner_id).maybeSingle(),
+    ]);
+    if (userError || !userData.user?.email) return res.status(404).json({ error: 'Partner identity not found' });
+    if (!partner?.active) return res.status(400).json({ error: 'Reactivate the partner before sending a code' });
+
+    try {
+      const delivery = await sendPartnerAccessCode({
+        db: access.db,
+        partner,
+        email: userData.user.email,
+        name: userData.user.user_metadata?.name || '',
+      });
+      return res.json({ ok: true, delivery, message: `Secure sign-in code sent to ${userData.user.email}.` });
+    } catch (error) {
+      return res.status(502).json({ error: error.message });
+    }
+  }
 
   const partnerId = cleanPartnerHubText(req.body?.partnerId, 64);
   const email = cleanPartnerHubText(req.body?.email, 254).toLowerCase();
@@ -25,18 +54,19 @@ export default async function handler(req, res) {
   const { data: usersPage, error: listError } = await access.db.auth.admin.listUsers({ page: 1, perPage: 1000 });
   if (listError) return res.status(500).json({ error: 'Could not check existing partner users' });
   let user = usersPage.users.find((candidate) => candidate.email?.toLowerCase() === email) || null;
-  let invited = false;
+  let createdUser = false;
 
   if (!user) {
-    const { data, error } = await access.db.auth.admin.inviteUserByEmail(email, {
-      data: { name, invited_to: 'COP Partner Hub' },
-      redirectTo: `${SITE_URL}/auth/callback?next=/partner/`,
+    const { data, error } = await access.db.auth.admin.createUser({
+      email,
+      email_confirm: false,
+      user_metadata: { name, invited_to: 'COP Partner Hub' },
     });
     if (error || !data.user) {
-      return res.status(502).json({ error: error?.message || 'Partner invitation could not be sent' });
+      return res.status(502).json({ error: error?.message || 'Partner identity could not be created' });
     }
     user = data.user;
-    invited = true;
+    createdUser = true;
   }
 
   const { data: existingMembership } = await access.db
@@ -85,15 +115,25 @@ export default async function handler(req, res) {
     invited_by: access.user.id,
   }).select('*').single();
   if (membershipError) {
-    if (invited) await access.db.auth.admin.deleteUser(user.id).catch(() => {});
+    if (createdUser) await access.db.auth.admin.deleteUser(user.id).catch(() => {});
     return res.status(500).json({ error: 'Could not assign the partner login' });
+  }
+
+  let delivery;
+  try {
+    delivery = await sendPartnerAccessCode({ db: access.db, partner, email, name });
+  } catch (error) {
+    await access.db.from('partner_hub_memberships').delete().eq('id', membership.id);
+    if (createdUser) await access.db.auth.admin.deleteUser(user.id).catch(() => {});
+    return res.status(502).json({ error: error.message });
   }
 
   return res.json({
     ok: true,
-    invited,
+    invited: true,
     partner: partner.display_name,
     email,
+    delivery,
     member: {
       id: membership.id,
       partnerId: membership.partner_id,
@@ -104,8 +144,6 @@ export default async function handler(req, res) {
       active: membership.active,
       createdAt: membership.created_at,
     },
-    message: invited
-      ? 'Invitation sent. The recipient will create their own secure session.'
-      : 'Existing verified user linked. They can request a Partner Hub magic link.',
+    message: 'Partner access created and a secure one-time sign-in code was sent.',
   });
 }

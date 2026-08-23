@@ -313,6 +313,17 @@ function PartnerAccess({ partners, members, onPartnerChanged, onMemberChanged, s
     } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
   }
 
+  async function sendMemberCode(member) {
+    setBusy(`code-${member.id}`);
+    try {
+      const payload = await hubRequest('/api/partner-hub/invitations', {
+        method: 'POST',
+        body: JSON.stringify({ action: 'send_code', memberId: member.id }),
+      });
+      showToast(payload.message);
+    } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
+  }
+
   return (
     <section className="view-card full-view">
       <div className="view-intro"><div><p className="mini-label">IDENTITY AND ROUTING</p><h2>Partner access</h2><p>Every person signs in with their own email. Never share an administrator password.</p></div><span className="secure-model-pill">SERVER ENFORCED</span></div>
@@ -330,7 +341,7 @@ function PartnerAccess({ partners, members, onPartnerChanged, onMemberChanged, s
             </div>
             <div className="member-list">
               <small>INVITED LOGINS</small>
-              {members.filter((member) => member.partnerId === partner.id).length === 0 ? <p>No partner login has been invited yet.</p> : members.filter((member) => member.partnerId === partner.id).map((member) => <div key={member.id}><span><strong>{member.name || member.email}</strong><small>{member.email}</small></span><button type="button" disabled={busy === `member-${member.id}`} className={member.active ? 'revoke-member' : 'restore-member'} onClick={() => toggleMember(member)}>{member.active ? 'Revoke access' : 'Restore access'}</button></div>)}
+              {members.filter((member) => member.partnerId === partner.id).length === 0 ? <p>No partner login has been invited yet.</p> : members.filter((member) => member.partnerId === partner.id).map((member) => <div key={member.id}><span><strong>{member.name || member.email}</strong><small>{member.email}</small></span><span className="member-actions">{member.active && <button type="button" disabled={busy === `code-${member.id}`} className="send-member-code" onClick={() => sendMemberCode(member)}>{busy === `code-${member.id}` ? 'Sending…' : 'Send sign-in code'}</button>}<button type="button" disabled={busy === `member-${member.id}`} className={member.active ? 'revoke-member' : 'restore-member'} onClick={() => toggleMember(member)}>{member.active ? 'Revoke access' : 'Restore access'}</button></span></div>)}
             </div>
             <div className="partner-card-actions"><button type="button" onClick={() => startPreview(partner)}>Preview isolated portal</button><button type="button" disabled={busy === `test-${partner.id}` || !values.testRouting} onClick={() => testEmail(partner)}>{busy === `test-${partner.id}` ? 'Sending…' : 'Send test email'}</button><button className="primary-inline" type="button" disabled={busy === `save-${partner.id}`} onClick={() => save(partner)}>{busy === `save-${partner.id}` ? 'Saving…' : 'Save routing'}</button></div>
           </article>;
@@ -352,6 +363,8 @@ function LeadDrawer({ leadId, role, readOnly, onClose, onChanged, showToast }) {
   const [stage, setStage] = useState('New');
   const [note, setNote] = useState('');
   const [saving, setSaving] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   useEffect(() => {
     let active = true;
     hubRequest(`/api/partner-hub/leads/${leadId}`).then((payload) => { if (active) { setDetail(payload); setStage(payload.lead.stage); } }).catch((error) => showToast(error.message, true));
@@ -377,6 +390,19 @@ function LeadDrawer({ leadId, role, readOnly, onClose, onChanged, showToast }) {
     } catch (error) { showToast(error.message, true); } finally { setSaving(false); }
   }
 
+  async function deleteLead() {
+    setDeleting(true);
+    try {
+      await hubRequest(`/api/partner-hub/leads/${lead.id}`, { method: 'DELETE' });
+      onChanged({ id: lead.id, deleted: true });
+      showToast(`${lead.name} was deleted from the Partner Hub.`);
+      onClose();
+    } catch (error) {
+      showToast(error.message, true);
+      setDeleting(false);
+    }
+  }
+
   return (
     <div className="drawer-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
       <aside className="lead-drawer" aria-label={`${lead.name} details`}>
@@ -394,6 +420,10 @@ function LeadDrawer({ leadId, role, readOnly, onClose, onChanged, showToast }) {
           <label>{role === 'partner' ? 'Add a progress note' : 'Add an update from COP'}<textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Add context, next step or a client update…" /></label>
           <button className="drawer-action" disabled={saving || (!note.trim() && stage === lead.stage)}>{saving ? 'Saving…' : role === 'partner' ? 'Save pipeline update' : 'Save COP update'}</button>
         </form>}
+        {role === 'admin' && !readOnly && <section className="drawer-section">
+          <small>ADMINISTRATOR ACTIONS</small>
+          {!confirmDelete ? <button type="button" className="delete-lead-button" onClick={() => setConfirmDelete(true)}>Delete lead</button> : <div className="delete-confirmation"><span>!</span><div><strong>Delete {lead.name}?</strong><p>This permanently removes the lead, its notes, audit events and notification history. It cannot be undone.</p></div><div><button type="button" onClick={() => setConfirmDelete(false)}>Cancel</button><button type="button" disabled={deleting} onClick={deleteLead}>{deleting ? 'Deleting…' : 'Delete permanently'}</button></div></div>}
+        </section>}
       </aside>
     </div>
   );
@@ -457,6 +487,10 @@ export default function PartnerHubWorkspace({ entry = 'admin' }) {
 
   function updateLead(next) {
     if (!next?.id) return;
+    if (next.deleted) {
+      setLeads((current) => current.filter((lead) => lead.id !== next.id));
+      return;
+    }
     setLeads((current) => current.map((lead) => lead.id === next.id ? { ...lead, ...next } : lead));
   }
   function startPreview(partner) { setPreviewPartner(partner); setView('leads'); }

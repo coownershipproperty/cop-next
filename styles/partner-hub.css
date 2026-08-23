@@ -460,6 +460,11 @@
 .member-list button { flex: 0 0 auto; min-height: 29px; padding: 0 9px; border-radius: 7px; font-size: 7px; font-weight: 800; }
 .member-list .revoke-member { border: 1px solid #e8bdb8; color: #a64b42; background: #fff8f7; }
 .member-list .restore-member { border: 1px solid #bde1d5; color: #267b64; background: #f4fbf8; }
+.member-list .member-actions { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
+.member-list .send-member-code { border: 1px solid #ccd9e1; color: var(--navy); background: white; }
+.partner-login-card > label { display: grid; gap: 8px; color: #526274; font-size: 9px; font-weight: 750; }
+.otp-input { text-align: center; font-size: 22px !important; font-weight: 800; letter-spacing: .28em; }
+.login-secondary { width: 100%; margin-top: 10px; border: 0; background: transparent; color: #718291; font-size: 8px; font-weight: 750; }
 
 @media (max-width: 900px) {
   .partner-access-grid { grid-template-columns: 1fr; }
