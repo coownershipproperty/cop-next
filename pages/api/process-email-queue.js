@@ -23,7 +23,7 @@
  * constraint), so a failed row always leaves the 'pending' pool.
  */
 import { sendHtml, FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
-import { resolveUnsubPlaceholder } from '@/lib/unsub';
+import { resolveUnsubPlaceholder, listUnsubHeaders } from '@/lib/unsub';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { createEmailSend } from '@/lib/crm';
 import { preflightSequenceEmail, MANAGED_SEQUENCE_TYPES } from '@/lib/followupSequence';
@@ -120,6 +120,7 @@ export default async function handler(req, res) {
         html:    resolveUnsubPlaceholder(row.html, row.to_email),
         from,
         replyTo,
+        headers: listUnsubHeaders(row.to_email), // RFC 8058 one-click — see lib/unsub.js
       });
 
       const { error: uErr } = await db.from('email_queue').update({

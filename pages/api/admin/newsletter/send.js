@@ -37,7 +37,7 @@ import PersonalisedNewsletterEmail from '../../../../emails/personalised-newslet
 import { sendHtml } from '../../../../lib/resend';
 import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
-import { unsubUrl } from '@/lib/unsub';
+import { unsubUrl, listUnsubHeaders } from '@/lib/unsub';
 import { filterSuppressed } from '@/lib/suppressions';
 
 /** Platform ceiling, declared so a change to the Vercel default cannot silently
@@ -294,6 +294,7 @@ export default async function handler(req, res) {
           html,
           from:    'Dylan Olsson <dylan@co-ownership-property.com>',
           replyTo: 'dylan@co-ownership-property.com',
+          headers: listUnsubHeaders(sendRow.email), // RFC 8058 one-click — see lib/unsub.js
         });
 
         const { error: updErr } = await db.from('newsletter_sends')

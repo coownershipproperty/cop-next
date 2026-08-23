@@ -6,11 +6,13 @@
  * which verifies the HMAC token, writes the `suppressions` row and cancels
  * anything still pending in email_queue.
  *
- * Older, already-sent emails link here with ?email= and no token — those
- * can't be verified, so they get a polite mailto fallback instead of a 404
- * (which is what this page replaced).
+ * Links without a token (every campaign sent before UNSUB_SECRET was set —
+ * see the 23 Aug 2026 note in /api/unsubscribe — plus genuinely old ?email=
+ * links) can't be verified automatically, so they get a one-press confirm
+ * button instead: the press itself is the proof of intent, and the API
+ * accepts it as { email, confirmed: true }.
  *
- * NOTE (26 Jul 2026): that fallback was doing far more work than intended.
+ * NOTE (26 Jul 2026): the old mailto fallback was doing far more work than intended.
  * Five live senders — including lib/newsletter/render.js, which built the
  * footer for every newsletter — were still emitting the tokenless form, so
  * 2,671 marketing emails to 742 people carried a link that landed on the
@@ -81,6 +83,20 @@ const s = {
     color: '#8a94a0',
   },
   link: { color: '#C9A84C', textDecoration: 'underline' },
+  btn: {
+    display: 'inline-block',
+    marginTop: 28,
+    padding: '15px 36px',
+    background: '#1a2533',
+    color: '#F5F2EC',
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: '0.14em',
+    textTransform: 'uppercase',
+    border: 0,
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+  },
   home: {
     display: 'inline-block',
     marginTop: 30,
@@ -126,6 +142,18 @@ export default function Unsubscribe() {
       .catch(() => setState('error'));
   }, [router.isReady, router.query]);
 
+  // The confirm button for tokenless links: the press is the proof of intent.
+  const confirmUnsub = () => {
+    setState('working');
+    fetch('/api/unsubscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, confirmed: true }),
+    })
+      .then((r) => setState(r.ok ? 'done' : 'error'))
+      .catch(() => setState('error'));
+  };
+
   const who = email || 'my email address';
   const removeMailto = `mailto:${CONTACT}?subject=${encodeURIComponent('Unsubscribe')}&body=${encodeURIComponent(`Please unsubscribe ${who} from all emails.`)}`;
   const resubMailto = `mailto:${CONTACT}?subject=${encodeURIComponent('Please re-subscribe me')}&body=${encodeURIComponent(`Please add ${who} back to your emails.`)}`;
@@ -166,14 +194,18 @@ export default function Unsubscribe() {
 
           {state === 'legacy' && (
             <>
-              <h1 style={s.title}>Nearly there</h1>
+              <h1 style={s.title}>One more press</h1>
               <p style={s.body}>
-                This link came from an older email, so we can&rsquo;t unsubscribe you
-                automatically. Send us a quick note and we&rsquo;ll remove
-                {email ? <> <strong style={{ color: '#1a2533', fontWeight: 600 }}>{email}</strong></> : ' you'} straight away.
+                Confirm below and
+                {email ? <> <strong style={{ color: '#1a2533', fontWeight: 600 }}>{email}</strong></> : ' your address'} comes
+                off all our emails straight away.
               </p>
+              <button type="button" style={s.btn} onClick={confirmUnsub}>
+                Yes, unsubscribe me
+              </button>
               <p style={s.quiet}>
-                <a href={removeMailto} style={s.link}>Email us to unsubscribe</a>
+                Prefer to write instead?{' '}
+                <a href={removeMailto} style={s.link}>Email us</a>.
               </p>
             </>
           )}
@@ -181,13 +213,32 @@ export default function Unsubscribe() {
           {state === 'invalid' && (
             <>
               <h1 style={s.title}>This link isn&rsquo;t quite right</h1>
-              <p style={s.body}>
-                The unsubscribe link looks incomplete. Send us a quick note instead
-                and we&rsquo;ll take you off the list straight away.
-              </p>
-              <p style={s.quiet}>
-                <a href={removeMailto} style={s.link}>Email us to unsubscribe</a>
-              </p>
+              {email ? (
+                <>
+                  <p style={s.body}>
+                    The link looks incomplete, but no matter — confirm below and{' '}
+                    <strong style={{ color: '#1a2533', fontWeight: 600 }}>{email}</strong> comes
+                    off all our emails straight away.
+                  </p>
+                  <button type="button" style={s.btn} onClick={confirmUnsub}>
+                    Yes, unsubscribe me
+                  </button>
+                  <p style={s.quiet}>
+                    Prefer to write instead?{' '}
+                    <a href={removeMailto} style={s.link}>Email us</a>.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p style={s.body}>
+                    The unsubscribe link looks incomplete. Send us a quick note instead
+                    and we&rsquo;ll take you off the list straight away.
+                  </p>
+                  <p style={s.quiet}>
+                    <a href={removeMailto} style={s.link}>Email us to unsubscribe</a>
+                  </p>
+                </>
+              )}
             </>
           )}
 

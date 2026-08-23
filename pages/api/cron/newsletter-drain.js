@@ -36,6 +36,7 @@ import { resolveAudience, excludeAlreadyEnquired, getContactInterests, fetchAllR
 import { reorderForRecipient } from '@/lib/newsletter/personalize';
 import { renderRecipient } from '@/lib/newsletter/render';
 import { sendHtml } from '@/lib/resend';
+import { listUnsubHeaders } from '@/lib/unsub';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
 /** Platform ceiling. The time budget below is what actually protects the run. */
@@ -207,6 +208,7 @@ export default async function handler(req, res) {
         html,
         from:    'Dylan at Co-Ownership Property <dylan@co-ownership-property.com>',
         replyTo: 'dylan@co-ownership-property.com',
+        headers: listUnsubHeaders(contact.email), // RFC 8058 one-click — see lib/unsub.js
       });
 
       if (sendRowId) {

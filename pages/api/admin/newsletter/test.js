@@ -3,7 +3,7 @@ import PersonalisedNewsletterEmail from '../../../../emails/personalised-newslet
 import { sendHtml } from '../../../../lib/resend';
 import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
-import { unsubUrl } from '@/lib/unsub';
+import { unsubUrl, listUnsubHeaders } from '@/lib/unsub';
 
 function getDb() {
   return createSupabaseAdminClient();
@@ -93,6 +93,7 @@ export default async function handler(req, res) {
     html,
     from:    'Dylan Olsson <dylan@co-ownership-property.com>',
     replyTo: 'dylan@co-ownership-property.com',
+    headers: listUnsubHeaders(testEmail), // RFC 8058 one-click — see lib/unsub.js
   });
 
   return res.json({ ok: true, usedSend: sendRow.id, propertiesCount: allSlugs.length });
