@@ -55,22 +55,40 @@ export default function AdminLayout({ children, fullBleed = false }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    let active = true
+
+    async function verifyAdmin(session) {
       if (!session) {
-        router.replace('/admin/login')
-      } else {
-        setUser(session.user)
-        setLoading(false)
+        if (active) router.replace('/admin/login')
+        return
       }
-    })
+      try {
+        const response = await fetch('/api/admin/session', {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        })
+        if (!response.ok) throw new Error('Administrator access required')
+        if (active) {
+          setUser(session.user)
+          setLoading(false)
+        }
+      } catch {
+        await supabase.auth.signOut()
+        if (active) router.replace('/admin/login?error=access')
+      }
+    }
+
+    supabase.auth.getSession().then(({ data: { session } }) => verifyAdmin(session))
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
       if (!session) router.replace('/admin/login')
-      else setUser(session.user)
+      else verifyAdmin(session)
     })
 
-    return () => subscription.unsubscribe()
-  }, [])
+    return () => {
+      active = false
+      subscription.unsubscribe()
+    }
+  }, [router])
 
   async function signOut() {
     await supabase.auth.signOut()

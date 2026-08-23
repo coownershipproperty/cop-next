@@ -53,6 +53,8 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const isGallery = router.pathname.startsWith('/gallery');
   const isAdmin = router.pathname.startsWith('/admin');
+  const isPartner = router.pathname.startsWith('/partner');
+  const isPrivate = isAdmin || isPartner;
   const popupAllowed = POPUP_ROUTES.some(re => re.test(router.pathname));
   const [waVisible, setWaVisible] = useState(false);
   const [waDismissed, setWaDismissed] = useState(false);
@@ -99,20 +101,20 @@ export default function App({ Component, pageProps }) {
   return (
     <main className={`${playfair.variable} ${nunito.variable}`}>
       {/* ── Google Analytics 4 ── */}
-      <Script
+      {!isPrivate && <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"
-      />
-      <Script id="ga4-init" strategy="afterInteractive">{`
+      />}
+      {!isPrivate && <Script id="ga4-init" strategy="afterInteractive">{`
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', '${GA_ID}', { page_path: window.location.pathname });
         gtag('config', '${GADS_ID}');
-      `}</Script>
+      `}</Script>}
 
       {/* ── Meta Pixel ── (activate by adding NEXT_PUBLIC_META_PIXEL_ID to .env.local) */}
-      {META_PIXEL_ID && (
+      {!isPrivate && META_PIXEL_ID && (
         <>
           <Script id="meta-pixel" strategy="afterInteractive">{`
             !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -133,7 +135,7 @@ export default function App({ Component, pageProps }) {
       )}
 
       <Component {...pageProps} />
-      <Analytics />
+      {!isPrivate && <Analytics />}
 
       {/* ── Exit-intent / scroll-depth capture popup ──
           Keyed on the path so the triggers re-arm per page rather than keeping
@@ -147,7 +149,7 @@ export default function App({ Component, pageProps }) {
           route gating, no need to gate at the mount point. */}
 
       {/* ── WhatsApp floating button (mobile only, hidden on gallery) ── */}
-      {!isGallery && !isAdmin && !waDismissed && (
+      {!isGallery && !isPrivate && !waDismissed && (
         <div className={`wa-wrap${waVisible ? ' wa-visible' : ''}`}>
           <a
             href="https://wa.me/447901002763?text=Hi%2C%20I%27d%20like%20to%20find%20out%20more%20about%20co-ownership%20properties."
