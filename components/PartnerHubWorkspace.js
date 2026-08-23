@@ -726,7 +726,7 @@ function AdminLeadEditor({ lead, destinations, onSaved, showToast }) {
 
   return (
     <section className="drawer-section admin-lead-editor">
-      <div className="drawer-section-heading"><small>ADMIN LEAD DETAILS</small><button type="button" onClick={() => setEditing((current) => !current)}>{editing ? 'Cancel' : 'Edit details'}</button></div>
+      <div className="drawer-section-heading"><small>ADMIN LEAD DETAILS</small><button className={`edit-details-button${editing ? ' is-editing' : ''}`} type="button" onClick={() => setEditing((current) => !current)}>{editing ? 'Cancel editing' : 'Edit lead details'}</button></div>
       {!editing ? <p className="editor-readback">Correct the client&apos;s name, email, phone, destination, budget or original context here. Changes appear immediately in the assigned partner workspace.</p> : <form className="edit-lead-grid" onSubmit={save}>
         <label>First name<input required value={fields.firstName} onChange={(event) => field('firstName', event.target.value)} /></label>
         <label>Last name<input required value={fields.lastName} onChange={(event) => field('lastName', event.target.value)} /></label>
