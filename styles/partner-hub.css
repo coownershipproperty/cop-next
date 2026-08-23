@@ -140,6 +140,7 @@
 .stage.contacted { color: #5f55c5; background: #efedff; }
 .stage.viewing { color: #158ba1; background: #e7f8fa; }
 .stage.reserved { color: #a56b10; background: #fff2dc; }
+.stage.contract-signed { color: #a56b10; background: #fff2dc; }
 .stage.deposit-paid { color: #287c69; background: #e5f6f0; }
 .stage.lost { color: #b64f45; background: #fdeceb; }
 .stage.paused { color: #687789; background: #eef1f4; }
@@ -609,6 +610,22 @@
 .studio-contact-row { display: flex; flex-wrap: wrap; gap: 9px 22px; }
 .studio-contact-row a, .studio-contact-row span { color: #576a7c; text-decoration: none; font-size: 10px; }
 .studio-contact-row a:hover { color: var(--navy); }
+.studio-support-actions { margin-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.studio-support-actions button { min-height: 42px; padding: 0 15px; border: 1px solid #b94d43; border-radius: 8px; color: white; background: #b94d43; font-size: 9px; font-weight: 850; }
+.studio-support-actions button:hover { border-color: #a23f37; background: #a23f37; }
+.studio-support-actions button:disabled { cursor: not-allowed; opacity: .46; }
+.studio-inline-help { margin-top: 10px; padding: 14px; display: grid; gap: 9px; border: 1px solid #edc4bf; border-radius: 10px; background: #fff7f6; }
+.studio-inline-help label { color: #7d3d38; font-size: 8px; font-weight: 800; }
+.studio-inline-help textarea { width: 100%; min-height: 92px; padding: 11px; resize: vertical; border: 1px solid #e4c7c3; border-radius: 8px; color: #435669; background: white; font: inherit; font-size: 9px; line-height: 1.5; }
+.studio-inline-help > div { display: flex; justify-content: flex-end; gap: 8px; }
+.studio-inline-help button { min-height: 37px; padding: 0 13px; border: 1px solid #b94d43; border-radius: 7px; color: white; background: #b94d43; font-size: 8px; font-weight: 800; }
+.studio-inline-help button[type='button'] { color: #8e4842; background: white; }
+.studio-inline-help button:disabled { cursor: not-allowed; opacity: .5; }
+.studio-stage-form { margin-top: 14px; padding: 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; border: 1px solid #dce7e3; border-radius: 10px; background: #f5faf8; }
+.studio-stage-form label { display: grid; gap: 7px; color: #526274; font-size: 8px; font-weight: 800; }
+.studio-stage-form select { width: 100%; min-height: 42px; padding: 0 37px 0 12px; border: 1px solid #cfdcd7; border-radius: 8px; color: var(--navy); background: white; font: inherit; font-size: 10px; font-weight: 750; }
+.studio-stage-form > button { min-height: 42px; padding: 0 16px; border: 1px solid var(--navy); border-radius: 8px; color: white; background: var(--navy); font-size: 9px; font-weight: 800; }
+.studio-stage-form > button:disabled { cursor: not-allowed; color: #788a91; border-color: #d6e1dd; background: #e8efec; }
 .studio-action-row { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 9px; }
 .studio-action-row button { min-height: 40px; padding: 0 15px; border: 1px solid #dce3e7; border-radius: 8px; color: var(--navy); background: white; font-size: 9px; font-weight: 800; }
 .studio-action-row button:first-child { color: white; background: var(--navy); border-color: var(--navy); }
@@ -702,7 +719,7 @@
 
 @media (max-width: 1180px) {
   .studio-layout { grid-template-columns: 1fr; }
-  .studio-rail { grid-template-columns: 1fr 1fr; }
+  .studio-rail { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 800px) {
@@ -719,6 +736,10 @@
   .studio-identity-card, .studio-card { padding: 21px; }
   .studio-identity-card > h3 { font-size: 38px; }
   .studio-contact-row { display: grid; }
+  .studio-support-actions, .studio-stage-form { grid-template-columns: 1fr; }
+  .studio-stage-form > button { width: 100%; }
+  .studio-inline-help > div { display: grid; grid-template-columns: 1fr; }
+  .studio-inline-help button { width: 100%; }
   .studio-engagement { grid-template-columns: 1fr; gap: 17px; }
   .studio-engagement > div:not(:last-child)::after { left: 13px; top: 29px; bottom: -17px; width: 1px; height: auto; }
   .studio-property-card { grid-template-columns: 105px 1fr; }

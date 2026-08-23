@@ -454,8 +454,8 @@ function EngagementPanel({ lead, events }) {
   const viewed = events.find((event) => event.event_type === 'lead_viewed')?.created_at;
   const contacted = events.find((event) => event.event_type === 'stage_changed' && event.to_stage !== 'New')?.created_at
     || (lead.stage !== 'New' ? lead.updatedAt : null);
-  const viewing = events.find((event) => event.event_type === 'stage_changed' && ['Viewing', 'Reserved', 'Deposit paid', 'Won'].includes(event.to_stage))?.created_at
-    || (['Viewing', 'Reserved', 'Deposit paid', 'Won'].includes(lead.stage) ? lead.updatedAt : null);
+  const viewing = events.find((event) => event.event_type === 'stage_changed' && ['Viewing', 'Contract signed', 'Deposit paid', 'Won'].includes(event.to_stage))?.created_at
+    || (['Viewing', 'Contract signed', 'Deposit paid', 'Won'].includes(lead.stage) ? lead.updatedAt : null);
   const milestones = [
     ['Lead received', received],
     ['Partner viewed', viewed],
@@ -482,6 +482,8 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
   const [loading, setLoading] = useState(false);
   const [busy, setBusy] = useState('');
   const [helpNote, setHelpNote] = useState('');
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [stageDraft, setStageDraft] = useState(leads[0]?.stage || 'New');
 
   useEffect(() => {
     if (!leads.some((lead) => lead.id === selectedId)) setSelectedId(leads[0]?.id || '');
@@ -499,6 +501,16 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
     return () => { active = false; };
   }, [selectedId]);
 
+  useEffect(() => {
+    const selectedLead = detail?.lead || leads.find((item) => item.id === selectedId);
+    if (selectedLead?.stage) setStageDraft(selectedLead.stage);
+  }, [detail?.lead?.stage, leads, selectedId]);
+
+  useEffect(() => {
+    setHelpOpen(false);
+    setHelpNote('');
+  }, [selectedId]);
+
   if (!leads.length) {
     return <section className="studio-empty"><span>▥</span><h2>No assigned leads yet</h2><p>A new COP introduction will appear here as soon as it is assigned.</p></section>;
   }
@@ -508,18 +520,19 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
   const notes = detail?.notes || [];
   const latestCopNote = [...notes].reverse().find((note) => note.author_role === 'admin');
 
-  async function markContacted() {
-    if (readOnly || lead.stage !== 'New') { openLead(lead.id); return; }
+  async function updateStage(event) {
+    event.preventDefault();
+    if (readOnly || stageDraft === lead.stage) return;
     setBusy('stage');
     try {
       const payload = await hubRequest(`/api/partner-hub/leads/${lead.id}`, {
         method: 'PATCH',
-        body: JSON.stringify({ action: 'stage', stage: 'Contacted' }),
+        body: JSON.stringify({ action: 'stage', stage: stageDraft }),
       });
       onChanged(payload.lead);
       const refreshed = await hubRequest(`/api/partner-hub/leads/${lead.id}`);
       setDetail(refreshed);
-      showToast('Lead marked as contacted and COP notified.');
+      showToast(`Sales funnel updated to ${stageDraft}; COP was notified.`);
     } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
   }
 
@@ -534,6 +547,7 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
       });
       onChanged(payload.lead);
       setHelpNote('');
+      setHelpOpen(false);
       const refreshed = await hubRequest(`/api/partner-hub/leads/${lead.id}`);
       setDetail(refreshed);
       showToast(payload.notification?.status === 'failed' ? 'Request saved; the COP email needs attention.' : 'COP has received your help request.');
@@ -552,10 +566,19 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
             <div className="studio-status-row"><span className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</span>{lead.isTest && <span className="test-badge">TEST LEAD</span>}<small>Updated {lead.age}</small></div>
             <h3>{lead.name}</h3>
             <div className="studio-contact-row"><a href={`mailto:${lead.email}`}>✉ {lead.email}</a><a href={lead.phone ? `tel:${lead.phone}` : undefined}>☎ {lead.phone || 'No phone supplied'}</a><span>◎ {lead.location}</span></div>
-            <div className="studio-action-row">
-              <button type="button" disabled={busy === 'stage' || readOnly} onClick={markContacted}>{busy === 'stage' ? 'Saving…' : lead.stage === 'New' ? 'Mark contacted' : 'Update stage'}</button>
+            <div className="studio-support-actions">
               <button type="button" onClick={() => openLead(lead.id)}>Add progress note</button>
+              <button type="button" disabled={readOnly} onClick={() => setHelpOpen((current) => !current)}>Request help from COP</button>
             </div>
+            {helpOpen && <form className="studio-inline-help" onSubmit={requestHelp}>
+              <label htmlFor={`partner-help-${lead.id}`}>How can COP help with this lead?</label>
+              <textarea id={`partner-help-${lead.id}`} autoFocus value={helpNote} onChange={(event) => setHelpNote(event.target.value)} placeholder="Ask for client context, property guidance, or help arranging the next step…" />
+              <div><button type="button" onClick={() => { setHelpOpen(false); setHelpNote(''); }}>Cancel</button><button disabled={busy === 'help'}>{busy === 'help' ? 'Sending…' : 'Send request to COP'}</button></div>
+            </form>}
+            <form className="studio-stage-form" onSubmit={updateStage}>
+              <label htmlFor={`partner-stage-${lead.id}`}>Sales funnel status<select id={`partner-stage-${lead.id}`} disabled={readOnly || busy === 'stage'} value={stageDraft} onChange={(event) => setStageDraft(event.target.value)}>{PARTNER_HUB_STAGES.map((stage) => <option key={stage} value={stage}>{stage}</option>)}</select></label>
+              <button disabled={readOnly || busy === 'stage' || stageDraft === lead.stage}>{busy === 'stage' ? 'Saving…' : stageDraft === lead.stage ? 'Up to date' : 'Save status'}</button>
+            </form>
           </article>
 
           <article className="studio-card">
@@ -576,10 +599,6 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
 
         <aside className="studio-rail">
           <article className="studio-lead-switcher"><header><strong>All assigned leads</strong><small>{leads.length}</small></header>{leads.map((item) => <button type="button" className={item.id === lead.id ? 'active' : ''} key={item.id} onClick={() => setSelectedId(item.id)}><i>{item.initials}</i><span><strong>{item.name}</strong><small>{item.location} · {item.stage}</small></span><b>›</b></button>)}</article>
-          <article className="studio-help-card">
-            <span>?</span><h3>Request help from COP</h3><p>Ask for client context, property guidance, or help arranging the next step.</p>
-            {readOnly ? <button type="button" disabled>Available to signed-in partner members</button> : <form onSubmit={requestHelp}><textarea value={helpNote} onChange={(event) => setHelpNote(event.target.value)} placeholder="How can COP help with this lead?" /><button disabled={busy === 'help'}>{busy === 'help' ? 'Sending…' : 'Send request to COP'}</button></form>}
-          </article>
         </aside>
       </div>
       {loading && <div className="studio-loading">Refreshing secure lead…</div>}
