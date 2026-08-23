@@ -369,7 +369,7 @@ function LeadTable({ leads, onOpen, compact = false }) {
   return (
     <div className={compact ? 'lead-table' : 'large-table'}>
       <div className={compact ? 'table-row table-head' : 'large-table-row partner-table-row large-table-head'}>
-        <span>LEAD</span><span>EMAIL</span>{!compact && <span>PHONE</span>}<span>DESTINATION</span>{!compact && <span>PARTNER</span>}<span>STAGE</span><span>UPDATED</span>
+        <span>LEAD</span><span>EMAIL</span>{!compact && <span>PHONE</span>}<span>DESTINATION</span><span>PARTNER</span><span>STAGE</span><span>UPDATED</span>
       </div>
       {leads.map((lead) => (
         <button key={lead.id} type="button" className={compact ? 'table-row clickable-row' : 'large-table-row partner-table-row'} onClick={() => onOpen(lead.id)}>
@@ -377,8 +377,8 @@ function LeadTable({ leads, onOpen, compact = false }) {
           <span className="email-cell">{lead.email}</span>
           {!compact && <span className="phone-cell">{lead.phone || '—'}</span>}
           <span className="collection-cell">{lead.location}</span>
-          {!compact && <span>{lead.partner}</span>}
-          <span><i className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</i></span>
+          <span className="partner-cell"><small>PARTNER</small>{lead.partner}</span>
+          <span className="stage-cell"><i className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</i></span>
           <span className="updated">{lead.age}<i aria-hidden="true">›</i></span>
         </button>
       ))}
