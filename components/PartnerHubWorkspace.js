@@ -24,6 +24,7 @@ const EMPTY_LEAD = {
   collectionType: '',
   budget: '',
   preferences: '',
+  propertySlugs: [],
   consentConfirmed: false,
   notifyPartner: true,
   isTest: true,
@@ -103,7 +104,7 @@ function SearchableCountryInput({ value, onChange, id, options, ariaLabel, class
 
 function DialCodeSelect({ value, onChange, id }) {
   const options = [...EUROPE_DIAL_CODES, ...INTERNATIONAL_DIAL_CODES].map(([country, code]) => ({ label: `${country} ${code}`, value: code }));
-  return <SearchableCountryInput id={id} className="dial-code-search" value={value} onChange={onChange} options={options} ariaLabel="Search international dialling code" />;
+  return <SearchableCountryInput id={id} className="dial-code-search" value={value || '+44'} onChange={onChange} options={options} ariaLabel="Search international dialling code" />;
 }
 
 function NationalitySelect({ value, onChange, id }) {
@@ -170,6 +171,56 @@ function DestinationMultiSelect({ value, onChange, destinations, id }) {
         </div>
       </div>
     </details>
+  );
+}
+
+function NewLeadPropertyPicker({ value, onChange, showToast }) {
+  const [catalogue, setCatalogue] = useState([]);
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    hubRequest('/api/partner-hub/properties')
+      .then((payload) => { if (active) setCatalogue(payload.properties || []); })
+      .catch((error) => { if (active) showToast(error.message, true); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, []);
+
+  const selectedSlugs = Array.isArray(value) ? value : [];
+  const selected = selectedSlugs.map((slug) => catalogue.find((property) => property.slug === slug)).filter(Boolean);
+  const normalizedSearch = search.trim().toLocaleLowerCase();
+  const matches = catalogue.filter((property) => {
+    const haystack = `${property.title} ${property.location} ${property.slug}`.toLocaleLowerCase();
+    return !normalizedSearch || haystack.includes(normalizedSearch);
+  }).slice(0, 12);
+
+  function toggle(slug) {
+    onChange(selectedSlugs.includes(slug)
+      ? selectedSlugs.filter((selectedSlug) => selectedSlug !== slug)
+      : [...selectedSlugs, slug]);
+  }
+
+  return (
+    <div className="new-lead-shortlist">
+      <div className="new-lead-shortlist-heading">
+        <div><strong>Choose from live COP listings</strong><small>The partner will see these homes as soon as the lead is declared.</small></div>
+        <span>{selectedSlugs.length} selected</span>
+      </div>
+      {selected.length > 0 && <div className="new-lead-shortlist-selected">
+        {selected.map((property) => <div key={property.slug}><span className="drawer-property-thumb" style={property.image ? { backgroundImage: `url("${property.image}")` } : undefined} /><span><strong>{property.title}</strong><small>{property.location || 'COP listing'}</small></span><button type="button" onClick={() => toggle(property.slug)}>Remove</button></div>)}
+      </div>}
+      <input className="new-lead-shortlist-search" type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search property, destination or listing name…" aria-label="Search live COP listings" />
+      <div className="new-lead-shortlist-catalogue">
+        {loading && <p>Loading live COP listings…</p>}
+        {!loading && matches.map((property) => {
+          const isSelected = selectedSlugs.includes(property.slug);
+          return <div className={isSelected ? 'selected' : ''} key={property.slug}><span className="drawer-property-thumb" style={property.image ? { backgroundImage: `url("${property.image}")` } : undefined} /><span><strong>{property.title}</strong><small>{property.location || 'COP listing'} · {formatPropertyPrice(property.price, property.currency)}</small></span><button type="button" onClick={() => toggle(property.slug)}>{isSelected ? '✓ Selected' : '+ Add'}</button></div>;
+        })}
+        {!loading && matches.length === 0 && <p>No matching live COP listing.</p>}
+      </div>
+    </div>
   );
 }
 
@@ -575,7 +626,7 @@ function SubmitLead({ partners, destinations, onCreated, showToast }) {
     try {
       const payload = await hubRequest('/api/partner-hub/leads', {
         method: 'POST',
-        body: JSON.stringify({ ...form, phone: joinInternationalPhone(form.phoneDialCode, form.phone) }),
+        body: JSON.stringify({ ...form, phone: joinInternationalPhone(form.phoneDialCode || '+44', form.phone) }),
       });
       onCreated(payload.lead);
       setForm(EMPTY_LEAD);
@@ -605,6 +656,7 @@ function SubmitLead({ partners, destinations, onCreated, showToast }) {
           <label>Approximate budget<BudgetSelect id="new-lead-budget" value={form.budget} onChange={(value) => field('budget', value)} /></label>
           <label className="wide">Context and preferences<textarea value={form.preferences} onChange={(e) => field('preferences', e.target.value)} placeholder="Timing, preferred location and useful sales context…" /></label>
         </div></fieldset>
+        <fieldset disabled={!selected} className={!selected ? 'form-section-locked' : ''}><legend>Property shortlist</legend><NewLeadPropertyPicker value={form.propertySlugs} onChange={(value) => field('propertySlugs', value)} showToast={showToast} /></fieldset>
         <label className={`form-consent ${!selected ? 'locked' : ''}`}><input required disabled={!selected} type="checkbox" checked={form.consentConfirmed} onChange={(e) => field('consentConfirmed', e.target.checked)} /><span>I confirm the customer has consented to their details being shared with the selected partner.</span></label>
         <div className="test-controls"><label><input type="checkbox" checked={form.isTest} onChange={(e) => field('isTest', e.target.checked)} /> Mark as synthetic test lead</label><label><input type="checkbox" checked={form.notifyPartner} onChange={(e) => field('notifyPartner', e.target.checked)} /> Send partner email after saving</label></div>
         <div className="form-actions"><button type="button" onClick={() => setForm(EMPTY_LEAD)}>Clear</button><button className="primary-button" disabled={!selected?.email || !form.consentConfirmed || saving}>{saving ? 'Saving…' : 'Save and declare lead'}</button></div>
@@ -798,7 +850,7 @@ function AdminLeadEditor({ lead, destinations, onSaved, showToast }) {
         method: 'PATCH',
         body: JSON.stringify({
           action: 'edit',
-          fields: { ...fields, phone: joinInternationalPhone(fields.phoneDialCode, fields.phone) },
+          fields: { ...fields, phone: joinInternationalPhone(fields.phoneDialCode || '+44', fields.phone) },
         }),
       });
       await onSaved(payload.lead);

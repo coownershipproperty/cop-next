@@ -48,6 +48,24 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Customer sharing consent must be confirmed' });
   }
 
+  const propertySlugs = Array.isArray(body.propertySlugs)
+    ? [...new Set(body.propertySlugs.map((slug) => cleanPartnerHubText(slug, 220)).filter(Boolean))].slice(0, 20)
+    : [];
+  let shortlistProperties = [];
+  if (propertySlugs.length) {
+    const { data: properties, error: propertiesError } = await access.db
+      .from('properties')
+      .select('slug, title, img, images, price, currency, country, region, city, status')
+      .in('slug', propertySlugs)
+      .in('status', ['Live', 'for_sale']);
+    if (propertiesError) return res.status(500).json({ error: 'Could not validate the selected COP listings' });
+    const propertiesBySlug = new Map((properties || []).map((property) => [property.slug, property]));
+    if (propertiesBySlug.size !== propertySlugs.length) {
+      return res.status(400).json({ error: 'One or more selected COP listings are no longer live' });
+    }
+    shortlistProperties = propertySlugs.map((slug) => propertiesBySlug.get(slug));
+  }
+
   const { data: partner, error: partnerError } = await access.db
     .from('partner_hub_partners')
     .select('*')
@@ -82,6 +100,27 @@ export default async function handler(req, res) {
     .single();
   if (error) return res.status(500).json({ error: error.message });
 
+  if (shortlistProperties.length) {
+    const shortlistRows = shortlistProperties.map((property) => ({
+      lead_id: lead.id,
+      partner_id: lead.partner_id,
+      property_slug: property.slug,
+      property_title: property.title,
+      property_url: `https://co-ownership-property.com/property/${property.slug}/`,
+      property_image: property.img || (Array.isArray(property.images) ? property.images[0] : null),
+      property_location: [property.city, property.region, property.country].filter(Boolean).join(', ') || null,
+      property_price: property.price || null,
+      property_currency: property.currency || 'EUR',
+      created_by: access.user.id,
+      created_by_email: access.email,
+    }));
+    const { error: shortlistError } = await access.db.from('partner_hub_shortlist_items').insert(shortlistRows);
+    if (shortlistError) {
+      await access.db.from('partner_hub_leads').delete().eq('id', lead.id);
+      return res.status(500).json({ error: 'The lead was not created because its property shortlist could not be saved' });
+    }
+  }
+
   await access.db.from('partner_hub_events').insert({
     lead_id: lead.id,
     partner_id: lead.partner_id,
@@ -90,8 +129,20 @@ export default async function handler(req, res) {
     actor_role: 'admin',
     event_type: 'lead_created',
     to_stage: 'New',
-    metadata: { consent_confirmed: true, synthetic: lead.is_test },
+    metadata: { consent_confirmed: true, synthetic: lead.is_test, shortlist_count: shortlistProperties.length },
   });
+
+  if (shortlistProperties.length) {
+    await access.db.from('partner_hub_events').insert(shortlistProperties.map((property) => ({
+      lead_id: lead.id,
+      partner_id: lead.partner_id,
+      actor_user_id: access.user.id,
+      actor_email: access.email,
+      actor_role: 'admin',
+      event_type: 'shortlist_updated',
+      metadata: { operation: 'add', property_slug: property.slug, property_title: property.title, added_with_lead: true },
+    })));
+  }
 
   let notification = { status: 'not_requested' };
   if (body.notifyPartner !== false) {
@@ -105,6 +156,7 @@ export default async function handler(req, res) {
   return res.status(201).json({
     ok: true,
     lead: serialisePartnerHubLead(lead, partner.display_name),
+    shortlistCount: shortlistProperties.length,
     notification,
   });
 }
