@@ -613,7 +613,7 @@
 .studio-support-actions { margin-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
 .studio-support-actions button { min-height: 42px; padding: 0 15px; border: 1px solid #b94d43; border-radius: 8px; color: white; background: #b94d43; font-size: 9px; font-weight: 850; }
 .studio-support-actions button:hover { border-color: #a23f37; background: #a23f37; }
-.studio-support-actions button:disabled { cursor: not-allowed; opacity: .46; }
+.studio-support-actions button:disabled { cursor: not-allowed; opacity: .82; }
 .studio-inline-help { margin-top: 10px; padding: 14px; display: grid; gap: 9px; border: 1px solid #edc4bf; border-radius: 10px; background: #fff7f6; }
 .studio-inline-help label { color: #7d3d38; font-size: 8px; font-weight: 800; }
 .studio-inline-help textarea { width: 100%; min-height: 92px; padding: 11px; resize: vertical; border: 1px solid #e4c7c3; border-radius: 8px; color: #435669; background: white; font: inherit; font-size: 9px; line-height: 1.5; }
@@ -736,7 +736,7 @@
   .studio-identity-card, .studio-card { padding: 21px; }
   .studio-identity-card > h3 { font-size: 38px; }
   .studio-contact-row { display: grid; }
-  .studio-support-actions, .studio-stage-form { grid-template-columns: 1fr; }
+  .studio-stage-form { grid-template-columns: 1fr; }
   .studio-stage-form > button { width: 100%; }
   .studio-inline-help > div { display: grid; grid-template-columns: 1fr; }
   .studio-inline-help button { width: 100%; }
