@@ -63,10 +63,7 @@ function SearchableCountryInput({ value, onChange, id, options, ariaLabel, class
 
   function updateQuery(nextQuery) {
     setQuery(nextQuery);
-    if (!nextQuery.trim()) {
-      onChange('');
-      return;
-    }
+    if (!nextQuery.trim()) return;
     const match = matchOption(nextQuery);
     if (match) onChange(match.value);
   }
