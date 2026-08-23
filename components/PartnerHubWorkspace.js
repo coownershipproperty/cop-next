@@ -29,11 +29,39 @@ function formatEvent(event) {
     return `Stage changed from ${event.from_stage || '—'} to ${event.to_stage || '—'}`;
   }
   if (event.event_type === 'lead_created') return 'Lead shared by COP';
+  if (event.event_type === 'lead_viewed') return 'Partner opened the lead';
+  if (event.event_type === 'help_requested') return 'Partner requested help from COP';
+  if (event.event_type === 'shortlist_updated') {
+    return `${event.metadata?.operation === 'remove' ? 'Removed' : 'Added'} ${event.metadata?.property_title || 'a property'} ${event.metadata?.operation === 'remove' ? 'from' : 'to'} the shortlist`;
+  }
   if (event.event_type === 'note_added') return 'Progress note added';
   if (event.event_type === 'lead_updated') return 'Lead details updated by COP';
   if (event.event_type === 'notification_sent') return 'Email notification sent';
   if (event.event_type === 'notification_failed') return 'Email notification failed';
   return String(event.event_type || 'Activity').replaceAll('_', ' ');
+}
+
+function formatMoment(value) {
+  if (!value) return 'Not yet';
+  return new Date(value).toLocaleString(undefined, {
+    day: 'numeric',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+function formatPropertyPrice(price, currency = 'EUR') {
+  if (!price) return 'Price on listing';
+  try {
+    return new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 0,
+    }).format(Number(price));
+  } catch {
+    return `${currency} ${price}`;
+  }
 }
 
 async function hubRequest(path, options = {}) {
@@ -188,7 +216,170 @@ function Overview({ leads, partners, openLead, setView, startPreview }) {
   );
 }
 
-function LeadsView({ leads, partners, role, previewPartner, openLead }) {
+function ShortlistCards({ shortlist, emptyCopy }) {
+  if (!shortlist?.length) {
+    return (
+      <div className="studio-shortlist-empty">
+        <span>⌂</span>
+        <div><strong>No homes shortlisted yet</strong><p>{emptyCopy}</p></div>
+      </div>
+    );
+  }
+  return (
+    <div className="studio-shortlist-grid">
+      {shortlist.map((property) => (
+        <a key={property.id} href={property.property_url} target="_blank" rel="noreferrer" className="studio-property-card">
+          <span className="studio-property-image" style={property.property_image ? { backgroundImage: `url("${property.property_image}")` } : undefined} />
+          <span className="studio-property-copy">
+            <small>{property.property_location || 'COP COLLECTION'}</small>
+            <strong>{property.property_title}</strong>
+            <em>{formatPropertyPrice(property.property_price, property.property_currency)} <b>View listing ↗</b></em>
+          </span>
+        </a>
+      ))}
+    </div>
+  );
+}
+
+function EngagementPanel({ lead, events }) {
+  const received = events.find((event) => event.event_type === 'lead_created')?.created_at || lead.createdAt;
+  const viewed = events.find((event) => event.event_type === 'lead_viewed')?.created_at;
+  const contacted = events.find((event) => event.event_type === 'stage_changed' && event.to_stage !== 'New')?.created_at
+    || (lead.stage !== 'New' ? lead.updatedAt : null);
+  const viewing = events.find((event) => event.event_type === 'stage_changed' && ['Viewing', 'Reserved', 'Deposit paid', 'Won'].includes(event.to_stage))?.created_at
+    || (['Viewing', 'Reserved', 'Deposit paid', 'Won'].includes(lead.stage) ? lead.updatedAt : null);
+  const milestones = [
+    ['Lead received', received],
+    ['Partner viewed', viewed],
+    ['Client contacted', contacted],
+    ['Viewing booked', viewing],
+  ];
+  return (
+    <div className="studio-engagement" aria-label="Lead engagement">
+      {milestones.map(([label, date], index) => (
+        <div key={label} className={date ? 'complete' : ''}>
+          <span>{date ? '✓' : index + 1}</span>
+          <strong>{label}</strong>
+          <small>{formatMoment(date)}</small>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, showToast }) {
+  const readOnly = Boolean(previewPartner);
+  const [selectedId, setSelectedId] = useState(leads[0]?.id || '');
+  const [detail, setDetail] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [busy, setBusy] = useState('');
+  const [helpNote, setHelpNote] = useState('');
+
+  useEffect(() => {
+    if (!leads.some((lead) => lead.id === selectedId)) setSelectedId(leads[0]?.id || '');
+  }, [leads, selectedId]);
+
+  useEffect(() => {
+    let active = true;
+    if (!selectedId) { setDetail(null); return () => { active = false; }; }
+    setDetail(null);
+    setLoading(true);
+    hubRequest(`/api/partner-hub/leads/${selectedId}`)
+      .then((payload) => { if (active) setDetail(payload); })
+      .catch((error) => { if (active) showToast(error.message, true); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [selectedId]);
+
+  if (!leads.length) {
+    return <section className="studio-empty"><span>▥</span><h2>No assigned leads yet</h2><p>A new COP introduction will appear here as soon as it is assigned.</p></section>;
+  }
+  const summary = leads.find((lead) => lead.id === selectedId) || leads[0];
+  const lead = detail?.lead || summary;
+  const events = detail?.events || [];
+  const notes = detail?.notes || [];
+  const latestCopNote = [...notes].reverse().find((note) => note.author_role === 'admin');
+
+  async function markContacted() {
+    if (readOnly || lead.stage !== 'New') { openLead(lead.id); return; }
+    setBusy('stage');
+    try {
+      const payload = await hubRequest(`/api/partner-hub/leads/${lead.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ action: 'stage', stage: 'Contacted' }),
+      });
+      onChanged(payload.lead);
+      const refreshed = await hubRequest(`/api/partner-hub/leads/${lead.id}`);
+      setDetail(refreshed);
+      showToast('Lead marked as contacted and COP notified.');
+    } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
+  }
+
+  async function requestHelp(event) {
+    event.preventDefault();
+    if (!helpNote.trim()) return showToast('Tell COP what help you need.', true);
+    setBusy('help');
+    try {
+      const payload = await hubRequest(`/api/partner-hub/leads/${lead.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ action: 'request_help', note: helpNote }),
+      });
+      onChanged(payload.lead);
+      setHelpNote('');
+      const refreshed = await hubRequest(`/api/partner-hub/leads/${lead.id}`);
+      setDetail(refreshed);
+      showToast(payload.notification?.status === 'failed' ? 'Request saved; the COP email needs attention.' : 'COP has received your help request.');
+    } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
+  }
+
+  return (
+    <section className="lead-studio">
+      <div className="studio-heading studio-title-banner">
+        <div><p className="mini-label">{lead.partner} · PRIVATE LEAD WORKSPACE</p><h2>Focus on the relationship.</h2><p>Everything needed to move this opportunity forward, in one secure view.</p></div>
+        <button type="button" onClick={() => openLead(lead.id)}>Open full lead <span>↗</span></button>
+      </div>
+      <div className="studio-layout">
+        <div className="studio-main">
+          <article className="studio-identity-card">
+            <div className="studio-status-row"><span className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</span>{lead.isTest && <span className="test-badge">TEST LEAD</span>}<small>Updated {lead.age}</small></div>
+            <h3>{lead.name}</h3>
+            <div className="studio-contact-row"><a href={`mailto:${lead.email}`}>✉ {lead.email}</a><a href={lead.phone ? `tel:${lead.phone}` : undefined}>☎ {lead.phone || 'No phone supplied'}</a><span>◎ {lead.location}</span></div>
+            <div className="studio-action-row">
+              <button type="button" disabled={busy === 'stage' || readOnly} onClick={markContacted}>{busy === 'stage' ? 'Saving…' : lead.stage === 'New' ? 'Mark contacted' : 'Update stage'}</button>
+              <button type="button" onClick={() => openLead(lead.id)}>Add progress note</button>
+            </div>
+          </article>
+
+          <article className="studio-card">
+            <header><div><small>ENGAGEMENT</small><h3>Lead journey</h3></div><span>Live audit trail</span></header>
+            <EngagementPanel lead={lead} events={events} />
+          </article>
+
+          <div className="studio-two-column">
+            <article className="studio-card studio-context"><small>ORIGINAL CONTEXT</small><h3>What the client wants</h3><p>{lead.note}</p><dl><div><dt>Budget</dt><dd>{lead.budget}</dd></div><div><dt>Nationality</dt><dd>{lead.nationality || 'Not supplied'}</dd></div></dl></article>
+            <article className="studio-card studio-next"><small>NEXT ACTION</small><h3>{lead.stage === 'New' ? 'Make the first contact' : 'Keep the opportunity moving'}</h3><p>{latestCopNote?.body || 'Add a progress note after the next client conversation so both teams stay aligned.'}</p><button type="button" onClick={() => openLead(lead.id)}>Update lead →</button></article>
+          </div>
+
+          <article className="studio-card">
+            <header><div><small>PROPERTY SHORTLIST</small><h3>Homes selected by COP</h3></div><span>{detail?.shortlist?.length || 0} saved</span></header>
+            <ShortlistCards shortlist={detail?.shortlist || []} emptyCopy={readOnly ? 'Add live COP listings from the administrator lead drawer.' : 'COP will add suitable homes here, each linking to the full listing.'} />
+          </article>
+        </div>
+
+        <aside className="studio-rail">
+          <article className="studio-lead-switcher"><header><strong>All assigned leads</strong><small>{leads.length}</small></header>{leads.map((item) => <button type="button" className={item.id === lead.id ? 'active' : ''} key={item.id} onClick={() => setSelectedId(item.id)}><i>{item.initials}</i><span><strong>{item.name}</strong><small>{item.location} · {item.stage}</small></span><b>›</b></button>)}</article>
+          <article className="studio-help-card">
+            <span>?</span><h3>Request help from COP</h3><p>Ask for client context, property guidance, or help arranging the next step.</p>
+            {readOnly ? <button type="button" disabled>Available to signed-in partner members</button> : <form onSubmit={requestHelp}><textarea value={helpNote} onChange={(event) => setHelpNote(event.target.value)} placeholder="How can COP help with this lead?" /><button disabled={busy === 'help'}>{busy === 'help' ? 'Sending…' : 'Send request to COP'}</button></form>}
+          </article>
+        </aside>
+      </div>
+      {loading && <div className="studio-loading">Refreshing secure lead…</div>}
+    </section>
+  );
+}
+
+function LeadsView({ leads, partners, role, previewPartner, openLead, onChanged, showToast }) {
   const [search, setSearch] = useState('');
   const [stage, setStage] = useState('');
   const [partnerId, setPartnerId] = useState(previewPartner?.id || '');
@@ -197,6 +388,10 @@ function LeadsView({ leads, partners, role, previewPartner, openLead }) {
     const haystack = `${lead.name} ${lead.email} ${lead.phone}`.toLowerCase();
     return (!search || haystack.includes(search.toLowerCase())) && (!stage || lead.stage === stage) && (!partnerId || lead.partnerId === partnerId);
   });
+
+  if (role === 'partner' || previewPartner) {
+    return <PartnerLeadStudio leads={leads} role={role} previewPartner={previewPartner} openLead={openLead} onChanged={onChanged} showToast={showToast} />;
+  }
 
   return (
     <section className="view-card full-view">
@@ -358,6 +553,116 @@ function PartnerAccess({ partners, members, onPartnerChanged, onMemberChanged, s
   );
 }
 
+function ShortlistEditor({ lead, shortlist, onRefresh, showToast }) {
+  const [catalogue, setCatalogue] = useState([]);
+  const [search, setSearch] = useState('');
+  const [busy, setBusy] = useState('');
+
+  useEffect(() => {
+    let active = true;
+    hubRequest('/api/partner-hub/properties')
+      .then((payload) => { if (active) setCatalogue(payload.properties || []); })
+      .catch((error) => { if (active) showToast(error.message, true); });
+    return () => { active = false; };
+  }, []);
+
+  const savedSlugs = new Set(shortlist.map((property) => property.property_slug));
+  const matches = catalogue.filter((property) => {
+    const haystack = `${property.title} ${property.location} ${property.slug}`.toLowerCase();
+    return !search || haystack.includes(search.toLowerCase());
+  }).slice(0, 12);
+
+  async function updateShortlist(operation, propertySlug) {
+    setBusy(`${operation}-${propertySlug}`);
+    try {
+      await hubRequest(`/api/partner-hub/leads/${lead.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ action: 'shortlist', operation, propertySlug }),
+      });
+      await onRefresh();
+      showToast(operation === 'add' ? 'COP listing added to the partner shortlist.' : 'Listing removed from the partner shortlist.');
+    } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
+  }
+
+  return (
+    <section className="drawer-section shortlist-editor">
+      <small>PROPERTY SHORTLIST</small>
+      {shortlist.length > 0 && <div className="drawer-shortlist-saved">{shortlist.map((property) => <div key={property.id}><span className="drawer-property-thumb" style={property.property_image ? { backgroundImage: `url("${property.property_image}")` } : undefined} /><span><strong>{property.property_title}</strong><small>{property.property_location || 'COP listing'}</small></span><button type="button" disabled={busy === `remove-${property.property_slug}`} onClick={() => updateShortlist('remove', property.property_slug)}>Remove</button></div>)}</div>}
+      <label className="shortlist-search">Choose from live COP listings<input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search property, destination or slug…" /></label>
+      <div className="shortlist-catalogue">
+        {matches.map((property) => {
+          const saved = savedSlugs.has(property.slug);
+          return <div key={property.slug}><span className="drawer-property-thumb" style={property.image ? { backgroundImage: `url("${property.image}")` } : undefined} /><span><strong>{property.title}</strong><small>{property.location || 'COP listing'} · {formatPropertyPrice(property.price, property.currency)}</small></span><button type="button" disabled={saved || busy === `add-${property.slug}`} onClick={() => updateShortlist('add', property.slug)}>{saved ? 'Added' : busy === `add-${property.slug}` ? 'Adding…' : '+ Add'}</button></div>;
+        })}
+      </div>
+    </section>
+  );
+}
+
+function AdminLeadEditor({ lead, onSaved, showToast }) {
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [fields, setFields] = useState({
+    firstName: lead.firstName,
+    lastName: lead.lastName,
+    email: lead.email,
+    phone: lead.phone,
+    nationality: lead.nationality,
+    destination: lead.location === '—' ? '' : lead.location,
+    collectionType: lead.collection === '—' ? '' : lead.collection,
+    budget: lead.budget === 'Not specified' ? '' : lead.budget,
+    preferences: lead.note === 'No additional context supplied.' ? '' : lead.note,
+  });
+
+  useEffect(() => {
+    setFields({
+      firstName: lead.firstName,
+      lastName: lead.lastName,
+      email: lead.email,
+      phone: lead.phone,
+      nationality: lead.nationality,
+      destination: lead.location === '—' ? '' : lead.location,
+      collectionType: lead.collection === '—' ? '' : lead.collection,
+      budget: lead.budget === 'Not specified' ? '' : lead.budget,
+      preferences: lead.note === 'No additional context supplied.' ? '' : lead.note,
+    });
+  }, [lead.id, lead.updatedAt]);
+
+  function field(name, value) { setFields((current) => ({ ...current, [name]: value })); }
+
+  async function save(event) {
+    event.preventDefault();
+    setSaving(true);
+    try {
+      const payload = await hubRequest(`/api/partner-hub/leads/${lead.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ action: 'edit', fields }),
+      });
+      await onSaved(payload.lead);
+      setEditing(false);
+      showToast('Lead contact details updated for COP and the assigned partner.');
+    } catch (error) { showToast(error.message, true); } finally { setSaving(false); }
+  }
+
+  return (
+    <section className="drawer-section admin-lead-editor">
+      <div className="drawer-section-heading"><small>ADMIN LEAD DETAILS</small><button type="button" onClick={() => setEditing((current) => !current)}>{editing ? 'Cancel' : 'Edit details'}</button></div>
+      {!editing ? <p className="editor-readback">Correct the client&apos;s name, email, phone, destination, budget or original context here. Changes appear immediately in the assigned partner workspace.</p> : <form className="edit-lead-grid" onSubmit={save}>
+        <label>First name<input required value={fields.firstName} onChange={(event) => field('firstName', event.target.value)} /></label>
+        <label>Last name<input required value={fields.lastName} onChange={(event) => field('lastName', event.target.value)} /></label>
+        <label className="wide">Email address<input required type="email" value={fields.email} onChange={(event) => field('email', event.target.value)} /></label>
+        <label>Phone<input value={fields.phone} onChange={(event) => field('phone', event.target.value)} /></label>
+        <label>Nationality<input value={fields.nationality} onChange={(event) => field('nationality', event.target.value)} /></label>
+        <label className="wide">Destination<input value={fields.destination} onChange={(event) => field('destination', event.target.value)} /></label>
+        <label>Property type<input value={fields.collectionType} onChange={(event) => field('collectionType', event.target.value)} /></label>
+        <label>Budget<input value={fields.budget} onChange={(event) => field('budget', event.target.value)} /></label>
+        <label className="wide">Original context<textarea value={fields.preferences} onChange={(event) => field('preferences', event.target.value)} /></label>
+        <button className="save-details" disabled={saving}>{saving ? 'Saving…' : 'Save corrected lead details'}</button>
+      </form>}
+    </section>
+  );
+}
+
 function LeadDrawer({ leadId, role, readOnly, onClose, onChanged, showToast }) {
   const [detail, setDetail] = useState(null);
   const [stage, setStage] = useState('New');
@@ -413,6 +718,9 @@ function LeadDrawer({ leadId, role, readOnly, onClose, onChanged, showToast }) {
         <section className="drawer-section"><small>LEAD DETAILS</small><div className="lead-detail-list"><p><span>✉</span>{lead.email}</p><p><span>☎</span>{lead.phone || 'No phone supplied'}</p><p><span>◎</span>{lead.nationality || 'Nationality not supplied'}</p><p><span>▥</span>{lead.location}</p><p><span>€</span>{lead.budget}</p></div></section>
         <section className="drawer-section"><small>ASSIGNED PARTNER</small><div className="drawer-partner"><span>{lead.partner.slice(0, 2)}</span><div><strong>{lead.partner}</strong><p>Lead shared by Co-Ownership Property</p></div></div></section>
         <section className="drawer-section"><small>ORIGINAL LEAD CONTEXT</small><p className="note-box">{lead.note}</p></section>
+        {role === 'admin' && !readOnly && <AdminLeadEditor lead={lead} onSaved={async (updated) => { onChanged(updated); setDetail(await hubRequest(`/api/partner-hub/leads/${lead.id}`)); }} showToast={showToast} />}
+        {role === 'admin' && !readOnly && <ShortlistEditor lead={lead} shortlist={detail.shortlist || []} onRefresh={async () => setDetail(await hubRequest(`/api/partner-hub/leads/${lead.id}`))} showToast={showToast} />}
+        {(role === 'partner' || readOnly) && <section className="drawer-section"><small>PROPERTY SHORTLIST</small><ShortlistCards shortlist={detail.shortlist || []} emptyCopy={readOnly ? 'Add live COP listings from the administrator lead drawer.' : 'COP will add suitable homes here.'} /></section>}
         {notes.length > 0 && <section className="drawer-section"><small>PROGRESS NOTES</small><div className="drawer-timeline">{notes.map((item) => <div key={item.id}><i className={item.author_role === 'partner' ? 'partner-event' : ''}>{item.author_role === 'partner' ? 'P' : 'CO'}</i><div><strong>{item.body}</strong><small>{item.author_role} · {new Date(item.created_at).toLocaleString()}</small></div></div>)}</div></section>}
         {events.length > 0 && <section className="drawer-section"><small>AUDIT TRAIL</small><div className="drawer-timeline">{events.map((item) => <div key={item.id}><i className={item.actor_role === 'partner' ? 'partner-event' : ''}>✓</i><div><strong>{formatEvent(item)}</strong><small>{new Date(item.created_at).toLocaleString()}</small></div></div>)}</div></section>}
         {!readOnly && <form className="partner-pipeline-form" onSubmit={saveProgress}>
@@ -508,7 +816,7 @@ export default function PartnerHubWorkspace({ entry = 'admin' }) {
         <main className="workspace">
           <Topbar role={access.role} title={title} setView={setView} previewPartner={previewPartner} />
           {view === 'overview' && access.role === 'admin' && <Overview leads={leads} partners={partners} openLead={setSelectedLeadId} setView={setView} startPreview={startPreview} />}
-          {view === 'leads' && <LeadsView leads={visibleLeads} partners={partners} role={access.role} previewPartner={previewPartner} openLead={setSelectedLeadId} />}
+          {view === 'leads' && <LeadsView leads={visibleLeads} partners={partners} role={access.role} previewPartner={previewPartner} openLead={setSelectedLeadId} onChanged={updateLead} showToast={showToast} />}
           {view === 'submit' && access.role === 'admin' && <SubmitLead partners={partners} onCreated={(lead) => { setLeads((current) => [lead, ...current]); setView('leads'); }} showToast={showToast} />}
           {view === 'access' && access.role === 'admin' && <PartnerAccess partners={partners} members={members} onPartnerChanged={(next) => setPartners((current) => current.map((partner) => partner.id === next.id ? next : partner))} onMemberChanged={(next) => setMembers((current) => current.some((member) => member.id === next.id) ? current.map((member) => member.id === next.id ? next : member) : [next, ...current])} showToast={showToast} startPreview={startPreview} />}
         </main>

@@ -81,6 +81,18 @@ try {
   assert.equal(leads.length, 2);
   createdLeads.push(...leads.map((lead) => lead.id));
 
+  const { error: shortlistSeedError } = await admin.from('partner_hub_shortlist_items').insert(
+    leads.map((lead) => ({
+      lead_id: lead.id,
+      partner_id: lead.partner_id,
+      property_slug: `automated-shortlist-${lead.partner_id.toLowerCase()}-${suffix}`,
+      property_title: `Automated ${lead.partner_id} shortlist item`,
+      property_url: `https://co-ownership-property.com/property/automated-${lead.partner_id.toLowerCase()}/`,
+      property_location: 'Isolation test',
+    }))
+  );
+  assert.ifError(shortlistSeedError);
+
   const sessions = new Map();
   for (const identity of identities) {
     const client = browserClient();
@@ -114,6 +126,14 @@ try {
     const { data: notificationRows, error: notificationError } = await client.from('partner_hub_notifications').select('id');
     assert.ifError(notificationError);
     assert.equal(notificationRows.length, 0, 'Partner users must not read notification recipient logs');
+
+    const { data: shortlistRows, error: shortlistError } = await client
+      .from('partner_hub_shortlist_items')
+      .select('lead_id, partner_id');
+    assert.ifError(shortlistError);
+    assert.equal(shortlistRows.length, 1);
+    assert.equal(shortlistRows[0].lead_id, ownLead.id);
+    assert.equal(shortlistRows[0].partner_id, identity.partnerId);
   }
 
   if (baseUrl) {
@@ -128,6 +148,42 @@ try {
 
     const guessed = await api(token, `/api/partner-hub/leads/${otherLead.id}`);
     assert.equal(guessed.response.status, 404, 'Cross-partner API lead lookup must be indistinguishable from missing data');
+
+    const opened = await api(token, `/api/partner-hub/leads/${vivlaLead.id}`);
+    assert.equal(opened.response.status, 200);
+    assert.ok(opened.payload.events.some((event) => event.event_type === 'lead_viewed'));
+
+    const openedAgain = await api(token, `/api/partner-hub/leads/${vivlaLead.id}`);
+    assert.equal(openedAgain.response.status, 200);
+    const { count: viewCount, error: viewCountError } = await admin
+      .from('partner_hub_events')
+      .select('id', { count: 'exact', head: true })
+      .eq('lead_id', vivlaLead.id)
+      .eq('event_type', 'lead_viewed');
+    assert.ifError(viewCountError);
+    assert.equal(viewCount, 1, 'Opening the same lead twice must keep a single first-view event per partner login');
+
+    const help = await api(token, `/api/partner-hub/leads/${vivlaLead.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ action: 'request_help', note: 'Please help arrange the next client call.' }),
+    });
+    assert.equal(help.response.status, 200);
+    assert.equal(help.payload.notification.status, 'skipped');
+
+    const forbiddenHelp = await api(token, `/api/partner-hub/leads/${otherLead.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ action: 'request_help', note: 'This must not be accepted.' }),
+    });
+    assert.equal(forbiddenHelp.response.status, 404, 'Cross-partner help requests must not be accepted');
+
+    const { data: helpEvents, error: helpEventError } = await admin
+      .from('partner_hub_events')
+      .select('event_type, partner_id')
+      .eq('lead_id', vivlaLead.id)
+      .eq('event_type', 'help_requested');
+    assert.ifError(helpEventError);
+    assert.equal(helpEvents.length, 1);
+    assert.equal(helpEvents[0].partner_id, 'Vivla');
 
     const updated = await api(token, `/api/partner-hub/leads/${vivlaLead.id}`, {
       method: 'PATCH',
@@ -148,6 +204,8 @@ try {
     duplicateMembership: 'denied',
     apiIsolation: baseUrl ? 'passed' : 'not requested',
     apiPersistence: baseUrl ? 'passed with email delivery disabled' : 'not requested',
+    engagement: baseUrl ? 'first partner view persisted once' : 'not requested',
+    helpRequest: baseUrl ? 'persisted and cross-partner request denied' : 'not requested',
   }, null, 2));
 } finally {
   if (createdLeads.length) await admin.from('partner_hub_leads').delete().in('id', createdLeads);
