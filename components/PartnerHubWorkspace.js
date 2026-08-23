@@ -50,33 +50,76 @@ function BudgetSelect({ value, onChange, id, required = false }) {
   );
 }
 
-function DialCodeSelect({ value, onChange, id }) {
+function SearchableCountryInput({ value, onChange, id, options, ariaLabel, className = '' }) {
+  const selectedLabel = options.find((option) => option.value === value)?.label || value || '';
+  const [query, setQuery] = useState(selectedLabel);
+
+  useEffect(() => { setQuery(selectedLabel); }, [selectedLabel]);
+
+  function matchOption(rawValue) {
+    const normalized = rawValue.trim().toLocaleLowerCase();
+    return options.find((option) => option.label.toLocaleLowerCase() === normalized || option.value.toLocaleLowerCase() === normalized);
+  }
+
+  function updateQuery(nextQuery) {
+    setQuery(nextQuery);
+    if (!nextQuery.trim()) {
+      onChange('');
+      return;
+    }
+    const match = matchOption(nextQuery);
+    if (match) onChange(match.value);
+  }
+
+  function finishSearch() {
+    if (!query.trim()) {
+      onChange('');
+      setQuery('');
+      return;
+    }
+    const match = matchOption(query);
+    if (match) {
+      onChange(match.value);
+      setQuery(match.label);
+    } else {
+      setQuery(selectedLabel);
+    }
+  }
+
   return (
-    <select id={id} value={value} onChange={(event) => onChange(event.target.value)} aria-label="International dialling code">
-      <optgroup label="UK & Europe">
-        {EUROPE_DIAL_CODES.map(([country, code]) => <option key={`${country}-${code}`} value={code}>{country} {code}</option>)}
-      </optgroup>
-      <optgroup label="International">
-        {INTERNATIONAL_DIAL_CODES.map(([country, code]) => <option key={`${country}-${code}`} value={code}>{country} {code}</option>)}
-      </optgroup>
-    </select>
+    <>
+      <input
+        id={id}
+        className={className}
+        type="search"
+        list={`${id}-options`}
+        value={query}
+        autoComplete="off"
+        spellCheck="false"
+        aria-label={ariaLabel}
+        placeholder="Type a country or first letter…"
+        onFocus={(event) => event.currentTarget.select()}
+        onChange={(event) => updateQuery(event.target.value)}
+        onBlur={finishSearch}
+      />
+      <datalist id={`${id}-options`}>
+        {options.map((option) => <option key={`${option.label}-${option.value}`} value={option.label}>{option.value !== option.label ? option.value : ''}</option>)}
+      </datalist>
+    </>
   );
+}
+
+function DialCodeSelect({ value, onChange, id }) {
+  const options = [...EUROPE_DIAL_CODES, ...INTERNATIONAL_DIAL_CODES].map(([country, code]) => ({ label: `${country} ${code}`, value: code }));
+  return <SearchableCountryInput id={id} className="dial-code-search" value={value} onChange={onChange} options={options} ariaLabel="Search international dialling code" />;
 }
 
 function NationalitySelect({ value, onChange, id }) {
   const known = EUROPE_COUNTRIES.includes(value) || INTERNATIONAL_COUNTRIES.includes(value);
-  return (
-    <select id={id} value={value} onChange={(event) => onChange(event.target.value)}>
-      <option value="">Select nationality</option>
-      {value && !known && <option value={value}>{value} (existing value)</option>}
-      <optgroup label="UK & Europe">
-        {EUROPE_COUNTRIES.map((country) => <option key={country} value={country}>{country}</option>)}
-      </optgroup>
-      <optgroup label="International">
-        {INTERNATIONAL_COUNTRIES.map((country) => <option key={country} value={country}>{country}</option>)}
-      </optgroup>
-    </select>
-  );
+  const countries = [...EUROPE_COUNTRIES, ...INTERNATIONAL_COUNTRIES];
+  const options = countries.map((country) => ({ label: country, value: country }));
+  if (value && !known) options.unshift({ label: value, value });
+  return <SearchableCountryInput id={id} value={value} onChange={onChange} options={options} ariaLabel="Search nationality" />;
 }
 
 function DestinationSelect({ value, onChange, destinations, id }) {
