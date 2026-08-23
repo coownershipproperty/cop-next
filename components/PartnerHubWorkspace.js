@@ -52,51 +52,46 @@ function BudgetSelect({ value, onChange, id, required = false }) {
 
 function SearchableCountryInput({ value, onChange, id, options, ariaLabel, className = '' }) {
   const selectedLabel = options.find((option) => option.value === value)?.label || value || '';
-  const [query, setQuery] = useState(selectedLabel);
-
-  useEffect(() => { setQuery(selectedLabel); }, [selectedLabel]);
 
   function matchOption(rawValue) {
     const normalized = rawValue.trim().toLocaleLowerCase();
     return options.find((option) => option.label.toLocaleLowerCase() === normalized || option.value.toLocaleLowerCase() === normalized);
   }
 
-  function updateQuery(nextQuery) {
-    setQuery(nextQuery);
-    if (!nextQuery.trim()) return;
-    const match = matchOption(nextQuery);
-    if (match) onChange(match.value);
-  }
-
-  function finishSearch() {
-    if (!query.trim()) {
+  function finishSearch(event) {
+    const input = event.currentTarget;
+    if (!input.value.trim()) {
       onChange('');
-      setQuery('');
+      input.value = '';
       return;
     }
-    const match = matchOption(query);
+    const match = matchOption(input.value);
     if (match) {
       onChange(match.value);
-      setQuery(match.label);
+      input.value = match.label;
     } else {
-      setQuery(selectedLabel);
+      input.value = selectedLabel;
     }
   }
 
   return (
     <>
       <input
+        key={selectedLabel || 'empty'}
         id={id}
         className={className}
         type="search"
         list={`${id}-options`}
-        value={query}
+        defaultValue={selectedLabel}
         autoComplete="off"
         spellCheck="false"
         aria-label={ariaLabel}
         placeholder="Type a country or first letter…"
         onFocus={(event) => event.currentTarget.select()}
-        onChange={(event) => updateQuery(event.target.value)}
+        onInput={(event) => {
+          const match = matchOption(event.currentTarget.value);
+          if (match) onChange(match.value);
+        }}
         onBlur={finishSearch}
       />
       <datalist id={`${id}-options`}>
@@ -119,14 +114,62 @@ function NationalitySelect({ value, onChange, id }) {
   return <SearchableCountryInput id={id} value={value} onChange={onChange} options={options} ariaLabel="Search nationality" />;
 }
 
-function DestinationSelect({ value, onChange, destinations, id }) {
-  const known = destinations.some((group) => group.regions.includes(value));
+function DestinationMultiSelect({ value, onChange, destinations, id }) {
+  const [query, setQuery] = useState('');
+  const selectedValues = useMemo(() => String(value || '').split(',').map((region) => region.trim()).filter(Boolean), [value]);
+  const knownRegions = useMemo(() => new Set(destinations.flatMap((group) => group.regions)), [destinations]);
+  const unknownValues = selectedValues.filter((region) => !knownRegions.has(region));
+  const normalizedQuery = query.trim().toLocaleLowerCase();
+  const filteredDestinations = destinations
+    .map((group) => ({
+      ...group,
+      regions: group.regions.filter((region) => !normalizedQuery || group.country.toLocaleLowerCase().includes(normalizedQuery) || region.toLocaleLowerCase().includes(normalizedQuery)),
+    }))
+    .filter((group) => group.regions.length);
+
+  function toggle(region) {
+    const next = selectedValues.includes(region)
+      ? selectedValues.filter((selected) => selected !== region)
+      : [...selectedValues, region];
+    onChange(next.join(', '));
+  }
+
   return (
-    <select id={id} value={value} onChange={(event) => onChange(event.target.value)}>
-      <option value="">Select destination</option>
-      {value && !known && <option value={value}>{value} (existing value)</option>}
-      {destinations.map((group) => <optgroup key={group.country} label={group.country}>{group.regions.map((region) => <option key={`${group.country}-${region}`} value={region}>{region}</option>)}</optgroup>)}
-    </select>
+    <details className="destination-multi" id={id}>
+      <summary>
+        <span>{selectedValues.length ? selectedValues.join(', ') : 'Select one or more destinations'}</span>
+        <b>{selectedValues.length || '＋'}</b>
+      </summary>
+      <div className="destination-multi-panel">
+        <input
+          className="destination-multi-search"
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search destinations…"
+          aria-label="Search destinations"
+          autoComplete="off"
+        />
+        <div className="destination-multi-groups">
+          {unknownValues.length > 0 && <section className="destination-multi-group">
+            <h4>Existing selections</h4>
+            <div className="destination-multi-options">
+              {unknownValues.map((region) => <button className="destination-multi-option selected" type="button" key={`existing-${region}`} onClick={() => toggle(region)} aria-pressed="true"><span>{region}</span><b>✓</b></button>)}
+            </div>
+          </section>}
+          {filteredDestinations.map((group) => <section className="destination-multi-group" key={group.country}>
+            <h4>{group.country}</h4>
+            <div className="destination-multi-options">
+              {group.regions.map((region) => {
+                const selected = selectedValues.includes(region);
+                return <button className={`destination-multi-option${selected ? ' selected' : ''}`} type="button" key={`${group.country}-${region}`} onClick={() => toggle(region)} aria-pressed={selected}><span>{region}</span><b>{selected ? '✓' : '+'}</b></button>;
+              })}
+            </div>
+          </section>)}
+          {filteredDestinations.length === 0 && <p className="destination-multi-empty">No matching destination.</p>}
+        </div>
+      </div>
+    </details>
   );
 }
 
@@ -555,7 +598,7 @@ function SubmitLead({ partners, destinations, onCreated, showToast }) {
           <label>Email address<input required type="email" value={form.email} onChange={(e) => field('email', e.target.value)} /></label>
           <label>Phone number<div className="phone-field"><DialCodeSelect id="new-lead-phone-code" value={form.phoneDialCode} onChange={(value) => field('phoneDialCode', value)} /><input type="tel" autoComplete="tel-national" value={form.phone} onChange={(e) => field('phone', e.target.value)} placeholder="7700 900 000" /></div></label>
           <label>Nationality<NationalitySelect id="new-lead-nationality" value={form.nationality} onChange={(value) => field('nationality', value)} /></label>
-          <label>Destination<DestinationSelect id="new-lead-destination" value={form.destination} onChange={(value) => field('destination', value)} destinations={destinations} /></label>
+          <div className="field-group"><span>Destination</span><DestinationMultiSelect id="new-lead-destination" value={form.destination} onChange={(value) => field('destination', value)} destinations={destinations} /></div>
         </div></fieldset>
         <fieldset disabled={!selected} className={!selected ? 'form-section-locked' : ''}><legend>Opportunity</legend><div className="form-grid">
           <label>Collection or property type<input value={form.collectionType} onChange={(e) => field('collectionType', e.target.value)} placeholder="Managed co-ownership" /></label>
@@ -773,7 +816,7 @@ function AdminLeadEditor({ lead, destinations, onSaved, showToast }) {
         <label className="wide">Email address<input required type="email" value={fields.email} onChange={(event) => field('email', event.target.value)} /></label>
         <label className="wide">Phone number<div className="phone-field"><DialCodeSelect id={`edit-lead-phone-code-${lead.id}`} value={fields.phoneDialCode} onChange={(value) => field('phoneDialCode', value)} /><input type="tel" autoComplete="tel-national" value={fields.phone} onChange={(event) => field('phone', event.target.value)} placeholder="7700 900 000" /></div></label>
         <label>Nationality<NationalitySelect id={`edit-lead-nationality-${lead.id}`} value={fields.nationality} onChange={(value) => field('nationality', value)} /></label>
-        <label className="wide">Destination<DestinationSelect id={`edit-lead-destination-${lead.id}`} value={fields.destination} onChange={(value) => field('destination', value)} destinations={destinations} /></label>
+        <div className="field-group wide"><span>Destination</span><DestinationMultiSelect id={`edit-lead-destination-${lead.id}`} value={fields.destination} onChange={(value) => field('destination', value)} destinations={destinations} /></div>
         <label>Property type<input value={fields.collectionType} onChange={(event) => field('collectionType', event.target.value)} /></label>
         <label>Budget<BudgetSelect id={`edit-lead-budget-${lead.id}`} value={fields.budget} onChange={(value) => field('budget', value)} /></label>
         <label className="wide">Original context<textarea value={fields.preferences} onChange={(event) => field('preferences', event.target.value)} /></label>

@@ -23,6 +23,9 @@ export default async function handler(req, res) {
     byCountry.get(country).add(region);
   }
 
+  if (!byCountry.has('Spain')) byCountry.set('Spain', new Set());
+  byCountry.get('Spain').add('Balearics');
+
   const destinations = [...byCountry.entries()]
     .map(([country, regions]) => ({ country, regions: [...regions].sort((a, b) => a.localeCompare(b)) }))
     .sort((a, b) => {
