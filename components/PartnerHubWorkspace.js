@@ -756,7 +756,11 @@ function LeadDrawer({ leadId, role, readOnly, destinations, onClose, onChanged, 
     return () => { active = false; };
   }, [leadId]);
 
-  if (!detail) return <div className="drawer-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}><aside className="lead-drawer"><button className="drawer-close" type="button" onClick={onClose}>×</button><div className="hub-loading">Loading secure lead…</div></aside></div>;
+  const isAdminWorkspace = role === 'admin' && !readOnly;
+  const backdropClassName = `drawer-backdrop${isAdminWorkspace ? ' admin-lead-backdrop' : ''}`;
+  const drawerClassName = `lead-drawer${isAdminWorkspace ? ' admin-lead-workspace' : ''}`;
+
+  if (!detail) return <div className={backdropClassName} onMouseDown={(event) => event.target === event.currentTarget && onClose()}><aside className={drawerClassName}><button className="drawer-close" type="button" onClick={onClose}>×</button><div className="hub-loading">Loading secure lead…</div></aside></div>;
   const { lead, notes, events } = detail;
 
   async function saveProgress(event) {
@@ -789,8 +793,8 @@ function LeadDrawer({ leadId, role, readOnly, destinations, onClose, onChanged, 
   }
 
   return (
-    <div className="drawer-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <aside className="lead-drawer" aria-label={`${lead.name} details`}>
+    <div className={backdropClassName} onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <aside className={drawerClassName} aria-label={`${lead.name} details`}>
         <button className="drawer-close" type="button" onClick={onClose} aria-label="Close">×</button>
         <span className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</span>
         <div className="drawer-person"><span>{lead.initials}</span><div><h2>{lead.name}</h2><p>{lead.location}{lead.isTest ? ' · SYNTHETIC TEST LEAD' : ''}</p></div></div>
