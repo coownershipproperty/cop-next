@@ -3,6 +3,14 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import { PARTNER_HUB_STAGES } from '@/lib/partnerHub';
+import {
+  EUROPE_DIAL_CODES,
+  EUROPE_COUNTRIES,
+  INTERNATIONAL_DIAL_CODES,
+  INTERNATIONAL_COUNTRIES,
+  joinInternationalPhone,
+  splitInternationalPhone,
+} from '@/lib/internationalDialCodes';
 
 const EMPTY_LEAD = {
   partnerId: '',
@@ -10,6 +18,7 @@ const EMPTY_LEAD = {
   lastName: '',
   email: '',
   phone: '',
+  phoneDialCode: '+44',
   nationality: '',
   destination: '',
   collectionType: '',
@@ -19,6 +28,67 @@ const EMPTY_LEAD = {
   notifyPartner: true,
   isTest: true,
 };
+
+const PARTNER_HUB_BUDGET_RANGES = [
+  '€50,000–€100,000',
+  '€100,000–€200,000',
+  '€200,000–€350,000',
+  '€350,000–€500,000',
+  '€500,000–€750,000',
+  '€750,000–€1,000,000',
+  '€1,000,000+',
+];
+
+function BudgetSelect({ value, onChange, id, required = false }) {
+  const customValue = value && !PARTNER_HUB_BUDGET_RANGES.includes(value);
+  return (
+    <select id={id} value={value} required={required} onChange={(event) => onChange(event.target.value)}>
+      <option value="">Select approximate budget</option>
+      {customValue && <option value={value}>{value} (existing value)</option>}
+      {PARTNER_HUB_BUDGET_RANGES.map((range) => <option key={range} value={range}>{range}</option>)}
+    </select>
+  );
+}
+
+function DialCodeSelect({ value, onChange, id }) {
+  return (
+    <select id={id} value={value} onChange={(event) => onChange(event.target.value)} aria-label="International dialling code">
+      <optgroup label="UK & Europe">
+        {EUROPE_DIAL_CODES.map(([country, code]) => <option key={`${country}-${code}`} value={code}>{country} {code}</option>)}
+      </optgroup>
+      <optgroup label="International">
+        {INTERNATIONAL_DIAL_CODES.map(([country, code]) => <option key={`${country}-${code}`} value={code}>{country} {code}</option>)}
+      </optgroup>
+    </select>
+  );
+}
+
+function NationalitySelect({ value, onChange, id }) {
+  const known = EUROPE_COUNTRIES.includes(value) || INTERNATIONAL_COUNTRIES.includes(value);
+  return (
+    <select id={id} value={value} onChange={(event) => onChange(event.target.value)}>
+      <option value="">Select nationality</option>
+      {value && !known && <option value={value}>{value} (existing value)</option>}
+      <optgroup label="UK & Europe">
+        {EUROPE_COUNTRIES.map((country) => <option key={country} value={country}>{country}</option>)}
+      </optgroup>
+      <optgroup label="International">
+        {INTERNATIONAL_COUNTRIES.map((country) => <option key={country} value={country}>{country}</option>)}
+      </optgroup>
+    </select>
+  );
+}
+
+function DestinationSelect({ value, onChange, destinations, id }) {
+  const known = destinations.some((group) => group.regions.includes(value));
+  return (
+    <select id={id} value={value} onChange={(event) => onChange(event.target.value)}>
+      <option value="">Select destination</option>
+      {value && !known && <option value={value}>{value} (existing value)</option>}
+      {destinations.map((group) => <optgroup key={group.country} label={group.country}>{group.regions.map((region) => <option key={`${group.country}-${region}`} value={region}>{region}</option>)}</optgroup>)}
+    </select>
+  );
+}
 
 function stageClass(stage) {
   return String(stage || 'new').toLowerCase().replaceAll(' ', '-');
@@ -410,7 +480,7 @@ function LeadsView({ leads, partners, role, previewPartner, openLead, onChanged,
   );
 }
 
-function SubmitLead({ partners, onCreated, showToast }) {
+function SubmitLead({ partners, destinations, onCreated, showToast }) {
   const [form, setForm] = useState(EMPTY_LEAD);
   const [saving, setSaving] = useState(false);
   const selected = partners.find((partner) => partner.id === form.partnerId);
@@ -420,7 +490,10 @@ function SubmitLead({ partners, onCreated, showToast }) {
     event.preventDefault();
     setSaving(true);
     try {
-      const payload = await hubRequest('/api/partner-hub/leads', { method: 'POST', body: JSON.stringify(form) });
+      const payload = await hubRequest('/api/partner-hub/leads', {
+        method: 'POST',
+        body: JSON.stringify({ ...form, phone: joinInternationalPhone(form.phoneDialCode, form.phone) }),
+      });
       onCreated(payload.lead);
       setForm(EMPTY_LEAD);
       showToast(payload.notification?.status === 'failed' ? 'Lead saved; the notification email needs attention.' : `Lead saved${payload.notification?.status === 'sent' ? ' and partner notified.' : '.'}`);
@@ -440,13 +513,13 @@ function SubmitLead({ partners, onCreated, showToast }) {
           <label>First name<input required value={form.firstName} onChange={(e) => field('firstName', e.target.value)} /></label>
           <label>Last name<input required value={form.lastName} onChange={(e) => field('lastName', e.target.value)} /></label>
           <label>Email address<input required type="email" value={form.email} onChange={(e) => field('email', e.target.value)} /></label>
-          <label>Phone number<input value={form.phone} onChange={(e) => field('phone', e.target.value)} /></label>
-          <label>Nationality<input value={form.nationality} onChange={(e) => field('nationality', e.target.value)} /></label>
-          <label>Destination<input value={form.destination} onChange={(e) => field('destination', e.target.value)} placeholder="Mallorca, Côte d’Azur…" /></label>
+          <label>Phone number<div className="phone-field"><DialCodeSelect id="new-lead-phone-code" value={form.phoneDialCode} onChange={(value) => field('phoneDialCode', value)} /><input type="tel" autoComplete="tel-national" value={form.phone} onChange={(e) => field('phone', e.target.value)} placeholder="7700 900 000" /></div></label>
+          <label>Nationality<NationalitySelect id="new-lead-nationality" value={form.nationality} onChange={(value) => field('nationality', value)} /></label>
+          <label>Destination<DestinationSelect id="new-lead-destination" value={form.destination} onChange={(value) => field('destination', value)} destinations={destinations} /></label>
         </div></fieldset>
         <fieldset disabled={!selected} className={!selected ? 'form-section-locked' : ''}><legend>Opportunity</legend><div className="form-grid">
           <label>Collection or property type<input value={form.collectionType} onChange={(e) => field('collectionType', e.target.value)} placeholder="Managed co-ownership" /></label>
-          <label>Approximate budget<input value={form.budget} onChange={(e) => field('budget', e.target.value)} placeholder="€250,000–€500,000" /></label>
+          <label>Approximate budget<BudgetSelect id="new-lead-budget" value={form.budget} onChange={(value) => field('budget', value)} /></label>
           <label className="wide">Context and preferences<textarea value={form.preferences} onChange={(e) => field('preferences', e.target.value)} placeholder="Timing, preferred location and useful sales context…" /></label>
         </div></fieldset>
         <label className={`form-consent ${!selected ? 'locked' : ''}`}><input required disabled={!selected} type="checkbox" checked={form.consentConfirmed} onChange={(e) => field('consentConfirmed', e.target.checked)} /><span>I confirm the customer has consented to their details being shared with the selected partner.</span></label>
@@ -599,14 +672,16 @@ function ShortlistEditor({ lead, shortlist, onRefresh, showToast }) {
   );
 }
 
-function AdminLeadEditor({ lead, onSaved, showToast }) {
+function AdminLeadEditor({ lead, destinations, onSaved, showToast }) {
+  const initialPhone = splitInternationalPhone(lead.phone);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [fields, setFields] = useState({
     firstName: lead.firstName,
     lastName: lead.lastName,
     email: lead.email,
-    phone: lead.phone,
+    phone: initialPhone.localNumber,
+    phoneDialCode: initialPhone.dialCode,
     nationality: lead.nationality,
     destination: lead.location === '—' ? '' : lead.location,
     collectionType: lead.collection === '—' ? '' : lead.collection,
@@ -615,11 +690,13 @@ function AdminLeadEditor({ lead, onSaved, showToast }) {
   });
 
   useEffect(() => {
+    const phone = splitInternationalPhone(lead.phone);
     setFields({
       firstName: lead.firstName,
       lastName: lead.lastName,
       email: lead.email,
-      phone: lead.phone,
+      phone: phone.localNumber,
+      phoneDialCode: phone.dialCode,
       nationality: lead.nationality,
       destination: lead.location === '—' ? '' : lead.location,
       collectionType: lead.collection === '—' ? '' : lead.collection,
@@ -636,7 +713,10 @@ function AdminLeadEditor({ lead, onSaved, showToast }) {
     try {
       const payload = await hubRequest(`/api/partner-hub/leads/${lead.id}`, {
         method: 'PATCH',
-        body: JSON.stringify({ action: 'edit', fields }),
+        body: JSON.stringify({
+          action: 'edit',
+          fields: { ...fields, phone: joinInternationalPhone(fields.phoneDialCode, fields.phone) },
+        }),
       });
       await onSaved(payload.lead);
       setEditing(false);
@@ -651,11 +731,11 @@ function AdminLeadEditor({ lead, onSaved, showToast }) {
         <label>First name<input required value={fields.firstName} onChange={(event) => field('firstName', event.target.value)} /></label>
         <label>Last name<input required value={fields.lastName} onChange={(event) => field('lastName', event.target.value)} /></label>
         <label className="wide">Email address<input required type="email" value={fields.email} onChange={(event) => field('email', event.target.value)} /></label>
-        <label>Phone<input value={fields.phone} onChange={(event) => field('phone', event.target.value)} /></label>
-        <label>Nationality<input value={fields.nationality} onChange={(event) => field('nationality', event.target.value)} /></label>
-        <label className="wide">Destination<input value={fields.destination} onChange={(event) => field('destination', event.target.value)} /></label>
+        <label className="wide">Phone number<div className="phone-field"><DialCodeSelect id={`edit-lead-phone-code-${lead.id}`} value={fields.phoneDialCode} onChange={(value) => field('phoneDialCode', value)} /><input type="tel" autoComplete="tel-national" value={fields.phone} onChange={(event) => field('phone', event.target.value)} placeholder="7700 900 000" /></div></label>
+        <label>Nationality<NationalitySelect id={`edit-lead-nationality-${lead.id}`} value={fields.nationality} onChange={(value) => field('nationality', value)} /></label>
+        <label className="wide">Destination<DestinationSelect id={`edit-lead-destination-${lead.id}`} value={fields.destination} onChange={(value) => field('destination', value)} destinations={destinations} /></label>
         <label>Property type<input value={fields.collectionType} onChange={(event) => field('collectionType', event.target.value)} /></label>
-        <label>Budget<input value={fields.budget} onChange={(event) => field('budget', event.target.value)} /></label>
+        <label>Budget<BudgetSelect id={`edit-lead-budget-${lead.id}`} value={fields.budget} onChange={(value) => field('budget', value)} /></label>
         <label className="wide">Original context<textarea value={fields.preferences} onChange={(event) => field('preferences', event.target.value)} /></label>
         <button className="save-details" disabled={saving}>{saving ? 'Saving…' : 'Save corrected lead details'}</button>
       </form>}
@@ -663,7 +743,7 @@ function AdminLeadEditor({ lead, onSaved, showToast }) {
   );
 }
 
-function LeadDrawer({ leadId, role, readOnly, onClose, onChanged, showToast }) {
+function LeadDrawer({ leadId, role, readOnly, destinations, onClose, onChanged, showToast }) {
   const [detail, setDetail] = useState(null);
   const [stage, setStage] = useState('New');
   const [note, setNote] = useState('');
@@ -718,7 +798,7 @@ function LeadDrawer({ leadId, role, readOnly, onClose, onChanged, showToast }) {
         <section className="drawer-section"><small>LEAD DETAILS</small><div className="lead-detail-list"><p><span>✉</span>{lead.email}</p><p><span>☎</span>{lead.phone || 'No phone supplied'}</p><p><span>◎</span>{lead.nationality || 'Nationality not supplied'}</p><p><span>▥</span>{lead.location}</p><p><span>€</span>{lead.budget}</p></div></section>
         <section className="drawer-section"><small>ASSIGNED PARTNER</small><div className="drawer-partner"><span>{lead.partner.slice(0, 2)}</span><div><strong>{lead.partner}</strong><p>Lead shared by Co-Ownership Property</p></div></div></section>
         <section className="drawer-section"><small>ORIGINAL LEAD CONTEXT</small><p className="note-box">{lead.note}</p></section>
-        {role === 'admin' && !readOnly && <AdminLeadEditor lead={lead} onSaved={async (updated) => { onChanged(updated); setDetail(await hubRequest(`/api/partner-hub/leads/${lead.id}`)); }} showToast={showToast} />}
+        {role === 'admin' && !readOnly && <AdminLeadEditor lead={lead} destinations={destinations} onSaved={async (updated) => { onChanged(updated); setDetail(await hubRequest(`/api/partner-hub/leads/${lead.id}`)); }} showToast={showToast} />}
         {role === 'admin' && !readOnly && <ShortlistEditor lead={lead} shortlist={detail.shortlist || []} onRefresh={async () => setDetail(await hubRequest(`/api/partner-hub/leads/${lead.id}`))} showToast={showToast} />}
         {(role === 'partner' || readOnly) && <section className="drawer-section"><small>PROPERTY SHORTLIST</small><ShortlistCards shortlist={detail.shortlist || []} emptyCopy={readOnly ? 'Add live COP listings from the administrator lead drawer.' : 'COP will add suitable homes here.'} /></section>}
         {notes.length > 0 && <section className="drawer-section"><small>PROGRESS NOTES</small><div className="drawer-timeline">{notes.map((item) => <div key={item.id}><i className={item.author_role === 'partner' ? 'partner-event' : ''}>{item.author_role === 'partner' ? 'P' : 'CO'}</i><div><strong>{item.body}</strong><small>{item.author_role} · {new Date(item.created_at).toLocaleString()}</small></div></div>)}</div></section>}
@@ -744,6 +824,7 @@ export default function PartnerHubWorkspace({ entry = 'admin' }) {
   const [partners, setPartners] = useState([]);
   const [members, setMembers] = useState([]);
   const [leads, setLeads] = useState([]);
+  const [destinations, setDestinations] = useState([]);
   const [view, setView] = useState(entry === 'partner' ? 'leads' : 'overview');
   const [selectedLeadId, setSelectedLeadId] = useState(null);
   const [previewPartner, setPreviewPartner] = useState(null);
@@ -765,16 +846,18 @@ export default function PartnerHubWorkspace({ entry = 'admin' }) {
           router.replace(sessionPayload.access.role === 'admin' ? '/admin/partners/' : '/partner/');
           return;
         }
-        const [partnerPayload, leadPayload, memberPayload] = await Promise.all([
+        const [partnerPayload, leadPayload, memberPayload, optionPayload] = await Promise.all([
           hubRequest('/api/partner-hub/partners'),
           hubRequest('/api/partner-hub/leads'),
           sessionPayload.access.role === 'admin' ? hubRequest('/api/partner-hub/members') : Promise.resolve({ members: [] }),
+          sessionPayload.access.role === 'admin' ? hubRequest('/api/partner-hub/options') : Promise.resolve({ destinations: [] }),
         ]);
         if (!active) return;
         setAccess(sessionPayload.access);
         setPartners(partnerPayload.partners || []);
         setLeads(leadPayload.leads || []);
         setMembers(memberPayload.members || []);
+        setDestinations(optionPayload.destinations || []);
         setStatus('ready');
       } catch (error) {
         if (!active) return;
@@ -817,11 +900,11 @@ export default function PartnerHubWorkspace({ entry = 'admin' }) {
           <Topbar role={access.role} title={title} setView={setView} previewPartner={previewPartner} />
           {view === 'overview' && access.role === 'admin' && <Overview leads={leads} partners={partners} openLead={setSelectedLeadId} setView={setView} startPreview={startPreview} />}
           {view === 'leads' && <LeadsView leads={visibleLeads} partners={partners} role={access.role} previewPartner={previewPartner} openLead={setSelectedLeadId} onChanged={updateLead} showToast={showToast} />}
-          {view === 'submit' && access.role === 'admin' && <SubmitLead partners={partners} onCreated={(lead) => { setLeads((current) => [lead, ...current]); setView('leads'); }} showToast={showToast} />}
+          {view === 'submit' && access.role === 'admin' && <SubmitLead partners={partners} destinations={destinations} onCreated={(lead) => { setLeads((current) => [lead, ...current]); setView('leads'); }} showToast={showToast} />}
           {view === 'access' && access.role === 'admin' && <PartnerAccess partners={partners} members={members} onPartnerChanged={(next) => setPartners((current) => current.map((partner) => partner.id === next.id ? next : partner))} onMemberChanged={(next) => setMembers((current) => current.some((member) => member.id === next.id) ? current.map((member) => member.id === next.id ? next : member) : [next, ...current])} showToast={showToast} startPreview={startPreview} />}
         </main>
       </div>
-      {selectedLeadId && <LeadDrawer leadId={selectedLeadId} role={access.role} readOnly={Boolean(previewPartner)} onClose={() => setSelectedLeadId(null)} onChanged={updateLead} showToast={showToast} />}
+      {selectedLeadId && <LeadDrawer leadId={selectedLeadId} role={access.role} readOnly={Boolean(previewPartner)} destinations={destinations} onClose={() => setSelectedLeadId(null)} onChanged={updateLead} showToast={showToast} />}
       {toast && <div className={`toast ${toast.error ? 'toast-error' : ''}`}><span>{toast.error ? '!' : '✓'}</span>{toast.message}</div>}
     </div>
   );
