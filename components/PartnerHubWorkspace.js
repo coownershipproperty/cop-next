@@ -53,46 +53,50 @@ function BudgetSelect({ value, onChange, id, required = false }) {
 
 function SearchableCountryInput({ value, onChange, id, options, ariaLabel, className = '' }) {
   const selectedLabel = options.find((option) => option.value === value)?.label || value || '';
+  const [query, setQuery] = useState(selectedLabel);
+
+  useEffect(() => { setQuery(selectedLabel); }, [selectedLabel]);
 
   function matchOption(rawValue) {
     const normalized = rawValue.trim().toLocaleLowerCase();
     return options.find((option) => option.label.toLocaleLowerCase() === normalized || option.value.toLocaleLowerCase() === normalized);
   }
 
-  function finishSearch(event) {
-    const input = event.currentTarget;
-    if (!input.value.trim()) {
+  function updateQuery(nextQuery) {
+    setQuery(nextQuery);
+    const match = matchOption(nextQuery);
+    if (match) onChange(match.value);
+  }
+
+  function finishSearch() {
+    if (!query.trim()) {
       onChange('');
-      input.value = '';
+      setQuery('');
       return;
     }
-    const match = matchOption(input.value);
+    const match = matchOption(query);
     if (match) {
       onChange(match.value);
-      input.value = match.label;
+      setQuery(match.label);
     } else {
-      input.value = selectedLabel;
+      setQuery(selectedLabel);
     }
   }
 
   return (
     <>
       <input
-        key={selectedLabel || 'empty'}
         id={id}
         className={className}
         type="search"
         list={`${id}-options`}
-        defaultValue={selectedLabel}
+        value={query}
         autoComplete="off"
         spellCheck="false"
         aria-label={ariaLabel}
         placeholder="Type a country or first letter…"
         onFocus={(event) => event.currentTarget.select()}
-        onInput={(event) => {
-          const match = matchOption(event.currentTarget.value);
-          if (match) onChange(match.value);
-        }}
+        onChange={(event) => updateQuery(event.target.value)}
         onBlur={finishSearch}
       />
       <datalist id={`${id}-options`}>
