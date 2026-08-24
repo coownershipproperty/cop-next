@@ -9,6 +9,7 @@ import Script from 'next/script';
 import { trackConversion } from '@/lib/gtag';
 import { Analytics } from '@vercel/analytics/react';
 import ExitPopup from '@/components/ExitPopup';
+import { captureFirstTouch } from '@/lib/attribution';
 
 const GA_ID = 'G-83RBNEXX4E';
 const GADS_ID = 'AW-4882418749';
@@ -59,6 +60,10 @@ export default function App({ Component, pageProps }) {
   const popupAllowed = POPUP_ROUTES.some(re => re.test(router.pathname));
   const [waVisible, setWaVisible] = useState(false);
   const [waDismissed, setWaDismissed] = useState(false);
+
+  useEffect(() => {
+    if (!isPrivate) captureFirstTouch();
+  }, [isPrivate, router.asPath]);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && localStorage.getItem('wa_dismissed') === '1') {

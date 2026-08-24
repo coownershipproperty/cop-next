@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
+import { getFirstTouch } from '@/lib/attribution';
 
 /**
  * ViewingRequestForm
@@ -116,10 +117,12 @@ export default function ViewingRequestForm({ viewings = [], selectedId = '' }) {
         email,
         phone: phone || '',
         property: propertyTitle,
+        propertySlug: v.propertySlug,
         url,
         message: fullMessage,
         source: 'viewings-page',
         destination: `${v.region}; ${v.country}`,
+        attribution: getFirstTouch(),
         locale: 'en',
         [HONEYPOT_FIELD]: honeypot,
       };

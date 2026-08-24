@@ -1,5 +1,5 @@
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
-import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
+import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore, enrichContactIntelligence } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendTeamNotification, cancelPendingSequence } from '@/lib/resend';
@@ -11,6 +11,70 @@ import { createPartnerReferral } from '@/lib/partnerReferrals';
 
 function getDb() {
   return createSupabaseAdminClient();
+}
+
+function cleanPropertySlug(value) {
+  if (!value) return null;
+  const slug = String(value).trim().slice(0, 220);
+  return /^[A-Za-z0-9][A-Za-z0-9_-]*$/.test(slug) ? slug : null;
+}
+
+function propertySlugFromUrl(value) {
+  if (!value) return null;
+  try {
+    const parsed = new URL(String(value), 'https://co-ownership-property.com');
+    const parts = parsed.pathname.split('/').filter(Boolean);
+    const propertyIndex = parts.indexOf('property');
+    return propertyIndex >= 0 ? cleanPropertySlug(decodeURIComponent(parts[propertyIndex + 1] || '')) : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+async function resolveEnquiryProperty({ propertySlug, propertyTitle, propertyUrl }) {
+  const db = getDb();
+  const requestedSlug = cleanPropertySlug(propertySlug) || propertySlugFromUrl(propertyUrl);
+  const fields = 'slug,title,region,city,status,img,drive_url';
+
+  if (requestedSlug) {
+    const { data, error } = await db.from('properties').select(fields).eq('slug', requestedSlug).maybeSingle();
+    if (error) throw error;
+    if (data) return data;
+  }
+
+  if (propertyTitle) {
+    const { data, error } = await db
+      .from('properties')
+      .select(fields)
+      .eq('title', String(propertyTitle).trim())
+      .limit(1)
+      .maybeSingle();
+    if (error) throw error;
+    return data || null;
+  }
+
+  return null;
+}
+
+function safeUrl(value) {
+  if (!value) return null;
+  try {
+    const parsed = new URL(String(value), 'https://co-ownership-property.com');
+    return ['http:', 'https:'].includes(parsed.protocol) ? parsed.href.slice(0, 1200) : null;
+  } catch (_) { return null; }
+}
+
+function normalizeAttribution(raw, request) {
+  const value = raw && typeof raw === 'object' ? raw : {};
+  const landingUrl = safeUrl(value.landingUrl);
+  const referrerUrl = safeUrl(value.referrerUrl || request.headers.referer);
+  const firstVisitedAt = Number.isFinite(Date.parse(value.firstVisitedAt)) ? new Date(value.firstVisitedAt).toISOString() : null;
+  let source = String(value.utmSource || '').trim().slice(0, 120) || null;
+  if (!source && referrerUrl) {
+    try { source = new URL(referrerUrl).hostname.replace(/^www\./, '').slice(0, 120); }
+    catch (_) {}
+  }
+  return { firstVisitedAt, landingUrl, referrerUrl, source };
 }
 
 /**
@@ -136,7 +200,7 @@ export default async function handler(req, res) {
   // the bot sees a normal success response and does not retry or adapt.
   if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
-  const { name, email, phone, message, property, url, destination, budget, enquiryType, locale: rawLocale } = req.body;
+  const { name, email, phone, message, property, propertySlug, url, destination, budget, enquiryType, attribution: rawAttribution, locale: rawLocale } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
   const isCollectionEnquiry = enquiryType === 'collection';
 
@@ -155,6 +219,19 @@ export default async function handler(req, res) {
   const nameParts = (name || '').trim().split(' ');
   const firstName = nameParts[0] || null;
   const lastName  = nameParts.slice(1).join(' ') || null;
+  const attribution = normalizeAttribution(rawAttribution, req);
+
+  // Resolve the authoritative COP listing before creating the lead. Property
+  // forms send the slug directly; the public URL and exact title are retained
+  // as fallbacks for older forms and imported enquiries.
+  let resolvedProperty = null;
+  if (!isCollectionEnquiry && (propertySlug || url || property)) {
+    try {
+      resolvedProperty = await resolveEnquiryProperty({ propertySlug, propertyTitle: property, propertyUrl: url });
+    } catch (e) {
+      console.error('[enquiry] property resolution failed:', e.message);
+    }
+  }
 
   // ── CRM: upsert contact + create lead + score ───────────────────────────────
   let contact   = null;
@@ -163,6 +240,7 @@ export default async function handler(req, res) {
 
   try {
     contact = await upsertContact({ email, firstName, lastName, phone, source: 'website_enquiry', locale });
+    contact = await enrichContactIntelligence({ contact, email, phone, request: req });
 
     if (contact) {
       // +20 points for submitting an enquiry
@@ -170,10 +248,14 @@ export default async function handler(req, res) {
 
       lead = await createLead({
         contactId:     contact.id,
+        propertySlug:  resolvedProperty?.slug || null,
         propertyTitle: property     || null,
-        mainRegion:    destination  || null,
+        mainRegion:    destination  || resolvedProperty?.region || null,
+        subregion:     resolvedProperty?.city || null,
         message:       message      || null,
         budget:        budget       || null,
+        attribution,
+        enquiryPageUrl: safeUrl(url || req.headers.referer),
       });
 
       emailSend = await createEmailSend({
@@ -191,7 +273,7 @@ export default async function handler(req, res) {
         leadId:      lead?.id || null,
         type:        'enquiry_submitted',
         description: `${isCollectionEnquiry ? 'Collection enquiry' : 'Enquiry'} submitted${property ? ` for ${property}` : ''}`,
-        metadata:    { property, url, destination, budget, message, enquiryType: isCollectionEnquiry ? 'collection' : (property ? 'property' : 'general') },
+        metadata:    { property, propertySlug: resolvedProperty?.slug || null, url, destination, budget, message, attribution, enquiryType: isCollectionEnquiry ? 'collection' : (property ? 'property' : 'general') },
       });
 
       // Collection enquiries queue a partner referral for manual review in the
@@ -212,25 +294,11 @@ export default async function handler(req, res) {
   // ── Look up property image + drive URL from DB ────────────────────────────
   let propertyImg = null;
   let driveUrl    = null;
-  if (url) {
-    try {
-      const slug = url.replace(/https?:\/\/[^/]+\/property\//, '').replace(/\/$/, '') || null;
-      if (slug) {
-        const db = getDb();
-        const { data: prop } = await db
-          .from('properties')
-          .select('img, drive_url')
-          .eq('slug', slug)
-          // Never attach a hidden/staged row's image or Drive gallery to an
-          // outbound email (19 Jul incident) — sold is fine, they enquired.
-          .in('status', ['Live', 'for_sale', 'sold'])
-          .maybeSingle();
-        propertyImg = prop?.img       || null;
-        driveUrl    = prop?.drive_url || null;
-      }
-    } catch (e) {
-      console.error('[enquiry] property lookup failed:', e.message);
-    }
+  // Never attach a hidden/staged row's image or Drive gallery to an outbound
+  // email (19 Jul incident) — sold is fine, they enquired.
+  if (resolvedProperty && ['Live', 'for_sale', 'sold'].includes(resolvedProperty.status)) {
+    propertyImg = resolvedProperty.img || null;
+    driveUrl = resolvedProperty.drive_url || null;
   }
 
   // ── Fetch matching properties for general enquiries ────────────────────────

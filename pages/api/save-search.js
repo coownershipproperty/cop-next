@@ -11,7 +11,7 @@
  * worth collecting even though nothing in this handler depends on it.
  */
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
-import { upsertContact, createLead, incrementScore, logActivity } from '@/lib/crm';
+import { upsertContact, createLead, incrementScore, logActivity, enrichContactIntelligence } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { FROM_ADDRESS, REPLY_TO, sendTeamNotification } from '@/lib/resend';
 import { expandRegions } from '@/lib/regionMap';
@@ -94,7 +94,7 @@ export default async function handler(req, res) {
   // CRM: upsert contact + log activity
   try {
     const nameParts = (name || '').trim().split(' ');
-    const contact = await upsertContact({
+    let contact = await upsertContact({
       email,
       firstName: nameParts[0] || null,
       lastName:  nameParts.slice(1).join(' ') || null,
@@ -103,6 +103,7 @@ export default async function handler(req, res) {
       phone:     phone || null,
       source:    'saved_search',
     });
+    contact = await enrichContactIntelligence({ contact, email, phone, request: req });
     if (contact) {
       // +5 points for setting up an alert (good intent signal)
       await incrementScore(contact.id, 5);

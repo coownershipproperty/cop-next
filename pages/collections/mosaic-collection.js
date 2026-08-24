@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import CollectionAccessModal from '@/components/CollectionAccessModal';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
+import { getFirstTouch } from '@/lib/attribution';
 import { trackConversion } from '@/lib/gtag';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
 import styles from '@/styles/MosaicCollection.module.css';
@@ -197,6 +198,7 @@ function CollectionEnquiryForm() {
           phone: form.phone.trim(),
           message: form.message.trim(),
           property: COLLECTION_NAME,
+          attribution: getFirstTouch(),
           destination: 'Mallorca; Tuscany; Chamonix; Barcelona; South of France',
           url: CANONICAL,
           enquiryType: 'collection',

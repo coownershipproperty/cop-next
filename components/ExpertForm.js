@@ -6,6 +6,7 @@ import { track } from '@vercel/analytics';
 import { localeFromPath } from '@/lib/i18n';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
+import { getFirstTouch } from '@/lib/attribution';
 
 // ── Locale-specific copy ────────────────────────────────────────────────────
 const COPY = {
@@ -337,7 +338,7 @@ export default function ExpertForm({ property, hideIntro = false }) {
       const res = await fetch('/api/enquiry/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, budget, destination: destStr, message, property, locale, [HONEYPOT_FIELD]: honeypot }),
+        body: JSON.stringify({ name, email, phone, budget, destination: destStr, message, property, attribution: getFirstTouch(), locale, [HONEYPOT_FIELD]: honeypot }),
       });
       const data = await res.json();
       if (data.ok) {

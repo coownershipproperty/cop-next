@@ -1,5 +1,5 @@
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
-import { upsertContact, createLead, logActivity, incrementScore } from '@/lib/crm';
+import { upsertContact, createLead, logActivity, incrementScore, enrichContactIntelligence } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendHtml, sendTeamNotification } from '@/lib/resend';
@@ -133,6 +133,7 @@ export default async function handler(req, res) {
   let lead    = null;
   try {
     contact = await upsertContact({ email, firstName, lastName, phone: phone || null, source: 'gallery_enquiry', locale });
+    contact = await enrichContactIntelligence({ contact, email, phone, request: req });
     if (contact) {
       await incrementScore(contact.id, 20);
       lead = await createLead({ contactId: contact.id, propertySlug: resolvedSlug, propertyTitle, mainRegion: resolvedRegion, subregion: resolvedCity });

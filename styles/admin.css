@@ -173,6 +173,43 @@
 .activity-card article strong { display: block; color: #3a5366; font-size: 10px; line-height: 1.45; }
 .activity-card article small { display: block; margin-top: 3px; color: #8a98a3; font-size: 9px; }
 .admin-no-activity { padding: 24px; color: #82909b; font-size: 11px; }
+.admin-lead-back { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.admin-lead-back span { padding: 6px 9px; border: 1px solid #e3c675; border-radius: 999px; color: #6f5514; background: #fff8df; font-size: 9px; font-weight: 900; letter-spacing: .1em; }
+.admin-intelligence-grid { margin-bottom: 18px; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
+.intelligence-card { padding: 21px 22px; }
+.intelligence-card > small { color: #8a99a5; font-size: 9px; font-weight: 850; letter-spacing: .12em; }
+.intelligence-card > h2 { margin: 5px 0 18px; color: #17354b; font: 500 21px var(--font-playfair), Georgia, serif; }
+.intelligence-card dl { display: grid; gap: 12px; }
+.intelligence-card dl > div { min-width: 0; display: grid; grid-template-columns: 92px minmax(0,1fr); gap: 10px; }
+.intelligence-card dt { color: #87949e; font-size: 10px; font-weight: 800; }
+.intelligence-card dd { min-width: 0; margin: 0; color: #334e61; font-size: 12px; font-weight: 650; overflow-wrap: anywhere; }
+.intelligence-card dd a { color: #315f7c; text-decoration: underline; text-decoration-color: #b5c8d3; text-underline-offset: 2px; }
+.intelligence-card dd em { margin: 4px 0 0; display: block; color: #28765e; font-size: 9px; font-style: normal; font-weight: 850; }
+.admin-confidence-note { margin: 16px 0 0; padding-top: 13px; border-top: 1px solid #e8ebed; color: #738593; font-size: 10px; line-height: 1.5; }
+.communication-card > header > span { white-space: nowrap; }
+.admin-communication-section { padding: 18px 22px; border-bottom: 1px solid #e8ebed; }
+.admin-communication-section:last-child { border-bottom: 0; }
+.admin-communication-section > h3 { margin: 0 0 10px; color: #526779; font-size: 11px; text-transform: uppercase; letter-spacing: .07em; }
+.admin-communication-section > article { padding: 11px 12px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid #cbe7d8; border-radius: 8px; background: #f2fbf6; }
+.admin-communication-section > article + article { margin-top: 8px; }
+.admin-communication-section article div { min-width: 0; }
+.admin-communication-section strong, .admin-communication-section small { display: block; }
+.admin-communication-section strong { color: #2e4c41; font-size: 12px; }
+.admin-communication-section small { margin-top: 4px; color: #6f857b; font-size: 10px; overflow-wrap: anywhere; }
+.admin-communication-section article > a { flex: 0 0 auto; color: #27755d; font-size: 10px; font-weight: 850; }
+.admin-communication-section > p { color: #83919c; font-size: 11px; }
+.gmail-admin-body { padding: 18px 22px; display: grid; gap: 10px; }
+.gmail-connect { padding: 17px; display: flex; align-items: center; justify-content: space-between; gap: 18px; border: 1px solid #e8d6aa; border-radius: 8px; background: #fffbef; }
+.gmail-connect p { margin: 0; color: #6f654d; font-size: 11px; line-height: 1.55; }
+.gmail-connect button { min-height: 38px; padding: 0 15px; flex: 0 0 auto; border-radius: 7px; color: #fff; background: #173f58; font-size: 11px; font-weight: 850; }
+.gmail-thread-card { padding: 12px 13px; display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; border: 1px solid #e0e5e8; border-radius: 8px; background: #fbfcfc; }
+.gmail-thread-card div { min-width: 0; }
+.gmail-thread-card strong, .gmail-thread-card small { display: block; }
+.gmail-thread-card strong { color: #17354b; font-size: 12px; }
+.gmail-thread-card small, .gmail-thread-card > span { color: #83919c; font-size: 9px; }
+.gmail-thread-card p { margin: 5px 0 0; color: #5e7383; font-size: 10px; line-height: 1.45; }
+.gmail-thread-card > span { flex: 0 0 auto; text-align: right; }
+.gmail-open-link { justify-self: start; color: #315f7c; font-size: 11px; font-weight: 850; }
 .portal-shell.embedded-admin { min-height: 100vh; grid-template-columns: minmax(0,1fr); }
 .portal-shell.embedded-admin > .workspace { padding: 30px clamp(20px,3vw,42px) 48px; }
 .hub-admin-subnav { margin: -6px 0 24px; padding-bottom: 12px; display: flex; flex-wrap: wrap; gap: 7px; border-bottom: 1px solid #dfe4e6; }
@@ -201,6 +238,7 @@
   .admin-listing-filters input { min-width: 0; width: 100%; }
   .admin-lead-hero { grid-template-columns: auto 1fr; }
   .admin-lead-hero label { grid-column: 1 / -1; }
+  .admin-intelligence-grid { grid-template-columns: 1fr; }
   .admin-lead-grid { grid-template-columns: 1fr; }
 }
 
@@ -216,6 +254,9 @@
   .admin-selected-properties article > span { width: 68px; height: 55px; }
   .admin-selected-properties article > a, .admin-selected-properties article > button { grid-column: auto; }
   .admin-property-picker > div:first-child { grid-template-columns: 1fr; }
+  .gmail-connect, .gmail-thread-card, .admin-communication-section > article { align-items: stretch; flex-direction: column; }
+  .gmail-connect button { width: 100%; }
+  .gmail-thread-card > span { text-align: left; }
   .portal-shell.embedded-admin > .workspace { padding: 22px 14px 38px; }
   .hub-admin-subnav button { flex: 1 1 calc(50% - 7px); }
   .hub-admin-subnav button.preview-exit { flex-basis: 100%; }

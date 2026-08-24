@@ -19,6 +19,7 @@ import PropertyCard from '@/components/PropertyCard';
 import { localeFromPath } from '@/lib/i18n';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
+import { getFirstTouch } from '@/lib/attribution';
 
 // ── Locale-specific UI copy ────────────────────────────────────────────────
 const COPY = {
@@ -406,7 +407,7 @@ function Img({ src, alt, loading = 'lazy', priority = false, sizes = '100vw' }) 
 }
 
 /* ── Enquiry form (locale-aware) ── */
-function EnquiryForm({ propertyTitle, propertyUrl, locale }) {
+function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale }) {
   const t = COPY[locale] || COPY.en;
   const saved = getSavedUser();
   const [f, setF] = useState({ name: saved.name, email: saved.email, phone: '', message: '' });
@@ -418,7 +419,7 @@ function EnquiryForm({ propertyTitle, propertyUrl, locale }) {
     const honeypot = e.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
     try {
       const r = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...f, property: propertyTitle, url: propertyUrl, locale, [HONEYPOT_FIELD]: honeypot }) });
+        body: JSON.stringify({ ...f, property: propertyTitle, propertySlug, url: propertyUrl, attribution: getFirstTouch(), locale, [HONEYPOT_FIELD]: honeypot }) });
       if (r.ok) {
         saveUser({ name: f.name, email: f.email });
         trackConversion('generate_lead', 'Lead', {
@@ -940,7 +941,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
             <p className="pp-form-eye">{t.form_eye}</p>
             <h3 className="pp-form-title">{t.form_title}</h3>
             <p className="pp-form-sub">{t.form_sub}</p>
-            <EnquiryForm propertyTitle={local.title} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} locale={locale} />
+            <EnquiryForm propertySlug={p.slug} propertyTitle={local.title} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} locale={locale} />
           </div>
         </div>
 

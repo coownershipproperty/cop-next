@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
-import { createLead, incrementScore, logActivity, upsertContact } from '@/lib/crm';
+import { createLead, incrementScore, logActivity, upsertContact, enrichContactIntelligence } from '@/lib/crm';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
 import CollectionAccessEmail from '@/emails/collection-access';
 
@@ -59,6 +59,7 @@ export default async function handler(req, res) {
       source: 'collection_access',
       locale: 'en',
     });
+    contact = await enrichContactIntelligence({ contact, email: cleanEmail, phone: cleanPhone, request: req });
 
     if (contact) {
       await incrementScore(contact.id, 10);

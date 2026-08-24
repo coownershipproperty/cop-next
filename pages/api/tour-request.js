@@ -1,6 +1,6 @@
 import { promises as dnsPromises } from 'dns';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
-import { upsertContact, createLead, logActivity, incrementScore } from '@/lib/crm';
+import { upsertContact, createLead, logActivity, incrementScore, enrichContactIntelligence } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendTeamNotification } from '@/lib/resend';
@@ -112,6 +112,7 @@ export default async function handler(req, res) {
   let contact = null;
   try {
     contact = await upsertContact({ email, firstName, lastName, phone, source: 'tour_request', locale });
+    contact = await enrichContactIntelligence({ contact, email, phone, request: req });
 
     if (contact) {
       // +10 points — same high-intent weighting as a floor-plan request

@@ -1,6 +1,6 @@
 import { promises as dnsPromises } from 'dns';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
-import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore } from '@/lib/crm';
+import { upsertContact, createLead, createEmailSend, logActivity, trackingPixel, incrementScore, enrichContactIntelligence } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
@@ -335,6 +335,7 @@ export default async function handler(req, res) {
 
   try {
     contact = await upsertContact({ email, firstName, lastName, phone, source: 'floor_plan', locale });
+    contact = await enrichContactIntelligence({ contact, email, phone, request: req });
 
     if (contact) {
       // +10 points for requesting floor plans (high-intent action)
