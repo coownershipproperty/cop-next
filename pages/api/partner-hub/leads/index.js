@@ -1,4 +1,4 @@
-import { requirePartnerHubAccess } from '@/lib/partnerHubAuth';
+import { requirePartnerHubAccess, setPartnerHubCrmCors } from '@/lib/partnerHubAuth';
 import {
   cleanPartnerHubText,
   isPartnerHubEmail,
@@ -14,6 +14,8 @@ async function partnerDirectory(db, partnerIds) {
   return new Map((data || []).map((row) => [row.id, row]));
 }
 export default async function handler(req, res) {
+  setPartnerHubCrmCors(res);
+  if (req.method === 'OPTIONS') return res.status(200).end();
   const access = await requirePartnerHubAccess(req, res);
   if (!access) return;
 

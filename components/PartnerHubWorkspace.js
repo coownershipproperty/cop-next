@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import { PARTNER_HUB_STAGES } from '@/lib/partnerHub';
@@ -258,6 +258,28 @@ function formatMoment(value) {
   });
 }
 
+function formatDay(value) {
+  if (!value) return '—';
+  return new Date(value).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+const PARTNER_ACTIVE_STAGES = ['Contacted', 'Viewing', 'Contract signed', 'Deposit paid'];
+
+const PARTNER_NEXT_ACTIONS = {
+  New: 'Make first contact',
+  Contacted: 'Arrange a viewing',
+  Viewing: 'Follow up after the viewing',
+  'Contract signed': 'Confirm the deposit',
+  'Deposit paid': 'Complete the handover',
+  Won: 'Sale closed — no action needed',
+  Lost: 'Closed — no action needed',
+  Paused: 'Agree a date to reconnect',
+};
+
+function nextActionFor(stage) {
+  return PARTNER_NEXT_ACTIONS[stage] || 'Review the lead';
+}
+
 function formatPropertyPrice(price, currency = 'EUR') {
   if (!price) return 'Price on listing';
   try {
@@ -475,17 +497,259 @@ function EngagementPanel({ lead, events }) {
   );
 }
 
+const STAGE_CHART_COLORS = {
+  New: '#3b82f6',
+  Contacted: '#8b5cf6',
+  Viewing: '#06b6d4',
+  'Contract signed': '#f59e0b',
+  'Deposit paid': '#10b981',
+  Won: '#16a34a',
+  Lost: '#ef4444',
+  Paused: '#9ca3af',
+};
+
+const STAGE_LEGEND = [
+  { stage: 'New', icon: '✦', copy: 'Fresh from COP — make first contact' },
+  { stage: 'Contacted', icon: '☏', copy: 'First conversation done' },
+  { stage: 'Viewing', icon: '◉', copy: 'Viewing arranged or completed' },
+  { stage: 'Contract signed', icon: '✎', copy: 'Contract is signed' },
+  { stage: 'Deposit paid', icon: '€', copy: 'Deposit received' },
+  { stage: 'Won', icon: '✓', copy: 'Sale completed' },
+];
+
+const CHART_RANGES = [
+  { key: '7D', days: 7, bucket: 'day' },
+  { key: '14D', days: 14, bucket: 'day' },
+  { key: '30D', days: 30, bucket: 'day' },
+  { key: '90D', days: 90, bucket: 'week' },
+  { key: '1Y', days: 365, bucket: 'month' },
+  { key: 'All', days: null, bucket: 'month' },
+];
+
+function niceCeil(value) {
+  if (value <= 5) return Math.max(2, value);
+  const power = 10 ** Math.floor(Math.log10(value));
+  return Math.ceil(value / power) * power;
+}
+
+function buildLeadTimeline(leads, rangeKey) {
+  const range = CHART_RANGES.find((item) => item.key === rangeKey) || CHART_RANGES[4];
+  const now = new Date();
+  const buckets = [];
+  if (range.bucket === 'day') {
+    for (let i = range.days - 1; i >= 0; i -= 1) {
+      const day = new Date(now);
+      day.setHours(0, 0, 0, 0);
+      day.setDate(day.getDate() - i);
+      buckets.push({ start: day, key: day.toISOString(), label: day.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) });
+    }
+  } else if (range.bucket === 'week') {
+    const monday = new Date(now);
+    monday.setHours(0, 0, 0, 0);
+    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+    for (let i = Math.ceil(range.days / 7) - 1; i >= 0; i -= 1) {
+      const week = new Date(monday);
+      week.setDate(week.getDate() - i * 7);
+      buckets.push({ start: week, key: week.toISOString(), label: week.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) });
+    }
+  } else {
+    let months = 12;
+    if (!range.days) {
+      const earliest = leads.reduce((min, lead) => {
+        const created = new Date(lead.createdAt);
+        return !min || created < min ? created : min;
+      }, null) || now;
+      months = Math.min(36, Math.max(6, (now.getFullYear() - earliest.getFullYear()) * 12 + now.getMonth() - earliest.getMonth() + 1));
+    }
+    for (let i = months - 1; i >= 0; i -= 1) {
+      const month = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      buckets.push({ start: month, key: month.toISOString(), label: month.toLocaleDateString('en-GB', { month: 'short', year: '2-digit' }) });
+    }
+  }
+  buckets.forEach((bucket) => { bucket.byStage = {}; bucket.total = 0; });
+  leads.forEach((lead) => {
+    const created = new Date(lead.createdAt);
+    for (let i = buckets.length - 1; i >= 0; i -= 1) {
+      if (created >= buckets[i].start) {
+        buckets[i].byStage[lead.stage] = (buckets[i].byStage[lead.stage] || 0) + 1;
+        buckets[i].total += 1;
+        break;
+      }
+    }
+  });
+  const labelEvery = Math.max(1, Math.ceil(buckets.length / 8));
+  buckets.forEach((bucket, index) => { bucket.showLabel = index % labelEvery === (buckets.length - 1) % labelEvery; });
+  return buckets;
+}
+
+function LeadTimelineChart({ leads }) {
+  const [range, setRange] = useState('1Y');
+  const buckets = useMemo(() => buildLeadTimeline(leads, range), [leads, range]);
+  const yTop = niceCeil(Math.max(1, ...buckets.map((bucket) => bucket.total)));
+  const shown = buckets.reduce((total, bucket) => total + bucket.total, 0);
+  return (
+    <section className="pd-card">
+      <header className="pd-card-head">
+        <div><h3>Reporting timeline</h3><p>Leads created over time, stacked by current stage. Pick a date range.</p></div>
+        <div className="pd-range" role="group" aria-label="Date range">
+          {CHART_RANGES.map((item) => (
+            <button key={item.key} type="button" className={range === item.key ? 'active' : ''} aria-pressed={range === item.key} onClick={() => setRange(item.key)}>{item.key}</button>
+          ))}
+        </div>
+      </header>
+      <div className="pd-chart" role="img" aria-label={`${shown} leads created in this range, stacked by stage`}>
+        <div className="pd-chart-y" aria-hidden="true"><span>{yTop}</span><span>{Math.round(yTop / 2)}</span><span>0</span></div>
+        <div className="pd-chart-bars">
+          {buckets.map((bucket) => (
+            <div key={bucket.key} className="pd-chart-col" title={`${bucket.label}: ${bucket.total} lead${bucket.total === 1 ? '' : 's'}`}>
+              <div className="pd-chart-stack">
+                {PARTNER_HUB_STAGES.map((stage) => bucket.byStage[stage]
+                  ? <i key={stage} style={{ height: `${(bucket.byStage[stage] / yTop) * 100}%`, background: STAGE_CHART_COLORS[stage] }} />
+                  : null)}
+              </div>
+              <small>{bucket.showLabel ? bucket.label : ''}</small>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="pd-chart-legend">
+        {PARTNER_HUB_STAGES.map((stage) => <span key={stage}><i style={{ background: STAGE_CHART_COLORS[stage] }} />{stage}</span>)}
+      </div>
+    </section>
+  );
+}
+
+function StageLegend({ counts, stageFilter, onToggleStage }) {
+  return (
+    <section className="pd-card">
+      <header className="pd-card-head">
+        <div><h3>Stage legend</h3><p>Counts for every funnel stage — click a stage to filter your leads.</p></div>
+        <div className="pd-legend-pills">
+          {['Paused', 'Lost'].map((stage) => (
+            <button key={stage} type="button" className={`pd-pill ${stageClass(stage)}${stageFilter === stage ? ' active' : ''}`} aria-pressed={stageFilter === stage} onClick={() => onToggleStage(stage)}>
+              {stage} <b>{counts[stage]}</b>
+            </button>
+          ))}
+        </div>
+      </header>
+      <div className="pd-legend-flow">
+        {STAGE_LEGEND.map((item, index) => (
+          <Fragment key={item.stage}>
+            <button type="button" className={`pd-legend-item${stageFilter === item.stage ? ' active' : ''}`} aria-pressed={stageFilter === item.stage} onClick={() => onToggleStage(item.stage)}>
+              <span className="pd-legend-icon" style={{ background: `${STAGE_CHART_COLORS[item.stage]}1a`, color: STAGE_CHART_COLORS[item.stage] }} aria-hidden="true">{item.icon}</span>
+              <span className="pd-legend-copy"><strong>{item.stage} <b>{counts[item.stage]}</b></strong><small>{item.copy}</small></span>
+            </button>
+            {index < STAGE_LEGEND.length - 1 && <span className="pd-legend-arrow" aria-hidden="true">›</span>}
+          </Fragment>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PartnerLeadDashboard({ leads, partnerName, onOpenLead }) {
+  const [search, setSearch] = useState('');
+  const [stageFilter, setStageFilter] = useState('');
+
+  const stageCounts = useMemo(() => {
+    const counts = Object.fromEntries(PARTNER_HUB_STAGES.map((stage) => [stage, 0]));
+    leads.forEach((lead) => { if (counts[lead.stage] !== undefined) counts[lead.stage] += 1; });
+    return counts;
+  }, [leads]);
+  const activeCount = PARTNER_ACTIVE_STAGES.reduce((total, stage) => total + stageCounts[stage], 0);
+
+  const normalizedSearch = search.trim().toLocaleLowerCase();
+  const filtered = leads.filter((lead) => {
+    const haystack = `${lead.name} ${lead.email} ${lead.phone} ${lead.location}`.toLocaleLowerCase();
+    return (!normalizedSearch || haystack.includes(normalizedSearch)) && (!stageFilter || lead.stage === stageFilter);
+  });
+
+  const summaryCards = [
+    { label: 'Total leads', count: leads.length, tone: '' },
+    { label: 'Needs first contact', count: stageCounts.New, tone: 'tone-new' },
+    { label: 'Active', count: activeCount, tone: 'tone-active' },
+    { label: 'Paused', count: stageCounts.Paused, tone: 'tone-paused' },
+    { label: 'Won', count: stageCounts.Won, tone: 'tone-won' },
+    { label: 'Lost', count: stageCounts.Lost, tone: 'tone-lost' },
+  ];
+
+  function toggleStage(stage) {
+    setStageFilter((current) => (current === stage ? '' : stage));
+  }
+
+  if (!leads.length) {
+    return <section className="studio-empty"><span>▥</span><h2>No assigned leads yet</h2><p>A new COP introduction will appear here as soon as it is assigned.</p></section>;
+  }
+
+  return (
+    <section className="partner-dash" aria-label={`${partnerName || 'Partner'} lead dashboard`}>
+      <div className="pd-stats">
+        {summaryCards.map((card) => (
+          <article key={card.label} className={`pd-stat ${card.tone}`}>
+            <small>{card.label}</small>
+            <strong>{card.count}</strong>
+          </article>
+        ))}
+      </div>
+
+      <LeadTimelineChart leads={leads} />
+
+      <StageLegend counts={stageCounts} stageFilter={stageFilter} onToggleStage={toggleStage} />
+
+      <div className="pd-card partner-dash-list">
+        <div className="partner-dash-toolbar">
+          <div><h2>Your leads ({leads.length})</h2><p>Manage and track your assigned leads — open one to work on it.</p></div>
+          <div className="partner-dash-controls">
+            <label className="search-box"><span aria-hidden="true">⌕</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search name, email or destination…" aria-label="Search leads" /></label>
+            <label className="partner-dash-stage-filter">
+              <span>Stage</span>
+              <select value={stageFilter} onChange={(event) => setStageFilter(event.target.value)} aria-label="Filter by funnel stage">
+                <option value="">All stages</option>
+                {PARTNER_HUB_STAGES.map((stage) => <option key={stage} value={stage}>{stage} ({stageCounts[stage]})</option>)}
+              </select>
+            </label>
+            {(search || stageFilter) && <button type="button" className="partner-dash-clear" onClick={() => { setSearch(''); setStageFilter(''); }}>Clear</button>}
+          </div>
+        </div>
+        <div className="partner-dash-table">
+          <div className="partner-dash-row partner-dash-head">
+            <span>Name</span><span>Stage</span><span>Destination</span><span>Created</span><span>Last update</span><span>Next action</span>
+          </div>
+          {filtered.map((lead) => (
+            <button key={lead.id} type="button" className="partner-dash-row" onClick={() => onOpenLead(lead.id)}>
+              <span className="lead-person"><i>{lead.initials}</i><span><strong>{lead.name}</strong><small>{lead.email}</small></span></span>
+              <span className="stage-cell"><i className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</i></span>
+              <span className="partner-dash-destination"><small>Destination</small>{lead.location}</span>
+              <span className="partner-dash-created"><small>Created</small>{formatDay(lead.createdAt)}</span>
+              <span className="partner-dash-updated"><small>Last update</small>{lead.age}</span>
+              <span className="partner-dash-next"><small>Next action</small>{nextActionFor(lead.stage)}<b aria-hidden="true">›</b></span>
+            </button>
+          ))}
+          {filtered.length === 0 && <p className="partner-dash-none">No lead matches this search or stage filter.</p>}
+        </div>
+        <footer className="partner-dash-footer">
+          <span>{filtered.length === leads.length ? `All ${leads.length} assigned leads shown` : `${filtered.length} of ${leads.length} assigned leads shown`}</span>
+          <span>No pagination — the full list is always visible</span>
+        </footer>
+      </div>
+    </section>
+  );
+}
+
 const PARTNER_LEAD_BATCH_SIZE = 20;
 
-function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, showToast }) {
+function PartnerLeadStudio({ leads, initialLeadId, onBack, role, previewPartner, openLead, onChanged, showToast }) {
   const readOnly = Boolean(previewPartner);
-  const [selectedId, setSelectedId] = useState(leads[0]?.id || '');
+  const initialLead = leads.find((lead) => lead.id === initialLeadId) || leads[0];
+  const [selectedId, setSelectedId] = useState(initialLead?.id || '');
   const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(false);
   const [busy, setBusy] = useState('');
   const [helpNote, setHelpNote] = useState('');
   const [helpOpen, setHelpOpen] = useState(false);
-  const [stageDraft, setStageDraft] = useState(leads[0]?.stage || 'New');
+  const [progressNote, setProgressNote] = useState('');
+  const [noteOpen, setNoteOpen] = useState(false);
+  const [stageDraft, setStageDraft] = useState(initialLead?.stage || 'New');
   const [visibleLeadCount, setVisibleLeadCount] = useState(PARTNER_LEAD_BATCH_SIZE);
 
   useEffect(() => {
@@ -512,6 +776,8 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
   useEffect(() => {
     setHelpOpen(false);
     setHelpNote('');
+    setNoteOpen(false);
+    setProgressNote('');
   }, [selectedId]);
 
   if (!leads.length) {
@@ -541,6 +807,25 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
     } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
   }
 
+  async function saveProgressNote(event) {
+    event.preventDefault();
+    if (readOnly) return;
+    if (!progressNote.trim()) return showToast('Write the progress note first.', true);
+    setBusy('note');
+    try {
+      const payload = await hubRequest(`/api/partner-hub/leads/${lead.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ action: 'note', note: progressNote }),
+      });
+      setProgressNote('');
+      setNoteOpen(false);
+      const refreshed = await hubRequest(`/api/partner-hub/leads/${lead.id}`);
+      setDetail(refreshed);
+      onChanged(refreshed.lead);
+      showToast(payload.notification?.status === 'failed' ? 'Note saved; the COP email needs attention.' : 'Progress note saved and COP notified.');
+    } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
+  }
+
   async function requestHelp(event) {
     event.preventDefault();
     if (!helpNote.trim()) return showToast('Tell COP what help you need.', true);
@@ -562,7 +847,10 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
   return (
     <section className="lead-studio">
       <div className="studio-heading studio-title-banner">
-        <div><p className="mini-label">{lead.partner} · PRIVATE LEAD WORKSPACE</p><h2>Focus on the relationship.</h2><p>Everything needed to move this opportunity forward, in one secure view.</p></div>
+        <div>
+          {onBack && <button type="button" className="studio-back" onClick={onBack}>← All leads</button>}
+          <p className="mini-label">{lead.partner} · PRIVATE LEAD WORKSPACE</p><h2>Focus on the relationship.</h2><p>Everything needed to move this opportunity forward, in one secure view.</p>
+        </div>
         <button type="button" onClick={() => openLead(lead.id)}>Open full lead <span>↗</span></button>
       </div>
       <div className="studio-layout">
@@ -572,9 +860,14 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
             <h3>{lead.name}</h3>
             <div className="studio-contact-row"><a href={`mailto:${lead.email}`}>✉ {lead.email}</a><a href={lead.phone ? `tel:${lead.phone}` : undefined}>☎ {lead.phone || 'No phone supplied'}</a><span>◎ {lead.location}</span></div>
             <div className="studio-support-actions">
-              <button type="button" onClick={() => openLead(lead.id)}>Add progress note</button>
-              <button type="button" disabled={readOnly} onClick={() => setHelpOpen((current) => !current)}>Request help from COP</button>
+              <button type="button" disabled={readOnly} aria-expanded={noteOpen} onClick={() => { setNoteOpen((current) => !current); setHelpOpen(false); }}>Add progress note</button>
+              <button type="button" disabled={readOnly} aria-expanded={helpOpen} onClick={() => { setHelpOpen((current) => !current); setNoteOpen(false); }}>Request help from COP</button>
             </div>
+            {noteOpen && <form className="studio-inline-help studio-inline-note" onSubmit={saveProgressNote}>
+              <label htmlFor={`partner-note-${lead.id}`}>Add a progress note for this lead</label>
+              <textarea id={`partner-note-${lead.id}`} autoFocus value={progressNote} onChange={(event) => setProgressNote(event.target.value)} placeholder="What happened on the last conversation, and what is the next step?" />
+              <div><button type="button" onClick={() => { setNoteOpen(false); setProgressNote(''); }}>Cancel</button><button disabled={busy === 'note'}>{busy === 'note' ? 'Saving…' : 'Save progress note'}</button></div>
+            </form>}
             {helpOpen && <form className="studio-inline-help" onSubmit={requestHelp}>
               <label htmlFor={`partner-help-${lead.id}`}>How can COP help with this lead?</label>
               <textarea id={`partner-help-${lead.id}`} autoFocus value={helpNote} onChange={(event) => setHelpNote(event.target.value)} placeholder="Ask for client context, property guidance, or help arranging the next step…" />
@@ -593,7 +886,7 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
 
           <div className="studio-two-column">
             <article className="studio-card studio-context"><small>ORIGINAL CONTEXT</small><h3>What the client wants</h3><p>{lead.note}</p><dl><div><dt>Budget</dt><dd>{lead.budget}</dd></div><div><dt>Nationality</dt><dd>{lead.nationality || 'Not supplied'}</dd></div></dl></article>
-            <article className="studio-card studio-next"><small>NEXT ACTION</small><h3>{lead.stage === 'New' ? 'Make the first contact' : 'Keep the opportunity moving'}</h3><p>{latestCopNote?.body || 'Add a progress note after the next client conversation so both teams stay aligned.'}</p><button type="button" onClick={() => openLead(lead.id)}>Update lead →</button></article>
+            <article className="studio-card studio-next"><small>NEXT ACTION</small><h3>{nextActionFor(lead.stage)}</h3><p>{latestCopNote?.body || 'Add a progress note after the next client conversation so both teams stay aligned.'}</p><button type="button" disabled={readOnly} onClick={() => { setNoteOpen(true); setHelpOpen(false); }}>Add progress note →</button></article>
           </div>
 
           <article className="studio-card">
@@ -619,14 +912,21 @@ function LeadsView({ leads, partners, role, previewPartner, openLead, onChanged,
   const [search, setSearch] = useState('');
   const [stage, setStage] = useState('');
   const [partnerId, setPartnerId] = useState(previewPartner?.id || '');
+  const [workspaceLeadId, setWorkspaceLeadId] = useState(null);
   useEffect(() => setPartnerId(previewPartner?.id || ''), [previewPartner?.id]);
+  useEffect(() => {
+    if (workspaceLeadId && !leads.some((lead) => lead.id === workspaceLeadId)) setWorkspaceLeadId(null);
+  }, [leads, workspaceLeadId]);
   const filtered = leads.filter((lead) => {
     const haystack = `${lead.name} ${lead.email} ${lead.phone}`.toLowerCase();
     return (!search || haystack.includes(search.toLowerCase())) && (!stage || lead.stage === stage) && (!partnerId || lead.partnerId === partnerId);
   });
 
   if (role === 'partner' || previewPartner) {
-    return <PartnerLeadStudio leads={leads} role={role} previewPartner={previewPartner} openLead={openLead} onChanged={onChanged} showToast={showToast} />;
+    if (!workspaceLeadId) {
+      return <PartnerLeadDashboard leads={leads} partnerName={previewPartner?.name || leads[0]?.partner} onOpenLead={setWorkspaceLeadId} />;
+    }
+    return <PartnerLeadStudio leads={leads} initialLeadId={workspaceLeadId} onBack={() => setWorkspaceLeadId(null)} role={role} previewPartner={previewPartner} openLead={openLead} onChanged={onChanged} showToast={showToast} />;
   }
 
   return (

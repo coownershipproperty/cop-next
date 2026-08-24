@@ -320,6 +320,86 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .gmail-empty{font-size:12px;color:var(--text3);padding:12px 0}
 .gmail-connect-prompt{text-align:center;padding:20px 16px;background:var(--bg);border-radius:8px}
 .gmail-connect-prompt p{font-size:12px;color:var(--text3);margin-bottom:10px}
+
+/* Partner Hub — domosno-style card layout */
+.ph-scroll{flex:1;overflow-y:auto;padding:16px 24px 40px}
+.ph-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.ph-stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 15px;box-shadow:var(--shadow)}
+.ph-stat .l{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px}
+.ph-stat .n{font-size:24px;font-weight:700;color:var(--text);margin-top:3px;letter-spacing:-0.5px}
+.ph-stat .s{font-size:10px;color:var(--text3);margin-top:2px}
+.ph-stat.t-newlead .n{color:#c2410c}
+.ph-stat.t-active .n{color:#1d4ed8}
+.ph-stat.t-won .n{color:#15803d}
+.ph-stat.t-lost .n{color:#b91c1c}
+.ph-stages{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.ph-stage-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--card);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;user-select:none;transition:all .12s}
+.ph-stage-chip:hover{border-color:#cfc9c2;box-shadow:var(--shadow)}
+.ph-stage-chip.active{border-color:var(--gold);background:#FEF9EC;color:var(--text);box-shadow:inset 0 0 0 1px var(--gold)}
+.ph-stage-chip b{font-size:11px;background:var(--bg);border-radius:10px;padding:1px 7px;color:var(--text)}
+.ph-dot{width:8px;height:8px;border-radius:50%;background:#b9c4ce;flex-shrink:0}
+/* highlighter-style status + shared stage colours */
+.ph-hl{display:inline-block;padding:2px 8px;border-radius:4px;font-size:14px;font-weight:650;line-height:1.35}
+.ph-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.ph-s-new{background:#DBEAFE;color:#1e40af}.ph-dot.ph-s-new{background:#3b82f6}
+.ph-s-contacted{background:#E0F2FE;color:#075985}.ph-dot.ph-s-contacted{background:#0ea5e9}
+.ph-s-viewing{background:#EDE9FE;color:#5b21b6}.ph-dot.ph-s-viewing{background:#8b5cf6}
+.ph-s-contract-signed{background:#FEF3C7;color:#92400e}.ph-dot.ph-s-contract-signed{background:#d97706}
+.ph-s-deposit-paid{background:#CFFAFE;color:#155e75}.ph-dot.ph-s-deposit-paid{background:#06b6d4}
+.ph-s-won{background:#D1FAE5;color:#065f46}.ph-dot.ph-s-won{background:#10b981}
+.ph-s-lost{background:#FEE2E2;color:#991b1b}.ph-dot.ph-s-lost{background:#ef4444}
+.ph-s-paused{background:#F3F4F6;color:#4b5563}.ph-dot.ph-s-paused{background:#9ca3af}
+/* sections */
+.ph-sec{margin-bottom:26px}
+.ph-sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.ph-sec-head h3{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-0.2px}
+.ph-sec-head .sub{font-size:12px;color:var(--text3)}
+/* lead cards */
+.ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:12px}
+.ph-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px 12px;cursor:pointer;transition:box-shadow .12s ease,transform .12s ease;display:flex;flex-direction:column;gap:8px;min-width:0}
+.ph-card:hover{box-shadow:0 4px 14px rgba(0,0,0,0.09);transform:translateY(-1px)}
+.ph-card.lt-active{box-shadow:0 0 0 2px var(--gold)}
+.ph-card.s-lost{border-color:#e5b5ae}
+.ph-card.s-won{border-color:#b9e2cc}
+.ph-card.tint-new{background:#F6FAFF;border-color:#d9e6f5}
+.ph-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ph-ago{font-size:11px;font-weight:600;color:var(--text3);white-space:nowrap}
+.ph-ago.fresh{color:#d97706}
+.ph-card-name{font-size:15px;font-weight:650;color:var(--text);letter-spacing:-0.2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ph-card-name .ph-test{vertical-align:2px}
+.ph-card-email{font-size:12px;color:var(--text3);margin-top:-6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ph-card-meta{font-size:11px;color:var(--text2);margin-top:-4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ph-chips{display:flex;flex-wrap:wrap;gap:5px}
+.ph-chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:#E7F4EC;color:#15803d}
+.ph-chip::before{content:'●';font-size:8px}
+.ph-chip.off{background:transparent;border:1px solid var(--border);color:var(--text3)}
+.ph-chip.off::before{content:'○'}
+.ph-quote{border-left:2px solid #ddd6cd;padding-left:9px;font-style:italic;color:var(--text2);font-size:12px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ph-card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:4px;font-size:11px;color:var(--text3)}
+.ph-card-foot .nx{font-weight:600;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ph-empty{padding:40px;text-align:center;color:var(--text3);font-size:13px}
+.ph-admin-btn{background:#7a1f2b;color:#fff !important;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.ph-admin-btn:hover{background:#641823}
+.ph-test{background:rgba(217,119,6,0.14);color:#d97706;border-radius:4px;font-size:9px;padding:1px 5px;font-weight:700;margin-left:5px;letter-spacing:.3px}
+/* detail panel */
+.ph-section{padding:14px 18px;border-bottom:1px solid var(--border)}
+.ph-section h4{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:9px}
+.ph-kv{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;font-size:12px}
+.ph-kv .k{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px}
+.ph-kv .v{color:var(--text);margin-top:2px;word-break:break-word}
+.ph-kv .v a{color:var(--info);text-decoration:none}
+.ph-tl{display:flex;flex-direction:column;gap:9px}
+.ph-tl-item{font-size:12px;color:var(--text2);line-height:1.45}
+.ph-tl-item .t{color:var(--text3);font-size:11px;margin-top:1px}
+.ph-tl-item .who{font-weight:600;color:var(--text)}
+.ph-shortlist-item{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border)}
+.ph-shortlist-item:last-child{border-bottom:0}
+.ph-shortlist-item a{color:var(--info);text-decoration:none;font-weight:500}
+.ph-note-box textarea{width:100%;min-height:70px;padding:9px 11px;border:1px solid var(--border);border-radius:7px;font-family:inherit;font-size:13px;resize:vertical;background:var(--bg);color:var(--text);outline:none}
+.ph-note-box textarea:focus{border-color:rgba(201,153,58,0.6)}
+.ph-note-msg{font-size:11px;color:var(--text3);margin-left:8px}
+.ph-danger{background:none;border:1px solid rgba(220,38,38,0.35);color:#dc2626;border-radius:7px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.ph-danger:hover{background:rgba(220,38,38,0.06)}
 </style>
 </head>
 <body>
@@ -360,6 +440,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       Needs Attention
       <span class="nav-badge pulse" id="badge-attention" style="background:#dc2626;color:#fff">—</span>
+    </div>
+    <div class="nav-item" onclick="showView('partnerhub')" id="nav-partnerhub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M2 11h4M18 11h4"/></svg>
+      Partner Hub
+      <span class="nav-badge" id="badge-partnerhub">—</span>
     </div>
     <div class="nav-item" onclick="showView('queue')" id="nav-queue">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -728,6 +813,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
 
     <!-- Settings -->
+    <!-- Partner Hub (admin view of the partner pipeline) -->
+    <div id="view-partnerhub" style="display:none">
+      <div class="leads-table-layout">
+        <div class="leads-table-header">
+          <span class="leads-table-title">Partner Hub</span>
+          <span class="leads-table-count" id="ph-count"></span>
+          <input type="text" id="ph-search" class="lt-filter" placeholder="Search name, email, destination..." oninput="renderPartnerHub()" style="width:230px" />
+          <select id="ph-partner" class="lt-filter" onchange="renderPartnerHub()">
+            <option value="">All partners</option>
+          </select>
+          <select id="ph-stage" class="lt-filter" onchange="renderPartnerHub()">
+            <option value="">All stages</option>
+            <option>New</option>
+            <option>Contacted</option>
+            <option>Viewing</option>
+            <option>Contract signed</option>
+            <option>Deposit paid</option>
+            <option>Won</option>
+            <option>Lost</option>
+            <option>Paused</option>
+          </select>
+          <a class="ph-admin-btn" style="margin-left:auto" href="https://co-ownership-property.com/admin/partners/" target="_blank" rel="noreferrer">Partner Hub admin →</a>
+        </div>
+        <div class="ph-scroll">
+          <div id="ph-stats" class="ph-stats"></div>
+          <div id="ph-stages" class="ph-stages"></div>
+          <div id="ph-body"><div class="ph-empty"><div class="spinner" style="margin:0 auto 10px"></div>Loading partner leads...</div></div>
+        </div>
+      </div>
+      <!-- Slide-in partner lead detail -->
+      <div class="lead-detail-panel" id="ph-detail-panel">
+        <div class="ldp-topbar">
+          <span style="font-size:13px;font-weight:600;color:var(--text)" id="ph-detail-title">Partner lead</span>
+          <button class="ldp-close-btn" onclick="closePhDetail()">✕</button>
+        </div>
+        <div class="leads-detail" id="ph-detail">
+          <div class="no-lead">Select a partner lead to view details</div>
+        </div>
+      </div>
+    </div>
+
     <div id="view-settings" style="display:none">
       <div class="page-header">
         <div>
@@ -1342,11 +1468,12 @@ function renderLeadCommunicationPanel(lead) {
 
 // ─── Router ───────────────────────────────────────────────
 function showView(view) {
-  ['dashboard','leads','attention','queue','scheduled','newsletters','settings'].forEach(v => {
+  ['dashboard','leads','attention','partnerhub','queue','scheduled','newsletters','settings'].forEach(v => {
     document.getElementById('view-'+v).style.display = v===view ? 'block' : 'none';
     document.getElementById('nav-'+v)?.classList.toggle('active', v===view);
   });
   if(view==='leads') loadLeads();
+  if(view==='partnerhub') loadPartnerHub();
   if(view==='attention') loadAttention();
   if(view==='queue') { setQueueTab(activeQueueTab || 'sent'); }
   if(view==='scheduled') loadScheduled();
@@ -3158,11 +3285,266 @@ async function init() {
   subscribeRealtime();
   loadQueueBadge();
   loadScheduledBadge();
+  loadPartnerHubBadge();
   // Start loading GIS token client in background
   setTimeout(initGmailTokenClient, 1000);
 }
 
 bootAuth();
+
+// ─── Partner Hub (admin view of the partner pipeline) ─────
+// Reads partner_hub_* tables directly under RLS (COP admins have SELECT on
+// everything). Writes go through the authorised Partner Hub API on the main
+// site so notes, audit events, timestamps and partner emails stay consistent.
+const PARTNER_HUB_API = 'https://co-ownership-property.com/api/partner-hub';
+const PH_STAGES = ['New','Contacted','Viewing','Contract signed','Deposit paid','Won','Lost','Paused'];
+const PH_ACTIVE_STAGES = ['Contacted','Viewing','Contract signed','Deposit paid'];
+const PH_NEXT_ACTION = {
+  'New':'Make first contact','Contacted':'Arrange a viewing','Viewing':'Follow up after the viewing',
+  'Contract signed':'Confirm the deposit','Deposit paid':'Complete the handover',
+  'Won':'Sale closed','Lost':'Closed','Paused':'Agree a date to reconnect',
+};
+const PH_EVENT_LABELS = {
+  lead_created:'Lead shared by COP', lead_viewed:'Partner opened the lead', lead_updated:'Lead details updated by COP',
+  note_added:'Progress note added', help_requested:'Partner requested help from COP',
+  notification_sent:'Email notification sent', notification_failed:'Email notification failed',
+};
+let phLeads = [], phPartners = [], phSelectedId = null, phFlash = '';
+
+function phStageClass(s){ return 'ph-s-' + String(s||'new').toLowerCase().replace(/ /g,'-'); }
+function phBadgeHtml(s){ return `<span class="ph-badge ${phStageClass(s)}">${esc(s)}</span>`; }
+function phPartnerName(id){ return phPartners.find(p=>p.id===id)?.display_name || id; }
+function phWhen(d){ if(!d) return ''; return new Date(d).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}); }
+function phEventLabel(e){
+  if(e.event_type==='stage_changed') return `Stage changed from ${e.from_stage||'—'} to ${e.to_stage||'—'}`;
+  if(e.event_type==='shortlist_updated') return `${e.metadata?.operation==='remove'?'Removed':'Added'} ${e.metadata?.property_title||'a property'} ${e.metadata?.operation==='remove'?'from':'to'} the shortlist`;
+  return PH_EVENT_LABELS[e.event_type] || String(e.event_type||'Activity').replace(/_/g,' ');
+}
+
+async function loadPartnerHubBadge(){
+  const { count } = await db.from('partner_hub_leads').select('id',{count:'exact',head:true});
+  const el = document.getElementById('badge-partnerhub');
+  if(el) el.textContent = count ?? '—';
+}
+
+async function loadPartnerHub(){
+  const [pRes, lRes] = await Promise.all([
+    db.from('partner_hub_partners').select('id,display_name,active,test_routing').order('display_name'),
+    db.from('partner_hub_leads').select('*').order('updated_at',{ascending:false}),
+  ]);
+  const err = pRes.error || lRes.error;
+  if(err){
+    document.getElementById('ph-body').innerHTML = `<div class="ph-empty" style="color:#dc2626">Error: ${esc(err.message)}</div>`;
+    return;
+  }
+  phPartners = pRes.data || [];
+  phLeads = lRes.data || [];
+  const sel = document.getElementById('ph-partner');
+  if(sel.options.length <= 1) phPartners.forEach(p=>{ const o=document.createElement('option'); o.value=p.id; o.textContent=p.display_name; sel.appendChild(o); });
+  const badge = document.getElementById('badge-partnerhub');
+  if(badge) badge.textContent = phLeads.length;
+  renderPartnerHub();
+}
+
+function setPhStage(stage){
+  const sel = document.getElementById('ph-stage');
+  sel.value = sel.value === stage ? '' : stage;
+  renderPartnerHub();
+}
+
+function phAgo(d){
+  if(!d) return '';
+  const days = daysAgo(d);
+  if(days <= 0) return 'Today';
+  if(days === 1) return 'Yesterday';
+  if(days < 14) return days + 'd ago';
+  if(days < 60) return Math.floor(days/7) + 'w ago';
+  return Math.floor(days/30) + 'mo ago';
+}
+
+function phChip(label, present){
+  return `<span class="ph-chip${present?'':' off'}">${label}</span>`;
+}
+
+function phCardHtml(l){
+  const st = l.status;
+  const mod = st==='Lost' ? ' s-lost' : st==='Won' ? ' s-won' : st==='New' ? ' tint-new' : '';
+  const days = daysAgo(l.updated_at);
+  return `
+    <div class="ph-card${mod}${l.id===phSelectedId?' lt-active':''}" onclick="selectPhLead('${l.id}')">
+      <div class="ph-card-top"><span class="ph-hl ${phStageClass(st)}">${esc(st)}</span><span class="ph-ago${days<=1?' fresh':''}">${phAgo(l.updated_at)}</span></div>
+      <div class="ph-card-name">${esc(`${l.first_name} ${l.last_name}`)}${l.is_test?'<span class="ph-test">TEST</span>':''}</div>
+      <div class="ph-card-email">${esc(l.email)}</div>
+      <div class="ph-card-meta">${esc(l.destination||'No destination yet')} · Created ${fmt(l.created_at)}</div>
+      <div class="ph-chips">${phChip('Phone', !!l.phone)}${phChip('Budget', !!l.budget_display)}${phChip('Nationality', !!l.nationality)}</div>
+      ${l.preferences?`<div class="ph-quote">${esc(l.preferences)}</div>`:''}
+      <div class="ph-card-foot"><span>${esc(phPartnerName(l.partner_id))}</span><span class="nx">${PH_NEXT_ACTION[st]||'Review the lead'}</span></div>
+    </div>`;
+}
+
+function phSectionHtml(title, sub, cards){
+  if(!cards.length) return '';
+  return `<div class="ph-sec"><div class="ph-sec-head"><h3>${title}</h3><span class="sub">${sub}</span></div><div class="ph-grid">${cards.join('')}</div></div>`;
+}
+
+function renderPartnerHub(){
+  const q = (document.getElementById('ph-search').value||'').toLowerCase();
+  const pf = document.getElementById('ph-partner').value;
+  const sf = document.getElementById('ph-stage').value;
+  const counts = Object.fromEntries(PH_STAGES.map(s=>[s,0]));
+  phLeads.forEach(l=>{ if(counts[l.status]!==undefined) counts[l.status]++; });
+  const active = PH_ACTIVE_STAGES.reduce((t,s)=>t+counts[s],0);
+  document.getElementById('ph-stats').innerHTML = [
+    ['Total leads', phLeads.length, 'Across all partners', ''],
+    ['Needs first contact', counts['New'], 'New — waiting for a first call', 't-newlead'],
+    ['Active', active, 'Contacted → deposit paid', 't-active'],
+    ['Paused', counts['Paused'], 'On hold', 't-paused'],
+    ['Won', counts['Won'], 'Confirmed sales', 't-won'],
+    ['Lost', counts['Lost'], 'Closed without a sale', 't-lost'],
+  ].map(([l,n,s,t])=>`<div class="ph-stat ${t}"><div class="l">${l}</div><div class="n">${n}</div><div class="s">${s}</div></div>`).join('');
+  document.getElementById('ph-stages').innerHTML = PH_STAGES.map(s=>
+    `<span class="ph-stage-chip${sf===s?' active':''}" onclick="setPhStage('${s}')" role="button" aria-pressed="${sf===s}"><span class="ph-dot ${phStageClass(s)}"></span>${s}<b>${counts[s]}</b></span>`
+  ).join('');
+  const filtered = phLeads.filter(l=>{
+    const hay = `${l.first_name} ${l.last_name} ${l.email} ${l.phone||''} ${l.destination||''}`.toLowerCase();
+    return (!q || hay.includes(q)) && (!sf || l.status===sf) && (!pf || l.partner_id===pf);
+  });
+  document.getElementById('ph-count').textContent = `${filtered.length===phLeads.length?`all ${phLeads.length}`:`${filtered.length} of ${phLeads.length}`} leads — no pagination`;
+  const body = document.getElementById('ph-body');
+  if(!filtered.length){ body.innerHTML = '<div class="ph-empty">No partner lead matches this search or filter</div>'; return; }
+  const isFiltered = Boolean(q || sf || pf);
+  if(isFiltered){
+    body.innerHTML = phSectionHtml('Results', `${filtered.length} lead${filtered.length!==1?'s':''}`, filtered.map(phCardHtml));
+    return;
+  }
+  const news = filtered.filter(l=>l.status==='New');
+  const pipeline = filtered.filter(l=>PH_ACTIVE_STAGES.includes(l.status));
+  const rest = filtered.filter(l=>['Paused','Won','Lost'].includes(l.status));
+  body.innerHTML =
+    phSectionHtml('Needs first contact', 'New partner leads waiting for a first call', news.map(phCardHtml)) +
+    phSectionHtml('Active pipeline', 'Contacted through deposit paid', pipeline.map(phCardHtml)) +
+    phSectionHtml('Paused & closed', 'Paused, won and lost leads', rest.map(phCardHtml));
+}
+
+function closePhDetail(){
+  document.getElementById('ph-detail-panel').classList.remove('open');
+  phSelectedId = null;
+  renderPartnerHub();
+}
+
+async function selectPhLead(id){
+  phSelectedId = id;
+  renderPartnerHub();
+  document.getElementById('ph-detail-panel').classList.add('open');
+  const det = document.getElementById('ph-detail');
+  det.innerHTML = '<div class="no-lead"><div class="spinner" style="border:2px solid var(--border);border-top-color:var(--gold);width:20px;height:20px"></div></div>';
+  const lead = phLeads.find(l=>l.id===id);
+  if(!lead){ det.innerHTML = '<div class="no-lead">Lead not found</div>'; return; }
+  document.getElementById('ph-detail-title').textContent = `${lead.first_name} ${lead.last_name}`;
+  const [nRes, eRes, sRes, dRes] = await Promise.all([
+    db.from('partner_hub_notes').select('*').eq('lead_id',id).order('created_at',{ascending:false}),
+    db.from('partner_hub_events').select('*').eq('lead_id',id).order('created_at',{ascending:false}).limit(50),
+    db.from('partner_hub_shortlist_items').select('*').eq('lead_id',id).order('created_at',{ascending:true}),
+    db.from('partner_hub_notifications').select('*').eq('lead_id',id).order('created_at',{ascending:false}).limit(20),
+  ]);
+  if(phSelectedId !== id) return;
+  const notes = nRes.data||[], events = eRes.data||[], shortlist = sRes.data||[], notifs = dRes.data||[];
+  const flash = phFlash; phFlash = '';
+  det.innerHTML = `
+    <div class="ph-section">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        ${phBadgeHtml(lead.status)}
+        <span style="font-size:12px;color:var(--text2);font-weight:600">${esc(phPartnerName(lead.partner_id))}</span>
+        ${lead.is_test?'<span class="ph-test">TEST</span>':''}
+        <span style="font-size:11px;color:var(--text3);margin-left:auto">Updated ${phWhen(lead.updated_at)}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:8px">Next action: <b>${PH_NEXT_ACTION[lead.status]||'Review the lead'}</b> <span style="color:var(--text3)">(stage is managed by the partner)</span></div>
+    </div>
+    <div class="ph-section">
+      <h4>Lead details</h4>
+      <div class="ph-kv">
+        <div><div class="k">Email</div><div class="v"><a href="mailto:${esc(lead.email)}">${esc(lead.email)}</a></div></div>
+        <div><div class="k">Phone</div><div class="v">${lead.phone?`<a href="tel:${esc(lead.phone)}">${esc(lead.phone)}</a>`:'—'}</div></div>
+        <div><div class="k">Nationality</div><div class="v">${esc(lead.nationality||'—')}</div></div>
+        <div><div class="k">Destination</div><div class="v">${esc(lead.destination||'—')}</div></div>
+        <div><div class="k">Budget</div><div class="v">${esc(lead.budget_display||'—')}</div></div>
+        <div><div class="k">Property type</div><div class="v">${esc(lead.collection_type||'—')}</div></div>
+        <div><div class="k">Created</div><div class="v">${fmt(lead.created_at)}</div></div>
+        <div><div class="k">Declared by</div><div class="v">${esc(lead.created_by_email||'—')}</div></div>
+      </div>
+      ${lead.preferences?`<div style="margin-top:10px"><div class="k" style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px">Context</div><div style="font-size:12px;color:var(--text2);line-height:1.55;margin-top:3px">${esc(lead.preferences)}</div></div>`:''}
+    </div>
+    <div class="ph-section">
+      <h4>Property shortlist (${shortlist.length})</h4>
+      ${shortlist.length?shortlist.map(p=>`<div class="ph-shortlist-item"><a href="${esc(p.property_url)}" target="_blank" rel="noreferrer">${esc(p.property_title)}</a><span style="color:var(--text3)">${esc(p.property_location||'')}</span></div>`).join(''):'<div style="font-size:12px;color:var(--text3)">No homes shortlisted. Manage the shortlist in the Partner Hub admin.</div>'}
+    </div>
+    <div class="ph-section ph-note-box">
+      <h4>Add a COP note</h4>
+      <textarea id="ph-note-input" placeholder="Context, guidance or an update for the partner..."></textarea>
+      <div style="display:flex;align-items:center;margin-top:8px">
+        <button class="btn btn-primary" id="ph-note-btn" onclick="phAddNote()" style="font-size:12px">Add note</button>
+        <span class="ph-note-msg" id="ph-note-msg">${esc(flash)||'The assigned partner is notified by email.'}</span>
+      </div>
+    </div>
+    <div class="ph-section">
+      <h4>Progress notes (${notes.length})</h4>
+      <div class="ph-tl">${notes.length?notes.map(n=>`<div class="ph-tl-item"><span class="who">${n.author_role==='partner'?'Partner':'COP'}</span> — ${esc(n.body)}<div class="t">${esc(n.author_email||'')} · ${phWhen(n.created_at)}</div></div>`).join(''):'<div style="font-size:12px;color:var(--text3)">No notes yet</div>'}</div>
+    </div>
+    <div class="ph-section">
+      <h4>Audit trail</h4>
+      <div class="ph-tl">${events.length?events.map(e=>`<div class="ph-tl-item">${esc(phEventLabel(e))}<div class="t">${e.actor_role||'system'} · ${phWhen(e.created_at)}</div></div>`).join(''):'<div style="font-size:12px;color:var(--text3)">No events yet</div>'}</div>
+    </div>
+    <div class="ph-section">
+      <h4>Email notifications (${notifs.length})</h4>
+      <div class="ph-tl">${notifs.length?notifs.map(n=>`<div class="ph-tl-item">${esc(n.event_type)} → ${esc(n.recipient)} <b style="color:${n.status==='sent'?'#16a34a':n.status==='failed'?'#dc2626':'var(--text3)'}">${esc(n.status)}</b><div class="t">${phWhen(n.created_at)}</div></div>`).join(''):'<div style="font-size:12px;color:var(--text3)">No notifications yet</div>'}</div>
+    </div>
+    <div class="ph-section" style="display:flex;gap:8px;align-items:center;border-bottom:0">
+      <a class="btn" style="font-size:12px;text-decoration:none" href="https://co-ownership-property.com/admin/partners/" target="_blank" rel="noreferrer">Edit in Partner Hub admin ↗</a>
+      <button class="ph-danger" style="margin-left:auto" onclick="phDeleteLead()">Delete lead</button>
+    </div>`;
+}
+
+async function phAddNote(){
+  const ta = document.getElementById('ph-note-input');
+  const note = (ta?.value||'').trim();
+  const msg = document.getElementById('ph-note-msg');
+  const btn = document.getElementById('ph-note-btn');
+  if(!note){ msg.textContent = 'Write the note first.'; return; }
+  btn.disabled = true; btn.textContent = 'Saving...';
+  try {
+    const res = await fetch(`${PARTNER_HUB_API}/leads/${phSelectedId}/`, {
+      method: 'PATCH',
+      headers: await crmJsonHeaders(),
+      body: JSON.stringify({ action: 'note', note }),
+    });
+    const payload = await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error(payload.error || 'Could not save the note');
+    phFlash = payload.notification?.status === 'failed' ? 'Note saved — the partner email failed.' : 'Note saved and partner notified.';
+    await loadPartnerHub();
+    await selectPhLead(phSelectedId);
+  } catch(e) {
+    msg.textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Add note';
+  }
+}
+
+async function phDeleteLead(){
+  const lead = phLeads.find(l=>l.id===phSelectedId);
+  if(!lead) return;
+  if(!window.confirm(`Delete ${lead.first_name} ${lead.last_name} permanently? This also removes the lead's notes, audit events and notification history.`)) return;
+  try {
+    const res = await fetch(`${PARTNER_HUB_API}/leads/${phSelectedId}/`, {
+      method: 'DELETE',
+      headers: await crmJsonHeaders(),
+    });
+    const payload = await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error(payload.error || 'Could not delete the lead');
+    closePhDetail();
+    await loadPartnerHub();
+  } catch(e) {
+    alert(e.message);
+  }
+}
 
 // ─── Newsletters ──────────────────────────────────────────
 let nlActiveCampaignId = null;
