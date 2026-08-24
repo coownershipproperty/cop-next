@@ -1,9 +1,35 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { supabase } from '@/lib/supabase'
 
+const inputStyle = {
+  width: '100%',
+  border: '1px solid #e8e0d4',
+  borderRadius: 10,
+  padding: '11px 14px',
+  fontSize: 14,
+  color: '#1a2533',
+  outline: 'none',
+  background: '#faf9f7',
+  boxSizing: 'border-box',
+  transition: 'border-color 0.15s',
+}
+
+const labelStyle = {
+  display: 'block',
+  fontSize: 13,
+  fontWeight: 600,
+  color: '#2C4A5E',
+  marginBottom: 8,
+  textTransform: 'uppercase',
+  letterSpacing: '0.5px',
+}
+
 export default function AdminLogin() {
+  const router = useRouter()
   const [email, setEmail] = useState('info@domosno.com')
-  const [sent, setSent] = useState(false)
+  const [password, setPassword] = useState('')
+  const [resetSent, setResetSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -12,21 +38,44 @@ export default function AdminLogin() {
     setLoading(true)
     setError(null)
 
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        shouldCreateUser: false,
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/admin/`,
-      },
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
     })
-
-    if (error) {
-      setError(error.message)
+    if (signInError || !data?.session) {
+      setError('Email or password not recognised.')
       setLoading(false)
-    } else {
-      setSent(true)
-      setLoading(false)
+      return
     }
+
+    const response = await fetch('/api/admin/session', {
+      headers: { Authorization: `Bearer ${data.session.access_token}` },
+    })
+    if (!response.ok) {
+      await supabase.auth.signOut()
+      setError('This email does not have admin access.')
+      setLoading(false)
+      return
+    }
+    router.replace('/admin/')
+  }
+
+  async function sendPasswordReset() {
+    setError(null)
+    if (!email.trim()) {
+      setError('Enter your email address first.')
+      return
+    }
+    setLoading(true)
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/auth/callback?next=/admin/`,
+    })
+    setLoading(false)
+    if (resetError) {
+      setError(resetError.message)
+      return
+    }
+    setResetSent(true)
   }
 
   return (
@@ -57,7 +106,7 @@ export default function AdminLogin() {
           </p>
         </div>
 
-        {sent ? (
+        {resetSent ? (
           <div style={{
             background: '#ffffff',
             border: '1px solid #e8e0d4',
@@ -71,11 +120,12 @@ export default function AdminLogin() {
               Check your inbox
             </p>
             <p style={{ fontSize: 14, color: '#5a6a7a', lineHeight: 1.6 }}>
-              We sent a magic link to{' '}
-              <span style={{ fontWeight: 600, color: '#2C4A5E' }}>{email}</span>
+              We sent a password reset link to{' '}
+              <span style={{ fontWeight: 600, color: '#2C4A5E' }}>{email}</span>.
+              Open it, sign in, then set a new password from the CRM sidebar.
             </p>
             <button
-              onClick={() => setSent(false)}
+              onClick={() => setResetSent(false)}
               style={{
                 marginTop: 24,
                 fontSize: 13,
@@ -86,7 +136,7 @@ export default function AdminLogin() {
                 textDecoration: 'underline',
               }}
             >
-              Use a different email
+              Back to sign in
             </button>
           </div>
         ) : (
@@ -101,15 +151,7 @@ export default function AdminLogin() {
             }}
           >
             <div style={{ marginBottom: 20 }}>
-              <label style={{
-                display: 'block',
-                fontSize: 13,
-                fontWeight: 600,
-                color: '#2C4A5E',
-                marginBottom: 8,
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}>
+              <label style={labelStyle}>
                 Email address
               </label>
               <input
@@ -117,18 +159,24 @@ export default function AdminLogin() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                style={{
-                  width: '100%',
-                  border: '1px solid #e8e0d4',
-                  borderRadius: 10,
-                  padding: '11px 14px',
-                  fontSize: 14,
-                  color: '#1a2533',
-                  outline: 'none',
-                  background: '#faf9f7',
-                  boxSizing: 'border-box',
-                  transition: 'border-color 0.15s',
-                }}
+                autoComplete="email"
+                style={inputStyle}
+                onFocus={e => e.target.style.borderColor = '#2C4A5E'}
+                onBlur={e => e.target.style.borderColor = '#e8e0d4'}
+              />
+            </div>
+
+            <div style={{ marginBottom: 20 }}>
+              <label style={labelStyle}>
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                autoComplete="current-password"
+                style={inputStyle}
                 onFocus={e => e.target.style.borderColor = '#2C4A5E'}
                 onBlur={e => e.target.style.borderColor = '#e8e0d4'}
               />
@@ -157,7 +205,25 @@ export default function AdminLogin() {
               onMouseEnter={e => { if (!loading) e.target.style.background = '#3a5f78' }}
               onMouseLeave={e => { if (!loading) e.target.style.background = '#2C4A5E' }}
             >
-              {loading ? 'Sending…' : 'Send magic link →'}
+              {loading ? 'Signing in…' : 'Sign in →'}
+            </button>
+
+            <button
+              type="button"
+              onClick={sendPasswordReset}
+              disabled={loading}
+              style={{
+                width: '100%',
+                marginTop: 14,
+                fontSize: 13,
+                color: '#8a9aaa',
+                background: 'none',
+                border: 'none',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                textDecoration: 'underline',
+              }}
+            >
+              Forgotten password?
             </button>
           </form>
         )}

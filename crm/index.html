@@ -412,7 +412,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <input type="email" id="gate-email" placeholder="admin@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')loginWithPassword()" />
     <input type="password" id="gate-password" placeholder="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginWithPassword()" />
     <button onclick="loginWithPassword()" id="gate-login-button">Sign in</button>
-    <button onclick="sendMagicLink()" id="gate-link-button" class="secondary">Send magic link</button>
+    <button onclick="sendPasswordReset()" id="gate-link-button" class="secondary">Forgotten password?</button>
     <div class="gate-error" id="gate-error"></div>
     <div class="gate-note" id="gate-note">Use an approved CRM admin email.</div>
   </div>
@@ -970,7 +970,7 @@ async function loginWithPassword() {
   if(data?.session) await startAuthenticatedApp(data.session);
 }
 
-async function sendMagicLink() {
+async function sendPasswordReset() {
   const email = getGateEmail();
   const btn = document.getElementById('gate-link-button');
   const err = document.getElementById('gate-error');
@@ -981,22 +981,18 @@ async function sendMagicLink() {
   }
   setGateBusy(true);
   btn.textContent = 'Sending...';
-  const { error } = await db.auth.signInWithOtp({
-    email,
-    options: {
-      emailRedirectTo: window.location.origin + window.location.pathname,
-      shouldCreateUser: false,
-    },
+  const { error } = await db.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + window.location.pathname,
   });
   if(error) {
     err.textContent = error.message;
     setGateBusy(false);
-    btn.textContent = 'Send magic link';
+    btn.textContent = 'Forgotten password?';
     return;
   }
   document.getElementById('gate-sub').textContent = 'Check your inbox';
-  document.getElementById('gate-note').textContent = `Magic link sent to ${email}.`;
-  btn.textContent = 'Link sent';
+  document.getElementById('gate-note').textContent = `Password reset email sent to ${email}. Open it, then set a new password from the sidebar.`;
+  btn.textContent = 'Reset email sent';
 }
 
 function showGate(message) {
@@ -1005,7 +1001,7 @@ function showGate(message) {
   document.getElementById('gate-error').textContent = message || '';
   setGateBusy(false);
   document.getElementById('gate-login-button').textContent = 'Sign in';
-  document.getElementById('gate-link-button').textContent = 'Send magic link';
+  document.getElementById('gate-link-button').textContent = 'Forgotten password?';
 }
 
 async function verifyCrmAdmin(session) {
