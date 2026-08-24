@@ -475,6 +475,8 @@ function EngagementPanel({ lead, events }) {
   );
 }
 
+const PARTNER_LEAD_BATCH_SIZE = 20;
+
 function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, showToast }) {
   const readOnly = Boolean(previewPartner);
   const [selectedId, setSelectedId] = useState(leads[0]?.id || '');
@@ -484,6 +486,7 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
   const [helpNote, setHelpNote] = useState('');
   const [helpOpen, setHelpOpen] = useState(false);
   const [stageDraft, setStageDraft] = useState(leads[0]?.stage || 'New');
+  const [visibleLeadCount, setVisibleLeadCount] = useState(PARTNER_LEAD_BATCH_SIZE);
 
   useEffect(() => {
     if (!leads.some((lead) => lead.id === selectedId)) setSelectedId(leads[0]?.id || '');
@@ -519,6 +522,8 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
   const events = detail?.events || [];
   const notes = detail?.notes || [];
   const latestCopNote = [...notes].reverse().find((note) => note.author_role === 'admin');
+  const visibleLeads = leads.slice(0, visibleLeadCount);
+  const remainingLeadCount = Math.max(0, leads.length - visibleLeads.length);
 
   async function updateStage(event) {
     event.preventDefault();
@@ -598,7 +603,11 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
         </div>
 
         <aside className="studio-rail">
-          <article className="studio-lead-switcher"><header><strong>All assigned leads</strong><small>{leads.length}</small></header>{leads.map((item) => <button type="button" className={item.id === lead.id ? 'active' : ''} key={item.id} onClick={() => setSelectedId(item.id)}><i>{item.initials}</i><span><strong>{item.name}</strong><small>{item.location} · {item.stage}</small></span><b>›</b></button>)}</article>
+          <article className="studio-lead-switcher">
+            <header><strong>All assigned leads</strong><small>{leads.length}</small></header>
+            <div className="studio-lead-list">{visibleLeads.map((item) => <button type="button" className={item.id === lead.id ? 'active' : ''} key={item.id} onClick={() => setSelectedId(item.id)}><i>{item.initials}</i><span><strong>{item.name}</strong><small>{item.location} · {item.stage}</small></span><b>›</b></button>)}</div>
+            <footer aria-live="polite"><small>Showing {visibleLeads.length} of {leads.length} leads</small>{remainingLeadCount > 0 && <button type="button" onClick={() => setVisibleLeadCount((count) => Math.min(count + PARTNER_LEAD_BATCH_SIZE, leads.length))}>See {Math.min(PARTNER_LEAD_BATCH_SIZE, remainingLeadCount)} more leads</button>}</footer>
+          </article>
         </aside>
       </div>
       {loading && <div className="studio-loading">Refreshing secure lead…</div>}
