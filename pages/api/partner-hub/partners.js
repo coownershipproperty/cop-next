@@ -67,7 +67,7 @@ export default async function handler(req, res) {
     if (action !== 'test_notification') return res.status(400).json({ error: 'Unknown action' });
     const partner = await getPartner(access.db, partnerId);
     if (!partner) return res.status(404).json({ error: 'Partner not found' });
-    if (!partner.test_routing) return res.status(400).json({ error: 'Test routing must be active' });
+    if (!partner.test_routing) return res.status(400).json({ error: 'Internal review routing must be active' });
 
     const { data: lead, error } = await access.db
       .from('partner_hub_leads')
@@ -77,13 +77,13 @@ export default async function handler(req, res) {
       .limit(1)
       .maybeSingle();
     if (error) return res.status(500).json({ error: error.message });
-    if (!lead) return res.status(400).json({ error: 'Add a synthetic lead before testing notifications' });
+    if (!lead) return res.status(400).json({ error: 'Add a lead before checking notifications' });
 
     try {
       const delivery = await notifyPartnerOfLead({ db: access.db, partner, lead, eventType: 'test' });
       return res.json({ ok: true, delivery });
     } catch (error) {
-      return res.status(502).json({ error: 'The test notification was not accepted by the email provider' });
+      return res.status(502).json({ error: 'The review notification was not accepted by the email provider' });
     }
   }
 

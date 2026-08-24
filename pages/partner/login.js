@@ -67,17 +67,17 @@ export default function PartnerLoginPage() {
         <small>Each login is permanently scoped to one partner organisation.</small>
       </section>
       <section className="login-form-panel">
-        {sent ? <form className="partner-login-card" onSubmit={verify}><p className="mini-label">ONE-TIME ACCESS CODE</p><h2>Check your inbox</h2><p>A six-digit code was sent to <strong>{email}</strong>. It can only open the partner workspace assigned to that account.</p>
-          <label>Secure sign-in code<input className="otp-input" required inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6}" maxLength={6} value={code} onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 6))} placeholder="000000" /></label>
+        {sent ? <form className="partner-login-card" onSubmit={verify}><p className="mini-label">ONE-TIME ACCESS CODE</p><h2>Check your inbox</h2><p>An eight-digit code was sent to <strong>{email}</strong>. Enter the complete code to open the partner workspace assigned to that account.</p>
+          <label>Secure sign-in code<input className="otp-input" required inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{8}" maxLength={8} value={code} onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 8))} placeholder="00000000" /></label>
           {error && <p className="login-error">{error}</p>}
-          <button className="login-button" disabled={loading || code.length !== 6}>{loading ? 'Verifying…' : 'Open partner workspace →'}</button>
+          <button className="login-button" disabled={loading || code.length !== 8}>{loading ? 'Verifying…' : 'Open partner workspace →'}</button>
           <button type="button" className="login-secondary" onClick={() => { setSent(false); setCode(''); setError(''); }}>Use a different email</button>
         </form> : <form onSubmit={signIn}>
           <p className="mini-label">WELCOME BACK</p><h2>Partner sign in</h2><p>Use the individual email address invited by COP. Shared passwords are not supported.</p>
           <label>Email address<input required autoComplete="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@partner.com" /></label>
           {error && <p className="login-error">{error}</p>}
           <button className="login-button" disabled={loading}>{loading ? 'Sending…' : 'Send secure sign-in code →'}</button>
-          <small className="demo-note">If your email has not been invited, no workspace access will be created.</small>
+          <small className="login-note">If your email has not been invited, no workspace access will be created.</small>
         </form>}
       </section>
     </div>

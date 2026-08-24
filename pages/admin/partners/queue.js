@@ -161,7 +161,7 @@ export default function PartnerQueue() {
 
   async function send(r) {
     const route = routing?.[r.partner]
-    const label = route?.testRouting ? `the TEST address (${route.email})` : `${r.partner} (${route?.email})`
+    const label = route?.testRouting ? `the internal review address (${route.email})` : `${r.partner} (${route?.email})`
     if (!window.confirm(`Send this lead to ${label}? This is the step that notifies the partner.`)) return
     const saved = await save(r)
     if (!saved) return
@@ -185,7 +185,7 @@ export default function PartnerQueue() {
       {routing && (
         <div style={s.banner(testMode)}>
           {testMode
-            ? <>Partner notifications currently route to <strong>{routing['21-5']?.email}</strong> (test routing — set <code>PARTNER_215_EMAIL</code> to go live).</>
+            ? <>Partner notifications currently route to the internal review address <strong>{routing['21-5']?.email}</strong>. Set <code>PARTNER_215_EMAIL</code> to activate live routing.</>
             : <>Live routing active: sends go to <strong>{routing['21-5']?.email}</strong>.</>}
         </div>
       )}

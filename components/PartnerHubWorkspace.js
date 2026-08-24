@@ -27,7 +27,6 @@ const EMPTY_LEAD = {
   propertySlugs: [],
   consentConfirmed: false,
   notifyPartner: true,
-  isTest: true,
 };
 
 const PARTNER_HUB_BUDGET_RANGES = [
@@ -373,7 +372,7 @@ function LeadTable({ leads, onOpen, compact = false }) {
       </div>
       {leads.map((lead) => (
         <button key={lead.id} type="button" className={compact ? 'table-row clickable-row' : 'large-table-row partner-table-row'} onClick={() => onOpen(lead.id)}>
-          <span className="lead-person"><i>{lead.initials}</i><span><strong>{lead.name}</strong>{lead.isTest && <small className="test-badge">TEST LEAD</small>}</span></span>
+          <span className="lead-person"><i>{lead.initials}</i><span><strong>{lead.name}</strong></span></span>
           <span className="email-cell">{lead.email}</span>
           {!compact && <span className="phone-cell">{lead.phone || '—'}</span>}
           <span className="collection-cell">{lead.location}</span>
@@ -568,7 +567,7 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
       <div className="studio-layout">
         <div className="studio-main">
           <article className="studio-identity-card">
-            <div className="studio-status-row"><span className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</span>{lead.isTest && <span className="test-badge">TEST LEAD</span>}<small>Updated {lead.age}</small></div>
+            <div className="studio-status-row"><span className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</span><small>Updated {lead.age}</small></div>
             <h3>{lead.name}</h3>
             <div className="studio-contact-row"><a href={`mailto:${lead.email}`}>✉ {lead.email}</a><a href={lead.phone ? `tel:${lead.phone}` : undefined}>☎ {lead.phone || 'No phone supplied'}</a><span>◎ {lead.location}</span></div>
             <div className="studio-support-actions">
@@ -690,7 +689,7 @@ function SubmitLead({ partners, destinations, onCreated, showToast }) {
         </div></fieldset>
         <fieldset disabled={!selected} className={!selected ? 'form-section-locked' : ''}><legend>Property shortlist</legend><NewLeadPropertyPicker value={form.propertySlugs} onChange={(value) => field('propertySlugs', value)} showToast={showToast} /></fieldset>
         <label className={`form-consent ${!selected ? 'locked' : ''}`}><input required disabled={!selected} type="checkbox" checked={form.consentConfirmed} onChange={(e) => field('consentConfirmed', e.target.checked)} /><span>I confirm the customer has consented to their details being shared with the selected partner.</span></label>
-        <div className="test-controls"><label><input type="checkbox" checked={form.isTest} onChange={(e) => field('isTest', e.target.checked)} /> Mark as synthetic test lead</label><label><input type="checkbox" checked={form.notifyPartner} onChange={(e) => field('notifyPartner', e.target.checked)} /> Send partner email after saving</label></div>
+        <div className="notification-controls"><label><input type="checkbox" checked={form.notifyPartner} onChange={(e) => field('notifyPartner', e.target.checked)} /> Send partner email after saving</label></div>
         <div className="form-actions"><button type="button" onClick={() => setForm(EMPTY_LEAD)}>Clear</button><button className="primary-button" disabled={!selected?.email || !form.consentConfirmed || saving}>{saving ? 'Saving…' : 'Save and declare lead'}</button></div>
       </form>
       <aside className="form-aside">
@@ -720,11 +719,11 @@ function PartnerAccess({ partners, members, onPartnerChanged, onMemberChanged, s
     } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
   }
 
-  async function testEmail(partner) {
-    setBusy(`test-${partner.id}`);
+  async function sendReviewEmail(partner) {
+    setBusy(`review-${partner.id}`);
     try {
       const payload = await hubRequest('/api/partner-hub/partners', { method: 'POST', body: JSON.stringify({ action: 'test_notification', partnerId: partner.id }) });
-      showToast(`Test email ${payload.delivery?.status === 'sent' ? 'sent' : payload.delivery?.status} to ${payload.delivery?.recipient}.`);
+      showToast(`Review email ${payload.delivery?.status === 'sent' ? 'sent' : payload.delivery?.status} to ${payload.delivery?.recipient}.`);
     } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
   }
 
@@ -767,18 +766,18 @@ function PartnerAccess({ partners, members, onPartnerChanged, onMemberChanged, s
         {partners.map((partner) => {
           const values = drafts[partner.id] || {};
           return <article key={partner.id} className="partner-access-card">
-            <header><span className="partner-logo">{partner.name.slice(0, 2)}</span><div><small>PARTNER WORKSPACE</small><h3>{partner.name}</h3></div><span className={partner.testRouting ? 'test-route-pill' : 'live-route-pill'}>{partner.testRouting ? 'TEST ROUTING' : 'LIVE'}</span></header>
+            <header><span className="partner-logo">{partner.name.slice(0, 2)}</span><div><small>PARTNER WORKSPACE</small><h3>{partner.name}</h3></div><span className={partner.testRouting ? 'review-route-pill' : 'live-route-pill'}>{partner.testRouting ? 'INTERNAL REVIEW' : 'LIVE'}</span></header>
             <div className="partner-routing-form">
               <label>Contact name<input value={values.notificationName || ''} onChange={(e) => draft(partner.id, 'notificationName', e.target.value)} /></label>
               <label>Notification email<input type="email" value={values.email || ''} onChange={(e) => draft(partner.id, 'email', e.target.value)} /></label>
               <label>Phone<input value={values.phone || ''} onChange={(e) => draft(partner.id, 'phone', e.target.value)} /></label>
-              <label className="routing-toggle"><input type="checkbox" checked={values.testRouting !== false} onChange={(e) => draft(partner.id, 'testRouting', e.target.checked)} /> Keep all notifications in test routing</label>
+              <label className="routing-toggle"><input type="checkbox" checked={values.testRouting !== false} onChange={(e) => draft(partner.id, 'testRouting', e.target.checked)} /> Keep notifications with COP for internal review</label>
             </div>
             <div className="member-list">
               <small>INVITED LOGINS</small>
               {members.filter((member) => member.partnerId === partner.id).length === 0 ? <p>No partner login has been invited yet.</p> : members.filter((member) => member.partnerId === partner.id).map((member) => <div key={member.id}><span><strong>{member.name || member.email}</strong><small>{member.email}</small></span><span className="member-actions">{member.active && <button type="button" disabled={busy === `code-${member.id}`} className="send-member-code" onClick={() => sendMemberCode(member)}>{busy === `code-${member.id}` ? 'Sending…' : 'Send sign-in code'}</button>}<button type="button" disabled={busy === `member-${member.id}`} className={member.active ? 'revoke-member' : 'restore-member'} onClick={() => toggleMember(member)}>{member.active ? 'Revoke access' : 'Restore access'}</button></span></div>)}
             </div>
-            <div className="partner-card-actions"><button type="button" onClick={() => startPreview(partner)}>Preview isolated portal</button><button type="button" disabled={busy === `test-${partner.id}` || !values.testRouting} onClick={() => testEmail(partner)}>{busy === `test-${partner.id}` ? 'Sending…' : 'Send test email'}</button><button className="primary-inline" type="button" disabled={busy === `save-${partner.id}`} onClick={() => save(partner)}>{busy === `save-${partner.id}` ? 'Saving…' : 'Save routing'}</button></div>
+            <div className="partner-card-actions"><button type="button" onClick={() => startPreview(partner)}>Preview isolated portal</button><button type="button" disabled={busy === `review-${partner.id}` || !values.testRouting} onClick={() => sendReviewEmail(partner)}>{busy === `review-${partner.id}` ? 'Sending…' : 'Send review email'}</button><button className="primary-inline" type="button" disabled={busy === `save-${partner.id}`} onClick={() => save(partner)}>{busy === `save-${partner.id}` ? 'Saving…' : 'Save routing'}</button></div>
           </article>;
         })}
       </div>
@@ -964,8 +963,8 @@ function LeadDrawer({ leadId, role, readOnly, destinations, onClose, onChanged, 
       <aside className={drawerClassName} aria-label={`${lead.name} details`}>
         <button className="drawer-close" type="button" onClick={onClose} aria-label="Close">×</button>
         <span className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</span>
-        <div className="drawer-person"><span>{lead.initials}</span><div><h2>{lead.name}</h2><p>{lead.location}{lead.isTest ? ' · SYNTHETIC TEST LEAD' : ''}</p></div></div>
-        <div className="pipeline-owner-banner"><span>↗</span><div><strong>{readOnly ? 'Read-only partner preview' : role === 'partner' ? 'You manage this sales pipeline' : 'The assigned partner manages the stage'}</strong><small>{readOnly ? 'Use a real partner login to test updates.' : role === 'partner' ? 'COP is notified automatically after your update.' : 'You can add context without impersonating the partner.'}</small></div></div>
+        <div className="drawer-person"><span>{lead.initials}</span><div><h2>{lead.name}</h2><p>{lead.location}</p></div></div>
+        <div className="pipeline-owner-banner"><span>↗</span><div><strong>{readOnly ? 'Read-only partner preview' : role === 'partner' ? 'You manage this sales pipeline' : 'The assigned partner manages the stage'}</strong><small>{readOnly ? 'Use a partner login to verify updates.' : role === 'partner' ? 'COP is notified automatically after your update.' : 'You can add context without impersonating the partner.'}</small></div></div>
         <section className="drawer-section"><small>LEAD DETAILS</small><div className="lead-detail-list"><p><span>✉</span>{lead.email}</p><p><span>☎</span>{lead.phone || 'No phone supplied'}</p><p><span>◎</span>{lead.nationality || 'Nationality not supplied'}</p><p><span>▥</span>{lead.location}</p><p><span>€</span>{lead.budget}</p></div></section>
         <section className="drawer-section"><small>ASSIGNED PARTNER</small><div className="drawer-partner"><span>{lead.partner.slice(0, 2)}</span><div><strong>{lead.partner}</strong><p>Lead shared by Co-Ownership Property</p></div></div></section>
         <section className="drawer-section"><small>ORIGINAL LEAD CONTEXT</small><p className="note-box">{lead.note}</p></section>

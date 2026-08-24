@@ -91,7 +91,7 @@ export default async function handler(req, res) {
     consent_confirmed_at: now,
     created_by: access.user.id,
     created_by_email: access.email,
-    is_test: body.isTest === true,
+    is_test: false,
   };
   const { data: lead, error } = await access.db
     .from('partner_hub_leads')
@@ -129,7 +129,7 @@ export default async function handler(req, res) {
     actor_role: 'admin',
     event_type: 'lead_created',
     to_stage: 'New',
-    metadata: { consent_confirmed: true, synthetic: lead.is_test, shortlist_count: shortlistProperties.length },
+    metadata: { consent_confirmed: true, shortlist_count: shortlistProperties.length },
   });
 
   if (shortlistProperties.length) {
