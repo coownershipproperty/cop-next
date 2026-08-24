@@ -11,7 +11,7 @@ export default function AuthCallback() {
     const next = requested.startsWith('/partner/') || requested.startsWith('/admin/') ? requested : '/admin/'
     const login = next.startsWith('/partner/') ? '/partner/login?error=1' : '/admin/login?error=1'
 
-    // Supabase magic links put tokens in the URL hash (#access_token=...)
+    // Supabase password-recovery links put tokens in the URL hash (#access_token=...)
     // The client SDK processes these automatically on init — we just need to wait
     const check = async () => {
       // Short wait for SDK to process hash tokens
