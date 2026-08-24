@@ -258,6 +258,28 @@ function formatMoment(value) {
   });
 }
 
+function formatDay(value) {
+  if (!value) return '—';
+  return new Date(value).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+const PARTNER_ACTIVE_STAGES = ['Contacted', 'Viewing', 'Contract signed', 'Deposit paid'];
+
+const PARTNER_NEXT_ACTIONS = {
+  New: 'Make first contact',
+  Contacted: 'Arrange a viewing',
+  Viewing: 'Follow up after the viewing',
+  'Contract signed': 'Confirm the deposit',
+  'Deposit paid': 'Complete the handover',
+  Won: 'Sale closed — no action needed',
+  Lost: 'Closed — no action needed',
+  Paused: 'Agree a date to reconnect',
+};
+
+function nextActionFor(stage) {
+  return PARTNER_NEXT_ACTIONS[stage] || 'Review the lead';
+}
+
 function formatPropertyPrice(price, currency = 'EUR') {
   if (!price) return 'Price on listing';
   try {
@@ -475,17 +497,119 @@ function EngagementPanel({ lead, events }) {
   );
 }
 
+function PartnerLeadDashboard({ leads, partnerName, onOpenLead }) {
+  const [search, setSearch] = useState('');
+  const [stageFilter, setStageFilter] = useState('');
+
+  const stageCounts = useMemo(() => {
+    const counts = Object.fromEntries(PARTNER_HUB_STAGES.map((stage) => [stage, 0]));
+    leads.forEach((lead) => { if (counts[lead.stage] !== undefined) counts[lead.stage] += 1; });
+    return counts;
+  }, [leads]);
+  const activeCount = PARTNER_ACTIVE_STAGES.reduce((total, stage) => total + stageCounts[stage], 0);
+
+  const normalizedSearch = search.trim().toLocaleLowerCase();
+  const filtered = leads.filter((lead) => {
+    const haystack = `${lead.name} ${lead.email} ${lead.phone} ${lead.location}`.toLocaleLowerCase();
+    return (!normalizedSearch || haystack.includes(normalizedSearch)) && (!stageFilter || lead.stage === stageFilter);
+  });
+
+  const summaryCards = [
+    { label: 'Total leads', count: leads.length, copy: 'Assigned to your workspace', tone: 'navy' },
+    { label: 'Needs first contact', count: stageCounts.New, copy: 'New leads waiting for a first call', tone: 'coral' },
+    { label: 'Active', count: activeCount, copy: 'Contacted through deposit paid', tone: 'blue' },
+    { label: 'Paused', count: stageCounts.Paused, copy: 'On hold until you reconnect', tone: 'amber' },
+    { label: 'Won', count: stageCounts.Won, copy: 'Confirmed sales', tone: 'mint' },
+    { label: 'Lost', count: stageCounts.Lost, copy: 'Closed without a sale', tone: 'slate' },
+  ];
+
+  if (!leads.length) {
+    return <section className="studio-empty"><span>▥</span><h2>No assigned leads yet</h2><p>A new COP introduction will appear here as soon as it is assigned.</p></section>;
+  }
+
+  return (
+    <section className="partner-dash" aria-label={`${partnerName || 'Partner'} lead dashboard`}>
+      <div className="partner-dash-cards">
+        {summaryCards.map((card) => (
+          <article key={card.label} className={`partner-dash-card tone-${card.tone}`}>
+            <small>{card.label}</small>
+            <strong>{card.count}</strong>
+            <em>{card.copy}</em>
+          </article>
+        ))}
+      </div>
+
+      <div className="partner-dash-funnel" role="group" aria-label="Funnel stages">
+        <span className="partner-dash-funnel-label">Funnel stages</span>
+        {PARTNER_HUB_STAGES.map((stage) => (
+          <button
+            key={stage}
+            type="button"
+            className={stageFilter === stage ? 'active' : ''}
+            aria-pressed={stageFilter === stage}
+            onClick={() => setStageFilter((current) => (current === stage ? '' : stage))}
+          >
+            <i className={`stage-dot ${stageClass(stage)}`} aria-hidden="true" />
+            {stage}
+            <b>{stageCounts[stage]}</b>
+          </button>
+        ))}
+      </div>
+
+      <div className="view-card partner-dash-list">
+        <div className="partner-dash-toolbar">
+          <div><h2>Your assigned leads</h2><p>Every lead is listed below — open one to work on it.</p></div>
+          <div className="partner-dash-controls">
+            <label className="search-box"><span aria-hidden="true">⌕</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search name, email or destination…" aria-label="Search leads" /></label>
+            <label className="partner-dash-stage-filter">
+              <span>Stage</span>
+              <select value={stageFilter} onChange={(event) => setStageFilter(event.target.value)} aria-label="Filter by funnel stage">
+                <option value="">All stages</option>
+                {PARTNER_HUB_STAGES.map((stage) => <option key={stage} value={stage}>{stage} ({stageCounts[stage]})</option>)}
+              </select>
+            </label>
+            {(search || stageFilter) && <button type="button" className="partner-dash-clear" onClick={() => { setSearch(''); setStageFilter(''); }}>Clear</button>}
+          </div>
+        </div>
+        <div className="partner-dash-table">
+          <div className="partner-dash-row partner-dash-head">
+            <span>Lead</span><span>Created</span><span>Destination</span><span>Stage</span><span>Last update</span><span>Next action</span>
+          </div>
+          {filtered.map((lead) => (
+            <button key={lead.id} type="button" className="partner-dash-row" onClick={() => onOpenLead(lead.id)}>
+              <span className="lead-person"><i>{lead.initials}</i><span><strong>{lead.name}</strong><small>{lead.email}</small></span></span>
+              <span className="partner-dash-created"><small>Created</small>{formatDay(lead.createdAt)}</span>
+              <span className="partner-dash-destination"><small>Destination</small>{lead.location}</span>
+              <span className="stage-cell"><i className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</i></span>
+              <span className="partner-dash-updated"><small>Last update</small>{lead.age}</span>
+              <span className="partner-dash-next"><small>Next action</small>{nextActionFor(lead.stage)}<b aria-hidden="true">›</b></span>
+            </button>
+          ))}
+          {filtered.length === 0 && <p className="partner-dash-none">No lead matches this search or stage filter.</p>}
+        </div>
+        <footer className="partner-dash-footer">
+          <span>{filtered.length === leads.length ? `All ${leads.length} assigned leads shown` : `${filtered.length} of ${leads.length} assigned leads shown`}</span>
+          <span>No pagination — the full list is always visible</span>
+        </footer>
+      </div>
+    </section>
+  );
+}
+
 const PARTNER_LEAD_BATCH_SIZE = 20;
 
-function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, showToast }) {
+function PartnerLeadStudio({ leads, initialLeadId, onBack, role, previewPartner, openLead, onChanged, showToast }) {
   const readOnly = Boolean(previewPartner);
-  const [selectedId, setSelectedId] = useState(leads[0]?.id || '');
+  const initialLead = leads.find((lead) => lead.id === initialLeadId) || leads[0];
+  const [selectedId, setSelectedId] = useState(initialLead?.id || '');
   const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(false);
   const [busy, setBusy] = useState('');
   const [helpNote, setHelpNote] = useState('');
   const [helpOpen, setHelpOpen] = useState(false);
-  const [stageDraft, setStageDraft] = useState(leads[0]?.stage || 'New');
+  const [progressNote, setProgressNote] = useState('');
+  const [noteOpen, setNoteOpen] = useState(false);
+  const [stageDraft, setStageDraft] = useState(initialLead?.stage || 'New');
   const [visibleLeadCount, setVisibleLeadCount] = useState(PARTNER_LEAD_BATCH_SIZE);
 
   useEffect(() => {
@@ -512,6 +636,8 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
   useEffect(() => {
     setHelpOpen(false);
     setHelpNote('');
+    setNoteOpen(false);
+    setProgressNote('');
   }, [selectedId]);
 
   if (!leads.length) {
@@ -541,6 +667,25 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
     } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
   }
 
+  async function saveProgressNote(event) {
+    event.preventDefault();
+    if (readOnly) return;
+    if (!progressNote.trim()) return showToast('Write the progress note first.', true);
+    setBusy('note');
+    try {
+      const payload = await hubRequest(`/api/partner-hub/leads/${lead.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ action: 'note', note: progressNote }),
+      });
+      setProgressNote('');
+      setNoteOpen(false);
+      const refreshed = await hubRequest(`/api/partner-hub/leads/${lead.id}`);
+      setDetail(refreshed);
+      onChanged(refreshed.lead);
+      showToast(payload.notification?.status === 'failed' ? 'Note saved; the COP email needs attention.' : 'Progress note saved and COP notified.');
+    } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
+  }
+
   async function requestHelp(event) {
     event.preventDefault();
     if (!helpNote.trim()) return showToast('Tell COP what help you need.', true);
@@ -562,7 +707,10 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
   return (
     <section className="lead-studio">
       <div className="studio-heading studio-title-banner">
-        <div><p className="mini-label">{lead.partner} · PRIVATE LEAD WORKSPACE</p><h2>Focus on the relationship.</h2><p>Everything needed to move this opportunity forward, in one secure view.</p></div>
+        <div>
+          {onBack && <button type="button" className="studio-back" onClick={onBack}>← All leads</button>}
+          <p className="mini-label">{lead.partner} · PRIVATE LEAD WORKSPACE</p><h2>Focus on the relationship.</h2><p>Everything needed to move this opportunity forward, in one secure view.</p>
+        </div>
         <button type="button" onClick={() => openLead(lead.id)}>Open full lead <span>↗</span></button>
       </div>
       <div className="studio-layout">
@@ -572,9 +720,14 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
             <h3>{lead.name}</h3>
             <div className="studio-contact-row"><a href={`mailto:${lead.email}`}>✉ {lead.email}</a><a href={lead.phone ? `tel:${lead.phone}` : undefined}>☎ {lead.phone || 'No phone supplied'}</a><span>◎ {lead.location}</span></div>
             <div className="studio-support-actions">
-              <button type="button" onClick={() => openLead(lead.id)}>Add progress note</button>
-              <button type="button" disabled={readOnly} onClick={() => setHelpOpen((current) => !current)}>Request help from COP</button>
+              <button type="button" disabled={readOnly} aria-expanded={noteOpen} onClick={() => { setNoteOpen((current) => !current); setHelpOpen(false); }}>Add progress note</button>
+              <button type="button" disabled={readOnly} aria-expanded={helpOpen} onClick={() => { setHelpOpen((current) => !current); setNoteOpen(false); }}>Request help from COP</button>
             </div>
+            {noteOpen && <form className="studio-inline-help studio-inline-note" onSubmit={saveProgressNote}>
+              <label htmlFor={`partner-note-${lead.id}`}>Add a progress note for this lead</label>
+              <textarea id={`partner-note-${lead.id}`} autoFocus value={progressNote} onChange={(event) => setProgressNote(event.target.value)} placeholder="What happened on the last conversation, and what is the next step?" />
+              <div><button type="button" onClick={() => { setNoteOpen(false); setProgressNote(''); }}>Cancel</button><button disabled={busy === 'note'}>{busy === 'note' ? 'Saving…' : 'Save progress note'}</button></div>
+            </form>}
             {helpOpen && <form className="studio-inline-help" onSubmit={requestHelp}>
               <label htmlFor={`partner-help-${lead.id}`}>How can COP help with this lead?</label>
               <textarea id={`partner-help-${lead.id}`} autoFocus value={helpNote} onChange={(event) => setHelpNote(event.target.value)} placeholder="Ask for client context, property guidance, or help arranging the next step…" />
@@ -593,7 +746,7 @@ function PartnerLeadStudio({ leads, role, previewPartner, openLead, onChanged, s
 
           <div className="studio-two-column">
             <article className="studio-card studio-context"><small>ORIGINAL CONTEXT</small><h3>What the client wants</h3><p>{lead.note}</p><dl><div><dt>Budget</dt><dd>{lead.budget}</dd></div><div><dt>Nationality</dt><dd>{lead.nationality || 'Not supplied'}</dd></div></dl></article>
-            <article className="studio-card studio-next"><small>NEXT ACTION</small><h3>{lead.stage === 'New' ? 'Make the first contact' : 'Keep the opportunity moving'}</h3><p>{latestCopNote?.body || 'Add a progress note after the next client conversation so both teams stay aligned.'}</p><button type="button" onClick={() => openLead(lead.id)}>Update lead →</button></article>
+            <article className="studio-card studio-next"><small>NEXT ACTION</small><h3>{nextActionFor(lead.stage)}</h3><p>{latestCopNote?.body || 'Add a progress note after the next client conversation so both teams stay aligned.'}</p><button type="button" disabled={readOnly} onClick={() => { setNoteOpen(true); setHelpOpen(false); }}>Add progress note →</button></article>
           </div>
 
           <article className="studio-card">
@@ -619,14 +772,21 @@ function LeadsView({ leads, partners, role, previewPartner, openLead, onChanged,
   const [search, setSearch] = useState('');
   const [stage, setStage] = useState('');
   const [partnerId, setPartnerId] = useState(previewPartner?.id || '');
+  const [workspaceLeadId, setWorkspaceLeadId] = useState(null);
   useEffect(() => setPartnerId(previewPartner?.id || ''), [previewPartner?.id]);
+  useEffect(() => {
+    if (workspaceLeadId && !leads.some((lead) => lead.id === workspaceLeadId)) setWorkspaceLeadId(null);
+  }, [leads, workspaceLeadId]);
   const filtered = leads.filter((lead) => {
     const haystack = `${lead.name} ${lead.email} ${lead.phone}`.toLowerCase();
     return (!search || haystack.includes(search.toLowerCase())) && (!stage || lead.stage === stage) && (!partnerId || lead.partnerId === partnerId);
   });
 
   if (role === 'partner' || previewPartner) {
-    return <PartnerLeadStudio leads={leads} role={role} previewPartner={previewPartner} openLead={openLead} onChanged={onChanged} showToast={showToast} />;
+    if (!workspaceLeadId) {
+      return <PartnerLeadDashboard leads={leads} partnerName={previewPartner?.name || leads[0]?.partner} onOpenLead={setWorkspaceLeadId} />;
+    }
+    return <PartnerLeadStudio leads={leads} initialLeadId={workspaceLeadId} onBack={() => setWorkspaceLeadId(null)} role={role} previewPartner={previewPartner} openLead={openLead} onChanged={onChanged} showToast={showToast} />;
   }
 
   return (
