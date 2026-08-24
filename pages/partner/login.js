@@ -2,13 +2,12 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
-import { PARTNER_HUB_OTP_TYPE } from '@/lib/partnerHubAuthConfig';
 
 export default function PartnerLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
-  const [sent, setSent] = useState(false);
-  const [code, setCode] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -16,32 +15,12 @@ export default function PartnerLoginPage() {
     event.preventDefault();
     setLoading(true);
     setError('');
-    try {
-      const response = await fetch('/api/partner-hub/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      const payload = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(payload.error || 'The secure code could not be sent.');
-      setSent(true);
-    } catch (sendError) {
-      setError(sendError.message);
-    }
-    setLoading(false);
-  }
-
-  async function verify(event) {
-    event.preventDefault();
-    setLoading(true);
-    setError('');
-    const { data, error: verifyError } = await supabase.auth.verifyOtp({
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
       email: email.trim(),
-      token: code.trim(),
-      type: PARTNER_HUB_OTP_TYPE,
+      password,
     });
-    if (verifyError || !data.session) {
-      setError(verifyError?.message || 'That code is invalid or has expired.');
+    if (signInError || !data.session) {
+      setError('Email or password not recognised.');
       setLoading(false);
       return;
     }
@@ -68,18 +47,14 @@ export default function PartnerLoginPage() {
         <small>Each login is permanently scoped to one partner organisation.</small>
       </section>
       <section className="login-form-panel">
-        {sent ? <form className="partner-login-card" onSubmit={verify}><p className="mini-label">ONE-TIME ACCESS CODE</p><h2>Check your inbox</h2><p>An eight-digit code was sent to <strong>{email}</strong>. Enter the complete code to open the partner workspace assigned to that account.</p>
-          <label>Secure sign-in code<input className="otp-input" required inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{8}" maxLength={8} value={code} onChange={(event) => setCode(event.target.value.replace(/\D/g, '').slice(0, 8))} placeholder="00000000" /></label>
-          {error && <p className="login-error">{error}</p>}
-          <button className="login-button" disabled={loading || code.length !== 8}>{loading ? 'Verifying…' : 'Open partner workspace →'}</button>
-          <button type="button" className="login-secondary" onClick={() => { setSent(false); setCode(''); setError(''); }}>Use a different email</button>
-        </form> : <form onSubmit={signIn}>
+        <form className="partner-login-card" onSubmit={signIn}>
           <p className="mini-label">WELCOME BACK</p><h2>Partner sign in</h2><p>Use the individual email address invited by COP. Shared passwords are not supported.</p>
           <label>Email address<input required autoComplete="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@partner.com" /></label>
+          <label>Password<span className="password-field"><input required minLength={10} autoComplete="current-password" type={showPassword ? 'text' : 'password'} value={password} onChange={(event) => setPassword(event.target.value)} /><button type="button" onClick={() => setShowPassword((current) => !current)}>{showPassword ? 'Hide' : 'Show'}</button></span></label>
           {error && <p className="login-error">{error}</p>}
-          <button className="login-button" disabled={loading}>{loading ? 'Sending…' : 'Send secure sign-in code →'}</button>
-          <small className="login-note">If your email has not been invited, no workspace access will be created.</small>
-        </form>}
+          <button className="login-button" disabled={loading}>{loading ? 'Signing in…' : 'Open partner workspace →'}</button>
+          <small className="login-note">Access is restricted to the partner organisation assigned to this account.</small>
+        </form>
       </section>
     </div>
   );

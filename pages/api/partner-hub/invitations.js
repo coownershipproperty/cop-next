@@ -1,47 +1,42 @@
 import { requirePartnerHubAccess } from '@/lib/partnerHubAuth';
 import { cleanPartnerHubText, isPartnerHubEmail } from '@/lib/partnerHub';
-import { sendPartnerAccessCode } from '@/lib/partnerHubAccessCodes';
+
+function validTemporaryPassword(value) {
+  return typeof value === 'string' && value.length >= 10 && value.length <= 72;
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const access = await requirePartnerHubAccess(req, res, { adminOnly: true });
   if (!access) return;
 
-  if (req.body?.action === 'send_code') {
+  if (req.body?.action === 'reset_password') {
     const memberId = cleanPartnerHubText(req.body?.memberId, 80);
+    const password = String(req.body?.password || '');
+    if (!validTemporaryPassword(password)) {
+      return res.status(400).json({ error: 'Use a temporary password between 10 and 72 characters' });
+    }
     const { data: membership, error: membershipError } = await access.db
       .from('partner_hub_memberships')
       .select('*')
       .eq('id', memberId)
       .maybeSingle();
     if (membershipError) return res.status(500).json({ error: membershipError.message });
-    if (!membership?.active) return res.status(400).json({ error: 'Restore this login before sending a new code' });
+    if (!membership?.active) return res.status(400).json({ error: 'Restore this login before resetting its password' });
 
-    const [{ data: userData, error: userError }, { data: partner }] = await Promise.all([
-      access.db.auth.admin.getUserById(membership.user_id),
-      access.db.from('partner_hub_partners').select('id, display_name, active').eq('id', membership.partner_id).maybeSingle(),
-    ]);
+    const { data: userData, error: userError } = await access.db.auth.admin.getUserById(membership.user_id);
     if (userError || !userData.user?.email) return res.status(404).json({ error: 'Partner identity not found' });
-    if (!partner?.active) return res.status(400).json({ error: 'Reactivate the partner before sending a code' });
-
-    try {
-      const delivery = await sendPartnerAccessCode({
-        db: access.db,
-        partner,
-        email: userData.user.email,
-        name: userData.user.user_metadata?.name || '',
-      });
-      return res.json({ ok: true, delivery, message: `Secure sign-in code sent to ${userData.user.email}.` });
-    } catch (error) {
-      return res.status(502).json({ error: error.message });
-    }
+    const { error: updateError } = await access.db.auth.admin.updateUserById(membership.user_id, { password });
+    if (updateError) return res.status(502).json({ error: 'The temporary password could not be set' });
+    return res.json({ ok: true, message: `Temporary password updated for ${userData.user.email}.` });
   }
 
   const partnerId = cleanPartnerHubText(req.body?.partnerId, 64);
   const email = cleanPartnerHubText(req.body?.email, 254).toLowerCase();
   const name = cleanPartnerHubText(req.body?.name, 240);
-  if (!partnerId || !isPartnerHubEmail(email)) {
-    return res.status(400).json({ error: 'Partner and a valid email are required' });
+  const password = String(req.body?.password || '');
+  if (!partnerId || !isPartnerHubEmail(email) || !validTemporaryPassword(password)) {
+    return res.status(400).json({ error: 'Partner, valid email and a 10–72 character temporary password are required' });
   }
 
   const [{ data: partner }, { data: existingAdmin }] = await Promise.all([
@@ -59,7 +54,8 @@ export default async function handler(req, res) {
   if (!user) {
     const { data, error } = await access.db.auth.admin.createUser({
       email,
-      email_confirm: false,
+      password,
+      email_confirm: true,
       user_metadata: { name, invited_to: 'COP Partner Hub' },
     });
     if (error || !data.user) {
@@ -81,6 +77,12 @@ export default async function handler(req, res) {
     if (existingMembership.active) {
       return res.status(409).json({ error: `This login already has access to ${existingMembership.partner_id}` });
     }
+    const { error: passwordError } = await access.db.auth.admin.updateUserById(user.id, {
+      password,
+      email_confirm: true,
+      user_metadata: { ...user.user_metadata, name, invited_to: 'COP Partner Hub' },
+    });
+    if (passwordError) return res.status(502).json({ error: 'Could not set the temporary password' });
     const { data: restored, error: restoreError } = await access.db
       .from('partner_hub_memberships')
       .update({ active: true, updated_at: new Date().toISOString() })
@@ -103,8 +105,17 @@ export default async function handler(req, res) {
         active: restored.active,
         createdAt: restored.created_at,
       },
-      message: 'Partner access restored. They can request a new magic link.',
+      message: 'Partner access restored. Reset the password if the person no longer knows it.',
     });
+  }
+
+  if (!createdUser) {
+    const { error: passwordError } = await access.db.auth.admin.updateUserById(user.id, {
+      password,
+      email_confirm: true,
+      user_metadata: { ...user.user_metadata, name, invited_to: 'COP Partner Hub' },
+    });
+    if (passwordError) return res.status(502).json({ error: 'Could not set the temporary password' });
   }
 
   const { data: membership, error: membershipError } = await access.db.from('partner_hub_memberships').insert({
@@ -119,21 +130,11 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Could not assign the partner login' });
   }
 
-  let delivery;
-  try {
-    delivery = await sendPartnerAccessCode({ db: access.db, partner, email, name });
-  } catch (error) {
-    await access.db.from('partner_hub_memberships').delete().eq('id', membership.id);
-    if (createdUser) await access.db.auth.admin.deleteUser(user.id).catch(() => {});
-    return res.status(502).json({ error: error.message });
-  }
-
   return res.json({
     ok: true,
     invited: true,
     partner: partner.display_name,
     email,
-    delivery,
     member: {
       id: membership.id,
       partnerId: membership.partner_id,
@@ -144,6 +145,6 @@ export default async function handler(req, res) {
       active: membership.active,
       createdAt: membership.created_at,
     },
-    message: 'Partner access created and a secure one-time sign-in code was sent.',
+    message: 'Partner access created. Share the email and temporary password through a secure channel.',
   });
 }

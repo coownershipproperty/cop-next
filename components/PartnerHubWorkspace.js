@@ -346,7 +346,7 @@ function Sidebar({ role, view, setView, leadCount, partner, previewPartner, onPr
   );
 }
 
-function Topbar({ role, title, setView, previewPartner }) {
+function Topbar({ role, title, setView, previewPartner, onChangePassword }) {
   return (
     <header className="topbar">
       <div>
@@ -355,6 +355,7 @@ function Topbar({ role, title, setView, previewPartner }) {
       </div>
       <div className="top-actions">
         <span className={`access-chip ${role}`}>{role === 'admin' ? 'ADMIN' : 'PARTNER'}</span>
+        {role === 'partner' && <button type="button" className="password-button" onClick={onChangePassword}>Change password</button>}
         {role === 'admin' && !previewPartner && <button type="button" className="primary-button" onClick={() => setView('submit')}>+ New lead</button>}
       </div>
     </header>
@@ -702,7 +703,9 @@ function SubmitLead({ partners, destinations, onCreated, showToast }) {
 
 function PartnerAccess({ partners, members, onPartnerChanged, onMemberChanged, showToast, startPreview }) {
   const [drafts, setDrafts] = useState({});
-  const [invite, setInvite] = useState({ partnerId: partners[0]?.id || '', name: '', email: '' });
+  const [invite, setInvite] = useState({ partnerId: partners[0]?.id || '', name: '', email: '', password: '' });
+  const [resetMember, setResetMember] = useState(null);
+  const [resetPassword, setResetPassword] = useState('');
   const [busy, setBusy] = useState('');
   useEffect(() => {
     setDrafts(Object.fromEntries(partners.map((partner) => [partner.id, { notificationName: partner.notificationName, email: partner.email, phone: partner.phone, testRouting: partner.testRouting, active: partner.active }])));
@@ -734,7 +737,7 @@ function PartnerAccess({ partners, members, onPartnerChanged, onMemberChanged, s
       const payload = await hubRequest('/api/partner-hub/invitations', { method: 'POST', body: JSON.stringify(invite) });
       showToast(payload.message);
       if (payload.member) onMemberChanged(payload.member);
-      setInvite((current) => ({ ...current, name: '', email: '' }));
+      setInvite((current) => ({ ...current, name: '', email: '', password: '' }));
     } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
   }
 
@@ -747,14 +750,18 @@ function PartnerAccess({ partners, members, onPartnerChanged, onMemberChanged, s
     } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
   }
 
-  async function sendMemberCode(member) {
-    setBusy(`code-${member.id}`);
+  async function resetMemberPassword(event) {
+    event.preventDefault();
+    if (!resetMember) return;
+    setBusy(`password-${resetMember.id}`);
     try {
       const payload = await hubRequest('/api/partner-hub/invitations', {
         method: 'POST',
-        body: JSON.stringify({ action: 'send_code', memberId: member.id }),
+        body: JSON.stringify({ action: 'reset_password', memberId: resetMember.id, password: resetPassword }),
       });
       showToast(payload.message);
+      setResetMember(null);
+      setResetPassword('');
     } catch (error) { showToast(error.message, true); } finally { setBusy(''); }
   }
 
@@ -775,19 +782,26 @@ function PartnerAccess({ partners, members, onPartnerChanged, onMemberChanged, s
             </div>
             <div className="member-list">
               <small>INVITED LOGINS</small>
-              {members.filter((member) => member.partnerId === partner.id).length === 0 ? <p>No partner login has been invited yet.</p> : members.filter((member) => member.partnerId === partner.id).map((member) => <div key={member.id}><span><strong>{member.name || member.email}</strong><small>{member.email}</small></span><span className="member-actions">{member.active && <button type="button" disabled={busy === `code-${member.id}`} className="send-member-code" onClick={() => sendMemberCode(member)}>{busy === `code-${member.id}` ? 'Sending…' : 'Send sign-in code'}</button>}<button type="button" disabled={busy === `member-${member.id}`} className={member.active ? 'revoke-member' : 'restore-member'} onClick={() => toggleMember(member)}>{member.active ? 'Revoke access' : 'Restore access'}</button></span></div>)}
+              {members.filter((member) => member.partnerId === partner.id).length === 0 ? <p>No partner login has been created yet.</p> : members.filter((member) => member.partnerId === partner.id).map((member) => <div key={member.id}><span><strong>{member.name || member.email}</strong><small>{member.email}</small></span><span className="member-actions">{member.active && <button type="button" className="send-member-code" onClick={() => { setResetMember(member); setResetPassword(''); }}>Reset password</button>}<button type="button" disabled={busy === `member-${member.id}`} className={member.active ? 'revoke-member' : 'restore-member'} onClick={() => toggleMember(member)}>{member.active ? 'Revoke access' : 'Restore access'}</button></span></div>)}
             </div>
             <div className="partner-card-actions"><button type="button" onClick={() => startPreview(partner)}>Preview isolated portal</button><button type="button" disabled={busy === `review-${partner.id}` || !values.testRouting} onClick={() => sendReviewEmail(partner)}>{busy === `review-${partner.id}` ? 'Sending…' : 'Send review email'}</button><button className="primary-inline" type="button" disabled={busy === `save-${partner.id}`} onClick={() => save(partner)}>{busy === `save-${partner.id}` ? 'Saving…' : 'Save routing'}</button></div>
           </article>;
         })}
       </div>
       <form className="invite-form" onSubmit={sendInvite}>
-        <div><p className="mini-label">INDIVIDUAL PARTNER LOGIN</p><h3>Invite a team member</h3><p>They receive their own one-time invitation. Existing COP administrator emails are refused.</p></div>
+        <div><p className="mini-label">INDIVIDUAL PARTNER LOGIN</p><h3>Create a team member login</h3><p>Set a temporary password and share it securely. Existing COP administrator emails are refused.</p></div>
         <label>Partner<select required value={invite.partnerId} onChange={(e) => setInvite({ ...invite, partnerId: e.target.value })}>{partners.filter((partner) => partner.active).map((partner) => <option key={partner.id} value={partner.id}>{partner.name}</option>)}</select></label>
         <label>Name<input required value={invite.name} onChange={(e) => setInvite({ ...invite, name: e.target.value })} /></label>
         <label>Email<input required type="email" value={invite.email} onChange={(e) => setInvite({ ...invite, email: e.target.value })} /></label>
-        <button className="primary-inline" disabled={busy === 'invite'}>{busy === 'invite' ? 'Sending…' : 'Send secure invitation'}</button>
+        <label>Temporary password<input required minLength={10} maxLength={72} autoComplete="new-password" type="password" value={invite.password} onChange={(e) => setInvite({ ...invite, password: e.target.value })} /></label>
+        <button className="primary-inline" disabled={busy === 'invite'}>{busy === 'invite' ? 'Creating…' : 'Create login'}</button>
       </form>
+      {resetMember && <form className="member-password-reset" onSubmit={resetMemberPassword}>
+        <div><strong>Reset password</strong><small>{resetMember.email}</small></div>
+        <label>New temporary password<input required minLength={10} maxLength={72} autoComplete="new-password" type="password" value={resetPassword} onChange={(e) => setResetPassword(e.target.value)} /></label>
+        <button type="button" onClick={() => { setResetMember(null); setResetPassword(''); }}>Cancel</button>
+        <button className="primary-inline" disabled={busy === `password-${resetMember.id}`}>{busy === `password-${resetMember.id}` ? 'Saving…' : 'Set password'}</button>
+      </form>}
     </section>
   );
 }
@@ -987,6 +1001,50 @@ function LeadDrawer({ leadId, role, readOnly, destinations, onClose, onChanged, 
   );
 }
 
+function ChangePasswordDialog({ onClose, showToast }) {
+  const [password, setPassword] = useState('');
+  const [confirmation, setConfirmation] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  async function save(event) {
+    event.preventDefault();
+    setError('');
+    if (password.length < 10 || password.length > 72) {
+      setError('Use a password between 10 and 72 characters.');
+      return;
+    }
+    if (password !== confirmation) {
+      setError('The two passwords do not match.');
+      return;
+    }
+    setSaving(true);
+    const { error: updateError } = await supabase.auth.updateUser({ password });
+    setSaving(false);
+    if (updateError) {
+      setError('Your password could not be changed. Please try again.');
+      return;
+    }
+    showToast('Password changed successfully.');
+    onClose();
+  }
+
+  return (
+    <div className="password-dialog-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <form className="password-dialog" onSubmit={save} aria-label="Change password">
+        <button className="password-dialog-close" type="button" onClick={onClose} aria-label="Close">×</button>
+        <p className="mini-label">ACCOUNT SECURITY</p>
+        <h2>Change password</h2>
+        <p>Choose a private password that is not shared with another team member.</p>
+        <label>New password<input required minLength={10} maxLength={72} autoComplete="new-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label>
+        <label>Confirm new password<input required minLength={10} maxLength={72} autoComplete="new-password" type="password" value={confirmation} onChange={(event) => setConfirmation(event.target.value)} /></label>
+        {error && <p className="password-dialog-error">{error}</p>}
+        <button className="primary-button" disabled={saving}>{saving ? 'Changing…' : 'Change password'}</button>
+      </form>
+    </div>
+  );
+}
+
 export default function PartnerHubWorkspace({ entry = 'admin' }) {
   const router = useRouter();
   const [status, setStatus] = useState('loading');
@@ -998,6 +1056,7 @@ export default function PartnerHubWorkspace({ entry = 'admin' }) {
   const [view, setView] = useState(entry === 'partner' ? 'leads' : 'overview');
   const [selectedLeadId, setSelectedLeadId] = useState(null);
   const [previewPartner, setPreviewPartner] = useState(null);
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [toast, setToast] = useState(null);
 
   function showToast(message, error = false) {
@@ -1067,7 +1126,7 @@ export default function PartnerHubWorkspace({ entry = 'admin' }) {
       <div className="portal-shell">
         <Sidebar role={access.role} view={view} setView={(next) => { setPreviewPartner(null); setView(next); }} leadCount={visibleLeads.length} partner={partners[0]} previewPartner={previewPartner} onPreviewEnd={() => { setPreviewPartner(null); setView('overview'); }} email={access.email} onSignOut={signOut} />
         <main className="workspace">
-          <Topbar role={access.role} title={title} setView={setView} previewPartner={previewPartner} />
+          <Topbar role={access.role} title={title} setView={setView} previewPartner={previewPartner} onChangePassword={() => setShowPasswordDialog(true)} />
           {view === 'overview' && access.role === 'admin' && <Overview leads={leads} partners={partners} openLead={setSelectedLeadId} setView={setView} startPreview={startPreview} />}
           {view === 'leads' && <LeadsView leads={visibleLeads} partners={partners} role={access.role} previewPartner={previewPartner} openLead={setSelectedLeadId} onChanged={updateLead} showToast={showToast} />}
           {view === 'submit' && access.role === 'admin' && <SubmitLead partners={partners} destinations={destinations} onCreated={(lead) => { setLeads((current) => [lead, ...current]); setView('leads'); }} showToast={showToast} />}
@@ -1075,6 +1134,7 @@ export default function PartnerHubWorkspace({ entry = 'admin' }) {
         </main>
       </div>
       {selectedLeadId && <LeadDrawer leadId={selectedLeadId} role={access.role} readOnly={Boolean(previewPartner)} destinations={destinations} onClose={() => setSelectedLeadId(null)} onChanged={updateLead} showToast={showToast} />}
+      {showPasswordDialog && access.role === 'partner' && <ChangePasswordDialog onClose={() => setShowPasswordDialog(false)} showToast={showToast} />}
       {toast && <div className={`toast ${toast.error ? 'toast-error' : ''}`}><span>{toast.error ? '!' : '✓'}</span>{toast.message}</div>}
     </div>
   );
