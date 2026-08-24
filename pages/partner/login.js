@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
+import { PARTNER_HUB_OTP_TYPE } from '@/lib/partnerHubAuthConfig';
 
 export default function PartnerLoginPage() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function PartnerLoginPage() {
     const { data, error: verifyError } = await supabase.auth.verifyOtp({
       email: email.trim(),
       token: code.trim(),
-      type: 'email',
+      type: PARTNER_HUB_OTP_TYPE,
     });
     if (verifyError || !data.session) {
       setError(verifyError?.message || 'That code is invalid or has expired.');
