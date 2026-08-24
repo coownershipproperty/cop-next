@@ -1,4 +1,4 @@
-import { findAccessibleLead, requirePartnerHubAccess } from '@/lib/partnerHubAuth';
+import { findAccessibleLead, requirePartnerHubAccess, setPartnerHubCrmCors } from '@/lib/partnerHubAuth';
 import {
   PARTNER_HUB_STAGES,
   cleanPartnerHubText,
@@ -35,6 +35,8 @@ async function addNote(access, lead, body) {
 }
 
 export default async function handler(req, res) {
+  setPartnerHubCrmCors(res);
+  if (req.method === 'OPTIONS') return res.status(200).end();
   const access = await requirePartnerHubAccess(req, res);
   if (!access) return;
   const leadId = cleanPartnerHubText(req.query.id, 80);

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import { PARTNER_HUB_STAGES } from '@/lib/partnerHub';
@@ -497,6 +497,156 @@ function EngagementPanel({ lead, events }) {
   );
 }
 
+const STAGE_CHART_COLORS = {
+  New: '#3b82f6',
+  Contacted: '#8b5cf6',
+  Viewing: '#06b6d4',
+  'Contract signed': '#f59e0b',
+  'Deposit paid': '#10b981',
+  Won: '#16a34a',
+  Lost: '#ef4444',
+  Paused: '#9ca3af',
+};
+
+const STAGE_LEGEND = [
+  { stage: 'New', icon: '✦', copy: 'Fresh from COP — make first contact' },
+  { stage: 'Contacted', icon: '☏', copy: 'First conversation done' },
+  { stage: 'Viewing', icon: '◉', copy: 'Viewing arranged or completed' },
+  { stage: 'Contract signed', icon: '✎', copy: 'Contract is signed' },
+  { stage: 'Deposit paid', icon: '€', copy: 'Deposit received' },
+  { stage: 'Won', icon: '✓', copy: 'Sale completed' },
+];
+
+const CHART_RANGES = [
+  { key: '7D', days: 7, bucket: 'day' },
+  { key: '14D', days: 14, bucket: 'day' },
+  { key: '30D', days: 30, bucket: 'day' },
+  { key: '90D', days: 90, bucket: 'week' },
+  { key: '1Y', days: 365, bucket: 'month' },
+  { key: 'All', days: null, bucket: 'month' },
+];
+
+function niceCeil(value) {
+  if (value <= 5) return Math.max(2, value);
+  const power = 10 ** Math.floor(Math.log10(value));
+  return Math.ceil(value / power) * power;
+}
+
+function buildLeadTimeline(leads, rangeKey) {
+  const range = CHART_RANGES.find((item) => item.key === rangeKey) || CHART_RANGES[4];
+  const now = new Date();
+  const buckets = [];
+  if (range.bucket === 'day') {
+    for (let i = range.days - 1; i >= 0; i -= 1) {
+      const day = new Date(now);
+      day.setHours(0, 0, 0, 0);
+      day.setDate(day.getDate() - i);
+      buckets.push({ start: day, key: day.toISOString(), label: day.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) });
+    }
+  } else if (range.bucket === 'week') {
+    const monday = new Date(now);
+    monday.setHours(0, 0, 0, 0);
+    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+    for (let i = Math.ceil(range.days / 7) - 1; i >= 0; i -= 1) {
+      const week = new Date(monday);
+      week.setDate(week.getDate() - i * 7);
+      buckets.push({ start: week, key: week.toISOString(), label: week.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) });
+    }
+  } else {
+    let months = 12;
+    if (!range.days) {
+      const earliest = leads.reduce((min, lead) => {
+        const created = new Date(lead.createdAt);
+        return !min || created < min ? created : min;
+      }, null) || now;
+      months = Math.min(36, Math.max(6, (now.getFullYear() - earliest.getFullYear()) * 12 + now.getMonth() - earliest.getMonth() + 1));
+    }
+    for (let i = months - 1; i >= 0; i -= 1) {
+      const month = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      buckets.push({ start: month, key: month.toISOString(), label: month.toLocaleDateString('en-GB', { month: 'short', year: '2-digit' }) });
+    }
+  }
+  buckets.forEach((bucket) => { bucket.byStage = {}; bucket.total = 0; });
+  leads.forEach((lead) => {
+    const created = new Date(lead.createdAt);
+    for (let i = buckets.length - 1; i >= 0; i -= 1) {
+      if (created >= buckets[i].start) {
+        buckets[i].byStage[lead.stage] = (buckets[i].byStage[lead.stage] || 0) + 1;
+        buckets[i].total += 1;
+        break;
+      }
+    }
+  });
+  const labelEvery = Math.max(1, Math.ceil(buckets.length / 8));
+  buckets.forEach((bucket, index) => { bucket.showLabel = index % labelEvery === (buckets.length - 1) % labelEvery; });
+  return buckets;
+}
+
+function LeadTimelineChart({ leads }) {
+  const [range, setRange] = useState('1Y');
+  const buckets = useMemo(() => buildLeadTimeline(leads, range), [leads, range]);
+  const yTop = niceCeil(Math.max(1, ...buckets.map((bucket) => bucket.total)));
+  const shown = buckets.reduce((total, bucket) => total + bucket.total, 0);
+  return (
+    <section className="pd-card">
+      <header className="pd-card-head">
+        <div><h3>Reporting timeline</h3><p>Leads created over time, stacked by current stage. Pick a date range.</p></div>
+        <div className="pd-range" role="group" aria-label="Date range">
+          {CHART_RANGES.map((item) => (
+            <button key={item.key} type="button" className={range === item.key ? 'active' : ''} aria-pressed={range === item.key} onClick={() => setRange(item.key)}>{item.key}</button>
+          ))}
+        </div>
+      </header>
+      <div className="pd-chart" role="img" aria-label={`${shown} leads created in this range, stacked by stage`}>
+        <div className="pd-chart-y" aria-hidden="true"><span>{yTop}</span><span>{Math.round(yTop / 2)}</span><span>0</span></div>
+        <div className="pd-chart-bars">
+          {buckets.map((bucket) => (
+            <div key={bucket.key} className="pd-chart-col" title={`${bucket.label}: ${bucket.total} lead${bucket.total === 1 ? '' : 's'}`}>
+              <div className="pd-chart-stack">
+                {PARTNER_HUB_STAGES.map((stage) => bucket.byStage[stage]
+                  ? <i key={stage} style={{ height: `${(bucket.byStage[stage] / yTop) * 100}%`, background: STAGE_CHART_COLORS[stage] }} />
+                  : null)}
+              </div>
+              <small>{bucket.showLabel ? bucket.label : ''}</small>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="pd-chart-legend">
+        {PARTNER_HUB_STAGES.map((stage) => <span key={stage}><i style={{ background: STAGE_CHART_COLORS[stage] }} />{stage}</span>)}
+      </div>
+    </section>
+  );
+}
+
+function StageLegend({ counts, stageFilter, onToggleStage }) {
+  return (
+    <section className="pd-card">
+      <header className="pd-card-head">
+        <div><h3>Stage legend</h3><p>Counts for every funnel stage — click a stage to filter your leads.</p></div>
+        <div className="pd-legend-pills">
+          {['Paused', 'Lost'].map((stage) => (
+            <button key={stage} type="button" className={`pd-pill ${stageClass(stage)}${stageFilter === stage ? ' active' : ''}`} aria-pressed={stageFilter === stage} onClick={() => onToggleStage(stage)}>
+              {stage} <b>{counts[stage]}</b>
+            </button>
+          ))}
+        </div>
+      </header>
+      <div className="pd-legend-flow">
+        {STAGE_LEGEND.map((item, index) => (
+          <Fragment key={item.stage}>
+            <button type="button" className={`pd-legend-item${stageFilter === item.stage ? ' active' : ''}`} aria-pressed={stageFilter === item.stage} onClick={() => onToggleStage(item.stage)}>
+              <span className="pd-legend-icon" style={{ background: `${STAGE_CHART_COLORS[item.stage]}1a`, color: STAGE_CHART_COLORS[item.stage] }} aria-hidden="true">{item.icon}</span>
+              <span className="pd-legend-copy"><strong>{item.stage} <b>{counts[item.stage]}</b></strong><small>{item.copy}</small></span>
+            </button>
+            {index < STAGE_LEGEND.length - 1 && <span className="pd-legend-arrow" aria-hidden="true">›</span>}
+          </Fragment>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function PartnerLeadDashboard({ leads, partnerName, onOpenLead }) {
   const [search, setSearch] = useState('');
   const [stageFilter, setStageFilter] = useState('');
@@ -515,13 +665,17 @@ function PartnerLeadDashboard({ leads, partnerName, onOpenLead }) {
   });
 
   const summaryCards = [
-    { label: 'Total leads', count: leads.length, copy: 'Assigned to your workspace', tone: 'navy' },
-    { label: 'Needs first contact', count: stageCounts.New, copy: 'New leads waiting for a first call', tone: 'coral' },
-    { label: 'Active', count: activeCount, copy: 'Contacted through deposit paid', tone: 'blue' },
-    { label: 'Paused', count: stageCounts.Paused, copy: 'On hold until you reconnect', tone: 'amber' },
-    { label: 'Won', count: stageCounts.Won, copy: 'Confirmed sales', tone: 'mint' },
-    { label: 'Lost', count: stageCounts.Lost, copy: 'Closed without a sale', tone: 'slate' },
+    { label: 'Total leads', count: leads.length, tone: '' },
+    { label: 'Needs first contact', count: stageCounts.New, tone: 'tone-new' },
+    { label: 'Active', count: activeCount, tone: 'tone-active' },
+    { label: 'Paused', count: stageCounts.Paused, tone: 'tone-paused' },
+    { label: 'Won', count: stageCounts.Won, tone: 'tone-won' },
+    { label: 'Lost', count: stageCounts.Lost, tone: 'tone-lost' },
   ];
+
+  function toggleStage(stage) {
+    setStageFilter((current) => (current === stage ? '' : stage));
+  }
 
   if (!leads.length) {
     return <section className="studio-empty"><span>▥</span><h2>No assigned leads yet</h2><p>A new COP introduction will appear here as soon as it is assigned.</p></section>;
@@ -529,36 +683,22 @@ function PartnerLeadDashboard({ leads, partnerName, onOpenLead }) {
 
   return (
     <section className="partner-dash" aria-label={`${partnerName || 'Partner'} lead dashboard`}>
-      <div className="partner-dash-cards">
+      <div className="pd-stats">
         {summaryCards.map((card) => (
-          <article key={card.label} className={`partner-dash-card tone-${card.tone}`}>
+          <article key={card.label} className={`pd-stat ${card.tone}`}>
             <small>{card.label}</small>
             <strong>{card.count}</strong>
-            <em>{card.copy}</em>
           </article>
         ))}
       </div>
 
-      <div className="partner-dash-funnel" role="group" aria-label="Funnel stages">
-        <span className="partner-dash-funnel-label">Funnel stages</span>
-        {PARTNER_HUB_STAGES.map((stage) => (
-          <button
-            key={stage}
-            type="button"
-            className={stageFilter === stage ? 'active' : ''}
-            aria-pressed={stageFilter === stage}
-            onClick={() => setStageFilter((current) => (current === stage ? '' : stage))}
-          >
-            <i className={`stage-dot ${stageClass(stage)}`} aria-hidden="true" />
-            {stage}
-            <b>{stageCounts[stage]}</b>
-          </button>
-        ))}
-      </div>
+      <LeadTimelineChart leads={leads} />
 
-      <div className="view-card partner-dash-list">
+      <StageLegend counts={stageCounts} stageFilter={stageFilter} onToggleStage={toggleStage} />
+
+      <div className="pd-card partner-dash-list">
         <div className="partner-dash-toolbar">
-          <div><h2>Your assigned leads</h2><p>Every lead is listed below — open one to work on it.</p></div>
+          <div><h2>Your leads ({leads.length})</h2><p>Manage and track your assigned leads — open one to work on it.</p></div>
           <div className="partner-dash-controls">
             <label className="search-box"><span aria-hidden="true">⌕</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search name, email or destination…" aria-label="Search leads" /></label>
             <label className="partner-dash-stage-filter">
@@ -573,14 +713,14 @@ function PartnerLeadDashboard({ leads, partnerName, onOpenLead }) {
         </div>
         <div className="partner-dash-table">
           <div className="partner-dash-row partner-dash-head">
-            <span>Lead</span><span>Created</span><span>Destination</span><span>Stage</span><span>Last update</span><span>Next action</span>
+            <span>Name</span><span>Stage</span><span>Destination</span><span>Created</span><span>Last update</span><span>Next action</span>
           </div>
           {filtered.map((lead) => (
             <button key={lead.id} type="button" className="partner-dash-row" onClick={() => onOpenLead(lead.id)}>
               <span className="lead-person"><i>{lead.initials}</i><span><strong>{lead.name}</strong><small>{lead.email}</small></span></span>
-              <span className="partner-dash-created"><small>Created</small>{formatDay(lead.createdAt)}</span>
-              <span className="partner-dash-destination"><small>Destination</small>{lead.location}</span>
               <span className="stage-cell"><i className={`stage ${stageClass(lead.stage)}`}>{lead.stage}</i></span>
+              <span className="partner-dash-destination"><small>Destination</small>{lead.location}</span>
+              <span className="partner-dash-created"><small>Created</small>{formatDay(lead.createdAt)}</span>
               <span className="partner-dash-updated"><small>Last update</small>{lead.age}</span>
               <span className="partner-dash-next"><small>Next action</small>{nextActionFor(lead.stage)}<b aria-hidden="true">›</b></span>
             </button>
