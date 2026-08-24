@@ -3,56 +3,48 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
-const s = {
-  root: { minHeight: '100vh', background: '#F5F2EC', fontFamily: '"Nunito Sans", sans-serif' },
-  nav: {
-    background: '#2C4A5E',
-    position: 'sticky', top: 0, zIndex: 30,
-    boxShadow: '0 1px 8px rgba(44,74,94,0.15)',
+const NAV_GROUPS = [
+  {
+    label: 'CRM',
+    items: [
+      { href: '/admin', label: 'Dashboard', icon: '⌂', exact: true },
+      { href: '/admin/crm', label: 'Leads', icon: '◫', also: ['/admin/leads'] },
+      { href: '/admin/partners/queue', label: 'Needs attention', icon: '!' },
+    ],
   },
-  navInner: {
-    maxWidth: 1280, margin: '0 auto', padding: '0 24px',
-    height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+  {
+    label: 'INVENTORY',
+    items: [
+      { href: '/admin/listings', label: 'Listings', icon: '▦', also: ['/admin/property'] },
+      { href: '/admin/featured', label: 'Featured', icon: '◇' },
+    ],
   },
-  brand: {
-    fontSize: 15, fontWeight: 700, color: '#ffffff', letterSpacing: '0.5px',
-    textDecoration: 'none', fontFamily: '"Playfair Display", serif',
+  {
+    label: 'MARKETING',
+    items: [
+      { href: '/admin/newsletters', label: 'Newsletters', icon: '✉' },
+      { href: '/admin/emails', label: 'Email campaigns', icon: '↗' },
+    ],
   },
-  navLinks: { display: 'flex', alignItems: 'center', gap: 6 },
-  navLink: {
-    fontSize: 13, color: 'rgba(255,255,255,0.75)', textDecoration: 'none',
-    padding: '6px 12px', borderRadius: 6, transition: 'all 0.15s',
+  {
+    label: 'CONTACTS',
+    items: [
+      { href: '/admin/partners', label: 'Partner Hub', icon: '◎', exclude: ['/admin/partners/queue'] },
+    ],
   },
-  navLinkActive: {
-    fontSize: 13, color: '#ffffff', textDecoration: 'none',
-    padding: '6px 12px', borderRadius: 6, background: 'rgba(255,255,255,0.12)',
-    fontWeight: 600,
-  },
-  navRight: { display: 'flex', alignItems: 'center', gap: 12 },
-  viewSite: {
-    fontSize: 12, color: '#C9A84C', textDecoration: 'none',
-    padding: '5px 10px', border: '1px solid rgba(201,168,76,0.4)',
-    borderRadius: 6, fontWeight: 600,
-  },
-  divider: { width: 1, height: 20, background: 'rgba(255,255,255,0.2)' },
-  email: { fontSize: 12, color: 'rgba(255,255,255,0.5)' },
-  signOut: {
-    fontSize: 12, color: 'rgba(255,255,255,0.6)', background: 'none',
-    border: 'none', cursor: 'pointer', padding: '4px 8px', borderRadius: 4,
-  },
-  main: { maxWidth: 1280, margin: '0 auto', padding: '32px 24px' },
-  loading: {
-    minHeight: '100vh', background: '#F5F2EC',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    fontFamily: '"Nunito Sans", sans-serif',
-  },
-  loadingText: { fontSize: 14, color: '#8a9aaa' },
+]
+
+function isActive(item, pathname) {
+  if ((item.exclude || []).some((prefix) => pathname.startsWith(prefix))) return false
+  if (item.exact) return pathname === item.href
+  return pathname.startsWith(item.href) || (item.also || []).some((prefix) => pathname.startsWith(prefix))
 }
 
 export default function AdminLayout({ children, fullBleed = false }) {
   const router = useRouter()
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -78,7 +70,6 @@ export default function AdminLayout({ children, fullBleed = false }) {
     }
 
     supabase.auth.getSession().then(({ data: { session } }) => verifyAdmin(session))
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
       if (!session) router.replace('/admin/login')
       else verifyAdmin(session)
@@ -90,69 +81,56 @@ export default function AdminLayout({ children, fullBleed = false }) {
     }
   }, [router])
 
+  useEffect(() => setMenuOpen(false), [router.asPath])
+
   async function signOut() {
     await supabase.auth.signOut()
     router.push('/admin/login')
   }
 
-  if (loading) {
-    return (
-      <div style={s.loading}>
-        <div style={s.loadingText}>Loading…</div>
-      </div>
-    )
-  }
-
-  const isProperties = router.pathname === '/admin' || router.pathname.startsWith('/admin/property')
-  const isFeatured = router.pathname.startsWith('/admin/featured')
-  const isNewsletters = router.pathname.startsWith('/admin/newsletters')
-  const isEmails = router.pathname.startsWith('/admin/emails')
-  const isCrm = router.pathname.startsWith('/admin/crm')
-  const isQueue = router.pathname.startsWith('/admin/partners/queue')
-  const isPartners = router.pathname.startsWith('/admin/partners') && !isQueue
+  if (loading) return <div className="cop-admin-loading">Loading COP Admin…</div>
 
   return (
-    <div style={s.root}>
-      <nav style={s.nav}>
-        <div style={s.navInner}>
-          <div style={s.navLinks}>
-            <Link href="/admin" style={s.brand}>COP Admin</Link>
-            <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.2)', margin: '0 6px' }} />
-            <Link href="/admin" style={isProperties ? s.navLinkActive : s.navLink}>
-              Properties
-            </Link>
-            <Link href="/admin/featured" style={isFeatured ? s.navLinkActive : s.navLink}>
-              Featured
-            </Link>
-            <Link href="/admin/newsletters" style={isNewsletters ? s.navLinkActive : s.navLink}>
-              Newsletters
-            </Link>
-            <Link href="/admin/emails" style={isEmails ? s.navLinkActive : s.navLink}>
-              Emails
-            </Link>
-            <Link href="/admin/crm" style={isCrm ? s.navLinkActive : s.navLink}>
-              CRM
-            </Link>
-            <Link href="/admin/partners/queue" style={isQueue ? s.navLinkActive : s.navLink}>
-              Referrals
-            </Link>
-            <Link href="/admin/partners" style={isPartners ? s.navLinkActive : s.navLink}>
-              Partner Hub
-            </Link>
-          </div>
-          <div style={s.navRight}>
-            <Link href="/our-homes" target="_blank" style={s.viewSite}>
-              View site ↗
-            </Link>
-            <div style={s.divider} />
-            <span style={s.email}>{user?.email}</span>
-            <button onClick={signOut} style={s.signOut}>Sign out</button>
-          </div>
+    <div className="cop-admin-shell">
+      <header className="cop-admin-mobile-header">
+        <button type="button" onClick={() => setMenuOpen(true)} aria-label="Open admin navigation">☰</button>
+        <Link href="/admin">COP Admin</Link>
+        <Link href="/our-homes" target="_blank">Site ↗</Link>
+      </header>
+
+      {menuOpen && <button className="cop-admin-scrim" type="button" onClick={() => setMenuOpen(false)} aria-label="Close admin navigation" />}
+
+      <aside className={`cop-admin-sidebar${menuOpen ? ' is-open' : ''}`}>
+        <div className="cop-admin-brand">
+          <span>C</span>
+          <div><strong>COP Admin</strong><small>Co-Ownership Property</small></div>
+          <button type="button" onClick={() => setMenuOpen(false)} aria-label="Close admin navigation">×</button>
         </div>
-      </nav>
-      <main style={fullBleed ? { ...s.main, maxWidth: 'none', padding: 0 } : s.main}>
-        {children}
-      </main>
+
+        <nav className="cop-admin-navigation" aria-label="Admin navigation">
+          {NAV_GROUPS.map((group) => (
+            <section key={group.label}>
+              <p>{group.label}</p>
+              {group.items.map((item) => (
+                <Link key={item.href} href={item.href} className={isActive(item, router.pathname) ? 'active' : ''}>
+                  <i aria-hidden="true">{item.icon}</i><span>{item.label}</span>
+                </Link>
+              ))}
+            </section>
+          ))}
+        </nav>
+
+        <div className="cop-admin-account">
+          <Link href="/our-homes" target="_blank">View COP website <span>↗</span></Link>
+          <div>
+            <span>{(user?.email || 'A').slice(0, 1).toUpperCase()}</span>
+            <p><strong>{user?.email}</strong><small>Administrator</small></p>
+          </div>
+          <button type="button" onClick={signOut}>Sign out</button>
+        </div>
+      </aside>
+
+      <main className={`cop-admin-content${fullBleed ? ' full-bleed' : ''}`}>{children}</main>
     </div>
   )
 }

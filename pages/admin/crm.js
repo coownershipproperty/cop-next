@@ -330,7 +330,9 @@ export default function CrmLeads() {
               {(openContact.leads || []).map((l) => (
                 <div key={l.id} style={s.leadRow}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
-                    <strong>{l.property_title || l.main_region || 'General enquiry'}</strong>
+                    <Link href={`/admin/leads/${l.id}`} style={{ color: C.navy, fontWeight: 700 }}>
+                      {l.property_title || l.main_region || 'General enquiry'}
+                    </Link>
                     <span style={s.chip(STATUS_COLORS[l.status])}>{STATUS_LABELS[l.status] || l.status}</span>
                   </div>
                   <div style={s.dim}>
@@ -339,6 +341,9 @@ export default function CrmLeads() {
                     {` · ${fmtDate(l.created_at)}`}
                   </div>
                   {l.message && <div style={{ marginTop: 4 }}>{l.message}</div>}
+                  <Link href={`/admin/leads/${l.id}`} style={{ display: 'inline-block', marginTop: 7, color: C.navy, fontSize: 12, fontWeight: 700 }}>
+                    Open lead and select listings →
+                  </Link>
                 </div>
               ))}
               {(openContact.leads || []).length === 0 && <div style={s.dim}>No leads.</div>}

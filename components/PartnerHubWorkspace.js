@@ -384,6 +384,23 @@ function Topbar({ role, title, setView, previewPartner, onChangePassword }) {
   );
 }
 
+function AdminHubNav({ view, setView, leadCount, previewPartner, onPreviewEnd }) {
+  const item = (id, label, count) => (
+    <button type="button" className={view === id ? 'active' : ''} onClick={() => setView(id)}>
+      {label}{count !== undefined && <span>{count}</span>}
+    </button>
+  );
+  return (
+    <nav className="hub-admin-subnav" aria-label="Partner Hub sections">
+      {item('overview', 'Overview')}
+      {item('leads', 'Partner leads', leadCount)}
+      {item('submit', 'Submit lead')}
+      {item('access', 'Partner access')}
+      {previewPartner && <button className="preview-exit" type="button" onClick={onPreviewEnd}>Exit {previewPartner.name} preview</button>}
+    </nav>
+  );
+}
+
 function LeadTable({ leads, onOpen, compact = false }) {
   if (!leads.length) {
     return <div className="empty-leads"><span>▥</span><strong>No leads in this workspace</strong><p>New assigned leads will appear here.</p></div>;
@@ -1423,10 +1440,11 @@ export default function PartnerHubWorkspace({ entry = 'admin' }) {
   return (
     <div className="partner-hub-root">
       <Head><title>{entry === 'admin' ? 'COP Admin Partner Hub' : `${partners[0]?.name || 'Partner'} | COP Partner Hub`}</title><meta name="robots" content="noindex,nofollow,noarchive" /></Head>
-      <div className="portal-shell">
-        <Sidebar role={access.role} view={view} setView={(next) => { setPreviewPartner(null); setView(next); }} leadCount={visibleLeads.length} partner={partners[0]} previewPartner={previewPartner} onPreviewEnd={() => { setPreviewPartner(null); setView('overview'); }} email={access.email} onSignOut={signOut} />
+      <div className={`portal-shell ${entry === 'admin' ? 'embedded-admin' : ''}`}>
+        {entry !== 'admin' && <Sidebar role={access.role} view={view} setView={(next) => { setPreviewPartner(null); setView(next); }} leadCount={visibleLeads.length} partner={partners[0]} previewPartner={previewPartner} onPreviewEnd={() => { setPreviewPartner(null); setView('overview'); }} email={access.email} onSignOut={signOut} />}
         <main className="workspace">
           <Topbar role={access.role} title={title} setView={setView} previewPartner={previewPartner} onChangePassword={() => setShowPasswordDialog(true)} />
+          {entry === 'admin' && <AdminHubNav view={view} setView={(next) => { setPreviewPartner(null); setView(next); }} leadCount={visibleLeads.length} previewPartner={previewPartner} onPreviewEnd={() => { setPreviewPartner(null); setView('overview'); }} />}
           {view === 'overview' && access.role === 'admin' && <Overview leads={leads} partners={partners} openLead={setSelectedLeadId} setView={setView} startPreview={startPreview} />}
           {view === 'leads' && <LeadsView leads={visibleLeads} partners={partners} role={access.role} previewPartner={previewPartner} openLead={setSelectedLeadId} onChanged={updateLead} showToast={showToast} />}
           {view === 'submit' && access.role === 'admin' && <SubmitLead partners={partners} destinations={destinations} onCreated={(lead) => { setLeads((current) => [lead, ...current]); setView('leads'); }} showToast={showToast} />}

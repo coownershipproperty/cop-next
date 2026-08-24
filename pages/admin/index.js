@@ -1,305 +1,119 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import Head from 'next/head'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 
-const STATUS = {
-  Live: { label: 'Live', bg: '#ecfdf5', color: '#065f46', border: '#a7f3d0' },
-  sold: { label: 'Sold', bg: '#f3f4f6', color: '#6b7280', border: '#d1d5db' },
-  hidden: { label: 'Hidden', bg: '#fffbeb', color: '#92400e', border: '#fcd34d' },
+const STATUS_LABELS = {
+  new_lead: 'New lead', contacted: 'Contacted', lead_replied: 'Replied', hot_lead: 'Hot lead',
+  qualified: 'Qualified', passive_interest: 'Passive', registered: 'Registered',
+  reservation_confirmed: 'Reserved', transferred_to_partner: 'Transferred', won: 'Won', lost: 'Lost',
 }
 
-export default function AdminIndex() {
+function leadName(lead) {
+  const contact = Array.isArray(lead.contacts) ? lead.contacts[0] : lead.contacts
+  return [contact?.first_name, contact?.last_name].filter(Boolean).join(' ') || contact?.email || 'Unnamed lead'
+}
+
+function relativeDate(value) {
+  if (!value) return '—'
+  const diff = Date.now() - new Date(value).getTime()
+  const hours = Math.max(0, Math.floor(diff / 3600000))
+  if (hours < 1) return 'Just now'
+  if (hours < 24) return `${hours}h ago`
+  const days = Math.floor(hours / 24)
+  return days === 1 ? 'Yesterday' : `${days} days ago`
+}
+
+export default function AdminDashboard() {
+  const [leads, setLeads] = useState([])
   const [properties, setProperties] = useState([])
-  const [filtered, setFiltered] = useState([])
+  const [partnerLeads, setPartnerLeads] = useState([])
+  const [counts, setCounts] = useState({ leads: 0, properties: 0, contacts: 0 })
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
-  const [partnerFilter, setPartnerFilter] = useState('')
-  const [statusFilter, setStatusFilter] = useState('')
-  const [partners, setPartners] = useState([])
-  // Sort options:
-  //   'newest'      — date_added DESC (default; matches the SQL order)
-  //   'oldest'      — date_added ASC
-  //   'price_desc'  — most expensive first
-  //   'price_asc'   — cheapest first
-  //   'title_asc'   — alphabetical
-  const [sortBy, setSortBy] = useState('newest')
 
   useEffect(() => {
-    supabase
-      .from('properties')
-      .select('slug,title,city,country,price,currency,beds,status,partner,img,extra_photos,total_images,date_added,created_at')
-      .order('date_added', { ascending: false, nullsFirst: false })
-      .then(({ data }) => {
-        setProperties(data || [])
-        setPartners([...new Set((data || []).map(p => p.partner).filter(Boolean))])
-        setLoading(false)
-      })
+    (async () => {
+      const [leadRows, propertyRows, partnerRows, leadCount, propertyCount, contactCount] = await Promise.all([
+        supabase.from('leads').select('id,contact_id,status,property_slug,property_title,main_region,subregion,partner,created_at,updated_at,contacts(first_name,last_name,email),properties(partner)').order('created_at', { ascending: false }).limit(8),
+        supabase.from('properties').select('slug,title,img,images,city,region,country,partner,status,price,currency,date_added').order('date_added', { ascending: false, nullsFirst: false }).limit(6),
+        supabase.from('partner_hub_leads').select('id,first_name,last_name,partner_id,stage,destinations,created_at,updated_at').order('updated_at', { ascending: false }).limit(6),
+        supabase.from('leads').select('id', { count: 'exact', head: true }),
+        supabase.from('properties').select('slug', { count: 'exact', head: true }),
+        supabase.from('contacts').select('id', { count: 'exact', head: true }),
+      ])
+      setLeads(leadRows.data || [])
+      setProperties(propertyRows.data || [])
+      setPartnerLeads(partnerRows.data || [])
+      setCounts({ leads: leadCount.count || 0, properties: propertyCount.count || 0, contacts: contactCount.count || 0 })
+      setLoading(false)
+    })()
   }, [])
 
-  useEffect(() => {
-    let result = properties
-    if (search) result = result.filter(p =>
-      p.title?.toLowerCase().includes(search.toLowerCase()) ||
-      p.city?.toLowerCase().includes(search.toLowerCase()) ||
-      p.country?.toLowerCase().includes(search.toLowerCase())
-    )
-    if (partnerFilter) result = result.filter(p => p.partner === partnerFilter)
-    if (statusFilter) result = result.filter(p => p.status === statusFilter)
-
-    // Apply sort. The clone keeps the source array stable so subsequent
-    // changes don't re-sort an already-sorted slice.
-    const sorted = [...result]
-    const dateVal = (p) => p.date_added || p.created_at || ''
-    if (sortBy === 'newest')      sorted.sort((a, b) => dateVal(b).localeCompare(dateVal(a)))
-    if (sortBy === 'oldest')      sorted.sort((a, b) => dateVal(a).localeCompare(dateVal(b)))
-    if (sortBy === 'price_desc')  sorted.sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0))
-    if (sortBy === 'price_asc')   sorted.sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0))
-    if (sortBy === 'title_asc')   sorted.sort((a, b) => (a.title || '').localeCompare(b.title || ''))
-
-    setFiltered(sorted)
-  }, [properties, search, partnerFilter, statusFilter, sortBy])
-
-  // Format a date as "8 May" / "26 Apr" — short, locale-stable.
-  const formatAddedDate = (value) => {
-    if (!value) return null
-    const d = new Date(value)
-    if (Number.isNaN(d.getTime())) return null
-    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
-  }
-
-  const inputStyle = {
-    border: '1px solid #e8e0d4',
-    borderRadius: 10,
-    padding: '9px 14px',
-    fontSize: 13,
-    color: '#1a2533',
-    background: '#ffffff',
-    outline: 'none',
-    fontFamily: '"Nunito Sans", sans-serif',
-  }
+  const newLeads = leads.filter((lead) => lead.status === 'new_lead').length
+  const activePartnerLeads = partnerLeads.filter((lead) => !['won', 'lost'].includes(lead.stage)).length
 
   return (
     <AdminLayout>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
-        <div>
-          <h1 style={{
-            fontSize: 22,
-            fontWeight: 700,
-            color: '#2C4A5E',
-            fontFamily: '"Playfair Display", serif',
-            margin: 0,
-          }}>
-            Properties
-          </h1>
-          <p style={{ fontSize: 13, color: '#8a9aaa', marginTop: 4 }}>
-            {loading ? 'Loading…' : `${filtered.length} listing${filtered.length !== 1 ? 's' : ''}`}
-          </p>
+      <Head><title>Dashboard — COP Admin</title></Head>
+      <div className="admin-page-heading">
+        <div><p className="admin-eyebrow">COP CRM</p><h1>Good morning, David</h1><p>Leads, partner follow-up and COP listings in one workspace.</p></div>
+        <div className="admin-page-actions">
+          <Link href="/admin/partners" className="admin-primary-button">Open Partner Hub</Link>
         </div>
       </div>
 
-      {/* Filters */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 28 }}>
-        <input
-          type="search"
-          placeholder="Search title, city, country…"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          style={{ ...inputStyle, width: 260 }}
-        />
-        <select
-          value={partnerFilter}
-          onChange={e => setPartnerFilter(e.target.value)}
-          style={inputStyle}
-        >
-          <option value="">All partners</option>
-          {partners.map(p => <option key={p} value={p}>{p}</option>)}
-        </select>
-        <select
-          value={statusFilter}
-          onChange={e => setStatusFilter(e.target.value)}
-          style={inputStyle}
-        >
-          <option value="">All statuses</option>
-          <option value="Live">Live</option>
-          <option value="sold">Sold</option>
-          <option value="hidden">Hidden</option>
-        </select>
-        <select
-          value={sortBy}
-          onChange={e => setSortBy(e.target.value)}
-          style={inputStyle}
-          title="Sort order"
-        >
-          <option value="newest">Newest first</option>
-          <option value="oldest">Oldest first</option>
-          <option value="price_desc">Price: high to low</option>
-          <option value="price_asc">Price: low to high</option>
-          <option value="title_asc">Title: A → Z</option>
-        </select>
+      <section className="admin-dashboard-hero">
+        <div><small>CRM WORKSPACE</small><h2>Keep every opportunity moving.</h2><p>Open the lead, add suitable COP listings, and keep the handover visible to both teams.</p></div>
+        <div><Link href="/admin/crm">Open all leads <span>→</span></Link><Link href="/admin/listings">Browse inventory <span>→</span></Link></div>
+      </section>
+
+      <section className="admin-stat-grid">
+        <article><i>↗</i><p><small>TOTAL LEADS</small><strong>{counts.leads.toLocaleString()}</strong><span>{counts.contacts.toLocaleString()} contacts</span></p></article>
+        <article><i>◫</i><p><small>COP LISTINGS</small><strong>{counts.properties.toLocaleString()}</strong><span>Live inventory</span></p></article>
+        <article><i>!</i><p><small>NEEDS ATTENTION</small><strong>{newLeads}</strong><span>Among recent CRM leads</span></p></article>
+        <article><i>✓</i><p><small>PARTNER PIPELINE</small><strong>{activePartnerLeads}</strong><span>Recent active handovers</span></p></article>
+      </section>
+
+      <section className="admin-dashboard-panel">
+        <header><div><h2>Latest leads</h2><p>Most recently created opportunities</p></div><Link href="/admin/crm">View all →</Link></header>
+        <div className="admin-responsive-table">
+          <table className="admin-dashboard-table">
+            <thead><tr><th>Lead</th><th>Destination</th><th>Partner</th><th>Stage</th><th>Created</th><th /></tr></thead>
+            <tbody>
+              {leads.map((lead) => (
+                <tr key={lead.id}>
+                  <td><Link href={`/admin/leads/${lead.id}`}><strong>{leadName(lead)}</strong><small>{lead.property_title || 'General enquiry'}</small></Link></td>
+                  <td>{lead.main_region || lead.subregion || '—'}</td>
+                  <td>{lead.partner || (Array.isArray(lead.properties) ? lead.properties[0]?.partner : lead.properties?.partner) || '—'}</td>
+                  <td><i className={`status-${lead.status}`}>{STATUS_LABELS[lead.status] || lead.status || 'New lead'}</i></td>
+                  <td>{relativeDate(lead.created_at)}</td>
+                  <td><Link href={`/admin/leads/${lead.id}`}>›</Link></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {!loading && leads.length === 0 && <div className="admin-table-message">No leads yet.</div>}
+      </section>
+
+      <div className="admin-dashboard-columns">
+        <section className="admin-dashboard-panel compact">
+          <header><div><h2>Recent listings</h2><p>Newest COP inventory</p></div><Link href="/admin/listings">View all →</Link></header>
+          <div className="admin-inventory-list">
+            {properties.slice(0, 4).map((property) => {
+              const image = property.img || (Array.isArray(property.images) ? property.images[0] : '')
+              return <Link href={`/admin/property/${property.slug}`} key={property.slug}><span style={image ? { backgroundImage: `url("${image.replaceAll('"', '%22')}")` } : undefined} /><p><strong>{property.title}</strong><small>{[property.city, property.region].filter(Boolean).join(', ')} · {property.partner || 'COP'}</small></p><b>›</b></Link>
+            })}
+          </div>
+        </section>
+        <section className="admin-dashboard-panel compact">
+          <header><div><h2>Partner activity</h2><p>Latest handover updates</p></div><Link href="/admin/partners">Open Hub →</Link></header>
+          <div className="admin-partner-activity">
+            {partnerLeads.slice(0, 5).map((lead) => <div key={lead.id}><i>{(lead.first_name || 'L').slice(0, 1)}</i><p><strong>{[lead.first_name, lead.last_name].filter(Boolean).join(' ')}</strong><small>{lead.partner_id} · {lead.stage?.replaceAll('_', ' ')}</small></p><time>{relativeDate(lead.updated_at || lead.created_at)}</time></div>)}
+          </div>
+        </section>
       </div>
-
-      {/* Grid */}
-      {loading ? (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-          gap: 16,
-        }}>
-          {[...Array(8)].map((_, i) => (
-            <div key={i} style={{
-              background: '#ffffff',
-              border: '1px solid #e8e0d4',
-              borderRadius: 12,
-              overflow: 'hidden',
-            }}>
-              <div style={{ paddingTop: '75%', background: '#f0ede8' }} />
-              <div style={{ padding: 14 }}>
-                <div style={{ height: 12, background: '#f0ede8', borderRadius: 4, marginBottom: 8, width: '75%' }} />
-                <div style={{ height: 12, background: '#f0ede8', borderRadius: 4, width: '50%' }} />
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-          gap: 16,
-        }}>
-          {filtered.map(p => {
-            const st = STATUS[p.status] || STATUS.Live
-            return (
-              <Link
-                key={p.slug}
-                href={`/admin/property/${p.slug}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <div style={{
-                  background: '#ffffff',
-                  border: '1px solid #e8e0d4',
-                  borderRadius: 12,
-                  overflow: 'hidden',
-                  transition: 'transform 0.15s, box-shadow 0.15s',
-                  cursor: 'pointer',
-                }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.transform = 'translateY(-2px)'
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(44,74,94,0.12)'
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
-                >
-                  {/* Image */}
-                  <div style={{ position: 'relative', paddingTop: '75%', background: '#f0ede8' }}>
-                    {p.img ? (
-                      <img
-                        src={p.img}
-                        alt={p.title}
-                        style={{
-                          position: 'absolute', inset: 0,
-                          width: '100%', height: '100%', objectFit: 'cover',
-                        }}
-                      />
-                    ) : (
-                      <div style={{
-                        position: 'absolute', inset: 0,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: '#bdb5aa', fontSize: 12,
-                      }}>
-                        No image
-                      </div>
-                    )}
-                    {p.partner && (
-                      <span style={{
-                        position: 'absolute', top: 8, left: 8,
-                        background: 'rgba(44,74,94,0.85)',
-                        color: '#ffffff',
-                        fontSize: 11, fontWeight: 600,
-                        padding: '3px 8px', borderRadius: 20,
-                        backdropFilter: 'blur(4px)',
-                      }}>
-                        {p.partner}
-                      </span>
-                    )}
-                    {p.extra_photos?.length === 0 && p.partner === 'myne' && (
-                      <span style={{
-                        position: 'absolute', top: 8, right: 8,
-                        background: '#C9A84C',
-                        color: '#ffffff',
-                        fontSize: 11, fontWeight: 600,
-                        padding: '3px 8px', borderRadius: 20,
-                      }}>
-                        No brochure
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Info */}
-                  <div style={{ padding: '12px 14px 14px' }}>
-                    <p style={{
-                      fontSize: 13,
-                      fontWeight: 600,
-                      color: '#1a2533',
-                      lineHeight: 1.4,
-                      margin: '0 0 8px',
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden',
-                    }}>
-                      {p.title}
-                    </p>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: 12, color: '#8a9aaa' }}>
-                        {p.beds}bd · {p.price?.toLocaleString()} {p.currency}
-                      </span>
-                      <span style={{
-                        fontSize: 11, fontWeight: 600,
-                        padding: '3px 8px', borderRadius: 20,
-                        background: st.bg, color: st.color,
-                        border: `1px solid ${st.border}`,
-                      }}>
-                        {st.label}
-                      </span>
-                    </div>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      marginTop: 6,
-                      gap: 8,
-                    }}>
-                      <span style={{ fontSize: 11, color: '#bdb5aa' }}>
-                        {p.total_images > 0 ? `${p.total_images} photos` : ''}
-                      </span>
-                      {formatAddedDate(p.date_added || p.created_at) && (
-                        <span style={{
-                          fontSize: 11,
-                          color: '#8a9aaa',
-                          fontWeight: 600,
-                        }}>
-                          Added {formatAddedDate(p.date_added || p.created_at)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            )
-          })}
-        </div>
-      )}
-
-      {!loading && filtered.length === 0 && (
-        <div style={{ textAlign: 'center', padding: '80px 0', color: '#8a9aaa' }}>
-          <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>No properties found</p>
-          <p style={{ fontSize: 14 }}>Try adjusting your search or filters</p>
-        </div>
-      )}
     </AdminLayout>
   )
 }
