@@ -9,7 +9,6 @@ const NAV_GROUPS = [
     items: [
       { href: '/admin', label: 'Dashboard', icon: '⌂', exact: true },
       { href: '/admin/leads', label: 'Leads', icon: '◫', exclude: ['/admin/leads/sold'] },
-      { href: '/admin/leads/sold', label: 'Sold leads', icon: '✓' },
       { href: '/admin/partners/queue', label: 'Needs attention', icon: '!' },
     ],
   },
@@ -31,6 +30,12 @@ const NAV_GROUPS = [
     label: 'CONTACTS',
     items: [
       { href: '/admin/partners', label: 'Partner Hub', icon: '◎', exclude: ['/admin/partners/queue'] },
+    ],
+  },
+  {
+    label: 'SALES & FINANCE',
+    items: [
+      { href: '/admin/leads/sold', label: 'Sold leads', icon: '✓' },
     ],
   },
 ]
