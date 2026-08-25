@@ -156,8 +156,11 @@
 .admin-edit-lead-card form { padding: 22px; }
 .admin-edit-form-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
 .admin-edit-form-grid label, .admin-handover-form label { min-width: 0; display: grid; gap: 7px; color: #526779; font-size: 12px; font-weight: 800; }
-.admin-edit-form-grid input, .admin-edit-form-grid textarea, .admin-handover-form input, .admin-handover-form select, .admin-handover-form textarea { width: 100%; min-height: 43px; padding: 10px 12px; border: 1px solid #d6dfe3; border-radius: 7px; color: #263f50; background: #fff; font: 600 13px var(--font-nunito), sans-serif; }
+.admin-edit-form-grid input, .admin-edit-form-grid select, .admin-edit-form-grid textarea, .admin-handover-form input, .admin-handover-form select, .admin-handover-form textarea { width: 100%; min-height: 43px; padding: 10px 12px; border: 1px solid #d6dfe3; border-radius: 7px; color: #263f50; background: #fff; font: 600 13px var(--font-nunito), sans-serif; }
 .admin-edit-form-grid textarea, .admin-handover-form textarea { min-height: 105px; resize: vertical; line-height: 1.5; }
+.admin-phone-field { min-width: 0; display: grid; grid-template-columns: minmax(145px,.65fr) minmax(0,1fr); }
+.admin-phone-field select { border-radius: 7px 0 0 7px; border-right: 0; }
+.admin-phone-field input { min-width: 0; border-radius: 0 7px 7px 0; }
 .admin-edit-message { grid-column: 1 / -1; }
 .admin-edit-actions { margin-top: 17px; display: flex; justify-content: flex-end; gap: 9px; }
 .admin-edit-actions button { min-height: 42px; padding: 0 16px; border: 1px solid #d4dee3; border-radius: 7px; color: #476071; background: #fff; font-size: 12px; font-weight: 800; }
