@@ -6,19 +6,17 @@ import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 import {
   EUROPE_DIAL_CODES,
-  EUROPE_COUNTRIES,
   INTERNATIONAL_DIAL_CODES,
-  INTERNATIONAL_COUNTRIES,
   joinInternationalPhone,
 } from '@/lib/internationalDialCodes'
 import { LEAD_SOURCE_OPTIONS } from '@/lib/leadSources'
+import { buildDestinationGroups, NATIONALITY_GROUPS } from '@/lib/leadFormOptions'
 
 const EMPTY = {
   firstName: '', lastName: '', email: '', phoneDialCode: '+44', phone: '', nationality: '', leadSource: 'Manual entry',
   mainRegion: '', subregion: '', budgetMin: '', budgetMax: '', propertySlug: '', message: '',
 }
 
-const DESTINATION_COUNTRY_PRIORITY = ['Spain', 'France', 'Italy', 'Portugal', 'England', 'Austria', 'Germany', 'Croatia', 'Sweden', 'USA', 'Mexico']
 const BUDGET_MINIMUMS = [50_000, 100_000, 200_000, 300_000, 400_000, 500_000, 600_000, 700_000, 800_000, 900_000, 1_000_000]
 const BUDGET_MAXIMUMS = [100_000, 200_000, 300_000, 400_000, 500_000, 600_000, 700_000, 800_000, 900_000, 1_000_000]
 
@@ -28,10 +26,6 @@ const priorityDialCodes = [
 ].filter(Boolean)
 const europeanDialCodes = EUROPE_DIAL_CODES.filter(([country]) => country !== 'United Kingdom')
 const otherDialCodes = INTERNATIONAL_DIAL_CODES.filter(([country]) => country !== 'United States / Canada')
-
-const priorityNationalities = ['United Kingdom', 'United States']
-const europeanNationalities = EUROPE_COUNTRIES.filter((country) => country !== 'United Kingdom')
-const otherNationalities = INTERNATIONAL_COUNTRIES.filter((country) => !priorityNationalities.includes(country))
 
 function moneyLabel(value, plus = false) {
   return `€${Number(value).toLocaleString('en-GB')}${plus ? '+' : ''}`
@@ -58,12 +52,7 @@ function DialCodeOptions() {
 }
 
 function NationalityOptions() {
-  const render = (country) => <option key={country} value={country}>{country}</option>
-  return <>
-    <optgroup label="UK & USA">{priorityNationalities.map(render)}</optgroup>
-    <optgroup label="Europe">{europeanNationalities.map(render)}</optgroup>
-    <optgroup label="Rest of the world">{otherNationalities.map(render)}</optgroup>
-  </>
+  return <>{NATIONALITY_GROUPS.map((group) => <optgroup key={group.label} label={group.label}>{group.countries.map((country) => <option key={country} value={country}>{country}</option>)}</optgroup>)}</>
 }
 
 async function authedRequest(url, options = {}) {
@@ -107,26 +96,7 @@ export default function NewAdminLead() {
 
   const selectedProperty = properties.find((property) => property.slug === form.propertySlug)
 
-  const destinationGroups = useMemo(() => {
-    const byCountry = new Map()
-    for (const property of properties) {
-      const country = String(property.country || '').trim()
-      const region = String(property.region || '').trim()
-      if (!country || !region) continue
-      if (!byCountry.has(country)) byCountry.set(country, new Set())
-      byCountry.get(country).add(region)
-    }
-    if (!byCountry.has('Spain')) byCountry.set('Spain', new Set())
-    byCountry.get('Spain').add('Balearics')
-    return [...byCountry.entries()]
-      .map(([country, regions]) => ({ country, regions: [...regions].sort((a, b) => a.localeCompare(b)) }))
-      .sort((a, b) => {
-        const aPriority = DESTINATION_COUNTRY_PRIORITY.indexOf(a.country)
-        const bPriority = DESTINATION_COUNTRY_PRIORITY.indexOf(b.country)
-        if (aPriority !== -1 || bPriority !== -1) return (aPriority === -1 ? 999 : aPriority) - (bPriority === -1 ? 999 : bPriority)
-        return a.country.localeCompare(b.country)
-      })
-  }, [properties])
+  const destinationGroups = useMemo(() => buildDestinationGroups(properties), [properties])
 
   function update(key, value) {
     setForm((current) => ({ ...current, [key]: value }))

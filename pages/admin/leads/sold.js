@@ -27,7 +27,7 @@ export default function SoldAdminLeads() {
   const load = useCallback(async () => {
     setLoading(true); setError('')
     const { data, error: loadError } = await supabase.from('leads')
-      .select('id,contact_id,property_title,property_slug,main_region,subregion,partner,property_sale_price,commission_rate,invoice_amount,invoice_date,invoice_paid,won_at,created_at,updated_at,contacts(email,first_name,last_name,phone)')
+      .select('id,contact_id,property_title,property_slug,main_region,subregion,partner,final_property_slug,final_property_title,final_property_region,property_sale_price,commission_rate,invoice_amount,invoice_date,invoice_paid,won_at,created_at,updated_at,contacts(email,first_name,last_name,phone)')
       .is('merged_into_lead_id', null)
       .eq('status', 'won')
       .order('won_at', { ascending: false, nullsFirst: false })
@@ -45,7 +45,7 @@ export default function SoldAdminLeads() {
     if (!needle) return leads
     return leads.filter((lead) => {
       const contact = contactFor(lead)
-      return [contact?.first_name, contact?.last_name, contact?.email, lead.property_title, lead.main_region, lead.partner]
+      return [contact?.first_name, contact?.last_name, contact?.email, lead.final_property_title, lead.final_property_region, lead.property_title, lead.main_region, lead.partner]
         .some((value) => value?.toLowerCase().includes(needle))
     })
   }, [leads, search])
@@ -78,13 +78,14 @@ export default function SoldAdminLeads() {
       {error && <div className="admin-lead-alert error">{error}</div>}
 
       <div className="admin-sales-table-wrap">
-        <table className="admin-sales-table"><thead><tr><th>Lead</th><th>Property</th><th>Partner</th><th>Won</th><th>Sale price</th><th>Commission</th><th>Invoice</th><th>Invoice date</th><th>Paid</th><th /></tr></thead>
+        <table className="admin-sales-table"><thead><tr><th>Lead</th><th>Final product purchased</th><th>Region</th><th>Partner</th><th>Won</th><th>Sale price</th><th>Commission</th><th>Invoice</th><th>Invoice date</th><th>Paid</th><th /></tr></thead>
           <tbody>{filtered.map((lead) => {
             const contact = contactFor(lead)
             const name = [contact?.first_name, contact?.last_name].filter(Boolean).join(' ') || contact?.email || 'Unnamed lead'
             return <tr key={lead.id}>
               <td><strong>{name}</strong><small>{contact?.email}</small></td>
-              <td><strong>{lead.property_title || [lead.main_region, lead.subregion].filter(Boolean).join(' / ') || 'General enquiry'}</strong><small>{[lead.main_region, lead.subregion].filter(Boolean).join(' · ')}</small></td>
+              <td><strong>{lead.final_property_title || 'Not entered'}</strong><small>{lead.final_property_slug || ''}</small></td>
+              <td><strong>{lead.final_property_region || '—'}</strong></td>
               <td>{lead.partner || '—'}</td><td>{date(lead.won_at || lead.updated_at)}</td><td>{money(lead.property_sale_price)}</td><td>{lead.commission_rate === null ? '—' : `${Number(lead.commission_rate)}%`}</td><td>{money(lead.invoice_amount)}</td><td>{date(lead.invoice_date)}</td>
               <td><span className={`admin-paid-chip ${lead.invoice_paid ? 'paid' : 'unpaid'}`}>{lead.invoice_paid ? 'Paid' : 'Not paid'}</span></td>
               <td><Link href={`/admin/leads/${lead.id}`}>Edit →</Link></td>

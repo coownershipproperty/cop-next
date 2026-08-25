@@ -7,6 +7,7 @@ import AdminLayout from '@/components/admin/AdminLayout'
 import LeadCommunicationPanel from '@/components/admin/LeadCommunicationPanel'
 import { supabase } from '@/lib/supabase'
 import { LEAD_SOURCE_OPTIONS } from '@/lib/leadSources'
+import { ALL_NATIONALITIES, buildDestinationGroups, hasDestination, NATIONALITY_GROUPS } from '@/lib/leadFormOptions'
 
 const STATUS_OPTIONS = [
   ['new_lead', 'New lead'], ['contacted', 'Contacted'], ['lead_replied', 'Replied'],
@@ -141,6 +142,7 @@ export default function AdminLeadDetail() {
   const contact = Array.isArray(lead?.contacts) ? lead.contacts[0] : lead?.contacts
   const name = [contact?.first_name, contact?.last_name].filter(Boolean).join(' ') || contact?.email || 'Unnamed lead'
   const regions = useMemo(() => [...new Set(properties.map((p) => p.region || p.city).filter(Boolean))].sort(), [properties])
+  const destinationGroups = useMemo(() => buildDestinationGroups(properties), [properties])
   const selectedSlugs = useMemo(() => new Set(shortlist.map((item) => item.property_slug)), [shortlist])
   const primaryProperty = useMemo(() => {
     const chosen = shortlist.find((item) => item.property_slug === lead?.property_slug) || shortlist[0]
@@ -165,6 +167,7 @@ export default function AdminLeadDetail() {
       firstName: contact.first_name || '', lastName: contact.last_name || '', email: contact.email || '', phone: contact.phone || '',
       nationality: contact.nationality || '', leadSource: lead.attribution_source || contact.source || '',
       mainRegion: lead.main_region || '', subregion: lead.subregion || '', budgetMin: lead.budget_min ?? '', budgetMax: lead.budget_max ?? '', message: lead.message || '',
+      finalPropertySlug: lead.final_property_slug || '',
       propertySalePrice: lead.property_sale_price ?? '', commissionRate: lead.commission_rate ?? '', invoiceAmount: lead.invoice_amount ?? '',
       invoiceDate: lead.invoice_date || '', invoicePaid: Boolean(lead.invoice_paid),
     })
@@ -369,9 +372,9 @@ export default function AdminLeadDetail() {
               <label>Last name<input value={editForm.lastName || ''} onChange={(event) => setEditForm({ ...editForm, lastName: event.target.value })} /></label>
               <label>Email<input type="email" required value={editForm.email || ''} onChange={(event) => setEditForm({ ...editForm, email: event.target.value })} /></label>
               <label>Phone<input value={editForm.phone || ''} onChange={(event) => setEditForm({ ...editForm, phone: event.target.value })} /></label>
-              <label>Confirmed nationality<input value={editForm.nationality || ''} onChange={(event) => setEditForm({ ...editForm, nationality: event.target.value })} placeholder={contact?.inferred_nationality || 'e.g. Belgium'} /></label>
+              <label>Confirmed nationality<select value={editForm.nationality || ''} onChange={(event) => setEditForm({ ...editForm, nationality: event.target.value })}><option value="">Select nationality</option>{editForm.nationality && !ALL_NATIONALITIES.includes(editForm.nationality) && <option value={editForm.nationality}>{editForm.nationality}</option>}{NATIONALITY_GROUPS.map((group) => <optgroup key={group.label} label={group.label}>{group.countries.map((country) => <option key={country} value={country}>{country}</option>)}</optgroup>)}</select></label>
               <label>Lead source<select value={editForm.leadSource || ''} onChange={(event) => setEditForm({ ...editForm, leadSource: event.target.value })}><option value="">Unknown</option>{editForm.leadSource && !LEAD_SOURCE_OPTIONS.includes(editForm.leadSource) && <option value={editForm.leadSource}>{editForm.leadSource}</option>}{LEAD_SOURCE_OPTIONS.map((source) => <option key={source} value={source}>{source}</option>)}</select></label>
-              <label>Destination region<input value={editForm.mainRegion || ''} onChange={(event) => setEditForm({ ...editForm, mainRegion: event.target.value })} /></label>
+              <label>Destination region<select value={editForm.mainRegion || ''} onChange={(event) => setEditForm({ ...editForm, mainRegion: event.target.value })}><option value="">Select COP destination</option>{editForm.mainRegion && !hasDestination(destinationGroups, editForm.mainRegion) && <option value={editForm.mainRegion}>{editForm.mainRegion}</option>}{destinationGroups.map((group) => <optgroup key={group.country} label={group.country}>{group.regions.map((regionName) => <option key={`${group.country}-${regionName}`} value={regionName}>{regionName}</option>)}</optgroup>)}</select></label>
               <label>Destination subregion<input value={editForm.subregion || ''} onChange={(event) => setEditForm({ ...editForm, subregion: event.target.value })} /></label>
               <label>Budget minimum<input type="number" min="0" step="1000" value={editForm.budgetMin ?? ''} onChange={(event) => setEditForm({ ...editForm, budgetMin: event.target.value })} /></label>
               <label>Budget maximum<input type="number" min="0" step="1000" value={editForm.budgetMax ?? ''} onChange={(event) => setEditForm({ ...editForm, budgetMax: event.target.value })} /></label>
@@ -380,6 +383,7 @@ export default function AdminLeadDetail() {
             <div className="admin-invoice-editor">
               <div><small>WON LEAD FINANCE</small><h3>Sale and invoice</h3><p>Enter the final price and commission, calculate the suggested invoice, then adjust it manually if needed.</p></div>
               <div className="admin-edit-form-grid">
+                <label>Final product purchased<select value={editForm.finalPropertySlug || ''} onChange={(event) => setEditForm({ ...editForm, finalPropertySlug: event.target.value })}><option value="">Not entered</option>{editForm.finalPropertySlug && !properties.some((property) => property.slug === editForm.finalPropertySlug) && <option value={editForm.finalPropertySlug}>{lead.final_property_title || editForm.finalPropertySlug} · {lead.final_property_region || 'Region not entered'}</option>}{properties.map((property) => <option key={property.slug} value={property.slug}>{property.title} · {property.region || property.city || 'No region'}</option>)}</select></label>
                 <label>Property / share price<input type="number" min="0" step="1" value={editForm.propertySalePrice ?? ''} onChange={(event) => setEditForm({ ...editForm, propertySalePrice: event.target.value })} /></label>
                 <label>Commission %<input type="number" min="0" max="100" step="0.01" value={editForm.commissionRate ?? ''} onChange={(event) => setEditForm({ ...editForm, commissionRate: event.target.value })} /></label>
                 <label>Invoice amount<input type="number" min="0" step="1" value={editForm.invoiceAmount ?? ''} onChange={(event) => setEditForm({ ...editForm, invoiceAmount: event.target.value })} /></label>
@@ -394,7 +398,7 @@ export default function AdminLeadDetail() {
 
         {lead.status === 'won' && <section className="admin-sale-summary">
           <div><small>WON LEAD</small><h2>Sale &amp; invoice</h2><p>Won {formatDate(lead.won_at || lead.updated_at)}</p></div>
-          <dl><div><dt>Sale price</dt><dd>{lead.property_sale_price ? money(lead.property_sale_price) : 'Not entered'}</dd></div><div><dt>Commission</dt><dd>{lead.commission_rate === null ? 'Not entered' : `${Number(lead.commission_rate)}%`}</dd></div><div><dt>Invoice</dt><dd>{lead.invoice_amount ? money(lead.invoice_amount) : 'Not entered'}</dd></div><div><dt>Invoice date</dt><dd>{formatDate(lead.invoice_date)}</dd></div><div><dt>Payment</dt><dd><span className={`admin-paid-chip ${lead.invoice_paid ? 'paid' : 'unpaid'}`}>{lead.invoice_paid ? 'Paid' : 'Not paid'}</span></dd></div></dl>
+          <dl><div><dt>Final product</dt><dd>{lead.final_property_title || 'Not entered'}</dd></div><div><dt>Region</dt><dd>{lead.final_property_region || 'Not entered'}</dd></div><div><dt>Sale price</dt><dd>{lead.property_sale_price ? money(lead.property_sale_price) : 'Not entered'}</dd></div><div><dt>Commission</dt><dd>{lead.commission_rate === null ? 'Not entered' : `${Number(lead.commission_rate)}%`}</dd></div><div><dt>Invoice</dt><dd>{lead.invoice_amount ? money(lead.invoice_amount) : 'Not entered'}</dd></div><div><dt>Invoice date</dt><dd>{formatDate(lead.invoice_date)}</dd></div><div><dt>Payment</dt><dd><span className={`admin-paid-chip ${lead.invoice_paid ? 'paid' : 'unpaid'}`}>{lead.invoice_paid ? 'Paid' : 'Not paid'}</span></dd></div></dl>
           <button type="button" onClick={() => setEditing(true)}>Edit sale details</button>
         </section>}
 

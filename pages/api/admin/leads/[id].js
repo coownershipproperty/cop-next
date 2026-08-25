@@ -66,10 +66,18 @@ export default async function handler(req, res) {
   if (budgetMin !== null && budgetMax !== null && budgetMin > budgetMax) return res.status(400).json({ error: 'Minimum budget cannot exceed maximum budget.' })
   const invoiceDate = String(req.body?.invoiceDate || '').trim() || null
   const leadSource = text(req.body?.leadSource, 120)
+  const finalPropertySlug = text(req.body?.finalPropertySlug, 300)
   if (invoiceDate && !/^\d{4}-\d{2}-\d{2}$/.test(invoiceDate)) return res.status(400).json({ error: 'Enter a valid invoice date.' })
 
+  let finalProperty = null
+  if (finalPropertySlug) {
+    const { data, error } = await db.from('properties').select('slug,title,region').eq('slug', finalPropertySlug).maybeSingle()
+    if (error || !data) return res.status(400).json({ error: 'The selected final product could not be found.' })
+    finalProperty = data
+  }
+
   const { data: currentLead, error: findError } = await db.from('leads')
-    .select('id,contact_id,main_region,subregion,budget_min,budget_max,message,attribution_source,property_sale_price,commission_rate,invoice_amount,invoice_date,invoice_paid,contacts(id,first_name,last_name,email,phone,nationality,source)')
+    .select('id,contact_id,main_region,subregion,budget_min,budget_max,message,attribution_source,final_property_slug,final_property_title,final_property_region,property_sale_price,commission_rate,invoice_amount,invoice_date,invoice_paid,contacts(id,first_name,last_name,email,phone,nationality,source)')
     .eq('id', id).maybeSingle()
   if (findError) return res.status(500).json({ error: 'Could not load the lead.' })
   if (!currentLead) return res.status(404).json({ error: 'Lead not found.' })
@@ -92,6 +100,9 @@ export default async function handler(req, res) {
     budget_max: budgetMax,
     message: text(req.body?.message, 4000),
     attribution_source: leadSource,
+    final_property_slug: finalProperty?.slug || null,
+    final_property_title: finalProperty?.title || null,
+    final_property_region: finalProperty?.region || null,
     property_sale_price: propertySalePrice,
     commission_rate: commissionRate,
     invoice_amount: invoiceAmount,
@@ -116,7 +127,7 @@ export default async function handler(req, res) {
     lead_id: id,
     type: 'lead_edited',
     description: `Lead details edited by ${admin.email}`,
-    metadata: { source: 'cop_admin', lead_source: leadSource },
+    metadata: { source: 'cop_admin', lead_source: leadSource, final_property_slug: finalProperty?.slug || null },
   })
   return res.json({ ok: true })
 }
