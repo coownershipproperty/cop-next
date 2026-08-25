@@ -1,5 +1,5 @@
 /**
- * /admin/crm — Leads view (phase 1 of moving the CRM into the admin).
+ * Canonical COP Admin Leads view, exposed at /admin/leads.
  *
  * Reads the same Supabase tables as cop-crm.vercel.app (contacts / leads /
  * activities / partner_referrals) through the browser session — access is
@@ -212,9 +212,9 @@ export default function CrmLeads() {
 
   return (
     <AdminLayout>
-      <Head><title>CRM — COP Admin</title></Head>
+      <Head><title>Leads — COP Admin</title></Head>
       <div style={s.header}>
-        <h1 style={s.h1}>CRM — Leads</h1>
+        <h1 style={s.h1}>All leads</h1>
         <Link href="/admin/partners/queue" style={{ fontSize: 13, color: C.navy, fontWeight: 600 }}>
           → 21-5 referral queue{stats?.queueCount ? ` (${stats.queueCount} open)` : ''}
         </Link>

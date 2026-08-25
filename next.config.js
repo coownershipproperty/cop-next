@@ -28,6 +28,17 @@ const nextConfig = {
 };
 
 nextConfig.redirects = async () => [
+  // ── Canonical COP back office ──
+  // COP CRM now lives inside the protected COP Admin workspace. Keep old
+  // bookmarks working while establishing one staff login and one canonical URL.
+  {
+    source: '/:path*',
+    has: [{ type: 'host', value: 'cop-crm.vercel.app' }],
+    destination: 'https://co-ownership-property.com/admin/leads/',
+    permanent: true,
+  },
+  { source: '/admin/crm/', destination: '/admin/leads/', permanent: true },
+
   // ── Page redirects ──
   { source: '/sitemap_index.xml', destination: '/sitemap.xml', permanent: true },
 

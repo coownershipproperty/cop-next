@@ -8,7 +8,7 @@ const NAV_GROUPS = [
     label: 'CRM',
     items: [
       { href: '/admin', label: 'Dashboard', icon: '⌂', exact: true },
-      { href: '/admin/crm', label: 'Leads', icon: '◫', also: ['/admin/leads'] },
+      { href: '/admin/leads', label: 'Leads', icon: '◫' },
       { href: '/admin/partners/queue', label: 'Needs attention', icon: '!' },
     ],
   },
@@ -42,6 +42,7 @@ function isActive(item, pathname) {
 
 export default function AdminLayout({ children, fullBleed = false }) {
   const router = useRouter()
+  const isDashboardHome = router.pathname === '/admin'
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -91,7 +92,7 @@ export default function AdminLayout({ children, fullBleed = false }) {
   if (loading) return <div className="cop-admin-loading">Loading COP Admin…</div>
 
   return (
-    <div className="cop-admin-shell">
+    <div className={`cop-admin-shell${isDashboardHome ? ' dashboard-home' : ''}`}>
       <header className="cop-admin-mobile-header">
         <button type="button" onClick={() => setMenuOpen(true)} aria-label="Open admin navigation">☰</button>
         <Link href="/admin">COP Admin</Link>

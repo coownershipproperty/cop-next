@@ -219,7 +219,7 @@ export default function AdminLeadDetail() {
     <AdminLayout>
       <Head><title>{lead ? `${name} — COP Admin` : 'Lead — COP Admin'}</title></Head>
       <Script src="https://accounts.google.com/gsi/client" strategy="afterInteractive" onLoad={initGmail} />
-      <div className="admin-lead-back"><Link href="/admin/crm">← Back to leads</Link><span>COP ADMIN ONLY</span></div>
+      <div className="admin-lead-back"><Link href="/admin/leads">← Back to leads</Link><span>COP ADMIN ONLY</span></div>
       {error && <div className="admin-lead-alert error">{error}</div>}
       {message && <div className="admin-lead-alert success">{message}</div>}
       {!lead && !error && <div className="admin-table-message">Loading lead…</div>}

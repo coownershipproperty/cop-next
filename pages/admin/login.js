@@ -122,7 +122,7 @@ export default function AdminLogin() {
             <p style={{ fontSize: 14, color: '#5a6a7a', lineHeight: 1.6 }}>
               We sent a password reset link to{' '}
               <span style={{ fontWeight: 600, color: '#2C4A5E' }}>{email}</span>.
-              Open it, sign in, then set a new password from the CRM sidebar.
+              Open it, sign in, then set a new password from the COP Admin sidebar.
             </p>
             <button
               onClick={() => setResetSent(false)}
