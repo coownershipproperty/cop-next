@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://co-ownership-property.com/admin/leads/",
+      "permanent": true
+    }
+  ]
+}
