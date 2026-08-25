@@ -10,6 +10,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 
@@ -85,6 +86,7 @@ async function fetchAllPages(makeQuery, pageSize = 1000) {
 }
 
 export default function CrmLeads() {
+  const router = useRouter()
   const [rows, setRows] = useState([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(0)
@@ -207,6 +209,14 @@ export default function CrmLeads() {
     return [...set]
   }
 
+  function openContactRecord(contact, lead) {
+    if (lead?.id) {
+      router.push(`/admin/leads/${lead.id}`)
+      return
+    }
+    openDrawer(contact)
+  }
+
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE))
   const statusOptions = useMemo(() => Object.entries(STATUS_LABELS), [])
 
@@ -275,9 +285,22 @@ export default function CrmLeads() {
               const regions = [...new Set(leads.map((l) => l.main_region).filter(Boolean))]
               const budgets = leads.map((l) => l.budget_max).filter(Boolean)
               return (
-                <tr key={c.id}>
+                <tr
+                  key={c.id}
+                  role={latest ? 'link' : 'button'}
+                  tabIndex={0}
+                  aria-label={latest ? `Open full lead for ${fullName(c)}` : `Open contact preview for ${fullName(c)}`}
+                  onClick={() => openContactRecord(c, latest)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault()
+                      openContactRecord(c, latest)
+                    }
+                  }}
+                  style={{ cursor: 'pointer' }}
+                >
                   <td style={s.td}>
-                    <span style={s.rowName} onClick={() => openDrawer(c)}>{fullName(c)}</span>
+                    <span style={s.rowName}>{fullName(c)}</span>
                     {leads.length > 1 && <span style={{ ...s.dim, marginLeft: 6 }}>{leads.length}</span>}
                     {queueContacts.has(c.id) && <span style={s.queueChip}>21-5 queue</span>}
                     <div style={s.dim}>{c.email}</div>
