@@ -215,9 +215,12 @@ export default function CrmLeads() {
       <Head><title>Leads — COP Admin</title></Head>
       <div style={s.header}>
         <h1 style={s.h1}>All leads</h1>
-        <Link href="/admin/partners/queue" style={{ fontSize: 13, color: C.navy, fontWeight: 600 }}>
-          → 21-5 referral queue{stats?.queueCount ? ` (${stats.queueCount} open)` : ''}
-        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <Link href="/admin/partners/queue" style={{ fontSize: 13, color: C.navy, fontWeight: 600 }}>
+            → 21-5 referral queue{stats?.queueCount ? ` (${stats.queueCount} open)` : ''}
+          </Link>
+          <Link href="/admin/leads/new" style={{ ...s.btn, color: C.white, background: C.navy, borderColor: C.navy }}>＋ New lead</Link>
+        </div>
       </div>
       {stats && (
         <div style={s.stats}>
@@ -227,6 +230,8 @@ export default function CrmLeads() {
           <span><span style={s.statNum}>{stats.queueCount?.toLocaleString()}</span> in referral queue</span>
         </div>
       )}
+
+      <nav className="admin-lead-tabs" aria-label="Lead views"><Link href="/admin/leads" className="active">All leads</Link><Link href="/admin/leads/sold">Sold leads</Link></nav>
 
       <div style={s.bar}>
         <form onSubmit={(e) => { e.preventDefault(); setPage(0); setSearch(searchInput.trim()) }}>

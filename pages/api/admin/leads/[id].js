@@ -11,6 +11,12 @@ function nullableMoney(value) {
   return Number.isFinite(parsed) && parsed >= 0 ? Math.round(parsed) : NaN
 }
 
+function nullablePercent(value) {
+  if (value === '' || value === null || value === undefined) return null
+  const parsed = Number(value)
+  return Number.isFinite(parsed) && parsed >= 0 && parsed <= 100 ? Math.round(parsed * 100) / 100 : NaN
+}
+
 export default async function handler(req, res) {
   if (!['PATCH', 'DELETE'].includes(req.method)) {
     res.setHeader('Allow', 'PATCH, DELETE')
@@ -51,11 +57,18 @@ export default async function handler(req, res) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'Enter a valid email address.' })
   const budgetMin = nullableMoney(req.body?.budgetMin)
   const budgetMax = nullableMoney(req.body?.budgetMax)
+  const propertySalePrice = nullableMoney(req.body?.propertySalePrice)
+  const commissionRate = nullablePercent(req.body?.commissionRate)
+  const invoiceAmount = nullableMoney(req.body?.invoiceAmount)
   if (Number.isNaN(budgetMin) || Number.isNaN(budgetMax)) return res.status(400).json({ error: 'Budget values must be valid positive numbers.' })
+  if (Number.isNaN(propertySalePrice) || Number.isNaN(invoiceAmount)) return res.status(400).json({ error: 'Sale price and invoice amount must be valid positive numbers.' })
+  if (Number.isNaN(commissionRate)) return res.status(400).json({ error: 'Commission must be between 0 and 100%.' })
   if (budgetMin !== null && budgetMax !== null && budgetMin > budgetMax) return res.status(400).json({ error: 'Minimum budget cannot exceed maximum budget.' })
+  const invoiceDate = String(req.body?.invoiceDate || '').trim() || null
+  if (invoiceDate && !/^\d{4}-\d{2}-\d{2}$/.test(invoiceDate)) return res.status(400).json({ error: 'Enter a valid invoice date.' })
 
   const { data: currentLead, error: findError } = await db.from('leads')
-    .select('id,contact_id,main_region,subregion,budget_min,budget_max,message,contacts(id,first_name,last_name,email,phone,nationality,residence_city,residence_country)')
+    .select('id,contact_id,main_region,subregion,budget_min,budget_max,message,property_sale_price,commission_rate,invoice_amount,invoice_date,invoice_paid,contacts(id,first_name,last_name,email,phone,nationality,residence_city,residence_country)')
     .eq('id', id).maybeSingle()
   if (findError) return res.status(500).json({ error: 'Could not load the lead.' })
   if (!currentLead) return res.status(404).json({ error: 'Lead not found.' })
@@ -78,6 +91,11 @@ export default async function handler(req, res) {
     budget_min: budgetMin,
     budget_max: budgetMax,
     message: text(req.body?.message, 4000),
+    property_sale_price: propertySalePrice,
+    commission_rate: commissionRate,
+    invoice_amount: invoiceAmount,
+    invoice_date: invoiceDate,
+    invoice_paid: req.body?.invoicePaid === true,
     updated_at: now,
   }
 

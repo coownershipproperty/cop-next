@@ -160,6 +160,8 @@ export default function AdminLeadDetail() {
       firstName: contact.first_name || '', lastName: contact.last_name || '', email: contact.email || '', phone: contact.phone || '',
       nationality: contact.nationality || '', residenceCity: contact.residence_city || '', residenceCountry: contact.residence_country || '',
       mainRegion: lead.main_region || '', subregion: lead.subregion || '', budgetMin: lead.budget_min ?? '', budgetMax: lead.budget_max ?? '', message: lead.message || '',
+      propertySalePrice: lead.property_sale_price ?? '', commissionRate: lead.commission_rate ?? '', invoiceAmount: lead.invoice_amount ?? '',
+      invoiceDate: lead.invoice_date || '', invoicePaid: Boolean(lead.invoice_paid),
     })
   }, [lead, contact])
 
@@ -236,7 +238,10 @@ export default function AdminLeadDetail() {
     if (!lead || nextStatus === lead.status) return
     setBusy('status'); setMessage(''); setError('')
     const previous = lead.status
-    const { error: updateError } = await supabase.from('leads').update({ status: nextStatus, updated_at: new Date().toISOString() }).eq('id', lead.id)
+    const now = new Date().toISOString()
+    const statusPatch = { status: nextStatus, updated_at: now }
+    if (nextStatus === 'won' && !lead.won_at) statusPatch.won_at = now
+    const { error: updateError } = await supabase.from('leads').update(statusPatch).eq('id', lead.id)
     if (updateError) setError(updateError.message)
     else {
       await supabase.from('activities').insert({ contact_id: lead.contact_id, lead_id: lead.id, type: 'status_changed', description: `Lead status changed from ${previous || 'unset'} to ${nextStatus}`, metadata: { previous_status: previous, status: nextStatus } })
@@ -368,8 +373,25 @@ export default function AdminLeadDetail() {
               <label>Budget maximum<input type="number" min="0" step="1000" value={editForm.budgetMax ?? ''} onChange={(event) => setEditForm({ ...editForm, budgetMax: event.target.value })} /></label>
               <label className="admin-edit-message">Original enquiry/context<textarea value={editForm.message || ''} onChange={(event) => setEditForm({ ...editForm, message: event.target.value })} /></label>
             </div>
+            <div className="admin-invoice-editor">
+              <div><small>WON LEAD FINANCE</small><h3>Sale and invoice</h3><p>Enter the final price and commission, calculate the suggested invoice, then adjust it manually if needed.</p></div>
+              <div className="admin-edit-form-grid">
+                <label>Property / share price<input type="number" min="0" step="1" value={editForm.propertySalePrice ?? ''} onChange={(event) => setEditForm({ ...editForm, propertySalePrice: event.target.value })} /></label>
+                <label>Commission %<input type="number" min="0" max="100" step="0.01" value={editForm.commissionRate ?? ''} onChange={(event) => setEditForm({ ...editForm, commissionRate: event.target.value })} /></label>
+                <label>Invoice amount<input type="number" min="0" step="1" value={editForm.invoiceAmount ?? ''} onChange={(event) => setEditForm({ ...editForm, invoiceAmount: event.target.value })} /></label>
+                <label>Invoice date<input type="date" value={editForm.invoiceDate || ''} onChange={(event) => setEditForm({ ...editForm, invoiceDate: event.target.value })} /></label>
+                <label className="admin-invoice-paid"><input type="checkbox" checked={Boolean(editForm.invoicePaid)} onChange={(event) => setEditForm({ ...editForm, invoicePaid: event.target.checked })} /><span><strong>Invoice paid</strong><small>Tick only after the payment is confirmed.</small></span></label>
+                <button type="button" className="admin-calculate-invoice" disabled={!editForm.propertySalePrice || !editForm.commissionRate} onClick={() => setEditForm({ ...editForm, invoiceAmount: Math.round(Number(editForm.propertySalePrice) * Number(editForm.commissionRate) / 100) })}>Calculate price × commission</button>
+              </div>
+            </div>
             <div className="admin-edit-actions"><button type="button" onClick={() => setEditing(false)}>Cancel</button><button disabled={busy === 'edit'}>{busy === 'edit' ? 'Saving…' : 'Save lead details'}</button></div>
           </form>
+        </section>}
+
+        {lead.status === 'won' && <section className="admin-sale-summary">
+          <div><small>WON LEAD</small><h2>Sale &amp; invoice</h2><p>Won {formatDate(lead.won_at || lead.updated_at)}</p></div>
+          <dl><div><dt>Sale price</dt><dd>{lead.property_sale_price ? money(lead.property_sale_price) : 'Not entered'}</dd></div><div><dt>Commission</dt><dd>{lead.commission_rate === null ? 'Not entered' : `${Number(lead.commission_rate)}%`}</dd></div><div><dt>Invoice</dt><dd>{lead.invoice_amount ? money(lead.invoice_amount) : 'Not entered'}</dd></div><div><dt>Invoice date</dt><dd>{formatDate(lead.invoice_date)}</dd></div><div><dt>Payment</dt><dd><span className={`admin-paid-chip ${lead.invoice_paid ? 'paid' : 'unpaid'}`}>{lead.invoice_paid ? 'Paid' : 'Not paid'}</span></dd></div></dl>
+          <button type="button" onClick={() => setEditing(true)}>Edit sale details</button>
         </section>}
 
         <section className="admin-intelligence-grid">
