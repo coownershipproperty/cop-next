@@ -151,10 +151,10 @@ export default function YearOfWeekendsEmail({
   properties = [],
   unsubscribeUrl = `${base}/unsubscribe`,
 }: YearOfWeekendsEmailProps) {
-  const previewLine = 'A year of American weekends — from Napa harvest to your own Tahoe pier.';
+  const previewLine = 'The American Collection — one home for every month, Napa harvest to Tahoe summer.';
   const helloLine = firstName !== 'there'
-    ? `${firstName} — the rental’s returned and the sand is still in the car. Here’s the case for never doing that again.`
-    : 'The rental’s returned and the sand is still in the car. Here’s the case for never doing that again.';
+    ? `${firstName} — summer’s ending. For owners, the year is just getting started.`
+    : 'Summer’s ending. For owners, the year is just getting started.';
 
   return (
     <Html lang="en">
@@ -175,7 +175,7 @@ export default function YearOfWeekendsEmail({
           <Container style={wrap}>
             <GoldRule width={36} />
             <Text className="wordmark-text" style={wordmarkFull}>Co-Ownership Property</Text>
-            <Text style={headerKicker}>A Year of Weekends</Text>
+            <Text style={headerKicker}>The American Collection</Text>
             <Text style={headerTagline}>One American home for every month — Napa to Cabo, September to next summer</Text>
             <GoldRule width={36} />
           </Container>
