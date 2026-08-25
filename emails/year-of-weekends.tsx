@@ -119,11 +119,9 @@ function GoldBorder() {
 
 function MonthCard({ p }: { p: Property }) {
   const note     = NOTES[p.slug];
-  const waMsg    = encodeURIComponent(`Hi, I saw ${p.title} on Co-Ownership Property and I'd love to find out more.`);
   const mailSub  = encodeURIComponent(`Enquiry: ${p.title}`);
   const mailBody = encodeURIComponent(`Hi,\n\nI'm interested in ${p.title}.\n\nThank you`);
   const href     = p.galleryUrl || `${base}/property/${p.slug}`;
-  const waHref   = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
   const mailHref = `mailto:${enquiryEmail}?subject=${mailSub}&body=${mailBody}`;
 
   return (
@@ -139,17 +137,10 @@ function MonthCard({ p }: { p: Property }) {
         <Text style={cardPrice}>
           {p.price}&ensp;<span style={perShare}>per share</span>
         </Text>
+        {/* US edition: no WhatsApp — it's a minority app in America and the
+            number is +44. Email is the CTA Americans actually use. */}
         <Link href={href} style={goldBtn}>View Gallery</Link>
-        <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
-          <tbody><tr>
-            <td width="50%" style={{ paddingRight: 6 }}>
-              <Link href={mailHref} style={outlineBtn}>Email Enquiry</Link>
-            </td>
-            <td width="50%" style={{ paddingLeft: 6 }}>
-              <Link href={waHref} style={waBtn}><span style={{ color: '#25D366', fontSize: 8, verticalAlign: 'middle' }}>&#9679;</span>&ensp;WhatsApp Us</Link>
-            </td>
-          </tr></tbody>
-        </table>
+        <Link href={mailHref} style={outlineBtn}>Email Enquiry</Link>
       </Section>
     </Section>
   );
