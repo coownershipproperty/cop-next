@@ -27,7 +27,7 @@ const labelStyle = {
 
 export default function AdminLogin() {
   const router = useRouter()
-  const [email, setEmail] = useState('info@domosno.com')
+  const [email, setEmail] = useState('info@co-ownership-property.com')
   const [password, setPassword] = useState('')
   const [resetSent, setResetSent] = useState(false)
   const [loading, setLoading] = useState(false)
