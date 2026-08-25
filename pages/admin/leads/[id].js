@@ -73,6 +73,7 @@ export default function AdminLeadDetail() {
   const [activities, setActivities] = useState([])
   const [shortlist, setShortlist] = useState([])
   const [properties, setProperties] = useState([])
+  const [originalProperty, setOriginalProperty] = useState(null)
   const [emailSends, setEmailSends] = useState([])
   const [emailOpens, setEmailOpens] = useState([])
   const [trackedEmails, setTrackedEmails] = useState([])
@@ -112,10 +113,12 @@ export default function AdminLeadDetail() {
       return
     }
     const contact = Array.isArray(currentLead?.contacts) ? currentLead.contacts[0] : currentLead?.contacts
-    const [activityQuery, shortlistQuery, propertyQuery, sendsQuery, trackingQuery] = await Promise.all([
+    const originalSlug = currentLead.original_property_slug || currentLead.property_slug
+    const [activityQuery, shortlistQuery, propertyQuery, originalPropertyQuery, sendsQuery, trackingQuery] = await Promise.all([
       supabase.from('activities').select('*').eq('lead_id', id).order('created_at', { ascending: false }).limit(100),
       supabase.from('lead_property_shortlists').select('id,lead_id,property_slug,created_at,properties(slug,title,img,images,city,region,country,price,currency,beds,status,partner)').eq('lead_id', id).order('created_at'),
       supabase.from('properties').select('slug,title,img,images,city,region,country,price,currency,beds,status,partner,date_added').in('status', ['Live', 'for_sale']).order('date_added', { ascending: false, nullsFirst: false }).limit(1000),
+      originalSlug ? supabase.from('properties').select('slug,title,img,images,city,region,country,price,currency,beds,status,partner').eq('slug', originalSlug).maybeSingle() : Promise.resolve({ data: null }),
       supabase.from('email_sends').select('*').or(`lead_id.eq.${id},contact_id.eq.${currentLead.contact_id}`).order('sent_at', { ascending: false }).limit(100),
       contact?.email ? supabase.from('tracked_emails').select('*').ilike('recipient_email', contact.email).order('sent_at', { ascending: false }).limit(100) : Promise.resolve({ data: [] }),
     ])
@@ -130,6 +133,7 @@ export default function AdminLeadDetail() {
     setActivities(activityQuery.data || [])
     setShortlist(shortlistQuery.data || [])
     setProperties(propertyQuery.data || [])
+    setOriginalProperty(originalPropertyQuery.data || null)
     setEmailSends(sendsQuery.data || [])
     setEmailOpens(opensQuery.data || [])
     setTrackedEmails(trackingQuery.data || [])
@@ -144,10 +148,6 @@ export default function AdminLeadDetail() {
   const regions = useMemo(() => [...new Set(properties.map((p) => p.region || p.city).filter(Boolean))].sort(), [properties])
   const destinationGroups = useMemo(() => buildDestinationGroups(properties), [properties])
   const selectedSlugs = useMemo(() => new Set(shortlist.map((item) => item.property_slug)), [shortlist])
-  const primaryProperty = useMemo(() => {
-    const chosen = shortlist.find((item) => item.property_slug === lead?.property_slug) || shortlist[0]
-    return Array.isArray(chosen?.properties) ? chosen.properties[0] : chosen?.properties
-  }, [lead?.property_slug, shortlist])
   const catalogue = useMemo(() => {
     const needle = search.trim().toLowerCase()
     return properties.filter((property) => {
@@ -158,8 +158,10 @@ export default function AdminLeadDetail() {
         .some((value) => value?.toLowerCase().includes(needle))
     }).slice(0, 80)
   }, [properties, selectedSlugs, search, region])
-  const latestNote = activities.find((activity) => activity.type === 'note') || activities[0]
-  const propertyUrl = lead?.property_slug ? `https://co-ownership-property.com/property/${encodeURIComponent(lead.property_slug)}` : null
+  const originalPropertySlug = lead?.original_property_slug || lead?.property_slug || null
+  const originalPropertyTitle = lead?.original_property_title || originalProperty?.title || lead?.property_title || null
+  const originalPropertyUrl = originalPropertySlug ? `https://co-ownership-property.com/property/${encodeURIComponent(originalPropertySlug)}` : null
+  const originalPropertyImage = originalProperty?.img || (Array.isArray(originalProperty?.images) ? originalProperty.images[0] : '')
 
   useEffect(() => {
     if (!lead || !contact) return
@@ -360,7 +362,7 @@ export default function AdminLeadDetail() {
 
         <section className="admin-lead-hero">
           <div className="admin-lead-avatar">{name.split(/\s+/).slice(0, 2).map((word) => word[0]).join('').toUpperCase()}</div>
-          <div className="admin-lead-title"><small>PRIVATE LEAD RECORD</small><h1>{name}</h1><p>{lead.property_title || [lead.main_region, lead.subregion].filter(Boolean).join(' · ') || 'General co-ownership enquiry'}</p></div>
+          <div className="admin-lead-title"><small>PRIVATE LEAD RECORD</small><h1>{name}</h1><p>{originalPropertyTitle || [lead.main_region, lead.subregion].filter(Boolean).join(' · ') || 'General co-ownership enquiry'}</p></div>
           <label>Pipeline stage<select value={lead.status || 'new_lead'} disabled={busy === 'status'} onChange={(event) => changeStatus(event.target.value)}>{STATUS_OPTIONS.map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label>
         </section>
 
@@ -415,13 +417,13 @@ export default function AdminLeadDetail() {
           </article>
 
           <article className="admin-lead-card intelligence-card">
-            <small>PROPERTY</small><h2>Enquiry listing</h2>
-            <dl>
-              <div><dt>Property</dt><dd>{lead.property_title || primaryProperty?.title || 'General enquiry'}</dd></div>
-              <div><dt>Location</dt><dd>{[primaryProperty?.city, primaryProperty?.region, primaryProperty?.country].filter(Boolean).join(', ') || [lead.subregion, lead.main_region].filter(Boolean).join(', ') || '—'}</dd></div>
-              <div><dt>Listing</dt><dd>{propertyUrl ? <a href={propertyUrl} target="_blank" rel="noreferrer">Open COP listing ↗</a> : '—'}</dd></div>
-              <div><dt>Latest note</dt><dd>{latestNote?.description || 'No note yet'}</dd></div>
-            </dl>
+            <small>ORIGINAL ENQUIRY PROPERTY</small><h2>Property they asked about</h2>
+            {originalPropertySlug ? <div className="admin-original-property">
+              <span style={originalPropertyImage ? { backgroundImage: `url("${originalPropertyImage.replaceAll('"', '%22')}")` } : undefined} />
+              <div><strong>{originalPropertyTitle || originalPropertySlug}</strong><p>{[originalProperty?.city, originalProperty?.region, originalProperty?.country].filter(Boolean).join(', ') || [lead.subregion, lead.main_region].filter(Boolean).join(', ') || 'Location not captured'}</p><small>{originalProperty ? `${money(originalProperty.price, originalProperty.currency)}${originalProperty.beds ? ` · ${originalProperty.beds} beds` : ''}` : 'Listing details unavailable'}</small></div>
+              <a href={originalPropertyUrl} target="_blank" rel="noreferrer">Open original listing ↗</a>
+            </div> : <div className="admin-original-property-empty"><strong>No original property was captured</strong><p>This was recorded as a general or legacy enquiry. New property enquiries are linked automatically.</p></div>}
+            <p className="admin-original-property-note">This stays fixed as the first enquiry property. Later recommendations remain in the shortlist below.</p>
           </article>
 
           <article className="admin-lead-card intelligence-card">
