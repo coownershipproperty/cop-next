@@ -91,6 +91,28 @@ const NOTES: Record<string, { month: string; line: string }> = {
     month: 'Next Summer',
     line: 'Back on the lake — except this time, the pier is yours.',
   },
+  // Dylan's 25 Aug reselection — same months, new homes. Old entries above
+  // stay: unused keys are harmless and keep both versions of the list valid.
+  'kiawah-island-south-carolina-5-bed-house-with-pool': {
+    month: 'October',
+    line: 'The Lowcountry’s golden month — golf weather, a warm sea, the summer crowds gone.',
+  },
+  'breckenridge-colorado-4-bed-house-with-mountain-views': {
+    month: 'December',
+    line: 'First chair to last light. Christmas in your own mountain house.',
+  },
+  'cabo-san-lucas-mexico-3-bed-villa-with-infinity-pool': {
+    month: 'February',
+    line: 'Whale season in Cabo — the infinity pool at 80°F while it snows back home.',
+  },
+  'la-jolla-california-3-bed-house-with-beach-access': {
+    month: 'April',
+    line: 'Seventy-five degrees, the Pacific on your doorstep — and everyone else still at work.',
+  },
+  'tahoma-california-4-bed-house': {
+    month: 'Next Summer',
+    line: 'Back on the lake — except this time, you own the house.',
+  },
 };
 
 function GoldRule({ width = 28 }: { width?: number }) {
