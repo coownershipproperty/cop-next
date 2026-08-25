@@ -147,10 +147,14 @@ export default function PersonalisedNewsletterEmail({
 
   const regions = [...new Set(allProps.map(p => p.regionTag || p.location?.split(',')[0]).filter(Boolean))];
   const top3    = regions.slice(0, 3);
-  // "California & Mallorca" or "California, Mallorca & Ibiza"
-  const destShort = top3.length > 1
-    ? top3.slice(0, -1).join(', ') + ' & ' + top3[top3.length - 1]
-    : top3[0] || '';
+  // "California & Mallorca", "California, Mallorca & Ibiza" — and when the
+  // selection spans more than three regions, say so instead of silently
+  // pretending the first three are the whole story.
+  const destShort = regions.length > 3
+    ? top3.join(', ') + ' & more'
+    : top3.length > 1
+      ? top3.slice(0, -1).join(', ') + ' & ' + top3[top3.length - 1]
+      : top3[0] || '';
 
   const introLine = firstName !== 'there'
     ? `${firstName} — ${allProps.length} homes${destShort ? ` in ${destShort}` : ''}, matched for you`
