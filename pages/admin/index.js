@@ -283,7 +283,7 @@ export default function AdminDashboard() {
       <div className={styles.dashboard}>
         <header className={styles.heading}>
           <div><p>{todayLabel}</p><h1>Good morning, David.</h1></div>
-          <div><Link href="/admin/leads" className={styles.secondaryAction}>Search leads</Link><Link href="/admin/partners" className={styles.primaryAction}>＋ Add lead</Link></div>
+          <div><Link href="/admin/leads" className={styles.secondaryAction}>Search leads</Link><Link href="/admin/leads/new" className={styles.primaryAction}>＋ Add lead</Link></div>
         </header>
 
         {error && <div className={styles.error} role="alert">{error}</div>}
