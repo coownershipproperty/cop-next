@@ -47,6 +47,22 @@ function sourceLabel(lead, contact) {
   return contact?.source || 'Direct / unknown'
 }
 
+async function authedRequest(url, options = {}) {
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session?.access_token) throw new Error('Your admin session has expired. Sign in again.')
+  const response = await fetch(url, {
+    ...options,
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}`, ...(options.headers || {}) },
+  })
+  const payload = await response.json().catch(() => ({}))
+  if (!response.ok) {
+    const requestError = new Error(payload.error || 'The request could not be completed.')
+    requestError.payload = payload
+    throw requestError
+  }
+  return payload
+}
+
 export default function AdminLeadDetail() {
   const router = useRouter()
   const { id } = router.query
@@ -70,13 +86,19 @@ export default function AdminLeadDetail() {
   const [busy, setBusy] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [editing, setEditing] = useState(false)
+  const [editForm, setEditForm] = useState({})
+  const [partners, setPartners] = useState([])
+  const [handoverOpen, setHandoverOpen] = useState(false)
+  const [handover, setHandover] = useState({ partnerId: '', firstName: '', lastName: '', email: '', phone: '', nationality: '', destination: '', budget: '', preferences: '', notifyPartner: true, consentConfirmed: false })
+  const [existingHandover, setExistingHandover] = useState(null)
 
   const load = useCallback(async () => {
     if (!id) return
     setError('')
     const leadQuery = await supabase
       .from('leads')
-      .select('*,contacts(id,email,first_name,last_name,phone,country,source,score,created_at,inferred_nationality,nationality_confidence,nationality_evidence,nationality_inferred_at,first_ip_country_code,first_ip_city,first_ip_region)')
+      .select('*,contacts(id,email,first_name,last_name,phone,country,nationality,residence_city,residence_country,source,score,created_at,inferred_nationality,nationality_confidence,nationality_evidence,nationality_inferred_at,first_ip_country_code,first_ip_city,first_ip_region)')
       .eq('id', id)
       .single()
     if (leadQuery.error) { setError(leadQuery.error.message); return }
@@ -129,6 +151,46 @@ export default function AdminLeadDetail() {
   }, [properties, selectedSlugs, search, region])
   const latestNote = activities.find((activity) => activity.type === 'note') || activities[0]
   const propertyUrl = lead?.property_slug ? `https://co-ownership-property.com/property/${encodeURIComponent(lead.property_slug)}` : null
+
+  useEffect(() => {
+    if (!lead || !contact) return
+    setEditForm({
+      firstName: contact.first_name || '', lastName: contact.last_name || '', email: contact.email || '', phone: contact.phone || '',
+      nationality: contact.nationality || '', residenceCity: contact.residence_city || '', residenceCountry: contact.residence_country || '',
+      mainRegion: lead.main_region || '', subregion: lead.subregion || '', budgetMin: lead.budget_min ?? '', budgetMax: lead.budget_max ?? '', message: lead.message || '',
+    })
+  }, [lead, contact])
+
+  useEffect(() => {
+    if (!id) return
+    let active = true
+    Promise.all([
+      authedRequest('/api/partner-hub/partners'),
+      authedRequest(`/api/partner-hub/leads?sourceLeadId=${encodeURIComponent(id)}`),
+    ]).then(([partnerPayload, leadPayload]) => {
+      if (!active) return
+      setPartners((partnerPayload.partners || []).filter((partner) => partner.active))
+      setExistingHandover(leadPayload.leads?.[0] || null)
+    }).catch((requestError) => { if (active) setError(requestError.message) })
+    return () => { active = false }
+  }, [id])
+
+  useEffect(() => {
+    if (!lead || !contact) return
+    const defaultPartner = partners.find((partner) => partner.id.toLowerCase().includes('vivla')) || partners[0]
+    const budget = lead.budget_min || lead.budget_max
+      ? `${lead.budget_min ? money(lead.budget_min) : 'Any'} – ${lead.budget_max ? money(lead.budget_max) : 'open'}`
+      : ''
+    setHandover((current) => ({
+      ...current,
+      partnerId: current.partnerId || defaultPartner?.id || '',
+      firstName: current.firstName || contact.first_name || '', lastName: current.lastName || contact.last_name || '',
+      email: current.email || contact.email || '', phone: current.phone || contact.phone || '',
+      nationality: current.nationality || contact.nationality || contact.inferred_nationality || '',
+      destination: current.destination || [lead.main_region, lead.subregion].filter(Boolean).join(' / '),
+      budget: current.budget || budget, preferences: current.preferences || lead.message || '',
+    }))
+  }, [lead, contact, partners])
 
   const initGmail = useCallback(() => {
     if (!window.google?.accounts?.oauth2 || gmailClient.current) return
@@ -215,6 +277,37 @@ export default function AdminLeadDetail() {
     setBusy('')
   }
 
+  async function saveDetails(event) {
+    event.preventDefault()
+    setBusy('edit'); setMessage(''); setError('')
+    try {
+      await authedRequest(`/api/admin/leads/${lead.id}`, { method: 'PATCH', body: JSON.stringify(editForm) })
+      setEditing(false)
+      setMessage('Lead details updated')
+      await load()
+    } catch (requestError) {
+      setError(requestError.message)
+    } finally { setBusy('') }
+  }
+
+  async function sendToPartnerHub(event) {
+    event.preventDefault()
+    setBusy('handover'); setMessage(''); setError('')
+    try {
+      const payload = await authedRequest('/api/partner-hub/leads', {
+        method: 'POST',
+        body: JSON.stringify({ ...handover, sourceLeadId: lead.id, propertySlugs: shortlist.map((item) => item.property_slug) }),
+      })
+      setExistingHandover(payload.lead)
+      setHandoverOpen(false)
+      setMessage(`${payload.lead.partner} handover created${payload.notification?.status === 'sent' ? ' and the partner email was sent' : ''}`)
+      await load()
+    } catch (requestError) {
+      if (requestError.payload?.lead) setExistingHandover(requestError.payload.lead)
+      setError(requestError.message)
+    } finally { setBusy('') }
+  }
+
   return (
     <AdminLayout>
       <Head><title>{lead ? `${name} — COP Admin` : 'Lead — COP Admin'}</title></Head>
@@ -227,20 +320,42 @@ export default function AdminLeadDetail() {
       {lead && <>
         <section className="admin-lead-hero">
           <div className="admin-lead-avatar">{name.split(/\s+/).slice(0, 2).map((word) => word[0]).join('').toUpperCase()}</div>
-          <div className="admin-lead-title"><small>PRIVATE LEAD RECORD</small><h1>{name}</h1><p>{lead.property_title || [lead.main_region, lead.subregion].filter(Boolean).join(' · ') || 'General co-ownership enquiry'}</p></div>
+          <div className="admin-lead-title"><small>PRIVATE LEAD RECORD</small><h1>{name}</h1><p>{lead.property_title || [lead.main_region, lead.subregion].filter(Boolean).join(' · ') || 'General co-ownership enquiry'}</p><button type="button" className="admin-edit-lead-button" onClick={() => setEditing((value) => !value)}>{editing ? 'Close editor' : 'Edit lead details'}</button></div>
           <label>Pipeline stage<select value={lead.status || 'new_lead'} disabled={busy === 'status'} onChange={(event) => changeStatus(event.target.value)}>{STATUS_OPTIONS.map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label>
         </section>
+
+        {editing && <section className="admin-lead-card admin-edit-lead-card">
+          <header><div><small>COP ADMIN</small><h2>Edit lead details</h2></div><span>Nationality, residence and property destination are separate</span></header>
+          <form onSubmit={saveDetails}>
+            <div className="admin-edit-form-grid">
+              <label>First name<input value={editForm.firstName || ''} onChange={(event) => setEditForm({ ...editForm, firstName: event.target.value })} /></label>
+              <label>Last name<input value={editForm.lastName || ''} onChange={(event) => setEditForm({ ...editForm, lastName: event.target.value })} /></label>
+              <label>Email<input type="email" required value={editForm.email || ''} onChange={(event) => setEditForm({ ...editForm, email: event.target.value })} /></label>
+              <label>Phone<input value={editForm.phone || ''} onChange={(event) => setEditForm({ ...editForm, phone: event.target.value })} /></label>
+              <label>Confirmed nationality<input value={editForm.nationality || ''} onChange={(event) => setEditForm({ ...editForm, nationality: event.target.value })} placeholder={contact?.inferred_nationality || 'e.g. Belgium'} /></label>
+              <label>Residence city<input value={editForm.residenceCity || ''} onChange={(event) => setEditForm({ ...editForm, residenceCity: event.target.value })} placeholder="e.g. Tarragona" /></label>
+              <label>Residence country<input value={editForm.residenceCountry || ''} onChange={(event) => setEditForm({ ...editForm, residenceCountry: event.target.value })} placeholder="e.g. Spain" /></label>
+              <label>Destination region<input value={editForm.mainRegion || ''} onChange={(event) => setEditForm({ ...editForm, mainRegion: event.target.value })} /></label>
+              <label>Destination subregion<input value={editForm.subregion || ''} onChange={(event) => setEditForm({ ...editForm, subregion: event.target.value })} /></label>
+              <label>Budget minimum<input type="number" min="0" step="1000" value={editForm.budgetMin ?? ''} onChange={(event) => setEditForm({ ...editForm, budgetMin: event.target.value })} /></label>
+              <label>Budget maximum<input type="number" min="0" step="1000" value={editForm.budgetMax ?? ''} onChange={(event) => setEditForm({ ...editForm, budgetMax: event.target.value })} /></label>
+              <label className="admin-edit-message">Original enquiry/context<textarea value={editForm.message || ''} onChange={(event) => setEditForm({ ...editForm, message: event.target.value })} /></label>
+            </div>
+            <div className="admin-edit-actions"><button type="button" onClick={() => setEditing(false)}>Cancel</button><button disabled={busy === 'edit'}>{busy === 'edit' ? 'Saving…' : 'Save lead details'}</button></div>
+          </form>
+        </section>}
 
         <section className="admin-intelligence-grid">
           <article className="admin-lead-card intelligence-card">
             <small>PROFILE</small><h2>Lead intelligence</h2>
             <dl>
-              <div><dt>Nationality</dt><dd>{contact?.inferred_nationality || contact?.country || 'Not inferred'}{contact?.nationality_confidence ? <em>{contact.nationality_confidence}% confidence</em> : null}</dd></div>
+              <div><dt>Nationality</dt><dd>{contact?.nationality || contact?.inferred_nationality || contact?.country || 'Not inferred'}{!contact?.nationality && contact?.nationality_confidence ? <em>{contact.nationality_confidence}% automated estimate</em> : contact?.nationality ? <em>Confirmed by COP</em> : null}</dd></div>
+              <div><dt>Residence</dt><dd>{[contact?.residence_city, contact?.residence_country].filter(Boolean).join(', ') || [contact?.first_ip_city, contact?.first_ip_country_code].filter(Boolean).join(', ') || 'Not confirmed'}</dd></div>
               <div><dt>Email</dt><dd><a href={`mailto:${contact?.email}`}>{contact?.email || '—'}</a></dd></div>
               <div><dt>Phone</dt><dd>{contact?.phone || '—'}</dd></div>
               <div><dt>Lead score</dt><dd>{contact?.score ?? '—'}</dd></div>
             </dl>
-            <p className="admin-confidence-note">Nationality is an automated estimate from the visit country, phone code and email domain. Confirm it with the client when needed.</p>
+            <p className="admin-confidence-note">Confirmed nationality is kept separate from residence and from the property destination. When unconfirmed, COP shows the automated estimate.</p>
           </article>
 
           <article className="admin-lead-card intelligence-card">
@@ -326,6 +441,26 @@ export default function AdminLeadDetail() {
           </main>
 
           <aside>
+            <section className="admin-lead-card handover-card">
+              <header><div><small>PARTNER HUB</small><h2>Partner handover</h2></div></header>
+              {existingHandover ? <div className="admin-handover-sent"><i>✓</i><div><strong>Sent to {existingHandover.partner}</strong><p>{existingHandover.stage} · {formatDate(existingHandover.createdAt, true)}</p><Link href="/admin/partners">Open Partner Hub →</Link></div></div> : <>
+                <label className="admin-handover-toggle"><input type="checkbox" checked={handoverOpen} onChange={(event) => setHandoverOpen(event.target.checked)} /><span><strong>Send this lead to a Partner Hub</strong><small>Review and edit exactly what the partner will receive.</small></span></label>
+                {handoverOpen && <form onSubmit={sendToPartnerHub} className="admin-handover-form">
+                  <label>Partner<select required value={handover.partnerId} onChange={(event) => setHandover({ ...handover, partnerId: event.target.value })}><option value="">Choose partner</option>{partners.map((partner) => <option value={partner.id} key={partner.id}>{partner.name}</option>)}</select></label>
+                  <div><label>First name<input required value={handover.firstName} onChange={(event) => setHandover({ ...handover, firstName: event.target.value })} /></label><label>Last name<input required value={handover.lastName} onChange={(event) => setHandover({ ...handover, lastName: event.target.value })} /></label></div>
+                  <label>Email<input type="email" required value={handover.email} onChange={(event) => setHandover({ ...handover, email: event.target.value })} /></label>
+                  <label>Phone<input value={handover.phone} onChange={(event) => setHandover({ ...handover, phone: event.target.value })} /></label>
+                  <label>Nationality<input value={handover.nationality} onChange={(event) => setHandover({ ...handover, nationality: event.target.value })} /></label>
+                  <label>Destination<input value={handover.destination} onChange={(event) => setHandover({ ...handover, destination: event.target.value })} /></label>
+                  <label>Budget<input value={handover.budget} onChange={(event) => setHandover({ ...handover, budget: event.target.value })} /></label>
+                  <label>Partner-facing context<textarea value={handover.preferences} onChange={(event) => setHandover({ ...handover, preferences: event.target.value })} /></label>
+                  <p className="admin-handover-listings">{shortlist.length} COP {shortlist.length === 1 ? 'listing' : 'listings'} will be attached.</p>
+                  <label className="admin-handover-check"><input type="checkbox" checked={handover.notifyPartner} onChange={(event) => setHandover({ ...handover, notifyPartner: event.target.checked })} /><span>Email the partner when sent</span></label>
+                  <label className="admin-handover-check"><input type="checkbox" required checked={handover.consentConfirmed} onChange={(event) => setHandover({ ...handover, consentConfirmed: event.target.checked })} /><span>I confirm the client consented to sharing their details with this partner.</span></label>
+                  <button disabled={busy === 'handover' || !handover.partnerId || !handover.consentConfirmed}>{busy === 'handover' ? 'Sending…' : `Send to ${partners.find((partner) => partner.id === handover.partnerId)?.name || 'Partner Hub'}`}</button>
+                </form>}
+              </>}
+            </section>
             <section className="admin-lead-card note-card"><header><div><small>PROGRESS</small><h2>Add a note</h2></div></header><form onSubmit={saveNote}><textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="Conversation, next step or useful context…" /><button disabled={!note.trim() || busy === 'note'}>Save progress note</button></form></section>
             <section className="admin-lead-card activity-card"><header><div><small>AUDIT TRAIL</small><h2>Activity</h2></div></header><div>{activities.map((activity) => <article key={activity.id}><i>✓</i><p><strong>{activity.description || activity.type}</strong><small>{formatDate(activity.created_at, true)}</small></p></article>)}{activities.length === 0 && <p className="admin-no-activity">No activity recorded.</p>}</div></section>
           </aside>

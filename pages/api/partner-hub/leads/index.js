@@ -26,6 +26,13 @@ export default async function handler(req, res) {
     } else if (req.query.partnerId) {
       query = query.eq('partner_id', cleanPartnerHubText(req.query.partnerId, 64));
     }
+    if (access.role === 'admin' && req.query.sourceLeadId) {
+      const sourceLeadId = cleanPartnerHubText(req.query.sourceLeadId, 36);
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(sourceLeadId)) {
+        return res.status(400).json({ error: 'Invalid COP lead id' });
+      }
+      query = query.eq('source_ref', `cop-lead:${sourceLeadId}`);
+    }
     const { data, error } = await query;
     if (error) return res.status(500).json({ error: 'Could not load Partner Hub leads' });
 
@@ -39,6 +46,11 @@ export default async function handler(req, res) {
   if (access.role !== 'admin') return res.status(403).json({ error: 'Administrator access required' });
 
   const body = req.body || {};
+  const sourceLeadId = cleanPartnerHubText(body.sourceLeadId, 36);
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(sourceLeadId)) {
+    return res.status(400).json({ error: 'A valid COP lead is required' });
+  }
+  const sourceRef = `cop-lead:${sourceLeadId}`;
   const partnerId = cleanPartnerHubText(body.partnerId, 64);
   const firstName = cleanPartnerHubText(body.firstName, 120);
   const lastName = cleanPartnerHubText(body.lastName, 120);
@@ -48,6 +60,28 @@ export default async function handler(req, res) {
   }
   if (body.consentConfirmed !== true) {
     return res.status(400).json({ error: 'Customer sharing consent must be confirmed' });
+  }
+
+  const { data: sourceLead, error: sourceLeadError } = await access.db
+    .from('leads')
+    .select('id, contact_id')
+    .eq('id', sourceLeadId)
+    .maybeSingle();
+  if (sourceLeadError) return res.status(500).json({ error: 'Could not verify the COP lead' });
+  if (!sourceLead) return res.status(404).json({ error: 'COP lead not found' });
+
+  const { data: existingLead, error: existingError } = await access.db
+    .from('partner_hub_leads')
+    .select('*')
+    .eq('source_ref', sourceRef)
+    .maybeSingle();
+  if (existingError) return res.status(500).json({ error: 'Could not check the existing handover' });
+  if (existingLead) {
+    const existingPartners = await partnerDirectory(access.db, [existingLead.partner_id]);
+    return res.status(409).json({
+      error: `This lead has already been sent to ${existingPartners.get(existingLead.partner_id)?.display_name || existingLead.partner_id}`,
+      lead: serialisePartnerHubLead(existingLead, existingPartners.get(existingLead.partner_id)?.display_name),
+    });
   }
 
   const propertySlugs = Array.isArray(body.propertySlugs)
@@ -79,6 +113,7 @@ export default async function handler(req, res) {
 
   const now = new Date().toISOString();
   const insert = {
+    source_ref: sourceRef,
     partner_id: partnerId,
     first_name: firstName,
     last_name: lastName,
@@ -100,7 +135,10 @@ export default async function handler(req, res) {
     .insert(insert)
     .select('*')
     .single();
-  if (error) return res.status(500).json({ error: error.message });
+  if (error) {
+    if (error.code === '23505') return res.status(409).json({ error: 'This COP lead has already been sent to a Partner Hub' });
+    return res.status(500).json({ error: error.message });
+  }
 
   if (shortlistProperties.length) {
     const shortlistRows = shortlistProperties.map((property) => ({
@@ -131,7 +169,7 @@ export default async function handler(req, res) {
     actor_role: 'admin',
     event_type: 'lead_created',
     to_stage: 'New',
-    metadata: { consent_confirmed: true, shortlist_count: shortlistProperties.length },
+    metadata: { consent_confirmed: true, shortlist_count: shortlistProperties.length, source_lead_id: sourceLeadId },
   });
 
   if (shortlistProperties.length) {
@@ -154,6 +192,14 @@ export default async function handler(req, res) {
       notification = { status: 'failed', error: 'Lead saved, but the email provider did not accept the notification' };
     }
   }
+
+  await access.db.from('activities').insert({
+    contact_id: sourceLead.contact_id,
+    lead_id: sourceLead.id,
+    type: 'partner_hub_handover',
+    description: `Sent lead to ${partner.display_name} Partner Hub`,
+    metadata: { partner_id: partner.id, partner_hub_lead_id: lead.id, notification_status: notification.status },
+  });
 
   return res.status(201).json({
     ok: true,

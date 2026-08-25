@@ -118,6 +118,7 @@
 .admin-lead-title small, .admin-lead-hero label { color: #9eb2bf; font-size: 9px; font-weight: 850; letter-spacing: .12em; }
 .admin-lead-title h1 { margin: 6px 0 5px; color: #fff; font: 500 clamp(30px,3.5vw,46px)/1 var(--font-playfair), Georgia, serif; }
 .admin-lead-title p { color: #c2d0d8; font-size: 12px; }
+.admin-edit-lead-button { min-height: 38px; margin-top: 14px; padding: 0 14px; border: 1px solid rgba(255,255,255,.42); border-radius: 7px; color: #fff; background: rgba(255,255,255,.1); font-size: 12px; font-weight: 800; }
 .admin-lead-hero label { display: grid; gap: 7px; }
 .admin-lead-hero select { height: 44px; padding: 0 12px; border: 1px solid rgba(255,255,255,.24); border-radius: 7px; color: #17344b; background: #fff; font: 750 13px var(--font-nunito), sans-serif; }
 .admin-lead-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(290px,360px); gap: 18px; align-items: start; }
@@ -127,6 +128,16 @@
 .admin-lead-card > header small { color: #8a99a5; font-size: 9px; font-weight: 850; letter-spacing: .12em; }
 .admin-lead-card > header h2 { margin: 4px 0 0; color: #17354b; font: 500 20px var(--font-playfair), Georgia, serif; }
 .admin-lead-card > header > span { color: #84929d; font-size: 10px; }
+.admin-edit-lead-card { margin-bottom: 18px; }
+.admin-edit-lead-card form { padding: 22px; }
+.admin-edit-form-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.admin-edit-form-grid label, .admin-handover-form label { min-width: 0; display: grid; gap: 7px; color: #526779; font-size: 12px; font-weight: 800; }
+.admin-edit-form-grid input, .admin-edit-form-grid textarea, .admin-handover-form input, .admin-handover-form select, .admin-handover-form textarea { width: 100%; min-height: 43px; padding: 10px 12px; border: 1px solid #d6dfe3; border-radius: 7px; color: #263f50; background: #fff; font: 600 13px var(--font-nunito), sans-serif; }
+.admin-edit-form-grid textarea, .admin-handover-form textarea { min-height: 105px; resize: vertical; line-height: 1.5; }
+.admin-edit-message { grid-column: 1 / -1; }
+.admin-edit-actions { margin-top: 17px; display: flex; justify-content: flex-end; gap: 9px; }
+.admin-edit-actions button { min-height: 42px; padding: 0 16px; border: 1px solid #d4dee3; border-radius: 7px; color: #476071; background: #fff; font-size: 12px; font-weight: 800; }
+.admin-edit-actions button:last-child { color: #fff; border-color: #173f58; background: #173f58; }
 .contact-card dl { padding: 21px 22px; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
 .contact-card dt { color: #8a98a3; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .contact-card dd { margin: 5px 0 0; color: #334e61; font-size: 13px; font-weight: 650; }
@@ -166,6 +177,24 @@
 .note-card textarea { min-height: 115px; padding: 12px; resize: vertical; border: 1px solid #dbe1e4; border-radius: 7px; color: #334e61; background: #fbfcfc; font: 500 13px/1.5 var(--font-nunito), sans-serif; }
 .note-card button { min-height: 42px; border-radius: 7px; color: #fff; background: #173f58; font-size: 12px; font-weight: 800; }
 .note-card button:disabled, .admin-selected-properties button:disabled, .admin-property-catalogue button:disabled { cursor: not-allowed; opacity: .5; }
+.handover-card { border-color: #d6e2e7; }
+.admin-handover-toggle { padding: 18px; display: flex; align-items: flex-start; gap: 11px; cursor: pointer; }
+.admin-handover-toggle input, .admin-handover-check input { width: 18px; height: 18px; flex: 0 0 auto; accent-color: #173f58; }
+.admin-handover-toggle span { min-width: 0; }
+.admin-handover-toggle strong, .admin-handover-toggle small { display: block; }
+.admin-handover-toggle strong { color: #17354b; font-size: 13px; }
+.admin-handover-toggle small { margin-top: 5px; color: #708493; font-size: 11px; line-height: 1.45; }
+.admin-handover-form { padding: 18px; display: grid; gap: 13px; border-top: 1px solid #e7ecee; background: #fafbfb; }
+.admin-handover-form > div { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.admin-handover-form .admin-handover-check { display: flex; align-items: flex-start; gap: 9px; color: #526779; font-size: 11px; line-height: 1.45; font-weight: 650; }
+.admin-handover-listings { margin: 0; padding: 10px 11px; border-radius: 7px; color: #476071; background: #eef3f5; font-size: 11px; font-weight: 750; }
+.admin-handover-form > button { min-height: 45px; padding: 0 12px; border-radius: 7px; color: #fff; background: #173f58; font-size: 12px; font-weight: 850; }
+.admin-handover-form > button:disabled { opacity: .5; cursor: not-allowed; }
+.admin-handover-sent { padding: 20px 18px; display: flex; align-items: flex-start; gap: 11px; }
+.admin-handover-sent > i { width: 32px; height: 32px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 50%; color: #24745d; background: #e4f4ed; font-style: normal; font-weight: 900; }
+.admin-handover-sent strong { color: #17354b; font-size: 13px; }
+.admin-handover-sent p { margin: 4px 0 8px; color: #718493; font-size: 11px; }
+.admin-handover-sent a { color: #315f7c; font-size: 11px; font-weight: 800; }
 .activity-card > div { max-height: 520px; overflow-y: auto; }
 .activity-card article { padding: 13px 17px; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid #edf0f2; }
 .activity-card article:last-child { border-bottom: 0; }
@@ -241,6 +270,7 @@
   .admin-lead-hero label { grid-column: 1 / -1; }
   .admin-intelligence-grid { grid-template-columns: 1fr; }
   .admin-lead-grid { grid-template-columns: 1fr; }
+  .admin-edit-form-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 420px) {
@@ -250,6 +280,7 @@
   .admin-stat-grid { grid-template-columns: 1fr; }
   .admin-lead-hero { padding: 22px 18px; grid-template-columns: 1fr; }
   .admin-lead-avatar { width: 54px; height: 54px; }
+  .admin-edit-form-grid { grid-template-columns: 1fr; }
   .contact-card dl { grid-template-columns: 1fr; gap: 14px; }
   .admin-selected-properties article { grid-template-columns: 68px minmax(0,1fr); }
   .admin-selected-properties article > span { width: 68px; height: 55px; }

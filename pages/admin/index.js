@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
+import AdminTasks from '@/components/admin/AdminTasks'
 import { supabase } from '@/lib/supabase'
 import styles from '@/styles/AdminDashboardHome.module.css'
 
@@ -158,6 +159,8 @@ export default function AdminDashboard() {
         </header>
 
         {error && <div className={styles.error} role="alert">{error}</div>}
+
+        <AdminTasks />
 
         <section className={styles.hero}>
           <div className={styles.heroCopy}>

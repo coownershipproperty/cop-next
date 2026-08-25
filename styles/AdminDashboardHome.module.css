@@ -31,6 +31,26 @@
 .primaryAction { color: #fff; border-color: #246bfd; background: #246bfd; }
 .error { margin-bottom: 16px; padding: 12px 15px; color: #9b3838; border: 1px solid #efcaca; border-radius: 9px; background: #fff1f1; font-size: 12px; }
 
+.tasks { margin-bottom: 16px; padding: 18px 20px; border: 1px solid #dce4e8; border-radius: 14px; background: #fff; box-shadow: 0 10px 30px rgba(25,45,56,.04); }
+.tasks > header { margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.tasks > header h2 { margin: 0; color: #17252c; font: 700 16px Arial, sans-serif; }
+.tasks > header p { margin: 4px 0 0; color: #718089; font-size: 12px; }
+.tasks > header > span { min-width: 32px; height: 32px; padding: 0 9px; display: grid; place-items: center; border-radius: 999px; color: #fff; background: #16242b; font-size: 12px; font-weight: 800; }
+.taskForm { display: grid; grid-template-columns: minmax(260px,1fr) 170px 135px 78px; gap: 8px; }
+.taskForm input, .taskForm button { min-width: 0; min-height: 44px; padding: 0 13px; border: 1px solid #d8e0e4; border-radius: 9px; color: #26343c; background: #fff; font: 600 14px Arial, sans-serif; }
+.taskForm input:focus { outline: 2px solid rgba(36,107,253,.2); border-color: #246bfd; }
+.taskForm button { color: #fff; border-color: #246bfd; background: #246bfd; cursor: pointer; }
+.taskForm button:disabled { color: #9aa5ab; border-color: #e4e9ec; background: #f1f4f5; cursor: default; }
+.taskList { margin-top: 12px; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
+.taskList article { min-width: 0; min-height: 90px; padding: 13px; display: flex; align-items: flex-start; gap: 10px; border: 1px solid #e4e9ec; border-radius: 10px; background: #fafbfc; }
+.taskList article > div { min-width: 0; flex: 1; }
+.taskList strong { display: block; color: #26343c; font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
+.taskList small { margin-top: 7px; display: block; color: #687983; font-size: 11px; line-height: 1.35; }
+.taskList button { flex: 0 0 auto; padding: 6px 9px; color: #246bfd; border: 1px solid #cbdafe; border-radius: 7px; background: #fff; font-size: 11px; font-weight: 800; cursor: pointer; }
+.taskError { margin: 10px 0 0; color: #a23f3f; font-size: 12px; }
+.taskEmpty { margin: 13px 0 0; color: #7d8b92; font-size: 13px; }
+.taskFootnote { margin: 10px 0 0; color: #687983; font-size: 11px; }
+
 .hero { min-height: 300px; padding: 31px; display: grid; grid-template-columns: minmax(300px,.78fr) minmax(420px,1.22fr); align-items: stretch; gap: 34px; overflow: hidden; border: 1px solid #dce4e8; border-radius: 18px; background: #fff; box-shadow: 0 18px 48px rgba(25,45,56,.06); }
 .heroCopy { padding: 8px 0; display: flex; flex-direction: column; justify-content: center; }
 .heroCopy > span, .chartCard header span { color: #246bfd; font-size: 9px; font-weight: 900; letter-spacing: .13em; }
@@ -109,6 +129,7 @@
   .mainGrid { grid-template-columns: 1fr; }
   .attention { display: grid; grid-template-columns: repeat(3,1fr); }
   .attention > header, .attentionFooter { grid-column: 1 / -1; }
+  .taskList { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 
 @media (max-width: 900px) {
@@ -123,6 +144,8 @@
   .hero { padding: 24px; gap: 20px; }
   .metrics { grid-template-columns: 1fr 1fr; }
   .lowerGrid { grid-template-columns: 1fr; }
+  .taskForm { grid-template-columns: minmax(0,1fr) minmax(135px,.35fr) minmax(115px,.25fr); }
+  .taskForm button { grid-column: 1 / -1; }
 }
 
 @media (max-width: 580px) {
@@ -140,4 +163,10 @@
   .leadTable td:nth-child(4), .leadTable td:nth-child(5) { grid-column: 2; }
   .leadTable td:nth-child(5) { color: #74858d; font-size: 12px; text-align: right; }
   .leadTable td:first-child i { width: 38px; height: 38px; }
+  .tasks { padding: 16px; }
+  .tasks > header { align-items: flex-start; }
+  .taskForm { grid-template-columns: 1fr 1fr; }
+  .taskForm input:first-child { grid-column: 1 / -1; }
+  .taskForm button { grid-column: 1 / -1; }
+  .taskList { grid-template-columns: 1fr; }
 }
