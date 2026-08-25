@@ -65,10 +65,11 @@ export default async function handler(req, res) {
   if (Number.isNaN(commissionRate)) return res.status(400).json({ error: 'Commission must be between 0 and 100%.' })
   if (budgetMin !== null && budgetMax !== null && budgetMin > budgetMax) return res.status(400).json({ error: 'Minimum budget cannot exceed maximum budget.' })
   const invoiceDate = String(req.body?.invoiceDate || '').trim() || null
+  const leadSource = text(req.body?.leadSource, 120)
   if (invoiceDate && !/^\d{4}-\d{2}-\d{2}$/.test(invoiceDate)) return res.status(400).json({ error: 'Enter a valid invoice date.' })
 
   const { data: currentLead, error: findError } = await db.from('leads')
-    .select('id,contact_id,main_region,subregion,budget_min,budget_max,message,property_sale_price,commission_rate,invoice_amount,invoice_date,invoice_paid,contacts(id,first_name,last_name,email,phone,nationality,residence_city,residence_country)')
+    .select('id,contact_id,main_region,subregion,budget_min,budget_max,message,attribution_source,property_sale_price,commission_rate,invoice_amount,invoice_date,invoice_paid,contacts(id,first_name,last_name,email,phone,nationality,source)')
     .eq('id', id).maybeSingle()
   if (findError) return res.status(500).json({ error: 'Could not load the lead.' })
   if (!currentLead) return res.status(404).json({ error: 'Lead not found.' })
@@ -81,8 +82,7 @@ export default async function handler(req, res) {
     email,
     phone: text(req.body?.phone, 60),
     nationality: text(req.body?.nationality, 120),
-    residence_city: text(req.body?.residenceCity, 120),
-    residence_country: text(req.body?.residenceCountry, 120),
+    source: leadSource,
     updated_at: now,
   }
   const leadPatch = {
@@ -91,6 +91,7 @@ export default async function handler(req, res) {
     budget_min: budgetMin,
     budget_max: budgetMax,
     message: text(req.body?.message, 4000),
+    attribution_source: leadSource,
     property_sale_price: propertySalePrice,
     commission_rate: commissionRate,
     invoice_amount: invoiceAmount,
@@ -105,8 +106,7 @@ export default async function handler(req, res) {
   if (leadError) {
     if (currentContact) await db.from('contacts').update({
       first_name: currentContact.first_name, last_name: currentContact.last_name, email: currentContact.email,
-      phone: currentContact.phone, nationality: currentContact.nationality, residence_city: currentContact.residence_city,
-      residence_country: currentContact.residence_country, updated_at: now,
+      phone: currentContact.phone, nationality: currentContact.nationality, source: currentContact.source, updated_at: now,
     }).eq('id', currentLead.contact_id)
     return res.status(500).json({ error: 'Could not update the lead details.' })
   }
@@ -116,7 +116,7 @@ export default async function handler(req, res) {
     lead_id: id,
     type: 'lead_edited',
     description: `Lead details edited by ${admin.email}`,
-    metadata: { source: 'cop_admin' },
+    metadata: { source: 'cop_admin', lead_source: leadSource },
   })
   return res.json({ ok: true })
 }

@@ -36,8 +36,9 @@ export default async function handler(req, res) {
 
   const db = createSupabaseAdminClient()
   const now = new Date().toISOString()
+  const leadSource = text(req.body?.leadSource, 120) || 'Manual entry'
   const { data: existingContact, error: findError } = await db.from('contacts')
-    .select('id,email,first_name,last_name,phone,nationality,residence_city,residence_country')
+    .select('id,email,first_name,last_name,phone,nationality,source')
     .eq('email', email)
     .maybeSingle()
   if (findError) return res.status(500).json({ error: 'Could not check the contact.' })
@@ -49,8 +50,7 @@ export default async function handler(req, res) {
     last_name: text(req.body?.lastName, 120),
     phone: text(req.body?.phone, 60),
     nationality: text(req.body?.nationality, 120),
-    residence_city: text(req.body?.residenceCity, 120),
-    residence_country: text(req.body?.residenceCountry, 120),
+    source: leadSource,
     updated_at: now,
   }
 
@@ -63,7 +63,6 @@ export default async function handler(req, res) {
     const { data, error } = await db.from('contacts').insert({
       email,
       ...suppliedContact,
-      source: 'manual',
       created_at: now,
     }).select().single()
     if (error) return res.status(500).json({ error: 'Could not create the contact.' })
@@ -98,7 +97,7 @@ export default async function handler(req, res) {
     p_first_visit_at: null,
     p_landing_url: null,
     p_referrer_url: null,
-    p_attribution_source: 'Manual entry',
+    p_attribution_source: leadSource,
     p_enquiry_page_url: null,
   }).single()
 
@@ -112,7 +111,7 @@ export default async function handler(req, res) {
     lead_id: lead.id,
     type: 'lead_created',
     description: `Lead created manually by ${admin.email}`,
-    metadata: { source: 'cop_admin', property_slug: property?.slug || null },
+    metadata: { source: 'cop_admin', lead_source: leadSource, property_slug: property?.slug || null },
   })
 
   return res.status(201).json({ ok: true, leadId: lead.id, reusedContact: Boolean(existingContact) })

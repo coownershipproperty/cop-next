@@ -11,9 +11,10 @@ import {
   INTERNATIONAL_COUNTRIES,
   joinInternationalPhone,
 } from '@/lib/internationalDialCodes'
+import { LEAD_SOURCE_OPTIONS } from '@/lib/leadSources'
 
 const EMPTY = {
-  firstName: '', lastName: '', email: '', phoneDialCode: '+44', phone: '', nationality: '', residenceCity: '', residenceCountry: '',
+  firstName: '', lastName: '', email: '', phoneDialCode: '+44', phone: '', nationality: '', leadSource: 'Manual entry',
   mainRegion: '', subregion: '', budgetMin: '', budgetMax: '', propertySlug: '', message: '',
 }
 
@@ -161,8 +162,7 @@ export default function NewAdminLead() {
             <label>Email<input required type="email" value={form.email} onChange={(event) => update('email', event.target.value)} /></label>
             <label>International phone<div className="admin-phone-field"><select aria-label="International dialling code" value={form.phoneDialCode} onChange={(event) => update('phoneDialCode', event.target.value)}><DialCodeOptions /></select><input type="tel" autoComplete="tel-national" value={form.phone} onChange={(event) => update('phone', event.target.value)} placeholder="600 000 000" /></div></label>
             <label>Nationality<select value={form.nationality} onChange={(event) => update('nationality', event.target.value)}><option value="">Select nationality</option><NationalityOptions /></select></label>
-            <label>Residence city<input value={form.residenceCity} onChange={(event) => update('residenceCity', event.target.value)} /></label>
-            <label>Residence country<input value={form.residenceCountry} onChange={(event) => update('residenceCountry', event.target.value)} /></label>
+            <label>Lead source<select value={form.leadSource} onChange={(event) => update('leadSource', event.target.value)}>{LEAD_SOURCE_OPTIONS.map((source) => <option key={source} value={source}>{source}</option>)}</select></label>
           </div></fieldset>
 
           <fieldset><legend>Opportunity</legend><div className="admin-edit-form-grid">

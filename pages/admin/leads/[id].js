@@ -6,6 +6,7 @@ import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import LeadCommunicationPanel from '@/components/admin/LeadCommunicationPanel'
 import { supabase } from '@/lib/supabase'
+import { LEAD_SOURCE_OPTIONS } from '@/lib/leadSources'
 
 const STATUS_OPTIONS = [
   ['new_lead', 'New lead'], ['contacted', 'Contacted'], ['lead_replied', 'Replied'],
@@ -100,7 +101,7 @@ export default function AdminLeadDetail() {
     setError('')
     const leadQuery = await supabase
       .from('leads')
-      .select('*,contacts(id,email,first_name,last_name,phone,country,nationality,residence_city,residence_country,source,score,created_at,inferred_nationality,nationality_confidence,nationality_evidence,nationality_inferred_at,first_ip_country_code,first_ip_city,first_ip_region)')
+      .select('*,contacts(id,email,first_name,last_name,phone,country,nationality,source,score,created_at,inferred_nationality,nationality_confidence,nationality_evidence,nationality_inferred_at,first_ip_country_code,first_ip_city,first_ip_region)')
       .eq('id', id)
       .single()
     if (leadQuery.error) { setError(leadQuery.error.message); return }
@@ -162,7 +163,7 @@ export default function AdminLeadDetail() {
     if (!lead || !contact) return
     setEditForm({
       firstName: contact.first_name || '', lastName: contact.last_name || '', email: contact.email || '', phone: contact.phone || '',
-      nationality: contact.nationality || '', residenceCity: contact.residence_city || '', residenceCountry: contact.residence_country || '',
+      nationality: contact.nationality || '', leadSource: lead.attribution_source || contact.source || '',
       mainRegion: lead.main_region || '', subregion: lead.subregion || '', budgetMin: lead.budget_min ?? '', budgetMax: lead.budget_max ?? '', message: lead.message || '',
       propertySalePrice: lead.property_sale_price ?? '', commissionRate: lead.commission_rate ?? '', invoiceAmount: lead.invoice_amount ?? '',
       invoiceDate: lead.invoice_date || '', invoicePaid: Boolean(lead.invoice_paid),
@@ -352,7 +353,7 @@ export default function AdminLeadDetail() {
           <div><button type="button" onClick={() => setConfirmDelete(false)}>Cancel</button><button type="button" disabled={busy === 'delete'} onClick={deleteLead}>{busy === 'delete' ? 'Deleting…' : 'Delete permanently'}</button></div>
         </section>}
 
-        <LeadCommunicationPanel leadId={lead.id} contactId={lead.contact_id} leadName={name} phone={contact?.phone} email={contact?.email} country={contact?.residence_country || contact?.nationality || contact?.country} />
+        <LeadCommunicationPanel leadId={lead.id} contactId={lead.contact_id} leadName={name} phone={contact?.phone} email={contact?.email} country={contact?.nationality || contact?.country} />
 
         <section className="admin-lead-hero">
           <div className="admin-lead-avatar">{name.split(/\s+/).slice(0, 2).map((word) => word[0]).join('').toUpperCase()}</div>
@@ -361,7 +362,7 @@ export default function AdminLeadDetail() {
         </section>
 
         {editing && <section className="admin-lead-card admin-edit-lead-card">
-          <header><div><small>COP ADMIN</small><h2>Edit lead details</h2></div><span>Nationality, residence and property destination are separate</span></header>
+          <header><div><small>COP ADMIN</small><h2>Edit lead details</h2></div><span>Client nationality and property destination</span></header>
           <form onSubmit={saveDetails}>
             <div className="admin-edit-form-grid">
               <label>First name<input value={editForm.firstName || ''} onChange={(event) => setEditForm({ ...editForm, firstName: event.target.value })} /></label>
@@ -369,8 +370,7 @@ export default function AdminLeadDetail() {
               <label>Email<input type="email" required value={editForm.email || ''} onChange={(event) => setEditForm({ ...editForm, email: event.target.value })} /></label>
               <label>Phone<input value={editForm.phone || ''} onChange={(event) => setEditForm({ ...editForm, phone: event.target.value })} /></label>
               <label>Confirmed nationality<input value={editForm.nationality || ''} onChange={(event) => setEditForm({ ...editForm, nationality: event.target.value })} placeholder={contact?.inferred_nationality || 'e.g. Belgium'} /></label>
-              <label>Residence city<input value={editForm.residenceCity || ''} onChange={(event) => setEditForm({ ...editForm, residenceCity: event.target.value })} placeholder="e.g. Tarragona" /></label>
-              <label>Residence country<input value={editForm.residenceCountry || ''} onChange={(event) => setEditForm({ ...editForm, residenceCountry: event.target.value })} placeholder="e.g. Spain" /></label>
+              <label>Lead source<select value={editForm.leadSource || ''} onChange={(event) => setEditForm({ ...editForm, leadSource: event.target.value })}><option value="">Unknown</option>{editForm.leadSource && !LEAD_SOURCE_OPTIONS.includes(editForm.leadSource) && <option value={editForm.leadSource}>{editForm.leadSource}</option>}{LEAD_SOURCE_OPTIONS.map((source) => <option key={source} value={source}>{source}</option>)}</select></label>
               <label>Destination region<input value={editForm.mainRegion || ''} onChange={(event) => setEditForm({ ...editForm, mainRegion: event.target.value })} /></label>
               <label>Destination subregion<input value={editForm.subregion || ''} onChange={(event) => setEditForm({ ...editForm, subregion: event.target.value })} /></label>
               <label>Budget minimum<input type="number" min="0" step="1000" value={editForm.budgetMin ?? ''} onChange={(event) => setEditForm({ ...editForm, budgetMin: event.target.value })} /></label>
@@ -403,12 +403,11 @@ export default function AdminLeadDetail() {
             <small>PROFILE</small><h2>Lead intelligence</h2>
             <dl>
               <div><dt>Nationality</dt><dd>{contact?.nationality || contact?.inferred_nationality || contact?.country || 'Not inferred'}{!contact?.nationality && contact?.nationality_confidence ? <em>{contact.nationality_confidence}% automated estimate</em> : contact?.nationality ? <em>Confirmed by COP</em> : null}</dd></div>
-              <div><dt>Residence</dt><dd>{[contact?.residence_city, contact?.residence_country].filter(Boolean).join(', ') || [contact?.first_ip_city, contact?.first_ip_country_code].filter(Boolean).join(', ') || 'Not confirmed'}</dd></div>
               <div><dt>Email</dt><dd><a href={`mailto:${contact?.email}`}>{contact?.email || '—'}</a></dd></div>
               <div><dt>Phone</dt><dd>{contact?.phone || '—'}</dd></div>
               <div><dt>Lead score</dt><dd>{contact?.score ?? '—'}</dd></div>
             </dl>
-            <p className="admin-confidence-note">Confirmed nationality is kept separate from residence and from the property destination. When unconfirmed, COP shows the automated estimate.</p>
+            <p className="admin-confidence-note">Nationality is kept separate from the property destination. When unconfirmed, COP shows the automated estimate.</p>
           </article>
 
           <article className="admin-lead-card intelligence-card">
