@@ -150,7 +150,7 @@ export default function AdminDashboard() {
       const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString()
       const trendStart = new Date(now.getTime() - (8 * 7 * 24 * 60 * 60 * 1000)).toISOString()
       const followUpSince = new Date(now.getTime() - (48 * 60 * 60 * 1000)).toISOString()
-      const leadSelect = 'id,contact_id,status,property_slug,property_title,main_region,subregion,partner,budget_min,budget_max,message,attribution_source,created_at,updated_at,pinned_at,contacts(first_name,last_name,email,phone),properties(partner)'
+      const leadSelect = 'id,contact_id,status,property_slug,property_title,main_region,subregion,partner,budget_min,budget_max,message,attribution_source,created_at,updated_at,pinned_at,contacts(first_name,last_name,email,phone),properties!leads_property_slug_fkey(partner)'
 
       try {
         const results = await Promise.all([
