@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Script from 'next/script'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
+import LeadCommunicationPanel from '@/components/admin/LeadCommunicationPanel'
 import { supabase } from '@/lib/supabase'
 
 const STATUS_OPTIONS = [
@@ -92,6 +93,7 @@ export default function AdminLeadDetail() {
   const [handoverOpen, setHandoverOpen] = useState(false)
   const [handover, setHandover] = useState({ partnerId: '', firstName: '', lastName: '', email: '', phone: '', nationality: '', destination: '', budget: '', preferences: '', notifyPartner: true, consentConfirmed: false })
   const [existingHandover, setExistingHandover] = useState(null)
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   const load = useCallback(async () => {
     if (!id) return
@@ -290,6 +292,17 @@ export default function AdminLeadDetail() {
     } finally { setBusy('') }
   }
 
+  async function deleteLead() {
+    setBusy('delete'); setMessage(''); setError('')
+    try {
+      await authedRequest(`/api/admin/leads/${lead.id}`, { method: 'DELETE' })
+      await router.push('/admin/leads')
+    } catch (requestError) {
+      setError(requestError.message)
+      setBusy('')
+    }
+  }
+
   async function sendToPartnerHub(event) {
     event.preventDefault()
     setBusy('handover'); setMessage(''); setError('')
@@ -312,15 +325,29 @@ export default function AdminLeadDetail() {
     <AdminLayout>
       <Head><title>{lead ? `${name} — COP Admin` : 'Lead — COP Admin'}</title></Head>
       <Script src="https://accounts.google.com/gsi/client" strategy="afterInteractive" onLoad={initGmail} />
-      <div className="admin-lead-back"><Link href="/admin/leads">← Back to leads</Link><span>COP ADMIN ONLY</span></div>
+      <div className="admin-lead-back">
+        <Link href="/admin/leads">← Back to leads</Link>
+        <div className="admin-lead-top-actions">
+          <span>COP ADMIN ONLY</span>
+          {lead && <button type="button" className="edit" onClick={() => setEditing((value) => !value)}>{editing ? 'Close editor' : 'Edit lead'}</button>}
+          {lead && <button type="button" className="delete" onClick={() => setConfirmDelete(true)}>Delete lead</button>}
+        </div>
+      </div>
       {error && <div className="admin-lead-alert error">{error}</div>}
       {message && <div className="admin-lead-alert success">{message}</div>}
       {!lead && !error && <div className="admin-table-message">Loading lead…</div>}
 
       {lead && <>
+        {confirmDelete && <section className="admin-delete-lead-confirmation" role="alertdialog" aria-labelledby="delete-lead-title">
+          <div><small>PERMANENT ACTION</small><h2 id="delete-lead-title">Delete {name}?</h2><p>This removes this opportunity and its property shortlist. The contact and communication history stay in COP in case they belong to another enquiry.</p></div>
+          <div><button type="button" onClick={() => setConfirmDelete(false)}>Cancel</button><button type="button" disabled={busy === 'delete'} onClick={deleteLead}>{busy === 'delete' ? 'Deleting…' : 'Delete permanently'}</button></div>
+        </section>}
+
+        <LeadCommunicationPanel leadId={lead.id} contactId={lead.contact_id} leadName={name} phone={contact?.phone} email={contact?.email} country={contact?.residence_country || contact?.nationality || contact?.country} />
+
         <section className="admin-lead-hero">
           <div className="admin-lead-avatar">{name.split(/\s+/).slice(0, 2).map((word) => word[0]).join('').toUpperCase()}</div>
-          <div className="admin-lead-title"><small>PRIVATE LEAD RECORD</small><h1>{name}</h1><p>{lead.property_title || [lead.main_region, lead.subregion].filter(Boolean).join(' · ') || 'General co-ownership enquiry'}</p><button type="button" className="admin-edit-lead-button" onClick={() => setEditing((value) => !value)}>{editing ? 'Close editor' : 'Edit lead details'}</button></div>
+          <div className="admin-lead-title"><small>PRIVATE LEAD RECORD</small><h1>{name}</h1><p>{lead.property_title || [lead.main_region, lead.subregion].filter(Boolean).join(' · ') || 'General co-ownership enquiry'}</p></div>
           <label>Pipeline stage<select value={lead.status || 'new_lead'} disabled={busy === 'status'} onChange={(event) => changeStatus(event.target.value)}>{STATUS_OPTIONS.map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label>
         </section>
 

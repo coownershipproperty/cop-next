@@ -22,6 +22,21 @@ function leadEmail(lead) {
   return contact?.email || 'No email supplied'
 }
 
+function leadContact(lead) {
+  return Array.isArray(lead.contacts) ? lead.contacts[0] : lead.contacts
+}
+
+function leadPartner(lead) {
+  return lead.partner || (Array.isArray(lead.properties) ? lead.properties[0]?.partner : lead.properties?.partner) || '—'
+}
+
+function budgetLabel(lead) {
+  if (!lead.budget_min && !lead.budget_max) return ''
+  const format = (value) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR', notation: 'compact', maximumFractionDigits: 0 }).format(value)
+  if (lead.budget_min && lead.budget_max) return `${format(lead.budget_min)}–${format(lead.budget_max)}`
+  return lead.budget_min ? `${format(lead.budget_min)}+` : `Up to ${format(lead.budget_max)}`
+}
+
 function initials(value) {
   const parts = String(value || '').trim().split(/\s+/).filter(Boolean)
   return parts.slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'L'
@@ -79,8 +94,46 @@ function LeadVelocityChart({ points }) {
   )
 }
 
+function LeadCard({ lead, note, engagement, pinBusy, onTogglePin }) {
+  const name = leadName(lead)
+  const contact = leadContact(lead)
+  const budget = budgetLabel(lead)
+  const destination = lead.main_region || lead.subregion || ''
+  const source = lead.attribution_source || leadPartner(lead)
+  const engagementLabel = engagement?.click_count
+    ? `${engagement.click_count} tracked click${engagement.click_count === 1 ? '' : 's'}`
+    : engagement?.open_count
+      ? `${engagement.open_count} tracked open${engagement.open_count === 1 ? '' : 's'}`
+      : ''
+
+  return (
+    <article className={`${styles.leadCard}${engagement ? ` ${styles.engagedLeadCard}` : ''}`}>
+      <Link href={`/admin/leads/${lead.id}`} aria-label={`Open ${name}`}>
+        <div className={styles.cardTop}>
+          <em className={styles[`status_${lead.status}`]}>{STATUS_LABELS[lead.status] || lead.status || 'New lead'}</em>
+          <time>{relativeDate(engagement?.last_open_at || lead.updated_at || lead.created_at)}</time>
+        </div>
+        <strong className={styles.cardName}>{name}</strong>
+        <span className={styles.cardEmail}>{leadEmail(lead)}</span>
+        <div className={styles.cardSignals}>
+          <span className={contact?.phone ? styles.signalOn : ''}>Phone</span>
+          <span className={budget ? styles.signalOn : ''}>Budget</span>
+          <span className={destination ? styles.signalOn : ''}>Destination</span>
+        </div>
+        {(engagementLabel || note || lead.message) && <p className={styles.cardNote}>{engagementLabel ? `↗ ${engagementLabel}${engagement?.subject ? ` · ${engagement.subject}` : ''}` : (note || lead.message)}</p>}
+        <small className={styles.cardSource}>{source}</small>
+      </Link>
+      <button type="button" className={lead.pinned_at ? styles.pinActive : styles.pinButton} disabled={pinBusy === lead.id} onClick={() => onTogglePin(lead)} aria-label={lead.pinned_at ? `Unpin ${name}` : `Pin ${name}`}>{lead.pinned_at ? '●' : '○'}</button>
+    </article>
+  )
+}
+
 export default function AdminDashboard() {
   const [leads, setLeads] = useState([])
+  const [pinnedLeads, setPinnedLeads] = useState([])
+  const [followUpLeads, setFollowUpLeads] = useState([])
+  const [latestNotes, setLatestNotes] = useState({})
+  const [pinBusy, setPinBusy] = useState('')
   const [properties, setProperties] = useState([])
   const [partnerLeads, setPartnerLeads] = useState([])
   const [partners, setPartners] = useState({})
@@ -96,13 +149,17 @@ export default function AdminDashboard() {
       const now = new Date()
       const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString()
       const trendStart = new Date(now.getTime() - (8 * 7 * 24 * 60 * 60 * 1000)).toISOString()
+      const followUpSince = new Date(now.getTime() - (48 * 60 * 60 * 1000)).toISOString()
+      const leadSelect = 'id,contact_id,status,property_slug,property_title,main_region,subregion,partner,budget_min,budget_max,message,attribution_source,created_at,updated_at,pinned_at,contacts(first_name,last_name,email,phone),properties(partner)'
 
       try {
         const results = await Promise.all([
-          supabase.from('leads').select('id,contact_id,status,property_slug,property_title,main_region,subregion,partner,created_at,updated_at,contacts(first_name,last_name,email),properties(partner)').order('created_at', { ascending: false }).limit(8),
+          supabase.from('leads').select(leadSelect).is('pinned_at', null).order('created_at', { ascending: false }).limit(15),
+          supabase.from('leads').select(leadSelect).not('pinned_at', 'is', null).order('pinned_at', { ascending: false }).limit(30),
           supabase.from('properties').select('slug,title,img,images,city,region,country,partner,status,price,currency,date_added').order('date_added', { ascending: false, nullsFirst: false }).limit(6),
           supabase.from('partner_hub_leads').select('id,first_name,last_name,partner_id,status,destination,created_at,updated_at').order('updated_at', { ascending: false }).limit(6),
           supabase.from('partner_hub_partners').select('id,display_name,active'),
+          supabase.from('tracked_emails').select('recipient_email,subject,open_count,click_count,last_open_at,sent_at').gte('last_open_at', followUpSince).order('last_open_at', { ascending: false }).limit(80),
           supabase.from('leads').select('created_at').gte('created_at', trendStart).order('created_at', { ascending: true }).limit(5000),
           supabase.from('leads').select('id', { count: 'exact', head: true }),
           supabase.from('properties').select('slug', { count: 'exact', head: true }),
@@ -117,8 +174,51 @@ export default function AdminDashboard() {
         if (failed) throw failed.error
         if (!mounted) return
 
-        const [leadRows, propertyRows, partnerRows, partnerDirectory, weeklyRows, leadCount, propertyCount, contactCount, todayCount, attentionCount, partnerCount, partnerLeadCount] = results
+        const [leadRows, pinnedRows, propertyRows, partnerRows, partnerDirectory, trackingRows, weeklyRows, leadCount, propertyCount, contactCount, todayCount, attentionCount, partnerCount, partnerLeadCount] = results
+        const recentTracking = trackingRows.data || []
+        const trackingEmails = [...new Set(recentTracking.map((row) => row.recipient_email?.trim().toLowerCase()).filter(Boolean))]
+        let trackedLeadRows = []
+        if (trackingEmails.length) {
+          const contactQuery = await supabase.from('contacts').select('id,email').in('email', trackingEmails)
+          if (contactQuery.error) throw contactQuery.error
+          const contactIds = (contactQuery.data || []).map((contact) => contact.id)
+          if (contactIds.length) {
+            const trackedLeadQuery = await supabase.from('leads').select(leadSelect).in('contact_id', contactIds).order('updated_at', { ascending: false }).limit(100)
+            if (trackedLeadQuery.error) throw trackedLeadQuery.error
+            trackedLeadRows = trackedLeadQuery.data || []
+          }
+        }
+
+        const engagementByEmail = new Map()
+        recentTracking.forEach((row) => {
+          const email = row.recipient_email?.trim().toLowerCase()
+          if (email && !engagementByEmail.has(email)) engagementByEmail.set(email, row)
+        })
+        const followCandidates = [...trackedLeadRows, ...(leadRows.data || []).filter((lead) => lead.status === 'new_lead')]
+        const seenFollow = new Set()
+        const priorityRows = followCandidates.filter((lead) => {
+          const email = leadContact(lead)?.email?.trim().toLowerCase()
+          const identity = email || lead.contact_id || lead.id
+          if (seenFollow.has(identity) || ['won', 'lost'].includes(lead.status)) return false
+          if (!engagementByEmail.has(email) && lead.status !== 'new_lead') return false
+          seenFollow.add(identity)
+          return true
+        }).slice(0, 10).map((lead) => ({ ...lead, engagement: engagementByEmail.get(leadContact(lead)?.email?.trim().toLowerCase()) || null }))
+
+        const visibleLeadIds = [...new Set([...(leadRows.data || []), ...(pinnedRows.data || []), ...priorityRows].map((lead) => lead.id))]
+        const noteMap = {}
+        if (visibleLeadIds.length) {
+          const noteQuery = await supabase.from('activities').select('lead_id,description,created_at').in('lead_id', visibleLeadIds).order('created_at', { ascending: false }).limit(500)
+          if (noteQuery.error) throw noteQuery.error
+          ;(noteQuery.data || []).forEach((activity) => {
+            if (activity.lead_id && !noteMap[activity.lead_id] && activity.description) noteMap[activity.lead_id] = activity.description
+          })
+        }
+
         setLeads(leadRows.data || [])
+        setPinnedLeads(pinnedRows.data || [])
+        setFollowUpLeads(priorityRows)
+        setLatestNotes(noteMap)
         setProperties(propertyRows.data || [])
         setPartnerLeads(partnerRows.data || [])
         setPartners(Object.fromEntries((partnerDirectory.data || []).map((partner) => [partner.id, partner.display_name])))
@@ -148,6 +248,34 @@ export default function AdminDashboard() {
   const previousFourWeeks = weeklyTrend.slice(0, 4).reduce((total, week) => total + week.count, 0)
   const velocity = previousFourWeeks ? Math.round(((currentFourWeeks - previousFourWeeks) / previousFourWeeks) * 100) : currentFourWeeks ? 100 : 0
   const todayLabel = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date()).toUpperCase()
+
+  async function togglePin(lead) {
+    if (pinBusy) return
+    setPinBusy(lead.id); setError('')
+    const nextPinned = !lead.pinned_at
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session?.access_token) throw new Error('Your admin session has expired. Sign in again.')
+      const response = await fetch(`/api/admin/leads/${lead.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+        body: JSON.stringify({ pinned: nextPinned }),
+      })
+      const payload = await response.json().catch(() => ({}))
+      if (!response.ok) throw new Error(payload.error || 'Could not update the pinned lead.')
+      const updatedLead = { ...lead, pinned_at: payload.lead?.pinned_at || null }
+      setFollowUpLeads((current) => current.map((item) => item.id === lead.id ? { ...item, pinned_at: updatedLead.pinned_at } : item))
+      if (nextPinned) {
+        setPinnedLeads((current) => [updatedLead, ...current.filter((item) => item.id !== lead.id)])
+        setLeads((current) => current.filter((item) => item.id !== lead.id))
+      } else {
+        setPinnedLeads((current) => current.filter((item) => item.id !== lead.id))
+        setLeads((current) => [updatedLead, ...current.filter((item) => item.id !== lead.id)].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).slice(0, 15))
+      }
+    } catch (pinError) {
+      setError(pinError.message || 'Could not update the pinned lead.')
+    } finally { setPinBusy('') }
+  }
 
   return (
     <AdminLayout>
@@ -182,41 +310,36 @@ export default function AdminDashboard() {
           <article><span>COP LISTINGS</span><strong>{loading ? '—' : counts.properties.toLocaleString()}</strong><small>Inventory inside the CRM</small></article>
         </section>
 
-        <div className={styles.mainGrid}>
-          <section className={styles.panel}>
-            <header><div><h2>Latest leads</h2><p>Most recent opportunities across COP</p></div><Link href="/admin/leads">View all →</Link></header>
-            <div className={styles.tableWrap}>
-              <table className={styles.leadTable}>
-                <thead><tr><th>Lead</th><th>Destination</th><th>Partner</th><th>Stage</th><th>Created</th><th /></tr></thead>
-                <tbody>
-                  {leads.map((lead) => {
-                    const name = leadName(lead)
-                    const partner = lead.partner || (Array.isArray(lead.properties) ? lead.properties[0]?.partner : lead.properties?.partner) || '—'
-                    return (
-                      <tr key={lead.id}>
-                        <td><Link href={`/admin/leads/${lead.id}`}><i>{initials(name)}</i><span><strong>{name}</strong><small>{leadEmail(lead)}</small></span></Link></td>
-                        <td>{lead.main_region || lead.subregion || '—'}</td>
-                        <td>{partner}</td>
-                        <td><em className={styles[`status_${lead.status}`]}>{STATUS_LABELS[lead.status] || lead.status || 'New lead'}</em></td>
-                        <td>{relativeDate(lead.created_at)}</td>
-                        <td><Link href={`/admin/leads/${lead.id}`} aria-label={`Open ${name}`}>›</Link></td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>
-            {!loading && leads.length === 0 && <div className={styles.empty}>No leads yet.</div>}
-          </section>
+        {!loading && followUpLeads.length > 0 && <section className={`${styles.leadSection} ${styles.prioritySection}`}>
+          <header className={styles.leadSectionHeader}>
+            <div><span className={styles.sectionIcon}>↗</span><div><h2>Follow-up priority</h2><p>Recent tracked engagement and new enquiries waiting for contact</p></div></div>
+            <Link href="/admin/leads">Review all →</Link>
+          </header>
+          <div className={styles.leadCardGrid}>
+            {followUpLeads.map((lead) => <LeadCard key={`priority-${lead.id}`} lead={lead} engagement={lead.engagement} note={latestNotes[lead.id]} pinBusy={pinBusy} onTogglePin={togglePin} />)}
+          </div>
+        </section>}
 
-          <aside className={styles.attention}>
-            <header><span>NEEDS ATTENTION</span><strong>{loading ? '—' : counts.needsAttention.toLocaleString()}</strong></header>
-            <Link href="/admin/leads"><i>1</i><span><b>New enquiries today</b><small>Awaiting first contact</small></span><strong>{counts.needsAttention.toLocaleString()}</strong></Link>
-            <Link href="/admin/partners"><i>2</i><span><b>Partner pipeline</b><small>Open handovers</small></span><strong>{counts.activePartnerLeads.toLocaleString()}</strong></Link>
-            <Link href="/admin/partners/queue"><i>3</i><span><b>Partner requests</b><small>Review follow-up queue</small></span><strong>→</strong></Link>
-            <Link href="/admin/partners/queue" className={styles.attentionFooter}>Review all priorities →</Link>
-          </aside>
-        </div>
+        {!loading && pinnedLeads.length > 0 && <section className={styles.leadSection}>
+          <header className={styles.leadSectionHeader}>
+            <div><span className={styles.sectionIcon}>●</span><div><h2>Pinned leads</h2><p>Important opportunities kept in view</p></div></div>
+            <Link href="/admin/leads">All leads →</Link>
+          </header>
+          <div className={styles.leadCardGrid}>
+            {pinnedLeads.map((lead) => <LeadCard key={`pinned-${lead.id}`} lead={lead} note={latestNotes[lead.id]} pinBusy={pinBusy} onTogglePin={togglePin} />)}
+          </div>
+        </section>}
+
+        <section className={styles.leadSection}>
+          <header className={styles.leadSectionHeader}>
+            <div><span className={styles.sectionIcon}>＋</span><div><h2>Latest 15 leads</h2><p>Newest opportunities across COP</p></div></div>
+            <Link href="/admin/leads">All leads →</Link>
+          </header>
+          <div className={styles.leadCardGrid}>
+            {leads.map((lead) => <LeadCard key={lead.id} lead={lead} note={latestNotes[lead.id]} pinBusy={pinBusy} onTogglePin={togglePin} />)}
+          </div>
+          {!loading && leads.length === 0 && <div className={styles.empty}>No unpinned leads yet.</div>}
+        </section>
 
         <div className={styles.lowerGrid}>
           <section className={styles.panel}>

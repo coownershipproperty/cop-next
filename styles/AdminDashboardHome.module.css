@@ -75,6 +75,44 @@
 .metrics strong { margin: 5px 0 3px; color: #16242b; font: 500 28px Georgia, serif; letter-spacing: -.03em; }
 .metrics small { color: #89959c; font-size: 9px; }
 
+.leadSection { margin-top: 16px; padding: 20px; overflow: hidden; border: 1px solid #dfe6ea; border-radius: 14px; background: #fff; box-shadow: 0 8px 28px rgba(25,45,56,.035); }
+.prioritySection { border-color: #c9dcff; background: #f7faff; }
+.leadSectionHeader { margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.leadSectionHeader > div { min-width: 0; display: flex; align-items: center; gap: 11px; }
+.leadSectionHeader h2 { margin: 0; color: #17252c; font: 500 20px Georgia, serif; }
+.leadSectionHeader p { margin: 4px 0 0; color: #718089; font-size: 12px; }
+.leadSectionHeader > a { flex: 0 0 auto; color: #246bfd; font-size: 12px; font-weight: 800; }
+.sectionIcon { width: 34px; height: 34px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 10px; color: #246bfd; background: #eaf2ff; font-size: 15px; font-weight: 900; }
+.leadCardGrid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
+.leadCard { min-width: 0; position: relative; overflow: hidden; border: 1px solid #dfe5e8; border-radius: 12px; background: #fff; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+.leadCard:hover { border-color: #b8c7ce; box-shadow: 0 10px 24px rgba(25,45,56,.07); transform: translateY(-1px); }
+.engagedLeadCard { border-color: #b9dfca; background: #f3fbf7; }
+.leadCard > a { min-height: 210px; padding: 16px 39px 15px 16px; display: flex; flex-direction: column; }
+.leadCard > a:focus-visible { outline: 3px solid rgba(36,107,253,.28); outline-offset: -3px; }
+.cardTop { margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cardTop em { max-width: 125px; padding: 5px 8px; overflow: hidden; border-radius: 7px; color: #59666d; background: #eef2f4; font-size: 12px; font-style: normal; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+.cardTop time { flex: 0 0 auto; color: #7c8a92; font-size: 11px; }
+.cardTop .status_new_lead { color: #175ed5; background: #eaf2ff; }
+.cardTop .status_contacted, .cardTop .status_lead_replied { color: #6742b9; background: #f0ebff; }
+.cardTop .status_hot_lead, .cardTop .status_qualified { color: #a94425; background: #fff0e9; }
+.cardTop .status_registered, .cardTop .status_transferred_to_partner { color: #166071; background: #e5f5f8; }
+.cardTop .status_reservation_confirmed { color: #876016; background: #fff5d9; }
+.cardTop .status_won { color: #16734e; background: #e5f5ed; }
+.cardTop .status_lost { color: #a23f3f; background: #fdecec; }
+.cardName { display: block; overflow: hidden; color: #1e2d35; font-size: 15px; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+.cardEmail { margin-top: 4px; display: block; overflow: hidden; color: #687983; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.cardSignals { margin: 13px 0 11px; display: flex; flex-wrap: wrap; gap: 5px; }
+.cardSignals span { padding: 4px 7px; border-radius: 999px; color: #849199; background: #f0f3f4; font-size: 11px; font-weight: 750; }
+.cardSignals span::before { content: ''; width: 5px; height: 5px; margin-right: 4px; display: inline-block; border-radius: 50%; background: #aeb7bc; vertical-align: 1px; }
+.cardSignals span.signalOn { color: #217359; background: #e3f5eb; }
+.cardSignals span.signalOn::before { background: #2bb779; }
+.cardNote { margin: 0; display: -webkit-box; overflow: hidden; color: #53666f; font-size: 12px; font-style: italic; line-height: 1.4; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.cardSource { margin-top: auto; padding-top: 11px; display: block; overflow: hidden; color: #85929a; font-size: 11px; text-overflow: ellipsis; text-transform: capitalize; white-space: nowrap; }
+.pinButton, .pinActive { width: 30px; height: 30px; padding: 0; position: absolute; z-index: 2; top: 10px; right: 8px; display: grid; place-items: center; border: 0; border-radius: 8px; color: #8c999f; background: rgba(255,255,255,.88); font-size: 17px; cursor: pointer; }
+.pinButton:hover, .pinActive { color: #246bfd; background: #eaf2ff; }
+.pinButton:focus-visible, .pinActive:focus-visible { outline: 3px solid rgba(36,107,253,.28); }
+.pinButton:disabled, .pinActive:disabled { opacity: .48; cursor: wait; }
+
 .mainGrid { display: grid; grid-template-columns: minmax(0,1fr) 290px; gap: 16px; align-items: start; }
 .panel, .attention { overflow: hidden; border: 1px solid #e0e6e9; border-radius: 14px; background: #fff; }
 .panel > header, .attention > header { min-height: 76px; padding: 17px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid #e8ecee; }
@@ -124,12 +162,17 @@
 .partnerActivity > div > i { width: 34px; height: 34px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 9px; color: #315063; background: #eef3f5; font-size: 8px; font-style: normal; font-weight: 900; }
 .partnerActivity time { color: #8a98a3; font-size: 8px; white-space: nowrap; }
 
+@media (min-width: 1500px) {
+  .leadCardGrid { grid-template-columns: repeat(5,minmax(0,1fr)); }
+}
+
 @media (max-width: 1180px) {
   .hero { grid-template-columns: 1fr; }
   .mainGrid { grid-template-columns: 1fr; }
   .attention { display: grid; grid-template-columns: repeat(3,1fr); }
   .attention > header, .attentionFooter { grid-column: 1 / -1; }
   .taskList { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .leadCardGrid { grid-template-columns: repeat(3,minmax(0,1fr)); }
 }
 
 @media (max-width: 900px) {
@@ -144,6 +187,7 @@
   .hero { padding: 24px; gap: 20px; }
   .metrics { grid-template-columns: 1fr 1fr; }
   .lowerGrid { grid-template-columns: 1fr; }
+  .leadCardGrid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .taskForm { grid-template-columns: minmax(0,1fr) minmax(135px,.35fr) minmax(115px,.25fr); }
   .taskForm button { grid-column: 1 / -1; }
 }
@@ -154,6 +198,14 @@
   .chartWrap svg { height: 145px; }
   .metrics { grid-template-columns: 1fr; }
   .attention { display: block; }
+  .leadSection { padding: 16px; }
+  .leadSectionHeader { align-items: flex-start; }
+  .leadSectionHeader h2 { font-size: 19px; }
+  .leadSectionHeader p { font-size: 12px; line-height: 1.45; }
+  .leadCardGrid { grid-template-columns: 1fr; }
+  .leadCard > a { min-height: 190px; }
+  .cardName { font-size: 17px; }
+  .cardEmail { font-size: 14px; }
   .leadTable { min-width: 0; }
   .leadTable thead { display: none; }
   .leadTable tr { min-height: 92px; padding: 12px 14px; display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 6px 14px; border-bottom: 1px solid #eef1f2; }

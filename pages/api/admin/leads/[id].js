@@ -12,8 +12,8 @@ function nullableMoney(value) {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'PATCH') {
-    res.setHeader('Allow', 'PATCH')
+  if (!['PATCH', 'DELETE'].includes(req.method)) {
+    res.setHeader('Allow', 'PATCH, DELETE')
     return res.status(405).json({ error: 'Method not allowed.' })
   }
   const admin = await requireCrmAdmin(req, res)
@@ -23,6 +23,30 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid lead.' })
   }
 
+  const db = createSupabaseAdminClient()
+
+  if (req.method === 'DELETE') {
+    const { data: currentLead, error: findError } = await db.from('leads').select('id,contact_id').eq('id', id).maybeSingle()
+    if (findError) return res.status(500).json({ error: 'Could not load the lead.' })
+    if (!currentLead) return res.status(404).json({ error: 'Lead not found.' })
+
+    const { error: deleteError } = await db.from('leads').delete().eq('id', id)
+    if (deleteError) return res.status(500).json({ error: 'Could not delete the lead.' })
+
+    // The contact and communication history are intentionally retained. They
+    // can belong to other enquiries and should not disappear with one lead.
+    return res.json({ ok: true, contactRetained: Boolean(currentLead.contact_id) })
+  }
+
+  if (typeof req.body?.pinned === 'boolean') {
+    const pinnedAt = req.body.pinned ? new Date().toISOString() : null
+    const { data, error } = await db.from('leads').update({ pinned_at: pinnedAt, updated_at: new Date().toISOString() })
+      .eq('id', id).select('id,pinned_at').maybeSingle()
+    if (error) return res.status(500).json({ error: 'Could not update the pinned lead.' })
+    if (!data) return res.status(404).json({ error: 'Lead not found.' })
+    return res.json({ ok: true, lead: data })
+  }
+
   const email = String(req.body?.email || '').trim().toLowerCase()
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'Enter a valid email address.' })
   const budgetMin = nullableMoney(req.body?.budgetMin)
@@ -30,7 +54,6 @@ export default async function handler(req, res) {
   if (Number.isNaN(budgetMin) || Number.isNaN(budgetMax)) return res.status(400).json({ error: 'Budget values must be valid positive numbers.' })
   if (budgetMin !== null && budgetMax !== null && budgetMin > budgetMax) return res.status(400).json({ error: 'Minimum budget cannot exceed maximum budget.' })
 
-  const db = createSupabaseAdminClient()
   const { data: currentLead, error: findError } = await db.from('leads')
     .select('id,contact_id,main_region,subregion,budget_min,budget_max,message,contacts(id,first_name,last_name,email,phone,nationality,residence_city,residence_country)')
     .eq('id', id).maybeSingle()
