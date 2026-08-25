@@ -1,4 +1,18 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "cop-crm.vercel.app"
+        }
+      ],
+      "destination": "https://co-ownership-property.com/admin/leads/",
+      "permanent": true
+    }
+  ],
   "crons": [
     {
       "path": "/api/process-gallery-followups",
