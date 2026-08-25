@@ -85,21 +85,22 @@ export default async function handler(req, res) {
     property = data
   }
 
-  const { data: lead, error: leadError } = await db.from('leads').insert({
-    contact_id: contact.id,
-    property_slug: property?.slug || null,
-    property_title: property?.title || null,
-    status: 'new_lead',
-    main_region: text(req.body?.mainRegion, 160) || property?.region || null,
-    subregion: text(req.body?.subregion, 160) || property?.city || null,
-    budget_min: budgetMin,
-    budget_max: budgetMax,
-    partner: property?.partner || null,
-    message: text(req.body?.message, 4000),
-    attribution_source: 'Manual entry',
-    created_at: now,
-    updated_at: now,
-  }).select('id').single()
+  const { data: lead, error: leadError } = await db.rpc('merge_or_create_contact_lead', {
+    p_contact_id: contact.id,
+    p_property_slug: property?.slug || null,
+    p_property_title: property?.title || null,
+    p_main_region: text(req.body?.mainRegion, 160) || property?.region || null,
+    p_subregion: text(req.body?.subregion, 160) || property?.city || null,
+    p_partner: property?.partner || null,
+    p_message: text(req.body?.message, 4000),
+    p_budget_min: budgetMin,
+    p_budget_max: budgetMax,
+    p_first_visit_at: null,
+    p_landing_url: null,
+    p_referrer_url: null,
+    p_attribution_source: 'Manual entry',
+    p_enquiry_page_url: null,
+  }).single()
 
   if (leadError) {
     if (createdContact) await db.from('contacts').delete().eq('id', contact.id)

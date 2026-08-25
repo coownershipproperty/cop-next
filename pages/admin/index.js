@@ -154,18 +154,18 @@ export default function AdminDashboard() {
 
       try {
         const results = await Promise.all([
-          supabase.from('leads').select(leadSelect).is('pinned_at', null).order('created_at', { ascending: false }).limit(15),
-          supabase.from('leads').select(leadSelect).not('pinned_at', 'is', null).order('pinned_at', { ascending: false }).limit(30),
+          supabase.from('leads').select(leadSelect).is('merged_into_lead_id', null).is('pinned_at', null).order('created_at', { ascending: false }).limit(15),
+          supabase.from('leads').select(leadSelect).is('merged_into_lead_id', null).not('pinned_at', 'is', null).order('pinned_at', { ascending: false }).limit(30),
           supabase.from('properties').select('slug,title,img,images,city,region,country,partner,status,price,currency,date_added').order('date_added', { ascending: false, nullsFirst: false }).limit(6),
           supabase.from('partner_hub_leads').select('id,first_name,last_name,partner_id,status,destination,created_at,updated_at').order('updated_at', { ascending: false }).limit(6),
           supabase.from('partner_hub_partners').select('id,display_name,active'),
           supabase.from('tracked_emails').select('recipient_email,subject,open_count,click_count,last_open_at,sent_at').gte('last_open_at', followUpSince).order('last_open_at', { ascending: false }).limit(80),
-          supabase.from('leads').select('created_at').gte('created_at', trendStart).order('created_at', { ascending: true }).limit(5000),
-          supabase.from('leads').select('id', { count: 'exact', head: true }),
+          supabase.from('leads').select('created_at').is('merged_into_lead_id', null).gte('created_at', trendStart).order('created_at', { ascending: true }).limit(5000),
+          supabase.from('leads').select('id', { count: 'exact', head: true }).is('merged_into_lead_id', null),
           supabase.from('properties').select('slug', { count: 'exact', head: true }),
           supabase.from('contacts').select('id', { count: 'exact', head: true }),
-          supabase.from('leads').select('id', { count: 'exact', head: true }).gte('created_at', startOfToday),
-          supabase.from('leads').select('id', { count: 'exact', head: true }).eq('status', 'new_lead').gte('created_at', startOfToday),
+          supabase.from('leads').select('id', { count: 'exact', head: true }).is('merged_into_lead_id', null).gte('created_at', startOfToday),
+          supabase.from('leads').select('id', { count: 'exact', head: true }).is('merged_into_lead_id', null).eq('status', 'new_lead').gte('created_at', startOfToday),
           supabase.from('partner_hub_partners').select('id', { count: 'exact', head: true }).eq('active', true),
           supabase.from('partner_hub_leads').select('id', { count: 'exact', head: true }).not('status', 'in', '(Won,Lost)'),
         ])
@@ -183,7 +183,7 @@ export default function AdminDashboard() {
           if (contactQuery.error) throw contactQuery.error
           const contactIds = (contactQuery.data || []).map((contact) => contact.id)
           if (contactIds.length) {
-            const trackedLeadQuery = await supabase.from('leads').select(leadSelect).in('contact_id', contactIds).order('updated_at', { ascending: false }).limit(100)
+            const trackedLeadQuery = await supabase.from('leads').select(leadSelect).is('merged_into_lead_id', null).in('contact_id', contactIds).order('updated_at', { ascending: false }).limit(100)
             if (trackedLeadQuery.error) throw trackedLeadQuery.error
             trackedLeadRows = trackedLeadQuery.data || []
           }

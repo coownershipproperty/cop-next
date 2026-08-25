@@ -28,6 +28,7 @@ export default function SoldAdminLeads() {
     setLoading(true); setError('')
     const { data, error: loadError } = await supabase.from('leads')
       .select('id,contact_id,property_title,property_slug,main_region,subregion,partner,property_sale_price,commission_rate,invoice_amount,invoice_date,invoice_paid,won_at,created_at,updated_at,contacts(email,first_name,last_name,phone)')
+      .is('merged_into_lead_id', null)
       .eq('status', 'won')
       .order('won_at', { ascending: false, nullsFirst: false })
       .order('updated_at', { ascending: false })

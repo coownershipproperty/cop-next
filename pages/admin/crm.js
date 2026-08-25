@@ -108,7 +108,7 @@ export default function CrmLeads() {
     (async () => {
       try {
         const [leadMeta, props, queue] = await Promise.all([
-          fetchAllPages(() => supabase.from('leads').select('main_region, property_slug').order('id')),
+          fetchAllPages(() => supabase.from('leads').select('main_region, property_slug').is('merged_into_lead_id', null).order('id')),
           fetchAllPages(() => supabase.from('properties').select('slug, partner').order('slug')),
           supabase.from('partner_referrals').select('contact_id, status').in('status', ['pending_review', 'qualified']).limit(1000),
         ])
@@ -117,7 +117,7 @@ export default function CrmLeads() {
         setQueueContacts(new Set((queue.data || []).map((r) => r.contact_id)))
 
         const { count: contactCount } = await supabase.from('contacts').select('id', { count: 'exact', head: true })
-        const { count: leadCount } = await supabase.from('leads').select('id', { count: 'exact', head: true })
+        const { count: leadCount } = await supabase.from('leads').select('id', { count: 'exact', head: true }).is('merged_into_lead_id', null)
         const weekAgo = new Date(Date.now() - 7 * 86400e3).toISOString()
         const { count: newWeek } = await supabase.from('contacts').select('id', { count: 'exact', head: true }).gte('created_at', weekAgo)
         setStats({ contactCount, leadCount, newWeek, queueCount: (queue.data || []).length })
@@ -143,7 +143,7 @@ export default function CrmLeads() {
       const like = `%${search.replaceAll('%', '').replaceAll(',', '')}%`
       q = q.or(`email.ilike.${like},first_name.ilike.${like},last_name.ilike.${like}`)
     }
-    return q.order('created_at', { ascending: false })
+    return q.is('leads.merged_into_lead_id', null).order('created_at', { ascending: false })
   }, [status, region, source, search])
 
   const load = useCallback(async () => {

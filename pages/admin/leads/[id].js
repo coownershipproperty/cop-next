@@ -105,6 +105,10 @@ export default function AdminLeadDetail() {
       .single()
     if (leadQuery.error) { setError(leadQuery.error.message); return }
     const currentLead = leadQuery.data
+    if (currentLead?.merged_into_lead_id) {
+      await router.replace(`/admin/leads/${currentLead.merged_into_lead_id}`)
+      return
+    }
     const contact = Array.isArray(currentLead?.contacts) ? currentLead.contacts[0] : currentLead?.contacts
     const [activityQuery, shortlistQuery, propertyQuery, sendsQuery, trackingQuery] = await Promise.all([
       supabase.from('activities').select('*').eq('lead_id', id).order('created_at', { ascending: false }).limit(100),
@@ -129,7 +133,7 @@ export default function AdminLeadDetail() {
     setTrackedEmails(trackingQuery.data || [])
     setTrackedOpens(trackedOpensQuery.data || [])
     setTrackedClicks(clicksQuery.data || [])
-  }, [id])
+  }, [id, router])
 
   useEffect(() => { load() }, [load])
 
