@@ -4,6 +4,21 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
+/**
+ * "A Year of Weekends" — one home per month, September to next summer.
+ *
+ * Campaign template for the US audience: the calendar IS the story, so the
+ * campaign that uses it should keep personalize_by_region OFF (reordering
+ * would scramble the months). Cards render in the order supplied; any slug
+ * found in NOTES gets its month eyebrow + one-line note, unknown slugs just
+ * render as plain cards, so the template stays usable for future editions —
+ * pass a fresh property list and update NOTES.
+ *
+ * Visual language matches emails/personalised-newsletter.tsx exactly
+ * (navy header/footer, cream body, Cormorant Garamond + Jost, gold rules,
+ * View Gallery gold button + Email Enquiry / WhatsApp pair).
+ */
+
 interface Property {
   slug: string;
   title: string;
@@ -16,27 +31,68 @@ interface Property {
   galleryUrl?: string;
 }
 
-interface PersonalisedNewsletterEmailProps {
+interface YearOfWeekendsEmailProps {
   firstName?: string;
-  primaryProperties?: Property[];
-  fallbackProperties?: Property[];
+  properties?: Property[];
   unsubscribeUrl?: string;
 }
 
 const C = {
-  navy:    '#1E3448',
-  navy80:  '#243d56',
-  navy60:  '#6B8A9E',
-  gold:    '#C9A84C',
-  cream:   '#F7F4EE',
-  white:   '#FFFFFF',
+  navy:   '#1E3448',
+  navy60: '#6B8A9E',
+  gold:   '#C9A84C',
+  cream:  '#F7F4EE',
+  white:  '#FFFFFF',
 };
 
 const base           = 'https://co-ownership-property.com';
 const whatsappNumber = '447901002763';
 const enquiryEmail   = 'hello@co-ownership-property.com';
 
-// ── Gold rule helper ──────────────────────────────────────────────────────────
+// Month + one-liner per slug — the 2026-08 "Year of Weekends" edition.
+const NOTES: Record<string, { month: string; line: string }> = {
+  'napa-california-4-bed-farmhouse-with-pool': {
+    month: 'September',
+    line: 'Harvest weekends — crush season in the valley, dinner in your own garden.',
+  },
+  'kiawah-island-south-carolina-4-bed-house-with-infinity-pool': {
+    month: 'October',
+    line: 'The Lowcountry’s golden month — golf weather, a warm sea, the summer crowds gone.',
+  },
+  'palm-springs-california-3-bed-house-with-pool': {
+    month: 'November',
+    line: 'Desert season opens — 80°F by the pool while everyone up north puts the grill away.',
+  },
+  'breckenridge-colorado-5-bed-house-with-hot-tub': {
+    month: 'December',
+    line: 'First chair to last light, then the hot tub. Christmas in your own mountain house.',
+  },
+  'miami-beach-florida-5-bed-house-with-pool': {
+    month: 'January',
+    line: 'Miami in season — the pool, the light, the long warm evenings.',
+  },
+  'cabo-san-lucas-mexico-4-bed-house-with-beach-access': {
+    month: 'February',
+    line: 'Whale season in Cabo — walk to the beach, 80°F afternoons.',
+  },
+  'park-city-utah-5-bed-townhouse-ski-inski-out': {
+    month: 'March',
+    line: 'Spring skiing — blue mornings, soft snow, and the run starts at your door.',
+  },
+  'carmel-by-the-sea-california-4-bed-house-with-hot-tub': {
+    month: 'April',
+    line: 'Carmel before the summer rush — fireplace evenings, quiet beaches.',
+  },
+  'malibu-california-3-bed-estate-with-beach-access': {
+    month: 'May',
+    line: 'The Pacific warming up — and yes, that price really says Malibu.',
+  },
+  'tahoma-california-usa-3-bed-house-lakefront': {
+    month: 'Next Summer',
+    line: 'Back on the lake — except this time, the pier is yours.',
+  },
+};
+
 function GoldRule({ width = 28 }: { width?: number }) {
   return (
     <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
@@ -51,7 +107,6 @@ function GoldRule({ width = 28 }: { width?: number }) {
   );
 }
 
-// ── Full-width gold separator (header → body divider) ─────────────────────────
 function GoldBorder() {
   return (
     <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
@@ -62,8 +117,8 @@ function GoldBorder() {
   );
 }
 
-// ── Hero card (properties 1 & 2) ──────────────────────────────────────────────
-function HeroCard({ p }: { p: Property }) {
+function MonthCard({ p }: { p: Property }) {
+  const note     = NOTES[p.slug];
   const waMsg    = encodeURIComponent(`Hi, I saw ${p.title} on Co-Ownership Property and I'd love to find out more.`);
   const mailSub  = encodeURIComponent(`Enquiry: ${p.title}`);
   const mailBody = encodeURIComponent(`Hi,\n\nI'm interested in ${p.title}.\n\nThank you`);
@@ -72,53 +127,19 @@ function HeroCard({ p }: { p: Property }) {
   const mailHref = `mailto:${enquiryEmail}?subject=${mailSub}&body=${mailBody}`;
 
   return (
-    <Section style={heroCard}>
+    <Section style={card}>
       <Link href={href} style={{ display: 'block' }}>
-        <Img src={p.imageUrl} alt={p.title} width="560" style={heroImg} />
+        <Img src={p.imageUrl} alt={p.title} width="560" style={cardImg} />
       </Link>
-      <Section style={heroBody}>
+      <Section style={cardBody}>
+        {note && <Text style={monthEyebrow}>{note.month}</Text>}
         <Hr style={cardGoldRule} />
-        <Heading style={heroTitle}>{p.title}</Heading>
-        <Text style={heroPrice}>
+        <Heading style={cardTitle}>{p.title}</Heading>
+        {note && <Text style={noteLine}>{note.line}</Text>}
+        <Text style={cardPrice}>
           {p.price}&ensp;<span style={perShare}>per share</span>
         </Text>
         <Link href={href} style={goldBtn}>View Gallery</Link>
-        <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={{ marginTop: 0 }}>
-          <tbody><tr>
-            <td width="50%" style={{ paddingRight: 6 }}>
-              <Link href={mailHref} style={outlineBtn}>Email Enquiry</Link>
-            </td>
-            <td width="50%" style={{ paddingLeft: 6 }}>
-              <Link href={waHref} style={waBtn}><span style={{ color: '#25D366', fontSize: 8, verticalAlign: 'middle' }}>&#9679;</span>&ensp;WhatsApp Us</Link>
-            </td>
-          </tr></tbody>
-        </table>
-      </Section>
-    </Section>
-  );
-}
-
-// ── Secondary card (properties 3–6) ──────────────────────────────────────────
-function SecondaryCard({ p }: { p: Property }) {
-  const waMsg    = encodeURIComponent(`Hi, I saw ${p.title} on Co-Ownership Property and I'd love to find out more.`);
-  const mailSub  = encodeURIComponent(`Enquiry: ${p.title}`);
-  const mailBody = encodeURIComponent(`Hi,\n\nI'm interested in ${p.title}.\n\nThank you`);
-  const href     = p.galleryUrl || `${base}/property/${p.slug}`;
-  const waHref   = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
-  const mailHref = `mailto:${enquiryEmail}?subject=${mailSub}&body=${mailBody}`;
-
-  return (
-    <Section style={secondaryCard}>
-      <Link href={href} style={{ display: 'block' }}>
-        <Img src={p.imageUrl} alt={p.title} width="560" style={secondaryImg} />
-      </Link>
-      <Section style={secondaryBody}>
-        <Hr style={cardGoldRule} />
-        <Heading style={secondaryTitle}>{p.title}</Heading>
-        <Text style={secondaryPrice}>
-          {p.price}&ensp;<span style={{ ...perShare, fontSize: 9 }}>per share</span>
-        </Text>
-        <Link href={href} style={{ ...goldBtnSm, marginBottom: 12 }}>View Gallery</Link>
         <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
           <tbody><tr>
             <td width="50%" style={{ paddingRight: 6 }}>
@@ -134,41 +155,27 @@ function SecondaryCard({ p }: { p: Property }) {
   );
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
-export default function PersonalisedNewsletterEmail({
+export default function YearOfWeekendsEmail({
   firstName = 'there',
-  primaryProperties = [],
-  fallbackProperties = [],
+  properties = [],
   unsubscribeUrl = `${base}/unsubscribe`,
-}: PersonalisedNewsletterEmailProps) {
-  const allProps       = [...primaryProperties, ...fallbackProperties];
-  const heroProps      = allProps.slice(0, 2);
-  const secondaryProps = allProps.slice(2, 6);
-
-  const regions = [...new Set(allProps.map(p => p.regionTag || p.location?.split(',')[0]).filter(Boolean))];
-  const top3    = regions.slice(0, 3);
-  // "California & Mallorca" or "California, Mallorca & Ibiza"
-  const destShort = top3.length > 1
-    ? top3.slice(0, -1).join(', ') + ' & ' + top3[top3.length - 1]
-    : top3[0] || '';
-
-  const introLine = firstName !== 'there'
-    ? `${firstName} — ${allProps.length} homes${destShort ? ` in ${destShort}` : ''}, matched for you`
-    : `${allProps.length} homes${destShort ? ` in ${destShort}` : ''}, matched for you`;
+}: YearOfWeekendsEmailProps) {
+  const previewLine = 'A year of American weekends — from Napa harvest to your own Tahoe pier.';
+  const helloLine = firstName !== 'there'
+    ? `${firstName} — the rental’s returned and the sand is still in the car. Here’s the case for never doing that again.`
+    : 'The rental’s returned and the sand is still in the car. Here’s the case for never doing that again.';
 
   return (
     <Html lang="en">
       <Head>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
-          .logo-full { display: block !important; }
-          .logo-cop  { display: none  !important; }
           @media only screen and (max-width: 480px) {
             .wordmark-text { font-size: 18px !important; }
           }
         `}</style>
       </Head>
-      <Preview>{introLine}</Preview>
+      <Preview>{previewLine}</Preview>
 
       <Body style={body}>
 
@@ -177,44 +184,39 @@ export default function PersonalisedNewsletterEmail({
           <Container style={wrap}>
             <GoldRule width={36} />
             <Text className="wordmark-text" style={wordmarkFull}>Co-Ownership Property</Text>
-            <Text style={headerTagline}>Your weekly edit of the world's finest co-ownership</Text>
+            <Text style={headerKicker}>A Year of Weekends</Text>
+            <Text style={headerTagline}>One American home for every month — Napa to Cabo, September to next summer</Text>
             <GoldRule width={36} />
           </Container>
         </Section>
 
-        {/* ── Full-width gold line separating header from body ── */}
         <GoldBorder />
 
         {/* ── Intro ── */}
-        <Section className="prop-section" style={{ backgroundColor: C.cream }}>
+        <Section style={{ backgroundColor: C.cream }}>
           <Container style={wrap}>
-            <Section style={{ padding: '32px 0 24px', textAlign: 'center' as const }}>
-              <Text className="intro-text" style={introStyle}>{introLine}</Text>
+            <Section style={{ padding: '32px 0 8px', textAlign: 'center' as const }}>
+              <Text style={introStyle}>{helloLine}</Text>
+              <Text style={introSub}>
+                One American home for every month of the year ahead — each a fully deeded 1/8
+                share of the whole house, fully managed between stays. Follow the calendar.
+              </Text>
               <Hr style={goldBar} />
             </Section>
           </Container>
         </Section>
 
-        {/* ── Hero properties (1 & 2) ── */}
-        <Section className="prop-section" style={{ backgroundColor: C.cream, paddingBottom: 0 }}>
+        {/* ── The calendar ── */}
+        <Section style={{ backgroundColor: C.cream, paddingBottom: 0 }}>
           <Container style={wrap}>
-            {heroProps.map((p, i) => <HeroCard key={i} p={p} />)}
+            {properties.map((p, i) => <MonthCard key={i} p={p} />)}
           </Container>
         </Section>
 
-        {/* ── Secondary properties (3–6, single column) ── */}
-        {secondaryProps.length > 0 && (
-          <Section className="prop-section" style={{ backgroundColor: C.cream, paddingBottom: 0 }}>
-            <Container style={wrap}>
-              {secondaryProps.map((p, i) => <SecondaryCard key={i} p={p} />)}
-            </Container>
-          </Section>
-        )}
-
         {/* ── Reply nudge ── */}
-        <Section className="prop-nudge" style={{ backgroundColor: C.cream, padding: '12px 0 52px' }}>
+        <Section style={{ backgroundColor: C.cream, padding: '12px 0 52px' }}>
           <Container style={wrap}>
-            <Text style={replyNudge}>Anything catch your eye? Just reply to this email.</Text>
+            <Text style={replyNudge}>Which month is yours? Just reply to this email.</Text>
           </Container>
         </Section>
 
@@ -231,7 +233,7 @@ export default function PersonalisedNewsletterEmail({
               <Link href={`${base}/how-it-works`} style={footLink}>How It Works</Link>
             </Text>
             <Hr style={footDivider} />
-            <Text style={footFine}>You're receiving this because you expressed interest in co-ownership property.</Text>
+            <Text style={footFine}>You&rsquo;re receiving this because you expressed interest in co-ownership property.</Text>
             <Text style={footFine}>
               <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
             </Text>
@@ -252,10 +254,7 @@ const body: React.CSSProperties = {
 };
 const wrap: React.CSSProperties = { maxWidth: 560, margin: '0 auto', padding: '0 20px' };
 
-// Header — same dark shade as footer for visual unity
 const header: React.CSSProperties = { backgroundColor: C.navy, padding: '44px 0 40px' };
-
-// Wordmark — bigger, more air
 const wordmarkFull: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: C.white,
@@ -264,11 +263,20 @@ const wordmarkFull: React.CSSProperties = {
   letterSpacing: '0.26em',
   textTransform: 'uppercase' as const,
   textAlign: 'center' as const,
-  margin: '22px 0 14px',
+  margin: '22px 0 16px',
   lineHeight: 1,
 };
-
-// Header tagline — more space above and below
+const headerKicker: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  color: C.gold,
+  fontSize: 11,
+  fontWeight: 600,
+  letterSpacing: '0.32em',
+  textTransform: 'uppercase' as const,
+  textAlign: 'center' as const,
+  margin: '0 0 10px',
+  lineHeight: 1,
+};
 const headerTagline: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   color: 'rgba(255,255,255,0.52)',
@@ -281,103 +289,76 @@ const headerTagline: React.CSSProperties = {
   lineHeight: 1.5,
 };
 
-// (kept for type safety — unused after removing COP-only path)
-const wordmarkCOP: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  color: C.white,
-  fontSize: 20,
-  fontWeight: 300,
-  letterSpacing: '0.26em',
-  textTransform: 'uppercase' as const,
-  textAlign: 'center' as const,
-  margin: '18px 0 8px',
-  lineHeight: 1,
-  display: 'none',
-};
-
-// Intro
 const introStyle: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 26,
+  fontSize: 24,
   fontWeight: 400,
   color: C.navy,
+  margin: '0 0 14px',
+  lineHeight: '1.4',
+  textAlign: 'center' as const,
+};
+const introSub: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontSize: 16,
+  fontWeight: 300,
+  color: '#4A6070',
   margin: '0 0 24px',
-  lineHeight: '1.35',
+  lineHeight: '1.6',
   textAlign: 'center' as const,
 };
 const goldBar: React.CSSProperties = {
   borderColor: C.gold,
   borderTopWidth: 1,
   width: 28,
-  margin: '0 auto',
+  margin: '0 auto 24px',
 };
 
-// Left-aligned short gold rule above card titles — same as the digest's cardGoldRule
+const card: React.CSSProperties     = { backgroundColor: C.white, border: '1px solid #E8E3DC', marginBottom: 24 };
+const cardImg: React.CSSProperties  = { width: '100%', height: 250, objectFit: 'cover' as const, display: 'block' };
+const cardBody: React.CSSProperties = { padding: '24px 32px 28px' };
+
+const monthEyebrow: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 600,
+  letterSpacing: '0.3em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  margin: '0 0 10px',
+  lineHeight: 1,
+};
 const cardGoldRule: React.CSSProperties = {
   borderColor: C.gold,
   borderTopWidth: 1,
   width: 28,
   margin: '0 0 14px',
 };
-
-// Region pill (unused — kept for reference)
-const regionPill: React.CSSProperties = {
-  display: 'inline-block',
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 8,
-  fontWeight: 600,
-  letterSpacing: '0.22em',
-  textTransform: 'uppercase' as const,
-  color: C.navy,
-  backgroundColor: C.gold,
-  padding: '3px 10px',
-  margin: '0 0 14px',
-  lineHeight: 1,
-};
-
-// Hero card
-const heroCard: React.CSSProperties  = { backgroundColor: C.white, border: '1px solid #E8E3DC', marginBottom: 24 };
-const heroImg: React.CSSProperties   = { width: '100%', height: 300, objectFit: 'cover' as const, display: 'block' };
-const heroBody: React.CSSProperties  = { padding: '28px 32px 32px' };
-const heroTitle: React.CSSProperties = {
+const cardTitle: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 22,
+  fontSize: 21,
   fontWeight: 300,
   color: C.navy,
-  margin: '0 0 20px',
+  margin: '0 0 10px',
   lineHeight: '1.35',
 };
-const heroPrice: React.CSSProperties = {
+const noteLine: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 28,
+  fontSize: 16,
+  fontStyle: 'italic',
   fontWeight: 300,
-  color: C.navy,
-  margin: '6px 0 22px',
-  lineHeight: 1,
-};
-
-// Secondary card
-const secondaryCard: React.CSSProperties  = { backgroundColor: C.white, border: '1px solid #E8E3DC', marginBottom: 24 };
-const secondaryImg: React.CSSProperties   = { width: '100%', height: 220, objectFit: 'cover' as const, display: 'block' };
-const secondaryBody: React.CSSProperties  = { padding: '22px 32px 26px' };
-const secondaryTitle: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 19,
-  fontWeight: 300,
-  color: C.navy,
+  color: '#4A6070',
   margin: '0 0 16px',
-  lineHeight: '1.35',
+  lineHeight: '1.55',
 };
-const secondaryPrice: React.CSSProperties = {
+const cardPrice: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 22,
+  fontSize: 26,
   fontWeight: 300,
   color: C.navy,
-  margin: '6px 0 18px',
+  margin: '4px 0 20px',
   lineHeight: 1,
 };
-
-// Shared
 const perShare: React.CSSProperties = {
   fontFamily: "'Jost', Arial, sans-serif",
   fontSize: 10,
@@ -387,7 +368,6 @@ const perShare: React.CSSProperties = {
   textTransform: 'uppercase' as const,
 };
 
-// Buttons
 const goldBtn: React.CSSProperties = {
   display: 'block',
   backgroundColor: C.navy,
@@ -399,12 +379,9 @@ const goldBtn: React.CSSProperties = {
   textTransform: 'uppercase' as const,
   textDecoration: 'none',
   textAlign: 'center' as const,
-  padding: '15px 24px',
-  marginBottom: 18,
+  padding: '14px 24px',
+  marginBottom: 12,
 };
-const goldBtnSm: React.CSSProperties = { ...goldBtn, padding: '13px 24px', marginBottom: 0 };
-
-// Secondary buttons — Email Enquiry (outlined) / WhatsApp (brand green)
 const outlineBtn: React.CSSProperties = {
   display: 'block',
   border: `1px solid ${C.navy}`,
@@ -422,19 +399,6 @@ const waBtn: React.CSSProperties = {
   ...outlineBtn,
 };
 
-const contactLine: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
-  fontWeight: 400,
-  letterSpacing: '0.14em',
-  textTransform: 'uppercase' as const,
-  color: C.navy60,
-  textAlign: 'center' as const,
-  margin: 0,
-};
-const contactLink: React.CSSProperties = { color: C.navy60, textDecoration: 'none' };
-
-// Reply nudge — navy60 works on both cream (mobile) and navy (desktop) backgrounds
 const replyNudge: React.CSSProperties = {
   fontFamily: "'Cormorant Garamond', Georgia, serif",
   fontSize: 17,
@@ -445,7 +409,6 @@ const replyNudge: React.CSSProperties = {
   margin: '12px 0 0',
 };
 
-// Footer
 const footer: React.CSSProperties = {
   backgroundColor: C.navy,
   padding: '44px 0 36px',
