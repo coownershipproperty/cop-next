@@ -47,11 +47,14 @@ export default function AdminTasks() {
   async function addTask(event) {
     event.preventDefault()
     if (!draft.trim() || saving) return
+    const submitted = new FormData(event.currentTarget)
+    const submittedDate = String(submitted.get('dueDate') || '')
+    const submittedTime = String(submitted.get('dueTime') || '')
     setSaving(true)
     setError('')
     try {
       const payload = await authedRequest('/api/admin/tasks', {
-        method: 'POST', body: JSON.stringify({ task: draft, dueDate, dueTime }),
+        method: 'POST', body: JSON.stringify({ task: draft, dueDate: submittedDate, dueTime: submittedTime }),
       })
       setTasks((current) => [...current, payload.task].sort((a, b) => {
         if (!a.due_at) return 1
@@ -88,8 +91,8 @@ export default function AdminTasks() {
       </header>
       <form onSubmit={addTask} className={styles.taskForm}>
         <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="Add a task or note" aria-label="Task or note" maxLength={220} />
-        <input type="date" value={dueDate} onChange={(event) => setDueDate(event.target.value)} aria-label="Task date" />
-        <input type="time" value={dueTime} onChange={(event) => setDueTime(event.target.value)} aria-label="Task time" />
+        <input type="date" name="dueDate" value={dueDate} onChange={(event) => setDueDate(event.target.value)} aria-label="Task date" />
+        <input type="time" name="dueTime" value={dueTime} onChange={(event) => setDueTime(event.target.value)} aria-label="Task time" />
         <button type="submit" disabled={!draft.trim() || saving}>{saving ? 'Saving…' : 'Add'}</button>
       </form>
       {error && <p className={styles.taskError} role="alert">{error}</p>}
