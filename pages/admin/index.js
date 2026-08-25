@@ -107,7 +107,7 @@ export default function AdminDashboard() {
           supabase.from('properties').select('slug', { count: 'exact', head: true }),
           supabase.from('contacts').select('id', { count: 'exact', head: true }),
           supabase.from('leads').select('id', { count: 'exact', head: true }).gte('created_at', startOfToday),
-          supabase.from('leads').select('id', { count: 'exact', head: true }).eq('status', 'new_lead'),
+          supabase.from('leads').select('id', { count: 'exact', head: true }).eq('status', 'new_lead').gte('created_at', startOfToday),
           supabase.from('partner_hub_partners').select('id', { count: 'exact', head: true }).eq('active', true),
           supabase.from('partner_hub_leads').select('id', { count: 'exact', head: true }).not('status', 'in', '(Won,Lost)'),
         ])
@@ -208,7 +208,7 @@ export default function AdminDashboard() {
 
           <aside className={styles.attention}>
             <header><span>NEEDS ATTENTION</span><strong>{loading ? '—' : counts.needsAttention.toLocaleString()}</strong></header>
-            <Link href="/admin/leads"><i>1</i><span><b>New enquiries</b><small>No first contact</small></span><strong>{counts.needsAttention.toLocaleString()}</strong></Link>
+            <Link href="/admin/leads"><i>1</i><span><b>New enquiries today</b><small>Awaiting first contact</small></span><strong>{counts.needsAttention.toLocaleString()}</strong></Link>
             <Link href="/admin/partners"><i>2</i><span><b>Partner pipeline</b><small>Open handovers</small></span><strong>{counts.activePartnerLeads.toLocaleString()}</strong></Link>
             <Link href="/admin/partners/queue"><i>3</i><span><b>Partner requests</b><small>Review follow-up queue</small></span><strong>→</strong></Link>
             <Link href="/admin/partners/queue" className={styles.attentionFooter}>Review all priorities →</Link>
