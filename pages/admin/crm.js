@@ -133,10 +133,9 @@ export default function CrmLeads() {
   }, [])
 
   const buildQuery = useCallback((forCount = false) => {
-    const needInner = status || region
-    const embed = needInner
-      ? 'leads!inner(id,status,property_slug,property_title,main_region,subregion,budget_max,partner,message,created_at)'
-      : 'leads(id,status,property_slug,property_title,main_region,subregion,budget_max,partner,message,created_at)'
+    // A contact can outlive a deleted lead so its communication history remains
+    // available. All Leads should nevertheless contain leads, not orphan contacts.
+    const embed = 'leads!inner(id,status,property_slug,property_title,main_region,subregion,budget_max,partner,message,created_at)'
     let q = supabase.from('contacts').select(`id,email,first_name,last_name,phone,country,source,locale,score,created_at,updated_at,${embed}`, forCount ? { count: 'exact' } : {})
     if (status) q = q.eq('leads.status', status)
     if (region) q = q.eq('leads.main_region', region)
