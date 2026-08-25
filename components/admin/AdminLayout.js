@@ -127,7 +127,10 @@ export default function AdminLayout({ children, fullBleed = false }) {
             <span>{(user?.email || 'A').slice(0, 1).toUpperCase()}</span>
             <p><strong>{user?.email}</strong><small>Administrator</small></p>
           </div>
-          <button type="button" onClick={signOut}>Sign out</button>
+          <div className="cop-admin-account-actions">
+            <button type="button" onClick={() => router.push('/auth/reset-password?next=/admin/')}>Change password</button>
+            <button type="button" onClick={signOut}>Sign out</button>
+          </div>
         </div>
       </aside>
 

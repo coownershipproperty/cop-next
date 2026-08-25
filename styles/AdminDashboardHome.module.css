@@ -17,7 +17,8 @@
 :global(.dashboard-home .cop-admin-account > div > span) { width: 32px; height: 32px; border-radius: 9px; color: #fff; background: #1d2930; font-size: 10px; }
 :global(.dashboard-home .cop-admin-account p strong) { max-width: 145px; color: #243138; font-size: 10px; }
 :global(.dashboard-home .cop-admin-account p small) { color: #8b969c; font-size: 8px; }
-:global(.dashboard-home .cop-admin-account > button) { margin: 10px 0 0 41px; color: #8b969c; font-size: 9px; }
+:global(.dashboard-home .cop-admin-account > .cop-admin-account-actions) { margin: 10px 0 0 41px; gap: 12px; }
+:global(.dashboard-home .cop-admin-account-actions button) { color: #8b969c; font-size: 9px; }
 :global(.dashboard-home .cop-admin-content) { width: calc(100% - 232px); max-width: none; margin-left: 232px; padding: 31px clamp(24px,3vw,48px) 52px; background: #f8fafb; }
 
 .dashboard { width: 100%; max-width: 1680px; margin: 0 auto; }

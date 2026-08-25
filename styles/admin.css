@@ -24,8 +24,9 @@
 .cop-admin-account p strong, .cop-admin-account p small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cop-admin-account p strong { max-width: 160px; font-size: 11px; }
 .cop-admin-account p small { color: #8196a5; font-size: 10px; }
-.cop-admin-account > button { margin: 12px 0 0 43px; padding: 0; color: #9eb0bd; background: none; font-size: 11px; }
-.cop-admin-account > button:hover { color: #fff; }
+.cop-admin-account > .cop-admin-account-actions { margin: 12px 0 0 43px; display: flex; align-items: center; gap: 14px; }
+.cop-admin-account-actions button { padding: 0; color: #9eb0bd; background: none; font-size: 11px; }
+.cop-admin-account-actions button:hover { color: #fff; }
 .cop-admin-content { width: calc(100% - 248px); min-height: 100vh; margin-left: 248px; padding: 34px clamp(22px,3.2vw,48px) 54px; }
 .cop-admin-content:not(.full-bleed) { max-width: 1660px; }
 .cop-admin-content.full-bleed { padding: 0; }
