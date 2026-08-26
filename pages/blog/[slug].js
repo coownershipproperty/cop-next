@@ -80,6 +80,23 @@ function formatPropertyLocation(property) {
   return [property.city, property.region, property.country].filter(Boolean).join(' | ');
 }
 
+function BlogKeyPointIcon({ name }) {
+  const paths = {
+    sun: <><circle cx="12" cy="12" r="3.5" /><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1" /></>,
+    deed: <><path d="M7 3h10v18H7z" /><path d="M10 7h4M10 11h4M10 15h4" /></>,
+    price: <><path d="M14.5 6.5A5.5 5.5 0 1 0 14.5 17.5" /><path d="M5.5 10h8M5.5 14h8" /></>,
+    bicycle: <><circle cx="7" cy="17" r="4" /><circle cx="17" cy="17" r="4" /><path d="m7 17 4-8h3l3 8M9 13h7M10 6h3" /></>,
+  };
+
+  return (
+    <span className="bh-key-point-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        {paths[name] || paths.deed}
+      </svg>
+    </span>
+  );
+}
+
 function normalizeText(value) {
   return (value || '')
     .toString()
@@ -226,6 +243,18 @@ export async function getStaticProps({ params }) {
     excerpt_es:    postRow.excerpt_es || null,
     excerpt_fr:    postRow.excerpt_fr || null,
     heroImage:     postRow.hero_image,
+    heroImageAlt:  postRow.hero_image_alt || null,
+    heroImageCaption: postRow.hero_image_caption || null,
+    keyPoints:     Array.isArray(postRow.key_points)
+      ? postRow.key_points
+        .filter(point => point && typeof point === 'object' && point.text)
+        .slice(0, 4)
+        .map(point => ({
+          icon: String(point.icon || 'deed'),
+          eyebrow: String(point.eyebrow || ''),
+          text: String(point.text),
+        }))
+      : [],
     content:       postRow.content || '',
     content_es:    postRow.content_es || null,
     content_fr:    postRow.content_fr || null,
@@ -400,18 +429,35 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
 
       {/* ── Hero Image ── */}
       {post.heroImage && (
-        <div className="bh-image-wrap">
+        <figure className="bh-image-wrap">
           <div className="bh-image">
             <Image
               src={post.heroImage}
-              alt={title}
+              alt={post.heroImageAlt || title}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 1200px"
               style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
           </div>
-        </div>
+          {post.heroImageCaption && (
+            <figcaption className="bh-image-caption">{post.heroImageCaption}</figcaption>
+          )}
+        </figure>
+      )}
+
+      {post.keyPoints.length > 0 && (
+        <section className="bh-key-points" aria-label="Article at a glance">
+          {post.keyPoints.map((point, index) => (
+            <div className="bh-key-point" key={`${point.eyebrow}-${index}`}>
+              <BlogKeyPointIcon name={point.icon} />
+              <div>
+                {point.eyebrow && <small>{point.eyebrow}</small>}
+                <strong>{point.text}</strong>
+              </div>
+            </div>
+          ))}
+        </section>
       )}
 
       {/* ── Article ── */}
