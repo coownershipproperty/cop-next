@@ -138,12 +138,16 @@ export default function NewListingsDigest({
                           <Text style={cardPrice}>{p.price}</Text>
                           <Text style={cardPriceLabel}>per share</Text>
                         </td>
-                        <td style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
-                          <Link href={`${base}/property/${p.slug}`} style={viewBtn}>View Property →</Link>
-                        </td>
                       </tr></tbody>
                     </table>
-                    <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation" style={{ marginTop: 14 }}>
+                    {/* Stacked, identical full-width rectangles — never beside the
+                        price, so nothing crowds on narrow phone screens. */}
+                    <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation" style={{ marginTop: 18 }}>
+                      <tbody><tr><td>
+                        <Link href={`${base}/property/${p.slug}`} style={viewBtn}>View Property →</Link>
+                      </td></tr></tbody>
+                    </table>
+                    <table width="100%" cellPadding="0" cellSpacing="0" border={0} role="presentation" style={{ marginTop: 10 }}>
                       <tbody><tr><td align="center">
                         <Link
                           href={`mailto:info@co-ownership-property.com?subject=${encodeURIComponent(`I'm interested — ${p.title}`)}&body=${encodeURIComponent(`Hi COP team,\n\nI'm interested in ${p.title} (${p.price} per share). Please send me more information.\n\nThanks,\n`)}`}
@@ -218,7 +222,7 @@ const cardPrice: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Geor
 const cardPriceLabel: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, color: C.navy60, letterSpacing: '0.1em', textTransform: 'uppercase' as const, margin: 0 };
 // Primary action — solid navy, ivory text (gold is never a button fill; it
 // stays reserved for hairlines and eyebrows, same as the other templates).
-const viewBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, backgroundColor: C.navy, color: '#F4EFE4', textDecoration: 'none', padding: '13px 26px', display: 'inline-block', whiteSpace: 'nowrap' as const };
+const viewBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, backgroundColor: C.navy, color: '#F4EFE4', textDecoration: 'none', padding: '13px 22px', display: 'block', textAlign: 'center' as const, whiteSpace: 'nowrap' as const };
 // Gold fill kept here by Dylan's explicit call (26 Aug) — the digest's
 // "I'm Interested" stays gold; navy View Property is the primary beside it.
 const interestedBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", backgroundColor: C.gold, color: C.white, fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, textDecoration: 'none', padding: '13px 22px', display: 'block', textAlign: 'center' as const, whiteSpace: 'nowrap' as const };
