@@ -457,15 +457,6 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         </div>
     </section>
 
-    <section className="intro-section">
-        <p className="intro-text">
-            Discover the world of luxury co-ownership. From sun-drenched Mediterranean villas to chic city apartments, from vineyard estates to Alpine retreats, each property feels effortlessly yours.
-        </p>
-        <p className="intro-subtext">
-            Every listing is carefully curated, beautifully designed, and expertly managed. More than ownership, it's a gateway to timeless landscapes, cultural treasures, and unforgettable family moments.
-        </p>
-    </section>
-
     {/* ===== CO-OWNERSHIP EXPLAINER ===== */}
     <section className="explainer-section">
         <div className="explainer-intro">
@@ -523,6 +514,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
               <button
                 key={key}
                 className={`dest-tab-btn${activeDest === key ? " active" : ""}`}
+                onMouseEnter={() => setActiveDest(key)}
                 onClick={e => {
                   setActiveDest(key);
                   // Manually scroll the strip so the clicked tab is centred
@@ -544,7 +536,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "spain" ? " active" : ""}`} id="dest-spain">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/spain-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-spain.webp" alt="Spain" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-spain.webp" alt="Spain" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Spain</div>
@@ -556,7 +548,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "france" ? " active" : ""}`} id="dest-france">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/france-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-france.webp" alt="France" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-france.webp" alt="France" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">France</div>
@@ -568,7 +560,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "italy" ? " active" : ""}`} id="dest-italy">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/italy-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-italy-v2.webp" alt="Italy" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-italy-v2.webp" alt="Italy" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Italy</div>
@@ -580,7 +572,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "portugal" ? " active" : ""}`} id="dest-portugal">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/portugal-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-portugal.webp" alt="Portugal" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-portugal.webp" alt="Portugal" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Portugal</div>
@@ -592,7 +584,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "austria" ? " active" : ""}`} id="dest-austria">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/austria-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-austria.webp" alt="Austria" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-austria.webp" alt="Austria" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Austria</div>
@@ -604,7 +596,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "england" ? " active" : ""}`} id="dest-england">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/england-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-england.webp" alt="England" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-england.webp" alt="England" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">England</div>
@@ -616,7 +608,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "sweden" ? " active" : ""}`} id="dest-sweden">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/sweden-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-sweden.webp" alt="Sweden" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-sweden.webp" alt="Sweden" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Sweden</div>
@@ -628,7 +620,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "germany" ? " active" : ""}`} id="dest-germany">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/germany-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-germany.webp" alt="Germany" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-germany.webp" alt="Germany" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Germany</div>
@@ -640,7 +632,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "croatia" ? " active" : ""}`} id="dest-croatia">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/croatia-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-croatia.webp" alt="Croatia" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-croatia.webp" alt="Croatia" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Croatia</div>
@@ -652,7 +644,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "usa" ? " active" : ""}`} id="dest-usa">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/usa-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-usa-v2.webp" alt="USA" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-usa-v2.webp" alt="USA" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">USA</div>
@@ -664,7 +656,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             <div className={`dest-panel${activeDest === "mexico" ? " active" : ""}`} id="dest-mexico">
                 <div className="dest-country-outline" style={{backgroundImage: "url('/wp-content/uploads/mexico-line.webp')"}}></div>
                 <div className="dest-img-wrap">
-                    <Image src="/wp-content/uploads/dest-mexico-v2.webp" alt="Mexico" fill quality={90} loading="lazy" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
+                    <Image src="/wp-content/uploads/dest-mexico-v2.webp" alt="Mexico" fill quality={90} loading="eager" sizes="(max-width: 768px) 100vw, 49vw" style={{objectFit:'cover', objectPosition:'center 65%'}} />
                 </div>
                 <div className="dest-info">
                     <div className="dest-info-name">Mexico</div>

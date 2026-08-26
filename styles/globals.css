@@ -10036,3 +10036,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   font-family: 'Nunito Sans', sans-serif;
   background: rgba(244,239,228,0.96); color: #1E3448; border: 1px solid #C9A84C;
 }
+
+/* ── Destinations: instant hover switching + soft crossfade ── */
+@keyframes destFade { from { opacity: 0 } to { opacity: 1 } }
+.dest-panel.active { animation: destFade 0.3s ease; }
