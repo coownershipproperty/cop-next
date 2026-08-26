@@ -39,7 +39,7 @@ export async function getStaticProps() {
   // Featured properties from Supabase
   const { data: rows } = await supabase
     .from('properties')
-    .select('slug, title, img, region, country, price, currency, beds, size')
+    .select('slug, title, img, region, country, price, currency, beds, size, date_added')
     .in('slug', FEATURED_PROPERTY_SLUGS)
     .in('status', ['Live', 'for_sale']);
 
@@ -57,6 +57,9 @@ export async function getStaticProps() {
       currency: p.currency || 'EUR',
       beds: p.beds || null,
       size: p.size || null,
+      // "New" tag — listed in the last 7 days. Computed at build; the page
+      // revalidates hourly so it stays fresh enough.
+      isNew: !!(p.date_added && (Date.now() - Date.parse(p.date_added)) < 7 * 864e5),
     }));
 
   // Live property count from Supabase
@@ -247,6 +250,7 @@ function PropCarousel({ items, propertyCount }) {
                     loading={eager ? 'eager' : 'lazy'}
                     decoding="async"
                   />
+                  {p.isNew && <span className="pc-new-badge">New This Week</span>}
                 </div>
                 {isActive ? (
                   <div className="pc-panel">

@@ -2,15 +2,20 @@ import { useState, useEffect, useRef } from 'react'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 
-// Admin → Featured. Curate the homepage "Explore Our Properties" carousel:
-// drag to reorder, add or remove properties. Saves to the featured_properties
-// table via /api/admin/featured; the homepage picks it up on its next rebuild.
+// Admin → Featured. The homepage "Explore Our Properties" carousel now
+// ROTATES ITSELF every morning (see /api/cron/rotate-featured): trending
+// homes (real enquiries, last 30 days), new listings, and a rotating
+// discovery pick. This page shows today's lineup with the reason each home
+// is in; drag/add/remove still works as a manual override, but anything
+// saved here only holds until the next daily rotation.
 
 export default function AdminFeatured() {
   const [allProps, setAllProps] = useState([])
   const [featured, setFeatured] = useState([])   // ordered slugs
+  const [reasons, setReasons] = useState({})     // slug → why it's featured
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [rotating, setRotating] = useState(false)
   const [error, setError] = useState(null)
   const [msg, setMsg] = useState('')
   const [search, setSearch] = useState('')
@@ -27,13 +32,14 @@ export default function AdminFeatured() {
           .select('slug,title,img,city,country,status')
           .order('title', { ascending: true }),
         supabase.from('featured_properties')
-          .select('slug,position')
+          .select('slug,position,reason')
           .order('position', { ascending: true }),
       ])
       if (propsRes.error) throw propsRes.error
       if (featRes.error) throw featRes.error
       setAllProps(propsRes.data || [])
       setFeatured((featRes.data || []).map(r => r.slug))
+      setReasons(Object.fromEntries((featRes.data || []).map(r => [r.slug, r.reason || ''])))
     } catch (e) {
       setError((e && e.message) || 'Could not load properties.')
     } finally {
@@ -99,6 +105,28 @@ export default function AdminFeatured() {
     }
   }
 
+  async function rotateNow() {
+    setRotating(true)
+    setError(null)
+    setMsg('')
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      const token = session && session.access_token
+      const res = await fetch('/api/cron/rotate-featured', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + token },
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(json.error || ('Rotation failed (' + res.status + ')'))
+      setMsg('Rotated — ' + (json.count || 0) + ' homes in today\'s lineup. The homepage has been refreshed.')
+      await load()
+    } catch (e) {
+      setError((e && e.message) || 'Rotation failed.')
+    } finally {
+      setRotating(false)
+    }
+  }
+
   const thumb = {
     width: 52, height: 40, objectFit: 'cover', borderRadius: 6,
     background: '#f0ede8', flex: 'none',
@@ -128,21 +156,41 @@ export default function AdminFeatured() {
             Featured Properties
           </h1>
           <p style={{ fontSize: 13, color: '#8a9aaa', marginTop: 4 }}>
-            These appear in the homepage carousel. Drag to reorder; add or remove below.
+            Rotates itself every morning — trending homes, new listings and a daily discovery pick.
           </p>
         </div>
-        <button
-          onClick={save}
-          disabled={saving || loading}
-          style={{
-            fontSize: 13, fontFamily: '"Nunito Sans", sans-serif',
-            cursor: (saving || loading) ? 'default' : 'pointer',
-            background: '#2C4A5E', color: '#fff', border: 'none', borderRadius: 8,
-            padding: '10px 20px', opacity: (saving || loading) ? 0.6 : 1,
-          }}
-        >
-          {saving ? 'Saving…' : 'Save changes'}
-        </button>
+        <div style={{ display: 'flex', gap: 10 }}>
+          <button
+            onClick={rotateNow}
+            disabled={rotating || loading}
+            style={{
+              fontSize: 13, fontFamily: '"Nunito Sans", sans-serif',
+              cursor: (rotating || loading) ? 'default' : 'pointer',
+              background: '#fff', color: '#2C4A5E', border: '1px solid #2C4A5E', borderRadius: 8,
+              padding: '10px 20px', opacity: (rotating || loading) ? 0.6 : 1,
+            }}
+          >
+            {rotating ? 'Rotating…' : '↻ Rotate now'}
+          </button>
+          <button
+            onClick={save}
+            disabled={saving || loading}
+            style={{
+              fontSize: 13, fontFamily: '"Nunito Sans", sans-serif',
+              cursor: (saving || loading) ? 'default' : 'pointer',
+              background: '#2C4A5E', color: '#fff', border: 'none', borderRadius: 8,
+              padding: '10px 20px', opacity: (saving || loading) ? 0.6 : 1,
+            }}
+          >
+            {saving ? 'Saving…' : 'Save changes'}
+          </button>
+        </div>
+      </div>
+
+      <div style={{ margin: '10px 0 0', padding: '10px 14px', borderRadius: 8, background: '#faf8f3', border: '1px solid #e8e0d4', color: '#6B8A9E', fontSize: 12.5, lineHeight: 1.5 }}>
+        The carousel refreshes automatically early every morning from live signals — homes with recent
+        enquiries, this week's new listings, and a rotating discovery pick — so it changes daily without any
+        curation. Manual edits saved here hold until the next automatic rotation.
       </div>
 
       {msg && (
@@ -185,7 +233,18 @@ export default function AdminFeatured() {
                     <span style={{ color: '#c9c0b2', fontSize: 15, flex: 'none' }} title="Drag to reorder">⠿</span>
                     <span style={{ fontSize: 12, fontWeight: 700, color: '#8a9aaa', width: 22, flex: 'none' }}>{i + 1}</span>
                     <img src={p && p.img ? p.img : '/images/placeholder.jpg'} alt="" style={thumb} loading="lazy" />
-                    <span style={{ ...propTitle, flex: 1 }}>{p ? p.title : slug}</span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={propTitle}>{p ? p.title : slug}</div>
+                      {reasons[slug] ? (
+                        <div style={{
+                          fontSize: 11, marginTop: 2, fontWeight: 600,
+                          color: reasons[slug].startsWith('trending') ? '#C9A84C'
+                               : reasons[slug].startsWith('new') ? '#16775d' : '#8a9aaa',
+                        }}>
+                          {reasons[slug]}
+                        </div>
+                      ) : null}
+                    </div>
                     <button
                       onClick={() => removeSlug(slug)}
                       title="Remove"

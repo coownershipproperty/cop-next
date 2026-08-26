@@ -10026,3 +10026,13 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 @media(prefers-reduced-motion:reduce){
   .cp-modal{animation:none}
 }
+
+/* ── "New This Week" badge — auto-applied to homes listed in the last 7 days ── */
+.prop-badge.new { background: rgba(244,239,228,0.96); color: #1E3448; border: 1px solid #C9A84C; }
+.pc-new-badge {
+  position: absolute; top: 14px; left: 14px; z-index: 2;
+  padding: 0.32rem 0.75rem;
+  font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+  font-family: 'Nunito Sans', sans-serif;
+  background: rgba(244,239,228,0.96); color: #1E3448; border: 1px solid #C9A84C;
+}

@@ -20,6 +20,7 @@ const COPY = {
     missing_photos: (n) => `You're missing ${n} photos`,
     unlock_sub: 'Unlock the full gallery & floor plans — free',
     unlock_now: 'Unlock Now →',
+    new_badge: 'New This Week',
   },
   es: {
     bed_singular: 'Dormitorio', bed_plural: 'Dormitorios',
@@ -30,6 +31,7 @@ const COPY = {
     missing_photos: (n) => `Te faltan ${n} fotos`,
     unlock_sub: 'Desbloquea la galería completa y los planos — gratis',
     unlock_now: 'Desbloquear ahora →',
+    new_badge: 'Novedad',
   },
   fr: {
     bed_singular: 'Chambre', bed_plural: 'Chambres',
@@ -40,6 +42,7 @@ const COPY = {
     missing_photos: (n) => `Il vous manque ${n} photos`,
     unlock_sub: 'Débloquez la galerie complète et les plans — gratuit',
     unlock_now: 'Débloquer maintenant →',
+    new_badge: 'Nouveauté',
   },
 };
 
@@ -136,6 +139,11 @@ export default function PropertyCard({ property: p, priority = false }) {
     ? `1/${shareDenominator}`
     : null;
 
+  // "New This Week" badge — listed in the last 7 days. Sold Out and any
+  // custom p.label badge take priority over it.
+  const addedTs = Date.parse(p.dateAdded || p.date_added || '');
+  const isNew = Number.isFinite(addedTs) && (Date.now() - addedTs) < 7 * 864e5;
+
   return (
     <>
       <article
@@ -187,11 +195,14 @@ export default function PropertyCard({ property: p, priority = false }) {
             </div>
           )}
 
-          {/* Sold-out badge takes priority over any p.label custom badge */}
+          {/* Sold-out badge takes priority over any p.label custom badge,
+              which takes priority over the automatic New This Week badge. */}
           {p.status && String(p.status).toLowerCase().includes('sold') ? (
             <span className="prop-badge prop-badge-sold-out">Sold Out</span>
           ) : p.label ? (
             <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>
+          ) : isNew ? (
+            <span className="prop-badge new">{t.new_badge}</span>
           ) : null}
 
           <button
