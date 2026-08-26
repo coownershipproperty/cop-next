@@ -138,7 +138,7 @@ export default function AdminDashboard() {
   const [partnerLeads, setPartnerLeads] = useState([])
   const [partners, setPartners] = useState({})
   const [trendRows, setTrendRows] = useState([])
-  const [counts, setCounts] = useState({ leads: 0, properties: 0, contacts: 0, newToday: 0, needsAttention: 0, activePartners: 0, activePartnerLeads: 0 })
+  const [counts, setCounts] = useState({ properties: 0, newToday: 0, needsAttention: 0 })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -161,20 +161,16 @@ export default function AdminDashboard() {
           supabase.from('partner_hub_partners').select('id,display_name,active'),
           supabase.from('tracked_emails').select('recipient_email,subject,open_count,click_count,last_open_at,sent_at').gte('last_open_at', followUpSince).order('last_open_at', { ascending: false }).limit(80),
           supabase.from('leads').select('created_at').is('merged_into_lead_id', null).gte('created_at', trendStart).order('created_at', { ascending: true }).limit(5000),
-          supabase.from('leads').select('id', { count: 'exact', head: true }).is('merged_into_lead_id', null),
           supabase.from('properties').select('slug', { count: 'exact', head: true }),
-          supabase.from('contacts').select('id', { count: 'exact', head: true }),
           supabase.from('leads').select('id', { count: 'exact', head: true }).is('merged_into_lead_id', null).gte('created_at', startOfToday),
           supabase.from('leads').select('id', { count: 'exact', head: true }).is('merged_into_lead_id', null).eq('status', 'new_lead').gte('created_at', startOfToday),
-          supabase.from('partner_hub_partners').select('id', { count: 'exact', head: true }).eq('active', true),
-          supabase.from('partner_hub_leads').select('id', { count: 'exact', head: true }).not('status', 'in', '(Won,Lost)'),
         ])
 
         const failed = results.find((result) => result.error)
         if (failed) throw failed.error
         if (!mounted) return
 
-        const [leadRows, pinnedRows, propertyRows, partnerRows, partnerDirectory, trackingRows, weeklyRows, leadCount, propertyCount, contactCount, todayCount, attentionCount, partnerCount, partnerLeadCount] = results
+        const [leadRows, pinnedRows, propertyRows, partnerRows, partnerDirectory, trackingRows, weeklyRows, propertyCount, todayCount, attentionCount] = results
         const recentTracking = trackingRows.data || []
         const trackingEmails = [...new Set(recentTracking.map((row) => row.recipient_email?.trim().toLowerCase()).filter(Boolean))]
         let trackedLeadRows = []
@@ -224,13 +220,9 @@ export default function AdminDashboard() {
         setPartners(Object.fromEntries((partnerDirectory.data || []).map((partner) => [partner.id, partner.display_name])))
         setTrendRows(weeklyRows.data || [])
         setCounts({
-          leads: leadCount.count || 0,
           properties: propertyCount.count || 0,
-          contacts: contactCount.count || 0,
           newToday: todayCount.count || 0,
           needsAttention: attentionCount.count || 0,
-          activePartners: partnerCount.count || 0,
-          activePartnerLeads: partnerLeadCount.count || 0,
         })
       } catch (loadError) {
         if (mounted) setError(loadError.message || 'The dashboard could not be loaded.')
@@ -288,36 +280,26 @@ export default function AdminDashboard() {
 
         {error && <div className={styles.error} role="alert">{error}</div>}
 
-        <AdminTasks />
+        <div className={styles.topGrid}>
+          <AdminTasks />
+          <aside className={styles.dailySummary} aria-label="Today's lead summary">
+            <header><div><span>DAILY CONTROL</span><h2>Today at a glance</h2></div><Link href="/admin/leads">Open CRM →</Link></header>
+            <div className={styles.dailyStats}>
+              <div><span>NEW TODAY</span><strong>{loading ? '—' : counts.newToday.toLocaleString()}</strong><small>{counts.needsAttention.toLocaleString()} awaiting first contact</small></div>
+              <a href="#follow-up-priority"><span>FOLLOW-UP PRIORITY</span><strong>{loading ? '—' : followUpLeads.length.toLocaleString()}</strong><small>Open the priority queue</small></a>
+              <div><span>LEAD VELOCITY</span><strong className={velocity < 0 ? styles.negative : ''}>{velocity >= 0 ? '+' : ''}{velocity}%</strong><small>Latest 4 weeks vs previous 4</small></div>
+              <Link href="/admin/listings"><span>COP LISTINGS</span><strong>{loading ? '—' : counts.properties.toLocaleString()}</strong><small>{properties[0]?.date_added ? `Latest added ${relativeDate(properties[0].date_added)}` : 'Open inventory'}</small></Link>
+            </div>
+            <div className={styles.miniTrend}><span>8-WEEK LEAD FLOW</span><LeadVelocityChart points={weeklyTrend} /></div>
+          </aside>
+        </div>
 
-        <section className={styles.hero}>
-          <div className={styles.heroCopy}>
-            <span>LIVE PIPELINE</span>
-            <h2>{loading ? '—' : counts.leads.toLocaleString()} opportunities</h2>
-            <p>{counts.needsAttention.toLocaleString()} need an action. Prioritise new introductions and stalled conversations.</p>
-            <div><Link href="/admin/partners/queue">Review priority leads</Link><Link href="/admin/leads">Open leads →</Link></div>
-          </div>
-          <div className={styles.chartCard}>
-            <header><div><span>LEAD VELOCITY</span><strong className={velocity < 0 ? styles.negative : ''}>{velocity >= 0 ? '+' : ''}{velocity}%</strong></div><small>LAST 8 WEEKS</small></header>
-            <LeadVelocityChart points={weeklyTrend} />
-          </div>
-        </section>
-
-        <section className={styles.metrics} aria-label="Dashboard metrics">
-          <article><span>TOTAL LEADS</span><strong>{loading ? '—' : counts.leads.toLocaleString()}</strong><small>{counts.contacts.toLocaleString()} contacts</small></article>
-          <article><span>NEW TODAY</span><strong>{loading ? '—' : counts.newToday.toLocaleString()}</strong><small>{counts.needsAttention.toLocaleString()} awaiting first contact</small></article>
-          <article><span>ACTIVE PARTNERS</span><strong>{loading ? '—' : counts.activePartners.toLocaleString()}</strong><small>{counts.activePartnerLeads.toLocaleString()} open handovers</small></article>
-          <article><span>COP LISTINGS</span><strong>{loading ? '—' : counts.properties.toLocaleString()}</strong><small>Inventory inside the CRM</small></article>
-        </section>
-
-        {!loading && followUpLeads.length > 0 && <section className={`${styles.leadSection} ${styles.prioritySection}`}>
+        {!loading && <section id="follow-up-priority" className={`${styles.leadSection} ${styles.prioritySection}`}>
           <header className={styles.leadSectionHeader}>
             <div><span className={styles.sectionIcon}>↗</span><div><h2>Follow-up priority</h2><p>Recent tracked engagement and new enquiries waiting for contact</p></div></div>
             <Link href="/admin/leads">Review all →</Link>
           </header>
-          <div className={styles.leadCardGrid}>
-            {followUpLeads.map((lead) => <LeadCard key={`priority-${lead.id}`} lead={lead} engagement={lead.engagement} note={latestNotes[lead.id]} pinBusy={pinBusy} onTogglePin={togglePin} />)}
-          </div>
+          {followUpLeads.length > 0 ? <div className={styles.leadCardGrid}>{followUpLeads.map((lead) => <LeadCard key={`priority-${lead.id}`} lead={lead} engagement={lead.engagement} note={latestNotes[lead.id]} pinBusy={pinBusy} onTogglePin={togglePin} />)}</div> : <div className={styles.empty}>Nothing needs your attention right now.</div>}
         </section>}
 
         {!loading && pinnedLeads.length > 0 && <section className={styles.leadSection}>
@@ -345,7 +327,7 @@ export default function AdminDashboard() {
           <section className={styles.panel}>
             <header><div><h2>Recent listings</h2><p>Newest COP inventory</p></div><Link href="/admin/listings">View all →</Link></header>
             <div className={styles.inventory}>
-              {properties.slice(0, 4).map((property) => {
+              {properties.slice(0, 3).map((property) => {
                 const image = property.img || (Array.isArray(property.images) ? property.images[0] : '')
                 return <Link href={`/admin/property/${property.slug}`} key={property.slug}><span style={image ? { backgroundImage: `url("${image.replaceAll('"', '%22')}")` } : undefined} /><p><strong>{property.title}</strong><small>{[property.city, property.region].filter(Boolean).join(', ')} · {property.partner || 'COP'}</small></p><b>›</b></Link>
               })}
@@ -354,7 +336,7 @@ export default function AdminDashboard() {
           <section className={styles.panel}>
             <header><div><h2>Partner activity</h2><p>Latest handover updates</p></div><Link href="/admin/partners">Open Hub →</Link></header>
             <div className={styles.partnerActivity}>
-              {partnerLeads.slice(0, 5).map((lead) => {
+              {partnerLeads.slice(0, 4).map((lead) => {
                 const name = [lead.first_name, lead.last_name].filter(Boolean).join(' ')
                 return <div key={lead.id}><i>{initials(name)}</i><p><strong>{name}</strong><small>{partners[lead.partner_id] || lead.partner_id} · {(lead.status || 'New').replaceAll('_', ' ')}</small></p><time>{relativeDate(lead.updated_at || lead.created_at)}</time></div>
               })}
