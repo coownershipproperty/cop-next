@@ -139,7 +139,7 @@ export default function NewListingsDigest({
                           <Text style={cardPriceLabel}>per share</Text>
                         </td>
                         <td style={{ verticalAlign: 'middle', textAlign: 'right' as const }}>
-                          <Link href={`${base}/property/${p.slug}`} style={viewBtn}>View →</Link>
+                          <Link href={`${base}/property/${p.slug}`} style={viewBtn}>View Property →</Link>
                         </td>
                       </tr></tbody>
                     </table>
@@ -216,8 +216,10 @@ const cardTitle: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Geor
 const cardBeds: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 12, color: C.navy60, letterSpacing: '0.1em', textTransform: 'uppercase' as const, margin: 0 };
 const cardPrice: React.CSSProperties = { fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 24, fontWeight: 500, color: C.gold, margin: '0 0 2px', lineHeight: '1' };
 const cardPriceLabel: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, color: C.navy60, letterSpacing: '0.1em', textTransform: 'uppercase' as const, margin: 0 };
-const viewBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', border: `1px solid ${C.navy}`, padding: '10px 18px', display: 'inline-block', whiteSpace: 'nowrap' as const };
-const interestedBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", backgroundColor: C.gold, color: C.white, fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, textDecoration: 'none', padding: '13px 22px', display: 'block', textAlign: 'center' as const, whiteSpace: 'nowrap' as const };
+// Primary action — solid navy, ivory text (gold is never a button fill; it
+// stays reserved for hairlines and eyebrows, same as the other templates).
+const viewBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, backgroundColor: C.navy, color: '#F4EFE4', textDecoration: 'none', padding: '13px 26px', display: 'inline-block', whiteSpace: 'nowrap' as const };
+const interestedBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", backgroundColor: 'transparent', border: `1px solid ${C.navy}`, color: C.navy, fontSize: 11, fontWeight: 600, letterSpacing: '0.16em', textTransform: 'uppercase' as const, textDecoration: 'none', padding: '12px 22px', display: 'block', textAlign: 'center' as const, whiteSpace: 'nowrap' as const };
 const ctaBtn: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", backgroundColor: C.navy, color: C.white, fontSize: 11, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase' as const, padding: '16px 48px', textDecoration: 'none', display: 'inline-block' };
 const signOffBody: React.CSSProperties = { fontFamily: "'Jost', Arial, sans-serif", fontSize: 14, color: '#4A6070', lineHeight: '1.9', margin: '0 0 28px' };
 const goldRule: React.CSSProperties = { borderColor: C.gold, borderTopWidth: 1, width: 28, margin: '0 0 18px' };
