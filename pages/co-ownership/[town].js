@@ -348,11 +348,11 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
                   {i % 3 === 1 && gallery.length > 0 && (
                     <div className={`town-photo-band${(Math.floor(i / 3) % 2 === 1 && gallery.length > 6) ? ' town-photo-duo' : ''}`}>
                       <div className="town-photo">
-                        <Image src={gallery[Math.floor(i / 3) * 2 % gallery.length]} alt={`${town} — the collection`} fill quality={85} loading="lazy" sizes="(max-width: 860px) 100vw, 780px" style={{ objectFit: 'cover' }} />
+                        <Image src={gallery[Math.floor(i / 3) * 2 % gallery.length]} alt={`${town} — the collection`} fill loading="lazy" sizes="(max-width: 860px) 100vw, 780px" style={{ objectFit: 'cover' }} />
                       </div>
                       {Math.floor(i / 3) % 2 === 1 && gallery.length > 6 && (
                         <div className="town-photo">
-                          <Image src={gallery[(Math.floor(i / 3) * 2 + 1) % gallery.length]} alt={`${town} — the collection`} fill quality={85} loading="lazy" sizes="(max-width: 860px) 100vw, 390px" style={{ objectFit: 'cover' }} />
+                          <Image src={gallery[(Math.floor(i / 3) * 2 + 1) % gallery.length]} alt={`${town} — the collection`} fill loading="lazy" sizes="(max-width: 860px) 100vw, 390px" style={{ objectFit: 'cover' }} />
                         </div>
                       )}
                     </div>
