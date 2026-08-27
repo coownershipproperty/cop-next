@@ -10180,3 +10180,17 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pi-footnote { font-family: 'Nunito Sans', sans-serif; font-size: 0.78rem; color: #8a9aaa; line-height: 1.7; margin: 16px 0 48px; }
 .pi-method h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 500; color: #1E3448; margin: 0 0 16px; }
 .pi-method p { font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; color: #5d6b78; line-height: 1.8; margin: 0 0 18px; max-width: 760px; }
+
+/* ── Programmatic town landing pages ── */
+.town-sec { background: #F7F4EE; padding: 48px 0 80px; }
+.town-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.town-heading { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 500; color: #1E3448; margin: 0 0 26px; }
+.town-about { max-width: 780px; margin: 56px auto 0; }
+.town-about h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 500; color: #1E3448; margin: 0 0 14px; }
+.town-about p { font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; color: #5d6b78; line-height: 1.8; }
+.town-faq { max-width: 780px; margin: 34px auto 0; }
+.town-faq details { border-bottom: 1px solid #E3DDD2; padding: 14px 0; }
+.town-faq summary { font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; font-weight: 700; color: #1E3448; cursor: pointer; }
+.town-faq p { font-family: 'Nunito Sans', sans-serif; font-size: 0.9rem; color: #5d6b78; line-height: 1.75; margin: 10px 0 0; }
+.town-cta { text-align: center; margin: 52px 0 0; }
+.town-cta p { font-family: 'Nunito Sans', sans-serif; font-size: 0.82rem; color: #8a9aaa; margin: 14px 0 0; }

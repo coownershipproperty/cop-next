@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 
+import { townSlug, TOWN_PAGE_MIN_HOMES } from '@/lib/townSlug';
+
 const BASE = 'https://co-ownership-property.com';
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -170,7 +172,7 @@ export async function getServerSideProps({ res }) {
   );
   const { data: properties } = await supabase
     .from('properties')
-    .select('slug, date_added')
+    .select('slug, date_added, city')
     .in('status', ['Live', 'for_sale'])
     .order('date_added', { ascending: false });
 
@@ -380,6 +382,33 @@ export async function getServerSideProps({ res }) {
         urlEntry(`${BASE}${altset.de}`, '0.7', 'weekly', lastmod, altset),
       ];
     }),
+
+    // Programmatic town landing pages (/co-ownership/{town}/ and locale
+    // mirrors) — one entry per town with at least TOWN_PAGE_MIN_HOMES live
+    // homes, matching getStaticPaths in pages/co-ownership/[town].js.
+    ...(() => {
+      const counts = {};
+      for (const p of properties || []) {
+        const t = townSlug(p.city);
+        if (t) counts[t] = (counts[t] || 0) + 1;
+      }
+      return Object.entries(counts)
+        .filter(([, n]) => n >= TOWN_PAGE_MIN_HOMES)
+        .flatMap(([t]) => {
+          const altset = {
+            en: `/co-ownership/${t}/`,
+            es: `/es/copropiedad/${t}/`,
+            fr: `/fr/copropriete/${t}/`,
+            de: `/de/miteigentum/${t}/`,
+          };
+          return [
+            urlEntry(`${BASE}${altset.en}`, '0.75', 'weekly', today, altset),
+            urlEntry(`${BASE}${altset.es}`, '0.75', 'weekly', today, altset),
+            urlEntry(`${BASE}${altset.fr}`, '0.75', 'weekly', today, altset),
+            urlEntry(`${BASE}${altset.de}`, '0.75', 'weekly', today, altset),
+          ];
+        });
+    })(),
 
     // Blog posts — emit EN / ES / FR / DE with reciprocal hreflang. Bodies are
     // translated for the top-9 most-recent; the rest serve EN content under
