@@ -35,7 +35,7 @@ export async function getStaticProps() {
 
   const { data: raw, error } = await supabase
     .from('properties')
-    .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added')
+    .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added, is_discreet')
     // Public listings: hidden & staged rows must never render (19 Jul incident).
     // Sold homes DO stay in the catalogue — PropertyCard puts the Sold Out
     // banner across the photo — but they are pushed to the end of the grid
@@ -65,8 +65,8 @@ export async function getStaticProps() {
     title_de: p.title_de || null,
     img:      p.img,
     images:      (p.images || []).slice(0, 3),
-    totalImages: p.total_images || 0,
-    driveUrl:    p.drive_url   || null,
+    totalImages: p.is_discreet ? 1 : (p.total_images || 0),
+    driveUrl:    p.is_discreet ? null : (p.drive_url || null),
     price:    p.price    || null,
     currency: p.currency || 'EUR',
     share_denominator: p.share_denominator || null,
@@ -75,7 +75,7 @@ export async function getStaticProps() {
     city:     p.city     || '',
     beds:     p.beds     || 0,
     size:     p.size     || 0,
-    label:         '',
+    label:         p.is_discreet ? 'Private Sale' : '',
     status:        p.status        || '',
     property_type: p.property_type || '',
     dateAdded:     p.date_added    || null,

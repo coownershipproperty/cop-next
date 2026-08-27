@@ -684,6 +684,15 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
 
       <Header />
 
+      {p.is_discreet ? (
+        /* ── Discreet home: one photograph, nothing to unlock ── */
+        <div className="pp-discreet-hero">
+          {heroImg && <Img src={heroImg} alt={local.title} sizes="100vw" priority />}
+          <span className="pp-discreet-badge">
+            {locale === 'es' ? 'Venta privada' : locale === 'fr' ? 'Vente privée' : locale === 'de' ? 'Privatverkauf' : 'Private Sale'}
+          </span>
+        </div>
+      ) : (<>
       {/* ── Mobile carousel ── */}
       <div
         className="pp-mob-carousel"
@@ -773,6 +782,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
           <span className="pp-lock-cta-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
         </div>
       </div>
+      </>)}
 
       {/* ── Anchor tabs (Pacaso listings only) ── */}
       {showEnhancedSections && (
