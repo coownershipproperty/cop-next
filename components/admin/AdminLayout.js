@@ -30,6 +30,7 @@ const NAV_GROUPS = [
     label: 'CONTACTS',
     items: [
       { href: '/admin/partners', label: 'Partner Hub', icon: '◎', exclude: ['/admin/partners/queue'] },
+      { href: '/admin/applications', label: 'Applications', icon: '▤' },
     ],
   },
   {

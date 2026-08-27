@@ -19,6 +19,7 @@ const FOOTER_LINKS = {
       { href: '/how-it-works/', label: 'How It Works' },
       { href: '/all-our-blog/', label: 'Our Blog' },
       { href: '/contact/', label: 'Contact' },
+      { href: '/list-with-cop/', label: 'List Your Home' },
     ],
     support: [
       { href: '/contact/', label: 'Get in Touch' },
@@ -40,6 +41,7 @@ const FOOTER_LINKS = {
       { href: '/es/como-funciona/', label: 'Cómo funciona' },
       { href: '/all-our-blog/', label: 'Blog' },
       { href: '/es/contacto/', label: 'Contacto' },
+      { href: '/list-with-cop/', label: 'Publica tu propiedad' },
     ],
     support: [
       { href: '/es/contacto/', label: 'Contáctanos' },
@@ -61,6 +63,7 @@ const FOOTER_LINKS = {
       { href: '/fr/comment-ca-marche/', label: 'Comment ça marche' },
       { href: '/all-our-blog/', label: 'Blog' },
       { href: '/fr/contact/', label: 'Contact' },
+      { href: '/list-with-cop/', label: 'Proposez votre bien' },
     ],
     support: [
       { href: '/fr/contact/', label: 'Nous contacter' },
@@ -82,6 +85,7 @@ const FOOTER_LINKS = {
       { href: '/de/so-funktionierts/', label: 'So funktioniert\'s' },
       { href: '/de/blog/', label: 'Blog' },
       { href: '/de/kontakt/', label: 'Kontakt' },
+      { href: '/list-with-cop/', label: 'Ihr Zuhause anbieten' },
     ],
     support: [
       { href: '/de/kontakt/', label: 'Kontakt aufnehmen' },

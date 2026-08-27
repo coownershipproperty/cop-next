@@ -10118,3 +10118,49 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 }
 .fav-save-done { font-family: 'Nunito Sans', sans-serif; font-size: 0.9rem; color: #16775d; margin: 0; }
 .fav-save-error { font-family: 'Nunito Sans', sans-serif; font-size: 0.8rem; color: #991b1b; margin: 8px 0 0; width: 100%; }
+
+/* ── List With COP page ── */
+.lw-sec { background: #F7F4EE; padding: 56px 0 90px; }
+.lw-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+.lw-tabs { display: flex; gap: 0; justify-content: center; margin: 0 0 44px; border-bottom: 1px solid #E3DDD2; }
+.lw-tabs button {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Nunito Sans', sans-serif; font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #8a9aaa;
+  padding: 14px 26px; border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.lw-tabs button.active { color: #1E3448; border-bottom-color: #C9A84C; }
+.lw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+@media (max-width: 860px) { .lw-grid { grid-template-columns: 1fr; gap: 36px; } }
+.lw-pitch h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 500; color: #1E3448; line-height: 1.3; margin: 0 0 18px; }
+.lw-pitch p { font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; color: #5d6b78; line-height: 1.75; margin: 0 0 20px; }
+.lw-pitch ul { list-style: none; padding: 0; margin: 0; }
+.lw-pitch li {
+  font-family: 'Nunito Sans', sans-serif; font-size: 0.9rem; color: #1E3448; line-height: 1.6;
+  padding: 10px 0 10px 26px; position: relative; border-bottom: 1px solid #EDE8DF;
+}
+.lw-pitch li::before { content: '—'; position: absolute; left: 0; color: #C9A84C; }
+.lw-form { background: #fff; border: 1px solid #E3DDD2; border-top: 2px solid #C9A84C; padding: 30px 28px; }
+.lw-form label { display: block; margin: 0 0 16px; }
+.lw-form label span {
+  display: block; font-family: 'Nunito Sans', sans-serif; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #6B8A9E; margin: 0 0 6px;
+}
+.lw-form input, .lw-form textarea {
+  width: 100%; box-sizing: border-box; border: 1px solid #E3DDD2; background: #FCFBF8;
+  padding: 11px 14px; font-family: 'Nunito Sans', sans-serif; font-size: 0.9rem; color: #1E3448; outline: none;
+}
+.lw-form input:focus, .lw-form textarea:focus { border-color: #2C4A5E; }
+.lw-row { display: flex; gap: 12px; }
+.lw-submit {
+  width: 100%; background: #1E3448; color: #F4EFE4; border: none; cursor: pointer;
+  font-family: 'Nunito Sans', sans-serif; font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; padding: 15px 20px; margin-top: 6px;
+}
+.lw-submit:hover { opacity: 0.93; }
+.lw-error { font-family: 'Nunito Sans', sans-serif; font-size: 0.82rem; color: #991b1b; margin: 12px 0 0; }
+.lw-note { font-family: 'Nunito Sans', sans-serif; font-size: 0.75rem; color: #8a9aaa; line-height: 1.6; margin: 16px 0 0; }
+.lw-done { text-align: center; padding: 60px 20px; }
+.lw-done-icon { width: 54px; height: 54px; border-radius: 50%; background: #e5f5ef; color: #16775d; font-size: 26px; line-height: 54px; margin: 0 auto 18px; }
+.lw-done h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #1E3448; margin: 0 0 10px; }
+.lw-done p { font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; color: #5d6b78; }
