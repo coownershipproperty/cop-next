@@ -34,7 +34,38 @@ export async function getStaticProps() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   );
 
-  const FEATURED_PROPERTY_SLUGS = await getFeaturedSlugs(supabase);
+  let FEATURED_PROPERTY_SLUGS = await getFeaturedSlugs(supabase);
+
+  // Self-healing daily rotation: if the featured table hasn't been rewritten
+  // today (cron missed, scheduler hiccup), rotate it right here during the
+  // ISR rebuild. computeFeaturedLineup is deterministic per date, so a later
+  // cron run writing the same day's lineup is a harmless no-op.
+  try {
+    const { data: freshness } = await supabase
+      .from('featured_properties')
+      .select('updated_at')
+      .order('updated_at', { ascending: false })
+      .limit(1);
+    const lastWrite = freshness?.[0]?.updated_at ? freshness[0].updated_at.slice(0, 10) : null;
+    const today = new Date().toISOString().slice(0, 10);
+    if (lastWrite && lastWrite < today && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      const { computeFeaturedLineup } = await import('@/lib/featured-rotation');
+      const { createSupabaseAdminClient } = await import('@/lib/supabaseAdmin');
+      const db = createSupabaseAdminClient();
+      const lineup = await computeFeaturedLineup(db, today);
+      if (lineup && lineup.length > 0) {
+        const now = new Date().toISOString();
+        await db.from('featured_properties').delete().neq('slug', '');
+        await db.from('featured_properties').insert(
+          lineup.map((item, i) => ({ slug: item.slug, position: i, reason: item.reason, updated_at: now }))
+        );
+        FEATURED_PROPERTY_SLUGS = lineup.map((l) => l.slug);
+        console.log(`[index] self-healed featured rotation for ${today} (${lineup.length} slots)`);
+      }
+    }
+  } catch (e) {
+    console.error('[index] self-heal rotation skipped:', e.message);
+  }
 
   // Featured properties from Supabase
   const { data: rows } = await supabase
