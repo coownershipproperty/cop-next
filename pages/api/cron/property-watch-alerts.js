@@ -158,6 +158,38 @@ export default async function handler(req, res) {
     }
   }
 
+  // ── Daily price-index snapshot (idempotent per day/country) ──
+  try {
+    const { data: live } = await db
+      .from('properties')
+      .select('country, price, currency, size, share_denominator')
+      .in('status', ['Live', 'for_sale'])
+      .gt('price', 0);
+    const byCountry = {};
+    for (const p of live || []) (byCountry[p.country || 'Other'] = byCountry[p.country || 'Other'] || []).push(p);
+    const med = (a) => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2); };
+    const today = new Date().toISOString().slice(0, 10);
+    const rows = Object.entries(byCountry)
+      .filter(([, l]) => l.length >= 3)
+      .map(([country, l]) => {
+        const prices = l.map((p) => Number(p.price));
+        const ws = l.filter((p) => p.size > 0);
+        return {
+          snap_date: today,
+          country,
+          homes: l.length,
+          median_share: med(prices),
+          min_share: Math.min(...prices),
+          max_share: Math.max(...prices),
+          per_sqm: ws.length >= 3 ? med(ws.map((p) => Math.round((p.price * (p.share_denominator || 8)) / p.size))) : null,
+          currency: l[0].currency || 'EUR',
+        };
+      });
+    if (rows.length) await db.from('price_index_snapshots').upsert(rows, { onConflict: 'snap_date,country' });
+  } catch (e) {
+    console.error('[watch-alerts] price snapshot failed:', e.message);
+  }
+
   console.log(`[watch-alerts] processed ${eligible.length} watches, sent ${sent} emails`);
   return res.status(200).json({ ok: true, watches: eligible.length, sent });
 }

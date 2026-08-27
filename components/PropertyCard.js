@@ -69,9 +69,12 @@ const HeartIcon = ({ filled }) => (
   </svg>
 );
 const ShareIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 15, height: 15 }} stroke="#2C4A5E">
-    <path d="M12 3v12M8 6.5 12 3l4 3.5"/>
-    <path d="M5 11v8a2 2 0 002 2h10a2 2 0 002-2v-8"/>
+  // Classic share-nodes shape (three linked dots) — universally read as "share"
+  <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }} stroke="#2C4A5E">
+    <circle cx="18" cy="5" r="2.6"/>
+    <circle cx="6" cy="12" r="2.6"/>
+    <circle cx="18" cy="19" r="2.6"/>
+    <path d="M8.4 10.7l7.2-4.2M8.4 13.3l7.2 4.2"/>
   </svg>
 );
 const ChevronLeft = () => (

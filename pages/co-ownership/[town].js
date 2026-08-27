@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
 import Header from '@/components/Header';
@@ -204,6 +205,18 @@ export async function getStaticProps({ params }) {
     console.error('[town] guide load failed for', params.town, e.message);
   }
 
+  // Photo pool for editorial image bands — every home's best shots, deduped,
+  // so the long guide reads like a magazine feature rather than a text wall.
+  const seen = new Set();
+  const gallery = [];
+  for (const m of matches) {
+    for (const u of [m.img, ...(m.images || [])]) {
+      if (!u || seen.has(u) || u.includes('lh3.googleusercontent.com')) continue;
+      seen.add(u);
+      gallery.push(u);
+    }
+  }
+
   return {
     props: {
       townParam: params.town,
@@ -214,12 +227,13 @@ export async function getStaticProps({ params }) {
       currency,
       homes: matches.map(toCardProp),
       guide,
+      gallery: gallery.slice(0, 14),
     },
     revalidate: 3600,
   };
 }
 
-export default function TownPage({ townParam, town, country, region, minPrice, currency, homes, guide, forceLocale }) {
+export default function TownPage({ townParam, town, country, region, minPrice, currency, homes, guide, gallery = [], forceLocale }) {
   const router = useRouter();
   const locale = forceLocale || localeFromPath(router.asPath || router.pathname) || 'en';
   const t = COPY[locale] || COPY.en;
@@ -235,6 +249,36 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
       acceptedAnswer: { '@type': 'Answer', text: f.a },
     })),
   };
+  const SITE = 'https://co-ownership-property.com';
+  const COUNTRY_DEST = {
+    Spain: '/spain-fractional-ownership-properties/',
+    France: '/france-fractional-ownership-properties/',
+    Italy: '/italy-fractional-ownership-properties/',
+    USA: '/usa-fractional-ownership-properties/',
+    Portugal: '/portugal-fractional-ownership-properties/',
+  };
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Co-Ownership Property', item: SITE + '/' },
+      ...(COUNTRY_DEST[country] ? [{ '@type': 'ListItem', position: 2, name: `${country} Fractional Ownership`, item: SITE + COUNTRY_DEST[country] }] : []),
+      { '@type': 'ListItem', position: COUNTRY_DEST[country] ? 3 : 2, name: `Co-Ownership in ${town}`, item: `${SITE}/co-ownership/${townParam}/` },
+    ],
+  };
+  const itemListLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Co-ownership homes in ${town}`,
+    numberOfItems: homes.length,
+    itemListElement: homes.map((h, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE}/property/${h.slug}/`,
+      name: h.title,
+    })),
+  };
+  const ogImage = gallery[0] || homes[0]?.img || '';
 
   const PATH_PREFIX = {
     en: '/co-ownership/',
@@ -246,8 +290,15 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
   return (
     <>
       <Head>
-        <title>{`${t.title(town)} — ${homes.length} ${locale === 'en' ? `Homes from ${from || ''}` : from || ''} | COP`}</title>
+        <title>{`${t.title(town)} — Fractional Ownership ${locale === 'en' ? `from ${from || ''}` : from || ''} | COP`}</title>
         <meta name="description" content={t.sub(homes.length, from, town)} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Co-Ownership Property" />
+        <meta property="og:title" content={`${t.title(town)} — Fractional Ownership ${from ? `from ${from}` : ''}`} />
+        <meta property="og:description" content={t.sub(homes.length, from, town)} />
+        {ogImage && <meta property="og:image" content={ogImage} />}
+        <meta property="og:url" content={`https://co-ownership-property.com${(PATH_PREFIX[locale] || PATH_PREFIX.en)}${townParam}/`} />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href={`https://co-ownership-property.com${PATH_PREFIX[locale] || PATH_PREFIX.en}${townParam}/`} />
         {Object.entries(PATH_PREFIX).map(([loc, prefix]) => (
@@ -261,6 +312,8 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
         <link rel="alternate" hrefLang="x-default" href={`https://co-ownership-property.com/co-ownership/${townParam}/`} />
         <link rel="icon" href="/favicon.ico" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }} />
       </Head>
       <Header />
 
@@ -287,9 +340,23 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
           {guide && (guide[locale] || guide.en) && (
             <div className="town-guide">
               {(guide[locale] || guide.en).sections.map((sec, i) => (
-                <div key={i} className="town-about">
-                  <h2>{sec.h}</h2>
-                  {sec.p.map((para, j) => <p key={j}>{para}</p>)}
+                <div key={i}>
+                  <div className="town-about">
+                    <h2>{sec.h}</h2>
+                    {sec.p.map((para, j) => <p key={j}>{para}</p>)}
+                  </div>
+                  {i % 3 === 1 && gallery.length > 0 && (
+                    <div className={`town-photo-band${(Math.floor(i / 3) % 2 === 1 && gallery.length > 6) ? ' town-photo-duo' : ''}`}>
+                      <div className="town-photo">
+                        <Image src={gallery[Math.floor(i / 3) * 2 % gallery.length]} alt={`${town} — the collection`} fill quality={85} loading="lazy" sizes="(max-width: 860px) 100vw, 780px" style={{ objectFit: 'cover' }} />
+                      </div>
+                      {Math.floor(i / 3) % 2 === 1 && gallery.length > 6 && (
+                        <div className="town-photo">
+                          <Image src={gallery[(Math.floor(i / 3) * 2 + 1) % gallery.length]} alt={`${town} — the collection`} fill quality={85} loading="lazy" sizes="(max-width: 860px) 100vw, 390px" style={{ objectFit: 'cover' }} />
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

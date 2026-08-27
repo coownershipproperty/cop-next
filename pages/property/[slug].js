@@ -736,6 +736,18 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
 
       {/* ── Desktop gallery ── */}
       <div className="pp-gallery">
+        {!String(p.status || '').toLowerCase().includes('sold') && (
+          <button
+            className="pp-track-pill"
+            onClick={() => {
+              const el = document.querySelector('.pw-box');
+              if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); const b = el.querySelector('.pw-toggle'); if (b) b.click(); setTimeout(() => { const i = el.querySelector('input'); if (i) i.focus(); }, 450); }
+            }}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 14, height: 14 }}><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+            {locale === 'es' ? 'Seguir esta propiedad' : locale === 'fr' ? 'Suivre ce bien' : locale === 'de' ? 'Immobilie folgen' : 'Track this home'}
+          </button>
+        )}
         <button className={`pp-heart-btn${saved ? ' saved' : ''}`} onClick={toggleSave} aria-label={saved ? 'Remove from favourites' : 'Save property'}>
           {saved
             ? <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="currentColor" stroke="currentColor" strokeWidth="1.8"/></svg>
