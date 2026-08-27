@@ -1,54 +1,308 @@
 {
-  "en": { "sections": [
-    { "h": "A Paris address, owned", "p": [
-      "There is no rental that feels like turning your own key on the Left Bank. Our Paris homes sit in the arrondissements people actually dream about — Saint-Germain-des-Prés, the 6th and 7th, the streets between the Seine and the Luxembourg Gardens where the boulangerie knows your order by the second morning. These are Haussmannian apartments with herringbone parquet, high ceilings and marble fireplaces: the hardest property in Europe to buy well from abroad, and the easiest to use badly if you own all of it and visit twice a year.",
-      "Paris is not a seasonal market. It works in February as it works in June — museums, restaurants, opera, fashion weeks, and the simple business of living like a Parisian for a fortnight. That year-round usability is precisely what makes a share here so much more rational than a whole pied-à-terre left dark forty weeks a year."
-    ]},
-    { "h": "The practicalities", "p": [
-      "Access is the easiest in Europe: two major airports, and the Eurostar dropping you at Gare du Nord from London in a little over two hours. Owners treat Paris differently from a holiday home — less two-week blocks, more recurring long weekends and cultural seasons, which the usage calendar handles gracefully. The apartment is kept, cleaned and managed between stays; you arrive to fresh linen and your own belongings in the owner's closet.",
-      "French property law is famously protective of registered owners, and a deeded share is exactly that: real Paris real estate on the title, in your name, with the freedom to sell your fraction on the open market whenever you choose."
-    ]},
-    { "h": "Who buys a share of Paris", "p": [
-      "Three kinds of owners, in our experience. Couples who came every year anyway and finally tired of hotel arithmetic at Paris prices. Families with children studying or working in France who want a permanent foothold rather than serial short lets. And buyers who always promised themselves a Paris apartment, priced whole ownership in the 6th, and discovered that an eighth of the dream — six weeks a year of it, professionally kept — costs less than many people's kitchen renovation. The homes below show the full share price; the sums tend to speak for themselves."
-    ]}
-  ]},
-  "de": { "sections": [
-    { "h": "Eine Pariser Adresse — als Eigentum", "p": [
-      "Keine Miete fühlt sich an wie der eigene Schlüssel am linken Seineufer. Unsere Pariser Wohnungen liegen in den Arrondissements, von denen man wirklich träumt — Saint-Germain-des-Prés, das 6. und 7., die Straßen zwischen Seine und Jardin du Luxembourg, wo die Boulangerie Ihre Bestellung am zweiten Morgen kennt. Haussmann-Wohnungen mit Fischgrätparkett, hohen Decken und Marmorkaminen: die am schwersten gut zu kaufende Immobilie Europas für Käufer aus dem Ausland — und die am leichtesten schlecht genutzte, wenn man alles besitzt und zweimal im Jahr kommt.",
-      "Paris kennt keine Saison. Der Februar funktioniert wie der Juni — Museen, Restaurants, Oper, Modewochen und das schlichte Vergnügen, zwei Wochen wie ein Pariser zu leben. Genau diese Ganzjahresnutzung macht einen Anteil hier so viel vernünftiger als ein ganzes Pied-à-terre, das vierzig Wochen im Jahr dunkel bleibt."
-    ]},
-    { "h": "Das Praktische", "p": [
-      "Die Anreise ist die einfachste Europas: zwei große Flughäfen, und der Zug bringt Sie aus halb Europa direkt ins Zentrum. Eigentümer nutzen Paris anders als ein Ferienhaus — weniger Zwei-Wochen-Blöcke, mehr wiederkehrende lange Wochenenden und Kultursaisons, was der Nutzungskalender elegant abbildet. Die Wohnung wird zwischen den Aufenthalten gepflegt und verwaltet; Sie kommen zu frischer Wäsche und den eigenen Dingen im Eigentümerschrank.",
-      "Das französische Immobilienrecht schützt eingetragene Eigentümer bekanntlich stark — und ein eingetragener Anteil ist genau das: echte Pariser Immobilie im Grundbuch, auf Ihren Namen, mit der Freiheit, Ihren Anteil jederzeit frei zu verkaufen."
-    ]},
-    { "h": "Wer einen Anteil an Paris kauft", "p": [
-      "Drei Arten von Eigentümern, nach unserer Erfahrung: Paare, die ohnehin jedes Jahr kamen und die Hotelarithmetik zu Pariser Preisen satt haben. Familien mit Kindern, die in Frankreich studieren oder arbeiten, und die einen festen Stützpunkt statt serieller Kurzmieten wollen. Und Käufer, die sich immer eine Pariser Wohnung versprochen haben, das Ganze im 6. Arrondissement durchgerechnet haben — und feststellten, dass ein Achtel des Traums, sechs Wochen im Jahr, professionell gepflegt, weniger kostet als manche Küchenrenovierung. Die Wohnungen unten zeigen den vollen Anteilspreis; die Zahlen sprechen meist für sich."
-    ]}
-  ]},
-  "fr": { "sections": [
-    { "h": "Une adresse à Paris, en pleine propriété", "p": [
-      "Aucune location ne ressemble au geste de tourner sa propre clé rive gauche. Nos appartements parisiens sont dans les arrondissements dont on rêve vraiment — Saint-Germain-des-Prés, les 6e et 7e, ces rues entre Seine et jardin du Luxembourg où la boulangère connaît votre commande dès le deuxième matin. Des haussmanniens au parquet en point de Hongrie, hauts plafonds et cheminées de marbre : le bien le plus difficile d'Europe à bien acheter depuis l'étranger — et le plus facile à mal utiliser quand on possède tout et qu'on vient deux fois l'an.",
-      "Paris n'est pas un marché saisonnier. Février vaut juin — musées, restaurants, opéra, semaines de la mode, et le simple bonheur de vivre en Parisien quinze jours. Cette utilité toute l'année rend une part ici tellement plus rationnelle qu'un pied-à-terre entier, éteint quarante semaines par an."
-    ]},
-    { "h": "Le pratique", "p": [
-      "L'accès est le plus simple d'Europe : deux grands aéroports, et le train qui vous dépose en plein centre depuis la moitié du continent. Les propriétaires utilisent Paris autrement qu'une maison de vacances — moins de blocs de deux semaines, davantage de longs week-ends récurrents et de saisons culturelles, ce que le calendrier d'usage gère avec élégance. L'appartement est entretenu et géré entre les séjours ; vous arrivez dans du linge frais, vos affaires dans le placard du propriétaire.",
-      "Le droit immobilier français protège fameusement les propriétaires inscrits — et une part en titre, c'est exactement cela : du vrai immobilier parisien au titre de propriété, à votre nom, librement revendable quand vous le décidez."
-    ]},
-    { "h": "Qui achète une part de Paris", "p": [
-      "Trois profils, d'expérience. Des couples qui venaient déjà chaque année et se sont lassés de l'arithmétique hôtelière aux prix parisiens. Des familles dont les enfants étudient ou travaillent en France et qui veulent un ancrage permanent plutôt que des locations en série. Et des acheteurs qui s'étaient toujours promis un appartement à Paris, ont chiffré la pleine propriété dans le 6e — et découvert qu'un huitième du rêve, six semaines par an, professionnellement entretenu, coûte moins que bien des rénovations de cuisine. Les biens ci-dessous affichent le prix complet de la part ; les chiffres parlent d'eux-mêmes."
-    ]}
-  ]},
-  "es": { "sections": [
-    { "h": "Una dirección en París, en propiedad", "p": [
-      "Ningún alquiler se parece a girar tu propia llave en la orilla izquierda. Nuestros pisos parisinos están en los distritos con los que de verdad se sueña — Saint-Germain-des-Prés, el 6º y el 7º, esas calles entre el Sena y los jardines de Luxemburgo donde la panadería se sabe tu pedido a la segunda mañana. Haussmannianos con parqué de espiga, techos altos y chimeneas de mármol: la propiedad más difícil de Europa para comprar bien desde el extranjero — y la más fácil de usar mal cuando se posee entera y se visita dos veces al año.",
-      "París no es un mercado estacional. Febrero funciona como junio — museos, restaurantes, ópera, semanas de la moda y el simple placer de vivir como un parisino durante quince días. Esa utilidad de todo el año hace que una participación aquí sea mucho más racional que un pied-à-terre entero apagado cuarenta semanas al año."
-    ]},
-    { "h": "Lo práctico", "p": [
-      "El acceso es el más fácil de Europa: dos grandes aeropuertos y trenes que te dejan en pleno centro desde media Europa. Los propietarios usan París de otra manera — menos bloques de dos semanas, más fines de semana largos recurrentes y temporadas culturales, algo que el calendario de uso resuelve con elegancia. El piso se mantiene y gestiona entre estancias; llegas a sábanas limpias y a tus propias cosas en el armario del propietario.",
-      "El derecho inmobiliario francés protege célebremente al propietario registrado — y una participación con escritura es exactamente eso: inmueble parisino real en el título, a tu nombre, con libertad de vender tu fracción en el mercado cuando quieras."
-    ]},
-    { "h": "Quién compra una parte de París", "p": [
-      "Tres perfiles, por experiencia. Parejas que ya venían cada año y se cansaron de la aritmética hotelera a precios parisinos. Familias con hijos estudiando o trabajando en Francia que quieren un punto de apoyo permanente en lugar de alquileres en serie. Y compradores que siempre se prometieron un piso en París, calcularon la propiedad entera en el 6º — y descubrieron que un octavo del sueño, seis semanas al año, profesionalmente cuidado, cuesta menos que muchas reformas de cocina. Los pisos muestran el precio completo de la participación; los números suelen hablar solos."
-    ]}
-  ]}
+ "en": {
+  "sections": [
+   {
+    "h": "Paris, properly understood",
+    "p": [
+     "Almost every city sells itself on a list of attractions. Paris is the rare one where the attractions are beside the point: people who own here do not spend their weeks queuing for the Louvre. They buy bread on a street they know, take a table at a café where the waiter recognises them, walk home along a river that has been the same river for two thousand years, and treat the museums the way Parisians do — as somewhere to spend a wet Tuesday hour, not a bucket-list obligation. The distinction matters enormously when you are deciding whether to own rather than visit, because ownership converts a city from a destination into an address.",
+     "The physical facts underpinning that are unusual. Central Paris is small — you can cross the historic core on foot in an afternoon — and it is dense, coherent and almost entirely built before the motor car. Its residential fabric is protected by some of the strictest heritage rules in Europe, which means the supply of classic apartments in the central arrondissements is fixed at roughly what existed a century ago. It is served by one of the world's great metro systems, sits at the centre of the French high-speed rail network, and has two international airports feeding it from every continent. And it never has a low season: a February Tuesday in Paris is a fully functioning day, with every restaurant, gallery, market and concert hall open, which is emphatically not true of most places people buy holiday homes.",
+     "That last point is the whole argument for a share of Paris rather than a share of a beach or a mountain. Coastal and Alpine property has high weeks and dead weeks; its calendar has a shape, and the shape is fought over. Paris has no dead weeks. Every week of the year is a good week to be here, which means an ownership calendar in this city distributes something close to uniform value — and the weeks nobody else wants are, in Paris, simply weeks."
+    ]
+   },
+   {
+    "h": "A short history of the city you will actually live in",
+    "p": [
+     "The Paris a co-owner inhabits is largely a nineteenth-century city laid over a medieval one, and knowing how that happened explains almost everything about its apartments. Until the 1850s, central Paris was a dense tangle of narrow streets, much of it unchanged since the Middle Ages: the Marais still shows you what that looked like, with its hôtels particuliers — private mansions built around courtyards — and its street plan of alleys and passages. Then came the transformation under Napoleon III, executed by Baron Haussmann, which drove the boulevards through the old fabric, standardised the building line, and produced the cream-stone, zinc-roofed, wrought-iron-balconied apartment blocks that most of the world now pictures when it pictures Paris.",
+     "That programme was, by the standards of urban history, astonishingly consistent. It fixed building heights, cornice lines, façade materials and even the position of the ornamental balconies on the second and fifth floors — which is why a boulevard in the 8th rhymes visually with one in the 17th. It also produced apartment interiors of a specific and enduringly desirable type: high ceilings, parquet floors laid in point de Hongrie or Versailles patterns, marble fireplaces, mouldings, double doors, tall casement windows opening inward onto a shallow balcony. A hundred and fifty years later, these are still the most sought-after homes in the city, and the reason is not nostalgia. They are simply well-made rooms with good proportions and good light.",
+     "The twentieth century added less than you might fear. Wartime spared the centre; post-war expansion went outward to the suburbs and upward at La Défense, safely beyond the ring road. Since the 1970s, the height limit and heritage protections in the central arrondissements have been enforced with a seriousness that borders on the theological. What that means for a buyer is unusual comfort: the view from your windows, the street you walk down and the character of your quarter are protected by law, not by hope. Very few cities in the world can say the same."
+    ]
+   },
+   {
+    "h": "How Paris is arranged: the spiral, decoded",
+    "p": [
+     "Paris is divided into twenty arrondissements arranged in a clockwise spiral starting from the centre, and this is not trivia — it is the city's entire postcode-as-personality system. The 1st is the Louvre and the Tuileries; the spiral then winds outward through the 2nd, 3rd and 4th (the old centre and the Marais), crosses to the Left Bank for the 5th, 6th and 7th, and continues out through the 8th (the Champs-Élysées), the 9th, and so on, ending in the 20th at the eastern edge. The lower the number, broadly, the more central and the more expensive — but the correlation is loose enough that knowing the actual character of each quarter is worth real money.",
+     "The Seine performs the other great division: Right Bank and Left Bank, rive droite and rive gauche, an opposition Parisians take more seriously than any postcode. The Right Bank has historically been the city of commerce, government, fashion and grand boulevards; the Left Bank the city of universities, publishers, bookshops, galleries and cafés with literary ghosts. The stereotype is softer than it was — the Marais on the Right Bank is now as bohemian as anywhere, and the 7th on the Left is as establishment as it gets — but it still describes something real about atmosphere, and most buyers discover within two visits which bank they are.",
+     "For an owner, the practical decoding is simpler than the folklore suggests. What you want is a quarter with a real everyday life — a market street, a good bakery, a café you would use at eight in the morning as well as eight at night — within a few minutes of a metro station on a useful line. That combination exists in perhaps a dozen quarters, and the homes we list sit squarely inside them. Everything else is preference: whether you want the hush of the 7th, the current of the 6th, or the density of the Marais."
+    ]
+   },
+   {
+    "h": "Where exactly to own: the quarters, rated",
+    "p": [
+     "Saint-Germain-des-Prés and the 6th. The most consistently desirable residential quarter in the city, and the one buyers ask for by name. Bookshops, galleries, the Luxembourg gardens at the top of the hill, the rue de Buci and rue de Seine markets, and a café culture with genuine literary lineage. The trade is price and busy pavements on the main axes; the compensation is that side streets a hundred metres off the boulevard Saint-Germain go instantly quiet. Ideal for owners who want to walk everywhere and be in the middle of the city's civilised current.",
+     "The 7th. The 6th's quieter, grander neighbour: ministries, embassies, the Musée d'Orsay, the Rodin garden, Les Invalides, and the rue Cler market street, which is one of the loveliest everyday shopping streets in Paris. Evenings here are calm to the point of hush — a feature for many owners, a drawback for anyone who wants noise under the window. Buildings tend to be larger and more formal, courtyards deeper, ceilings higher. This is the address people buy when they have already had the busy version and want the beautiful one.",
+     "The Marais, the 3rd and the 4th. Pre-Haussmann Paris, preserved: crooked streets, seventeenth-century mansions, the Place des Vosges, museums in old palaces, and a nightlife and shopping scene that runs harder and later than the Left Bank's. Apartments here are older, often smaller, sometimes on stairs without lifts — and utterly full of character. Best suited to owners who want the city at its most concentrated and do not mind that Saturday afternoon on the rue des Francs-Bourgeois is a crowd sport.",
+     "The 1st and 2nd. The old commercial core: the Palais-Royal gardens, the covered passages, the Bourse, the rue Montorgueil market street. Quieter at night than their reputation suggests, extremely central, and often better value per square metre than the Left Bank equivalents. The 2nd in particular has become one of the city's better everyday-living quarters, with the food streets to prove it.",
+     "The 5th, the 8th, the 9th and beyond. The 5th — the Latin Quarter proper — is students, the Panthéon, the rue Mouffetard and the Jardin des Plantes: charming, hilly, less grand. The 8th is the Champs-Élysées and the grand boulevards, magnificent to look at and rather corporate to live in. The 9th, around the Opéra and up towards South Pigalle, has been the city's most interesting improver for a decade: real neighbourhood life, excellent restaurants, prices below the Left Bank. Beyond these, the outer arrondissements offer more space for the money and a different, more local Paris — genuinely rewarding, but a different proposition from the classic central address most share-buyers are after."
+    ]
+   },
+   {
+    "h": "The 6th arrondissement, in depth",
+    "p": [
+     "If Paris has a single quarter that people cross oceans to own a piece of, it is this one. The 6th runs from the Seine up to the Luxembourg gardens, and it contains, within a walkable rectangle, an implausible density of the things that make city life good: the Odéon theatre, the Saint-Sulpice church and its square, the École des Beaux-Arts, three of the world's most famous cafés, several dozen galleries, the great art-supply and paper shops, some of the best food streets in the city, and a park that functions as the collective back garden of the entire Left Bank.",
+     "Its geography rewards study. The northern edge along the quays is grand and slightly tourist-brushed; the central spine of boulevard Saint-Germain is the busy artery; and the real residential pleasure lies in the streets between and above — rue Jacob, rue de l'Université's lower reaches, the streets around Saint-Sulpice, rue Madame, rue de Fleurus, and the quiet grid climbing towards the Luxembourg. The rue de Buci and rue de Seine give the quarter its market life; the rue du Four and rue de Rennes give it its shops; the rue Guisarde and rue Princesse give it its late-night dinner options.",
+     "The Luxembourg deserves its own paragraph, because for owners with children or grandchildren it is often the deciding factor. It is not a park in the English sense — it is a formal seventeenth-century garden with gravel walks, a palace, an orangery, a puppet theatre, tennis courts, chess tables, beehives, an orchard and a great octagonal basin where children have sailed toy boats for generations. It closes at dusk and opens at dawn and is, in the plainest terms, one of the finest public spaces in Europe. Living five minutes from it changes what a week in Paris feels like."
+    ]
+   },
+   {
+    "h": "The 7th arrondissement, in depth",
+    "p": [
+     "The 7th is Paris at its most composed. It holds the Eiffel Tower at one end and the Musée d'Orsay at the other, and between them a district of embassies, ministries, deep courtyards and streets where the loudest sound on a Sunday morning is a shutter being opened. Its grandeur is real — many buildings here were built as single mansions and divided later, which is why the apartments so often have the tallest ceilings and the best proportions in the city — and its quiet is the quiet of a district where a large share of the ground floors are institutions rather than bars.",
+     "The everyday life is better than outsiders expect, and it is concentrated: the rue Cler, a pedestrian market street with the full complement of fishmonger, cheesemonger, butcher, greengrocer and two or three cafés worth sitting outside; the rue Saint-Dominique, which runs east–west with restaurants along its length; and the rue de Grenelle and rue du Bac at the eastern end, where the 7th meets the 6th and the shopping becomes serious. The Bon Marché — the city's oldest department store, and its best food hall — sits on that boundary.",
+     "Green space is the quarter's other quiet luxury. The Champ de Mars beneath the Eiffel Tower is a genuine local park, used far more by residents kicking footballs than by visitors taking photographs; the Rodin museum's garden is one of the great cheap pleasures of Paris, with a season ticket costing very little for a place to read among sculptures; and the Invalides esplanade gives the district a vast open foreground that no other central arrondissement can match. For owners who want beauty, calm and a proper market street within five minutes, the 7th is close to unbeatable — and it is the reason so many of the homes we list here are in it."
+    ]
+   },
+   {
+    "h": "Reading a Parisian building",
+    "p": [
+     "Learning to read a Paris building is the single most useful skill a buyer here can acquire, and it takes about ten minutes. Start at the street: a heavy porte cochère opens into a courtyard, and the character of that courtyard tells you a great deal — paved and planted with a concierge's loge means a well-run building; cluttered with bins means less so. Ahead is usually the main staircase, and off to the side or the rear the escalier de service, the old servants' stair. Buildings that have kept both are typically the more generously proportioned ones.",
+     "Then the floors, which in France are counted from zero. The rez-de-chaussée is the ground floor. The entresol, where it exists, is a low mezzanine above the shops. The premier étage was historically the noble floor in pre-Haussmann buildings — but in a Haussmann block, the prize is the deuxième étage, the étage noble, with the highest ceilings and the long ornamental balcony. The third and fourth are excellent and slightly plainer; the cinquième has the second run of balcony and often the best light; and the sixth, under the roof, is where the chambres de bonne — the old maids' rooms — sit, now converted to studios or absorbed into the apartments below.",
+     "Finally, look up and look through. Ceiling height is the single most reliable proxy for quality in Paris: a room at three metres or more feels entirely different from one at two and a half, and it is the thing you cannot renovate your way to. Then check the aspect — sur rue (on the street) means light and a view and some noise; sur cour (on the courtyard) means quiet and, in a good building with a wide courtyard, still perfectly bright. The best apartments are traversant, running through from street to courtyard, which gives you both. When we walk buyers through a home here, these are the things we point at first."
+    ]
+   },
+   {
+    "h": "The Haussmann apartment, decoded",
+    "p": [
+     "The classic Parisian apartment has a grammar, and once you know it the plans become legible. The entrée gives onto a corridor. The reception rooms — usually two, sometimes three — run along the street façade in enfilade, connected by double doors, so that they can be opened into one long space for entertaining or closed into separate rooms. Behind them, along the courtyard side, sit the kitchen and the service spaces; the bedrooms take whichever side is left. Parquet on the floors, cornices and rosettes on the ceilings, a marble fireplace in each principal room, and tall windows with espagnolette handles and interior shutters folded into the reveals.",
+     "The details are worth knowing because they are what people pay for. Point de Hongrie parquet — the herringbone laid in points — is the classic; Versailles panels are the grander alternative. The mouldings are plaster, and their depth is a proxy for the original quality of the building. Fireplaces are usually decorative now, though many have been fitted with inserts. The windows are single-glazed casements in the untouched apartments; sensitive replacement with heritage-approved double glazing is common and makes an enormous difference to comfort without spoiling the façade.",
+     "What has changed, and changed for the better, is how these apartments are used. The original plan assumed staff, a formal reception life and a kitchen hidden at the back. The modern renovation opens the kitchen to a dining room, converts a service space into a second bathroom, and adds the storage the nineteenth century never thought about, while keeping the parquet, the mouldings and the fireplaces intact. A well-executed version of this — period rooms, contemporary services — is precisely what a professionally furnished co-owned home in Paris should be, and it is what makes a share here so much more usable than a hotel room three times the size."
+    ]
+   },
+   {
+    "h": "Light, noise and the courtyard question",
+    "p": [
+     "Two questions decide whether you will love a Paris apartment: how much light does it get, and how quiet is it at midnight. They pull in opposite directions, which is why the answers repay some thought. Street-facing rooms in the central arrondissements get the sky, the balcony and the theatre of the city; they also get scooters, delivery vans at seven in the morning and, on the livelier streets, the sound of people leaving restaurants. Courtyard-facing rooms get silence and, in a good building, a surprising amount of reflected light — Paris courtyards were built to a legal minimum width and the pale stone bounces the light down beautifully.",
+     "The classic solution, and the one to look for, is the traversant apartment with reception rooms on the street and bedrooms over the courtyard. You wake to silence and take your coffee looking at the boulevard. Failing that, orientation matters: south and west façades give the long evening light that makes the stone glow; north-facing rooms are cooler and steadier, which artists have always preferred and which in a warming climate is no longer the disadvantage it once was.",
+     "Floor level completes the picture. Above the third floor the street noise drops away noticeably and the view opens out over the zinc roofs — the Paris skyline that people photograph from hotel windows is, from a fifth-floor apartment, simply what you see while brushing your teeth. Lifts were retrofitted into most buildings in the twentieth century but not all, and a fifth-floor walk-up is a real consideration for a shared home used by owners of every age. It is the first thing we check and the first thing we tell you."
+    ]
+   },
+   {
+    "h": "A year in Paris, month by month",
+    "p": [
+     "January is the connoisseur's month: cold, clear, empty of visitors, with the sales on, the museums breathable and restaurant tables available. February brings the same virtues with slightly longer days and the first hint of the year turning. March is unreliable weather and reliably lovely light; the cafés put their heaters out and the terraces reopen in earnest. April is the postcard — chestnut blossom on the boulevards, the parks suddenly full — and also, honestly, the month of unannounced rain; Parisians carry a coat and think nothing of it.",
+     "May is arguably the best month of the year: warm, long-lit, and punctuated with public holidays that empty the city on long weekends. June brings the Fête de la Musique, open-air cinema, and evenings that stay bright until ten. July is warm and thinning out; the city belongs to visitors and to the Parisians who stay, and the river beaches appear along the quays. August is the famous exodus: many businesses close for a fortnight, the traffic disappears, and the city becomes strange, hot and wonderfully calm — a divisive month, adored by those who know it.",
+     "September is the rentrée and the sharpest, most alive month in the Parisian calendar: everyone is back, every institution launches its season, the fashion and design weeks fill the hotels, and the weather is frequently better than June's. October is golden and cultural, the great museum-and-restaurant month. November is grey and interior, which is the point — this is when Paris is at its most cinematic, and when the food is at its best. December brings the lights along the grands boulevards, the department store windows, the markets and the oysters. There is not a bad month; there are only different reasons."
+    ]
+   },
+   {
+    "h": "The year's fixtures",
+    "p": [
+     "Paris runs on a cultural calendar dense enough that owners quickly start planning weeks around it. The winter opens with the Christmas markets and illuminated boulevards through December, then the January sales — a fixed, state-regulated period that genuinely moves prices — and the museums at their emptiest. Spring brings the great exhibition season: the major shows at the Grand Palais, the Orsay, the Pompidou and the Louvre are scheduled to open in the first months of the year and run through, and the modern-art and photography fairs cluster around them.",
+     "Summer's fixtures are outdoor and free: the Fête de la Musique on the summer solstice, when every street corner in the city becomes a stage; Bastille Day on the fourteenth of July, with the fireworks from the Trocadéro and the firemen's balls the night before; Paris Plages, when the quays become beaches; and the open-air cinema season in the parks. The Tour de France finishes on the Champs-Élysées in late July, which is worth arranging a week around once in your life.",
+     "The autumn is where Paris shows off. The rentrée in September launches every theatre, opera and concert season at once; the Journées du Patrimoine open hundreds of normally private buildings — ministries, embassies, hôtels particuliers — to anyone who queues; Nuit Blanche turns a Saturday night in October into a city-wide art installation; and the design and fashion weeks fill the calendar. Then the season of great food arrives with the cold, and the year closes with the lights going up again. An owner who books by the calendar rather than by the school holidays is spoilt for choice in a way no beach or ski town can match."
+    ]
+   },
+   {
+    "h": "Eating and drinking, as an owner rather than a visitor",
+    "p": [
+     "The most valuable thing about owning in Paris rather than visiting is that you stop eating like a tourist. Visitors book the famous places for the one night they have; owners build a rotation. The rotation typically has four tiers. The everyday café, where you have coffee standing at the counter for a fraction of the terrace price and where being recognised after three visits is the entire point. The neighbourhood bistro — the one with a chalkboard, six starters and a patron who will tell you what to have. The serious address, booked a few weeks ahead, for the dinner that anchors a week. And the pure-pleasure specialists: the oyster bar in winter, the couscous place, the tiny Japanese counter, the wine bar with plates.",
+     "Two structural facts help enormously. First, the city's dining scene has been transformed over the last fifteen years by young chefs opening small, ambitious, reasonably priced places outside the grand districts — the 9th, 10th, 11th and 2nd are full of them, and half an hour on the metro from a Left Bank address opens the whole field. Second, lunch is the great value in France: the same kitchens serve a two- or three-course formule at the middle of the day for a fraction of the evening cost, which is why residents eat their best meals at one o'clock.",
+     "For a co-owned home, the practical version of all this is a good kitchen and a good market within walking distance — and then the discipline to eat in at least half the time. A Paris week where you cook twice, take lunch out four times, and spend properly on two dinners is both a better week and a cheaper one than a week of restaurant dinners. It is also, exactly, what living here is like."
+    ]
+   },
+   {
+    "h": "Markets, bakers and the everyday supply",
+    "p": [
+     "Every Parisian quarter has its market rhythm, and slotting into it is one of the small pleasures ownership buys. The covered markets — Saint-Germain, Beauvau, the Enfants Rouges in the Marais, the oldest in the city — run most days. The open-air roving markets set up on assigned boulevards on assigned mornings and vanish by two: the Raspail market on Sunday, which has an organic edition, the Saxe-Breteuil market beneath the Eiffel Tower with one of the best views of any market in Europe, the Bastille market on Thursdays and Sundays, and a dozen more. And the market streets — rue Cler, rue de Buci, rue Mouffetard, rue Montorgueil, rue des Martyrs — are permanent, everyday versions of the same thing.",
+     "The bakery question is taken seriously and should be. The city runs an annual competition for the best baguette de tradition, the winner supplies the Élysée Palace for a year, and the results genuinely reshuffle local queues. What matters for an owner is simply knowing which of the three bakeries within two hundred metres of the front door is the good one — the answer is usually obvious from the queue at eight-thirty on a Sunday — and that this is knowledge you accumulate by returning, which is precisely the thing a share gives you and a hotel never will.",
+     "Round it out with the rest of the supply chain: a fromagerie where the cheeses are named by farm and season, a caviste who will ask what you are eating before recommending the bottle, a boucherie, a poissonnerie with the oysters graded by number, and a corner grocer open late. In the central arrondissements all of this exists within five minutes of the homes we list. Owners arrive with hand luggage on a Friday evening and have a proper dinner on the table by nine — that is the practical meaning of a well-placed address."
+    ]
+   },
+   {
+    "h": "Museums, music and the cultural season",
+    "p": [
+     "The headline institutions need no introduction, but the way an owner uses them does. The trick is to stop treating the Louvre as a day and start treating it as an hour: go in the late-afternoon slot, see one wing, leave. The same applies to the Orsay, the Pompidou, the Quai Branly, the Rodin, the Picasso, the Carnavalet — the museum of the history of Paris itself, and the one every owner should visit first. Annual memberships at several institutions cost about the price of two or three visits and turn them into places you drop into, which is precisely the shift from tourism to residence.",
+     "Music runs deep and cheap. The Philharmonie in the Parc de la Villette is a world-class hall with a serious international programme; the Opéra Garnier and Opéra Bastille run parallel opera and ballet seasons; the Sainte-Chapelle and half a dozen churches host chamber concerts under stained glass; and the jazz clubs in the 1st and 5th have been running continuously since the 1940s. Tickets for most of it are, by London or New York standards, startlingly affordable, and the seasons are announced in the spring for the year ahead — which suits an ownership calendar perfectly.",
+     "Theatre, cinema and the smaller arts fill in the rest. Paris has more cinema screens per resident than almost any city on earth, with an art-house circuit that runs restored classics daily and subtitles most foreign films rather than dubbing them. The commercial galleries of the 6th, 8th and Marais are free and change monthly. And the city's temporary exhibitions — the reason Parisians queue in the rain — are worth building a week around: an owner who checks the season announcements each September rarely has trouble deciding when to come."
+    ]
+   },
+   {
+    "h": "Paris with children",
+    "p": [
+     "Paris is far better with children than its reputation suggests, provided you use the residential city rather than the monumental one. The Luxembourg gardens alone will absorb a childhood: the sailing boats on the basin, the puppet theatre, the old carousel with the brass rings, the playground, the pony rides. The Jardin d'Acclimatation in the Bois de Boulogne is a proper children's park with a little train. The Jardin des Plantes has a small zoo and the Grande Galerie de l'Évolution, whose procession of animals through the great hall silences even teenagers. The Cité des Sciences at La Villette is a full day of hands-on science, and the Cité des Enfants inside it is built for the under-twelves.",
+     "The everyday logistics are easy. The metro is dense enough that nothing is far, though prams and staircases are an argument for the bus, which is slower, above ground and far more pleasant for a child. Playgrounds are scattered through every quarter and are surprisingly good. Cafés are entirely accustomed to children at lunch. The bakeries are, obviously, a strategy in themselves. And the Seine — the boats, the bridges, the bouquinistes' green boxes along the quays — provides an hour's entertainment on any afternoon at no cost.",
+     "For ownership groups, the arithmetic is friendlier than in a resort. School-holiday weeks matter less in a city that is good in all weathers and all months, so families and couples in the same group tend to want different weeks rather than the same ones. And children who come back to the same apartment two or three times a year stop being visitors: they learn a metro line, adopt a bakery, and start describing a European capital as somewhere they know. That is a rare thing to be able to give them."
+    ]
+   },
+   {
+    "h": "Green Paris and the river",
+    "p": [
+     "Paris is greener than the postcards admit, and the last decade has made it markedly more so. The formal gardens — the Luxembourg, the Tuileries, the Palais-Royal's arcaded square — are the famous ones. The nineteenth-century landscape parks are the locals' ones: the Parc Monceau in the 8th, the Buttes-Chaumont in the 19th with its cliff and temple, the Parc Montsouris in the 14th. The two great woods bracket the city — the Bois de Boulogne to the west and the Bois de Vincennes to the east, each larger than several central arrondissements combined, with lakes, rowing boats, racecourses and running trails.",
+     "The river has changed the most. Long stretches of the expressway along the quays have been permanently returned to pedestrians, which means you can now walk or cycle for kilometres beside the water through the centre of the city, past floating cafés and playgrounds, with the traffic gone. In summer the Paris Plages programme installs sand, deckchairs and pop-up activity along them. The Canal Saint-Martin in the 10th does a smaller, more bohemian version of the same thing, with iron footbridges and locks and a Sunday crowd sitting on the banks.",
+     "Cycling has been the other transformation. The city has built out a network of protected lanes with unusual speed, and the bike-share scheme covers the whole centre and much of the near suburbs. For an owner, this is a genuine change in how the city is used: the ride along the river from the 7th to the Marais takes twenty minutes and is one of the most pleasant urban journeys in Europe. Between the parks, the quays and the lanes, the modern version of a Paris week involves considerably more time outdoors than the old one did."
+    ]
+   },
+   {
+    "h": "Getting there, and getting around",
+    "p": [
+     "Access is one of Paris's structural advantages and worth stating plainly. Two international airports — Charles de Gaulle to the north-east, Orly to the south — connect the city to essentially everywhere, with Charles de Gaulle among the busiest hubs in Europe and Orly the more convenient for southern Europe and short-haul. Both link to the centre by rail and taxi. The Eurostar runs from Gare du Nord to London in a little over two hours, city centre to city centre; the same station serves Brussels in under an hour and a half and Amsterdam directly. And the TGV network fans out from six mainline stations to Lyon, Marseille, Bordeaux, Strasbourg, Geneva and beyond at high speed.",
+     "Inside the city, the metro is the answer to almost everything: fourteen lines, stations rarely more than a few minutes' walk apart in the centre, trains every couple of minutes at peak, and a fully integrated ticketing system with the buses, trams and suburban RER. Automated lines run late; the network has been extended steadily, most significantly with the ongoing Grand Paris Express programme adding new lines and stations around the city. Buses are slower but scenic; the bike-share is dense; taxis and ride-hailing are plentiful.",
+     "The honest advice for owners is: do not have a car here. Parking in the central arrondissements is expensive and scarce, low-emission rules apply to the wider area, and everything you want is within a walk, a metro ride or a twenty-minute cycle. If you want a car for a weekend in Normandy or Burgundy, rent one for the two days — which is exactly what the Parisians who own the apartments around you do."
+    ]
+   },
+   {
+    "h": "Days out from Paris",
+    "p": [
+     "One of the quiet luxuries of a Paris share is what sits within an hour or two. Versailles is a suburban train ride, and the trick is to go for the gardens and the Trianon estate rather than only the state apartments — Marie-Antoinette's hamlet in particular is a different, gentler world. Fontainebleau, south of the city, offers a palace with better rooms and a fraction of the crowds, set in a forest of sandstone boulders that is one of Europe's great climbing and walking grounds. Chantilly to the north gives you a fairytale château, the finest small art collection in France outside Paris, the great stables, and the country's most beautiful racecourse.",
+     "For gardens and painting, Giverny — Monet's house and water-lily pond — is a straightforward day by train and taxi, best in late spring. Auvers-sur-Oise, where Van Gogh spent his last months, is closer still and far less visited. Champagne begins about an hour and a half east: Reims and Épernay by TGV, the great houses' cellars open for tours, and a cathedral at Reims that rewards the trip on its own. The Loire châteaux are a comfortable day or, better, an overnight.",
+     "Then there is the coast. Normandy is close enough for a weekend: Honfleur and Deauville for the seaside, Bayeux for the tapestry, the landing beaches for the history, and Mont-Saint-Michel a little further. Rouen and its cathedral are an hour and a quarter by train. And in the other direction, the TGV puts Burgundy, Alsace, and even Provence within a half-day of the front door. This is what owning in a capital with six mainline stations actually buys: a week in Paris does not have to be a week only in Paris."
+    ]
+   },
+   {
+    "h": "The property market, honestly described",
+    "p": [
+     "Paris residential property is expensive, tightly supplied and unusually well documented. Prices are recorded transaction by transaction in public land registry data, published by neighbourhood, which means anyone can check the going rate per square metre for a given quarter rather than relying on agents' assertions — a transparency that flatters the serious buyer. Central arrondissements command a substantial premium over the outer ones, and within an arrondissement, the difference between a bright traversant apartment on a good floor and a dark one facing a narrow courtyard can be very large indeed.",
+     "The market's defining feature is supply. The heritage rules, the height limits and the simple fact that the centre was fully built by 1900 mean the stock of classic apartments cannot grow. New construction happens at the edges and in the suburbs; it does not happen on the boulevard Saint-Germain. Meanwhile, demand comes from an unusually broad base — French buyers, European buyers, and international buyers from every continent, plus the deepest institutional and rental demand of any French city. Prices in Paris move, sometimes down as well as up, but the underlying scarcity does not.",
+     "For a share buyer, the relevant translation of all this is simple. A whole apartment in the 6th or 7th of the size and quality that makes a family holiday work is beyond most people's reach as a second home, and would sit empty most of the year if it were not. A share in one is not: it puts the same address, the same square metres and the same street within reach at a fraction of the capital, with none of the empty months. That is not a compromise on the Paris market — it is the most rational way to participate in it."
+    ]
+   },
+   {
+    "h": "What underpins value here",
+    "p": [
+     "Strip away sentiment and Paris rests on a small number of very durable supports. The first is capital-city status in a large, wealthy economy: the seat of government, the headquarters of most of the country's major companies, the centre of its media, fashion, luxury and cultural industries. The second is scarcity, already described, and enforced by law rather than by market restraint. The third is connectivity: two major airports, six mainline stations, direct high-speed rail to London and northern Europe, and a metro network still being extended.",
+     "The fourth is tourism at a scale few cities match — Paris is consistently among the most visited cities in the world, and its visitor economy is diversified across leisure, business, conferences and culture rather than resting on a single season. The fifth is the institutional depth of the city: universities, hospitals, embassies, international organisations, and the sheer number of people who need to live centrally for professional reasons. Together these produce a level of underlying demand for central residential space that does not depend on fashion.",
+     "And the sixth, harder to quantify but very real, is that Paris is protected. The thing you are buying into — the stone, the roofline, the width of the street, the view from the window — is legally prevented from being changed. In most cities, the risk to a good address is that the neighbourhood is redeveloped around it. In central Paris, that risk is close to zero. Over a long holding period, that matters more than any single year's price movement."
+    ]
+   },
+   {
+    "h": "Who owns here",
+    "p": [
+     "The ownership of central Paris is more mixed than the clichés allow. A large part of it is simply Parisian: families who have held the same apartment for generations, professionals who bought before the last two decades of price growth, and the very French institution of the pied-à-terre held by people whose main house is in the provinces. Around that sits a broad international layer — European buyers from Britain, Belgium, Switzerland, Germany, Italy and Scandinavia; North American buyers with a long love affair with the Left Bank; and buyers from the Gulf, Asia and Latin America at the top of the market.",
+     "What the international layer has in common is usage pattern rather than nationality: most of these apartments are used for weeks rather than months. A pied-à-terre in the 6th used six or eight weeks a year is an entirely normal Parisian arrangement — it is, in fact, the historical norm, and it is precisely the pattern that shared ownership formalises and improves. Rather than one household paying for a whole apartment used for six weeks, several households pay for the weeks they use and share everything else.",
+     "For a co-owner, the practical consequence is a building full of neighbours who behave much as you do: present sometimes, absent often, and entirely unbothered by an apartment with a rotating set of occupants. The buildings are used to it, the concierges are used to it, and the professional management that comes with a shared home slots into a service economy — cleaners, handymen, florists, deliveries — that has been catering to part-time Parisian residents for well over a century."
+    ]
+   },
+   {
+    "h": "Paris against the alternatives",
+    "p": [
+     "Buyers considering a share of a capital city usually shortlist the same handful, so here is the honest comparison. London is the closest competitor on prestige and depth of market, and it wins on language for British and American buyers; it loses on price per square metre at the top end, on weather, and — for anyone coming from continental Europe — on the friction that has crept into travel and residence. Its central residential quarters are magnificent, but a comparable address costs materially more, and the city's day-to-day pleasures are less concentrated.",
+     "Rome offers more antiquity and better weather at markedly lower prices, with an apartment market that is charming and less transparent; its administration is heavier and its rental and management infrastructure thinner. Milan is the sharper, more modern Italian option — better run, more business-driven, less beautiful. Lisbon and Madrid both offer sunshine, lower entry prices and improving scenes, and both have seen dramatic price growth from a low base; neither has Paris's institutional depth or its year-round cultural programme. New York is the true peer in scale and energy, and a different proposition entirely: taller, harder, more expensive to run, with a shorter and less accessible European connection.",
+     "Paris's own case, stated plainly, is a rare combination: a protected, walkable, human-scale historic centre; a genuine twelve-month calendar with no dead season; the deepest cultural programme in Europe; an hour or two from most of Western Europe by rail or plane; and property whose supply is fixed by law. It is not the cheapest option and does not claim to be. But for a share used six or so weeks a year, in a place that is equally good in February and September, it is very hard to beat — and the fact that our Paris homes tend to be among the fastest to fill their calendars is the practical evidence."
+    ]
+   },
+   {
+    "h": "Co-ownership in Paris, in practice",
+    "p": [
+     "Here is how a share of a Paris apartment actually works, without euphemism. You buy a deeded fraction of a specific, fully furnished, professionally managed apartment — real property, registered in your name, which you can sell, pass on or hold. It is not a timeshare, not a club membership and not a points scheme. The calendar allocates usage fairly across the owners, rotating the most contested dates from year to year so nobody is permanently advantaged, with flexible booking for the rest. And a professional manager handles everything an absentee owner would otherwise handle themselves: cleaning between stays, linen, maintenance, building relations, deliveries, and the building's own service charges and paperwork.",
+     "Paris has one structural difference from resort markets worth knowing about. Because a city apartment is genuinely usable every week of the year, homes here are sometimes divided into more shares than the eighths that are standard elsewhere — twelfths and thirteenths appear in the Paris market, which lowers the entry price and still leaves each owner a meaningful number of weeks, because there are no dead weeks to allocate. Whether that suits you depends on how much you intend to use it; we will always tell you exactly how many shares a given home is divided into and what that means for your calendar before you go any further.",
+     "The cost side is shared in the same proportion as the ownership: each owner carries their share of the home's running costs, billed transparently through the management arrangement, covering the things a Paris apartment needs — the building's charges, utilities, insurance, cleaning, maintenance and the furnishing reserve. The point of the structure is that a home used part-time by one household at full cost becomes a home used part-time by several households at a fraction of it, with nothing left empty and nothing left unmanaged. Everything else — the parquet, the fireplace, the view of the zinc roofs — is exactly what it would be if you had bought the whole thing."
+    ]
+   },
+   {
+    "h": "Buying in France: how the process actually runs",
+    "p": [
+     "French property transactions are formal, notarised and, once understood, reassuringly predictable. Every sale passes through a notaire — the state-appointed legal officer who verifies title, carries out the searches and draws the contract — and proceeds in two stages: a preliminary agreement that fixes the deal, followed by a statutory cooling-off period for the buyer, then the acte authentique that transfers title at the notaire's office some weeks later. Purchase costs and taxes are published and transparent; there are no mystery fees waiting in the walls. Foreign buyers face no restrictions on owning French property.",
+     "Paris adds a few local specifics worth knowing. Apartments sit within a copropriété — the legal community of the building's owners — with its own accounts, its annual general meeting and its syndic, the managing agent. A buyer receives the building's documentation as part of the sale, and it is genuinely informative: it tells you what works are planned, what the building has spent, and how well it is run. Surveys in France are a defined set of statutory diagnostics rather than the open-ended structural survey familiar to British buyers, and the measured floor area is certified under a specific standard.",
+     "For a co-ownership share, the structure is prepared once, professionally, and each buyer steps into it: your fraction is deeded and registered, and the management contract handles the practical life of the home. We walk every buyer through the specimen documents in plain language before any commitment, and we will always encourage you to take your own independent legal and tax advice — nothing here is legal advice. It is simply the honest shape of a process that international buyers complete in this city, without drama, every week of the year."
+    ]
+   },
+   {
+    "h": "Three owners' years: specimen calendars",
+    "p": [
+     "Abstractions convince nobody, so here are three honest specimen years. The culture-first couple: a week in late January when the city is empty and the museums are breathable; a long weekend in May for an exhibition and the terraces; a full week in late September for the rentrée season openings and the best weather of the year; a few days in November for the food; and a stretch in December for the lights and the markets. Almost none of those dates competes with anyone else's, which is exactly why the calendar clears every year.",
+     "The family with school-age children: the February half-term, using the science museum, the puppets and the swimming pools rather than the monuments; a week at Easter for the parks in blossom; a summer fortnight split around a trip to the coast at Normandy or a TGV run south; and a long weekend in October. In a resort, those are the four most contested slots on the calendar. In Paris, where every week works, the rotation handles them without drama and the shoulder weeks are genuinely desirable rather than consolation prizes.",
+     "The friends' syndicate: two couples who bought together and use the apartment in alternating long weekends through the year — a rugby international in the spring, an exhibition in the autumn, a birthday dinner in June, a Christmas shopping trip in December — plus one shared week each summer when the households combine. Their total usage is spread across fifteen or twenty separate visits rather than concentrated in blocks, which is a pattern only a city home supports. Three shapes, one common property: in a place with no low season, the calendar stops being a scarce resource to be fought over and becomes a diary to be filled."
+    ]
+   },
+   {
+    "h": "An owner's practical almanac",
+    "p": [
+     "The small knowledge that makes ownership frictionless, collected. Sundays: most food shops open in the morning and close by one, the big stores are limited, and the markets are at their best — plan the weekend around it rather than against it. August: expect a fortnight's closure at your favourite bistro and use the list of the ones that stay open, which circulate every year. Public holidays fall thickly in May and cluster into long weekends; the city empties and the traffic vanishes, which is either a reason to come or a reason to stay away, depending on temperament.",
+     "Getting in and out: from Charles de Gaulle, the rail link and the taxi both work, and the flat-rate taxi fares to the Left and Right Banks are set by the city, so there is nothing to negotiate. From Orly, the tram-and-metro combination and the direct rail links are straightforward. Eurostar check-in at Gare du Nord wants you there earlier than a domestic train; the ordinary TGV wants you there two minutes before, which takes some getting used to. Carry a contactless card — it works on the metro, the buses and the bike share.",
+     "In the apartment: your owner's storage holds what you would otherwise carry, so travel light. The management team's number answers everything else — which day the building's bins go out, where the spare keys live, how to get a delivery past the concierge, and who to call when a shutter sticks. And the golden rule of a city share: if you cannot use a week you have booked, release it early. In Paris, unlike a ski week in February, someone in your ownership group will always want it — because in this city there is no such thing as a bad week."
+    ]
+   },
+   {
+    "h": "Paris: questions owners actually ask",
+    "p": [
+     "Do we need to speak French? No, but a little transforms the experience. English is widely spoken in the central arrondissements, in every institution and in most restaurants. What French buys you is not comprehension but welcome: the greeting on entering a shop, the please and thank you, the small courtesies the culture runs on. Owners who come back three times a year tend to find their French improving whether they planned it or not.",
+     "Is the city safe? Central Paris is a large European capital and behaves like one: extremely safe by international standards for serious crime, with the ordinary big-city problem of pickpocketing concentrated at tourist choke points, on certain metro lines and around the stations. The residential quarters where our homes sit are calm. The sensible precautions are the ones you would take in London or Barcelona, and nothing more.",
+     "What about noise? It depends entirely on the apartment, which is why we tell you the aspect of every room. Street-facing rooms on a lively street are lively; courtyard-facing bedrooms are silent. Buildings themselves are solid stone and generally quiet between apartments. If light sleeping is a priority in your group, say so early and we will steer you to the right homes.",
+     "How does the calendar handle Christmas and New Year? The same way it handles every other contested date: by rotation, so that the years alternate and no owner permanently holds the prize weeks. Paris is unusual in that its most desirable weeks are more evenly spread than a resort's, so the rotation has less work to do — but the principle is fixed and written down before you buy.",
+     "Can we leave things there? Yes — that is one of the quiet advantages of a share over a rental. Owner storage means clothes, books, kitchen equipment and the children's things stay in the apartment between visits, and you travel with hand luggage. Over a few years, that alone changes the character of a trip from a holiday to a homecoming."
+    ]
+   },
+   {
+    "h": "More questions, answered plainly",
+    "p": [
+     "What happens if we want to sell? A share is real property and sells like it: you set a price and the market answers. The buyer pool for a fraction of a central Paris apartment is considerably wider than the pool for the whole thing, which is the structural argument for liquidity — far more people can buy a share of a home in the 6th than can buy the whole of one.",
+     "Can we let our weeks? The homes are designed around owner use, and where managed letting of unused weeks is provided for, it is handled by the management team rather than by you. Arrangements differ from home to home; we will tell you exactly what applies to the one you are considering, and it is written into the documents we go through together before any commitment.",
+     "How many owners are there, and do we ever meet? That depends on the home — Paris apartments are sometimes divided into more shares than the eighths standard in resort markets, precisely because a city home is usable all year. Owners are rarely in residence at the same time, but many groups end up in contact over the calendar, and a fair number end up friends. There is no obligation either way.",
+     "Are utilities, cleaning and maintenance included? The running of the home is handled professionally and the costs are shared between the owners in proportion to their shares, covering the building's charges, utilities, insurance, cleaning between stays, maintenance and the reserve that keeps the furnishings good. You receive the breakdown before you buy, not after.",
+     "What should we do on a viewing trip? Come for two days and spend them like a resident, not a visitor. Walk the street at eight in the morning and again at eleven at night. Buy bread at the nearest bakery and coffee at the nearest café. Ride the closest metro line to somewhere you would actually go. Then let us open the doors of the apartments themselves. Two days spent that way settles the question better than two months of brochures — and we will build the itinerary around the homes listed below."
+    ]
+   }
+  ]
+ },
+ "de": {
+  "sections": [
+   {
+    "h": "Eine Pariser Adresse — als Eigentum",
+    "p": [
+     "Keine Miete fühlt sich an wie der eigene Schlüssel am linken Seineufer. Unsere Pariser Wohnungen liegen in den Arrondissements, von denen man wirklich träumt — Saint-Germain-des-Prés, das 6. und 7., die Straßen zwischen Seine und Jardin du Luxembourg, wo die Boulangerie Ihre Bestellung am zweiten Morgen kennt. Haussmann-Wohnungen mit Fischgrätparkett, hohen Decken und Marmorkaminen: die am schwersten gut zu kaufende Immobilie Europas für Käufer aus dem Ausland — und die am leichtesten schlecht genutzte, wenn man alles besitzt und zweimal im Jahr kommt.",
+     "Paris kennt keine Saison. Der Februar funktioniert wie der Juni — Museen, Restaurants, Oper, Modewochen und das schlichte Vergnügen, zwei Wochen wie ein Pariser zu leben. Genau diese Ganzjahresnutzung macht einen Anteil hier so viel vernünftiger als ein ganzes Pied-à-terre, das vierzig Wochen im Jahr dunkel bleibt."
+    ]
+   },
+   {
+    "h": "Das Praktische",
+    "p": [
+     "Die Anreise ist die einfachste Europas: zwei große Flughäfen, und der Zug bringt Sie aus halb Europa direkt ins Zentrum. Eigentümer nutzen Paris anders als ein Ferienhaus — weniger Zwei-Wochen-Blöcke, mehr wiederkehrende lange Wochenenden und Kultursaisons, was der Nutzungskalender elegant abbildet. Die Wohnung wird zwischen den Aufenthalten gepflegt und verwaltet; Sie kommen zu frischer Wäsche und den eigenen Dingen im Eigentümerschrank.",
+     "Das französische Immobilienrecht schützt eingetragene Eigentümer bekanntlich stark — und ein eingetragener Anteil ist genau das: echte Pariser Immobilie im Grundbuch, auf Ihren Namen, mit der Freiheit, Ihren Anteil jederzeit frei zu verkaufen."
+    ]
+   },
+   {
+    "h": "Wer einen Anteil an Paris kauft",
+    "p": [
+     "Drei Arten von Eigentümern, nach unserer Erfahrung: Paare, die ohnehin jedes Jahr kamen und die Hotelarithmetik zu Pariser Preisen satt haben. Familien mit Kindern, die in Frankreich studieren oder arbeiten, und die einen festen Stützpunkt statt serieller Kurzmieten wollen. Und Käufer, die sich immer eine Pariser Wohnung versprochen haben, das Ganze im 6. Arrondissement durchgerechnet haben — und feststellten, dass ein Achtel des Traums, sechs Wochen im Jahr, professionell gepflegt, weniger kostet als manche Küchenrenovierung. Die Wohnungen unten zeigen den vollen Anteilspreis; die Zahlen sprechen meist für sich."
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "sections": [
+   {
+    "h": "Une adresse à Paris, en pleine propriété",
+    "p": [
+     "Aucune location ne ressemble au geste de tourner sa propre clé rive gauche. Nos appartements parisiens sont dans les arrondissements dont on rêve vraiment — Saint-Germain-des-Prés, les 6e et 7e, ces rues entre Seine et jardin du Luxembourg où la boulangère connaît votre commande dès le deuxième matin. Des haussmanniens au parquet en point de Hongrie, hauts plafonds et cheminées de marbre : le bien le plus difficile d'Europe à bien acheter depuis l'étranger — et le plus facile à mal utiliser quand on possède tout et qu'on vient deux fois l'an.",
+     "Paris n'est pas un marché saisonnier. Février vaut juin — musées, restaurants, opéra, semaines de la mode, et le simple bonheur de vivre en Parisien quinze jours. Cette utilité toute l'année rend une part ici tellement plus rationnelle qu'un pied-à-terre entier, éteint quarante semaines par an."
+    ]
+   },
+   {
+    "h": "Le pratique",
+    "p": [
+     "L'accès est le plus simple d'Europe : deux grands aéroports, et le train qui vous dépose en plein centre depuis la moitié du continent. Les propriétaires utilisent Paris autrement qu'une maison de vacances — moins de blocs de deux semaines, davantage de longs week-ends récurrents et de saisons culturelles, ce que le calendrier d'usage gère avec élégance. L'appartement est entretenu et géré entre les séjours ; vous arrivez dans du linge frais, vos affaires dans le placard du propriétaire.",
+     "Le droit immobilier français protège fameusement les propriétaires inscrits — et une part en titre, c'est exactement cela : du vrai immobilier parisien au titre de propriété, à votre nom, librement revendable quand vous le décidez."
+    ]
+   },
+   {
+    "h": "Qui achète une part de Paris",
+    "p": [
+     "Trois profils, d'expérience. Des couples qui venaient déjà chaque année et se sont lassés de l'arithmétique hôtelière aux prix parisiens. Des familles dont les enfants étudient ou travaillent en France et qui veulent un ancrage permanent plutôt que des locations en série. Et des acheteurs qui s'étaient toujours promis un appartement à Paris, ont chiffré la pleine propriété dans le 6e — et découvert qu'un huitième du rêve, six semaines par an, professionnellement entretenu, coûte moins que bien des rénovations de cuisine. Les biens ci-dessous affichent le prix complet de la part ; les chiffres parlent d'eux-mêmes."
+    ]
+   }
+  ]
+ },
+ "es": {
+  "sections": [
+   {
+    "h": "Una dirección en París, en propiedad",
+    "p": [
+     "Ningún alquiler se parece a girar tu propia llave en la orilla izquierda. Nuestros pisos parisinos están en los distritos con los que de verdad se sueña — Saint-Germain-des-Prés, el 6º y el 7º, esas calles entre el Sena y los jardines de Luxemburgo donde la panadería se sabe tu pedido a la segunda mañana. Haussmannianos con parqué de espiga, techos altos y chimeneas de mármol: la propiedad más difícil de Europa para comprar bien desde el extranjero — y la más fácil de usar mal cuando se posee entera y se visita dos veces al año.",
+     "París no es un mercado estacional. Febrero funciona como junio — museos, restaurantes, ópera, semanas de la moda y el simple placer de vivir como un parisino durante quince días. Esa utilidad de todo el año hace que una participación aquí sea mucho más racional que un pied-à-terre entero apagado cuarenta semanas al año."
+    ]
+   },
+   {
+    "h": "Lo práctico",
+    "p": [
+     "El acceso es el más fácil de Europa: dos grandes aeropuertos y trenes que te dejan en pleno centro desde media Europa. Los propietarios usan París de otra manera — menos bloques de dos semanas, más fines de semana largos recurrentes y temporadas culturales, algo que el calendario de uso resuelve con elegancia. El piso se mantiene y gestiona entre estancias; llegas a sábanas limpias y a tus propias cosas en el armario del propietario.",
+     "El derecho inmobiliario francés protege célebremente al propietario registrado — y una participación con escritura es exactamente eso: inmueble parisino real en el título, a tu nombre, con libertad de vender tu fracción en el mercado cuando quieras."
+    ]
+   },
+   {
+    "h": "Quién compra una parte de París",
+    "p": [
+     "Tres perfiles, por experiencia. Parejas que ya venían cada año y se cansaron de la aritmética hotelera a precios parisinos. Familias con hijos estudiando o trabajando en Francia que quieren un punto de apoyo permanente en lugar de alquileres en serie. Y compradores que siempre se prometieron un piso en París, calcularon la propiedad entera en el 6º — y descubrieron que un octavo del sueño, seis semanas al año, profesionalmente cuidado, cuesta menos que muchas reformas de cocina. Los pisos muestran el precio completo de la participación; los números suelen hablar solos."
+    ]
+   }
+  ]
+ }
 }
