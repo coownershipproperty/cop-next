@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
@@ -168,6 +170,17 @@ export async function getStaticProps({ params }) {
   const minPrice = prices.length ? Math.min(...prices) : null;
   const currency = matches[0].currency || 'EUR';
 
+  // Optional hand-written town guide (content/towns/{slug}.json) — when it
+  // exists, the page renders a full editorial section per language instead of
+  // only the templated boilerplate. Written town by town; quality over volume.
+  let guide = null;
+  try {
+    const guidePath = path.join(process.cwd(), 'content', 'towns', `${params.town}.json`);
+    if (fs.existsSync(guidePath)) guide = JSON.parse(fs.readFileSync(guidePath, 'utf-8'));
+  } catch (e) {
+    console.error('[town] guide load failed for', params.town, e.message);
+  }
+
   return {
     props: {
       townParam: params.town,
@@ -177,12 +190,13 @@ export async function getStaticProps({ params }) {
       minPrice,
       currency,
       homes: matches.map(toCardProp),
+      guide,
     },
     revalidate: 3600,
   };
 }
 
-export default function TownPage({ townParam, town, country, region, minPrice, currency, homes, forceLocale }) {
+export default function TownPage({ townParam, town, country, region, minPrice, currency, homes, guide, forceLocale }) {
   const router = useRouter();
   const locale = forceLocale || localeFromPath(router.asPath || router.pathname) || 'en';
   const t = COPY[locale] || COPY.en;
@@ -246,6 +260,17 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
             <h2>{t.about_heading(town)}</h2>
             <p>{t.about_body(town, country, from)}</p>
           </div>
+
+          {guide && (guide[locale] || guide.en) && (
+            <div className="town-guide">
+              {(guide[locale] || guide.en).sections.map((sec, i) => (
+                <div key={i} className="town-about">
+                  <h2>{sec.h}</h2>
+                  {sec.p.map((para, j) => <p key={j}>{para}</p>)}
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="town-faq">
             {faqs.map((f, i) => (
