@@ -17,6 +17,7 @@ import TourRequestModal from '@/components/TourRequestModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
 import PropertyCard from '@/components/PropertyCard';
 import { localeFromPath } from '@/lib/i18n';
+import PropertyWatch from '@/components/PropertyWatch';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
 import { getFirstTouch } from '@/lib/attribution';
@@ -821,6 +822,14 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
               <span className="pp-stat-lbl">{t.contact_sub}</span>
             </a>
           </div>
+
+          {/* Micro-commitment capture: track a live home / waitlist on a sold one */}
+          <PropertyWatch
+            slug={p.slug}
+            region={p.region || p.country}
+            locale={locale}
+            mode={String(p.status || '').toLowerCase().includes('sold') ? 'waitlist' : 'watch'}
+          />
 
           <div className="pp-desc">
             <h2 className="pp-heading">{t.about_heading}</h2>

@@ -10061,3 +10061,60 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   padding: 0.35rem 0.7rem; border-radius: 6px;
   white-space: nowrap; pointer-events: none;
 }
+
+/* ── PropertyWatch: track-this-home + sold-page waitlist ── */
+.pw-box { margin: 22px 0 6px; }
+.pw-toggle {
+  background: none; border: none; cursor: pointer; padding: 0;
+  font-family: 'Nunito Sans', sans-serif; font-size: 0.85rem; font-weight: 700;
+  color: var(--blue, #2C4A5E); display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+}
+.pw-toggle:hover { text-decoration: underline; }
+.pw-toggle-sub { font-weight: 400; color: #8a9aaa; font-size: 0.78rem; }
+.pw-box .pw-title {
+  font-family: 'Nunito Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
+  color: var(--blue, #2C4A5E); margin: 0 0 4px;
+}
+.pw-box .pw-sub { font-family: 'Nunito Sans', sans-serif; font-size: 0.8rem; color: #8a9aaa; margin: 0 0 12px; }
+.pw-form { display: flex; gap: 10px; max-width: 440px; }
+.pw-form input {
+  flex: 1; min-width: 0; border: 1px solid #E3DDD2; border-radius: 0; background: #fff;
+  padding: 11px 14px; font-family: 'Nunito Sans', sans-serif; font-size: 0.85rem; color: #1E3448; outline: none;
+}
+.pw-form input:focus { border-color: var(--blue, #2C4A5E); }
+.pw-form button {
+  flex: none; background: var(--blue, #2C4A5E); color: #F4EFE4; border: none; cursor: pointer;
+  font-family: 'Nunito Sans', sans-serif; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; padding: 0 20px;
+}
+.pw-form button:hover { opacity: 0.92; }
+.pw-done { font-family: 'Nunito Sans', sans-serif; font-size: 0.85rem; color: #16775d; margin: 0; }
+.pw-error { font-family: 'Nunito Sans', sans-serif; font-size: 0.8rem; color: #991b1b; margin: 8px 0 0; }
+.pw-waitlist {
+  border: 1px solid #E3DDD2; border-top: 2px solid #C9A84C; background: #FAF8F3;
+  padding: 20px 22px; margin: 24px 0 8px;
+}
+.pw-waitlist .pw-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 500; }
+.pw-waitlist .pw-sub { color: #5d6b78; }
+
+/* ── Favourites: save-shortlist capture card ── */
+.fav-save-card {
+  border: 1px solid #E3DDD2; border-top: 2px solid #C9A84C; background: #FAF8F3;
+  padding: 20px 22px; margin: 0 0 26px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+}
+.fav-save-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #1E3448; margin: 0 0 4px; }
+.fav-save-sub { font-family: 'Nunito Sans', sans-serif; font-size: 0.8rem; color: #8a9aaa; margin: 0; max-width: 480px; }
+.fav-save-form { display: flex; gap: 10px; flex: 1; min-width: 260px; max-width: 430px; }
+.fav-save-form input {
+  flex: 1; min-width: 0; border: 1px solid #E3DDD2; background: #fff;
+  padding: 11px 14px; font-family: 'Nunito Sans', sans-serif; font-size: 0.85rem; color: #1E3448; outline: none;
+}
+.fav-save-form input:focus { border-color: #2C4A5E; }
+.fav-save-form button {
+  flex: none; background: #2C4A5E; color: #F4EFE4; border: none; cursor: pointer;
+  font-family: 'Nunito Sans', sans-serif; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; padding: 0 18px; white-space: nowrap;
+}
+.fav-save-done { font-family: 'Nunito Sans', sans-serif; font-size: 0.9rem; color: #16775d; margin: 0; }
+.fav-save-error { font-family: 'Nunito Sans', sans-serif; font-size: 0.8rem; color: #991b1b; margin: 8px 0 0; width: 100%; }

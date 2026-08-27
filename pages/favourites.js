@@ -52,11 +52,19 @@ const HeartFilledIcon = () => (
  * a property on the English site shows up in the Spanish favourites and
  * vice versa, which matches user expectation.
  */
+const SL_COPY = {
+  en: { title: 'Keep this shortlist', sub: "We'll email you a private link — your favourites follow you to any device, and you can forward it to whoever you'd co-own with.", placeholder: 'Your email address', btn: 'Email me my shortlist', done: "Sent — check your inbox for your shortlist link." },
+  es: { title: 'Guarda esta selección', sub: 'Te enviaremos un enlace privado: tus favoritos te siguen a cualquier dispositivo, y puedes reenviarlo a tus futuros copropietarios.', placeholder: 'Tu correo electrónico', btn: 'Enviarme mi selección', done: 'Enviado — revisa tu correo.' },
+  fr: { title: 'Conservez cette sélection', sub: "Nous vous enverrons un lien privé — vos favoris vous suivent sur tous vos appareils, et vous pouvez le transférer à vos futurs co-propriétaires.", placeholder: 'Votre adresse e-mail', btn: 'Recevoir ma sélection', done: 'Envoyé — vérifiez votre boîte mail.' },
+};
+
 export default function Favourites({ locale = DEFAULT_LOCALE }) {
   // null = not yet hydrated; [] = hydrated but empty; [...] = has slugs
   const [slugs, setSlugs]       = useState(null);
   const [props, setProps]       = useState([]);
   const [loading, setLoading]   = useState(false);
+  const [slEmail, setSlEmail]   = useState('');
+  const [slState, setSlState]   = useState('idle'); // idle | busy | done | error
 
   const tr = (key, vars) => {
     let s = t(`favourites.${key}`, locale);
@@ -70,6 +78,38 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
     setSlugs(initial);
     return onFavsChange((updated) => setSlugs([...updated]));
   }, []);
+
+  // ?sl=<token> — restore an emailed shortlist onto this device (merge, never clobber)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const token = new URLSearchParams(window.location.search).get('sl');
+    if (!token) return;
+    fetch(`/api/save-shortlist?token=${encodeURIComponent(token)}`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => {
+        if (!d || !Array.isArray(d.slugs) || d.slugs.length === 0) return;
+        const merged = [...new Set([...getFavSlugs(), ...d.slugs])];
+        localStorage.setItem(FAV_KEY, JSON.stringify(merged));
+        window.dispatchEvent(new CustomEvent(FAV_EVENT, { detail: merged }));
+      })
+      .catch(() => {});
+  }, []);
+
+  async function saveShortlist(e) {
+    e.preventDefault();
+    if (slState === 'busy') return;
+    setSlState('busy');
+    try {
+      const res = await fetch('/api/save-shortlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: slEmail, slugs: getFavSlugs(), locale }),
+      });
+      setSlState(res.ok ? 'done' : 'error');
+    } catch {
+      setSlState('error');
+    }
+  }
 
   // Whenever the slug list changes, fetch fresh property data from Supabase
   useEffect(() => {
@@ -163,6 +203,34 @@ export default function Favourites({ locale = DEFAULT_LOCALE }) {
                       : <span key={i}>{part}</span>)}
                 </p>
                 <button className="clear-favs-btn" onClick={clearAll}>{tr('clear_button')}</button>
+              </div>
+
+              {/* Save-across-devices email capture */}
+              <div className="fav-save-card">
+                {slState === 'done' ? (
+                  <p className="fav-save-done">✓ {(SL_COPY[locale] || SL_COPY.en).done}</p>
+                ) : (
+                  <>
+                    <div className="fav-save-text">
+                      <p className="fav-save-title">{(SL_COPY[locale] || SL_COPY.en).title}</p>
+                      <p className="fav-save-sub">{(SL_COPY[locale] || SL_COPY.en).sub}</p>
+                    </div>
+                    <form className="fav-save-form" onSubmit={saveShortlist}>
+                      <input
+                        type="email"
+                        required
+                        value={slEmail}
+                        onChange={e => setSlEmail(e.target.value)}
+                        placeholder={(SL_COPY[locale] || SL_COPY.en).placeholder}
+                        aria-label={(SL_COPY[locale] || SL_COPY.en).placeholder}
+                      />
+                      <button type="submit" disabled={slState === 'busy'}>
+                        {slState === 'busy' ? '…' : (SL_COPY[locale] || SL_COPY.en).btn}
+                      </button>
+                    </form>
+                    {slState === 'error' && <p className="fav-save-error">Something went wrong — please try again.</p>}
+                  </>
+                )}
               </div>
               <div className="fav-grid">
                 {props.map((p) => {
