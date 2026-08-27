@@ -10164,3 +10164,19 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .lw-done-icon { width: 54px; height: 54px; border-radius: 50%; background: #e5f5ef; color: #16775d; font-size: 26px; line-height: 54px; margin: 0 auto 18px; }
 .lw-done h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #1E3448; margin: 0 0 10px; }
 .lw-done p { font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; color: #5d6b78; }
+
+/* ── Price Index page ── */
+.pi-sec { background: #F7F4EE; padding: 48px 0 80px; }
+.pi-inner { max-width: 1020px; margin: 0 auto; padding: 0 2rem; }
+.pi-headline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin: 0 0 44px; }
+@media (max-width: 760px) { .pi-headline { grid-template-columns: repeat(2, 1fr); } }
+.pi-stat { background: #fff; border: 1px solid #E3DDD2; border-top: 2px solid #C9A84C; padding: 22px 20px; text-align: center; }
+.pi-stat-val { display: block; font-family: 'Playfair Display', serif; font-size: 1.7rem; color: #1E3448; }
+.pi-stat-lbl { display: block; font-family: 'Nunito Sans', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8a9aaa; margin-top: 6px; }
+.pi-table-wrap { overflow-x: auto; background: #fff; border: 1px solid #E3DDD2; }
+.pi-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+.pi-table th { font-family: 'Nunito Sans', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #6B8A9E; text-align: left; padding: 14px 18px; background: #FAF8F3; border-bottom: 1px solid #E3DDD2; }
+.pi-table td { font-family: 'Nunito Sans', sans-serif; font-size: 0.92rem; color: #1E3448; padding: 13px 18px; border-bottom: 1px solid #F0EBE2; }
+.pi-footnote { font-family: 'Nunito Sans', sans-serif; font-size: 0.78rem; color: #8a9aaa; line-height: 1.7; margin: 16px 0 48px; }
+.pi-method h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 500; color: #1E3448; margin: 0 0 16px; }
+.pi-method p { font-family: 'Nunito Sans', sans-serif; font-size: 0.95rem; color: #5d6b78; line-height: 1.8; margin: 0 0 18px; max-width: 760px; }
