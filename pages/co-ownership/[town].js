@@ -95,6 +95,29 @@ const COPY = {
   },
 };
 
+// Country destination pages carry the deep legal/tax layer (ownership
+// structure, taxes, inheritance, resale process) so town pages stay
+// place-focused without duplicating it 76 times. Link down, don't repeat.
+const COUNTRY_GUIDE = {
+  Spain: '/spain-fractional-ownership-properties/',
+  France: '/france-fractional-ownership-properties/',
+  Italy: '/italy-fractional-ownership-properties/',
+  USA: '/usa-fractional-ownership-properties/',
+  Portugal: '/portugal-fractional-ownership-properties/',
+};
+const COUNTRY_LINK_COPY = {
+  en: (c) => `The legal structure, taxes and resale process for your 1/8 deeded share are covered in depth in our complete country guide.`,
+  es: (c) => `La estructura legal, los impuestos y el proceso de reventa de tu participación 1/8 con escritura se explican en profundidad en nuestra guía completa del país.`,
+  fr: (c) => `La structure juridique, la fiscalité et le processus de revente de votre part 1/8 en titre sont couverts en détail dans notre guide complet du pays.`,
+  de: (c) => `Rechtsstruktur, Steuern und Wiederverkaufsprozess Ihres eingetragenen 1/8-Anteils behandelt unser vollständiger Länderguide im Detail.`,
+};
+const COUNTRY_LINK_CTA = {
+  en: (c) => `Read the full ${c} ownership guide →`,
+  es: (c) => `Leer la guía completa de ${c} →`,
+  fr: (c) => `Lire le guide complet ${c} →`,
+  de: (c) => `Zum vollständigen ${c}-Guide →`,
+};
+
 const BROWSE_HREF = { en: '/our-homes/', es: '/es/propiedades/', fr: '/fr/proprietes/', de: '/de/immobilien/' };
 
 const FIELDS =
@@ -269,6 +292,15 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
                   {sec.p.map((para, j) => <p key={j}>{para}</p>)}
                 </div>
               ))}
+            </div>
+          )}
+
+          {COUNTRY_GUIDE[country] && (
+            <div className="town-country-link">
+              <p>
+                {(COUNTRY_LINK_COPY[locale] || COUNTRY_LINK_COPY.en)(country)}{' '}
+                <a href={COUNTRY_GUIDE[country]}>{(COUNTRY_LINK_CTA[locale] || COUNTRY_LINK_CTA.en)(country)}</a>
+              </p>
             </div>
           )}
 
