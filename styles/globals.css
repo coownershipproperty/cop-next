@@ -10040,3 +10040,24 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Destinations: instant hover switching + soft crossfade ── */
 @keyframes destFade { from { opacity: 0 } to { opacity: 1 } }
 .dest-panel.active { animation: destFade 0.3s ease; }
+
+/* ── Share button on property cards — sits left of the heart ── */
+.prop-share {
+  position: absolute; top: 12px; right: 56px;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.92);
+  border: none; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 10;
+  transition: transform 0.2s, background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.prop-share:hover { transform: scale(1.15); background: #fff; }
+.prop-share-toast {
+  position: absolute; top: 42px; right: 0;
+  background: #1E3448; color: #F4EFE4;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+  padding: 0.35rem 0.7rem; border-radius: 6px;
+  white-space: nowrap; pointer-events: none;
+}

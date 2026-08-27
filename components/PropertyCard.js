@@ -21,6 +21,8 @@ const COPY = {
     unlock_sub: 'Unlock the full gallery & floor plans — free',
     unlock_now: 'Unlock Now →',
     new_badge: 'New This Week',
+    share_property: 'Share this property',
+    link_copied: 'Link copied',
   },
   es: {
     bed_singular: 'Dormitorio', bed_plural: 'Dormitorios',
@@ -32,6 +34,8 @@ const COPY = {
     unlock_sub: 'Desbloquea la galería completa y los planos — gratis',
     unlock_now: 'Desbloquear ahora →',
     new_badge: 'Novedad',
+    share_property: 'Compartir esta propiedad',
+    link_copied: 'Enlace copiado',
   },
   fr: {
     bed_singular: 'Chambre', bed_plural: 'Chambres',
@@ -43,6 +47,8 @@ const COPY = {
     unlock_sub: 'Débloquez la galerie complète et les plans — gratuit',
     unlock_now: 'Débloquer maintenant →',
     new_badge: 'Nouveauté',
+    share_property: 'Partager ce bien',
+    link_copied: 'Lien copié',
   },
 };
 
@@ -60,6 +66,12 @@ const HeartIcon = ({ filled }) => (
   <svg viewBox="0 0 24 24" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}>
     <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
       fill={filled ? '#C9A84C' : 'none'} stroke={filled ? '#C9A84C' : '#2C4A5E'} />
+  </svg>
+);
+const ShareIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 15, height: 15 }} stroke="#2C4A5E">
+    <path d="M12 3v12M8 6.5 12 3l4 3.5"/>
+    <path d="M5 11v8a2 2 0 002 2h10a2 2 0 002-2v-8"/>
   </svg>
 );
 const ChevronLeft = () => (
@@ -95,6 +107,7 @@ export default function PropertyCard({ property: p, priority = false }) {
   const [fav, setFav] = useState(false);
   const [slide, setSlide] = useState(0);
   const [unlockOpen, setUnlockOpen] = useState(false);
+  const [shared, setShared] = useState(false);
   const cx = useCurrency();
 
   useEffect(() => {
@@ -122,6 +135,22 @@ export default function PropertyCard({ property: p, priority = false }) {
   function prev(e) { e.stopPropagation(); setSlide(i => Math.max(0, i - 1)); }
   function next(e) { e.stopPropagation(); setSlide(i => Math.min(totalSlides - 1, i + 1)); }
   function handleToggleFav(e) { e.stopPropagation(); setFav(toggleFav(p.slug)); }
+  async function handleShare(e) {
+    e.stopPropagation();
+    const url = `https://co-ownership-property.com${href}${href.includes('?') ? '&' : '?'}utm_source=share&utm_medium=property_card`;
+    const shareData = { title, text: `${title}${priceDisplay ? ` — ${priceDisplay} per share` : ''}`, url };
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try { await navigator.share(shareData); } catch (_) { /* user dismissed the sheet */ }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setShared(true);
+      setTimeout(() => setShared(false), 1600);
+    } catch (_) {
+      window.prompt('Copy this link:', url);
+    }
+  }
   function handleLockClick(e) { e.stopPropagation(); setUnlockOpen(true); }
   function handleCardClick() { if (!isLockSlide) window.location.href = href; }
 
@@ -205,6 +234,15 @@ export default function PropertyCard({ property: p, priority = false }) {
             <span className="prop-badge new">{t.new_badge}</span>
           ) : null}
 
+          <button
+            className="prop-share"
+            onClick={handleShare}
+            aria-label={t.share_property}
+            title={t.share_property}
+          >
+            <ShareIcon />
+            {shared && <span className="prop-share-toast">{t.link_copied}</span>}
+          </button>
           <button
             className={`prop-heart${fav ? ' active' : ''}`}
             onClick={handleToggleFav}
