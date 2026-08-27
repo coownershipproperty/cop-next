@@ -10,6 +10,7 @@ const NAV_GROUPS = [
       { href: '/admin', label: 'Dashboard', icon: '⌂', exact: true },
       { href: '/admin/leads', label: 'Leads', icon: '◫', exclude: ['/admin/leads/sold'] },
       { href: '/admin/partners/queue', label: 'Needs attention', icon: '!' },
+      { href: '/admin/followups', label: 'Follow-ups', icon: '⟳' },
     ],
   },
   {
