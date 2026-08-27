@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import UnlockModal from '@/components/UnlockModal';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
-import { localeFromPath, propertyHref } from '@/lib/i18n';
+import { localeFromPath, propertyHref, numberLocale } from '@/lib/i18n';
 
 // Locale-aware UI strings. Property titles themselves come from translated DB
 // columns (title_es / title_fr) — see localizedTitle() helper in the page that
@@ -49,6 +49,97 @@ const COPY = {
     new_badge: 'Nouveauté',
     share_property: 'Partager ce bien',
     link_copied: 'Lien copié',
+  },
+  de: {
+    bed_singular: 'Schlafzimmer', bed_plural: 'Schlafzimmer',
+    share_label: 'Anteil',
+    view_property: 'Immobilie ansehen →',
+    fav_add: 'Zu Favoriten hinzufügen', fav_remove: 'Aus Favoriten entfernen',
+    prev_photo: 'Vorheriges Foto', next_photo: 'Nächstes Foto',
+    missing_photos: (n) => `Ihnen fehlen ${n} Fotos`,
+    unlock_sub: 'Vollständige Galerie und Grundrisse freischalten — kostenlos',
+    unlock_now: 'Jetzt freischalten →',
+    new_badge: 'Neu diese Woche',
+    share_property: 'Diese Immobilie teilen',
+    link_copied: 'Link kopiert',
+  },
+  it: {
+    bed_singular: 'Camera', bed_plural: 'Camere',
+    share_label: 'quota',
+    view_property: 'Vedi l\'immobile →',
+    fav_add: 'Aggiungi ai preferiti', fav_remove: 'Rimuovi dai preferiti',
+    prev_photo: 'Foto precedente', next_photo: 'Foto successiva',
+    missing_photos: (n) => `Ti mancano ${n} foto`,
+    unlock_sub: 'Sblocca la galleria completa e le planimetrie — gratis',
+    unlock_now: 'Sblocca ora →',
+    new_badge: 'Novità',
+    share_property: 'Condividi questo immobile',
+    link_copied: 'Link copiato',
+  },
+  nl: {
+    bed_singular: 'Slaapkamer', bed_plural: 'Slaapkamers',
+    share_label: 'aandeel',
+    view_property: 'Bekijk woning →',
+    fav_add: 'Aan favorieten toevoegen', fav_remove: 'Uit favorieten verwijderen',
+    prev_photo: 'Vorige foto', next_photo: 'Volgende foto',
+    missing_photos: (n) => `U mist nog ${n} foto's`,
+    unlock_sub: 'Ontgrendel de volledige galerij en plattegronden — gratis',
+    unlock_now: 'Nu ontgrendelen →',
+    new_badge: 'Nieuw',
+    share_property: 'Deel deze woning',
+    link_copied: 'Link gekopieerd',
+  },
+  pt: {
+    bed_singular: 'Quarto', bed_plural: 'Quartos',
+    share_label: 'cota',
+    view_property: 'Ver imóvel →',
+    fav_add: 'Adicionar aos favoritos', fav_remove: 'Remover dos favoritos',
+    prev_photo: 'Foto anterior', next_photo: 'Próxima foto',
+    missing_photos: (n) => `Faltam ${n} fotos`,
+    unlock_sub: 'Libere a galeria completa e as plantas — grátis',
+    unlock_now: 'Liberar agora →',
+    new_badge: 'Novidade',
+    share_property: 'Compartilhar este imóvel',
+    link_copied: 'Link copiado',
+  },
+  sv: {
+    bed_singular: 'Sovrum', bed_plural: 'Sovrum',
+    share_label: 'andel',
+    view_property: 'Visa bostaden →',
+    fav_add: 'Spara som favorit', fav_remove: 'Ta bort från favoriter',
+    prev_photo: 'Föregående bild', next_photo: 'Nästa bild',
+    missing_photos: (n) => `Du missar ${n} bilder`,
+    unlock_sub: 'Lås upp hela bildgalleriet och planritningarna — gratis',
+    unlock_now: 'Lås upp nu →',
+    new_badge: 'Nytt',
+    share_property: 'Dela den här bostaden',
+    link_copied: 'Länk kopierad',
+  },
+  da: {
+    bed_singular: 'Soveværelse', bed_plural: 'Soveværelser',
+    share_label: 'andel',
+    view_property: 'Se boligen →',
+    fav_add: 'Gem som favorit', fav_remove: 'Fjern fra favoritter',
+    prev_photo: 'Forrige billede', next_photo: 'Næste billede',
+    missing_photos: (n) => `Du mangler ${n} billeder`,
+    unlock_sub: 'Lås hele billedgalleriet og plantegningerne op — gratis',
+    unlock_now: 'Lås op nu →',
+    new_badge: 'Nyt',
+    share_property: 'Del denne bolig',
+    link_copied: 'Link kopieret',
+  },
+  no: {
+    bed_singular: 'Soverom', bed_plural: 'Soverom',
+    share_label: 'andel',
+    view_property: 'Se boligen →',
+    fav_add: 'Lagre som favoritt', fav_remove: 'Fjern fra favoritter',
+    prev_photo: 'Forrige bilde', next_photo: 'Neste bilde',
+    missing_photos: (n) => `Du mangler ${n} bilder`,
+    unlock_sub: 'Lås opp hele bildegalleriet og plantegningene — gratis',
+    unlock_now: 'Lås opp nå →',
+    new_badge: 'Nytt',
+    share_property: 'Del denne boligen',
+    link_copied: 'Lenke kopiert',
   },
 };
 
@@ -100,7 +191,7 @@ export default function PropertyCard({ property: p, priority = false }) {
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
-  const localeNumberFmt = locale === 'es' ? 'es-ES' : locale === 'fr' ? 'fr-FR' : 'en-GB';
+  const localeNumberFmt = numberLocale(locale);
   const title = p[`title_${locale}`] || p.title;
 
   // Locale-aware URL so click-through from /es/propiedades/ lands on

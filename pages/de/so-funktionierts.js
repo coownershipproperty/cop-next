@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 
 export default function SoFunktionierts() {
@@ -17,7 +17,7 @@ export default function SoFunktionierts() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/de/so-funktionierts/" />
-        <HreflangLinks englishPath="/how-it-works" />
+        {hreflangLinks({ englishPath: '/how-it-works' })}
         <meta property="og:title" content="So funktioniert Co-Ownership | Miteigentum an Ferienimmobilien erklärt" />
         <meta property="og:description" content="Erfahren Sie, wie Miteigentum funktioniert. Erwerben Sie einen rechtlich verbrieften Anteil an Luxus-Ferienimmobilien in Europa und den USA — zu einem Bruchteil der Kosten." />
         <meta property="og:url" content="https://co-ownership-property.com/de/so-funktionierts/" />

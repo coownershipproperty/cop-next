@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // Post estratégico: guía completa de compra en copropiedad en España.
 // Identificado por keyword-research-spanish.md como gap fundamental —
@@ -21,7 +21,7 @@ export default function GuiaComprarCopropiedadEspana() {
         <title>Guía para comprar copropiedad en España [2026]: modelo legal, fiscalidad, proceso y destinos</title>
         <meta name="description" content="Guía completa 2026 para comprar copropiedad de segunda residencia en España: modelo LLC, ITP, IBI, IRNR, proceso paso a paso, destinos premium, due diligence y diferencias con la multipropiedad." />
         <link rel="canonical" href={canonicalUrl} />
-        <HreflangLinks englishPath="/es/blog/guia-comprar-copropiedad-espana" />
+        {hreflangLinks({ englishPath: '/es/blog/guia-comprar-copropiedad-espana' })}
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="es_ES" />
         <meta property="og:title" content="Guía para comprar copropiedad en España [2026]" />

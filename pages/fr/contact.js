@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 export default function ContactFR() {
   return (
@@ -14,7 +14,7 @@ export default function ContactFR() {
         <meta name="description" content="Parlez à l'équipe COP. Questions sur la copropriété de résidence secondaire ? Nous répondons sous quelques heures — sans pression commerciale, sans engagement." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://co-ownership-property.com/fr/contact/" />
-        <HreflangLinks englishPath="/contact" />
+        {hreflangLinks({ englishPath: '/contact' })}
         <meta property="og:title" content="Contacter Co-Ownership Property" />
         <meta property="og:description" content="Questions sur la copropriété ? Parlez à notre équipe — sans pression commerciale, sans engagement." />
         <meta property="og:url" content="https://co-ownership-property.com/fr/contact/" />

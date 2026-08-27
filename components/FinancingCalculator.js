@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { numberLocale } from '@/lib/i18n';
 
 // Locale-specific copy. Inline rather than messages/*.json because the strings are
 // tightly coupled to this component's UX (calculator labels, share size dropdown options).
@@ -98,10 +99,7 @@ const SYM = { USD: '$', EUR: '€', GBP: '£' };
 
 function formatMoney(amount, currency, locale) {
   const sym = SYM[currency] || currency;
-  const localeFmt = locale === 'de' ? 'de-DE'
-                  : locale === 'fr' ? 'fr-FR'
-                  : locale === 'es' ? 'es-ES'
-                  : 'en-US';
+  const localeFmt = numberLocale(locale);
   return `${sym}${Math.round(amount).toLocaleString(localeFmt)}`;
 }
 

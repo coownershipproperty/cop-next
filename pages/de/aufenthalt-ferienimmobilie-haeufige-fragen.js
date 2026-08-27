@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 const FAQS = [
   {
@@ -84,7 +84,7 @@ export default function AufenthaltFerienimmobilieFAQs() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/de/aufenthalt-ferienimmobilie-haeufige-fragen/" />
-        <HreflangLinks englishPath="/staying-in-my-co-ownership-property-faqs" />
+        {hreflangLinks({ englishPath: '/staying-in-my-co-ownership-property-faqs' })}
         <meta property="og:title" content="Aufenthalt in Ihrer Co-Ownership-Ferienimmobilie — Häufige Fragen" />
         <meta property="og:description" content="Alles, was Sie über den Aufenthalt in Ihrer Co-Ownership-Ferienimmobilie wissen müssen — Buchung, Anreise, Gäste, saisonale Terminplanung und mehr." />
         <meta property="og:url" content="https://co-ownership-property.com/de/aufenthalt-ferienimmobilie-haeufige-fragen/" />

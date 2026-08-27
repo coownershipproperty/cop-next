@@ -3,97 +3,81 @@ import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 
 import { townSlug, TOWN_PAGE_MIN_HOMES } from '@/lib/townSlug';
+import { SUPPORTED_LOCALES, routePath, familyPrefix } from '@/lib/i18n';
 
 const BASE = 'https://co-ownership-property.com';
 
 // ──────────────────────────────────────────────────────────────────────────
-// PAGE GROUPS — pages that exist in two or three locales. Each group emits
-// one <url> per locale that's defined, and every entry carries the full
-// hreflang set (reciprocal alternates) so Google treats them as siblings
-// rather than near-duplicates.
+// PAGE GROUPS — pages that exist in more than one locale. Each group emits
+// one <url> per launched locale, and every entry carries the full hreflang
+// set (reciprocal alternates) so Google treats them as siblings rather than
+// near-duplicates.
+//
+// The paths are NOT listed here. They are generated from ROUTE_SLUGS in
+// lib/i18n.js, which is the single source of truth for every locale URL on
+// the site — so a new language appears in the sitemap the moment its
+// `launched` flag flips, with no edit to this file.
 // ──────────────────────────────────────────────────────────────────────────
-const PAGE_GROUPS = [
-  {
-    en: '/',
-    es: '/es/',
-    fr: '/fr/',
-    de: '/de/',
-    priority: '1.0',
-    changefreq: 'daily',
-  },
-  {
-    en: '/our-homes/',
-    es: '/es/propiedades/',
-    fr: '/fr/proprietes/',
-    de: '/de/immobilien/',
-    priority: '0.9',
-    changefreq: 'daily',
-  },
-  {
-    en: '/how-it-works/',
-    es: '/es/como-funciona/',
-    fr: '/fr/comment-ca-marche/',
-    de: '/de/so-funktionierts/',
-    priority: '0.8',
-    changefreq: 'monthly',
-  },
-  {
-    en: '/about-us/',
-    es: '/es/quienes-somos/',
-    fr: '/fr/a-propos/',
-    de: '/de/ueber-uns/',
-    priority: '0.7',
-    changefreq: 'monthly',
-  },
-  {
-    en: '/contact/',
-    es: '/es/contacto/',
-    fr: '/fr/contact/',
-    de: '/de/kontakt/',
-    priority: '0.6',
-    changefreq: 'monthly',
-  },
-  {
-    en: '/all-our-blog/',
-    es: '/es/blog/',
-    fr: '/fr/blog/',
-    de: '/de/blog/',
-    priority: '0.8',
-    changefreq: 'daily',
-  },
-  {
-    en: '/buying-a-co-ownership-property-faqs/',
-    es: '/es/comprar-copropiedad-preguntas-frecuentes/',
-    fr: '/fr/acheter-copropriete-questions-frequentes/',
-    de: '/de/ferienimmobilie-kaufen-haeufige-fragen/',
-    priority: '0.7',
-    changefreq: 'monthly',
-  },
-  {
-    en: '/staying-in-my-co-ownership-property-faqs/',
-    es: '/es/disfrutar-copropiedad-preguntas-frecuentes/',
-    fr: '/fr/profiter-copropriete-questions-frequentes/',
-    de: '/de/aufenthalt-ferienimmobilie-haeufige-fragen/',
-    priority: '0.6',
-    changefreq: 'monthly',
-  },
+const PAGE_GROUP_SPECS = [
+  { key: 'home',        priority: '1.0', changefreq: 'daily' },
+  { key: 'homes',       priority: '0.9', changefreq: 'daily' },
+  { key: 'howItWorks',  priority: '0.8', changefreq: 'monthly' },
+  { key: 'aboutUs',     priority: '0.7', changefreq: 'monthly' },
+  { key: 'contact',     priority: '0.6', changefreq: 'monthly' },
+  { key: 'blog',        priority: '0.8', changefreq: 'daily' },
+  { key: 'buyingFaqs',  priority: '0.7', changefreq: 'monthly' },
+  { key: 'stayingFaqs', priority: '0.6', changefreq: 'monthly' },
 ];
+
+const PAGE_GROUPS = PAGE_GROUP_SPECS.map(({ key, priority, changefreq }) => {
+  const group = { priority, changefreq };
+  for (const loc of SUPPORTED_LOCALES) {
+    const path = routePath(loc, key);
+    if (path) group[loc] = path;
+  }
+  return group;
+});
+
+// Per-locale pillar pages: keyword-targeted explainers built around each
+// language's own primary product term. Deliberately NOT hreflang siblings —
+// a Norwegian "sameie i fritidsbolig" page argues a different case to a
+// different market than an Italian "comproprietà" page; they are not
+// translations of one another.
+/**
+ * Build the { locale: path } alternate set for a dynamic page family, across
+ * every launched locale. Replaces the hand-written en/es/fr/de literals that
+ * had to be edited each time a language was added.
+ *
+ *   familyAltset('towns', 'morzine')
+ *   → { en: '/co-ownership/morzine/', es: '/es/copropiedad/morzine/', … }
+ */
+function familyAltset(family, slug) {
+  const out = {};
+  for (const loc of SUPPORTED_LOCALES) {
+    const prefix = familyPrefix(loc, family);
+    if (prefix) out[loc] = `${prefix}${slug}/`;
+  }
+  return out;
+}
+
+const PILLAR_PAGES = SUPPORTED_LOCALES
+  .map((loc) => routePath(loc, 'pillar'))
+  .filter(Boolean)
+  .map((url) => ({ url, priority: '0.9', changefreq: 'monthly' }));
 
 // ──────────────────────────────────────────────────────────────────────────
 // LOCALE-ONLY pages — pillar content commissioned per-language for SEO,
 // with no direct English equivalent. No hreflang alternates emitted.
 // ──────────────────────────────────────────────────────────────────────────
 const LOCALE_ONLY_PAGES = [
+  // Pillar pages themselves come from PILLAR_PAGES above (generated).
   // Spanish pillar + SEO posts
-  { url: '/es/copropiedad/',                          priority: '0.9',  changefreq: 'monthly' },
   { url: '/es/blog/copropiedad-vs-multipropiedad/',   priority: '0.85', changefreq: 'monthly' },
   { url: '/es/blog/guia-comprar-copropiedad-espana/', priority: '0.85', changefreq: 'monthly' },
   // French pillar + SEO posts
-  { url: '/fr/copropriete-residence-secondaire/',                priority: '0.9',  changefreq: 'monthly' },
   { url: '/fr/blog/acheter-residence-secondaire-a-plusieurs/',   priority: '0.85', changefreq: 'monthly' },
   { url: '/fr/blog/copropriete-vs-multipropriete/',              priority: '0.8',  changefreq: 'monthly' },
   // German pillar — added in 1e0424e plan; SEO posts to follow once written
-  { url: '/de/miteigentum-ferienimmobilie/',                     priority: '0.9',  changefreq: 'monthly' },
 ];
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -285,7 +269,10 @@ export async function getServerSideProps({ res }) {
     // English-only static pages
     ...EN_ONLY_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
 
-    // Locale-only pillar + SEO content (no hreflang alternates)
+    // Per-locale pillar pages, generated from ROUTE_SLUGS
+    ...PILLAR_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
+
+    // Locale-only SEO content (no hreflang alternates)
     ...LOCALE_ONLY_PAGES.map(p => urlEntry(`${BASE}${p.url}`, p.priority, p.changefreq)),
 
     // Legacy short-slug ES/FR destination landing pages (standalone, no
@@ -395,38 +382,22 @@ export async function getServerSideProps({ res }) {
       return Object.entries(counts)
         .filter(([, n]) => n >= TOWN_PAGE_MIN_HOMES)
         .flatMap(([t]) => {
-          const altset = {
-            en: `/co-ownership/${t}/`,
-            es: `/es/copropiedad/${t}/`,
-            fr: `/fr/copropriete/${t}/`,
-            de: `/de/miteigentum/${t}/`,
-          };
-          return [
-            urlEntry(`${BASE}${altset.en}`, '0.75', 'weekly', today, altset),
-            urlEntry(`${BASE}${altset.es}`, '0.75', 'weekly', today, altset),
-            urlEntry(`${BASE}${altset.fr}`, '0.75', 'weekly', today, altset),
-            urlEntry(`${BASE}${altset.de}`, '0.75', 'weekly', today, altset),
-          ];
+          const altset = familyAltset('towns', t);
+          return Object.values(altset).map(
+            (url) => urlEntry(`${BASE}${url}`, '0.75', 'weekly', today, altset)
+          );
         });
     })(),
 
-    // Blog posts — emit EN / ES / FR / DE with reciprocal hreflang. Bodies are
+    // Blog posts — one entry per launched locale, with reciprocal hreflang. Bodies are
     // translated for the top-9 most-recent; the rest serve EN content under
     // localised chrome + translated title/excerpt, which is enough for
     // indexing and signals the page exists in the visitor's language.
     ...posts.flatMap(p => {
-      const altset = {
-        en: `/blog/${p.slug}/`,
-        es: `/es/blog/${p.slug}/`,
-        fr: `/fr/blog/${p.slug}/`,
-        de: `/de/blog/${p.slug}/`,
-      };
-      return [
-        urlEntry(`${BASE}${altset.en}`, '0.6', 'never', p.date || today, altset),
-        urlEntry(`${BASE}${altset.es}`, '0.6', 'never', p.date || today, altset),
-        urlEntry(`${BASE}${altset.fr}`, '0.6', 'never', p.date || today, altset),
-        urlEntry(`${BASE}${altset.de}`, '0.6', 'never', p.date || today, altset),
-      ];
+      const altset = familyAltset('blogPost', p.slug);
+      return Object.values(altset).map(
+        (url) => urlEntry(`${BASE}${url}`, '0.6', 'never', p.date || today, altset)
+      );
     }),
   ];
 

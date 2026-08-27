@@ -5,11 +5,12 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import { createClient } from '@supabase/supabase-js';
 import { getFeaturedSlugs } from '@/lib/featured-properties';
 
 import { useState, useRef, useEffect } from 'react';
+import { localeColumns, localizedField } from '@/lib/i18n';
 
 // Spanish locale homepage. Structure mirrors pages/index.js (English) exactly
 // — same sections, same CSS classes, same images. Only the visible text and
@@ -34,7 +35,7 @@ export async function getStaticProps() {
 
   const { data: rows } = await supabase
     .from('properties')
-    .select('slug, title, title_es, img, region, country, price, currency, beds, size')
+    .select(`slug, ${localeColumns(['title'], { locales: ['es'] })}, img, region, country, price, currency, beds, size`)
     .in('slug', FEATURED_PROPERTY_SLUGS)
     .in('status', ['Live', 'for_sale']);
 
@@ -46,7 +47,7 @@ export async function getStaticProps() {
       slug: p.slug,
       // Use Spanish title where the translation column has been populated;
       // fall back to English so pages render before translations are backfilled.
-      title: p.title_es || p.title,
+      title: localizedField(p, 'title', 'es'),
       img: p.img,
       region: p.region || '',
       country: p.country || '',
@@ -63,7 +64,7 @@ export async function getStaticProps() {
 
   const { data: postRows } = await supabase
     .from('posts')
-    .select('slug, slug_es, title, title_es, excerpt, excerpt_es, date, hero_image, category, published_es')
+    .select(`slug, ${localeColumns(['slug'], { locales: ['es'], base: false })}, ${localeColumns(['title'], { locales: ['es'] })}, ${localeColumns(['excerpt'], { locales: ['es'] })}, date, hero_image, category, published_es`)
     .eq('published', true)
     .order('date', { ascending: false })
     .limit(3);
@@ -71,9 +72,9 @@ export async function getStaticProps() {
   // For latest-posts on /es/ we surface English posts when no Spanish version
   // exists yet. Once published_es=true posts exist they take priority.
   const latestPosts = (postRows || []).map(p => ({
-    slug: p.slug_es || p.slug,
-    title: p.title_es || p.title,
-    excerpt: p.excerpt_es || p.excerpt || '',
+    slug: localizedField(p, 'slug', 'es'),
+    title: localizedField(p, 'title', 'es'),
+    excerpt: localizedField(p, 'excerpt', 'es') || '',
     dateFormatted: p.date ? new Date(p.date).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase() : '',
     heroImage: p.hero_image || '',
     category: p.category || '',
@@ -285,7 +286,7 @@ export default function HomeES({ propertyCount, featuredProps, latestPosts }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/es/" />
-        <HreflangLinks englishPath="/" />
+        {hreflangLinks({ englishPath: '/' })}
         <meta property="og:title" content="Casas exclusivas en España, Francia, Italia, Estados Unidos y más | Propiedad fraccionada — COP" />
         <meta property="og:description" content="Descubre casas exclusivas en copropiedad por toda Europa. Propiedad real, no es &quot;Tiempo Compartido o Timeshare&quot;." />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />

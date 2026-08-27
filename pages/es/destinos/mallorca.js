@@ -4,8 +4,9 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import { createClient } from '@supabase/supabase-js';
+import { localeColumns, pickLocalized } from '@/lib/i18n';
 
 // Destination landing page: /es/destinos/mallorca/
 // Targets per keyword-research-spanish.md:
@@ -23,14 +24,14 @@ export async function getStaticProps() {
   );
   const { data } = await supabase
     .from('properties')
-    .select('slug, title, title_es, title_fr, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type')
+    .select(`slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type`)
     .eq('country', 'Spain')
     .eq('region', 'Mallorca')
     .in('status', ['Live', 'for_sale'])
     .limit(24);
 
   const properties = (data || []).map(p => ({
-    slug: p.slug, title: p.title, title_es: p.title_es || null, title_fr: p.title_fr || null,
+    slug: p.slug, title: p.title, ...pickLocalized(p, ['title'], { locales: ['es'] }), ...pickLocalized(p, ['title'], { locales: ['fr'] }),
     img: p.img, images: (p.images || []).slice(0, 3),
     totalImages: p.total_images || 0, driveUrl: p.drive_url || null,
     price: p.price || null, currency: p.currency || 'EUR',
@@ -51,7 +52,7 @@ export default function MallorcaES({ properties }) {
         <title>Copropiedad en Mallorca: villas y apartamentos en propiedad fraccionada [2026]</title>
         <meta name="description" content="Propiedades en copropiedad en Mallorca — villas, apartamentos y fincas en Palma, Pollensa, Andratx, Deià y otras zonas premium. Desde 1/8 con escritura ante notario." />
         <link rel="canonical" href={canonicalUrl} />
-        <HreflangLinks englishPath="/es/destinos/mallorca" />
+        {hreflangLinks({ englishPath: '/es/destinos/mallorca' })}
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="es_ES" />
         <meta property="og:title" content="Copropiedad en Mallorca: la guía completa" />

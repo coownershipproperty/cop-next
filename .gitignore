@@ -45,3 +45,4 @@ next-env.d.ts
 # with scopes repo+workflow, no expiration, replace the contents of
 # .deploy-token, and delete the old token from GitHub.
 .deploy-token
+.next-verify*

@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // Localización ES de /staying-in-my-co-ownership-property-faqs.
 // Esquema FAQPage para Google. La Q8 menciona timeshare como
@@ -89,7 +89,7 @@ export default function StayingFAQsES() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={canonicalUrl} />
-        <HreflangLinks englishPath="/es/disfrutar-copropiedad-preguntas-frecuentes" />
+        {hreflangLinks({ englishPath: '/es/disfrutar-copropiedad-preguntas-frecuentes' })}
         <meta property="og:title" content="Disfrutar de su copropiedad — preguntas frecuentes" />
         <meta property="og:description" content="Reservas, llegada, invitados, programación estacional, ingresos por alquiler y normas de la casa." />
         <meta property="og:url" content={canonicalUrl} />

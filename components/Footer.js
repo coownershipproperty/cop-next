@@ -1,109 +1,53 @@
 import { useRouter } from 'next/router';
-import { localeFromPath, t } from '@/lib/i18n';
+import { localeFromPath, t, routePath } from '@/lib/i18n';
 
-// Per-locale link tables. Like the header, slugs are intentionally translated.
-// Destination links currently point at the English destination pages because
-// those pages are the canonical inventory landing — locale-specific destination
-// pages will replace these as they're built.
-const FOOTER_LINKS = {
-  en: {
-    discover: [
-      { href: '/our-homes/', label: 'All Properties' },
-      { href: '/how-it-works/', label: 'How It Works' },
-      { href: '/about-us/', label: 'About Us' },
-      { href: '/all-our-blog/', label: 'Our Blog' },
-      { href: '/favourites/', label: '♥ My Favourites' },
-    ],
-    company: [
-      { href: '/about-us/', label: 'About COP' },
-      { href: '/how-it-works/', label: 'How It Works' },
-      { href: '/all-our-blog/', label: 'Our Blog' },
-      { href: '/contact/', label: 'Contact' },
-      { href: '/list-with-cop/', label: 'List Your Home' },
-    ],
-    support: [
-      { href: '/contact/', label: 'Get in Touch' },
-      { href: '/buying-a-co-ownership-property-faqs/', label: 'Buying FAQ' },
-      { href: '/faq/', label: "Buyer's Q&A" },
-      { href: '/favourites/', label: 'Saved Properties' },
-    ],
-  },
-  es: {
-    discover: [
-      { href: '/es/propiedades/', label: 'Todas las propiedades' },
-      { href: '/es/como-funciona/', label: 'Cómo funciona' },
-      { href: '/es/quienes-somos/', label: 'Quiénes somos' },
-      { href: '/all-our-blog/', label: 'Blog' },
-      { href: '/favourites/', label: '♥ Mis favoritos' },
-    ],
-    company: [
-      { href: '/es/quienes-somos/', label: 'Sobre COP' },
-      { href: '/es/como-funciona/', label: 'Cómo funciona' },
-      { href: '/all-our-blog/', label: 'Blog' },
-      { href: '/es/contacto/', label: 'Contacto' },
-      { href: '/list-with-cop/', label: 'Publica tu propiedad' },
-    ],
-    support: [
-      { href: '/es/contacto/', label: 'Contáctanos' },
-      { href: '/es/comprar-copropiedad-preguntas-frecuentes/', label: 'Preguntas frecuentes: comprar' },
-      { href: '/es/disfrutar-copropiedad-preguntas-frecuentes/', label: 'Preguntas frecuentes: disfrutar' },
-      { href: '/favourites/', label: 'Propiedades guardadas' },
-    ],
-  },
-  fr: {
-    discover: [
-      { href: '/fr/proprietes/', label: 'Notre offre' },
-      { href: '/fr/comment-ca-marche/', label: 'Comment ça marche' },
-      { href: '/fr/a-propos/', label: 'À propos' },
-      { href: '/all-our-blog/', label: 'Blog' },
-      { href: '/favourites/', label: '♥ Mes favoris' },
-    ],
-    company: [
-      { href: '/fr/a-propos/', label: 'À propos de COP' },
-      { href: '/fr/comment-ca-marche/', label: 'Comment ça marche' },
-      { href: '/all-our-blog/', label: 'Blog' },
-      { href: '/fr/contact/', label: 'Contact' },
-      { href: '/list-with-cop/', label: 'Proposez votre bien' },
-    ],
-    support: [
-      { href: '/fr/contact/', label: 'Nous contacter' },
-      { href: '/fr/acheter-copropriete-questions-frequentes/', label: 'FAQ : acheter' },
-      { href: '/fr/profiter-copropriete-questions-frequentes/', label: 'FAQ : profiter' },
-      { href: '/favourites/', label: 'Propriétés sauvegardées' },
-    ],
-  },
-  de: {
-    discover: [
-      { href: '/de/immobilien/', label: 'Alle Ferienimmobilien' },
-      { href: '/de/so-funktionierts/', label: 'So funktioniert\'s' },
-      { href: '/de/ueber-uns/', label: 'Über uns' },
-      { href: '/de/blog/', label: 'Blog' },
-      { href: '/de/favoriten/', label: '♥ Meine Favoriten' },
-    ],
-    company: [
-      { href: '/de/ueber-uns/', label: 'Über COP' },
-      { href: '/de/so-funktionierts/', label: 'So funktioniert\'s' },
-      { href: '/de/blog/', label: 'Blog' },
-      { href: '/de/kontakt/', label: 'Kontakt' },
-      { href: '/list-with-cop/', label: 'Ihr Zuhause anbieten' },
-    ],
-    support: [
-      { href: '/de/kontakt/', label: 'Kontakt aufnehmen' },
-      { href: '/de/ferienimmobilie-kaufen-haeufige-fragen/', label: 'Häufige Fragen: kaufen' },
-      { href: '/de/aufenthalt-ferienimmobilie-haeufige-fragen/', label: 'Häufige Fragen: Aufenthalt' },
-      { href: '/de/favoriten/', label: 'Gespeicherte Immobilien' },
-    ],
-  },
+// Footer columns, generated per locale from ROUTE_SLUGS in lib/i18n.js and
+// the message catalogues. Previously a hand-maintained table per locale, which
+// is how the Spanish and French footers ended up linking at /favourites/ and
+// /all-our-blog/ — the English pages — instead of their own.
+//
+// Each entry is [routeKey, messageKey] and resolves to that locale's own URL.
+// A third element is a fixed href for pages that exist only in English.
+const FOOTER_COLS = {
+  discover: [
+    ['homes',      'footer.all_properties'],
+    ['howItWorks', 'nav.how_it_works'],
+    ['aboutUs',    'nav.about_us'],
+    ['blog',       'nav.blog'],
+    ['favourites', 'nav.favourites'],
+  ],
+  company: [
+    ['aboutUs',    'footer.about_cop'],
+    ['howItWorks', 'nav.how_it_works'],
+    ['blog',       'nav.blog'],
+    ['contact',    'nav.contact'],
+    [null,         'footer.list_your_home', '/list-with-cop/'],
+  ],
+  support: [
+    ['contact',     'footer.get_in_touch'],
+    ['buyingFaqs',  'footer.faq_buying'],
+    ['stayingFaqs', 'footer.faq_staying'],
+    ['favourites',  'footer.saved_properties'],
+  ],
 };
 
-// Destinations are shared (language-prefixed paths can come later).
+function footerLinks(locale) {
+  const build = (col) => FOOTER_COLS[col]
+    .map(([routeKey, messageKey, fixedHref]) => ({
+      href: fixedHref || routePath(locale, routeKey),
+      label: t(messageKey, locale),
+    }))
+    .filter((l) => l.href);
+  return { discover: build('discover'), company: build('company'), support: build('support') };
+}
+
 const DESTINATIONS = [
-  { href: '/spain-fractional-ownership-properties/', label: { en: 'Spain', es: 'España', fr: 'Espagne', de: 'Spanien' } },
-  { href: '/france-fractional-ownership-properties/', label: { en: 'France', es: 'Francia', fr: 'France', de: 'Frankreich' } },
-  { href: '/italy-fractional-ownership-properties/', label: { en: 'Italy', es: 'Italia', fr: 'Italie', de: 'Italien' } },
-  { href: '/usa-fractional-ownership-properties/', label: { en: 'USA', es: 'EE. UU.', fr: 'États-Unis', de: 'USA' } },
-  { href: '/portugal-fractional-ownership-properties/', label: { en: 'Portugal', es: 'Portugal', fr: 'Portugal', de: 'Portugal' } },
-  { href: '/austria-fractional-ownership-properties/', label: { en: 'Austria', es: 'Austria', fr: 'Autriche', de: 'Österreich' } },
+  { href: '/spain-fractional-ownership-properties/',    label: { en: 'Spain',    es: 'España',   fr: 'Espagne',   de: 'Spanien',    it: 'Spagna',     nl: 'Spanje',     pt: 'Espanha',  sv: 'Spanien',  da: 'Spanien',  no: 'Spania' } },
+  { href: '/france-fractional-ownership-properties/',   label: { en: 'France',   es: 'Francia',  fr: 'France',    de: 'Frankreich', it: 'Francia',    nl: 'Frankrijk',  pt: 'França',   sv: 'Frankrike', da: 'Frankrig', no: 'Frankrike' } },
+  { href: '/italy-fractional-ownership-properties/',    label: { en: 'Italy',    es: 'Italia',   fr: 'Italie',    de: 'Italien',    it: 'Italia',     nl: 'Italië',     pt: 'Itália',   sv: 'Italien',  da: 'Italien',  no: 'Italia' } },
+  { href: '/usa-fractional-ownership-properties/',      label: { en: 'USA',      es: 'EE. UU.',  fr: 'États-Unis', de: 'USA',       it: 'Stati Uniti', nl: 'Verenigde Staten', pt: 'Estados Unidos', sv: 'USA', da: 'USA', no: 'USA' } },
+  { href: '/portugal-fractional-ownership-properties/', label: { en: 'Portugal', es: 'Portugal', fr: 'Portugal',  de: 'Portugal',   it: 'Portogallo', nl: 'Portugal',   pt: 'Portugal', sv: 'Portugal', da: 'Portugal', no: 'Portugal' } },
+  { href: '/austria-fractional-ownership-properties/',  label: { en: 'Austria',  es: 'Austria',  fr: 'Autriche',  de: 'Österreich', it: 'Austria',    nl: 'Oostenrijk', pt: 'Áustria',  sv: 'Österrike', da: 'Østrig',  no: 'Østerrike' } },
 ];
 
 // Social channels shown under the brand mark.
@@ -128,7 +72,7 @@ const SOCIAL = [
 export default function Footer() {
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
-  const links = FOOTER_LINKS[locale] || FOOTER_LINKS.en;
+  const links = footerLinks(locale);
 
   return (
     <footer className="site-footer">

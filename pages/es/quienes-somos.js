@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 export default function QuienesSomos() {
   return (
@@ -15,7 +15,7 @@ export default function QuienesSomos() {
         <meta name="description" content="Conoce al equipo detrás de Co-Ownership Property. Fundada en 2022 por David Olsson, ayudamos a compradores inteligentes a acceder a segundas residencias de lujo a través de la copropiedad fraccionada." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://co-ownership-property.com/es/quienes-somos/" />
-        <HreflangLinks englishPath="/about-us" />
+        {hreflangLinks({ englishPath: '/about-us' })}
         <meta property="og:title" content="Quiénes somos | Co-Ownership Property" />
         <meta property="og:description" content="Conoce al equipo que ayuda a compradores inteligentes a acceder a segundas residencias de lujo a través de la copropiedad." />
         <meta property="og:url" content="https://co-ownership-property.com/es/quienes-somos/" />

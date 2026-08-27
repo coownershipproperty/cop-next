@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -80,7 +80,7 @@ export default function StayingFAQs() {
     <>
       <Head>
         <title>Staying in My Co-Ownership Property — FAQs | Co-Ownership Property</title>
-        <HreflangLinks englishPath="/staying-in-my-co-ownership-property-faqs" />
+        {hreflangLinks({ englishPath: '/staying-in-my-co-ownership-property-faqs' })}
         <meta name="description" content="Everything you need to know about staying in your co-ownership property — booking your time, arrival, guests, seasonal scheduling, rental income, and house rules." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

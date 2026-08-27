@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // Localisation FR de /staying-in-my-co-ownership-property-faqs.
 // Schéma FAQPage pour Google. La Q8 mentionne timeshare comme
@@ -89,7 +89,7 @@ export default function StayingFAQsFR() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={canonicalUrl} />
-        <HreflangLinks englishPath="/fr/profiter-copropriete-questions-frequentes" />
+        {hreflangLinks({ englishPath: '/fr/profiter-copropriete-questions-frequentes' })}
         <meta property="og:title" content="Profiter de votre copropriété — questions fréquentes" />
         <meta property="og:description" content="Réservations, arrivée, invités, planification saisonnière, revenus locatifs et règlement intérieur." />
         <meta property="og:url" content={canonicalUrl} />

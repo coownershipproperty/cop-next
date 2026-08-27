@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import Image from 'next/image';
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
@@ -8,7 +8,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import { localeFromPath } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized } from '@/lib/i18n';
 
 export async function getStaticProps() {
   const supabase = createClient(
@@ -18,7 +18,7 @@ export async function getStaticProps() {
 
   const { data: rows } = await supabase
     .from('posts')
-    .select('slug, title, title_es, title_fr, title_de, category, date, date_formatted, excerpt, excerpt_es, excerpt_fr, excerpt_de, hero_image')
+    .select(`slug, ${localeColumns(['title'])}, category, date, date_formatted, ${localeColumns(['excerpt'])}, hero_image`)
     .eq('published', true)
     .order('date', { ascending: false });
 
@@ -40,16 +40,12 @@ export async function getStaticProps() {
   const posts = source.map(p => ({
     slug:          p.slug,
     title:         p.title,
-    title_es:      p.title_es || null,
-    title_fr:      p.title_fr || null,
-    title_de:      p.title_de || null,
+    ...pickLocalized(p, ['title']),
     category:      p.category,
     date:          p.date,
     dateFormatted: p.date_formatted || p.dateFormatted,
     excerpt:       p.excerpt,
-    excerpt_es:    p.excerpt_es || null,
-    excerpt_fr:    p.excerpt_fr || null,
-    excerpt_de:    p.excerpt_de || null,
+    ...pickLocalized(p, ['excerpt']),
     heroImage:     p.hero_image || p.heroImage,
   }));
 
@@ -166,7 +162,7 @@ export default function AllOurBlog({ posts }) {
     <>
       <Head>
         <title>{t.title_tag}</title>
-        <HreflangLinks englishPath="/all-our-blog" />
+        {hreflangLinks({ englishPath: '/all-our-blog' })}
         <meta name="description" content={t.meta_desc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

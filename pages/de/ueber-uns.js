@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 
 export default function UeberUns() {
@@ -17,7 +17,7 @@ export default function UeberUns() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/de/ueber-uns/" />
-        <HreflangLinks englishPath="/about-us" />
+        {hreflangLinks({ englishPath: '/about-us' })}
         <meta property="og:title" content="Über uns | Co-Ownership Property" />
         <meta property="og:description" content="Lernen Sie das Team hinter Co-Ownership Property kennen. Wir helfen smarten Käufern beim Zugang zu Luxus-Ferienimmobilien über Miteigentum." />
         <meta property="og:url" content="https://co-ownership-property.com/de/ueber-uns/" />

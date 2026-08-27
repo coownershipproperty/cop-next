@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 const FAQS = [
   {
@@ -100,7 +100,7 @@ export default function FerienimmobilieKaufenFAQs() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/de/ferienimmobilie-kaufen-haeufige-fragen/" />
-        <HreflangLinks englishPath="/buying-a-co-ownership-property-faqs" />
+        {hreflangLinks({ englishPath: '/buying-a-co-ownership-property-faqs' })}
         <meta property="og:title" content="Ferienimmobilie kaufen — Häufige Fragen" />
         <meta property="og:description" content="Alles, was Sie über den Kauf einer Co-Ownership-Ferienimmobilie wissen müssen — rechtliche Struktur, Kosten, Hypotheken und der Kaufprozess." />
         <meta property="og:url" content="https://co-ownership-property.com/de/ferienimmobilie-kaufen-haeufige-fragen/" />

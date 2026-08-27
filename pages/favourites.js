@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import { FAV_KEY, FAV_EVENT, getFavSlugs, toggleFav, onFavsChange } from '@/lib/favs';
-import { t, propertyHref, DEFAULT_LOCALE } from '@/lib/i18n';
+import { t, propertyHref, DEFAULT_LOCALE, SUPPORTED_LOCALES, routePath, numberLocale } from '@/lib/i18n';
 
 function getSupabase() {
   return createClient(
@@ -20,12 +20,12 @@ const CURRENCY_SYM = { EUR: '€', USD: '$', GBP: '£' };
 
 // Locale → BCP-47 tag for Number.toLocaleString price formatting (Spanish
 // uses dots as thousand separators, French uses thin spaces, English commas).
-const LOCALE_TAG = { en: 'en-GB', es: 'es-ES', fr: 'fr-FR' };
+const LOCALE_TAG = Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, numberLocale(l)]));
 const SHARE_LABEL = { en: 'share', es: 'fracción', fr: 'part', de: 'Anteil' };
 
 // Locale → href for the "Browse Properties" empty-state CTA. Each locale's
 // own properties index keeps the visitor in their language stream.
-const BROWSE_HREF = { en: '/our-homes/', es: '/es/propiedades/', fr: '/fr/proprietes/' };
+const BROWSE_HREF = Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, routePath(l, 'homes')]));
 
 const BedIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{width:14,height:14}}>

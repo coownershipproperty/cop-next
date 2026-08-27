@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // Featured-snippet target. La confusion copropriété/multibien est rampante
 // chez les acheteurs francophones et aucun acteur n'a publié d'explication
@@ -18,7 +18,7 @@ export default function CoproprieteVsMultipropriete() {
         <title>Copropriété vs. multibien : les vraies différences [2026]</title>
         <meta name="description" content="Copropriété et multibien sont très différentes. Différences juridiques, financières, fiscales — explication claire avec tableau comparatif. Mis à jour 2026." />
         <link rel="canonical" href={canonicalUrl} />
-        <HreflangLinks englishPath="/fr/blog/copropriete-vs-multipropriete" />
+        {hreflangLinks({ englishPath: '/fr/blog/copropriete-vs-multipropriete' })}
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:title" content="Copropriété vs. multibien : les vraies différences" />

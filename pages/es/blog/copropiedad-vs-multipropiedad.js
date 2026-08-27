@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // Post estratégico: explica claramente la diferencia entre copropiedad y
 // multipropiedad. Identificado por keyword-research-spanish.md como gap
@@ -20,7 +20,7 @@ export default function CopropiedadVsMultipropiedad() {
         <title>Copropiedad vs. multipropiedad: las diferencias que importan [2026]</title>
         <meta name="description" content="Copropiedad y multipropiedad son cosas muy distintas. Diferencias legales, financieras, fiscales — explicadas claramente con tabla comparativa actualizada 2026." />
         <link rel="canonical" href={canonicalUrl} />
-        <HreflangLinks englishPath="/es/blog/copropiedad-vs-multipropiedad" />
+        {hreflangLinks({ englishPath: '/es/blog/copropiedad-vs-multipropiedad' })}
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="es_ES" />
         <meta property="og:title" content="Copropiedad vs. multipropiedad: las diferencias que importan" />

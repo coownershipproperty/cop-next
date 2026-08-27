@@ -5,11 +5,12 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import { createClient } from '@supabase/supabase-js';
 import { getFeaturedSlugs } from '@/lib/featured-properties';
 
 import { useState, useRef, useEffect } from 'react';
+import { localeColumns, localizedField } from '@/lib/i18n';
 
 // French locale homepage. Mirrors pages/index.js (English) section-by-section
 // with French translations. Strategic notes baked in from the keyword research:
@@ -31,7 +32,7 @@ export async function getStaticProps() {
 
   const { data: rows } = await supabase
     .from('properties')
-    .select('slug, title, title_fr, img, region, country, price, currency, beds, size')
+    .select(`slug, ${localeColumns(['title'], { locales: ['fr'] })}, img, region, country, price, currency, beds, size`)
     .in('slug', FEATURED_PROPERTY_SLUGS)
     .in('status', ['Live', 'for_sale']);
 
@@ -41,7 +42,7 @@ export async function getStaticProps() {
     .filter(Boolean)
     .map(p => ({
       slug: p.slug,
-      title: p.title_fr || p.title,
+      title: localizedField(p, 'title', 'fr'),
       img: p.img,
       region: p.region || '',
       country: p.country || '',
@@ -58,15 +59,15 @@ export async function getStaticProps() {
 
   const { data: postRows } = await supabase
     .from('posts')
-    .select('slug, slug_fr, title, title_fr, excerpt, excerpt_fr, date, hero_image, category, published_fr')
+    .select(`slug, ${localeColumns(['slug'], { locales: ['fr'], base: false })}, ${localeColumns(['title'], { locales: ['fr'] })}, ${localeColumns(['excerpt'], { locales: ['fr'] })}, date, hero_image, category, published_fr`)
     .eq('published', true)
     .order('date', { ascending: false })
     .limit(3);
 
   const latestPosts = (postRows || []).map(p => ({
-    slug: p.slug_fr || p.slug,
-    title: p.title_fr || p.title,
-    excerpt: p.excerpt_fr || p.excerpt || '',
+    slug: localizedField(p, 'slug', 'fr'),
+    title: localizedField(p, 'title', 'fr'),
+    excerpt: localizedField(p, 'excerpt', 'fr') || '',
     dateFormatted: p.date ? new Date(p.date).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase() : '',
     heroImage: p.hero_image || '',
     category: p.category || '',
@@ -278,7 +279,7 @@ export default function HomeFR({ propertyCount, featuredProps, latestPosts }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/fr/" />
-        <HreflangLinks englishPath="/" />
+        {hreflangLinks({ englishPath: '/' })}
         <meta property="og:title" content="Copropriété résidence secondaire | Maison de vacances en co-ownership — COP" />
         <meta property="og:description" content="Devenez copropriétaire d'une résidence secondaire de luxe en Espagne, France ou Italie. Plateforme indépendante." />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />

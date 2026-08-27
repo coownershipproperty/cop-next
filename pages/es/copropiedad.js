@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // Spanish pillar page targeting `copropiedad` (primary) and
 // `propiedad fraccionada` (secondary). This is the keyword-dense,
@@ -20,7 +20,7 @@ export default function CopropiedadPillar() {
           content="Guía completa de la copropiedad y propiedad fraccionada en España: cómo funciona, modelo legal (SL), fiscalidad, costes y diferencias con la multipropiedad. Actualizada 2026."
         />
         <link rel="canonical" href="https://co-ownership-property.com/es/copropiedad/" />
-        <HreflangLinks englishPath="/es/copropiedad" />
+        {hreflangLinks({ englishPath: '/es/copropiedad' })}
 
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="es_ES" />

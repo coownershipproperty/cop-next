@@ -23,7 +23,10 @@
     "saved_properties": "Propiedades guardadas",
     "get_in_touch": "Contacta con nosotros",
     "faq": "Preguntas frecuentes",
-    "rights_reserved": "Todos los derechos reservados."
+    "rights_reserved": "Todos los derechos reservados.",
+    "list_your_home": "Publica tu propiedad",
+    "faq_buying": "Preguntas frecuentes: comprar",
+    "faq_staying": "Preguntas frecuentes: disfrutar"
   },
   "common": {
     "language_switcher_label": "Idioma",

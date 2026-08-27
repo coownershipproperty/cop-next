@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // French pillar page targeting `copropriété résidence secondaire`. Special
 // considerations for French market (per keyword research):
@@ -24,7 +24,7 @@ export default function CoproprieteResidenceSecondairePillar() {
           content="Tout savoir sur la copropriété de résidence secondaire en 2026 : fonctionnement, structure LLC, fiscalité (IFI, plus-value), différences avec la multibien, achat sécurisé."
         />
         <link rel="canonical" href="https://co-ownership-property.com/fr/copropriete-residence-secondaire/" />
-        <HreflangLinks englishPath="/fr/copropriete-residence-secondaire" />
+        {hreflangLinks({ englishPath: '/fr/copropriete-residence-secondaire' })}
 
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="fr_FR" />

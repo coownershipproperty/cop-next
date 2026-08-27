@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // Post stratégique : reprend la phrase signature de Prello (« acheter
 // une résidence secondaire à plusieurs ») désormais orpheline depuis la
@@ -21,7 +21,7 @@ export default function AcheterResidenceSecondaireAPlusieurs() {
         <title>Acheter une résidence secondaire à plusieurs : le guide complet [2026]</title>
         <meta name="description" content="Comment acheter une résidence secondaire à plusieurs en 2026 : modèles juridiques (LLC, indivision, copropriété professionnelle), fiscalité, calendrier, sortie. Guide pratique complet." />
         <link rel="canonical" href={canonicalUrl} />
-        <HreflangLinks englishPath="/fr/blog/acheter-residence-secondaire-a-plusieurs" />
+        {hreflangLinks({ englishPath: '/fr/blog/acheter-residence-secondaire-a-plusieurs' })}
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:title" content="Acheter une résidence secondaire à plusieurs : le guide complet 2026" />

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -12,7 +12,7 @@ export default function HowItWorks() {
     <>
       <Head>
         <title>Co-Ownership Explained | COP - Fractional Property Ownership</title>
-        <HreflangLinks englishPath="/how-it-works" />
+        {hreflangLinks({ englishPath: '/how-it-works' })}
         <meta name="description" content="Learn how fractional co-ownership works. Buy a genuine deeded share in luxury holiday homes across Europe and the USA. Own only what you use, share costs with like-minded co-owners." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

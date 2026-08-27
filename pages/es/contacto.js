@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 export default function Contacto() {
   return (
@@ -14,7 +14,7 @@ export default function Contacto() {
         <meta name="description" content="Habla con el equipo de COP. ¿Preguntas sobre copropiedad fraccionada? Respondemos en pocas horas — sin presión comercial, sin compromiso." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://co-ownership-property.com/es/contacto/" />
-        <HreflangLinks englishPath="/contact" />
+        {hreflangLinks({ englishPath: '/contact' })}
         <meta property="og:title" content="Contacta con Co-Ownership Property" />
         <meta property="og:description" content="¿Preguntas sobre copropiedad fraccionada? Habla con nuestro equipo — sin presión comercial, sin compromiso." />
         <meta property="og:url" content="https://co-ownership-property.com/es/contacto/" />

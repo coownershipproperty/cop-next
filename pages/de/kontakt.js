@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 
 export default function Kontakt() {
@@ -16,7 +16,7 @@ export default function Kontakt() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/de/kontakt/" />
-        <HreflangLinks englishPath="/contact" />
+        {hreflangLinks({ englishPath: '/contact' })}
         <meta property="og:title" content="Co-Ownership Property kontaktieren" />
         <meta property="og:description" content="Fragen zu Co-Ownership-Ferienimmobilien? Sprechen Sie mit unserem Team — ohne Verkaufsdruck, ohne Verpflichtung. Wir antworten innerhalb weniger Stunden." />
         <meta property="og:url" content="https://co-ownership-property.com/de/kontakt/" />

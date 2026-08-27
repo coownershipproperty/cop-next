@@ -1,37 +1,12 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { getFavSlugs, onFavsChange } from '@/lib/favs';
-import { localeFromPath, t, SUPPORTED_LOCALES, localizedPath, canonicalEnglishKey, PROPERTY_URL_PREFIX, destinationAvailableIn } from '@/lib/i18n';
+import { localeFromPath, t, SUPPORTED_LOCALES, localizedPath, canonicalEnglishKey, PROPERTY_URL_PREFIX,
+         destinationAvailableIn, DYNAMIC_URL_FAMILIES, LOCALE_ROOT_PATHS, LOCALE_NAMES, NOT_AVAILABLE_LABEL, routePath } from '@/lib/i18n';
 
-// Per-locale URL prefixes for dynamic-route page families. Used by the
-// language switcher to translate the current URL when no static ROUTE_MAP
-// entry exists (property/{slug}/, blog/{slug}/, destinationen/{slug}/, etc.).
-const DYNAMIC_URL_FAMILIES = [
-  {
-    family: 'property',
-    prefixes: { en: '/property/', es: '/es/propiedades/', fr: '/fr/proprietes/', de: '/de/immobilien/' },
-  },
-  {
-    family: 'blog',
-    prefixes: { en: '/blog/', es: '/es/blog/', fr: '/fr/blog/', de: '/de/blog/' },
-  },
-  {
-    family: 'destinations',
-    // EN destinations live at root /{slug}/ via pages/[slug].js (handled below
-    // via the enFamily flag so it doesn't accidentally match every URL).
-    // ES destinations live under /es/destinos/{slug}/ — only a couple exist so far
-    // (mallorca, ibiza), every other slug 404s. Same for FR.
-    // DE mirrors live at /de/destinationen/{slug}/ for every EN destination.
-    prefixes: { en: '/', es: '/es/destinos/', fr: '/fr/destinations/', de: '/de/destinationen/' },
-    enFamily: 'root',
-  },
-];
-
-// Locale homepages — must never be misdetected as a single-segment dynamic-route
-// page. Without this guard, the destinations-family `en: '/'` prefix would match
-// `/es/` and decide the slug is "es", routing FR/DE links to /fr/destinations/es/
-// (404). Block these explicitly.
-const LOCALE_ROOT_PATHS = new Set(['/', '/es/', '/fr/', '/de/']);
+// DYNAMIC_URL_FAMILIES, LOCALE_ROOT_PATHS and LOCALE_NAMES are all derived from
+// the locale table in lib/i18n.js — see ROUTE_SLUGS there. They used to be
+// hand-maintained here, which meant adding a language touched this file too.
 
 // Every destination slug ends with one of these suffixes (audit the corpus:
 // `-fractional-ownership-properties` is the canonical pattern; a handful of
@@ -69,44 +44,28 @@ function detectDynamicFamily(path, currentLocale) {
 // Per-locale nav link tables. Slugs intentionally differ per locale (Spanish
 // keyword research wants /es/como-funciona/, French wants /fr/comment-ca-marche/,
 // etc.). Adding a new locale = add an entry here.
-const NAV_LINKS = {
-  en: [
-    { href: '/',             labelKey: 'nav.home' },
-    { href: '/our-homes',    labelKey: 'nav.our_homes' },
-    { href: '/how-it-works', labelKey: 'nav.how_it_works' },
-    { href: '/about-us',     labelKey: 'nav.about_us' },
-    { href: '/all-our-blog', labelKey: 'nav.blog' },
-    { href: '/favourites',   labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
-    { href: '/contact',      labelKey: 'nav.contact' },
-  ],
-  es: [
-    { href: '/es/',                  labelKey: 'nav.home' },
-    { href: '/es/propiedades/',      labelKey: 'nav.our_homes' },
-    { href: '/es/como-funciona/',    labelKey: 'nav.how_it_works' },
-    { href: '/es/quienes-somos/',    labelKey: 'nav.about_us' },
-    { href: '/es/blog/',             labelKey: 'nav.blog' },
-    { href: '/es/favoritos/',        labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
-    { href: '/es/contacto/',         labelKey: 'nav.contact' },
-  ],
-  fr: [
-    { href: '/fr/',                  labelKey: 'nav.home' },
-    { href: '/fr/proprietes/',       labelKey: 'nav.our_homes' },
-    { href: '/fr/comment-ca-marche/', labelKey: 'nav.how_it_works' },
-    { href: '/fr/a-propos/',         labelKey: 'nav.about_us' },
-    { href: '/fr/blog/',             labelKey: 'nav.blog' },
-    { href: '/fr/favoris/',          labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
-    { href: '/fr/contact/',          labelKey: 'nav.contact' },
-  ],
-  de: [
-    { href: '/de/',                    labelKey: 'nav.home' },
-    { href: '/de/immobilien/',         labelKey: 'nav.our_homes' },
-    { href: '/de/so-funktionierts/',   labelKey: 'nav.how_it_works' },
-    { href: '/de/ueber-uns/',          labelKey: 'nav.about_us' },
-    { href: '/de/blog/',               labelKey: 'nav.blog' },
-    { href: '/de/favoriten/',          labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
-    { href: '/de/kontakt/',            labelKey: 'nav.contact' },
-  ],
-};
+// Main navigation, generated per locale from ROUTE_SLUGS in lib/i18n.js.
+// A locale that has no page for an entry (routePath returns null) simply
+// doesn't get that link — which is how a language can launch with a focused
+// page set instead of a nav bar full of 404s.
+const NAV_ITEMS = [
+  { key: 'home',       labelKey: 'nav.home' },
+  { key: 'homes',      labelKey: 'nav.our_homes' },
+  { key: 'howItWorks', labelKey: 'nav.how_it_works' },
+  { key: 'aboutUs',    labelKey: 'nav.about_us' },
+  { key: 'blog',       labelKey: 'nav.blog' },
+  { key: 'favourites', labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
+  { key: 'contact',    labelKey: 'nav.contact' },
+];
+
+const NAV_LINKS = Object.fromEntries(
+  SUPPORTED_LOCALES.map((loc) => [
+    loc,
+    NAV_ITEMS
+      .map(({ key, ...rest }) => ({ ...rest, href: routePath(loc, key) }))
+      .filter((item) => item.href),
+  ])
+);
 
 export default function Header() {
   const router = useRouter();
@@ -259,9 +218,59 @@ const FLAG_SVGS = {
       <rect y="26.67" width="60" height="13.34" fill="#FFCE00" />
     </svg>
   ),
+
+  it: (
+    // Italy — tricolore (green, white, red) vertical
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="20" height="40" fill="#008C45" />
+      <rect x="20" width="20" height="40" fill="#F4F5F0" />
+      <rect x="40" width="20" height="40" fill="#CD212A" />
+    </svg>
+  ),
+  nl: (
+    // Netherlands — red, white, blue horizontal
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="60" height="40" fill="#21468B" />
+      <rect width="60" height="26.67" fill="#FFF" />
+      <rect width="60" height="13.33" fill="#AE1C28" />
+    </svg>
+  ),
+  pt: (
+    // Brazil — green field, yellow lozenge, blue globe (simplified at this size)
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="60" height="40" fill="#009B3A" />
+      <path d="M30,5 L55,20 L30,35 L5,20 Z" fill="#FEDF00" />
+      <circle cx="30" cy="20" r="8.5" fill="#002776" />
+    </svg>
+  ),
+  sv: (
+    // Sweden — blue field, yellow Nordic cross
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="60" height="40" fill="#006AA7" />
+      <rect y="16" width="60" height="8" fill="#FECC00" />
+      <rect x="17" width="8" height="40" fill="#FECC00" />
+    </svg>
+  ),
+  da: (
+    // Denmark — red field, white Nordic cross
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="60" height="40" fill="#C8102E" />
+      <rect y="16" width="60" height="8" fill="#fff" />
+      <rect x="17" width="8" height="40" fill="#fff" />
+    </svg>
+  ),
+  no: (
+    // Norway — red field, white-outlined blue Nordic cross
+    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="60" height="40" fill="#BA0C2F" />
+      <rect y="14" width="60" height="12" fill="#fff" />
+      <rect x="15" width="12" height="40" fill="#fff" />
+      <rect y="17" width="60" height="6" fill="#00205B" />
+      <rect x="18" width="6" height="40" fill="#00205B" />
+    </svg>
+  ),
 };
 
-const LOCALE_NAMES = { en: 'English', es: 'Español', fr: 'Français', de: 'Deutsch' };
 
 // Render both a flag and the native locale name. CSS shows only the flag on
 // desktop (where the 2x2 grid uses full-bleed flags) and only the text label
@@ -286,14 +295,6 @@ function LanguageSwitcher({ currentLocale, currentPath, desktopOnly = false }) {
   // back to a naive prefix strip for any page that lives outside ROUTE_MAP.
   const englishPath = canonicalEnglishKey(currentPath) || stripLocalePrefix(currentPath, currentLocale);
 
-  // Tooltip shown when a target locale has no equivalent page for the user
-  // to switch to (e.g. clicking ES on an English-only blog post).
-  const NOT_AVAILABLE_LABEL = {
-    en: 'Not yet available in English',
-    es: 'Aún no disponible en español',
-    fr: 'Pas encore disponible en français',
-    de: 'Noch nicht auf Deutsch verfügbar',
-  };
 
   function targetForLocale(loc) {
     if (dyn) {
@@ -389,12 +390,6 @@ function LanguageDropdown({ currentLocale, currentPath }) {
   // canonical ROUTE_MAP). Inlined here so the dropdown is self-contained.
   const dyn = detectDynamicFamily(currentPath, currentLocale);
   const englishPath = canonicalEnglishKey(currentPath) || stripLocalePrefix(currentPath, currentLocale);
-  const NOT_AVAILABLE_LABEL = {
-    en: 'Not yet available in English',
-    es: 'Aún no disponible en español',
-    fr: 'Pas encore disponible en français',
-    de: 'Noch nicht auf Deutsch verfügbar',
-  };
 
   function targetForLocale(loc) {
     if (dyn) {

@@ -7,7 +7,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import { createClient } from '@supabase/supabase-js';
 import { FEATURED_PROPERTY_SLUGS } from '@/lib/featured-properties';
-import { localeFromPath } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized } from '@/lib/i18n';
 
 // Locale-aware UI strings for the blog template chrome (sidebar, back link,
 // related-posts heading, etc.). The post body itself is rendered from the
@@ -231,17 +231,14 @@ export async function getStaticProps({ params }) {
   const post = {
     slug:          postRow.slug,
     title:         postRow.title,
-    title_es:      postRow.title_es || null,
-    title_fr:      postRow.title_fr || null,
+    ...pickLocalized(postRow, ['title']),
     category:      postRow.category,
     date:          postRow.date,
     dateFormatted: postRow.date_formatted,
     subtitle:      postRow.subtitle,
-    subtitle_es:   postRow.subtitle_es || null,
-    subtitle_fr:   postRow.subtitle_fr || null,
+    ...pickLocalized(postRow, ['subtitle']),
     excerpt:       postRow.excerpt,
-    excerpt_es:    postRow.excerpt_es || null,
-    excerpt_fr:    postRow.excerpt_fr || null,
+    ...pickLocalized(postRow, ['excerpt']),
     heroImage:     postRow.hero_image,
     heroImageAlt:  postRow.hero_image_alt || null,
     heroImageCaption: postRow.hero_image_caption || null,
@@ -272,7 +269,7 @@ export async function getStaticProps({ params }) {
   // Related posts: prefer same category, then fill with recent posts.
   const { data: categoryRelatedRows } = await supabase
     .from('posts')
-    .select('slug, title, title_es, title_fr, category, date_formatted, hero_image')
+    .select(`slug, ${localeColumns(['title'])}, category, date_formatted, hero_image`)
     .eq('published', true)
     .neq('slug', params.slug)
     .eq('category', post.category)
@@ -285,7 +282,7 @@ export async function getStaticProps({ params }) {
     const usedSlugs = new Set([params.slug, ...relatedRows.map(p => p.slug)]);
     const { data: fallbackRows } = await supabase
       .from('posts')
-      .select('slug, title, title_es, title_fr, category, date_formatted, hero_image')
+      .select(`slug, ${localeColumns(['title'])}, category, date_formatted, hero_image`)
       .eq('published', true)
       .neq('slug', params.slug)
       .order('date', { ascending: false })
@@ -298,21 +295,20 @@ export async function getStaticProps({ params }) {
   }
 
   const relatedPosts = relatedRows.map(p => ({
-    slug: p.slug, title: p.title, title_es: p.title_es || null, title_fr: p.title_fr || null, category: p.category,
+    slug: p.slug, title: p.title, ...pickLocalized(p, ['title'], { locales: ['es'] }), ...pickLocalized(p, ['title'], { locales: ['fr'] }), category: p.category,
     dateFormatted: p.date_formatted, heroImage: p.hero_image,
   }));
 
   const { data: featuredRows } = await supabase
     .from('properties')
-    .select('slug, title, title_es, title_fr, img, price, currency, city, region, country')
+    .select(`slug, ${localeColumns(['title'])}, img, price, currency, city, region, country`)
     .in('slug', FEATURED_PROPERTY_SLUGS)
     .in('status', ['Live', 'for_sale']);
 
   const featuredProperties = pickSidebarProperties(featuredRows, post).map(p => ({
     slug: p.slug,
     title: p.title,
-    title_es: p.title_es || null,
-    title_fr: p.title_fr || null,
+    ...pickLocalized(p, ['title']),
     img: p.img,
     price: formatPropertyPrice(p.price, p.currency),
     location: formatPropertyLocation(p),

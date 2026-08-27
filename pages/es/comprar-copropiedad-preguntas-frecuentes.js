@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // Localización ES de /buying-a-co-ownership-property-faqs.
 // Esquema FAQPage para Google. Mantiene la comparación explícita
@@ -106,7 +106,7 @@ export default function BuyingFAQsES() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={canonicalUrl} />
-        <HreflangLinks englishPath="/es/comprar-copropiedad-preguntas-frecuentes" />
+        {hreflangLinks({ englishPath: '/es/comprar-copropiedad-preguntas-frecuentes' })}
         <meta property="og:title" content="Comprar una copropiedad — preguntas frecuentes" />
         <meta property="og:description" content="Estructura legal, costes, hipotecas y proceso de compra para una propiedad en copropiedad." />
         <meta property="og:url" content={canonicalUrl} />

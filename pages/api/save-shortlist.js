@@ -14,6 +14,7 @@ import { upsertContact, incrementScore, logActivity } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
 import resend, { FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
 import { unsubUrl } from '@/lib/unsub';
+import { SUPPORTED_LOCALES, routePath } from '@/lib/i18n';
 
 const SITE = 'https://co-ownership-property.com';
 
@@ -41,7 +42,7 @@ const COPY = {
   },
 };
 
-const FAV_PATH = { en: '/favourites/', es: '/es/favoritos/', fr: '/fr/favoris/' };
+const FAV_PATH = Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, routePath(l, 'favourites')]));
 
 export default async function handler(req, res) {
   const db = createSupabaseAdminClient();

@@ -23,7 +23,10 @@
     "saved_properties": "Saved Properties",
     "get_in_touch": "Get in Touch",
     "faq": "FAQ",
-    "rights_reserved": "All rights reserved."
+    "rights_reserved": "All rights reserved.",
+    "list_your_home": "List Your Home",
+    "faq_buying": "Buying FAQ",
+    "faq_staying": "Staying FAQ"
   },
   "common": {
     "language_switcher_label": "Language",

@@ -4,8 +4,9 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import { createClient } from '@supabase/supabase-js';
+import { localeColumns, pickLocalized } from '@/lib/i18n';
 
 export async function getStaticProps() {
   const supabase = createClient(
@@ -14,13 +15,13 @@ export async function getStaticProps() {
   );
   const { data } = await supabase
     .from('properties')
-    .select('slug, title, title_es, title_fr, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type')
+    .select(`slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type`)
     .eq('country', 'Spain').eq('region', 'Ibiza')
     .in('status', ['Live', 'for_sale'])
     .limit(24);
 
   const properties = (data || []).map(p => ({
-    slug: p.slug, title: p.title, title_es: p.title_es || null, title_fr: p.title_fr || null,
+    slug: p.slug, title: p.title, ...pickLocalized(p, ['title'], { locales: ['es'] }), ...pickLocalized(p, ['title'], { locales: ['fr'] }),
     img: p.img, images: (p.images || []).slice(0, 3),
     totalImages: p.total_images || 0, driveUrl: p.drive_url || null,
     price: p.price || null, currency: p.currency || 'EUR',
@@ -40,7 +41,7 @@ export default function IbizaFR({ properties }) {
         <title>Résidence secondaire à Ibiza : copropriété et villas en quote-part [2026]</title>
         <meta name="description" content="Devenez copropriétaire d'une résidence secondaire à Ibiza — villas et fincas dans les meilleures zones (Santa Eulalia, San José, Roca Llisa). À partir d'1/8 avec acte authentique." />
         <link rel="canonical" href={canonicalUrl} />
-        <HreflangLinks englishPath="/fr/destinations/ibiza" />
+        {hreflangLinks({ englishPath: '/fr/destinations/ibiza' })}
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:title" content="Copropriété à Ibiza" />

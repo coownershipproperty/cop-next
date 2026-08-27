@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // Spanish equivalent of /how-it-works/. Uses the same CSS classes from
 // globals.css (page-hero, sec, intro-grid, benefits-grid, compare-table,
@@ -25,7 +25,7 @@ export default function ComoFunciona() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/es/como-funciona/" />
-        <HreflangLinks englishPath="/how-it-works" />
+        {hreflangLinks({ englishPath: '/how-it-works' })}
         <meta property="og:title" content="Cómo funciona la copropiedad | Propiedad fraccionada explicada" />
         <meta property="og:description" content="Aprende cómo funciona la copropiedad de viviendas vacacionales de lujo en España y Europa por una fracción del precio." />
         <meta property="og:url" content="https://co-ownership-property.com/es/como-funciona/" />

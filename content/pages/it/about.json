@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "title": "Chi siamo | Co-Ownership Property",
+    "description": "COP è un aggregatore indipendente di case vacanze in comproprietà in Europa e negli Stati Uniti. Non siamo un operatore, non vendiamo case nostre e non veniamo pagati per consigliarne una.",
+    "canonical": "/it/chi-siamo/",
+    "hreflangKey": "/about-us",
+    "ogTitle": "Chi siamo — Co-Ownership Property",
+    "ogDescription": "Un aggregatore indipendente di case vacanze in comproprietà. Nessun conflitto di interessi, nessuna pressione commerciale."
+  },
+  "hero": {
+    "eyebrow": "Chi siamo",
+    "h1": "Indipendenti, e",
+    "h1em": "per costruzione",
+    "sub": "COP raccoglie in un unico catalogo le case in comproprietà dei principali operatori europei e americani. Non ne siamo uno, non vendiamo case nostre, e la nostra utilità dipende dal fatto che le mostriamo anche quelle che non le convengono."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Perché abbiamo cominciato",
+      "h2": "Un mercato buono, raccontato male",
+      "paras": [
+        "La comproprietà professionale di case vacanze è diventata negli ultimi anni una cosa seria: strutture giuridiche solide, gestione vera, immobili di livello. Il problema non è il prodotto — è che chi lo cerca non riesce a confrontarlo.",
+        "Ogni operatore mostra soltanto le proprie case, con il proprio glossario e la propria idea di che cosa sia incluso nel prezzo. Chi si informa finisce con otto schede aperte nel browser e nessun modo di mettere le opzioni una accanto all'altra. Nel frattempo, la parola <em>multiproprietà</em> continua a proiettare un'ombra su un modello che con la multiproprietà non ha nulla a che vedere.",
+        "Abbiamo costruito COP per risolvere entrambe le cose: un catalogo unico, con lo stesso metro per tutti, e spiegazioni scritte per far capire davvero — comprese le parti che scoraggiano un acquisto."
+      ]
+    },
+    {
+      "type": "trust",
+      "eyebrow": "Come lavoriamo",
+      "h2": "Tre impegni che ci vincolano",
+      "cards": [
+        { "icon": "&#9878;", "h3": "Nessun compenso per consigliare", "body": ["Non veniamo pagati dagli operatori per indirizzarla verso l'uno o l'altro. È il motivo per cui possiamo dirle che una casa non fa per lei — e ogni tanto lo diciamo."] },
+        { "icon": "&#128196;", "h3": "I documenti prima dell'entusiasmo", "body": ["Statuto, regolamento d'uso, budget delle spese e regole di rivendita, in linguaggio comprensibile, prima di qualunque impegno. E il consiglio, sempre, di farli vedere a un legale e a un commercialista suoi."] },
+        { "icon": "&#128172;", "h3": "Nessuna pressione commerciale", "body": ["Facciamo domande, mostriamo le opzioni, e ci fermiamo lì. Se non è il momento giusto ce lo dica: le scriveremo di nuovo solo quando vorrà."] }
+      ]
+    },
+    {
+      "type": "prose",
+      "eyebrow": "Come guadagniamo",
+      "h2": "La domanda che vale la pena farci",
+      "paras": [
+        "Se non veniamo pagati per consigliare un operatore, come stiamo in piedi? Quando un lettore decide di procedere e ci chiede di presentarlo, riceviamo una commissione di presentazione dall'operatore — la stessa, a prescindere da quale sia. Il nostro incentivo è quindi che lei arrivi a una scelta di cui è convinto, non a una scelta particolare.",
+        "Lo scriviamo qui perché è la prima cosa che chiederemmo noi, al posto suo."
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Continuare",
+      "h2": "Da dove partire",
+      "cards": [
+        { "href": "/it/comproprieta-casa-vacanze/", "cat": "La guida completa", "title": "Come funziona la comproprietà", "desc": "Struttura giuridica, costi, fiscalità e la differenza con la multiproprietà, spiegate a fondo.", "arrow": "Leggi la guida" },
+        { "href": "/it/immobili/", "cat": "Il catalogo", "title": "Le case disponibili ora", "desc": "Europa e Stati Uniti, filtrabili per destinazione, camere e prezzo della quota.", "arrow": "Vedi gli immobili" },
+        { "href": "/it/contatti/", "cat": "Parlarne", "title": "Scriverci", "desc": "Domande sulla formula o su una casa precisa. Rispondiamo di solito in poche ore.", "arrow": "Contattarci" }
+      ]
+    }
+  ]
+}

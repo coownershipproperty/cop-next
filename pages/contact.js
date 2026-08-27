@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -30,7 +30,7 @@ export default function Contact() {
     <>
       <Head>
         <title>Contact Us | Co-Ownership Property</title>
-        <HreflangLinks englishPath="/contact" />
+        {hreflangLinks({ englishPath: '/contact' })}
         <meta
           name="description"
           content="Speak to the COP team. Questions about fractional ownership? We respond within a few hours — no sales pressure, no obligation."

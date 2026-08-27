@@ -23,7 +23,10 @@
     "saved_properties": "Gespeicherte Immobilien",
     "get_in_touch": "Kontakt aufnehmen",
     "faq": "FAQ",
-    "rights_reserved": "Alle Rechte vorbehalten."
+    "rights_reserved": "Alle Rechte vorbehalten.",
+    "list_your_home": "Immobilie anbieten",
+    "faq_buying": "FAQ: Kaufen",
+    "faq_staying": "FAQ: Aufenthalt"
   },
   "common": {
     "language_switcher_label": "Sprache",

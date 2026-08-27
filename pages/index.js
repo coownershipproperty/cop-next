@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -338,7 +338,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
     <>
       <Head>
         <title>Co-Ownership Property | Luxury Fractional Ownership</title>
-        <HreflangLinks englishPath="/" />
+        {hreflangLinks({ englishPath: '/' })}
         <meta name="description" content="Browse 350+ luxury co-ownership properties across Europe and the USA. Real deeded ownership in the world's finest homes — from a fraction of the cost." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

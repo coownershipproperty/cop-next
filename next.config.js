@@ -2,6 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
+  // Build output directory. Overridable so a verification build can be sent to
+  // a scratch directory instead of clobbering .next — needed when the working
+  // copy lives on a mount that refuses unlink(), where a rebuild over an
+  // existing .next fails with EPERM. Production builds leave this unset.
+  distDir: process.env.COP_DIST_DIR || '.next',
   // Fallback public values so cop-crm builds succeed without env vars configured.
   // NEXT_PUBLIC_ (anon) keys — safe to embed; already shipped to the browser.
   env: {

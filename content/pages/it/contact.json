@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "title": "Contatti | Co-Ownership Property",
+    "description": "Parli con il team di COP. Domande sulla comproprietà di case vacanze o su un immobile preciso? Rispondiamo di solito in poche ore — senza pressione commerciale e senza impegno.",
+    "canonical": "/it/contatti/",
+    "hreflangKey": "/contact",
+    "ogTitle": "Contatta Co-Ownership Property",
+    "ogDescription": "Domande sulla comproprietà di case vacanze? Parli con il nostro team — nessuna pressione commerciale, nessun impegno."
+  },
+  "hero": {
+    "eyebrow": "Siamo qui per aiutarla",
+    "h1": "Mettiamoci in",
+    "h1em": "contatto",
+    "sub": "Domande sulla comproprietà, su una casa precisa, o semplicemente voglia di capire come funziona il meccanismo? Le diamo risposte chiare, senza pressione commerciale."
+  },
+  "sections": [
+    {
+      "type": "trust",
+      "eyebrow": "Come lavoriamo",
+      "h2": "Che cosa aspettarsi quando ci scrive",
+      "cards": [
+        { "icon": "&#9993;", "h3": "Ci scriva direttamente", "body": ["Preferisce scrivere? Ci trova a<br /><a href=\"mailto:info@co-ownership-property.com\">info@co-ownership-property.com</a><br />Leggiamo personalmente ogni messaggio."] },
+        { "icon": "&#9200;", "h3": "Risposta rapida", "body": ["Rispondiamo di solito in poche ore, spesso prima. Per le case negli Stati Uniti tenga conto del fuso orario: le rispondiamo comunque, sempre."] },
+        { "icon": "&#10003;", "h3": "Nessuna pressione, nessun impegno", "body": ["Facciamo domande, la orientiamo verso le case giuste e lasciamo la decisione interamente a lei. Siamo indipendenti: non siamo legati a nessun operatore né promotore."] }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Sta ancora valutando?",
+      "h2": "Non è ancora il momento di scrivere?",
+      "cards": [
+        { "href": "/it/comproprieta-casa-vacanze/", "cat": "La guida completa", "title": "Come funziona, passo per passo", "desc": "Dalla scelta della casa al rogito: che cosa succede, in che ordine, e che cosa conviene preparare.", "arrow": "Leggi la guida" },
+        { "href": "/it/immobili/", "cat": "Il catalogo", "title": "Le case disponibili ora", "desc": "Confronti prezzo della quota, camere e destinazione fra tutti i principali operatori.", "arrow": "Vedi gli immobili" },
+        { "href": "/it/chi-siamo/", "cat": "Chi siamo", "title": "Perché siamo indipendenti", "desc": "Come lavoriamo, come guadagniamo, e perché possiamo dirle che una casa non fa per lei.", "arrow": "Scopri di più" }
+      ]
+    }
+  ],
+  "scripts": ["/js/contact.js"]
+}

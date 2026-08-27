@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Case vacanze in comproprietà in Europa | Proprietà frazionata — COP",
+    "description": "Case vacanze di pregio in comproprietà alle Baleari, sulla Costa del Sol, in Costa Azzurra, sulle Alpi e negli Stati Uniti. Una quota reale con atto notarile — non è una multiproprietà. Aggregatore indipendente dei principali operatori europei.",
+    "canonical": "/it/",
+    "hreflangKey": "/",
+    "ogTitle": "Case vacanze in comproprietà in Europa | Proprietà frazionata",
+    "ogDescription": "Case di pregio in comproprietà in tutta Europa. Proprietà reale, con atto notarile — non è una multiproprietà.",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg"
+  },
+  "hero": {
+    "eyebrow": "Indipendenti. Imparziali. Esperti.",
+    "h1": "Una casa vacanze in Europa,",
+    "h1em": "a una frazione del prezzo",
+    "sub": "Case selezionate in comproprietà tra Spagna, Francia, Italia e Stati Uniti. Compra una quota reale di una casa precisa — con atto notarile, non un diritto d'uso. Tutti i principali operatori in un unico posto, senza che nessuno ci paghi per consigliarlo."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Perché esistiamo",
+      "h2": "Un solo posto per confrontare, invece di otto",
+      "paras": [
+        "In Europa ci sono ormai diversi operatori seri che vendono quote di case vacanze di pregio. Nessuno di loro, però, le mostrerà le case degli altri. Chi cerca deve aprire otto siti, imparare otto glossari e confrontare a memoria.",
+        "COP raccoglie l'offerta in un catalogo unico e la presenta con lo stesso metro: prezzo della quota, settimane all'anno, che cosa è incluso, che cosa si paga ogni anno. Non siamo un operatore, non vendiamo case nostre e non riceviamo compensi per orientarla verso l'uno o l'altro. Le passiamo i documenti in linguaggio comprensibile e la decisione resta sua.",
+        "Le consigliamo comunque, sempre, di far vedere i documenti a un legale e a un commercialista di sua fiducia prima di firmare qualunque cosa."
+      ]
+    },
+    {
+      "type": "properties",
+      "eyebrow": "Disponibili ora",
+      "h2": "Alcune delle case in catalogo",
+      "sub": "Baleari, Costa del Sol, Costa Azzurra, Alpi francesi, laghi italiani, California, Colorado, Florida.",
+      "ctaLabel": "Vedi tutti gli immobili",
+      "ctaHref": "/it/immobili/"
+    },
+    {
+      "type": "benefits",
+      "eyebrow": "Che cosa cambia davvero",
+      "h2": "Perché la comproprietà funziona",
+      "cards": [
+        { "icon": "&#127968;", "h3": "È proprietà, non un diritto d'uso", "body": "Acquista una quota di una casa precisa, con atto notarile. La può vendere, ereditare o tenere, e partecipa alla rivalutazione dell'immobile. È la differenza sostanziale rispetto alla multiproprietà." },
+        { "icon": "&#128197;", "h3": "Circa sei settimane all'anno", "body": "Una quota di un ottavo dà diritto a 44-45 notti, distribuibili anche in soggiorni brevi. Le date più contese ruotano di anno in anno, così nel tempo il calendario è equo per tutti." },
+        { "icon": "&#129309;", "h3": "Costi divisi, casa gestita", "body": "Manutenzione, giardino, piscina, pulizie, assicurazioni e utenze sono ripartiti fra i comproprietari e gestiti da professionisti. Lei arriva, usa la casa e riparte." },
+        { "icon": "&#128269;", "h3": "Nessun conflitto di interessi", "body": "Non siamo un operatore e non veniamo pagati per indirizzarla. Le mostriamo tutte le opzioni, comprese quelle che non le convengono." }
+      ]
+    },
+    {
+      "type": "steps",
+      "eyebrow": "Il percorso",
+      "h2": "Come si arriva alle chiavi",
+      "steps": [
+        { "n": "01", "h3": "Sceglie la casa", "body": "Filtra per destinazione, camere, prezzo e caratteristiche. Le mandiamo la documentazione completa dell'immobile che le interessa." },
+        { "n": "02", "h3": "Legge i documenti", "body": "Statuto della società veicolo, regolamento d'uso, budget delle spese e regole di rivendita — in linguaggio comprensibile, prima di qualunque impegno." },
+        { "n": "03", "h3": "Prenota la quota", "body": "Firma l'accordo di prenotazione con l'operatore. La quota resta bloccata durante le verifiche legali, con periodi di ripensamento previsti." },
+        { "n": "04", "h3": "Firma dal notaio", "body": "L'acquisto si formalizza con atto notarile. Da quel momento la casa è gestita e il suo calendario è attivo. In genere quattro-otto settimane in tutto." }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Per approfondire",
+      "h2": "Prima di decidere",
+      "cards": [
+        { "href": "/it/comproprieta-casa-vacanze/", "cat": "La guida completa", "title": "Come funziona la comproprietà, per intero", "desc": "Struttura giuridica, costi, fiscalità, rivendita e la differenza con la multiproprietà — spiegate a fondo.", "arrow": "Leggi la guida" },
+        { "href": "/it/immobili/", "cat": "Il catalogo", "title": "Tutte le case in comproprietà disponibili", "desc": "Confronti prezzo della quota, camere, destinazione e operatore in un unico posto.", "arrow": "Vedi gli immobili" },
+        { "href": "/it/contatti/", "cat": "Parlarne", "title": "Una conversazione, senza impegno", "desc": "Domande sulla formula, su una casa precisa o sui documenti. Rispondiamo di solito in poche ore.", "arrow": "Scriverci" }
+      ]
+    },
+    {
+      "type": "cta",
+      "h2": "Guardi il catalogo",
+      "sub": "Case in comproprietà disponibili ora in tutta Europa e negli Stati Uniti.",
+      "buttons": [
+        { "label": "Vedi tutti gli immobili", "href": "/it/immobili/", "style": "blue" },
+        { "label": "Come funziona", "href": "/it/comproprieta-casa-vacanze/", "style": "gold" }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // German pillar page targeting `Miteigentum` (legal anchor) and
 // `Ferienimmobilie` (highest commercial-intent search keyword). This is
@@ -22,7 +22,7 @@ export default function MiteigentumFerienimmobiliePillar() {
           content="Vollständiger Leitfaden zu Miteigentum und Co-Ownership an Ferienimmobilien: wie es funktioniert, rechtliches Modell (BGB, GmbH, ausländische SPV), Kosten, Steuern und Unterschiede zum Timesharing. Aktualisiert 2026."
         />
         <link rel="canonical" href="https://co-ownership-property.com/de/miteigentum-ferienimmobilie/" />
-        <HreflangLinks englishPath="/de/miteigentum-ferienimmobilie" />
+        {hreflangLinks({ englishPath: '/de/miteigentum-ferienimmobilie' })}
 
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="de_DE" />

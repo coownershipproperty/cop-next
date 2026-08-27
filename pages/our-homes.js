@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
@@ -9,7 +9,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import { track } from '@vercel/analytics';
-import { localeFromPath } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized } from '@/lib/i18n';
 
 /** Fisher-Yates shuffle — runs once at build time for a stable random order */
 function shuffle(arr) {
@@ -35,7 +35,7 @@ export async function getStaticProps() {
 
   const { data: raw, error } = await supabase
     .from('properties')
-    .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added, is_discreet')
+    .select(`slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added, is_discreet`)
     // Public listings: hidden & staged rows must never render (19 Jul incident).
     // Sold homes DO stay in the catalogue — PropertyCard puts the Sold Out
     // banner across the photo — but they are pushed to the end of the grid
@@ -60,9 +60,7 @@ export async function getStaticProps() {
     title:    p.title,
     // Translated titles flow straight through; PropertyCard picks the right
     // one based on its own locale detection (router or cookie).
-    title_es: p.title_es || null,
-    title_fr: p.title_fr || null,
-    title_de: p.title_de || null,
+    ...pickLocalized(p, ['title']),
     img:      p.img,
     images:      (p.images || []).slice(0, 3),
     totalImages: p.is_discreet ? 1 : (p.total_images || 0),
@@ -580,7 +578,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     <>
       <Head>
         <title>{t.title_tag}</title>
-        <HreflangLinks englishPath="/our-homes" />
+        {hreflangLinks({ englishPath: '/our-homes' })}
         <meta name="description" content={t.meta_desc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

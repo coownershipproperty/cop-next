@@ -8,7 +8,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import { createClient } from '@supabase/supabase-js';
-import { destinationAvailableIn } from '@/lib/i18n';
+import { destinationAvailableIn, localeColumns, pickLocalized, localizedField } from '@/lib/i18n';
 
 // ─── Destination → property filter map (mirror of English /[slug].js) ────────
 const DEST_FILTERS = {
@@ -324,15 +324,15 @@ export async function getStaticProps({ params }) {
   );
   const { data: allProps } = await supabase
     .from('properties')
-    .select('slug, title, title_fr, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type')
+    .select(`slug, ${localeColumns(['title'], { locales: ['fr'] })}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type`)
     .in('status', ['Live', 'for_sale']);
 
   const filter = DEST_FILTERS[slug] || null;
   const matchedRaw = filter ? (allProps || []).filter(p => matchesFilter(p, filter)) : [];
   const matchedProps = matchedRaw.slice(0, 60).map(p => ({
     slug: p.slug,
-    title: p.title_fr || p.title,
-    title_fr: p.title_fr || null,
+    title: localizedField(p, 'title', 'fr'),
+    ...pickLocalized(p, ['title'], { locales: ['fr'] }),
     img: p.img,
     images: (p.images || []).slice(0, 3),
     totalImages: p.total_images || 0,

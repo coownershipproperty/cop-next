@@ -10,7 +10,8 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import { townSlug, TOWN_PAGE_MIN_HOMES } from '@/lib/townSlug';
-import { localeFromPath } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized, SUPPORTED_LOCALES, routePath } from '@/lib/i18n';
+import hreflangLinks from '@/components/HreflangLinks';
 
 /**
  * /co-ownership/{town}/ — programmatic town-level landing pages.
@@ -119,18 +120,21 @@ const COUNTRY_LINK_CTA = {
   de: (c) => `Zum vollständigen ${c}-Guide →`,
 };
 
-const BROWSE_HREF = { en: '/our-homes/', es: '/es/propiedades/', fr: '/fr/proprietes/', de: '/de/immobilien/' };
+// Listings-page URL per locale, derived from the locale table in lib/i18n.js.
+const BROWSE_HREF = Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, routePath(l, 'homes')]));
+// Town-guide URL prefix per locale, e.g. /co-ownership/, /es/copropiedad/,
+// /no/sameie/. Each locale's segment carries its own primary product term —
+// see ROUTE_SLUGS in lib/i18n.js and docs/translation-glossary.md.
+const PATH_PREFIX = Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, routePath(l, 'towns')]));
 
 const FIELDS =
-  'slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added';
+  `slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added`;
 
 function toCardProp(p) {
   return {
     slug: p.slug,
     title: p.title,
-    title_es: p.title_es || null,
-    title_fr: p.title_fr || null,
-    title_de: p.title_de || null,
+    ...pickLocalized(p, ['title']),
     img: p.img,
     images: (p.images || []).slice(0, 3),
     totalImages: p.total_images || 0,
@@ -280,12 +284,6 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
   };
   const ogImage = gallery[0] || homes[0]?.img || '';
 
-  const PATH_PREFIX = {
-    en: '/co-ownership/',
-    es: '/es/copropiedad/',
-    fr: '/fr/copropriete/',
-    de: '/de/miteigentum/',
-  };
 
   return (
     <>
@@ -301,15 +299,7 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href={`https://co-ownership-property.com${PATH_PREFIX[locale] || PATH_PREFIX.en}${townParam}/`} />
-        {Object.entries(PATH_PREFIX).map(([loc, prefix]) => (
-          <link
-            key={loc}
-            rel="alternate"
-            hrefLang={loc}
-            href={`https://co-ownership-property.com${prefix}${townParam}/`}
-          />
-        ))}
-        <link rel="alternate" hrefLang="x-default" href={`https://co-ownership-property.com/co-ownership/${townParam}/`} />
+        {hreflangLinks({ family: 'towns', slug: townParam })}
         <link rel="icon" href="/favicon.ico" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />

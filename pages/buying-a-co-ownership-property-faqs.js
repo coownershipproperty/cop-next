@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import HreflangLinks from '@/components/HreflangLinks';
+import hreflangLinks from '@/components/HreflangLinks';
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -96,7 +96,7 @@ export default function BuyingFAQs() {
     <>
       <Head>
         <title>Buying a Co-Ownership Property — FAQs | Co-Ownership Property</title>
-        <HreflangLinks englishPath="/buying-a-co-ownership-property-faqs" />
+        {hreflangLinks({ englishPath: '/buying-a-co-ownership-property-faqs' })}
         <meta name="description" content="Everything you need to know about buying a co-ownership property — legal structure, costs, mortgages, and how the purchase process works from offer to completion." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

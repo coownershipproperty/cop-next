@@ -16,7 +16,7 @@ import UnlockModal from '@/components/UnlockModal';
 import TourRequestModal from '@/components/TourRequestModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
 import PropertyCard from '@/components/PropertyCard';
-import { localeFromPath } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized, numberLocale } from '@/lib/i18n';
 import PropertyWatch from '@/components/PropertyWatch';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
@@ -313,7 +313,7 @@ export async function getStaticProps({ params }) {
     try {
       const { data: similarRaw } = await supabase
         .from('properties')
-        .select('slug, title, title_es, title_fr, title_de, img, images, price, currency, share_denominator, country, region, city, beds, size, status')
+        .select(`slug, ${localeColumns(['title'])}, img, images, price, currency, share_denominator, country, region, city, beds, size, status`)
         .eq('country', property.country)
         .neq('slug', property.slug)
         // Deliberately NOT PUBLIC_STATUSES: never recommend a sold home.
@@ -337,9 +337,7 @@ export async function getStaticProps({ params }) {
       similar = candidates.slice(0, 3).map(p => ({
         slug: p.slug,
         title: p.title,
-        title_es: p.title_es || null,
-        title_fr: p.title_fr || null,
-        title_de: p.title_de || null,
+        ...pickLocalized(p, ['title']),
         img: p.img || null,
         images: Array.isArray(p.images) ? p.images.slice(0, 3) : [],
         price: p.price || null,
@@ -479,7 +477,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
   const detected = useLocaleFromCookie(localeFromPath(router.asPath || router.pathname));
   const locale = forceLocale || detected;
   const t = COPY[locale] || COPY.en;
-  const localeNumberFmt = locale === 'es' ? 'es-ES' : locale === 'fr' ? 'fr-FR' : 'en-GB';
+  const localeNumberFmt = numberLocale(locale);
 
   const local = localizedFields(p, locale);
 

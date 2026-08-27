@@ -7,10 +7,10 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
-import HreflangLinks from '@/components/HreflangLinks';
 import { createClient } from '@supabase/supabase-js';
 import destinationFaqs from '@/lib/destination-faqs.json';
 import destSameAs from '@/lib/destination-sameas.json';
+import { localeColumns, pickLocalized } from '@/lib/i18n';
 
 // ─── Destination → property filter map ───────────────────────────────────────
 const DEST_FILTERS = {
@@ -346,7 +346,7 @@ async function fetchLiveProperties() {
     const supabase = createClient(url, key);
     const { data, error } = await supabase
       .from('properties')
-      .select('slug, title, title_es, title_fr, title_de, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, lat, lng, date_added')
+      .select(`slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, lat, lng, date_added`)
       // Public listings: only Live / for_sale — hidden & sold must never render.
       .in('status', ['Live', 'for_sale']);
 
@@ -360,9 +360,7 @@ async function fetchLiveProperties() {
       title:    p.title,
       // Translated titles flow straight through; PropertyCard picks the right
       // one based on its own locale detection.
-      title_es: p.title_es || null,
-      title_fr: p.title_fr || null,
-      title_de: p.title_de || null,
+      ...pickLocalized(p, ['title']),
       img:      p.img,
       images:      (p.images || []).slice(0, 3),
       totalImages: p.total_images || 0,
