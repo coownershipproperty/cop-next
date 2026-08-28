@@ -312,21 +312,29 @@ export async function getStaticProps({ params }) {
     // the page with an empty similar list instead of breaking the whole page.
     let similar = [];
     try {
-      const { data: similarRaw } = await supabase
+      // Perf note (28 Aug 2026): this used to select `images` (the full
+      // photo-URL array) and every locale's title for up to 200 rows, on
+      // every ISR build of every property URL in every locale — ~1–3 MB and
+      // 0.4–0.6 s per build. When the translation backfill put ~2,500 new
+      // property URLs into the sitemap at once, the resulting crawl storm
+      // saturated Supabase (the 28 Aug 522 outage / admin lag). Now: the
+      // price band is applied in SQL, the candidate pool is capped at 60,
+      // and the heavy `images` arrays are fetched afterwards for just the
+      // three winning cards.
+      const basePrice = Number(property.price) > 0 ? Number(property.price) : null;
+      let simQuery = supabase
         .from('properties')
-        .select(`slug, ${localeColumns(['title'])}, img, images, price, currency, share_denominator, country, region, city, beds, size, status`)
+        .select(`slug, ${localeColumns(['title'])}, img, price, currency, share_denominator, country, region, city, beds, size, status`)
         .eq('country', property.country)
         .neq('slug', property.slug)
         // Deliberately NOT PUBLIC_STATUSES: never recommend a sold home.
         // On a sold page this block is the recovery path to buyable stock.
         .in('status', ['Live', 'for_sale'])
-        .limit(200);
-      const basePrice = Number(property.price) > 0 ? Number(property.price) : null;
+        .limit(60);
+      if (basePrice) simQuery = simQuery.gte('price', Math.floor(basePrice * 0.7)).lte('price', Math.ceil(basePrice * 1.3));
+      const { data: similarRaw } = await simQuery;
       const candidates = (similarRaw || [])
-        // ±30% price band (skipped when the current home has no price)
-        .filter(c => !basePrice || (Number(c.price) > 0
-          && Number(c.price) >= basePrice * 0.7
-          && Number(c.price) <= basePrice * 1.3))
+        .filter(c => !basePrice || Number(c.price) > 0)
         // Same region first, then closest by price
         .sort((a, b) => {
           const aRegion = property.region && a.region === property.region ? 0 : 1;
@@ -335,12 +343,22 @@ export async function getStaticProps({ params }) {
           if (!basePrice) return 0;
           return Math.abs(Number(a.price) - basePrice) - Math.abs(Number(b.price) - basePrice);
         });
-      similar = candidates.slice(0, 3).map(p => ({
+      const top3 = candidates.slice(0, 3);
+      // Photo arrays for the three winning cards only.
+      let imagesBySlug = {};
+      if (top3.length) {
+        const { data: imgRows } = await supabase
+          .from('properties')
+          .select('slug, images')
+          .in('slug', top3.map(p => p.slug));
+        imagesBySlug = Object.fromEntries((imgRows || []).map(r => [r.slug, r.images]));
+      }
+      similar = top3.map(p => ({
         slug: p.slug,
         title: p.title,
         ...pickLocalized(p, ['title']),
         img: p.img || null,
-        images: Array.isArray(p.images) ? p.images.slice(0, 3) : [],
+        images: Array.isArray(imagesBySlug[p.slug]) ? imagesBySlug[p.slug].slice(0, 3) : [],
         price: p.price || null,
         currency: p.currency || 'EUR',
         share_denominator: p.share_denominator || null,
