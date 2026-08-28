@@ -44,7 +44,9 @@ export async function getStaticProps() {
 
   if (error) {
     console.error('Supabase error (our-homes):', error);
-    return { props: { allProperties: [] }, revalidate: 60 };
+    // Keep serving the previous ISR page during a transient database outage.
+    // Returning [] here poisons the cache with an apparently empty catalogue.
+    throw new Error('Unable to refresh the property catalogue from Supabase');
   }
 
   const isSold = p => String(p.status || '').toLowerCase().includes('sold');

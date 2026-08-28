@@ -16,11 +16,19 @@ export async function getStaticProps() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   );
 
-  const { data: rows } = await supabase
+  const { data: rows, error } = await supabase
     .from('posts')
     .select(`slug, ${localeColumns(['title'])}, category, date, date_formatted, ${localeColumns(['excerpt'])}, hero_image`)
     .eq('published', true)
     .order('date', { ascending: false });
+
+  // An ISR refresh must fail closed when Supabase is temporarily unavailable.
+  // Throwing keeps the last known-good page in Next's cache; returning an empty
+  // list would replace it with a misleading, hour-long "no articles" snapshot.
+  if (error) {
+    console.error('Supabase error (all-our-blog):', error);
+    throw new Error('Unable to refresh the blog index from Supabase');
+  }
 
   // Fallback to JSON if Supabase table empty (pre-migration safety net)
   let source = rows || [];
