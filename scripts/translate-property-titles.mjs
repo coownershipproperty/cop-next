@@ -128,6 +128,13 @@ const FEATURES = {
   'Rooftop Jacuzzi':       { it: 'jacuzzi sul tetto',        nl: 'dakjacuzzi',               pt: 'jacuzzi na cobertura',        sv: 'takjacuzzi',               da: 'tagjacuzzi',               no: 'takjacuzzi' },
   'Private Jetty':         { it: 'pontile privato',          nl: 'eigen aanlegsteiger',      pt: 'píer privativo',              sv: 'egen brygga',              da: 'egen bådebro',             no: 'egen brygge' },
   'Private Boat Dock':     { it: 'attracco privato',         nl: 'eigen botensteiger',       pt: 'atracadouro privativo',       sv: 'egen båtplats',            da: 'egen bådplads',            no: 'egen båtplass' },
+  'Panoramic Lake View':   { it: 'vista lago panoramica',   nl: 'panoramisch meerzicht',    pt: 'vista panorâmica para o lago', sv: 'panoramautsikt över sjön', da: 'panoramaudsigt over søen',  no: 'panoramautsikt over sjøen' },
+  'Panoramic Mountain View': { it: 'vista panoramica sulle montagne', nl: 'panoramisch bergzicht', pt: 'vista panorâmica para as montanhas', sv: 'panoramautsikt över bergen', da: 'panoramaudsigt over bjergene', no: 'panoramautsikt over fjellene' },
+  'Mountain View':         { it: 'vista montagne',           nl: 'bergzicht',                pt: 'vista para as montanhas',     sv: 'bergsutsikt',              da: 'bjergudsigt',              no: 'fjellutsikt' },
+  'Ocean View':            { it: 'vista oceano',             nl: 'oceaanzicht',              pt: 'vista para o oceano',         sv: 'havsutsikt',               da: 'havudsigt',                no: 'havutsikt' },
+  'Golf View':             { it: 'vista sul campo da golf',  nl: 'zicht op de golfbaan',     pt: 'vista para o campo de golfe', sv: 'utsikt över golfbanan',    da: 'udsigt over golfbanen',    no: 'utsikt over golfbanen' },
+  'Bay View':              { it: 'vista sulla baia',         nl: 'baaizicht',                pt: 'vista para a baía',           sv: 'utsikt över bukten',       da: 'udsigt over bugten',       no: 'utsikt over bukta' },
+  'Countryside View':      { it: 'vista sulla campagna',     nl: 'uitzicht op het landschap', pt: 'vista para o campo',         sv: 'utsikt över landskapet',   da: 'udsigt over landskabet',   no: 'utsikt over landskapet' },
   'Ski-in/Ski-out':        { it: 'ski-in/ski-out',          nl: 'ski-in/ski-out',           pt: 'ski-in/ski-out',              sv: 'ski-in/ski-out',           da: 'ski-in/ski-out',           no: 'ski-in/ski-out' },
 };
 

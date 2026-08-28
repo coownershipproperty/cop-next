@@ -1,50 +1,255 @@
 {
-  "en": { "sections": [
-    { "h": "Marbella, beyond the postcard", "p": [
-      "Marbella earned its reputation the old-fashioned way: a genuinely beautiful old town of orange trees and whitewashed lanes, the Sierra Blanca rising straight behind it, and a microclimate the rest of Spain envies — the mountains shelter the town so effectively that winter here is measurably warmer than the coast an hour east. Around that core grew the Golden Mile, Puerto Banús, and the greatest concentration of golf on the European mainland; more than fifty courses lie within an hour.",
-      "What the postcard misses is how well Marbella works off-season. The restaurants stay open, the sea stays swimmable into November for the brave, and the town's international community keeps it alive in a way purely seasonal resorts never manage. This is a twelve-month address."
-    ]},
-    { "h": "Seasons and getting there", "p": [
-      "Málaga airport is about forty-five minutes up the toll road, with the density of European connections that makes spontaneous travel realistic. High summer belongs to the beach clubs; the shoulder seasons are golf and padel heaven at perfect temperatures; and the famous 320-day sunshine claim holds up often enough that January lunches happen outdoors. Owners here use more of their calendar than in almost any other Spanish destination — which is exactly what makes shared usage weeks so much more valuable than a fortnight's rental."
-    ]},
-    { "h": "The co-ownership case", "p": [
-      "Marbella's best addresses now trade at prices that make whole ownership a serious capital commitment — and the running of a villa here, pools and gardens and security, is a year-round operation whether you visit or not. A deeded share puts registered Spanish property in your name at a fraction of that commitment, with roughly six weeks a year, fairly rotated through the seasons, and everything maintained to Golden-Mile standard between your stays. For buyers who know Marbella from years of holidays and have watched both prices and rents climb, the full share prices below tend to settle the argument."
-    ]}
-  ]},
-  "de": { "sections": [
-    { "h": "Marbella, jenseits der Postkarte", "p": [
-      "Marbella hat sich seinen Ruf auf die altmodische Art verdient: eine wirklich schöne Altstadt mit Orangenbäumen und weißen Gassen, die Sierra Blanca direkt dahinter, und ein Mikroklima, um das der Rest Spaniens die Stadt beneidet — die Berge schirmen sie so wirksam ab, dass der Winter hier messbar wärmer ist als an der Küste eine Stunde östlich. Um diesen Kern wuchsen die Goldene Meile, Puerto Banús und die größte Golfdichte des europäischen Festlands; über fünfzig Plätze liegen im Umkreis einer Stunde.",
-      "Was die Postkarte verschweigt: wie gut Marbella außerhalb der Saison funktioniert. Die Restaurants bleiben offen, das Meer bleibt für Mutige bis in den November badetauglich, und die internationale Gemeinde hält die Stadt lebendig, wie es rein saisonale Orte nie schaffen. Dies ist eine Zwölf-Monats-Adresse."
-    ]},
-    { "h": "Saisonen und Anreise", "p": [
-      "Der Flughafen Málaga liegt etwa fünfundvierzig Minuten über die Mautstraße entfernt — mit einer Dichte europäischer Verbindungen, die spontanes Reisen realistisch macht. Der Hochsommer gehört den Beachclubs; die Zwischensaisonen sind Golf- und Padel-Paradies bei perfekten Temperaturen; und die berühmten 320 Sonnentage bewahrheiten sich oft genug, dass im Januar draußen zu Mittag gegessen wird. Eigentümer nutzen hier mehr vom Kalender als fast überall sonst in Spanien — genau das macht geteilte Nutzungswochen so viel wertvoller als zwei Wochen Miete."
-    ]},
-    { "h": "Das Miteigentums-Argument", "p": [
-      "Marbellas beste Adressen handeln inzwischen zu Preisen, die Gesamteigentum zu einem ernsten Kapitaleinsatz machen — und der Betrieb einer Villa hier, Pools, Gärten, Sicherheit, ist ein Ganzjahresunternehmen, ob Sie kommen oder nicht. Ein eingetragener Anteil bringt spanisches Grundbucheigentum auf Ihren Namen zum Bruchteil dieses Einsatzes — rund sechs Wochen im Jahr, fair durch die Saisons rotiert, alles zwischen Ihren Aufenthalten auf Goldene-Meile-Niveau gepflegt. Für Käufer, die Marbella aus Jahren von Urlauben kennen und Preise wie Mieten haben klettern sehen, entscheiden die vollen Anteilspreise unten das Argument meist von selbst."
-    ]}
-  ]},
-  "fr": { "sections": [
-    { "h": "Marbella, au-delà de la carte postale", "p": [
-      "Marbella a gagné sa réputation à l'ancienne : une vieille ville authentiquement belle, orangers et ruelles blanchies, la Sierra Blanca dressée juste derrière, et un microclimat que le reste de l'Espagne lui envie — les montagnes abritent si bien la ville que l'hiver y est mesurablement plus doux que sur la côte une heure à l'est. Autour de ce cœur ont poussé le Golden Mile, Puerto Banús et la plus forte concentration de golfs du continent européen ; plus de cinquante parcours à moins d'une heure.",
-      "Ce que la carte postale oublie, c'est combien Marbella fonctionne hors saison. Les restaurants restent ouverts, la mer reste nageable jusqu'en novembre pour les courageux, et la communauté internationale garde la ville vivante comme les stations purement saisonnières n'y parviennent jamais. C'est une adresse douze mois sur douze."
-    ]},
-    { "h": "Saisons et accès", "p": [
-      "L'aéroport de Málaga est à environ quarante-cinq minutes par l'autoroute, avec une densité de liaisons européennes qui rend les départs spontanés réalistes. Le plein été appartient aux beach clubs ; les intersaisons sont un paradis de golf et de padel à températures parfaites ; et les fameux 320 jours de soleil se vérifient assez souvent pour déjeuner dehors en janvier. Les propriétaires utilisent ici plus de leur calendrier que presque partout ailleurs en Espagne — exactement ce qui rend les semaines partagées tellement plus précieuses qu'une quinzaine de location."
-    ]},
-    { "h": "L'argument de la copropriété", "p": [
-      "Les meilleures adresses de Marbella s'échangent désormais à des prix qui font de la pleine propriété un engagement sérieux — et la tenue d'une villa ici, piscines, jardins, sécurité, est une entreprise annuelle, que vous veniez ou non. Une part en titre met de l'immobilier espagnol enregistré à votre nom pour une fraction de cet engagement : environ six semaines par an, réparties équitablement au fil des saisons, tout étant entretenu au niveau du Golden Mile entre vos séjours. Pour les acheteurs qui connaissent Marbella depuis des années de vacances et ont vu grimper prix et loyers, les prix complets ci-dessous règlent généralement la discussion."
-    ]}
-  ]},
-  "es": { "sections": [
-    { "h": "Marbella, más allá de la postal", "p": [
-      "Marbella se ganó su reputación a la antigua: un casco antiguo de verdad hermoso, naranjos y callejas encaladas, la Sierra Blanca alzándose justo detrás, y un microclima que el resto de España le envidia — las montañas resguardan tanto la ciudad que el invierno aquí es mediblemente más templado que en la costa una hora al este. Alrededor de ese núcleo crecieron la Milla de Oro, Puerto Banús y la mayor concentración de golf de la Europa continental; más de cincuenta campos a menos de una hora.",
-      "Lo que la postal no cuenta es lo bien que funciona Marbella fuera de temporada. Los restaurantes siguen abiertos, el mar aguanta baños hasta noviembre para los valientes, y la comunidad internacional mantiene viva la ciudad como los destinos puramente estacionales nunca consiguen. Esta es una dirección de doce meses."
-    ]},
-    { "h": "Temporadas y cómo llegar", "p": [
-      "El aeropuerto de Málaga queda a unos cuarenta y cinco minutos por la autopista de peaje, con una densidad de conexiones europeas que hace realista viajar de forma espontánea. El pleno verano es de los beach clubs; las entretemporadas, un paraíso de golf y pádel a temperatura perfecta; y los famosos 320 días de sol se cumplen lo bastante como para almorzar fuera en enero. Aquí los propietarios aprovechan más calendario que en casi ningún otro destino español — exactamente lo que hace que unas semanas compartidas valgan mucho más que una quincena de alquiler."
-    ]},
-    { "h": "El argumento de la copropiedad", "p": [
-      "Las mejores direcciones de Marbella cotizan ya a precios que convierten la propiedad entera en un compromiso de capital serio — y mantener aquí una villa, con piscinas, jardines y seguridad, es una operación de todo el año, vengas o no. Una participación con escritura pone inmueble español registrado a tu nombre por una fracción de ese compromiso: unas seis semanas al año, rotadas con justicia por las temporadas, y todo mantenido a nivel Milla de Oro entre estancias. Para compradores que conocen Marbella de años de vacaciones y han visto subir precios y alquileres, los precios completos de abajo suelen zanjar la discusión."
-    ]}
-  ]}
+ "en": {
+  "sections": [
+   {
+    "h": "Marbella, properly understood",
+    "p": [
+     "Marbella has a reputation problem of the opposite kind to most places: people assume they know it, and what they think they know is Puerto Banús at two in the morning. That Marbella exists, occupies about a square kilometre of a municipality that runs for twenty-seven kilometres along the coast, and is busy for roughly ten weeks of the year. The rest of it is a Spanish town of ninety-odd thousand people with a whitewashed fifteenth-century old town built around an orange-tree square, a working fishing harbour, a five-kilometre seafront promenade, and a wall of mountains rising directly behind it.",
+     "That wall is the single most important fact about the place, and it is geological rather than promotional. The Sierra Blanca climbs to La Concha at just over twelve hundred metres less than five kilometres from the beach, and it shelters the coastal strip from the northerly weather that reaches the rest of Andalucía. The practical consequence is a winter that is measurably milder than anywhere else on mainland Spain — daytime temperatures in January and February that sit comfortably in the high teens, and a growing season that supports subtropical planting you will not see further up the coast.",
+     "For a buyer, that microclimate is the whole argument, because it converts Marbella from a summer destination into a twelve-month one. The restaurants stay open in February. The golf courses are at their best when northern Europe is frozen. The town's large resident international community keeps the everyday economy running through the winter in a way that purely seasonal resorts never manage. Marbella is one of very few Mediterranean addresses where a week in January is a genuinely good week, and that changes what a share here is worth."
+    ]
+   },
+   {
+    "h": "A short history: watchtowers, a marina and the Golden Mile",
+    "p": [
+     "Marbella is older than its reputation by some distance. The Romans were here — there are villa remains and a paleo-Christian basilica at Vega del Mar in San Pedro — but the town's shape is Moorish: the Alcazaba, whose walls still stand at the top of the old town, was built in the tenth century, and the street plan below it is the one the Nasrids left behind. The Christian conquest came in 1485, and the Plaza de los Naranjos — the orange-tree square that is still the centre of the old town — was laid out immediately afterwards as the new Castilian civic space, with the town hall on one side and a chapel on another.",
+     "Along the coast, the string of sixteenth-century watchtowers tells the next part of the story: the whole shoreline was a frontier, watched against Barbary raiders, and the towers were built within sight of one another as an early-warning chain. Several still stand between Marbella and Estepona, and the modern coastal path threads past them. Until the middle of the twentieth century this was a poor coast of fishing and sugar cane, and Marbella was a town of a few thousand people.",
+     "What changed it was a single decision in 1954, when Ricardo Soriano and his nephew Alfonso de Hohenlohe opened the Marbella Club as a private hotel for their own circle, and a stretch of empty coast west of the town became the address for European aristocracy. Puerto Banús followed in 1970, built by José Banús as a marina village and opened with a guest list that fixed Marbella's international image for the next fifty years. The Golden Mile — the coastal strip between the two — is the physical residue of that period, and it is why the town's most expensive real estate sits where it does rather than in the old centre."
+    ]
+   },
+   {
+    "h": "The coast, town by town",
+    "p": [
+     "Marbella town itself is the practical heart: the old town and its orange square, the Alameda park and the Avenida del Mar with its Dalí sculptures, the fishing harbour, and a promenade that now runs for kilometres in both directions. It is a real Spanish town with a market, a bus station, hospitals and schools, and it is the part of the municipality that works best in winter.",
+     "The Golden Mile runs west from the town towards Puerto Banús: gated villa estates, the grandest hotels on the coast, and beach clubs on the sand below. Behind it, Sierra Blanca and Nagüeles climb the mountainside in terraces of large houses with the best views on the coast. Puerto Banús itself is the marina — the yachts, the boutiques, the nightlife, and a genuinely beautiful harbour if you see it at nine in the morning rather than at midnight.",
+     "Nueva Andalucía, immediately inland from Banús, is the Golf Valley: a bowl of residential development wrapped around several of the coast's best-known courses, with La Concha filling the skyline behind. It is quieter than the coast road, family-heavy, and the address a lot of long-term residents choose. San Pedro de Alcántara, further west, is the most ordinary and in many ways the most liveable of the town centres — a proper Spanish grid with a superb new boulevard built over the buried coast road, and prices below Marbella's.",
+     "Beyond the municipality, Estepona has spent the last decade turning its old town into one of the prettiest on the coast, with flower-hung lanes and painted murals, and it now has the seafront and the restaurants to match. Inland, Benahavís sits in a river gorge twenty minutes up and is the coast's dining village. East of Marbella, Elviria and Las Chapas hold the best sandy beaches in the municipality, and further on Fuengirola, Benalmádena and the Higuerón hillside above them are denser, cheaper and better served by the coastal train."
+    ]
+   },
+   {
+    "h": "Where exactly to own: micro-locations, rated",
+    "p": [
+     "Marbella old town and the seafront. The most usable address for anyone who wants a town rather than an estate: you walk to the market, the square, the promenade and eighty restaurants, and the place is alive in February. Apartments rather than villas, and the strongest position by far for short winter breaks.",
+     "The Golden Mile and Sierra Blanca. The prestige address, and the one with the views — the terraces above the coast road look down the whole bay to Gibraltar and across to Africa on a clear day. Gated, quiet, green and entirely car-dependent. Best for owners who want space and privacy and do not intend to walk to dinner.",
+     "Nueva Andalucía and the Golf Valley. The answer for golfers and for families: several courses within a few minutes, a Saturday morning market, good schools' worth of infrastructure, and La Concha as the backdrop. Busy but not frantic in August, and materially better value than the Golden Mile.",
+     "San Pedro de Alcántara and Guadalmina. A real town with a real high street, a new seafront boulevard, and beach access without the Banús premium. This is where a given budget buys the most, and it is ten minutes from everything Marbella has.",
+     "Estepona and the New Golden Mile. Estepona's regenerated old town is genuinely lovely, the seafront has been rebuilt, and prices sit below Marbella's for a comparable property. The stretch of coast between the two towns has filled in with newer developments — convenient, well-built and lacking the old towns' character, which is a fair trade for some buyers.",
+     "Where to think carefully. The immediate surroundings of Puerto Banús are lively at night in season, and the coast road itself is loud along much of its length — a property's distance from the N-340 and its aspect relative to it matter more here than almost anything else. We check this on every home we list, and it is the first question to ask about any Costa del Sol property, from us or from anyone."
+    ]
+   },
+   {
+    "h": "The beaches, the promenade and the sea",
+    "p": [
+     "An honest note first: Costa del Sol sand is grey-gold rather than white, because it comes off the Sierras rather than out of a reef. Once you stop expecting the Caribbean, the beaches here are excellent — wide, long, well-serviced, and backed by one of the best pieces of public infrastructure in southern Spain.",
+     "That infrastructure is the Senda Litoral, the coastal path being built along the whole province: boardwalks over dunes, bridges across river mouths, and paved promenade through the towns. Long continuous stretches are already open, and in Marbella you can walk from the old town to Puerto Banús along the sea, which takes about an hour and is the single best thing to do here on a winter morning. Estepona and Fuengirola have their own long finished sections.",
+     "The beaches themselves divide by character. East of town, Elviria, Las Chapas and Cabopino have the widest sand and the dunes at Artola behind them; Cabopino also has the coast's prettiest small marina. Between the town and Banús the beaches are narrower and busier and lined with beach clubs. West towards Estepona the coast opens out again and gets quieter. The sea is swimmable from about June to late October, warmest in August and September, and the water is calm by Atlantic standards but genuinely cold before May."
+    ]
+   },
+   {
+    "h": "Golf, padel and the outdoor coast",
+    "p": [
+     "The Costa del Sol calls itself the Costa del Golf and the claim is not marketing: there are around seventy courses in the province, the greatest concentration in continental Europe, and something like fifteen of them lie within twenty minutes of Marbella. The Golf Valley at Nueva Andalucía alone holds several of the best known. What matters for an owner is the season: the courses are at their peak from October to May, which is exactly when northern European golf is unplayable, and that inversion is a large part of why this coast has a winter economy at all.",
+     "Padel is the other sport, and Spain is its global centre. Courts are attached to most residential developments and clubs, lessons are cheap and easy to find, and it is the fastest way for a newcomer to meet people here — a fact worth knowing for anyone whose ownership group includes teenagers or a competitive parent.",
+     "Beyond the two: the mountain behind. La Concha is a serious half-day hike from Refugio de Juanar with a summit view that takes in the whole bay and, on a clear day, the Rif mountains across the Strait. The Sierra de las Nieves became a national park in 2021 — high limestone country with the rare Spanish fir, an hour inland. Closer in there is the Río Verde gorge walk at Istán, the Benahavís river pools, sea kayaking along the coast, and a cycling culture that brings professional teams to the coast road climbs each winter."
+    ]
+   },
+   {
+    "h": "Eating and drinking",
+    "p": [
+     "Málaga province eats better than the Costa del Sol's reputation suggests, and the local tradition is worth learning before the international restaurants. The emblem is the espeto: sardines threaded on a cane and grilled over an open fire in a sand-filled boat on the beach, served from May to September at chiringuitos along the whole coast. Around it sit fried fish done properly, ajoblanco — the cold almond and garlic soup that predates gazpacho — porra antequerana, and the sweet wines of Málaga that were famous across Europe before phylloxera.",
+     "Above that, the coast has quietly become one of Spain's serious dining regions, with a cluster of ambitious kitchens between Marbella and Estepona and several holding national recognition. Benahavís, twenty minutes inland, built its whole identity on restaurants and is worth the drive. And in the middle sits the everyday layer that owners actually use: the old town's tapas bars around Plaza de los Naranjos, the fish restaurants at the port, and the chiringuito you end up adopting.",
+     "Provisioning is easy and cheap by northern European standards. Marbella's municipal market, the weekly street markets in each town, excellent fish, and the produce of the Axarquía and the vega behind the coast — avocados, mangoes and custard apples grow here commercially, which tells you something about the winter. The practical shape of a good week is a market run, most lunches at home or on the beach, and dinner at nine-thirty."
+    ]
+   },
+   {
+    "h": "A year on the coast, month by month",
+    "p": [
+     "January and February are the coast's quiet secret: daytime temperatures in the high teens, the mountains often with snow on them, the golf at its best, the restaurants open and the promenade busy with residents rather than visitors. March and April warm up steadily and bring the almond and orange blossom, and Semana Santa fills the old towns with processions. May is close to perfect — everything open, the sea beginning to be tolerable, and none of the crowds.",
+     "June is warm and building, and Marbella's own fair, the Feria de San Bernabé, takes over the town in the middle of the month. July and August are the peak in every sense: hot, busy, expensive, with the coast road slow and Puerto Banús at full volume. It is enjoyable if that is what you came for and hard work if it is not, and owners who can take other weeks generally do.",
+     "September is the month the regulars choose — the sea at its warmest, the heat easing, the crowds thinning sharply after the first week. October holds it, with swimming comfortable most of the month and the golf season opening properly. November and December are mild, green and quiet, with the coast turning back into a residential place; Málaga's Christmas lights on Calle Larios have become a genuine event. There is no month here that does not work, which is the point."
+    ]
+   },
+   {
+    "h": "The year's fixtures",
+    "p": [
+     "Marbella's calendar is a mix of the devoutly traditional and the frankly commercial, and both are worth knowing. Semana Santa is the serious one: the brotherhoods carry their thrones through the old town across Holy Week, and the same week is observed with far greater intensity in Málaga city an hour away, where the processions are among the most famous in Spain. The Feria de San Bernabé in the second week of June is Marbella's own fair — a daytime fair in the old town and a nighttime one at the fairground, with horses, sevillanas and a week of very little sleep.",
+     "The summer layer is the one the coast is known for. The Starlite festival runs through July and August in a former quarry at Nagüeles, with a genuinely international line-up in a natural amphitheatre. Around it sit the beach club season, the polo at Sotogrande in August, and the marina's own social calendar. San Juan on the twenty-third of June puts bonfires on every beach along the coast and is the best free night of the year.",
+     "Out of season the coast fills its calendar with sport and food. The golf season runs from autumn to spring with a steady stream of amateur and professional events; padel tournaments run year-round; and the Málaga Christmas lights, the winter food fairs and the Three Kings processions on the fifth of January carry the town through to spring. An owner who books around the fixtures rather than the school holidays gets a much better year here."
+    ]
+   },
+   {
+    "h": "Marbella with children",
+    "p": [
+     "Marbella is an easy place to bring children, and the reasons are practical rather than sentimental. The sea is calm and shelves gently along most of the municipality; the promenade runs flat and traffic-free for kilometres and is the best scooter and bicycle territory on the coast; and the beaches east of town at Elviria and Cabopino have the widest sand and the shallowest entries. Every chiringuito expects children at lunch and most have a play area behind the tables.",
+     "Beyond the beach there is a lot: the water parks at Torremolinos and Mijas, the Selwo animal reserve at Estepona and its aviary, the cable car at Benalmádena, the Bioparc at Fuengirola, horse riding in the hills, and the kind of padel and tennis clubs that will take a child for a week's course at short notice. Málaga city, an hour away, has a science museum and one of the best interactive museums in Spain at the Muelle Uno end of the port. And the mountain behind offers real walking as children get older.",
+     "For ownership groups the calendar arithmetic is unusually kind. Families want July and August and the Easter fortnight; golfers and couples want October through May, when the coast is at its best and the courses are playable. Those two groups barely compete, which means a mixed ownership group here argues about far less than one in a single-season resort. The one caution is straightforward: check a property's distance from the coast road and from Puerto Banús before assuming a quiet night."
+    ]
+   },
+   {
+    "h": "Getting there and getting around",
+    "p": [
+     "Málaga airport is the coast's decisive advantage and one of the best-connected airports in southern Europe: direct flights from essentially every major northern European city, at high frequency, and — critically — a winter schedule that stays substantial rather than collapsing to a handful of routes. That is unusual, it is a direct consequence of the coast's resident foreign population and its golf economy, and it is the single biggest practical difference between owning here and owning on an island.",
+     "The drive from the airport to Marbella takes about forty-five minutes on the AP-7 toll road and rather longer on the free N-340 coast road in summer. Málaga is also on the high-speed rail network, which puts Madrid at around two and a half hours, and the suburban Cercanías line runs from the airport along the coast as far as Fuengirola — useful for the eastern towns, though it does not reach Marbella. Gibraltar airport is about an hour west and is a genuine alternative for British owners.",
+     "On the ground a car is the honest answer for most addresses, because the municipality is long and thin and the good things are spread along it. The exceptions matter though: an apartment in Marbella old town, in San Pedro or in central Estepona genuinely works on foot, with buses along the coast and taxis in abundance. In August the coast road is slow between eleven and eight, and the local habit is simply to move early or late. Parking in the old town is underground and paid; assume you will use it."
+    ]
+   },
+   {
+    "h": "The property market, honestly described",
+    "p": [
+     "The Costa del Sol is the largest and most liquid international residential market in Spain, and Marbella sits at the top of it. That scale is the market's defining feature: unlike an island, supply here can and does grow, with new developments continuing along the coast between Marbella and Estepona and inland behind it. Buyers who assume Balearic-style scarcity are misreading the market — what is scarce here is not property in general but a good position, which is a different thing and behaves differently.",
+     "That distinction is the single most useful idea for a buyer on this coast. Frontline old town, walkable seafront, the established Golden Mile terraces, the Golf Valley bowl, and Estepona's regenerated centre are all effectively fixed in supply and hold their value accordingly. Generic new-build apartment blocks on the inland side of the coast road are not scarce at all, and they compete with whatever is built next year. The gap between those two categories is much wider here than the headline price-per-square-metre figures suggest.",
+     "Two local specifics belong in an honest account. First, holiday letting in Andalucía runs on a different regime from the Balearics: a property let to tourists must be registered with the Junta de Andalucía and hold a licence number, and both the regional rules and individual community-of-owners statutes have been tightening. If letting unused weeks matters to you, the position must be verified for the specific property and its community before purchase, never assumed. Second, water: Andalucía came through a serious multi-year drought with real restrictions on the coast, reservoir levels remain a live regional issue, and the sensible expectation is that efficient irrigation and pool management are permanent features rather than temporary measures.",
+     "For a share buyer the logic here is strong and slightly different from an island's. A villa on this coast is a year-round operation — pool, garden, security, air conditioning, salt air — whether or not anybody is in it, and the running of one is precisely what people underestimate. Marbella also has an unusually long good season, which means a shared calendar is distributing genuinely desirable weeks across nine or ten months rather than fighting over August. A whole house used six weeks a year is an expensive way to maintain an empty garden; a share is not."
+    ]
+   },
+   {
+    "h": "What underpins value here",
+    "p": [
+     "Five supports, and they are unusually concrete. First, the microclimate: the Sierra Blanca shelter is a permanent geographical fact, it produces the mildest winter on mainland Spain, and it is why this coast has a twelve-month economy while most Mediterranean resorts have a five-month one. Second, the airport: Málaga's winter schedule is the thing that converts that climate into actual visits, and it is sustained by a resident population rather than by holiday charter demand.",
+     "Third, the golf infrastructure — around seventy courses in the province, playable exactly when northern Europe's are not. That is a durable, capital-intensive asset base that cannot be replicated quickly elsewhere, and it anchors the shoulder and winter seasons. Fourth, the resident international community: several hundred thousand foreign residents across the province, with schools, hospitals, professional services and businesses built around them, which gives the coast an everyday economy that survives the off-season.",
+     "Fifth, and most important for a buyer, the town's own centres. Marbella old town, San Pedro and Estepona are real Spanish towns with year-round populations, and property in and around them behaves quite differently from property in a development that empties in October. Set against these, plainly: supply that can grow, a coast road that carries real traffic and real noise, a genuine regional water constraint, and a letting regime that is tightening. All of them are known, all are checkable, and all argue for buying a position rather than a square-metre count."
+    ]
+   },
+   {
+    "h": "Who owns here",
+    "p": [
+     "The Costa del Sol has the largest foreign residential community in Spain and one of the largest in Europe, and its composition has broadened a great deal in twenty years. The long-established layers are British, Scandinavian, Dutch, Belgian and German — in the Nordic case going back to the 1960s, with Norwegian and Swedish schools, churches and clubs along the coast that are still going. Alongside them: Irish, French, Italian, and a substantial Moroccan and Latin American population, plus Spanish owners from Madrid and Seville for whom this has always been the summer coast.",
+     "What has changed more recently is the shift from holiday ownership to residence. Remote work, Spain's residence routes for non-EU nationals, and the coast's international schools have converted a meaningful share of second homes into first ones. That is why the winter economy holds up, and it is why services here — property management, maintenance, medical, legal — are of a standard you would not find in a purely seasonal resort.",
+     "For a co-owner the practical consequence is a coast entirely built around part-time and international ownership. Key-holding, pool and garden contracts, seasonal opening and closing, and multilingual professional management are mature industries here because most of the good housing stock needs them. A home used by several households in rotation is, from the Costa del Sol's point of view, completely unremarkable — and the depth of the local service economy makes the practical side of ownership easier here than almost anywhere in the Mediterranean."
+    ]
+   },
+   {
+    "h": "Marbella against the alternatives",
+    "p": [
+     "Against the Balearics: Mallorca and Ibiza have better water, more beautiful coastline and a stronger sense of place, and they price accordingly. What they do not have is Marbella's winter — flight schedules on both islands thin out sharply from November, a good deal closes, and the practical season is shorter. If your use is concentrated in summer, the islands are lovely; if you want to use the home in February, this coast wins on the facts.",
+     "Against the Algarve: the closest comparison, and a fair fight. The Algarve has better beaches and a comparable golf economy, with a similar winter climate and a similar resident community. Marbella has the bigger airport, more inland depth behind it, a considerably better restaurant scene and a much larger town; the Algarve is quieter and generally cheaper. Many buyers who look at one look at the other, and the choice usually comes down to whether you want a town or a resort.",
+     "Against the Côte d'Azur and the Italian coasts: both are more beautiful and substantially more expensive, with shorter usable seasons and worse winter access. Against Alicante and the Costa Blanca: cheaper, flatter, more developed, without the mountain backdrop or the depth of services. And against the mountains or a Nordic cabin, the honest point is that this is a different product entirely — a coast you can use in every month of the year.",
+     "Marbella's own case, stated plainly: the mildest winter on mainland Spain, protected by a mountain range that is not going anywhere; an international airport forty-five minutes away that keeps flying all winter; seventy golf courses at their best from October to May; a genuine old town and two more along the coast; the best year-round service economy in southern Spain; and Málaga, Ronda, Gibraltar and Morocco all within reach for a day. The trades are development pressure, a busy coast road and a regional water constraint — none of them secret, all of them manageable by choosing the right position."
+    ]
+   },
+   {
+    "h": "Co-ownership in Marbella, in practice",
+    "p": [
+     "Here is how a share of a home here actually works. You buy a deeded fraction of a specific, fully furnished, professionally managed property — real property, registered in your name at the Spanish land registry, which you can sell, pass on or hold. It is not a timeshare and not a club membership: your interest tracks the value of that specific home in the local market. The calendar allocates usage fairly across the owners and rotates the most contested dates — the August weeks, Easter, the San Bernabé fair — from year to year, with flexible booking for everything else.",
+     "Marbella suits the structure for a reason that is specific to this coast: the good weeks are spread across most of the year. October to May is the golf and walking season and the best weather for anything other than swimming; June and September are close to ideal; July and August are the peak. That means a shared calendar here is distributing desirable weeks across nine or ten months rather than rationing a single contested fortnight, and an ownership group whose members want different things can each get what they want without negotiation.",
+     "The management case is stronger here than in most places, and it is worth being concrete about why. A house on this coast runs all year whether or not anyone is in it: the pool needs weekly attention through a long hot season, the garden needs irrigation, salt air corrodes metalwork and outdoor kitchens, air conditioning needs servicing, and an empty property needs watching. That is precisely the work that a single owner visiting six weeks a year either pays for and never sees, or skips and pays for later.",
+     "Costs are shared in the same proportion as ownership: each owner carries their share of the home's running costs, billed transparently, covering local property taxes and community charges where they apply, insurance, utilities and water, pool and garden, cleaning, maintenance and the reserve that keeps the furnishings good. You see the full breakdown before you buy, not after."
+    ]
+   },
+   {
+    "h": "Buying in Spain: how the process actually runs",
+    "p": [
+     "Spanish property purchase is a well-trodden path for foreign buyers and follows a predictable sequence. You will need a Spanish tax identification number for foreigners — the NIE — which is a straightforward administrative step and the first thing to organise. The transaction proceeds through a private contract that fixes the deal and takes a deposit, followed some weeks later by the public deed of sale signed before a notary, who verifies identity, title and the contract itself. Registration at the land registry follows and is what makes your ownership public and secure. Non-resident buyers face no restriction on owning Spanish property.",
+     "Independent legal representation is standard and strongly advisable: a Spanish lawyer acting for you, not for the seller or the agent, who checks the registry entry, any charges on the property, the community of owners' statutes and accounts, the building and occupancy licences, and the planning position of anything that has been built or extended. Purchase taxes and costs are published, Andalucía sets its own transfer tax treatment, and your lawyer will confirm the current position before you commit.",
+     "Two Costa del Sol specifics bear repeating. First, planning history: this coast has a long and well-documented record of irregular or unlicensed construction, particularly on rural land and in the inland municipalities, and it must be checked rather than assumed — the licence file, not the estate agent, is the source of truth. Second, the tourist letting position: registration with the Junta de Andalucía and the community's own statutes both matter, and both should be verified for the specific property. For a co-ownership share the structure is prepared once, professionally, and each buyer steps into it. We walk every buyer through the specimen documents in plain language before any commitment, and we will always encourage independent legal and tax advice. Nothing in this guide is legal or tax advice."
+    ]
+   },
+   {
+    "h": "Three owners' years: specimen calendars",
+    "p": [
+     "Three honest specimen years. The family: a fortnight in August in the years the rotation grants it, a week at Easter for the processions and the first warm days, a long weekend in June, and a week in late September when the sea is at its warmest and the crowds have gone. Six-plus weeks in a house that already holds the beach kit, the paddleboards and the padel rackets.",
+     "The golfing couple: ten days in late October when the courses come into their own, a week in February with the mountains behind under snow and daytime temperatures in the high teens, a long weekend in April, and a fortnight in May before the heat. A calendar assembled almost entirely from weeks nobody in the group is competing for — and, most residents here would argue, the better weeks.",
+     "The friends' syndicate: two couples alternating long weekends across the winter and spring for golf, padel and long lunches, plus one shared week in high summer when the households and children combine, and unclaimed weeks placed into managed letting where the property is registered for it. Three shapes, one common property: on a coast whose good season runs from October to June and whose peak runs from July to September, six weeks a year is not a constraint to be managed. It is a budget to be spent well."
+    ]
+   },
+   {
+    "h": "An owner's practical almanac",
+    "p": [
+     "The small knowledge that makes ownership frictionless. The coast road is slow from late morning to early evening through July and August — move early, move late, or use the AP-7 toll road, which is almost always worth the few euros. Parking in Marbella old town and at Puerto Banús is underground and paid; assume it rather than circling. Restaurants: book in July and August, and book anywhere with a sea view at any time of year. Dinner starts at nine.",
+     "Seasons: October to May is the best of the year for everything except swimming, and it is the period to ask for in the rotation if you can. Málaga's winter flight schedule stays busy, so a February week here is planned as easily as a July one — which is not true of most Mediterranean addresses. Semana Santa and the June fair both fill the town; plan around them or plan for them.",
+     "The house: pools, gardens and irrigation need attention through a long hot season, salt air is hard on metal and outdoor kitchens, and air conditioning wants servicing before rather than during the first heatwave. Water is a real regional resource question, so efficient irrigation and sensible pool management are permanent good practice here rather than drought-year measures. The management team handles all of it — which is one of the concrete reasons an unmanaged Costa del Sol house ages badly.",
+     "And the golden rule: whatever week you cannot use, release it early. On a coast where February golf is as sought-after as August beach, someone in your ownership group will take it."
+    ]
+   },
+   {
+    "h": "Marbella: questions owners actually ask",
+    "p": [
+     "Is it all Puerto Banús? No, and it is the most important thing to understand about the place. The marina is one square kilometre of a twenty-seven-kilometre municipality and it is busy for about ten weeks a year. Marbella old town, San Pedro, the Golf Valley and the whole eastern coast towards Elviria are entirely separate worlds — Spanish towns with markets, schools and a February that carries on as normal. Choose your position and Banús is somewhere you visit when you feel like it.",
+     "How good is the winter, really? It is the reason to buy here. Daytime temperatures in January and February sit in the high teens, the golf courses are at their best, the restaurants and shops stay open, and Málaga's flight schedule stays dense. There is rain — the winter is when it falls — and there are cool evenings that want a jumper and a fireplace. But this is the mildest winter on mainland Spain and the coast does not shut down.",
+     "Will we hear the coast road? Possibly, and it is the first thing to check. The N-340 runs the length of the municipality and carries real traffic; properties close to it, or with terraces facing it, are noticeably louder than those a few streets back or above it. We check the position and aspect of every home we list and will tell you plainly. Ask the same question of anyone selling you a property on this coast.",
+     "Can we let our weeks? Only where the property is properly registered for tourist letting with the Junta de Andalucía and the community of owners' statutes permit it — both conditions matter, and both have been tightening. Where letting is provided for, it is handled by the management team rather than by you. We verify and state the position for any home we list before you commit.",
+     "What about the water situation? Andalucía came through a serious multi-year drought and reservoir levels remain a live regional issue, with restrictions applied on the coast during the worst of it. In practice it means efficient irrigation, sensible pool management and using water thoughtfully — which is no hardship and is now simply how well-run properties here operate. It is a real due-diligence item and one we check."
+    ]
+   },
+   {
+    "h": "More questions, answered plainly",
+    "p": [
+     "Which part should we choose? Marbella old town or San Pedro if you want a town you can walk, services and a working winter. The Golf Valley if you play golf or have children. The Golden Mile and Sierra Blanca if you want space, privacy and the views. Estepona if you want the prettiest old town on the coast and better value. Tell us how your year actually looks and we will point you at the right homes below.",
+     "Do we need a car? For most addresses, yes — the municipality is long and thin. But an apartment in Marbella old town, San Pedro or central Estepona genuinely works on foot, with buses and taxis for everything else, and that is worth weighing if your group is not made up of enthusiastic drivers.",
+     "Is it a good base for seeing Andalucía? Unusually good. Ronda and its gorge are about an hour inland, Málaga with its Picasso and Pompidou museums an hour east, Granada and the Alhambra around two, Seville and Córdoba comfortable long days. Gibraltar is an hour west, and Tangier is a fast ferry from Tarifa — Africa is genuinely a day trip from here, which is true of very few European addresses.",
+     "What are the running costs like? Each owner carries their share of the home's costs, billed transparently — local property taxes and community charges where they apply, insurance, utilities and water, pool and garden, cleaning, maintenance and the furnishing reserve. A house with a pool on a hot coast has real costs; the point of the structure is that they are shared and handled rather than carried alone for a property you visit six times a year.",
+     "What should we do on a viewing trip? Come for three days, and not in August. Walk the promenade from the old town towards Puerto Banús early in the morning. Have lunch at a chiringuito and dinner in Plaza de los Naranjos. Drive up into Sierra Blanca to see what the views actually are, and out to Benahavís to see the inland side. Drive from the property to the airport so you know the real time. And stand outside the property after dark to hear what it sounds like. Then let us open the doors. Three days answers more than three months of listings, and we will build the itinerary around the homes listed below."
+    ]
+   }
+  ]
+ },
+ "de": {
+  "sections": [
+   {
+    "h": "Marbella, jenseits der Postkarte",
+    "p": [
+     "Marbella hat sich seinen Ruf auf die altmodische Art verdient: eine wirklich schöne Altstadt mit Orangenbäumen und weißen Gassen, die Sierra Blanca direkt dahinter, und ein Mikroklima, um das der Rest Spaniens die Stadt beneidet — die Berge schirmen sie so wirksam ab, dass der Winter hier messbar wärmer ist als an der Küste eine Stunde östlich. Um diesen Kern wuchsen die Goldene Meile, Puerto Banús und die größte Golfdichte des europäischen Festlands; über fünfzig Plätze liegen im Umkreis einer Stunde.",
+     "Was die Postkarte verschweigt: wie gut Marbella außerhalb der Saison funktioniert. Die Restaurants bleiben offen, das Meer bleibt für Mutige bis in den November badetauglich, und die internationale Gemeinde hält die Stadt lebendig, wie es rein saisonale Orte nie schaffen. Dies ist eine Zwölf-Monats-Adresse."
+    ]
+   },
+   {
+    "h": "Saisonen und Anreise",
+    "p": [
+     "Der Flughafen Málaga liegt etwa fünfundvierzig Minuten über die Mautstraße entfernt — mit einer Dichte europäischer Verbindungen, die spontanes Reisen realistisch macht. Der Hochsommer gehört den Beachclubs; die Zwischensaisonen sind Golf- und Padel-Paradies bei perfekten Temperaturen; und die berühmten 320 Sonnentage bewahrheiten sich oft genug, dass im Januar draußen zu Mittag gegessen wird. Eigentümer nutzen hier mehr vom Kalender als fast überall sonst in Spanien — genau das macht geteilte Nutzungswochen so viel wertvoller als zwei Wochen Miete."
+    ]
+   },
+   {
+    "h": "Das Miteigentums-Argument",
+    "p": [
+     "Marbellas beste Adressen handeln inzwischen zu Preisen, die Gesamteigentum zu einem ernsten Kapitaleinsatz machen — und der Betrieb einer Villa hier, Pools, Gärten, Sicherheit, ist ein Ganzjahresunternehmen, ob Sie kommen oder nicht. Ein eingetragener Anteil bringt spanisches Grundbucheigentum auf Ihren Namen zum Bruchteil dieses Einsatzes — rund sechs Wochen im Jahr, fair durch die Saisons rotiert, alles zwischen Ihren Aufenthalten auf Goldene-Meile-Niveau gepflegt. Für Käufer, die Marbella aus Jahren von Urlauben kennen und Preise wie Mieten haben klettern sehen, entscheiden die vollen Anteilspreise unten das Argument meist von selbst."
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "sections": [
+   {
+    "h": "Marbella, au-delà de la carte postale",
+    "p": [
+     "Marbella a gagné sa réputation à l'ancienne : une vieille ville authentiquement belle, orangers et ruelles blanchies, la Sierra Blanca dressée juste derrière, et un microclimat que le reste de l'Espagne lui envie — les montagnes abritent si bien la ville que l'hiver y est mesurablement plus doux que sur la côte une heure à l'est. Autour de ce cœur ont poussé le Golden Mile, Puerto Banús et la plus forte concentration de golfs du continent européen ; plus de cinquante parcours à moins d'une heure.",
+     "Ce que la carte postale oublie, c'est combien Marbella fonctionne hors saison. Les restaurants restent ouverts, la mer reste nageable jusqu'en novembre pour les courageux, et la communauté internationale garde la ville vivante comme les stations purement saisonnières n'y parviennent jamais. C'est une adresse douze mois sur douze."
+    ]
+   },
+   {
+    "h": "Saisons et accès",
+    "p": [
+     "L'aéroport de Málaga est à environ quarante-cinq minutes par l'autoroute, avec une densité de liaisons européennes qui rend les départs spontanés réalistes. Le plein été appartient aux beach clubs ; les intersaisons sont un paradis de golf et de padel à températures parfaites ; et les fameux 320 jours de soleil se vérifient assez souvent pour déjeuner dehors en janvier. Les propriétaires utilisent ici plus de leur calendrier que presque partout ailleurs en Espagne — exactement ce qui rend les semaines partagées tellement plus précieuses qu'une quinzaine de location."
+    ]
+   },
+   {
+    "h": "L'argument de la copropriété",
+    "p": [
+     "Les meilleures adresses de Marbella s'échangent désormais à des prix qui font de la pleine propriété un engagement sérieux — et la tenue d'une villa ici, piscines, jardins, sécurité, est une entreprise annuelle, que vous veniez ou non. Une part en titre met de l'immobilier espagnol enregistré à votre nom pour une fraction de cet engagement : environ six semaines par an, réparties équitablement au fil des saisons, tout étant entretenu au niveau du Golden Mile entre vos séjours. Pour les acheteurs qui connaissent Marbella depuis des années de vacances et ont vu grimper prix et loyers, les prix complets ci-dessous règlent généralement la discussion."
+    ]
+   }
+  ]
+ },
+ "es": {
+  "sections": [
+   {
+    "h": "Marbella, más allá de la postal",
+    "p": [
+     "Marbella se ganó su reputación a la antigua: un casco antiguo de verdad hermoso, naranjos y callejas encaladas, la Sierra Blanca alzándose justo detrás, y un microclima que el resto de España le envidia — las montañas resguardan tanto la ciudad que el invierno aquí es mediblemente más templado que en la costa una hora al este. Alrededor de ese núcleo crecieron la Milla de Oro, Puerto Banús y la mayor concentración de golf de la Europa continental; más de cincuenta campos a menos de una hora.",
+     "Lo que la postal no cuenta es lo bien que funciona Marbella fuera de temporada. Los restaurantes siguen abiertos, el mar aguanta baños hasta noviembre para los valientes, y la comunidad internacional mantiene viva la ciudad como los destinos puramente estacionales nunca consiguen. Esta es una dirección de doce meses."
+    ]
+   },
+   {
+    "h": "Temporadas y cómo llegar",
+    "p": [
+     "El aeropuerto de Málaga queda a unos cuarenta y cinco minutos por la autopista de peaje, con una densidad de conexiones europeas que hace realista viajar de forma espontánea. El pleno verano es de los beach clubs; las entretemporadas, un paraíso de golf y pádel a temperatura perfecta; y los famosos 320 días de sol se cumplen lo bastante como para almorzar fuera en enero. Aquí los propietarios aprovechan más calendario que en casi ningún otro destino español — exactamente lo que hace que unas semanas compartidas valgan mucho más que una quincena de alquiler."
+    ]
+   },
+   {
+    "h": "El argumento de la copropiedad",
+    "p": [
+     "Las mejores direcciones de Marbella cotizan ya a precios que convierten la propiedad entera en un compromiso de capital serio — y mantener aquí una villa, con piscinas, jardines y seguridad, es una operación de todo el año, vengas o no. Una participación con escritura pone inmueble español registrado a tu nombre por una fracción de ese compromiso: unas seis semanas al año, rotadas con justicia por las temporadas, y todo mantenido a nivel Milla de Oro entre estancias. Para compradores que conocen Marbella de años de vacaciones y han visto subir precios y alquileres, los precios completos de abajo suelen zanjar la discusión."
+    ]
+   }
+  ]
+ }
 }
