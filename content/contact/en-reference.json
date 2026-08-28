@@ -1,0 +1,27 @@
+{
+ "meta": {
+  "title": "Contact Us | Co-Ownership Property",
+  "description": "Speak to the COP team. Questions about fractional co-ownership? We reply within a few hours — no sales pressure, no obligation.",
+  "ogTitle": "Contact Co-Ownership Property",
+  "ogDescription": "Questions about fractional co-ownership? Speak to our team — no sales pressure, no obligation."
+ },
+ "hero": {
+  "eyebrow": "We're Here to Help",
+  "headingHtml": "Get in <em>Touch</em>",
+  "subtitle": "Questions about co-ownership, a specific property, or simply how it all works? You'll get clear answers — with no sales pressure."
+ },
+ "trust": {
+  "eyebrow": "How We Work",
+  "heading": "What to expect when you contact us",
+  "card1": { "h": "Write to us directly", "pTop": "Prefer to write? Reach us at", "pBottom": "We read every message personally." },
+  "card2": { "h": "A fast reply", "p": "We usually reply within a few hours — often faster. For US enquiries, allow for the time difference. You will always hear back from us." },
+  "card3": { "h": "No pressure, no obligation", "p": "We ask questions, point you towards the right homes, and leave the decision entirely in your hands. We are independent — not tied to any single platform or developer." }
+ },
+ "links": {
+  "eyebrow": "Still Researching?",
+  "heading": "Not ready to reach out yet?",
+  "card1": { "cat": "How It Works", "title": "The buying process, step by step", "desc": "From first enquiry to signed contracts — what happens, in what order, and what you need to prepare.", "arrow": "Read the guide →" },
+  "card2": { "cat": "Our Homes", "title": "Browse every property in one place", "desc": "Villas, apartments and chalets across Europe and the US — all with the share price shown upfront.", "arrow": "See the homes →" },
+  "card3": { "cat": "Our Blog", "title": "Market analysis and buyer guides", "desc": "In-depth articles on destinations, legal structures, investment returns, and everything a smart buyer needs to know.", "arrow": "Browse articles →" }
+ }
+}

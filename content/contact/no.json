@@ -1,0 +1,27 @@
+{
+ "meta": {
+  "title": "Kontakt oss | Co-Ownership Property",
+  "description": "Snakk med COP-teamet. Spørsmål om sameie i fritidsbolig? Vi svarer i løpet av noen timer — uten kjøpepress og helt uforpliktende.",
+  "ogTitle": "Kontakt Co-Ownership Property",
+  "ogDescription": "Spørsmål om sameie i fritidsbolig? Snakk med teamet vårt — uten kjøpepress og helt uforpliktende."
+ },
+ "hero": {
+  "eyebrow": "Vi er her for å hjelpe",
+  "headingHtml": "Ta <em>kontakt</em>",
+  "subtitle": "Har du spørsmål om sameie, en bestemt eiendom eller rett og slett hvordan det hele fungerer? Du får klare svar — helt uten kjøpepress."
+ },
+ "trust": {
+  "eyebrow": "Slik jobber vi",
+  "heading": "Dette kan du forvente når du kontakter oss",
+  "card1": { "h": "Skriv direkte til oss", "pTop": "Foretrekker du å skrive? Du når oss på", "pBottom": "Vi leser hver eneste melding personlig." },
+  "card2": { "h": "Raskt svar", "p": "Vi svarer vanligvis i løpet av noen timer — ofte raskere. For henvendelser om USA må du ta høyde for tidsforskjellen. Du hører alltid fra oss." },
+  "card3": { "h": "Ingen press, ingen forpliktelser", "p": "Vi stiller spørsmål, peker deg mot de riktige boligene og lar avgjørelsen ligge helt hos deg. Vi er uavhengige — ikke bundet til noen enkelt plattform eller utbygger." }
+ },
+ "links": {
+  "eyebrow": "Fortsatt i researchfasen?",
+  "heading": "Ikke klar til å ta kontakt ennå?",
+  "card1": { "cat": "Slik fungerer det", "title": "Kjøpsprosessen, steg for steg", "desc": "Fra første henvendelse til signert kontrakt — hva som skjer, i hvilken rekkefølge, og hva du bør ha klart.", "arrow": "Les guiden →" },
+  "card2": { "cat": "Våre boliger", "title": "Se alle eiendommene på ett sted", "desc": "Villaer, leiligheter og hytter i Europa og USA — alle med andelsprisen tydelig oppgitt.", "arrow": "Se boligene →" },
+  "card3": { "cat": "Bloggen vår", "title": "Markedsanalyser og kjøperguider", "desc": "Grundige artikler om destinasjoner, juridiske strukturer, avkastning og alt en klok kjøper trenger å vite.", "arrow": "Bla i artiklene →" }
+ }
+}

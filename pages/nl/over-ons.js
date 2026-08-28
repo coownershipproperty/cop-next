@@ -1,9 +1,10 @@
-// /nl/over-ons/ — NL about page. Content: content/pages/nl/about.json
-import LocalePage from '@/components/LocalePage';
-import { localePageStaticProps } from '@/lib/locale-page-data';
+// /nl/over-ons/ — about us. The real about page (team, story, press,
+// testimonials), translated. Copy: content/about/nl.json.
+import LocaleAbout from '@/components/LocaleAbout';
+import { localeJsonStaticProps } from '@/lib/home-page-data';
 
-export const getStaticProps = localePageStaticProps('nl', 'about');
+export const getStaticProps = localeJsonStaticProps('about', 'nl');
 
-export default function AboutNL(props) {
-  return <LocalePage {...props} />;
+export default function About_nl(props) {
+  return <LocaleAbout locale="nl" {...props} />;
 }

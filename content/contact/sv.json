@@ -1,0 +1,27 @@
+{
+ "meta": {
+  "title": "Kontakta oss | Co-Ownership Property",
+  "description": "Prata med COP-teamet. Frågor om samägande eller delägarskap? Vi svarar inom några timmar – ingen säljpress, inga förpliktelser.",
+  "ogTitle": "Kontakta Co-Ownership Property",
+  "ogDescription": "Frågor om samägande eller delägarskap? Prata med vårt team – ingen säljpress, inga förpliktelser."
+ },
+ "hero": {
+  "eyebrow": "Vi finns här för dig",
+  "headingHtml": "Hör av <em>dig</em>",
+  "subtitle": "Frågor om samägande, ett visst hus eller helt enkelt hur allt fungerar? Du får tydliga svar – helt utan säljpress."
+ },
+ "trust": {
+  "eyebrow": "Så arbetar vi",
+  "heading": "Det här kan du förvänta dig när du kontaktar oss",
+  "card1": { "h": "Skriv direkt till oss", "pTop": "Skriver du hellre? Du når oss på", "pBottom": "Vi läser varje meddelande personligen." },
+  "card2": { "h": "Snabbt svar", "p": "Vi svarar oftast inom några timmar – ofta snabbare. För frågor som rör USA, räkna med tidsskillnaden. Du får alltid svar från oss." },
+  "card3": { "h": "Ingen press, inga förpliktelser", "p": "Vi ställer frågor, visar dig mot rätt hus och låter beslutet vara helt och hållet ditt. Vi är oberoende – inte knutna till någon enskild plattform eller byggherre." }
+ },
+ "links": {
+  "eyebrow": "Fortfarande i researchfasen?",
+  "heading": "Inte redo att höra av dig än?",
+  "card1": { "cat": "Så fungerar det", "title": "Köpprocessen, steg för steg", "desc": "Från första förfrågan till påskrivna avtal – vad som händer, i vilken ordning och vad du behöver förbereda.", "arrow": "Läs guiden →" },
+  "card2": { "cat": "Våra hus", "title": "Se alla hus på ett och samma ställe", "desc": "Villor, lägenheter och chalet i Europa och USA – alla med andelspriset tydligt angivet från början.", "arrow": "Se husen →" },
+  "card3": { "cat": "Vår blogg", "title": "Marknadsanalyser och köpguider", "desc": "Fördjupande artiklar om resmål, juridiska strukturer, avkastning och allt en klok köpare behöver veta.", "arrow": "Bläddra bland artiklarna →" }
+ }
+}

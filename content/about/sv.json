@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "title": "Om oss | Co-Ownership Property",
+  "description": "Möt teamet bakom Co-Ownership Property. Grundat 2022 av David Olsson – vi hjälper kloka köpare till exklusiva fritidshus genom samägande med lagfaren ägare.",
+  "ogTitle": "Om oss | Co-Ownership Property",
+  "ogDescription": "Möt teamet som hjälper kloka köpare till exklusiva fritidshus genom samägande."
+ },
+ "hero": { "eyebrow": "Vår historia", "headingHtml": "Om <em>oss</em>", "subtitle": "Möt teamet som gör det möjligt att äga ett exklusivt fritidshus – tillgängligt, transparent och smart." },
+ "pressLabel": "Omnämnda i",
+ "intro": {
+  "eyebrow": "Vilka vi är",
+  "headingHtml": "En byrå för exklusivt <em>samägande</em>",
+  "p1": "Sedan 2022 arbetar Co-Ownership Property uteslutande med exklusiva fritidshus för delägarskap på världens mest eftertraktade platser.",
+  "p2": "Vi står till 100 % på köparens sida och samarbetar enbart med de mest välrenommerade, transparenta och professionellt förvaltade aktörerna i Europa och USA. Vi är inte knutna till någon enskild plattform eller byggherre. Om ett hus inte håller vår standard finns det inte på den här sidan."
+ },
+ "team": {
+  "eyebrow": "Teamet",
+  "headingHtml": "Möt människorna <em>bakom COP</em>",
+  "david": { "role": "Grundare", "bio": "Över 20 år av försäljning av exklusiva skidfastigheter i fler än 40 franska alporter. David såg marknaden förvandlas i takt med att kunder som en gång kunnat köpa allt oftare prisades ut. Han grundade COP 2022 av övertygelsen att enastående hus ska ägas av människor som älskar dem – inte bara av dem som har råd att köpa dem i sin helhet." },
+  "dylan": { "role": "Försäljning", "bio": "Uppvuxen mellan London och Marbella med rötter i fyra länder fick Dylan tidigt en instinktiv känsla för den internationella köparen. Efter en examen i ekonomi från University of Manchester bestämde han sig för att sluta gapet mellan dröm och verklighet – och göra exklusiva semesterhus tillgängliga för fler genom ett transparent arbetssätt med kunden i centrum." },
+  "poppy": { "role": "Säkerhetschef", "bio": "Tillämpar nolltolerans mot ekorrar, brevbärare och obehöriga katter. Har vid upprepade tillfällen tagit emot mutor i form av cheddarost eller magkli." }
+ },
+ "story1": {
+  "eyebrow": "Varför vi startade",
+  "headingHtml": "En marknad som lämnade <em>människor utanför</em>",
+  "p1": "David sålde exklusiva fastigheter i franska Alperna i över två decennier. I början låg de franska boräntorna under 2 %, lånen löpte på 25 år, och priserna i alporterna – aldrig billiga – stod ändå i rimlig proportion till Paris. Att köpa ett skidhus var en realistisk dröm för en vanlig yrkesarbetande familj.",
+  "p2": "Den världen försvann gradvis. Mellan 2017 och 2022 steg priserna i de mest eftertraktade orterna med 30–50 %, och på vissa håll gick kvadratmeterpriset om Paris. Chaletet i Meribel, lägenheten i Chamonix – de hade blivit förbehållna kontantköpare.",
+  "quote": "Kunderna jag arbetat med i åratal ville fortfarande köpa – de hade bara inte längre råd. De var helt enkelt utprisade.",
+  "quoteAttr": "David Olsson – Grundare"
+ },
+ "story2": {
+  "eyebrow": "Lösningen",
+  "headingHtml": "Ett bättre sätt att <em>äga</em>",
+  "p1": "Där ett helt hus i Alperna i dag kan kosta över 800 000 €, gör en andel riktigt ägande möjligt från omkring 100 000 €. Du äger en andel i ett exklusivt hus som lagfaren ägare, den följer marknadens värdeutveckling, och du bestämmer själv när du vill sälja.",
+  "p2": "En enda åttondelsandel ger dig sex veckors användning per år – 45 dagar. Den genomsnittliga fritidshusägaren använder sitt hus bara 35 dagar om året, så en andel överträffar redan det typiska egna nyttjandet.",
+  "p3": "Och inget hindrar dig från att gå längre: köp två andelar i samma hus, eller kombinera en andel i ett alpchalet med en andel i en villa på Ibiza. Husen fungerar oberoende av varandra, ägarstrukturen är densamma, och kalendern lägger du upp som du vill.",
+  "quote": "Det genomsnittliga fritidshuset står tomt 330 dagar om året. En andel ger dig mer tid i ett enastående hus – till en bråkdel av kostnaden."
+ },
+ "cta": { "line": "Redo att hitta ditt fritidshus?", "primary": "Prata med en expert", "secondary": "Prenumerera på vårt nyhetsbrev" },
+ "testi": {
+  "eyebrow": "Vad våra kunder säger",
+  "headingHtml": "Riktiga ägare, riktiga <em>berättelser</em>",
+  "cards": [
+   { "name": "Astrid", "loc": "Mougins, Sydfrankrike", "quote": "Redan från första vistelsen kändes allt enkelt. Det är som att komma hem till sitt eget hus, med en hotellvistelses komfort. Sängarna är bäddade, handdukarna framlagda – ingenting att tänka på. Varje besök börjar med lugn, inte med sysslor. Jag älskar det redan, och jag behöver inte oroa mig för någonting." },
+   { "name": "Harry & Nicole", "loc": "La Plagne, franska Alperna", "quote": "Att äga ett ställe i franska Alperna hade alltid varit en dröm. Delägarskap visade sig vara den perfekta lösningen – alla fördelar med ett exklusivt hus i bergen, utan stressen och kostnaden av att sköta ett helt hus. Vår son kan nu bjuda med sina skolkompisar på skidåkning på sportlovet. Det gjorde verkligen vår dröm till verklighet." },
+   { "name": "Mateo & Anne", "loc": "Lake Tahoe, Kalifornien", "quote": "Vi har kört från LA upp till Tahoe varje sommar i åratal, men kunde aldrig motivera ett helt hus. Den här ägandemodellen kändes som den perfekta medelvägen. Nu äger vi äntligen en bit av marken, utan dåligt samvete över ett oanvänt bolån. Transparent från dag ett – vi kunde inte vara nöjdare." },
+   { "name": "Jan & familj", "loc": "Port d'Andratx, Mallorca", "quote": "Jag sålde mitt franska semesterhus, tog hem vinsten och använde bara en fjärdedel av den till att köpa en mycket finare villa. Det dåliga samvetet är borta. Villan är fantastisk, barnen älskar den, och de veckor vi inte använder hyrs ut – vilket mer än väl täcker de löpande månadskostnaderna. Rekommenderas varmt." }
+  ]
+ }
+}

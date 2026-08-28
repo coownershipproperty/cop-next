@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "title": "About Us | Co-Ownership Property",
+  "description": "Meet the team behind Co-Ownership Property. Founded in 2022 by David Olsson, we help smart buyers access luxury second homes through fractional co-ownership.",
+  "ogTitle": "About Us | Co-Ownership Property",
+  "ogDescription": "Meet the team helping smart buyers access luxury second homes through co-ownership."
+ },
+ "hero": { "eyebrow": "Our Story", "headingHtml": "About <em>Us</em>", "subtitle": "Meet the team dedicated to making luxury second-home ownership accessible, transparent, and smart." },
+ "pressLabel": "As Featured In",
+ "intro": {
+  "eyebrow": "Who We Are",
+  "headingHtml": "An Agency for Premium <em>Co-Ownership</em>",
+  "p1": "Since 2022, Co-Ownership Property has been dedicated exclusively to premium fractional ownership second homes in the world's most desirable destinations.",
+  "p2": "Acting 100% on the buyer's side, we collaborate only with the most reputable, transparent, and professionally managed operators across Europe and the US. We are not tied to any single platform or developer. If a property doesn't meet our standard, it doesn't appear on this site."
+ },
+ "team": {
+  "eyebrow": "The Team",
+  "headingHtml": "Meet the People <em>Behind COP</em>",
+  "david": { "role": "Founder", "bio": "Over 20 years selling premium ski properties across 40+ French Alpine resorts. David watched the market transform as clients who had once been able to buy were increasingly priced out. He founded COP in 2022 because he believed exceptional properties should be owned by people who love them — not just those who can afford to buy them outright." },
+  "dylan": { "role": "Sales", "bio": "Raised between London and Marbella with roots across four countries, Dylan grew up with an instinctive feel for the international buyer. After graduating in business from the University of Manchester, he set out to bridge the gap between aspiration and reality — making high-end holiday homes accessible to more people through a transparent, client-first approach." },
+  "poppy": { "role": "Head of Security", "bio": "Takes a zero-tolerance approach to squirrels, postmen, and unauthorised cats. Has been known to accept bribes in the form of cheddar cheese or belly rubs." }
+ },
+ "story1": {
+  "eyebrow": "Why We Started",
+  "headingHtml": "A Market That Left <em>People Behind</em>",
+  "p1": "David spent over two decades selling premium properties in the French Alps. In the early days, French mortgage rates sat below 2%, terms stretched to 25 years, and Alpine resort prices — while never cheap — still bore a meaningful relationship to Parisian ones. Buying a ski property was a realistic aspiration for a professional family.",
+  "p2": "That world gradually disappeared. Between 2017 and 2022, prices in the most sought-after resorts rose by 30–50%, in some areas overtaking Paris per square metre. The chalet in Meribel, the flat in Chamonix — these had become cash-buyer territory.",
+  "quote": "The clients I had worked with for years still wanted to buy — they just couldn't afford to anymore. They were simply priced out.",
+  "quoteAttr": "David Olsson — Founder"
+ },
+ "story2": {
+  "eyebrow": "The Solution",
+  "headingHtml": "A Better Way to <em>Own</em>",
+  "p1": "Where a whole Alpine property might now require over €800,000, a fractional share brings genuine ownership within reach from around €100,000. You own a deeded share of a premium property, it appreciates with the market, and you decide when to sell.",
+  "p2": "A single one-eighth share gives you six weeks of use per year — 45 days. The average second-home owner uses their property just 35 days a year, so a fractional share already exceeds typical personal use.",
+  "p3": "And there's nothing to stop you going further: buy two shares in the same property, or combine a share in an Alpine chalet with a share in an Ibiza villa. The properties work independently, the ownership structure is the same, and your calendar is yours to arrange.",
+  "quote": "The average second home sits empty for 330 days a year. A fractional share gives you more time in an exceptional property — at a fraction of the cost."
+ },
+ "cta": { "line": "Ready to find your second home?", "primary": "Speak to an Expert", "secondary": "Join Our Newsletter" },
+ "testi": {
+  "eyebrow": "What Our Clients Say",
+  "headingHtml": "Real Owners, Real <em>Stories</em>",
+  "cards": [
+   { "name": "Astrid", "loc": "Mougins, South of France", "quote": "From the first stay, everything felt effortless. It's like arriving at your own home with the comfort of a hotel. The beds are made, towels ready — nothing to think about. Every visit starts with calm, not chores. I love it already, and I don't have to worry about a thing." },
+   { "name": "Harry & Nicole", "loc": "La Plagne, French Alps", "quote": "Owning a place in the French Alps had always been a dream. Fractional ownership offered the perfect solution — all the benefits of a luxury mountain home without the stress and cost of managing a whole property. Our son can now invite his school friends to ski for half term. It truly made our dream a reality." },
+   { "name": "Mateo & Anne", "loc": "Lake Tahoe, California", "quote": "We've been driving up from LA to Tahoe every summer for years, but couldn't justify a whole house. This ownership model felt like the perfect middle way. We finally own a piece of the land without the guilt of an unused mortgage. Transparent from day one — we couldn't be happier." },
+   { "name": "Jan & Family", "loc": "Port d'Andratx, Mallorca", "quote": "I sold my French holiday home, took the profit, and used just a quarter of that to buy a much nicer villa. Guilt gone. The villa is stunning, the kids love it, and the remaining weeks are rented out — more than covering the monthly running costs. Highly recommended." }
+  ]
+ }
+}

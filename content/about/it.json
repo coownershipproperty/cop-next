@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "title": "Chi Siamo | Co-Ownership Property",
+  "description": "Scopri il team di Co-Ownership Property. Fondata nel 2022 da David Olsson, aiutiamo acquirenti attenti ad accedere a case vacanze di lusso attraverso la comproprietà frazionata.",
+  "ogTitle": "Chi Siamo | Co-Ownership Property",
+  "ogDescription": "Scopri il team che aiuta acquirenti attenti ad accedere a case vacanze di lusso attraverso la comproprietà."
+ },
+ "hero": { "eyebrow": "La Nostra Storia", "headingHtml": "Chi <em>Siamo</em>", "subtitle": "Scopri il team che rende la proprietà di una casa vacanze di lusso accessibile, trasparente e intelligente." },
+ "pressLabel": "Ne Hanno Parlato",
+ "intro": {
+  "eyebrow": "Chi Siamo",
+  "headingHtml": "Un'Agenzia per la <em>Comproprietà</em> Premium",
+  "p1": "Dal 2022, Co-Ownership Property si dedica esclusivamente alla proprietà frazionata premium di case vacanze nelle destinazioni più ambite del mondo.",
+  "p2": "Lavoriamo al 100% dalla parte dell'acquirente e collaboriamo solo con gli operatori più affidabili, trasparenti e gestiti in modo professionale in Europa e negli Stati Uniti. Non siamo legati a nessuna piattaforma né a nessun promotore. Se una proprietà non è all'altezza dei nostri standard, semplicemente non compare su questo sito."
+ },
+ "team": {
+  "eyebrow": "Il Team",
+  "headingHtml": "Le Persone <em>Dietro COP</em>",
+  "david": { "role": "Fondatore", "bio": "Oltre 20 anni di vendita di immobili sciistici di pregio in più di 40 stazioni delle Alpi francesi. David ha visto il mercato trasformarsi: clienti che un tempo potevano comprare venivano via via esclusi dai prezzi. Ha fondato COP nel 2022 con una convinzione: le proprietà eccezionali dovrebbero appartenere a chi le ama — non solo a chi può permettersi di comprarle per intero." },
+  "dylan": { "role": "Vendite", "bio": "Cresciuto tra Londra e Marbella, con radici in quattro Paesi, Dylan ha sviluppato fin da piccolo una sensibilità istintiva per l'acquirente internazionale. Dopo la laurea in economia alla University of Manchester, si è dato una missione: colmare il divario tra aspirazione e realtà, rendendo le case vacanze di alta gamma accessibili a più persone con un approccio trasparente e centrato sul cliente." },
+  "poppy": { "role": "Responsabile della Sicurezza", "bio": "Tolleranza zero verso scoiattoli, postini e gatti non autorizzati. Risulta però corruttibile con formaggio cheddar o grattini sulla pancia." }
+ },
+ "story1": {
+  "eyebrow": "Perché Siamo Nati",
+  "headingHtml": "Un Mercato che ha Lasciato <em>Indietro le Persone</em>",
+  "p1": "David ha passato più di vent'anni a vendere immobili di pregio nelle Alpi francesi. Agli inizi, i tassi dei mutui francesi erano sotto il 2%, le durate arrivavano a 25 anni e i prezzi delle località alpine — mai economici, certo — mantenevano comunque un rapporto sensato con quelli parigini. Comprare una casa sulle piste era un'aspirazione realistica per una famiglia di professionisti.",
+  "p2": "Quel mondo è gradualmente scomparso. Tra il 2017 e il 2022, i prezzi nelle località più richieste sono saliti del 30–50%, superando in alcune zone Parigi al metro quadro. Lo chalet a Meribel, l'appartamento a Chamonix: erano diventati territorio per chi compra in contanti.",
+  "quote": "I clienti con cui lavoravo da anni volevano ancora comprare — solo che non potevano più permetterselo. Erano semplicemente tagliati fuori dai prezzi.",
+  "quoteAttr": "David Olsson — Fondatore"
+ },
+ "story2": {
+  "eyebrow": "La Soluzione",
+  "headingHtml": "Un Modo Migliore di <em>Possedere</em>",
+  "p1": "Dove oggi una proprietà alpina intera può richiedere oltre €800.000, una quota frazionata mette la vera proprietà alla tua portata a partire da circa €100.000. Possiedi una quota di un immobile di pregio, registrata a tuo nome con atto notarile: si rivaluta con il mercato e decidi tu quando vendere.",
+  "p2": "Una singola quota di un ottavo ti dà sei settimane di utilizzo all'anno — 45 giorni. Il proprietario medio di una seconda casa la usa appena 35 giorni all'anno: una quota frazionata supera quindi già l'utilizzo personale tipico.",
+  "p3": "E nulla ti impedisce di andare oltre: acquista due quote nella stessa proprietà, oppure abbina una quota in uno chalet alpino a una quota in una villa a Ibiza. Le proprietà funzionano in modo indipendente, la struttura proprietaria è la stessa e il calendario lo organizzi tu.",
+  "quote": "La seconda casa media resta vuota 330 giorni all'anno. Una quota frazionata ti dà più tempo in una proprietà eccezionale — a una frazione del costo."
+ },
+ "cta": { "line": "Pronto a trovare la tua seconda casa?", "primary": "Parla con un Esperto", "secondary": "Iscriviti alla Newsletter" },
+ "testi": {
+  "eyebrow": "Cosa Dicono i Nostri Clienti",
+  "headingHtml": "Proprietari Veri, <em>Storie</em> Vere",
+  "cards": [
+   { "name": "Astrid", "loc": "Mougins, Sud della Francia", "quote": "Fin dal primo soggiorno, tutto è stato semplicissimo. È come arrivare a casa propria con il comfort di un hotel. I letti sono fatti, gli asciugamani pronti — non devi pensare a nulla. Ogni visita inizia con la calma, non con le faccende. Me ne sono già innamorata, e non devo preoccuparmi di niente." },
+   { "name": "Harry & Nicole", "loc": "La Plagne, Alpi francesi", "quote": "Avere una casa sulle Alpi francesi è sempre stato un sogno. La proprietà frazionata è stata la soluzione perfetta: tutti i vantaggi di una casa di montagna di lusso senza lo stress e i costi di gestire un'intera proprietà. Nostro figlio ora può invitare i compagni di scuola a sciare durante le vacanze. Ha davvero trasformato il nostro sogno in realtà." },
+   { "name": "Mateo & Anne", "loc": "Lake Tahoe, California", "quote": "Per anni siamo saliti in auto da Los Angeles a Tahoe ogni estate, ma una casa intera non era giustificabile. Questo modello di proprietà ci è sembrato la perfetta via di mezzo. Finalmente possediamo un pezzo di quel posto, senza il senso di colpa di un mutuo inutilizzato. Trasparenti dal primo giorno — non potremmo essere più felici." },
+   { "name": "Jan & Famiglia", "loc": "Port d'Andratx, Maiorca", "quote": "Ho venduto la mia casa vacanze in Francia, incassato il guadagno e usato solo un quarto di quella cifra per comprare una villa molto più bella. Sensi di colpa spariti. La villa è stupenda, i bambini la adorano e le settimane che restano vengono affittate — coprendo ampiamente le spese mensili. Consigliatissimo." }
+  ]
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "title": "Om oss | Co-Ownership Property",
+  "description": "Møt teamet bak Co-Ownership Property. Grunnlagt i 2022 av David Olsson – vi hjelper kloke kjøpere inn i eksklusive feriehjem gjennom sameie med tinglyst andel.",
+  "ogTitle": "Om oss | Co-Ownership Property",
+  "ogDescription": "Møt teamet som hjelper kloke kjøpere inn i eksklusive feriehjem gjennom sameie."
+ },
+ "hero": { "eyebrow": "Vår historie", "headingHtml": "Om <em>oss</em>", "subtitle": "Møt teamet som jobber for å gjøre eierskap til eksklusive feriehjem tilgjengelig, transparent og fornuftig." },
+ "pressLabel": "Omtalt i",
+ "intro": {
+  "eyebrow": "Hvem vi er",
+  "headingHtml": "Et byrå for eksklusivt <em>sameie</em>",
+  "p1": "Siden 2022 har Co-Ownership Property utelukkende viet seg til eksklusive feriehjem med delt eierskap på verdens mest ettertraktede destinasjoner.",
+  "p2": "Vi står 100 % på kjøperens side og samarbeider kun med de mest anerkjente, transparente og profesjonelt drevne aktørene i Europa og USA. Vi er ikke bundet til noen enkelt plattform eller utbygger. Holder ikke en eiendom vår standard, finner du den ikke på dette nettstedet."
+ },
+ "team": {
+  "eyebrow": "Teamet",
+  "headingHtml": "Møt menneskene <em>bak COP</em>",
+  "david": { "role": "Grunnlegger", "bio": "Over 20 år med salg av eksklusive skieiendommer i mer enn 40 franske alpedestinasjoner. David så markedet forandre seg etter hvert som kunder som en gang kunne kjøpe, gradvis ble priset ut. Han grunnla COP i 2022 fordi han mener at enestående eiendommer bør eies av mennesker som elsker dem — ikke bare av dem som har råd til å kjøpe dem alene." },
+  "dylan": { "role": "Salg", "bio": "Dylan vokste opp mellom London og Marbella, med røtter i fire land, og fikk tidlig en intuitiv forståelse for den internasjonale kjøperen. Etter en økonomiutdannelse fra University of Manchester satte han seg fore å bygge bro mellom drøm og virkelighet — å gjøre eksklusive feriehjem tilgjengelige for flere, gjennom en transparent tilnærming der kunden alltid kommer først." },
+  "poppy": { "role": "Sikkerhetssjef", "bio": "Har nulltoleranse for ekorn, postbud og katter uten adgangskort. Skal etter sigende kunne bestikkes med cheddar eller magekos." }
+ },
+ "story1": {
+  "eyebrow": "Hvorfor vi startet",
+  "headingHtml": "Et marked som lot <em>folk stå igjen</em>",
+  "p1": "David tilbrakte over to tiår med å selge eksklusive eiendommer i de franske alpene. I begynnelsen lå franske boliglånsrenter under 2 %, løpetidene strakte seg til 25 år, og prisene i alpedestinasjonene — aldri billige — sto fortsatt i et fornuftig forhold til prisene i Paris. Å kjøpe en skieiendom var en realistisk drøm for en vanlig familie i full jobb.",
+  "p2": "Den verdenen forsvant gradvis. Mellom 2017 og 2022 steg prisene i de mest ettertraktede destinasjonene med 30–50 %, og enkelte steder gikk kvadratmeterprisen forbi Paris. Hytta i Meribel, leiligheten i Chamonix — dette var blitt et marked for dem som kunne betale kontant.",
+  "quote": "Kundene jeg hadde jobbet med i årevis, ville fortsatt kjøpe — de hadde bare ikke lenger råd. De var rett og slett priset ut.",
+  "quoteAttr": "David Olsson — Grunnlegger"
+ },
+ "story2": {
+  "eyebrow": "Løsningen",
+  "headingHtml": "En bedre måte å <em>eie</em> på",
+  "p1": "Der en hel alpeeiendom i dag gjerne koster over 800 000 euro, gir en ideell andel deg reelt eierskap fra rundt 100 000 euro. Du eier en tinglyst andel i en eksklusiv eiendom, den følger markedets verdiutvikling, og du bestemmer selv når du vil selge.",
+  "p2": "Én åttendedels andel gir deg seks ukers bruk i året — 45 dager. Den gjennomsnittlige feriehjemseieren bruker boligen sin bare 35 dager i året, så en enkelt andel overgår allerede det typiske bruksmønsteret.",
+  "p3": "Og ingenting stopper deg fra å gå lenger: Kjøp to andeler i samme eiendom, eller kombiner en andel i en alpehytte med en andel i en villa på Ibiza. Eiendommene fungerer uavhengig av hverandre, eierstrukturen er den samme, og kalenderen disponerer du helt selv.",
+  "quote": "Det gjennomsnittlige feriehjemmet står tomt 330 dager i året. En ideell andel gir deg mer tid i en enestående eiendom — til en brøkdel av prisen."
+ },
+ "cta": { "line": "Klar til å finne ditt feriehjem?", "primary": "Snakk med en ekspert", "secondary": "Meld deg på nyhetsbrevet" },
+ "testi": {
+  "eyebrow": "Hva kundene våre sier",
+  "headingHtml": "Ekte eiere, ekte <em>historier</em>",
+  "cards": [
+   { "name": "Astrid", "loc": "Mougins, Sør-Frankrike", "quote": "Fra første opphold føltes alt helt uanstrengt. Det er som å komme hjem til seg selv, med komforten fra et hotell. Sengene er redd opp, håndklærne ligger klare — ingenting å tenke på. Hvert besøk begynner med ro, ikke med plikter. Jeg elsker det allerede, og jeg trenger ikke bekymre meg for noe som helst." },
+   { "name": "Harry & Nicole", "loc": "La Plagne, De franske alpene", "quote": "Å eie et sted i de franske alpene hadde alltid vært en drøm. Delt eierskap ble den perfekte løsningen — alle fordelene ved et luksuriøst fjellhjem, uten stresset og kostnadene ved å drifte en hel eiendom. Nå kan sønnen vår invitere skolekameratene sine på skiferie i vinterferien. Det gjorde virkelig drømmen vår til virkelighet." },
+   { "name": "Mateo & Anne", "loc": "Lake Tahoe, California", "quote": "Vi har kjørt opp fra LA til Tahoe hver sommer i årevis, men kunne aldri forsvare et helt hus. Denne eierformen føltes som den perfekte mellomveien. Endelig eier vi en bit av stedet, uten den dårlige samvittigheten et ubrukt boliglån gir. Transparent fra dag én — vi kunne ikke vært mer fornøyde." },
+   { "name": "Jan & familie", "loc": "Port d'Andratx, Mallorca", "quote": "Jeg solgte feriehuset mitt i Frankrike, tok gevinsten og brukte bare en fjerdedel av den på en langt finere villa. Den dårlige samvittigheten er borte. Villaen er nydelig, barna elsker den, og ukene vi ikke bruker, leies ut — det dekker mer enn de månedlige driftskostnadene. Anbefales på det varmeste." }
+  ]
+ }
+}

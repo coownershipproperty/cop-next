@@ -1,0 +1,27 @@
+{
+ "meta": {
+  "title": "Kontakt os | Co-Ownership Property",
+  "description": "Tal med COP-holdet. Spørgsmål om medejerskab af feriebolig? Vi svarer inden for få timer — uden salgspres og helt uforpligtende.",
+  "ogTitle": "Kontakt Co-Ownership Property",
+  "ogDescription": "Spørgsmål om medejerskab af feriebolig? Tal med vores hold — uden salgspres og helt uforpligtende."
+ },
+ "hero": {
+  "eyebrow": "Vi er her for at hjælpe",
+  "headingHtml": "Kontakt <em>os</em>",
+  "subtitle": "Har du spørgsmål om medejerskab, en bestemt bolig eller bare hvordan det hele fungerer? Du får klare svar — helt uden salgspres."
+ },
+ "trust": {
+  "eyebrow": "Sådan arbejder vi",
+  "heading": "Det kan du forvente, når du kontakter os",
+  "card1": { "h": "Skriv direkte til os", "pTop": "Foretrækker du at skrive? Du kan nå os på", "pBottom": "Vi læser hver eneste besked personligt." },
+  "card2": { "h": "Hurtigt svar", "p": "Vi svarer som regel inden for få timer — ofte hurtigere. Ved henvendelser om USA må du regne med tidsforskellen. Du hører altid fra os." },
+  "card3": { "h": "Intet pres, ingen forpligtelser", "p": "Vi stiller spørgsmål, peger dig i retning af de rigtige boliger og lader beslutningen være helt din egen. Vi er uafhængige — ikke bundet til nogen enkelt platform eller udvikler." }
+ },
+ "links": {
+  "eyebrow": "Stadig i researchfasen?",
+  "heading": "Ikke klar til at kontakte os endnu?",
+  "card1": { "cat": "Sådan fungerer det", "title": "Købsprocessen, trin for trin", "desc": "Fra første henvendelse til underskrevne kontrakter — hvad der sker, i hvilken rækkefølge, og hvad du skal have klar.", "arrow": "Læs guiden →" },
+  "card2": { "cat": "Vores boliger", "title": "Se alle boliger samlet ét sted", "desc": "Villaer, lejligheder og chaleter i Europa og USA — alle med andelsprisen vist fra start.", "arrow": "Se boligerne →" },
+  "card3": { "cat": "Vores blog", "title": "Markedsanalyser og køberguides", "desc": "Dybdegående artikler om destinationer, juridiske strukturer, afkast og alt, hvad en klog køber har brug for at vide.", "arrow": "Gennemse artiklerne →" }
+ }
+}

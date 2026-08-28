@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "title": "Over Ons | Co-Ownership Property",
+  "description": "Maak kennis met het team achter Co-Ownership Property. Opgericht in 2022 door David Olsson. Wij helpen slimme kopers aan een luxe tweede woning via mede-eigendom.",
+  "ogTitle": "Over Ons | Co-Ownership Property",
+  "ogDescription": "Maak kennis met het team dat slimme kopers toegang geeft tot luxe tweede woningen via mede-eigendom."
+ },
+ "hero": { "eyebrow": "Ons Verhaal", "headingHtml": "Over <em>Ons</em>", "subtitle": "Maak kennis met het team dat zich inzet om het bezit van een luxe tweede woning toegankelijk, transparant en slim te maken." },
+ "pressLabel": "Bekend Van",
+ "intro": {
+  "eyebrow": "Wie Wij Zijn",
+  "headingHtml": "Een Bureau voor Premium <em>Mede-eigendom</em>",
+  "p1": "Sinds 2022 richt Co-Ownership Property zich uitsluitend op premium tweede woningen in mede-eigendom, op de meest gewilde bestemmingen ter wereld.",
+  "p2": "Wij staan voor 100% aan de kant van de koper en werken alleen samen met de meest gerenommeerde, transparante en professioneel beheerde aanbieders in Europa en de VS. Wij zijn niet gebonden aan één platform of ontwikkelaar. Voldoet een woning niet aan onze maatstaf, dan verschijnt zij niet op deze site."
+ },
+ "team": {
+  "eyebrow": "Het Team",
+  "headingHtml": "De Mensen <em>Achter COP</em>",
+  "david": { "role": "Oprichter", "bio": "Ruim 20 jaar ervaring in de verkoop van premium skiwoningen in meer dan 40 Franse Alpenresorts. David zag de markt veranderen: klanten die vroeger konden kopen, werden steeds vaker uit de markt geprijsd. In 2022 richtte hij COP op, vanuit de overtuiging dat uitzonderlijke woningen toebehoren aan mensen die ervan houden — niet alleen aan wie ze volledig contant kan betalen." },
+  "dylan": { "role": "Verkoop", "bio": "Opgegroeid tussen Londen en Marbella, met wortels in vier landen, kreeg Dylan een natuurlijk gevoel voor de internationale koper. Na zijn bedrijfskundestudie aan de University of Manchester zette hij zich in om de kloof tussen droom en werkelijkheid te dichten — door exclusieve vakantiewoningen voor meer mensen bereikbaar te maken, met een transparante aanpak waarin de klant vooropstaat." },
+  "poppy": { "role": "Hoofd Beveiliging", "bio": "Hanteert een zerotolerancebeleid voor eekhoorns, postbodes en katten zonder vergunning. Staat erom bekend steekpenningen aan te nemen in de vorm van een blokje kaas of een buikkrabbel." }
+ },
+ "story1": {
+  "eyebrow": "Waarom Wij Begonnen",
+  "headingHtml": "Een Markt Die <em>Mensen Achterliet</em>",
+  "p1": "David verkocht ruim twee decennia lang premium woningen in de Franse Alpen. In de begintijd lagen de Franse hypotheekrentes onder de 2%, liepen de looptijden op tot 25 jaar en stonden de prijzen in de Alpenresorts — nooit goedkoop — nog in een redelijke verhouding tot die van Parijs. Een skiwoning kopen was een realistische ambitie voor een werkend gezin.",
+  "p2": "Die wereld verdween geleidelijk. Tussen 2017 en 2022 stegen de prijzen in de meest gewilde resorts met 30–50% en overtroffen ze per vierkante meter op sommige plekken zelfs Parijs. Het chalet in Meribel, het appartement in Chamonix — dat was inmiddels terrein voor contante kopers geworden.",
+  "quote": "De klanten met wie ik jarenlang had gewerkt, wilden nog steeds kopen — ze konden het alleen niet meer betalen. Ze waren simpelweg uit de markt geprijsd.",
+  "quoteAttr": "David Olsson — Oprichter"
+ },
+ "story2": {
+  "eyebrow": "De Oplossing",
+  "headingHtml": "Een Betere Manier van <em>Bezitten</em>",
+  "p1": "Waar een volledige woning in de Alpen tegenwoordig al snel meer dan €800.000 kost, brengt een aandeel echt eigendom binnen bereik vanaf circa €100.000. U bezit een notarieel vastgelegd aandeel in een premium woning, dat meestijgt met de markt — en u bepaalt zelf wanneer u verkoopt.",
+  "p2": "Eén achtste aandeel geeft u zes weken gebruik per jaar — 45 dagen. De gemiddelde eigenaar van een tweede woning gebruikt die slechts 35 dagen per jaar, dus met één aandeel zit u al boven het gebruikelijke eigen gebruik.",
+  "p3": "En niets weerhoudt u ervan verder te gaan: koop twee aandelen in dezelfde woning, of combineer een aandeel in een Alpenchalet met een aandeel in een villa op Ibiza. De woningen functioneren onafhankelijk van elkaar, de eigendomsstructuur is dezelfde en uw agenda deelt u in zoals u dat wilt.",
+  "quote": "De gemiddelde tweede woning staat 330 dagen per jaar leeg. Een aandeel geeft u meer tijd in een uitzonderlijke woning — voor een fractie van de kosten."
+ },
+ "cta": { "line": "Klaar om uw tweede woning te vinden?", "primary": "Spreek met een Expert", "secondary": "Ontvang Onze Nieuwsbrief" },
+ "testi": {
+  "eyebrow": "Wat Onze Klanten Zeggen",
+  "headingHtml": "Echte Eigenaren, Echte <em>Verhalen</em>",
+  "cards": [
+   { "name": "Astrid", "loc": "Mougins, Zuid-Frankrijk", "quote": "Vanaf het eerste verblijf voelde alles moeiteloos. Het is alsof u thuiskomt in uw eigen huis, met het comfort van een hotel. De bedden zijn opgemaakt, de handdoeken liggen klaar — u hoeft nergens aan te denken. Elk bezoek begint met rust, niet met klusjes. Ik ben er nu al verliefd op, en ik hoef me nergens zorgen over te maken." },
+   { "name": "Harry & Nicole", "loc": "La Plagne, Franse Alpen", "quote": "Een eigen plek in de Franse Alpen was altijd al een droom. Mede-eigendom bleek de perfecte oplossing — alle voordelen van een luxe berghuis, zonder de stress en kosten van het beheer van een volledige woning. Onze zoon kan nu zijn schoolvrienden uitnodigen om te skiën in de voorjaarsvakantie. Onze droom is echt werkelijkheid geworden." },
+   { "name": "Mateo & Anne", "loc": "Lake Tahoe, Californië", "quote": "We rijden al jaren elke zomer van LA naar Tahoe, maar een heel huis konden we niet verantwoorden. Dit eigendomsmodel voelde als de perfecte middenweg. We bezitten eindelijk een stuk van de grond, zonder het schuldgevoel van een ongebruikte hypotheek. Transparant vanaf dag één — we zouden niet gelukkiger kunnen zijn." },
+   { "name": "Jan & Gezin", "loc": "Port d'Andratx, Mallorca", "quote": "Ik heb mijn Franse vakantiehuis verkocht, de winst gepakt en slechts een kwart daarvan gebruikt om een veel mooiere villa te kopen. Schuldgevoel weg. De villa is prachtig, de kinderen zijn er dol op, en de resterende weken worden verhuurd — dat dekt ruimschoots de maandelijkse kosten. Een aanrader." }
+  ]
+ }
+}

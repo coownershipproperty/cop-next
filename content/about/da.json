@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "title": "Om os | Co-Ownership Property",
+  "description": "Mød holdet bag Co-Ownership Property. Grundlagt i 2022 af David Olsson – vi hjælper kloge købere med at få adgang til luksusferieboliger gennem medejerskab.",
+  "ogTitle": "Om os | Co-Ownership Property",
+  "ogDescription": "Mød holdet, der hjælper kloge købere med at få adgang til luksusferieboliger gennem medejerskab."
+ },
+ "hero": { "eyebrow": "Vores historie", "headingHtml": "Om <em>os</em>", "subtitle": "Mød holdet, der arbejder for at gøre ejerskab af en eksklusiv feriebolig tilgængeligt, gennemsigtigt og fornuftigt." },
+ "pressLabel": "Omtalt i",
+ "intro": {
+  "eyebrow": "Hvem vi er",
+  "headingHtml": "Et bureau for eksklusivt <em>medejerskab</em>",
+  "p1": "Siden 2022 har Co-Ownership Property udelukkende beskæftiget sig med eksklusive ferieboliger med delt ejerskab i verdens mest eftertragtede destinationer.",
+  "p2": "Vi arbejder 100 % på købers side og samarbejder kun med de mest velrenommerede, gennemsigtige og professionelt drevne operatører i Europa og USA. Vi er ikke bundet til nogen enkelt platform eller udvikler. Lever en bolig ikke op til vores standard, kommer den ikke på denne side."
+ },
+ "team": {
+  "eyebrow": "Holdet",
+  "headingHtml": "Mød menneskene <em>bag COP</em>",
+  "david": { "role": "Grundlægger", "bio": "Mere end 20 års erfaring med salg af eksklusive skiboliger i over 40 franske alpedestinationer. David så markedet forandre sig, i takt med at kunder, der tidligere kunne købe, i stigende grad blev prist ud. Han grundlagde COP i 2022, fordi han mener, at enestående boliger bør ejes af mennesker, der elsker dem — ikke kun af dem, der har råd til at købe dem alene." },
+  "dylan": { "role": "Salg", "bio": "Opvokset mellem London og Marbella med rødder i fire lande har Dylan en medfødt fornemmelse for den internationale køber. Efter en erhvervsøkonomisk uddannelse fra University of Manchester satte han sig for at bygge bro mellem drøm og virkelighed — og gøre eksklusive ferieboliger tilgængelige for flere gennem en gennemsigtig tilgang med kunden i centrum." },
+  "poppy": { "role": "Sikkerhedschef", "bio": "Fører nultolerance over for egern, postbude og uautoriserede katte. Er kendt for at tage imod bestikkelse i form af cheddarost eller kløen på maven." }
+ },
+ "story1": {
+  "eyebrow": "Hvorfor vi startede",
+  "headingHtml": "Et marked, der efterlod <em>folk udenfor</em>",
+  "p1": "David brugte mere end to årtier på at sælge eksklusive boliger i de franske alper. I begyndelsen lå de franske realkreditrenter under 2 %, løbetiderne strakte sig over 25 år, og priserne i alpedestinationerne — aldrig billige — stod stadig i et rimeligt forhold til priserne i Paris. At købe en skibolig var en realistisk drøm for en almindelig veletableret familie.",
+  "p2": "Den verden forsvandt gradvist. Mellem 2017 og 2022 steg priserne i de mest eftertragtede skibyer med 30–50 % og overhalede visse steder Paris målt pr. kvadratmeter. Chaleten i Meribel, lejligheden i Chamonix — de var blevet forbeholdt kontantkøbere.",
+  "quote": "De kunder, jeg havde arbejdet med i årevis, ville stadig gerne købe — de havde bare ikke længere råd. De var simpelthen prist ud.",
+  "quoteAttr": "David Olsson — grundlægger"
+ },
+ "story2": {
+  "eyebrow": "Løsningen",
+  "headingHtml": "En bedre måde at <em>eje</em> på",
+  "p1": "Hvor en hel bolig i alperne i dag let koster over 800.000 €, bringer en andel ægte ejerskab inden for rækkevidde fra omkring 100.000 €. Du ejer en tinglyst andel af en eksklusiv bolig, den stiger i værdi med markedet, og du bestemmer selv, hvornår du vil sælge.",
+  "p2": "En enkelt ottendedel giver dig seks ugers brug om året — 45 dage. Den gennemsnitlige feriehusejer bruger kun sin bolig 35 dage om året, så en andel overgår allerede det typiske eget forbrug.",
+  "p3": "Og intet forhindrer dig i at gå videre: Køb to andele i samme bolig, eller kombinér en andel i en alpechalet med en andel i en villa på Ibiza. Boligerne fungerer uafhængigt af hinanden, ejerskabsstrukturen er den samme, og kalenderen er din at råde over.",
+  "quote": "Det gennemsnitlige feriehus står tomt 330 dage om året. En andel giver dig mere tid i en enestående bolig — til en brøkdel af prisen."
+ },
+ "cta": { "line": "Klar til at finde din feriebolig?", "primary": "Tal med en ekspert", "secondary": "Tilmeld dig vores nyhedsbrev" },
+ "testi": {
+  "eyebrow": "Det siger vores kunder",
+  "headingHtml": "Rigtige ejere, rigtige <em>historier</em>",
+  "cards": [
+   { "name": "Astrid", "loc": "Mougins, Sydfrankrig", "quote": "Fra det første ophold føltes alting ubesværet. Det er som at ankomme til sit eget hjem med komforten fra et hotel. Sengene er redt, håndklæderne ligger klar — der er intet at tænke på. Hvert besøg begynder med ro, ikke med pligter. Jeg elsker det allerede, og jeg behøver ikke bekymre mig om noget som helst." },
+   { "name": "Harry & Nicole", "loc": "La Plagne, de franske alper", "quote": "At eje et sted i de franske alper havde altid været en drøm. Delt ejerskab var den perfekte løsning — alle fordelene ved et luksuriøst bjerghjem uden stresset og omkostningerne ved at drive en hel bolig. Vores søn kan nu invitere sine skolekammerater med på ski i vinterferien. Det gjorde virkelig vores drøm til virkelighed." },
+   { "name": "Mateo & Anne", "loc": "Lake Tahoe, Californien", "quote": "Vi har kørt fra LA op til Tahoe hver sommer i årevis, men kunne ikke forsvare et helt hus. Denne ejerskabsmodel føltes som den perfekte mellemvej. Nu ejer vi endelig et stykke af stedet uden den dårlige samvittighed over et ubrugt boliglån. Gennemsigtigt fra dag ét — vi kunne ikke være gladere." },
+   { "name": "Jan & familie", "loc": "Port d'Andratx, Mallorca", "quote": "Jeg solgte mit franske feriehus, tog gevinsten og brugte kun en fjerdedel af den på en langt flottere villa. Den dårlige samvittighed er væk. Villaen er fantastisk, børnene elsker den, og de resterende uger lejes ud — det dækker mere end de månedlige driftsomkostninger. Kan varmt anbefales." }
+  ]
+ }
+}

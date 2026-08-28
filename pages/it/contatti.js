@@ -1,9 +1,10 @@
-// /it/contatti/ — Italian contact page. Content: content/pages/it/contact.json
-import LocalePage from '@/components/LocalePage';
-import { localePageStaticProps } from '@/lib/locale-page-data';
+// /it/contatti/ — contact. The real contact page (trust cards,
+// research links), translated. Copy: content/contact/it.json.
+import LocaleContact from '@/components/LocaleContact';
+import { localeJsonStaticProps } from '@/lib/home-page-data';
 
-export const getStaticProps = localePageStaticProps('it', 'contact');
+export const getStaticProps = localeJsonStaticProps('contact', 'it');
 
-export default function ContattiIT(props) {
-  return <LocalePage {...props} />;
+export default function Contact_it(props) {
+  return <LocaleContact locale="it" {...props} />;
 }

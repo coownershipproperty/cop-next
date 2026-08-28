@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "title": "Sobre Nós | Co-Ownership Property",
+  "description": "Conheça a equipe da Co-Ownership Property. Fundada em 2022 por David Olsson, ajudamos compradores a acessar segundas casas de luxo em multipropriedade.",
+  "ogTitle": "Sobre Nós | Co-Ownership Property",
+  "ogDescription": "Conheça a equipe que ajuda compradores inteligentes a acessar segundas casas de luxo em multipropriedade."
+ },
+ "hero": { "eyebrow": "Nossa História", "headingHtml": "Sobre <em>Nós</em>", "subtitle": "Conheça a equipe dedicada a tornar a propriedade de uma segunda casa de luxo acessível, transparente e inteligente." },
+ "pressLabel": "Destaque na Imprensa",
+ "intro": {
+  "eyebrow": "Quem Somos",
+  "headingHtml": "Uma Agência de <em>Multipropriedade</em> Premium",
+  "p1": "Desde 2022, a Co-Ownership Property se dedica exclusivamente a segundas casas premium em multipropriedade nos destinos mais desejados do mundo.",
+  "p2": "Atuando 100% do lado do comprador, colaboramos apenas com as operadoras mais respeitadas, transparentes e profissionalmente administradas da Europa e dos Estados Unidos. Não somos vinculados a nenhuma plataforma ou incorporadora. Se um imóvel não atende ao nosso padrão, ele não aparece neste site."
+ },
+ "team": {
+  "eyebrow": "A Equipe",
+  "headingHtml": "Conheça as Pessoas <em>Por Trás da COP</em>",
+  "david": { "role": "Fundador", "bio": "Mais de 20 anos vendendo imóveis de esqui premium em mais de 40 estações dos Alpes Franceses. David viu o mercado se transformar à medida que clientes que antes podiam comprar iam sendo excluídos pelos preços. Fundou a COP em 2022 porque acredita que imóveis excepcionais devem pertencer a quem os ama — e não apenas a quem pode pagá-los à vista." },
+  "dylan": { "role": "Vendas", "bio": "Criado entre Londres e Marbella, com raízes em quatro países, Dylan cresceu com um instinto natural para o comprador internacional. Depois de se formar em administração pela University of Manchester, decidiu unir aspiração e realidade — tornando casas de férias de alto padrão acessíveis a mais pessoas, com uma abordagem transparente e centrada no cliente." },
+  "poppy": { "role": "Chefe de Segurança", "bio": "Adota tolerância zero com esquilos, carteiros e gatos não autorizados. Consta que aceita subornos em forma de queijo cheddar ou carinho na barriga." }
+ },
+ "story1": {
+  "eyebrow": "Por Que Começamos",
+  "headingHtml": "Um Mercado Que Deixou <em>Pessoas Para Trás</em>",
+  "p1": "David passou mais de duas décadas vendendo imóveis premium nos Alpes Franceses. No começo, as taxas de financiamento na França ficavam abaixo de 2%, os prazos chegavam a 25 anos e os preços nas estações alpinas — embora nunca baratos — ainda guardavam uma relação razoável com os de Paris. Comprar um imóvel de esqui era uma aspiração realista para uma família de profissionais.",
+  "p2": "Esse mundo foi desaparecendo aos poucos. Entre 2017 e 2022, os preços nas estações mais procuradas subiram de 30 a 50%, em algumas áreas ultrapassando Paris no metro quadrado. O chalé em Meribel, o apartamento em Chamonix — tudo isso virou território de quem compra à vista.",
+  "quote": "Os clientes com quem eu trabalhava havia anos ainda queriam comprar — só não conseguiam mais pagar. Foram simplesmente excluídos pelos preços.",
+  "quoteAttr": "David Olsson — Fundador"
+ },
+ "story2": {
+  "eyebrow": "A Solução",
+  "headingHtml": "Uma Forma Melhor de <em>Ser Proprietário</em>",
+  "p1": "Enquanto um imóvel alpino inteiro pode hoje custar mais de €800.000, uma fração imobiliária coloca a propriedade de verdade ao seu alcance a partir de cerca de €100.000. Você é dono de uma cota registrada na matrícula do imóvel, com direito real de propriedade: ela se valoriza com o mercado e você decide quando vender.",
+  "p2": "Uma única cota de um oitavo dá a você seis semanas de uso por ano — 45 dias. O proprietário médio de uma segunda casa usa o imóvel apenas 35 dias por ano, ou seja, uma cota já supera o uso pessoal típico.",
+  "p3": "E nada impede você de ir além: compre duas cotas no mesmo imóvel, ou combine uma cota em um chalé nos Alpes com uma cota em uma vila em Ibiza. Os imóveis funcionam de forma independente, a estrutura de propriedade é a mesma e o calendário é seu para organizar.",
+  "quote": "A segunda casa média fica vazia 330 dias por ano. Uma cota dá a você mais tempo em um imóvel excepcional — por uma fração do custo."
+ },
+ "cta": { "line": "Pronto para encontrar sua segunda casa?", "primary": "Fale com um Especialista", "secondary": "Assine Nossa Newsletter" },
+ "testi": {
+  "eyebrow": "O Que Dizem Nossos Clientes",
+  "headingHtml": "Proprietários Reais, <em>Histórias</em> Reais",
+  "cards": [
+   { "name": "Astrid", "loc": "Mougins, Sul da França", "quote": "Desde a primeira estadia, tudo pareceu simples. É como chegar à sua própria casa com o conforto de um hotel. As camas feitas, as toalhas prontas — nada para resolver. Cada visita começa com tranquilidade, não com tarefas. Já estou apaixonada, e não preciso me preocupar com absolutamente nada." },
+   { "name": "Harry & Nicole", "loc": "La Plagne, Alpes Franceses", "quote": "Ter um lugar nos Alpes Franceses sempre foi um sonho. A multipropriedade foi a solução perfeita — todos os benefícios de uma casa de luxo na montanha, sem o estresse e o custo de administrar um imóvel inteiro. Nosso filho agora pode convidar os amigos da escola para esquiar nas férias. Foi assim que nosso sonho virou realidade." },
+   { "name": "Mateo & Anne", "loc": "Lake Tahoe, Califórnia", "quote": "Há anos vamos de carro de Los Angeles a Tahoe todo verão, mas nunca conseguimos justificar uma casa inteira. Esse modelo de propriedade foi o meio-termo perfeito. Finalmente somos donos de um pedaço do lugar, sem a culpa de um financiamento parado. Transparente desde o primeiro dia — não poderíamos estar mais felizes." },
+   { "name": "Jan & Family", "loc": "Port d'Andratx, Maiorca", "quote": "Vendi minha casa de férias na França, peguei o lucro e usei apenas um quarto dele para comprar uma vila muito melhor. Culpa zero. A vila é deslumbrante, as crianças adoram, e as semanas restantes são alugadas — mais do que cobrindo os custos mensais. Recomendo muito." }
+  ]
+ }
+}
