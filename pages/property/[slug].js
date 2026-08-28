@@ -414,6 +414,87 @@ function localizedFields(p, locale) {
   };
 }
 
+// ── Notify-me bell on the gallery ─────────────────────────────────────────
+// Replaces the old bottom-left "Track this home" text pill (Dylan, 28 Aug:
+// the pill distracted from the photos). A round icon button under the heart,
+// opening a small popover — price and share-availability alerts for exactly
+// this home. Posts to the same /api/track-property endpoint as PropertyWatch.
+const BELL_COPY = {
+  en: { title: 'Notify me!', sub: 'Get an email if the price or the number of available shares changes — only this home, never spam.', placeholder: 'Your email address', btn: 'Notify me', done: "Done — we'll email you the moment anything changes.", error: 'Something went wrong — please try again.', aria: 'Get notified about this home' },
+  es: { title: '¡Avísame!', sub: 'Recibe un email si cambia el precio o el número de participaciones disponibles — solo de esta propiedad.', placeholder: 'Tu correo electrónico', btn: 'Avisarme', done: 'Hecho — te escribiremos en cuanto algo cambie.', error: 'Algo salió mal — inténtalo de nuevo.', aria: 'Recibir avisos de esta propiedad' },
+  fr: { title: 'Prévenez-moi !', sub: 'Recevez un e-mail si le prix ou le nombre de quotes-parts disponibles change — uniquement pour ce bien.', placeholder: 'Votre adresse e-mail', btn: 'Me prévenir', done: 'C\u2019est noté — nous vous écrirons dès que quelque chose change.', error: 'Une erreur est survenue — veuillez réessayer.', aria: 'Être averti pour ce bien' },
+  de: { title: 'Benachrichtigen Sie mich!', sub: 'Sie erhalten eine E-Mail, wenn sich der Preis oder die Zahl der verfügbaren Anteile ändert — nur für diese Immobilie.', placeholder: 'Ihre E-Mail-Adresse', btn: 'Benachrichtigen', done: 'Erledigt — wir melden uns, sobald sich etwas ändert.', error: 'Etwas ist schiefgelaufen — bitte erneut versuchen.', aria: 'Bei Änderungen benachrichtigt werden' },
+  it: { title: 'Avvisami!', sub: 'Ricevi una email se cambia il prezzo o il numero di quote disponibili — solo per questa casa.', placeholder: 'Il tuo indirizzo email', btn: 'Avvisami', done: 'Fatto — ti scriviamo appena cambia qualcosa.', error: 'Qualcosa è andato storto — riprova.', aria: 'Ricevi avvisi su questa casa' },
+  nl: { title: 'Houd mij op de hoogte!', sub: 'U ontvangt een e-mail als de prijs of het aantal beschikbare aandelen verandert — alleen voor deze woning.', placeholder: 'Uw e-mailadres', btn: 'Houd mij op de hoogte', done: 'Klaar — we mailen u zodra er iets verandert.', error: 'Er ging iets mis — probeer het opnieuw.', aria: 'Meldingen over deze woning' },
+  pt: { title: 'Avise-me!', sub: 'Você recebe um e-mail se o preço ou o número de cotas disponíveis mudar — apenas desta casa.', placeholder: 'Seu e-mail', btn: 'Avise-me', done: 'Pronto — escreveremos assim que algo mudar.', error: 'Algo deu errado — tente novamente.', aria: 'Receber avisos sobre esta casa' },
+  sv: { title: 'Meddela mig!', sub: 'Få ett mejl om priset eller antalet tillgängliga andelar ändras — bara för det här huset.', placeholder: 'Din e-postadress', btn: 'Meddela mig', done: 'Klart — vi hör av oss så fort något ändras.', error: 'Något gick fel — försök igen.', aria: 'Få aviseringar om det här huset' },
+  da: { title: 'Giv mig besked!', sub: 'Få en mail, hvis prisen eller antallet af ledige andele ændrer sig — kun for denne bolig.', placeholder: 'Din e-mailadresse', btn: 'Giv mig besked', done: 'Klaret — vi skriver, så snart noget ændrer sig.', error: 'Noget gik galt — prøv igen.', aria: 'Få besked om denne bolig' },
+  no: { title: 'Varsle meg!', sub: 'Få en e-post hvis prisen eller antall tilgjengelige andeler endres — kun for denne boligen.', placeholder: 'Din e-postadresse', btn: 'Varsle meg', done: 'Klart — vi skriver så snart noe endres.', error: 'Noe gikk galt — prøv igjen.', aria: 'Få varsler om denne boligen' },
+};
+
+function NotifyBell({ slug, locale, title }) {
+  const t = BELL_COPY[locale] || BELL_COPY.en;
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [state, setState] = useState('idle'); // idle | busy | done | error
+
+  async function submit(e) {
+    e.preventDefault();
+    if (state === 'busy') return;
+    setState('busy');
+    try {
+      const res = await fetch('/api/track-property', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, slug, kind: 'watch', locale }),
+      });
+      setState(res.ok ? 'done' : 'error');
+    } catch {
+      setState('error');
+    }
+  }
+
+  return (
+    <>
+      <button
+        className={`pp-bell-btn${open ? ' open' : ''}`}
+        aria-label={t.aria}
+        onClick={() => {
+          setOpen(o => !o);
+          if (!open) track('property_watch_opened', { property: title, slug, locale });
+        }}
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+      </button>
+      {open && (
+        <div className="pp-bell-pop" role="dialog" aria-label={t.title}>
+          <button className="pp-bell-close" aria-label="Close" onClick={() => setOpen(false)}>&times;</button>
+          <p className="pp-bell-title">{t.title}</p>
+          {state === 'done' ? (
+            <p className="pp-bell-done">✓ {t.done}</p>
+          ) : (
+            <>
+              <p className="pp-bell-sub">{t.sub}</p>
+              <form className="pp-bell-form" onSubmit={submit}>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  placeholder={t.placeholder}
+                  onChange={e => setEmail(e.target.value)}
+                  autoFocus
+                />
+                <button type="submit" disabled={state === 'busy'}>{t.btn}</button>
+              </form>
+              {state === 'error' && <p className="pp-bell-error">{t.error}</p>}
+            </>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
 function Img({ src, alt, loading = 'lazy', priority = false, sizes = '100vw' }) {
   return (
     <NextImage
@@ -781,16 +862,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
       {/* ── Desktop gallery ── */}
       <div className="pp-gallery">
         {!String(p.status || '').toLowerCase().includes('sold') && (
-          <button
-            className="pp-track-pill"
-            onClick={() => {
-              const el = document.querySelector('.pw-box');
-              if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); const b = el.querySelector('.pw-toggle'); if (b) b.click(); setTimeout(() => { const i = el.querySelector('input'); if (i) i.focus(); }, 450); }
-            }}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 14, height: 14 }}><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
-            {locale === 'es' ? 'Seguir esta propiedad' : locale === 'fr' ? 'Suivre ce bien' : locale === 'de' ? 'Immobilie folgen' : 'Track this home'}
-          </button>
+          <NotifyBell slug={p.slug} locale={locale} title={local.title} />
         )}
         <button className={`pp-heart-btn${saved ? ' saved' : ''}`} onClick={toggleSave} aria-label={saved ? 'Remove from favourites' : 'Save property'}>
           {saved
