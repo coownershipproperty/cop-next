@@ -16,7 +16,7 @@ import UnlockModal from '@/components/UnlockModal';
 import TourRequestModal from '@/components/TourRequestModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
 import PropertyCard from '@/components/PropertyCard';
-import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales, ogLocaleFor, propertyMetaDescription, formatPrice } from '@/lib/i18n';
 import PropertyWatch from '@/components/PropertyWatch';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
@@ -555,12 +555,23 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
     { type: 'lock' },
   ];
 
-  // ── SEO meta (always English on initial render — see useLocaleFromCookie note) ──
+  // ── SEO meta ────────────────────────────────────────────────────────────
+  // English keeps its original hand-tuned template. Every other locale composes
+  // its description from that locale's own title (see propertyMetaDescription
+  // in lib/i18n.js) — before this, translated property URLs shipped an English
+  // meta description, which cost both the ranking and the snippet.
   const propStyle   = (p.property_style || p.property_type || 'property').toLowerCase();
   const propLocation = [p.city || p.region, p.country].filter(Boolean).join(', ');
-  const metaDesc = p.price
-    ? `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership at ${fmt(p.price, p.currency)}. Real deeded ownership, own only what you use.`
-    : `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership. Real deeded ownership, own only what you use.`;
+  const metaDesc = locale === 'en'
+    ? (p.price
+        ? `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership at ${fmt(p.price, p.currency)}. Real deeded ownership, own only what you use.`
+        : `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership. Real deeded ownership, own only what you use.`)
+    : propertyMetaDescription(locale, {
+        title: local.title,
+        // formatPrice, not fmt(): fmt is hard-wired to en-GB grouping, which
+        // prints €219,000 on an Italian page where the number is €219.000.
+        price: p.price ? formatPrice(p.price, p.currency, locale) : '',
+      });
   // Canonical URL per locale — wrapper routes pass forceLocale so each
   // translated property URL has its own canonical.
   // Only the locales this property is genuinely translated into get an
@@ -589,6 +600,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
         <meta property="og:description" content={metaDesc} />
         <meta property="og:image" content={ogImage} />
         <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:locale" content={ogLocaleFor(locale)} />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${local.title} | Co-Ownership Property`} />
