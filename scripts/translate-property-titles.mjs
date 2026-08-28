@@ -31,7 +31,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const LOCALES = ['it', 'nl', 'pt', 'sv', 'da', 'no'];
+const LOCALES = ['es', 'fr', 'de', 'it', 'nl', 'pt', 'sv', 'da', 'no'];
 
 // ── Places ────────────────────────────────────────────────────────────────
 // Only segments that genuinely differ. Anything absent passes through, which
@@ -147,6 +147,132 @@ const GRAMMAR = {
   da: { bed1: 'soveværelse',   bedN: 'soveværelser',  prep: 'med', and: 'og'  },
   no: { bed1: 'soverom',       bedN: 'soverom',       prep: 'med', and: 'og'  },
 };
+
+
+// ── The 2025 locales: es / fr / de ─────────────────────────────────────────
+//
+// These three were originally filled by an earlier, free-translation script
+// that produced English-style Title Case — `Apartamento De 2 Dormitorios Con
+// Piscina`, `Appartement De 2 Chambres Avec Piscine`, `Apartment Mit 2
+// Schlafzimmern Und Pool`. Title Case is not an orthographic convention in
+// Spanish, French or German: those read as broken to a native speaker, on the
+// <title> and <h1> of the site's highest-value pages. They also left some
+// English tokens untranslated (`Baltic Sea`, `Estate`, `Farmhouse`).
+//
+// Bringing them under the same composer fixes casing, terminology and place
+// names in one pass, and means all nine translated locales are now generated
+// from one vocabulary rather than three scripts.
+//
+// German note: feature strings are written in the dative, because they always
+// follow `mit` — `mit beheiztem Pool`, `mit sonniger Terrasse`. German nouns
+// stay capitalised; everything else in the tail is lower-case.
+const LEGACY_PLACES = {
+  es: { Paris: 'París', London: 'Londres', Munich: 'Múnich', Vienna: 'Viena', Milan: 'Milán', Rome: 'Roma', Florence: 'Florencia', Venice: 'Venecia', Lisbon: 'Lisboa', USA: 'EE. UU.', Spain: 'España', Italy: 'Italia', France: 'Francia', Germany: 'Alemania', Austria: 'Austria', Mexico: 'México', England: 'Inglaterra', Portugal: 'Portugal', Croatia: 'Croacia', Sweden: 'Suecia', Switzerland: 'Suiza', California: 'California', Florida: 'Florida', Colorado: 'Colorado', 'South Carolina': 'Carolina del Sur', 'North Carolina': 'Carolina del Norte', 'New Jersey': 'Nueva Jersey', 'New York': 'Nueva York', "Côte d'Azur": 'Costa Azul', 'Lake Garda': 'Lago de Garda', 'Lake Como': 'Lago de Como', 'Baltic Sea': 'Mar Báltico', Sardinia: 'Cerdeña', Tyrol: 'Tirol', Bavaria: 'Baviera', Istria: 'Istria', Tuscany: 'Toscana', Liguria: 'Liguria', Mallorca: 'Mallorca', Menorca: 'Menorca', 'French Alps': 'Alpes franceses', Provence: 'Provenza', 'Salzburger Land': 'Salzburgo' },
+  fr: { Paris: 'Paris', London: 'Londres', Munich: 'Munich', Vienna: 'Vienne', Milan: 'Milan', Rome: 'Rome', Florence: 'Florence', Venice: 'Venise', Lisbon: 'Lisbonne', USA: 'États-Unis', Spain: 'Espagne', Italy: 'Italie', France: 'France', Germany: 'Allemagne', Austria: 'Autriche', Mexico: 'Mexique', England: 'Angleterre', Portugal: 'Portugal', Croatia: 'Croatie', Sweden: 'Suède', Switzerland: 'Suisse', California: 'Californie', Florida: 'Floride', Colorado: 'Colorado', 'South Carolina': 'Caroline du Sud', 'North Carolina': 'Caroline du Nord', 'New Jersey': 'New Jersey', 'New York': 'New York', "Côte d'Azur": "Côte d'Azur", 'Lake Garda': 'Lac de Garde', 'Lake Como': 'Lac de Côme', 'Baltic Sea': 'Mer Baltique', Sardinia: 'Sardaigne', Tyrol: 'Tyrol', Bavaria: 'Bavière', Istria: 'Istrie', Tuscany: 'Toscane', Liguria: 'Ligurie', Mallorca: 'Majorque', Menorca: 'Minorque', 'French Alps': 'Alpes françaises', Provence: 'Provence', 'Salzburger Land': 'Pays de Salzbourg' },
+  de: { Paris: 'Paris', London: 'London', Munich: 'München', Vienna: 'Wien', Milan: 'Mailand', Rome: 'Rom', Florence: 'Florenz', Venice: 'Venedig', Lisbon: 'Lissabon', USA: 'USA', Spain: 'Spanien', Italy: 'Italien', France: 'Frankreich', Germany: 'Deutschland', Austria: 'Österreich', Mexico: 'Mexiko', England: 'England', Portugal: 'Portugal', Croatia: 'Kroatien', Sweden: 'Schweden', Switzerland: 'Schweiz', California: 'Kalifornien', Florida: 'Florida', Colorado: 'Colorado', 'South Carolina': 'South Carolina', 'North Carolina': 'North Carolina', 'New Jersey': 'New Jersey', 'New York': 'New York', "Côte d'Azur": "Côte d'Azur", 'Lake Garda': 'Gardasee', 'Lake Como': 'Comer See', 'Baltic Sea': 'Ostsee', Sardinia: 'Sardinien', Tyrol: 'Tirol', Bavaria: 'Bayern', Istria: 'Istrien', Tuscany: 'Toskana', Liguria: 'Ligurien', Mallorca: 'Mallorca', Menorca: 'Menorca', 'French Alps': 'Französische Alpen', Provence: 'Provence', 'Salzburger Land': 'Salzburger Land' },
+};
+
+const LEGACY_TYPES = {
+  House:               { es: 'Casa',                  fr: 'Maison',                     de: 'Haus' },
+  Apartment:           { es: 'Apartamento',           fr: 'Appartement',                de: 'Apartment' },
+  Villa:               { es: 'Villa',                 fr: 'Villa',                      de: 'Villa' },
+  Chalet:              { es: 'Chalet',                fr: 'Chalet',                     de: 'Chalet' },
+  Penthouse:           { es: 'Ático',                 fr: 'Penthouse',                  de: 'Penthouse' },
+  Townhouse:           { es: 'Casa adosada',          fr: 'Maison de ville',            de: 'Stadthaus' },
+  Estate:              { es: 'Finca señorial',        fr: 'Domaine',                    de: 'Landgut' },
+  Finca:               { es: 'Finca',                 fr: 'Finca',                      de: 'Finca' },
+  Cottage:             { es: 'Casa de campo',         fr: 'Cottage',                    de: 'Cottage' },
+  Cabin:               { es: 'Cabaña',                fr: 'Chalet en bois',             de: 'Blockhütte' },
+  Farmhouse:           { es: 'Casa rural',            fr: 'Ferme',                      de: 'Bauernhaus' },
+  Maisonette:          { es: 'Dúplex',                fr: 'Maisonnette',                de: 'Maisonette' },
+  Duplex:              { es: 'Dúplex',                fr: 'Duplex',                     de: 'Duplex' },
+  Studio:              { es: 'Estudio',               fr: 'Studio',                     de: 'Studio' },
+  'Private Residence': { es: 'Residencia privada',    fr: 'Résidence privée',           de: 'Privatresidenz' },
+  'Garden Apartment':  { es: 'Apartamento con jardín', fr: 'Appartement avec jardin',   de: 'Gartenwohnung' },
+  'Terrace Apartment': { es: 'Apartamento con terraza', fr: 'Appartement avec terrasse', de: 'Terrassenwohnung' },
+  'Beach House':       { es: 'Casa en la playa',      fr: 'Maison de plage',            de: 'Strandhaus' },
+  'Beach Villa':       { es: 'Villa en la playa',     fr: 'Villa de plage',             de: 'Strandvilla' },
+  'Mountain House':    { es: 'Casa de montaña',       fr: 'Maison de montagne',         de: 'Berghaus' },
+  'Mountain Home':     { es: 'Casa de montaña',       fr: 'Maison de montagne',         de: 'Berghaus' },
+  'Coastal House':     { es: 'Casa costera',          fr: 'Maison côtière',             de: 'Küstenhaus' },
+  'Waterfront House':  { es: 'Casa frente al agua',   fr: "Maison au bord de l'eau",    de: 'Haus am Wasser' },
+  'Lakefront House':   { es: 'Casa frente al lago',   fr: 'Maison au bord du lac',      de: 'Haus am See' },
+  'Beachfront House':  { es: 'Casa frente al mar',    fr: 'Maison en front de mer',     de: 'Haus direkt am Strand' },
+  'Modern House':      { es: 'Casa moderna',          fr: 'Maison moderne',             de: 'Modernes Haus' },
+  'Resort Villa':      { es: 'Villa en resort',       fr: 'Villa de resort',            de: 'Resort-Villa' },
+  'Historic Home':     { es: 'Casa histórica',        fr: 'Maison historique',          de: 'Historisches Haus' },
+};
+
+const LEGACY_FEATURES = {
+  Pool:                       { es: 'piscina',                          fr: 'piscine',                                de: 'Pool' },
+  'Private Pool':             { es: 'piscina privada',                  fr: 'piscine privée',                         de: 'privatem Pool' },
+  'Shared Pool':              { es: 'piscina comunitaria',              fr: 'piscine partagée',                       de: 'Gemeinschaftspool' },
+  'Infinity Pool':            { es: 'piscina infinita',                 fr: 'piscine à débordement',                  de: 'Infinity-Pool' },
+  'Heated Pool':              { es: 'piscina climatizada',              fr: 'piscine chauffée',                       de: 'beheiztem Pool' },
+  'Saltwater Pool':           { es: 'piscina de agua salada',           fr: "piscine à l'eau salée",                  de: 'Salzwasserpool' },
+  'Rooftop Pool':             { es: 'piscina en la azotea',             fr: 'piscine sur le toit',                    de: 'Dachpool' },
+  'Hot Tub':                  { es: 'jacuzzi',                          fr: 'jacuzzi',                                de: 'Whirlpool' },
+  'Sea Views':                { es: 'vistas al mar',                    fr: 'vue sur la mer',                         de: 'Meerblick' },
+  'Sea View':                 { es: 'vistas al mar',                    fr: 'vue sur la mer',                         de: 'Meerblick' },
+  'Ocean Views':              { es: 'vistas al océano',                 fr: "vue sur l'océan",                        de: 'Meerblick' },
+  'Ocean View':               { es: 'vistas al océano',                 fr: "vue sur l'océan",                        de: 'Meerblick' },
+  'Panoramic Sea Views':      { es: 'vistas panorámicas al mar',        fr: 'vue panoramique sur la mer',             de: 'Panorama-Meerblick' },
+  'Panoramic Sea View':       { es: 'vistas panorámicas al mar',        fr: 'vue panoramique sur la mer',             de: 'Panorama-Meerblick' },
+  'Mountain Views':           { es: 'vistas a la montaña',              fr: 'vue sur la montagne',                    de: 'Bergblick' },
+  'Mountain View':            { es: 'vistas a la montaña',              fr: 'vue sur la montagne',                    de: 'Bergblick' },
+  'Panoramic Mountain Views': { es: 'vistas panorámicas a la montaña',  fr: 'vue panoramique sur la montagne',        de: 'Panorama-Bergblick' },
+  'Panoramic Mountain View':  { es: 'vistas panorámicas a la montaña',  fr: 'vue panoramique sur la montagne',        de: 'Panorama-Bergblick' },
+  'Lake Views':               { es: 'vistas al lago',                   fr: 'vue sur le lac',                         de: 'Seeblick' },
+  'Lake View':                { es: 'vistas al lago',                   fr: 'vue sur le lac',                         de: 'Seeblick' },
+  'Panoramic Lake Views':     { es: 'vistas panorámicas al lago',       fr: 'vue panoramique sur le lac',             de: 'Panorama-Seeblick' },
+  'Panoramic Lake View':      { es: 'vistas panorámicas al lago',       fr: 'vue panoramique sur le lac',             de: 'Panorama-Seeblick' },
+  'Beach Access':             { es: 'acceso a la playa',                fr: 'accès à la plage',                       de: 'Strandzugang' },
+  Fireplace:                  { es: 'chimenea',                         fr: 'cheminée',                               de: 'Kamin' },
+  Sauna:                      { es: 'sauna',                            fr: 'sauna',                                  de: 'Sauna' },
+  Terrace:                    { es: 'terraza',                          fr: 'terrasse',                               de: 'Terrasse' },
+  'Roof Terrace':             { es: 'terraza en la azotea',             fr: 'toit-terrasse',                          de: 'Dachterrasse' },
+  'Sunny Terrace':            { es: 'terraza soleada',                  fr: 'terrasse ensoleillée',                   de: 'sonniger Terrasse' },
+  'Private Terrace':          { es: 'terraza privada',                  fr: 'terrasse privée',                        de: 'privater Terrasse' },
+  'Two Terraces':             { es: 'dos terrazas',                     fr: 'deux terrasses',                         de: 'zwei Terrassen' },
+  Garden:                     { es: 'jardín',                           fr: 'jardin',                                 de: 'Garten' },
+  Balcony:                    { es: 'balcón',                           fr: 'balcon',                                 de: 'Balkon' },
+  Elevator:                   { es: 'ascensor',                         fr: 'ascenseur',                              de: 'Aufzug' },
+  'Wine Cellar':              { es: 'bodega',                           fr: 'cave à vin',                             de: 'Weinkeller' },
+  'Harbour View':             { es: 'vistas al puerto',                 fr: 'vue sur le port',                        de: 'Hafenblick' },
+  'Marina Views':             { es: 'vistas al puerto deportivo',       fr: 'vue sur la marina',                      de: 'Marina-Blick' },
+  'Golf Views':               { es: 'vistas al campo de golf',          fr: 'vue sur le golf',                        de: 'Golfblick' },
+  'Golf View':                { es: 'vistas al campo de golf',          fr: 'vue sur le golf',                        de: 'Golfblick' },
+  'Countryside Views':        { es: 'vistas al campo',                  fr: 'vue sur la campagne',                    de: 'Blick ins Grüne' },
+  'Countryside View':         { es: 'vistas al campo',                  fr: 'vue sur la campagne',                    de: 'Blick ins Grüne' },
+  'Bay Views':                { es: 'vistas a la bahía',                fr: 'vue sur la baie',                        de: 'Blick auf die Bucht' },
+  'Bay View':                 { es: 'vistas a la bahía',                fr: 'vue sur la baie',                        de: 'Blick auf die Bucht' },
+  'Desert Views':             { es: 'vistas al desierto',               fr: 'vue sur le désert',                      de: 'Wüstenblick' },
+  'Gulf Views':               { es: 'vistas al golfo',                  fr: 'vue sur le golfe',                       de: 'Blick auf den Golf' },
+  'Lagoon Views':             { es: 'vistas a la laguna',               fr: 'vue sur le lagon',                       de: 'Blick auf die Lagune' },
+  'Mediterranean Sea Views':  { es: 'vistas al Mediterráneo',           fr: 'vue sur la Méditerranée',                de: 'Blick aufs Mittelmeer' },
+  'Outdoor Kitchen':          { es: 'cocina exterior',                  fr: 'cuisine extérieure',                     de: 'Außenküche' },
+  'Community Pools':          { es: 'piscinas comunitarias',            fr: 'piscines communes',                      de: 'Gemeinschaftspools' },
+  'Communal Infinity Pool':   { es: 'piscina infinita comunitaria',     fr: 'piscine à débordement commune',          de: 'Gemeinschafts-Infinity-Pool' },
+  'Rooftop Balcony':          { es: 'balcón en la azotea',              fr: 'balcon sur le toit',                     de: 'Dachbalkon' },
+  'Heated Infinity Pool':     { es: 'piscina infinita climatizada',     fr: 'piscine à débordement chauffée',         de: 'beheiztem Infinity-Pool' },
+  'Infinity Pools':           { es: 'piscinas infinitas',               fr: 'piscines à débordement',                 de: 'Infinity-Pools' },
+  'Private Roof Terrace':     { es: 'terraza privada en la azotea',     fr: 'toit-terrasse privé',                    de: 'privater Dachterrasse' },
+  'Rooftop Jacuzzi':          { es: 'jacuzzi en la azotea',             fr: 'jacuzzi sur le toit',                    de: 'Dach-Whirlpool' },
+  'Private Jetty':            { es: 'embarcadero privado',              fr: 'ponton privé',                           de: 'privatem Bootssteg' },
+  'Private Boat Dock':        { es: 'amarre privado',                   fr: 'appontement privé',                      de: 'privatem Bootsanleger' },
+  'Ski-in/Ski-out':           { es: 'ski-in/ski-out',                   fr: 'ski-in/ski-out',                         de: 'Ski-in/Ski-out' },
+};
+
+const LEGACY_GRAMMAR = {
+  es: { bed1: 'dormitorio',   bedN: 'dormitorios',   prep: 'con',   and: 'y'   },
+  fr: { bed1: 'chambre',      bedN: 'chambres',      prep: 'avec',  and: 'et'  },
+  de: { bed1: 'Schlafzimmer', bedN: 'Schlafzimmern', prep: 'mit',   and: 'und' },
+};
+
+for (const [loc, map] of Object.entries(LEGACY_PLACES)) PLACES[loc] = map;
+for (const [loc, g] of Object.entries(LEGACY_GRAMMAR)) GRAMMAR[loc] = g;
+for (const [key, cols] of Object.entries(LEGACY_TYPES)) TYPES[key] = { ...(TYPES[key] || {}), ...cols };
+for (const [key, cols] of Object.entries(LEGACY_FEATURES)) FEATURES[key] = { ...(FEATURES[key] || {}), ...cols };
 
 function joinList(items, and) {
   if (items.length === 1) return items[0];
