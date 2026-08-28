@@ -1,0 +1,112 @@
+{
+ "meta": {
+  "title": "Comproprietà di Case Vacanze di Lusso | Co-Ownership Property",
+  "description": "Case vacanze in comproprietà a Maiorca, Ibiza, Costa del Sol, Alpi francesi, Parigi, Italia e USA. Proprietà reale, registrata a tuo nome — non multiproprietà.",
+  "ogTitle": "Case esclusive in Spagna, Francia, Italia, USA e oltre | Proprietà frazionata — COP",
+  "ogDescription": "Scopri case vacanze esclusive in comproprietà in tutta Europa. Proprietà reale, non una multiproprietà."
+ },
+ "hero": {
+  "pre": "La tua finestra sulle",
+  "em": "migliori comproprietà",
+  "post": "del mondo",
+  "ctaPrimary": "Scopri le Proprietà →",
+  "ctaSecondary": "Come Funziona"
+ },
+ "pressLabel": "Ne Hanno Parlato",
+ "properties": {
+  "heading": "Esplora le Nostre Proprietà",
+  "subtitle": "Sfoglia la nostra collezione curata di opportunità di proprietà frazionata nelle destinazioni più ambite del mondo.",
+  "viewProperty": "Vedi la Proprietà →",
+  "viewAllShort": "Vedi tutte →",
+  "counterLabel": "Proprietà",
+  "browseAll": "Vedi Tutte le {n} Proprietà →",
+  "prev": "Precedente",
+  "next": "Successiva"
+ },
+ "intro": {
+  "text": "Scopri il mondo della comproprietà di lusso. Da ville mediterranee baciate dal sole a raffinati appartamenti, fincas e chalet di montagna — ogni casa ti fa sentire di appartenere a quel luogo.",
+  "subtext": "Ogni proprietà è selezionata con cura, arredata da designer di primo piano e gestita perché tu possa godertela. Più che una casa, è una porta su paesaggi unici, tesori culturali e momenti indimenticabili in famiglia."
+ },
+ "explainer": {
+  "heading": "Cos'è la Comproprietà?",
+  "intro": "La comproprietà ti permette di acquistare una quota legale di una prestigiosa casa vacanze — e di viverla appieno, come una casa interamente tua. Ottieni lo stile di vita senza il prezzo pieno, e condividi soltanto i costi.",
+  "items": [
+   { "heading": "Possiedi una Quota Legale",
+     "body": "Acquisti una <strong>quota di 1/8</strong> di una proprietà di pregio. È <strong>proprietà reale, registrata a tuo nome</strong>, con piene tutele legali. Le nostre proprietà sono pensate per <strong>rivalutarsi nel tempo</strong>, offrendoti i vantaggi dell'immobile come investimento. Hai piena libertà di <strong>vendere la tua quota in qualsiasi momento</strong> — il prezzo lo decidi tu, e noi ti aiutiamo a trovare un acquirente.",
+     "stat": "In media le quote si vendono in meno di un mese." },
+   { "heading": "Utilizzo Garantito",
+     "body": "<strong>Le tue settimane sono tue.</strong> Un calendario equo e strutturato garantisce a ogni comproprietario il proprio tempo senza contendersi le date — <strong>alta stagione inclusa.</strong> Niente multiproprietà, niente punti, niente compromessi. Ti senti a casa — arrivi e <strong>le tue cose sono lì, tutto è pronto e la proprietà è interamente gestita</strong>: a te resta solo il piacere di godertela." },
+   { "heading": "Costi di Gestione Condivisi",
+     "body": "Manutenzione, spese di gestione e costi correnti sono <strong>divisi in parti uguali tra i comproprietari.</strong> In molte proprietà, quando non la utilizzi, la casa può essere <strong>messa a reddito — generando entrate</strong> che riducono ulteriormente i tuoi costi. <strong>A tutto pensiamo noi.</strong>" },
+   { "heading": "Vantaggi in Più",
+     "body": "La comproprietà porta con sé anche vantaggi più ampi — da un <strong>trattamento fiscale favorevole</strong> a una <strong>pianificazione successoria semplificata</strong>, fino alla flessibilità dello <strong>scambio casa</strong> con gli altri comproprietari del nostro portafoglio di proprietà in tutto il mondo." }
+  ]
+ },
+ "ctaBand": {
+  "eyebrow": "Co-Ownership Property",
+  "headingHtml": "Possiedi una quota di un luogo <em>straordinario</em>",
+  "sub": "Da una villa sulla Côte d'Azur a uno chalet ad Aspen — la proprietà frazionata ti dà una partecipazione autentica nelle case più belle del mondo, a una frazione del costo.",
+  "primary": "Parla con un Esperto",
+  "secondary": "Iscriviti alla Newsletter"
+ },
+ "destinations": {
+  "heading": "Le Nostre Destinazioni",
+  "explore": "Esplora le Proprietà",
+  "tabs": {
+   "spain":   { "label": "Spagna",   "desc": "La Spagna unisce spiagge di livello mondiale, cultura vibrante e sole tutto l'anno, tra Maiorca, Ibiza, la Costa del Sol e oltre — il tutto a un valore notevole per comproprietari esigenti." },
+   "france":  { "label": "Francia",  "desc": "Dalle coste assolate della Côte d'Azur alle piste delle Alpi francesi, fino all'eleganza senza tempo di Parigi, la Francia è l'indirizzo più ambito d'Europa per la proprietà frazionata." },
+   "usa":     { "label": "USA",     "desc": "Dalla cultura del surf della California alle piste da sci del Colorado, fino al glamour sul mare della Florida, il mercato immobiliare di lusso americano offre opportunità straordinarie ai comproprietari internazionali." },
+   "italy":   { "label": "Italia",   "desc": "I paesaggi straordinari dell'Italia — dalle acque cristalline del Lago di Como agli antichi borghi della Liguria e alle colline toscane — la rendono una meta prediletta dai comproprietari più esigenti." },
+   "portugal":{ "label": "Portogallo","desc": "Dalla costa dorata dell'Algarve agli eleganti viali di Lisbona, fino alla bellezza incontaminata della Costa d'Argento, il Portogallo è una delle destinazioni più entusiasmanti d'Europa per la comproprietà di lusso." },
+   "austria": { "label": "Austria", "desc": "Lo splendore alpino dell'Austria — dalle rinomate stazioni sciistiche del Tirolo al grande fascino imperiale di Vienna — ne fa una delle destinazioni europee più gratificanti per la proprietà frazionata di lusso." },
+   "england": { "label": "Inghilterra", "desc": "Londra resta una delle grandi capitali mondiali dell'immobiliare di lusso — dalle townhouse di Mayfair agli appartamenti sul fiume — mentre la campagna inglese offre rifugi idilliaci per comproprietari esigenti." },
+   "sweden":  { "label": "Svezia",  "desc": "I paesaggi spettacolari della Svezia — dall'arcipelago di Stoccolma alle regioni di laghi e foreste del nord — offrono uno scenario di pace unico per la comproprietà di lusso, lontano dalla folla." },
+   "germany": { "label": "Germania", "desc": "Dalle Alpi bavaresi e le rive del Lago di Costanza alle capitali culturali di Berlino e Monaco, la Germania offre ai comproprietari una gamma davvero interessante di opportunità immobiliari di lusso." },
+   "croatia": { "label": "Croazia", "desc": "La spettacolare costa adriatica della Croazia, le acque cristalline e le storiche città murate come Dubrovnik ne fanno una delle destinazioni più ambite del Mediterraneo per la proprietà frazionata di lusso." },
+   "mexico":  { "label": "Messico",  "desc": "Dalle acque turchesi della Riviera Maya al glamour del Pacifico di Los Cabos, il Messico offre un lusso straordinario a un valore eccezionale — uno dei mercati di comproprietà più entusiasmanti al mondo." }
+  }
+ },
+ "testimonials": {
+  "heading": "Storie di Proprietari",
+  "cards": [
+   { "quote": "\"Fin dal primo soggiorno tutto è stato semplice e naturale — come arrivare a casa propria, con il comfort di un hotel. La Provenza ormai fa parte del nostro ritmo. Non devo preoccuparmi di nulla.\"", "author": "Astrid", "location": "Mougins, Sud della Francia" },
+   { "quote": "\"La proprietà frazionata ci ha regalato il sogno alpino che credevamo irraggiungibile. Il processo è stato impeccabile, e ora nostro figlio porta i compagni di scuola a sciare. È diventata una vera casa di famiglia.\"", "author": "Harry & Nicole", "location": "La Plagne, Alpi francesi" },
+   { "quote": "\"Finalmente possediamo un pezzo di questa terra, senza il senso di colpa di un mutuo per una casa che resta vuota. Trasparenza assoluta dal primo giorno — non potremmo essere più felici. Stiamo già pensando alla prossima quota in Europa.\"", "author": "Mateo & Anne", "location": "LA, California" },
+   { "quote": "\"Ho venduto la mia casa vacanze in Francia e ho comprato una villa molto più bella a Maiorca, a un quarto del prezzo. Il team ha gestito tutto alla perfezione — la sentiamo nostra dal momento in cui varchiamo la porta.\"", "author": "Jan & The Family", "location": "Maiorca, Spagna" }
+  ]
+ },
+ "blog": {
+  "eyebrow": "Dal Blog",
+  "heading": "Ultimi Approfondimenti",
+  "subtitle": "Guide alle destinazioni, analisi di mercato e storie di proprietari — pubblicate regolarmente per l'acquirente esigente.",
+  "readMore": "Leggi l'Articolo →",
+  "viewAll": "Vedi Tutti gli Articoli"
+ },
+ "faq": {
+  "eyebrow": "Domande Comuni",
+  "headingHtml": "Le <em>Domande</em> più Frequenti",
+  "sub": "Tutto quello che c'è da sapere sulla comproprietà di lusso — e perché è il modo più intelligente di possedere una casa vacanze.",
+  "items": [
+   { "q": "Cos'è la proprietà frazionata o comproprietà di una casa vacanze?",
+     "a": "Con la comproprietà, tu e un numero ristretto di altri proprietari acquistate ciascuno una quota — trasferita con atto notarile — di una proprietà di lusso interamente gestita. Possiedi una frazione reale della casa, in genere un ottavo, e a differenza di una multiproprietà detieni la vera proprietà legale dell'immobile. Unisce l'orgoglio e i vantaggi economici della proprietà immobiliare alla comodità di un'esperienza da hotel a cinque stelle, a una frazione del costo di un acquisto in esclusiva." },
+   { "q": "In cosa la comproprietà è diversa dalla multiproprietà?",
+     "a": "A differenza di una multiproprietà, la comproprietà ti dà una quota reale della proprietà: benefici di ogni rivalutazione dell'immobile e puoi vendere la tua quota sul libero mercato quando vuoi. Trattandosi di proprietà di lusso in località molto richieste, i prezzi tendono a crescere nel tempo. Non ci sono club, sistemi a punti né vincoli contrattuali a lungo termine. Sei un vero proprietario immobiliare, con pieni diritti legali sulla tua frazione." },
+   { "q": "Cosa comprende il prezzo di acquisto?",
+     "a": "Il prezzo di acquisto copre la tua quota, registrata a tuo nome, insieme all'arredamento completo, all'interior design e alle dotazioni della casa. Molte delle nostre proprietà sono allestite da professionisti in standard chiavi in mano, pronte da vivere dal primo giorno. I costi correnti come manutenzione, assicurazione, gestione e imposte locali sono ripartiti proporzionalmente tra tutti i comproprietari, mantenendo molto bassi i costi individuali." },
+   { "q": "Come viene suddiviso il tempo di utilizzo tra i proprietari?",
+     "a": "Ogni quota di un ottavo ti dà 45 giorni — circa sei settimane — ovvero un ottavo dell'anno. Ogni proprietà ha un calendario di utilizzo chiaro che ruota in modo equo, così che nel tempo tutti i comproprietari godano dell'alta stagione. Molti gestori offrono anche una piattaforma digitale di prenotazione, per scambiare, estendere o cedere le settimane con gli altri proprietari in tutta flessibilità." },
+   { "q": "Posso affittare le mie settimane quando non le uso?",
+     "a": "In molti casi sì. Molte delle nostre proprietà permettono ai comproprietari di inserire le settimane non utilizzate in un programma di affitto gestito. La società di gestione si occupa di selezione degli ospiti, check-in, pulizie e manutenzione, mentre i proventi dell'affitto vengono versati a te. Questo può ridurre in modo significativo i costi annuali e, nelle destinazioni più richieste, generare persino un rendimento netto." },
+   { "q": "Chi gestisce la proprietà giorno per giorno?",
+     "a": "Ogni casa sulla nostra piattaforma è curata da una società di gestione immobiliare professionale, che si occupa di tutto: manutenzione ordinaria, pulizie, giardinaggio, cura della piscina e riparazioni d'emergenza. A ogni visita trovi una casa impeccabile, di qualità alberghiera — senza muovere un dito." },
+   { "q": "Posso vendere la mia quota in futuro?",
+     "a": "Assolutamente sì. Poiché la tua quota è proprietà reale, registrata a tuo nome, puoi venderla in qualsiasi momento sul libero mercato — come qualsiasi altro immobile. Se la casa si è rivalutata, benefici di quella crescita in proporzione alla tua quota. Il nostro team può inoltre assisterti nella rivendita attraverso la nostra rete di acquirenti qualificati." },
+   { "q": "Quali destinazioni e tipologie di proprietà offrite?",
+     "a": "Selezioniamo case di lusso in comproprietà in Europa e negli Stati Uniti, tra cui Francia, Spagna, Italia, Portogallo, Austria, Inghilterra e diverse destinazioni americane. Le proprietà spaziano da ville sul mare e appartamenti parigini a chalet alpini e casali toscani. Ogni casa è scelta una a una per posizione, qualità costruttiva e stile di vita che offre." },
+   { "q": "La comproprietà è un buon investimento?",
+     "a": "La comproprietà ti permette di accedere a un immobile di grande valore a una frazione del costo di un acquisto in esclusiva, liberando capitale per altri investimenti. Godi della potenziale rivalutazione dell'immobile, di possibili entrate da affitto e del valore personale di una casa vacanze di lusso — condividendo i costi con gli altri comproprietari. È sempre più riconosciuta come uno dei modi finanziariamente più sensati di possedere una seconda casa." },
+   { "q": "Come posso iniziare?",
+     "a": "Sfoglia la nostra collezione qui sopra o parla con uno dei nostri specialisti immobiliari tramite il modulo di contatto. Ti presenteremo le case disponibili, risponderemo a ogni domanda e ti accompagneremo lungo tutto il processo di acquisto, dall'inizio alla fine — con piena trasparenza legale e finanziaria a ogni passo." }
+  ]
+ }
+}

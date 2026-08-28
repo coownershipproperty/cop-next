@@ -1,0 +1,112 @@
+{
+ "meta": {
+  "title": "Mede-eigendom van luxe vakantiewoningen | Co-Ownership Property",
+  "description": "Ontdek mede-eigendom van vakantiewoningen op Mallorca, Ibiza, de Costa del Sol, in de Alpen, Parijs, Italië en de VS. Echt eigendom op uw naam — geen timeshare.",
+  "ogTitle": "Exclusieve woningen in Spanje, Frankrijk, Italië, de VS en meer | Mede-eigendom — COP",
+  "ogDescription": "Ontdek exclusieve vakantiewoningen in mede-eigendom door heel Europa. Echt eigendom, geen timeshare."
+ },
+ "hero": {
+  "pre": "Uw venster op",
+  "em": "'s werelds mooiste",
+  "post": "mede-eigendom",
+  "ctaPrimary": "Bekijk woningen →",
+  "ctaSecondary": "Hoe het werkt"
+ },
+ "pressLabel": "Bekend van",
+ "properties": {
+  "heading": "Ontdek onze woningen",
+  "subtitle": "Bekijk onze zorgvuldig samengestelde collectie van mede-eigendomskansen op de meest begeerde bestemmingen ter wereld.",
+  "viewProperty": "Bekijk woning →",
+  "viewAllShort": "Bekijk alles →",
+  "counterLabel": "Woningen",
+  "browseAll": "Bekijk alle {n} woningen →",
+  "prev": "Vorige",
+  "next": "Volgende"
+ },
+ "intro": {
+  "text": "Ontdek de wereld van luxueus mede-eigendom. Van zonovergoten mediterrane villa's tot sfeervolle luxeappartementen, finca's en bergchalets — elk huis geeft u het gevoel dat u er thuishoort.",
+  "subtext": "Elke woning is met zorg geselecteerd, ingericht door toonaangevende ontwerpers en volledig beheerd, zodat u er alleen maar van hoeft te genieten. Meer dan een huis is het een poort naar unieke landschappen, culturele schatten en onvergetelijke familiemomenten."
+ },
+ "explainer": {
+  "heading": "Wat is mede-eigendom?",
+  "intro": "Met mede-eigendom koopt u een juridisch aandeel in een vakantiewoning van topklasse — en gebruikt u die volledig, precies zoals een huis dat helemaal van uzelf is. U krijgt de levensstijl zonder de volle prijs, en deelt alleen de kosten.",
+  "items": [
+   { "heading": "U bezit een juridisch aandeel",
+     "body": "U koopt een <strong>1/8 aandeel</strong> in een woning van topklasse. Het is <strong>echt eigendom, op uw naam ingeschreven</strong>, met volledige juridische bescherming. Onze woningen zijn geselecteerd om <strong>in waarde te stijgen</strong>, zodat u profiteert van vastgoed als belegging. U heeft alle vrijheid om <strong>uw aandeel op elk moment te verkopen</strong> — u bepaalt de prijs, en wij helpen een koper te vinden.",
+     "stat": "Aandelen worden gemiddeld binnen een maand verkocht." },
+   { "heading": "Gegarandeerd gebruik",
+     "body": "<strong>Uw weken zijn van u.</strong> Een eerlijk, vast schema garandeert dat elke eigenaar zijn tijd krijgt zonder te hoeven strijden om data — <strong>ook in het hoogseizoen.</strong> Geen timeshare, geen puntensysteem, geen compromissen. Het voelt als thuiskomen — u arriveert en <strong>uw spullen liggen klaar, alles is geregeld en de woning wordt volledig beheerd</strong>, zodat u er alleen maar van hoeft te genieten." },
+   { "heading": "Gedeelde vaste lasten",
+     "body": "Onderhoud, beheerkosten en vaste lasten worden <strong>gelijk verdeeld over de eigenaren.</strong> Bij veel woningen kan het huis, wanneer u er niet bent, worden <strong>verhuurd — en levert het inkomsten op</strong> die uw kosten verder drukken. <strong>Wij regelen alles.</strong>" },
+   { "heading": "Extra voordelen",
+     "body": "Mede-eigendom biedt ook bredere voordelen — van <strong>gunstige fiscale behandeling</strong> en <strong>eenvoudiger nalatenschapsplanning</strong> tot de flexibiliteit van <strong>woningruil</strong> met andere eigenaren binnen ons wereldwijde portfolio van woningen." }
+  ]
+ },
+ "ctaBand": {
+  "eyebrow": "Co-Ownership Property",
+  "headingHtml": "Word eigenaar van een aandeel in iets <em>buitengewoons</em>",
+  "sub": "Van een villa aan de Côte d'Azur tot een chalet in Aspen — met mede-eigendom verwerft u een echt belang in de mooiste huizen ter wereld, voor een fractie van de prijs.",
+  "primary": "Spreek met een expert",
+  "secondary": "Aanmelden voor de nieuwsbrief"
+ },
+ "destinations": {
+  "heading": "Onze bestemmingen",
+  "explore": "Ontdek woningen",
+  "tabs": {
+   "spain":   { "label": "Spanje",   "desc": "Spanje combineert stranden van wereldklasse, een bruisende cultuur en het hele jaar door zon — op Mallorca, Ibiza, aan de Costa del Sol en daarbuiten — en dat tegen een opvallend gunstige prijs voor veeleisende mede-eigenaren." },
+   "france":  { "label": "Frankrijk",  "desc": "Van de zonovergoten kust van de Côte d'Azur tot de skipistes van de Franse Alpen en de tijdloze elegantie van Parijs: Frankrijk is het meest begeerde adres van Europa voor mede-eigendom." },
+   "usa":     { "label": "VS",     "desc": "Van de surfcultuur van Californië tot de skipistes van Colorado en de glamour aan het water van Florida: de Amerikaanse luxevastgoedmarkt biedt buitengewone kansen voor internationale mede-eigenaren." },
+   "italy":   { "label": "Italië",   "desc": "De buitengewone landschappen van Italië — van het spiegelgladde water van het Comomeer tot de eeuwenoude dorpjes van Ligurië en de Toscaanse heuvels — maken het land een blijvende favoriet onder veeleisende mede-eigenaren." },
+   "portugal":{ "label": "Portugal","desc": "Van de gouden kustlijn van de Algarve tot de elegante boulevards van Lissabon en de ongerepte schoonheid van de Costa de Prata: Portugal is een van de meest opwindende bestemmingen van Europa voor luxueus mede-eigendom." },
+   "austria": { "label": "Oostenrijk", "desc": "De Alpenpracht van Oostenrijk — van de wereldberoemde skigebieden van Tirol tot de keizerlijke grandeur van Wenen — maakt het tot een van de meest lonende bestemmingen van Europa voor luxueus mede-eigendom." },
+   "england": { "label": "Engeland", "desc": "Londen blijft een van de grootste steden ter wereld voor luxevastgoed — van herenhuizen in Mayfair tot appartementen aan de Theems — terwijl het Engelse platteland idyllische toevluchtsoorden biedt voor veeleisende mede-eigenaren." },
+   "sweden":  { "label": "Zweden",  "desc": "De dramatische landschappen van Zweden — van de scherenkust van Stockholm tot de beboste merengebieden van het noorden — vormen een uniek serene omgeving voor luxueus mede-eigendom, ver van de drukte." },
+   "germany": { "label": "Duitsland", "desc": "Van de Beierse Alpen en de oevers van het Bodenmeer tot de culturele hoofdsteden Berlijn en München: Duitsland biedt een aantrekkelijk aanbod aan luxevastgoed voor mede-eigenaren." },
+   "croatia": { "label": "Kroatië", "desc": "De adembenemende Adriatische kust van Kroatië, het kristalheldere water en historische ommuurde steden als Dubrovnik maken het tot een van de meest begeerde bestemmingen van de Middellandse Zee voor luxueus mede-eigendom." },
+   "mexico":  { "label": "Mexico",  "desc": "Van de turquoise kusten van de Riviera Maya tot de Pacifische glamour van Los Cabos: Mexico biedt buitengewone luxe tegen een uitzonderlijk gunstige prijs — en is daarmee een van de meest opwindende markten ter wereld voor mede-eigendom." }
+  }
+ },
+ "testimonials": {
+  "heading": "Verhalen van eigenaren",
+  "cards": [
+   { "quote": "\"Vanaf het eerste verblijf voelde alles moeiteloos — alsof je bij je eigen huis aankomt, met het comfort van een hotel. De Provence hoort nu bij ons ritme. Ik hoef me nergens zorgen over te maken.\"", "author": "Astrid", "location": "Mougins, Zuid-Frankrijk" },
+   { "quote": "\"Dankzij mede-eigendom hebben we de Alpendroom waargemaakt die we onbereikbaar achtten. Het proces verliep vlekkeloos, en onze zoon neemt nu zijn schoolvrienden mee om te skiën. Het is een echt familiehuis geworden.\"", "author": "Harry & Nicole", "location": "La Plagne, Franse Alpen" },
+   { "quote": "\"Eindelijk bezitten we een stukje grond zonder het schuldgevoel van een ongebruikte hypotheek. Transparant vanaf dag één — we hadden het niet beter kunnen treffen. We plannen al ons volgende aandeel in Europa.\"", "author": "Mateo & Anne", "location": "LA, Californië" },
+   { "quote": "\"Ik heb mijn Franse vakantiehuis verkocht en voor een kwart van de prijs een veel mooiere villa op Mallorca gekocht. Het team heeft alles vlekkeloos geregeld — het voelt als ons huis zodra we de deur openen.\"", "author": "Jan & The Family", "location": "Mallorca, Spanje" }
+  ]
+ },
+ "blog": {
+  "eyebrow": "Van de blog",
+  "heading": "Nieuwste inzichten",
+  "subtitle": "Bestemmingsgidsen, marktanalyses en eigenaarsverhalen — regelmatig gepubliceerd voor de veeleisende koper.",
+  "readMore": "Lees artikel →",
+  "viewAll": "Bekijk alle artikelen"
+ },
+ "faq": {
+  "eyebrow": "Veelgestelde vragen",
+  "headingHtml": "Veelgestelde <em>vragen</em>",
+  "sub": "Alles wat u moet weten over luxueus mede-eigendom — en waarom het de slimste manier is om een vakantiewoning te bezitten.",
+  "items": [
+   { "q": "Wat is mede-eigendom van een vakantiewoning?",
+     "a": "Mede-eigendom betekent dat u samen met een klein aantal andere eigenaren elk een notarieel vastgelegd aandeel koopt in een volledig beheerde luxewoning. U bezit een echt deel van het huis — doorgaans een achtste — en anders dan bij een timeshare heeft u werkelijk juridisch eigendom van de woning zelf. Het combineert de trots en de financiële voordelen van echt vastgoedbezit met het gemak van een vijfsterrenhotel, voor een fractie van de kosten van volledige aankoop." },
+   { "q": "Waarin verschilt mede-eigendom van een timeshare?",
+     "a": "Anders dan bij een timeshare krijgt u met mede-eigendom een echt aandeel in de eigendomsakte. Dat betekent dat u profiteert van elke waardestijging en uw aandeel kunt verkopen op de vrije markt, wanneer u maar wilt. Omdat het gaat om luxewoningen op gewilde locaties, stijgen de prijzen doorgaans in de loop der tijd. Er is geen lidmaatschapsclub, geen puntensysteem en geen langlopend contract waaraan u vastzit. U bent een echte vastgoedeigenaar met volledige juridische rechten op uw aandeel." },
+   { "q": "Wat is inbegrepen in de aankoopprijs?",
+     "a": "De aankoopprijs dekt uw notarieel vastgelegde aandeel in de woning, inclusief de volledige inrichting, het interieurontwerp en de uitrusting. Veel van onze huizen zijn professioneel en instapklaar ingericht, zodat ze vanaf dag één klaar zijn voor gebruik. Doorlopende kosten zoals onderhoud, verzekering, beheer en lokale belastingen worden naar rato gedeeld door alle mede-eigenaren, waardoor de individuele vaste lasten zeer laag blijven." },
+   { "q": "Hoe wordt de gebruikstijd verdeeld tussen de eigenaren?",
+     "a": "Elk achtste aandeel geeft u 45 dagen — ongeveer zes weken — oftewel een achtste van het jaar. Elke woning heeft een helder gebruiksschema dat eerlijk rouleert, zodat alle eigenaren op termijn ook in het hoogseizoen aan bod komen. Vaak is er bovendien een digitaal boekingsplatform waarmee u weken flexibel kunt ruilen, verlengen of uitwisselen met andere eigenaren." },
+   { "q": "Kan ik mijn weken verhuren wanneer ik ze niet gebruik?",
+     "a": "In veel gevallen wel. Bij veel van onze woningen kunnen eigenaren ongebruikte weken onderbrengen in een beheerd verhuurprogramma. De beheerorganisatie verzorgt de screening van gasten, het inchecken, de schoonmaak en het onderhoud, terwijl de huurinkomsten naar u gaan. Dat kan uw jaarlijkse vaste lasten aanzienlijk drukken en op populaire bestemmingen zelfs een nettorendement opleveren." },
+   { "q": "Wie beheert de woning in het dagelijks leven?",
+     "a": "Elk huis op ons platform wordt verzorgd door een professionele beheerorganisatie. Die regelt alles: van regulier onderhoud en huishoudelijke diensten tot tuinonderhoud, zwembadverzorging en spoedreparaties. Bij elk bezoek arriveert u in een onberispelijk huis van hotelkwaliteit — zonder dat u ergens naar hoeft om te kijken." },
+   { "q": "Kan ik mijn aandeel later verkopen?",
+     "a": "Zeker. Omdat u een notarieel vastgelegd aandeel bezit, kunt u het op elk moment verkopen op de vrije markt — net als elk ander vastgoed. Is de woning in waarde gestegen, dan profiteert u van die groei naar rato van uw aandeel. Ons team helpt bovendien graag bij doorverkoop aan ons netwerk van gekwalificeerde kopers." },
+   { "q": "Welke bestemmingen en woningtypen biedt u aan?",
+     "a": "Wij selecteren luxewoningen in mede-eigendom in heel Europa en de Verenigde Staten, waaronder Frankrijk, Spanje, Italië, Portugal, Oostenrijk, Engeland en diverse Amerikaanse bestemmingen. Het aanbod varieert van kustvilla's en Parijse appartementen tot Alpenchalets en Toscaanse landhuizen. Elk huis is met de hand geselecteerd op locatie, bouwkwaliteit en leefstijl." },
+   { "q": "Is mede-eigendom een goede investering?",
+     "a": "Met mede-eigendom krijgt u toegang tot waardevol vastgoed voor een fractie van de kosten van volledige aankoop, zodat er kapitaal vrij blijft voor andere investeringen. U profiteert van mogelijke waardestijging en eventuele huurinkomsten, en geniet van de persoonlijke waarde van een luxe vakantiewoning — terwijl u de kosten deelt met andere eigenaren. Het wordt steeds breder erkend als een van de financieel verstandigste manieren om een tweede huis te bezitten." },
+   { "q": "Hoe begin ik?",
+     "a": "Bekijk eenvoudig onze collectie hierboven of spreek via het contactformulier met een van onze vastgoedspecialisten. Wij nemen de beschikbare woningen met u door, beantwoorden al uw vragen en begeleiden u van begin tot eind door het aankoopproces — met volledige juridische en financiële transparantie bij elke stap." }
+  ]
+ }
+}

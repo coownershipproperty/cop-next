@@ -1,0 +1,112 @@
+{
+ "meta": {
+  "title": "Multipropriedade de Casas de Férias de Luxo — COP",
+  "description": "Multipropriedade de casas de férias em Maiorca, Ibiza, Costa del Sol, Alpes Franceses, Paris, Itália e EUA. Direito real de propriedade — não é timeshare.",
+  "ogTitle": "Casas exclusivas na Espanha, França, Itália, EUA e mais | Multipropriedade — COP",
+  "ogDescription": "Descubra casas de férias exclusivas em copropriedade por toda a Europa. Propriedade de verdade, não é timeshare."
+ },
+ "hero": {
+  "pre": "Sua janela para as",
+  "em": "melhores casas do mundo",
+  "post": "em copropriedade",
+  "ctaPrimary": "Ver Imóveis →",
+  "ctaSecondary": "Como Funciona"
+ },
+ "pressLabel": "Na Imprensa",
+ "properties": {
+  "heading": "Explore Nossos Imóveis",
+  "subtitle": "Navegue por nossa coleção selecionada de oportunidades de multipropriedade nos destinos mais desejados do mundo.",
+  "viewProperty": "Ver Imóvel →",
+  "viewAllShort": "Ver todos →",
+  "counterLabel": "Imóveis",
+  "browseAll": "Ver Todos os {n} Imóveis →",
+  "prev": "Anterior",
+  "next": "Próximo"
+ },
+ "intro": {
+  "text": "Descubra o universo da copropriedade de luxo. De villas mediterrâneas banhadas de sol a elegantes apartamentos, fincas e chalés de montanha — cada casa faz você se sentir em casa.",
+  "subtext": "Cada imóvel é cuidadosamente selecionado, decorado por designers renomados e administrado para o seu puro prazer. Mais do que uma casa, é uma porta de entrada para paisagens únicas, tesouros culturais e momentos inesquecíveis em família."
+ },
+ "explainer": {
+  "heading": "O que é Copropriedade?",
+  "intro": "A copropriedade permite comprar uma fração legal de um imóvel de férias premium — e usá-lo plenamente, como se fosse todo seu. Você tem o estilo de vida sem pagar o preço integral, dividindo apenas os custos.",
+  "items": [
+   { "heading": "Você é Dono de uma Fração Legal",
+     "body": "Você adquire uma <strong>cota de 1/8</strong> de um imóvel premium. É <strong>propriedade de verdade, registrada em seu nome</strong> na matrícula do imóvel, com todas as garantias legais. Nossos imóveis são escolhidos para <strong>valorizar com o tempo</strong>, oferecendo os benefícios do investimento imobiliário. Você tem total liberdade para <strong>vender sua cota quando quiser</strong> — você define o preço, e nós ajudamos a encontrar um comprador.",
+     "stat": "As cotas são vendidas, em média, em menos de um mês." },
+   { "heading": "Uso Garantido",
+     "body": "<strong>Suas semanas são suas.</strong> Um calendário justo e estruturado garante que cada proprietário tenha seu tempo sem disputar datas — <strong>inclusive na alta temporada.</strong> Nada de timeshare, nada de pontos, nenhuma concessão. A sensação é de estar em casa — você chega e <strong>seus pertences estão lá, tudo está pronto e o imóvel é totalmente administrado</strong> para que você só precise aproveitar." },
+   { "heading": "Custos Compartilhados",
+     "body": "Manutenção, taxas de administração e despesas correntes são <strong>divididas igualmente entre os proprietários.</strong> Em muitos imóveis, quando você não está usando, a casa pode ser <strong>alugada — gerando renda</strong> que reduz ainda mais os seus custos. <strong>Nós cuidamos de tudo.</strong>" },
+   { "heading": "Vantagens Adicionais",
+     "body": "A copropriedade traz ainda outros benefícios — de um <strong>tratamento tributário favorável</strong> e um <strong>planejamento sucessório simplificado</strong> à flexibilidade do <strong>intercâmbio de casas</strong> com outros coproprietários em nosso portfólio de imóveis pelo mundo." }
+  ]
+ },
+ "ctaBand": {
+  "eyebrow": "Co-Ownership Property",
+  "headingHtml": "Seja dono de uma fração de um lugar <em>extraordinário</em>",
+  "sub": "De uma villa na Côte d'Azur a um chalé em Aspen — a multipropriedade lhe dá uma participação real nas melhores casas do mundo, por uma fração do custo.",
+  "primary": "Fale com um Especialista",
+  "secondary": "Assinar a Newsletter"
+ },
+ "destinations": {
+  "heading": "Nossos Destinos",
+  "explore": "Explorar Imóveis",
+  "tabs": {
+   "spain":   { "label": "Espanha",   "desc": "A Espanha reúne praias de classe mundial, cultura vibrante e sol o ano inteiro em Maiorca, Ibiza, na Costa del Sol e além — tudo com excelente custo-benefício para coproprietários exigentes." },
+   "france":  { "label": "França",  "desc": "Do litoral ensolarado da Côte d'Azur às pistas de esqui dos Alpes Franceses e à elegância atemporal de Paris, a França é o endereço mais cobiçado da Europa para a multipropriedade." },
+   "usa":     { "label": "EUA",     "desc": "Da cultura do surfe na Califórnia às pistas de esqui do Colorado e ao glamour à beira-mar da Flórida, o mercado imobiliário de luxo americano oferece oportunidades extraordinárias para coproprietários internacionais." },
+   "italy":   { "label": "Itália",   "desc": "As paisagens extraordinárias da Itália — das águas espelhadas do Lago de Como aos vilarejos milenares da Ligúria e às colinas da Toscana — fazem dela uma eterna favorita dos coproprietários exigentes." },
+   "portugal":{ "label": "Portugal","desc": "Do litoral dourado do Algarve às elegantes avenidas de Lisboa e à beleza intocada da Costa de Prata, Portugal é um dos destinos mais empolgantes da Europa para a copropriedade de luxo." },
+   "austria": { "label": "Áustria", "desc": "O esplendor alpino da Áustria — das estações de esqui de classe mundial do Tirol ao charme imperial de Viena — faz dela um dos destinos mais gratificantes da Europa para a multipropriedade de luxo." },
+   "england": { "label": "Inglaterra", "desc": "Londres segue entre as grandes capitais mundiais do imóvel de luxo — das townhouses de Mayfair aos apartamentos à beira do rio — enquanto o interior inglês oferece refúgios idílicos para coproprietários exigentes." },
+   "sweden":  { "label": "Suécia",  "desc": "As paisagens dramáticas da Suécia — do arquipélago de Estocolmo às regiões de lagos e florestas do norte — oferecem um cenário de paz singular para a copropriedade de luxo, longe das multidões." },
+   "germany": { "label": "Alemanha", "desc": "Dos Alpes Bávaros e das margens do Lago de Constança às capitais culturais de Berlim e Munique, a Alemanha oferece um leque atraente de oportunidades imobiliárias de luxo para coproprietários." },
+   "croatia": { "label": "Croácia", "desc": "O deslumbrante litoral adriático da Croácia, suas águas cristalinas e cidades muradas históricas como Dubrovnik fazem dela um dos destinos mais cobiçados do Mediterrâneo para a multipropriedade de luxo." },
+   "mexico":  { "label": "México",  "desc": "Das águas turquesa da Riviera Maya ao glamour do Pacífico em Los Cabos, o México oferece luxo extraordinário a um valor excepcional — um dos mercados de copropriedade mais empolgantes do mundo." }
+  }
+ },
+ "testimonials": {
+  "heading": "Histórias de Proprietários",
+  "cards": [
+   { "quote": "\"Desde a primeira estadia, tudo fluiu sem esforço — como chegar à sua própria casa com o conforto de um hotel. A Provença agora faz parte do nosso ritmo. Não preciso me preocupar com nada.\"", "author": "Astrid", "location": "Mougins, sul da França" },
+   { "quote": "\"A multipropriedade nos deu o sonho alpino que achávamos fora de alcance. O processo foi impecável, e nosso filho agora leva os amigos da escola para esquiar. Virou uma verdadeira casa de família.\"", "author": "Harry & Nicole", "location": "La Plagne, Alpes Franceses" },
+   { "quote": "\"Finalmente somos donos de um pedaço desse lugar, sem o peso de um financiamento parado. Transparência desde o primeiro dia — não poderíamos estar mais felizes. Já estamos planejando nossa próxima cota na Europa.\"", "author": "Mateo & Anne", "location": "LA, Califórnia" },
+   { "quote": "\"Vendi minha casa de férias na França e comprei uma villa muito melhor em Maiorca por um quarto do preço. A equipe cuidou de tudo com perfeição — a casa é nossa desde o momento em que cruzamos a porta.\"", "author": "Jan & The Family", "location": "Maiorca, Espanha" }
+  ]
+ },
+ "blog": {
+  "eyebrow": "Do Blog",
+  "heading": "Últimos Insights",
+  "subtitle": "Guias de destinos, análises de mercado e histórias de proprietários — publicados regularmente para o comprador exigente.",
+  "readMore": "Ler Artigo →",
+  "viewAll": "Ver Todos os Artigos"
+ },
+ "faq": {
+  "eyebrow": "Perguntas Comuns",
+  "headingHtml": "Perguntas <em>Frequentes</em>",
+  "sub": "Tudo o que você precisa saber sobre a copropriedade de luxo — e por que ela é a forma mais inteligente de ter uma casa de férias.",
+  "items": [
+   { "q": "O que é multipropriedade ou copropriedade de uma casa de férias?",
+     "a": "Na copropriedade, você e um pequeno grupo de outros proprietários adquirem, cada um, uma fração imobiliária de um imóvel de luxo totalmente administrado. Você é dono de uma fração real da casa — normalmente um oitavo — e, ao contrário de um timeshare, detém verdadeiro direito real de propriedade sobre o próprio imóvel. É a união do orgulho e dos benefícios financeiros de ser proprietário com a comodidade de uma experiência de hotel cinco estrelas, por uma fração do custo de comprar sozinho." },
+   { "q": "Qual a diferença entre copropriedade e timeshare?",
+     "a": "Ao contrário do timeshare, a copropriedade lhe dá uma cota real do imóvel, registrada na matrícula, o que significa que você se beneficia de qualquer valorização e pode vender sua cota no mercado livre quando quiser. Como são imóveis de luxo em locais de alta demanda, os preços normalmente sobem com o tempo. Não há clube de associados, sistema de pontos nem contrato de fidelidade de longo prazo. Você é um proprietário de verdade, com plenos direitos legais sobre a sua fração." },
+   { "q": "O que está incluído no preço de compra?",
+     "a": "O preço de compra cobre sua fração imobiliária, registrada na matrícula do imóvel, junto com todo o mobiliário, o projeto de interiores e os equipamentos. Muitas de nossas casas são decoradas profissionalmente em padrão pronto para morar, disponíveis desde o primeiro dia. Custos contínuos como manutenção, seguro, administração e impostos locais são divididos proporcionalmente entre todos os coproprietários, mantendo os gastos individuais muito baixos." },
+   { "q": "Como o tempo de uso é dividido entre os proprietários?",
+     "a": "Cada cota de um oitavo lhe dá 45 dias — cerca de seis semanas — o que corresponde a um oitavo do ano. Cada imóvel tem um calendário de uso claro, com rodízio justo, para que todos os proprietários aproveitem a alta temporada ao longo do tempo. Muitas administradoras oferecem ainda uma plataforma digital de reservas para você trocar, estender ou permutar semanas com outros coproprietários com flexibilidade." },
+   { "q": "Posso alugar minhas semanas quando não estiver usando?",
+     "a": "Em muitos casos, sim. Muitos de nossos imóveis permitem que os proprietários coloquem as semanas não utilizadas em um programa de locação administrado. A administradora cuida da seleção de hóspedes, do check-in, da limpeza e da manutenção, e a renda do aluguel é repassada a você. Isso pode reduzir significativamente seus custos anuais e, em destinos concorridos, até gerar retorno líquido." },
+   { "q": "Quem administra o imóvel no dia a dia?",
+     "a": "Cada casa em nossa plataforma é cuidada por uma administradora profissional de imóveis. Ela cuida de tudo, da manutenção de rotina e limpeza à jardinagem, ao tratamento da piscina e aos reparos de emergência. Você chega a uma casa impecável, com padrão de hotel, em cada visita — sem levantar um dedo." },
+   { "q": "Posso vender minha cota mais tarde?",
+     "a": "Com certeza. Como você detém uma fração registrada na matrícula do imóvel, pode vendê-la a qualquer momento no mercado livre — como qualquer outro imóvel. Se a casa tiver valorizado, você se beneficia desse ganho na proporção da sua cota. Nossa equipe também pode ajudar na revenda junto à nossa rede de compradores qualificados." },
+   { "q": "Quais destinos e tipos de imóveis vocês oferecem?",
+     "a": "Selecionamos casas de luxo em copropriedade na Europa e nos Estados Unidos, incluindo França, Espanha, Itália, Portugal, Áustria, Inglaterra e vários destinos americanos. Os imóveis vão de villas à beira-mar e apartamentos parisienses a chalés alpinos e casas de campo na Toscana. Cada casa é escolhida a dedo pela localização, pela qualidade de construção e pelo estilo de vida que proporciona." },
+   { "q": "A copropriedade é um bom investimento?",
+     "a": "A copropriedade permite acessar um imóvel de alto valor por uma fração do custo de comprar sozinho, liberando capital para outros investimentos. Você aproveita a potencial valorização do imóvel, uma possível renda de aluguel e o valor pessoal de uma casa de férias de luxo — tudo isso dividindo os custos com outros coproprietários. É cada vez mais reconhecida como uma das formas financeiramente mais sensatas de ter uma segunda casa." },
+   { "q": "Como faço para começar?",
+     "a": "Basta navegar pela nossa coleção acima ou falar com um de nossos especialistas em imóveis pelo formulário de contato. Vamos apresentar as casas disponíveis, responder às suas dúvidas e acompanhar você em todo o processo de compra, do início ao fim — com total transparência jurídica e financeira em cada etapa." }
+  ]
+ }
+}

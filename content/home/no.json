@@ -1,0 +1,112 @@
+{
+ "meta": {
+  "title": "Sameie i eksklusive fritidsboliger | Co-Ownership Property",
+  "description": "Oppdag sameie i fritidsboliger på Mallorca, Ibiza, Costa del Sol, i De franske alper, Paris, Italia og USA. Reelt, tinglyst eierskap – ikke tidspart.",
+  "ogTitle": "Eksklusive boliger i Spania, Frankrike, Italia, USA og mer | Delt eierskap — COP",
+  "ogDescription": "Oppdag eksklusive fritidsboliger i sameie over hele Europa. Reelt eierskap, ikke tidspart."
+ },
+ "hero": {
+  "pre": "Ditt vindu til",
+  "em": "verdens fineste",
+  "post": "sameieboliger",
+  "ctaPrimary": "Se eiendommene →",
+  "ctaSecondary": "Slik fungerer det"
+ },
+ "pressLabel": "Omtalt i",
+ "properties": {
+  "heading": "Utforsk eiendommene våre",
+  "subtitle": "Bla gjennom vårt håndplukkede utvalg av muligheter for delt eierskap på verdens mest attraktive destinasjoner.",
+  "viewProperty": "Se eiendommen →",
+  "viewAllShort": "Se alle →",
+  "counterLabel": "Eiendommer",
+  "browseAll": "Se alle {n} eiendommer →",
+  "prev": "Forrige",
+  "next": "Neste"
+ },
+ "intro": {
+  "text": "Oppdag en verden av eksklusivt sameie. Fra solfylte middelhavsvillaer til sjarmerende luksusleiligheter, fincaer og fjellchaleter – hver bolig gir deg følelsen av å høre til.",
+  "subtext": "Hver eiendom er nøye utvalgt, innredet av ledende designere og forvaltet slik at du bare kan nyte den. Mer enn et hus er den en port til unike landskap, kulturelle skatter og uforglemmelige familieøyeblikk."
+ },
+ "explainer": {
+  "heading": "Hva er sameie?",
+  "intro": "Sameie lar deg kjøpe en juridisk andel i en eksklusiv feriebolig – og bruke den fullt ut, akkurat som en bolig du eide alene. Du får livsstilen uten hele prislappen, og deler kun kostnadene.",
+  "items": [
+   { "heading": "Du eier en juridisk andel",
+     "body": "Du kjøper en <strong>1/8-andel</strong> i en eksklusiv eiendom. Det er <strong>reelt eierskap, tinglyst i ditt navn</strong>, med full rettslig beskyttelse. Eiendommene våre er valgt for å <strong>stige i verdi</strong>, slik at du får fordelene ved eiendom som investering. Du står helt fritt til å <strong>selge andelen din når som helst</strong> – du setter prisen, og vi hjelper deg med å finne en kjøper.",
+     "stat": "Andeler selges i snitt på under én måned." },
+   { "heading": "Garantert brukstid",
+     "body": "<strong>Ukene dine er dine.</strong> En rettferdig, fast fordelingsplan sikrer at hver sameier får sin tid uten å konkurrere om datoene – <strong>også i høysesongen.</strong> Ingen tidspart, ingen poeng, ingen kompromisser. Det føles som hjemme – du kommer frem, og <strong>tingene dine står klare, alt er ordnet, og eiendommen er fullt forvaltet</strong> slik at du bare kan nyte oppholdet." },
+   { "heading": "Delte driftskostnader",
+     "body": "Vedlikehold, forvaltningshonorar og løpende utgifter <strong>deles likt mellom sameierne.</strong> Mange av eiendommene kan, når du ikke bruker dem, <strong>leies ut – og gi inntekter</strong> som reduserer kostnadene dine ytterligere. <strong>Vi tar oss av alt.</strong>" },
+   { "heading": "Flere fordeler",
+     "body": "Sameie gir også fordeler utover selve boligen – fra <strong>gunstig skattemessig behandling</strong> og <strong>enklere arveplanlegging</strong> til fleksibiliteten ved <strong>boligbytte</strong> med andre sameiere i vår verdensomspennende portefølje av eiendommer." }
+  ]
+ },
+ "ctaBand": {
+  "eyebrow": "Co-Ownership Property",
+  "headingHtml": "Eie en andel av noe <em>ekstraordinært</em>",
+  "sub": "Fra en villa på Côte d'Azur til en chalet i Aspen – delt eierskap gir deg en reell eierandel i verdens fineste boliger, til en brøkdel av prisen.",
+  "primary": "Snakk med en ekspert",
+  "secondary": "Meld deg på nyhetsbrevet"
+ },
+ "destinations": {
+  "heading": "Våre destinasjoner",
+  "explore": "Utforsk eiendommene",
+  "tabs": {
+   "spain":   { "label": "Spania",   "desc": "Spania byr på strender i verdensklasse, levende kultur og sol året rundt – på Mallorca, Ibiza, Costa del Sol og videre – alt til bemerkelsesverdig god verdi for kresne sameiere." },
+   "france":  { "label": "Frankrike",  "desc": "Fra de solfylte strendene på Côte d'Azur til skibakkene i De franske alper og Paris' tidløse eleganse – Frankrike er Europas mest ettertraktede adresse for delt eierskap." },
+   "usa":     { "label": "USA",     "desc": "Fra surfekulturen i California til skibakkene i Colorado og glamouren langs Floridas kyst – det amerikanske luksuseiendomsmarkedet byr på ekstraordinære muligheter for internasjonale sameiere." },
+   "italy":   { "label": "Italia",   "desc": "Italias enestående landskap – fra Comosjøens blanke vann til Ligurias eldgamle landsbyer og de toskanske åsene – gjør landet til en evig favoritt blant kresne sameiere." },
+   "portugal":{ "label": "Portugal","desc": "Fra Algarves gylne kystlinje til Lisboas elegante bulevarder og den uberørte Sølvkysten – Portugal er en av Europas mest spennende destinasjoner for eksklusivt sameie." },
+   "austria": { "label": "Østerrike", "desc": "Østerrikes alpeprakt – fra skianleggene i verdensklasse i Tyrol til Wiens storslåtte keiserlige sjarm – gjør landet til en av Europas mest givende destinasjoner for eksklusivt delt eierskap." },
+   "england": { "label": "England", "desc": "London er fortsatt en av verdens store byer for luksuseiendom – fra byhus i Mayfair til leiligheter langs elven – mens den engelske landsbygda byr på idylliske tilfluktssteder for kresne sameiere." },
+   "sweden":  { "label": "Sverige",  "desc": "Sveriges dramatiske landskap – fra Stockholms skjærgård til de skogkledde innsjøområdene i nord – gir en unikt fredelig ramme for eksklusivt sameie, langt fra folkemengdene." },
+   "germany": { "label": "Tyskland", "desc": "Fra De bayerske alper og Bodensjøens bredder til kulturhovedstedene Berlin og München – Tyskland byr på et fristende utvalg av eksklusive eiendomsmuligheter for sameiere." },
+   "croatia": { "label": "Kroatia", "desc": "Kroatias betagende adriaterhavskyst, krystallklare vann og historiske murbyer som Dubrovnik gjør landet til en av Middelhavets mest ettertraktede destinasjoner for eksklusivt delt eierskap." },
+   "mexico":  { "label": "Mexico",  "desc": "Fra Riviera Mayas turkise strender til stillehavsglamouren i Los Cabos – Mexico byr på ekstraordinær luksus til usedvanlig god verdi, og er et av verdens mest spennende markeder for sameie." }
+  }
+ },
+ "testimonials": {
+  "heading": "Historier fra boligeiere",
+  "cards": [
+   { "quote": "\"Alt føltes uanstrengt fra aller første opphold – som å komme hjem til din egen bolig, med komforten fra et hotell. Provence er nå en del av rytmen vår. Jeg trenger ikke bekymre meg for noe som helst.\"", "author": "Astrid", "location": "Mougins, Sør-Frankrike" },
+   { "quote": "\"Delt eierskap ga oss alpedrømmen vi trodde var utenfor rekkevidde. Prosessen var sømløs, og sønnen vår tar nå med seg skolekamerater på ski. Det har blitt et ordentlig familiehjem.\"", "author": "Harry & Nicole", "location": "La Plagne, De franske alper" },
+   { "quote": "\"Endelig eier vi et stykke av stedet – uten dårlig samvittighet for et ubrukt boliglån. Full åpenhet fra dag én – vi kunne ikke vært mer fornøyde. Vi planlegger allerede vår neste andel i Europa.\"", "author": "Mateo & Anne", "location": "LA, California" },
+   { "quote": "\"Jeg solgte ferieboligen min i Frankrike og kjøpte en langt finere villa på Mallorca for en fjerdedel av prisen. Teamet ordnet alt til punkt og prikke – den føles som vår i det øyeblikket vi går inn døren.\"", "author": "Jan & The Family", "location": "Mallorca, Spania" }
+  ]
+ },
+ "blog": {
+  "eyebrow": "Fra bloggen",
+  "heading": "Siste innsikt",
+  "subtitle": "Destinasjonsguider, markedsanalyser og eierhistorier – publisert jevnlig for den kresne kjøperen.",
+  "readMore": "Les artikkelen →",
+  "viewAll": "Se alle artikler"
+ },
+ "faq": {
+  "eyebrow": "Vanlige spørsmål",
+  "headingHtml": "Ofte stilte <em>spørsmål</em>",
+  "sub": "Alt du trenger å vite om eksklusivt sameie – og hvorfor det er den smarteste måten å eie fritidsbolig på.",
+  "items": [
+   { "q": "Hva er delt eierskap eller sameie i fritidsbolig?",
+     "a": "Sameie betyr at du og et lite antall andre eiere hver kjøper en tinglyst andel i en fullt forvaltet luksuseiendom. Du eier en reell ideell andel av boligen – vanligvis en åttendedel – og i motsetning til tidspart har du et ekte, rettslig eierskap til selve eiendommen. Det kombinerer stoltheten og de økonomiske fordelene ved å eie eiendom med servicen fra et femstjerners hotell, til en brøkdel av prisen for å kjøpe alene." },
+   { "q": "Hvordan skiller sameie seg fra tidspart?",
+     "a": "I motsetning til tidspart gir sameie deg en reell eierandel, tinglyst i Grunnboken. Det betyr at du tar del i eventuell verdistigning og kan selge andelen din i det åpne markedet når du selv ønsker. Fordi dette er luksuseiendommer på svært ettertraktede steder, stiger prisene som regel over tid. Det finnes ingen medlemsklubb, ikke noe poengsystem og ingen langsiktig kontraktsbinding. Du er en reell eiendomseier med fulle rettigheter til din ideelle andel." },
+   { "q": "Hva er inkludert i kjøpesummen?",
+     "a": "Kjøpesummen dekker din tinglyste andel av eiendommen sammen med komplett møblering, interiørdesign og utstyr. Mange av boligene våre er profesjonelt innredet til nøkkelferdig standard, slik at de er klare til bruk fra første dag. Løpende kostnader som vedlikehold, forsikring, forvaltning og lokale skatter og avgifter deles forholdsmessig mellom sameierne, slik at den enkeltes driftskostnader holdes svært lave." },
+   { "q": "Hvordan fordeles brukstiden mellom eierne?",
+     "a": "Hver åttendedels andel gir deg 45 dager – omtrent seks uker – som tilsvarer en åttendedel av året. Hver eiendom har en tydelig bruksplan som roterer rettferdig, slik at alle sameiere over tid får tilgang i høysesongen. Mange av eiendommene har også en digital bookingplattform der du fleksibelt kan bytte, forlenge eller utveksle uker med andre sameiere." },
+   { "q": "Kan jeg leie ut ukene mine når jeg ikke bruker dem?",
+     "a": "I mange tilfeller, ja. Mange av eiendommene våre lar eierne legge ubrukte uker inn i et forvaltet utleieprogram. Forvaltningsselskapet tar seg av gjestescreening, innsjekk, rengjøring og vedlikehold, mens leieinntektene går til deg. Dette kan redusere de årlige driftskostnadene betydelig – og på populære destinasjoner til og med gi et netto overskudd." },
+   { "q": "Hvem tar seg av eiendommen i det daglige?",
+     "a": "Hver bolig på plattformen vår blir tatt hånd om av et profesjonelt forvaltningsselskap. De håndterer alt fra løpende vedlikehold og renhold til hagestell, bassengpleie og akutte reparasjoner. Du kommer til et plettfritt hjem med hotellstandard hver gang – uten å løfte en finger." },
+   { "q": "Kan jeg selge andelen min senere?",
+     "a": "Selvsagt. Fordi du har en tinglyst andel, kan du selge den når som helst i det åpne markedet – akkurat som annen eiendom. Har boligen steget i verdi, tar du del i verdistigningen i forhold til eierandelen din. Teamet vårt kan også bistå med videresalg til vårt nettverk av kvalifiserte kjøpere." },
+   { "q": "Hvilke destinasjoner og boligtyper tilbyr dere?",
+     "a": "Vi håndplukker eksklusive sameieboliger i Europa og USA, blant annet i Frankrike, Spania, Italia, Portugal, Østerrike og England, i tillegg til flere amerikanske destinasjoner. Utvalget spenner fra villaer ved kysten og leiligheter i Paris til alpine chaleter og toskanske gårdshus. Hver bolig er nøye utvalgt for beliggenhet, byggekvalitet og livsstil." },
+   { "q": "Er sameie en god investering?",
+     "a": "Med sameie får du tilgang til en verdifull eiendom til en brøkdel av prisen for å kjøpe alene, og frigjør kapital til andre investeringer. Du nyter godt av mulig verdistigning, potensielle leieinntekter og den personlige verdien av en eksklusiv fritidsbolig – samtidig som du deler kostnadene med andre sameiere. Stadig flere ser det som en av de mest økonomisk fornuftige måtene å eie feriebolig på." },
+   { "q": "Hvordan kommer jeg i gang?",
+     "a": "Bla gjennom kolleksjonen vår ovenfor, eller snakk med en av eiendomsspesialistene våre via henvendelsesskjemaet. Vi viser deg tilgjengelige boliger, svarer på alle spørsmål og veileder deg gjennom hele kjøpsprosessen fra start til slutt – med full juridisk og økonomisk åpenhet i hvert steg." }
+  ]
+ }
+}

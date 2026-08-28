@@ -1,12 +1,12 @@
-// /sv/ — SV homepage.
-//
-// Content: content/pages/sv/home.json. Markup: components/LocalePage.js.
-// URL set: ROUTE_SLUGS in lib/i18n.js. Terminology: docs/translation-glossary.md.
-import LocalePage from '@/components/LocalePage';
-import { localePageStaticProps } from '@/lib/locale-page-data';
+// /sv/ — homepage. The real COP homepage (video hero, carousel, destinations,
+// testimonials, FAQ), translated. Copy lives in content/home/sv.json;
+// markup in components/LocaleHome.js. Replaces the earlier text-first
+// LocalePage landing, which looked nothing like the site (28 Aug).
+import LocaleHome from '@/components/LocaleHome';
+import { localeHomeStaticProps } from '@/lib/home-page-data';
 
-export const getStaticProps = localePageStaticProps('sv', 'home', { withProperties: 6 });
+export const getStaticProps = localeHomeStaticProps('sv');
 
-export default function HomeSV(props) {
-  return <LocalePage {...props} />;
+export default function Home_sv(props) {
+  return <LocaleHome locale="sv" {...props} />;
 }

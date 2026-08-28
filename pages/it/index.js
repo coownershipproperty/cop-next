@@ -1,15 +1,12 @@
-// /it/ — Italian homepage.
-//
-// Content lives in content/pages/it/home.json; the markup lives in
-// components/LocalePage.js. See lib/i18n.js → ROUTE_SLUGS for the Italian URL
-// set, and docs/translation-glossary.md for the locked terminology
-// (comproprietà / proprietà frazionata — never multiproprietà, which means
-// timeshare in Italian).
-import LocalePage from '@/components/LocalePage';
-import { localePageStaticProps } from '@/lib/locale-page-data';
+// /it/ — homepage. The real COP homepage (video hero, carousel, destinations,
+// testimonials, FAQ), translated. Copy lives in content/home/it.json;
+// markup in components/LocaleHome.js. Replaces the earlier text-first
+// LocalePage landing, which looked nothing like the site (28 Aug).
+import LocaleHome from '@/components/LocaleHome';
+import { localeHomeStaticProps } from '@/lib/home-page-data';
 
-export const getStaticProps = localePageStaticProps('it', 'home', { withProperties: 6 });
+export const getStaticProps = localeHomeStaticProps('it');
 
-export default function HomeIT(props) {
-  return <LocalePage {...props} />;
+export default function Home_it(props) {
+  return <LocaleHome locale="it" {...props} />;
 }

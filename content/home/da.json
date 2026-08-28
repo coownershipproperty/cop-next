@@ -1,0 +1,112 @@
+{
+ "meta": {
+  "title": "Medejerskab af luksusferieboliger | Co-Ownership Property",
+  "description": "Oplev medejerskab af ferieboliger på Mallorca, Ibiza, Costa del Sol, i de franske Alper, Paris, Italien og USA. Rigtigt, tinglyst ejerskab — ikke timeshare.",
+  "ogTitle": "Eksklusive boliger i Spanien, Frankrig, Italien, USA og flere | Delt ejerskab — COP",
+  "ogDescription": "Oplev eksklusive ferieboliger i medejerskab i hele Europa. Rigtigt ejerskab — ikke timeshare."
+ },
+ "hero": {
+  "pre": "Dit vindue til",
+  "em": "verdens fineste",
+  "post": "medejerskab",
+  "ctaPrimary": "Se boligerne →",
+  "ctaSecondary": "Sådan fungerer det"
+ },
+ "pressLabel": "Omtalt i",
+ "properties": {
+  "heading": "Udforsk vores boliger",
+  "subtitle": "Gennemse vores nøje udvalgte kollektion af boliger i delt ejerskab på verdens mest eftertragtede destinationer.",
+  "viewProperty": "Se bolig →",
+  "viewAllShort": "Se alle →",
+  "counterLabel": "Boliger",
+  "browseAll": "Se alle {n} boliger →",
+  "prev": "Forrige",
+  "next": "Næste"
+ },
+ "intro": {
+  "text": "Oplev en verden af eksklusivt medejerskab. Fra solbeskinnede middelhavsvillaer til charmerende luksuslejligheder, fincaer og bjergchaleter — hvert hjem giver dig følelsen af at høre til.",
+  "subtext": "Hver bolig er nøje udvalgt, indrettet af førende designere og forvaltet, så du bare kan nyde den. Det er mere end et hus — det er porten til enestående landskaber, kulturelle skatte og uforglemmelige familieøjeblikke."
+ },
+ "explainer": {
+  "heading": "Hvad er medejerskab?",
+  "intro": "Med medejerskab køber du en juridisk andel af en eksklusiv feriebolig — og bruger den fuldt ud, præcis som var den helt din egen. Du får livsstilen uden den fulde pris og deler kun omkostningerne.",
+  "items": [
+   { "heading": "Du ejer en juridisk andel",
+     "body": "Du køber en <strong>1/8-andel</strong> af en eksklusiv bolig. Det er <strong>rigtigt ejerskab, registreret i dit navn</strong>, med fuld juridisk beskyttelse. Vores boliger er udvalgt til at <strong>stige i værdi</strong>, så du får fordelene ved fast ejendom som investering. Du kan frit <strong>sælge din andel når som helst</strong> — du sætter prisen, og vi hjælper med at finde en køber.",
+     "stat": "Andele sælges i gennemsnit på under en måned." },
+   { "heading": "Garanteret brug",
+     "body": "<strong>Dine uger er dine.</strong> En fair, fast fordelingsplan sikrer, at alle ejere får deres tid uden at kæmpe om datoerne — <strong>også i højsæsonen.</strong> Ingen timeshare, ingen point, ingen kompromiser. Det føles som hjemme — du ankommer, og <strong>dine ting står klar, alt er gjort i stand, og boligen er fuldt forvaltet</strong>, så du bare kan nyde den." },
+   { "heading": "Delte driftsomkostninger",
+     "body": "Vedligeholdelse, administration og driftsomkostninger <strong>deles ligeligt mellem ejerne.</strong> Mange af boligerne kan, når du ikke selv bruger dem, <strong>lejes ud — og give en indtægt</strong>, der yderligere nedbringer dine omkostninger. <strong>Vi tager os af det hele.</strong>" },
+   { "heading": "Flere fordele",
+     "body": "Medejerskab giver også fordele i bredere forstand — fra <strong>gunstige skatteforhold</strong> og <strong>enklere arveplanlægning</strong> til fleksibiliteten ved at <strong>bytte bolig</strong> med andre ejere på tværs af vores portefølje af boliger verden over." }
+  ]
+ },
+ "ctaBand": {
+  "eyebrow": "Co-Ownership Property",
+  "headingHtml": "Ej en andel af noget <em>ekstraordinært</em>",
+  "sub": "Fra en villa på Côte d'Azur til et chalet i Aspen — delt ejerskab giver dig en reel andel i verdens fineste boliger til en brøkdel af prisen.",
+  "primary": "Tal med en ekspert",
+  "secondary": "Tilmeld dig nyhedsbrevet"
+ },
+ "destinations": {
+  "heading": "Vores destinationer",
+  "explore": "Udforsk boligerne",
+  "tabs": {
+   "spain":   { "label": "Spanien",   "desc": "Spanien forener strande i verdensklasse, levende kultur og solskin året rundt — på Mallorca, Ibiza, Costa del Sol og videre endnu — alt sammen til bemærkelsesværdig værdi for kræsne medejere." },
+   "france":  { "label": "Frankrig",  "desc": "Fra Côte d'Azurs solbeskinnede kyster til skiløjperne i de franske Alper og Paris' tidløse elegance er Frankrig Europas mest eftertragtede adresse for delt ejerskab." },
+   "usa":     { "label": "USA",     "desc": "Fra surfkulturen i Californien til skiløjperne i Colorado og glamouren langs Floridas kyster byder USA's luksusboligmarked på enestående muligheder for internationale medejere." },
+   "italy":   { "label": "Italien",   "desc": "Italiens enestående landskaber — fra Comosøens blanke vand til Liguriens ældgamle landsbyer og de toscanske bakker — gør landet til en evig favorit blandt kræsne medejere." },
+   "portugal":{ "label": "Portugal","desc": "Fra Algarves gyldne kystlinje til Lissabons elegante boulevarder og Sølvkystens uberørte skønhed er Portugal en af Europas mest spændende destinationer for eksklusivt medejerskab." },
+   "austria": { "label": "Østrig", "desc": "Østrigs alpepragt — fra Tyrols skisportssteder i verdensklasse til Wiens storslåede kejserlige charme — gør landet til en af Europas mest givende destinationer for eksklusivt delt ejerskab." },
+   "england": { "label": "England", "desc": "London er fortsat en af verdens store byer for eksklusive boliger — fra byhuse i Mayfair til lejligheder ved floden — mens det engelske landskab byder på idylliske tilflugtssteder for kræsne medejere." },
+   "sweden":  { "label": "Sverige",  "desc": "Sveriges dramatiske landskaber — fra Stockholms skærgård til de skovklædte søområder mod nord — danner en helt særligt fredfyldt ramme om eksklusivt medejerskab, langt fra mængden." },
+   "germany": { "label": "Tyskland", "desc": "Fra de bayerske Alper og Bodensøens bredder til kulturmetropolerne Berlin og München byder Tyskland på et overbevisende udvalg af eksklusive boligmuligheder for medejere." },
+   "croatia": { "label": "Kroatien", "desc": "Kroatiens betagende adriaterhavskyst, krystalklare vand og historiske fæstningsbyer som Dubrovnik gør landet til en af Middelhavets mest eftertragtede destinationer for eksklusivt delt ejerskab." },
+   "mexico":  { "label": "Mexico",  "desc": "Fra Riviera Mayas turkisblå kyster til Los Cabos' glamour ved Stillehavet byder Mexico på enestående luksus til exceptionel værdi — og er dermed et af verdens mest spændende markeder for medejerskab." }
+  }
+ },
+ "testimonials": {
+  "heading": "Ejernes historier",
+  "cards": [
+   { "quote": "\"Fra det allerførste ophold føltes alt ubesværet — som at ankomme til sit eget hjem med et hotels komfort. Provence er nu en del af vores rytme. Jeg behøver ikke bekymre mig om noget som helst.\"", "author": "Astrid", "location": "Mougins, Sydfrankrig" },
+   { "quote": "\"Delt ejerskab gav os den alpedrøm, vi troede var uden for rækkevidde. Processen var gnidningsfri, og vores søn tager nu sine skolekammerater med på ski. Det er blevet et rigtigt familiehjem.\"", "author": "Harry & Nicole", "location": "La Plagne, de franske Alper" },
+   { "quote": "\"Vi ejer endelig et stykke af stedet — uden dårlig samvittighed over et ubenyttet boliglån. Gennemsigtigt fra dag ét — vi kunne ikke være mere tilfredse. Vi planlægger allerede vores næste andel i Europa.\"", "author": "Mateo & Anne", "location": "LA, Californien" },
+   { "quote": "\"Jeg solgte mit franske feriehus og købte en langt flottere villa på Mallorca for en fjerdedel af prisen. Teamet klarede alt til perfektion — den føles som vores, i samme øjeblik vi træder ind ad døren.\"", "author": "Jan & The Family", "location": "Mallorca, Spanien" }
+  ]
+ },
+ "blog": {
+  "eyebrow": "Fra bloggen",
+  "heading": "Seneste indsigter",
+  "subtitle": "Destinationsguider, markedsanalyser og ejerhistorier — udgivet løbende til den kræsne køber.",
+  "readMore": "Læs artiklen →",
+  "viewAll": "Se alle artikler"
+ },
+ "faq": {
+  "eyebrow": "Almindelige spørgsmål",
+  "headingHtml": "Ofte stillede <em>spørgsmål</em>",
+  "sub": "Alt, du behøver at vide om eksklusivt medejerskab — og hvorfor det er den klogeste måde at eje en feriebolig på.",
+  "items": [
+   { "q": "Hvad er delt ejerskab eller medejerskab af en feriebolig?",
+     "a": "Medejerskab betyder, at du og et lille antal andre ejere hver køber en tinglyst andel af en fuldt forvaltet luksusbolig. Du ejer en reel brøkdel af boligen — typisk en ottendedel — og i modsætning til en timeshare har du ægte juridisk ejerskab af selve ejendommen. Det forener stoltheden og de økonomiske fordele ved rigtigt boligejerskab med lettheden ved en femstjernet hoteloplevelse — til en brøkdel af prisen for at købe alene." },
+   { "q": "Hvordan adskiller medejerskab sig fra timeshare?",
+     "a": "I modsætning til en timeshare giver medejerskab dig en reel andel af ejendommens skøde. Det betyder, at du får del i enhver værdistigning og kan sælge din andel på det åbne marked, når du vil. Fordi der er tale om luksusboliger på efterspurgte adresser, stiger priserne typisk over tid. Der er ingen medlemsklub, intet pointsystem og ingen langvarig kontraktlig binding. Du er en ægte boligejer med fulde juridiske rettigheder over din andel." },
+   { "q": "Hvad dækker købsprisen?",
+     "a": "Købsprisen dækker din tinglyste andel af boligen samt alt inventar, indretning og udstyr. Mange af vores boliger er professionelt indrettet til nøglefærdig standard, så de er klar til indflytning fra dag ét. Løbende udgifter som vedligeholdelse, forsikring, ejendomsadministration og lokale skatter deles forholdsmæssigt mellem alle medejere, så den enkeltes driftsomkostninger holdes meget lave." },
+   { "q": "Hvordan fordeles brugstiden mellem ejerne?",
+     "a": "Hver ottendedels andel giver dig 45 dage — cirka seks uger — svarende til en ottendedel af året. Hver bolig har en klar brugsplan, der roterer retfærdigt, så alle ejere over tid får adgang i højsæsonen. Mange steder tilbydes også en digital bookingplatform, så du fleksibelt kan bytte, forlænge eller udveksle uger med de andre ejere." },
+   { "q": "Kan jeg leje mine uger ud, når jeg ikke selv bruger dem?",
+     "a": "I mange tilfælde, ja. Mange af vores boliger giver ejerne mulighed for at lægge ubenyttede uger i et administreret udlejningsprogram. Administrationsselskabet står for gæstescreening, indtjekning, rengøring og vedligeholdelse, mens lejeindtægten går til dig. Det kan nedbringe dine årlige driftsomkostninger betydeligt og på populære destinationer endda give et nettoafkast." },
+   { "q": "Hvem står for den daglige drift af boligen?",
+     "a": "Alle boliger på vores platform passes af et professionelt ejendomsadministrationsselskab. De tager sig af alt fra løbende vedligeholdelse og rengøring til havepleje, poolservice og akutte reparationer. Du ankommer hver gang til et skinnende rent hjem i hotelkvalitet — uden at røre en finger." },
+   { "q": "Kan jeg sælge min andel senere?",
+     "a": "Absolut. Fordi du har en tinglyst andel, kan du til enhver tid sælge den på det åbne marked — præcis som enhver anden ejendom. Er boligen steget i værdi, får du del i værdistigningen i forhold til din ejerandel. Vores team kan også hjælpe med videresalg til vores netværk af kvalificerede købere." },
+   { "q": "Hvilke destinationer og boligtyper tilbyder I?",
+     "a": "Vi udvælger eksklusive ferieboliger i medejerskab i hele Europa og USA, herunder Frankrig, Spanien, Italien, Portugal, Østrig, England og flere amerikanske destinationer. Boligerne spænder fra kystvillaer og parisiske lejligheder til alpechaleter og toscanske landhuse. Hvert hjem er håndplukket for sin beliggenhed, byggekvalitet og livsstilsappel." },
+   { "q": "Er medejerskab en god investering?",
+     "a": "Med medejerskab får du adgang til en værdifuld ejendom til en brøkdel af prisen for at købe alene, så du frigør kapital til andre investeringer. Du får mulig værdistigning, potentiel lejeindtægt og den personlige glæde ved en eksklusiv feriebolig — alt imens du deler omkostningerne med de andre ejere. Det anerkendes i stigende grad som en af de økonomisk klogeste måder at eje bolig nummer to på." },
+   { "q": "Hvordan kommer jeg i gang?",
+     "a": "Gennemse blot vores kollektion ovenfor, eller tal med en af vores boligspecialister via kontaktformularen. Vi gennemgår de tilgængelige boliger med dig, besvarer alle spørgsmål og guider dig gennem hele købsprocessen fra start til slut — med fuld juridisk og økonomisk gennemsigtighed hele vejen." }
+  ]
+ }
+}

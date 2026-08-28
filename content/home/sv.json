@@ -1,0 +1,112 @@
+{
+ "meta": {
+  "title": "Samägande av exklusiva fritidshus | Co-Ownership Property",
+  "description": "Upptäck samägande av fritidshus på Mallorca, Ibiza, Costa del Sol, i Franska Alperna, Paris, Italien och USA. Riktigt, lagfaret ägande — inte timeshare.",
+  "ogTitle": "Exklusiva hem i Spanien, Frankrike, Italien, USA och fler länder | Samägande — COP",
+  "ogDescription": "Upptäck exklusiva samägda fritidshus i hela Europa. Riktigt ägande, inte timeshare."
+ },
+ "hero": {
+  "pre": "Ditt fönster mot",
+  "em": "världens finaste",
+  "post": "samägande",
+  "ctaPrimary": "Se våra hem →",
+  "ctaSecondary": "Så fungerar det"
+ },
+ "pressLabel": "Omnämnda i",
+ "properties": {
+  "heading": "Utforska våra hem",
+  "subtitle": "Bläddra i vår noga utvalda kollektion av delägarskap på världens mest eftertraktade resmål.",
+  "viewProperty": "Visa bostaden →",
+  "viewAllShort": "Visa alla →",
+  "counterLabel": "Bostäder",
+  "browseAll": "Visa alla {n} bostäder →",
+  "prev": "Föregående",
+  "next": "Nästa"
+ },
+ "intro": {
+  "text": "Upptäck en värld av exklusivt samägande. Från solvarma medelhavsvillor till charmiga lyxvåningar, fincor och fjällchaléer — varje hem får dig att känna dig hemma.",
+  "subtext": "Varje bostad är omsorgsfullt utvald, inredd av ledande formgivare och förvaltad för din skull. Mer än ett hus är det en port till unika landskap, kulturskatter och oförglömliga familjeögonblick."
+ },
+ "explainer": {
+  "heading": "Vad är samägande?",
+  "intro": "Samägande innebär att du köper en juridisk andel i en förstklassig semesterbostad — och använder den fullt ut, precis som om den vore helt din egen. Du får livsstilen utan hela prislappen och delar bara på kostnaderna.",
+  "items": [
+   { "heading": "Du äger en juridisk andel",
+     "body": "Du köper en <strong>1/8-andel</strong> i en förstklassig bostad. Det är <strong>riktigt ägande, registrerat i ditt namn</strong>, med fullt rättsligt skydd. Våra hem är utvalda för att <strong>öka i värde</strong> och ger dig fastighetens alla fördelar som investering. Du har full frihet att <strong>sälja din andel när du vill</strong> — du sätter priset, och vi hjälper dig hitta en köpare.",
+     "stat": "Andelar säljs i genomsnitt på under en månad." },
+   { "heading": "Garanterad användning",
+     "body": "<strong>Dina veckor är dina.</strong> Ett rättvist, strukturerat schema ser till att varje delägare får sin tid utan att konkurrera om datum — <strong>även under högsäsong.</strong> Ingen timeshare, inga poäng, inga kompromisser. Det känns som hemma — du anländer och <strong>dina tillhörigheter är på plats, allt är förberett och bostaden är fullt förvaltad</strong> så att du bara kan njuta." },
+   { "heading": "Delade driftskostnader",
+     "body": "Underhåll, förvaltningsavgifter och löpande kostnader <strong>delas lika mellan delägarna.</strong> Många av bostäderna kan, när du inte använder dem, <strong>hyras ut — och ge intäkter</strong> som sänker dina kostnader ytterligare. <strong>Vi sköter allt.</strong>" },
+   { "heading": "Fler fördelar",
+     "body": "Samägande för med sig fler fördelar — från <strong>gynnsam beskattning</strong> och <strong>enklare arvsplanering</strong> till friheten att <strong>byta hem</strong> med andra delägare i vårt utbud av bostäder världen över." }
+  ]
+ },
+ "ctaBand": {
+  "eyebrow": "Co-Ownership Property",
+  "headingHtml": "Äg en andel av något <em>alldeles extra</em>",
+  "sub": "Från en villa på Côte d'Azur till en chalet i Aspen — med delägarskap får du en verklig andel i världens finaste hem, till en bråkdel av kostnaden.",
+  "primary": "Prata med en expert",
+  "secondary": "Prenumerera på nyhetsbrevet"
+ },
+ "destinations": {
+  "heading": "Våra resmål",
+  "explore": "Utforska bostäder",
+  "tabs": {
+   "spain":   { "label": "Spanien",   "desc": "Spanien förenar stränder i världsklass, sprudlande kultur och sol året om — på Mallorca, Ibiza, Costa del Sol och långt därutöver — allt till ett anmärkningsvärt värde för kräsna delägare." },
+   "france":  { "label": "Frankrike",  "desc": "Från Côte d'Azurs solstänkta stränder till skidbackarna i Franska Alperna och Paris tidlösa elegans — Frankrike är Europas mest eftertraktade adress för delägarskap." },
+   "usa":     { "label": "USA",     "desc": "Från Kaliforniens surfkultur till Colorados skidbackar och Floridas glamorösa vattenlinje — USA:s exklusiva bostadsmarknad bjuder på enastående möjligheter för internationella delägare." },
+   "italy":   { "label": "Italien",   "desc": "Italiens enastående landskap — från Comosjöns spegelblanka vatten till Liguriens uråldriga byar och Toscanas kullar — gör landet till en evig favorit bland kräsna delägare." },
+   "portugal":{ "label": "Portugal","desc": "Från Algarves gyllene kust till Lissabons eleganta boulevarder och Silverkustens orörda skönhet — Portugal är ett av Europas mest spännande resmål för exklusivt samägande." },
+   "austria": { "label": "Österrike", "desc": "Österrikes alpina prakt — från Tyrolens skidorter i världsklass till Wiens kejserliga charm — gör landet till ett av Europas mest givande resmål för exklusivt delägarskap." },
+   "england": { "label": "England", "desc": "London är alltjämt en av världens främsta städer för exklusiva bostäder — från stadshus i Mayfair till våningar vid floden — medan den engelska landsbygden bjuder på idylliska tillflykter för kräsna delägare." },
+   "sweden":  { "label": "Sverige",  "desc": "Sveriges dramatiska landskap — från Stockholms skärgård till norrlands skogklädda sjölandskap — erbjuder en unikt fridfull miljö för exklusivt samägande, långt från trängseln." },
+   "germany": { "label": "Tyskland", "desc": "Från Bayerska Alperna och Bodensjöns stränder till kulturmetropolerna Berlin och München — Tyskland bjuder på ett lockande utbud av exklusiva bostadsmöjligheter för delägare." },
+   "croatia": { "label": "Kroatien", "desc": "Kroatiens hisnande adriatiska kust, kristallklara vatten och historiska muromgärdade städer som Dubrovnik gör landet till ett av Medelhavets mest eftertraktade resmål för exklusivt delägarskap." },
+   "mexico":  { "label": "Mexiko",  "desc": "Från Riviera Mayas turkosa stränder till Los Cabos glamorösa Stillahavskust — Mexiko bjuder på enastående lyx till exceptionellt värde och är en av världens mest spännande marknader för samägande." }
+  }
+ },
+ "testimonials": {
+  "heading": "Delägarnas berättelser",
+  "cards": [
+   { "quote": "\"Redan från första vistelsen kändes allt enkelt — som att komma hem till sitt eget, med hotellets alla bekvämligheter. Provence är numera en del av vår rytm. Jag behöver inte oroa mig för någonting.\"", "author": "Astrid", "location": "Mougins, södra Frankrike" },
+   { "quote": "\"Delägarskapet gav oss alpdrömmen vi trodde var utom räckhåll. Processen var smidig, och vår son tar nu med sina skolkamrater för att åka skidor. Det har blivit ett riktigt familjehem.\"", "author": "Harry & Nicole", "location": "La Plagne, Franska Alperna" },
+   { "quote": "\"Äntligen äger vi en bit av marken utan dåligt samvete över ett outnyttjat bostadslån. Transparent från dag ett — vi kunde inte vara nöjdare. Vi planerar redan vår nästa andel i Europa.\"", "author": "Mateo & Anne", "location": "Los Angeles, Kalifornien" },
+   { "quote": "\"Jag sålde mitt franska semesterhus och köpte en mycket finare villa på Mallorca för en fjärdedel av priset. Teamet skötte allt klanderfritt — det känns som vårt i samma stund som vi kliver in genom dörren.\"", "author": "Jan & The Family", "location": "Mallorca, Spanien" }
+  ]
+ },
+ "blog": {
+  "eyebrow": "Från bloggen",
+  "heading": "Senaste insikterna",
+  "subtitle": "Resmålsguider, marknadsanalyser och ägarberättelser — publiceras löpande för den kräsna köparen.",
+  "readMore": "Läs artikeln →",
+  "viewAll": "Visa alla artiklar"
+ },
+ "faq": {
+  "eyebrow": "Vanliga frågor",
+  "headingHtml": "Vanliga <em>frågor</em>",
+  "sub": "Allt du behöver veta om exklusivt samägande — och varför det är det smartaste sättet att äga ett fritidshus.",
+  "items": [
+   { "q": "Vad är delägarskap eller samägande av ett fritidshus?",
+     "a": "Samägande innebär att du och ett litet antal andra ägare var och en köper en lagfaren andel i en fullt förvaltad lyxbostad. Du äger en verklig del av hemmet — vanligtvis en åttondel — och till skillnad från en timeshare har du riktigt juridiskt ägande av själva fastigheten. Det förenar stoltheten och de ekonomiska fördelarna med verkligt fastighetsägande med bekvämligheten hos ett femstjärnigt hotell, till en bråkdel av kostnaden för att köpa helt själv." },
+   { "q": "Hur skiljer sig samägande från timeshare?",
+     "a": "Till skillnad från en timeshare ger samägande dig en verklig andel i lagfarten, vilket betyder att du tar del av varje värdeökning och kan sälja din andel på öppna marknaden när du vill. Eftersom det rör sig om lyxbostäder i högt efterfrågade lägen brukar priserna stiga över tid. Det finns ingen medlemsklubb, inget poängsystem och ingen långsiktig avtalsbindning. Du är en riktig fastighetsägare med fulla juridiska rättigheter till din andel." },
+   { "q": "Vad ingår i köpeskillingen?",
+     "a": "Köpeskillingen omfattar din lagfarna andel i bostaden tillsammans med hela dess möblemang, inredning och utrustning. Många av våra hem är professionellt inredda till nyckelfärdig standard och redo att flytta in i från dag ett. Löpande kostnader som underhåll, försäkring, fastighetsförvaltning och lokala skatter delas proportionellt mellan alla delägare, vilket håller varje ägares driftskostnader mycket låga." },
+   { "q": "Hur fördelas användningstiden mellan ägarna?",
+     "a": "Varje åttondelsandel ger dig 45 dagar — ungefär sex veckor — vilket är en åttondel av året. Varje bostad har ett tydligt användningsschema som roterar rättvist, så att alla ägare med tiden får tillgång till högsäsongen. Många förvaltare erbjuder dessutom en digital bokningsplattform där du flexibelt kan byta, förlänga eller växla veckor med andra delägare." },
+   { "q": "Kan jag hyra ut mina veckor när jag inte använder dem?",
+     "a": "I många fall, ja. Många av våra bostäder låter ägarna lägga in outnyttjade veckor i ett förvaltat uthyrningsprogram. Förvaltningsbolaget sköter gästkontroll, incheckning, städning och underhåll, medan hyresintäkterna går till dig. Det kan sänka dina årliga driftskostnader avsevärt och på populära resmål till och med ge ett nettoöverskott." },
+   { "q": "Vem sköter bostaden i vardagen?",
+     "a": "Varje hem på vår plattform tas om hand av ett professionellt fastighetsförvaltningsbolag. De sköter allt från löpande underhåll och städning till trädgård, poolskötsel och akuta reparationer. Du anländer till ett skinande rent hem av hotellklass vid varje besök — utan att lyfta ett finger." },
+   { "q": "Kan jag sälja min andel senare?",
+     "a": "Absolut. Eftersom du har en lagfaren andel kan du sälja den när som helst på öppna marknaden — precis som vilken annan fastighet som helst. Har hemmet ökat i värde tar du del av den tillväxten i proportion till din ägarandel. Vårt team kan också hjälpa till med vidareförsäljning till vårt nätverk av kvalificerade köpare." },
+   { "q": "Vilka resmål och bostadstyper erbjuder ni?",
+     "a": "Vi väljer ut exklusiva samägda hem i hela Europa och USA, bland annat i Frankrike, Spanien, Italien, Portugal, Österrike och England samt på flera amerikanska resmål. Bostäderna sträcker sig från kustvillor och parisiska våningar till alpina chaléer och toskanska lantgårdar. Varje hem är handplockat för sitt läge, sin byggkvalitet och sin livsstilskänsla." },
+   { "q": "Är samägande en bra investering?",
+     "a": "Samägande ger dig tillgång till en högvärdig fastighet till en bråkdel av kostnaden för att köpa helt själv, vilket frigör kapital till andra investeringar. Du får möjlig värdeökning, potentiella hyresintäkter och det personliga värdet av ett exklusivt fritidshus — samtidigt som du delar kostnaderna med andra delägare. Det ses alltmer som ett av de ekonomiskt klokaste sätten att äga ett andra hem." },
+   { "q": "Hur kommer jag igång?",
+     "a": "Bläddra bland våra hem ovan eller prata med en av våra bostadsspecialister via förfrågningsformuläret. Vi går igenom tillgängliga hem, svarar på alla frågor och vägleder dig genom hela köpprocessen från början till slut — med full juridisk och ekonomisk transparens i varje steg." }
+  ]
+ }
+}

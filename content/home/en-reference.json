@@ -1,0 +1,112 @@
+{
+ "meta": {
+  "title": "Luxury Fractional Ownership Holiday Homes | Co-Ownership Property",
+  "description": "Discover fractional ownership holiday homes across Mallorca, Ibiza, Costa del Sol, the French Alps, Paris, Italy and the USA. Real deeded ownership — not a timeshare.",
+  "ogTitle": "Exclusive homes in Spain, France, Italy, the USA and more | Fractional ownership — COP",
+  "ogDescription": "Discover exclusive co-owned holiday homes across Europe. Real ownership, not a timeshare."
+ },
+ "hero": {
+  "pre": "Your window to the",
+  "em": "world's finest",
+  "post": "co-ownership",
+  "ctaPrimary": "Browse Properties →",
+  "ctaSecondary": "How It Works"
+ },
+ "pressLabel": "As Featured In",
+ "properties": {
+  "heading": "Explore Our Properties",
+  "subtitle": "Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.",
+  "viewProperty": "View Property →",
+  "viewAllShort": "View all →",
+  "counterLabel": "Properties",
+  "browseAll": "View All {n} Properties →",
+  "prev": "Previous",
+  "next": "Next"
+ },
+ "intro": {
+  "text": "Discover the world of luxury co-ownership. From sun-drenched Mediterranean villas to charming luxury apartments, fincas and mountain chalets — every home makes you feel you belong.",
+  "subtext": "Each property is carefully selected, styled by leading designers and managed for your enjoyment. More than a house, it is a gateway to unique landscapes, cultural treasures and unforgettable family moments."
+ },
+ "explainer": {
+  "heading": "What is Co-Ownership?",
+  "intro": "Co-ownership lets you buy a legal share of a premium holiday property — and use it fully, just as you would a home you owned outright. You get the lifestyle without the full price tag, and share only the costs.",
+  "items": [
+   { "heading": "You Own a Legal Share",
+     "body": "You purchase a <strong>1/8 share</strong> of a premium property. It's <strong>real ownership, registered in your name</strong>, with full legal protections. Our properties are designed to <strong>appreciate in value</strong>, giving you the benefits of real estate as an investment. You have full flexibility to <strong>sell your share at any time</strong> — you set the price, and we help find a buyer.",
+     "stat": "Shares sell in under a month on average." },
+   { "heading": "Guaranteed Usage",
+     "body": "<strong>Your weeks are yours.</strong> A fair, structured schedule ensures every owner gets their time without competing for dates — <strong>including peak season.</strong> No timeshare, no points, no compromise. It feels like home — you arrive and <strong>your belongings are there, everything is set up, and the property is fully managed</strong> so you can simply enjoy it." },
+   { "heading": "Shared Running Costs",
+     "body": "Maintenance, management fees and running costs are <strong>divided equally among owners.</strong> On many properties, when you're not using it, it can be <strong>rented out — generating income</strong> that further offsets your costs. <strong>We handle everything.</strong>" },
+   { "heading": "Added Benefits",
+     "body": "Co-ownership brings wider advantages too — from <strong>favourable tax treatment</strong> and <strong>simplified inheritance planning</strong>, to the flexibility of <strong>home-swapping</strong> with fellow owners across our portfolio of properties worldwide." }
+  ]
+ },
+ "ctaBand": {
+  "eyebrow": "Co-Ownership Property",
+  "headingHtml": "Own a share of somewhere <em>extraordinary</em>",
+  "sub": "From a villa on the Côte d'Azur to a chalet in Aspen — fractional ownership gives you a genuine stake in the world's finest homes, at a fraction of the cost.",
+  "primary": "Speak to an Expert",
+  "secondary": "Subscribe to Newsletter"
+ },
+ "destinations": {
+  "heading": "Our Destinations",
+  "explore": "Explore Properties",
+  "tabs": {
+   "spain":   { "label": "Spain",   "desc": "Spain combines world-class beaches, vibrant culture and year-round sunshine across Mallorca, Ibiza, the Costa del Sol and beyond — all at remarkable value for discerning co-owners." },
+   "france":  { "label": "France",  "desc": "From the sun-drenched shores of the Côte d'Azur to the ski slopes of the French Alps and the timeless elegance of Paris, France is Europe's most coveted address for fractional ownership." },
+   "usa":     { "label": "USA",     "desc": "From the surf culture of California to the ski slopes of Colorado and the waterfront glamour of Florida, America's luxury property market offers extraordinary opportunities for international co-owners." },
+   "italy":   { "label": "Italy",   "desc": "Italy's extraordinary landscapes — from the glassy waters of Lake Como to the ancient villages of Liguria and the Tuscan hills — make it a perennial favourite for discerning co-owners." },
+   "portugal":{ "label": "Portugal","desc": "From the golden coastline of the Algarve to the elegant boulevards of Lisbon and the unspoilt beauty of the Silver Coast, Portugal is one of Europe's most exciting destinations for luxury co-ownership." },
+   "austria": { "label": "Austria", "desc": "Austria's Alpine splendour — from the world-class ski resorts of Tyrol to the grand imperial charm of Vienna — makes it one of Europe's most rewarding destinations for luxury fractional ownership." },
+   "england": { "label": "England", "desc": "London remains one of the world's great cities for luxury property — from Mayfair townhouses to riverside apartments — while the English countryside offers idyllic retreats for discerning co-owners." },
+   "sweden":  { "label": "Sweden",  "desc": "Sweden's dramatic landscapes — from the Stockholm archipelago to the forested lake districts of the north — offer a uniquely peaceful setting for luxury co-ownership away from the crowds." },
+   "germany": { "label": "Germany", "desc": "From the Bavarian Alps and the shores of Lake Constance to the cultural capitals of Berlin and Munich, Germany offers a compelling range of luxury property opportunities for co-owners." },
+   "croatia": { "label": "Croatia", "desc": "Croatia's breathtaking Adriatic coastline, crystal-clear waters and historic walled towns like Dubrovnik make it one of the Mediterranean's most coveted destinations for luxury fractional ownership." },
+   "mexico":  { "label": "Mexico",  "desc": "From the turquoise shores of the Riviera Maya to the Pacific glamour of Los Cabos, Mexico offers extraordinary luxury at exceptional value — making it one of the most exciting co-ownership markets in the world." }
+  }
+ },
+ "testimonials": {
+  "heading": "Homeowner Stories",
+  "cards": [
+   { "quote": "\"From the first stay, everything felt effortless — like arriving at your own home with the comfort of a hotel. Provence is now part of our rhythm. I don't have to worry about a thing.\"", "author": "Astrid", "location": "Mougins, South of France" },
+   { "quote": "\"Fractional ownership gave us the Alpine dream we thought was out of reach. The process was seamless, and our son now brings his school friends to ski. It's become a proper family home.\"", "author": "Harry & Nicole", "location": "La Plagne, French Alps" },
+   { "quote": "\"We finally own a piece of the land without the guilt of an unused mortgage. Transparent from day one — we couldn't be happier. Already planning our next share in Europe.\"", "author": "Mateo & Anne", "location": "LA, California" },
+   { "quote": "\"I sold my French holiday home and bought a much nicer villa in Mallorca for a quarter of the price. The team handled everything flawlessly — it feels like ours the moment we walk through the door.\"", "author": "Jan & The Family", "location": "Mallorca, Spain" }
+  ]
+ },
+ "blog": {
+  "eyebrow": "From the Blog",
+  "heading": "Latest Insights",
+  "subtitle": "Destination guides, market analysis and ownership stories — published regularly for the discerning buyer.",
+  "readMore": "Read Article →",
+  "viewAll": "View All Articles"
+ },
+ "faq": {
+  "eyebrow": "Common Questions",
+  "headingHtml": "Frequently Asked <em>Questions</em>",
+  "sub": "Everything you need to know about luxury co-ownership — and why it's the smartest way to own a holiday home.",
+  "items": [
+   { "q": "What is fractional or co-ownership of a holiday home?",
+     "a": "Co-ownership means you and a small number of other owners each purchase a deeded share of a fully managed luxury property. You own a real fraction of the home — typically one-eighth — and unlike a timeshare, you hold genuine legal ownership of the property itself. It combines the pride and financial benefits of real property ownership with the ease of a five-star hotel experience, at a fraction of the cost of buying outright." },
+   { "q": "How is co-ownership different from timeshare?",
+     "a": "Unlike a timeshare, co-ownership gives you a real share of the property deed, meaning you benefit from any appreciation in value and can sell your share on the open market whenever you choose. Because these are luxury properties in high-demand locations, prices typically do rise over time. There is no membership club, no points system, and no long-term contractual lock-in. You are a genuine property owner with full legal rights over your fraction." },
+   { "q": "What does the purchase price include?",
+     "a": "Your purchase price covers your deeded share of the property along with its full furnishings, interior design, and equipment. Many of our homes are professionally styled to a turnkey standard, so they are move-in ready from day one. Ongoing costs such as maintenance, insurance, property management, and local taxes are shared proportionally among all co-owners, keeping individual running costs very low." },
+   { "q": "How is usage time divided between owners?",
+     "a": "Every one-eighth share gives you 45 days — roughly six weeks — which is one-eighth of a year. Each property has a clear usage schedule that rotates fairly so all owners enjoy peak-season access over time. Many operators also offer a digital booking platform so you can swap, extend, or exchange weeks with fellow owners flexibly." },
+   { "q": "Can I rent out my weeks when I'm not using them?",
+     "a": "In many cases, yes. Many of our properties allow owners to place unused weeks into a managed rental programme. The property management company handles guest screening, check-in, cleaning, and maintenance, while rental income is returned to you. This can offset your annual running costs significantly and, in popular destinations, even generate a net return." },
+   { "q": "Who manages the property day to day?",
+     "a": "Every home on our platform is looked after by a professional property management company. They handle everything from routine maintenance and housekeeping to landscaping, pool care, and emergency repairs. You arrive to a pristine, hotel-quality home every visit — without lifting a finger." },
+   { "q": "Can I sell my share later?",
+     "a": "Absolutely. Because you hold a deeded share, you can sell it at any time on the open market — just like any other property. If the home has appreciated in value, you benefit from that growth in proportion to your ownership share. Our team can also assist with resales to our network of qualified buyers." },
+   { "q": "Which destinations and property types do you offer?",
+     "a": "We curate luxury co-ownership homes across Europe and the United States, including France, Spain, Italy, Portugal, Austria, England, and several US destinations. Properties range from coastal villas and Parisian apartments to Alpine chalets and Tuscan farmhouses. Every home is hand-selected for its location, build quality, and lifestyle appeal." },
+   { "q": "Is co-ownership a good investment?",
+     "a": "Co-ownership allows you to access a high-value property at a fraction of the cost of buying outright, freeing capital for other investments. You enjoy potential property appreciation, possible rental income, and the personal value of a luxury holiday home — all while sharing costs with fellow owners. It is increasingly recognised as one of the most financially sensible ways to own a second home." },
+   { "q": "How do I get started?",
+     "a": "Simply browse our collection above or speak to one of our property specialists using the enquiry form. We will walk you through available homes, answer any questions, and guide you through the purchase process from start to finish — with full legal and financial transparency at every step." }
+  ]
+ }
+}
