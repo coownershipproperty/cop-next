@@ -246,6 +246,10 @@ img {
 /* Panel: drops down from the trigger, right-aligned. Items are just
    the 2-letter locale codes, stacked vertically. No flags, no names. */
 .cop-lang-dropdown-panel {
+  /* Nine other locales — cap the panel and let it scroll rather than
+     running off the bottom of a short viewport. */
+  max-height: min(60vh, 420px);
+  overflow-y: auto;
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
@@ -640,7 +644,9 @@ img {
                 background: transparent;
                 border-bottom: none;
                 display: grid !important;
-                grid-template-columns: repeat(4, 1fr);
+                /* Five across: with ten locales that is two clean rows rather than
+                   two rows and a stub. Extra locales simply wrap. */
+                grid-template-columns: repeat(5, 1fr);
                 grid-auto-rows: 30px;
                 gap: 0.8rem;
                 align-items: stretch;
@@ -4954,7 +4960,9 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 background: transparent;
                 border-bottom: none;
                 display: grid !important;
-                grid-template-columns: repeat(4, 1fr);
+                /* Five across: with ten locales that is two clean rows rather than
+                   two rows and a stub. Extra locales simply wrap. */
+                grid-template-columns: repeat(5, 1fr);
                 grid-auto-rows: 30px;
                 gap: 0.8rem;
                 align-items: stretch;
