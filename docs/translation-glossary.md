@@ -464,40 +464,82 @@ Verification: run `node scripts/verify-translations.js` after any translation ba
 
 ---
 
-## Where the six 2026 locales stand
+## Where the ten locales stand
 
-Written 28 Aug 2026, after `it`, `nl`, `pt`, `sv`, `da` and `no` went live.
+Rewritten 28 Aug 2026, after the property-catalogue backfill.
 
-**Shipped and indexable per locale:** homepage, pillar page (which is also that
-locale's how-it-works, and therefore part of the `/how-it-works/` hreflang
-cluster), about, contact, and the listings index. Property detail pages, the
-favourites page and the listings index all render; only the five above are in
-the sitemap.
+### Property catalogue — done, all nine translated locales
 
-**Deliberately not shipped yet**, and null in `ROUTE_SLUGS` so nothing links to
-them: blog, the two FAQ hubs, glossary, destinations, town guides, compare and
-partner pages. Each is content-gated, not code-gated — fill in the slug in
-`lib/i18n.js` the same day the content lands.
+Every one of the 353 live properties now carries a `title_{loc}` and a
+`description_{loc}` in `es`, `fr`, `de`, `it`, `nl`, `pt`, `sv`, `da` and `no`.
+Because `translatedLocales()` in `lib/i18n.js` gates on both fields, that took
+roughly 3,200 property URLs out of `noindex,follow` and into the sitemap and the
+hreflang cluster. It was the single biggest indexation unlock on the site.
+
+Two things were fixed on the way through, and both are worth remembering because
+they were invisible from inside the app:
+
+- **Meta descriptions were English on every translated property URL.** The page
+  built one English template regardless of locale. `propertyMetaDescription()` in
+  `lib/i18n.js` now composes it from that locale's own title plus its locked
+  primary term and trust anchor, with the price formatted by that locale's number
+  rules. If you add a locale, add its row to `PROPERTY_META` in the same file —
+  the function falls back to English otherwise, silently.
+- **`<html lang>` was hard-coded to `de|es|fr`.** Every page under `/it/`, `/nl/`,
+  `/pt/`, `/sv/`, `/da/` and `/no/` was served as `lang="en"` while emitting its
+  own hreflang and canonical. `pages/_document.js` now derives it from
+  `SUPPORTED_LOCALES` and emits the BCP-47 tag from `LOCALE_META`.
+
+### Titles are now generated for all nine, from one vocabulary
+
+`scripts/translate-property-titles.mjs` originally covered only the six 2026
+locales. `es`, `fr` and `de` had been filled by an earlier free-translation pass
+that produced English-style Title Case — *"Apartamento De 2 Dormitorios Con
+Piscina"*, *"Apartment Mit 2 Schlafzimmern Und Pool"*. Title Case is not an
+orthographic convention in any of those three languages, and this was the
+`<title>` and `<h1>` on roughly 300 pages per locale. It also left English tokens
+untranslated (`Baltic Sea`, `Estate`, `Farmhouse`, `Cabin Near Ski Resort`).
+
+All nine now compose from the same `PLACES` / `TYPES` / `FEATURES` / `GRAMMAR`
+tables. German feature strings are written in the dative, because they always
+follow `mit`. The composer covers 410 of 443 rows; the 33 it refuses to guess at
+have grammar it cannot parse (commas, "Steps From", "2-Bed+Den", a bare "Studio")
+and were written by hand for every locale.
+
+**If you add a property type or feature to the English corpus, add it to those
+tables in the same commit.** A row with an unknown token is skipped silently in
+all nine locales, which shows up months later as a page that never ranked.
+
+### Shipped page types per locale
+
+`es`, `fr`, `de`: the full corpus — homepage, how-it-works, about, contact,
+listings, property detail, favourites, blog, both FAQ hubs, glossary,
+destinations, town guides, compare and partner pages.
+
+`it`, `nl`, `pt`, `sv`, `da`, `no`: homepage, pillar page (which doubles as that
+locale's how-it-works and therefore joins the `/how-it-works/` hreflang cluster),
+about, contact, the listings index, property detail pages and favourites.
+
+**Deliberately not shipped for the six**, and null in `ROUTE_SLUGS` so nothing
+links to them: blog, the two FAQ hubs, glossary, destinations, town guides,
+compare and partner pages. Each is content-gated, not code-gated — fill in the
+slug in `lib/i18n.js` the same day the content lands.
 
 ### The next piece of work, in priority order
 
-1. **Property descriptions.** `translatedLocales()` in `lib/i18n.js` requires
-   both a title and a description before a locale's property URL is indexable,
-   so ~350 property pages per locale are currently `noindex,follow`. They stay
-   that way until `description_{loc}` is populated. This is the single biggest
-   unlock left: roughly 2,100 pages.
-2. **Property titles.** `scripts/translate-property-titles.mjs` composes them
-   from the three vocabularies in that file and covers 409 of 443 rows; the
-   remaining 34 are bespoke titles it deliberately refuses to guess at. Dry run
-   with `node scripts/translate-property-titles.mjs`, apply with
-   `SUPABASE_SERVICE_ROLE_KEY=… node scripts/translate-property-titles.mjs --write`
-   (same convention as `scripts/translate-titles-bulk.js`). Titles alone do not
-   lift the noindex — descriptions are the other half — but they do make each
-   locale's listings page genuinely native, which is its second-most-visited page.
-3. **Town guides.** `content/towns/{slug}.json` holds `en`/`de`/`fr`/`es`
-   section arrays. Adding a locale key there and setting `towns` in
-   `ROUTE_SLUGS` publishes 20 deep pages for that language.
-4. **Destination pages**, then the FAQ, glossary, compare and partner corpora.
+1. **Town guides for the six.** `content/towns/{slug}.json` holds per-locale
+   section arrays. Adding a locale key there and setting `towns` in `ROUTE_SLUGS`
+   publishes ~24 deep pages for that language, and they are the pages that rank
+   for the high-intent "co-ownership in {place}" queries rather than for the
+   category term.
+2. **Destination pages** for the six, then the FAQ, glossary, compare and partner
+   corpora.
+3. **Amenity arrays.** `amenities_{loc}` exists for `es`, `it` and `nl` only; the
+   other six fall back to the English array on the property page, which is the
+   last visibly-English block on an otherwise translated page.
+4. **`slug_{loc}`.** Translated property URLs currently reuse the English slug.
+   That is deliberate and safe — the slug is not a ranking factor worth a
+   migration — but if it is ever revisited it needs 301s, not a silent swap.
 
 ### Two rules that must not be relaxed
 
