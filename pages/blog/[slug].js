@@ -170,10 +170,15 @@ function pickSidebarProperties(rows, post) {
 
 export async function getStaticPaths() {
   const supabase = getSupabase();
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('posts')
     .select('slug')
     .eq('published', true);
+
+  if (error) {
+    console.error('Supabase error (blog paths):', error);
+    throw new Error('Unable to build blog paths from Supabase');
+  }
 
   let slugs = (data || []).map(p => p.slug);
 
@@ -196,12 +201,20 @@ export async function getStaticProps({ params }) {
   const supabase = getSupabase();
 
   // Fetch the post
-  const { data: postRow } = await supabase
+  const { data: postRow, error: postError } = await supabase
     .from('posts')
     .select('*')
     .eq('slug', params.slug)
     .eq('published', true)
     .single();
+
+  // PGRST116 means the slug genuinely is not present, in which case the
+  // legacy JSON archive remains a valid fallback. Network and timeout errors
+  // must fail the ISR refresh so Next keeps serving the previous good page.
+  if (postError && postError.code !== 'PGRST116') {
+    console.error('Supabase error (blog post):', postError);
+    throw new Error('Unable to refresh the blog post from Supabase');
+  }
 
   // Fallback: if not in Supabase yet, try the JSON file (pre-migration safety net)
   if (!postRow) {
@@ -220,7 +233,15 @@ export async function getStaticProps({ params }) {
         dateFormatted: p.dateFormatted, heroImage: p.heroImage,
       }));
       return {
-        props: { post: { ...jsonPost, content }, relatedPosts: jsonRelatedPosts, featuredProperties: [] },
+        props: {
+          post: {
+            ...jsonPost,
+            content,
+            keyPoints: Array.isArray(jsonPost.keyPoints) ? jsonPost.keyPoints : [],
+          },
+          relatedPosts: jsonRelatedPosts,
+          featuredProperties: [],
+        },
         revalidate: 3600,
       };
     } catch (_) { return { notFound: true }; }

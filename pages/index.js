@@ -68,7 +68,7 @@ export async function getStaticProps() {
   }
 
   // Featured properties from Supabase
-  const { data: rows } = await supabase
+  const { data: rows, error: featuredError } = await supabase
     .from('properties')
     .select('slug, title, img, region, country, price, currency, beds, size, date_added')
     .in('slug', FEATURED_PROPERTY_SLUGS)
@@ -94,17 +94,28 @@ export async function getStaticProps() {
     }));
 
   // Live property count from Supabase
-  const { count: propertyCount } = await supabase
+  const { count: propertyCount, error: countError } = await supabase
     .from('properties')
     .select('*', { count: 'exact', head: true })
     .in('status', ['Live', 'for_sale']);
 
   // Latest 3 blog posts from Supabase
-  const { data: postRows } = await supabase
+  const { data: postRows, error: postsError } = await supabase
     .from('posts')
     .select('slug, title, excerpt, date, hero_image, category')
+    .eq('published', true)
     .order('date', { ascending: false })
     .limit(3);
+
+  if (featuredError || countError || postsError) {
+    console.error('Supabase error (homepage):', {
+      featured: featuredError,
+      count: countError,
+      posts: postsError,
+    });
+    // A failed ISR refresh must leave the last known-good homepage intact.
+    throw new Error('Unable to refresh homepage data from Supabase');
+  }
   const latestPosts = (postRows || []).map(p => ({
     slug: p.slug,
     title: p.title,
