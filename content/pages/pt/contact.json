@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "title": "Contato | Co-Ownership Property",
+    "description": "Fale com o time da COP. Dúvidas sobre multipropriedade de casas de férias ou sobre um imóvel específico? Costumamos responder em poucas horas — sem pressão de venda e sem compromisso.",
+    "canonical": "/pt/contato/",
+    "hreflangKey": "/contact",
+    "ogTitle": "Contato — Co-Ownership Property",
+    "ogDescription": "Dúvidas sobre multipropriedade de casas de férias? Fale com o nosso time — sem pressão de venda, sem compromisso."
+  },
+  "hero": {
+    "eyebrow": "Estamos aqui para ajudar",
+    "h1": "Vamos",
+    "h1em": "conversar",
+    "sub": "Dúvidas sobre multipropriedade, sobre uma casa específica, ou só vontade de entender como o modelo funciona? Damos respostas claras, sem pressão de venda."
+  },
+  "sections": [
+    {
+      "type": "trust",
+      "eyebrow": "Como trabalhamos",
+      "h2": "O que esperar quando você escreve",
+      "cards": [
+        { "icon": "&#9993;", "h3": "Escreva direto para nós", "body": ["Prefere escrever? Estamos em<br /><a href=\"mailto:info@co-ownership-property.com\">info@co-ownership-property.com</a><br />Lemos cada mensagem pessoalmente."] },
+        { "icon": "&#9200;", "h3": "Resposta rápida", "body": ["Costumamos responder em poucas horas, muitas vezes antes. Considere o fuso horário: o time está na Europa, então mensagens enviadas à noite no Brasil são respondidas na manhã seguinte."] },
+        { "icon": "&#10003;", "h3": "Sem pressão, sem compromisso", "body": ["Fazemos perguntas, apontamos as casas que fazem sentido, e deixamos a decisão inteiramente com você. Somos independentes: não temos vínculo com nenhum operador ou incorporadora."] }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Ainda pesquisando?",
+      "h2": "Ainda não é hora de escrever?",
+      "cards": [
+        { "href": "/pt/multipropriedade-casa-de-ferias/", "cat": "O guia completo", "title": "Como funciona, passo a passo", "desc": "Da escolha da casa à escritura: o que acontece, em que ordem, e o que vale deixar preparado.", "arrow": "Ler o guia" },
+        { "href": "/pt/imoveis/", "cat": "O catálogo", "title": "As casas disponíveis agora", "desc": "Compare preço da fração, quartos e destino entre todos os principais operadores.", "arrow": "Ver imóveis" },
+        { "href": "/pt/sobre-nos/", "cat": "Sobre nós", "title": "Por que somos independentes", "desc": "Como trabalhamos, como ganhamos dinheiro, e por que podemos dizer que uma casa não serve para você.", "arrow": "Saiba mais" }
+      ]
+    }
+  ],
+  "scripts": ["/js/contact.js"]
+}

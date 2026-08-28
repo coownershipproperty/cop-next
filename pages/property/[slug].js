@@ -16,11 +16,12 @@ import UnlockModal from '@/components/UnlockModal';
 import TourRequestModal from '@/components/TourRequestModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
 import PropertyCard from '@/components/PropertyCard';
-import { localeFromPath, localeColumns, pickLocalized, numberLocale } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales } from '@/lib/i18n';
 import PropertyWatch from '@/components/PropertyWatch';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
 import { getFirstTouch } from '@/lib/attribution';
+import hreflangLinks from '@/components/HreflangLinks';
 
 // ── Locale-specific UI copy ────────────────────────────────────────────────
 const COPY = {
@@ -301,9 +302,9 @@ export async function getStaticProps({ params }) {
     delete prop.description_scraped;
     delete prop.description_original;
     delete prop.description_ai;
-    delete prop.description_ai_es;
-    delete prop.description_ai_fr;
-    delete prop.description_ai_de;
+    // Every locale's AI-description column, not a hand-listed few — a missed
+    // column here would ship partner-identifying text into __NEXT_DATA__.
+    for (const loc of ALL_LOCALES) delete prop[`description_ai_${loc}`];
 
     // Similar homes — COP's own catalog only, never a partner feed:
     // same country (same region preferred), price within ±30%, Live/for_sale,
@@ -355,7 +356,14 @@ export async function getStaticProps({ params }) {
       similar = [];
     }
 
-    return { props: { property: prop, similar, showEnhancedSections }, revalidate: 3600 };
+    // Which locales this property is genuinely translated into. Drives the
+    // hreflang set and noindex below: an Italian URL serving an English title
+    // and description is thin content, so we do not ask Google to index it
+    // until the translation lands. Computed from the full row before the
+    // partner fields are stripped.
+    const hreflangLocales = translatedLocales(property, ['title', 'description']);
+
+    return { props: { property: prop, similar, showEnhancedSections, hreflangLocales }, revalidate: 3600 };
   } catch (err) {
     // Any unexpected error → 404, never let it become a 5xx.
     console.error(`property/[slug] getStaticProps failed for "${params.slug}":`, err);
@@ -369,24 +377,22 @@ function fmtApprox(amount, locale = 'en-GB') {
   return (Math.round(amount / 1_000) * 1_000).toLocaleString(locale);
 }
 const SITE_URL = 'https://co-ownership-property.com';
-const PROPERTY_HREFLANG_LOCALES = ['en', 'es', 'fr', 'de'];
+// Every launched locale has a property-detail mirror, so the hreflang set and
+// the path builder both come straight from the locale table.
+const PROPERTY_HREFLANG_LOCALES = SUPPORTED_LOCALES;
 
 function propertyPathForLocale(slug, locale) {
-  if (locale === 'es') return `/es/propiedades/${slug}/`;
-  if (locale === 'fr') return `/fr/proprietes/${slug}/`;
-  if (locale === 'de') return `/de/immobilien/${slug}/`;
-  return `/property/${slug}/`;
+  return propertyHref(slug, locale);
 }
 
 // Given a property record and a target locale, return the best title /
 // description / amenities — translated where available, English fallback.
 function localizedFields(p, locale) {
+  const amenities = p[`amenities_${locale}`];
   return {
-    title:       p[`title_${locale}`]       || p.title       || '',
-    description: p[`description_${locale}`] || p.description || '',
-    amenities:   (Array.isArray(p[`amenities_${locale}`]) && p[`amenities_${locale}`].length)
-                   ? p[`amenities_${locale}`]
-                   : (p.amenities || []),
+    title:       localizedField(p, 'title', locale) || '',
+    description: localizedField(p, 'description', locale) || '',
+    amenities:   (Array.isArray(amenities) && amenities.length) ? amenities : (p.amenities || []),
   };
 }
 
@@ -469,7 +475,7 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale }) {
 }
 
 /* ── Main page ── */
-export default function PropertyPage({ property: p, similar, showEnhancedSections = false, forceLocale = null }) {
+export default function PropertyPage({ property: p, similar, showEnhancedSections = false, forceLocale = null, hreflangLocales = null }) {
   const router = useRouter();
   // forceLocale wins for SSG'd /es/propiedades/[slug] and /fr/proprietes/[slug]
   // wrappers — those pages know their locale at build time. For the canonical
@@ -557,6 +563,13 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
     : `${p.beds}-bed ${propStyle} in ${propLocation} — fractional co-ownership. Real deeded ownership, own only what you use.`;
   // Canonical URL per locale — wrapper routes pass forceLocale so each
   // translated property URL has its own canonical.
+  // Only the locales this property is genuinely translated into get an
+  // hreflang entry, and a locale URL that is not translated yet is noindex.
+  // English is always indexable. See translatedLocales() in lib/i18n.js.
+  const indexableLocales = hreflangLocales && hreflangLocales.length
+    ? hreflangLocales
+    : PROPERTY_HREFLANG_LOCALES;
+  const isIndexable = indexableLocales.includes(locale);
   const canonicalPath = propertyPathForLocale(p.slug, locale);
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
   const ogImage = p.img && p.img.startsWith('http') ? p.img : `${SITE_URL}${p.img}`;
@@ -569,15 +582,9 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={canonicalUrl} />
-        {PROPERTY_HREFLANG_LOCALES.map(hrefLocale => (
-          <link
-            key={hrefLocale}
-            rel="alternate"
-            hrefLang={hrefLocale}
-            href={`${SITE_URL}${propertyPathForLocale(p.slug, hrefLocale)}`}
-          />
-        ))}
-        <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}${propertyPathForLocale(p.slug, 'en')}`} />
+        {isIndexable
+          ? hreflangLinks({ family: 'property', slug: p.slug, locales: indexableLocales })
+          : <meta name="robots" content="noindex,follow" />}
         <meta property="og:title" content={`${local.title} | Co-Ownership Property`} />
         <meta property="og:description" content={metaDesc} />
         <meta property="og:image" content={ogImage} />

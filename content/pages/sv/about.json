@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "title": "Om oss | Co-Ownership Property",
+    "description": "COP är en oberoende jämförelsetjänst för fritidshus i samägande i Europa och USA. Vi är inte en aktör, säljer inga egna hus och får inte betalt för att rekommendera någon.",
+    "canonical": "/sv/om-oss/",
+    "hreflangKey": "/about-us",
+    "ogTitle": "Om oss — Co-Ownership Property",
+    "ogDescription": "En oberoende jämförelsetjänst för fritidshus i samägande. Inga intressekonflikter, ingen säljpress."
+  },
+  "hero": {
+    "eyebrow": "Om oss",
+    "h1": "Oberoende, och",
+    "h1em": "med avsikt",
+    "sub": "COP samlar fritidshusen i samägande från alla de stora europeiska och amerikanska aktörerna i en enda katalog. Vi är inte en av dem, vi säljer inga egna hus, och vår nytta bygger på att vi också visar dig alternativen som inte passar."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Varför vi började",
+      "h2": "En bra marknad, dåligt förklarad",
+      "paras": [
+        "Professionellt samägande av fritidshus har mognat de senaste åren: solida juridiska strukturer, riktig förvaltning, hus med kvalitet. Problemet ligger inte i produkten — det ligger i att den som letar inte kan jämföra.",
+        "Varje aktör visar bara sina egna hus, med sin egen ordlista och sin egen uppfattning om vad som ingår i priset. Den som läser på slutar med åtta flikar och inget sätt att lägga dem bredvid varandra. Samtidigt kastar ordet <em>timeshare</em> fortfarande en skugga över en modell som inte har med det att göra.",
+        "Vi byggde COP för att lösa båda delarna: en katalog med samma måttstock för alla, och förklaringar skrivna för att verkligen begripas — inklusive de delar som talar emot ett köp."
+      ]
+    },
+    {
+      "type": "trust",
+      "eyebrow": "Så arbetar vi",
+      "h2": "Tre löften som binder oss",
+      "cards": [
+        { "icon": "&#9878;", "h3": "Ingen betalning för rekommendationer", "body": ["Aktörerna betalar oss inte för att styra dig till den ena eller andra. Det är därför vi kan säga att ett hus inte passar dig — och det gör vi regelbundet."] },
+        { "icon": "&#128196;", "h3": "Handlingarna före entusiasmen", "body": ["Bolagsordning, nyttjanderegler, driftbudget och regler för försäljning, på begriplig svenska, innan något binder dig. Och alltid rådet att låta en egen jurist och revisor läsa dem."] },
+        { "icon": "&#128172;", "h3": "Ingen säljpress", "body": ["Vi ställer frågor, visar alternativen och stannar där. Är det inte rätt läge nu, säg bara till: vi hör av oss igen när du vill."] }
+      ]
+    },
+    {
+      "type": "prose",
+      "eyebrow": "Så tjänar vi pengar",
+      "h2": "Frågan du borde ställa oss",
+      "paras": [
+        "Om aktörerna inte betalar oss för att rekommendera dem, hur går det ihop? När en läsare bestämmer sig för att gå vidare och ber oss presentera hen får vi en introduktionsersättning från aktören — samma oavsett vilken. Vårt incitament är alltså att du landar i ett val du står bakom, inte i ett bestämt val.",
+        "Vi skriver det här eftersom det är det första vi själva skulle fråga om."
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Vidare",
+      "h2": "Var du kan börja",
+      "cards": [
+        { "href": "/sv/samagande-fritidshus/", "cat": "Den kompletta guiden", "title": "Så fungerar samägande", "desc": "Juridisk struktur, kostnader, skatt och skillnaden mot tidsdelat boende, grundligt förklarat.", "arrow": "Läs guiden" },
+        { "href": "/sv/bostader/", "cat": "Katalogen", "title": "Husen som finns nu", "desc": "Europa och USA, filtrerbara på destination, sovrum och pris för andelen.", "arrow": "Se bostäderna" },
+        { "href": "/sv/kontakt/", "cat": "Prata med oss", "title": "Hör av dig", "desc": "Frågor om modellen eller om ett visst hus. Vi svarar oftast inom några timmar.", "arrow": "Kontakt" }
+      ]
+    }
+  ]
+}

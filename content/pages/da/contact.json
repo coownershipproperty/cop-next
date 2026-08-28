@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "title": "Kontakt | Co-Ownership Property",
+    "description": "Skriv til teamet bag COP. Spørgsmål om medejerskab af ferieboliger eller om en bestemt bolig? Vi svarer som regel inden for få timer — uden salgspres og uden forpligtelser.",
+    "canonical": "/da/kontakt/",
+    "hreflangKey": "/contact",
+    "ogTitle": "Kontakt — Co-Ownership Property",
+    "ogDescription": "Spørgsmål om medejerskab af ferieboliger? Tal med vores team — intet salgspres, ingen forpligtelser."
+  },
+  "hero": {
+    "eyebrow": "Vi hjælper gerne",
+    "h1": "Skriv",
+    "h1em": "til os",
+    "sub": "Spørgsmål om medejerskab, om en bestemt bolig, eller bare om hvordan modellen hænger sammen? Du får klare svar, uden salgspres."
+  },
+  "sections": [
+    {
+      "type": "trust",
+      "eyebrow": "Sådan arbejder vi",
+      "h2": "Hvad du kan forvente, når du skriver",
+      "cards": [
+        { "icon": "&#9993;", "h3": "Skriv direkte til os", "body": ["Skriver du hellere? Vi findes på<br /><a href=\"mailto:info@co-ownership-property.com\">info@co-ownership-property.com</a><br />Vi læser hver besked selv."] },
+        { "icon": "&#9200;", "h3": "Hurtigt svar", "body": ["Vi svarer som regel inden for få timer, ofte hurtigere. For boliger i USA spiller tidsforskellen ind — men du får altid svar."] },
+        { "icon": "&#10003;", "h3": "Intet pres, ingen forpligtelser", "body": ["Vi stiller spørgsmål, peger på de boliger der passer, og lader beslutningen være helt din. Vi er uafhængige: ikke knyttet til nogen udbyder eller bygherre."] }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Stadig i researchfasen?",
+      "h2": "Ikke klar til at skrive endnu?",
+      "cards": [
+        { "href": "/da/medejerskab-feriebolig/", "cat": "Den komplette guide", "title": "Sådan foregår det, trin for trin", "desc": "Fra valget af bolig til underskriften: hvad der sker, i hvilken rækkefølge, og hvad der er godt at have klar.", "arrow": "Læs guiden" },
+        { "href": "/da/boliger/", "cat": "Kataloget", "title": "Boligerne der er ledige nu", "desc": "Sammenlign pris for andelen, soveværelser og destination på tværs af alle de store udbydere.", "arrow": "Se boligerne" },
+        { "href": "/da/om-os/", "cat": "Om os", "title": "Derfor er vi uafhængige", "desc": "Hvordan vi arbejder, hvordan vi tjener penge, og hvorfor vi kan sige, at en bolig ikke passer til dig.", "arrow": "Læs mere" }
+      ]
+    }
+  ],
+  "scripts": ["/js/contact.js"]
+}

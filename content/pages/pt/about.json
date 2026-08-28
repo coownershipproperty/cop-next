@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "title": "Sobre nós | Co-Ownership Property",
+    "description": "A COP é um agregador independente de casas de férias em multipropriedade na Europa e nos Estados Unidos. Não somos operadores, não vendemos casas próprias e não somos pagos para recomendar nenhuma.",
+    "canonical": "/pt/sobre-nos/",
+    "hreflangKey": "/about-us",
+    "ogTitle": "Sobre nós — Co-Ownership Property",
+    "ogDescription": "Um agregador independente de casas de férias em multipropriedade. Sem conflito de interesse, sem pressão de venda."
+  },
+  "hero": {
+    "eyebrow": "Sobre nós",
+    "h1": "Independentes, e",
+    "h1em": "por construção",
+    "sub": "A COP reúne em um catálogo único as casas em multipropriedade dos principais operadores europeus e americanos. Não somos um deles, não vendemos casas próprias, e nossa utilidade depende de mostrarmos também as opções que não servem para você."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Por que começamos",
+      "h2": "Um bom mercado, mal explicado",
+      "paras": [
+        "A multipropriedade profissional de casas de férias amadureceu nos últimos anos: estruturas jurídicas sólidas, administração de verdade, imóveis de nível. O problema não está no produto — está em que quem procura não consegue comparar.",
+        "Cada operador mostra apenas as próprias casas, com o próprio glossário e a própria ideia do que está incluído no preço. Quem pesquisa termina com oito abas abertas e nenhuma forma de colocá-las lado a lado. Enquanto isso, a palavra <em>time-sharing</em> segue projetando uma sombra sobre um modelo que, desde a Lei nº 13.777/2018, é juridicamente outra coisa.",
+        "Construímos a COP para resolver as duas coisas: um catálogo único, com a mesma régua para todos, e explicações escritas para fazer entender de verdade — inclusive as partes que desaconselham uma compra."
+      ]
+    },
+    {
+      "type": "trust",
+      "eyebrow": "Como trabalhamos",
+      "h2": "Três compromissos que nos vinculam",
+      "cards": [
+        { "icon": "&#9878;", "h3": "Não somos pagos para recomendar", "body": ["Os operadores não nos pagam para direcionar você a um ou a outro. É por isso que podemos dizer que uma casa não serve para o seu caso — e dizemos com frequência."] },
+        { "icon": "&#128196;", "h3": "Os documentos antes do entusiasmo", "body": ["Estatuto, regulamento de uso, orçamento e regras de revenda, em linguagem clara, antes de qualquer compromisso. E sempre a recomendação de levá-los a um advogado e a um contador seus."] },
+        { "icon": "&#128172;", "h3": "Nenhuma pressão de venda", "body": ["Fazemos perguntas, mostramos as opções, e paramos aí. Se não é o momento certo, é só dizer: só escrevemos de novo quando você quiser."] }
+      ]
+    },
+    {
+      "type": "prose",
+      "eyebrow": "Como ganhamos dinheiro",
+      "h2": "A pergunta que vale a pena nos fazer",
+      "paras": [
+        "Se não somos pagos para recomendar um operador, como nos sustentamos? Quando um leitor decide seguir adiante e pede que o apresentemos, recebemos uma comissão de apresentação do operador — a mesma, qualquer que ele seja. Nosso incentivo, portanto, é que você chegue a uma escolha da qual esteja convencido, não a uma escolha específica.",
+        "Escrevemos isso aqui porque é a primeira coisa que perguntaríamos, no seu lugar."
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Continuar",
+      "h2": "Por onde começar",
+      "cards": [
+        { "href": "/pt/multipropriedade-casa-de-ferias/", "cat": "O guia completo", "title": "Como funciona a multipropriedade", "desc": "Estrutura jurídica, custos, tributação e a diferença para o time-sharing, explicados a fundo.", "arrow": "Ler o guia" },
+        { "href": "/pt/imoveis/", "cat": "O catálogo", "title": "As casas disponíveis agora", "desc": "Europa e Estados Unidos, filtráveis por destino, quartos e preço da fração.", "arrow": "Ver imóveis" },
+        { "href": "/pt/contato/", "cat": "Conversar", "title": "Fale conosco", "desc": "Dúvidas sobre o modelo ou sobre uma casa específica. Costumamos responder em poucas horas.", "arrow": "Contato" }
+      ]
+    }
+  ]
+}

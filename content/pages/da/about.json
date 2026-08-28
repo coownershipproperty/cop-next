@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "title": "Om os | Co-Ownership Property",
+    "description": "COP er en uafhængig sammenligningstjeneste for ferieboliger med medejerskab i Europa og USA. Vi er ikke en udbyder, sælger ikke egne boliger og bliver ikke betalt for at anbefale nogen.",
+    "canonical": "/da/om-os/",
+    "hreflangKey": "/about-us",
+    "ogTitle": "Om os — Co-Ownership Property",
+    "ogDescription": "En uafhængig sammenligningstjeneste for ferieboliger med medejerskab. Ingen interessekonflikt, intet salgspres."
+  },
+  "hero": {
+    "eyebrow": "Om os",
+    "h1": "Uafhængige, og",
+    "h1em": "med vilje",
+    "sub": "COP samler ferieboligerne med medejerskab fra alle de store europæiske og amerikanske udbydere i ét katalog. Vi er ikke en af dem, vi sælger ikke egne boliger, og vores værdi bygger på, at vi også viser dig de muligheder, der ikke passer."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Derfor begyndte vi",
+      "h2": "Et godt marked, dårligt forklaret",
+      "paras": [
+        "Professionelt medejerskab af ferieboliger er blevet modent de senere år: solide juridiske strukturer, rigtig drift, boliger med kvalitet. Problemet ligger ikke i produktet — det ligger i, at den der leder, ikke kan sammenligne.",
+        "Hver udbyder viser kun sine egne boliger, med sin egen ordliste og sin egen opfattelse af, hvad der er med i prisen. Den, der læser op, ender med otte faner og ingen måde at lægge dem ved siden af hinanden. Imens kaster ordet <em>timeshare</em> fortsat en skygge over en model, der intet har med det at gøre.",
+        "Vi byggede COP for at løse begge dele: ét katalog med samme alen for alle, og forklaringer skrevet for rent faktisk at blive forstået — også de dele, der taler imod et køb."
+      ]
+    },
+    {
+      "type": "trust",
+      "eyebrow": "Sådan arbejder vi",
+      "h2": "Tre løfter, der binder os",
+      "cards": [
+        { "icon": "&#9878;", "h3": "Ingen betaling for anbefalinger", "body": ["Udbyderne betaler os ikke for at sende dig til den ene eller anden. Det er derfor, vi kan sige, at en bolig ikke passer til dig — og det gør vi jævnligt."] },
+        { "icon": "&#128196;", "h3": "Papirerne før begejstringen", "body": ["Vedtægter, brugsregler, driftsbudget og regler for videresalg, på forståeligt dansk, før noget binder dig. Og altid rådet om at lade din egen advokat og revisor læse dem."] },
+        { "icon": "&#128172;", "h3": "Intet salgspres", "body": ["Vi stiller spørgsmål, viser mulighederne og stopper der. Er det ikke det rigtige tidspunkt, så sig endelig til: vi skriver først igen, når du vil."] }
+      ]
+    },
+    {
+      "type": "prose",
+      "eyebrow": "Sådan tjener vi penge",
+      "h2": "Spørgsmålet du bør stille os",
+      "paras": [
+        "Hvis udbyderne ikke betaler os for at anbefale dem, hvad lever vi så af? Når en læser beslutter sig for at gå videre og beder os om en introduktion, får vi et introduktionshonorar fra udbyderen — det samme uanset hvilken. Vores incitament er altså, at du lander på et valg, du står inde for, ikke på et bestemt valg.",
+        "Vi skriver det her, fordi det er det første, vi selv ville spørge om."
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Videre",
+      "h2": "Hvor du kan begynde",
+      "cards": [
+        { "href": "/da/medejerskab-feriebolig/", "cat": "Den komplette guide", "title": "Sådan fungerer medejerskab", "desc": "Juridisk struktur, omkostninger, skat og forskellen fra timeshare, grundigt forklaret.", "arrow": "Læs guiden" },
+        { "href": "/da/boliger/", "cat": "Kataloget", "title": "Boligerne der er ledige nu", "desc": "Europa og USA, med filtre på destination, soveværelser og pris for andelen.", "arrow": "Se boligerne" },
+        { "href": "/da/kontakt/", "cat": "Tal med os", "title": "Skriv til os", "desc": "Spørgsmål om modellen eller om en bestemt bolig. Vi svarer som regel inden for få timer.", "arrow": "Kontakt" }
+      ]
+    }
+  ]
+}

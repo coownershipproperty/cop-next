@@ -3,7 +3,7 @@ import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 
 import { townSlug, TOWN_PAGE_MIN_HOMES } from '@/lib/townSlug';
-import { SUPPORTED_LOCALES, routePath, familyPrefix } from '@/lib/i18n';
+import { SUPPORTED_LOCALES, routePath, familyPrefix, translatedLocales, localeColumns } from '@/lib/i18n';
 
 const BASE = 'https://co-ownership-property.com';
 
@@ -134,8 +134,11 @@ function urlEntry(loc, priority, changefreq, lastmod, alternates) {
 // Emit one <url> per locale defined in the group. Every entry carries the
 // same hreflang set so all variants point to each other.
 function emitGroup(group, lastmod) {
+  // Iterate SUPPORTED_LOCALES rather than a literal list — this used to be
+  // hardcoded to ['en','es','fr','de'], which silently dropped every locale
+  // added afterwards from the sitemap.
   const alternates = {};
-  for (const locale of ['en', 'es', 'fr', 'de']) {
+  for (const locale of SUPPORTED_LOCALES) {
     if (group[locale]) alternates[locale] = group[locale];
   }
   return Object.keys(alternates).map(locale =>
@@ -156,7 +159,9 @@ export async function getServerSideProps({ res }) {
   );
   const { data: properties } = await supabase
     .from('properties')
-    .select('slug, date_added, city')
+    // Locale title/description columns come along so translatedLocales() can
+    // decide which locale URLs are genuinely translated and worth indexing.
+    .select(`slug, date_added, city, ${localeColumns(['title', 'description'], { base: false })}`)
     .in('status', ['Live', 'for_sale'])
     .order('date_added', { ascending: false });
 
@@ -353,21 +358,23 @@ export async function getServerSideProps({ res }) {
       return out;
     }),
 
-    // Property detail pages — emit EN / ES / FR / DE with reciprocal hreflang
+    // Property detail pages — one entry per launched locale, with reciprocal
+    // hreflang. Every locale has a property mirror, so this follows the locale
+    // table rather than a fixed list.
     ...(properties || []).flatMap(p => {
-      const altset = {
-        en: `/property/${p.slug}/`,
-        es: `/es/propiedades/${p.slug}/`,
-        fr: `/fr/proprietes/${p.slug}/`,
-        de: `/de/immobilien/${p.slug}/`,
-      };
+      // Only locales this property is actually translated into. An untranslated
+      // locale URL is noindex on the page itself (see pages/property/[slug].js),
+      // so listing it here would contradict the page and waste crawl budget.
+      const locales = translatedLocales(p, ['title', 'description']);
+      const altset = {};
+      for (const loc of locales) {
+        const prefix = familyPrefix(loc, 'property');
+        if (prefix) altset[loc] = `${prefix}${p.slug}/`;
+      }
       const lastmod = p.date_added ? p.date_added.split('T')[0] : today;
-      return [
-        urlEntry(`${BASE}${altset.en}`, '0.7', 'weekly', lastmod, altset),
-        urlEntry(`${BASE}${altset.es}`, '0.7', 'weekly', lastmod, altset),
-        urlEntry(`${BASE}${altset.fr}`, '0.7', 'weekly', lastmod, altset),
-        urlEntry(`${BASE}${altset.de}`, '0.7', 'weekly', lastmod, altset),
-      ];
+      return Object.values(altset).map(
+        (url) => urlEntry(`${BASE}${url}`, '0.7', 'weekly', lastmod, altset)
+      );
     }),
 
     // Programmatic town landing pages (/co-ownership/{town}/ and locale

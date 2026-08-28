@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "title": "Contact | Co-Ownership Property",
+    "description": "Neem contact op met het team van COP. Vragen over mede-eigendom van vakantiewoningen of over een specifieke woning? We reageren meestal binnen een paar uur — zonder verkoopdruk en zonder verplichting.",
+    "canonical": "/nl/contact/",
+    "hreflangKey": "/contact",
+    "ogTitle": "Contact — Co-Ownership Property",
+    "ogDescription": "Vragen over mede-eigendom van vakantiewoningen? Praat met ons team — geen verkoopdruk, geen verplichting."
+  },
+  "hero": {
+    "eyebrow": "We helpen u graag",
+    "h1": "Neem",
+    "h1em": "contact op",
+    "sub": "Vragen over mede-eigendom, over een specifieke woning, of gewoon over hoe het model in elkaar zit? U krijgt duidelijke antwoorden, zonder verkoopdruk."
+  },
+  "sections": [
+    {
+      "type": "trust",
+      "eyebrow": "Hoe we werken",
+      "h2": "Wat u kunt verwachten als u ons schrijft",
+      "cards": [
+        { "icon": "&#9993;", "h3": "Schrijf ons direct", "body": ["Liever mailen? Dat kan naar<br /><a href=\"mailto:info@co-ownership-property.com\">info@co-ownership-property.com</a><br />We lezen elk bericht zelf."] },
+        { "icon": "&#9200;", "h3": "Snel antwoord", "body": ["Meestal reageren we binnen een paar uur, vaak sneller. Bij woningen in de Verenigde Staten speelt het tijdverschil mee — maar u krijgt altijd antwoord."] },
+        { "icon": "&#10003;", "h3": "Geen druk, geen verplichting", "body": ["We stellen vragen, wijzen u de woningen die passen, en laten de beslissing volledig aan u. We zijn onafhankelijk: niet verbonden aan enige aanbieder of ontwikkelaar."] }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Nog aan het oriënteren?",
+      "h2": "Nog niet toe aan een gesprek?",
+      "cards": [
+        { "href": "/nl/mede-eigendom-vakantiewoning/", "cat": "De complete gids", "title": "Hoe het werkt, stap voor stap", "desc": "Van de keuze van de woning tot de notariële akte: wat er gebeurt, in welke volgorde, en wat u klaar wilt hebben liggen.", "arrow": "Lees de gids" },
+        { "href": "/nl/woningen/", "cat": "Het aanbod", "title": "De woningen die nu beschikbaar zijn", "desc": "Vergelijk prijs van het aandeel, slaapkamers en bestemming over alle grote aanbieders heen.", "arrow": "Bekijk woningen" },
+        { "href": "/nl/over-ons/", "cat": "Over ons", "title": "Waarom we onafhankelijk zijn", "desc": "Hoe we werken, hoe we ons geld verdienen, en waarom we u kunnen zeggen dat een woning niet bij u past.", "arrow": "Lees meer" }
+      ]
+    }
+  ],
+  "scripts": ["/js/contact.js"]
+}

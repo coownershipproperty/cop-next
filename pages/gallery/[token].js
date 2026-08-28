@@ -4,6 +4,7 @@ import { track } from '@vercel/analytics';
 import { createClient } from '@supabase/supabase-js';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 
 function getSupabase() {
   return createClient(
@@ -15,9 +16,10 @@ function getSupabase() {
 export async function getServerSideProps({ params, query }) {
   const raw = params.token; // could be a base64 token OR a pretty slug
   let name = null, email = null, slug = null, title = null;
-  // Locale comes in via ?lang=es / ?lang=fr / ?lang=de — preserved from the original email link
+  // Locale comes in via ?lang= — preserved from the original email link.
+  // Validated against the locale table so new languages work without an edit here.
   const langParam = typeof query.lang === 'string' ? query.lang : null;
-  const locale = ['en', 'es', 'fr', 'de'].includes(langParam) ? langParam : 'en';
+  const locale = SUPPORTED_LOCALES.includes(langParam) ? langParam : DEFAULT_LOCALE;
 
   // ── Decode the path segment — it may be a base64 JSON token or a pretty slug ──
   let tok = null;

@@ -9,7 +9,7 @@ import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import { track } from '@vercel/analytics';
-import { localeFromPath, localeColumns, pickLocalized } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized, ogLocaleFor } from '@/lib/i18n';
 
 /** Fisher-Yates shuffle — runs once at build time for a stable random order */
 function shuffle(arr) {
@@ -588,7 +588,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
         <meta property="og:url" content={`https://co-ownership-property.com${canonicalPath}`} />
         <meta property="og:type" content="website" />
-        <meta property="og:locale" content={locale === 'es' ? 'es_ES' : locale === 'fr' ? 'fr_FR' : 'en_GB'} />
+        <meta property="og:locale" content={ogLocaleFor(locale)} />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",

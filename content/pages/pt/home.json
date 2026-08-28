@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Casas de férias em multipropriedade na Europa e nos EUA | COP",
+    "description": "Casas de férias de alto padrão em multipropriedade nas Baleares, na Costa del Sol, na Costa Azul, nos Alpes e nos Estados Unidos. Uma fração registrada na matrícula do imóvel, no seu nome — não é time-sharing. Agregador independente dos principais operadores.",
+    "canonical": "/pt/",
+    "hreflangKey": "/",
+    "ogTitle": "Casas de férias em multipropriedade na Europa e nos EUA",
+    "ogDescription": "Casas de alto padrão em multipropriedade na Europa e nos EUA. Propriedade real, registrada — não é time-sharing.",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg"
+  },
+  "hero": {
+    "eyebrow": "Independentes. Imparciais. Especialistas.",
+    "h1": "Uma casa de férias na Europa,",
+    "h1em": "por uma fração do preço",
+    "sub": "Casas selecionadas em multipropriedade na Espanha, França, Itália e Estados Unidos. Você compra uma fração real de uma casa específica — com escritura e registro, não um direito de uso. Todos os principais operadores em um só lugar, e nenhum deles nos paga para recomendá-lo."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Por que existimos",
+      "h2": "Um só lugar para comparar, em vez de oito",
+      "paras": [
+        "Hoje há vários operadores sérios vendendo frações de casas de férias de alto padrão na Europa e nos Estados Unidos. Nenhum deles vai mostrar as casas dos outros. Quem procura acaba com oito sites abertos, oito glossários diferentes e nenhuma forma de comparar.",
+        "A COP reúne a oferta em um catálogo único e a apresenta com a mesma régua: preço da fração, semanas por ano, o que está incluído e o que se paga todo ano. Não somos operadores, não vendemos casas próprias e não recebemos para direcionar você a um ou a outro. Entregamos os documentos em linguagem clara e a decisão continua sua.",
+        "De todo modo, recomendamos sempre levar a documentação a um advogado e a um contador de sua confiança antes de assinar qualquer coisa."
+      ]
+    },
+    {
+      "type": "properties",
+      "eyebrow": "Disponíveis agora",
+      "h2": "Algumas das casas no catálogo",
+      "sub": "Baleares, Costa del Sol, Costa Azul, Alpes Franceses, lagos italianos, Flórida, Califórnia, Colorado.",
+      "ctaLabel": "Ver todos os imóveis",
+      "ctaHref": "/pt/imoveis/"
+    },
+    {
+      "type": "benefits",
+      "eyebrow": "O que realmente muda",
+      "h2": "Por que a multipropriedade funciona",
+      "cards": [
+        { "icon": "&#127968;", "h3": "É propriedade, não direito de uso", "body": "Você compra uma fração de uma casa específica, registrada no seu nome. Pode vender, deixar de herança ou manter, e acompanha a valorização do imóvel. No Brasil, o regime é regulamentado pela Lei nº 13.777/2018." },
+        { "icon": "&#128197;", "h3": "Cerca de seis semanas por ano", "body": "Uma fração de um oitavo dá direito a 44-45 noites, divisíveis em várias estadias. As datas mais disputadas giram de ano para ano, de modo que o calendário fique equilibrado ao longo do tempo." },
+        { "icon": "&#129309;", "h3": "Custos rateados, casa administrada", "body": "Manutenção, jardim, piscina, limpeza, seguros e contas são rateados entre os coproprietários e cuidados por profissionais. Você chega, usa a casa e vai embora." },
+        { "icon": "&#128269;", "h3": "Sem conflito de interesse", "body": "Não somos operadores e não somos pagos para direcionar você. Mostramos todas as opções, inclusive as que não fazem sentido para o seu caso." }
+      ]
+    },
+    {
+      "type": "steps",
+      "eyebrow": "O caminho",
+      "h2": "Da busca às chaves",
+      "steps": [
+        { "n": "01", "h3": "Você escolhe a casa", "body": "Filtre por destino, quartos, preço e características. Enviamos o dossiê completo do imóvel que interessar." },
+        { "n": "02", "h3": "Você lê os documentos", "body": "Estatuto da sociedade, regulamento de uso, orçamento de despesas e regras de revenda — em linguagem clara, antes de qualquer compromisso." },
+        { "n": "03", "h3": "Você reserva a fração", "body": "Assina o acordo de reserva com o operador. A fração fica bloqueada durante a análise jurídica, com prazos de arrependimento previstos." },
+        { "n": "04", "h3": "Você assina a escritura", "body": "A compra é formalizada em cartório. A partir daí a casa é administrada e o seu calendário está ativo. Em geral, quatro a oito semanas no total." }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Para se aprofundar",
+      "h2": "Antes de decidir",
+      "cards": [
+        { "href": "/pt/multipropriedade-casa-de-ferias/", "cat": "O guia completo", "title": "Como funciona a multipropriedade, do começo ao fim", "desc": "Estrutura jurídica, custos, tributação, revenda e a diferença para o time-sharing — explicados a fundo.", "arrow": "Ler o guia" },
+        { "href": "/pt/imoveis/", "cat": "O catálogo", "title": "Todas as casas disponíveis", "desc": "Compare preço da fração, quartos, destino e operador em um só lugar.", "arrow": "Ver imóveis" },
+        { "href": "/pt/contato/", "cat": "Conversar", "title": "Uma conversa, sem compromisso", "desc": "Dúvidas sobre o modelo, sobre uma casa específica ou sobre a documentação. Costumamos responder em poucas horas.", "arrow": "Fale conosco" }
+      ]
+    },
+    {
+      "type": "cta",
+      "h2": "Veja o catálogo",
+      "sub": "Casas em multipropriedade disponíveis agora na Europa e nos Estados Unidos.",
+      "buttons": [
+        { "label": "Ver todos os imóveis", "href": "/pt/imoveis/", "style": "blue" },
+        { "label": "Como funciona", "href": "/pt/multipropriedade-casa-de-ferias/", "style": "gold" }
+      ]
+    }
+  ]
+}

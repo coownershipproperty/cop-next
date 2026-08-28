@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Vakantiewoningen in mede-eigendom in Europa | Gedeeld eigendom — COP",
+    "description": "Vakantiewoningen in mede-eigendom op de Balearen, de Costa del Sol, de Côte d'Azur, in de Alpen en de Verenigde Staten. Een notarieel vastgelegd aandeel op uw naam — geen timeshare. Onafhankelijk overzicht van alle grote aanbieders.",
+    "canonical": "/nl/",
+    "hreflangKey": "/",
+    "ogTitle": "Vakantiewoningen in mede-eigendom in Europa | Gedeeld eigendom",
+    "ogDescription": "Goede vakantiewoningen in mede-eigendom door heel Europa. Echt eigendom, notarieel vastgelegd — geen timeshare.",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg"
+  },
+  "hero": {
+    "eyebrow": "Onafhankelijk. Onpartijdig. Deskundig.",
+    "h1": "Een vakantiewoning in Europa,",
+    "h1em": "voor een fractie van de prijs",
+    "sub": "Geselecteerde vakantiewoningen in mede-eigendom in Spanje, Frankrijk, Italië en de Verenigde Staten. U koopt een echt aandeel in één specifieke woning — notarieel vastgelegd, geen gebruiksrecht. Alle grote aanbieders op één plek, en niemand betaalt ons om er een aan te bevelen."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Waarom we bestaan",
+      "h2": "Eén plek om te vergelijken, in plaats van acht",
+      "paras": [
+        "Er zijn inmiddels verschillende serieuze aanbieders die aandelen in goede vakantiewoningen verkopen. Geen van hen laat u de woningen van de anderen zien. Wie zoekt, opent acht websites, leert acht woordenlijsten en vergelijkt uit het hoofd.",
+        "COP zet het aanbod in één catalogus en meet het met dezelfde maat: prijs van het aandeel, weken per jaar, wat er in de prijs zit en wat u jaarlijks betaalt. We zijn geen aanbieder, we verkopen geen eigen woningen, en we worden niet betaald om u naar de een of de ander te sturen. U krijgt de stukken in begrijpelijke taal en de beslissing blijft van u.",
+        "We raden u hoe dan ook aan de documenten vóór ondertekening aan uw eigen notaris en fiscalist voor te leggen."
+      ]
+    },
+    {
+      "type": "properties",
+      "eyebrow": "Nu beschikbaar",
+      "h2": "Een greep uit het aanbod",
+      "sub": "Balearen, Costa del Sol, Côte d'Azur, Franse Alpen, Italiaanse meren, Californië, Colorado, Florida.",
+      "ctaLabel": "Bekijk alle woningen",
+      "ctaHref": "/nl/woningen/"
+    },
+    {
+      "type": "benefits",
+      "eyebrow": "Wat er werkelijk verandert",
+      "h2": "Waarom mede-eigendom werkt",
+      "cards": [
+        { "icon": "&#127968;", "h3": "Eigendom, geen gebruiksrecht", "body": "U koopt een aandeel in één specifieke woning, notarieel vastgelegd en op uw naam ingeschreven. U kunt het verkopen, nalaten of houden, en u deelt in de waardeontwikkeling. Dat is het wezenlijke verschil met timeshare." },
+        { "icon": "&#128197;", "h3": "Ongeveer zes weken per jaar", "body": "Een aandeel van een achtste geeft recht op 44 tot 45 nachten, ook in korte verblijven te verdelen. De meest gevraagde data rouleren van jaar tot jaar, zodat de kalender over meerdere jaren voor iedereen gelijk uitpakt." },
+        { "icon": "&#129309;", "h3": "Kosten gedeeld, woning beheerd", "body": "Onderhoud, tuin, zwembad, schoonmaak, verzekeringen en nutsvoorzieningen worden verdeeld en professioneel geregeld. U komt aan, gebruikt de woning en gaat weer weg." },
+        { "icon": "&#128269;", "h3": "Geen belangenverstrengeling", "body": "We zijn geen aanbieder en worden niet betaald om u ergens heen te sturen. We laten u alle opties zien, ook de opties die niet bij u passen." }
+      ]
+    },
+    {
+      "type": "steps",
+      "eyebrow": "Het traject",
+      "h2": "Van zoeken naar sleutels",
+      "steps": [
+        { "n": "01", "h3": "U kiest een woning", "body": "Filter op bestemming, slaapkamers, prijs en kenmerken. We sturen u het volledige dossier van de woning die u aanspreekt." },
+        { "n": "02", "h3": "U leest de stukken", "body": "Statuten, gebruiksreglement, begroting en verkoopregels — in begrijpelijke taal, vóór er iets vastligt." },
+        { "n": "03", "h3": "U reserveert het aandeel", "body": "U tekent een reserveringsovereenkomst met de aanbieder. Het aandeel staat vast tijdens de juridische controle, met bedenktermijnen." },
+        { "n": "04", "h3": "U tekent bij de notaris", "body": "De aankoop wordt notarieel vastgelegd. Vanaf dat moment wordt de woning beheerd en staat uw kalender open. Doorgaans vier tot acht weken in totaal." }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Verder lezen",
+      "h2": "Voordat u beslist",
+      "cards": [
+        { "href": "/nl/mede-eigendom-vakantiewoning/", "cat": "De complete gids", "title": "Hoe mede-eigendom werkt, van begin tot eind", "desc": "Juridische structuur, kosten, belasting, verkoop en het verschil met timeshare — grondig uitgelegd.", "arrow": "Lees de gids" },
+        { "href": "/nl/woningen/", "cat": "Het aanbod", "title": "Alle beschikbare woningen in mede-eigendom", "desc": "Vergelijk prijs van het aandeel, slaapkamers, bestemming en aanbieder op één plek.", "arrow": "Bekijk woningen" },
+        { "href": "/nl/contact/", "cat": "Even overleggen", "title": "Een gesprek, zonder verplichting", "desc": "Vragen over het model, over een specifieke woning of over de stukken. We reageren meestal binnen een paar uur.", "arrow": "Neem contact op" }
+      ]
+    },
+    {
+      "type": "cta",
+      "h2": "Bekijk het aanbod",
+      "sub": "Vakantiewoningen in mede-eigendom die nu beschikbaar zijn in Europa en de Verenigde Staten.",
+      "buttons": [
+        { "label": "Bekijk alle woningen", "href": "/nl/woningen/", "style": "blue" },
+        { "label": "Hoe het werkt", "href": "/nl/mede-eigendom-vakantiewoning/", "style": "gold" }
+      ]
+    }
+  ]
+}

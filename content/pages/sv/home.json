@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Fritidshus i samägande i Europa | Köp en andel — COP",
+    "description": "Fritidshus av hög klass i samägande på Balearerna, Costa del Sol, Franska Rivieran, i alperna och i USA. En riktig andel med lagfart i ditt namn — inte tidsdelat boende. Oberoende överblick över alla stora aktörer.",
+    "canonical": "/sv/",
+    "hreflangKey": "/",
+    "ogTitle": "Fritidshus i samägande i Europa | Köp en andel",
+    "ogDescription": "Fritidshus av hög klass i samägande runt om i Europa. Riktigt ägande, inte nyttjanderätt.",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg"
+  },
+  "hero": {
+    "eyebrow": "Oberoende. Opartiska. Kunniga.",
+    "h1": "Ett fritidshus i Europa,",
+    "h1em": "för en bråkdel av priset",
+    "sub": "Utvalda fritidshus i samägande i Spanien, Frankrike, Italien och USA. Du köper en riktig andel i ett bestämt hus — inskriven i ditt namn, inte en nyttjanderätt. Alla de stora aktörerna på ett ställe, och ingen av dem betalar oss för att rekommendera dem."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Varför vi finns",
+      "h2": "Ett ställe att jämföra på, i stället för åtta",
+      "paras": [
+        "Det finns i dag flera seriösa aktörer som säljer andelar i riktigt bra fritidshus i Europa. Ingen av dem visar dig de andras hus. Den som letar får åtta flikar öppna, åtta olika ordlistor att lära sig, och ingen möjlighet att jämföra annat än ur minnet.",
+        "COP samlar utbudet i en katalog och mäter det med samma måttstock: pris för andelen, veckor per år, vad som ingår och vad du betalar varje år. Vi är inte en aktör, vi säljer inga egna hus, och vi får inte betalt för att styra dig till någon särskild. Du får handlingarna på begriplig svenska och beslutet förblir ditt.",
+        "Vi rekommenderar ändå alltid att du låter en egen jurist och revisor läsa dokumenten innan du skriver på något."
+      ]
+    },
+    {
+      "type": "properties",
+      "eyebrow": "Tillgängliga nu",
+      "h2": "Ett urval ur katalogen",
+      "sub": "Balearerna, Costa del Sol, Franska Rivieran, franska alperna, italienska sjöarna, Florida, Kalifornien, Colorado.",
+      "ctaLabel": "Se alla bostäder",
+      "ctaHref": "/sv/bostader/"
+    },
+    {
+      "type": "benefits",
+      "eyebrow": "Vad som faktiskt skiljer",
+      "h2": "Därför fungerar samägande",
+      "cards": [
+        { "icon": "&#127968;", "h3": "Ägande, inte nyttjanderätt", "body": "Du köper en andel i ett bestämt hus, inskriven i ditt namn. Du kan sälja, ärva ut eller behålla den, och du tar del av husets värdeutveckling. Det är den avgörande skillnaden mot tidsdelat boende." },
+        { "icon": "&#128197;", "h3": "Ungefär sex veckor om året", "body": "En åttondels andel ger 44-45 nätter, som kan delas upp på korta vistelser. De mest efterfrågade datumen roterar mellan åren, så att schemat över tid blir lika bra för alla delägare." },
+        { "icon": "&#129309;", "h3": "Delade kostnader, skött hus", "body": "Underhåll, trädgård, pool, städning, försäkringar och driftkostnader delas mellan delägarna och sköts av proffs. Du kommer, använder huset och åker hem." },
+        { "icon": "&#128269;", "h3": "Inga intressekonflikter", "body": "Vi är inte en aktör och får inte betalt för att styra dig någonstans. Vi visar alla alternativ, inklusive de som inte passar dig." }
+      ]
+    },
+    {
+      "type": "steps",
+      "eyebrow": "Processen",
+      "h2": "Från sökning till nycklar",
+      "steps": [
+        { "n": "01", "h3": "Du väljer hus", "body": "Filtrera på destination, sovrum, pris och egenskaper. Vi skickar hela underlaget för det hus du fastnar för." },
+        { "n": "02", "h3": "Du läser handlingarna", "body": "Bolagsordning, nyttjanderegler, driftbudget och regler för försäljning — på begriplig svenska, innan något binder dig." },
+        { "n": "03", "h3": "Du bokar andelen", "body": "Du skriver bokningsavtal med aktören. Andelen är reserverad under den juridiska granskningen, med ångerfrister inlagda." },
+        { "n": "04", "h3": "Du skriver under hos notarie", "body": "Köpet formaliseras. Därefter sköts huset och ditt schema är igång. Normalt fyra till åtta veckor totalt." }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Läs vidare",
+      "h2": "Innan du bestämmer dig",
+      "cards": [
+        { "href": "/sv/samagande-fritidshus/", "cat": "Den kompletta guiden", "title": "Så fungerar samägande, hela vägen", "desc": "Juridisk struktur, kostnader, skatt, försäljning och skillnaden mot tidsdelat boende — grundligt förklarat.", "arrow": "Läs guiden" },
+        { "href": "/sv/bostader/", "cat": "Katalogen", "title": "Alla tillgängliga hus i samägande", "desc": "Jämför pris för andelen, sovrum, destination och aktör på ett ställe.", "arrow": "Se bostäderna" },
+        { "href": "/sv/kontakt/", "cat": "Prata med oss", "title": "Ett samtal, utan förpliktelser", "desc": "Frågor om modellen, om ett visst hus eller om handlingarna. Vi svarar oftast inom några timmar.", "arrow": "Hör av dig" }
+      ]
+    },
+    {
+      "type": "cta",
+      "h2": "Titta på katalogen",
+      "sub": "Fritidshus i samägande som är tillgängliga nu i Europa och USA.",
+      "buttons": [
+        { "label": "Se alla bostäder", "href": "/sv/bostader/", "style": "blue" },
+        { "label": "Så fungerar det", "href": "/sv/samagande-fritidshus/", "style": "gold" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Fritidsbolig i sameie i Europa | Kjøp en andel — COP",
+    "description": "Fritidsboliger av høy klasse i sameie på Costa del Sol, Balearene, den franske rivieraen, i alpene og i USA. En reell sameieandel tinglyst i Grunnboken på ditt navn — ikke en tidspart. Uavhengig oversikt over alle store aktører.",
+    "canonical": "/no/",
+    "hreflangKey": "/",
+    "ogTitle": "Fritidsbolig i sameie i Europa | Kjøp en andel",
+    "ogDescription": "Fritidsboliger av høy klasse i sameie i hele Europa. Reelt eierskap, ikke bruksrett.",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg"
+  },
+  "hero": {
+    "eyebrow": "Uavhengige. Upartiske. Kunnskapsrike.",
+    "h1": "En fritidsbolig i Europa,",
+    "h1em": "for en brøkdel av prisen",
+    "sub": "Utvalgte fritidsboliger i sameie i Spania, Frankrike, Italia og USA. Du kjøper en reell ideell andel i én bestemt bolig — tinglyst på ditt navn, ikke en bruksrett. Alle de store aktørene ett sted, og ingen av dem betaler oss for å anbefale dem."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Derfor finnes vi",
+      "h2": "Ett sted å sammenligne, i stedet for åtte",
+      "paras": [
+        "Det finnes etter hvert flere seriøse aktører som selger andeler i virkelig gode fritidsboliger i Europa. Ingen av dem viser deg de andres boliger. Den som leter, ender med åtte faner åpne, åtte ulike ordlister å lære, og ingen måte å sammenligne på annet enn fra hukommelsen.",
+        "COP samler tilbudet i én katalog og måler det med samme alen: pris for andelen, uker i året, hva som er inkludert, og hva du betaler hvert år. Vi er ikke en aktør, vi selger ingen egne boliger, og vi får ikke betalt for å sende deg til noen bestemt. Du får dokumentene på forståelig norsk, og beslutningen forblir din.",
+        "Vi anbefaler uansett at du lar din egen advokat og revisor lese dokumentene før du signerer noe."
+      ]
+    },
+    {
+      "type": "properties",
+      "eyebrow": "Ledige nå",
+      "h2": "Et utvalg fra katalogen",
+      "sub": "Costa del Sol, Balearene, den franske rivieraen, de franske alpene, de italienske innsjøene, Florida, California, Colorado.",
+      "ctaLabel": "Se alle boliger",
+      "ctaHref": "/no/boliger/"
+    },
+    {
+      "type": "benefits",
+      "eyebrow": "Hva som faktisk skiller",
+      "h2": "Derfor fungerer sameie",
+      "cards": [
+        { "icon": "&#127968;", "h3": "Eierskap, ikke bruksrett", "body": "Du kjøper en ideell andel i én bestemt bolig, tinglyst i Grunnboken på ditt navn. Du kan selge den, la den gå i arv eller beholde den, og du tar del i boligens verdiutvikling. Det er den avgjørende forskjellen fra en tidspart." },
+        { "icon": "&#128197;", "h3": "Rundt seks uker i året", "body": "En åttedels andel gir 44-45 netter, som kan deles opp i korte opphold. De mest ettertraktede datoene roterer mellom årene, slik at kalenderen over tid blir like god for alle sameiere." },
+        { "icon": "&#129309;", "h3": "Delte kostnader, driftet bolig", "body": "Vedlikehold, hage, basseng, rengjøring, forsikringer og forbruk deles mellom sameierne og håndteres av profesjonelle. Du kommer, bruker boligen og reiser hjem." },
+        { "icon": "&#128269;", "h3": "Ingen interessekonflikt", "body": "Vi er ikke en aktør og får ikke betalt for å sende deg et bestemt sted. Vi viser alle alternativene, også de som ikke passer for deg." }
+      ]
+    },
+    {
+      "type": "steps",
+      "eyebrow": "Prosessen",
+      "h2": "Fra søk til nøkler",
+      "steps": [
+        { "n": "01", "h3": "Du velger bolig", "body": "Filtrer på destinasjon, soverom, pris og fasiliteter. Vi sender hele materialet på boligen du faller for." },
+        { "n": "02", "h3": "Du leser dokumentene", "body": "Vedtekter, bruksregler, driftsbudsjett og regler for videresalg — på forståelig norsk, før noe binder deg." },
+        { "n": "03", "h3": "Du reserverer andelen", "body": "Du signerer reservasjonsavtale med aktøren. Andelen er reservert under den juridiske gjennomgangen, med angrefrister underveis." },
+        { "n": "04", "h3": "Du signerer hos notar", "body": "Kjøpet formaliseres. Deretter driftes boligen, og kalenderen din er i gang. Typisk fire til åtte uker totalt." }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Les videre",
+      "h2": "Før du bestemmer deg",
+      "cards": [
+        { "href": "/no/sameie-fritidsbolig/", "cat": "Den komplette guiden", "title": "Slik fungerer sameie, hele veien", "desc": "Juridisk struktur, kostnader, skatt, salg og forskjellen fra tidsparter — grundig forklart.", "arrow": "Les guiden" },
+        { "href": "/no/boliger/", "cat": "Katalogen", "title": "Alle ledige boliger i sameie", "desc": "Sammenlign pris for andelen, soverom, destinasjon og aktør ett sted.", "arrow": "Se boligene" },
+        { "href": "/no/kontakt/", "cat": "Snakk med oss", "title": "En samtale, uten forpliktelser", "desc": "Spørsmål om modellen, om en bestemt bolig eller om dokumentene. Vi svarer som regel i løpet av noen timer.", "arrow": "Ta kontakt" }
+      ]
+    },
+    {
+      "type": "cta",
+      "h2": "Se katalogen",
+      "sub": "Fritidsboliger i sameie som er ledige nå i Europa og USA.",
+      "buttons": [
+        { "label": "Se alle boliger", "href": "/no/boliger/", "style": "blue" },
+        { "label": "Slik fungerer det", "href": "/no/sameie-fritidsbolig/", "style": "gold" }
+      ]
+    }
+  ]
+}

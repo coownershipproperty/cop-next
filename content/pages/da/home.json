@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "title": "Ferieboliger med medejerskab i Sydeuropa | Køb en andel — COP",
+    "description": "Ferieboliger i høj klasse med medejerskab på Costa del Sol, Balearerne, den franske Riviera, i alperne og i USA. En rigtig andel tinglyst i dit navn — ikke timeshare. Uafhængigt overblik over alle store udbydere.",
+    "canonical": "/da/",
+    "hreflangKey": "/",
+    "ogTitle": "Ferieboliger med medejerskab i Sydeuropa | Køb en andel",
+    "ogDescription": "Ferieboliger i høj klasse med medejerskab i hele Europa. Rigtigt ejerskab, ikke en brugsret.",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg"
+  },
+  "hero": {
+    "eyebrow": "Uafhængige. Upartiske. Kyndige.",
+    "h1": "En feriebolig i Sydeuropa,",
+    "h1em": "for en brøkdel af prisen",
+    "sub": "Udvalgte ferieboliger med medejerskab i Spanien, Frankrig, Italien og USA. Du køber en rigtig andel af én bestemt bolig — tinglyst i dit navn, ikke en brugsret. Alle de store udbydere ét sted, og ingen af dem betaler os for at anbefale dem."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Derfor findes vi",
+      "h2": "Ét sted at sammenligne i stedet for otte",
+      "paras": [
+        "Der er efterhånden flere seriøse udbydere, der sælger andele i rigtig gode ferieboliger i Sydeuropa. Ingen af dem viser dig de andres boliger. Den, der leder, ender med otte faner åbne, otte forskellige ordlister at lære, og ingen måde at sammenligne på ud over hukommelsen.",
+        "COP samler udbuddet i ét katalog og måler det med samme alen: pris for andelen, uger om året, hvad der er med, og hvad du betaler hvert år. Vi er ikke en udbyder, vi sælger ikke egne boliger, og vi bliver ikke betalt for at sende dig til en bestemt. Du får papirerne på forståeligt dansk, og beslutningen bliver din.",
+        "Vi anbefaler under alle omstændigheder, at du lader din egen advokat og revisor læse dokumenterne, før du skriver under på noget."
+      ]
+    },
+    {
+      "type": "properties",
+      "eyebrow": "Ledige nu",
+      "h2": "Et udpluk af katalogets boliger",
+      "sub": "Costa del Sol, Balearerne, den franske Riviera, de franske alper, de italienske søer, Florida, Californien, Colorado.",
+      "ctaLabel": "Se alle boliger",
+      "ctaHref": "/da/boliger/"
+    },
+    {
+      "type": "benefits",
+      "eyebrow": "Hvad der reelt er forskellen",
+      "h2": "Derfor virker medejerskab",
+      "cards": [
+        { "icon": "&#127968;", "h3": "Ejerskab, ikke brugsret", "body": "Du køber en andel af én bestemt bolig, tinglyst i dit navn. Du kan sælge den, lade den gå i arv eller beholde den, og du får del i boligens værdiudvikling. Det er den afgørende forskel fra timeshare." },
+        { "icon": "&#128197;", "h3": "Cirka seks uger om året", "body": "En ottendedels andel giver 44-45 nætter, som kan deles op i korte ophold. De mest efterspurgte datoer roterer fra år til år, så kalenderen over tid bliver lige god for alle medejere." },
+        { "icon": "&#129309;", "h3": "Delte udgifter, passet bolig", "body": "Vedligeholdelse, have, pool, rengøring, forsikringer og forbrug deles mellem medejerne og passes af professionelle. Du kommer, bruger boligen og tager hjem igen." },
+        { "icon": "&#128269;", "h3": "Ingen interessekonflikt", "body": "Vi er ikke en udbyder og bliver ikke betalt for at sende dig et bestemt sted hen. Vi viser alle mulighederne, også dem der ikke passer til dig." }
+      ]
+    },
+    {
+      "type": "steps",
+      "eyebrow": "Forløbet",
+      "h2": "Fra søgning til nøgler",
+      "steps": [
+        { "n": "01", "h3": "Du vælger bolig", "body": "Filtrér på destination, soveværelser, pris og faciliteter. Vi sender hele materialet på den bolig, du falder for." },
+        { "n": "02", "h3": "Du læser papirerne", "body": "Vedtægter, brugsregler, driftsbudget og regler for videresalg — på forståeligt dansk, før noget binder dig." },
+        { "n": "03", "h3": "Du reserverer andelen", "body": "Du skriver reservationsaftale med udbyderen. Andelen er reserveret under den juridiske gennemgang, med fortrydelsesfrister undervejs." },
+        { "n": "04", "h3": "Du skriver under hos notar", "body": "Købet formaliseres. Derefter passes boligen, og din kalender er i gang. Typisk fire til otte uger i alt." }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Læs videre",
+      "h2": "Før du beslutter dig",
+      "cards": [
+        { "href": "/da/medejerskab-feriebolig/", "cat": "Den komplette guide", "title": "Sådan fungerer medejerskab, hele vejen", "desc": "Juridisk struktur, omkostninger, skat, salg og forskellen fra timeshare — grundigt forklaret.", "arrow": "Læs guiden" },
+        { "href": "/da/boliger/", "cat": "Kataloget", "title": "Alle ledige boliger med medejerskab", "desc": "Sammenlign pris for andelen, soveværelser, destination og udbyder ét sted.", "arrow": "Se boligerne" },
+        { "href": "/da/kontakt/", "cat": "Tal med os", "title": "En samtale, uden forpligtelser", "desc": "Spørgsmål om modellen, om en bestemt bolig eller om papirerne. Vi svarer som regel inden for få timer.", "arrow": "Skriv til os" }
+      ]
+    },
+    {
+      "type": "cta",
+      "h2": "Se kataloget",
+      "sub": "Ferieboliger med medejerskab, der er ledige nu i Europa og USA.",
+      "buttons": [
+        { "label": "Se alle boliger", "href": "/da/boliger/", "style": "blue" },
+        { "label": "Sådan fungerer det", "href": "/da/medejerskab-feriebolig/", "style": "gold" }
+      ]
+    }
+  ]
+}

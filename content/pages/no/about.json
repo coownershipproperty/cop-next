@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "title": "Om oss | Co-Ownership Property",
+    "description": "COP er en uavhengig sammenligningstjeneste for fritidsboliger i sameie i Europa og USA. Vi er ikke en aktør, selger ingen egne boliger og får ikke betalt for å anbefale noen.",
+    "canonical": "/no/om-oss/",
+    "hreflangKey": "/about-us",
+    "ogTitle": "Om oss — Co-Ownership Property",
+    "ogDescription": "En uavhengig sammenligningstjeneste for fritidsboliger i sameie. Ingen interessekonflikt, ingen kjøpepress."
+  },
+  "hero": {
+    "eyebrow": "Om oss",
+    "h1": "Uavhengige, og",
+    "h1em": "med vilje",
+    "sub": "COP samler fritidsboligene i sameie fra alle de store europeiske og amerikanske aktørene i én katalog. Vi er ikke en av dem, vi selger ingen egne boliger, og nytten vår bygger på at vi også viser deg alternativene som ikke passer."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Derfor begynte vi",
+      "h2": "Et godt marked, dårlig forklart",
+      "paras": [
+        "Profesjonelt sameie i fritidsboliger har modnet de siste årene: solide juridiske strukturer, ordentlig drift, boliger med kvalitet. Problemet ligger ikke i produktet — det ligger i at den som leter, ikke får sammenlignet.",
+        "Hver aktør viser bare sine egne boliger, med sin egen ordliste og sin egen oppfatning av hva som er inkludert i prisen. Den som leser seg opp, sitter igjen med åtte faner og ingen måte å legge dem ved siden av hverandre. Samtidig kaster ordet <em>timeshare</em> fortsatt en skygge over en modell som ikke har noe med det å gjøre — og som på norsk har sin egen, helt alminnelige rettsfigur.",
+        "Vi bygde COP for å løse begge deler: én katalog med samme alen for alle, og forklaringer skrevet for faktisk å bli forstått — også de delene som taler mot et kjøp."
+      ]
+    },
+    {
+      "type": "trust",
+      "eyebrow": "Slik jobber vi",
+      "h2": "Tre løfter som binder oss",
+      "cards": [
+        { "icon": "&#9878;", "h3": "Ingen betaling for anbefalinger", "body": ["Aktørene betaler oss ikke for å sende deg til den ene eller andre. Det er derfor vi kan si at en bolig ikke passer for deg — og det gjør vi jevnlig."] },
+        { "icon": "&#128196;", "h3": "Dokumentene før begeistringen", "body": ["Vedtekter, bruksregler, driftsbudsjett og regler for videresalg, på forståelig norsk, før noe binder deg. Og alltid rådet om å la din egen advokat og revisor lese dem."] },
+        { "icon": "&#128172;", "h3": "Ingen kjøpepress", "body": ["Vi stiller spørsmål, viser alternativene, og stopper der. Er det ikke riktig tidspunkt nå, så bare si fra: vi tar kontakt igjen når du vil."] }
+      ]
+    },
+    {
+      "type": "prose",
+      "eyebrow": "Slik tjener vi penger",
+      "h2": "Spørsmålet du burde stille oss",
+      "paras": [
+        "Hvis aktørene ikke betaler oss for å anbefale dem, hva lever vi av? Når en leser bestemmer seg for å gå videre og ber oss presentere seg, får vi et introduksjonshonorar fra aktøren — det samme uansett hvilken. Insentivet vårt er altså at du lander på et valg du står inne for, ikke på et bestemt valg.",
+        "Vi skriver det her fordi det er det første vi selv ville spurt om."
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Videre",
+      "h2": "Hvor du kan begynne",
+      "cards": [
+        { "href": "/no/sameie-fritidsbolig/", "cat": "Den komplette guiden", "title": "Slik fungerer sameie", "desc": "Juridisk struktur, kostnader, skatt og forskjellen fra tidsparter, grundig forklart.", "arrow": "Les guiden" },
+        { "href": "/no/boliger/", "cat": "Katalogen", "title": "Boligene som er ledige nå", "desc": "Europa og USA, med filtre på destinasjon, soverom og pris for andelen.", "arrow": "Se boligene" },
+        { "href": "/no/kontakt/", "cat": "Snakk med oss", "title": "Ta kontakt", "desc": "Spørsmål om modellen eller om en bestemt bolig. Vi svarer som regel i løpet av noen timer.", "arrow": "Kontakt" }
+      ]
+    }
+  ]
+}

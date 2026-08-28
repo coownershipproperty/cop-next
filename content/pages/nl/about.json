@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "title": "Over ons | Co-Ownership Property",
+    "description": "COP is een onafhankelijke vergelijker van vakantiewoningen in mede-eigendom in Europa en de Verenigde Staten. We zijn geen aanbieder, verkopen geen eigen woningen en worden niet betaald om er een aan te bevelen.",
+    "canonical": "/nl/over-ons/",
+    "hreflangKey": "/about-us",
+    "ogTitle": "Over ons — Co-Ownership Property",
+    "ogDescription": "Een onafhankelijke vergelijker van vakantiewoningen in mede-eigendom. Geen belangenverstrengeling, geen verkoopdruk."
+  },
+  "hero": {
+    "eyebrow": "Over ons",
+    "h1": "Onafhankelijk, en dat",
+    "h1em": "met opzet",
+    "sub": "COP brengt de vakantiewoningen in mede-eigendom van alle grote Europese en Amerikaanse aanbieders samen in één catalogus. We zijn er zelf geen, we verkopen geen eigen woningen, en onze waarde hangt ervan af dat we u ook de opties laten zien die niet bij u passen."
+  },
+  "sections": [
+    {
+      "type": "prose",
+      "eyebrow": "Waarom we begonnen",
+      "h2": "Een goede markt, slecht uitgelegd",
+      "paras": [
+        "Professioneel mede-eigendom van vakantiewoningen is de afgelopen jaren volwassen geworden: solide juridische structuren, echt beheer, woningen van niveau. Het probleem zit niet in het product — het zit erin dat wie het zoekt, het niet kan vergelijken.",
+        "Elke aanbieder toont alleen de eigen woningen, met een eigen woordenlijst en een eigen idee van wat er in de prijs zit. Wie zich inleest, houdt acht tabbladen over en geen manier om ze naast elkaar te leggen. Ondertussen blijft het woord <em>timeshare</em> een schaduw werpen over een model dat er niets mee te maken heeft.",
+        "We hebben COP gebouwd om allebei op te lossen: één catalogus met dezelfde maatstaf voor iedereen, en uitleg die bedoeld is om het écht duidelijk te maken — inclusief de delen die tegen een aankoop pleiten."
+      ]
+    },
+    {
+      "type": "trust",
+      "eyebrow": "Hoe we werken",
+      "h2": "Drie afspraken die ons binden",
+      "cards": [
+        { "icon": "&#9878;", "h3": "Geen betaling om aan te bevelen", "body": ["Aanbieders betalen ons niet om u naar de een of de ander te sturen. Daarom kunnen we u vertellen dat een woning niet bij u past — en dat doen we geregeld."] },
+        { "icon": "&#128196;", "h3": "Eerst de stukken, dan het enthousiasme", "body": ["Statuten, gebruiksreglement, begroting en verkoopregels, in begrijpelijke taal, vóór er iets vastligt. En altijd het advies om ze aan uw eigen notaris en fiscalist voor te leggen."] },
+        { "icon": "&#128172;", "h3": "Geen verkoopdruk", "body": ["We stellen vragen, laten de opties zien, en houden daarmee op. Is het nu niet het goede moment, zeg dat gerust: we schrijven pas weer als u dat wilt."] }
+      ]
+    },
+    {
+      "type": "prose",
+      "eyebrow": "Hoe we ons geld verdienen",
+      "h2": "De vraag die u ons zou moeten stellen",
+      "paras": [
+        "Als aanbieders ons niet betalen om te adviseren, waar leven we dan van? Wanneer een lezer besluit door te gaan en ons vraagt hem voor te stellen, ontvangen we een introductievergoeding van de aanbieder — bij iedere aanbieder dezelfde. Ons belang is dus dat u tot een keuze komt waar u achter staat, niet tot een bepaalde keuze.",
+        "We schrijven het hier op omdat dit het eerste is wat we zelf zouden vragen."
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Verder",
+      "h2": "Waar u kunt beginnen",
+      "cards": [
+        { "href": "/nl/mede-eigendom-vakantiewoning/", "cat": "De complete gids", "title": "Hoe mede-eigendom werkt", "desc": "Juridische structuur, kosten, belasting en het verschil met timeshare, grondig uitgelegd.", "arrow": "Lees de gids" },
+        { "href": "/nl/woningen/", "cat": "Het aanbod", "title": "De woningen die nu beschikbaar zijn", "desc": "Europa en de Verenigde Staten, te filteren op bestemming, slaapkamers en prijs van het aandeel.", "arrow": "Bekijk woningen" },
+        { "href": "/nl/contact/", "cat": "Even overleggen", "title": "Neem contact op", "desc": "Vragen over het model of over een specifieke woning. We reageren meestal binnen een paar uur.", "arrow": "Contact" }
+      ]
+    }
+  ]
+}

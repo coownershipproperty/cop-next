@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "title": "Kontakt | Co-Ownership Property",
+    "description": "Hör av dig till COP. Frågor om samägande av fritidshus eller om ett visst hus? Vi svarar oftast inom några timmar — utan säljpress och utan förpliktelser.",
+    "canonical": "/sv/kontakt/",
+    "hreflangKey": "/contact",
+    "ogTitle": "Kontakt — Co-Ownership Property",
+    "ogDescription": "Frågor om samägande av fritidshus? Prata med vårt team — ingen säljpress, inga förpliktelser."
+  },
+  "hero": {
+    "eyebrow": "Vi hjälper gärna till",
+    "h1": "Hör",
+    "h1em": "av dig",
+    "sub": "Frågor om samägande, om ett visst hus, eller bara om hur modellen hänger ihop? Du får raka svar, utan säljpress."
+  },
+  "sections": [
+    {
+      "type": "trust",
+      "eyebrow": "Så arbetar vi",
+      "h2": "Vad du kan vänta dig när du skriver",
+      "cards": [
+        { "icon": "&#9993;", "h3": "Skriv direkt till oss", "body": ["Skriver du hellre? Vi finns på<br /><a href=\"mailto:info@co-ownership-property.com\">info@co-ownership-property.com</a><br />Vi läser varje meddelande själva."] },
+        { "icon": "&#9200;", "h3": "Snabbt svar", "body": ["Vi svarar oftast inom några timmar, ofta snabbare. För hus i USA spelar tidsskillnaden in — men du får alltid svar."] },
+        { "icon": "&#10003;", "h3": "Ingen press, inga förpliktelser", "body": ["Vi ställer frågor, pekar ut husen som passar, och lämnar beslutet helt till dig. Vi är oberoende: inte knutna till någon aktör eller byggherre."] }
+      ]
+    },
+    {
+      "type": "links",
+      "eyebrow": "Fortfarande i researchfasen?",
+      "h2": "Inte redo att höra av dig än?",
+      "cards": [
+        { "href": "/sv/samagande-fritidshus/", "cat": "Den kompletta guiden", "title": "Så går det till, steg för steg", "desc": "Från valet av hus till påskriften: vad som händer, i vilken ordning, och vad som är bra att ha förberett.", "arrow": "Läs guiden" },
+        { "href": "/sv/bostader/", "cat": "Katalogen", "title": "Husen som finns nu", "desc": "Jämför pris för andelen, sovrum och destination över alla de stora aktörerna.", "arrow": "Se bostäderna" },
+        { "href": "/sv/om-oss/", "cat": "Om oss", "title": "Varför vi är oberoende", "desc": "Hur vi arbetar, hur vi tjänar pengar, och varför vi kan säga att ett hus inte passar dig.", "arrow": "Läs mer" }
+      ]
+    }
+  ],
+  "scripts": ["/js/contact.js"]
+}

@@ -48,6 +48,7 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import { UI_STRINGS, URL_PATHS } from '@/lib/locale-ui-strings';
+import { ogLocaleFor } from '@/lib/i18n';
 
 const SITE_URL = 'https://co-ownership-property.com';
 
@@ -181,7 +182,7 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
         <meta property="og:description" content={entry.metaDescription} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="article" />
-        <meta property="og:locale" content={locale === 'en' ? 'en_GB' : locale === 'es' ? 'es_ES' : locale === 'fr' ? 'fr_FR' : 'de_DE'} />
+        <meta property="og:locale" content={ogLocaleFor(locale)} />
         <meta property="og:image" content={entry.ogImage} />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
