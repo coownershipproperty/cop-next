@@ -643,15 +643,14 @@ img {
                 padding: 0.9rem 2rem 1.5rem;
                 background: transparent;
                 border-bottom: none;
-                /* Two columns of flag + native language name. Ten locales in a
-                   5-across flag grid gave ~37px tiles: too small to tap, too
-                   small to read, and the flags stretched out of their 3:2
-                   ratio. Two columns is legible, keeps 42px tap targets, and
-                   matches the "native-language text on mobile" pattern the
-                   Flag component was written for. */
+                /* Ten uppercase locale codes — the same tokens the desktop
+                   dropdown uses (EN / ES / FR …). Five across gives two even
+                   rows with no orphan. Flags were removed on 29 Aug 2026:
+                   at ten locales they were unreadable on a phone, and a flag
+                   names a country rather than a language. */
                 display: grid !important;
-                grid-template-columns: 1fr 1fr;
-                gap: 0.5rem;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.45rem;
                 align-items: stretch;
                 justify-items: stretch;
                 flex: 0 0 auto;
@@ -661,47 +660,44 @@ img {
             .cop-nav .cop-lang-unavailable {
                 display: flex !important;
                 align-items: center;
-                justify-content: flex-start !important;
-                text-align: left !important;
-                gap: 0.4rem;
+                justify-content: center !important;
                 width: 100% !important;
-                height: 42px !important;
+                height: 38px !important;
                 min-width: 0 !important;
-                padding: 0 0.45rem !important;
+                padding: 0 !important;
                 margin: 0 !important;
-                border: 1px solid rgba(201,168,76,0.18) !important;
+                border: 1px solid rgba(201,168,76,0.20) !important;
                 border-radius: 2px !important;
                 background: transparent !important;
                 box-shadow: none !important;
                 box-sizing: border-box;
                 overflow: hidden;
                 text-decoration: none !important;
-                text-transform: none !important;
+                text-align: center !important;
+                text-transform: uppercase !important;
                 font-family: 'Nunito Sans', sans-serif !important;
-                font-size: 0.7rem !important;
-                font-weight: 600 !important;
-                letter-spacing: 0.02em !important;
+                font-size: 0.72rem !important;
+                font-weight: 700 !important;
+                letter-spacing: 0.08em !important;
                 line-height: 1 !important;
                 color: rgba(255,255,255,0.72) !important;
                 opacity: 1;
                 transition: color 0.2s ease, border-color 0.2s ease;
                 cursor: pointer;
             }
-            /* Flag keeps its 3:2 ratio at a fixed size beside the label. */
-            .cop-nav .cop-flag {
-                display: block !important;
-                flex: 0 0 19px;
-                width: 19px !important;
-                height: 13px !important;
-                border-radius: 1px;
-                overflow: hidden;
-            }
+            /* Code is the visible token; the native language name stays in the
+               DOM for assistive tech only. */
+            .cop-nav .cop-lang-code { display: block !important; }
             .cop-nav .cop-lang-label {
-                display: block !important;
-                min-width: 0;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                position: absolute !important;
+                width: 1px !important;
+                height: 1px !important;
+                padding: 0 !important;
+                margin: -1px !important;
+                overflow: hidden !important;
+                clip: rect(0 0 0 0) !important;
+                white-space: nowrap !important;
+                border: 0 !important;
             }
             .cop-nav .cop-lang-link:hover {
                 color: #fff !important;
@@ -4989,15 +4985,14 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 padding: 0.9rem 2rem 1.5rem;
                 background: transparent;
                 border-bottom: none;
-                /* Two columns of flag + native language name. Ten locales in a
-                   5-across flag grid gave ~37px tiles: too small to tap, too
-                   small to read, and the flags stretched out of their 3:2
-                   ratio. Two columns is legible, keeps 42px tap targets, and
-                   matches the "native-language text on mobile" pattern the
-                   Flag component was written for. */
+                /* Ten uppercase locale codes — the same tokens the desktop
+                   dropdown uses (EN / ES / FR …). Five across gives two even
+                   rows with no orphan. Flags were removed on 29 Aug 2026:
+                   at ten locales they were unreadable on a phone, and a flag
+                   names a country rather than a language. */
                 display: grid !important;
-                grid-template-columns: 1fr 1fr;
-                gap: 0.5rem;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.45rem;
                 align-items: stretch;
                 justify-items: stretch;
                 flex: 0 0 auto;
@@ -5007,47 +5002,44 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
             .cop-nav .cop-lang-unavailable {
                 display: flex !important;
                 align-items: center;
-                justify-content: flex-start !important;
-                text-align: left !important;
-                gap: 0.4rem;
+                justify-content: center !important;
                 width: 100% !important;
-                height: 42px !important;
+                height: 38px !important;
                 min-width: 0 !important;
-                padding: 0 0.45rem !important;
+                padding: 0 !important;
                 margin: 0 !important;
-                border: 1px solid rgba(201,168,76,0.18) !important;
+                border: 1px solid rgba(201,168,76,0.20) !important;
                 border-radius: 2px !important;
                 background: transparent !important;
                 box-shadow: none !important;
                 box-sizing: border-box;
                 overflow: hidden;
                 text-decoration: none !important;
-                text-transform: none !important;
+                text-align: center !important;
+                text-transform: uppercase !important;
                 font-family: 'Nunito Sans', sans-serif !important;
-                font-size: 0.7rem !important;
-                font-weight: 600 !important;
-                letter-spacing: 0.02em !important;
+                font-size: 0.72rem !important;
+                font-weight: 700 !important;
+                letter-spacing: 0.08em !important;
                 line-height: 1 !important;
                 color: rgba(255,255,255,0.72) !important;
                 opacity: 1;
                 transition: color 0.2s ease, border-color 0.2s ease;
                 cursor: pointer;
             }
-            /* Flag keeps its 3:2 ratio at a fixed size beside the label. */
-            .cop-nav .cop-flag {
-                display: block !important;
-                flex: 0 0 19px;
-                width: 19px !important;
-                height: 13px !important;
-                border-radius: 1px;
-                overflow: hidden;
-            }
+            /* Code is the visible token; the native language name stays in the
+               DOM for assistive tech only. */
+            .cop-nav .cop-lang-code { display: block !important; }
             .cop-nav .cop-lang-label {
-                display: block !important;
-                min-width: 0;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                position: absolute !important;
+                width: 1px !important;
+                height: 1px !important;
+                padding: 0 !important;
+                margin: -1px !important;
+                overflow: hidden !important;
+                clip: rect(0 0 0 0) !important;
+                white-space: nowrap !important;
+                border: 0 !important;
             }
             .cop-nav .cop-lang-link:hover {
                 color: #fff !important;

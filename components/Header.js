@@ -178,107 +178,21 @@ export default function Header() {
   );
 }
 
-// Inline SVG flag icons. Tiny, consistent-rendering, no extra deps.
-// preserveAspectRatio="none" lets each flag fill its grid cell exactly
-// rather than leaving empty bars when the cell ratio differs from the
-// flag's natural ratio. At small sizes the slight stretching reads as
-// clean, full-bleed colour bars.
-const FLAG_SVGS = {
-  en: (
-    // Union Jack (Great Britain). Standard 60×30 ratio.
-    <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <clipPath id="cop-flag-en-t"><path d="M30,15 h30 v15 z v-15 h-30 z h-30 v-15 z v15 h30 z" /></clipPath>
-      <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
-      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
-      <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#cop-flag-en-t)" stroke="#C8102E" strokeWidth="4" />
-      <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10" />
-      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6" />
-    </svg>
-  ),
-  es: (
-    // Spain — simplified red/yellow/red (drop the coat of arms at this size)
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="60" height="40" fill="#AA151B" />
-      <rect y="10" width="60" height="20" fill="#F1BF00" />
-    </svg>
-  ),
-  fr: (
-    // France — tricolore (blue, white, red) vertical
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="20" height="40" fill="#002395" />
-      <rect x="20" width="20" height="40" fill="#fff" />
-      <rect x="40" width="20" height="40" fill="#ED2939" />
-    </svg>
-  ),
-  de: (
-    // Germany — black, red, yellow horizontal
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="60" height="40" fill="#000" />
-      <rect y="13.33" width="60" height="13.33" fill="#DD0000" />
-      <rect y="26.67" width="60" height="13.34" fill="#FFCE00" />
-    </svg>
-  ),
-
-  it: (
-    // Italy — tricolore (green, white, red) vertical
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="20" height="40" fill="#008C45" />
-      <rect x="20" width="20" height="40" fill="#F4F5F0" />
-      <rect x="40" width="20" height="40" fill="#CD212A" />
-    </svg>
-  ),
-  nl: (
-    // Netherlands — red, white, blue horizontal
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="60" height="40" fill="#21468B" />
-      <rect width="60" height="26.67" fill="#FFF" />
-      <rect width="60" height="13.33" fill="#AE1C28" />
-    </svg>
-  ),
-  pt: (
-    // Brazil — green field, yellow lozenge, blue globe (simplified at this size)
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="60" height="40" fill="#009B3A" />
-      <path d="M30,5 L55,20 L30,35 L5,20 Z" fill="#FEDF00" />
-      <circle cx="30" cy="20" r="8.5" fill="#002776" />
-    </svg>
-  ),
-  sv: (
-    // Sweden — blue field, yellow Nordic cross
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="60" height="40" fill="#006AA7" />
-      <rect y="16" width="60" height="8" fill="#FECC00" />
-      <rect x="17" width="8" height="40" fill="#FECC00" />
-    </svg>
-  ),
-  da: (
-    // Denmark — red field, white Nordic cross
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="60" height="40" fill="#C8102E" />
-      <rect y="16" width="60" height="8" fill="#fff" />
-      <rect x="17" width="8" height="40" fill="#fff" />
-    </svg>
-  ),
-  no: (
-    // Norway — red field, white-outlined blue Nordic cross
-    <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <rect width="60" height="40" fill="#BA0C2F" />
-      <rect y="14" width="60" height="12" fill="#fff" />
-      <rect x="15" width="12" height="40" fill="#fff" />
-      <rect y="17" width="60" height="6" fill="#00205B" />
-      <rect x="18" width="6" height="40" fill="#00205B" />
-    </svg>
-  ),
-};
 
 
 // Render both a flag and the native locale name. CSS shows only the flag on
 // desktop (where the 2x2 grid uses full-bleed flags) and only the text label
 // on mobile/drawer (where luxury brands universally use native-language text).
-function Flag({ loc }) {
+// The drawer picker shows the same uppercase locale code the desktop dropdown
+// uses (EN / ES / FR …) rather than a flag. Flags were dropped on 29 Aug 2026:
+// Dylan didn't want them, ten of them never fit a phone drawer legibly, and a
+// flag is a country not a language anyway (pt here is Brazil, en is UK+US).
+// The native language name stays in the markup for screen readers and is
+// exposed as a tooltip; CSS shows only the code.
+function LocaleTag({ loc }) {
   return (
     <>
-      <span className="cop-flag">{FLAG_SVGS[loc]}</span>
+      <span className="cop-lang-code">{loc.toUpperCase()}</span>
       <span className="cop-lang-label">{LOCALE_NAMES[loc]}</span>
     </>
   );
@@ -318,7 +232,7 @@ function LanguageSwitcher({ currentLocale, currentPath, desktopOnly = false }) {
         if (loc === currentLocale) {
           return (
             <span key={loc} className="cop-lang-current" aria-label={LOCALE_NAMES[loc]} aria-current="true">
-              <Flag loc={loc} />
+              <LocaleTag loc={loc} />
             </span>
           );
         }
@@ -332,13 +246,13 @@ function LanguageSwitcher({ currentLocale, currentPath, desktopOnly = false }) {
               aria-label={LOCALE_NAMES[loc] + ' — ' + NOT_AVAILABLE_LABEL[loc]}
               aria-disabled="true"
             >
-              <Flag loc={loc} />
+              <LocaleTag loc={loc} />
             </span>
           );
         }
         return (
           <a key={loc} href={target} className="cop-lang-link" hrefLang={loc} aria-label={LOCALE_NAMES[loc]} title={LOCALE_NAMES[loc]}>
-            <Flag loc={loc} />
+            <LocaleTag loc={loc} />
           </a>
         );
       })}
