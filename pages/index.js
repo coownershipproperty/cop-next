@@ -5,7 +5,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
-import PriceTicker from '@/components/PriceTicker';
 import { createClient } from '@supabase/supabase-js';
 import { getFeaturedSlugs } from '@/lib/featured-properties';
 
@@ -404,8 +403,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         {/* Hero Content */}
         <div className="hero-content">
             <h1 className="hero-heading">
-                <span className="hero-pre">Your window to the</span>
-                <em>world's finest</em>
+                <span className="hero-pre">Your window to the world's finest</span>
                 <span className="hero-rule"></span>
                 <span className="hero-post">co-ownership</span>
             </h1>
@@ -712,8 +710,6 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
     </section>
 
 
-    {/* ===== BUY-FROM PRICE TICKER (below Our Destinations) ===== */}
-    <PriceTicker />
 
     {/* ===== TESTIMONIALS SECTION ===== */}
     <section className="testimonials-section" id="testimonials">

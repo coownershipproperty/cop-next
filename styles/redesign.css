@@ -737,3 +737,169 @@ html.rv-ready [data-rv].rv-in { opacity: 1; transform: none; }
 .rd .cta-band-sub { max-width: 52ch !important; margin: 0 auto !important; text-align: center !important; }
 .rd .cta-band-eyebrow { margin: 0 auto !important; text-align: center !important; }
 .rd .cta-band-buttons { display: flex !important; gap: 0.8rem !important; justify-content: center !important; margin: 0.5rem auto 0 !important; }
+
+/* ============================================================
+   Upgrade pass: contrast, true blacks, header ink, destinations,
+   forms, hero recomposition
+   ============================================================ */
+
+/* Deeper ink + stronger body contrast everywhere */
+.rd {
+  --rd-ink: #0a0a0a;
+  --rd-ink-60: rgba(10,10,10,0.72);
+  --rd-ink-40: rgba(10,10,10,0.45);
+}
+
+/* ── Hero: kicker line + one big capitalised word, more contrast ── */
+.rd .hero-overlay {
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.26) 100%) !important;
+}
+.rd .hero-heading { line-height: 1.04 !important; }
+.rd .hero-pre {
+  display: block !important;
+  font-family: var(--rd-body) !important;
+  font-size: clamp(0.85rem, 1.1vw, 1rem) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: rgba(255,255,255,0.88) !important;
+  margin: 0 0 1.3rem !important;
+}
+.rd .hero-post {
+  display: block !important;
+  font-family: var(--rd-head) !important;
+  font-size: clamp(3rem, 6.8vw, 5.4rem) !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: capitalize !important;
+  color: #ffffff !important;
+}
+.rd .hero-ctas { margin-top: 2.2rem; }
+
+/* ── Header: ink on light, no navy/gold (desktop only - drawer later) ── */
+@media (min-width: 1281px) {
+  .rd .cop-header, .rd .cop-header.scrolled {
+    background: rgba(252,252,252,0.92) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rd-line) !important;
+    box-shadow: none !important;
+  }
+  .rd .cop-header .cop-logo img { filter: brightness(0); }
+  .rd .cop-nav a, .rd .cop-header.scrolled .cop-nav a {
+    font-family: var(--rd-body) !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1em !important;
+    color: rgba(10,10,10,0.6) !important;
+    border-color: transparent !important;
+  }
+  .rd .cop-nav a:hover { color: #0a0a0a !important; }
+  .rd .cop-nav a.cop-nav-active, .rd .cop-nav .cop-nav-active {
+    color: #0a0a0a !important;
+    border-bottom-color: #0a0a0a !important;
+  }
+  .rd .cop-nav .cop-nav-favourites { color: rgba(10,10,10,0.6) !important; }
+  .rd .cop-lang-dropdown-trigger, .rd .cop-header.scrolled .cop-lang-dropdown-trigger {
+    border: 1px solid rgba(10,10,10,0.18) !important;
+    border-radius: var(--rd-radius) !important;
+    color: rgba(10,10,10,0.7) !important;
+    background: transparent !important;
+  }
+  .rd .cop-lang-dropdown-code, .rd .cop-lang-dropdown-chev { color: rgba(10,10,10,0.7) !important; }
+}
+
+/* ── Carousel: true black view-all panel, no washing edge fades ── */
+.rd .pc-outer::before, .rd .pc-outer::after,
+.rd .pc-wrap::before, .rd .pc-wrap::after,
+.rd .pc-track::before, .rd .pc-track::after { display: none !important; }
+.rd .pc-card-viewall, .rd .pc-card-viewall .pc-img-wrap,
+.rd .pc-viewall-img, .rd .pc-viewall-inner {
+  background: #0a0a0a !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+.rd .pc-panel-btn {
+  color: #0a0a0a !important;
+  font-family: var(--rd-body) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  border-bottom: 1px solid #0a0a0a !important;
+  text-decoration: none !important;
+}
+.rd .pc-caption-loc, .rd .pc-panel-loc { color: var(--rd-ink-40) !important; letter-spacing: 0.12em !important; }
+.rd .pc-panel-price { color: var(--rd-ink) !important; font-weight: 600 !important; }
+
+/* ── Destinations: modern split - big image, big name, no clipart map ── */
+.rd .dest-country-outline { display: none !important; }
+.rd .dest-panels {
+  width: 100% !important;
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+.rd .dest-panel { display: none !important; }
+.rd .dest-panel.active {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(2.5rem, 5vw, 5rem) !important;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.rd .dest-img-wrap {
+  flex: 1.25 1 0 !important;
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+}
+.rd .dest-img-wrap img {
+  width: 100% !important;
+  aspect-ratio: 16 / 11;
+  height: auto !important;
+  object-fit: cover !important;
+  border-radius: var(--rd-radius) !important;
+}
+.rd .dest-info { flex: 1 1 0 !important; min-width: 0 !important; text-align: left !important; }
+.rd .dest-info-name {
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem) !important;
+  letter-spacing: -0.015em !important;
+  margin-bottom: 1.1rem !important;
+}
+.rd .dest-info-desc {
+  font-size: 1.05rem !important;
+  line-height: 1.7 !important;
+  max-width: 44ch;
+  margin-bottom: 1.8rem !important;
+}
+.rd .dest-tabs { margin: 2.2rem 0 3rem !important; }
+.rd .dest-tab-btn { font-size: 0.95rem !important; margin-right: 1.4rem !important; }
+
+/* ── Forms: room to breathe ── */
+.rd .expert-inner { padding: clamp(2.5rem, 5vw, 4.5rem) !important; max-width: 920px; margin: 0 auto; }
+.rd .expert-form-grid { gap: 1.6rem 2rem !important; }
+.rd .expert-form label {
+  display: block !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+}
+.rd .expert-form input, .rd .expert-form textarea, .rd .expert-form select, .rd .dest-trigger {
+  padding: 0.95rem 1.1rem !important;
+  font-size: 1rem !important;
+  line-height: 1.4 !important;
+}
+.rd .expert-submit-btn { padding: 1rem 2.2rem !important; font-size: 1rem !important; margin-top: 0.8rem; }
+.rd .newsletter-form input { padding: 0.95rem 1.1rem !important; font-size: 1rem !important; }
+.rd .newsletter-btn { padding: 0.95rem 1.8rem !important; font-size: 0.98rem !important; }
+@media (min-width: 1281px) {
+  .rd .cop-nav .cop-nav-favourites,
+  .rd .cop-nav .cop-nav-favourites span,
+  .rd .cop-nav .cop-nav-favourites::before {
+    color: rgba(10,10,10,0.6) !important;
+  }
+  .rd .cop-nav .cop-nav-favourites:hover,
+  .rd .cop-nav .cop-nav-favourites:hover span { color: #0a0a0a !important; }
+}
