@@ -683,3 +683,57 @@ html.rv-ready [data-rv].rv-in { opacity: 1; transform: none; }
 .rd .footer-bottom-right { font-style: normal !important; color: rgba(255,255,255,0.4) !important; }
 .rd .faq-item summary::before, .rd .faq-num, .rd .faq-q::before { color: var(--rd-ink-40) !important; font-family: var(--rd-body) !important; font-style: normal !important; }
 .rd .faq-chevron { color: var(--rd-ink-40) !important; stroke: var(--rd-ink-40) !important; }
+
+/* ── Carousel: inactive cards stay fully readable, view-all card is one
+      clean ink panel with centred content ── */
+.rd .pc-card { opacity: 1 !important; }
+.rd .pc-card:not(.pc-active) { opacity: 0.92 !important; }
+.rd .pc-card-viewall,
+.rd .pc-card-viewall .pc-img-wrap,
+.rd .pc-viewall-img,
+.rd .pc-viewall-inner {
+  background: var(--rd-ink) !important;
+  background-image: none !important;
+}
+.rd .pc-card-viewall {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.rd .pc-viewall-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1.1rem !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.rd .pc-viewall-count {
+  font-family: var(--rd-head) !important;
+  font-size: 3.2rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* ── CTA band: tight centred composition ── */
+.rd .cta-band {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 1.4rem !important;
+}
+.rd .cta-band-heading {
+  max-width: 22ch !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+.rd .cta-band-sub { max-width: 52ch !important; margin: 0 auto !important; text-align: center !important; }
+.rd .cta-band-eyebrow { margin: 0 auto !important; text-align: center !important; }
+.rd .cta-band-buttons { display: flex !important; gap: 0.8rem !important; justify-content: center !important; margin: 0.5rem auto 0 !important; }
