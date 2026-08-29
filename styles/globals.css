@@ -640,51 +640,81 @@ img {
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 1.2rem 2rem 1.6rem;
+                padding: 0.9rem 2rem 1.5rem;
                 background: transparent;
                 border-bottom: none;
+                /* Two columns of flag + native language name. Ten locales in a
+                   5-across flag grid gave ~37px tiles: too small to tap, too
+                   small to read, and the flags stretched out of their 3:2
+                   ratio. Two columns is legible, keeps 42px tap targets, and
+                   matches the "native-language text on mobile" pattern the
+                   Flag component was written for. */
                 display: grid !important;
-                /* Five across: with ten locales that is two clean rows rather than
-                   two rows and a stub. Extra locales simply wrap. */
-                grid-template-columns: repeat(5, 1fr);
-                grid-auto-rows: 30px;
-                gap: 0.8rem;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
                 align-items: stretch;
                 justify-items: stretch;
                 flex: 0 0 auto;
             }
-            /* Show flag SVGs inside the expanded picker */
-            .cop-nav .cop-flag { display: block !important; }
-            .cop-nav .cop-lang-label { display: none !important; }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current,
             .cop-nav .cop-lang-unavailable {
-                display: block !important;
-                position: relative;
+                display: flex !important;
+                align-items: center;
+                justify-content: flex-start !important;
+                text-align: left !important;
+                gap: 0.4rem;
                 width: 100% !important;
-                height: 30px !important;
+                height: 42px !important;
                 min-width: 0 !important;
-                padding: 0 !important;
+                padding: 0 0.45rem !important;
                 margin: 0 !important;
-                border: 1px solid rgba(201,168,76,0.20) !important;
-                border-radius: 0 !important;
+                border: 1px solid rgba(201,168,76,0.18) !important;
+                border-radius: 2px !important;
                 background: transparent !important;
                 box-shadow: none !important;
                 box-sizing: border-box;
                 overflow: hidden;
-                opacity: 0.55;
-                transition: opacity 0.2s ease;
+                text-decoration: none !important;
+                text-transform: none !important;
+                font-family: 'Nunito Sans', sans-serif !important;
+                font-size: 0.7rem !important;
+                font-weight: 600 !important;
+                letter-spacing: 0.02em !important;
+                line-height: 1 !important;
+                color: rgba(255,255,255,0.72) !important;
+                opacity: 1;
+                transition: color 0.2s ease, border-color 0.2s ease;
                 cursor: pointer;
             }
-            .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
+            /* Flag keeps its 3:2 ratio at a fixed size beside the label. */
+            .cop-nav .cop-flag {
+                display: block !important;
+                flex: 0 0 19px;
+                width: 19px !important;
+                height: 13px !important;
+                border-radius: 1px;
+                overflow: hidden;
+            }
+            .cop-nav .cop-lang-label {
+                display: block !important;
+                min-width: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .cop-nav .cop-lang-link:hover {
+                color: #fff !important;
+                border-color: rgba(201,168,76,0.45) !important;
+            }
             .cop-nav .cop-lang-current {
-                opacity: 1 !important;
+                color: var(--warm-gold) !important;
+                border-color: rgba(201,168,76,0.85) !important;
+                background: rgba(201,168,76,0.10) !important;
                 cursor: default;
-                box-shadow: inset 0 0 0 1.5px rgba(201,168,76,0.95) !important;
-                border-color: rgba(201,168,76,0.95) !important;
             }
             .cop-nav .cop-lang-unavailable {
-                opacity: 0.25 !important;
+                opacity: 0.4;
                 cursor: not-allowed;
             }
 
@@ -4956,51 +4986,81 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 1.2rem 2rem 1.6rem;
+                padding: 0.9rem 2rem 1.5rem;
                 background: transparent;
                 border-bottom: none;
+                /* Two columns of flag + native language name. Ten locales in a
+                   5-across flag grid gave ~37px tiles: too small to tap, too
+                   small to read, and the flags stretched out of their 3:2
+                   ratio. Two columns is legible, keeps 42px tap targets, and
+                   matches the "native-language text on mobile" pattern the
+                   Flag component was written for. */
                 display: grid !important;
-                /* Five across: with ten locales that is two clean rows rather than
-                   two rows and a stub. Extra locales simply wrap. */
-                grid-template-columns: repeat(5, 1fr);
-                grid-auto-rows: 30px;
-                gap: 0.8rem;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
                 align-items: stretch;
                 justify-items: stretch;
                 flex: 0 0 auto;
             }
-            /* Show flag SVGs inside the expanded picker */
-            .cop-nav .cop-flag { display: block !important; }
-            .cop-nav .cop-lang-label { display: none !important; }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current,
             .cop-nav .cop-lang-unavailable {
-                display: block !important;
-                position: relative;
+                display: flex !important;
+                align-items: center;
+                justify-content: flex-start !important;
+                text-align: left !important;
+                gap: 0.4rem;
                 width: 100% !important;
-                height: 30px !important;
+                height: 42px !important;
                 min-width: 0 !important;
-                padding: 0 !important;
+                padding: 0 0.45rem !important;
                 margin: 0 !important;
-                border: 1px solid rgba(201,168,76,0.20) !important;
-                border-radius: 0 !important;
+                border: 1px solid rgba(201,168,76,0.18) !important;
+                border-radius: 2px !important;
                 background: transparent !important;
                 box-shadow: none !important;
                 box-sizing: border-box;
                 overflow: hidden;
-                opacity: 0.55;
-                transition: opacity 0.2s ease;
+                text-decoration: none !important;
+                text-transform: none !important;
+                font-family: 'Nunito Sans', sans-serif !important;
+                font-size: 0.7rem !important;
+                font-weight: 600 !important;
+                letter-spacing: 0.02em !important;
+                line-height: 1 !important;
+                color: rgba(255,255,255,0.72) !important;
+                opacity: 1;
+                transition: color 0.2s ease, border-color 0.2s ease;
                 cursor: pointer;
             }
-            .cop-nav .cop-lang-link:hover { opacity: 1 !important; }
+            /* Flag keeps its 3:2 ratio at a fixed size beside the label. */
+            .cop-nav .cop-flag {
+                display: block !important;
+                flex: 0 0 19px;
+                width: 19px !important;
+                height: 13px !important;
+                border-radius: 1px;
+                overflow: hidden;
+            }
+            .cop-nav .cop-lang-label {
+                display: block !important;
+                min-width: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .cop-nav .cop-lang-link:hover {
+                color: #fff !important;
+                border-color: rgba(201,168,76,0.45) !important;
+            }
             .cop-nav .cop-lang-current {
-                opacity: 1 !important;
+                color: var(--warm-gold) !important;
+                border-color: rgba(201,168,76,0.85) !important;
+                background: rgba(201,168,76,0.10) !important;
                 cursor: default;
-                box-shadow: inset 0 0 0 1.5px rgba(201,168,76,0.95) !important;
-                border-color: rgba(201,168,76,0.95) !important;
             }
             .cop-nav .cop-lang-unavailable {
-                opacity: 0.25 !important;
+                opacity: 0.4;
                 cursor: not-allowed;
             }
 
