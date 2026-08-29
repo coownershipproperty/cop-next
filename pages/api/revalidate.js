@@ -1,4 +1,17 @@
 import { pingIndexNow } from '@/lib/indexnow';
+import { SUPPORTED_LOCALES, familyPrefix, routePath } from '@/lib/i18n';
+
+export function propertyRevalidationPaths(slug) {
+  return SUPPORTED_LOCALES.flatMap((locale) => {
+    const propertyPrefix = familyPrefix(locale, 'property');
+
+    return [
+      propertyPrefix ? `${propertyPrefix}${slug}/` : null,
+      routePath(locale, 'homes'),
+      routePath(locale, 'home'),
+    ].filter(Boolean);
+  });
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -47,7 +60,11 @@ export default async function handler(req, res) {
       paths.push('/fr/', '/fr/proprietes/', '/fr/blog/', '/fr/comment-ca-marche/', '/fr/a-propos/', '/fr/contact/');
       paths.push('/de/', '/de/immobilien/', '/de/blog/', '/de/so-funktionierts/', '/de/ueber-uns/', '/de/kontakt/');
     } else {
-      paths.push(`/property/${slug}`, `/property/${slug}/`, '/our-homes', '/our-homes/', '/');
+      // A property is rendered into one detail page per launched locale and can
+      // also change the contents of every locale's listings page and homepage.
+      // Revalidate those canonical routes directly so a database edit does not
+      // need a full production rebuild to refresh translated pages.
+      paths.push(...propertyRevalidationPaths(slug));
     }
 
     const uniquePaths = [...new Set(paths)];
