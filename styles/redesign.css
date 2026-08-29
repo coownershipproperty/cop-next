@@ -543,3 +543,143 @@ html.rv-ready [data-rv].rv-in { opacity: 1; transform: none; }
 }
 .rd .faq-chevron { color: var(--rd-ink-40) !important; }
 .rd .faq-a, .rd .faq-a p { color: var(--rd-ink-60) !important; font-size: 1rem !important; line-height: 1.6 !important; }
+
+/* ── FAQ inner span carries its own legacy font rule ── */
+.rd .faq-q span {
+  font-family: var(--rd-head) !important;
+  font-weight: 500 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 0 !important;
+  color: var(--rd-ink) !important;
+}
+.rd .faq-heading em { color: var(--rd-ink) !important; }
+.rd .faq-eyebrow { color: var(--rd-ink-40) !important; }
+
+/* ── Carousel view-all card: ink panel instead of navy/gold ── */
+.rd .pc-card-viewall, .rd .pc-viewall-inner {
+  background: var(--rd-ink) !important;
+}
+.rd .pc-viewall-count, .rd .pc-viewall-label {
+  font-family: var(--rd-head) !important;
+  color: #ffffff !important;
+}
+.rd .pc-viewall-label {
+  font-family: var(--rd-body) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.16em !important;
+  color: rgba(255,255,255,0.5) !important;
+}
+.rd .pc-viewall-btn {
+  background: #ffffff !important;
+  color: var(--rd-ink) !important;
+  border: 1px solid #ffffff !important;
+  border-radius: var(--rd-radius) !important;
+  font-family: var(--rd-body) !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  padding: 0.75rem 1.4rem !important;
+  text-decoration: none !important;
+}
+
+/* ── Newsletter: light band ── */
+.rd .newsletter-section {
+  background: var(--rd-bg-soft) !important;
+  padding: clamp(4rem, 8vw, 7rem) var(--rd-gutter) !important;
+}
+.rd .newsletter-heading {
+  font-family: var(--rd-head) !important;
+  font-weight: 500 !important;
+  font-size: clamp(1.9rem, 3.4vw, 2.5rem) !important;
+  color: var(--rd-ink) !important;
+  text-transform: none !important;
+}
+.rd .newsletter-subtitle { color: var(--rd-ink-60) !important; font-size: 1.1rem !important; }
+.rd .newsletter-form input {
+  background: #ffffff !important;
+  border: 1px solid var(--rd-line) !important;
+  border-radius: var(--rd-radius) !important;
+  color: var(--rd-ink) !important;
+  font-family: var(--rd-body) !important;
+}
+.rd .newsletter-form input::placeholder { color: var(--rd-ink-40) !important; }
+.rd .newsletter-btn {
+  background: var(--rd-ink) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--rd-ink) !important;
+  border-radius: var(--rd-radius) !important;
+  font-family: var(--rd-body) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+/* ── Expert form: light card on warm ground ── */
+.rd .expert-section { background: var(--rd-bg) !important; padding: clamp(4rem, 8vw, 7.5rem) var(--rd-gutter) !important; }
+.rd .expert-inner {
+  background: #ffffff !important;
+  border: 1px solid var(--rd-line) !important;
+  border-radius: var(--rd-radius) !important;
+  box-shadow: var(--rd-shadow) !important;
+}
+.rd .expert-eyebrow {
+  font-family: var(--rd-body) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.16em !important;
+  color: var(--rd-ink-40) !important;
+}
+.rd .expert-heading {
+  font-family: var(--rd-head) !important;
+  font-weight: 500 !important;
+  color: var(--rd-ink) !important;
+  text-transform: none !important;
+}
+.rd .expert-heading em { font-style: normal !important; color: var(--rd-ink) !important; }
+.rd .expert-sub { color: var(--rd-ink-60) !important; }
+.rd .expert-form label { color: var(--rd-ink-60) !important; letter-spacing: 0.1em !important; }
+.rd .expert-form input, .rd .expert-form textarea, .rd .expert-form select, .rd .dest-trigger {
+  background: var(--rd-bg) !important;
+  border: 1px solid var(--rd-line) !important;
+  border-radius: var(--rd-radius) !important;
+  color: var(--rd-ink) !important;
+  font-family: var(--rd-body) !important;
+}
+.rd .expert-form input::placeholder, .rd .expert-form textarea::placeholder { color: var(--rd-ink-40) !important; }
+.rd .expert-submit-btn {
+  background: var(--rd-ink) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--rd-ink) !important;
+  border-radius: var(--rd-radius) !important;
+  font-family: var(--rd-body) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+.rd .expert-submit-btn:hover { background: #2a2a2a !important; }
+
+/* ── Footer: ink panel, quiet columns ── */
+.rd .site-footer {
+  background: var(--rd-ink) !important;
+  border-top: none !important;
+}
+.rd .footer-logo-text {
+  font-family: var(--rd-head) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  color: #ffffff !important;
+}
+.rd .footer-col-heading {
+  font-family: var(--rd-body) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.16em !important;
+  color: rgba(255,255,255,0.4) !important;
+}
+.rd .site-footer a { color: rgba(255,255,255,0.65) !important; font-family: var(--rd-body) !important; }
+.rd .site-footer a:hover { color: #ffffff !important; }
+.rd .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08) !important; color: rgba(255,255,255,0.4) !important; }
+.rd .footer-bottom-right { font-style: normal !important; color: rgba(255,255,255,0.4) !important; }
+.rd .faq-item summary::before, .rd .faq-num, .rd .faq-q::before { color: var(--rd-ink-40) !important; font-family: var(--rd-body) !important; font-style: normal !important; }
+.rd .faq-chevron { color: var(--rd-ink-40) !important; stroke: var(--rd-ink-40) !important; }
