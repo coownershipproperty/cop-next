@@ -1,0 +1,156 @@
+/* ============================================================
+   COP light redesign — design tokens + shared primitives
+   Gallery-minimal system: warm off-white ground, near-black ink,
+   sharp-edged photography, quiet shadows, inertial motion.
+   Scoped: everything hangs off .rd (page shell) so legacy pages
+   are untouched until they adopt it.
+   ============================================================ */
+
+:root {
+  --rd-bg: #fcfcfc;
+  --rd-bg-soft: #f5f4f1;      /* warm section alternate */
+  --rd-ink: #0d0d0d;
+  --rd-ink-60: rgba(13,13,13,0.6);
+  --rd-ink-40: rgba(13,13,13,0.4);
+  --rd-line: rgba(13,13,13,0.08);
+  --rd-card: #ffffff;
+  --rd-radius: 3px;
+  --rd-shadow: 0 10px 20px rgba(0,0,0,0.02);
+  --rd-shadow-hover: 0 18px 40px rgba(0,0,0,0.06);
+  --rd-max: 1540px;
+  --rd-gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --rd-head: var(--font-poppins), 'Poppins', sans-serif;
+  --rd-body: var(--font-inter), 'Inter', sans-serif;
+  --rd-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rd {
+  background: var(--rd-bg);
+  color: var(--rd-ink);
+  font-family: var(--rd-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ── */
+.rd-container {
+  max-width: var(--rd-max);
+  margin: 0 auto;
+  padding-left: var(--rd-gutter);
+  padding-right: var(--rd-gutter);
+}
+.rd-section { padding: clamp(4rem, 9vw, 8.5rem) 0; }
+.rd-section-soft { background: var(--rd-bg-soft); }
+
+/* ── Type scale (Poppins 500, tight tracking, calm hierarchy) ── */
+.rd h1, .rd h2, .rd h3, .rd-h1, .rd-h2, .rd-h3 {
+  font-family: var(--rd-head);
+  font-weight: 500;
+  color: var(--rd-ink);
+  margin: 0;
+}
+.rd-h1 {
+  font-size: clamp(2.6rem, 6.2vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.rd-h2 {
+  font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.rd-h3 { font-size: 1.25rem; line-height: 1.3; }
+.rd-kicker {
+  display: block;
+  font-family: var(--rd-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rd-ink-40);
+  margin-bottom: 1.1rem;
+}
+.rd-lead { font-size: 1.25rem; line-height: 1.5; color: var(--rd-ink-60); max-width: 46ch; }
+.rd-muted { color: var(--rd-ink-60); }
+
+/* ── Buttons ── */
+.rd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--rd-ink);
+  color: #ffffff;
+  font-family: var(--rd-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid var(--rd-ink);
+  border-radius: var(--rd-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.35s var(--rd-ease), color 0.35s var(--rd-ease),
+              transform 0.35s var(--rd-ease);
+}
+.rd-btn:hover { background: #2a2a2a; transform: translateY(-1px); }
+.rd-btn-ghost {
+  background: transparent;
+  color: var(--rd-ink);
+  border-color: rgba(13,13,13,0.18);
+}
+.rd-btn-ghost:hover { background: rgba(13,13,13,0.05); color: var(--rd-ink); }
+.rd-btn-light {
+  background: #ffffff;
+  color: var(--rd-ink);
+  border-color: #ffffff;
+}
+.rd-btn-light:hover { background: rgba(255,255,255,0.88); }
+
+/* ── Cards ── */
+.rd-card {
+  background: var(--rd-card);
+  border-radius: var(--rd-radius);
+  box-shadow: var(--rd-shadow);
+  overflow: hidden;
+  transition: box-shadow 0.5s var(--rd-ease), transform 0.5s var(--rd-ease);
+}
+.rd-card:hover { box-shadow: var(--rd-shadow-hover); transform: translateY(-3px); }
+.rd img { max-width: 100%; }
+.rd-media { display: block; overflow: hidden; border-radius: var(--rd-radius); }
+.rd-media img, .rd-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.1s var(--rd-ease);
+}
+.rd-card:hover .rd-media img { transform: scale(1.04); }
+
+/* ── Hairlines & chips ── */
+.rd-rule { border: 0; border-top: 1px solid var(--rd-line); margin: 0; }
+.rd-chip {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--rd-ink-60);
+  background: rgba(13,13,13,0.045);
+  border-radius: 2px;
+  padding: 0.3rem 0.7rem;
+}
+
+/* ── Reveal-on-scroll (driven by lib/reveals.js) ── */
+[data-rv] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.9s var(--rd-ease), transform 0.9s var(--rd-ease);
+  will-change: opacity, transform;
+}
+[data-rv].rv-in { opacity: 1; transform: none; }
+[data-rv="2"].rv-in { transition-delay: 0.09s; }
+[data-rv="3"].rv-in { transition-delay: 0.18s; }
+[data-rv="4"].rv-in { transition-delay: 0.27s; }
+[data-rv="5"].rv-in { transition-delay: 0.36s; }
+[data-rv="6"].rv-in { transition-delay: 0.45s; }
+@media (prefers-reduced-motion: reduce) {
+  [data-rv] { opacity: 1; transform: none; transition: none; }
+}
