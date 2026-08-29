@@ -393,7 +393,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
 {/* cache-bust: lang-switcher flags v2 — 2026-05-15 */}
     <section className="hero">
         <video ref={videoRef} className="hero-video" autoPlay muted loop playsInline preload="auto" fetchPriority="high">
-            <source src="/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4" type="video/mp4" />
+            <source src="/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes-dark.mp4" type="video/mp4" />
         </video>
         <div className="hero-overlay"></div>
 
