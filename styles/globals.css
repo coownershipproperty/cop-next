@@ -640,54 +640,51 @@ img {
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 0.9rem 2rem 1.5rem;
-                background: transparent;
-                border-bottom: none;
-                /* Ten uppercase locale codes — the same tokens the desktop
-                   dropdown uses (EN / ES / FR …). Five across gives two even
-                   rows with no orphan. Flags were removed on 29 Aug 2026:
-                   at ten locales they were unreadable on a phone, and a flag
-                   names a country rather than a language. */
-                display: grid !important;
-                grid-template-columns: repeat(5, 1fr);
-                gap: 0.45rem;
-                align-items: stretch;
-                justify-items: stretch;
+                padding: 0;
+                /* A nested list under the LANGUAGE row: one locale code per
+                   line, EN then ES then FR, indented so it reads as a
+                   sub-level of the accordion rather than a new nav section.
+                   Slightly recessed background does the nesting visually. */
+                display: block !important;
+                background: rgba(0,0,0,0.16);
+                border-bottom: 1px solid rgba(201,168,76,0.12);
                 flex: 0 0 auto;
             }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current,
             .cop-nav .cop-lang-unavailable {
-                display: flex !important;
-                align-items: center;
-                justify-content: center !important;
+                display: block !important;
                 width: 100% !important;
-                height: 38px !important;
                 min-width: 0 !important;
-                padding: 0 !important;
                 margin: 0 !important;
-                border: 1px solid rgba(201,168,76,0.20) !important;
-                border-radius: 2px !important;
+                /* Indented from the 2rem the parent nav rows use. */
+                padding: 0.72rem 2rem 0.72rem 3rem !important;
+                border: none !important;
+                border-left: 2px solid transparent !important;
+                border-bottom: 1px solid rgba(201,168,76,0.07) !important;
+                border-radius: 0 !important;
                 background: transparent !important;
                 box-shadow: none !important;
                 box-sizing: border-box;
-                overflow: hidden;
                 text-decoration: none !important;
-                text-align: center !important;
+                text-align: left !important;
                 text-transform: uppercase !important;
                 font-family: 'Nunito Sans', sans-serif !important;
-                font-size: 0.72rem !important;
-                font-weight: 700 !important;
-                letter-spacing: 0.08em !important;
-                line-height: 1 !important;
-                color: rgba(255,255,255,0.72) !important;
+                font-size: 0.78rem !important;
+                font-weight: 600 !important;
+                letter-spacing: 0.16em !important;
+                line-height: 1.1 !important;
+                color: rgba(255,255,255,0.62) !important;
                 opacity: 1;
-                transition: color 0.2s ease, border-color 0.2s ease;
+                transition: background 0.2s ease, color 0.2s ease;
                 cursor: pointer;
+            }
+            .cop-nav .cop-lang-switcher > *:last-child {
+                border-bottom: none !important;
             }
             /* Code is the visible token; the native language name stays in the
                DOM for assistive tech only. */
-            .cop-nav .cop-lang-code { display: block !important; }
+            .cop-nav .cop-lang-code { display: inline !important; }
             .cop-nav .cop-lang-label {
                 position: absolute !important;
                 width: 1px !important;
@@ -700,13 +697,13 @@ img {
                 border: 0 !important;
             }
             .cop-nav .cop-lang-link:hover {
-                color: #fff !important;
-                border-color: rgba(201,168,76,0.45) !important;
+                background: rgba(201,168,76,0.08) !important;
+                color: var(--warm-gold) !important;
             }
             .cop-nav .cop-lang-current {
                 color: var(--warm-gold) !important;
-                border-color: rgba(201,168,76,0.85) !important;
                 background: rgba(201,168,76,0.10) !important;
+                border-left-color: var(--warm-gold) !important;
                 cursor: default;
             }
             .cop-nav .cop-lang-unavailable {
@@ -4982,54 +4979,51 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 0.9rem 2rem 1.5rem;
-                background: transparent;
-                border-bottom: none;
-                /* Ten uppercase locale codes — the same tokens the desktop
-                   dropdown uses (EN / ES / FR …). Five across gives two even
-                   rows with no orphan. Flags were removed on 29 Aug 2026:
-                   at ten locales they were unreadable on a phone, and a flag
-                   names a country rather than a language. */
-                display: grid !important;
-                grid-template-columns: repeat(5, 1fr);
-                gap: 0.45rem;
-                align-items: stretch;
-                justify-items: stretch;
+                padding: 0;
+                /* A nested list under the LANGUAGE row: one locale code per
+                   line, EN then ES then FR, indented so it reads as a
+                   sub-level of the accordion rather than a new nav section.
+                   Slightly recessed background does the nesting visually. */
+                display: block !important;
+                background: rgba(0,0,0,0.16);
+                border-bottom: 1px solid rgba(201,168,76,0.12);
                 flex: 0 0 auto;
             }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current,
             .cop-nav .cop-lang-unavailable {
-                display: flex !important;
-                align-items: center;
-                justify-content: center !important;
+                display: block !important;
                 width: 100% !important;
-                height: 38px !important;
                 min-width: 0 !important;
-                padding: 0 !important;
                 margin: 0 !important;
-                border: 1px solid rgba(201,168,76,0.20) !important;
-                border-radius: 2px !important;
+                /* Indented from the 2rem the parent nav rows use. */
+                padding: 0.72rem 2rem 0.72rem 3rem !important;
+                border: none !important;
+                border-left: 2px solid transparent !important;
+                border-bottom: 1px solid rgba(201,168,76,0.07) !important;
+                border-radius: 0 !important;
                 background: transparent !important;
                 box-shadow: none !important;
                 box-sizing: border-box;
-                overflow: hidden;
                 text-decoration: none !important;
-                text-align: center !important;
+                text-align: left !important;
                 text-transform: uppercase !important;
                 font-family: 'Nunito Sans', sans-serif !important;
-                font-size: 0.72rem !important;
-                font-weight: 700 !important;
-                letter-spacing: 0.08em !important;
-                line-height: 1 !important;
-                color: rgba(255,255,255,0.72) !important;
+                font-size: 0.78rem !important;
+                font-weight: 600 !important;
+                letter-spacing: 0.16em !important;
+                line-height: 1.1 !important;
+                color: rgba(255,255,255,0.62) !important;
                 opacity: 1;
-                transition: color 0.2s ease, border-color 0.2s ease;
+                transition: background 0.2s ease, color 0.2s ease;
                 cursor: pointer;
+            }
+            .cop-nav .cop-lang-switcher > *:last-child {
+                border-bottom: none !important;
             }
             /* Code is the visible token; the native language name stays in the
                DOM for assistive tech only. */
-            .cop-nav .cop-lang-code { display: block !important; }
+            .cop-nav .cop-lang-code { display: inline !important; }
             .cop-nav .cop-lang-label {
                 position: absolute !important;
                 width: 1px !important;
@@ -5042,13 +5036,13 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 border: 0 !important;
             }
             .cop-nav .cop-lang-link:hover {
-                color: #fff !important;
-                border-color: rgba(201,168,76,0.45) !important;
+                background: rgba(201,168,76,0.08) !important;
+                color: var(--warm-gold) !important;
             }
             .cop-nav .cop-lang-current {
                 color: var(--warm-gold) !important;
-                border-color: rgba(201,168,76,0.85) !important;
                 background: rgba(201,168,76,0.10) !important;
+                border-left-color: var(--warm-gold) !important;
                 cursor: default;
             }
             .cop-nav .cop-lang-unavailable {
