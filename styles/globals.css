@@ -640,71 +640,91 @@ img {
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 0;
-                /* A nested list under the LANGUAGE row: one locale code per
-                   line, EN then ES then FR, indented so it reads as a
-                   sub-level of the accordion rather than a new nav section.
-                   Slightly recessed background does the nesting visually. */
+                padding: 0.3rem 0 0.4rem;
+                /* Nested language list under the LANGUAGE accordion row.
+                   Each language is a full-width row: native name ("Espanol",
+                   "Deutsch") is the visible label, its two-letter code sits
+                   right-aligned as a quiet typographic tag. Recessed
+                   background + extra indent read as a sub-level of the nav. */
                 display: block !important;
-                background: rgba(0,0,0,0.16);
+                background: rgba(0,0,0,0.18);
                 border-bottom: 1px solid rgba(201,168,76,0.12);
                 flex: 0 0 auto;
             }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current,
             .cop-nav .cop-lang-unavailable {
-                display: block !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 1rem;
                 width: 100% !important;
                 min-width: 0 !important;
                 margin: 0 !important;
-                /* Indented from the 2rem the parent nav rows use. */
-                padding: 0.72rem 2rem 0.72rem 3rem !important;
+                padding: 0.86rem 2rem 0.86rem 2.6rem !important;
                 border: none !important;
-                border-left: 2px solid transparent !important;
-                border-bottom: 1px solid rgba(201,168,76,0.07) !important;
                 border-radius: 0 !important;
                 background: transparent !important;
                 box-shadow: none !important;
                 box-sizing: border-box;
                 text-decoration: none !important;
                 text-align: left !important;
-                text-transform: uppercase !important;
+                text-transform: none !important;
                 font-family: 'Nunito Sans', sans-serif !important;
-                font-size: 0.78rem !important;
-                font-weight: 600 !important;
-                letter-spacing: 0.16em !important;
-                line-height: 1.1 !important;
-                color: rgba(255,255,255,0.62) !important;
+                font-size: 0.98rem !important;
+                font-weight: 400 !important;
+                letter-spacing: 0.04em !important;
+                line-height: 1.2 !important;
+                color: rgba(255,255,255,0.80) !important;
                 opacity: 1;
                 transition: background 0.2s ease, color 0.2s ease;
                 cursor: pointer;
             }
+            /* Hairline separators between rows only (not after the last). */
+            .cop-nav .cop-lang-switcher > * {
+                border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+            }
             .cop-nav .cop-lang-switcher > *:last-child {
                 border-bottom: none !important;
             }
-            /* Code is the visible token; the native language name stays in the
-               DOM for assistive tech only. */
-            .cop-nav .cop-lang-code { display: inline !important; }
+            /* Native name is the label (undo the base display:none). */
             .cop-nav .cop-lang-label {
-                position: absolute !important;
-                width: 1px !important;
-                height: 1px !important;
+                position: static !important;
+                display: inline !important;
+                width: auto !important;
+                height: auto !important;
+                margin: 0 !important;
                 padding: 0 !important;
-                margin: -1px !important;
-                overflow: hidden !important;
-                clip: rect(0 0 0 0) !important;
+                overflow: visible !important;
+                clip: auto !important;
                 white-space: nowrap !important;
                 border: 0 !important;
             }
+            .cop-nav .cop-lang-code {
+                display: inline-block !important;
+                flex: 0 0 auto;
+                font-size: 0.6rem !important;
+                font-weight: 700 !important;
+                letter-spacing: 0.22em !important;
+                text-transform: uppercase !important;
+                color: rgba(255,255,255,0.30) !important;
+            }
             .cop-nav .cop-lang-link:hover {
-                background: rgba(201,168,76,0.08) !important;
-                color: var(--warm-gold) !important;
+                background: rgba(201,168,76,0.07) !important;
+                color: #ffffff !important;
             }
             .cop-nav .cop-lang-current {
                 color: var(--warm-gold) !important;
-                background: rgba(201,168,76,0.10) !important;
-                border-left-color: var(--warm-gold) !important;
+                background: rgba(201,168,76,0.08) !important;
                 cursor: default;
+            }
+            .cop-nav .cop-lang-current .cop-lang-label::after {
+                content: '\2713';
+                margin-left: 0.55rem;
+                font-size: 0.82em;
+            }
+            .cop-nav .cop-lang-current .cop-lang-code {
+                color: rgba(201,168,76,0.55) !important;
             }
             .cop-nav .cop-lang-unavailable {
                 opacity: 0.4;
@@ -4979,71 +4999,91 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
                 box-sizing: border-box;
                 width: 100%;
                 margin: 0;
-                padding: 0;
-                /* A nested list under the LANGUAGE row: one locale code per
-                   line, EN then ES then FR, indented so it reads as a
-                   sub-level of the accordion rather than a new nav section.
-                   Slightly recessed background does the nesting visually. */
+                padding: 0.3rem 0 0.4rem;
+                /* Nested language list under the LANGUAGE accordion row.
+                   Each language is a full-width row: native name ("Espanol",
+                   "Deutsch") is the visible label, its two-letter code sits
+                   right-aligned as a quiet typographic tag. Recessed
+                   background + extra indent read as a sub-level of the nav. */
                 display: block !important;
-                background: rgba(0,0,0,0.16);
+                background: rgba(0,0,0,0.18);
                 border-bottom: 1px solid rgba(201,168,76,0.12);
                 flex: 0 0 auto;
             }
             .cop-nav .cop-lang-link,
             .cop-nav .cop-lang-current,
             .cop-nav .cop-lang-unavailable {
-                display: block !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 1rem;
                 width: 100% !important;
                 min-width: 0 !important;
                 margin: 0 !important;
-                /* Indented from the 2rem the parent nav rows use. */
-                padding: 0.72rem 2rem 0.72rem 3rem !important;
+                padding: 0.86rem 2rem 0.86rem 2.6rem !important;
                 border: none !important;
-                border-left: 2px solid transparent !important;
-                border-bottom: 1px solid rgba(201,168,76,0.07) !important;
                 border-radius: 0 !important;
                 background: transparent !important;
                 box-shadow: none !important;
                 box-sizing: border-box;
                 text-decoration: none !important;
                 text-align: left !important;
-                text-transform: uppercase !important;
+                text-transform: none !important;
                 font-family: 'Nunito Sans', sans-serif !important;
-                font-size: 0.78rem !important;
-                font-weight: 600 !important;
-                letter-spacing: 0.16em !important;
-                line-height: 1.1 !important;
-                color: rgba(255,255,255,0.62) !important;
+                font-size: 0.98rem !important;
+                font-weight: 400 !important;
+                letter-spacing: 0.04em !important;
+                line-height: 1.2 !important;
+                color: rgba(255,255,255,0.80) !important;
                 opacity: 1;
                 transition: background 0.2s ease, color 0.2s ease;
                 cursor: pointer;
             }
+            /* Hairline separators between rows only (not after the last). */
+            .cop-nav .cop-lang-switcher > * {
+                border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+            }
             .cop-nav .cop-lang-switcher > *:last-child {
                 border-bottom: none !important;
             }
-            /* Code is the visible token; the native language name stays in the
-               DOM for assistive tech only. */
-            .cop-nav .cop-lang-code { display: inline !important; }
+            /* Native name is the label (undo the base display:none). */
             .cop-nav .cop-lang-label {
-                position: absolute !important;
-                width: 1px !important;
-                height: 1px !important;
+                position: static !important;
+                display: inline !important;
+                width: auto !important;
+                height: auto !important;
+                margin: 0 !important;
                 padding: 0 !important;
-                margin: -1px !important;
-                overflow: hidden !important;
-                clip: rect(0 0 0 0) !important;
+                overflow: visible !important;
+                clip: auto !important;
                 white-space: nowrap !important;
                 border: 0 !important;
             }
+            .cop-nav .cop-lang-code {
+                display: inline-block !important;
+                flex: 0 0 auto;
+                font-size: 0.6rem !important;
+                font-weight: 700 !important;
+                letter-spacing: 0.22em !important;
+                text-transform: uppercase !important;
+                color: rgba(255,255,255,0.30) !important;
+            }
             .cop-nav .cop-lang-link:hover {
-                background: rgba(201,168,76,0.08) !important;
-                color: var(--warm-gold) !important;
+                background: rgba(201,168,76,0.07) !important;
+                color: #ffffff !important;
             }
             .cop-nav .cop-lang-current {
                 color: var(--warm-gold) !important;
-                background: rgba(201,168,76,0.10) !important;
-                border-left-color: var(--warm-gold) !important;
+                background: rgba(201,168,76,0.08) !important;
                 cursor: default;
+            }
+            .cop-nav .cop-lang-current .cop-lang-label::after {
+                content: '\2713';
+                margin-left: 0.55rem;
+                font-size: 0.82em;
+            }
+            .cop-nav .cop-lang-current .cop-lang-code {
+                color: rgba(201,168,76,0.55) !important;
             }
             .cop-nav .cop-lang-unavailable {
                 opacity: 0.4;

@@ -187,13 +187,14 @@ export default function Header() {
 // uses (EN / ES / FR …) rather than a flag. Flags were dropped on 29 Aug 2026:
 // Dylan didn't want them, ten of them never fit a phone drawer legibly, and a
 // flag is a country not a language anyway (pt here is Brazil, en is UK+US).
-// The native language name stays in the markup for screen readers and is
-// exposed as a tooltip; CSS shows only the code.
+// In the drawer the native language name is the visible label and the
+// two-letter code sits right-aligned as a small tag (the row is a flex
+// space-between of the two). Desktop contexts hide .cop-lang-label via CSS.
 function LocaleTag({ loc }) {
   return (
     <>
-      <span className="cop-lang-code">{loc.toUpperCase()}</span>
       <span className="cop-lang-label">{LOCALE_NAMES[loc]}</span>
+      <span className="cop-lang-code">{loc.toUpperCase()}</span>
     </>
   );
 }
