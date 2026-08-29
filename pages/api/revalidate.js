@@ -22,6 +22,8 @@ export default async function handler(req, res) {
   const auth = req.headers['authorization'] || '';
   const allowedSecrets = [
     process.env.CRON_SECRET,
+    // Dedicated shared secret used only by the Supabase property trigger.
+    process.env.REVALIDATE_SECRET,
     // Local Codex publish automation already needs the service-role key to update posts.
     // Accepting it here avoids a separate secret when the Vercel CRON_SECRET is not locally retrievable.
     process.env.SUPABASE_SERVICE_ROLE_KEY,
