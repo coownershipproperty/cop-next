@@ -9,85 +9,12 @@
    ======================================================================== */
 
 /* ── Header language switcher ────────────────────────────────────────────── */
-.cop-lang-switcher {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-left: 1rem;
-  padding-left: 1rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  border-left: 1px solid rgba(255,255,255,0.18);
-}
-.cop-lang-link,
-.cop-lang-current {
-  padding: 0.25rem 0.5rem;
-  border-radius: 3px;
-  text-decoration: none;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-family: var(--font-nunito, Arial, sans-serif);
-}
-.cop-lang-link { color: rgba(255,255,255,0.6); }
-.cop-lang-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
-.cop-lang-current { color: #fff; background: rgba(201,168,76,0.85); /* gold accent */ }
-/* Visually muted state used when a locale has no equivalent page to switch to;
-   tooltip explains why. No hover effect — it isn't clickable. */
-.cop-lang-link.cop-lang-unavailable {
-  color: rgba(255,255,255,0.4);
-  cursor: not-allowed;
-  text-decoration: line-through;
-  text-decoration-color: rgba(255,255,255,0.6);
-}
-.cop-lang-link.cop-lang-unavailable:hover {
-  background: transparent;
-  color: rgba(255,255,255,0.4);
-}
-
-@media (max-width: 900px) {
-  /* Scoped under .cop-nav so we win specificity against the drawer's
-     `.cop-nav a { ... !important }` block in globals.css. Without this
-     scoping the <a> chips (non-current locales) inherit drawer styling —
-     full-width, left-aligned, white text, bottom border — and look like
-     regular nav rows, while the <span> for the active locale keeps the
-     chip look. The visible result was "only FR shows up" on FR pages. */
-  .cop-nav .cop-lang-switcher {
-    display: flex !important;
-    width: 100%;
-    margin: 1.5rem 0 0;
-    padding: 1rem 0 0;
-    border-top: 1px solid rgba(201,168,76,0.12);
-    border-left: 0;
-    justify-content: center;
-    gap: 0.6rem;
-  }
-  .cop-nav .cop-lang-switcher .cop-lang-link,
-  .cop-nav .cop-lang-switcher .cop-lang-current {
-    flex: 0 0 auto !important;
-    width: auto !important;
-    min-width: 4rem;
-    padding: 0.5rem 0.85rem !important;
-    text-align: center !important;
-    font-size: 0.95rem !important;
-    letter-spacing: 0.06em !important;
-    border-bottom: none !important;
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-  }
-  .cop-nav .cop-lang-switcher .cop-lang-link {
-    color: rgba(255,255,255,0.7) !important;
-    background: transparent !important;
-  }
-  .cop-nav .cop-lang-switcher .cop-lang-current {
-    color: #fff !important;
-    background: rgba(201,168,76,0.85) !important;
-  }
-  .cop-nav .cop-lang-switcher .cop-lang-link.cop-lang-unavailable {
-    color: rgba(255,255,255,0.4) !important;
-  }
-}
+/* Language-switcher rules that used to live here were REMOVED (29 Aug 2026).
+   They were an older iteration of the drawer picker: imported after
+   globals.css, their `.cop-nav .cop-lang-switcher { display:flex !important }`
+   block overrode the 5-per-row flag grid and forced all ten locales into one
+   overflowing, non-wrapping strip on mobile. The Header's switcher styling
+   lives ONLY in globals.css now — do not restyle it from this file. */
 
 /* ── Pillar / long-form article pages (/es/copropiedad/, /fr/copropriete-…/) */
 .cop-pillar { padding-top: 90px; background: #FFFFFF; }
