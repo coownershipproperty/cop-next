@@ -388,6 +388,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
           ]
         }) }} />
       </Head>
+      <div className="rd">
       <Header />
 {/* ===== HERO SECTION ===== */}
 {/* cache-bust: lang-switcher flags v2 — 2026-05-15 */}
@@ -864,6 +865,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
       <Newsletter />
       <ExpertForm />
       <Footer />
+      </div>
     </>
   );
 }
