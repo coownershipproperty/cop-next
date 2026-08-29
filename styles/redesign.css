@@ -19,12 +19,14 @@
   --rd-shadow-hover: 0 18px 40px rgba(0,0,0,0.06);
   --rd-max: 1540px;
   --rd-gutter: clamp(1.25rem, 4vw, 3.5rem);
-  --rd-head: var(--font-poppins), 'Poppins', sans-serif;
-  --rd-body: var(--font-inter), 'Inter', sans-serif;
   --rd-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .rd {
+  /* Defined here (not :root): next/font attaches --font-poppins/--font-inter
+     to <main>, so they only resolve at or below it. */
+  --rd-head: var(--font-poppins, 'Poppins'), 'Poppins', sans-serif;
+  --rd-body: var(--font-inter, 'Inter'), 'Inter', sans-serif;
   background: var(--rd-bg);
   color: var(--rd-ink);
   font-family: var(--rd-body);
@@ -139,13 +141,12 @@
 }
 
 /* ── Reveal-on-scroll (driven by lib/reveals.js) ── */
-[data-rv] {
+html.rv-ready [data-rv] {
   opacity: 0;
   transform: translateY(26px);
   transition: opacity 0.9s var(--rd-ease), transform 0.9s var(--rd-ease);
-  will-change: opacity, transform;
 }
-[data-rv].rv-in { opacity: 1; transform: none; }
+html.rv-ready [data-rv].rv-in { opacity: 1; transform: none; }
 [data-rv="2"].rv-in { transition-delay: 0.09s; }
 [data-rv="3"].rv-in { transition-delay: 0.18s; }
 [data-rv="4"].rv-in { transition-delay: 0.27s; }
@@ -209,6 +210,18 @@
   color: rgba(255,255,255,0.92) !important;
 }
 .rd .hero-rule { display: none !important; }
+.rd .hero-pre, .rd .hero-post {
+  font-family: inherit !important;
+  font-style: normal !important;
+  font-size: 1em !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  text-transform: none !important;
+  color: inherit !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+}
 .rd .hero-bottom {
   position: absolute;
   left: 0; right: 0;
