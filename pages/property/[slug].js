@@ -241,10 +241,15 @@ const PUBLIC_STATUSES = ['Live', 'for_sale', 'sold'];
 
 export async function getStaticPaths() {
   const supabase = getSupabase();
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('properties')
     .select('slug')
     .in('status', PUBLIC_STATUSES);
+
+  // A failed catalogue read must fail the build. Treating it as an empty
+  // catalogue would deploy successfully without any pre-rendered properties.
+  if (error) throw error;
+
   return {
     paths: (data || []).map(p => ({ params: { slug: p.slug } })),
     fallback: 'blocking',
@@ -258,12 +263,9 @@ export async function getStaticProps({ params }) {
     // amenities_es/amenities_fr columns alongside the English originals. Falls back
     // gracefully when a row hasn't been translated yet.
     //
-    // Wrapped in try/catch + explicit error checks so that requests for slugs
-    // that no longer exist in the DB (renamed/removed properties — happens
-    // when the sync-sheet pipeline rewrites slugs) return a clean 404 instead
-    // of crashing into a 5xx. Google Search Console was flagging ~12 URLs as
-    // "Server error (5xx)" for exactly this reason — old slugs that got
-    // renamed since the page was last crawled.
+    // A successful query with no row is a genuine 404. A query error is not:
+    // it must be thrown so ISR keeps the last good page rather than replacing
+    // it with a cached false 404 during a transient Supabase incident.
     const { data: property, error: propErr } = await supabase
       .from('properties')
       .select('*')
@@ -271,7 +273,8 @@ export async function getStaticProps({ params }) {
       .in('status', PUBLIC_STATUSES)
       .maybeSingle();
 
-    if (propErr || !property) return { notFound: true };
+    if (propErr) throw propErr;
+    if (!property) return { notFound: true, revalidate: 3600 };
 
     // Hidden/staged rows must never render publicly (19 Jul incident).
     // Sold rows do get a page -- see PUBLIC_STATUSES above. `revalidate` lets a
@@ -383,9 +386,10 @@ export async function getStaticProps({ params }) {
 
     return { props: { property: prop, similar, showEnhancedSections, hreflangLocales }, revalidate: 3600 };
   } catch (err) {
-    // Any unexpected error → 404, never let it become a 5xx.
+    // Failed ISR regeneration keeps serving the previous successful page.
+    // Do not turn infrastructure/query failures into cacheable 404s.
     console.error(`property/[slug] getStaticProps failed for "${params.slug}":`, err);
-    return { notFound: true };
+    throw err;
   }
 }
 
