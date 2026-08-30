@@ -16,7 +16,7 @@ import UnlockModal from '@/components/UnlockModal';
 import TourRequestModal from '@/components/TourRequestModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
 import PropertyCard from '@/components/PropertyCard';
-import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales, ogLocaleFor, propertyMetaDescription, formatPrice } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales, ogLocaleFor, propertyMetaDescription, formatPrice, familyPrefix, destinationAvailableIn } from '@/lib/i18n';
 import PropertyWatch from '@/components/PropertyWatch';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
@@ -475,6 +475,102 @@ function localizedFields(p, locale) {
   };
 }
 
+const COUNTRY_DESTINATIONS = {
+  Austria: { code: 'AT', slug: 'austria-fractional-ownership-properties' },
+  Croatia: { code: 'HR', slug: 'croatia-fractional-ownership-properties' },
+  England: {
+    slug: 'england-fractional-ownership-properties',
+    labels: { en: 'England', es: 'Inglaterra', fr: 'Angleterre', de: 'England', it: 'Inghilterra', nl: 'Engeland', pt: 'Inglaterra', sv: 'England', da: 'England', no: 'England' },
+  },
+  France: { code: 'FR', slug: 'france-fractional-ownership-properties' },
+  Germany: { code: 'DE', slug: 'germany-fractional-ownership-properties' },
+  Italy: { code: 'IT', slug: 'italy-fractional-ownership-properties' },
+  Mexico: { code: 'MX', slug: 'mexico-fractional-ownership-properties' },
+  MEX: { code: 'MX', slug: 'mexico-fractional-ownership-properties' },
+  Portugal: { code: 'PT', slug: 'portugal-fractional-ownership-properties' },
+  Spain: { code: 'ES', slug: 'spain-fractional-ownership-properties' },
+  Sweden: { code: 'SE', slug: 'sweden-fractional-ownership-properties' },
+  USA: {
+    code: 'US',
+    slug: 'usa-fractional-ownership-properties',
+    labels: { en: 'USA', es: 'EE. UU.', fr: 'États-Unis', de: 'USA', it: 'Stati Uniti', nl: 'VS', pt: 'EUA', sv: 'USA', da: 'USA', no: 'USA' },
+  },
+};
+
+const MAIN_REGION_DESTINATIONS = [
+  { country: 'France', regions: ["Côte d'Azur", 'Côte d’Azur'], slug: 'south-of-france-fractional-ownership-properties', labels: { en: 'South of France', es: 'Sur de Francia', fr: 'Sud de la France', de: 'Südfrankreich', it: 'Sud della Francia', nl: 'Zuid-Frankrijk', pt: 'Sul da França', sv: 'Södra Frankrike', da: 'Sydfrankrig', no: 'Sør-Frankrike' } },
+  { country: 'France', regions: ['French Alps', 'Portes du Soleil'], slug: 'french-alps-fractional-ownership-properties', labels: { en: 'French Alps', es: 'Alpes franceses', fr: 'Alpes françaises', de: 'Französische Alpen', it: 'Alpi francesi', nl: 'Franse Alpen', pt: 'Alpes Franceses', sv: 'Franska Alperna', da: 'Franske Alper', no: 'De franske Alpene' } },
+  { country: 'France', regions: ['Paris'], slug: 'paris-fractional-ownership-properties', label: 'Paris' },
+  { country: 'Italy', regions: ['Sardinia'], slug: 'sardinia-fractional-ownership-properties', label: 'Sardinia' },
+  { country: 'Italy', regions: ['Lake Como'], cities: ['Lake Como'], slug: 'lake-como-fractional-ownership-properties', label: 'Lake Como' },
+  { country: 'Italy', regions: ['Lago Maggiore', 'Lake Garda'], slug: 'italian-lakes-fractional-ownership-properties', labels: { en: 'Italian Lakes', es: 'Lagos italianos', fr: 'Lacs italiens', de: 'Italienische Seen', it: 'Laghi italiani', nl: 'Italiaanse meren', pt: 'Lagos italianos', sv: 'Italienska sjöarna', da: 'Italienske søer', no: 'Italienske innsjøer' } },
+  { country: 'Italy', regions: ['Liguria'], slug: 'liguria-fractional-ownership-properties', label: 'Liguria' },
+  { country: 'Spain', regions: ['Ibiza'], cities: ['Ibiza'], slug: 'ibiza-fractional-ownership-properties', label: 'Ibiza' },
+  { country: 'Spain', regions: ['Menorca'], cities: ['Menorca'], slug: 'menorca-fractional-ownership-properties', label: 'Menorca' },
+  { country: 'Spain', regions: ['Mallorca'], slug: 'mallorca-fractional-ownership-properties', label: 'Mallorca' },
+  { country: 'Spain', regions: ['Tenerife', 'Canary Islands'], slug: 'canary-islands-fractional-ownership-properties', labels: { en: 'Canary Islands', es: 'Islas Canarias', fr: 'Îles Canaries', de: 'Kanarische Inseln', it: 'Isole Canarie', nl: 'Canarische Eilanden', pt: 'Ilhas Canárias', sv: 'Kanarieöarna', da: 'De Kanariske Øer', no: 'Kanariøyene' } },
+  { country: 'Spain', regions: ['Costa del Sol'], slug: 'costa-del-sol-fractional-ownership-properties', label: 'Costa del Sol' },
+  { country: 'Spain', regions: ['Costa Blanca'], slug: 'costa-blanca-fractional-ownership-properties', label: 'Costa Blanca' },
+  { country: 'Spain', regions: ['Costa de la Luz'], slug: 'costa-de-la-luz-fractional-ownership-properties', label: 'Costa de la Luz' },
+  { country: 'Spain', regions: ['Madrid'], slug: 'madrid-fractional-ownership-properties', label: 'Madrid' },
+  { country: 'Spain', regions: ['Baqueira', 'Pyrenees'], slug: 'pyrenees-mountains-fractional-ownership-properties', labels: { en: 'Pyrenees', es: 'Pirineos', fr: 'Pyrénées', de: 'Pyrenäen', it: 'Pirenei', nl: 'Pyreneeën', pt: 'Pirenéus', sv: 'Pyrenéerna', da: 'Pyrenæerne', no: 'Pyreneene' } },
+  { country: 'England', regions: ['London'], slug: 'london-fractional-ownership-properties', label: 'London' },
+  ...['Arizona', 'California', 'Colorado', 'Florida', 'Nevada', 'South Carolina', 'Utah', 'Wyoming'].map(region => ({
+    country: 'USA',
+    regions: [region],
+    slug: `${region.toLowerCase().replaceAll(' ', '-')}-fractional-ownership-properties`,
+    label: region,
+  })),
+];
+
+function destinationHref(slug, locale) {
+  const targetLocale = destinationAvailableIn(slug, locale) ? locale : 'en';
+  return `${familyPrefix(targetLocale, 'destinations')}${slug}/`;
+}
+
+function destinationLabel(destination, locale, fallback) {
+  return destination.labels?.[locale] || destination.labels?.en || destination.label || fallback;
+}
+
+function countryLabel(country, destination, locale) {
+  const configured = destinationLabel(destination, locale, null);
+  if (configured) return configured;
+  try {
+    return new Intl.DisplayNames([locale], { type: 'region' }).of(destination.code) || country;
+  } catch {
+    return country;
+  }
+}
+
+function destinationTrailForProperty(property, locale) {
+  const mainRegion = MAIN_REGION_DESTINATIONS.find(destination => (
+    destination.country === property.country
+    && (destination.cities?.includes(property.city) || destination.regions.includes(property.region))
+  ));
+  const country = COUNTRY_DESTINATIONS[property.country];
+
+  return [
+    property.city && { label: property.city },
+    mainRegion
+      ? { label: destinationLabel(mainRegion, locale, property.region), href: destinationHref(mainRegion.slug, locale) }
+      : (property.region && { label: property.region }),
+    property.country && (country
+      ? { label: countryLabel(property.country, country, locale), href: destinationHref(country.slug, locale) }
+      : { label: property.country }),
+  ].filter(Boolean);
+}
+
+function LocationTrail({ items, separator }) {
+  return items.map((item, index) => (
+    <span key={`${item.label}-${index}`}>
+      {item.href
+        ? <a className="pp-location-link" href={item.href}>{item.label}</a>
+        : item.label}
+      {index < items.length - 1 && <span className="pp-crumb-sep">{separator}</span>}
+    </span>
+  ));
+}
+
 // ── Notify-me bell on the gallery ─────────────────────────────────────────
 // Replaces the old bottom-left "Track this home" text pill (Dylan, 28 Aug:
 // the pill distracted from the photos). A round icon button under the heart,
@@ -646,6 +742,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
   const localeNumberFmt = numberLocale(locale);
 
   const local = localizedFields(p, locale);
+  const locationTrail = destinationTrailForProperty(p, locale);
 
   const [showUnlock, setShowUnlock] = useState(false);
   const [showTour, setShowTour] = useState(false);
@@ -990,9 +1087,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
           </div>
 
           <nav className="pp-crumb">
-            {[p.city, p.region, p.country].filter(Boolean).map((c, i, arr) => (
-              <span key={i}>{c}{i < arr.length - 1 && <span className="pp-crumb-sep"> · </span>}</span>
-            ))}
+            <LocationTrail items={locationTrail} separator=" · " />
           </nav>
 
           <h1 className="pp-title">{local.title}</h1>
@@ -1092,7 +1187,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
           {(p.lat || p.city) && (
             <div className="pp-location-section" id="location">
               <h2 className="pp-heading">{t.location_heading}</h2>
-              <p className="pp-location-text">{[p.city, p.region, p.country].filter(Boolean).join(', ')}</p>
+              <p className="pp-location-text"><LocationTrail items={locationTrail} separator=", " /></p>
               {p.lat && p.lng && (
                 <div className="pp-map-wrap">
                   <iframe
