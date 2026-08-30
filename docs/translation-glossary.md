@@ -531,12 +531,24 @@ slug in `lib/i18n.js` the same day the content lands.
    section arrays. Adding a locale key there and setting `towns` in `ROUTE_SLUGS`
    publishes ~24 deep pages for that language, and they are the pages that rank
    for the high-intent "co-ownership in {place}" queries rather than for the
-   category term.
+   category term. **In progress:** German is complete for all 25 towns
+   (30 Aug 2026), and Marbella, Ibiza and Morzine now exist in all ten locales —
+   a beach, an island and a ski market, chosen to cover the three buyer
+   archetypes before going wide. 22 towns remain per new locale; the brief is
+   `/home/claude/towns2/MULTI_BRIEF.md` and the structure/terminology validator
+   is `tmp/merge_parts.py`, which now carries forbidden-term lists and a
+   length band for every locale.
 2. **Destination pages** for the six, then the FAQ, glossary, compare and partner
    corpora.
-3. **Amenity arrays.** `amenities_{loc}` exists for `es`, `it` and `nl` only; the
-   other six fall back to the English array on the property page, which is the
-   last visibly-English block on an otherwise translated page.
+3. ~~**Amenity arrays.**~~ **Done, 30 Aug 2026.** `amenities_{loc}` is now
+   populated in all nine translated locales across 460 property records. The
+   six new locales were filled from a 1,478-term dictionary translated once and
+   applied deterministically, so the same English chip renders identically on
+   every page — `fireplace` is `Camino` / `Open haard` / `Öppen spis` / `Peis`
+   everywhere, not a fresh guess per listing. Rebuild the dictionary the same
+   way if the vocabulary grows: distinct terms out, six columns back, one
+   mapped UPDATE per locale, in batches — a single statement over the whole
+   table times the API out.
 4. **`slug_{loc}`.** Translated property URLs currently reuse the English slug.
    That is deliberate and safe — the slug is not a ranking factor worth a
    migration — but if it is ever revisited it needs 301s, not a silent swap.
