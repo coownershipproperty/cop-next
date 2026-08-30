@@ -1,7 +1,18 @@
 /**
  * GET/POST /api/cron/property-watch-alerts
  *
- * Daily cron (see vercel.json). Services the `property_watches` table:
+ * Daily cron (see vercel.json). Services the `property_watches` table.
+ *
+ * Cadence: the job LOOKS every day so a price cut reaches the watcher while
+ * it still matters, but each watch can only produce one email every
+ * COOLDOWN_DAYS. A home that moves twice in a week sends once. That is the
+ * "weekly at most" promise the bell makes, without making someone wait six
+ * days to hear that the home they are tracking has sold.
+ *
+ * Every alert is written in the language the watcher subscribed in
+ * (property_watches.locale) and ends by inviting a reply — a watcher asked to
+ * hear about one specific home, which makes them the warmest contact we have.
+ *
  *
  *   kind 'watch'    — a tracked live home changed price, or sold out
  *                     → send the tracker a short update email
@@ -15,45 +26,16 @@ import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import resend, { FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
 import { unsubUrl, listUnsubHeaders } from '@/lib/unsub';
 import { filterSuppressed } from '@/lib/suppressions';
+import { localeColumns } from '@/lib/i18n';
+import { buildWatchEmail, fmt, shell, propCard } from '@/lib/watchAlertEmail';
 
 export const maxDuration = 120;
 
+/* One email per watch per week, however often the job looks. */
+const COOLDOWN_DAYS = 7;
+const WATCH_LOCALES = new Set(['en', 'es', 'fr', 'de', 'it', 'nl', 'pt', 'sv', 'da', 'no']);
+
 const SITE = 'https://co-ownership-property.com';
-const SYM = { EUR: '€', USD: '$', GBP: '£' };
-const fmt = (price, ccy = 'EUR') => `${SYM[ccy] || ccy}${Number(price).toLocaleString('en-GB')}`;
-
-function shell(bodyHtml, email) {
-  return `
-  <div style="background:#F7F4EE;padding:40px 16px;font-family:Georgia,'Times New Roman',serif;color:#1E3448">
-    <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #E8E3DC">
-      <div style="background:#1E3448;padding:26px 32px;text-align:center">
-        <span style="color:#F4EFE4;font-size:20px;letter-spacing:0.35em;font-weight:400">C O P</span><br/>
-        <span style="color:#C9A84C;font-size:10px;letter-spacing:0.2em;text-transform:uppercase">Co-Ownership Properties</span>
-      </div>
-      <div style="padding:36px 32px 28px">
-        <div style="width:36px;border-top:2px solid #C9A84C;margin:0 0 18px"></div>
-        ${bodyHtml}
-      </div>
-      <div style="padding:18px 32px;border-top:1px solid #E8E3DC">
-        <p style="font-family:Arial,sans-serif;font-size:11px;color:#8a9aaa;margin:0">
-          Co-Ownership Properties · co-ownership-property.com<br/>
-          <a href="${unsubUrl(email)}" style="color:#8a9aaa">Unsubscribe</a>
-        </p>
-      </div>
-    </div>
-  </div>`;
-}
-
-function propCard(p) {
-  return `
-  <div style="border:1px solid #E8E3DC;margin:0 0 14px">
-    ${p.img ? `<a href="${SITE}/property/${p.slug}/"><img src="${p.img}" width="100%" style="display:block;max-height:220px;object-fit:cover" alt=""/></a>` : ''}
-    <div style="padding:14px 16px">
-      <p style="font-size:15px;margin:0 0 6px"><a href="${SITE}/property/${p.slug}/" style="color:#1E3448;text-decoration:none"><strong>${p.title}</strong></a></p>
-      <p style="font-family:Arial,sans-serif;font-size:12px;color:#8a9aaa;margin:0">${p.price ? `${fmt(p.price, p.currency)} per share` : 'Price on request'}${p.beds ? ` · ${p.beds} beds` : ''}</p>
-    </div>
-  </div>`;
-}
 
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') {
@@ -75,7 +57,7 @@ export default async function handler(req, res) {
   const slugs = [...new Set(eligible.map((w) => w.slug))];
   const { data: props } = await db
     .from('properties')
-    .select('slug,title,img,price,currency,beds,status,region,country')
+    .select(`slug,img,price,currency,beds,status,region,country,${localeColumns(['title'])}`)
     .in('slug', slugs);
   const bySlug = new Map((props || []).map((p) => [p.slug, p]));
 
@@ -92,6 +74,7 @@ export default async function handler(req, res) {
       if (w.kind === 'watch') {
         const p = bySlug.get(w.slug);
         if (!p) continue;
+
         const priceChanged =
           p.price != null && w.last_price != null && Number(p.price) !== Number(w.last_price);
         const nowSold =
@@ -99,25 +82,37 @@ export default async function handler(req, res) {
           !String(w.last_status || '').toLowerCase().includes('sold');
         if (!priceChanged && !nowSold) continue;
 
-        const drop = priceChanged && Number(p.price) < Number(w.last_price);
-        const subject = nowSold
-          ? `${p.title} — now fully sold`
-          : `${p.title} — price ${drop ? 'reduced' : 'updated'} to ${fmt(p.price, p.currency)}`;
-        const body = nowSold
-          ? `<p style="font-size:15px;line-height:1.7;margin:0 0 20px">The home you were tracking, <strong>${p.title}</strong>, is now fully sold. Homes like this rarely stay available long — here it is for reference, and the collection has more:</p>${propCard(p)}`
-          : `<p style="font-size:15px;line-height:1.7;margin:0 0 20px">An update on the home you're tracking: the share price of <strong>${p.title}</strong> ${drop ? 'has been <strong>reduced</strong>' : 'changed'} from ${fmt(w.last_price, p.currency)} to <strong>${fmt(p.price, p.currency)}</strong>.</p>${propCard(p)}`;
+        /* Snapshot first, email second. If the cooldown blocks the send we
+           still record the new price, so the next email describes the move
+           the watcher has not seen rather than replaying this one. */
+        const cooled =
+          !w.last_notified_at ||
+          Date.now() - new Date(w.last_notified_at).getTime() > COOLDOWN_DAYS * 864e5;
+        if (!cooled) {
+          await db.from('property_watches')
+            .update({ last_price: p.price, last_status: p.status })
+            .eq('id', w.id);
+          continue;
+        }
+
+        const locale = w.locale && WATCH_LOCALES.has(w.locale) ? w.locale : 'en';
+        const kind = nowSold ? 'sold'
+          : (priceChanged && Number(p.price) < Number(w.last_price)) ? 'drop' : 'rise';
+        const { subject, html } = buildWatchEmail({
+          property: p, email: w.email, locale, kind, oldPrice: w.last_price,
+        });
 
         await resend.emails.send({
           from: FROM_ADDRESS,
           reply_to: REPLY_TO,
           to: w.email,
           subject,
-          html: shell(body, w.email),
+          html,
           headers: listUnsubHeaders(w.email),
         });
         await db
           .from('property_watches')
-          .update({ last_price: p.price, last_status: p.status })
+          .update({ last_price: p.price, last_status: p.status, last_notified_at: new Date().toISOString() })
           .eq('id', w.id);
         sent++;
       } else if (w.kind === 'waitlist') {
