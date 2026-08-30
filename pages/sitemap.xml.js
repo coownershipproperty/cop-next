@@ -51,13 +51,39 @@ const PAGE_GROUPS = PAGE_GROUP_SPECS.map(({ key, priority, changefreq }) => {
  *   familyAltset('towns', 'morzine')
  *   → { en: '/co-ownership/morzine/', es: '/es/copropiedad/morzine/', … }
  */
-function familyAltset(family, slug) {
+function familyAltset(family, slug, onlyLocales = null) {
   const out = {};
   for (const loc of SUPPORTED_LOCALES) {
+    if (onlyLocales && !onlyLocales.has(loc)) continue;
     const prefix = familyPrefix(loc, family);
     if (prefix) out[loc] = `${prefix}${slug}/`;
   }
   return out;
+}
+
+/**
+ * Which locales actually have a translated guide for this town.
+ *
+ * The town route exists in all ten locales, but guides are translated town by
+ * town, and the locale mirrors 404 until the translation lands (see
+ * gateOnTranslation in pages/co-ownership/[town].js). The sitemap has to agree
+ * with that gate: advertising a URL that 404s wastes crawl budget and teaches
+ * Google the site is unreliable. English is always included — it is the source.
+ */
+function townGuideLocales(town) {
+  const set = new Set(['en']);
+  try {
+    const file = path.join(process.cwd(), 'content', 'towns', `${town}.json`);
+    if (!fs.existsSync(file)) return set;
+    const guide = JSON.parse(fs.readFileSync(file, 'utf-8'));
+    for (const loc of SUPPORTED_LOCALES) {
+      const sections = guide[loc] && guide[loc].sections;
+      if (sections && sections.length) set.add(loc);
+    }
+  } catch (e) {
+    console.error('[sitemap] town guide read failed for', town, e.message);
+  }
+  return set;
 }
 
 const PILLAR_PAGES = SUPPORTED_LOCALES
@@ -389,7 +415,7 @@ export async function getServerSideProps({ res }) {
       return Object.entries(counts)
         .filter(([, n]) => n >= TOWN_PAGE_MIN_HOMES)
         .flatMap(([t]) => {
-          const altset = familyAltset('towns', t);
+          const altset = familyAltset('towns', t, townGuideLocales(t));
           return Object.values(altset).map(
             (url) => urlEntry(`${BASE}${url}`, '0.75', 'weekly', today, altset)
           );

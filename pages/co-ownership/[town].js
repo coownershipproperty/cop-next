@@ -237,6 +237,26 @@ export async function getStaticProps({ params }) {
   };
 }
 
+/**
+ * Gate a locale mirror on translated content.
+ *
+ * The town route exists in every locale, but a guide is translated town by
+ * town. Serving the English body under /it/comproprieta/aspen/ would be a
+ * locale URL whose content is English — thin content at catalogue scale, and
+ * the one thing docs/translation-glossary.md says never to ship. So a mirror
+ * 404s until that town's guide exists in that language, and starts working the
+ * day it lands with no code change.
+ *
+ * English is never gated: it is the source.
+ */
+export function gateOnTranslation(result, locale) {
+  if (locale === 'en') return result;
+  const guide = result && result.props && result.props.guide;
+  const sections = guide && guide[locale] && guide[locale].sections;
+  if (!sections || !sections.length) return { notFound: true, revalidate: 3600 };
+  return result;
+}
+
 export default function TownPage({ townParam, town, country, region, minPrice, currency, homes, guide, gallery = [], forceLocale }) {
   const router = useRouter();
   const locale = forceLocale || localeFromPath(router.asPath || router.pathname) || 'en';
