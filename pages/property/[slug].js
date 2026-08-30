@@ -239,6 +239,65 @@ function getSupabase() {
 // stay Live/for_sale, so counts still describe what is actually buyable.
 const PUBLIC_STATUSES = ['Live', 'for_sale', 'sold'];
 
+function normaliseLocation(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase();
+}
+
+function distanceKm(origin, candidate) {
+  const coordinateValues = [origin.lat, origin.lng, candidate.lat, candidate.lng];
+  if (coordinateValues.some(value => value === null || value === undefined || value === '')) return null;
+
+  const originLat = Number(origin.lat);
+  const originLng = Number(origin.lng);
+  const candidateLat = Number(candidate.lat);
+  const candidateLng = Number(candidate.lng);
+  if (![originLat, originLng, candidateLat, candidateLng].every(Number.isFinite)) return null;
+
+  const toRadians = degrees => degrees * Math.PI / 180;
+  const latDelta = toRadians(candidateLat - originLat);
+  const lngDelta = toRadians(candidateLng - originLng);
+  const a = Math.sin(latDelta / 2) ** 2
+    + Math.cos(toRadians(originLat)) * Math.cos(toRadians(candidateLat))
+    * Math.sin(lngDelta / 2) ** 2;
+  return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function rankSimilarProperties(origin, candidates) {
+  const originCity = normaliseLocation(origin.city);
+  const originRegion = normaliseLocation(origin.region);
+  const originPrice = Number(origin.price);
+
+  return candidates
+    .map(candidate => {
+      const sameCity = originCity && normaliseLocation(candidate.city) === originCity;
+      const sameRegion = originRegion && normaliseLocation(candidate.region) === originRegion;
+      const distance = distanceKm(origin, candidate);
+      const price = Number(candidate.price);
+
+      return {
+        candidate,
+        // Location always wins. Coordinates rank the remaining same-country
+        // homes by physical proximity; price is only a tie-breaker.
+        locationTier: sameCity ? 0 : (sameRegion ? 1 : (distance === null ? 3 : 2)),
+        distance: distance ?? Number.POSITIVE_INFINITY,
+        priceDifference: Number.isFinite(originPrice) && originPrice > 0 && Number.isFinite(price)
+          ? Math.abs(price - originPrice) / originPrice
+          : Number.POSITIVE_INFINITY,
+      };
+    })
+    .sort((a, b) => (
+      a.locationTier - b.locationTier
+      || a.distance - b.distance
+      || a.priceDifference - b.priceDifference
+      || a.candidate.slug.localeCompare(b.candidate.slug)
+    ))
+    .map(({ candidate }) => candidate);
+}
+
 export async function getStaticPaths() {
   const supabase = getSupabase();
   const { data, error } = await supabase
@@ -309,10 +368,11 @@ export async function getStaticProps({ params }) {
     // column here would ship partner-identifying text into __NEXT_DATA__.
     for (const loc of ALL_LOCALES) delete prop[`description_ai_${loc}`];
 
-    // Similar homes — COP's own catalog only, never a partner feed:
-    // same country (same region preferred), price within ±30%, Live/for_sale,
-    // current property excluded, max 3. Best-effort: if it errors we render
-    // the page with an empty similar list instead of breaking the whole page.
+    // Similar homes — COP's own catalog only, never a partner feed. Rank by
+    // same city, then same region, then geographic distance within the country;
+    // price only breaks ties. Current property excluded, max 3. Best-effort:
+    // if it errors we render the page with an empty similar list instead of
+    // breaking the whole page.
     let similar = [];
     try {
       // Perf note (28 Aug 2026): this used to select `images` (the full
@@ -320,48 +380,45 @@ export async function getStaticProps({ params }) {
       // every ISR build of every property URL in every locale — ~1–3 MB and
       // 0.4–0.6 s per build. When the translation backfill put ~2,500 new
       // property URLs into the sitemap at once, the resulting crawl storm
-      // saturated Supabase (the 28 Aug 522 outage / admin lag). Now: the
-      // price band is applied in SQL, the candidate pool is capped at 60,
-      // and the heavy `images` arrays are fetched afterwards for just the
+      // saturated Supabase (the 28 Aug 522 outage / admin lag). Candidate
+      // ranking now fetches only lightweight location fields. This
+      // lets locality outrank price without reintroducing the old multi-MB
+      // payload; translated titles and image arrays are fetched only for the
       // three winning cards.
-      const basePrice = Number(property.price) > 0 ? Number(property.price) : null;
-      let simQuery = supabase
+      const { data: similarRaw, error: similarError } = await supabase
         .from('properties')
-        .select(`slug, ${localeColumns(['title'])}, img, price, currency, share_denominator, country, region, city, beds, size, status`)
+        .select('slug, price, country, region, city, lat, lng, status')
         .eq('country', property.country)
         .neq('slug', property.slug)
         // Deliberately NOT PUBLIC_STATUSES: never recommend a sold home.
         // On a sold page this block is the recovery path to buyable stock.
         .in('status', ['Live', 'for_sale'])
-        .limit(60);
-      if (basePrice) simQuery = simQuery.gte('price', Math.floor(basePrice * 0.7)).lte('price', Math.ceil(basePrice * 1.3));
-      const { data: similarRaw } = await simQuery;
-      const candidates = (similarRaw || [])
-        .filter(c => !basePrice || Number(c.price) > 0)
-        // Same region first, then closest by price
-        .sort((a, b) => {
-          const aRegion = property.region && a.region === property.region ? 0 : 1;
-          const bRegion = property.region && b.region === property.region ? 0 : 1;
-          if (aRegion !== bRegion) return aRegion - bRegion;
-          if (!basePrice) return 0;
-          return Math.abs(Number(a.price) - basePrice) - Math.abs(Number(b.price) - basePrice);
-        });
-      const top3 = candidates.slice(0, 3);
-      // Photo arrays for the three winning cards only.
-      let imagesBySlug = {};
-      if (top3.length) {
-        const { data: imgRows } = await supabase
+        // The largest current country has fewer than 200 public homes. Keep a
+        // generous ceiling while preventing an unbounded future payload.
+        .limit(500);
+      if (similarError) throw similarError;
+
+      const ranked = rankSimilarProperties(
+        property,
+        (similarRaw || []).filter(candidate => Number(candidate.price) > 0)
+      ).slice(0, 3);
+      let top3 = [];
+      if (ranked.length) {
+        const { data: cardRows, error: cardError } = await supabase
           .from('properties')
-          .select('slug, images')
-          .in('slug', top3.map(p => p.slug));
-        imagesBySlug = Object.fromEntries((imgRows || []).map(r => [r.slug, r.images]));
+          .select(`slug, ${localeColumns(['title'])}, img, images, price, currency, share_denominator, country, region, city, beds, size, status`)
+          .in('slug', ranked.map(p => p.slug));
+        if (cardError) throw cardError;
+        const cardsBySlug = Object.fromEntries((cardRows || []).map(row => [row.slug, row]));
+        top3 = ranked.map(row => cardsBySlug[row.slug]).filter(Boolean);
       }
+
       similar = top3.map(p => ({
         slug: p.slug,
         title: p.title,
         ...pickLocalized(p, ['title']),
         img: p.img || null,
-        images: Array.isArray(imagesBySlug[p.slug]) ? imagesBySlug[p.slug].slice(0, 3) : [],
+        images: Array.isArray(p.images) ? p.images.slice(0, 3) : [],
         price: p.price || null,
         currency: p.currency || 'EUR',
         share_denominator: p.share_denominator || null,
@@ -1100,7 +1157,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
             <div className="pp-similar">
               {similar.length > 0 && (
                 <>
-                  <h2 className="pp-heading">{t.similar_heading(p.country)}</h2>
+                  <h2 className="pp-heading">{t.similar_heading(p.region || p.city || p.country)}</h2>
                   <div className="pp-similar-grid">
                     {similar.map(s => (
                       <PropertyCard key={s.slug} property={s} />
