@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 import s from '@/styles/TemplateStudio.module.css'
@@ -38,8 +38,9 @@ async function api(url, options = {}) {
       ...(options.headers || {}),
     },
   })
-  const body = await r.json().catch(() => ({}))
-  if (!r.ok) throw new Error(body.error || 'Something went wrong.')
+  const body = await r.json().catch(() => null)
+  if (!r.ok) throw new Error((body && body.error) || `Request failed (${r.status}).`)
+  if (body === null) throw new Error('The server sent something that was not JSON. Reload and try again.')
   return body
 }
 
@@ -54,6 +55,45 @@ function newBlock(type) {
     case 'slot':    return { type: 'slot', slot: 'galleryLinks' }
     case 'html':    return { type: 'html', html: '<p style="margin:0 0 20px;"></p>' }
     default:        return { type: 'text', text: '' }
+  }
+}
+
+/**
+ * A render error in one panel must not take the whole admin down.
+ *
+ * Next's default behaviour for an uncaught render error is a blank page
+ * reading "Application error: a client-side exception has occurred", which
+ * tells the person nothing and loses whatever they were doing. This catches it,
+ * shows what actually went wrong, and leaves the rest of the admin reachable.
+ */
+class StudioErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null } }
+  static getDerivedStateFromError(error) { return { error } }
+  componentDidCatch(error, info) { console.error('[TemplateStudio]', error, info) }
+  render() {
+    if (!this.state.error) return this.props.children
+    return (
+      <div style={{ padding: 40, font: '14px/1.6 Arial, Helvetica, sans-serif', color: '#101a20' }}>
+        <h2 style={{ font: '700 16px Arial, sans-serif', margin: '0 0 8px' }}>
+          The template editor hit an error
+        </h2>
+        <p style={{ margin: '0 0 14px', color: '#55636c' }}>
+          Nothing was saved and no email was affected — this is the editor only.
+        </p>
+        <pre style={{
+          margin: '0 0 16px', padding: 12, background: '#fdeceb', border: '1px solid #f3c6c2',
+          borderRadius: 8, color: '#93251d', whiteSpace: 'pre-wrap', fontSize: 12.5,
+        }}>{String(this.state.error && this.state.error.message || this.state.error)}</pre>
+        <button
+          onClick={() => this.setState({ error: null })}
+          style={{
+            padding: '8px 15px', border: '1px solid #1E3448', borderRadius: 7,
+            background: '#1E3448', color: '#fff', font: '600 13px Arial, sans-serif', cursor: 'pointer',
+          }}>
+          Try again
+        </button>
+      </div>
+    )
   }
 }
 
@@ -232,7 +272,7 @@ export default function TemplateStudio() {
     if (showVersions || !moment) return
     try {
       const { versions } = await api(`/api/admin/templates/history?moment=${encodeURIComponent(moment.key)}&locale=${locale}`)
-      setVersions(versions)
+      setVersions(Array.isArray(versions) ? versions : [])
     } catch (e) { setError(e.message) }
   }
 
@@ -272,6 +312,7 @@ export default function TemplateStudio() {
 
   return (
     <AdminLayout fullBleed>
+      <StudioErrorBoundary>
       <div className={s.studio}>
 
         {/* ── Rail ── */}
@@ -357,7 +398,7 @@ export default function TemplateStudio() {
                 <div className={s.cardHead}><h3>Version history</h3></div>
                 <div className={s.cardBody}>
                   <ul className={s.versionList}>
-                    {versions.map(v => (
+                    {(versions || []).map(v => (
                       <li className={s.versionItem} key={v.id}>
                         <strong>v{v.version}</strong>
                         <span className={s.versionMeta}>
@@ -370,13 +411,13 @@ export default function TemplateStudio() {
                           : <button className={s.btn} onClick={() => rollback(v.id, v.version)}>Make live</button>}
                       </li>
                     ))}
-                    {!versions.length && <li className={s.versionItem}>No earlier versions.</li>}
+                    {!(versions || []).length && <li className={s.versionItem}>No earlier versions.</li>}
                   </ul>
                 </div>
               </div>
             )}
 
-            {draft && isStrings && (
+            {draft && isStrings && draft.strings && (
               <StringsEditor
                 fields={copyFields}
                 defaults={copyDefaults}
@@ -388,7 +429,7 @@ export default function TemplateStudio() {
               />
             )}
 
-            {draft && !isStrings && (
+            {draft && !isStrings && Array.isArray(draft.blocks) && (
               <>
                 <div className={s.card}>
                   <div className={s.cardHead}><h3>Subject line</h3></div>
@@ -495,6 +536,7 @@ export default function TemplateStudio() {
           </div>
         </aside>
       </div>
+      </StudioErrorBoundary>
     </AdminLayout>
   )
 }
