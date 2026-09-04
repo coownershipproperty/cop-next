@@ -6,14 +6,15 @@
  * email ~10 minutes after a visitor's FIRST photo / floor-plan gallery unlock.
  *
  * Behaviour (per spec):
- *   - Waits WINDOW_MIN (10) minutes after the first unlock. The delay lets us:
+ *   - Waits until the visit is over: QUIET_MIN (45) minutes with no further
+ *     unlock. The wait lets us:
  *       a) batch several unlocks by the same person into ONE email, and
  *       b) detect an enquiry made in that window.
  *   - If the visitor submitted an enquiry within the window → send NOTHING
  *     (the enquiry auto-reply already covers them).
  *   - One follow-up per person per COOLDOWN_DAYS (30). A returning visitor can
  *     get a fresh one once 30+ days have passed since their last follow-up.
- *   - If the first unlock is older than MAX_AGE_MIN (60) the follow-up is
+ *   - If the visit started more than MAX_AGE_MIN (1440) ago the follow-up is
  *     considered too late — it is marked expired and never sent.
  *
  * ─────────────────────────────────────────────────────────────────────────────
@@ -39,17 +40,32 @@
 import { createClient } from '@supabase/supabase-js';
 import { sendHtml } from '@/lib/resend';
 import { resolveUnsubPlaceholder, listUnsubHeaders } from '@/lib/unsub';
+import { buildComparisonHtml } from '@/lib/email/propertyComparison';
+import { createEmailSend, trackingPixel } from '@/lib/crm';
 import { buildEmail as buildStudioEmail } from '@/lib/email/templateStore';
 import { isEnvTrue } from '@/lib/email/engine';
 import { isSuppressed } from '@/lib/suppressions';
 
 // ── Tunables ────────────────────────────────────────────────────────────────
-const WINDOW_MIN    = 10;   // wait at least this long after the first unlock
-const MAX_AGE_MIN   = 120;  // never send if the first unlock is older than this — wide
-                            // margin so a delayed poll never expires a real lead
-const COOLDOWN_DAYS = 30;   // at most one follow-up per person per 30 days
-const LOOKBACK_MIN  = 240;  // only scan unlocks from the last 4h — keeps every run tiny
 const BURST_GAP_MIN = 45;   // unlocks >45 min apart are SEPARATE visits, not one
+
+// Send once the visit is OVER, not on a clock from when it started.
+//
+// This used to wait 10 minutes from the FIRST unlock. Measured over 90 days,
+// that fired while 60% of multi-unlock visitors were still browsing — the
+// median span from first unlock to last is 26 minutes, and 45% of them were
+// still going an hour later. So the email that exists to summarise "the homes
+// you looked at" was routinely summarising the first one or two of four.
+//
+// Waiting for QUIET_MIN of silence after the LAST unlock fixes that, and it is
+// exactly right rather than approximately right: QUIET_MIN is BURST_GAP_MIN, so
+// once that much time has passed with no unlock, any further unlock would by
+// definition start a new visit. The burst can no longer grow. The summary is
+// therefore always complete.
+const QUIET_MIN     = BURST_GAP_MIN;
+const MAX_AGE_MIN   = 1440; // never send if the visit STARTED more than a day ago
+const COOLDOWN_DAYS = 30;   // at most one follow-up per person per 30 days
+const LOOKBACK_MIN  = 720;  // scan 12h of unlocks — long sessions must not be truncated
                             // batch — the follow-up is timed off the latest visit
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
@@ -208,7 +224,7 @@ function emailShell(body, locale, role) {
  * named fields. A missing or broken template falls through to the hard-coded
  * copy rather than dropping the email.
  */
-async function buildForContact({ firstName, properties, locale }) {
+async function buildForContact({ firstName, properties, locale, comparisonRows = [] }) {
   const t = COPY[locale] || COPY.en;
   const single = properties.length === 1;
 
@@ -227,6 +243,13 @@ async function buildForContact({ firstName, properties, locale }) {
       propertyName:  friendlyName(properties[0].title, t),
       propertyLinks: joinList(linkParts, t.and),
       galleryLinks:  galleryLinksHtml(properties, t),
+      // The side-by-side block. Only built when there is more than one home —
+      // comparing a shortlist of one is not a comparison, and the single-home
+      // template says something different instead.
+      comparison:    comparisonRows.length > 1
+        ? buildComparisonHtml(comparisonRows, t.comparisonHeading || 'The homes you looked at')
+        : '',
+      count:         String(properties.length),
       locale,
     },
     () => buildFallbackEmail({ firstName, properties, locale })
@@ -374,8 +397,12 @@ export default async function handler(req, res) {
     }
 
     const burstStart = new Date(acts[0].created_at).getTime();
-    const ageMin = (now - burstStart) / 60000;
-    if (ageMin < WINDOW_MIN) { notDue++; continue; }   // still inside the 10-min wait
+    const burstEnd   = new Date(acts[acts.length - 1].created_at).getTime();
+    const ageMin     = (now - burstStart) / 60000;   // how old the visit is
+    const quietMin   = (now - burstEnd) / 60000;     // how long since they stopped
+
+    // Still browsing — come back when they have finished.
+    if (quietMin < QUIET_MIN) { notDue++; continue; }
 
     // Contact details.
     const { data: contact } = await db
@@ -459,7 +486,7 @@ export default async function handler(req, res) {
       const key = String(url || title).toLowerCase();
       if (seen.has(key)) continue;
       seen.add(key);
-      properties.push({ title, url, galleryUrl });
+      properties.push({ title, url, galleryUrl, slug: a.metadata && a.metadata.propertySlug });
     }
 
     if (hasEnquiry) {
@@ -467,7 +494,7 @@ export default async function handler(req, res) {
         await insertMarker(db, {
           contact, status: 'rejected',
           subject: 'Gallery follow-up — suppressed (enquiry in window)',
-          notes: 'contact submitted an enquiry within the 10-minute window',
+          notes: 'contact submitted an enquiry during or since the visit',
           properties,
         });
       }
@@ -494,7 +521,32 @@ export default async function handler(req, res) {
     }
 
     const locale = ['en', 'es', 'fr'].includes(contact.locale) ? contact.locale : 'en';
-    const { subject, html, text, source } = await buildForContact({ firstName: contact.first_name, properties, locale });
+    // Fetch the real listing rows so the email can compare them properly.
+    // The activity metadata only carries a title and two links — price, beds,
+    // size and the photo all live on `properties`.
+    let comparisonRows = [];
+    try {
+      const slugs = properties.map(p => p.slug).filter(Boolean);
+      if (slugs.length) {
+        const { data: rows } = await db
+          .from('properties')
+          .select('slug, title, img, price, currency, beds, size, city, country, share_denominator')
+          .in('slug', slugs);
+        const bySlug = new Map((rows || []).map(r => [r.slug, r]));
+        comparisonRows = properties
+          .map(p => {
+            const row = p.slug && bySlug.get(p.slug);
+            return row ? { ...row, url: p.url, galleryUrl: p.galleryUrl } : null;
+          })
+          .filter(Boolean);
+      }
+    } catch (e) {
+      console.error('[gallery-followup] comparison lookup failed:', e.message);
+    }
+
+    const { subject, html, text, source } = await buildForContact({
+      firstName: contact.first_name, properties, locale, comparisonRows,
+    });
     if (source === 'fallback') console.warn('[gallery-followup] template unavailable — sent the built-in copy');
 
     if (dryRun) {
@@ -509,9 +561,34 @@ export default async function handler(req, res) {
 
     // ── Live send ───────────────────────────────────────────────────────────
     try {
+      // Register the send so opens are measurable. The follow-up was the only
+      // lead email with no email_sends row — 163 a month going out with no
+      // visibility at all, which makes it impossible to tell whether a change
+      // to it helped or hurt. Best-effort: a tracking failure must not stop
+      // the email.
+      let trackedHtml = resolveUnsubPlaceholder(html, contact.email);
+      try {
+        const send = await createEmailSend({
+          contactId: contactId || null,
+          type:      'gallery_followup',
+          subject,
+          toEmail:   contact.email,
+          propertyTitle: properties[0] ? properties[0].title : null,
+          propertyUrl:   properties[0] ? properties[0].url   : null,
+        });
+        const pixel = send && send.tracking_id ? trackingPixel(send.tracking_id) : '';
+        if (pixel) {
+          trackedHtml = trackedHtml.includes('</body>')
+            ? trackedHtml.replace('</body>', `${pixel}</body>`)
+            : trackedHtml + pixel;
+        }
+      } catch (e) {
+        console.error('[gallery-followup] tracking registration failed:', e.message);
+      }
+
       await sendHtml({
         to: contact.email, subject, from: DYLAN_FROM, replyTo: DYLAN_REPLY,
-        html:    resolveUnsubPlaceholder(html, contact.email),
+        html:    trackedHtml,
         text:    text ? resolveUnsubPlaceholder(text, contact.email) : undefined,
         headers: listUnsubHeaders(contact.email),
       });
