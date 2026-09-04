@@ -37,6 +37,50 @@ const WATCH_LOCALES = new Set(['en', 'es', 'fr', 'de', 'it', 'nl', 'pt', 'sv', '
 
 const SITE = 'https://co-ownership-property.com';
 
+/**
+ * Write today's price-index snapshot: median / min / max share price and
+ * price per sqm per country, from the live catalogue.
+ *
+ * This is deliberately SEPARATE from the watch alerts and runs first. It used
+ * to sit at the end of the handler, after an early return that fires when
+ * nobody is watching a property — so the public Price Index page silently
+ * depended on an unrelated feature having users, and wrote nothing whenever it
+ * did not. Idempotent per (snap_date, country), so running twice is harmless.
+ */
+async function writePriceIndexSnapshot(db) {
+// ── Daily price-index snapshot (idempotent per day/country) ──
+try {
+  const { data: live } = await db
+    .from('properties')
+    .select('country, price, currency, size, share_denominator')
+    .in('status', ['Live', 'for_sale'])
+    .gt('price', 0);
+  const byCountry = {};
+  for (const p of live || []) (byCountry[p.country || 'Other'] = byCountry[p.country || 'Other'] || []).push(p);
+  const med = (a) => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2); };
+  const today = new Date().toISOString().slice(0, 10);
+  const rows = Object.entries(byCountry)
+    .filter(([, l]) => l.length >= 3)
+    .map(([country, l]) => {
+      const prices = l.map((p) => Number(p.price));
+      const ws = l.filter((p) => p.size > 0);
+      return {
+        snap_date: today,
+        country,
+        homes: l.length,
+        median_share: med(prices),
+        min_share: Math.min(...prices),
+        max_share: Math.max(...prices),
+        per_sqm: ws.length >= 3 ? med(ws.map((p) => Math.round((p.price * (p.share_denominator || 8)) / p.size))) : null,
+        currency: l[0].currency || 'EUR',
+      };
+    });
+  if (rows.length) await db.from('price_index_snapshots').upsert(rows, { onConflict: 'snap_date,country' });
+} catch (e) {
+  console.error('[watch-alerts] price snapshot failed:', e.message);
+}
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -48,8 +92,15 @@ export default async function handler(req, res) {
   if (!isCron) return res.status(401).json({ error: 'Unauthorised' });
 
   const db = createSupabaseAdminClient();
+
+  // Runs whether or not anyone is watching a property — the price index is a
+  // public page and must not depend on the watch list being non-empty.
+  await writePriceIndexSnapshot(db);
+
   const { data: watches } = await db.from('property_watches').select('*');
-  if (!watches || watches.length === 0) return res.status(200).json({ ok: true, sent: 0 });
+  if (!watches || watches.length === 0) {
+    return res.status(200).json({ ok: true, sent: 0, snapshot: true });
+  }
 
   const eligible = await filterSuppressed(db, watches);
 
@@ -151,38 +202,6 @@ export default async function handler(req, res) {
     } catch (e) {
       console.error('[watch-alerts] failed for', w.email, w.slug, e.message);
     }
-  }
-
-  // ── Daily price-index snapshot (idempotent per day/country) ──
-  try {
-    const { data: live } = await db
-      .from('properties')
-      .select('country, price, currency, size, share_denominator')
-      .in('status', ['Live', 'for_sale'])
-      .gt('price', 0);
-    const byCountry = {};
-    for (const p of live || []) (byCountry[p.country || 'Other'] = byCountry[p.country || 'Other'] || []).push(p);
-    const med = (a) => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2); };
-    const today = new Date().toISOString().slice(0, 10);
-    const rows = Object.entries(byCountry)
-      .filter(([, l]) => l.length >= 3)
-      .map(([country, l]) => {
-        const prices = l.map((p) => Number(p.price));
-        const ws = l.filter((p) => p.size > 0);
-        return {
-          snap_date: today,
-          country,
-          homes: l.length,
-          median_share: med(prices),
-          min_share: Math.min(...prices),
-          max_share: Math.max(...prices),
-          per_sqm: ws.length >= 3 ? med(ws.map((p) => Math.round((p.price * (p.share_denominator || 8)) / p.size))) : null,
-          currency: l[0].currency || 'EUR',
-        };
-      });
-    if (rows.length) await db.from('price_index_snapshots').upsert(rows, { onConflict: 'snap_date,country' });
-  } catch (e) {
-    console.error('[watch-alerts] price snapshot failed:', e.message);
   }
 
   console.log(`[watch-alerts] processed ${eligible.length} watches, sent ${sent} emails`);
