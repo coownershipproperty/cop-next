@@ -33,6 +33,22 @@ export const maxDuration = 120;
 
 /* One email per watch per week, however often the job looks. */
 const COOLDOWN_DAYS = 7;
+
+/**
+ * Ceiling on how many alerts one run may send.
+ *
+ * This job was written when property_watches had four rows, so an unbounded
+ * loop was harmless. Watches are now created automatically on every gallery
+ * unlock — roughly 740 a month — which means a single bulk price update from
+ * the partner sync could put thousands of emails on the wire in one run, with
+ * nothing to stop it.
+ *
+ * Anything over the cap simply waits for tomorrow: the cooldown is measured
+ * per watch, so a deferred alert is not lost, only delayed. A price cut is
+ * still news a day later; an accidental thousand-email blast is not
+ * recoverable at all.
+ */
+const MAX_SENDS_PER_RUN = 200;
 const WATCH_LOCALES = new Set(['en', 'es', 'fr', 'de', 'it', 'nl', 'pt', 'sv', 'da', 'no']);
 
 const SITE = 'https://co-ownership-property.com';
@@ -120,7 +136,9 @@ export default async function handler(req, res) {
     .gte('date_added', cutoff);
 
   let sent = 0;
+  let deferred = 0;
   for (const w of eligible) {
+    if (sent >= MAX_SENDS_PER_RUN) { deferred++; continue; }
     try {
       if (w.kind === 'watch') {
         const p = bySlug.get(w.slug);
@@ -204,6 +222,9 @@ export default async function handler(req, res) {
     }
   }
 
-  console.log(`[watch-alerts] processed ${eligible.length} watches, sent ${sent} emails`);
-  return res.status(200).json({ ok: true, watches: eligible.length, sent });
+  if (deferred) {
+    console.warn(`[watch-alerts] hit the ${MAX_SENDS_PER_RUN} cap — ${deferred} alerts deferred to the next run`);
+  }
+  console.log(`[watch-alerts] processed ${eligible.length} watches, sent ${sent} emails, deferred ${deferred}`);
+  return res.status(200).json({ ok: true, watches: eligible.length, sent, deferred, capped: deferred > 0 });
 }
