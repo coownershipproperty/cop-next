@@ -49,3 +49,8 @@ next-env.d.ts
 
 # Scratch backfill payloads staged by the locale pipeline — never committed.
 tmp/
+
+# Scratch build directories from verification runs, and the holding pen for
+# files awaiting deletion. Never commit these — they run to gigabytes.
+.next-*
+_to_delete/

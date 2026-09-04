@@ -38,6 +38,7 @@
  */
 import { createClient } from '@supabase/supabase-js';
 import { sendHtml } from '@/lib/resend';
+import { buildEmail as buildStudioEmail } from '@/lib/email/templateStore';
 import { isEnvTrue } from '@/lib/email/engine';
 import { isSuppressed } from '@/lib/suppressions';
 
@@ -199,12 +200,52 @@ function emailShell(body, locale, role) {
 }
 
 /**
+ * Build the follow-up for one contact, studio first.
+ *
+ * The template owns the words and the layout; this function owns the pieces
+ * the template cannot know — which homes, which links — and hands them over as
+ * named fields. A missing or broken template falls through to the hard-coded
+ * copy rather than dropping the email.
+ */
+async function buildForContact({ firstName, properties, locale }) {
+  const t = COPY[locale] || COPY.en;
+  const single = properties.length === 1;
+
+  const linkParts = properties.map(p => {
+    const label = escapeHtml(friendlyName(p.title, t));
+    return p.url
+      ? `<a href="${escapeHtml(p.url)}" style="color:#1E3448;text-decoration:underline;">${label}</a>`
+      : `<strong>${label}</strong>`;
+  });
+
+  return buildStudioEmail(
+    single ? 'gallery_followup_single' : 'gallery_followup_multi',
+    locale,
+    {
+      firstName:     firstName || '',
+      propertyName:  friendlyName(properties[0].title, t),
+      propertyLinks: joinList(linkParts, t.and),
+      galleryLinks:  galleryLinksHtml(properties, t),
+      locale,
+    },
+    () => buildFallbackEmail({ firstName, properties, locale })
+  );
+}
+
+/**
  * Build the follow-up email for one contact.
+ *
+ * This is the FALLBACK. The wording that normally sends lives in
+ * `message_templates` and is edited at /admin/templates — see buildForContact
+ * below. This function is what sends if the database cannot be reached, so its
+ * copy must stay a faithful mirror of template v1. Do not edit it to change
+ * wording; edit the template.
+ *
  * @param {string|null} firstName
  * @param {{title:string,url:string|null}[]} properties  — deduplicated
  * @param {'en'|'es'|'fr'} locale
  */
-function buildEmail({ firstName, properties, locale }) {
+function buildFallbackEmail({ firstName, properties, locale }) {
   const t = COPY[locale] || COPY.en;
   const single = properties.length === 1;
 
@@ -452,7 +493,8 @@ export default async function handler(req, res) {
     }
 
     const locale = ['en', 'es', 'fr'].includes(contact.locale) ? contact.locale : 'en';
-    const { subject, html } = buildEmail({ firstName: contact.first_name, properties, locale });
+    const { subject, html, source } = await buildForContact({ firstName: contact.first_name, properties, locale });
+    if (source === 'fallback') console.warn('[gallery-followup] template unavailable — sent the built-in copy');
 
     if (dryRun) {
       results.push({

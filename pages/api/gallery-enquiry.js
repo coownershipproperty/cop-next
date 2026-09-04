@@ -6,6 +6,7 @@ import { sendHtml, sendTeamNotification } from '@/lib/resend';
 import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import { createPartnerReferral, is215Partner } from '@/lib/partnerReferrals';
+import { buildEmail as buildStudioEmail } from '@/lib/email/templateStore';
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
 const DYLAN_REPLY = 'dylan@co-ownership-property.com';
@@ -55,6 +56,10 @@ function emailShell(body, locale) {
 </html>`;
 }
 
+// FALLBACK ONLY. The wording that normally sends lives in `message_templates`
+// (moment `gallery_autoreply`) and is edited at /admin/templates. This builds
+// the same email from the bundled i18n strings if the database is unreachable —
+// keep it in step with template v1, but change wording in the studio, not here.
 function firstReplyHtml({ firstName, propertyTitle, propertyUrl, locale }) {
   const greeting = firstName ? tr('greeting_name', locale, { firstName }) : tr('greeting_no_name', locale);
   const propLink = propertyUrl
@@ -190,8 +195,20 @@ export default async function handler(req, res) {
     const alreadySentForThisProperty = (prev || []).some(r => r.template_props?.propertySlug === resolvedSlug);
 
     if (!alreadySentForThisProperty) {
-      const subject = tr('subject_first', locale, { propertyTitle: propertyTitle || propertySlug });
-      const html    = firstReplyHtml({ firstName, propertyTitle: propertyTitle || propertySlug, propertyUrl, locale });
+      const title    = propertyTitle || propertySlug;
+      const propLink = propertyUrl
+        ? `<a href="${propertyUrl}" style="color:#1E3448;text-decoration:underline;">${title}</a>`
+        : `<strong>${title}</strong>`;
+
+      const { subject, html, source } = await buildStudioEmail(
+        'gallery_autoreply', locale,
+        { firstName: firstName || '', propertyTitle: title, propertyLink: propLink, propertyUrl, locale },
+        () => ({
+          subject: tr('subject_first', locale, { propertyTitle: title }),
+          html:    firstReplyHtml({ firstName, propertyTitle: title, propertyUrl, locale }),
+        })
+      );
+      if (source === 'fallback') console.warn('[gallery-autoreply] template unavailable — sent the built-in copy');
 
       // Send immediately — reliable, no cron dependency
       await sendHtml({ to: email, subject, html, from: DYLAN_FROM, replyTo: DYLAN_REPLY });

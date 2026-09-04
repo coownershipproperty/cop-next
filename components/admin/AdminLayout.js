@@ -23,8 +23,9 @@ const NAV_GROUPS = [
   {
     label: 'MARKETING',
     items: [
+      { href: '/admin/templates', label: 'Email templates', icon: '✎' },
       { href: '/admin/newsletters', label: 'Newsletters', icon: '✉' },
-      { href: '/admin/emails', label: 'Email campaigns', icon: '↗' },
+      { href: '/admin/emails', label: 'Email activity', icon: '↗' },
     ],
   },
   {
