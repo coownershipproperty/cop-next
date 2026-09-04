@@ -76,6 +76,8 @@ export default function TemplateStudio() {
   const [showDesign, setShowDesign] = useState(false)
   const [showVersions, setShowVersions] = useState(false)
   const [versions, setVersions] = useState([])
+  const [copyDefaults, setCopyDefaults] = useState({})
+  const [copyFields, setCopyFields] = useState([])
 
   const focusRef = useRef({ index: null, start: 0, end: 0, field: 'text' })
 
@@ -93,6 +95,18 @@ export default function TemplateStudio() {
   }
 
   const moment = useMemo(() => moments.find(m => m.key === momentKey) || null, [moments, momentKey])
+  const isStrings = moment?.kind === 'strings'
+
+  // For a copy-only template, load what each field says today so the editor
+  // shows the real wording rather than empty boxes.
+  useEffect(() => {
+    if (!moment || moment.kind !== 'strings') { setCopyDefaults({}); setCopyFields([]); return }
+    let live = true
+    api(`/api/admin/templates/defaults?moment=${encodeURIComponent(moment.key)}&locale=${locale}`)
+      .then(({ defaults, fields }) => { if (live) { setCopyDefaults(defaults || {}); setCopyFields(fields || []) } })
+      .catch(e => { if (live) setError(e.message) })
+    return () => { live = false }
+  }, [moment, locale])
 
   const activeRow = useMemo(
     () => templates.find(t => t.moment === momentKey && t.locale === locale && t.active) || null,
@@ -109,7 +123,10 @@ export default function TemplateStudio() {
   // Load the selected template into the editor.
   useEffect(() => {
     if (!moment) return
-    if (activeRow) {
+    if (moment.kind === 'strings') {
+      const d = { strings: { ...((activeRow && activeRow.strings) || {}) }, notes: (activeRow && activeRow.notes) || '' }
+      setDraft(d); setBaseline(JSON.stringify(d))
+    } else if (activeRow) {
       const d = {
         subject: activeRow.subject || '',
         preheader: activeRow.preheader || '',
@@ -132,12 +149,14 @@ export default function TemplateStudio() {
     try {
       const out = await api('/api/admin/templates/preview', {
         method: 'POST',
-        body: JSON.stringify({
-          moment: moment.key, locale,
-          subject: d.subject, preheader: d.preheader,
-          blocks: d.blocks, design: d.design,
-          data: { ...(moment.sample_data || {}), locale },
-        }),
+        body: JSON.stringify(moment.kind === 'strings'
+          ? { moment: moment.key, locale, kind: 'strings', strings: d.strings }
+          : {
+              moment: moment.key, locale,
+              subject: d.subject, preheader: d.preheader,
+              blocks: d.blocks, design: d.design,
+              data: { ...(moment.sample_data || {}), locale },
+            }),
       })
       setPreview(out)
     } catch (e) { setPreview(p => ({ ...p, html: `<p style="font:14px Arial;color:#b3261e;padding:20px">${e.message}</p>` })) }
@@ -184,7 +203,7 @@ export default function TemplateStudio() {
           moment: moment.key, locale, channel: 'email', kind: moment.kind || 'blocks',
           tier: moment.tier || 'B', label: activeRow?.label || moment.label,
           subject: draft.subject, preheader: draft.preheader,
-          blocks: draft.blocks, design: draft.design, notes: draft.notes,
+          blocks: draft.blocks, design: draft.design, strings: draft.strings, notes: draft.notes,
           from_name: activeRow?.from_name, from_email: activeRow?.from_email, reply_to: activeRow?.reply_to,
         }),
       })
@@ -215,6 +234,21 @@ export default function TemplateStudio() {
       const { versions } = await api(`/api/admin/templates/history?moment=${encodeURIComponent(moment.key)}&locale=${locale}`)
       setVersions(versions)
     } catch (e) { setError(e.message) }
+  }
+
+  // Load an old version into the editor so it renders in the live preview.
+  // Nothing is published — it becomes an unsaved draft the user can keep,
+  // discard, or publish. Previewing before rolling back beats guessing.
+  function loadVersion(v) {
+    const d = isStrings
+      ? { strings: { ...(v.strings || {}) }, notes: v.notes || '' }
+      : {
+          subject: v.subject || '', preheader: v.preheader || '',
+          blocks: JSON.parse(JSON.stringify(v.blocks || [])),
+          design: { ...(v.design || {}) }, notes: v.notes || '',
+        }
+    setDraft(d); setBaseline('')
+    setNotice(`Showing v${v.version} in the preview. Nothing has changed — press Save & publish to keep it, or Make live to switch to that exact version.`)
   }
 
   async function rollback(id, version) {
@@ -330,6 +364,7 @@ export default function TemplateStudio() {
                           {new Date(v.updated_at).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
                           {v.updated_by ? ` · ${v.updated_by}` : ''}{v.notes ? ` · ${v.notes}` : ''}
                         </span>
+                        <button className={`${s.btn} ${s.btnGhost}`} onClick={() => loadVersion(v)}>Preview</button>
                         {v.active
                           ? <span className={`${s.pill} ${s.pillLive}`}>Live</span>
                           : <button className={s.btn} onClick={() => rollback(v.id, v.version)}>Make live</button>}
@@ -341,7 +376,19 @@ export default function TemplateStudio() {
               </div>
             )}
 
-            {draft && (
+            {draft && isStrings && (
+              <StringsEditor
+                fields={copyFields}
+                defaults={copyDefaults}
+                values={draft.strings}
+                notes={draft.notes}
+                onChange={strings => patch({ strings })}
+                onNotes={notes => patch({ notes })}
+                styles={s}
+              />
+            )}
+
+            {draft && !isStrings && (
               <>
                 <div className={s.card}>
                   <div className={s.cardHead}><h3>Subject line</h3></div>
@@ -449,6 +496,97 @@ export default function TemplateStudio() {
         </aside>
       </div>
     </AdminLayout>
+  )
+}
+
+// ── Copy-only editor ─────────────────────────────────────────────────────────
+// For emails whose layout is a React component. Each field edits one piece of
+// wording; leaving a field at its current value stores nothing, so untouched
+// copy always tracks the code rather than a stale copy of it.
+function StringsEditor({ fields, defaults, values, notes, onChange, onNotes, styles: s }) {
+  const shown = (f) => (values[f.key] != null ? values[f.key] : (defaults[f.key] || ''))
+  const changed = (f) => values[f.key] != null && values[f.key] !== (defaults[f.key] || '')
+
+  function set(f, v) {
+    const next = { ...values }
+    if (v === (defaults[f.key] || '')) delete next[f.key]   // back to default = no override
+    else next[f.key] = v
+    onChange(next)
+  }
+
+  function reset(f) {
+    const next = { ...values }
+    delete next[f.key]
+    onChange(next)
+  }
+
+  const shared = fields.filter(f => f.shared)
+
+  return (
+    <>
+      <div className={s.card}>
+        <div className={s.cardHead}>
+          <h3>The wording</h3>
+          <div className={s.spacer} />
+          <span className={s.momentMeta} style={{ fontSize: 11 }}>
+            {Object.keys(values).length} of {fields.length} changed
+          </span>
+        </div>
+        <div className={s.cardBody}>
+          <p className={s.hint} style={{ marginTop: 0, marginBottom: 14 }}>
+            This email&apos;s layout lives in code, so you edit the words rather than the blocks.
+            A field you leave alone keeps whatever the site says today — nothing is copied or frozen.
+          </p>
+
+          {fields.map(f => (
+            <div className={s.field} key={f.key}>
+              <label className={s.label}>
+                {f.label}
+                {f.shared && <span className={s.pill} style={{ marginLeft: 8 }}>shared</span>}
+                {changed(f) && <span className={`${s.pill} ${s.pillDraft}`} style={{ marginLeft: 8 }}>changed</span>}
+              </label>
+              {f.multiline
+                ? <textarea className={s.textarea} rows={2} value={shown(f)} onChange={e => set(f, e.target.value)} />
+                : <input className={s.input} value={shown(f)} onChange={e => set(f, e.target.value)} />}
+              <p className={s.hint}>
+                {f.note}
+                {f.vars?.length ? `${f.note ? ' ' : ''}Use {${f.vars.join('}, {')}} to drop in the real value.` : ''}
+                {changed(f) && (
+                  <>
+                    {' '}
+                    <button className={`${s.btn} ${s.btnGhost}`} style={{ padding: '1px 6px', fontSize: 12 }}
+                      onClick={() => reset(f)}>Undo</button>
+                  </>
+                )}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {shared.length > 0 && (
+        <div className={s.card}>
+          <div className={s.cardHead}><h3>Careful</h3></div>
+          <div className={s.cardBody}>
+            <p className={s.hint} style={{ margin: 0 }}>
+              {shared.length === 1 ? 'One field above is' : `${shared.length} fields above are`} marked{' '}
+              <strong>shared</strong> — {shared.map(f => f.label.toLowerCase()).join(', ')}.
+              They are used by other emails too, so changing them here changes them everywhere.
+              If you want this email to differ, say so and it can be split out.
+            </p>
+          </div>
+        </div>
+      )}
+
+      <div className={s.card}>
+        <div className={s.cardHead}><h3>Note for the next person</h3></div>
+        <div className={s.cardBody}>
+          <textarea className={s.textarea} rows={2} value={notes || ''}
+            onChange={e => onNotes(e.target.value)}
+            placeholder="Why you changed it — shown in the version history." />
+        </div>
+      </div>
+    </>
   )
 }
 

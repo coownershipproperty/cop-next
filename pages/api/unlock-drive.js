@@ -6,6 +6,7 @@ import { isHoneypotFilled } from '@/lib/honeypot';
 import { queueEmail, sendTeamNotification } from '@/lib/resend';
 import { createPartnerReferral, is215Partner } from '@/lib/partnerReferrals';
 import { scheduleGalleryNurture } from '@/lib/followupSequence';
+import { getCopy, copyOr } from '@/lib/email/templateStore';
 import FloorPlanEmail from '@/emails/floor-plan';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import * as React from 'react';
@@ -149,9 +150,15 @@ export default async function handler(req, res) {
   // Short per-locale subject, e.g. "Your Marbella photos & floor plans" —
   // {city} is the first segment of the property title before the first comma.
   const city = ((propertyTitle || '').split(',')[0] || '').trim();
+
+  // Wording overrides from the Template Studio (/admin/templates → Gallery
+  // unlock). Empty when nothing has been changed, in which case every string
+  // below falls through to messages/<locale>.json exactly as before.
+  const studioCopy = await getCopy('gallery_delivery', locale);
+
   const subjectLine = city
-    ? t('emails.floor_plan.subject', locale).replace('{city}', city)
-    : `${t('emails.floor_plan.subject_prefix', locale)} ${propertyTitle || ''}`.trim();
+    ? copyOr(studioCopy, 'floor_plan.subject', t('emails.floor_plan.subject', locale)).replace('{city}', city)
+    : `${copyOr(studioCopy, 'floor_plan.subject_prefix', t('emails.floor_plan.subject_prefix', locale))} ${propertyTitle || ''}`.trim();
 
   // Rate limit: max 5 unlock requests per email per 5 minutes
   const { limited } = await checkRateLimit(email, 'unlock', 5 * 60 * 1000, 5);
@@ -410,7 +417,9 @@ export default async function handler(req, res) {
     if (!skipGalleryEmail) {
       const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
 
-      // Send floor plan email — gallery URL replaces raw Drive link as primary CTA
+      // Send the gallery unlock email. Named 'floor-plan' for historical
+      // reasons only — it delivers the gated photo gallery, and must never
+      // promise floor plans, which many listings do not have.
       await queueEmail({
         autoSend:      true,
         to:            email,
@@ -425,11 +434,12 @@ export default async function handler(req, res) {
           similarProperties: similarProperties,
           trackingPixelHtml: pixel         || undefined,
           locale,
+          copy:              studioCopy,
         }),
         templateName:  'floor-plan',
         templateProps: { firstName, propertyTitle, driveUrl: galleryUrl, propertyUrl, propertyImg, propertySlug, locale },
         trigger:       'floor_plan_requested',
-        notes:         `Floor plan unlock for ${propertyTitle}`,
+        notes:         `Gallery unlock for ${propertyTitle}`,
         contactId:     contact?.id || null,
       });
 
@@ -437,7 +447,7 @@ export default async function handler(req, res) {
         await logActivity({
           contactId: contact.id,
           type:      'email_queued',
-          description: `Floor plan email queued for ${email}`,
+          description: `Gallery unlock email queued for ${email}`,
           metadata:  { email_send_id: emailSend.id },
         });
       }

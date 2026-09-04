@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const db = createSupabaseAdminClient()
   const [{ data: versions }, { data: edits }] = await Promise.all([
     db.from('message_templates')
-      .select('id,version,active,subject,blocks,design,preheader,notes,updated_at,updated_by')
+      .select('id,version,active,subject,blocks,design,strings,preheader,notes,updated_at,updated_by')
       .eq('moment', moment).eq('locale', locale).order('version', { ascending: false }),
     db.from('template_edits')
       .select('action,from_version,to_version,edited_by,summary,created_at')

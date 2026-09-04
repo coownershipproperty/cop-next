@@ -36,6 +36,12 @@ interface FloorPlanEmailProps {
   similarProperties?: SimilarProperty[];
   trackingPixelHtml?: string;
   locale?: 'en' | 'es' | 'fr';
+  /**
+   * Wording overrides from the Template Studio, keyed by i18n path
+   * (e.g. "floor_plan.greeting"). Only the keys Dylan has actually changed
+   * are present; everything else falls through to messages/<locale>.json.
+   */
+  copy?: Record<string, string>;
 }
 
 // Small interpolation helper so t() values can contain {placeholders}.
@@ -65,6 +71,7 @@ export default function FloorPlanEmail({
   similarProperties = [],
   trackingPixelHtml,
   locale = 'en',
+  copy,
 }: FloorPlanEmailProps) {
 
   // Split property title at em dash for location / property name display
@@ -74,8 +81,25 @@ export default function FloorPlanEmail({
 
   // Localised strings (fall back to English if locale not supported).
   const tr = (key: string, vars?: Record<string, string>) => {
-    const v = t(`emails.${key}`, locale);
+    // Studio override first, bundled translation second.
+    const override = copy && typeof copy[key] === 'string' && copy[key].trim() !== ''
+      ? copy[key]
+      : null;
+    const v = override != null ? override : t(`emails.${key}`, locale);
     return vars ? interp(v, vars) : v;
+  };
+
+  /**
+   * Some lines are shared across every COP email (`common.*`). This email is
+   * the first thing most leads ever receive and is signed by Dylan, so it
+   * needs to be able to say something different without dragging the other
+   * emails with it. `ownKey` wins when the studio has set it; otherwise the
+   * shared line is used exactly as before.
+   */
+  const trOwn = (ownKey: string, sharedKey: string, vars?: Record<string, string>) => {
+    const own = copy && copy[ownKey];
+    if (typeof own === 'string' && own.trim() !== '') return vars ? interp(own, vars) : own;
+    return tr(sharedKey, vars);
   };
   const htmlLang = tr('common.html_lang') || 'en';
 
@@ -162,10 +186,10 @@ export default function FloorPlanEmail({
           <Container style={wrapBody}>
             <Hr style={thinDivider} />
             <Text style={replyText}>
-              {tr('common.questions_reply_text')}
+              {trOwn('floor_plan.questions_reply_text', 'common.questions_reply_text')}
             </Text>
             <Hr style={goldAccentRule} />
-            <Text style={signoffName}>{tr('common.team_signoff')}</Text>
+            <Text style={signoffName}>{trOwn('floor_plan.signoff', 'common.team_signoff')}</Text>
             <Text style={signoffSite}>
               <Link href={base} style={signoffLink}>co-ownership-property.com</Link>
             </Text>
@@ -177,7 +201,7 @@ export default function FloorPlanEmail({
           <Section style={similarSection}>
             <Container style={wrap}>
 
-              <Text style={sectionEyebrow}>{tr('common.section_you_may_also_like')}</Text>
+              <Text style={sectionEyebrow}>{trOwn('floor_plan.similar_heading', 'common.section_you_may_also_like')}</Text>
               <Hr style={goldBarLeft} />
 
               {similarProperties.map((p, i) => (

@@ -2,7 +2,7 @@ import { requireCrmAdmin } from '@/lib/adminAuth'
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin'
 import { clearTemplateCache } from '@/lib/email/templateStore'
 
-const ROW = 'id,moment,locale,channel,kind,version,tier,active,label,subject,preheader,blocks,design,from_name,from_email,reply_to,notes,sent_count,edit_count,updated_at,updated_by'
+const ROW = 'id,moment,locale,channel,kind,version,tier,active,label,subject,preheader,blocks,design,strings,from_name,from_email,reply_to,notes,sent_count,edit_count,updated_at,updated_by'
 
 export default async function handler(req, res) {
   const admin = await requireCrmAdmin(req, res)
@@ -27,8 +27,11 @@ export default async function handler(req, res) {
     const locale = String(b.locale || 'en').trim()
     const channel = String(b.channel || 'email').trim()
     if (!moment || !locale) return res.status(400).json({ error: 'moment and locale are required.' })
-    if (!Array.isArray(b.blocks) || !b.blocks.length) return res.status(400).json({ error: 'A template needs at least one block.' })
-    if (!String(b.subject || '').trim()) return res.status(400).json({ error: 'A subject line is required.' })
+    const kind = b.kind === 'strings' ? 'strings' : 'blocks'
+    if (kind === 'blocks') {
+      if (!Array.isArray(b.blocks) || !b.blocks.length) return res.status(400).json({ error: 'A template needs at least one block.' })
+      if (!String(b.subject || '').trim()) return res.status(400).json({ error: 'A subject line is required.' })
+    }
 
     const { data: prev } = await db.from('message_templates')
       .select('id,version,edit_count').eq('moment', moment).eq('locale', locale).eq('channel', channel)
@@ -45,14 +48,15 @@ export default async function handler(req, res) {
 
     const { data: row, error } = await db.from('message_templates').insert({
       moment, locale, channel,
-      kind:       b.kind || 'blocks',
+      kind,
       version:    nextVersion,
       tier:       b.tier || 'B',
       active:     true,
       label:      b.label || null,
-      subject:    String(b.subject).trim(),
+      subject:    b.subject ? String(b.subject).trim() : null,
       preheader:  b.preheader ? String(b.preheader).trim() : null,
-      blocks:     b.blocks,
+      blocks:     Array.isArray(b.blocks) ? b.blocks : [],
+      strings:    b.strings && typeof b.strings === 'object' ? b.strings : {},
       design:     b.design || {},
       from_name:  b.from_name || null,
       from_email: b.from_email || null,
