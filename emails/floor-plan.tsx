@@ -16,6 +16,7 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 import { t } from '@/lib/i18n';
+import { BRAND } from '@/lib/email/brand';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface SimilarProperty {
@@ -60,14 +61,16 @@ const interp = (s: string, vars: Record<string, string>): string =>
   s.replace(/\{(\w+)\}/g, (_, k) => (vars[k] != null ? vars[k] : `{${k}}`));
 
 // ── Brand colours ─────────────────────────────────────────────────────────────
+// Single source of truth: lib/email/brand.js. Values unchanged — this email's
+// palette WAS the reference, it just used to be a private copy of it.
 const C = {
-  navy:   '#1E3448',
-  navy60: '#6B8A9E',
-  gold:   '#C9A84C',
-  cream:  '#F7F4EE',
+  navy:   BRAND.navy,
+  navy60: BRAND.navy60,
+  gold:   BRAND.gold,
+  cream:  BRAND.cream,
   white:  '#FFFFFF',
-  border: '#E8E3DC',
-  text:   '#3A5168',
+  border: BRAND.border,
+  text:   BRAND.text,
 };
 
 const base = 'https://co-ownership-property.com';

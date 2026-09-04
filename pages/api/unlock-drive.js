@@ -297,6 +297,39 @@ export default async function handler(req, res) {
         });
       }
 
+      // ── Watch the home they just opened ────────────────────────────────
+      //
+      // The single change most likely to matter: an unlock becomes a standing
+      // reason to be in touch. 495 people opened a gallery in 90 days and 455
+      // of them were never heard from again, because after two emails there
+      // was nothing left to say. A watch means the next email is about the
+      // home THEY chose — "the price dropped", "one share left", "it sold" —
+      // which is the only kind of follow-up anyone actually opens.
+      //
+      // property_watches already drives a daily alert cron. It had four rows,
+      // because it required clicking a bell almost nobody clicks.
+      //
+      // This is an opt-out subscription, so it is disclosed in the unlock
+      // email's own footer next to the unsubscribe link, and the suppression
+      // list has already been honoured further up this handler. Best-effort:
+      // a watch must never break an unlock.
+      try {
+        if (propertySlug) {
+          await db.from('property_watches').upsert({
+            email:       cleanEmail,
+            slug:        propertySlug,
+            kind:        'watch',
+            region:      propertyRegion || resolvedCountry || '',
+            country:     resolvedCountry || null,
+            last_price:  propertyPrice || null,
+            last_status: 'Live',
+            locale,
+          }, { onConflict: 'email,slug,kind', ignoreDuplicates: false });
+        }
+      } catch (e) {
+        console.error('[unlock-drive] watch upsert failed:', e.message);
+      }
+
       await logActivity({
         contactId: contact.id,
         type:      'floor_plan_requested',
