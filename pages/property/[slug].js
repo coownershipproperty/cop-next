@@ -16,7 +16,7 @@ import UnlockModal from '@/components/UnlockModal';
 import TourRequestModal from '@/components/TourRequestModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
 import PropertyCard from '@/components/PropertyCard';
-import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales, ogLocaleFor, propertyMetaDescription, formatPrice } from '@/lib/i18n';
+import { localeFromPath, localeColumns, pickLocalized, numberLocale, SUPPORTED_LOCALES, propertyHref, localizedField, ALL_LOCALES, translatedLocales, ogLocaleFor, propertyMetaDescription, formatPrice, familyPrefix, destinationAvailableIn } from '@/lib/i18n';
 import PropertyWatch from '@/components/PropertyWatch';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
@@ -239,12 +239,76 @@ function getSupabase() {
 // stay Live/for_sale, so counts still describe what is actually buyable.
 const PUBLIC_STATUSES = ['Live', 'for_sale', 'sold'];
 
+function normaliseLocation(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase();
+}
+
+function distanceKm(origin, candidate) {
+  const coordinateValues = [origin.lat, origin.lng, candidate.lat, candidate.lng];
+  if (coordinateValues.some(value => value === null || value === undefined || value === '')) return null;
+
+  const originLat = Number(origin.lat);
+  const originLng = Number(origin.lng);
+  const candidateLat = Number(candidate.lat);
+  const candidateLng = Number(candidate.lng);
+  if (![originLat, originLng, candidateLat, candidateLng].every(Number.isFinite)) return null;
+
+  const toRadians = degrees => degrees * Math.PI / 180;
+  const latDelta = toRadians(candidateLat - originLat);
+  const lngDelta = toRadians(candidateLng - originLng);
+  const a = Math.sin(latDelta / 2) ** 2
+    + Math.cos(toRadians(originLat)) * Math.cos(toRadians(candidateLat))
+    * Math.sin(lngDelta / 2) ** 2;
+  return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function rankSimilarProperties(origin, candidates) {
+  const originCity = normaliseLocation(origin.city);
+  const originRegion = normaliseLocation(origin.region);
+  const originPrice = Number(origin.price);
+
+  return candidates
+    .map(candidate => {
+      const sameCity = originCity && normaliseLocation(candidate.city) === originCity;
+      const sameRegion = originRegion && normaliseLocation(candidate.region) === originRegion;
+      const distance = distanceKm(origin, candidate);
+      const price = Number(candidate.price);
+
+      return {
+        candidate,
+        // Location always wins. Coordinates rank the remaining same-country
+        // homes by physical proximity; price is only a tie-breaker.
+        locationTier: sameCity ? 0 : (sameRegion ? 1 : (distance === null ? 3 : 2)),
+        distance: distance ?? Number.POSITIVE_INFINITY,
+        priceDifference: Number.isFinite(originPrice) && originPrice > 0 && Number.isFinite(price)
+          ? Math.abs(price - originPrice) / originPrice
+          : Number.POSITIVE_INFINITY,
+      };
+    })
+    .sort((a, b) => (
+      a.locationTier - b.locationTier
+      || a.distance - b.distance
+      || a.priceDifference - b.priceDifference
+      || a.candidate.slug.localeCompare(b.candidate.slug)
+    ))
+    .map(({ candidate }) => candidate);
+}
+
 export async function getStaticPaths() {
   const supabase = getSupabase();
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('properties')
     .select('slug')
     .in('status', PUBLIC_STATUSES);
+
+  // A failed catalogue read must fail the build. Treating it as an empty
+  // catalogue would deploy successfully without any pre-rendered properties.
+  if (error) throw error;
+
   return {
     paths: (data || []).map(p => ({ params: { slug: p.slug } })),
     fallback: 'blocking',
@@ -258,12 +322,9 @@ export async function getStaticProps({ params }) {
     // amenities_es/amenities_fr columns alongside the English originals. Falls back
     // gracefully when a row hasn't been translated yet.
     //
-    // Wrapped in try/catch + explicit error checks so that requests for slugs
-    // that no longer exist in the DB (renamed/removed properties — happens
-    // when the sync-sheet pipeline rewrites slugs) return a clean 404 instead
-    // of crashing into a 5xx. Google Search Console was flagging ~12 URLs as
-    // "Server error (5xx)" for exactly this reason — old slugs that got
-    // renamed since the page was last crawled.
+    // A successful query with no row is a genuine 404. A query error is not:
+    // it must be thrown so ISR keeps the last good page rather than replacing
+    // it with a cached false 404 during a transient Supabase incident.
     const { data: property, error: propErr } = await supabase
       .from('properties')
       .select('*')
@@ -271,7 +332,8 @@ export async function getStaticProps({ params }) {
       .in('status', PUBLIC_STATUSES)
       .maybeSingle();
 
-    if (propErr || !property) return { notFound: true };
+    if (propErr) throw propErr;
+    if (!property) return { notFound: true, revalidate: 3600 };
 
     // Hidden/staged rows must never render publicly (19 Jul incident).
     // Sold rows do get a page -- see PUBLIC_STATUSES above. `revalidate` lets a
@@ -306,10 +368,11 @@ export async function getStaticProps({ params }) {
     // column here would ship partner-identifying text into __NEXT_DATA__.
     for (const loc of ALL_LOCALES) delete prop[`description_ai_${loc}`];
 
-    // Similar homes — COP's own catalog only, never a partner feed:
-    // same country (same region preferred), price within ±30%, Live/for_sale,
-    // current property excluded, max 3. Best-effort: if it errors we render
-    // the page with an empty similar list instead of breaking the whole page.
+    // Similar homes — COP's own catalog only, never a partner feed. Rank by
+    // same city, then same region, then geographic distance within the country;
+    // price only breaks ties. Current property excluded, max 3. Best-effort:
+    // if it errors we render the page with an empty similar list instead of
+    // breaking the whole page.
     let similar = [];
     try {
       // Perf note (28 Aug 2026): this used to select `images` (the full
@@ -317,48 +380,45 @@ export async function getStaticProps({ params }) {
       // every ISR build of every property URL in every locale — ~1–3 MB and
       // 0.4–0.6 s per build. When the translation backfill put ~2,500 new
       // property URLs into the sitemap at once, the resulting crawl storm
-      // saturated Supabase (the 28 Aug 522 outage / admin lag). Now: the
-      // price band is applied in SQL, the candidate pool is capped at 60,
-      // and the heavy `images` arrays are fetched afterwards for just the
+      // saturated Supabase (the 28 Aug 522 outage / admin lag). Candidate
+      // ranking now fetches only lightweight location fields. This
+      // lets locality outrank price without reintroducing the old multi-MB
+      // payload; translated titles and image arrays are fetched only for the
       // three winning cards.
-      const basePrice = Number(property.price) > 0 ? Number(property.price) : null;
-      let simQuery = supabase
+      const { data: similarRaw, error: similarError } = await supabase
         .from('properties')
-        .select(`slug, ${localeColumns(['title'])}, img, price, currency, share_denominator, country, region, city, beds, size, status`)
+        .select('slug, price, country, region, city, lat, lng, status')
         .eq('country', property.country)
         .neq('slug', property.slug)
         // Deliberately NOT PUBLIC_STATUSES: never recommend a sold home.
         // On a sold page this block is the recovery path to buyable stock.
         .in('status', ['Live', 'for_sale'])
-        .limit(60);
-      if (basePrice) simQuery = simQuery.gte('price', Math.floor(basePrice * 0.7)).lte('price', Math.ceil(basePrice * 1.3));
-      const { data: similarRaw } = await simQuery;
-      const candidates = (similarRaw || [])
-        .filter(c => !basePrice || Number(c.price) > 0)
-        // Same region first, then closest by price
-        .sort((a, b) => {
-          const aRegion = property.region && a.region === property.region ? 0 : 1;
-          const bRegion = property.region && b.region === property.region ? 0 : 1;
-          if (aRegion !== bRegion) return aRegion - bRegion;
-          if (!basePrice) return 0;
-          return Math.abs(Number(a.price) - basePrice) - Math.abs(Number(b.price) - basePrice);
-        });
-      const top3 = candidates.slice(0, 3);
-      // Photo arrays for the three winning cards only.
-      let imagesBySlug = {};
-      if (top3.length) {
-        const { data: imgRows } = await supabase
+        // The largest current country has fewer than 200 public homes. Keep a
+        // generous ceiling while preventing an unbounded future payload.
+        .limit(500);
+      if (similarError) throw similarError;
+
+      const ranked = rankSimilarProperties(
+        property,
+        (similarRaw || []).filter(candidate => Number(candidate.price) > 0)
+      ).slice(0, 3);
+      let top3 = [];
+      if (ranked.length) {
+        const { data: cardRows, error: cardError } = await supabase
           .from('properties')
-          .select('slug, images')
-          .in('slug', top3.map(p => p.slug));
-        imagesBySlug = Object.fromEntries((imgRows || []).map(r => [r.slug, r.images]));
+          .select(`slug, ${localeColumns(['title'])}, img, images, price, currency, share_denominator, country, region, city, beds, size, status`)
+          .in('slug', ranked.map(p => p.slug));
+        if (cardError) throw cardError;
+        const cardsBySlug = Object.fromEntries((cardRows || []).map(row => [row.slug, row]));
+        top3 = ranked.map(row => cardsBySlug[row.slug]).filter(Boolean);
       }
+
       similar = top3.map(p => ({
         slug: p.slug,
         title: p.title,
         ...pickLocalized(p, ['title']),
         img: p.img || null,
-        images: Array.isArray(imagesBySlug[p.slug]) ? imagesBySlug[p.slug].slice(0, 3) : [],
+        images: Array.isArray(p.images) ? p.images.slice(0, 3) : [],
         price: p.price || null,
         currency: p.currency || 'EUR',
         share_denominator: p.share_denominator || null,
@@ -383,9 +443,10 @@ export async function getStaticProps({ params }) {
 
     return { props: { property: prop, similar, showEnhancedSections, hreflangLocales }, revalidate: 3600 };
   } catch (err) {
-    // Any unexpected error → 404, never let it become a 5xx.
+    // Failed ISR regeneration keeps serving the previous successful page.
+    // Do not turn infrastructure/query failures into cacheable 404s.
     console.error(`property/[slug] getStaticProps failed for "${params.slug}":`, err);
-    return { notFound: true };
+    throw err;
   }
 }
 
@@ -412,6 +473,102 @@ function localizedFields(p, locale) {
     description: localizedField(p, 'description', locale) || '',
     amenities:   (Array.isArray(amenities) && amenities.length) ? amenities : (p.amenities || []),
   };
+}
+
+const COUNTRY_DESTINATIONS = {
+  Austria: { code: 'AT', slug: 'austria-fractional-ownership-properties' },
+  Croatia: { code: 'HR', slug: 'croatia-fractional-ownership-properties' },
+  England: {
+    slug: 'england-fractional-ownership-properties',
+    labels: { en: 'England', es: 'Inglaterra', fr: 'Angleterre', de: 'England', it: 'Inghilterra', nl: 'Engeland', pt: 'Inglaterra', sv: 'England', da: 'England', no: 'England' },
+  },
+  France: { code: 'FR', slug: 'france-fractional-ownership-properties' },
+  Germany: { code: 'DE', slug: 'germany-fractional-ownership-properties' },
+  Italy: { code: 'IT', slug: 'italy-fractional-ownership-properties' },
+  Mexico: { code: 'MX', slug: 'mexico-fractional-ownership-properties' },
+  MEX: { code: 'MX', slug: 'mexico-fractional-ownership-properties' },
+  Portugal: { code: 'PT', slug: 'portugal-fractional-ownership-properties' },
+  Spain: { code: 'ES', slug: 'spain-fractional-ownership-properties' },
+  Sweden: { code: 'SE', slug: 'sweden-fractional-ownership-properties' },
+  USA: {
+    code: 'US',
+    slug: 'usa-fractional-ownership-properties',
+    labels: { en: 'USA', es: 'EE. UU.', fr: 'États-Unis', de: 'USA', it: 'Stati Uniti', nl: 'VS', pt: 'EUA', sv: 'USA', da: 'USA', no: 'USA' },
+  },
+};
+
+const MAIN_REGION_DESTINATIONS = [
+  { country: 'France', regions: ["Côte d'Azur", 'Côte d’Azur'], slug: 'south-of-france-fractional-ownership-properties', labels: { en: 'South of France', es: 'Sur de Francia', fr: 'Sud de la France', de: 'Südfrankreich', it: 'Sud della Francia', nl: 'Zuid-Frankrijk', pt: 'Sul da França', sv: 'Södra Frankrike', da: 'Sydfrankrig', no: 'Sør-Frankrike' } },
+  { country: 'France', regions: ['French Alps', 'Portes du Soleil'], slug: 'french-alps-fractional-ownership-properties', labels: { en: 'French Alps', es: 'Alpes franceses', fr: 'Alpes françaises', de: 'Französische Alpen', it: 'Alpi francesi', nl: 'Franse Alpen', pt: 'Alpes Franceses', sv: 'Franska Alperna', da: 'Franske Alper', no: 'De franske Alpene' } },
+  { country: 'France', regions: ['Paris'], slug: 'paris-fractional-ownership-properties', label: 'Paris' },
+  { country: 'Italy', regions: ['Sardinia'], slug: 'sardinia-fractional-ownership-properties', label: 'Sardinia' },
+  { country: 'Italy', regions: ['Lake Como'], cities: ['Lake Como'], slug: 'lake-como-fractional-ownership-properties', label: 'Lake Como' },
+  { country: 'Italy', regions: ['Lago Maggiore', 'Lake Garda'], slug: 'italian-lakes-fractional-ownership-properties', labels: { en: 'Italian Lakes', es: 'Lagos italianos', fr: 'Lacs italiens', de: 'Italienische Seen', it: 'Laghi italiani', nl: 'Italiaanse meren', pt: 'Lagos italianos', sv: 'Italienska sjöarna', da: 'Italienske søer', no: 'Italienske innsjøer' } },
+  { country: 'Italy', regions: ['Liguria'], slug: 'liguria-fractional-ownership-properties', label: 'Liguria' },
+  { country: 'Spain', regions: ['Ibiza'], cities: ['Ibiza'], slug: 'ibiza-fractional-ownership-properties', label: 'Ibiza' },
+  { country: 'Spain', regions: ['Menorca'], cities: ['Menorca'], slug: 'menorca-fractional-ownership-properties', label: 'Menorca' },
+  { country: 'Spain', regions: ['Mallorca'], slug: 'mallorca-fractional-ownership-properties', label: 'Mallorca' },
+  { country: 'Spain', regions: ['Tenerife', 'Canary Islands'], slug: 'canary-islands-fractional-ownership-properties', labels: { en: 'Canary Islands', es: 'Islas Canarias', fr: 'Îles Canaries', de: 'Kanarische Inseln', it: 'Isole Canarie', nl: 'Canarische Eilanden', pt: 'Ilhas Canárias', sv: 'Kanarieöarna', da: 'De Kanariske Øer', no: 'Kanariøyene' } },
+  { country: 'Spain', regions: ['Costa del Sol'], slug: 'costa-del-sol-fractional-ownership-properties', label: 'Costa del Sol' },
+  { country: 'Spain', regions: ['Costa Blanca'], slug: 'costa-blanca-fractional-ownership-properties', label: 'Costa Blanca' },
+  { country: 'Spain', regions: ['Costa de la Luz'], slug: 'costa-de-la-luz-fractional-ownership-properties', label: 'Costa de la Luz' },
+  { country: 'Spain', regions: ['Madrid'], slug: 'madrid-fractional-ownership-properties', label: 'Madrid' },
+  { country: 'Spain', regions: ['Baqueira', 'Pyrenees'], slug: 'pyrenees-mountains-fractional-ownership-properties', labels: { en: 'Pyrenees', es: 'Pirineos', fr: 'Pyrénées', de: 'Pyrenäen', it: 'Pirenei', nl: 'Pyreneeën', pt: 'Pirenéus', sv: 'Pyrenéerna', da: 'Pyrenæerne', no: 'Pyreneene' } },
+  { country: 'England', regions: ['London'], slug: 'london-fractional-ownership-properties', label: 'London' },
+  ...['Arizona', 'California', 'Colorado', 'Florida', 'Nevada', 'South Carolina', 'Utah', 'Wyoming'].map(region => ({
+    country: 'USA',
+    regions: [region],
+    slug: `${region.toLowerCase().replaceAll(' ', '-')}-fractional-ownership-properties`,
+    label: region,
+  })),
+];
+
+function destinationHref(slug, locale) {
+  const targetLocale = destinationAvailableIn(slug, locale) ? locale : 'en';
+  return `${familyPrefix(targetLocale, 'destinations')}${slug}/`;
+}
+
+function destinationLabel(destination, locale, fallback) {
+  return destination.labels?.[locale] || destination.labels?.en || destination.label || fallback;
+}
+
+function countryLabel(country, destination, locale) {
+  const configured = destinationLabel(destination, locale, null);
+  if (configured) return configured;
+  try {
+    return new Intl.DisplayNames([locale], { type: 'region' }).of(destination.code) || country;
+  } catch {
+    return country;
+  }
+}
+
+function destinationTrailForProperty(property, locale) {
+  const mainRegion = MAIN_REGION_DESTINATIONS.find(destination => (
+    destination.country === property.country
+    && (destination.cities?.includes(property.city) || destination.regions.includes(property.region))
+  ));
+  const country = COUNTRY_DESTINATIONS[property.country];
+
+  return [
+    property.city && { label: property.city },
+    mainRegion
+      ? { label: destinationLabel(mainRegion, locale, property.region), href: destinationHref(mainRegion.slug, locale) }
+      : (property.region && { label: property.region }),
+    property.country && (country
+      ? { label: countryLabel(property.country, country, locale), href: destinationHref(country.slug, locale) }
+      : { label: property.country }),
+  ].filter(Boolean);
+}
+
+function LocationTrail({ items, separator }) {
+  return items.map((item, index) => (
+    <span key={`${item.label}-${index}`}>
+      {item.href
+        ? <a className="pp-location-link" href={item.href}>{item.label}</a>
+        : item.label}
+      {index < items.length - 1 && <span className="pp-crumb-sep">{separator}</span>}
+    </span>
+  ));
 }
 
 // ── Notify-me bell on the gallery ─────────────────────────────────────────
@@ -585,6 +742,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
   const localeNumberFmt = numberLocale(locale);
 
   const local = localizedFields(p, locale);
+  const locationTrail = destinationTrailForProperty(p, locale);
 
   const [showUnlock, setShowUnlock] = useState(false);
   const [showTour, setShowTour] = useState(false);
@@ -929,9 +1087,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
           </div>
 
           <nav className="pp-crumb">
-            {[p.city, p.region, p.country].filter(Boolean).map((c, i, arr) => (
-              <span key={i}>{c}{i < arr.length - 1 && <span className="pp-crumb-sep"> · </span>}</span>
-            ))}
+            <LocationTrail items={locationTrail} separator=" · " />
           </nav>
 
           <h1 className="pp-title">{local.title}</h1>
@@ -1031,7 +1187,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
           {(p.lat || p.city) && (
             <div className="pp-location-section" id="location">
               <h2 className="pp-heading">{t.location_heading}</h2>
-              <p className="pp-location-text">{[p.city, p.region, p.country].filter(Boolean).join(', ')}</p>
+              <p className="pp-location-text"><LocationTrail items={locationTrail} separator=", " /></p>
               {p.lat && p.lng && (
                 <div className="pp-map-wrap">
                   <iframe
@@ -1096,7 +1252,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
             <div className="pp-similar">
               {similar.length > 0 && (
                 <>
-                  <h2 className="pp-heading">{t.similar_heading(p.country)}</h2>
+                  <h2 className="pp-heading">{t.similar_heading(p.region || p.city || p.country)}</h2>
                   <div className="pp-similar-grid">
                     {similar.map(s => (
                       <PropertyCard key={s.slug} property={s} />
