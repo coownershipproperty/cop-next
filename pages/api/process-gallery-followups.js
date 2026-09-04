@@ -38,6 +38,7 @@
  */
 import { createClient } from '@supabase/supabase-js';
 import { sendHtml } from '@/lib/resend';
+import { resolveUnsubPlaceholder, listUnsubHeaders } from '@/lib/unsub';
 import { buildEmail as buildStudioEmail } from '@/lib/email/templateStore';
 import { isEnvTrue } from '@/lib/email/engine';
 import { isSuppressed } from '@/lib/suppressions';
@@ -493,7 +494,7 @@ export default async function handler(req, res) {
     }
 
     const locale = ['en', 'es', 'fr'].includes(contact.locale) ? contact.locale : 'en';
-    const { subject, html, source } = await buildForContact({ firstName: contact.first_name, properties, locale });
+    const { subject, html, text, source } = await buildForContact({ firstName: contact.first_name, properties, locale });
     if (source === 'fallback') console.warn('[gallery-followup] template unavailable — sent the built-in copy');
 
     if (dryRun) {
@@ -508,7 +509,12 @@ export default async function handler(req, res) {
 
     // ── Live send ───────────────────────────────────────────────────────────
     try {
-      await sendHtml({ to: contact.email, subject, html, from: DYLAN_FROM, replyTo: DYLAN_REPLY });
+      await sendHtml({
+        to: contact.email, subject, from: DYLAN_FROM, replyTo: DYLAN_REPLY,
+        html:    resolveUnsubPlaceholder(html, contact.email),
+        text:    text ? resolveUnsubPlaceholder(text, contact.email) : undefined,
+        headers: listUnsubHeaders(contact.email),
+      });
       await insertMarker(db, { contact, status: 'sent', subject, html, properties });
       await db.from('activities').insert({
         contact_id:  contactId,

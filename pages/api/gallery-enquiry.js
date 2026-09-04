@@ -3,6 +3,7 @@ import { upsertContact, createLead, logActivity, incrementScore, enrichContactIn
 import { checkRateLimit } from '@/lib/rateLimit';
 import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendHtml, sendTeamNotification } from '@/lib/resend';
+import { resolveUnsubPlaceholder, listUnsubHeaders } from '@/lib/unsub';
 import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import { createPartnerReferral, is215Partner } from '@/lib/partnerReferrals';
@@ -200,9 +201,16 @@ export default async function handler(req, res) {
         ? `<a href="${propertyUrl}" style="color:#1E3448;text-decoration:underline;">${title}</a>`
         : `<strong>${title}</strong>`;
 
-      const { subject, html, source } = await buildStudioEmail(
+      const { subject, html, text, source } = await buildStudioEmail(
         'gallery_autoreply', locale,
-        { firstName: firstName || '', propertyTitle: title, propertyLink: propLink, propertyUrl, locale },
+        {
+          firstName: firstName || '', propertyTitle: title,
+          propertyLink: propLink, propertyUrl, locale,
+          // What they actually typed. The reply used to ignore this entirely —
+          // someone would ask a real question and get back a note that did not
+          // acknowledge a word of it.
+          enquiryMessage: String(message || '').trim(),
+        },
         () => ({
           subject: tr('subject_first', locale, { propertyTitle: title }),
           html:    firstReplyHtml({ firstName, propertyTitle: title, propertyUrl, locale }),
@@ -210,15 +218,23 @@ export default async function handler(req, res) {
       );
       if (source === 'fallback') console.warn('[gallery-autoreply] template unavailable — sent the built-in copy');
 
-      // Send immediately — reliable, no cron dependency
-      await sendHtml({ to: email, subject, html, from: DYLAN_FROM, replyTo: DYLAN_REPLY });
+      // Send immediately — reliable, no cron dependency.
+      // Store what was actually sent, so the admin's audit trail shows the
+      // resolved unsubscribe link rather than the placeholder.
+      const sentHtml = resolveUnsubPlaceholder(html, email);
+      await sendHtml({
+        to: email, subject, from: DYLAN_FROM, replyTo: DYLAN_REPLY,
+        html:    sentHtml,
+        text:    text ? resolveUnsubPlaceholder(text, email) : undefined,
+        headers: listUnsubHeaders(email),
+      });
 
       // Log to email_queue for audit trail
       await db.from('email_queue').insert({
         to_email:       email,
         to_name:        name || null,
         subject,
-        html,
+        html:           sentHtml,
         trigger:        'gallery_autoreply',
         template_props: { propertyTitle, propertySlug: resolvedSlug, propertyUrl, from: DYLAN_FROM, replyTo: DYLAN_REPLY },
         status:         'sent',

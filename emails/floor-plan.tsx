@@ -37,6 +37,17 @@ interface FloorPlanEmailProps {
   trackingPixelHtml?: string;
   locale?: 'en' | 'es' | 'fr';
   /**
+   * Where the footer's Unsubscribe link points. Defaults to the {{UNSUB_URL}}
+   * placeholder from lib/unsub.js, which the send path swaps for the
+   * recipient's real tokenised URL.
+   *
+   * This used to be the literal string "{{unsubscribe_url}}" hardcoded into
+   * the href — a placeholder nothing in the codebase has ever substituted. So
+   * every one of ~750 unlock emails a month shipped with a dead unsubscribe
+   * link, and a recipient who wanted out had no way to take it.
+   */
+  unsubscribeUrl?: string;
+  /**
    * Wording overrides from the Template Studio, keyed by i18n path
    * (e.g. "floor_plan.greeting"). Only the keys Dylan has actually changed
    * are present; everything else falls through to messages/<locale>.json.
@@ -72,6 +83,7 @@ export default function FloorPlanEmail({
   trackingPixelHtml,
   locale = 'en',
   copy,
+  unsubscribeUrl = '{{UNSUB_URL}}',
 }: FloorPlanEmailProps) {
 
   // Split property title at em dash for location / property name display
@@ -266,7 +278,7 @@ export default function FloorPlanEmail({
               {tr('floor_plan.footer_fine_print')}
             </Text>
             <Text style={footFine}>
-              <Link href="{{unsubscribe_url}}" style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
+              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>{tr('common.footer_unsubscribe')}</Link>
             </Text>
           </Container>
         </Section>
