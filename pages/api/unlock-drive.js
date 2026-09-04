@@ -7,6 +7,7 @@ import { queueEmail, sendTeamNotification } from '@/lib/resend';
 import { createPartnerReferral, is215Partner } from '@/lib/partnerReferrals';
 import { scheduleGalleryNurture } from '@/lib/followupSequence';
 import { getCopy, copyOr } from '@/lib/email/templateStore';
+import { getSimilarProperties, toSimilarCard } from '@/lib/email/similarProperties';
 import FloorPlanEmail from '@/emails/floor-plan';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import * as React from 'react';
@@ -55,85 +56,6 @@ function gallerySensorEnabled() {
   return String(process.env.GALLERY_FOLLOWUP_ENABLED || '').trim().toLowerCase() === 'true';
 }
 
-/**
- * Fetch up to 3 similar properties.
- * Strategy:
- *   1. Same city + price within ±40%  (up to 3)
- *   2. Same country + price within ±40%, excluding already picked  (backfill to 3)
- *   3. Same country, any price, excluding already picked  (last resort)
- */
-async function getSimilarProperties(propertySlug, propertyCountry, propertyCity, propertyPrice) {
-  if (!propertyCountry) return [];
-  const db = getDb();
-  const exclude = propertySlug || '';
-  const FIELDS = 'slug, title, img, price, currency, beds, size, city';
-  const STATUSES = ['Live'];
-
-  let results = [];
-
-  // ── Pass 1: same city, ±40% price ────────────────────────────────────────
-  if (propertyCity) {
-    let q = db
-      .from('properties')
-      .select(FIELDS)
-      .eq('country', propertyCountry)
-      .ilike('city', `%${propertyCity}%`)
-      .neq('slug', exclude)
-      .in('status', STATUSES);
-
-    if (propertyPrice) {
-      const lo = Math.round(propertyPrice * 0.6);
-      const hi = Math.round(propertyPrice * 1.4);
-      q = q.gte('price', lo).lte('price', hi);
-    }
-
-    const { data } = await q.limit(3);
-    results = data || [];
-  }
-
-  // ── Pass 2: same country, ±40% price, backfill ───────────────────────────
-  if (results.length < 3 && propertyPrice) {
-    const alreadyIn = new Set([exclude, ...results.map(p => p.slug)]);
-    const lo = Math.round(propertyPrice * 0.6);
-    const hi = Math.round(propertyPrice * 1.4);
-    const { data } = await db
-      .from('properties')
-      .select(FIELDS)
-      .eq('country', propertyCountry)
-      .gte('price', lo)
-      .lte('price', hi)
-      .in('status', STATUSES)
-      .limit(10);
-
-    for (const p of (data || [])) {
-      if (!alreadyIn.has(p.slug)) {
-        results.push(p);
-        alreadyIn.add(p.slug);
-        if (results.length >= 3) break;
-      }
-    }
-  }
-
-  // ── Pass 3: same country, any price ─────────────────────────────────────
-  if (results.length < 3) {
-    const alreadyIn = new Set([exclude, ...results.map(p => p.slug)]);
-    const { data } = await db
-      .from('properties')
-      .select(FIELDS)
-      .eq('country', propertyCountry)
-      .in('status', STATUSES)
-      .limit(10);
-
-    for (const p of (data || [])) {
-      if (!alreadyIn.has(p.slug)) {
-        results.push(p);
-        if (results.length >= 3) break;
-      }
-    }
-  }
-
-  return results.slice(0, 3);
-}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -215,13 +137,14 @@ export default async function handler(req, res) {
   let propertyPrice   = null;
   let propertyImg     = null;
   let propertyRegion  = null;
+  let propertyBeds    = null;
   let propertyPartner = null;
   let resolvedCountry = propertyCountry || null; // use frontend value as fallback
   if (propertySlug) {
     const db = getDb();
     const { data: prop } = await db
       .from('properties')
-      .select('city, price, img, country, region, partner, photos')
+      .select('city, price, img, country, region, beds, partner, photos')
       .eq('slug', propertySlug)
       // Hidden/staged rows must never be resolvable through the public unlock
       // flow (19 Jul incident) — sold stays, permanent gallery links survive.
@@ -231,6 +154,7 @@ export default async function handler(req, res) {
     propertyPrice   = prop?.price   ? Number(prop.price) : null;
     propertyImg     = prop?.img     || null;
     propertyRegion  = prop?.region  || null;
+    propertyBeds    = prop?.beds  != null ? Number(prop.beds) : null;
     propertyPartner = prop?.partner || null;
     resolvedCountry = prop?.country || resolvedCountry;
   }
@@ -241,7 +165,7 @@ export default async function handler(req, res) {
     const db = getDb();
     const { data: prop } = await db
       .from('properties')
-      .select('slug, city, price, img, country, region, partner')
+      .select('slug, city, price, img, country, region, beds, partner')
       .eq('title', propertyTitle)
       .in('status', ['Live', 'for_sale', 'sold'])
       .maybeSingle();
@@ -251,6 +175,7 @@ export default async function handler(req, res) {
       propertyPrice   = propertyPrice   || (prop.price ? Number(prop.price) : null);
       propertyImg     = propertyImg     || prop.img     || null;
       propertyRegion  = propertyRegion  || prop.region  || null;
+      propertyBeds    = propertyBeds    ?? (prop.beds != null ? Number(prop.beds) : null);
       propertyPartner = propertyPartner || prop.partner || null;
       resolvedCountry = resolvedCountry || prop.country || null;
     }
@@ -269,7 +194,7 @@ export default async function handler(req, res) {
     const beds = bedsMatch ? Number(bedsMatch[1]) : null;
     if (city) {
       let q = db.from('properties')
-        .select('slug, title, city, price, img, country, region, partner')
+        .select('slug, title, city, price, img, country, region, beds, partner')
         .ilike('city', city)
         .eq('status', 'Live');
       if (beds) q = q.eq('beds', beds);
@@ -290,6 +215,7 @@ export default async function handler(req, res) {
         propertyPrice   = propertyPrice   || (pick.price ? Number(pick.price) : null);
         propertyImg     = propertyImg     || pick.img     || null;
         propertyRegion  = propertyRegion  || pick.region  || null;
+        propertyBeds    = propertyBeds    ?? (pick.beds != null ? Number(pick.beds) : null);
         propertyPartner = propertyPartner || pick.partner || null;
         resolvedCountry = resolvedCountry || pick.country || null;
       }
@@ -397,21 +323,16 @@ export default async function handler(req, res) {
   // ── Fetch similar properties for email ────────────────────────────────────
   const rawSimilar = skipGalleryEmail
     ? []
-    : await getSimilarProperties(propertySlug, resolvedCountry, propertyCity, propertyPrice);
+    : await getSimilarProperties(getDb(), {
+        slug:    propertySlug,
+        country: resolvedCountry,
+        city:    propertyCity,
+        region:  propertyRegion,
+        price:   propertyPrice,
+        beds:    propertyBeds,
+      });
 
-  // Map to FloorPlanEmail's SimilarProperty shape
-  const similarProperties = rawSimilar.map(p => {
-    const sym   = { EUR: '€', USD: '$', GBP: '£' }[p.currency] || '€';
-    const price = p.price ? `${sym}${p.price.toLocaleString('en-GB')}` : '';
-    return {
-      title:    p.title,
-      price,
-      beds:     p.beds  || 0,
-      size:     p.size  || 0,
-      slug:     p.slug,
-      imageUrl: p.img   || undefined,
-    };
-  });
+  const similarProperties = rawSimilar.map(toSimilarCard);
 
   try {
     if (!skipGalleryEmail) {
