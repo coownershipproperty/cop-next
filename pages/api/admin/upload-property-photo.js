@@ -1,3 +1,4 @@
+import { optimisePhoto } from "@/lib/optimise-photo";
 /**
  * POST /api/admin/upload-property-photo
  * Uploads a photo to Supabase Storage and appends its URL to properties.photos[]
@@ -8,7 +9,6 @@
  */
 import formidable from 'formidable';
 import fs from 'fs';
-import path from 'path';
 import { requireCrmAdmin } from '@/lib/adminAuth';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 
@@ -74,16 +74,14 @@ export default async function handler(req, res) {
   }
 
   // Read file buffer
-  const buffer = fs.readFileSync(file.filepath);
-  const ext    = path.extname(file.originalFilename || file.newFilename || '.jpg').toLowerCase() || '.jpg';
-  const mime   = file.mimetype || 'image/jpeg';
-  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
+  const { buffer, ext, contentType: mime } = await optimisePhoto(fs.readFileSync(file.filepath));
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
   const storagePath = `${propertySlug}/${fileName}`;
 
   // Upload to Supabase Storage
   const { error: uploadError } = await db.storage
     .from('property-photos')
-    .upload(storagePath, buffer, { contentType: mime, upsert: false });
+    .upload(storagePath, buffer, { contentType: mime, cacheControl: '31536000', upsert: false });
 
   if (uploadError) {
     console.error('[Storage] upload error:', uploadError.message);
