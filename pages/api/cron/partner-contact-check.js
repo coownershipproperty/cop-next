@@ -32,6 +32,22 @@ export const maxDuration = 60;
 const MIN_AGE_H = 20;   // give the partner a full working day first
 const MAX_AGE_H = 72;   // never send a stale one — after this the 2-week check owns it
 const MAX_SENDS = 100;
+
+// Activity that means the lead is already in a conversation, so "did they call?"
+// would read as not paying attention. Deliberately an allow-list: passive and
+// outbound machinery (email_opened, email_sent, email_queued, gallery_followup_sent,
+// floor_plan_requested, *_merged) must never stand this check down, and a new
+// activity type added later should not silently start suppressing it either.
+const CONVERSATION_TYPES = [
+  'enquiry_submitted',
+  'gallery_enquiry',
+  'tour_request',
+  'phone_call',
+  'note',
+  'status_changed',
+  'listing_application',
+  'email',
+];
 const SITE = 'https://co-ownership-property.com';
 
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => (
@@ -83,10 +99,18 @@ export default async function handler(req, res) {
       const taggedOut = Array.isArray(contact.tags) && contact.tags.includes('unsubscribed');
       if (taggedOut || await isSuppressed(db, contact.email)) { skipped++; continue; }
 
-      // Anything at all happened since the handover? Then stand down.
+      // Has a real conversation started since the handover? Then stand down.
+      //
+      // Only lead-initiated conversation counts. An email open is a tracking
+      // pixel, not a reply, and our own sends are not news to anybody - an
+      // earlier version of this check counted them and stood itself down on
+      // almost every lead, because we track opens on every email we send.
       const since = ref.sent_at || ref.created_at;
       const { data: activity } = await db.from('activities')
-        .select('id').eq('contact_id', ref.contact_id).gt('created_at', since).limit(1);
+        .select('id, type').eq('contact_id', ref.contact_id)
+        .gt('created_at', since)
+        .in('type', CONVERSATION_TYPES)
+        .limit(1);
       if ((activity || []).length) {
         results.push({ email: contact.email, decision: 'skipped_active' });
         skipped++; continue;
