@@ -32,7 +32,19 @@ export default async function handler(req, res) {
 
   for (let i = 0; i < fileList.length; i++) {
     const file = fileList[i]
-    const { buffer, ext, contentType } = await optimisePhoto(fs.readFileSync(file.filepath))
+    let photo
+    try {
+      photo = await optimisePhoto(fs.readFileSync(file.filepath))
+    } catch {
+      return res.status(400).json({ error: 'Could not process this image. Please use a JPG, PNG or WebP photo.', urls: uploadedUrls })
+    } finally {
+      for (const pendingFile of fileList.slice(i)) {
+        if (pendingFile === file || !photo) {
+          try { fs.unlinkSync(pendingFile.filepath) } catch {}
+        }
+      }
+    }
+    const { buffer, ext, contentType } = photo
     const path = `${slug}/${filePrefix}-${timestamp}-${i}.${ext}`
 
     const { error } = await serviceSupabase.storage
@@ -46,7 +58,6 @@ export default async function handler(req, res) {
       uploadedUrls.push(publicUrl)
     }
 
-    fs.unlinkSync(file.filepath)
   }
 
   return res.status(200).json({ urls: uploadedUrls })
