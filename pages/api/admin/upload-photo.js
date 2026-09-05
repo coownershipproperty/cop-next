@@ -1,3 +1,4 @@
+import { optimisePhoto } from "@/lib/optimise-photo";
 import formidable from 'formidable'
 import fs from 'fs'
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin'
@@ -31,13 +32,12 @@ export default async function handler(req, res) {
 
   for (let i = 0; i < fileList.length; i++) {
     const file = fileList[i]
-    const ext = (file.originalFilename || 'photo.jpg').split('.').pop()
+    const { buffer, ext, contentType } = await optimisePhoto(fs.readFileSync(file.filepath))
     const path = `${slug}/${filePrefix}-${timestamp}-${i}.${ext}`
-    const buffer = fs.readFileSync(file.filepath)
 
     const { error } = await serviceSupabase.storage
       .from('property-photos')
-      .upload(path, buffer, { contentType: file.mimetype || 'image/jpeg', upsert: true })
+      .upload(path, buffer, { contentType, cacheControl: '31536000', upsert: true })
 
     if (!error) {
       const { data: { publicUrl } } = serviceSupabase.storage
