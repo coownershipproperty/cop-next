@@ -54,6 +54,19 @@ const PARTNER_LABEL = {
   pacaso: 'Pacaso', myne: 'MYNE', vivla: 'Vivla', andhamlet: '&Hamlet',
   parispropertygroup: 'Paris PG', abitaro: 'Abitaro',
 }
+// Partner-side outcome of a referral (partner_referrals.outcome, rolled up
+// from the MYNE portal / Pacaso dashboard / partner emails — Sep 2026).
+const OUTCOME_META = {
+  won:       { label: 'Won',       color: '#15803d', rank: 4 },
+  open:      { label: 'Open',      color: '#2563eb', rank: 3 },
+  duplicate: { label: 'Duplicate', color: '#d97706', rank: 2 },
+  lost:      { label: 'Lost',      color: '#6b7280', rank: 1 },
+}
+const OUTCOME_FILTERS = [
+  ['won', 'Won'], ['open', 'Open with partner'], ['duplicate', 'Duplicate at partner'],
+  ['lost', 'Lost'], ['none', 'Never referred'],
+]
+
 const DEFAULT_RATES = { myne: 2.5, pacaso: 3, vivla: 3, parispropertygroup: 3, andhamlet: 5, abitaro: 7, default: 3 }
 
 // Longest prefix first — ported from crm/index.html so both UIs agree.
@@ -138,6 +151,7 @@ const COLUMNS = [
   { key: 'subregion',   label: 'Subregion',     sort: (g) => g._subregions.join(' / ') },
   { key: 'buyer',       label: 'Buyer country', sort: (g) => g._buyerCountry },
   { key: 'partner',     label: 'Partner',       sort: (g) => g._partner },
+  { key: 'outcome',     label: 'Partner outcome', num: true, sort: (g) => g._outcomeRank },
   { key: 'property',    label: 'Property',      sort: (g) => g.property_title || '' },
   { key: 'price',       label: 'Price',         num: true, sort: (g) => g._priceEur || 0 },
   { key: 'commission',  label: 'Est. commission', num: true, sort: (g) => g._commissionEur || 0 },
@@ -148,7 +162,7 @@ const COLUMNS = [
   { key: 'last_activity', label: 'Last activity', sort: (g) => g._lastActivity || '' },
   { key: 'emails',      label: 'Emails / opens', num: true, sort: (g) => g._emailsSent },
 ]
-const DEFAULT_COLS = ['name', 'phone', 'status', 'region', 'subregion', 'buyer', 'partner', 'price', 'timeframe', 'source', 'first_seen', 'last_activity']
+const DEFAULT_COLS = ['name', 'phone', 'status', 'region', 'subregion', 'buyer', 'partner', 'outcome', 'price', 'timeframe', 'source', 'first_seen', 'last_activity']
 
 const s = {
   header: { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 6, flexWrap: 'wrap', gap: 8 },
@@ -193,6 +207,7 @@ export default function CrmLeads() {
   const [usdEur, setUsdEur] = useState(0.86)
   const [rates, setRates] = useState(DEFAULT_RATES)
   const [queueContacts, setQueueContacts] = useState(new Set())
+  const [referrals, setReferrals] = useState({})        // contact_id -> [partner_referrals rows sent to a partner]
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -203,6 +218,7 @@ export default function CrmLeads() {
   const [region, setRegion] = useState('')
   const [partner, setPartner] = useState('')
   const [source, setSource] = useState('')
+  const [outcome, setOutcome] = useState('')
   const [sortCol, setSortCol] = useState('last_activity')
   const [sortDir, setSortDir] = useState(-1)
   const [colsOn, setColsOn] = useState(DEFAULT_COLS)
@@ -236,7 +252,7 @@ export default function CrmLeads() {
   const load = useCallback(async () => {
     setLoading(true); setError(null)
     try {
-      const [settings, props, fx, queue, allRows, mergedRows] = await Promise.all([
+      const [settings, props, fx, queue, allRows, mergedRows, sentRefs] = await Promise.all([
         supabase.from('crm_settings').select('key,value'),
         fetchAllPages(() => supabase.from('properties').select('slug,price,currency,partner,title').order('slug')),
         supabase.from('exchange_rates').select('rates').limit(1),
@@ -248,7 +264,13 @@ export default function CrmLeads() {
         // ("Consolidate duplicate contact leads", Aug 2026) — filter merged-away
         // leads here or every consolidated duplicate reappears as a row.
         fetchAllPages(() => supabase.from('leads').select('id').not('merged_into_lead_id', 'is', null).order('id')),
+        fetchAllPages(() => supabase.from('partner_referrals')
+          .select('id,contact_id,partner,outcome,partner_stage,partner_stage_source,partner_stage_at,sent_at')
+          .eq('status', 'sent_to_partner').order('sent_at', { ascending: false })),
       ])
+      const refMap = {}
+      for (const r of sentRefs || []) (refMap[r.contact_id] ||= []).push(r)
+      setReferrals(refMap)
       const mergedIds = new Set((mergedRows || []).map((r) => r.id))
       const rows = allRows.filter((l) => !mergedIds.has(l.lead_id))
       const rateRow = (settings.data || []).find((r) => r.key === 'commission_rates')
@@ -267,6 +289,7 @@ export default function CrmLeads() {
         newWeek: rows.filter((r) => r.lead_created >= weekAgo).length,
         hot: rows.filter((r) => r.status === 'hot_lead').length,
         queue: (queue.data || []).length,
+        won: new Set((sentRefs || []).filter((r) => r.outcome === 'won').map((r) => r.contact_id)).size,
       })
     } catch (e) {
       setError(e.message)
@@ -309,7 +332,7 @@ export default function CrmLeads() {
     })
     const byContact = {}
     for (const l of filtered) (byContact[l.contact_id] ||= []).push(l)
-    return Object.values(byContact).map((leads) => {
+    const rows = Object.values(byContact).map((leads) => {
       leads.sort((a, b) => {
         const sa = (a.main_region ? 2 : 0) + (a.subregion ? 1 : 0) + (a.budget_min ? 1 : 0)
         const sb = (b.main_region ? 2 : 0) + (b.subregion ? 1 : 0) + (b.budget_min ? 1 : 0)
@@ -320,6 +343,12 @@ export default function CrmLeads() {
       const prices = leads.map(leadPriceEUR).filter(Boolean)
       const commissions = leads.map(commissionEUR).filter(Boolean)
       const partners = [...new Set(leads.map((l) => partnerKey(l, propIndex)).filter(Boolean))]
+      const refs = referrals[best.contact_id] || []
+      // One roll-up per person: a win anywhere beats an open referral, which beats a duplicate, which beats lost.
+      const bestOutcome = refs.reduce((acc, r) => {
+        const m = OUTCOME_META[r.outcome || 'open']
+        return !acc || m.rank > OUTCOME_META[acc].rank ? (r.outcome || 'open') : acc
+      }, null)
       return {
         ...best,
         _leads: leads,
@@ -336,9 +365,14 @@ export default function CrmLeads() {
         // Dan Prescott's €2,663,989 over 5 leads is an average, not a max).
         _priceEur: prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0,
         _commissionEur: commissions.length ? Math.round(commissions.reduce((a, b) => a + b, 0) / commissions.length) : 0,
+        _referrals: refs,
+        _outcome: bestOutcome,
+        _outcomeRank: bestOutcome ? OUTCOME_META[bestOutcome].rank : 0,
       }
     })
-  }, [pipeline, q, status, region, partner, source, propIndex, leadPriceEUR, commissionEUR])
+    if (!outcome) return rows
+    return rows.filter((g) => outcome === 'none' ? !g._referrals.length : g._outcome === outcome)
+  }, [pipeline, q, status, region, partner, source, outcome, referrals, propIndex, leadPriceEUR, commissionEUR])
 
   const sorted = useMemo(() => {
     const col = COLUMNS.find((c) => c.key === sortCol)
@@ -371,7 +405,7 @@ export default function CrmLeads() {
   // ── Saved views ──
   function applyView(v) {
     setQ(v.q || ''); setStatus(v.status || ''); setRegion(v.region || '')
-    setPartner(v.partner || ''); setSource(v.source || '')
+    setPartner(v.partner || ''); setSource(v.source || ''); setOutcome(v.outcome || '')
     if (v.cols) setColsOn(v.cols)
     if (v.sortCol) { setSortCol(v.sortCol); setSortDir(v.sortDir || -1) }
     setPage(0)
@@ -379,7 +413,7 @@ export default function CrmLeads() {
   function saveView() {
     const name = window.prompt('Name this view (e.g. "Hot MYNE leads"):')
     if (!name) return
-    const v = { name, q, status, region, partner, source, cols: colsOn, sortCol, sortDir }
+    const v = { name, q, status, region, partner, source, outcome, cols: colsOn, sortCol, sortDir }
     setViews((prev) => [...prev.filter((x) => x.name !== name), v])
   }
 
@@ -394,6 +428,7 @@ export default function CrmLeads() {
         case 'subregion': return g._subregions.join(' / ')
         case 'buyer': return g._buyerCountry
         case 'partner': return g._partner
+        case 'outcome': return g._referrals.map((r) => `${PARTNER_LABEL[r.partner] || r.partner}: ${OUTCOME_META[r.outcome || 'open'].label}${r.partner_stage ? ' — ' + r.partner_stage : ''}`).join(' | ')
         case 'property': return g.property_title || ''
         case 'price': return g._priceEur || ''
         case 'commission': return g._commissionEur ? Math.round(g._commissionEur) : ''
@@ -489,6 +524,20 @@ export default function CrmLeads() {
       }
       case 'buyer': return g._buyerCountry || <span style={s.dim}>—</span>
       case 'partner': return g._partner || <span style={s.dim}>—</span>
+      case 'outcome': return g._referrals.length
+        ? (
+          <span style={{ display: 'inline-flex', gap: 4, flexWrap: 'wrap' }}>
+            {g._referrals.map((r) => {
+              const m = OUTCOME_META[r.outcome || 'open']
+              return (
+                <span key={r.id} style={s.chip(m.color)} title={`${PARTNER_LABEL[r.partner] || r.partner} — ${r.partner_stage || m.label}${r.partner_stage_at ? ' (' + fmtDate(r.partner_stage_at) + ')' : ''}`}>
+                  {PARTNER_LABEL[r.partner] || r.partner} · {m.label}
+                </span>
+              )
+            })}
+          </span>
+        )
+        : <span style={s.dim}>—</span>
       case 'property': return g.property_title
         ? <span style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block', verticalAlign: 'bottom' }}>{g.property_title}</span>
         : <span style={s.dim}>—</span>
@@ -537,6 +586,7 @@ export default function CrmLeads() {
           <span><span style={s.statNum}>{stats.newWeek.toLocaleString()}</span> new this week</span>
           <span><span style={{ ...s.statNum, color: '#dc2626' }}>{stats.hot.toLocaleString()}</span> hot</span>
           <span><span style={s.statNum}>{stats.queue.toLocaleString()}</span> in referral queue</span>
+          <span><span style={{ ...s.statNum, color: '#15803d' }}>{(stats.won || 0).toLocaleString()}</span> won with a partner</span>
         </div>
       )}
 
@@ -562,6 +612,10 @@ export default function CrmLeads() {
         <select style={s.select} value={source} onChange={(e) => { setPage(0); setSource(e.target.value) }}>
           <option value="">All sources</option>
           {sourceOptions.map((r) => <option key={r} value={r}>{r}</option>)}
+        </select>
+        <select style={s.select} value={outcome} onChange={(e) => { setPage(0); setOutcome(e.target.value) }} title="Outcome reported by the partner for this contact's referral">
+          <option value="">Any partner outcome</option>
+          {OUTCOME_FILTERS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
         </select>
 
         <span style={{ flex: 1 }} />
@@ -693,6 +747,28 @@ export default function CrmLeads() {
               <a href={`https://mail.google.com/mail/#search/${encodeURIComponent(openRow.email || '')}`} target="_blank" rel="noopener noreferrer" style={s.act}>Open in Gmail ↗</a>
               {openRow.phone && <span style={{ alignSelf: 'center', fontSize: 13, color: C.sub }}>{openRow.phone}</span>}
             </div>
+
+            {/* Partner referrals — what the partner says happened after handover */}
+            {openRow._referrals?.length > 0 && (
+              <div style={s.section}>
+                <div style={s.sectionH}>Partner referrals ({openRow._referrals.length})</div>
+                {openRow._referrals.map((r) => {
+                  const m = OUTCOME_META[r.outcome || 'open']
+                  return (
+                    <div key={r.id} style={{ ...s.leadRow, cursor: 'default', alignItems: 'flex-start' }}>
+                      <span style={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}>
+                        <span style={{ fontWeight: 600 }}>{PARTNER_LABEL[r.partner] || r.partner}
+                          <span style={{ ...s.dim, marginLeft: 6 }}>sent {fmtDate(r.sent_at)}</span>
+                        </span>
+                        {r.partner_stage && <span style={{ fontSize: 12.5, color: C.ink, whiteSpace: 'normal' }}>{r.partner_stage}</span>}
+                        {r.partner_stage_at && <span style={s.dim}>as of {fmtDate(r.partner_stage_at)}{r.partner_stage_source ? ` · ${r.partner_stage_source.replace('_', ' ')}` : ''}</span>}
+                      </span>
+                      <span style={s.chip(m.color)}>{m.label}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
 
             {/* Lead switcher */}
             {openRow._leadCount > 1 && (
