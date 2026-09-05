@@ -1,3 +1,4 @@
+import { optimisePhoto } from "@/lib/optimise-photo";
 import formidable from 'formidable'
 import fs from 'fs'
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin'
@@ -31,13 +32,24 @@ export default async function handler(req, res) {
 
   for (let i = 0; i < fileList.length; i++) {
     const file = fileList[i]
-    const ext = (file.originalFilename || 'photo.jpg').split('.').pop()
+    let photo
+    try {
+      photo = await optimisePhoto(fs.readFileSync(file.filepath))
+    } catch {
+      return res.status(400).json({ error: 'Could not process this image. Please use a JPG, PNG or WebP photo.', urls: uploadedUrls })
+    } finally {
+      for (const pendingFile of fileList.slice(i)) {
+        if (pendingFile === file || !photo) {
+          try { fs.unlinkSync(pendingFile.filepath) } catch {}
+        }
+      }
+    }
+    const { buffer, ext, contentType } = photo
     const path = `${slug}/${filePrefix}-${timestamp}-${i}.${ext}`
-    const buffer = fs.readFileSync(file.filepath)
 
     const { error } = await serviceSupabase.storage
       .from('property-photos')
-      .upload(path, buffer, { contentType: file.mimetype || 'image/jpeg', upsert: true })
+      .upload(path, buffer, { contentType, cacheControl: '31536000', upsert: true })
 
     if (!error) {
       const { data: { publicUrl } } = serviceSupabase.storage
@@ -46,7 +58,6 @@ export default async function handler(req, res) {
       uploadedUrls.push(publicUrl)
     }
 
-    fs.unlinkSync(file.filepath)
   }
 
   return res.status(200).json({ urls: uploadedUrls })
