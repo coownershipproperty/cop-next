@@ -1,3 +1,4 @@
+import { compressPhoto } from "@/lib/compress-photo";
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -283,8 +284,10 @@ export default function PropertyEdit() {
         const formData = new FormData()
         formData.append('slug', slug)
         formData.append('target', target)
-        formData.append('files', files[i])
         try {
+          setUploadProgress(`Preparing ${i + 1} / ${files.length}`)
+          formData.append('files', await compressPhoto(files[i]))
+          setUploadProgress(`${i + 1} / ${files.length}`)
           const res = await fetch('/api/admin/upload-photo', {
             method: 'POST',
             headers: { Authorization: `Bearer ${session.access_token}` },
@@ -308,7 +311,7 @@ export default function PropertyEdit() {
         }
       }
       if (failed > 0) {
-        alert(`Uploaded ${succeeded} of ${files.length}. ${failed} failed — check your connection and try the failures again.`)
+        alert(`Uploaded ${succeeded} of ${files.length}. ${failed} failed — use JPG, PNG or WebP images and retry only the failed files.`)
       }
     } finally {
       setBusy(false)
@@ -744,7 +747,7 @@ export default function PropertyEdit() {
             </button>
 
             <p style={{ fontSize: 11, color: C.faint, marginTop: 8 }}>
-              Full unlocked gallery. Drag to reorder, or drag a photo up into <em>Gallery</em> to swap it with one of the 3 visible slots. Hover any photo to remove it. Remember to Save after uploading.
+              Photos are automatically compressed below 500 KB. Full unlocked gallery. Drag to reorder, or drag a photo up into <em>Gallery</em> to swap it with one of the 3 visible slots. Hover any photo to remove it. Remember to Save after uploading.
             </p>
           </Card>
 
