@@ -41,6 +41,10 @@
     {
       "path": "/api/cron/property-watch-alerts",
       "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron/partner-contact-check",
+      "schedule": "0 9 * * *"
     }
   ]
 }
