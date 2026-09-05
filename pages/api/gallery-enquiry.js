@@ -205,11 +205,28 @@ export default async function handler(req, res) {
         'gallery_autoreply', locale,
         {
           firstName: firstName || '', propertyTitle: title,
+          // The short human name — "the Rosemary Beach home" — for the subject
+          // line and prose. The full SEO listing title makes an ugly subject.
+          propertyName: (() => {
+            const raw = String(title || '').trim();
+            if (!raw.includes(',') && !/\s[—–-]\s/.test(raw)) return raw;
+            const city = raw.split(/\s[—–-]\s/)[0].split(',')[0].trim();
+            return city ? `the ${city} home` : raw;
+          })(),
           propertyLink: propLink, propertyUrl, locale,
           // What they actually typed. The reply used to ignore this entirely —
           // someone would ask a real question and get back a note that did not
           // acknowledge a word of it.
           enquiryMessage: String(message || '').trim(),
+          // Their own words, quoted back. Trimmed to one line so a long
+          // message cannot run away with the email, and HTML-escaped because
+          // this is lead-supplied text going into markup.
+          enquiryQuote: (() => {
+            const raw = String(message || '').replace(/\s+/g, ' ').trim();
+            if (!raw) return '';
+            const cut = raw.length > 140 ? raw.slice(0, 137).replace(/[\s,;:.!?-]+$/, '') + '…' : raw;
+            return cut.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+          })(),
         },
         () => ({
           subject: tr('subject_first', locale, { propertyTitle: title }),
