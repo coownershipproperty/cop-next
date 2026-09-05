@@ -8,6 +8,8 @@ const KIND_LABELS = {
   gallery_followup: 'Gallery follow-up',
   gallery_autoreply: 'Enquiry reply',
   enquiry_autoreply: 'Enquiry reply',
+  enquiry_reply: 'Drafted reply',
+  enquiry_reply_draft: 'Drafted reply',
   floor_plan_nurture: 'Old follow-up (retired)',
   enquiry_submitted: 'Old nurture (retired)',
   newsletter_signup: 'Welcome',
@@ -20,6 +22,7 @@ const KIND_LABELS = {
 
 // Status -> display label, grouping (for the filter) and badge colours.
 const STATUS_META = {
+  pending_review: { label: 'Needs review', group: 'review', bg: '#eef4f8', color: '#1E3448', border: '#b9cddb' },
   sent:       { label: 'Sent',     group: 'sent',    bg: '#ecfdf5', color: '#065f46', border: '#a7f3d0' },
   approved:   { label: 'Approved', group: 'sent',    bg: '#ecfdf5', color: '#065f46', border: '#a7f3d0' },
   pending:    { label: 'Queued',   group: 'sent',    bg: '#fffbeb', color: '#92400e', border: '#fcd34d' },
@@ -236,6 +239,7 @@ export default function AdminEmails() {
 
   const filters = [
     { key: 'all', label: 'All' },
+    { key: 'review', label: 'Needs review' },
     { key: 'sent', label: 'Sent' },
     { key: 'stopped', label: 'Stopped' },
     { key: 'failed', label: 'Failed' },
