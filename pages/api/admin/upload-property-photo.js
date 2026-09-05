@@ -74,7 +74,15 @@ export default async function handler(req, res) {
   }
 
   // Read file buffer
-  const { buffer, ext, contentType: mime } = await optimisePhoto(fs.readFileSync(file.filepath));
+  let photo;
+  try {
+    photo = await optimisePhoto(fs.readFileSync(file.filepath));
+  } catch {
+    return res.status(400).json({ error: 'Could not process this image. Please use a JPG, PNG or WebP photo.' });
+  } finally {
+    try { fs.unlinkSync(file.filepath); } catch {}
+  }
+  const { buffer, ext, contentType: mime } = photo;
   const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
   const storagePath = `${propertySlug}/${fileName}`;
 
@@ -100,9 +108,6 @@ export default async function handler(req, res) {
   const photos   = [...existing, publicUrl];
 
   await db.from('properties').update({ photos }).eq('slug', propertySlug);
-
-  // Clean up temp file
-  try { fs.unlinkSync(file.filepath); } catch {}
 
   return res.status(200).json({ ok: true, url: publicUrl, photos });
 }
