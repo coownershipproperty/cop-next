@@ -1,0 +1,477 @@
+{
+  "$schema": "https://co-ownership-property.com/schema/operators-v1.json",
+  "version": "1.0.0",
+  "updated": "2026-06-03",
+  "publisher": {
+    "name": "Co-Ownership Property",
+    "url": "https://co-ownership-property.com",
+    "contact": "info@co-ownership-property.com"
+  },
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution": "Data: Co-Ownership Property (co-ownership-property.com), 2026.",
+  "description": "Open dataset of fractional / co-ownership property operators worldwide. Compiled from operator websites, partner portals, regulatory filings (UK Companies House, Danish CVR), trade press (SherpaReport, Robb Report) and primary research conducted by Co-Ownership Property. Maintained quarterly.",
+  "methodology": "Primary scope: single-property co-ownership operators (one deeded share = ownership of one specific home, held in a property-specific LLC). Adjacent scope, included for completeness: portfolio / membership-pool operators (one share = rotating access to multiple homes). Excludes: timeshare operators (right-to-use only), pure rental clubs (Inspirato, Exclusive Resorts), and real-estate investment funds. Verification: each operator's claims (property count, founding year, employee count) are cross-checked against at least one independent source — regulatory filing (Companies House, CVR), SherpaReport profile, or trade-press article — and flagged where unverified.",
+  "category_definitions": {
+    "single-property": "PRIMARY SCOPE. Each share entitles the buyer to one specific home, held in a property-specific LLC. This is the model used by Co-Ownership Property and the operators it works with.",
+    "portfolio": "ADJACENT CATEGORY. Each share gives access to a basket (usually 4-5) of homes across multiple destinations. A distinct buyer profile and operational model from single-property co-ownership."
+  },
+  "marketplace_aggregator": {
+    "name": "Co-Ownership Property (COP)",
+    "url": "https://co-ownership-property.com",
+    "role": "Independent marketplace for single-property co-ownership listings. COP works only with the most established and exclusive single-property co-ownership operators worldwide, presenting their inventory side-by-side in one neutral place — so buyers can compare across operators without committing to any single one upfront. Editorial coverage includes comparison guides, partner profiles, market research, a glossary, and destination buyer's guides in English, Spanish, French and German.",
+    "editorial_coverage": "Comparison guides, partner profiles, market research, glossary, destination buyer's guides across 4 languages (EN/ES/FR/DE)."
+  },
+  "operators": [
+    {
+      "id": "pacaso",
+      "name": "Pacaso",
+      "official_url": "https://www.pacaso.com/",
+      "model": "single-property",
+      "founded": 2020,
+      "hq_city": "San Francisco",
+      "hq_country": "USA",
+      "founders": ["Austin Allison", "Spencer Rascoff"],
+      "share_sizes": ["1/8", "1/4", "1/2"],
+      "live_properties_approx": 600,
+      "geographic_coverage": ["USA", "United Kingdom", "Spain", "France", "Italy", "Mexico"],
+      "headline_destinations": ["Lake Tahoe", "Aspen", "Napa", "Park City", "Palm Springs", "Miami", "London", "Paris", "Tuscany", "Mallorca", "Cabo San Lucas"],
+      "average_share_price_usd": 700000,
+      "service_fee_structure": "~12% one-time service fee, included in headline price",
+      "ongoing_fee_structure": "Cost pass-through (no markup) for utilities, maintenance, taxes",
+      "resale_window_days_avg": 99,
+      "resale_marketplace": "Pacaso Owner Marketplace + Preferred Agent Network",
+      "exchange_program": "Pacaso Swap (free, ad-hoc swaps) + Pacaso Infinity (premium swap tier)",
+      "rental_policy": "Owner rentals prohibited",
+      "financing": "70% LTV mortgages via Pacaso lending partners (US buyers)",
+      "loyalty_program": "Pacaso Collector",
+      "data_sources": [
+        "https://www.pacaso.com/coownership",
+        "https://www.pacaso.com/faq",
+        "https://co-ownership-property.com/partners/pacaso/"
+      ],
+      "last_verified": "2026-04-15"
+    },
+    {
+      "id": "myne",
+      "name": "MYNE Homes",
+      "official_url": "https://www.myne-homes.com/",
+      "model": "single-property",
+      "founded": 2021,
+      "hq_city": "Berlin",
+      "hq_country": "Germany",
+      "founders": ["Fabian Löhmer", "Nikolaus Thomale", "Philipp Wagmann", "Moritz Vossenberg", "Dr. Nikolai Jäger"],
+      "share_sizes": ["1/8"],
+      "live_properties_approx": 113,
+      "geographic_coverage": ["Germany", "Austria", "Italy", "Spain", "Portugal", "France", "United Kingdom", "Sweden", "Croatia"],
+      "headline_destinations": ["Mallorca", "Ibiza", "Costa del Sol", "Lake Garda", "Lake Como", "Tuscany", "Sardinia", "Cotswolds", "French Alps", "Côte d'Azur"],
+      "average_share_price_eur": 220000,
+      "service_fee_structure": "Included in headline price",
+      "ongoing_fee_structure": "€99/month flat platform fee per owner + cost pass-through",
+      "resale_window_days_avg": null,
+      "satisfaction_guarantee": "12-month satisfaction guarantee — owners can exit within first 12 months",
+      "exchange_program": "Concierge-mediated week exchange between MYNE owners",
+      "rental_policy": "Permitted subject to local licensing",
+      "financing": "Nordea partnership for select markets",
+      "legal_structure": "Property-specific GmbH & Co. KG (German) or local-country SPV (SCI/SL/Srl) — built with KPMG, Dentons, Cuatrecasas legal counsel",
+      "investors_disclosed": ["Motive Ventures", "Rivus Capital", "Scope Hanson"],
+      "data_sources": [
+        "https://www.myne-homes.com/how-myne-works",
+        "https://www.myne-homes.com/about-us",
+        "https://co-ownership-property.com/partners/myne/"
+      ],
+      "last_verified": "2026-06-01"
+    },
+    {
+      "id": "vivla",
+      "name": "Vivla",
+      "official_url": "https://www.vivla.com/",
+      "model": "single-property",
+      "founded": 2022,
+      "hq_city": "Barcelona",
+      "hq_country": "Spain",
+      "share_sizes": ["1/8"],
+      "live_properties_approx": 34,
+      "geographic_coverage": ["Spain"],
+      "headline_destinations": ["Mallorca", "Ibiza", "Marbella", "Costa del Sol", "Costa Blanca", "Madrid", "Barcelona", "Pyrenees (Baqueira)", "Menorca", "Canaries"],
+      "average_share_price_eur": 250000,
+      "service_fee_structure": "Included in headline price",
+      "ongoing_fee_structure": "1.5–2% of property value per year",
+      "resale_window_days_avg": 28,
+      "exit_windows": ["12-month satisfaction window", "Open secondary market", "10-year guaranteed exit"],
+      "exchange_program": "Vivla Keys — exchange system between Vivla owners",
+      "rental_policy": "Permitted subject to Spanish licensing",
+      "financing": "Andbank Lombard loan partnership (Andbank holds ~3% equity in Vivla)",
+      "legal_structure": "Spanish SL (Sociedad Limitada) per property",
+      "portfolio_metrics_2025": {
+        "portfolio_appreciation_percent": 11,
+        "avg_resale_days": 28,
+        "notes": "Strongest published resale metrics in the category as of 2025"
+      },
+      "data_sources": [
+        "https://www.vivla.com/",
+        "https://co-ownership-property.com/partners/vivla/"
+      ],
+      "last_verified": "2026-05-15"
+    },
+    {
+      "id": "andhamlet",
+      "name": "&Hamlet",
+      "official_url": "https://www.andhamlet.com/",
+      "model": "single-property",
+      "founded": 2022,
+      "hq_city": "Oslo",
+      "hq_country": "Norway",
+      "investors_disclosed": ["Askeladden & Co"],
+      "share_sizes": ["1/8"],
+      "live_properties_approx": 12,
+      "geographic_coverage": ["Spain", "France", "Italy"],
+      "headline_destinations": ["Mallorca", "Côte d'Azur", "Tuscany"],
+      "average_share_price_eur": 350000,
+      "minimum_property_value_eur": 700000,
+      "service_fee_structure": "Included in headline price",
+      "ongoing_fee_structure": "€99/month flat platform fee per owner + cost pass-through",
+      "rental_policy": "Owner-occupancy only — no rentals",
+      "financing": "Nordea partnership",
+      "positioning": "Premium European operator, Scandinavian backing, owner-occupancy ethos",
+      "data_sources": [
+        "https://www.andhamlet.com/",
+        "https://co-ownership-property.com/partners/andhamlet/"
+      ],
+      "last_verified": "2026-05-20"
+    },
+    {
+      "id": "abitaro",
+      "name": "Abitaro",
+      "official_url": "https://www.abitaro.com/",
+      "model": "single-property",
+      "founded": 2023,
+      "hq_country": "USA",
+      "share_sizes": ["1/8"],
+      "live_properties_approx": 3,
+      "geographic_coverage": ["USA"],
+      "headline_destinations": ["Miami"],
+      "rental_policy": "Managed rental program included",
+      "yield_claim": "10% targeted return",
+      "notes": "Among the newest and smallest of the operators on the COP marketplace. Higher direct due diligence recommended.",
+      "data_sources": [
+        "https://co-ownership-property.com/partners/abitaro/"
+      ],
+      "last_verified": "2026-05-20"
+    },
+    {
+      "id": "august-collection",
+      "name": "August Collection",
+      "official_url": "https://www.augustcollections.com/",
+      "model": "portfolio",
+      "founded": 2018,
+      "first_collection_year": 2019,
+      "current_corporate_entity_year": 2024,
+      "hq_city": "London",
+      "hq_country": "United Kingdom",
+      "founders": ["Marie-Amélie Dunod", "Nicolai Watzenig"],
+      "share_sizes": ["1/21", "1/16"],
+      "live_collections": 19,
+      "live_properties_approx": 70,
+      "approx_owner_count": 570,
+      "geographic_coverage": ["United Kingdom", "France", "Spain", "Italy"],
+      "headline_destinations": ["London", "Paris", "Rome", "Cannes", "Barcelona", "South of France", "Tuscany", "Mallorca", "French Alps", "Cotswolds"],
+      "tiers": [
+        {"name": "Pied à Terre", "from_usd": 460000, "homes": 5, "beds": 2},
+        {"name": "Grand Pied à Terre", "from_usd": 770000, "homes": 5, "beds": "2-3"},
+        {"name": "Signature", "from_usd": 556000, "homes": 5, "beds": "3-4", "annual_fee_eur": 14600},
+        {"name": "Premium", "from_usd": 842000, "homes": 5, "beds": "4-5", "annual_fee_eur": 19800},
+        {"name": "Prime", "from_usd": 2080000, "homes": 4, "beds": "5+", "share_size": "1/16"}
+      ],
+      "ongoing_fee_structure": "Annual maintenance fee per tier (€10,700 Pied à Terre → €19,800 Premium); larger Prime tier confidential",
+      "resale_history": "15+ resales completed (per company); 90% of resellers upgraded to a different collection rather than exited",
+      "booking_system": "Valeria — points-based, 38 points per share per year, released in three batches (May +12, August +12, November +14), no rollover",
+      "average_usage_weeks_per_year": "8-12",
+      "funding_disclosed_usd": 555000,
+      "funding_round": "Seed (August 2021, no investors disclosed)",
+      "employees_approx_range": "50-75",
+      "uk_holdco": "AUGUST HOLDCO LIMITED (Companies House #15408532)",
+      "data_sources": [
+        "https://www.augustcollections.com/co-ownership/vacation-home-fractional-ownership",
+        "https://find-and-update.company-information.service.gov.uk/company/15408532",
+        "https://www.sherpareport.com/destination-clubs/august-collection-co-owners-portfolio.html",
+        "https://co-ownership-property.com/research-output/august-21-5-deep-analysis"
+      ],
+      "last_verified": "2026-06-02"
+    },
+    {
+      "id": "21-5",
+      "name": "21-5",
+      "official_url": "https://www.21-5.com/",
+      "model": "portfolio",
+      "founded": 2010,
+      "concept_year": 2008,
+      "first_association_year": 2012,
+      "hq_city": "Hørsholm",
+      "hq_country": "Denmark",
+      "founders": ["Laila Albæk Salem Køj", "Anders Køj", "Anders Heisel"],
+      "share_sizes_per_association": "1/21",
+      "live_associations": 60,
+      "live_properties_approx": 300,
+      "cumulative_families_claim": 1500,
+      "destinations_count": 17,
+      "geographic_coverage": ["Denmark", "Sweden", "Germany", "France", "Spain", "Italy", "Portugal", "Austria"],
+      "tiers": [
+        {"name": "Family", "from_eur": 309000, "beds": "2-3"},
+        {"name": "Large", "from_eur": 445000, "beds": "3-4"},
+        {"name": "Grande", "from_eur": 795000, "beds": "4-5"},
+        {"name": "Beyond", "from_eur": 3500000, "beds": "5+", "homes": 4, "families_per_association": 10}
+      ],
+      "ongoing_fee_structure_usd_range_per_year": [12000, 39000],
+      "average_usage_weeks_per_year": 12,
+      "booking_system": "Points-based, informal owner-to-owner point sharing permitted",
+      "governance": "21 families per association; can vote to sell + replace a home; capital calls have occurred post-COVID (explicitly acknowledged)",
+      "exit_options": ["Self-sourced sale", "21-5 managed sale", "Vote-out for defaulting owners"],
+      "employees": 120,
+      "financials_2024_dkk_thousands": {
+        "gross_profit": 62854,
+        "ebita": 5666,
+        "pre_tax_result": 8,
+        "net_result": -8,
+        "equity": 25141,
+        "balance_sheet_total": 163054,
+        "solidity_percent": 15.4,
+        "liquidity_percent": 115.2
+      },
+      "auditor": "EY (since 2013)",
+      "danish_cvr": "33084862",
+      "funding": "Bootstrapped; never raised VC",
+      "ownership_structure": "21-5 A/S, 100% owned by 21-5 GROUP ApS (CVR 39528606)",
+      "data_sources": [
+        "https://www.21-5.com/",
+        "https://www.proff.dk/firma/21-5-as/h%C3%B8rsholm/regnskabstjenester/0JP4FYI01D0",
+        "https://www.sherpareport.com/destination-clubs/21-5-co-ownership-model.html",
+        "https://co-ownership-property.com/research-output/august-21-5-deep-analysis"
+      ],
+      "last_verified": "2026-06-02"
+    },
+    {
+      "id": "myhomes",
+      "name": "MyHomes",
+      "official_url": "https://myhomesliving.com/",
+      "alternate_urls": ["https://myhomes.dk/", "http://myhomesliving.se"],
+      "model": "portfolio",
+      "founded": 2015,
+      "first_association_year": 2016,
+      "hq_city": "Copenhagen",
+      "hq_country": "Denmark",
+      "founders": ["Finn Christensen"],
+      "founder_background": "Ex-IBM and Maersk senior executive",
+      "live_associations": 14,
+      "share_sizes_per_association": ["1/21", "1/29"],
+      "live_properties_approx": 70,
+      "destinations_count": 8,
+      "geographic_coverage": ["Italy", "Spain", "France", "United Kingdom"],
+      "headline_destinations": ["Piedmont", "Mallorca", "Marbella", "Megève", "Villefranche", "Provence", "Barcelona", "Rome"],
+      "tiers": [
+        {"name": "Comfort", "from_eur": 218000, "owners_per_association": 29},
+        {"name": "Premium", "from_eur": 330000, "owners_per_association": 21},
+        {"name": "Quantus", "from_eur": 535000, "owners_per_association": 16, "homes": 4}
+      ],
+      "danish_cvr": "37787159",
+      "data_sources": [
+        "https://myhomesliving.com/",
+        "https://myhomesliving.com/our-story/",
+        "https://myhomesliving.com/established-associations/"
+      ],
+      "last_verified": "2026-06-03"
+    },
+    {
+      "id": "paradyse-homes",
+      "name": "Paradyse Homes",
+      "official_url": "https://www.paradysehomes.com/",
+      "model": "single-property",
+      "founded": 2024,
+      "hq_city": "Canggu, Bali",
+      "hq_country": "Indonesia",
+      "share_sizes": ["1/8", "2/8", "3/8", "4/8"],
+      "live_properties_approx": 10,
+      "geographic_coverage": ["Indonesia"],
+      "headline_destinations": ["Canggu", "Uluwatu", "Ubud", "Seminyak-Umalas", "Sanur"],
+      "from_share_price_usd": 25000,
+      "ownership_structure": "Leasehold only (Indonesian foreign-ownership restriction); 24-30 year lease terms with extension options",
+      "rental_yield_claim_percent_range": [10, 20],
+      "ongoing_fee_structure": "Operating fees + maintenance sinking fund (pro-rata to owners), $150/month platform fee per co-owner",
+      "positioning": "Investment-first (rental yield), not lifestyle-first; targets Asia-Pacific investor base",
+      "notes": "Reportedly partially funded by one of the MYNE co-founders.",
+      "data_sources": [
+        "https://www.paradysehomes.com/",
+        "https://www.paradysehomes.com/how-it-works"
+      ],
+      "last_verified": "2026-06-03"
+    },
+    {
+      "id": "hideaways-club",
+      "name": "The Hideaways Club",
+      "official_url": "https://www.thehideawaysclub.com/",
+      "model": "portfolio",
+      "founded": 2007,
+      "hq_country": "United Kingdom",
+      "live_properties_approx": 45,
+      "destinations_count_approx": 30,
+      "portfolio_value_gbp_million": 52,
+      "tiers": [
+        {"name": "City Collection A-share", "from_gbp": 70000, "nights_per_year": 24, "annual_dues_gbp": 11500, "destinations": "London, Prague, Rome, Paris, Berlin, Istanbul, Dubai, Bangkok"},
+        {"name": "City Collection B-share", "from_gbp": 35000, "nights_per_year": 12}
+      ],
+      "external_partnerships": ["ThirdHome (1,700+ reciprocal residences)"],
+      "data_sources": [
+        "https://www.thehideawaysclub.com/",
+        "https://www.sherpareport.com/destination-clubs/hideaways-club-review.html"
+      ],
+      "last_verified": "2026-06-02"
+    },
+    {
+      "id": "equity-residences",
+      "name": "Equity Residences",
+      "official_url": "https://equityresidences.com/",
+      "model": "portfolio",
+      "hq_country": "USA",
+      "ownership_structure": "Private equity real-estate fund; accredited investors only",
+      "from_investment_usd": 160000,
+      "exit_horizon_years": 10,
+      "geographic_coverage": ["USA", "Caribbean", "Europe"],
+      "headline_destinations": ["Barcelona", "Siena", "Hawaii", "Aspen"],
+      "notes": "Investment-first model. Differs from peers in that it's a closed-end fund with 10-year exit, not perpetual ownership.",
+      "data_sources": [
+        "https://equityresidences.com/home-collection/"
+      ],
+      "last_verified": "2026-06-02"
+    },
+    {
+      "id": "fraxioned",
+      "name": "Fraxioned",
+      "official_url": "https://www.fraxioned.com/",
+      "model": "single-property",
+      "hq_country": "USA",
+      "share_sizes": ["1/8", "1/10", "1/12", "1/13"],
+      "geographic_coverage": ["USA"],
+      "ownership_structure": "Deeded equity in property-specific LLC. Each owner holds a real, deeded fraction of the property (not points or membership). Tax benefits accrue proportionally (mortgage interest, property taxes, maintenance expenses).",
+      "booking_system": "Availability-style scheduling — bookable next-day if available, up to 2 years out",
+      "service_inclusion": "Property management, legal entity setup, calendar reservations, bookings, maintenance, inspections, utility payments, property taxes, insurance",
+      "positioning": "Mid-market US fractional operator. Smaller-share denominations (1/13) make entry prices materially lower than Pacaso. Targets families wanting a vacation home at lower capital commitment.",
+      "rental_policy": "Owner usage focus; rental income not the primary pitch",
+      "cop_marketplace_relationship": "Not currently listed on Co-Ownership Property; profiled editorially for the US-market comparison set",
+      "data_sources": [
+        "https://www.fraxioned.com/",
+        "https://www.fraxioned.com/co-ownership",
+        "https://www.fraxioned.com/blog/fractional-property-ownership-guide"
+      ],
+      "last_verified": "2026-06-03"
+    },
+    {
+      "id": "international-property-shares",
+      "name": "International Property Shares",
+      "alternate_name": "IPS",
+      "official_url": "https://internationalpropertyshares.com/",
+      "model": "single-property",
+      "founded": 1988,
+      "founder": "Ginny Blackwell",
+      "hq_country": "USA",
+      "geographic_coverage": ["France", "Italy"],
+      "headline_destinations": ["Provence", "Tuscany", "Languedoc"],
+      "positioning": "The longest-operating fractional-ownership specialist for European homes (since 1988). Focused on authentic, characterful European homes — not new-build luxury but renovated traditional properties. Smaller scale than the newer venture-backed operators; relationship-driven sales.",
+      "share_sizes": ["1/8", "1/10", "1/12"],
+      "ownership_structure": "Deeded fractional shares held through property-specific LLC or SCI (French structure)",
+      "cop_marketplace_relationship": "Not currently listed on Co-Ownership Property; profiled editorially for the EU heritage comparison set",
+      "data_sources": [
+        "https://internationalpropertyshares.com/",
+        "https://internationalpropertyshares.com/fractional-ownership/fractional-ownership-companies-which-one-is-the-right-fit/"
+      ],
+      "last_verified": "2026-06-03"
+    },
+    {
+      "id": "sojourn8",
+      "name": "Sojourn8",
+      "official_url": "https://www.sojourn8.com/",
+      "model": "single-property",
+      "hq_country": "United Kingdom",
+      "geographic_coverage": ["Spain", "Italy", "United Kingdom"],
+      "headline_destinations": ["Costa del Sol", "Costa Calida", "Sotogrande", "Tuscany", "London"],
+      "share_sizes": ["1/8"],
+      "ownership_structure": "Deeded fractional shares; second-home co-ownership model — typically 8 families per property",
+      "positioning": "UK-based, EU-focused. Uses both 'co-ownership' and 'fractional ownership' terminology equally — the most linguistically balanced of the operators (per COP terminology research). Strong London + Spain + Italy concentration.",
+      "cop_marketplace_relationship": "Not currently listed on Co-Ownership Property; profiled editorially for the EU comparison set",
+      "data_sources": [
+        "https://www.sojourn8.com/",
+        "https://www.sojourn8.com/fractional-ownership-in-europe"
+      ],
+      "last_verified": "2026-06-03"
+    },
+    {
+      "id": "plum-coownership",
+      "name": "Plum CoOwnership",
+      "official_url": "https://www.plumcoownership.com/",
+      "model": "single-property",
+      "hq_country": "USA",
+      "geographic_coverage": ["USA"],
+      "share_sizes": ["1/8", "1/4", "1/2"],
+      "ownership_structure": "Deeded fractional shares — usage and equity equal the share percentage purchased",
+      "positioning": "US-focused fractional vacation home operator. Smaller and newer than Pacaso, similar deeded LLC structure.",
+      "cop_marketplace_relationship": "Not currently listed on Co-Ownership Property; profiled editorially for the US comparison set",
+      "data_sources": [
+        "https://www.plumcoownership.com/"
+      ],
+      "last_verified": "2026-06-03"
+    },
+    {
+      "id": "goforth-global",
+      "name": "GoForth Global",
+      "official_url": "https://www.goforthglobal.com/",
+      "model": "single-property",
+      "hq_country": "USA",
+      "share_sizes": ["1/4"],
+      "ownership_structure": "1/4 fractional interest as deeded real estate inside a property-specific LLC. Lending partners specialize in fractional real estate financing.",
+      "positioning": "Larger-share fractional operator — focuses on 1/4 shares rather than 1/8, meaning higher capital commitment but more usage (~13 weeks/year per share).",
+      "cop_marketplace_relationship": "Not currently listed on Co-Ownership Property",
+      "data_sources": [
+        "https://www.goforthglobal.com/"
+      ],
+      "last_verified": "2026-06-03"
+    },
+    {
+      "id": "lifestyle-asset-group",
+      "name": "Lifestyle Asset Group",
+      "official_url": "https://www.lifestyleassetgroup.com/",
+      "model": "portfolio",
+      "hq_city": "Denver",
+      "hq_country": "USA",
+      "ownership_structure": "Investor-owned LLC structure pooling multiple luxury homes across destinations. Mix of vacation usage and investment return.",
+      "positioning": "Colorado-based US-focused luxury fractional operator. Sister relationship with Luxury Shares (sales & marketing arm). Joint venture announced in earlier years for distribution.",
+      "geographic_coverage": ["USA"],
+      "headline_destinations": ["Aspen", "Vail", "Florida", "Hawaii"],
+      "cop_marketplace_relationship": "Not currently listed on Co-Ownership Property; profiled editorially for the US portfolio-fractional comparison set",
+      "data_sources": [
+        "https://www.lifestyleassetgroup.com/",
+        "https://www.prweb.com/releases/luxury-shares-a-fractional-ownership-sales-amp-marketing-firm-announces-a-joint-venture-agreement-with-lifestyle-asset-group-to-promote-co-ownership-luxury-homes-885713864.html"
+      ],
+      "last_verified": "2026-06-03"
+    }
+  ],
+  "category_excluded": [
+    {"name": "Inspirato", "reason": "Pure membership, no equity"},
+    {"name": "Exclusive Resorts", "reason": "Pure membership, $85k+ club, no equity"},
+    {"name": "ThirdHome", "reason": "Exchange-only club for existing second-home owners, no equity"},
+    {"name": "Disney Vacation Club", "reason": "Right-to-use timeshare, not deeded fractional"},
+    {"name": "Marriott Vacation Club", "reason": "Same — points-based timeshare"}
+  ],
+  "summary_stats_2026q2": {
+    "operators_indexed": 17,
+    "single_property_operators": 10,
+    "portfolio_operators": 6,
+    "fund_structure_operators": 1,
+    "total_live_properties_approx_global": 1500,
+    "geographic_countries_covered": 17,
+    "earliest_operator_founded": 1988,
+    "latest_operator_founded": 2024,
+    "lowest_entry_share_price_usd": 25000,
+    "highest_entry_share_price_usd": 3500000,
+    "operators_on_cop_marketplace": ["pacaso", "myne", "vivla", "andhamlet", "abitaro"],
+    "operators_editorially_covered_only": ["fraxioned", "international-property-shares", "sojourn8", "plum-coownership", "goforth-global", "lifestyle-asset-group", "august-collection", "21-5", "myhomes", "paradyse-homes", "hideaways-club", "equity-residences"]
+  }
+}

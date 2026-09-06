@@ -43,6 +43,10 @@
       "schedule": "0 7 * * *"
     },
     {
+      "path": "/api/send-property-alerts",
+      "schedule": "30 7 * * *"
+    },
+    {
       "path": "/api/cron/partner-contact-check",
       "schedule": "0 9 * * *"
     }

@@ -138,9 +138,9 @@ export default function FloorPlanEmail({
         {/* ── HEADER ── */}
         <Section style={header}>
           <Container style={wrap}>
-            <Section style={goldRuleHeader} />
-            <Text style={wordmark}>Co-Ownership Property</Text>
-            <Section style={goldRuleHeader} />
+            <Link href={base}>
+              <Img src={`${base}/images/email-logo-dark.png`} width="140" height="69" alt="COP — Co-Ownership Properties" style={logoImg} />
+            </Link>
           </Container>
         </Section>
 
@@ -265,7 +265,7 @@ export default function FloorPlanEmail({
         {/* ── FOOTER ── */}
         <Section style={footer}>
           <Container style={wrap}>
-            <Text style={footLogo}>Co-Ownership Property</Text>
+            <Img src={`${base}/images/email-logo-light.png`} width="112" height="55" alt="COP" style={footLogoImg} />
             <Section style={footGoldRule} />
             <Text style={footLinks}>
               <Link href={base} style={footLink}>{tr('common.footer_website')}</Link>
@@ -326,28 +326,29 @@ const heroImg: React.CSSProperties = {
 };
 
 // Header
+// The real wordmark on white, not a spaced-out text stand-in (David, 5 Sep 2026).
 const header: React.CSSProperties = {
-  backgroundColor: C.navy,
-  padding: '52px 0 44px',
-};
-
-const wordmark: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  color: C.white,
-  fontSize: 26,
-  fontWeight: 300,
-  letterSpacing: '0.24em',
-  textTransform: 'uppercase' as const,
+  backgroundColor: C.white,
+  padding: '30px 0 26px',
+  borderBottom: `1px solid ${C.border}`,
   textAlign: 'center' as const,
-  margin: '20px 0',
 };
 
-const goldRuleHeader: React.CSSProperties = {
-  backgroundColor: C.gold,
-  height: 1,
-  maxWidth: 56,
+const logoImg: React.CSSProperties = {
+  display: 'inline-block',
+  width: 140,
+  height: 'auto',
   margin: '0 auto',
 };
+
+const footLogoImg: React.CSSProperties = {
+  display: 'block',
+  width: 112,
+  height: 'auto',
+  margin: '0 auto 20px',
+};
+
+
 
 // Hero intro
 const heroSection: React.CSSProperties = {
@@ -608,16 +609,6 @@ const footer: React.CSSProperties = {
   borderTop: `2px solid ${C.gold}`,
 };
 
-const footLogo: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  color: C.white,
-  fontSize: 22,
-  fontWeight: 300,
-  letterSpacing: '0.22em',
-  textTransform: 'uppercase' as const,
-  textAlign: 'center' as const,
-  margin: '0 0 20px',
-};
 
 const footGoldRule: React.CSSProperties = {
   backgroundColor: C.gold,

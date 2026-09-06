@@ -218,6 +218,9 @@ export default async function handler(req, res) {
           // someone would ask a real question and get back a note that did not
           // acknowledge a word of it.
           enquiryMessage: String(message || '').trim(),
+          // The template branches on these two (the renderer has no else): asked
+          // something → acknowledge and promise answers; asked nothing → ask.
+          noMessage: !String(message || '').trim(),
           // Their own words, quoted back. Trimmed to one line so a long
           // message cannot run away with the email, and HTML-escaped because
           // this is lead-supplied text going into markup.

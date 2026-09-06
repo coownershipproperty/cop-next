@@ -23,7 +23,7 @@
  * Suppressed addresses are always skipped. Auth mirrors the other crons.
  */
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
-import resend, { FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
+import { sendHtml } from '@/lib/resend';
 import { unsubUrl, listUnsubHeaders } from '@/lib/unsub';
 import { filterSuppressed } from '@/lib/suppressions';
 import { localeColumns } from '@/lib/i18n';
@@ -118,7 +118,10 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, sent: 0, snapshot: true });
   }
 
-  const eligible = await filterSuppressed(db, watches);
+  // filterSuppressed returns { kept, dropped } — this used to be read as an
+  // array, so `eligible.map` threw and the cron 500'd on every run since it
+  // was written. Not one watch alert had ever gone out.
+  const { kept: eligible } = await filterSuppressed(db, watches);
 
   // Load every property the watches reference, plus recent arrivals for waitlists.
   const slugs = [...new Set(eligible.map((w) => w.slug))];
@@ -144,8 +147,13 @@ export default async function handler(req, res) {
         const p = bySlug.get(w.slug);
         if (!p) continue;
 
+        // A price move only counts when it is one a buyer would care about.
+        // The partner feeds round and re-quote; a €500 wobble on a €200,000
+        // share is not news and must not spend a 30-day alert on itself.
+        const MIN_MOVE = 0.015;
         const priceChanged =
-          p.price != null && w.last_price != null && Number(p.price) !== Number(w.last_price);
+          p.price != null && w.last_price != null && Number(w.last_price) > 0 &&
+          Math.abs(Number(p.price) - Number(w.last_price)) / Number(w.last_price) >= MIN_MOVE;
         const nowSold =
           String(p.status).toLowerCase().includes('sold') &&
           !String(w.last_status || '').toLowerCase().includes('sold');
@@ -171,13 +179,17 @@ export default async function handler(req, res) {
           property: p, email: w.email, locale, kind, oldPrice: w.last_price,
         });
 
-        await resend.emails.send({
-          from: FROM_ADDRESS,
-          reply_to: REPLY_TO,
+        await sendHtml({
           to: w.email,
           subject,
           html,
           headers: listUnsubHeaders(w.email),
+          log: {
+            trigger: 'property_watch_alert', type: `watch_${kind}`,
+            propertyTitle: p.title, propertyUrl: `https://co-ownership-property.com/property/${p.slug}/`,
+            templateProps: { slug: p.slug, kind, oldPrice: w.last_price, newPrice: p.price, status: p.status, locale },
+            notes: `Watch alert (${kind}) — ${p.title}`,
+          },
         });
         await db
           .from('property_watches')
@@ -186,24 +198,30 @@ export default async function handler(req, res) {
         sent++;
       } else if (w.kind === 'waitlist') {
         const already = new Set(w.notified_slugs || []);
+        // Someone waiting for Liguria is not waiting for "anywhere in Italy".
+        // Match on the region when the watch has one; fall back to the
+        // country only when it does not.
+        const needleRegion = String(w.region || '').trim().toLowerCase();
+        const needleCountry = String(w.country || '').trim().toLowerCase();
+        const regionIsRealRegion = needleRegion && needleRegion !== needleCountry;
         const matches = (fresh || []).filter((f) => {
           if (already.has(f.slug) || f.slug === w.slug) return false;
-          const hay = `${f.region || ''} ${f.country || ''}`.toLowerCase();
-          const needleRegion = String(w.region || '').toLowerCase();
-          const needleCountry = String(w.country || '').toLowerCase();
-          return (
-            (needleRegion && hay.includes(needleRegion)) ||
-            (needleCountry && hay.includes(needleCountry))
-          );
+          const fRegion = String(f.region || '').toLowerCase();
+          const fCountry = String(f.country || '').toLowerCase();
+          if (regionIsRealRegion) return fRegion.includes(needleRegion) || needleRegion.includes(fRegion) && fRegion.length > 3;
+          return needleCountry ? fCountry === needleCountry : false;
         });
         if (matches.length === 0) continue;
 
         const top = matches.slice(0, 3);
-        await resend.emails.send({
-          from: FROM_ADDRESS,
-          reply_to: REPLY_TO,
+        await sendHtml({
           to: w.email,
           subject: `First look — new in ${w.region || w.country}`,
+          log: {
+            trigger: 'property_watch_alert', type: 'waitlist_first_look',
+            templateProps: { region: w.region, country: w.country, recommended: top.map((t) => ({ slug: t.slug, title: t.title, price: t.price })) },
+            notes: `First look — ${w.region || w.country}: ${top.map((t) => t.slug).join(', ')}`,
+          },
           html: shell(
             `<p style="font-size:15px;line-height:1.7;margin:0 0 20px">You asked to be first in line for <strong>${w.region || w.country}</strong>. ${top.length === 1 ? 'A new home just arrived' : `${top.length} new homes just arrived`} — you're seeing ${top.length === 1 ? 'it' : 'them'} before our newsletter goes out:</p>` +
               top.map(propCard).join(''),

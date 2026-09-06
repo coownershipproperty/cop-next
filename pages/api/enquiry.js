@@ -354,6 +354,11 @@ export default async function handler(req, res) {
       propertyUrl:       url       || null,
       locale,
       trackingPixelHtml: pixel,
+      // Quoted back in the reply so a lead who asked a question never gets a
+      // note that reads as if nobody saw it. (David, 5 Sep 2026)
+      message:           message   || null,
+      contactId:         contact?.id || null,
+      leadId:            lead?.id    || null,
     });
 
     if (contact && emailSend) {

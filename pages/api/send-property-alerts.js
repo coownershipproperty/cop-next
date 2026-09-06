@@ -1,13 +1,24 @@
 /**
- * Cron: POST /api/send-property-alerts
- * Runs daily. Finds properties added in the last 24 hours,
- * matches them against saved_searches, and emails subscribers.
+ * Cron: GET /api/send-property-alerts  (vercel.json — daily, 07:30 UTC)
+ * Finds properties added in the last ~25 hours, matches them against
+ * saved_searches, and emails subscribers.
  *
- * Authorization: Bearer <CRON_SECRET>
+ * History (David, 6 Sep 2026): this endpoint was never in vercel.json, only
+ * accepted POST + Bearer, matched regions against country/city only (so a
+ * "Mallorca" alert could never match anything), and would have queued the
+ * email as 'pending' with no send_after — which the queue processor never
+ * sends. 18 saved searches, last_notified_at null on every one. Now: runs as
+ * a Vercel cron, matches the way the confirmation email does (expandRegions
+ * against country / region / city), and sends immediately — an alert is an
+ * explicit subscription ("we'll notify you"), so it does not wait for review.
+ *
+ * Auth: Vercel cron GET (x-vercel-cron) or Bearer CRON_SECRET / CRM_SECRET.
  */
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { queueEmail } from '@/lib/resend';
 import { unsubUrl } from '@/lib/unsub';
+import { filterSuppressed } from '@/lib/suppressions';
+import { expandRegions } from '@/lib/regionMap';
 import PropertyAlert from '@/emails/property-alert';
 import * as React from 'react';
 
@@ -15,12 +26,24 @@ function getDb() {
   return createSupabaseAdminClient();
 }
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).end();
+const norm = (v) => String(v == null ? '' : v).trim().toLowerCase();
 
-  const auth   = req.headers['authorization'] || '';
-  const secret = process.env.CRON_SECRET;
-  if (!secret || auth !== `Bearer ${secret}`) {
+/** Does a property fall inside a saved search's regions? Same expansion the
+ *  confirmation email uses, so what we promised is what we match. */
+function regionMatches(p, regions) {
+  const active = (regions || []).filter((r) => r && r !== 'All');
+  if (!active.length) return true;
+  const terms = expandRegions(active).map(norm).filter(Boolean);
+  const hay = [norm(p.country), norm(p.region), norm(p.city)];
+  return terms.some((t) => hay.some((h) => h && h.includes(t)));
+}
+
+export default async function handler(req, res) {
+  const isCron   = req.method === 'GET' || req.headers['x-vercel-cron'] === '1';
+  const auth     = req.headers['authorization'] || '';
+  const isAuthed = (process.env.CRON_SECRET && auth === `Bearer ${process.env.CRON_SECRET}`)
+                || (process.env.CRM_SECRET  && auth === `Bearer ${process.env.CRM_SECRET}`);
+  if (!isCron && !isAuthed) {
     return res.status(401).json({ error: 'Unauthorised' });
   }
 
@@ -30,7 +53,7 @@ export default async function handler(req, res) {
   const since = new Date(Date.now() - 25 * 60 * 60 * 1000).toISOString();
   const { data: newProps } = await db
     .from('properties')
-    .select('slug, title, img, price, currency, beds, size, country, city, status')
+    .select('slug, title, img, price, currency, beds, size, country, region, city, status')
     .gte('date_added', since)
     // 'available'/'new' never existed in the DB (statuses are Live/for_sale/
     // sold/hidden) — alerts silently matched nothing until this was fixed.
@@ -50,13 +73,23 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, message: 'No saved searches', sent: 0 });
   }
 
+  // Never mail a suppressed address, whatever they saved.
+  let allowed = new Set();
+  try {
+    const { kept } = await filterSuppressed(db, searches);
+    allowed = new Set((kept || []).map((s) => norm(s.email)));
+  } catch (e) {
+    console.error('[PropertyAlerts] suppression check failed:', e.message);
+    allowed = new Set(searches.map((s) => norm(s.email)));
+  }
+
   let sent = 0;
 
   for (const search of searches) {
+    if (!allowed.has(norm(search.email))) continue;
     // Match new properties against this search's criteria
     const matches = newProps.filter(p => {
-      const regionMatch = !search.regions || search.regions.length === 0
-        || search.regions.some(r => p.country === r || (p.city || '').includes(r));
+      const regionMatch = regionMatches(p, search.regions);
       const priceMatch  = !search.max_price || !p.price || p.price <= search.max_price;
       const bedsMatch   = !search.min_beds  || !p.beds  || p.beds  >= search.min_beds;
       return regionMatch && priceMatch && bedsMatch;
@@ -110,8 +143,10 @@ export default async function handler(req, res) {
           unsubscribeUrl: unsubUrl(search.email),
         }),
         templateName:  'property-alert',
-        templateProps: { searchCriteria, matchCount: matches.length },
+        templateProps: { searchCriteria, matchCount: matches.length, recommended: matches.map((p) => ({ slug: p.slug, title: p.title, price: p.price })) },
         trigger:       'new_property_match',
+        // An explicit alert subscription: send now, record as sent.
+        autoSend:      true,
         notes:         `${matches.length} new propert${matches.length === 1 ? 'y' : 'ies'} matching saved search`,
       });
 

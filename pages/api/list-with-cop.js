@@ -12,7 +12,7 @@
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { upsertContact, logActivity } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
-import resend, { FROM_ADDRESS, REPLY_TO, sendTeamNotification } from '@/lib/resend';
+import { sendHtml, sendTeamNotification } from '@/lib/resend';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -56,9 +56,10 @@ export default async function handler(req, res) {
   }
 
   // CRM: applicants are contacts too (sellers often become buyers).
+  let contact = null;
   try {
     const parts = String(name || '').trim().split(' ');
-    const contact = await upsertContact({
+    contact = await upsertContact({
       email: cleanEmail,
       firstName: parts[0] || null,
       lastName: parts.slice(1).join(' ') || null,
@@ -98,10 +99,9 @@ export default async function handler(req, res) {
 
   // Applicant acknowledgement
   try {
-    await resend.emails.send({
-      from: FROM_ADDRESS,
-      reply_to: REPLY_TO,
+    await sendHtml({
       to: cleanEmail,
+      log: { trigger: 'listing_application', type: 'application_ack', contactId: contact?.id || null, templateProps: { kind }, notes: `${kind} application acknowledgement` },
       subject: kind === 'resale'
         ? 'We received your listing — Co-Ownership Properties'
         : 'We received your partnership application — Co-Ownership Properties',

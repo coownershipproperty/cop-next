@@ -51,9 +51,17 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const secret = process.env.CRON_SECRET;
+  // Auth — the same rule as every other cron in this app: a Vercel cron call
+  // (x-vercel-cron header, or a plain GET) or an internal Bearer secret.
+  // This handler used to demand `Bearer CRON_SECRET` and nothing else, so
+  // when Vercel called it without that header it answered 401 on every run —
+  // the queue sender had not sent a single email since 13 May 2026, and the
+  // first approved reply from /admin/replies sat at 'pending' (6 Sep 2026).
+  const isVercelCron = req.headers['x-vercel-cron'] === '1' || req.method === 'GET';
   const auth = req.headers['authorization'] || '';
-  if (!secret || auth !== `Bearer ${secret}`) {
+  const isAuthed = (process.env.CRON_SECRET && auth === `Bearer ${process.env.CRON_SECRET}`)
+                || (process.env.CRM_SECRET  && auth === `Bearer ${process.env.CRM_SECRET}`);
+  if (!isVercelCron && !isAuthed) {
     return res.status(401).json({ error: 'Unauthorised' });
   }
 

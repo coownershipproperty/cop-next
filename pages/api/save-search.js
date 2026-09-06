@@ -13,9 +13,8 @@
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { upsertContact, createLead, incrementScore, logActivity, enrichContactIntelligence } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
-import { FROM_ADDRESS, REPLY_TO, sendTeamNotification } from '@/lib/resend';
+import { sendHtml, sendTeamNotification } from '@/lib/resend';
 import { expandRegions } from '@/lib/regionMap';
-import resend from '@/lib/resend';
 
 function getDb() {
   return createSupabaseAdminClient();
@@ -25,25 +24,26 @@ function getDb() {
  * Fetch up to 3 properties matching the alert criteria.
  * Tries regions against both country and region columns.
  */
-async function getMatchingProperties(regions, maxPrice, minBeds) {
+const norm = (v) => String(v == null ? '' : v).trim().toLowerCase();
+
+async function getMatchingProperties(regions, maxPrice, minBeds, { email, limit = 4 } = {}) {
   const db = getDb();
-  const FIELDS = 'slug, title, img, price, currency, beds, size, city, country, region';
+  const FIELDS = 'slug, title, img, price, currency, beds, size, city, country, region, date_added';
 
   const activeRegions = (regions || []).filter(r => r && r !== 'All');
 
+  // ── 1. Candidate pool: every live home inside their criteria ──────────────
   let query = db
     .from('properties')
     .select(FIELDS)
-    .eq('status', 'Live')
-    .order('price', { ascending: true });
+    .in('status', ['Live', 'for_sale']);
 
   if (maxPrice) query = query.lte('price', parseInt(maxPrice, 10));
   if (minBeds)  query = query.gte('beds',  parseInt(minBeds,  10));
 
-  // Push region filter into SQL using Supabase .or() — avoids client-side
-  // sampling issues when there are many properties
   if (activeRegions.length > 0) {
-    // Expand form labels (e.g. "Italian Lakes") to actual DB region values
+    // Expand form labels (e.g. "Italian Lakes") to actual DB region values.
+    // The map never yields a bare country for a sub-region label.
     const dbTerms = expandRegions(activeRegions);
     const orParts = dbTerms.flatMap(t => [
       `country.ilike.%${t}%`,
@@ -53,8 +53,80 @@ async function getMatchingProperties(regions, maxPrice, minBeds) {
     query = query.or(orParts.join(','));
   }
 
-  const { data } = await query.limit(3);
-  return data || [];
+  const { data } = await query.limit(200);
+  const pool = data || [];
+  if (!pool.length) return [];
+
+  // ── 2. What have they actually looked at? ────────────────────────────────
+  // Gallery unlocks are the strongest preference signal we hold. A home they
+  // already unlocked is not a recommendation (they have the photos), but its
+  // region and price band are exactly what to recommend more of.
+  const seen = new Set();
+  const seenRegions = new Map();
+  const seenPrices = [];
+  try {
+    if (email) {
+      const { data: c } = await db.from('contacts').select('id').eq('email', String(email).toLowerCase()).maybeSingle();
+      if (c?.id) {
+        const { data: acts } = await db.from('activities')
+          .select('metadata').eq('contact_id', c.id).eq('type', 'floor_plan_requested')
+          .order('created_at', { ascending: false }).limit(50);
+        const slugs = [...new Set((acts || []).map(a => a.metadata?.propertySlug).filter(Boolean))];
+        if (slugs.length) {
+          const { data: seenRows } = await db.from('properties').select('slug, region, price').in('slug', slugs);
+          for (const r of seenRows || []) {
+            seen.add(r.slug);
+            if (r.region) seenRegions.set(String(r.region).toLowerCase(), (seenRegions.get(String(r.region).toLowerCase()) || 0) + 1);
+            if (r.price) seenPrices.push(Number(r.price));
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.error('[SaveSearch] preference lookup failed:', e.message);
+  }
+  const medianSeen = seenPrices.length
+    ? seenPrices.sort((a, b) => a - b)[Math.floor(seenPrices.length / 2)]
+    : null;
+
+  // ── 3. Score, then diversify one home per region ─────────────────────────
+  //   region they unlocked      +60 (+5 per extra unlock there, capped)
+  //   price near what they viewed 0–30 (full marks within 10%, zero at 60% out)
+  //   has a photo               +6
+  //   listed in the last 30 days +4 (alerts are about what is new)
+  //   already unlocked          excluded
+  const scored = pool
+    .filter(p => !seen.has(p.slug))
+    .map(p => {
+      let score = 0;
+      const reg = String(p.region || '').toLowerCase();
+      if (seenRegions.has(reg)) score += 60 + Math.min(15, 5 * (seenRegions.get(reg) - 1));
+      if (medianSeen && p.price) {
+        const delta = Math.abs(Number(p.price) - medianSeen) / medianSeen;
+        score += 30 * Math.max(0, 1 - Math.min(1, Math.max(0, delta - 0.1) / 0.5));
+      }
+      if (p.img) score += 6;
+      if (p.date_added && Date.now() - new Date(p.date_added).getTime() < 30 * 864e5) score += 4;
+      return { p, score };
+    })
+    .sort((a, b) => b.score - a.score || Number(a.p.price || 0) - Number(b.p.price || 0) || String(a.p.slug).localeCompare(String(b.p.slug)));
+
+  const picked = [];
+  const usedRegions = new Set();
+  for (const { p } of scored) {                       // first pass: one per region
+    const reg = String(p.region || p.country || '').toLowerCase();
+    if (usedRegions.has(reg)) continue;
+    usedRegions.add(reg); picked.push(p);
+    if (picked.length >= limit) break;
+  }
+  const sameTitle = (a, b) => norm(a.title) && norm(a.title) === norm(b.title);
+  for (const { p } of scored) {                       // second pass: fill up
+    if (picked.length >= limit) break;
+    // Two listings can share a title (a second release of the same home) —
+    // showing both looks like a mistake.
+    if (!picked.includes(p) && !picked.some((q) => sameTitle(q, p))) picked.push(p);
+  }
+  return picked;
 }
 
 export default async function handler(req, res) {
@@ -92,9 +164,10 @@ export default async function handler(req, res) {
   }
 
   // CRM: upsert contact + log activity
+  let contact = null;
   try {
     const nameParts = (name || '').trim().split(' ');
-    let contact = await upsertContact({
+    contact = await upsertContact({
       email,
       firstName: nameParts[0] || null,
       lastName:  nameParts.slice(1).join(' ') || null,
@@ -129,7 +202,7 @@ export default async function handler(req, res) {
   // Fetch matching properties for the email
   let matchingProperties = [];
   try {
-    matchingProperties = await getMatchingProperties(regions, maxPrice, minBeds);
+    matchingProperties = await getMatchingProperties(regions, maxPrice, minBeds, { email });
   } catch (e) {
     console.error('[SaveSearch] matching properties lookup failed:', e.message);
   }
@@ -150,7 +223,7 @@ export default async function handler(req, res) {
     const propCardsHtml = matchingProperties.length > 0 ? `
         <!-- Matching Properties -->
         <tr><td style="background:#F7F4EE;padding:40px 48px 8px">
-          <p style="margin:0 0 8px;font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#C9A84C;font-family:Georgia,serif">Available Now</p>
+          <p style="margin:0 0 8px;font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#C9A84C;font-family:Georgia,serif">Matching your search right now</p>
           <div style="width:36px;height:1px;background:#C9A84C;margin:0 0 24px"></div>
         </td></tr>
         ${matchingProperties.map(p => {
@@ -184,11 +257,19 @@ export default async function handler(req, res) {
         </td></tr>
     ` : '';
 
-    await resend.emails.send({
-      from:    FROM_ADDRESS,
-      to:      [email],
-      replyTo: REPLY_TO,
+    await sendHtml({
+      to:      email,
       subject: "Your property alert is set \u2014 we'll notify you of new listings",
+      // Recorded in the CRM with the exact homes recommended, so the
+      // recommendations can be checked afterwards.
+      log: {
+        trigger: 'search_saved', type: 'alert_confirmation', contactId: contact?.id || null,
+        notes: 'Property alert confirmation',
+        templateProps: {
+          regions, maxPrice: maxPrice || null, minBeds: minBeds || null,
+          recommended: matchingProperties.map(p => ({ slug: p.slug, title: p.title, price: p.price, currency: p.currency })),
+        },
+      },
       html: `
 <!DOCTYPE html>
 <html lang="en">
@@ -199,9 +280,8 @@ export default async function handler(req, res) {
       <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
 
         <!-- Header -->
-        <tr><td style="background:#1E3448;padding:40px 48px 32px;text-align:center">
-          <p style="margin:0 0 16px;font-family:Georgia,serif;font-size:20px;font-weight:400;letter-spacing:0.16em;text-transform:uppercase;color:#ffffff">Co-Ownership Property</p>
-          <div style="width:40px;height:1px;background:#C9A84C;margin:0 auto"></div>
+        <tr><td style="background:#ffffff;padding:30px 48px 26px;text-align:center;border-bottom:1px solid #E8E3DC">
+          <img src="${base}/images/email-logo-dark.png" width="140" alt="Co-Ownership Property" style="display:inline-block;width:140px;height:auto">
         </td></tr>
 
         <!-- Body -->

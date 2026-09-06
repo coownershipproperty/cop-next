@@ -127,8 +127,12 @@ export default async function handler(req, res) {
       }
       // Save any last edits in the same call, so approving never sends a
       // stale body the reviewer thought they had changed.
+      // send_after must be set or process-email-queue never picks the row up
+      // (it selects status = 'pending' AND send_after IS NOT NULL). A DB trigger
+      // (email_queue_stamp_reply_send_after) does the same for safety.
       const patch = {
         status: 'pending',
+        send_after: stamp(),
         approved_at: stamp(),
         notes: trail(`Approved by ${adminEmail}`),
       };
