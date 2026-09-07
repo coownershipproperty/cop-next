@@ -22,10 +22,32 @@
  *               'reject'  → status 'rejected', reason appended to notes
  *               'reopen'  → status 'rejected' → 'pending_review'
  */
+import { emailShell } from '@/lib/galleryFollowup';
 import { requireAdmin } from '@/lib/newsletter/auth';
 
 const DRAFT_TRIGGERS = ['enquiry_reply', 'enquiry_reply_draft'];
 const MAX_HTML = 100000;
+
+const ROLE = {
+  en: 'Co-Founder · Co-Ownership Property',
+  es: 'Cofundador · Co-Ownership Property',
+  fr: 'Cofondateur · Co-Ownership Property',
+};
+
+/**
+ * A reply draft is bare <p> paragraphs so it can be edited in the review desk.
+ * What actually goes out must look like every other email from Dylan: the
+ * plain personal shell with his photo/name/role/phone signature
+ * (lib/galleryFollowup emailShell). Applied once, at approval, so the stored
+ * row is exactly what was sent. Idempotent — a draft that already carries the
+ * shell (or was hand-written as a full document) is left alone.
+ */
+function finalHtml(html, templateProps) {
+  const body = String(html || '');
+  if (/<html[\s>]/i.test(body) || body.includes('dylan-olsson.jpg')) return body;
+  const locale = String(templateProps?.locale || 'en').slice(0, 2);
+  return emailShell(body, locale, ROLE[locale] || ROLE.en);
+}
 
 function clean(value, max = 500) {
   return String(value ?? '').trim().slice(0, max);
@@ -71,6 +93,8 @@ export default async function handler(req, res) {
       const props = d.template_props || {};
       return {
         ...d,
+        // Exactly what will be sent on approval: body + personal shell + signature.
+        previewHtml: finalHtml(d.html, props),
         context: {
           askedAt: enquiry?.created_at || null,
           message: enquiry?.metadata?.message || '',
@@ -94,7 +118,7 @@ export default async function handler(req, res) {
   if (!id || !action) return res.status(400).json({ error: 'Missing id or action' });
 
   const { data: draft, error: loadErr } = await db.from('email_queue')
-    .select('id, status, subject, html, notes, trigger')
+    .select('id, status, subject, html, notes, trigger, template_props')
     .eq('id', id).maybeSingle();
   if (loadErr) return res.status(500).json({ error: loadErr.message });
   if (!draft) return res.status(404).json({ error: 'Draft not found' });
@@ -137,7 +161,10 @@ export default async function handler(req, res) {
         notes: trail(`Approved by ${adminEmail}`),
       };
       if (typeof req.body.subject === 'string') patch.subject = clean(req.body.subject, 300);
-      if (typeof req.body.html === 'string') patch.html = String(req.body.html).slice(0, MAX_HTML);
+      const bodyHtml = typeof req.body.html === 'string' ? String(req.body.html).slice(0, MAX_HTML) : draft.html;
+      // Wrap in the personal shell + signature so the sent email matches the
+      // rest of Dylan's mail (David, 6 Sep 2026: "no signature then, no?").
+      patch.html = finalHtml(bodyHtml, draft.template_props);
       return res.status(200).json({ draft: await apply(patch) });
     }
 

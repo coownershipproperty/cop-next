@@ -29,12 +29,19 @@ function relTime(value) {
 
 // The draft body is our own HTML, built from our own templates — but it is
 // still rendered in an iframe so a stray tag can never touch the admin page.
+// Links in the preview open in a new tab (base target) — without it a click
+// tries to load the destination inside the sandboxed frame, and sites that
+// forbid framing (pacaso.com, most partners) just show "refused to connect".
 function DraftPreview({ html }) {
+  const body = html || '<p style="font:14px sans-serif;color:#888">Empty draft</p>'
+  const doc = /<head[\s>]/i.test(body)
+    ? body.replace(/<head([^>]*)>/i, '<head$1><base target="_blank">')
+    : `<base target="_blank">${body}`
   return (
     <iframe
       title="Draft preview"
-      sandbox=""
-      srcDoc={html || '<p style="font:14px sans-serif;color:#888">Empty draft</p>'}
+      sandbox="allow-popups allow-popups-to-escape-sandbox"
+      srcDoc={doc}
       style={{ width: '100%', height: 320, border: `1px solid ${BORDER}`, borderRadius: 8, background: '#fff' }}
     />
   )
@@ -159,7 +166,14 @@ export default function ReplyDrafts() {
                   fontFamily: 'ui-monospace, monospace', fontSize: 12, lineHeight: 1.5 }}
               />
             ) : (
-              <DraftPreview html={html} />
+              <>
+                <DraftPreview html={dirty ? html : (d.previewHtml || html)} />
+                <div style={{ fontSize: 12, color: MUTED, marginTop: 6 }}>
+                  {dirty
+                    ? 'Preview of your edits — Dylan\u2019s signature is added when it is sent.'
+                    : 'This is exactly what will be sent, signature included.'}
+                </div>
+              </>
             )}
 
             <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap' }}>

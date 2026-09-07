@@ -243,24 +243,35 @@ export default async function handler(req, res) {
   // while the sensor is enabled — with it off, this email is the only
   // delivery mechanism and always sends.
   let recentGalleryEmail = false;
-  if (gallerySensorEnabled() && !suppressedComplained) {
+  let samePhotosAlreadySent = false;
+  if (!suppressedComplained) {
     try {
       const db = getDb();
       const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
       const pattern = cleanEmail.replace(/([\\%_])/g, '\\$1');
+      // email_sends has sent_at, not created_at — the old filter threw and
+      // failed open, which is why nothing was ever deduplicated here.
       const { data: prior } = await db
         .from('email_sends')
-        .select('id')
+        .select('id, property_url')
         .eq('type', 'floor_plan')
         .ilike('to_email', pattern)
-        .gte('created_at', since)
-        .limit(1);
-      recentGalleryEmail = !!(prior && prior.length);
+        .gte('sent_at', since)
+        .limit(50);
+      const rows = prior || [];
+      // Same person, same home, second unlock within a day → the gallery opens
+      // but the photos email is not sent again (Robert White got "Your Fayence
+      // photos" twice in four minutes — David, 6 Sep 2026).
+      const norm = (u) => String(u || '').replace(/\/+$/, '').toLowerCase();
+      samePhotosAlreadySent = !!propertyUrl && rows.some((r) => norm(r.property_url) === norm(propertyUrl));
+      // Optional wider batching (one photos email a day, the follow-up carries
+      // the rest) stays behind its flag.
+      recentGalleryEmail = gallerySensorEnabled() && rows.length > 0;
     } catch (e) {
       console.error('[unlock-drive] email_sends recency check failed:', e.message); // fail open → send
     }
   }
-  const skipGalleryEmail = suppressedComplained || recentGalleryEmail;
+  const skipGalleryEmail = suppressedComplained || recentGalleryEmail || samePhotosAlreadySent;
 
   // ── CRM ────────────────────────────────────────────────────────────────────
   let contact   = null;
@@ -314,8 +325,11 @@ export default async function handler(req, res) {
       // list has already been honoured further up this handler. Best-effort:
       // a watch must never break an unlock.
       try {
+        // `db` was declared inside an earlier try block, so this line threw a
+        // ReferenceError on every unlock and the error was swallowed — 45
+        // unlocks, zero watches (David, 6 Sep 2026).
         if (propertySlug) {
-          await db.from('property_watches').upsert({
+          await getDb().from('property_watches').upsert({
             email:       cleanEmail,
             slug:        propertySlug,
             kind:        'watch',

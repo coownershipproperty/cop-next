@@ -195,7 +195,18 @@ export default async function handler(req, res) {
 
     const alreadySentForThisProperty = (prev || []).some(r => r.template_props?.propertySlug === resolvedSlug);
 
-    if (!alreadySentForThisProperty) {
+    // One auto-reply per hour across both forms (see /api/enquiry).
+    let recentAutoReply = false;
+    try {
+      const hourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+      const [{ data: a }, { data: b }] = await Promise.all([
+        db.from('email_sends').select('id').eq('type', 'enquiry_auto').ilike('to_email', email).gte('sent_at', hourAgo).limit(1),
+        db.from('email_queue').select('id').eq('trigger', 'gallery_autoreply').eq('status', 'sent').ilike('to_email', email).gte('sent_at', hourAgo).limit(1),
+      ]);
+      recentAutoReply = !!((a && a.length) || (b && b.length));
+    } catch (e) { console.error('[Mail] auto-reply recency check failed:', e.message); }
+
+    if (!alreadySentForThisProperty && !recentAutoReply) {
       const title    = propertyTitle || propertySlug;
       const propLink = propertyUrl
         ? `<a href="${propertyUrl}" style="color:#1E3448;text-decoration:underline;">${title}</a>`

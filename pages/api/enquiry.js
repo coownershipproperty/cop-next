@@ -344,7 +344,28 @@ export default async function handler(req, res) {
 
   // ── Auto-reply to the lead — a short personal note from Dylan ──────────────
   // Sent immediately via Resend (same plain style as the gallery follow-up).
+  // One auto-reply per hour, whichever form it came from: someone who fills in
+  // the gallery form and then the enquiry form gets ONE note, not two
+  // (David, 6 Sep 2026).
+  let recentAutoReply = false;
   try {
+    const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    const db = getDb();
+    const [{ data: a }, { data: b }] = await Promise.all([
+      db.from('email_sends').select('id').eq('type', 'enquiry_auto').ilike('to_email', email).gte('sent_at', since).limit(1),
+      db.from('email_queue').select('id').eq('trigger', 'gallery_autoreply').eq('status', 'sent').ilike('to_email', email).gte('sent_at', since).limit(1),
+    ]);
+    recentAutoReply = !!((a && a.length) || (b && b.length));
+  } catch (e) {
+    console.error('[Mail] auto-reply recency check failed:', e.message); // fail open → send
+  }
+  if (recentAutoReply) {
+    try {
+      if (contact) await logActivity({ contactId: contact.id, leadId: lead?.id || null, type: 'email_skipped', description: 'Enquiry auto-reply skipped — another auto-reply went out within the last hour', metadata: { type: 'enquiry_auto' } });
+    } catch (e) { /* non-fatal */ }
+  }
+  try {
+    if (recentAutoReply) throw Object.assign(new Error('skipped — auto-reply already sent within the hour'), { skipped: true });
     const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
 
     await sendEnquiryReply({
@@ -371,7 +392,8 @@ export default async function handler(req, res) {
       });
     }
   } catch (e) {
-    console.error('[Mail] enquiry auto-reply failed:', e.message);
+    if (e.skipped) console.log('[Mail] enquiry auto-reply', e.message);
+    else console.error('[Mail] enquiry auto-reply failed:', e.message);
   }
 
   // ── Cancel any pending welcome / legacy nurture sequence ───────────────────
