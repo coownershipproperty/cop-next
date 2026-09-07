@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 
@@ -75,6 +75,96 @@ function followupSubject(subjects) {
   return `Questions about ${prop}?`
 }
 
+// The stored HTML, rendered in a sandboxed iframe so nothing in an email can
+// touch the admin page. Height follows the content.
+function MailBody({ html }) {
+  const ref = useRef(null)
+  const [h, setH] = useState(320)
+  const doc = html || '<p style="font:14px Arial;color:#888;padding:12px">No copy of this email was kept — it went out before 6 September 2026, when every send started being recorded.</p>'
+  return (
+    <iframe
+      ref={ref}
+      title="Email"
+      sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+      srcDoc={/<head[\s>]/i.test(doc) ? doc.replace(/<head([^>]*)>/i, '<head$1><base target="_blank">') : `<base target="_blank">${doc}`}
+      onLoad={() => {
+        try {
+          const d = ref.current?.contentDocument
+          const next = Math.max(160, Math.min(6000, (d?.documentElement?.scrollHeight || d?.body?.scrollHeight || 320) + 16))
+          setH(next)
+        } catch { /* srcDoc is same-origin; stay quiet regardless */ }
+      }}
+      style={{ width: '100%', height: h, border: 0, display: 'block', background: '#fff' }}
+    />
+  )
+}
+
+function EmailPanel({ row, detail, loading, onClose }) {
+  const meta = STATUS_META[row.status] || { label: row.status || '?', bg: '#f3f4f6', color: '#6b7280', border: '#d1d5db' }
+  const when = row.sent_at || row.created_at
+  const props = detail?.template_props || null
+  // What the email recommended / linked — so "did it send the right homes?"
+  // is answerable without reading the HTML.
+  const recommended = Array.isArray(props?.recommended) ? props.recommended
+    : Array.isArray(props?.properties) ? props.properties
+    : null
+  return (
+    <>
+      <div onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(20,37,47,0.28)', zIndex: 60 }} />
+      <aside
+        role="dialog"
+        aria-label="Email"
+        style={{
+          position: 'fixed', top: 0, right: 0, bottom: 0, width: 'min(760px, 96vw)', zIndex: 61,
+          background: '#F7F4EE', boxShadow: '-12px 0 40px rgba(0,0,0,0.18)', display: 'flex', flexDirection: 'column',
+          fontFamily: '"Nunito Sans", sans-serif',
+        }}
+      >
+        <div style={{ padding: '18px 22px 14px', borderBottom: '1px solid #e6e1d8', background: '#fff' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: 17, fontWeight: 700, color: '#2C4A5E', lineHeight: 1.3 }}>{row.subject || '(no subject)'}</div>
+              <div style={{ fontSize: 13, color: '#5A6B73', marginTop: 6 }}>
+                To <strong style={{ color: '#2C4A5E' }}>{row.to_name ? `${row.to_name} ` : ''}</strong>
+                <span style={{ color: '#8a949a' }}>{row.to_email}</span>
+              </div>
+              <div style={{ fontSize: 12, color: '#8a9aaa', marginTop: 4 }}>
+                {kindLabel(row.trigger || row.template_name || row.sequence_type || '')}
+                {' · '}{when ? new Date(when).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : ''}
+                {' · '}
+                <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, padding: '1px 8px', borderRadius: 20, background: meta.bg, color: meta.color, border: `1px solid ${meta.border}`, verticalAlign: 'middle' }}>{meta.label}</span>
+                {row.open_info?.opened && <span style={{ marginLeft: 8, color: '#1d4ed8', fontWeight: 700 }}>✓ Opened{row.open_info.open_count > 1 ? ` ×${row.open_info.open_count}` : ''}</span>}
+              </div>
+            </div>
+            <button onClick={onClose} aria-label="Close" style={{ border: 0, background: 'transparent', fontSize: 22, lineHeight: 1, color: '#5A6B73', cursor: 'pointer', padding: '2px 6px' }}>×</button>
+          </div>
+          {detail?.notes && (
+            <div style={{ marginTop: 10, fontSize: 12, color: '#5A6B73', background: '#F7F4EE', border: '1px solid #e6e1d8', borderRadius: 8, padding: '8px 10px', whiteSpace: 'pre-wrap' }}>
+              {detail.notes}
+            </div>
+          )}
+          {recommended && recommended.length > 0 && (
+            <div style={{ marginTop: 10, fontSize: 12, color: '#5A6B73' }}>
+              <strong style={{ color: '#2C4A5E' }}>Homes in this email:</strong>{' '}
+              {recommended.map((r, i) => (
+                <span key={i}>{i > 0 ? ' · ' : ''}{r.title || r.slug}{r.price ? ` (${Number(r.price).toLocaleString('en-GB')})` : ''}</span>
+              ))}
+            </div>
+          )}
+        </div>
+        <div style={{ flex: 1, overflow: 'auto', padding: 18 }}>
+          <div style={{ background: '#fff', borderRadius: 10, boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+            {loading
+              ? <p style={{ padding: 24, color: '#8a9aaa', fontSize: 13 }}>Loading the email…</p>
+              : <MailBody html={detail?.html || null} />}
+          </div>
+          {detail?.error && <p style={{ color: '#991b1b', fontSize: 12, marginTop: 10 }}>Could not load the stored copy: {detail.error}</p>}
+        </div>
+      </aside>
+    </>
+  )
+}
+
 export default function AdminEmails() {
   const [emails, setEmails] = useState([])
   const [pending, setPending] = useState([])
@@ -83,6 +173,34 @@ export default function AdminEmails() {
   const [error, setError] = useState(null)
   const [filter, setFilter] = useState('all')
   const [updatedAt, setUpdatedAt] = useState(null)
+  // Click a row → the exact email that went out, in a side panel.
+  const [openRow, setOpenRow] = useState(null)
+  const [openDetail, setOpenDetail] = useState(null)   // { html, notes, template_props, ... } | { missing: true }
+  const [openLoading, setOpenLoading] = useState(false)
+
+  async function openEmail(e) {
+    setOpenRow(e); setOpenDetail(null)
+    if (!e?.id) { setOpenDetail({ missing: true }); return }
+    setOpenLoading(true)
+    try {
+      const { data, error: err } = await supabase.from('email_queue')
+        .select('id,html,notes,template_props,status,sent_at,created_at,approved_at,send_after,trigger,to_email,to_name,subject')
+        .eq('id', e.id).maybeSingle()
+      if (err) throw err
+      setOpenDetail(data || { missing: true })
+    } catch (err) {
+      setOpenDetail({ missing: true, error: err.message })
+    } finally {
+      setOpenLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!openRow) return
+    const onKey = (ev) => { if (ev.key === 'Escape') setOpenRow(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [openRow])
 
   useEffect(() => { load() }, [])
 
@@ -107,7 +225,7 @@ export default function AdminEmails() {
 
       const [list, sends, sentTotal, sentWeek, sentDay, stoppedWeek, queued, failed, replyTotal, replyWeek, replyDay, unlocks, markers, activity] = await Promise.all([
         supabase.from('email_queue')
-          .select('to_email,to_name,subject,status,trigger,template_name,sequence_type,created_at,sent_at')
+          .select('id,to_email,to_name,subject,status,trigger,template_name,sequence_type,created_at,sent_at,contact_id')
           .order('created_at', { ascending: false })
           .limit(250),
         supabase.from('email_sends')
@@ -143,10 +261,16 @@ export default function AdminEmails() {
 
       if (list.error) throw list.error
 
-      // email_queue rows, minus the legacy enquiry-reply copies (shown via email_sends).
-      const queueRows = (list.data || []).filter(r => r.template_name !== 'enquiry-autoreply')
-      // email_sends enquiry replies, normalised into the email_queue row shape.
-      const replyRows = (sends && !sends.error ? (sends.data || []) : []).map(r => ({
+      // Every email_queue row — including the enquiry auto-reply copies kept
+      // since 6 Sep 2026 (they carry the exact HTML, so they are clickable).
+      const queueRows = (list.data || [])
+      // Legacy enquiry replies (email_sends only, no stored copy): shown only when
+      // no queue copy exists for the same address within three minutes.
+      const hasQueueCopy = (em, t) => queueRows.some(r => r.template_name === 'enquiry-autoreply'
+        && String(r.to_email || '').toLowerCase() === String(em || '').toLowerCase()
+        && Math.abs(new Date(r.created_at || 0) - new Date(t || 0)) < 3 * 60000)
+      const replyRows = (sends && !sends.error ? (sends.data || []) : []).filter(r => !hasQueueCopy(r.to_email, r.sent_at)).map(r => ({
+        id:            null,
         to_email:      r.to_email,
         to_name:       null,
         subject:       r.subject,
@@ -420,8 +544,16 @@ export default function AdminEmails() {
                 const meta = STATUS_META[e.status] || { label: e.status || '?', bg: '#f3f4f6', color: '#6b7280', border: '#d1d5db' }
                 const kind = e.trigger || e.template_name || e.sequence_type || ''
                 const name = (e.to_name || '').trim()
+                const isOpen = openRow && ((e.id && openRow.id === e.id) || (!e.id && openRow === e))
                 return (
-                  <tr key={i}>
+                  <tr
+                    key={e.id || i}
+                    onClick={() => openEmail(e)}
+                    title="Click to see exactly what was sent"
+                    style={{ cursor: 'pointer', background: isOpen ? '#f3f7fa' : undefined }}
+                    onMouseEnter={(ev) => { if (!isOpen) ev.currentTarget.style.background = '#fafbfc' }}
+                    onMouseLeave={(ev) => { if (!isOpen) ev.currentTarget.style.background = '' }}
+                  >
                     <td style={{ ...tdStyle, color: '#8a9aaa', whiteSpace: 'nowrap' }} title={e.created_at || ''}>
                       {relTime(e.created_at)}
                     </td>
@@ -469,6 +601,15 @@ export default function AdminEmails() {
           </table>
         </div>
       </div>
+
+      {openRow && (
+        <EmailPanel
+          row={openRow}
+          detail={openDetail}
+          loading={openLoading}
+          onClose={() => setOpenRow(null)}
+        />
+      )}
 
       {/* Legend */}
       <div style={{ marginTop: 16, fontSize: 12, color: '#8a9aaa', lineHeight: 1.7 }}>
