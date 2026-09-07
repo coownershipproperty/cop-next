@@ -26,6 +26,9 @@ const STATUS_META = {
   sent:       { label: 'Sent',     group: 'sent',    bg: '#ecfdf5', color: '#065f46', border: '#a7f3d0' },
   approved:   { label: 'Approved', group: 'sent',    bg: '#ecfdf5', color: '#065f46', border: '#a7f3d0' },
   pending:    { label: 'Queued',   group: 'sent',    bg: '#fffbeb', color: '#92400e', border: '#fcd34d' },
+  // Claimed by the sender, handed to Resend; the 'sent' write is what turns it green.
+  // One stuck here for more than a few minutes means that write failed — it was still sent once.
+  sending:    { label: 'Sending',  group: 'sent',    bg: '#fffbeb', color: '#92400e', border: '#fcd34d' },
   cancelled:  { label: 'Stopped',  group: 'stopped', bg: '#f3f4f6', color: '#6b7280', border: '#d1d5db' },
   rejected:   { label: 'Not sent', group: 'stopped', bg: '#f3f4f6', color: '#6b7280', border: '#d1d5db' },
   expired:    { label: 'Expired',  group: 'stopped', bg: '#f3f4f6', color: '#6b7280', border: '#d1d5db' },

@@ -86,7 +86,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, sent: 0 });
   }
 
-  let sent = 0, failed = 0, cancelled = 0, rescheduled = 0;
+  let sent = 0, failed = 0, cancelled = 0, rescheduled = 0, skipped = 0, stuck = 0;
   for (const row of due) {
     const isSequenceRow = MANAGED_SEQUENCE_TYPES.includes(row.sequence_type);
 
@@ -117,6 +117,25 @@ export default async function handler(req, res) {
       continue;
     }
 
+    // ── Claim before send (7 Sep 2026) ────────────────────────────────────
+    // Flip pending → sending atomically. If another run (overlapping cron
+    // and a manual call, or two crons) already claimed it, the update
+    // matches nothing and we skip. The old order — send first, write
+    // 'sent' after — meant a failed or raced status write left the row
+    // 'pending' and it went out again on the next run (Mary, 7 Sep).
+    const { data: claimed, error: cErr } = await db.from('email_queue')
+      .update({ status: 'sending' })
+      .eq('id', row.id).eq('status', 'pending')
+      .select('id');
+    if (cErr) {
+      console.error(`[process-email-queue] claim failed for ${row.id}:`, cErr.message);
+      continue;                       // stays pending, next run retries the claim
+    }
+    if (!claimed || claimed.length === 0) {
+      skipped++;                      // someone else has it
+      continue;
+    }
+
     try {
       const from    = row.template_props?.from    || FROM_ADDRESS;
       const replyTo = row.template_props?.replyTo || REPLY_TO;
@@ -131,11 +150,16 @@ export default async function handler(req, res) {
         headers: listUnsubHeaders(row.to_email), // RFC 8058 one-click — see lib/unsub.js
       });
 
-      const { error: uErr } = await db.from('email_queue').update({
+      // Resend has it. Write 'sent'; if that write fails the row stays at
+      // 'sending' — visible on /admin/emails, never re-picked, never resent.
+      const { data: done, error: uErr } = await db.from('email_queue').update({
         status:  'sent',
         sent_at: new Date().toISOString(),
-      }).eq('id', row.id);
-      if (uErr) console.error(`[process-email-queue] sent-status update failed for ${row.id}:`, uErr.message);
+      }).eq('id', row.id).select('id');
+      if (uErr || !done || done.length === 0) {
+        console.error(`[process-email-queue] sent-status update failed for ${row.id}:`, uErr?.message || 'no row matched');
+        stuck++;
+      }
 
       // Log sequence sends to email_sends with the step id from the contract.
       if (isSequenceRow) {
@@ -162,5 +186,5 @@ export default async function handler(req, res) {
     }
   }
 
-  return res.status(200).json({ ok: true, sent, failed, cancelled, rescheduled });
+  return res.status(200).json({ ok: true, sent, failed, cancelled, rescheduled, skipped, stuck });
 }
