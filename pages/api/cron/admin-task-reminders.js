@@ -1,5 +1,6 @@
 import { formatMadridDateTime } from '@/lib/adminTasks'
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin'
+import { isCronRequest } from '@/lib/cronAuth'
 
 const ADMIN_EMAIL = process.env.ADMIN_TASK_REMINDER_EMAIL || 'info@co-ownership-property.com'
 
@@ -9,12 +10,12 @@ function escapeHtml(value) {
   })[character])
 }
 
+export const maxDuration = 60;
+
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed.' })
-  const secret = process.env.CRON_SECRET
-  const auth = req.headers.authorization || ''
-  const authorised = req.headers['x-vercel-cron'] === '1' || (secret && auth === `Bearer ${secret}`)
-  if (!authorised) return res.status(401).json({ error: 'Unauthorised' })
+  // Vercel sends x-vercel-cron-schedule, not x-vercel-cron — see lib/cronAuth.js.
+  if (!isCronRequest(req)) return res.status(401).json({ error: 'Unauthorised' })
 
   const db = createSupabaseAdminClient()
   // Keep Resend lazy so an unauthorised request is rejected before email

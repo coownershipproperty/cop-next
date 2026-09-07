@@ -48,6 +48,7 @@ import { resolveAudience, excludeAlreadyEnquired, fetchAllRows } from '@/lib/new
 import { reorderForRecipient } from '@/lib/newsletter/personalize';
 import { renderRecipient } from '@/lib/newsletter/render';
 import { sendHtmlBatch } from '@/lib/resend';
+import { listUnsubHeaders } from '@/lib/unsub';
 
 /** Platform ceiling for this function. Declared explicitly so a change to the
  *  Vercel default cannot silently shorten the window. The time budget below is
@@ -152,7 +153,9 @@ export default async function handler(req, res) {
       .from('newsletter_sends')
       .select('id, contact_id, status')
       .eq('campaign_id', campaignId)
-      .in('status', ['sent', 'cancelled']));
+      // 'sending' = claimed by a run still in flight (another click, or the
+      // 5-minute drain) — leave those alone too.
+      .in('status', ['sent', 'cancelled', 'sending']));
     for (const r of priorRows) if (r.contact_id) alreadyDone.add(r.contact_id);
   } catch (priorErr) {
     console.error('[newsletter-send] could not read prior sends:', priorErr.message);
@@ -192,6 +195,7 @@ export default async function handler(req, res) {
 
   let sent = 0, failed = 0, remaining = 0;
   let timedOut = false;
+  let batchFailed = false;
 
   for (let i = 0; i < todo.length; i += BATCH_SIZE) {
     // Out of budget: stop cleanly and leave the rest for the next invocation.
@@ -271,8 +275,23 @@ export default async function handler(req, res) {
       failed += badIds.length;
     }
 
-    // The sendable remainder → one Resend batch call.
-    const sendable = prepared.filter(p => !p.error && p.html);
+    // The sendable remainder → one Resend batch call, but only the rows THIS
+    // run manages to claim (pending → sending). A second click or an
+    // overlapping drain tick claims nothing for these rows and skips them,
+    // so nobody receives the newsletter twice (7 Sep 2026 audit).
+    const candidates = prepared.filter(p => !p.error && p.html);
+    if (!candidates.length) continue;
+    const candidateIds = candidates.map(p => rowIdByContact.get(p.contact.id)).filter(Boolean);
+    const { data: claimedRows, error: claimErr } = await db.from('newsletter_sends')
+      .update({ status: 'sending' })
+      .in('id', candidateIds).eq('status', 'pending')
+      .select('id, contact_id');
+    if (claimErr) {
+      console.error('[newsletter-send] claim failed:', claimErr.message);
+      timedOut = true; remaining = todo.length - i; break;
+    }
+    const claimedContacts = new Set((claimedRows || []).map(r => r.contact_id));
+    const sendable = candidates.filter(p => claimedContacts.has(p.contact.id));
     if (!sendable.length) continue;
 
     const messages = sendable.map(p => ({
@@ -281,6 +300,7 @@ export default async function handler(req, res) {
       html:    p.html,
       from:    'Dylan at Co-Ownership Property <dylan@co-ownership-property.com>',
       replyTo: 'dylan@co-ownership-property.com',
+      headers: listUnsubHeaders(p.contact.email), // RFC 8058 one-click, required for bulk mail
     }));
 
     try {
@@ -295,10 +315,17 @@ export default async function handler(req, res) {
       }
       sent += sendable.length;
     } catch (err) {
-      // Whole batch rejected — leave the rows 'pending' so the next run retries
-      // them. Nobody in this batch is marked 'sent'.
+      // Whole batch rejected — release the claim (back to 'pending') so the
+      // next run retries them, and keep the campaign in 'sending' so it CAN be
+      // retried: it used to be flipped to 'sent' anyway, orphaning these rows.
       console.error('[newsletter-send] batch send failed:', err.message);
+      const releaseIds = sendable.map(p => rowIdByContact.get(p.contact.id)).filter(Boolean);
+      if (releaseIds.length) {
+        await db.from('newsletter_sends').update({ status: 'pending', error: String(err.message).slice(0, 500) })
+          .in('id', releaseIds).eq('status', 'sending');
+      }
       failed += sendable.length;
+      batchFailed = true;
     }
   }
 
@@ -309,7 +336,7 @@ export default async function handler(req, res) {
     .eq('campaign_id', campaignId)
     .eq('status', 'sent');
 
-  const done = !timedOut;
+  const done = !timedOut && !batchFailed;
   const { error: finalErr } = await db.from('newsletter_campaigns')
     .update({
       status:     done ? 'sent' : 'sending',
@@ -338,6 +365,8 @@ export default async function handler(req, res) {
     resumed: isResume,
     message: done
       ? null
-      : `Stopped at the time limit with ${remaining} recipients left. Press Send again to resume — nobody will be mailed twice.`,
+      : batchFailed
+        ? `Resend rejected a batch (${failed} recipients kept as pending). The campaign stays in "sending" — the 5-minute sender retries them, or press Send again.`
+        : `Stopped at the time limit with ${remaining} recipients left. The 5-minute sender finishes the rest — nobody will be mailed twice.`,
   });
 }

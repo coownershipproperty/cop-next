@@ -130,9 +130,22 @@ export default async function handler(req, res) {
       if (referral.status === 'sent_to_partner') {
         return res.status(400).json({ error: 'Already sent to the partner.' });
       }
+      if (referral.status === 'rejected') {
+        return res.status(400).json({ error: 'A rejected referral must be reopened before it can be sent.' });
+      }
       const directory = partnerDirectory();
       const route = directory[referral.partner];
       if (!route?.email) return res.status(400).json({ error: `No routing configured for partner ${referral.partner}` });
+
+      // Claim atomically: two overlapping "Send" clicks used to both pass the
+      // status check above and both email the partner (7 Sep 2026 audit).
+      // Only the request that flips status → 'sending' proceeds.
+      const { data: claimed, error: claimErr } = await db.from('partner_referrals')
+        .update({ status: 'sending', updated_at: now })
+        .eq('id', id).eq('status', referral.status)
+        .select('id');
+      if (claimErr) return res.status(500).json({ error: claimErr.message });
+      if (!claimed || !claimed.length) return res.status(409).json({ error: 'This referral is already being sent.' });
 
       const p = referral.payload || {};
       const c = referral.contacts || {};
@@ -142,6 +155,7 @@ export default async function handler(req, res) {
       const interest = p.collection || p.property || 'Collection enquiry';
       const routingLabel = route.testRouting ? 'TEST ROUTING' : 'LIVE PARTNER ROUTING';
 
+      try {
       await sendHtml({
         to: route.email,
         cc: route.email === ADMIN_EMAIL ? undefined : ADMIN_EMAIL,
@@ -162,6 +176,11 @@ export default async function handler(req, res) {
           </div>
         `,
       });
+      } catch (sendErr) {
+        // Release the claim so the referral can be sent again.
+        await db.from('partner_referrals').update({ status: referral.status, updated_at: now }).eq('id', id).eq('status', 'sending');
+        throw sendErr;
+      }
 
       const updated = await updateReferral(
         { status: 'sent_to_partner', sent_at: now, sent_by: adminEmail },

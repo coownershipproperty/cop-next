@@ -238,21 +238,28 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
   }
 
   async function handleSendNow() {
-    if (!campaignId) {
+    if (sending) return
+    // Disable the button BEFORE the save round-trip — a second click during
+    // it used to start a second send (7 Sep 2026 audit).
+    setSending(true)
+    let id = campaignId
+    try {
       const saved = await saveCampaign({ status: 'draft' })
       if (!saved) return
-    } else {
-      await saveCampaign({ status: 'draft' })
-    }
-    setSending(true)
-    try {
+      // The freshly saved row's id, not the still-stale React state (which was
+      // null on a never-saved campaign and made the first "Send now" fail).
+      id = saved.id || campaignId
+      if (!id) { setToast({ kind: 'error', text: 'Could not save the campaign before sending' }); return }
       const r = await authedFetch('/api/admin/ui/newsletter-send/', {
         method: 'POST',
-        body: JSON.stringify({ campaignId: campaignId || (await getJustSavedId()), confirm: true, excludeEnquired }),
+        body: JSON.stringify({ campaignId: id, confirm: true, excludeEnquired }),
       })
       const j = await r.json()
       if (j.error) {
         setToast({ kind: 'error', text: j.error })
+      } else if (j.done === false) {
+        setToast({ kind: 'ok', text: j.message || `Sent ${j.sent} so far — the 5-minute sender is finishing the rest (${j.remaining ?? '?'} to go).`, duration: 8000 })
+        setStatus('sending')
       } else {
         setToast({ kind: 'ok', text: `Sent to ${j.sent} of ${j.total}. Failed: ${j.failed}.`, duration: 6000 })
         setStatus('sent')
@@ -263,10 +270,6 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
       setSending(false)
       setSendConfirmModal(false)
     }
-  }
-
-  async function getJustSavedId() {
-    return campaignId
   }
 
   // ── Property picker actions ─────────────────────────────────────────────────

@@ -189,8 +189,10 @@ export default function SentMail() {
       ])
       if (queue.error) throw queue.error
 
+      // Every queue row stays — including the enquiry auto-reply copies
+      // recorded since 6 Sep 2026 (a filter here used to drop them, so the
+      // page showed "no copy kept" for the very emails it was built to show).
       const queueRows = (queue.data || [])
-        .filter((r) => r.template_name !== 'enquiry-autoreply')   // legacy copies, shown via email_sends
         .map((r) => ({ ...r, id: `q_${r.id}`, when: r.sent_at || r.created_at, kind: r.trigger }))
 
       // Legacy auto-replies: only those without a stored copy in email_queue

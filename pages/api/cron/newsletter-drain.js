@@ -38,6 +38,7 @@ import { renderRecipient } from '@/lib/newsletter/render';
 import { sendHtml } from '@/lib/resend';
 import { listUnsubHeaders } from '@/lib/unsub';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
+import { isCronRequest } from '@/lib/cronAuth';
 
 /** Platform ceiling. The time budget below is what actually protects the run. */
 export const maxDuration = 300;
@@ -66,17 +67,21 @@ export default async function handler(req, res) {
   // Auth: Vercel injects `Authorization: Bearer <CRON_SECRET>` on scheduled
   // runs (same convention as /api/process-email-queue). Also accept the
   // x-vercel-cron marker as a fallback, mirroring /api/email-engine.
-  const secret = process.env.CRON_SECRET;
-  const auth = req.headers['authorization'] || '';
-  const isCronHeader = req.headers['x-vercel-cron'] === '1';
-  const isAuthed = (secret && auth === `Bearer ${secret}`) || isCronHeader;
-  if (!isAuthed) return res.status(401).json({ error: 'Unauthorised' });
+  if (!isCronRequest(req)) return res.status(401).json({ error: 'Unauthorised' }); // see lib/cronAuth.js
 
   const startedAt = Date.now();
   const db = getDb();
 
   // Find the oldest campaign still sending. One per tick keeps us inside the
   // time budget; a second stuck campaign is picked up on the next run.
+  // A "Schedule"d campaign whose time has come is promoted to 'sending' here —
+  // nothing else ever sent scheduled campaigns (7 Sep 2026 audit). Times are
+  // compared in UTC; the editor stores the picker value as-is.
+  await db.from('newsletter_campaigns')
+    .update({ status: 'sending', updated_at: new Date().toISOString() })
+    .eq('status', 'scheduled')
+    .lte('scheduled_for', new Date().toISOString());
+
   const { data: campaigns, error: findErr } = await db
     .from('newsletter_campaigns')
     .select('*')
@@ -128,7 +133,8 @@ export default async function handler(req, res) {
       .from('newsletter_sends')
       .select('id, contact_id, status')
       .eq('campaign_id', campaignId)
-      .in('status', ['sent', 'cancelled']));
+      // 'sending' rows belong to a run still in flight (a manual send) — skip.
+      .in('status', ['sent', 'cancelled', 'sending']));
     for (const r of priorRows) if (r.contact_id) alreadyDone.add(r.contact_id);
   } catch (priorErr) {
     // Fail closed: without this list a drain would re-mail everyone already sent.
@@ -183,6 +189,14 @@ export default async function handler(req, res) {
       }, { onConflict: 'campaign_id,contact_id' }).select().single();
       if (rowErr) throw new Error('send-row upsert failed: ' + rowErr.message);
       sendRowId = sendRow?.id || null;
+
+      // Claim the row (pending → sending) before Resend; if another run got
+      // there first the update matches nothing and we leave it to them.
+      if (sendRowId) {
+        const { data: claimed } = await db.from('newsletter_sends')
+          .update({ status: 'sending' }).eq('id', sendRowId).eq('status', 'pending').select('id');
+        if (!claimed || !claimed.length) { skipped++; continue; }
+      }
 
       if (!looksSendable(contact.email)) {
         throw new Error(`Unsendable address "${contact.email}" — not attempted`);

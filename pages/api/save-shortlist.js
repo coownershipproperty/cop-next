@@ -12,7 +12,7 @@ import crypto from 'crypto';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { upsertContact, incrementScore, logActivity } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
-import resend, { FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
+import { sendHtml, FROM_ADDRESS, REPLY_TO } from '@/lib/resend';
 import { unsubUrl } from '@/lib/unsub';
 import { SUPPORTED_LOCALES, routePath } from '@/lib/i18n';
 
@@ -115,11 +115,14 @@ export default async function handler(req, res) {
   const c = COPY[locale] || COPY.en;
   const link = `${SITE}${FAV_PATH[locale] || FAV_PATH.en}?sl=${token}`;
   try {
-    await resend.emails.send({
+    // Through sendHtml so a rejected send is not silent and the email is
+    // recorded in the CRM like every other lead-facing send (7 Sep 2026).
+    await sendHtml({
       from: FROM_ADDRESS,
-      reply_to: REPLY_TO,
+      replyTo: REPLY_TO,
       to: cleanEmail,
       subject: c.subject(cleanSlugs.length),
+      log: { trigger: 'shortlist_saved', type: 'shortlist_link', templateProps: { slugs: cleanSlugs, locale }, notes: 'Saved shortlist link' },
       html: `
       <div style="background:#F7F4EE;padding:40px 16px;font-family:Georgia,'Times New Roman',serif;color:#1E3448">
         <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #E8E3DC">

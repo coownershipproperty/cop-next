@@ -13,6 +13,7 @@
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { upsertContact, createLead, incrementScore, logActivity, enrichContactIntelligence } from '@/lib/crm';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { isHoneypotFilled } from '@/lib/honeypot';
 import { sendHtml, sendTeamNotification } from '@/lib/resend';
 import { expandRegions } from '@/lib/regionMap';
 
@@ -132,9 +133,23 @@ async function getMatchingProperties(regions, maxPrice, minBeds, { email, limit 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { email, name, phone, regions, maxPrice, minBeds } = req.body;
-  if (!email) return res.status(400).json({ error: 'Missing email' });
-  if (!regions || regions.length === 0) return res.status(400).json({ error: 'Select at least one region' });
+  const body = req.body || {};
+  // Honeypot — silent success, like the other lead forms.
+  if (isHoneypotFilled(body)) return res.status(200).json({ ok: true });
+
+  // Validate everything that reaches the database or Dylan's email. The form
+  // is public: regions/name/minBeds went straight into HTML (7 Sep 2026 audit).
+  const email = String(body.email || '').trim().toLowerCase();
+  if (!/^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']{2,}$/.test(email)) return res.status(400).json({ error: 'Missing email' });
+  const name  = String(body.name  || '').replace(/[<>]/g, '').trim().slice(0, 80) || null;
+  const phone = String(body.phone || '').replace(/[^0-9+()\s.-]/g, '').trim().slice(0, 30) || null;
+  const regions = (Array.isArray(body.regions) ? body.regions : [])
+    .map((r) => String(r || '').replace(/[<>&"']/g, '').trim().slice(0, 60))
+    .filter(Boolean)
+    .slice(0, 10);
+  if (regions.length === 0) return res.status(400).json({ error: 'Select at least one region' });
+  const maxPrice = Number.isFinite(parseInt(body.maxPrice, 10)) && parseInt(body.maxPrice, 10) > 0 ? parseInt(body.maxPrice, 10) : null;
+  const minBeds  = Number.isFinite(parseInt(body.minBeds, 10))  && parseInt(body.minBeds, 10)  > 0 ? Math.min(parseInt(body.minBeds, 10), 20) : null;
 
   const { limited } = await checkRateLimit(email, 'save-search', 10 * 60 * 1000, 5);
   if (limited) return res.status(429).json({ error: 'Too many requests' });

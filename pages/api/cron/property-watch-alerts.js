@@ -28,6 +28,7 @@ import { unsubUrl, listUnsubHeaders } from '@/lib/unsub';
 import { filterSuppressed } from '@/lib/suppressions';
 import { localeColumns } from '@/lib/i18n';
 import { buildWatchEmail, fmt, shell, propCard } from '@/lib/watchAlertEmail';
+import { isCronRequest } from '@/lib/cronAuth';
 
 export const maxDuration = 120;
 
@@ -101,11 +102,9 @@ export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-  const secret = process.env.CRON_SECRET;
-  const auth = req.headers['authorization'] || '';
-  const isCron =
-    (secret && auth === `Bearer ${secret}`) || req.headers['x-vercel-cron'] === '1';
-  if (!isCron) return res.status(401).json({ error: 'Unauthorised' });
+  // Vercel sends x-vercel-cron-schedule (and a Bearer only when CRON_SECRET
+  // is set) — see lib/cronAuth.js. The old check never matched a real run.
+  if (!isCronRequest(req)) return res.status(401).json({ error: 'Unauthorised' });
 
   const db = createSupabaseAdminClient();
 

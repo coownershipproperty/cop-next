@@ -21,6 +21,7 @@ import { filterSuppressed } from '@/lib/suppressions';
 import { expandRegions } from '@/lib/regionMap';
 import PropertyAlert from '@/emails/property-alert';
 import * as React from 'react';
+import { isCronRequest, isSecretAuthed } from '@/lib/cronAuth';
 
 function getDb() {
   return createSupabaseAdminClient();
@@ -38,12 +39,12 @@ function regionMatches(p, regions) {
   return terms.some((t) => hay.some((h) => h && h.includes(t)));
 }
 
+export const maxDuration = 60;
+
 export default async function handler(req, res) {
-  const isCron   = req.method === 'GET' || req.headers['x-vercel-cron'] === '1';
-  const auth     = req.headers['authorization'] || '';
-  const isAuthed = (process.env.CRON_SECRET && auth === `Bearer ${process.env.CRON_SECRET}`)
-                || (process.env.CRM_SECRET  && auth === `Bearer ${process.env.CRM_SECRET}`);
-  if (!isCron && !isAuthed) {
+  // Vercel's schedule header or a Bearer secret (lib/cronAuth.js) — a bare
+  // GET used to re-send every alert of the last 25 hours to every subscriber.
+  if (!isCronRequest(req)) {
     return res.status(401).json({ error: 'Unauthorised' });
   }
 
@@ -53,7 +54,7 @@ export default async function handler(req, res) {
   const since = new Date(Date.now() - 25 * 60 * 60 * 1000).toISOString();
   const { data: newProps } = await db
     .from('properties')
-    .select('slug, title, img, price, currency, beds, size, country, region, city, status')
+    .select('slug, title, img, price, currency, beds, size, country, region, city, status, date_added')
     .gte('date_added', since)
     // 'available'/'new' never existed in the DB (statuses are Live/for_sale/
     // sold/hidden) — alerts silently matched nothing until this was fixed.
@@ -87,8 +88,13 @@ export default async function handler(req, res) {
 
   for (const search of searches) {
     if (!allowed.has(norm(search.email))) continue;
-    // Match new properties against this search's criteria
+    // Match new properties against this search's criteria. A home already
+    // covered by this search's last alert never goes again — the 25h window
+    // overlaps the 24h schedule by an hour, and any extra invocation (a
+    // duplicate cron delivery, a manual run) used to re-send every alert.
+    const lastNotified = search.last_notified_at ? new Date(search.last_notified_at).getTime() : 0;
     const matches = newProps.filter(p => {
+      if (lastNotified && p.date_added && new Date(p.date_added).getTime() <= lastNotified) return false;
       const regionMatch = regionMatches(p, search.regions);
       const priceMatch  = !search.max_price || !p.price || p.price <= search.max_price;
       const bedsMatch   = !search.min_beds  || !p.beds  || p.beds  >= search.min_beds;

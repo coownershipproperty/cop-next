@@ -45,6 +45,7 @@ import { createEmailSend, trackingPixel } from '@/lib/crm';
 import { buildEmail as buildStudioEmail } from '@/lib/email/templateStore';
 import { isEnvTrue } from '@/lib/email/engine';
 import { isSuppressed } from '@/lib/suppressions';
+import { isCronRequest, isSecretAuthed } from '@/lib/cronAuth';
 
 // ── Tunables ────────────────────────────────────────────────────────────────
 const BURST_GAP_MIN = 45;   // unlocks >45 min apart are SEPARATE visits, not one
@@ -301,7 +302,7 @@ function buildFallbackEmail({ firstName, properties, locale }) {
  * status 'rejected' → suppressed (enquiry) or expired (too old) — never sent
  */
 async function insertMarker(db, { contact, status, subject, html, notes, properties }) {
-  await db.from('email_queue').insert({
+  const { data, error } = await db.from('email_queue').insert({
     to_email:       contact.email,
     to_name:        contact.first_name || null,
     subject:        subject || 'Gallery follow-up',
@@ -312,14 +313,27 @@ async function insertMarker(db, { contact, status, subject, html, notes, propert
     sent_at:        status === 'sent' ? new Date().toISOString() : null,
     contact_id:     contact.id,
     notes:          notes || null,
-  });
+  }).select('id').single();
+  if (error) {
+    // A failed CLAIM must stop the send (throw); a failed bookkeeping marker
+    // for a skipped contact is logged and the run carries on.
+    if (status === 'sending') throw new Error(`marker insert failed: ${error.message}`);
+    console.error(`[gallery-followup] marker insert failed (${status}) for ${contact.email}:`, error.message);
+    return null;
+  }
+  return data;
 }
+
+export const maxDuration = 60;
 
 export default async function handler(req, res) {
   // Auth — Vercel cron (GET / x-vercel-cron) or an internal call with CRM_SECRET.
-  const isVercelCron = req.headers['x-vercel-cron'] === '1' || req.method === 'GET';
-  const isAuthed     = req.headers['authorization'] === `Bearer ${process.env.CRM_SECRET}`;
-  if (!isVercelCron && !isAuthed) return res.status(401).json({ error: 'Unauthorised' });
+  // A bare GET used to count as the scheduler, which let anyone (a) read
+  // every contact's email in the dry-run output and (b) run the sender
+  // concurrently with the cron. Now: Vercel's schedule header or a Bearer
+  // secret (lib/cronAuth.js). Contact emails only go back to secret callers.
+  if (!isCronRequest(req)) return res.status(401).json({ error: 'Unauthorised' });
+  const showEmails = isSecretAuthed(req);
 
   // ── SUPERSEDED BY THE EMAIL ENGINE ────────────────────────────────────────
   // Once the unified engine is live it owns the gallery_followup journey, so
@@ -586,13 +600,25 @@ export default async function handler(req, res) {
         console.error('[gallery-followup] tracking registration failed:', e.message);
       }
 
-      await sendHtml({
-        to: contact.email, subject, from: DYLAN_FROM, replyTo: DYLAN_REPLY,
-        html:    trackedHtml,
-        text:    text ? resolveUnsubPlaceholder(text, contact.email) : undefined,
-        headers: listUnsubHeaders(contact.email),
-      });
-      await insertMarker(db, { contact, status: 'sent', subject, html, properties });
+      // Claim BEFORE sending: the marker goes in as 'sending' (which already
+      // counts for the cooldown query above), so a killed run, a failed write
+      // or two overlapping runs can never mail the same person twice. It used
+      // to be written after the send with its error ignored (7 Sep 2026).
+      const marker = await insertMarker(db, { contact, status: 'sending', subject, html, properties });
+      try {
+        await sendHtml({
+          to: contact.email, subject, from: DYLAN_FROM, replyTo: DYLAN_REPLY,
+          html:    trackedHtml,
+          text:    text ? resolveUnsubPlaceholder(text, contact.email) : undefined,
+          headers: listUnsubHeaders(contact.email),
+        });
+      } catch (sendErr) {
+        await db.from('email_queue').update({ status: 'error', notes: `send failed: ${sendErr.message}` }).eq('id', marker.id);
+        throw sendErr;
+      }
+      const { error: sentErr } = await db.from('email_queue')
+        .update({ status: 'sent', sent_at: new Date().toISOString() }).eq('id', marker.id);
+      if (sentErr) console.error(`[gallery-followup] sent-status write failed for ${marker.id}:`, sentErr.message);
       await db.from('activities').insert({
         contact_id:  contactId,
         type:        'gallery_followup_sent',
@@ -612,11 +638,12 @@ export default async function handler(req, res) {
     ok: true,
     dryRun,
     testMode,
-    testEmails: testMode ? testEmails : undefined,
+    testEmails: testMode && showEmails ? testEmails : undefined,
     contactsScanned: byContact.size,
     sent, suppressed, expired, optedOut,
     notDue, skippedCooldown, skippedTestMode: skippedTest, skippedNoProperty: skippedNoProp,
     errors,
-    results,
+    // Per-contact detail (addresses) only for a Bearer-secret caller.
+    results: showEmails ? results : results.map(({ email, ...r }) => r),
   });
 }

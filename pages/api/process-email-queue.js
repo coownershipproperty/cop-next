@@ -46,6 +46,10 @@ async function markStatus(db, id, status, fields = {}) {
   return false;
 }
 
+// Sequential sender: up to 20 rows × (preflight + claim + Resend + write).
+// Without this the platform default could cut a run short mid-loop.
+export const maxDuration = 60;
+
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -71,7 +75,7 @@ export default async function handler(req, res) {
   // Fetch pending emails that are due
   const { data: due, error } = await db
     .from('email_queue')
-    .select('id, created_at, to_email, subject, html, template_props, contact_id, lead_id, sequence_type')
+    .select('id, created_at, to_email, subject, html, template_props, contact_id, lead_id, sequence_type, trigger')
     .eq('status', 'pending')
     .not('send_after', 'is', null)
     .lte('send_after', now)
@@ -82,8 +86,15 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: error.message });
   }
 
+  // Rows a previous run claimed but never finished (function killed between
+  // Resend and the 'sent' write). Reported, never re-sent.
+  const { count: stuckOld } = await db.from('email_queue')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'sending')
+    .lt('created_at', new Date(Date.now() - 15 * 60 * 1000).toISOString());
+
   if (!due || due.length === 0) {
-    return res.status(200).json({ ok: true, sent: 0 });
+    return res.status(200).json({ ok: true, sent: 0, stuckOld: stuckOld || 0 });
   }
 
   let sent = 0, failed = 0, cancelled = 0, rescheduled = 0, skipped = 0, stuck = 0;
@@ -186,5 +197,5 @@ export default async function handler(req, res) {
     }
   }
 
-  return res.status(200).json({ ok: true, sent, failed, cancelled, rescheduled, skipped, stuck });
+  return res.status(200).json({ ok: true, sent, failed, cancelled, rescheduled, skipped, stuck, stuckOld: stuckOld || 0 });
 }

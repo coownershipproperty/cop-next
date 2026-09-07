@@ -8,6 +8,7 @@ import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import { createPartnerReferral, is215Partner } from '@/lib/partnerReferrals';
 import { buildEmail as buildStudioEmail } from '@/lib/email/templateStore';
+import { escapeHtml } from '@/lib/galleryFollowup';
 
 const DYLAN_FROM  = 'Dylan Olsson <dylan@co-ownership-property.com>';
 const DYLAN_REPLY = 'dylan@co-ownership-property.com';
@@ -62,10 +63,11 @@ function emailShell(body, locale) {
 // the same email from the bundled i18n strings if the database is unreachable —
 // keep it in step with template v1, but change wording in the studio, not here.
 function firstReplyHtml({ firstName, propertyTitle, propertyUrl, locale }) {
-  const greeting = firstName ? tr('greeting_name', locale, { firstName }) : tr('greeting_no_name', locale);
-  const propLink = propertyUrl
-    ? `<a href="${propertyUrl}" style="color:#1E3448;text-decoration:underline;">${propertyTitle}</a>`
-    : `<strong>${propertyTitle}</strong>`;
+  const greeting = firstName ? tr('greeting_name', locale, { firstName: escapeHtml(firstName) }) : tr('greeting_no_name', locale);
+  const safeHref = /^https:\/\/co-ownership-property\.com\//.test(String(propertyUrl || '')) ? propertyUrl : null;
+  const propLink = safeHref
+    ? `<a href="${safeHref}" style="color:#1E3448;text-decoration:underline;">${escapeHtml(propertyTitle)}</a>`
+    : `<strong>${escapeHtml(propertyTitle)}</strong>`;
   const intro    = tr('first_intro',  locale, { propertyLink: propLink });
   const offer    = tr('first_offer',  locale);
   const close    = tr('first_close',  locale);
@@ -105,18 +107,18 @@ export default async function handler(req, res) {
   const db = getDb();
 
   // ── Resolve property ──────────────────────────────────────────────────────
-  let resolvedRegion = null, resolvedCity = null, resolvedSlug = propertySlug || null, resolvedPartner = null;
+  let resolvedRegion = null, resolvedCity = null, resolvedSlug = propertySlug || null, resolvedPartner = null, resolvedTitle = null;
   try {
     let prop = null;
     if (propertySlug) {
-      const { data } = await db.from('properties').select('slug,region,city,partner').eq('slug', propertySlug).single();
+      const { data } = await db.from('properties').select('slug,title,region,city,partner').eq('slug', propertySlug).single();
       prop = data;
     }
     if (!prop && propertyTitle) {
-      const { data } = await db.from('properties').select('slug,region,city,partner').eq('title', propertyTitle).single();
+      const { data } = await db.from('properties').select('slug,title,region,city,partner').eq('title', propertyTitle).single();
       prop = data;
     }
-    if (prop) { resolvedSlug = prop.slug || resolvedSlug; resolvedRegion = prop.region; resolvedCity = prop.city; resolvedPartner = prop.partner || null; }
+    if (prop) { resolvedSlug = prop.slug || resolvedSlug; resolvedTitle = prop.title || null; resolvedRegion = prop.region; resolvedCity = prop.city; resolvedPartner = prop.partner || null; }
   } catch (_) {}
 
   // If no locale came in from the form, fall back to the contact's stored preference
@@ -207,19 +209,24 @@ export default async function handler(req, res) {
     } catch (e) { console.error('[Mail] auto-reply recency check failed:', e.message); }
 
     if (!alreadySentForThisProperty && !recentAutoReply) {
-      const title    = propertyTitle || propertySlug;
-      const propLink = propertyUrl
-        ? `<a href="${propertyUrl}" style="color:#1E3448;text-decoration:underline;">${title}</a>`
+      // The link in Dylan's email is built from the DB row, never from the
+      // request body: the form is unauthenticated, and raw HTML here reached
+      // the recipient verbatim (7 Sep 2026 audit).
+      const rawTitle = resolvedTitle || propertyTitle || propertySlug || 'the home';
+      const title    = escapeHtml(rawTitle);
+      const safeUrl  = resolvedSlug ? `https://co-ownership-property.com/property/${resolvedSlug}/` : null;
+      const propLink = safeUrl
+        ? `<a href="${safeUrl}" style="color:#1E3448;text-decoration:underline;">${title}</a>`
         : `<strong>${title}</strong>`;
 
       const { subject, html, text, source } = await buildStudioEmail(
         'gallery_autoreply', locale,
         {
-          firstName: firstName || '', propertyTitle: title,
+          firstName: firstName || '', propertyTitle: rawTitle, // templateStore escapes non-raw slots itself
           // The short human name — "the Rosemary Beach home" — for the subject
           // line and prose. The full SEO listing title makes an ugly subject.
           propertyName: (() => {
-            const raw = String(title || '').trim();
+            const raw = String(rawTitle || '').trim();
             if (!raw.includes(',') && !/\s[—–-]\s/.test(raw)) return raw;
             const city = raw.split(/\s[—–-]\s/)[0].split(',')[0].trim();
             return city ? `the ${city} home` : raw;
@@ -243,8 +250,8 @@ export default async function handler(req, res) {
           })(),
         },
         () => ({
-          subject: tr('subject_first', locale, { propertyTitle: title }),
-          html:    firstReplyHtml({ firstName, propertyTitle: title, propertyUrl, locale }),
+          subject: tr('subject_first', locale, { propertyTitle: rawTitle }),
+          html:    firstReplyHtml({ firstName, propertyTitle: rawTitle, propertyUrl: safeUrl, locale }),
         })
       );
       if (source === 'fallback') console.warn('[gallery-autoreply] template unavailable — sent the built-in copy');

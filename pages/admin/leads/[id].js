@@ -115,7 +115,9 @@ export default function AdminLeadDetail() {
     const contact = Array.isArray(currentLead?.contacts) ? currentLead.contacts[0] : currentLead?.contacts
     const originalSlug = currentLead.original_property_slug || currentLead.property_slug
     const [activityQuery, shortlistQuery, propertyQuery, originalPropertyQuery, sendsQuery, trackingQuery] = await Promise.all([
-      supabase.from('activities').select('*').eq('lead_id', id).order('created_at', { ascending: false }).limit(100),
+      // Contact-level events (gallery unlocks, bounces, complaints, skipped
+      // sends, follow-ups) carry no lead_id — include them, as email_sends does.
+      supabase.from('activities').select('*').or(`lead_id.eq.${id},contact_id.eq.${currentLead.contact_id}`).order('created_at', { ascending: false }).limit(150),
       supabase.from('lead_property_shortlists').select('id,lead_id,property_slug,created_at,properties(slug,title,img,images,city,region,country,price,currency,beds,status,partner)').eq('lead_id', id).order('created_at'),
       supabase.from('properties').select('slug,title,img,images,city,region,country,price,currency,beds,status,partner,date_added').in('status', ['Live', 'for_sale']).order('date_added', { ascending: false, nullsFirst: false }).limit(1000),
       originalSlug ? supabase.from('properties').select('slug,title,img,images,city,region,country,price,currency,beds,status,partner').eq('slug', originalSlug).maybeSingle() : Promise.resolve({ data: null }),

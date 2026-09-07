@@ -29,8 +29,12 @@ export default async function handler(req, res) {
   const ip  = (req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '').split(',')[0].trim();
   const ua  = req.headers['user-agent'] || '';
 
-  // Skip known bot/preview user agents (email clients pre-fetch images)
-  const botPatterns = /bot|crawler|spider|preview|prefetch|yahoo|google|apple|microsoft|outlook/i;
+  // Skip crawlers and link-preview fetchers only. The old pattern also
+  // matched `apple` (every AppleWebKit browser and Apple Mail), `google`
+  // (GoogleImageProxy — i.e. EVERY Gmail open), `microsoft` and `outlook`, so
+  // almost no real open was ever recorded (7 Sep 2026 audit). Proxy fetches
+  // by Gmail/Apple Mail happen when the person opens the email, so they count.
+  const botPatterns = /\b(bot|crawler|spider|preview|prefetch|linkcheck|monitor)\b|slurp|facebookexternalhit|whatsapp|telegram/i;
   if (botPatterns.test(ua)) return;
 
   try {

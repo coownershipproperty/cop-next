@@ -351,8 +351,13 @@ export default async function handler(req, res) {
   try {
     const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
     const db = getDb();
+    // The email_sends row for THIS reply was already written above (it
+    // carries the tracking pixel id) — exclude it, or the check finds its own
+    // row and every enquiry reply is skipped (7 Sep 2026 audit).
+    let ownSends = db.from('email_sends').select('id').eq('type', 'enquiry_auto').ilike('to_email', email).gte('sent_at', since).limit(1);
+    if (emailSend?.id) ownSends = ownSends.neq('id', emailSend.id);
     const [{ data: a }, { data: b }] = await Promise.all([
-      db.from('email_sends').select('id').eq('type', 'enquiry_auto').ilike('to_email', email).gte('sent_at', since).limit(1),
+      ownSends,
       db.from('email_queue').select('id').eq('trigger', 'gallery_autoreply').eq('status', 'sent').ilike('to_email', email).gte('sent_at', since).limit(1),
     ]);
     recentAutoReply = !!((a && a.length) || (b && b.length));
@@ -362,6 +367,10 @@ export default async function handler(req, res) {
   if (recentAutoReply) {
     try {
       if (contact) await logActivity({ contactId: contact.id, leadId: lead?.id || null, type: 'email_skipped', description: 'Enquiry auto-reply skipped — another auto-reply went out within the last hour', metadata: { type: 'enquiry_auto' } });
+      // Nothing went out, so the pre-written email_sends row must not stay
+      // and pose as a sent email (it would show in /admin/sent and feed the
+      // next hourly check).
+      if (emailSend?.id) await getDb().from('email_sends').delete().eq('id', emailSend.id);
     } catch (e) { /* non-fatal */ }
   }
   try {
@@ -371,8 +380,10 @@ export default async function handler(req, res) {
     await sendEnquiryReply({
       to:                email,
       firstName:         firstName || name || null,
-      propertyTitle:     property  || null,
-      propertyUrl:       url       || null,
+      // Link the home we actually resolved, never the caller's text/URL — the
+      // form is unauthenticated, and this email is signed by Dylan.
+      propertyTitle:     resolvedProperty?.title || property || null,
+      propertyUrl:       resolvedProperty ? `https://co-ownership-property.com/property/${resolvedProperty.slug}/` : null,
       locale,
       trackingPixelHtml: pixel,
       // Quoted back in the reply so a lead who asked a question never gets a

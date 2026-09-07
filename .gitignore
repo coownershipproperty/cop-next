@@ -54,3 +54,6 @@ tmp/
 # files awaiting deletion. Never commit these — they run to gigabytes.
 .next-*
 _to_delete/
+
+# Claude session scratch (settings, audit tarballs)
+/.claude/

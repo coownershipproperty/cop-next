@@ -30,22 +30,24 @@
 import { createClient } from '@supabase/supabase-js';
 import { runEngine, isEnvTrue } from '@/lib/email/engine';
 import { JOURNEYS } from '@/lib/email/journeys';
+import { isCronRequest, isSecretAuthed } from '@/lib/cronAuth';
 
 function getDb() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
 }
 
+export const maxDuration = 60;
+
 export default async function handler(req, res) {
   // Auth — a plain GET (or Vercel cron header) counts as an authorised cron
   // call; an internal caller may also pass a Bearer secret.
-  const isCron   = req.method === 'GET' || req.headers['x-vercel-cron'] === '1';
-  const auth     = req.headers['authorization'] || '';
-  const isAuthed = (process.env.CRON_SECRET && auth === `Bearer ${process.env.CRON_SECRET}`)
-                || (process.env.CRM_SECRET  && auth === `Bearer ${process.env.CRM_SECRET}`);
-  if (!isCron && !isAuthed) {
+  // Vercel's schedule header or a Bearer secret — a bare GET no longer
+  // counts (it exposed every contact's email via ?dry=1). See lib/cronAuth.js.
+  if (!isCronRequest(req)) {
     return res.status(401).json({ error: 'Unauthorised' });
   }
+  const showEmails = isSecretAuthed(req);
 
   const dryRun      = req.query.dry === '1' || req.query.dry === 'true';
   const onlyJourney = req.query.journey || null;
@@ -77,9 +79,10 @@ export default async function handler(req, res) {
       dryRun,
       engineEnabled: isEnvTrue('EMAIL_ENGINE_ENABLED'),
       testMode: testEmails.length > 0,
-      testEmails: testEmails.length ? testEmails : undefined,
+      testEmails: testEmails.length && showEmails ? testEmails : undefined,
       summary,
-      results,
+      // Per-contact detail (addresses) only for a Bearer-secret caller.
+      results: showEmails ? results : (results || []).map((r) => (r && typeof r === 'object' ? (({ email, ...rest }) => rest)(r) : r)),
     });
   } catch (e) {
     console.error('[email-engine] run failed:', e.message);

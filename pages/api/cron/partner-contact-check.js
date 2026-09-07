@@ -26,6 +26,7 @@ import { sendHtml } from '@/lib/resend';
 import { buildEmail } from '@/lib/email/templateStore';
 import { resolveUnsubPlaceholder, listUnsubHeaders } from '@/lib/unsub';
 import { isSuppressed } from '@/lib/suppressions';
+import { isCronRequest } from '@/lib/cronAuth';
 
 export const maxDuration = 60;
 
@@ -50,6 +51,13 @@ const CONVERSATION_TYPES = [
 ];
 const SITE = 'https://co-ownership-property.com';
 
+// The lead reads this name — never the slug ("Did 21-5 get in touch?").
+const PARTNER_DISPLAY = {
+  pacaso: 'Pacaso', myne: 'MYNE', vivla: 'Vivla', andhamlet: '&Hamlet',
+  abitaro: 'Abitaro', parispropertygroup: 'Paris Property Group', '21-5': 'the 21-5 team',
+};
+const partnerDisplay = (slug) => PARTNER_DISPLAY[String(slug || '').toLowerCase()] || 'the team';
+
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -57,10 +65,7 @@ export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-  const secret = process.env.CRON_SECRET;
-  const auth = req.headers['authorization'] || '';
-  const isCron = (secret && auth === `Bearer ${secret}`) || req.headers['x-vercel-cron'] === '1';
-  if (!isCron) return res.status(401).json({ error: 'Unauthorised' });
+  if (!isCronRequest(req)) return res.status(401).json({ error: 'Unauthorised' }); // see lib/cronAuth.js
 
   const dryRun = String(req.query.dry || '') === '1';
   const db = createSupabaseAdminClient();
@@ -105,13 +110,25 @@ export default async function handler(req, res) {
       // pixel, not a reply, and our own sends are not news to anybody - an
       // earlier version of this check counted them and stood itself down on
       // almost every lead, because we track opens on every email we send.
+      //
+      // The handover itself writes a 'note' activity ("Sent to X via Partner
+      // Hub") a few ms AFTER partner_referrals.sent_at — that is our own
+      // bookkeeping, not a conversation, and it used to stand this check
+      // down for every single referral (sent = 0 forever; 7 Sep 2026 audit).
+      // Anything carrying this referral's id in its metadata is ours.
       const since = ref.sent_at || ref.created_at;
-      const { data: activity } = await db.from('activities')
-        .select('id, type').eq('contact_id', ref.contact_id)
+      const { data: activityRows } = await db.from('activities')
+        .select('id, type, metadata, description').eq('contact_id', ref.contact_id)
         .gt('created_at', since)
         .in('type', CONVERSATION_TYPES)
-        .limit(1);
-      if ((activity || []).length) {
+        .limit(20);
+      const activity = (activityRows || []).filter((a) => {
+        const m = a.metadata || {};
+        if (m.referral_id && String(m.referral_id) === String(ref.id)) return false;
+        if (a.type === 'note' && /via Partner Hub|Sent to .* via/i.test(a.description || '')) return false;
+        return true;
+      });
+      if (activity.length) {
         results.push({ email: contact.email, decision: 'skipped_active' });
         skipped++; continue;
       }
@@ -129,38 +146,54 @@ export default async function handler(req, res) {
         'partner_contact_check', locale,
         {
           firstName: contact.first_name || '',
-          partnerName: ref.partner || 'the team',
+          partnerName: partnerDisplay(ref.partner),
           propertyLink,
           locale,
         },
         () => ({
-          subject: `Did ${ref.partner || 'the team'} get in touch?`,
-          html: `<p>Hi ${esc(contact.first_name || 'there')},</p><p>I passed your details to ${esc(ref.partner || 'the team')} yesterday — did they manage to reach you?</p><p>If you haven't heard anything, tell me and I'll chase them today.</p><p>Dylan</p>`,
+          subject: `Did ${partnerDisplay(ref.partner)} get in touch?`,
+          html: `<p>Hi ${esc(contact.first_name || 'there')},</p><p>I passed your details to ${esc(partnerDisplay(ref.partner))} yesterday — did they manage to reach you?</p><p>If you haven't heard anything, tell me and I'll chase them today.</p><p>Dylan</p>`,
         })
       );
 
       if (dryRun) { results.push({ email: contact.email, decision: 'would_send', subject }); continue; }
 
-      await sendHtml({
-        to: contact.email, subject,
-        from: 'Dylan Olsson <dylan@co-ownership-property.com>',
-        replyTo: 'dylan@co-ownership-property.com',
-        html:    resolveUnsubPlaceholder(html, contact.email),
-        text:    text ? resolveUnsubPlaceholder(text, contact.email) : undefined,
-        headers: listUnsubHeaders(contact.email),
-      });
-
-      await db.from('email_queue').insert({
+      // Claim first: the marker row goes in as 'sending' BEFORE Resend, so a
+      // killed run or a failed write can never cause a second email. The
+      // "already checked?" query above matches this row on the next run.
+      const { data: marker, error: mErr } = await db.from('email_queue').insert({
         to_email: contact.email,
         to_name:  contact.first_name || null,
         subject,
         html,
         trigger: 'partner_contact_check',
         contact_id: contact.id,
-        status: 'sent',
-        sent_at: new Date().toISOString(),
+        status: 'sending',
+        template_props: { referral_id: ref.id, partner: ref.partner },
         notes: `Day-after partner contact check — ${ref.partner || 'partner'}`,
-      });
+      }).select('id').single();
+      if (mErr || !marker) {
+        console.error('[partner-contact-check] marker insert failed for', ref.id, mErr?.message);
+        skipped++; continue;
+      }
+
+      try {
+        await sendHtml({
+          to: contact.email, subject,
+          from: 'Dylan Olsson <dylan@co-ownership-property.com>',
+          replyTo: 'dylan@co-ownership-property.com',
+          html:    resolveUnsubPlaceholder(html, contact.email),
+          text:    text ? resolveUnsubPlaceholder(text, contact.email) : undefined,
+          headers: listUnsubHeaders(contact.email),
+        });
+      } catch (sendErr) {
+        await db.from('email_queue').update({ status: 'error', notes: `send failed: ${sendErr.message}` }).eq('id', marker.id);
+        throw sendErr;
+      }
+
+      const { error: sentErr } = await db.from('email_queue')
+        .update({ status: 'sent', sent_at: new Date().toISOString() }).eq('id', marker.id);
+      if (sentErr) console.error('[partner-contact-check] sent-status write failed for', marker.id, sentErr.message);
 
       sent++;
       results.push({ email: contact.email, decision: 'sent', partner: ref.partner });

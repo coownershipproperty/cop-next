@@ -138,6 +138,11 @@ export default async function handler(req, res) {
 
   try {
     if (action === 'update') {
+      // Only a draft still under review (or parked as rejected) can be edited —
+      // a sent row is the record of exactly what went out.
+      if (!['pending_review', 'rejected'].includes(draft.status)) {
+        return res.status(400).json({ error: `A ${draft.status} draft can no longer be edited` });
+      }
       const patch = {};
       if (typeof req.body.subject === 'string') patch.subject = clean(req.body.subject, 300);
       if (typeof req.body.html === 'string') patch.html = String(req.body.html).slice(0, MAX_HTML);

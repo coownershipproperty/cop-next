@@ -139,12 +139,13 @@ export default async function handler(req, res) {
   let propertyRegion  = null;
   let propertyBeds    = null;
   let propertyPartner = null;
+  let propertyStatus  = null;
   let resolvedCountry = propertyCountry || null; // use frontend value as fallback
   if (propertySlug) {
     const db = getDb();
     const { data: prop } = await db
       .from('properties')
-      .select('city, price, img, country, region, beds, partner, photos')
+      .select('city, price, img, country, region, beds, partner, photos, status')
       .eq('slug', propertySlug)
       // Hidden/staged rows must never be resolvable through the public unlock
       // flow (19 Jul incident) — sold stays, permanent gallery links survive.
@@ -156,6 +157,7 @@ export default async function handler(req, res) {
     propertyRegion  = prop?.region  || null;
     propertyBeds    = prop?.beds  != null ? Number(prop.beds) : null;
     propertyPartner = prop?.partner || null;
+    propertyStatus  = prop?.status  || null;
     resolvedCountry = prop?.country || resolvedCountry;
   }
 
@@ -336,9 +338,13 @@ export default async function handler(req, res) {
             region:      propertyRegion || resolvedCountry || '',
             country:     resolvedCountry || null,
             last_price:  propertyPrice || null,
-            last_status: 'Live',
+            // The real status — hard-coding 'Live' made the daily cron mail a
+            // "just sold" alert to anyone who unlocked an already-sold home.
+            last_status: propertyStatus || 'Live',
             locale,
-          }, { onConflict: 'email,slug,kind', ignoreDuplicates: false });
+          // A repeat unlock must not reset last_price/last_status — that
+          // would erase a price move the cron has not reported yet.
+          }, { onConflict: 'email,slug,kind', ignoreDuplicates: true });
         }
       } catch (e) {
         console.error('[unlock-drive] watch upsert failed:', e.message);
@@ -388,6 +394,8 @@ export default async function handler(req, res) {
       // Send the gallery unlock email. Named 'floor-plan' for historical
       // reasons only — it delivers the gated photo gallery, and must never
       // promise floor plans, which many listings do not have.
+      let galleryEmailFailed = null;
+      try {
       await queueEmail({
         autoSend:      true,
         to:            email,
@@ -410,8 +418,26 @@ export default async function handler(req, res) {
         notes:         `Gallery unlock for ${propertyTitle}`,
         contactId:     contact?.id || null,
       });
+      } catch (sendErr) {
+        // Resend refused (or the address is hard-suppressed). The gallery is
+        // already open in their tab; drop the email_sends anchor so a retry
+        // is not blocked for 24 h, and tell the team instead of failing.
+        galleryEmailFailed = sendErr.message;
+        console.error('[unlock-drive] gallery email failed:', sendErr.message);
+        if (emailSend?.id) {
+          try { await getDb().from('email_sends').delete().eq('id', emailSend.id); } catch (e) { /* best-effort */ }
+          emailSend = null;
+        }
+      }
 
-      if (contact && emailSend) {
+      if (galleryEmailFailed) {
+        if (contact) await logActivity({
+          contactId: contact.id,
+          type:      'email_skipped',
+          description: `Gallery email for ${propertyTitle} NOT sent — ${galleryEmailFailed}`,
+          metadata: { propertyTitle, propertySlug, reason: galleryEmailFailed },
+        });
+      } else if (contact && emailSend) {
         await logActivity({
           contactId: contact.id,
           type:      'email_queued',
@@ -472,7 +498,14 @@ export default async function handler(req, res) {
 
     res.status(200).json({ ok: true });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to send', detail: err.message });
+    console.error('[unlock-drive] failed:', err.message);
+    // The photos email did not go out, so its email_sends row must not stand
+    // — it is the 24h dedupe anchor and would block the retry.
+    if (emailSend?.id) {
+      try { await getDb().from('email_sends').delete().eq('id', emailSend.id); } catch (e) { /* best-effort */ }
+    }
+    // The gallery itself is already open in the visitor's tab; a generic
+    // message here, never the raw Resend/DB error text.
+    res.status(500).json({ error: 'Something went wrong sending your photos — the gallery is open, and we have your request.' });
   }
 }

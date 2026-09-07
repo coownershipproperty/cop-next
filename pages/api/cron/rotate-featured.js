@@ -15,6 +15,7 @@
 import { computeFeaturedLineup } from '@/lib/featured-rotation';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { requireCrmAdmin } from '@/lib/adminAuth';
+import { isCronRequest, isSecretAuthed } from '@/lib/cronAuth';
 
 export const maxDuration = 60;
 
@@ -23,12 +24,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const secret = process.env.CRON_SECRET;
-  const auth = req.headers['authorization'] || '';
-  const isCron =
-    (secret && auth === `Bearer ${secret}`) ||
-    req.headers['x-vercel-cron'] === '1';
-  if (!isCron) {
+  // Vercel sends x-vercel-cron-schedule (see lib/cronAuth.js); the old
+  // x-vercel-cron check never matched, so the daily rotation never ran.
+  if (!isCronRequest(req)) {
     // Fall back to CRM-admin auth (manual "Rotate now" from the admin).
     const admin = await requireCrmAdmin(req, res);
     if (!admin) return; // requireCrmAdmin already sent the 401
