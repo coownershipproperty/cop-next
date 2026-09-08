@@ -289,6 +289,7 @@ export default async function handler(req, res) {
           : (sendRegions ? `Properties in ${sendRegions}` : 'Your personalised property selection');
 
         await sendHtml({
+          noLeadCopy: true, // bulk
           to:      sendRow.email,
           subject,
           html,

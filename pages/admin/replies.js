@@ -96,7 +96,9 @@ export default function ReplyDrafts() {
         <div>
           <h1 style={{ margin: 0, fontSize: 22, color: NAVY }}>Replies to review</h1>
           <p style={{ margin: '4px 0 0', fontSize: 13, color: MUTED }}>
-            Nothing here has been sent. Approving one hands it to the sender, which goes out within five minutes.
+            Nothing here has been sent. Since 8 Sep every new reply is drafted straight into your Gmail Drafts
+            (threaded onto the lead&rsquo;s conversation, tracking included) &mdash; read it, edit it and send it there.
+            This list is the record; it clears itself once the email shows up in your Sent folder.
           </p>
         </div>
         <button onClick={load} style={btn(false)}>Refresh</button>
@@ -177,13 +179,24 @@ export default function ReplyDrafts() {
             )}
 
             <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap' }}>
-              <button
-                disabled={busy === d.id}
-                onClick={() => act(d.id, 'approve', dirty ? { subject, html } : {})}
-                style={btn(true)}
-              >
-                {busy === d.id ? 'Working…' : dirty ? 'Save and send' : 'Approve and send'}
-              </button>
+              {d.template_props?.gmail_draft_id ? (
+                <a
+                  href="https://mail.google.com/mail/u/0/#drafts"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ ...btn(true), textDecoration: 'none', display: 'inline-block' }}
+                >
+                  Open in Gmail Drafts
+                </a>
+              ) : (
+                <button
+                  disabled={busy === d.id}
+                  onClick={() => act(d.id, 'approve', dirty ? { subject, html } : {})}
+                  style={btn(true)}
+                >
+                  {busy === d.id ? 'Working…' : dirty ? 'Save and send' : 'Approve and send'}
+                </button>
+              )}
               <button onClick={() => setEditing(s => ({ ...s, [d.id]: !s[d.id] }))} style={btn(false)}>
                 {isEditing ? 'Preview' : 'Edit'}
               </button>
@@ -202,6 +215,11 @@ export default function ReplyDrafts() {
               >
                 Don&apos;t send
               </button>
+              {d.template_props?.gmail_draft_id && (
+                <span style={{ fontSize: 12, color: MUTED, alignSelf: 'center' }}>
+                  Deleting the draft in Gmail also clears it here on the next hourly check.
+                </span>
+              )}
             </div>
           </div>
         )

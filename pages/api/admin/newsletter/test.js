@@ -88,6 +88,7 @@ export default async function handler(req, res) {
   );
 
   await sendHtml({
+    noLeadCopy: true,
     to:      testEmail,
     subject: '[TEST] David, properties selected for you',
     html,

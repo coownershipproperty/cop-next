@@ -217,6 +217,7 @@ export default async function handler(req, res) {
       });
 
       await sendHtml({
+        noLeadCopy: true, // bulk — never copy a newsletter into Dylan's inbox
         to:      contact.email,
         subject,
         html,

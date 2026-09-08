@@ -157,6 +157,7 @@ export default async function handler(req, res) {
 
       try {
       await sendHtml({
+        noLeadCopy: true, // partner handover, not a lead email
         to: route.email,
         cc: route.email === ADMIN_EMAIL ? undefined : ADMIN_EMAIL,
         subject: `${route.testRouting ? '[TEST] ' : ''}New COP lead — ${clean(leadName, 120)}`,
