@@ -236,7 +236,12 @@ export default function PersonalisedNewsletterEmail({
           {/* CTA */}
           <Section className="pad" style={{ padding: '20px 56px 0', textAlign: 'center' as const }}>
             {more > 0 && <Text style={moreLine}>{`and ${numWord(more)} more new this week`}</Text>}
-            <Link href={`${base}/our-homes/`} className="btn" style={button}>View all {n} new homes</Link>
+            {/* Only promise more when there are more. When the email already
+                showed every new home, the button is an invitation to the whole
+                collection, not a repeat of what they just scrolled past. */}
+            <Link href={`${base}/our-homes/`} className="btn" style={button}>
+              {more > 0 ? `View all ${n} new homes` : 'View every home'}
+            </Link>
           </Section>
 
           {/* Sign-off */}
