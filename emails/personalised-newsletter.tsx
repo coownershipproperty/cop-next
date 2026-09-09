@@ -144,6 +144,11 @@ export default function PersonalisedNewsletterEmail({
   const allProps       = [...primaryProperties, ...fallbackProperties];
   const heroProps      = allProps.slice(0, 2);
   const secondaryProps = allProps.slice(2, 6);
+  // Everything beyond the six cards is still announced in the intro count, so
+  // it must appear somewhere — as a compact text list, not more heavy cards
+  // (13 cards would push the email past Gmail's ~100 KB clipping point).
+  // 9 Sep 2026: David caught "13 homes" with six shown.
+  const restProps      = allProps.slice(6);
 
   const regions = [...new Set(allProps.map(p => p.regionTag || p.location?.split(',')[0]).filter(Boolean))];
   const top3    = regions.slice(0, 3);
@@ -211,6 +216,26 @@ export default function PersonalisedNewsletterEmail({
           <Section className="prop-section" style={{ backgroundColor: C.cream, paddingBottom: 0 }}>
             <Container style={wrap}>
               {secondaryProps.map((p, i) => <SecondaryCard key={i} p={p} />)}
+            </Container>
+          </Section>
+        )}
+
+        {/* ── Remaining homes — compact list + see-all button ── */}
+        {restProps.length > 0 && (
+          <Section className="prop-section" style={{ backgroundColor: C.cream, padding: '8px 0 0' }}>
+            <Container style={wrap}>
+              <Section style={alsoBox}>
+                <Text style={alsoHeading}>Also new this week</Text>
+                {restProps.map((p, i) => (
+                  <Text key={i} style={alsoItem}>
+                    <Link href={p.galleryUrl || `${base}/property/${p.slug}`} style={alsoLink}>{p.title}</Link>
+                    <span style={alsoPrice}>&ensp;{p.price}</span>
+                  </Text>
+                ))}
+                <Link href={`${base}/our-homes/`} style={{ ...goldBtnSm, display: 'inline-block', marginTop: 14 }}>
+                  See all {allProps.length} new homes
+                </Link>
+              </Section>
             </Container>
           </Section>
         )}
@@ -407,6 +432,33 @@ const goldBtn: React.CSSProperties = {
   marginBottom: 18,
 };
 const goldBtnSm: React.CSSProperties = { ...goldBtn, padding: '13px 24px', marginBottom: 0 };
+
+// "Also new this week" — the homes beyond the six cards, as a light list
+const alsoBox: React.CSSProperties = {
+  backgroundColor: C.white,
+  border: `1px solid #E6E0D4`,
+  padding: '22px 24px 24px',
+  margin: '0 0 8px',
+  textAlign: 'center' as const,
+};
+const alsoHeading: React.CSSProperties = {
+  fontFamily: "'Jost', Arial, sans-serif",
+  fontSize: 10,
+  fontWeight: 600,
+  letterSpacing: '0.2em',
+  textTransform: 'uppercase' as const,
+  color: C.gold,
+  margin: '0 0 14px',
+};
+const alsoItem: React.CSSProperties = {
+  fontFamily: "'Cormorant Garamond', Georgia, serif",
+  fontSize: 16,
+  lineHeight: '1.4',
+  color: C.navy,
+  margin: '0 0 9px',
+};
+const alsoLink: React.CSSProperties = { color: C.navy, textDecoration: 'underline', textDecorationColor: C.gold };
+const alsoPrice: React.CSSProperties = { color: C.navy60, fontSize: 14, whiteSpace: 'nowrap' as const };
 
 // Secondary buttons — Email Enquiry (outlined) / WhatsApp (brand green)
 const outlineBtn: React.CSSProperties = {
