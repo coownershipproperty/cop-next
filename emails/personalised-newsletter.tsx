@@ -111,7 +111,7 @@ function LeadCard({ p }: { p: Property }) {
       <tbody>
         <tr><td style={{ padding: '14px 14px 0' }}>
           <Link href={href} style={{ display: 'block' }}>
-            <Img src={crop(p.imageUrl, 1120, 700)} alt={p.title} width="560" height="350" style={leadImg} />
+            <Img src={crop(p.imageUrl, 1120, 700)} alt={p.title} width="560" style={leadImg} />
           </Link>
         </td></tr>
         <tr><td style={{ padding: '22px 24px 26px', textAlign: 'center' as const }}>
@@ -134,14 +134,14 @@ function GridCard({ p }: { p: Property }) {
     <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={gridBox}>
       <tbody><tr><td style={{ padding: 12 }}>
       <Link href={href} style={{ display: 'block' }}>
-        <Img src={crop(p.imageUrl, 520, 360)} alt={p.title} width="260" height="180" className="gridimg" style={gridImg} />
+        <Img src={crop(p.imageUrl, 520, 360)} alt={p.title} width="260" className="gridimg" style={gridImg} />
       </Link>
       <div style={{ textAlign: 'center' as const }}>
         <Text style={gridPlace}>{splitTitle(p).place}</Text>
         <Link href={href} style={{ textDecoration: 'none' }}>
-          <Text style={gridTitle}>{splitTitle(p).name}</Text>
+          <Text className="gridtitle" style={gridTitle}>{splitTitle(p).name}</Text>
         </Link>
-        <Text style={gridPrice}>{p.price}<span style={perShare}>&ensp;per share{metaLine(p) ? `  ·  ${metaLine(p)}` : ''}</span></Text>
+        <Text className="gridprice" style={gridPrice}>{p.price}<span style={perShare}>&ensp;per share{metaLine(p) ? `  ·  ${metaLine(p)}` : ''}</span></Text>
         <Link href={href} style={viewLinkSm}>Discover</Link>
       </div>
       </td></tr></tbody>
@@ -195,7 +195,12 @@ export default function PersonalisedNewsletterEmail({
           @media only screen and (max-width: 520px) {
             .col { display: block !important; width: 100% !important; padding: 0 0 18px !important; }
             .gridimg { width: 100% !important; height: auto !important; }
-            .pad { padding-left: 18px !important; padding-right: 18px !important; }
+            .pad { padding-left: 16px !important; padding-right: 16px !important; }
+            .h1 { font-size: 36px !important; }
+            .intro { font-size: 18px !important; }
+            .gridtitle { font-size: 24px !important; min-height: 0 !important; }
+            .gridprice { font-size: 20px !important; }
+            .btn { display: block !important; font-size: 15px !important; }
           }
         `}</style>
       </Head>
@@ -215,9 +220,9 @@ export default function PersonalisedNewsletterEmail({
 
           {/* Headline + intro */}
           <Section className="pad" style={{ padding: '30px 40px 10px', textAlign: 'center' as const }}>
-            <Text style={h1}>{headline}</Text>
+            <Text className="h1" style={h1}>{headline}</Text>
             <Text style={greetingStyle}>{greeting}</Text>
-            <Text style={introStyle}>{intro}</Text>
+            <Text className="intro" style={introStyle}>{intro}</Text>
           </Section>
 
           {/* Lead home */}
@@ -251,7 +256,7 @@ export default function PersonalisedNewsletterEmail({
 
           {/* CTA */}
           <Section className="pad" style={{ padding: '0 40px 8px', textAlign: 'center' as const }}>
-            <Link href={`${base}/our-homes/`} style={button}>View all {n} new homes</Link>
+            <Link href={`${base}/our-homes/`} className="btn" style={button}>View all {n} new homes</Link>
             <Text style={nudge}>Anything catch your eye? Simply reply to this email — a real person answers.</Text>
           </Section>
 
@@ -288,34 +293,34 @@ const gridBox: React.CSSProperties = { border: `1px solid ${C.line}`, background
 
 const masthead: React.CSSProperties = { padding: '40px 40px 26px', textAlign: 'center' as const, borderBottom: `1px solid ${C.line}` };
 const mark: React.CSSProperties = { fontFamily: SERIF, fontSize: 34, fontWeight: 400, letterSpacing: '0.28em', color: C.navy, margin: '0 0 2px', paddingLeft: '0.28em' };
-const markSub: React.CSSProperties = { fontFamily: FONT, fontSize: 9, fontWeight: 500, letterSpacing: '0.34em', textTransform: 'uppercase' as const, color: C.muted, margin: '0 0 16px', paddingLeft: '0.34em' };
-const issueStyle: React.CSSProperties = { fontFamily: FONT, fontSize: 10, fontWeight: 400, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.muted, margin: '16px 0 0' };
+const markSub: React.CSSProperties = { fontFamily: FONT, fontSize: 10, fontWeight: 500, letterSpacing: '0.34em', textTransform: 'uppercase' as const, color: C.muted, margin: '0 0 16px', paddingLeft: '0.34em' };
+const issueStyle: React.CSSProperties = { fontFamily: FONT, fontSize: 11, fontWeight: 400, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.muted, margin: '16px 0 0' };
 
-const h1: React.CSSProperties = { fontFamily: SERIF, fontSize: 40, lineHeight: '1.12', fontWeight: 300, color: C.navy, margin: '0 0 18px', letterSpacing: '0.005em' };
-const greetingStyle: React.CSSProperties = { fontFamily: SERIF, fontSize: 19, fontStyle: 'italic', color: C.body, margin: '0 0 10px' };
-const introStyle: React.CSSProperties = { fontFamily: FONT, fontSize: 15, fontWeight: 300, lineHeight: '1.75', color: C.body, margin: 0 };
+const h1: React.CSSProperties = { fontFamily: SERIF, fontSize: 42, lineHeight: '1.12', fontWeight: 300, color: C.navy, margin: '0 0 18px', letterSpacing: '0.005em' };
+const greetingStyle: React.CSSProperties = { fontFamily: SERIF, fontSize: 21, fontStyle: 'italic', color: C.body, margin: '0 0 10px' };
+const introStyle: React.CSSProperties = { fontFamily: FONT, fontSize: 17, fontWeight: 400, lineHeight: '1.7', color: C.body, margin: 0 };
 
-const eyebrow: React.CSSProperties = { fontFamily: FONT, fontSize: 10, fontWeight: 500, letterSpacing: '0.26em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 8px' };
-const leadImg: React.CSSProperties = { width: '100%', height: 350, objectFit: 'cover' as const, display: 'block' };
-const leadTitle: React.CSSProperties = { fontFamily: SERIF, fontSize: 30, lineHeight: '1.2', fontWeight: 400, color: C.navy, margin: '0 0 12px' };
+const eyebrow: React.CSSProperties = { fontFamily: FONT, fontSize: 12, fontWeight: 500, letterSpacing: '0.26em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 8px' };
+const leadImg: React.CSSProperties = { width: '100%', maxWidth: 560, height: 'auto', display: 'block' };
+const leadTitle: React.CSSProperties = { fontFamily: SERIF, fontSize: 32, lineHeight: '1.2', fontWeight: 400, color: C.navy, margin: '0 0 12px' };
 const meta: React.CSSProperties = { fontFamily: FONT, fontSize: 12, color: C.muted, margin: '0 0 10px' };
-const leadPrice: React.CSSProperties = { fontFamily: FONT, fontSize: 19, fontWeight: 500, letterSpacing: '0.02em', color: C.ink, margin: '0 0 18px' };
-const perShare: React.CSSProperties = { fontFamily: FONT, fontSize: 10, fontWeight: 400, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: C.muted };
-const viewLink: React.CSSProperties = { display: 'inline-block', fontFamily: FONT, fontSize: 11, fontWeight: 500, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 5 };
+const leadPrice: React.CSSProperties = { fontFamily: FONT, fontSize: 22, fontWeight: 500, letterSpacing: '0.02em', color: C.ink, margin: '0 0 18px' };
+const perShare: React.CSSProperties = { fontFamily: FONT, fontSize: 12, fontWeight: 400, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: C.muted };
+const viewLink: React.CSSProperties = { display: 'inline-block', fontFamily: FONT, fontSize: 14, fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 5 };
 
-const gridHeading: React.CSSProperties = { fontFamily: FONT, fontSize: 10, fontWeight: 500, letterSpacing: '0.3em', textTransform: 'uppercase' as const, color: C.muted, textAlign: 'center' as const, margin: '18px 0 30px' };
-const gridImg: React.CSSProperties = { width: '100%', height: 180, objectFit: 'cover' as const, display: 'block' };
-const gridPlace: React.CSSProperties = { fontFamily: FONT, fontSize: 9, fontWeight: 500, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.gold, margin: '16px 0 6px' };
-const gridTitle: React.CSSProperties = { fontFamily: SERIF, fontSize: 19, fontWeight: 400, lineHeight: '1.25', color: C.navy, margin: '0 0 8px', minHeight: 48 };
+const gridHeading: React.CSSProperties = { fontFamily: FONT, fontSize: 12, fontWeight: 500, letterSpacing: '0.3em', textTransform: 'uppercase' as const, color: C.muted, textAlign: 'center' as const, margin: '18px 0 30px' };
+const gridImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block' };
+const gridPlace: React.CSSProperties = { fontFamily: FONT, fontSize: 11, fontWeight: 500, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.gold, margin: '16px 0 6px' };
+const gridTitle: React.CSSProperties = { fontFamily: SERIF, fontSize: 22, fontWeight: 400, lineHeight: '1.25', color: C.navy, margin: '0 0 8px', minHeight: 56 };
 const gridMeta: React.CSSProperties = { fontFamily: FONT, fontSize: 12, color: C.muted, margin: '0 0 6px' };
-const gridPrice: React.CSSProperties = { fontFamily: FONT, fontSize: 15, fontWeight: 500, letterSpacing: '0.02em', color: C.ink, margin: '0 0 12px' };
-const viewLinkSm: React.CSSProperties = { display: 'inline-block', fontFamily: FONT, fontSize: 10, fontWeight: 500, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 4 };
+const gridPrice: React.CSSProperties = { fontFamily: FONT, fontSize: 18, fontWeight: 500, letterSpacing: '0.02em', color: C.ink, margin: '0 0 12px' };
+const viewLinkSm: React.CSSProperties = { display: 'inline-block', fontFamily: FONT, fontSize: 13, fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 4 };
 
-const button: React.CSSProperties = { display: 'inline-block', backgroundColor: C.navy, color: '#FFFFFF', fontFamily: FONT, fontSize: 11, fontWeight: 500, letterSpacing: '0.24em', textTransform: 'uppercase' as const, padding: '17px 34px', textDecoration: 'none' };
-const nudge: React.CSSProperties = { fontFamily: SERIF, fontSize: 17, fontStyle: 'italic', color: C.body, margin: '26px 0 0' };
+const button: React.CSSProperties = { display: 'inline-block', backgroundColor: C.navy, color: '#FFFFFF', fontFamily: FONT, fontSize: 14, fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase' as const, padding: '18px 36px', textDecoration: 'none' };
+const nudge: React.CSSProperties = { fontFamily: SERIF, fontSize: 19, fontStyle: 'italic', color: C.body, margin: '26px 0 0' };
 
 const footer: React.CSSProperties = { padding: '34px 40px 10px', marginTop: 34, borderTop: `1px solid ${C.line}`, textAlign: 'center' as const };
 const footMark: React.CSSProperties = { fontFamily: SERIF, fontSize: 22, letterSpacing: '0.28em', color: C.navy, margin: '0 0 14px', paddingLeft: '0.28em' };
-const footText: React.CSSProperties = { fontFamily: FONT, fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: C.muted, margin: '18px 0 14px' };
+const footText: React.CSSProperties = { fontFamily: FONT, fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: C.muted, margin: '18px 0 14px' };
 const footLink: React.CSSProperties = { color: C.body, textDecoration: 'none' };
-const footSmall: React.CSSProperties = { fontFamily: FONT, fontSize: 11, fontWeight: 300, lineHeight: '1.7', color: C.muted, margin: 0 };
+const footSmall: React.CSSProperties = { fontFamily: FONT, fontSize: 13, fontWeight: 400, lineHeight: '1.7', color: C.muted, margin: 0 };
