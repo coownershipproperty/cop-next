@@ -76,6 +76,16 @@ function hrefFor(p: Property) {
   return p.galleryUrl || `${base}/property/${p.slug}/`;
 }
 
+// Uniform crops. Supabase Storage renders on the fly (…/render/image/… with
+// resize=cover); other hosts get the original with a fixed box + object-fit.
+function crop(url: string, w: number, h: number) {
+  if (!url) return url;
+  if (url.includes('/storage/v1/object/public/')) {
+    return url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/') + `?width=${w}&height=${h}&resize=cover&quality=82`;
+  }
+  return url;
+}
+
 // Titles are "Place, Region, Country — What it is". Split them so the place
 // reads as a small label and the home itself is the title.
 function splitTitle(p: Property) {
@@ -97,14 +107,14 @@ function metaLine(p: Property) {
 function LeadCard({ p }: { p: Property }) {
   const href = hrefFor(p);
   return (
-    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={{ marginBottom: 28 }}>
+    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={leadBox}>
       <tbody>
-        <tr><td>
+        <tr><td style={{ padding: '14px 14px 0' }}>
           <Link href={href} style={{ display: 'block' }}>
-            <Img src={p.imageUrl} alt={p.title} width="600" style={leadImg} />
+            <Img src={crop(p.imageUrl, 1120, 700)} alt={p.title} width="560" height="350" style={leadImg} />
           </Link>
         </td></tr>
-        <tr><td style={{ padding: '22px 0 0', textAlign: 'center' as const }}>
+        <tr><td style={{ padding: '22px 24px 26px', textAlign: 'center' as const }}>
           <Text style={eyebrow}>{splitTitle(p).place}</Text>
           <Link href={href} style={{ textDecoration: 'none' }}>
             <Text style={leadTitle}>{splitTitle(p).name}</Text>
@@ -121,9 +131,10 @@ function LeadCard({ p }: { p: Property }) {
 function GridCard({ p }: { p: Property }) {
   const href = hrefFor(p);
   return (
-    <>
+    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={gridBox}>
+      <tbody><tr><td style={{ padding: 12 }}>
       <Link href={href} style={{ display: 'block' }}>
-        <Img src={p.imageUrl} alt={p.title} width="284" className="gridimg" style={gridImg} />
+        <Img src={crop(p.imageUrl, 520, 360)} alt={p.title} width="260" height="180" className="gridimg" style={gridImg} />
       </Link>
       <div style={{ textAlign: 'center' as const }}>
         <Text style={gridPlace}>{splitTitle(p).place}</Text>
@@ -133,7 +144,8 @@ function GridCard({ p }: { p: Property }) {
         <Text style={gridPrice}>{p.price}<span style={perShare}>&ensp;per share{metaLine(p) ? `  ·  ${metaLine(p)}` : ''}</span></Text>
         <Link href={href} style={viewLinkSm}>Discover</Link>
       </div>
-    </>
+      </td></tr></tbody>
+    </table>
   );
 }
 
@@ -181,7 +193,7 @@ export default function PersonalisedNewsletterEmail({
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap');
           @media only screen and (max-width: 520px) {
-            .col { display: block !important; width: 100% !important; padding: 0 0 26px !important; }
+            .col { display: block !important; width: 100% !important; padding: 0 0 18px !important; }
             .gridimg { width: 100% !important; height: auto !important; }
             .pad { padding-left: 18px !important; padding-right: 18px !important; }
           }
@@ -191,6 +203,7 @@ export default function PersonalisedNewsletterEmail({
 
       <Body style={bodyStyle}>
         <Container style={container}>
+        <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={sheet}><tbody><tr><td>
 
           {/* Masthead */}
           <Section className="pad" style={masthead}>
@@ -223,10 +236,10 @@ export default function PersonalisedNewsletterEmail({
                 <tbody>
                   {pairs(rest).map((row, i) => (
                     <tr key={i}>
-                      <td className="col" width="50%" style={{ verticalAlign: 'top', padding: '0 12px 38px 0' }}>
+                      <td className="col" width="50%" style={{ verticalAlign: 'top', padding: '0 10px 20px 0' }}>
                         <GridCard p={row[0]} />
                       </td>
-                      <td className="col" width="50%" style={{ verticalAlign: 'top', padding: '0 0 38px 12px' }}>
+                      <td className="col" width="50%" style={{ verticalAlign: 'top', padding: '0 0 20px 10px' }}>
                         {row[1] ? <GridCard p={row[1]} /> : null}
                       </td>
                     </tr>
@@ -258,6 +271,7 @@ export default function PersonalisedNewsletterEmail({
             <Text style={footSmall}>Co-Ownership Property · Deeded fractional homes in Europe and the USA<br />You're receiving this because you enquired or subscribed on our site.</Text>
           </Section>
 
+        </td></tr></tbody></table>
         </Container>
       </Body>
     </Html>
@@ -265,8 +279,12 @@ export default function PersonalisedNewsletterEmail({
 }
 
 // ── Styles ────────────────────────────────────────────────────────────────────
-const bodyStyle: React.CSSProperties = { margin: 0, padding: '0 0 30px', backgroundColor: C.paper, fontFamily: FONT };
-const container: React.CSSProperties = { maxWidth: 640, margin: '0 auto', backgroundColor: C.paper };
+const bodyStyle: React.CSSProperties = { margin: 0, padding: '28px 0 34px', backgroundColor: C.paper, fontFamily: FONT };
+const container: React.CSSProperties = { maxWidth: 640, margin: '0 auto' };
+// The whole issue sits on one white sheet with a hairline frame on the ivory ground.
+const sheet: React.CSSProperties = { backgroundColor: C.card, border: `1px solid ${C.line}` };
+const leadBox: React.CSSProperties = { border: `1px solid ${C.line}`, marginBottom: 30 };
+const gridBox: React.CSSProperties = { border: `1px solid ${C.line}`, backgroundColor: C.card };
 
 const masthead: React.CSSProperties = { padding: '40px 40px 26px', textAlign: 'center' as const, borderBottom: `1px solid ${C.line}` };
 const mark: React.CSSProperties = { fontFamily: SERIF, fontSize: 34, fontWeight: 400, letterSpacing: '0.28em', color: C.navy, margin: '0 0 2px', paddingLeft: '0.28em' };
@@ -278,19 +296,19 @@ const greetingStyle: React.CSSProperties = { fontFamily: SERIF, fontSize: 19, fo
 const introStyle: React.CSSProperties = { fontFamily: FONT, fontSize: 15, fontWeight: 300, lineHeight: '1.75', color: C.body, margin: 0 };
 
 const eyebrow: React.CSSProperties = { fontFamily: FONT, fontSize: 10, fontWeight: 500, letterSpacing: '0.26em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 8px' };
-const leadImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block' };
+const leadImg: React.CSSProperties = { width: '100%', height: 350, objectFit: 'cover' as const, display: 'block' };
 const leadTitle: React.CSSProperties = { fontFamily: SERIF, fontSize: 30, lineHeight: '1.2', fontWeight: 400, color: C.navy, margin: '0 0 12px' };
 const meta: React.CSSProperties = { fontFamily: FONT, fontSize: 12, color: C.muted, margin: '0 0 10px' };
-const leadPrice: React.CSSProperties = { fontFamily: SERIF, fontSize: 24, fontWeight: 400, color: C.ink, margin: '0 0 18px' };
-const perShare: React.CSSProperties = { fontFamily: FONT, fontSize: 11, fontWeight: 400, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: C.muted };
+const leadPrice: React.CSSProperties = { fontFamily: FONT, fontSize: 19, fontWeight: 500, letterSpacing: '0.02em', color: C.ink, margin: '0 0 18px' };
+const perShare: React.CSSProperties = { fontFamily: FONT, fontSize: 10, fontWeight: 400, letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: C.muted };
 const viewLink: React.CSSProperties = { display: 'inline-block', fontFamily: FONT, fontSize: 11, fontWeight: 500, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 5 };
 
 const gridHeading: React.CSSProperties = { fontFamily: FONT, fontSize: 10, fontWeight: 500, letterSpacing: '0.3em', textTransform: 'uppercase' as const, color: C.muted, textAlign: 'center' as const, margin: '18px 0 30px' };
-const gridImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block' };
+const gridImg: React.CSSProperties = { width: '100%', height: 180, objectFit: 'cover' as const, display: 'block' };
 const gridPlace: React.CSSProperties = { fontFamily: FONT, fontSize: 9, fontWeight: 500, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.gold, margin: '16px 0 6px' };
-const gridTitle: React.CSSProperties = { fontFamily: SERIF, fontSize: 20, fontWeight: 400, lineHeight: '1.25', color: C.navy, margin: '0 0 8px' };
+const gridTitle: React.CSSProperties = { fontFamily: SERIF, fontSize: 19, fontWeight: 400, lineHeight: '1.25', color: C.navy, margin: '0 0 8px', minHeight: 48 };
 const gridMeta: React.CSSProperties = { fontFamily: FONT, fontSize: 12, color: C.muted, margin: '0 0 6px' };
-const gridPrice: React.CSSProperties = { fontFamily: SERIF, fontSize: 18, fontWeight: 400, color: C.ink, margin: '0 0 12px' };
+const gridPrice: React.CSSProperties = { fontFamily: FONT, fontSize: 15, fontWeight: 500, letterSpacing: '0.02em', color: C.ink, margin: '0 0 12px' };
 const viewLinkSm: React.CSSProperties = { display: 'inline-block', fontFamily: FONT, fontSize: 10, fontWeight: 500, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.navy, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 4 };
 
 const button: React.CSSProperties = { display: 'inline-block', backgroundColor: C.navy, color: '#FFFFFF', fontFamily: FONT, fontSize: 11, fontWeight: 500, letterSpacing: '0.24em', textTransform: 'uppercase' as const, padding: '17px 34px', textDecoration: 'none' };
