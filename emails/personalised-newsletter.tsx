@@ -116,7 +116,7 @@ function LeadCard({ p }: { p: Property }) {
             <Text className="leadtitle" style={leadTitle}>{name}</Text>
           </Link>
           <Text style={priceLine}>{p.price} <span style={perShare}>per 1/8 share</span></Text>
-          <Link href={href} className="btn" style={goldBtn}>Discover the home</Link>
+          <Link href={href} style={cta}>Discover the home</Link>
         </td></tr>
       </tbody>
     </table>
@@ -141,7 +141,7 @@ function RowCard({ p }: { p: Property }) {
             <Text className="rowtitle" style={rowTitle}>{name}</Text>
           </Link>
           <Text style={rowPrice}>{p.price} <span style={perShare}>per share</span></Text>
-          <Link href={href} style={goldBtnSm}>Discover this home</Link>
+          <Link href={href} style={ctaSm}>Discover this home</Link>
         </td>
       </tr></tbody>
     </table>
@@ -287,8 +287,9 @@ const place1: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpac
 const leadTitle: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 31, lineHeight: '1.25', fontWeight: 400, color: C.ink, margin: '0 0 16px' };
 const priceLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 22, color: C.ink, margin: '0 0 22px' };
 const perShare: React.CSSProperties = { fontFamily: TEXT, fontSize: 15, fontStyle: 'italic', color: C.soft };
-const goldBtn: React.CSSProperties = { display: 'inline-block', backgroundColor: C.goldD, color: '#FFFFFF', fontFamily: TEXT, fontSize: 13, letterSpacing: '0.22em', textTransform: 'uppercase' as const, padding: '17px 34px', textDecoration: 'none' };
-const goldBtnSm: React.CSSProperties = { display: 'inline-block', backgroundColor: C.goldD, color: '#FFFFFF', fontFamily: TEXT, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase' as const, padding: '13px 24px', textDecoration: 'none', marginTop: 16 };
+// Letterspaced caps on a gold hairline — David preferred this to a filled button.
+const cta: React.CSSProperties = { display: 'inline-block', fontFamily: TEXT, fontSize: 13, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.ink, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 7 };
+const ctaSm: React.CSSProperties = { display: 'inline-block', fontFamily: TEXT, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: C.ink, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 6, marginTop: 18 };
 
 const rowBox: React.CSSProperties = { borderTop: `1px solid ${C.line}`, paddingTop: 36, marginBottom: 36 };
 const rowImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block' };
