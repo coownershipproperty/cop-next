@@ -244,10 +244,27 @@ export default function NewslettersIndex() {
                     </span>
                   </Td>
                   <Td align="right">
+                    {/* A part-sent campaign used to show a bare "—", which reads
+                        as "nothing happened" when in fact hundreds have gone
+                        (9 Sep 2026: 679 of 879 sent, screen said nothing). Show
+                        the real progress for anything in flight. */}
                     {c.status === 'sent' ? (
                       <span style={{ fontSize: 13, color: C.green, fontWeight: 600 }}>
                         {c.sent_count?.toLocaleString() || 0}
                       </span>
+                    ) : c.status === 'sending' ? (
+                      <div style={{ display: 'inline-block', minWidth: 96, textAlign: 'right' }}>
+                        <div style={{ fontSize: 13, color: C.gold, fontWeight: 600 }}>
+                          {(c.sent_count || 0).toLocaleString()} / {(c.total_recipients || 0).toLocaleString()}
+                        </div>
+                        <div style={{ height: 3, background: C.border, borderRadius: 2, marginTop: 5, overflow: 'hidden' }}>
+                          <div style={{
+                            height: '100%',
+                            width: `${Math.min(100, Math.round(((c.sent_count || 0) / Math.max(1, c.total_recipients || 0)) * 100))}%`,
+                            background: C.gold,
+                          }} />
+                        </div>
+                      </div>
                     ) : <span style={{ fontSize: 13, color: C.faint }}>—</span>}
                   </Td>
                   <Td><span style={{ fontSize: 13, color: C.muted }}>{formatDate(c.created_at)}</span></Td>

@@ -65,6 +65,10 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
 
   const [campaignId, setCampaignId] = useState(initialCampaign?.id || null)
   const [status, setStatus] = useState(initialCampaign?.status || 'draft')
+  // A part-sent campaign: how many already have it. Drives the resume notice
+  // below the audience, so the operator can see what a second press will do.
+  const [sentSoFar, setSentSoFar] = useState(initialCampaign?.sent_count || 0)
+  const priorTotal = initialCampaign?.total_recipients || 0
   const [savedAt, setSavedAt] = useState(null)
   const [saving, setSaving] = useState(false)
   const [toast, setToast] = useState(null)
@@ -268,9 +272,11 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
         setToast({ kind: 'error', text: j.error })
       } else if (j.done === false) {
         setToast({ kind: 'ok', text: j.message || `Sent ${j.sent} so far — the 5-minute sender is finishing the rest (${j.remaining ?? '?'} to go).`, duration: 8000 })
+        if (j.totalSent != null) setSentSoFar(j.totalSent)
         setStatus('sending')
       } else {
         setToast({ kind: 'ok', text: `Sent to ${j.sent} of ${j.total}. Failed: ${j.failed}.`, duration: 6000 })
+        if (j.totalSent != null) setSentSoFar(j.totalSent)
         setStatus('sent')
       }
     } catch (err) {
@@ -804,6 +810,18 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
               <GhostButton onClick={handleSchedule} disabled={fieldsDisabled || !scheduledFor}>
                 ⏱ Schedule
               </GhostButton>
+              {status === 'sending' && (
+                <div style={{
+                  gridColumn: '1 / -1',
+                  border: `1px solid ${C.amberBorder}`, background: C.amberBg, color: C.amber,
+                  borderRadius: 8, padding: '11px 14px', fontSize: 13, lineHeight: 1.5, marginBottom: 4,
+                }}>
+                  <strong>Part-sent.</strong>{' '}
+                  {sentSoFar.toLocaleString()} of {(priorTotal || audienceCount || 0).toLocaleString()} already have this email.
+                  Resuming sends only to the {Math.max(0, (priorTotal || audienceCount || 0) - sentSoFar).toLocaleString()} who
+                  do not — everyone already delivered is skipped by their send record, not by this screen.
+                </div>
+              )}
               <PrimaryButton
                 kind="gold"
                 onClick={() => setSendConfirmModal(true)}
