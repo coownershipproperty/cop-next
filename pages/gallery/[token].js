@@ -64,12 +64,27 @@ export async function getServerSideProps({ params, query }) {
   // saved link should not 404 the day the last share sells.
   const { data: prop } = await supabase
     .from('properties')
-    .select('slug, title, img, images, photos, extra_photos, documents, country, city, region, price, currency, beds, size, status')
+    .select('slug, title, img, images, photos, extra_photos, documents, country, city, region, price, currency, beds, size, status, is_discreet')
     .eq('slug', slug)
     .in('status', ['Live', 'for_sale', 'sold'])
     .maybeSingle();
 
   if (!prop) return { redirect: { destination: '/our-homes/', permanent: false } };
+
+  // Discreet-sale homes: the gallery is part of the locked full listing, so
+  // the visitor token must name someone who has enquired (a CRM contact).
+  // Anyone else goes to the property page, which offers the unlock.
+  if (prop.is_discreet) {
+    let known = false;
+    if (email) {
+      const { createSupabaseAdminClient } = await import('@/lib/supabaseAdmin');
+      const { data: c } = await createSupabaseAdminClient()
+        .from('contacts').select('id').ilike('email', String(email).trim()).limit(1).maybeSingle();
+      known = !!c;
+    }
+    if (!known) return { redirect: { destination: `/property/${slug}/`, permanent: false } };
+  }
+  delete prop.is_discreet;
 
   return {
     props: {

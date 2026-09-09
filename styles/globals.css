@@ -10547,3 +10547,15 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .dr-row{grid-template-columns:1fr}
   .dr-close{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 }
+
+/* ── Discreet sale — locked property page ── */
+.pp-discreet-hero{cursor:pointer}
+.pp-discreet-cta{position:absolute;right:26px;bottom:24px;z-index:3;font-family:'Nunito Sans',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:#C9A84C;color:#fff;padding:13px 20px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.pp-discreet-hero:hover .pp-discreet-cta{background:#b8943d}
+.pp-discreet-panel{border:1px solid rgba(201,168,76,.45);background:#FAF6EC;padding:28px 30px;margin:8px 0 28px}
+.pp-discreet-panel .pp-heading{margin-top:0}
+.pp-discreet-panel p{font-family:'Nunito Sans',sans-serif;font-size:.95rem;color:#4a5568;line-height:1.65;margin:0 0 18px}
+.pp-discreet-btn{font-family:'Nunito Sans',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#C9A84C;color:#fff;border:none;padding:14px 22px;cursor:pointer;transition:background .2s}
+.pp-discreet-btn:hover{background:#b8943d}
+.pp-discreet-btn:disabled{opacity:.6;cursor:not-allowed}
+@media (max-width:720px){.pp-discreet-cta{left:26px;right:auto;bottom:62px}.pp-discreet-panel{padding:22px 20px}}

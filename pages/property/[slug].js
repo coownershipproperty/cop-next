@@ -13,6 +13,7 @@ import Newsletter from '@/components/Newsletter';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
 import ExpertForm from '@/components/ExpertForm';
 import UnlockModal from '@/components/UnlockModal';
+import DiscreetUnlockModal, { DISCREET_COPY, visitorToken } from '@/components/DiscreetUnlockModal';
 import TourRequestModal from '@/components/TourRequestModal';
 import FinancingCalculator from '@/components/FinancingCalculator';
 import PropertyCard from '@/components/PropertyCard';
@@ -367,6 +368,23 @@ export async function getStaticProps({ params }) {
     // Every locale's AI-description column, not a hand-listed few — a missed
     // column here would ship partner-identifying text into __NEXT_DATA__.
     for (const loc of ALL_LOCALES) delete prop[`description_ai_${loc}`];
+
+    // Discreet-sale homes ship ONE photo, the title and the headline numbers.
+    // Description, amenities, every photo, the brochure extras and the Drive
+    // gallery are stripped here so they never reach __NEXT_DATA__; the page
+    // fetches them from /api/discreet-listing once the visitor has enquired.
+    if (property.is_discreet) {
+      prop.images = property.img ? [property.img] : [];
+      prop.photos = [];
+      prop.extra_photos = [];
+      prop.documents = [];
+      prop.total_images = 1;
+      prop.driveUrl = null;
+      delete prop.drive_url;
+      delete prop.description;
+      delete prop.amenities;
+      for (const loc of ALL_LOCALES) { delete prop[`description_${loc}`]; delete prop[`amenities_${loc}`]; }
+    }
 
     // Similar homes — COP's own catalog only, never a partner feed. Rank by
     // same city, then same region, then geographic distance within the country;
@@ -731,8 +749,15 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale }) {
 }
 
 /* ── Main page ── */
-export default function PropertyPage({ property: p, similar, showEnhancedSections = false, forceLocale = null, hreflangLocales = null }) {
+export default function PropertyPage({ property: p0, similar, showEnhancedSections = false, forceLocale = null, hreflangLocales = null }) {
   const router = useRouter();
+  // Discreet-sale homes: the static props carry a stripped row; once the
+  // visitor has enquired the full listing is fetched and merged in here.
+  const [fullListing, setFullListing] = useState(null);
+  const [discreetBusy, setDiscreetBusy] = useState(false);
+  const [showDiscreet, setShowDiscreet] = useState(false);
+  const p = fullListing ? { ...p0, ...fullListing } : p0;
+  const discreetLocked = !!p0.is_discreet && !fullListing;
   // forceLocale wins for SSG'd /es/propiedades/[slug] and /fr/proprietes/[slug]
   // wrappers — those pages know their locale at build time. For the canonical
   // /property/[slug] route, fall back to URL path detection then cookie.
@@ -751,9 +776,51 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
   const [saved, setSaved] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
   useEffect(() => { try { setUnlocked(!!getSavedUser().validated); } catch (e) {} }, []);
+
+  // Fetch the full discreet listing for a known visitor. Known = a saved,
+  // validated user in this browser, or a ?t= visitor token on the URL (the
+  // link the enquiry popup / emails carry). One enquiry unlocks every
+  // discreet home; the API records which homes each person opens.
+  async function loadDiscreetListing(email, name) {
+    if (!p0.is_discreet || !email || discreetBusy) return;
+    setDiscreetBusy(true);
+    try {
+      const r = await fetch('/api/discreet-listing/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: p0.slug, email }),
+      });
+      if (r.ok) {
+        const data = await r.json();
+        setFullListing(data);
+        saveUser({ name: name || getSavedUser().name || '', email, validated: true });
+        setUnlocked(true);
+      }
+    } catch (e) { /* stays locked */ }
+    setDiscreetBusy(false);
+  }
+  useEffect(() => {
+    if (!p0.is_discreet) return;
+    let email = null, name = null;
+    try {
+      const tok = new URLSearchParams(window.location.search).get('t');
+      if (tok) {
+        const o = JSON.parse(atob(tok.replace(/-/g, '+').replace(/_/g, '/')));
+        if (o && o.e) { email = String(o.e); name = o.n || null; }
+      }
+    } catch (e) { /* bad token → ignore */ }
+    if (!email) { try { const su = getSavedUser(); if (su.validated && su.email) email = su.email; } catch (e) {} }
+    if (email) loadDiscreetListing(email, name);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [p0.slug]);
   function viewGallery() {
     const su = getSavedUser();
-    const qs = locale !== 'en' ? `?lang=${locale}` : '';
+    // Carry the visitor token: the gallery of a discreet-sale home only opens
+    // for someone who has enquired, and it identifies them on any home.
+    const params = [];
+    if (su.email) { const tok = visitorToken(su.name, su.email); if (tok) params.push(`t=${tok}`); }
+    if (locale !== 'en') params.push(`lang=${locale}`);
+    const qs = params.length ? `?${params.join('&')}` : '';
     if (typeof window !== 'undefined') window.open(`/gallery/${p.slug}${qs}`, '_blank');
     // Log this property view + queue its photos email (server batches so it's never spammy)
     if (su.email) {
@@ -958,13 +1025,12 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
 
       <Header />
 
-      {p.is_discreet ? (
-        /* ── Discreet home: one photograph, nothing to unlock ── */
-        <div className="pp-discreet-hero">
+      {discreetLocked ? (
+        /* ── Discreet sale, locked: one photograph + unlock the full listing ── */
+        <div className="pp-discreet-hero" onClick={() => setShowDiscreet(true)} role="button" tabIndex={0}>
           {heroImg && <Img src={heroImg} alt={local.title} sizes="100vw" priority />}
-          <span className="pp-discreet-badge">
-            {locale === 'es' ? 'Venta privada' : locale === 'fr' ? 'Vente privée' : locale === 'de' ? 'Privatverkauf' : 'Private Sale'}
-          </span>
+          <span className="pp-discreet-badge">{(DISCREET_COPY[locale] || DISCREET_COPY.en).badge}</span>
+          <span className="pp-discreet-cta">{discreetBusy ? (DISCREET_COPY[locale] || DISCREET_COPY.en).btn_sending : (DISCREET_COPY[locale] || DISCREET_COPY.en).btn_idle}</span>
         </div>
       ) : (<>
       {/* ── Mobile carousel ── */}
@@ -1116,6 +1182,16 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
             mode={String(p.status || '').toLowerCase().includes('sold') ? 'waitlist' : 'watch'}
           />
 
+          {discreetLocked ? (
+            <div className="pp-discreet-panel">
+              <p className="ul-eye">{(DISCREET_COPY[locale] || DISCREET_COPY.en).badge}</p>
+              <h2 className="pp-heading">{(DISCREET_COPY[locale] || DISCREET_COPY.en).locked_title}</h2>
+              <p>{(DISCREET_COPY[locale] || DISCREET_COPY.en).locked_sub}</p>
+              <button type="button" className="pp-discreet-btn" onClick={() => setShowDiscreet(true)} disabled={discreetBusy}>
+                {discreetBusy ? (DISCREET_COPY[locale] || DISCREET_COPY.en).btn_sending : (DISCREET_COPY[locale] || DISCREET_COPY.en).btn_idle}
+              </button>
+            </div>
+          ) : (
           <div className="pp-desc">
             <h2 className="pp-heading">{t.about_heading}</h2>
             {local.description ? (
@@ -1140,6 +1216,7 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
               </>
             ) : <p className="pp-desc-empty">{t.desc_empty}</p>}
           </div>
+          )}
 
           {/* ── Look inside: gallery + 3D tour request (no tour is ever
                  embedded or linked — the team sends it by email).
@@ -1310,6 +1387,14 @@ export default function PropertyPage({ property: p, similar, showEnhancedSection
         );
       })()}
 
+      {showDiscreet && (
+        <DiscreetUnlockModal
+          property={p0}
+          title={local.title}
+          onClose={() => setShowDiscreet(false)}
+          onUnlocked={({ email, name }) => { setShowDiscreet(false); loadDiscreetListing(email, name); }}
+        />
+      )}
       {showUnlock && <UnlockModal propertyTitle={local.title} driveUrl={p.driveUrl} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} onClose={() => setShowUnlock(false)} />}
       {showEnhancedSections && showTour && (
         <TourRequestModal

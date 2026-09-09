@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import UnlockModal from '@/components/UnlockModal';
-import DiscreetRegisterModal from '@/components/DiscreetRegisterModal';
+import DiscreetUnlockModal from '@/components/DiscreetUnlockModal';
+import { getSavedUser } from '@/lib/savedUser';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
 import { localeFromPath, propertyHref, numberLocale } from '@/lib/i18n';
 
@@ -22,8 +23,8 @@ const COPY = {
     unlock_sub: 'Unlock the full gallery & floor plans — free',
     unlock_now: 'Unlock Now →',
     new_badge: 'New This Week',
-    private_sale: 'Private Sale',
-    request_details: 'Request details →',
+    private_sale: 'Discreet Sale',
+    request_details: 'Unlock the full listing →',
     share_property: 'Share this property',
     link_copied: 'Link copied',
   },
@@ -37,8 +38,8 @@ const COPY = {
     unlock_sub: 'Desbloquea la galería completa y los planos — gratis',
     unlock_now: 'Desbloquear ahora →',
     new_badge: 'Novedad',
-    private_sale: 'Venta privada',
-    request_details: 'Solicitar detalles →',
+    private_sale: 'Venta discreta',
+    request_details: 'Desbloquear la ficha completa →',
     share_property: 'Compartir esta propiedad',
     link_copied: 'Enlace copiado',
   },
@@ -52,8 +53,8 @@ const COPY = {
     unlock_sub: 'Débloquez la galerie complète et les plans — gratuit',
     unlock_now: 'Débloquer maintenant →',
     new_badge: 'Nouveauté',
-    private_sale: 'Vente privée',
-    request_details: 'Demander les détails →',
+    private_sale: 'Vente discrète',
+    request_details: "Débloquer l'annonce complète →",
     share_property: 'Partager ce bien',
     link_copied: 'Lien copié',
   },
@@ -67,8 +68,8 @@ const COPY = {
     unlock_sub: 'Vollständige Galerie und Grundrisse freischalten — kostenlos',
     unlock_now: 'Jetzt freischalten →',
     new_badge: 'Neu diese Woche',
-    private_sale: 'Privatverkauf',
-    request_details: 'Details anfordern →',
+    private_sale: 'Diskreter Verkauf',
+    request_details: 'Vollständiges Exposé freischalten →',
     share_property: 'Diese Immobilie teilen',
     link_copied: 'Link kopiert',
   },
@@ -82,8 +83,8 @@ const COPY = {
     unlock_sub: 'Sblocca la galleria completa e le planimetrie — gratis',
     unlock_now: 'Sblocca ora →',
     new_badge: 'Novità',
-    private_sale: 'Vendita privata',
-    request_details: 'Richiedi i dettagli →',
+    private_sale: 'Vendita discreta',
+    request_details: 'Sblocca la scheda completa →',
     share_property: 'Condividi questo immobile',
     link_copied: 'Link copiato',
   },
@@ -97,8 +98,8 @@ const COPY = {
     unlock_sub: 'Ontgrendel de volledige galerij en plattegronden — gratis',
     unlock_now: 'Nu ontgrendelen →',
     new_badge: 'Nieuw',
-    private_sale: 'Privéverkoop',
-    request_details: 'Details aanvragen →',
+    private_sale: 'Discrete verkoop',
+    request_details: 'Volledige pagina ontgrendelen →',
     share_property: 'Deel deze woning',
     link_copied: 'Link gekopieerd',
   },
@@ -112,8 +113,8 @@ const COPY = {
     unlock_sub: 'Libere a galeria completa e as plantas — grátis',
     unlock_now: 'Liberar agora →',
     new_badge: 'Novidade',
-    private_sale: 'Venda privada',
-    request_details: 'Pedir detalhes →',
+    private_sale: 'Venda discreta',
+    request_details: 'Desbloquear a ficha completa →',
     share_property: 'Compartilhar este imóvel',
     link_copied: 'Link copiado',
   },
@@ -127,8 +128,8 @@ const COPY = {
     unlock_sub: 'Lås upp hela bildgalleriet och planritningarna — gratis',
     unlock_now: 'Lås upp nu →',
     new_badge: 'Nytt',
-    private_sale: 'Privat försäljning',
-    request_details: 'Begär detaljer →',
+    private_sale: 'Diskret försäljning',
+    request_details: 'Lås upp hela beskrivningen →',
     share_property: 'Dela den här bostaden',
     link_copied: 'Länk kopierad',
   },
@@ -142,8 +143,8 @@ const COPY = {
     unlock_sub: 'Lås hele billedgalleriet og plantegningerne op — gratis',
     unlock_now: 'Lås op nu →',
     new_badge: 'Nyt',
-    private_sale: 'Privat salg',
-    request_details: 'Anmod om detaljer →',
+    private_sale: 'Diskret salg',
+    request_details: 'Lås op for den fulde præsentation →',
     share_property: 'Del denne bolig',
     link_copied: 'Link kopieret',
   },
@@ -157,8 +158,8 @@ const COPY = {
     unlock_sub: 'Lås opp hele bildegalleriet og plantegningene — gratis',
     unlock_now: 'Lås opp nå →',
     new_badge: 'Nytt',
-    private_sale: 'Privat salg',
-    request_details: 'Be om detaljer →',
+    private_sale: 'Diskret salg',
+    request_details: 'Lås opp hele presentasjonen →',
     share_property: 'Del denne boligen',
     link_copied: 'Lenke kopiert',
   },
@@ -276,8 +277,10 @@ export default function PropertyCard({ property: p, priority = false }) {
   function handleLockClick(e) { e.stopPropagation(); setUnlockOpen(true); }
   function handleCardClick() {
     if (isLockSlide) return;
-    // Discreet homes: register-to-receive-details popup instead of the page.
-    if (isDiscreet) { setDiscreetOpen(true); return; }
+    // Discreet homes: the enquiry popup unlocks the full listing. A visitor
+    // who has already enquired once goes straight to the page — it unlocks
+    // itself for them (one enquiry opens every discreet home).
+    if (isDiscreet && !getSavedUser().validated) { setDiscreetOpen(true); return; }
     window.location.href = href;
   }
 
@@ -434,7 +437,7 @@ export default function PropertyCard({ property: p, priority = false }) {
             </div>
           )}
           {isDiscreet ? (
-            <button type="button" className="prop-view-btn prop-view-btn-discreet" onClick={e => { e.stopPropagation(); setDiscreetOpen(true); }}>{t.request_details}</button>
+            <button type="button" className="prop-view-btn prop-view-btn-discreet" onClick={e => { e.stopPropagation(); handleCardClick(); }}>{t.request_details}</button>
           ) : (
             <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>{t.view_property}</a>
           )}
@@ -442,7 +445,7 @@ export default function PropertyCard({ property: p, priority = false }) {
       </article>
 
       {discreetOpen && (
-        <DiscreetRegisterModal property={p} title={title} onClose={() => setDiscreetOpen(false)} />
+        <DiscreetUnlockModal property={p} title={title} onClose={() => setDiscreetOpen(false)} />
       )}
 
       {unlockOpen && (
