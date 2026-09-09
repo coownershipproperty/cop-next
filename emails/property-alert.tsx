@@ -164,7 +164,12 @@ export default function PropertyAlert({
                       {p.title.includes('—') ? p.title.split('—')[1]?.trim() : p.title}
                     </Heading>
                     <Text style={cardStats}>
-                      {p.beds} BEDS&ensp;|&ensp;{p.size} M²
+                      {/* Most partner listings carry no floor area, which rendered a
+                          literal "0 M²" on every row. Show the size only when there
+                          is one, and never say "1 BEDS". */}
+                      {p.beds ? `${p.beds} BED${p.beds === 1 ? '' : 'S'}` : ''}
+                      {p.beds && p.size ? <>&ensp;|&ensp;</> : ''}
+                      {p.size ? `${p.size} M²` : ''}
                     </Text>
                     <Text style={cardPrice}>{p.price}</Text>
                     <Link href={`${base}/property/${p.slug}`} style={viewPropLink}>
