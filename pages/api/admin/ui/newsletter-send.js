@@ -65,11 +65,19 @@ const BATCH_SIZE = 100;
 /** PostgREST puts filters in the URL, so keep bulk `in` lists modest. */
 const LOOKUP_CHUNK = 200;
 
+/** Domains reserved by RFC 2606 / RFC 6761 for documentation and testing.
+ *  Resend rejects them — and it rejects the WHOLE batch they sit in, so two
+ *  seeded `@example.com` contacts once stalled a 879-person campaign at 679
+ *  (9 Sep 2026). Never let one reach a batch. */
+const RESERVED_DOMAIN = /@(?:[^\s@]+\.)?(?:example\.(?:com|net|org)|test|example|invalid|localhost)$/i;
+
 /** Cheap sanity check so an unsendable address costs no Resend round-trip.
- *  Catches the real-world case: a floor-plan form capturing "name@gmail". */
+ *  Catches the real-world cases: a floor-plan form capturing "name@gmail",
+ *  and seeded placeholder addresses. */
 function looksSendable(email) {
   const e = String(email || '').trim();
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)) return false;
+  return !RESERVED_DOMAIN.test(e);
 }
 
 /**
@@ -195,7 +203,6 @@ export default async function handler(req, res) {
 
   let sent = 0, failed = 0, remaining = 0;
   let timedOut = false;
-  let batchFailed = false;
 
   for (let i = 0; i < todo.length; i += BATCH_SIZE) {
     // Out of budget: stop cleanly and leave the rest for the next invocation.
@@ -315,17 +322,48 @@ export default async function handler(req, res) {
       }
       sent += sendable.length;
     } catch (err) {
-      // Whole batch rejected — release the claim (back to 'pending') so the
-      // next run retries them, and keep the campaign in 'sending' so it CAN be
-      // retried: it used to be flipped to 'sent' anyway, orphaning these rows.
-      console.error('[newsletter-send] batch send failed:', err.message);
-      const releaseIds = sendable.map(p => rowIdByContact.get(p.contact.id)).filter(Boolean);
-      if (releaseIds.length) {
-        await db.from('newsletter_sends').update({ status: 'pending', error: String(err.message).slice(0, 500) })
-          .in('id', releaseIds).eq('status', 'sending');
+      // Resend rejects a batch as a unit: ONE bad address takes down the 99
+      // good ones with it. So fall back to sending this chunk one message at a
+      // time — the offender is recorded 'failed' with its own error and
+      // everyone else still gets the newsletter, instead of the whole campaign
+      // stalling (9 Sep 2026: two @example.com contacts held up 200 people).
+      console.error('[newsletter-send] batch send failed, retrying individually:', err.message);
+      const batchErr = String(err.message).slice(0, 500);
+      for (const p of sendable) {
+        const rowId = rowIdByContact.get(p.contact.id);
+        // Individual retries are slow (one API call each). If the budget runs
+        // out mid-chunk, release what is left as 'pending' for the next run.
+        if (Date.now() - startedAt > MAX_RUN_MS) {
+          if (rowId) {
+            await db.from('newsletter_sends')
+              .update({ status: 'pending', error: batchErr })
+              .eq('id', rowId).eq('status', 'sending');
+          }
+          timedOut = true;
+          continue;
+        }
+        try {
+          await sendHtmlBatch([{
+            to: p.contact.email, subject: p.subject, html: p.html,
+            from: 'Dylan at Co-Ownership Property <dylan@co-ownership-property.com>',
+            replyTo: 'dylan@co-ownership-property.com',
+            headers: listUnsubHeaders(p.contact.email),
+          }]);
+          if (rowId) {
+            await db.from('newsletter_sends')
+              .update({ status: 'sent', sent_at: new Date().toISOString(), error: null })
+              .eq('id', rowId);
+          }
+          sent += 1;
+        } catch (one) {
+          if (rowId) {
+            await db.from('newsletter_sends')
+              .update({ status: 'failed', error: String(one.message).slice(0, 500) })
+              .eq('id', rowId);
+          }
+          failed += 1;
+        }
       }
-      failed += sendable.length;
-      batchFailed = true;
     }
   }
 
@@ -336,7 +374,9 @@ export default async function handler(req, res) {
     .eq('campaign_id', campaignId)
     .eq('status', 'sent');
 
-  const done = !timedOut && !batchFailed;
+  // A recipient that failed on its own is terminal, not something to resume;
+  // only an unfinished queue keeps the campaign in 'sending'.
+  const done = !timedOut;
   const { error: finalErr } = await db.from('newsletter_campaigns')
     .update({
       status:     done ? 'sent' : 'sending',
@@ -364,9 +404,7 @@ export default async function handler(req, res) {
     total: recipients.length,
     resumed: isResume,
     message: done
-      ? null
-      : batchFailed
-        ? `Resend rejected a batch (${failed} recipients kept as pending). The campaign stays in "sending" — the 5-minute sender retries them, or press Send again.`
-        : `Stopped at the time limit with ${remaining} recipients left. The 5-minute sender finishes the rest — nobody will be mailed twice.`,
+      ? (failed ? `${failed} address${failed === 1 ? '' : 'es'} could not be delivered — see the failed rows on the campaign.` : null)
+      : `Stopped at the time limit with ${remaining} recipients left. The 5-minute sender finishes the rest — nobody will be mailed twice.`,
   });
 }
