@@ -1,22 +1,25 @@
 import {
-  Body,
-  Button,
-  Column,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Img,
-  Link,
-  Preview,
-  Row,
-  Section,
-  Text,
+  Body, Container, Head, Html, Img, Link, Preview, Section, Text,
 } from '@react-email/components';
 import * as React from 'react';
 
-// ── Types ─────────────────────────────────────────────────────────────────────
+/**
+ * Saved-search alert — redesigned 9 Sep 2026 to match the newsletter.
+ *
+ * It used to be a navy header block in a different typeface with a filled
+ * button, so landing next to the weekly newsletter it read as a different
+ * company (David, 9 Sep 2026: "make it more like the one we just made for
+ * newsletter, i don't like the old design"). Same palette, same serif stack,
+ * same gold-hairline links as emails/personalised-newsletter.tsx — if you
+ * change one, change both.
+ *
+ * NEAR MISSES. A saved search with a tight budget can match nothing for
+ * months — two Portugal alerts capped at €100,000 and a Florida one at
+ * $500,000 would never have fired at all. When nothing fits the budget, the
+ * API sends the closest homes in those regions instead and sets `nearMiss`,
+ * and this template says so plainly rather than implying they matched.
+ */
+
 interface AlertProperty {
   title: string;
   price: string;
@@ -36,461 +39,261 @@ interface PropertyAlertProps {
   properties?: AlertProperty[];
   editAlertUrl?: string;
   unsubscribeUrl?: string;
+  /** True when nothing met the budget and these are the closest homes instead. */
+  nearMiss?: boolean;
 }
 
-// ── Brand colours ─────────────────────────────────────────────────────────────
 const C = {
-  navy:   '#1E3448',
-  navy60: '#6B8A9E',
-  gold:   '#C9A84C',
-  cream:  '#F7F4EE',
-  white:  '#FFFFFF',
-  border: '#E8E3DC',
+  paper: '#F6F3ED',
+  card:  '#FFFFFF',
+  ink:   '#1C2B3A',
+  soft:  '#5D6B78',
+  line:  '#E2DCD0',
+  gold:  '#A98A45',
 };
 
 const base = 'https://co-ownership-property.com';
+const DISPLAY = "Didot, 'Didot LT STD', 'Bodoni MT', 'Playfair Display', Georgia, serif";
+const TEXT    = "Georgia, 'Times New Roman', serif";
 
-// ── Sample data ───────────────────────────────────────────────────────────────
-const sampleProperties: AlertProperty[] = [
-  {
-    title: 'Marbella, Spain — 3-Bed Luxury Villa With Private Pool',
-    price: '€189,500',
-    beds: 3,
-    size: 220,
-    location: 'Marbella, Spain',
-    slug: 'marbella-3-bed-luxury-villa-private-pool',
-    imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
-    shareSize: '1/4 share',
-    isNew: true,
-  },
-  {
-    title: 'Sotogrande, Spain — 4-Bed Cortijo With Mountain Views',
-    price: '€224,000',
-    beds: 4,
-    size: 310,
-    location: 'Sotogrande, Spain',
-    slug: 'sotogrande-4-bed-cortijo-mountain-views',
-    imageUrl: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=600&q=80',
-    shareSize: '1/4 share',
-    isNew: true,
-  },
-];
+const WORDS = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'];
+const numWord = (n: number) => (n >= 0 && n < WORDS.length ? WORDS[n] : String(n));
+const cap = (w: string) => w.charAt(0).toUpperCase() + w.slice(1);
 
-// ── Component ─────────────────────────────────────────────────────────────────
+function Rule({ width = 44, color = C.gold }: { width?: number; color?: string }) {
+  return (
+    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
+      <tbody><tr><td align="center">
+        <table width={width} cellPadding="0" cellSpacing="0" role="presentation">
+          <tbody><tr><td style={{ backgroundColor: color, height: 1, lineHeight: '1px', fontSize: '1px' }}>&nbsp;</td></tr></tbody>
+        </table>
+      </td></tr></tbody>
+    </table>
+  );
+}
+
+function crop(url: string, w: number, h: number) {
+  if (!url) return url;
+  if (url.includes('/storage/v1/object/public/')) {
+    return url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/') + `?width=${w}&height=${h}&resize=cover&quality=82`;
+  }
+  return url;
+}
+
+/** "Place, Region, Country — What it is" → a small label and a real title. */
+function splitTitle(p: AlertProperty) {
+  const i = p.title.indexOf(' — ');
+  if (i > 0) return { place: p.title.slice(0, i), name: p.title.slice(i + 3) };
+  return { place: p.location || '', name: p.title };
+}
+
+const hrefFor = (p: AlertProperty) => `${base}/property/${p.slug}/`;
+
+// ── The first match, given room ──────────────────────────────────────────────
+function LeadCard({ p }: { p: AlertProperty }) {
+  const href = hrefFor(p);
+  const { place, name } = splitTitle(p);
+  return (
+    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
+      <tbody>
+        <tr><td>
+          <Link href={href} style={{ display: 'block' }}>
+            <Img src={crop(p.imageUrl || '', 1120, 720)} alt={p.title} width="560" style={leadImg} />
+          </Link>
+        </td></tr>
+        <tr><td style={{ padding: '30px 10px 0', textAlign: 'center' as const }}>
+          <Text style={place1}>{place}</Text>
+          <Link href={href} style={{ textDecoration: 'none' }}>
+            <Text className="leadtitle" style={leadTitle}>{name}</Text>
+          </Link>
+          <Text style={priceLine}>{p.price} <span style={perShare}>per share</span></Text>
+          <Link href={href} style={cta}>Discover the home</Link>
+        </td></tr>
+      </tbody>
+    </table>
+  );
+}
+
+// ── One home per line ────────────────────────────────────────────────────────
+function RowCard({ p }: { p: AlertProperty }) {
+  const href = hrefFor(p);
+  const { place, name } = splitTitle(p);
+  return (
+    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={rowBox}>
+      <tbody><tr>
+        <td className="rowcell" width="230" style={{ verticalAlign: 'middle', paddingRight: 28 }}>
+          <Link href={href} style={{ display: 'block' }}>
+            <Img src={crop(p.imageUrl || '', 460, 345)} alt={p.title} width="230" className="rowimg" style={rowImg} />
+          </Link>
+        </td>
+        <td className="rowcell rowtext" style={{ verticalAlign: 'middle' }}>
+          <Text style={place2}>{place}</Text>
+          <Link href={href} style={{ textDecoration: 'none' }}>
+            <Text className="rowtitle" style={rowTitle}>{name}</Text>
+          </Link>
+          <Text style={rowPrice}>{p.price} <span style={perShare}>per share</span></Text>
+          <Link href={href} style={ctaSm}>Discover this home</Link>
+        </td>
+      </tr></tbody>
+    </table>
+  );
+}
+
+// ── Main ─────────────────────────────────────────────────────────────────────
 export default function PropertyAlert({
-  firstName = 'Emma',
-  searchCriteria = 'Spain · Up to €300,000',
-  matchCount = 2,
-  properties = sampleProperties,
-  editAlertUrl = 'https://co-ownership-property.com/alerts/edit/',
-  unsubscribeUrl = '{{unsubscribe_url}}',
+  firstName,
+  searchCriteria = '',
+  matchCount,
+  properties = [],
+  editAlertUrl = `${base}/our-homes/`,
+  unsubscribeUrl = `${base}/unsubscribe`,
+  nearMiss = false,
 }: PropertyAlertProps) {
+  const n     = matchCount ?? properties.length;
+  const lead  = properties[0];
+  const rest  = properties.slice(1, 8);
+  const more  = properties.length - Math.min(properties.length, 8);
+
+  const headline = nearMiss
+    ? 'Nothing in your budget this week'
+    : `${cap(numWord(n))} new home${n === 1 ? '' : 's'} for you`;
+
+  const greeting = firstName ? `Dear ${firstName},` : 'Dear reader,';
+  const issueLine = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  const intro = nearMiss
+    ? 'Nothing new came in under your budget, so here are the closest homes that did arrive in the places you follow — in case one is worth stretching for.'
+    : `New in the last day, matched to the alert you set. Every one is deeded fractional ownership of the whole home, fully managed between stays.`;
+
+  const previewLine = nearMiss
+    ? `Nothing under your budget — but ${numWord(properties.length)} new home${properties.length === 1 ? '' : 's'} in your regions`
+    : `${headline}${searchCriteria ? ` — ${searchCriteria}` : ''}`;
+
   return (
     <Html lang="en">
       <Head>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
-          @media only screen and (max-width: 600px) {
-            p { font-size: 17px !important; line-height: 1.75 !important; }
-            h1, h2, h3 { font-size: 26px !important; line-height: 1.35 !important; }
-            img { max-width: 100% !important; height: auto !important; }
+          @media only screen and (max-width: 520px) {
+            .rowcell { display: block !important; width: 100% !important; padding: 0 !important; }
+            .rowimg { width: 100% !important; height: auto !important; }
+            .rowtext { padding-top: 18px !important; text-align: center !important; }
+            .pad { padding-left: 22px !important; padding-right: 22px !important; }
+            .h1 { font-size: 34px !important; }
+            .intro { font-size: 18px !important; }
+            .leadtitle { font-size: 28px !important; }
+            .rowtitle { font-size: 25px !important; }
+            .btn { display: block !important; }
           }
         `}</style>
       </Head>
+      <Preview>{previewLine}</Preview>
 
-      <Preview>{matchCount} new {matchCount === 1 ? 'property matches' : 'properties match'} your saved search.</Preview>
+      <Body style={bodyStyle}>
+        <Container style={container}>
+        <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={sheet}><tbody><tr><td>
 
-      <Body style={body}>
+          {/* Masthead */}
+          <Section className="pad" style={masthead}>
+            <Link href={base} style={{ textDecoration: 'none' }}>
+              <Text style={wordmark}>Co-Ownership Property</Text>
+            </Link>
+          </Section>
 
-        {/* ── HEADER ── */}
-        <Section style={header}>
-          <Container style={wrap}>
-            <Section style={goldRuleHeader} />
-            <Text style={wordmark}>Co-Ownership Property</Text>
-            <Section style={goldRuleHeader} />
-          </Container>
-        </Section>
+          {/* Headline */}
+          <Section className="pad" style={{ padding: '52px 56px 0', textAlign: 'center' as const }}>
+            <Text style={issueStyle}>Your alert&ensp;·&ensp;{issueLine}</Text>
+            <Text className="h1" style={h1}>{headline}</Text>
+            <Rule width={44} />
+            <Text style={greetingStyle}>{greeting}</Text>
+            <Text className="intro" style={introStyle}>{intro}</Text>
+            {searchCriteria && <Text style={criteria}>{searchCriteria}</Text>}
+          </Section>
 
-        {/* ── ALERT HERO BAND ── */}
-        <Section style={alertBand}>
-          <Container style={wrap}>
-            <Text style={diamondIcon}>◆</Text>
-            <Heading style={alertHeading}>
-              <em>{matchCount} new {matchCount === 1 ? 'property matches' : 'properties match'} your search</em>
-            </Heading>
-            <Text style={alertSub}>
-              Listed in the last 24 hours — matched to your saved criteria.
-            </Text>
-            <Section style={{ marginTop: 20 }}>
-              <Text style={searchPill}>YOUR SEARCH&ensp;·&ensp;{searchCriteria}</Text>
+          {/* Lead */}
+          {lead && (
+            <Section className="pad" style={{ padding: '44px 56px 0' }}>
+              <LeadCard p={lead} />
             </Section>
-          </Container>
-        </Section>
+          )}
 
-        {/* ── YOUR MATCHES ── */}
-        <Section style={{ backgroundColor: C.cream, paddingTop: 40, paddingBottom: 8 }}>
-          <Container style={wrap}>
+          {/* The rest */}
+          {rest.length > 0 && (
+            <Section className="pad" style={{ padding: '48px 56px 0' }}>
+              {rest.map((p, i) => <RowCard key={i} p={p} />)}
+            </Section>
+          )}
 
-            <Text style={eyebrow}>Your Matches</Text>
-            <Hr style={goldBar} />
+          {/* CTA */}
+          <Section className="pad" style={{ padding: '20px 56px 0', textAlign: 'center' as const }}>
+            {more > 0 && <Text style={moreLine}>{`and ${numWord(more)} more matching your alert`}</Text>}
+            <Link href={`${base}/our-homes/`} className="btn" style={button}>View every home</Link>
+          </Section>
 
-            {properties.map((p, i) => (
-              <Section key={i} style={propCard}>
-                <Row>
-                  <Column style={cardImgCol}>
-                    {p.imageUrl ? (
-                      <Link href={`${base}/property/${p.slug}`}>
-                        <Img
-                          src={p.imageUrl}
-                          alt={p.title}
-                          width="160"
-                          height="120"
-                          style={cardImgStyle}
-                        />
-                      </Link>
-                    ) : (
-                      <Section style={cardImgPlaceholder} />
-                    )}
-                    {p.isNew && (
-                      <Text style={newBadge}>NEW TODAY</Text>
-                    )}
-                    {p.shareSize && (
-                      <Text style={shareBadge}>{p.shareSize}</Text>
-                    )}
-                  </Column>
-                  <Column style={cardTextCol}>
-                    <Text style={locationLabel}>{p.location}</Text>
-                    <Heading style={cardTitle}>
-                      {p.title.includes('—') ? p.title.split('—')[1]?.trim() : p.title}
-                    </Heading>
-                    <Text style={cardStats}>
-                      {/* Most partner listings carry no floor area, which rendered a
-                          literal "0 M²" on every row. Show the size only when there
-                          is one, and never say "1 BEDS". */}
-                      {p.beds ? `${p.beds} BED${p.beds === 1 ? '' : 'S'}` : ''}
-                      {p.beds && p.size ? <>&ensp;|&ensp;</> : ''}
-                      {p.size ? `${p.size} M²` : ''}
-                    </Text>
-                    <Text style={cardPrice}>{p.price}</Text>
-                    <Link href={`${base}/property/${p.slug}`} style={viewPropLink}>
-                      View Property →
-                    </Link>
-                  </Column>
-                </Row>
-              </Section>
-            ))}
+          {/* Sign-off */}
+          <Section className="pad" style={{ padding: '52px 70px 8px', textAlign: 'center' as const }}>
+            <Rule width={44} />
+            <Text style={nudge}>Anything catch your eye?<br />Simply reply to this email — a real person answers.</Text>
+          </Section>
 
-          </Container>
-        </Section>
-
-        {/* ── BROWSE ALL CTA ── */}
-        <Section style={{ backgroundColor: C.cream, paddingBottom: 40, textAlign: 'center' as const }}>
-          <Container style={wrap}>
-            <Button href={`${base}/our-homes/`} style={ctaBtn}>
-              BROWSE ALL PROPERTIES
-            </Button>
-          </Container>
-        </Section>
-
-        {/* ── FOOTER ── */}
-        <Section style={footer}>
-          <Container style={wrap}>
-            <Text style={footLogo}>Co-Ownership Property</Text>
-            <Section style={footGoldRule} />
-            <Text style={footLinks}>
+          {/* Footer */}
+          <Section className="pad" style={footer}>
+            <Text style={footMark}>Co-Ownership Property</Text>
+            <Text style={footText}>
               <Link href={base} style={footLink}>Website</Link>
-              {'  ·  '}
-              <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
-              {'  ·  '}
-              <Link href={`${base}/how-it-works/`} style={footLink}>How It Works</Link>
-              {'  ·  '}
-              <Link href={`${base}/all-our-blog/`} style={footLink}>Blog</Link>
-            </Text>
-            <Hr style={footDivider} />
-            <Text style={footFine}>
-              You're receiving this email because you signed up at co-ownership-property.com
-            </Text>
-            <Text style={footFine}>
-              Not what you're looking for?{' '}
-              <Link href={editAlertUrl} style={{ color: C.gold, textDecoration: 'none' }}>Edit your alert</Link>
               {' · '}
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
+              <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
+              {' · '}
+              <Link href={`${base}/how-it-works/`} style={footLink}>How it works</Link>
             </Text>
-          </Container>
-        </Section>
+            <Text style={footSmall}>
+              Deeded fractional homes in Europe and the USA.<br />
+              You set this alert on our site.
+              {' '}<Link href={editAlertUrl} style={{ color: C.soft, textDecoration: 'underline' }}>Change what you follow</Link>
+              {' · '}<Link href={unsubscribeUrl} style={{ color: C.soft, textDecoration: 'underline' }}>Unsubscribe</Link>
+            </Text>
+          </Section>
 
+        </td></tr></tbody></table>
+        </Container>
       </Body>
     </Html>
   );
 }
 
-// ── STYLES ────────────────────────────────────────────────────────────────────
+// ── Styles (kept identical to the newsletter) ────────────────────────────────
+const bodyStyle: React.CSSProperties = { margin: 0, padding: '30px 0 40px', backgroundColor: C.paper, fontFamily: TEXT };
+const container: React.CSSProperties = { maxWidth: 640, margin: '0 auto' };
+const sheet: React.CSSProperties = { backgroundColor: C.card, border: `1px solid ${C.line}` };
 
-const body: React.CSSProperties = {
-  backgroundColor: C.cream,
-  margin: 0,
-  padding: 0,
-  fontFamily: "'Jost', 'Helvetica Neue', Arial, sans-serif",
-};
+const masthead: React.CSSProperties = { padding: '46px 56px 40px', textAlign: 'center' as const, borderBottom: `1px solid ${C.line}` };
+const wordmark: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, letterSpacing: '0.34em', textTransform: 'uppercase' as const, color: C.ink, margin: 0, paddingLeft: '0.34em', lineHeight: '1.4' };
 
-const wrap: React.CSSProperties = {
-  maxWidth: 600,
-  margin: '0 auto',
-  padding: '0 20px',
-};
+const issueStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.soft, margin: '0 0 22px' };
+const h1: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 42, lineHeight: '1.14', fontWeight: 400, color: C.ink, margin: '0 0 26px' };
+const greetingStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, fontStyle: 'italic', color: C.ink, margin: '26px 0 12px' };
+const introStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 18, lineHeight: '1.75', color: C.ink, margin: 0 };
+const criteria: React.CSSProperties = { fontFamily: TEXT, fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.gold, lineHeight: '1.9', margin: '26px 0 0' };
 
-const header: React.CSSProperties = {
-  backgroundColor: C.navy,
-  padding: '52px 0 44px',
-};
+const leadImg: React.CSSProperties = { width: '100%', maxWidth: 560, height: 'auto', display: 'block' };
+const place1: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 14px' };
+const leadTitle: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 31, lineHeight: '1.25', fontWeight: 400, color: C.ink, margin: '0 0 16px' };
+const priceLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 22, color: C.ink, margin: '0 0 22px' };
+const perShare: React.CSSProperties = { fontFamily: TEXT, fontSize: 15, fontStyle: 'italic', color: C.soft };
+const cta: React.CSSProperties = { display: 'inline-block', fontFamily: TEXT, fontSize: 13, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.ink, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 7 };
+const ctaSm: React.CSSProperties = { display: 'inline-block', fontFamily: TEXT, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: C.ink, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 6, marginTop: 18 };
 
-const wordmark: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  color: C.white,
-  fontSize: 26,
-  fontWeight: 300,
-  letterSpacing: '0.24em',
-  textTransform: 'uppercase' as const,
-  textAlign: 'center' as const,
-  margin: '20px 0',
-};
+const rowBox: React.CSSProperties = { borderTop: `1px solid ${C.line}`, paddingTop: 36, marginBottom: 36 };
+const rowImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block' };
+const place2: React.CSSProperties = { fontFamily: TEXT, fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.gold, margin: '0 0 10px' };
+const rowTitle: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 24, lineHeight: '1.3', fontWeight: 400, color: C.ink, margin: '0 0 12px' };
+const rowPrice: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, color: C.ink, margin: 0 };
 
-const goldRuleHeader: React.CSSProperties = {
-  backgroundColor: C.gold,
-  height: 1,
-  maxWidth: 56,
-  margin: '0 auto',
-};
+const moreLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, fontStyle: 'italic', color: C.soft, margin: '0 0 26px' };
+const button: React.CSSProperties = { display: 'inline-block', backgroundColor: C.ink, color: '#FFFFFF', fontFamily: TEXT, fontSize: 14, letterSpacing: '0.22em', textTransform: 'uppercase' as const, padding: '20px 40px', textDecoration: 'none' };
+const nudge: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, fontStyle: 'italic', lineHeight: '1.7', color: C.ink, margin: '26px 0 0' };
 
-const alertBand: React.CSSProperties = {
-  backgroundColor: C.navy,
-  padding: '40px 0 36px',
-};
-
-const diamondIcon: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 14,
-  color: C.gold,
-  textAlign: 'center' as const,
-  margin: '0 0 12px',
-  letterSpacing: '0.1em',
-};
-
-const alertHeading: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 26,
-  fontWeight: 400,
-  fontStyle: 'italic',
-  color: C.white,
-  textAlign: 'center' as const,
-  margin: '0 0 12px',
-  lineHeight: '1.35',
-};
-
-const alertSub: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  color: 'rgba(255,255,255,0.6)',
-  textAlign: 'center' as const,
-  margin: 0,
-  letterSpacing: '0.04em',
-};
-
-const searchPill: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  fontWeight: 700,
-  letterSpacing: '0.16em',
-  textTransform: 'uppercase' as const,
-  color: C.gold,
-  border: `1px solid ${C.gold}`,
-  padding: '8px 20px',
-  display: 'inline-block',
-  textAlign: 'center' as const,
-  margin: '0 auto',
-};
-
-const eyebrow: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  fontWeight: 600,
-  letterSpacing: '0.18em',
-  textTransform: 'uppercase' as const,
-  color: C.gold,
-  margin: '0 0 10px',
-};
-
-const goldBar: React.CSSProperties = {
-  borderColor: C.gold,
-  borderTopWidth: 2,
-  width: 40,
-  margin: '0 0 24px',
-};
-
-const propCard: React.CSSProperties = {
-  backgroundColor: C.white,
-  marginBottom: 16,
-  overflow: 'hidden',
-};
-
-const cardImgCol: React.CSSProperties = {
-  width: 160,
-  verticalAlign: 'top',
-  position: 'relative' as const,
-};
-
-const cardImgStyle: React.CSSProperties = {
-  width: 160,
-  height: 120,
-  objectFit: 'cover' as const,
-  display: 'block',
-};
-
-const cardImgPlaceholder: React.CSSProperties = {
-  width: 160,
-  height: 120,
-  backgroundColor: '#E8E3DC',
-};
-
-const newBadge: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  fontWeight: 700,
-  letterSpacing: '0.12em',
-  backgroundColor: C.gold,
-  color: C.white,
-  padding: '3px 8px',
-  margin: '4px 0 0 4px',
-  display: 'inline-block',
-};
-
-const shareBadge: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  fontWeight: 700,
-  letterSpacing: '0.1em',
-  textTransform: 'uppercase' as const,
-  backgroundColor: C.navy,
-  color: C.white,
-  padding: '3px 8px',
-  margin: '4px 0 0 4px',
-  display: 'inline-block',
-};
-
-const cardTextCol: React.CSSProperties = {
-  verticalAlign: 'top',
-  padding: '16px 20px',
-};
-
-const locationLabel: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  fontWeight: 700,
-  letterSpacing: '0.16em',
-  textTransform: 'uppercase' as const,
-  color: C.gold,
-  margin: '0 0 6px',
-};
-
-const cardTitle: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 16,
-  fontWeight: 400,
-  color: C.navy,
-  margin: '0 0 8px',
-  lineHeight: '1.4',
-};
-
-const cardStats: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  fontWeight: 600,
-  letterSpacing: '0.1em',
-  textTransform: 'uppercase' as const,
-  color: C.navy60,
-  margin: '0 0 6px',
-};
-
-const cardPrice: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 18,
-  fontWeight: 400,
-  color: C.navy,
-  margin: '0 0 8px',
-};
-
-const viewPropLink: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 13,
-  fontWeight: 700,
-  letterSpacing: '0.1em',
-  color: C.gold,
-  textDecoration: 'none',
-};
-
-const ctaBtn: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  backgroundColor: C.navy,
-  color: C.white,
-  fontSize: 13,
-  fontWeight: 700,
-  letterSpacing: '0.18em',
-  padding: '14px 36px',
-  textDecoration: 'none',
-  display: 'inline-block',
-};
-
-const footer: React.CSSProperties = {
-  backgroundColor: C.navy,
-  padding: '56px 0 48px',
-  borderTop: `2px solid ${C.gold}`,
-};
-
-const footLogo: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  color: C.white,
-  fontSize: 22,
-  fontWeight: 300,
-  letterSpacing: '0.22em',
-  textTransform: 'uppercase' as const,
-  textAlign: 'center' as const,
-  margin: '0 0 20px',
-};
-
-const footGoldRule: React.CSSProperties = {
-  backgroundColor: C.gold,
-  height: 1,
-  maxWidth: 40,
-  margin: '0 auto 28px',
-};
-
-const footLinks: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 11,
-  fontWeight: 300,
-  letterSpacing: '0.1em',
-  textAlign: 'center' as const,
-  margin: '0 0 4px',
-  color: 'rgba(255,255,255,0.4)',
-};
-
-const footLink: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.5)',
-  textDecoration: 'none',
-};
-
-const footDivider: React.CSSProperties = {
-  borderColor: 'rgba(255,255,255,0.08)',
-  margin: '28px 0',
-};
-
-const footFine: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  color: 'rgba(255,255,255,0.3)',
-  fontSize: 12,
-  fontWeight: 300,
-  textAlign: 'center' as const,
-  margin: '6px 0 0',
-  lineHeight: '1.8',
-  letterSpacing: '0.04em',
-};
+const footer: React.CSSProperties = { padding: '48px 56px 44px', marginTop: 48, borderTop: `1px solid ${C.line}`, textAlign: 'center' as const };
+const footMark: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.3em', textTransform: 'uppercase' as const, color: C.ink, margin: '0 0 24px', paddingLeft: '0.3em' };
+const footText: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.16em', textTransform: 'uppercase' as const, color: C.ink, margin: '0 0 24px' };
+const footLink: React.CSSProperties = { color: C.ink, textDecoration: 'none' };
+const footSmall: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, fontStyle: 'italic', lineHeight: '1.8', color: C.soft, margin: 0 };

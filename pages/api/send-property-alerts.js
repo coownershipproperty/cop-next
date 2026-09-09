@@ -93,13 +93,27 @@ export default async function handler(req, res) {
     // overlaps the 24h schedule by an hour, and any extra invocation (a
     // duplicate cron delivery, a manual run) used to re-send every alert.
     const lastNotified = search.last_notified_at ? new Date(search.last_notified_at).getTime() : 0;
-    const matches = newProps.filter(p => {
-      if (lastNotified && p.date_added && new Date(p.date_added).getTime() <= lastNotified) return false;
-      const regionMatch = regionMatches(p, search.regions);
-      const priceMatch  = !search.max_price || !p.price || p.price <= search.max_price;
-      const bedsMatch   = !search.min_beds  || !p.beds  || p.beds  >= search.min_beds;
-      return regionMatch && priceMatch && bedsMatch;
+    const fresh = newProps.filter(p =>
+      !(lastNotified && p.date_added && new Date(p.date_added).getTime() <= lastNotified));
+
+    const inRegion = fresh.filter(p => regionMatches(p, search.regions));
+    const exact = inRegion.filter(p => {
+      const priceMatch = !search.max_price || !p.price || p.price <= search.max_price;
+      const bedsMatch  = !search.min_beds  || !p.beds  || p.beds  >= search.min_beds;
+      return priceMatch && bedsMatch;
     });
+
+    // NEAR MISSES (David, 9 Sep 2026). A tight budget can mean this alert
+    // never fires: two Portugal searches capped at €100,000 and a Florida one
+    // at $500,000 matched nothing at all, and silence is not what someone who
+    // asked to be notified wants. When the region has something new but the
+    // budget does not reach it, send the CLOSEST few — cheapest first — and
+    // flag it so the email says plainly that nothing met the budget. Never
+    // dressed up as a match, and capped at three so it stays a courtesy.
+    const nearMiss = exact.length === 0 && inRegion.length > 0;
+    const matches = nearMiss
+      ? [...inRegion].sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0)).slice(0, 3)
+      : exact;
 
     if (matches.length === 0) continue;
 
@@ -127,13 +141,19 @@ export default async function handler(req, res) {
       if (search.regions?.length) criteriaParts.push(search.regions.join(', '));
       if (search.min_beds) criteriaParts.push(`${search.min_beds}+ bed`);
       if (search.max_price) {
-        criteriaParts.push(`up to €${search.max_price.toLocaleString('en-GB')}`);
+        // A saved search stores no currency, so the cap was always printed in
+        // euros — "up to €500,000" on a Florida alert whose homes are all in
+        // dollars. Take the symbol from what actually matched.
+        const capSym = { EUR: '€', USD: '$', GBP: '£' }[matches[0]?.currency] || '€';
+        criteriaParts.push(`up to ${capSym}${search.max_price.toLocaleString('en-GB')}`);
       }
       const searchCriteria = criteriaParts.join(' · ') || 'All properties';
 
-      const subject = matches.length === 1
-        ? `New: ${matches[0].title}`
-        : `${matches.length} new properties matching your alert`;
+      const subject = nearMiss
+        ? `Nothing under your budget — but ${matches.length} new in ${(search.regions || ['your regions'])[0]}`
+        : matches.length === 1
+          ? `New: ${matches[0].title}`
+          : `${matches.length} new properties matching your alert`;
 
       await queueEmail({
         to:            search.email,
@@ -144,6 +164,7 @@ export default async function handler(req, res) {
           searchCriteria,
           matchCount:    matches.length,
           properties:    alertProperties,
+          nearMiss,
           editAlertUrl:  `https://co-ownership-property.com/our-homes/`,
           // Tokenised — the plain `?email=` form dead-ends. See lib/unsub.js.
           unsubscribeUrl: unsubUrl(search.email),
@@ -153,7 +174,9 @@ export default async function handler(req, res) {
         trigger:       'new_property_match',
         // An explicit alert subscription: send now, record as sent.
         autoSend:      true,
-        notes:         `${matches.length} new propert${matches.length === 1 ? 'y' : 'ies'} matching saved search`,
+        notes:         nearMiss
+          ? `${matches.length} near-miss propert${matches.length === 1 ? 'y' : 'ies'} — nothing met the saved search's budget`
+          : `${matches.length} new propert${matches.length === 1 ? 'y' : 'ies'} matching saved search`,
       });
 
       // Update last_notified_at
