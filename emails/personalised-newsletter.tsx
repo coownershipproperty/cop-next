@@ -1,8 +1,23 @@
 import {
-  Body, Container, Head, Heading, Hr,
-  Html, Img, Link, Preview, Section, Text,
+  Body, Container, Head, Html, Img, Link, Preview, Section, Text,
 } from '@react-email/components';
 import * as React from 'react';
+
+/**
+ * Personalised new-listings newsletter — redesigned 9 Sep 2026.
+ *
+ * White, photo-led, one action per home. The first (best-matched) home runs
+ * full width; every other home sits in a two-column grid that stacks on
+ * phones. ALL homes are shown — the old template capped at six cards while
+ * announcing the full count. Cards are deliberately light (one image, three
+ * lines, one link) so 13+ homes stay well under Gmail's ~100 KB clipping
+ * limit. Type is a system sans stack — email clients that block web fonts
+ * (Gmail, Outlook) render exactly what we designed.
+ *
+ * Props are unchanged from the previous template, so lib/newsletter/render.js
+ * needs no edit. `introOverride` is the campaign's intro_text with merge tags
+ * applied — used when present.
+ */
 
 interface Property {
   slug: string;
@@ -21,117 +36,101 @@ interface PersonalisedNewsletterEmailProps {
   primaryProperties?: Property[];
   fallbackProperties?: Property[];
   unsubscribeUrl?: string;
+  introOverride?: string | null;
 }
 
 const C = {
-  navy:    '#1E3448',
-  navy80:  '#243d56',
-  navy60:  '#6B8A9E',
-  gold:    '#C9A84C',
-  cream:   '#F7F4EE',
-  white:   '#FFFFFF',
+  navy:  '#152A3D',
+  ink:   '#1F2937',
+  body:  '#4B5563',
+  muted: '#8A94A0',
+  line:  '#E9E5DD',
+  gold:  '#B8933F',
+  white: '#FFFFFF',
+  soft:  '#F7F5F0',
 };
 
-const base           = 'https://co-ownership-property.com';
-const whatsappNumber = '447901002763';
-const enquiryEmail   = 'hello@co-ownership-property.com';
+const base = 'https://co-ownership-property.com';
+const FONT = "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif";
+const SERIF = "Georgia, 'Times New Roman', serif";
 
-// ── Gold rule helper ──────────────────────────────────────────────────────────
-function GoldRule({ width = 28 }: { width?: number }) {
+function hrefFor(p: Property) {
+  return p.galleryUrl || `${base}/property/${p.slug}/`;
+}
+
+// Titles are "Place, Region, Country — What it is". Split them so the place
+// reads as a small label and the home itself is the title.
+function splitTitle(p: Property) {
+  const i = p.title.indexOf(' — ');
+  if (i > 0) return { place: p.title.slice(0, i), name: p.title.slice(i + 3) };
+  return { place: p.location || '', name: p.title };
+}
+
+function metaLine(p: Property) {
+  const bits: string[] = [];
+  if (p.beds > 0) bits.push(`${p.beds} bed${p.beds > 1 ? 's' : ''}`);
+  if (p.size > 0) bits.push(`${p.size} m²`);
+  return bits.join('  ·  ');
+}
+
+// ── Lead home: full width ─────────────────────────────────────────────────────
+function LeadCard({ p }: { p: Property }) {
+  const href = hrefFor(p);
   return (
-    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
-      <tbody><tr><td align="center">
-        <table width={width} cellPadding="0" cellSpacing="0" role="presentation">
-          <tbody><tr>
-            <td style={{ backgroundColor: C.gold, height: 1, lineHeight: '1px', fontSize: '1px' }}>&nbsp;</td>
-          </tr></tbody>
-        </table>
-      </td></tr></tbody>
+    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={{ marginBottom: 28 }}>
+      <tbody>
+        <tr><td>
+          <Link href={href} style={{ display: 'block' }}>
+            <Img src={p.imageUrl} alt={p.title} width="600" style={leadImg} />
+          </Link>
+        </td></tr>
+        <tr><td style={{ padding: '16px 0 0' }}>
+          <Text style={eyebrow}>{splitTitle(p).place}</Text>
+          <Link href={href} style={{ textDecoration: 'none' }}>
+            <Text style={leadTitle}>{splitTitle(p).name}</Text>
+          </Link>
+          {metaLine(p) ? <Text style={meta}>{metaLine(p)}</Text> : null}
+          <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
+            <tbody><tr>
+              <td style={{ verticalAlign: 'baseline' }}>
+                <Text style={leadPrice}>{p.price} <span style={perShare}>per 1/8 share</span></Text>
+              </td>
+              <td align="right" style={{ verticalAlign: 'baseline' }}>
+                <Link href={href} style={viewLink}>View home →</Link>
+              </td>
+            </tr></tbody>
+          </table>
+        </td></tr>
+      </tbody>
     </table>
   );
 }
 
-// ── Full-width gold separator (header → body divider) ─────────────────────────
-function GoldBorder() {
+// ── Grid card: two per row, stacks on mobile ──────────────────────────────────
+function GridCard({ p }: { p: Property }) {
+  const href = hrefFor(p);
   return (
-    <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
-      <tbody><tr>
-        <td style={{ backgroundColor: C.gold, height: 2, lineHeight: '2px', fontSize: '1px' }}>&nbsp;</td>
-      </tr></tbody>
-    </table>
+    <>
+      <Link href={href} style={{ display: 'block' }}>
+        <Img src={p.imageUrl} alt={p.title} width="284" className="gridimg" style={gridImg} />
+      </Link>
+      <Text style={gridPlace}>{splitTitle(p).place}</Text>
+      <Link href={href} style={{ textDecoration: 'none' }}>
+        <Text style={gridTitle}>{splitTitle(p).name}</Text>
+      </Link>
+      {metaLine(p) ? <Text style={gridMeta}>{metaLine(p)}</Text> : null}
+      <Text style={gridPrice}>
+        {p.price} <span style={perShare}>per share</span>
+        <span style={{ float: 'right' }}><Link href={href} style={viewLinkSm}>View →</Link></span>
+      </Text>
+    </>
   );
 }
 
-// ── Hero card (properties 1 & 2) ──────────────────────────────────────────────
-function HeroCard({ p }: { p: Property }) {
-  const waMsg    = encodeURIComponent(`Hi, I saw ${p.title} on Co-Ownership Property and I'd love to find out more.`);
-  const mailSub  = encodeURIComponent(`Enquiry: ${p.title}`);
-  const mailBody = encodeURIComponent(`Hi,\n\nI'm interested in ${p.title}.\n\nThank you`);
-  const href     = p.galleryUrl || `${base}/property/${p.slug}`;
-  const waHref   = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
-  const mailHref = `mailto:${enquiryEmail}?subject=${mailSub}&body=${mailBody}`;
-
-  return (
-    <Section style={heroCard}>
-      <Link href={href} style={{ display: 'block' }}>
-        <Img src={p.imageUrl} alt={p.title} width="560" style={heroImg} />
-      </Link>
-      <Section style={heroBody}>
-        <Hr style={cardGoldRule} />
-        <Heading style={heroTitle}>{p.title}</Heading>
-        <Text style={heroPrice}>
-          {p.price}&ensp;<span style={perShare}>per share</span>
-        </Text>
-        <Link href={href} style={goldBtn}>View Gallery</Link>
-        <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={{ marginTop: 0 }}>
-          <tbody><tr>
-            <td width="50%" style={{ paddingRight: 6 }}>
-              <Link href={mailHref} style={outlineBtn}>Email Enquiry</Link>
-            </td>
-            <td width="50%" style={{ paddingLeft: 6 }}>
-              <Link href={waHref} style={waBtn}><span style={{ color: '#25D366', fontSize: 8, verticalAlign: 'middle' }}>&#9679;</span>&ensp;WhatsApp Us</Link>
-            </td>
-          </tr></tbody>
-        </table>
-      </Section>
-    </Section>
-  );
-}
-
-// ── Secondary card (properties 3–6) ──────────────────────────────────────────
-function SecondaryCard({ p }: { p: Property }) {
-  const waMsg    = encodeURIComponent(`Hi, I saw ${p.title} on Co-Ownership Property and I'd love to find out more.`);
-  const mailSub  = encodeURIComponent(`Enquiry: ${p.title}`);
-  const mailBody = encodeURIComponent(`Hi,\n\nI'm interested in ${p.title}.\n\nThank you`);
-  const href     = p.galleryUrl || `${base}/property/${p.slug}`;
-  const waHref   = `https://wa.me/${whatsappNumber}?text=${waMsg}`;
-  const mailHref = `mailto:${enquiryEmail}?subject=${mailSub}&body=${mailBody}`;
-
-  return (
-    <Section style={secondaryCard}>
-      <Link href={href} style={{ display: 'block' }}>
-        <Img src={p.imageUrl} alt={p.title} width="560" style={secondaryImg} />
-      </Link>
-      <Section style={secondaryBody}>
-        <Hr style={cardGoldRule} />
-        <Heading style={secondaryTitle}>{p.title}</Heading>
-        <Text style={secondaryPrice}>
-          {p.price}&ensp;<span style={{ ...perShare, fontSize: 9 }}>per share</span>
-        </Text>
-        <Link href={href} style={{ ...goldBtnSm, marginBottom: 12 }}>View Gallery</Link>
-        <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
-          <tbody><tr>
-            <td width="50%" style={{ paddingRight: 6 }}>
-              <Link href={mailHref} style={outlineBtn}>Email Enquiry</Link>
-            </td>
-            <td width="50%" style={{ paddingLeft: 6 }}>
-              <Link href={waHref} style={waBtn}><span style={{ color: '#25D366', fontSize: 8, verticalAlign: 'middle' }}>&#9679;</span>&ensp;WhatsApp Us</Link>
-            </td>
-          </tr></tbody>
-        </table>
-      </Section>
-    </Section>
-  );
+function pairs<T>(arr: T[]): T[][] {
+  const out: T[][] = [];
+  for (let i = 0; i < arr.length; i += 2) out.push(arr.slice(i, i + 2));
+  return out;
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
@@ -140,401 +139,157 @@ export default function PersonalisedNewsletterEmail({
   primaryProperties = [],
   fallbackProperties = [],
   unsubscribeUrl = `${base}/unsubscribe`,
+  introOverride = null,
 }: PersonalisedNewsletterEmailProps) {
-  const allProps       = [...primaryProperties, ...fallbackProperties];
-  const heroProps      = allProps.slice(0, 2);
-  const secondaryProps = allProps.slice(2, 6);
-  // Everything beyond the six cards is still announced in the intro count, so
-  // it must appear somewhere — as a compact text list, not more heavy cards
-  // (13 cards would push the email past Gmail's ~100 KB clipping point).
-  // 9 Sep 2026: David caught "13 homes" with six shown.
-  const restProps      = allProps.slice(6);
+  const allProps = [...primaryProperties, ...fallbackProperties];
+  const lead     = allProps[0];
+  const rest     = allProps.slice(1);
+  const n        = allProps.length;
 
-  const regions = [...new Set(allProps.map(p => p.regionTag || p.location?.split(',')[0]).filter(Boolean))];
+  const regions = [...new Set(allProps.map(p => p.regionTag || p.location?.split(',')[0]).filter(Boolean))] as string[];
   const top3    = regions.slice(0, 3);
-  // "California & Mallorca", "California, Mallorca & Ibiza" — and when the
-  // selection spans more than three regions, say so instead of silently
-  // pretending the first three are the whole story.
-  const destShort = regions.length > 3
+  const regionStr = regions.length > 3
     ? top3.join(', ') + ' & more'
     : top3.length > 1
       ? top3.slice(0, -1).join(', ') + ' & ' + top3[top3.length - 1]
       : top3[0] || '';
 
-  const introLine = firstName !== 'there'
-    ? `${firstName} — ${allProps.length} homes${destShort ? ` in ${destShort}` : ''}, matched for you`
-    : `${allProps.length} homes${destShort ? ` in ${destShort}` : ''}, matched for you`;
+  const headline = `${n} new home${n === 1 ? '' : 's'} this week`;
+  const greeting = firstName !== 'there' ? `Hi ${firstName},` : 'Hello,';
+  const defaultIntro = regionStr
+    ? `${n} co-ownership homes went live this week, starting with ${regionStr} — your areas first. Every one is deeded fractional ownership of the whole home, fully managed between stays.`
+    : `${n} co-ownership homes went live this week. Every one is deeded fractional ownership of the whole home, fully managed between stays.`;
+  // The campaign intro already opens with "Hi {name} —"; strip that so the
+  // greeting line above it isn't doubled.
+  const intro = (introOverride || '').replace(/^\s*hi\s+[^—\-–:,]*\s*[—\-–:,]\s*/i, '').trim() || defaultIntro;
+  const previewLine = `${headline}${regionStr ? ` — starting with ${regionStr}` : ''}`;
 
   return (
     <Html lang="en">
       <Head>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
-          .logo-full { display: block !important; }
-          .logo-cop  { display: none  !important; }
-          @media only screen and (max-width: 480px) {
-            .wordmark-text { font-size: 18px !important; }
+          @media only screen and (max-width: 520px) {
+            .col { display: block !important; width: 100% !important; padding: 0 0 26px !important; }
+            .gridimg { width: 100% !important; height: auto !important; }
+            .pad { padding-left: 18px !important; padding-right: 18px !important; }
           }
         `}</style>
       </Head>
-      <Preview>{introLine}</Preview>
+      <Preview>{previewLine}</Preview>
 
-      <Body style={body}>
+      <Body style={bodyStyle}>
+        <Container style={container}>
 
-        {/* ── Header ── */}
-        <Section style={header}>
-          <Container style={wrap}>
-            <GoldRule width={36} />
-            <Text className="wordmark-text" style={wordmarkFull}>Co-Ownership Property</Text>
-            <Text style={headerTagline}>Your weekly edit of the world's finest co-ownership</Text>
-            <GoldRule width={36} />
-          </Container>
-        </Section>
+          {/* Top bar */}
+          <Section className="pad" style={topBar}>
+            <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
+              <tbody><tr>
+                <td><Link href={base} style={wordmark}>CO-OWNERSHIP PROPERTY</Link></td>
+                <td align="right"><Text style={topRight}>New this week</Text></td>
+              </tr></tbody>
+            </table>
+          </Section>
 
-        {/* ── Full-width gold line separating header from body ── */}
-        <GoldBorder />
+          {/* Headline + intro */}
+          <Section className="pad" style={{ padding: '36px 30px 6px' }}>
+            <Text style={greetingStyle}>{greeting}</Text>
+            <Text style={h1}>{headline}</Text>
+            <Text style={introStyle}>{intro}</Text>
+          </Section>
 
-        {/* ── Intro ── */}
-        <Section className="prop-section" style={{ backgroundColor: C.cream }}>
-          <Container style={wrap}>
-            <Section style={{ padding: '32px 0 24px', textAlign: 'center' as const }}>
-              <Text className="intro-text" style={introStyle}>{introLine}</Text>
-              <Hr style={goldBar} />
+          {/* Lead home */}
+          {lead && (
+            <Section className="pad" style={{ padding: '18px 30px 0' }}>
+              <LeadCard p={lead} />
             </Section>
-          </Container>
-        </Section>
+          )}
 
-        {/* ── Hero properties (1 & 2) ── */}
-        <Section className="prop-section" style={{ backgroundColor: C.cream, paddingBottom: 0 }}>
-          <Container style={wrap}>
-            {heroProps.map((p, i) => <HeroCard key={i} p={p} />)}
-          </Container>
-        </Section>
+          {/* Grid */}
+          {rest.length > 0 && (
+            <Section className="pad" style={{ padding: '0 30px' }}>
+              <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
+                <tbody>
+                  {pairs(rest).map((row, i) => (
+                    <tr key={i}>
+                      <td className="col" width="50%" style={{ verticalAlign: 'top', padding: '0 8px 30px 0' }}>
+                        <GridCard p={row[0]} />
+                      </td>
+                      <td className="col" width="50%" style={{ verticalAlign: 'top', padding: '0 0 30px 8px' }}>
+                        {row[1] ? <GridCard p={row[1]} /> : null}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Section>
+          )}
 
-        {/* ── Secondary properties (3–6, single column) ── */}
-        {secondaryProps.length > 0 && (
-          <Section className="prop-section" style={{ backgroundColor: C.cream, paddingBottom: 0 }}>
-            <Container style={wrap}>
-              {secondaryProps.map((p, i) => <SecondaryCard key={i} p={p} />)}
-            </Container>
+          {/* CTA */}
+          <Section className="pad" style={{ padding: '4px 30px 8px', textAlign: 'center' as const }}>
+            <Link href={`${base}/our-homes/`} style={button}>See all {n} new homes</Link>
+            <Text style={nudge}>Anything catch your eye? Just reply to this email — a real person answers.</Text>
           </Section>
-        )}
 
-        {/* ── Remaining homes — compact list + see-all button ── */}
-        {restProps.length > 0 && (
-          <Section className="prop-section" style={{ backgroundColor: C.cream, padding: '8px 0 0' }}>
-            <Container style={wrap}>
-              <Section style={alsoBox}>
-                <Text style={alsoHeading}>Also new this week</Text>
-                {restProps.map((p, i) => (
-                  <Text key={i} style={alsoItem}>
-                    <Link href={p.galleryUrl || `${base}/property/${p.slug}`} style={alsoLink}>{p.title}</Link>
-                    <span style={alsoPrice}>&ensp;{p.price}</span>
-                  </Text>
-                ))}
-                <Link href={`${base}/our-homes/`} style={{ ...goldBtnSm, display: 'inline-block', marginTop: 14 }}>
-                  See all {allProps.length} new homes
-                </Link>
-              </Section>
-            </Container>
-          </Section>
-        )}
-
-        {/* ── Reply nudge ── */}
-        <Section className="prop-nudge" style={{ backgroundColor: C.cream, padding: '12px 0 52px' }}>
-          <Container style={wrap}>
-            <Text style={replyNudge}>Anything catch your eye? Just reply to this email.</Text>
-          </Container>
-        </Section>
-
-        {/* ── Footer ── */}
-        <Section style={footer}>
-          <Container style={wrap}>
-            <Text style={footLogo}>Co-Ownership Property</Text>
-            <GoldRule width={32} />
-            <Text style={footLinks}>
+          {/* Footer */}
+          <Section className="pad" style={footer}>
+            <Text style={footText}>
               <Link href={base} style={footLink}>Website</Link>
-              {'  ·  '}
-              <Link href={`${base}/our-homes`} style={footLink}>Our Homes</Link>
-              {'  ·  '}
-              <Link href={`${base}/how-it-works`} style={footLink}>How It Works</Link>
+              {'   ·   '}
+              <Link href={`${base}/our-homes/`} style={footLink}>Our Homes</Link>
+              {'   ·   '}
+              <Link href={`${base}/how-it-works/`} style={footLink}>How it works</Link>
+              {'   ·   '}
+              <Link href={unsubscribeUrl} style={footLink}>Unsubscribe</Link>
             </Text>
-            <Hr style={footDivider} />
-            <Text style={footFine}>You're receiving this because you expressed interest in co-ownership property.</Text>
-            <Text style={footFine}>
-              <Link href={unsubscribeUrl} style={{ color: C.gold, textDecoration: 'none' }}>Unsubscribe</Link>
-            </Text>
-          </Container>
-        </Section>
+            <Text style={footSmall}>Co-Ownership Property · Deeded fractional homes in Europe and the USA · You're receiving this because you enquired or subscribed on our site.</Text>
+          </Section>
 
+        </Container>
       </Body>
     </Html>
   );
 }
 
 // ── Styles ────────────────────────────────────────────────────────────────────
-const body: React.CSSProperties = {
-  backgroundColor: C.cream,
-  margin: 0,
-  padding: 0,
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-};
-const wrap: React.CSSProperties = { maxWidth: 560, margin: '0 auto', padding: '0 20px' };
+const bodyStyle: React.CSSProperties = { margin: 0, padding: 0, backgroundColor: C.white, fontFamily: FONT };
+const container: React.CSSProperties = { maxWidth: 600, margin: '0 auto', backgroundColor: C.white };
 
-// Header — same dark shade as footer for visual unity
-const header: React.CSSProperties = { backgroundColor: C.navy, padding: '44px 0 40px' };
+const topBar: React.CSSProperties = { padding: '22px 30px 18px', borderBottom: `1px solid ${C.line}` };
+const wordmark: React.CSSProperties = {
+  fontFamily: FONT, fontSize: 12, fontWeight: 700, letterSpacing: '0.18em', color: C.navy, textDecoration: 'none',
+};
+const topRight: React.CSSProperties = { fontFamily: FONT, fontSize: 12, color: C.muted, margin: 0, letterSpacing: '0.02em' };
 
-// Wordmark — bigger, more air
-const wordmarkFull: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  color: C.white,
-  fontSize: 26,
-  fontWeight: 300,
-  letterSpacing: '0.26em',
-  textTransform: 'uppercase' as const,
-  textAlign: 'center' as const,
-  margin: '22px 0 14px',
-  lineHeight: 1,
+const greetingStyle: React.CSSProperties = { fontFamily: FONT, fontSize: 15, color: C.body, margin: '0 0 6px' };
+const h1: React.CSSProperties = {
+  fontFamily: SERIF, fontSize: 34, lineHeight: '1.15', fontWeight: 400, color: C.navy, margin: '0 0 14px', letterSpacing: '-0.01em',
 };
+const introStyle: React.CSSProperties = { fontFamily: FONT, fontSize: 16, lineHeight: '1.6', color: C.body, margin: 0 };
 
-// Header tagline — more space above and below
-const headerTagline: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  color: 'rgba(255,255,255,0.52)',
-  fontSize: 14,
-  fontWeight: 300,
-  fontStyle: 'italic',
-  letterSpacing: '0.04em',
-  textAlign: 'center' as const,
-  margin: '0 0 22px',
-  lineHeight: 1.5,
+const eyebrow: React.CSSProperties = {
+  fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: C.gold, margin: '0 0 6px',
 };
+const leadImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block', borderRadius: 4 };
+const leadTitle: React.CSSProperties = { fontFamily: SERIF, fontSize: 24, lineHeight: '1.25', color: C.navy, margin: '0 0 6px' };
+const meta: React.CSSProperties = { fontFamily: FONT, fontSize: 13, color: C.muted, margin: '0 0 10px' };
+const leadPrice: React.CSSProperties = { fontFamily: FONT, fontSize: 20, fontWeight: 600, color: C.ink, margin: 0 };
+const perShare: React.CSSProperties = { fontFamily: FONT, fontSize: 12, fontWeight: 400, color: C.muted };
+const viewLink: React.CSSProperties = { fontFamily: FONT, fontSize: 14, fontWeight: 600, color: C.navy, textDecoration: 'none', borderBottom: `2px solid ${C.gold}`, paddingBottom: 2 };
 
-// (kept for type safety — unused after removing COP-only path)
-const wordmarkCOP: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  color: C.white,
-  fontSize: 20,
-  fontWeight: 300,
-  letterSpacing: '0.26em',
-  textTransform: 'uppercase' as const,
-  textAlign: 'center' as const,
-  margin: '18px 0 8px',
-  lineHeight: 1,
-  display: 'none',
-};
+const gridImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block', borderRadius: 4 };
+const gridPlace: React.CSSProperties = { fontFamily: FONT, fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.gold, margin: '12px 0 4px' };
+const gridTitle: React.CSSProperties = { fontFamily: FONT, fontSize: 15, fontWeight: 600, lineHeight: '1.35', color: C.navy, margin: '0 0 4px' };
+const gridMeta: React.CSSProperties = { fontFamily: FONT, fontSize: 12, color: C.muted, margin: '0 0 6px' };
+const gridPrice: React.CSSProperties = { fontFamily: FONT, fontSize: 15, fontWeight: 600, color: C.ink, margin: 0 };
+const viewLinkSm: React.CSSProperties = { fontFamily: FONT, fontSize: 12, fontWeight: 600, color: C.gold, textDecoration: 'none' };
 
-// Intro
-const introStyle: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 26,
-  fontWeight: 400,
-  color: C.navy,
-  margin: '0 0 24px',
-  lineHeight: '1.35',
-  textAlign: 'center' as const,
+const button: React.CSSProperties = {
+  display: 'inline-block', backgroundColor: C.navy, color: C.white, fontFamily: FONT, fontSize: 14, fontWeight: 600,
+  padding: '14px 28px', borderRadius: 4, textDecoration: 'none', letterSpacing: '0.01em',
 };
-const goldBar: React.CSSProperties = {
-  borderColor: C.gold,
-  borderTopWidth: 1,
-  width: 28,
-  margin: '0 auto',
-};
+const nudge: React.CSSProperties = { fontFamily: FONT, fontSize: 14, color: C.body, margin: '22px 0 0' };
 
-// Left-aligned short gold rule above card titles — same as the digest's cardGoldRule
-const cardGoldRule: React.CSSProperties = {
-  borderColor: C.gold,
-  borderTopWidth: 1,
-  width: 28,
-  margin: '0 0 14px',
-};
-
-// Region pill (unused — kept for reference)
-const regionPill: React.CSSProperties = {
-  display: 'inline-block',
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 8,
-  fontWeight: 600,
-  letterSpacing: '0.22em',
-  textTransform: 'uppercase' as const,
-  color: C.navy,
-  backgroundColor: C.gold,
-  padding: '3px 10px',
-  margin: '0 0 14px',
-  lineHeight: 1,
-};
-
-// Hero card
-const heroCard: React.CSSProperties  = { backgroundColor: C.white, border: '1px solid #E8E3DC', marginBottom: 24 };
-const heroImg: React.CSSProperties   = { width: '100%', height: 300, objectFit: 'cover' as const, display: 'block' };
-const heroBody: React.CSSProperties  = { padding: '28px 32px 32px' };
-const heroTitle: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 22,
-  fontWeight: 300,
-  color: C.navy,
-  margin: '0 0 20px',
-  lineHeight: '1.35',
-};
-const heroPrice: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 28,
-  fontWeight: 300,
-  color: C.navy,
-  margin: '6px 0 22px',
-  lineHeight: 1,
-};
-
-// Secondary card
-const secondaryCard: React.CSSProperties  = { backgroundColor: C.white, border: '1px solid #E8E3DC', marginBottom: 24 };
-const secondaryImg: React.CSSProperties   = { width: '100%', height: 220, objectFit: 'cover' as const, display: 'block' };
-const secondaryBody: React.CSSProperties  = { padding: '22px 32px 26px' };
-const secondaryTitle: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 19,
-  fontWeight: 300,
-  color: C.navy,
-  margin: '0 0 16px',
-  lineHeight: '1.35',
-};
-const secondaryPrice: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 22,
-  fontWeight: 300,
-  color: C.navy,
-  margin: '6px 0 18px',
-  lineHeight: 1,
-};
-
-// Shared
-const perShare: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
-  fontWeight: 400,
-  color: C.navy60,
-  letterSpacing: '0.1em',
-  textTransform: 'uppercase' as const,
-};
-
-// Buttons
-const goldBtn: React.CSSProperties = {
-  display: 'block',
-  backgroundColor: C.navy,
-  color: '#F4EFE4',
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
-  fontWeight: 600,
-  letterSpacing: '0.22em',
-  textTransform: 'uppercase' as const,
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  padding: '15px 24px',
-  marginBottom: 18,
-};
-const goldBtnSm: React.CSSProperties = { ...goldBtn, padding: '13px 24px', marginBottom: 0 };
-
-// "Also new this week" — the homes beyond the six cards, as a light list
-const alsoBox: React.CSSProperties = {
-  backgroundColor: C.white,
-  border: `1px solid #E6E0D4`,
-  padding: '22px 24px 24px',
-  margin: '0 0 8px',
-  textAlign: 'center' as const,
-};
-const alsoHeading: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
-  fontWeight: 600,
-  letterSpacing: '0.2em',
-  textTransform: 'uppercase' as const,
-  color: C.gold,
-  margin: '0 0 14px',
-};
-const alsoItem: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 16,
-  lineHeight: '1.4',
-  color: C.navy,
-  margin: '0 0 9px',
-};
-const alsoLink: React.CSSProperties = { color: C.navy, textDecoration: 'underline', textDecorationColor: C.gold };
-const alsoPrice: React.CSSProperties = { color: C.navy60, fontSize: 14, whiteSpace: 'nowrap' as const };
-
-// Secondary buttons — Email Enquiry (outlined) / WhatsApp (brand green)
-const outlineBtn: React.CSSProperties = {
-  display: 'block',
-  border: `1px solid ${C.navy}`,
-  color: C.navy,
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
-  fontWeight: 600,
-  letterSpacing: '0.18em',
-  textTransform: 'uppercase' as const,
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  padding: '12px 0',
-};
-const waBtn: React.CSSProperties = {
-  ...outlineBtn,
-};
-
-const contactLine: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
-  fontWeight: 400,
-  letterSpacing: '0.14em',
-  textTransform: 'uppercase' as const,
-  color: C.navy60,
-  textAlign: 'center' as const,
-  margin: 0,
-};
-const contactLink: React.CSSProperties = { color: C.navy60, textDecoration: 'none' };
-
-// Reply nudge — navy60 works on both cream (mobile) and navy (desktop) backgrounds
-const replyNudge: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  fontSize: 17,
-  fontStyle: 'italic',
-  fontWeight: 300,
-  color: '#4A6070',
-  textAlign: 'center' as const,
-  margin: '12px 0 0',
-};
-
-// Footer
-const footer: React.CSSProperties = {
-  backgroundColor: C.navy,
-  padding: '44px 0 36px',
-  borderTop: `2px solid ${C.gold}`,
-};
-const footLogo: React.CSSProperties = {
-  fontFamily: "'Cormorant Garamond', Georgia, serif",
-  color: C.white,
-  fontSize: 18,
-  fontWeight: 300,
-  letterSpacing: '0.26em',
-  textTransform: 'uppercase' as const,
-  textAlign: 'center' as const,
-  margin: '0 0 18px',
-};
-const footLinks: React.CSSProperties = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  fontSize: 10,
-  fontWeight: 300,
-  letterSpacing: '0.1em',
-  textAlign: 'center' as const,
-  margin: '12px 0 4px',
-  color: 'rgba(255,255,255,.35)',
-};
-const footLink: React.CSSProperties  = { color: 'rgba(255,255,255,.45)', textDecoration: 'none' };
-const footDivider: React.CSSProperties = { borderColor: 'rgba(255,255,255,.07)', margin: '20px 0' };
-const footFine: React.CSSProperties  = {
-  fontFamily: "'Jost', Arial, sans-serif",
-  color: 'rgba(255,255,255,.28)',
-  fontSize: 10,
-  fontWeight: 300,
-  textAlign: 'center' as const,
-  margin: '4px 0 0',
-  lineHeight: '1.8',
-  letterSpacing: '0.04em',
-};
+const footer: React.CSSProperties = { padding: '30px 30px 36px', marginTop: 28, borderTop: `1px solid ${C.line}`, textAlign: 'center' as const };
+const footText: React.CSSProperties = { fontFamily: FONT, fontSize: 12, color: C.muted, margin: '0 0 12px' };
+const footLink: React.CSSProperties = { color: C.body, textDecoration: 'none' };
+const footSmall: React.CSSProperties = { fontFamily: FONT, fontSize: 11, lineHeight: '1.6', color: C.muted, margin: 0 };
