@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import UnlockModal from '@/components/UnlockModal';
+import DiscreetRegisterModal from '@/components/DiscreetRegisterModal';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
 import { localeFromPath, propertyHref, numberLocale } from '@/lib/i18n';
 
@@ -21,6 +22,8 @@ const COPY = {
     unlock_sub: 'Unlock the full gallery & floor plans — free',
     unlock_now: 'Unlock Now →',
     new_badge: 'New This Week',
+    private_sale: 'Private Sale',
+    request_details: 'Request details →',
     share_property: 'Share this property',
     link_copied: 'Link copied',
   },
@@ -34,6 +37,8 @@ const COPY = {
     unlock_sub: 'Desbloquea la galería completa y los planos — gratis',
     unlock_now: 'Desbloquear ahora →',
     new_badge: 'Novedad',
+    private_sale: 'Venta privada',
+    request_details: 'Solicitar detalles →',
     share_property: 'Compartir esta propiedad',
     link_copied: 'Enlace copiado',
   },
@@ -47,6 +52,8 @@ const COPY = {
     unlock_sub: 'Débloquez la galerie complète et les plans — gratuit',
     unlock_now: 'Débloquer maintenant →',
     new_badge: 'Nouveauté',
+    private_sale: 'Vente privée',
+    request_details: 'Demander les détails →',
     share_property: 'Partager ce bien',
     link_copied: 'Lien copié',
   },
@@ -60,6 +67,8 @@ const COPY = {
     unlock_sub: 'Vollständige Galerie und Grundrisse freischalten — kostenlos',
     unlock_now: 'Jetzt freischalten →',
     new_badge: 'Neu diese Woche',
+    private_sale: 'Privatverkauf',
+    request_details: 'Details anfordern →',
     share_property: 'Diese Immobilie teilen',
     link_copied: 'Link kopiert',
   },
@@ -73,6 +82,8 @@ const COPY = {
     unlock_sub: 'Sblocca la galleria completa e le planimetrie — gratis',
     unlock_now: 'Sblocca ora →',
     new_badge: 'Novità',
+    private_sale: 'Vendita privata',
+    request_details: 'Richiedi i dettagli →',
     share_property: 'Condividi questo immobile',
     link_copied: 'Link copiato',
   },
@@ -86,6 +97,8 @@ const COPY = {
     unlock_sub: 'Ontgrendel de volledige galerij en plattegronden — gratis',
     unlock_now: 'Nu ontgrendelen →',
     new_badge: 'Nieuw',
+    private_sale: 'Privéverkoop',
+    request_details: 'Details aanvragen →',
     share_property: 'Deel deze woning',
     link_copied: 'Link gekopieerd',
   },
@@ -99,6 +112,8 @@ const COPY = {
     unlock_sub: 'Libere a galeria completa e as plantas — grátis',
     unlock_now: 'Liberar agora →',
     new_badge: 'Novidade',
+    private_sale: 'Venda privada',
+    request_details: 'Pedir detalhes →',
     share_property: 'Compartilhar este imóvel',
     link_copied: 'Link copiado',
   },
@@ -112,6 +127,8 @@ const COPY = {
     unlock_sub: 'Lås upp hela bildgalleriet och planritningarna — gratis',
     unlock_now: 'Lås upp nu →',
     new_badge: 'Nytt',
+    private_sale: 'Privat försäljning',
+    request_details: 'Begär detaljer →',
     share_property: 'Dela den här bostaden',
     link_copied: 'Länk kopierad',
   },
@@ -125,6 +142,8 @@ const COPY = {
     unlock_sub: 'Lås hele billedgalleriet og plantegningerne op — gratis',
     unlock_now: 'Lås op nu →',
     new_badge: 'Nyt',
+    private_sale: 'Privat salg',
+    request_details: 'Anmod om detaljer →',
     share_property: 'Del denne bolig',
     link_copied: 'Link kopieret',
   },
@@ -138,6 +157,8 @@ const COPY = {
     unlock_sub: 'Lås opp hele bildegalleriet og plantegningene — gratis',
     unlock_now: 'Lås opp nå →',
     new_badge: 'Nytt',
+    private_sale: 'Privat salg',
+    request_details: 'Be om detaljer →',
     share_property: 'Del denne boligen',
     link_copied: 'Lenke kopiert',
   },
@@ -201,6 +222,7 @@ export default function PropertyCard({ property: p, priority = false }) {
   const [fav, setFav] = useState(false);
   const [slide, setSlide] = useState(0);
   const [unlockOpen, setUnlockOpen] = useState(false);
+  const [discreetOpen, setDiscreetOpen] = useState(false);
   const [shared, setShared] = useState(false);
   const cx = useCurrency();
 
@@ -211,18 +233,24 @@ export default function PropertyCard({ property: p, priority = false }) {
 
   useEffect(() => { setSlide(0); }, [p.slug]);
 
+  // Discreet / private-sale homes: flagged by the data layer (is_discreet /
+  // discreet) or by the legacy 'Private Sale' label. Hard guard here so a page
+  // that forgets to strip the gallery can never leak it: ONE photo, no unlock
+  // slide, and the card opens the register popup instead of the page.
+  const isDiscreet = Boolean(p.is_discreet || p.discreet || p.label === 'Private Sale');
+
   const heroImg = p.img || null;
-  const supabaseExtras = (p.images || [])
+  const supabaseExtras = isDiscreet ? [] : (p.images || [])
     .slice(1)
     .filter(url => url && !url.includes('lh3.googleusercontent.com'))
     .slice(0, 2);
   const imgSlides = [heroImg, ...supabaseExtras].filter(Boolean);
 
-  const hasLock = !!p.driveUrl;
+  const hasLock = !isDiscreet && !!p.driveUrl;
   const totalSlides = imgSlides.length + (hasLock ? 1 : 0);
   const isLockSlide = hasLock && slide >= imgSlides.length;
 
-  const totalImgs = p.totalImages || imgSlides.length;
+  const totalImgs = isDiscreet ? imgSlides.length : (p.totalImages || imgSlides.length);
   const missingCount = totalImgs > imgSlides.length ? totalImgs - imgSlides.length : null;
 
   function goTo(idx, e) { if (e) e.stopPropagation(); setSlide(idx); }
@@ -246,7 +274,12 @@ export default function PropertyCard({ property: p, priority = false }) {
     }
   }
   function handleLockClick(e) { e.stopPropagation(); setUnlockOpen(true); }
-  function handleCardClick() { if (!isLockSlide) window.location.href = href; }
+  function handleCardClick() {
+    if (isLockSlide) return;
+    // Discreet homes: register-to-receive-details popup instead of the page.
+    if (isDiscreet) { setDiscreetOpen(true); return; }
+    window.location.href = href;
+  }
 
   const fromCurrency = p.currency || 'EUR';
   const priceFormatted = p.price
@@ -322,10 +355,21 @@ export default function PropertyCard({ property: p, priority = false }) {
               which takes priority over the automatic New This Week badge. */}
           {p.status && String(p.status).toLowerCase().includes('sold') ? (
             <span className="prop-badge prop-badge-sold-out">Sold Out</span>
+          ) : isDiscreet ? (
+            <>
+              <span className="prop-badge-shade" aria-hidden="true" />
+              <span className="prop-badge discreet">{t.private_sale}</span>
+            </>
           ) : p.label ? (
-            <span className={`prop-badge ${p.status || ''}`}>{p.label}</span>
+            <>
+              <span className="prop-badge-shade" aria-hidden="true" />
+              <span className="prop-badge custom">{p.label}</span>
+            </>
           ) : isNew ? (
-            <span className="prop-badge new">{t.new_badge}</span>
+            <>
+              <span className="prop-badge-shade" aria-hidden="true" />
+              <span className="prop-badge new">{t.new_badge}</span>
+            </>
           ) : null}
 
           <button
@@ -389,9 +433,17 @@ export default function PropertyCard({ property: p, priority = false }) {
               )}
             </div>
           )}
-          <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>{t.view_property}</a>
+          {isDiscreet ? (
+            <button type="button" className="prop-view-btn prop-view-btn-discreet" onClick={e => { e.stopPropagation(); setDiscreetOpen(true); }}>{t.request_details}</button>
+          ) : (
+            <a href={href} className="prop-view-btn" onClick={e => e.stopPropagation()}>{t.view_property}</a>
+          )}
         </div>
       </article>
+
+      {discreetOpen && (
+        <DiscreetRegisterModal property={p} title={title} onClose={() => setDiscreetOpen(false)} />
+      )}
 
       {unlockOpen && (
         <UnlockModal

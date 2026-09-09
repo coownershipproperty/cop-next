@@ -324,7 +324,7 @@ export async function getStaticProps({ params }) {
   );
   const { data: allProps } = await supabase
     .from('properties')
-    .select(`slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type`)
+    .select(`slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, is_discreet`)
     .in('status', ['Live', 'for_sale']);
 
   const filter = DEST_FILTERS[slug] || null;
@@ -335,8 +335,8 @@ export async function getStaticProps({ params }) {
     ...pickLocalized(p, ['title']),
     img: p.img,
     images: (p.images || []).slice(0, 3),
-    totalImages: p.total_images || 0,
-    driveUrl: p.drive_url || null,
+    totalImages: p.is_discreet ? 1 : (p.total_images || 0),
+    driveUrl: p.is_discreet ? null : (p.drive_url || null), discreet: !!p.is_discreet,
     price: p.price || null,
     currency: p.currency || 'EUR',
     share_denominator: p.share_denominator || null,

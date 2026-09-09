@@ -242,7 +242,7 @@ const BROWSE_HREF = Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, routePat
 const PATH_PREFIX = Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, routePath(l, 'towns')]));
 
 const FIELDS =
-  `slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, date_added`;
+  `slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, is_discreet, date_added`;
 
 function toCardProp(p) {
   return {
@@ -251,8 +251,8 @@ function toCardProp(p) {
     ...pickLocalized(p, ['title']),
     img: p.img,
     images: (p.images || []).slice(0, 3),
-    totalImages: p.total_images || 0,
-    driveUrl: p.drive_url || null,
+    totalImages: p.is_discreet ? 1 : (p.total_images || 0),
+    driveUrl: p.is_discreet ? null : (p.drive_url || null), discreet: !!p.is_discreet,
     price: p.price || null,
     currency: p.currency || 'EUR',
     share_denominator: p.share_denominator || null,

@@ -346,7 +346,7 @@ async function fetchLiveProperties() {
     const supabase = createClient(url, key);
     const { data, error } = await supabase
       .from('properties')
-      .select(`slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, lat, lng, date_added`)
+      .select(`slug, ${localeColumns(['title'])}, img, images, total_images, drive_url, price, currency, share_denominator, country, region, city, beds, size, status, property_type, is_discreet, lat, lng, date_added`)
       // Public listings: only Live / for_sale — hidden & sold must never render.
       .in('status', ['Live', 'for_sale']);
 
@@ -363,8 +363,8 @@ async function fetchLiveProperties() {
       ...pickLocalized(p, ['title']),
       img:      p.img,
       images:      (p.images || []).slice(0, 3),
-      totalImages: p.total_images || 0,
-      driveUrl:    p.drive_url   || null,
+      totalImages: p.is_discreet ? 1 : (p.total_images || 0),
+      driveUrl:    p.is_discreet ? null : (p.drive_url || null), discreet: !!p.is_discreet,
       price:    p.price    || null,
       currency: p.currency || 'EUR',
       share_denominator: p.share_denominator || null,

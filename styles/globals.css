@@ -10503,3 +10503,47 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
    whole page sideways instead of scrolling inside its own wrapper. */
 .pi-two > * { min-width: 0; }
 .pi-two .pi-table-wrap { max-width: 100%; }
+
+
+/* ── Card badges v3 (9 Sep 2026) — no box: spaced caps + a short gold rule on a
+   soft shade at the top of the photo. Replaces the navy "New This Week" pill
+   and the previously unstyled "Private Sale" tag. Sold Out keeps its centred
+   banner. Discreet homes also get the register popup (DiscreetRegisterModal). ── */
+.prop-card .prop-badge-shade{position:absolute;left:0;right:0;top:0;height:44%;background:linear-gradient(to bottom,rgba(20,34,48,.58),rgba(20,34,48,0));pointer-events:none;z-index:4}
+.prop-card .prop-badge.new,
+.prop-card .prop-badge.discreet,
+.prop-card .prop-badge.custom{top:16px;left:18px;padding:0;background:none;border:none;border-radius:0;color:#fff;font-family:'Nunito Sans',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.35);z-index:5;display:inline-flex;align-items:center;line-height:1}
+.prop-card .prop-badge.new::before,
+.prop-card .prop-badge.discreet::before,
+.prop-card .prop-badge.custom::before{content:'';display:inline-block;width:18px;height:1px;background:#C9A84C;margin-right:10px;font-size:0;vertical-align:0}
+.prop-card .prop-badge.discreet{color:#F0D58A}
+.prop-card .prop-badge.discreet::before{background:#F0D58A}
+.prop-view-btn-discreet{background:none;border:none;padding:0;cursor:pointer;text-align:left;font-family:'Nunito Sans',sans-serif}
+
+/* Property page — discreet hero badge in the same style */
+.pp-discreet-hero::after{content:'';position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(to top,rgba(20,34,48,.6),rgba(20,34,48,0));pointer-events:none;z-index:2}
+.pp-discreet-badge{background:none;padding:0;bottom:26px;left:26px;color:#F0D58A;font-size:.72rem;letter-spacing:.22em;text-shadow:0 1px 8px rgba(0,0,0,.45);display:inline-flex;align-items:center}
+.pp-discreet-badge::before{content:'';display:inline-block;width:24px;height:1px;background:#F0D58A;margin-right:12px;font-size:0;vertical-align:0}
+
+/* ── Discreet register popup (photo left, form right) ── */
+.dr-overlay{padding:16px}
+.dr-modal{background:#fff;width:100%;max-width:940px;display:grid;grid-template-columns:1fr 1fr;position:relative;max-height:calc(100vh - 32px);overflow:hidden;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.dr-close{z-index:6}
+.dr-photo{position:relative;min-height:460px;background:#C5CED5 center/cover no-repeat}
+.dr-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(20,34,48,.72),rgba(20,34,48,0) 55%),linear-gradient(to bottom,rgba(20,34,48,.4),rgba(20,34,48,0) 35%)}
+.dr-photo-badge{position:absolute;top:20px;left:22px;z-index:2;color:#F0D58A;font-family:'Nunito Sans',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.35);display:inline-flex;align-items:center}
+.dr-photo-badge::before{content:'';display:inline-block;width:18px;height:1px;background:#F0D58A;margin-right:10px}
+.dr-photo-caption{position:absolute;left:22px;right:22px;bottom:22px;z-index:2;color:#fff;font-family:'Playfair Display',serif;font-size:1.08rem;line-height:1.4;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.dr-body{padding:46px 42px 36px;overflow-y:auto;display:flex;flex-direction:column;justify-content:center}
+.dr-body h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:400;color:#143047;margin:0 0 10px}
+.dr-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dr-fine{font-family:'Nunito Sans',sans-serif;font-size:.74rem;color:#8a95a0;margin:2px 0 0;line-height:1.5}
+.dr-success{padding:8px 0}
+.dr-view-link{display:inline-block;margin-top:16px;font-family:'Nunito Sans',sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C9A84C;text-decoration:none}
+@media (max-width:720px){
+  .dr-modal{grid-template-columns:1fr;overflow-y:auto}
+  .dr-photo{min-height:0;height:210px}
+  .dr-body{padding:28px 22px 26px}
+  .dr-row{grid-template-columns:1fr}
+  .dr-close{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+}

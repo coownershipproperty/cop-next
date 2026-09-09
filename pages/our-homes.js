@@ -67,6 +67,7 @@ export async function getStaticProps() {
     images:      (p.images || []).slice(0, 3),
     totalImages: p.is_discreet ? 1 : (p.total_images || 0),
     driveUrl:    p.is_discreet ? null : (p.drive_url || null),
+    discreet:    !!p.is_discreet,
     price:    p.price    || null,
     currency: p.currency || 'EUR',
     share_denominator: p.share_denominator || null,
