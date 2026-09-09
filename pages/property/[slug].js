@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
 import { trackConversion, fbqEvent } from '@/lib/gtag';
 import { track } from '@vercel/analytics';
-import { getSavedUser, saveUser } from '@/lib/savedUser';
+import { getSavedUser, saveUser, visitorFromUrl } from '@/lib/savedUser';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -800,15 +800,17 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
     setDiscreetBusy(false);
   }
   useEffect(() => {
-    if (!p0.is_discreet) return;
+    // Personalised email links land here with ?t= naming the reader. Persist
+    // them for the rest of the visit so every form on the site is pre-filled
+    // and the gallery link carries their token — this runs for every home,
+    // discreet or not.
     let email = null, name = null;
     try {
-      const tok = new URLSearchParams(window.location.search).get('t');
-      if (tok) {
-        const o = JSON.parse(atob(tok.replace(/-/g, '+').replace(/_/g, '/')));
-        if (o && o.e) { email = String(o.e); name = o.n || null; }
-      }
-    } catch (e) { /* bad token → ignore */ }
+      const fromLink = visitorFromUrl();
+      if (fromLink) { email = fromLink.email; name = fromLink.name || null; saveUser({ name: name || '', email }); }
+    } catch (e) { /* bad token → treat as anonymous */ }
+
+    if (!p0.is_discreet) return;
     if (!email) { try { const su = getSavedUser(); if (su.validated && su.email) email = su.email; } catch (e) {} }
     if (email) loadDiscreetListing(email, name);
   // eslint-disable-next-line react-hooks/exhaustive-deps

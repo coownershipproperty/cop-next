@@ -261,7 +261,7 @@ export default async function handler(req, res) {
             imageUrl:   p.img || '',
             location,
             regionTag:  p.region || p.city || null,
-            galleryUrl: `https://co-ownership-property.com/gallery/${p.slug}?t=${userToken}`,
+            galleryUrl: `https://co-ownership-property.com/property/${p.slug}/?t=${userToken}`,
           };
         };
 
