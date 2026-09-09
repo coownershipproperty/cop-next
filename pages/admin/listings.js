@@ -17,6 +17,8 @@ const STATUS = {
   sold: { label: 'Sold', color: '#66727d', bg: '#edf0f2' },
   hidden: { label: 'Hidden', color: '#986813', bg: '#fff2d6' },
 }
+// Discreet ("Private Sale") listings: shown publicly with one photo, no brochure, no partner link.
+const DISCREET = { label: 'Discreet', color: '#4a3b8a', bg: '#ece8fa' }
 
 const SORTS = {
   newest:    { label: 'Newest first',      fn: (a, b) => (b.date_added || '').localeCompare(a.date_added || '') },
@@ -96,6 +98,7 @@ export default function AdminListings() {
   const [search, setSearch] = useState('')
   const [partner, setPartner] = useState('')
   const [status, setStatus] = useState('')
+  const [discreetOnly, setDiscreetOnly] = useState(false)
   const [country, setCountry] = useState('')
   const [minBeds, setMinBeds] = useState('')
   const [priceBand, setPriceBand] = useState('')
@@ -118,7 +121,7 @@ export default function AdminListings() {
 
   useEffect(() => {
     supabase.from('properties')
-      .select('slug,title,city,region,country,price,currency,beds,baths,size,status,partner,img,images,total_images,date_added,updated_at')
+      .select('slug,title,city,region,country,price,currency,beds,baths,size,status,partner,is_discreet,img,images,total_images,date_added,updated_at')
       .order('date_added', { ascending: false, nullsFirst: false })
       .then(({ data, error: queryError }) => {
         if (queryError) setError(queryError.message)
@@ -134,6 +137,7 @@ export default function AdminListings() {
     live: properties.filter((p) => p.status === 'Live' || p.status === 'for_sale').length,
     sold: properties.filter((p) => p.status === 'sold').length,
     hidden: properties.filter((p) => p.status === 'hidden').length,
+    discreet: properties.filter((p) => p.is_discreet).length,
   }), [properties])
 
   const filtered = useMemo(() => {
@@ -142,6 +146,7 @@ export default function AdminListings() {
     const rows = properties.filter((p) => {
       if (partner && p.partner !== partner) return false
       if (status === 'Live' ? !(p.status === 'Live' || p.status === 'for_sale') : (status && p.status !== status)) return false
+      if (discreetOnly && !p.is_discreet) return false
       if (country && p.country !== country) return false
       if (minBeds && (p.beds || 0) < Number(minBeds)) return false
       if (pMin !== null && !((Number(p.price) || 0) >= pMin && (Number(p.price) || 0) <= pMax)) return false
@@ -150,9 +155,9 @@ export default function AdminListings() {
     })
     rows.sort(SORTS[sort]?.fn || SORTS.newest.fn)
     return rows
-  }, [properties, search, partner, status, country, minBeds, priceBand, sort])
+  }, [properties, search, partner, status, discreetOnly, country, minBeds, priceBand, sort])
 
-  useEffect(() => setVisibleCount(100), [search, partner, status, country, minBeds, priceBand, sort])
+  useEffect(() => setVisibleCount(100), [search, partner, status, discreetOnly, country, minBeds, priceBand, sort])
 
   function headerSort(key) {
     const pair = HEADER_SORT[key]
@@ -162,9 +167,9 @@ export default function AdminListings() {
 
   function exportCsv() {
     const esc = (v) => { const t = String(v ?? '').replaceAll('"', '""'); return /[",\n]/.test(t) ? `"${t}"` : t }
-    const lines = ['title,slug,city,region,country,partner,status,price,currency,beds,baths,size,photos,added,updated']
+    const lines = ['title,slug,city,region,country,partner,status,discreet,price,currency,beds,baths,size,photos,added,updated']
     for (const p of filtered) {
-      lines.push([p.title, p.slug, p.city, p.region, p.country, p.partner || 'COP', p.status,
+      lines.push([p.title, p.slug, p.city, p.region, p.country, p.partner || 'COP', p.status, p.is_discreet ? 'yes' : '',
         p.price, p.currency, p.beds, p.baths, p.size, p.total_images,
         (p.date_added || '').slice(0, 10), (p.updated_at || '').slice(0, 10)].map(esc).join(','))
     }
@@ -185,7 +190,12 @@ export default function AdminListings() {
       case 'partner': return p.partner || 'COP'
       case 'status': {
         const badge = STATUS[p.status] || STATUS.Live
-        return <i style={{ color: badge.color, background: badge.bg }}>{badge.label}</i>
+        return (
+          <span style={{ display: 'inline-flex', gap: 6, flexWrap: 'wrap' }}>
+            <i style={{ color: badge.color, background: badge.bg }}>{badge.label}</i>
+            {p.is_discreet && <i style={{ color: DISCREET.color, background: DISCREET.bg }} title="Discreet / Private Sale — one photo, no brochure, no partner link on the public site">{DISCREET.label}</i>}
+          </span>
+        )
       }
       case 'price': return <strong>{formatPrice(p.price, p.currency)}</strong>
       case 'beds': return p.beds || '—'
@@ -214,6 +224,12 @@ export default function AdminListings() {
           <button className={status === 'Live' ? 'active' : ''} onClick={() => setStatus('Live')}>Live <span>{counts.live}</span></button>
           <button className={status === 'sold' ? 'active' : ''} onClick={() => setStatus('sold')}>Sold <span>{counts.sold}</span></button>
           <button className={status === 'hidden' ? 'active' : ''} onClick={() => setStatus('hidden')}>Hidden <span>{counts.hidden}</span></button>
+          <button
+            className={discreetOnly ? 'active' : ''}
+            onClick={() => setDiscreetOnly((v) => !v)}
+            title="Toggle: only discreet (Private Sale) listings — combines with the status tabs"
+            style={{ marginLeft: 'auto' }}
+          >Discreet <span>{counts.discreet}</span></button>
         </div>
 
         <div className="admin-listing-filters" style={{ flexWrap: 'wrap', gap: 10 }}>
