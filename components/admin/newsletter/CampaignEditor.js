@@ -244,11 +244,20 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
     setSending(true)
     let id = campaignId
     try {
-      const saved = await saveCampaign({ status: 'draft' })
-      if (!saved) return
-      // The freshly saved row's id, not the still-stale React state (which was
-      // null on a never-saved campaign and made the first "Send now" fail).
-      id = saved.id || campaignId
+      // A campaign already in 'sending' is a RESUME of a run the platform cut
+      // short. /newsletter-send accepts that and skips everyone already mailed,
+      // but /newsletter-save rightly refuses to edit a sending campaign — you
+      // must not change the content half-way through. So on a resume, skip the
+      // save entirely and go straight to the send. Without this the resume the
+      // API was built for was unreachable from the button, and a stalled
+      // campaign could only be finished by hand (9 Sep 2026: 679/879).
+      if (status !== 'sending') {
+        const saved = await saveCampaign({ status: 'draft' })
+        if (!saved) return
+        // The freshly saved row's id, not the still-stale React state (which was
+        // null on a never-saved campaign and made the first "Send now" fail).
+        id = saved.id || campaignId
+      }
       if (!id) { setToast({ kind: 'error', text: 'Could not save the campaign before sending' }); return }
       const r = await authedFetch('/api/admin/ui/newsletter-send/', {
         method: 'POST',
@@ -801,7 +810,9 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
                 disabled={fieldsDisabled || (templateType !== 'viewings-france' && !propertySlugs.length) || !audienceCount}
                 style={{ padding: '14px 22px', fontSize: 15 }}
               >
-                ▶ Send now {audienceCount ? `(${audienceCount.toLocaleString()})` : ''}
+                {status === 'sending'
+                  ? '▶ Resume send'
+                  : `▶ Send now ${audienceCount ? `(${audienceCount.toLocaleString()})` : ''}`}
               </PrimaryButton>
             </div>
           </Grid>
