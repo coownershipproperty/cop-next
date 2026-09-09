@@ -45,6 +45,7 @@ const C = {
   soft:  '#5D6B78',
   line:  '#E2DCD0',
   gold:  '#A98A45',
+  goldD: '#8C6F30',
 };
 
 const base = 'https://co-ownership-property.com';
@@ -115,7 +116,7 @@ function LeadCard({ p }: { p: Property }) {
             <Text className="leadtitle" style={leadTitle}>{name}</Text>
           </Link>
           <Text style={priceLine}>{p.price} <span style={perShare}>per 1/8 share</span></Text>
-          <Link href={href} style={cta}>Discover the home</Link>
+          <Link href={href} className="btn" style={goldBtn}>Discover the home</Link>
         </td></tr>
       </tbody>
     </table>
@@ -140,6 +141,7 @@ function RowCard({ p }: { p: Property }) {
             <Text className="rowtitle" style={rowTitle}>{name}</Text>
           </Link>
           <Text style={rowPrice}>{p.price} <span style={perShare}>per share</span></Text>
+          <Link href={href} style={goldBtnSm}>Discover this home</Link>
         </td>
       </tr></tbody>
     </table>
@@ -285,13 +287,15 @@ const place1: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpac
 const leadTitle: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 31, lineHeight: '1.25', fontWeight: 400, color: C.ink, margin: '0 0 16px' };
 const priceLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 22, color: C.ink, margin: '0 0 22px' };
 const perShare: React.CSSProperties = { fontFamily: TEXT, fontSize: 15, fontStyle: 'italic', color: C.soft };
-const cta: React.CSSProperties = { display: 'inline-block', fontFamily: TEXT, fontSize: 13, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.ink, textDecoration: 'none', borderBottom: `1px solid ${C.gold}`, paddingBottom: 6 };
+const goldBtn: React.CSSProperties = { display: 'inline-block', backgroundColor: C.goldD, color: '#FFFFFF', fontFamily: TEXT, fontSize: 13, letterSpacing: '0.22em', textTransform: 'uppercase' as const, padding: '17px 34px', textDecoration: 'none' };
+const goldBtnSm: React.CSSProperties = { display: 'inline-block', backgroundColor: C.goldD, color: '#FFFFFF', fontFamily: TEXT, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase' as const, padding: '13px 24px', textDecoration: 'none', marginTop: 16 };
 
-const rowBox: React.CSSProperties = { borderTop: `1px solid ${C.line}`, paddingTop: 34, marginBottom: 34 };
+const rowBox: React.CSSProperties = { borderTop: `1px solid ${C.line}`, paddingTop: 36, marginBottom: 36 };
 const rowImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block' };
 const place2: React.CSSProperties = { fontFamily: TEXT, fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: C.soft, margin: '0 0 10px' };
 const rowTitle: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 24, lineHeight: '1.3', fontWeight: 400, color: C.ink, margin: '0 0 12px' };
 const rowPrice: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, color: C.ink, margin: 0 };
+
 
 const moreLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, fontStyle: 'italic', color: C.soft, margin: '0 0 26px' };
 const button: React.CSSProperties = { display: 'inline-block', backgroundColor: C.ink, color: '#FFFFFF', fontFamily: TEXT, fontSize: 14, letterSpacing: '0.22em', textTransform: 'uppercase' as const, padding: '20px 40px', textDecoration: 'none' };
