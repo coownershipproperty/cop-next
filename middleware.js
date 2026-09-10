@@ -16,6 +16,14 @@ const ALLOW_PATTERNS = [
   /googlebot/i, /bingbot/i, /slurp/i, /duckduckbot/i,
   /facebookexternalhit/i, /twitterbot/i, /linkedinbot/i,
   /whatsapp/i, /applebot/i,
+  // AdsBot-Google does NOT contain the string "googlebot", so it fell through
+  // to /bot/i in BOT_PATTERNS and got a 403 — which means Google Ads could not
+  // fetch our landing pages to score them, on an account that is actively
+  // spending (AW-4882418749). Same for the mobile variants and the Ads
+  // quality/inspection agents. (10 Sep 2026)
+  /adsbot-google/i, /adsbot/i, /mediapartners-google/i,
+  /google-inspectiontool/i, /googleother/i, /google-safety/i,
+  /storebot-google/i, /bingpreview/i,
 ];
 
 // ── Allowed AI crawlers ─────────────────────────────────────────────────────

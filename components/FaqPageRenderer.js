@@ -52,7 +52,7 @@ import { ogLocaleFor } from '@/lib/i18n';
 
 const SITE_URL = 'https://co-ownership-property.com';
 
-export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordCount, related }) {
+export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordCount, related, translatedLocales }) {
   const ui = UI_STRINGS[locale];
   const sectionPath = URL_PATHS[locale].faq;
   const canonicalUrl = `${SITE_URL}${sectionPath}/${slug}/`;
@@ -155,15 +155,22 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
     },
   ];
 
-  // hreflang alternates — emit links to other locales' versions of this slug.
-  // Slugs are stable across locales, so we emit all four regardless of whether
-  // the locale file currently exists (the sitemap is authoritative for which
-  // locales are actually live).
+  // hreflang alternates — ONLY for locales that actually have this question.
+  //
+  // This used to emit all four unconditionally, on the reasoning that slugs are
+  // stable across locales and the sitemap was authoritative. It isn't: an
+  // hreflang alternate is a promise that the URL exists, and content/faq/{es,
+  // fr,de}/ are empty, so 236 questions were each promising three URLs that
+  // 404 — 708 dead alternates on the pages that rank best. Google discards the
+  // whole cluster when return tags don't resolve. getStaticProps now checks the
+  // file and passes `translatedLocales`; absent it, we emit EN only, which is
+  // always true. (10 Sep 2026)
+  const FAQ_LOCALE_PATH = { es: 'preguntas', fr: 'questions', de: 'fragen' };
   const hreflangAlts = [
     { hrefLang: 'en', href: `${SITE_URL}/faq/${slug}/` },
-    { hrefLang: 'es', href: `${SITE_URL}/es/preguntas/${slug}/` },
-    { hrefLang: 'fr', href: `${SITE_URL}/fr/questions/${slug}/` },
-    { hrefLang: 'de', href: `${SITE_URL}/de/fragen/${slug}/` },
+    ...(translatedLocales || [])
+      .filter(loc => FAQ_LOCALE_PATH[loc])
+      .map(loc => ({ hrefLang: loc, href: `${SITE_URL}/${loc}/${FAQ_LOCALE_PATH[loc]}/${slug}/` })),
     { hrefLang: 'x-default', href: `${SITE_URL}/faq/${slug}/` },
   ];
 

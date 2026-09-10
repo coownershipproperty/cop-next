@@ -1,70 +1,82 @@
 # co-ownership-property.com — robots policy
-# We welcome legitimate web and AI crawlers. All content under / is open for
-# crawling, indexing, training, and citation. Auth-gated areas live under
-# /api/admin/* and are protected at the application layer, not via robots.
+# We welcome legitimate web and AI crawlers. Editorial content, destination
+# guides, FAQs, blog posts and property listings are open for crawling,
+# indexing, training and citation.
+#
+# The private surfaces below are excluded from crawling. Note the file had no
+# Disallow line at all until 10 Sep 2026, and its header claimed auth-gated
+# areas lived under /api/admin/* — but /admin/ is a 16-route page tree, and
+# /partner/, /gallery/ and the preview URLs are pages too. Robots exclusion is
+# not a security control; it stops these being crawled and indexed, nothing
+# more. Real protection is Supabase RLS plus the app's own auth.
+#
+# IMPORTANT — the public JSON feeds live under /api/ and MUST stay crawlable,
+# so /api/ is not blocked wholesale; only its private subtrees are.
+#
+# Also important: under the robots standard a named User-agent group REPLACES
+# the * group entirely — it does not inherit from it. So every rule below is
+# repeated for the AI crawlers in a single consolidated group. If you add a
+# Disallow, add it in BOTH places or it will not apply to them.
 
 User-agent: *
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /partner/
+Disallow: /partner-hub/
+Disallow: /gallery/
+Disallow: /favourites/
+Disallow: /unsubscribe/
+Disallow: /previews/
+Disallow: /grade-test/
+Disallow: /api/admin/
+Disallow: /api/partner-hub/
+Disallow: /api/preview/
+Disallow: /api/cron/
+Allow: /api/properties.json
+Allow: /api/destinations.json
+Allow: /api/operators.json
 Allow: /
 
 # ── AI training & indexing crawlers ────────────────────────────────────────
-# Explicitly allowed. We want our destination guides, FAQs, blog posts, and
-# property listings to be ingested and cited by AI search engines.
+# Explicitly allowed, deliberately. We want the destination guides, FAQs, blog
+# posts, comparison pages and listings ingested and cited by AI search engines.
+# One consolidated group so the exclusions above apply to them identically.
 
 User-agent: GPTBot
-Allow: /
-
 User-agent: ChatGPT-User
-Allow: /
-
 User-agent: OAI-SearchBot
-Allow: /
-
 User-agent: ClaudeBot
-Allow: /
-
 User-agent: Claude-Web
-Allow: /
-
 User-agent: anthropic-ai
-Allow: /
-
 User-agent: PerplexityBot
-Allow: /
-
 User-agent: PerplexityUser
-Allow: /
-
 User-agent: Perplexity-User
-Allow: /
-
 User-agent: Google-Extended
-Allow: /
-
 User-agent: Applebot-Extended
-Allow: /
-
 User-agent: Applebot
-Allow: /
-
 User-agent: CCBot
-Allow: /
-
 User-agent: cohere-ai
-Allow: /
-
 User-agent: Bytespider
-Allow: /
-
 User-agent: Amazonbot
-Allow: /
-
 User-agent: meta-externalagent
-Allow: /
-
 User-agent: FacebookBot
-Allow: /
-
 User-agent: DiffBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /partner/
+Disallow: /partner-hub/
+Disallow: /gallery/
+Disallow: /favourites/
+Disallow: /unsubscribe/
+Disallow: /previews/
+Disallow: /grade-test/
+Disallow: /api/admin/
+Disallow: /api/partner-hub/
+Disallow: /api/preview/
+Disallow: /api/cron/
+Allow: /api/properties.json
+Allow: /api/destinations.json
+Allow: /api/operators.json
 Allow: /
 
 # ── Sitemap & LLM manifest ─────────────────────────────────────────────────
@@ -78,3 +90,4 @@ Sitemap: https://co-ownership-property.com/sitemap.xml
 # Public JSON feeds (CORS-open, edge-cached 1h):
 #   https://co-ownership-property.com/api/properties.json
 #   https://co-ownership-property.com/api/destinations.json
+#   https://co-ownership-property.com/api/operators.json

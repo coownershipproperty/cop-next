@@ -16,6 +16,9 @@ import FaqPageRenderer from '@/components/FaqPageRenderer';
 const LOCALE = 'en';
 const META_FILE = 'faq-meta.json';
 const CONTENT_DIR = 'content/faq';
+// Locales this question set can be translated into. A locale only gets an
+// hreflang alternate once content/faq/<loc>/<slug>.html actually exists.
+const FAQ_ALT_LOCALES = ['es', 'fr', 'de'];
 
 function stripTags(html) {
   return String(html || '')
@@ -89,7 +92,17 @@ export async function getStaticProps({ params }) {
     .filter(Boolean)
     .slice(0, 6);
 
-  return { props: { locale: LOCALE, slug, entry, body, faqs, wordCount, related }, revalidate: 3600 };
+  // Which locales actually have this question translated? The renderer used to
+  // advertise es/fr/de hreflang alternates for every slug regardless — 236
+  // questions x 3 locales = 708 <link rel=alternate> pointing at URLs that
+  // 404, because content/faq/{es,fr,de}/ are empty and no such routes exist.
+  // Google drops an entire hreflang cluster when the return tags don't
+  // resolve, and it does it silently. Gate on the file, the way
+  // pages/[slug].js already does for destinations. (10 Sep 2026)
+  const translatedLocales = FAQ_ALT_LOCALES.filter(loc =>
+    fs.existsSync(path.join(process.cwd(), CONTENT_DIR, loc, `${slug}.html`)));
+
+  return { props: { locale: LOCALE, slug, entry, body, faqs, wordCount, related, translatedLocales }, revalidate: 3600 };
 }
 
 export default function EnFaqPage(props) {

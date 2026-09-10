@@ -373,6 +373,17 @@ export function gateOnTranslation(result, locale) {
 
 export default function TownPage({ townParam, town, country, region, minPrice, currency, homes, guide, gallery = [], forceLocale }) {
   const router = useRouter();
+
+  // Which locales actually have this town's guide? hreflangLinks defaulted to
+  // all ten SUPPORTED_LOCALES, but gateOnTranslation() 404s any locale whose
+  // guide isn't translated — only 3 of 25 towns exist beyond en/es/fr/de, so
+  // we were advertising 132 alternates that hard-404. The sitemap already gets
+  // this right (townGuideLocales in pages/sitemap.xml.js); this is the same
+  // test, against the guide already in props, so page and sitemap agree.
+  // (10 Sep 2026)
+  const guideLocales = ['en'].concat(
+    SUPPORTED_LOCALES.filter(l => l !== 'en' && guide && guide[l] && guide[l].sections && guide[l].sections.length)
+  );
   const locale = forceLocale || localeFromPath(router.asPath || router.pathname) || 'en';
   const t = COPY[locale] || COPY.en;
   const from = minPrice ? `${SYM[currency] || currency}${Number(minPrice).toLocaleString('en-GB')}` : null;
@@ -433,7 +444,7 @@ export default function TownPage({ townParam, town, country, region, minPrice, c
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href={`https://co-ownership-property.com${PATH_PREFIX[locale] || PATH_PREFIX.en}${townParam}/`} />
-        {hreflangLinks({ family: 'towns', slug: townParam })}
+        {hreflangLinks({ family: 'towns', slug: townParam, locales: guideLocales })}
         <link rel="icon" href="/favicon.ico" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
