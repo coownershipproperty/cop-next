@@ -7,8 +7,16 @@
  * destination guide without having to crawl every page.
  *
  * For each EN destination file (content/destinations/*.html), emits:
- *   slug, url, locale variants (de/es/fr), property count for the country,
- *   first 240 chars of body for context, and a tier flag (pillar vs region).
+ *   slug, url, locale variants (de/es/fr), the property count FOR THAT
+ *   destination, first 240 chars of body for context, and a tier flag.
+ *
+ * The count used to be the count for the destination's COUNTRY, on every
+ * entry — so Aspen, Vail and Park City each reported 180 (the USA total) and
+ * Marbella, Menorca, Mallorca and the Canaries each reported 84 (Spain's).
+ * An agent reading the feed was told a number it could disprove by opening
+ * the page. It now uses the same DEST_FILTERS matcher the destination page
+ * uses, so the feed and the page always agree, and any destination without a
+ * filter emits no count at all rather than a wrong one. (10 Sep 2026)
  *
  * Cached at the edge for 1 hour. CORS-open.
  *
@@ -18,6 +26,7 @@
 import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
+import { DEST_FILTERS, matchesFilter } from '@/lib/destinationFilters';
 
 const SITE_URL = 'https://co-ownership-property.com';
 
@@ -132,13 +141,15 @@ export default async function handler(req, res) {
 
     // Per-country property counts (for context)
     let countByCountry = {};
+    let liveProps = [];
     try {
       const supabase = getSupabase();
       const { data } = await supabase
         .from('properties')
-        .select('country')
+        .select('country, region, city')
         .in('status', ['Live', 'for_sale']);
-      (data || []).forEach(p => {
+      liveProps = data || [];
+      liveProps.forEach(p => {
         if (p.country) countByCountry[p.country] = (countByCountry[p.country] || 0) + 1;
       });
     } catch (_) { /* fall through with empty counts */ }
@@ -150,6 +161,10 @@ export default async function handler(req, res) {
       const summary = firstParagraphSnippet(html, 240);
       const country = inferCountry(slug);
       const isPillar = PILLAR_SLUGS.has(slug);
+      const destFilter = DEST_FILTERS[slug] || null;
+      const destCount = destFilter
+        ? liveProps.filter(p => matchesFilter(p, destFilter)).length
+        : null;
 
       // Locale variants — only emit URLs whose source file exists
       const localeUrls = {};
@@ -173,7 +188,9 @@ export default async function handler(req, res) {
             name: country,
             ...(isPillar ? {} : { containedInPlace: country }),
           },
-          ...(countByCountry[country] ? { numberOfItems: countByCountry[country] } : {}),
+          // Count for THIS destination, via the same filter the page uses.
+          // No filter entry → no count, rather than the country's total.
+          ...(destCount != null ? { numberOfItems: destCount } : {}),
         } : {}),
         tier: isPillar ? 'pillar' : 'region',
         ...(Object.keys(localeUrls).length > 0 ? { workTranslation: localeUrls } : {}),
