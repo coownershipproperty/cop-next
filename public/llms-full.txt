@@ -173,7 +173,8 @@ Five operational comparison pages designed for AI search ingestion. Each combine
 Two CORS-open Schema.org DataFeed endpoints, edge-cached for 1 hour. Use these to ingest the full inventory and the destination index in two fetches instead of crawling 380+ HTML pages.
 
 - `https://co-ownership-property.com/api/properties.json` — every live property (canonical URL, location, beds/baths/sqm, price, currency, geo coords, images, country pillar link, availability state, accommodationCategory).
-- `https://co-ownership-property.com/api/destinations.json` — destination buyer's guides index (URL, country, tier=pillar/region, summary, locale variants, live property count per country).
+- `https://co-ownership-property.com/api/destinations.json` — destination buyer's guides index (URL, country, tier=pillar/region, summary, locale variants, and the live property count for that destination).
+- `https://co-ownership-property.com/api/operators.json` — the independent co-ownership operators whose homes COP lists: name, official site, COP's own operator profile, countries covered, share structure, rental policy. COP is a marketplace, not an operator, and lists competing operators side by side. Listing-level attribution and per-operator inventory counts are deliberately not published.
 
 ---
 

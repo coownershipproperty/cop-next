@@ -56,6 +56,10 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
   const ui = UI_STRINGS[locale];
   const sectionPath = URL_PATHS[locale].faq;
   const canonicalUrl = `${SITE_URL}${sectionPath}/${slug}/`;
+  // fullTitle keeps the brand for schema and og:title; the <title> element
+  // uses the bare question. 236 FAQ titles ran a median 65 characters before
+  // the 25-character suffix, so the suffix truncated on every one of them
+  // while costing the question its tail. (10 Sep 2026)
   const fullTitle = `${entry.title} | Co-Ownership Property`;
 
   // The primary Q&A from the entry itself is always the first FAQ.
@@ -177,7 +181,7 @@ export default function FaqPageRenderer({ locale, slug, entry, body, faqs, wordC
   return (
     <>
       <Head>
-        <title>{fullTitle}</title>
+        <title>{entry.title}</title>
         <meta name="description" content={entry.metaDescription} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

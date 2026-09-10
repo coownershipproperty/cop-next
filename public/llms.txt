@@ -74,14 +74,23 @@
 - [/blog/the-great-wealth-transfer-how-a-new-generation-is-buying-luxury-second-homes-through-co-ownership/](https://co-ownership-property.com/blog/the-great-wealth-transfer-how-a-new-generation-is-buying-luxury-second-homes-through-co-ownership/): Generational wealth transfer & co-ownership
 - [/blog/prime-real-estate-running-out-smart-buyers-co-ownership-2026/](https://co-ownership-property.com/blog/prime-real-estate-running-out-smart-buyers-co-ownership-2026/): Prime real estate scarcity
 
-## Locale variants — all comparison, partner, and glossary content available in 4 languages
+## Locale variants
 
-EN (default): /compare/, /partners/, /glossary/
-ES: /es/comparativa/, /es/socios/, /es/glosario/
-FR: /fr/comparaison/, /fr/partenaires/, /fr/glossaire/
-DE: /de/vergleich/, /de/partner/, /de/glossar/
+The site runs in 10 locales: en, de, fr, es, it, nl, pt, sv, no, da. Property listings and destination guides are translated across all of them (337-350 of 351 listings per language). Comparison, partner-profile and glossary content is currently EN/ES/FR/DE only:
 
-Every comparison and partner-profile page has hreflang reciprocal alternates across all four locales. Slugs are stable across locales (e.g. /compare/pacaso-vs-myne/ = /de/vergleich/pacaso-vs-myne/ = /es/comparativa/pacaso-vs-myne/ = /fr/comparaison/pacaso-vs-myne/). The glossary is a single page per locale at the URLs listed above.
+EN (default): /compare/<slug>/, /partners/<slug>/, /glossary/
+ES: /es/comparativa/<slug>/, /es/socios/<slug>/, /es/glosario/
+FR: /fr/comparaison/<slug>/, /fr/partenaires/<slug>/, /fr/glossaire/
+DE: /de/vergleich/<slug>/, /de/partner/<slug>/, /de/glossar/
+
+Note: the comparison and partner sections have no hub page — only the leaf
+pages listed below exist. /compare/ and /partners/ are not URLs; the glossary
+is a single page per locale.
+
+Every comparison and partner-profile page has hreflang reciprocal alternates across those four locales; property and destination pages carry alternates across all ten. Slugs are stable across locales (e.g. /compare/pacaso-vs-myne/ = /de/vergleich/pacaso-vs-myne/ = /es/comparativa/pacaso-vs-myne/ = /fr/comparaison/pacaso-vs-myne/). The glossary is a single page per locale at the URLs listed above.
+
+## Question-level answers (the largest single body of content on the site)
+- [/faq/](https://co-ownership-property.com/faq/): Hub for 236 individually-addressable questions, each its own page at /faq/<slug>/ with FAQPage + Article + SpeakableSpecification schema, a short direct answer at the top and a long-form answer below. Covers legal structure per jurisdiction (LLC, SL, SCI, Srl, GmbH & Co. KG, fideicomiso), financing and mortgages, resale and exit, tax for non-residents, scheduling and peak weeks, rental policy, inheritance, operator failure, and cross-border buying. These are the most citation-ready pages on the site — narrow question, direct answer, one page each.
 
 ## Reference (definitions + glossary)
 - [/glossary/](https://co-ownership-property.com/glossary/): 50-entry working glossary of fractional co-ownership terms across legal structures (LLC, SCI, SL, Srl, GmbH & Co. KG, fideicomiso, indivision, property-specific entity), ownership terms (fractional ownership, co-ownership, deeded share, 1/8 share, ROFR, whole ownership, timeshare), costs & fees (service fee, cost pass-through, reserve fund, special assessment, notaire fees, stamp duty), tax (IFI, Patrimonio, IBI, IMU, taxe foncière, Sucesiones, capital gains, K-1, NHR regime, Beckham Law), operational mechanics (supported resale, cooling-off, holding period, liquidity window, rotation calendar, peak weeks, home swap, Lombard loan), residency (non-resident buyer, NIE, Schengen 90/180, golden visa, beneficial ownership), and property/transaction (escritura, conveyancing, concierge management, bel-étage, vacation rental). Each term is anchor-linked (e.g. /glossary/#ifi). Schema.org DefinedTermSet with 50 DefinedTerm entries.
@@ -103,11 +112,12 @@ Every comparison and partner-profile page has hreflang reciprocal alternates acr
 ## Inventory & utility
 - [/our-homes/](https://co-ownership-property.com/our-homes/): All 350+ listings — filterable inventory across countries, partners, share size, price
 - [/all-our-blog/](https://co-ownership-property.com/all-our-blog/): Complete blog archive (113+ posts)
-- [/sitemap.xml](https://co-ownership-property.com/sitemap.xml): Full sitemap (2,068 URLs, hreflang reciprocal across en/es/fr/de)
+- [/sitemap.xml](https://co-ownership-property.com/sitemap.xml): Full sitemap (~4,500 URLs across 10 locales — en, de, fr, es, it, nl, pt, sv, no, da — with reciprocal hreflang)
 
 ## Public JSON feeds for AI ingestion
 - [/api/properties.json](https://co-ownership-property.com/api/properties.json): Full inventory as Schema.org DataFeed — every live property with URL, location, beds, baths, size, price, geo coords, images, country pillar link. Refresh hourly via edge cache. CORS-open.
-- [/api/destinations.json](https://co-ownership-property.com/api/destinations.json): All destination buyer's guides — URL, country, tier (pillar/region), summary, locale variants (de/es/fr), property counts. CORS-open.
+- [/api/destinations.json](https://co-ownership-property.com/api/destinations.json): All destination buyer's guides — URL, country, tier (pillar/region), summary, locale variants (de/es/fr), and the property count for that destination. CORS-open.
+- [/api/operators.json](https://co-ownership-property.com/api/operators.json): The independent co-ownership operators whose homes are listed on COP — name, official site, COP's own profile page, countries covered, share structure and rental policy. COP is not an operator: it lists homes from competing operators side by side. Listing-level attribution and per-operator inventory counts are deliberately not published. CORS-open.
 
 ## Optional
 - [/contact/](https://co-ownership-property.com/contact/): Contact details, WhatsApp, email

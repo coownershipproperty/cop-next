@@ -110,10 +110,17 @@ const LOCALE_ONLY_PAGES = [
 // English-only pages that don't have locale variants (yet).
 // ──────────────────────────────────────────────────────────────────────────
 const EN_ONLY_PAGES = [
-  { url: '/our-mission/',  priority: '0.5', changefreq: 'monthly' },
+  // /our-mission/ removed 10 Sep 2026 — it 301s to /about-us/ (next.config.js),
+  // so we were listing a permanently-redirecting URL in our own sitemap.
   { url: '/ownership/',    priority: '0.5', changefreq: 'monthly' },
   { url: '/viewings/',     priority: '0.7', changefreq: 'weekly' },
   { url: '/collections/mosaic-collection/', priority: '0.8', changefreq: 'weekly' },
+  // Added 10 Sep 2026 — both were live, indexable and absent from the sitemap.
+  // The price index is the most linkable asset on the site (original
+  // cross-operator data, daily revalidate, full schema) and /list-with-cop/ is
+  // the supply-side lead-gen page.
+  { url: '/co-ownership-price-index/', priority: '0.8', changefreq: 'weekly' },
+  { url: '/list-with-cop/', priority: '0.6', changefreq: 'monthly' },
   // /favourites/ intentionally excluded — noindex personal page
 ];
 
@@ -187,9 +194,17 @@ export async function getServerSideProps({ res }) {
     .from('properties')
     // Locale title/description columns come along so translatedLocales() can
     // decide which locale URLs are genuinely translated and worth indexing.
-    .select(`slug, date_added, city, ${localeColumns(['title', 'description'], { base: false })}`)
+    // is_discreet comes along so discreet-sale homes can be left out below.
+    .select(`slug, date_added, city, is_discreet, ${localeColumns(['title', 'description'], { base: false })}`)
     .in('status', ['Live', 'for_sale'])
     .order('date_added', { ascending: false });
+
+  // Discreet-sale homes are noindex on the page (see pages/property/[slug].js)
+  // so they must not be advertised here either — a sitemap entry for a noindex
+  // URL is a contradictory signal and spends crawl budget on nothing. Filtered
+  // in JS rather than in the query because is_discreet is null on most rows and
+  // PostgREST's null semantics would silently drop them all. (10 Sep 2026)
+  const indexableProperties = (properties || []).filter(p => !p.is_discreet);
 
   // Blog posts (from static JSON for stability)
   const posts = JSON.parse(fs.readFileSync(path.join(cwd, 'lib', 'posts.json'), 'utf-8'));
@@ -291,7 +306,32 @@ export async function getServerSideProps({ res }) {
     'ibiza-fractional-ownership-properties',
   ]);
 
-  const today = new Date().toISOString().split('T')[0];
+  // Real lastmod, or none at all.
+  //
+  // This used to be `const today = ...`, stamped on all 431 file-based URLs —
+  // destinations, compare, partners, glossary, the FAQ hub and all 236
+  // questions, and every town page. Every fetch of this sitemap told Google
+  // that 431 pages had changed that day, every day, forever. Google demotes a
+  // sitemap whose lastmod it cannot trust and then discounts the field across
+  // the whole site, including on property pages where it is genuinely useful.
+  //
+  // So: use the dateModified the content metas actually carry, and where we
+  // have no real date, omit <lastmod> entirely. urlEntry() drops the element
+  // when lastmod is undefined. An absent lastmod costs nothing; a false one
+  // costs the credibility of every other lastmod we emit. (10 Sep 2026)
+  const metaDate = (meta, slug) => {
+    const e = meta && meta[slug];
+    if (!e) return undefined;
+    const d = e.dateModified || e.datePublished;
+    return d ? String(d).split('T')[0] : undefined;
+  };
+  const readMeta = (file) => {
+    try { return JSON.parse(fs.readFileSync(path.join(cwd, 'lib', file), 'utf-8')); }
+    catch (e) { return null; }
+  };
+  const faqMeta     = readMeta('faq-meta.json');
+  const compareMeta = readMeta('compare-meta.json');
+  const partnerMeta = readMeta('partners-meta.json');
 
   const urls = [
     // Locale-paired static pages
@@ -324,11 +364,11 @@ export async function getServerSideProps({ res }) {
         if (hasFr) altset.fr = `/fr/destinations/${slug}/`;
         if (hasDe) altset.de = `/de/destinationen/${slug}/`;
         const out = [
-          urlEntry(`${BASE}/${slug}/`, priority, 'weekly', today, altset),
+          urlEntry(`${BASE}/${slug}/`, priority, 'weekly', undefined, altset),
         ];
-        if (hasEs) out.push(urlEntry(`${BASE}${altset.es}`, priority, 'weekly', today, altset));
-        if (hasFr) out.push(urlEntry(`${BASE}${altset.fr}`, priority, 'weekly', today, altset));
-        if (hasDe) out.push(urlEntry(`${BASE}${altset.de}`, priority, 'weekly', today, altset));
+        if (hasEs) out.push(urlEntry(`${BASE}${altset.es}`, priority, 'weekly', undefined, altset));
+        if (hasFr) out.push(urlEntry(`${BASE}${altset.fr}`, priority, 'weekly', undefined, altset));
+        if (hasDe) out.push(urlEntry(`${BASE}${altset.de}`, priority, 'weekly', undefined, altset));
         return out;
       }),
 
@@ -339,10 +379,11 @@ export async function getServerSideProps({ res }) {
       if (compareSlugsEsSet.has(slug)) altset.es = `/es/comparativa/${slug}/`;
       if (compareSlugsFrSet.has(slug)) altset.fr = `/fr/comparaison/${slug}/`;
       if (compareSlugsDeSet.has(slug)) altset.de = `/de/vergleich/${slug}/`;
-      const out = [urlEntry(`${BASE}/compare/${slug}/`, '0.85', 'monthly', today, altset)];
-      if (altset.es) out.push(urlEntry(`${BASE}${altset.es}`, '0.85', 'monthly', today, altset));
-      if (altset.fr) out.push(urlEntry(`${BASE}${altset.fr}`, '0.85', 'monthly', today, altset));
-      if (altset.de) out.push(urlEntry(`${BASE}${altset.de}`, '0.85', 'monthly', today, altset));
+      const lm = metaDate(compareMeta, slug);
+      const out = [urlEntry(`${BASE}/compare/${slug}/`, '0.85', 'monthly', lm, altset)];
+      if (altset.es) out.push(urlEntry(`${BASE}${altset.es}`, '0.85', 'monthly', lm, altset));
+      if (altset.fr) out.push(urlEntry(`${BASE}${altset.fr}`, '0.85', 'monthly', lm, altset));
+      if (altset.de) out.push(urlEntry(`${BASE}${altset.de}`, '0.85', 'monthly', lm, altset));
       return out;
     }),
 
@@ -352,10 +393,11 @@ export async function getServerSideProps({ res }) {
       if (partnerSlugsEsSet.has(slug)) altset.es = `/es/socios/${slug}/`;
       if (partnerSlugsFrSet.has(slug)) altset.fr = `/fr/partenaires/${slug}/`;
       if (partnerSlugsDeSet.has(slug)) altset.de = `/de/partner/${slug}/`;
-      const out = [urlEntry(`${BASE}/partners/${slug}/`, '0.85', 'monthly', today, altset)];
-      if (altset.es) out.push(urlEntry(`${BASE}${altset.es}`, '0.85', 'monthly', today, altset));
-      if (altset.fr) out.push(urlEntry(`${BASE}${altset.fr}`, '0.85', 'monthly', today, altset));
-      if (altset.de) out.push(urlEntry(`${BASE}${altset.de}`, '0.85', 'monthly', today, altset));
+      const lm = metaDate(partnerMeta, slug);
+      const out = [urlEntry(`${BASE}/partners/${slug}/`, '0.85', 'monthly', lm, altset)];
+      if (altset.es) out.push(urlEntry(`${BASE}${altset.es}`, '0.85', 'monthly', lm, altset));
+      if (altset.fr) out.push(urlEntry(`${BASE}${altset.fr}`, '0.85', 'monthly', lm, altset));
+      if (altset.de) out.push(urlEntry(`${BASE}${altset.de}`, '0.85', 'monthly', lm, altset));
       return out;
     }),
 
@@ -365,29 +407,30 @@ export async function getServerSideProps({ res }) {
       glossaryLocales.forEach(loc => {
         altset[loc] = loc === 'en' ? '/glossary/' : loc === 'es' ? '/es/glosario/' : loc === 'fr' ? '/fr/glossaire/' : '/de/glossar/';
       });
-      return Object.entries(altset).map(([loc, p]) => urlEntry(`${BASE}${p}`, '0.8', 'monthly', today, altset));
+      return Object.entries(altset).map(([loc, p]) => urlEntry(`${BASE}${p}`, '0.8', 'monthly', undefined, altset));
     })(),
 
     // FAQ hub + individual Q&A pages. EN-only for now; ES/FR/DE alternates
     // emitted if the locale file exists. Priority 0.85 — these are AI-citation
     // money pages, treat them on par with /compare/.
-    urlEntry(`${BASE}/faq/`, '0.85', 'weekly', today, { en: '/faq/' }),
+    urlEntry(`${BASE}/faq/`, '0.85', 'weekly', undefined, { en: '/faq/' }),
     ...faqSlugs.flatMap(slug => {
       const altset = { en: `/faq/${slug}/` };
       if (faqSlugsEsSet.has(slug)) altset.es = `/es/preguntas/${slug}/`;
       if (faqSlugsFrSet.has(slug)) altset.fr = `/fr/questions/${slug}/`;
       if (faqSlugsDeSet.has(slug)) altset.de = `/de/fragen/${slug}/`;
-      const out = [urlEntry(`${BASE}/faq/${slug}/`, '0.85', 'monthly', today, altset)];
-      if (altset.es) out.push(urlEntry(`${BASE}${altset.es}`, '0.85', 'monthly', today, altset));
-      if (altset.fr) out.push(urlEntry(`${BASE}${altset.fr}`, '0.85', 'monthly', today, altset));
-      if (altset.de) out.push(urlEntry(`${BASE}${altset.de}`, '0.85', 'monthly', today, altset));
+      const lm = metaDate(faqMeta, slug);
+      const out = [urlEntry(`${BASE}/faq/${slug}/`, '0.85', 'monthly', lm, altset)];
+      if (altset.es) out.push(urlEntry(`${BASE}${altset.es}`, '0.85', 'monthly', lm, altset));
+      if (altset.fr) out.push(urlEntry(`${BASE}${altset.fr}`, '0.85', 'monthly', lm, altset));
+      if (altset.de) out.push(urlEntry(`${BASE}${altset.de}`, '0.85', 'monthly', lm, altset));
       return out;
     }),
 
     // Property detail pages — one entry per launched locale, with reciprocal
     // hreflang. Every locale has a property mirror, so this follows the locale
     // table rather than a fixed list.
-    ...(properties || []).flatMap(p => {
+    ...indexableProperties.flatMap(p => {
       // Only locales this property is actually translated into. An untranslated
       // locale URL is noindex on the page itself (see pages/property/[slug].js),
       // so listing it here would contradict the page and waste crawl budget.
@@ -397,7 +440,7 @@ export async function getServerSideProps({ res }) {
         const prefix = familyPrefix(loc, 'property');
         if (prefix) altset[loc] = `${prefix}${p.slug}/`;
       }
-      const lastmod = p.date_added ? p.date_added.split('T')[0] : today;
+      const lastmod = p.date_added ? p.date_added.split('T')[0] : undefined;
       return Object.values(altset).map(
         (url) => urlEntry(`${BASE}${url}`, '0.7', 'weekly', lastmod, altset)
       );
@@ -417,7 +460,7 @@ export async function getServerSideProps({ res }) {
         .flatMap(([t]) => {
           const altset = familyAltset('towns', t, townGuideLocales(t));
           return Object.values(altset).map(
-            (url) => urlEntry(`${BASE}${url}`, '0.75', 'weekly', today, altset)
+            (url) => urlEntry(`${BASE}${url}`, '0.75', 'weekly', undefined, altset)
           );
         });
     })(),
@@ -429,7 +472,7 @@ export async function getServerSideProps({ res }) {
     ...posts.flatMap(p => {
       const altset = familyAltset('blogPost', p.slug);
       return Object.values(altset).map(
-        (url) => urlEntry(`${BASE}${url}`, '0.6', 'never', p.date || today, altset)
+        (url) => urlEntry(`${BASE}${url}`, '0.6', 'monthly', p.date || undefined, altset)
       );
     }),
   ];

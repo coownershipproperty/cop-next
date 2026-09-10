@@ -906,7 +906,22 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
   const indexableLocales = hreflangLocales && hreflangLocales.length
     ? hreflangLocales
     : PROPERTY_HREFLANG_LOCALES;
-  const isIndexable = indexableLocales.includes(locale);
+  // A discreet-sale home is kept out of the index entirely.
+  //
+  // `is_discreet` was only ever a CONTENT gate — getStaticProps strips the
+  // description, amenities and all but one photo — but the page still emitted a
+  // normal title, description, canonical, hreflang set and RealEstateListing
+  // JSON-LD, and the sitemap listed it. An indexed page headed "Porto Cervo,
+  // Sardinia — 5-Bed Villa With Sea Views" with a photo and a price is not
+  // discreet from the seller's neighbours, which is the point of the label.
+  // Today this changes nothing (0 discreet homes are Live); it matters the
+  // moment the 29 staged ones are released.
+  //
+  // TO REVERSE (if discreet is meant as "public teaser, gated detail" rather
+  // than "quiet listing"): delete `&& !p0.is_discreet` here and drop the
+  // is_discreet filter in pages/sitemap.xml.js. Nothing else depends on it.
+  // (10 Sep 2026 — David asleep, taking the reversible option.)
+  const isIndexable = indexableLocales.includes(locale) && !p0.is_discreet;
   const canonicalPath = propertyPathForLocale(p.slug, locale);
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
   const ogImage = p.img && p.img.startsWith('http') ? p.img : `${SITE_URL}${p.img}`;
@@ -914,7 +929,14 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
   return (
     <>
       <Head>
-        <title>{`${local.title} | Co-Ownership Property`}</title>
+        {/* No " | Co-Ownership Property" suffix. Live property titles average
+            59 characters and run to 117; with the 24-character suffix, 341 of
+            351 exceeded the ~60 Google renders, so the brand was never visible
+            on a single property SERP — it only pushed the part that
+            distinguishes the home out of view. The brand is in the domain. It
+            stays on og:title below, where social cards have the room and the
+            context helps. (10 Sep 2026) */}
+        <title>{local.title}</title>
         <meta name="description" content={metaDesc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -1057,7 +1079,21 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
           {mobileSlides.map((slide, i) =>
             slide.type === 'img' ? (
               <div key={i} className="pp-mob-slide" onClick={() => setLightbox(slide.idx)}>
-                <Img src={slide.src} alt={`${local.title} ${i + 1}`} priority={i === 0} loading={i === 0 ? 'eager' : 'lazy'} />
+                {/* Slide 0 is eager but NOT priority. The mobile carousel and
+                    the desktop gallery are both always in the DOM — CSS hides
+                    one per breakpoint — and both used to mark their first
+                    image `priority`, so next/image emitted two
+                    <link rel=preload as=image> in the head for two DIFFERENT
+                    files (gallery-0.jpg here, hero.jpg there). Two preloads at
+                    identical priority compete for bandwidth, which is exactly
+                    what delays LCP. One preload is enough; the desktop hero
+                    keeps it. Still `eager`, so slide 0 is never lazy-loaded.
+                    NOTE this removes the duplicate PRELOAD, not the duplicate
+                    FETCH — display:none does not stop an <img> loading, so
+                    ~40% of above-the-fold image bytes are still discarded.
+                    Fixing that needs the two blocks to share one src, or to
+                    render conditionally; see the SEO audit. (10 Sep 2026) */}
+                <Img src={slide.src} alt={`${local.title} ${i + 1}`} loading={i === 0 ? 'eager' : 'lazy'} />
               </div>
             ) : (
               <div key={i} className="pp-mob-slide pp-mob-lock" onClick={() => unlocked ? viewGallery() : setShowUnlock(true)}>
