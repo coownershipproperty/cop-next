@@ -1,11 +1,13 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { FEATURED_PROPERTY_SLUGS } from '@/lib/featured-properties';
 import { localeFromPath, localeColumns, pickLocalized } from '@/lib/i18n';
 
@@ -250,6 +252,7 @@ export async function getStaticProps({ params }) {
   // Normalise field names — preserve _es/_fr translation columns alongside
   // the English originals so the page can swap based on the visitor's locale.
   const post = {
+    id:            postRow.id,
     slug:          postRow.slug,
     title:         postRow.title,
     ...pickLocalized(postRow, ['title']),
@@ -340,6 +343,7 @@ export async function getStaticProps({ params }) {
 
 export default function BlogPost({ post, relatedPosts = [], featuredProperties = [] }) {
   const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(false);
   const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
 
@@ -355,6 +359,27 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
   const blogPathPrefix = locale === 'en' ? '/blog' : `/${locale}/blog`;
   const canonicalUrl = `https://co-ownership-property.com${blogPathPrefix}/${post.slug}/`;
   const visibleRelatedPosts = relatedPosts.slice(0, 3);
+
+  useEffect(() => {
+    let active = true;
+
+    async function checkAdmin() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) return;
+
+      try {
+        const response = await fetch('/api/admin/session', {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
+        if (active && response.ok) setIsAdmin(true);
+      } catch (_) {
+        // Public reading must never be affected by an unavailable admin check.
+      }
+    }
+
+    checkAdmin();
+    return () => { active = false; };
+  }, []);
 
   // ── Resolve author for byline + schema ──────────────────────────────────
   // Posts opt into a named byline via the (optional) `byline` field. When
@@ -564,7 +589,42 @@ export default function BlogPost({ post, relatedPosts = [], featuredProperties =
       <Newsletter />
       <ExpertForm />
 
+      {isAdmin && post.id && (
+        <a className="blog-admin-edit-fab" href={`/admin/blog/${post.id}/edit`}>
+          <span aria-hidden="true">✎</span> Edit post
+        </a>
+      )}
+
       <Footer />
+
+      <style jsx>{`
+        .blog-admin-edit-fab {
+          position: fixed;
+          right: 24px;
+          bottom: 24px;
+          z-index: 200;
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 11px 17px;
+          border: 1px solid rgba(255,255,255,.24);
+          border-radius: 999px;
+          color: #fff;
+          background: #102d43;
+          box-shadow: 0 5px 18px rgba(16,45,67,.24);
+          font: 700 13px var(--font-nunito), "Nunito Sans", sans-serif;
+          text-decoration: none;
+          transition: background-color .15s ease, transform .15s ease;
+        }
+        .blog-admin-edit-fab:hover {
+          color: #fff;
+          background: #294a61;
+          transform: translateY(-1px);
+        }
+        @media (max-width: 640px) {
+          .blog-admin-edit-fab { right: 14px; bottom: 14px; }
+        }
+      `}</style>
     </>
   );
 }
