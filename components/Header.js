@@ -62,6 +62,7 @@ const NAV_LINKS = Object.fromEntries(
   SUPPORTED_LOCALES.map((loc) => [
     loc,
     NAV_ITEMS
+      .filter(({ key }) => loc === 'en' || key !== 'blog')
       .map(({ key, ...rest }) => ({ ...rest, href: routePath(loc, key) }))
       .filter((item) => item.href),
   ])
