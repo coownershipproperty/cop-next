@@ -167,7 +167,7 @@ function selectPartnerFacts(rows) {
  */
 const PARTNER_NAMES = /\b(pacaso|vivla|myne|&\s*hamlet|and\s*hamlet|abitaro|paris property group)\b/i;
 
-function validateDraft(out, { property, alternatives, mayName }) {
+function validateDraft(out, { property, alternatives, mayName, knownForDays }) {
   const problems = [];
   const html = String(out?.html || '');
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
@@ -226,10 +226,20 @@ function validateDraft(out, { property, alternatives, mayName }) {
     problems.push(`makes a promise ("${promised[0]}…") — offer instead, unless it is something we will genuinely do`);
   }
 
+  // 7. This job cannot read Gmail. For anyone we have known a while, the thread
+  //    is the truth and the draft is a guess until a human has compared them.
+  if (knownForDays > 30) {
+    problems.push(`known to us for ${knownForDays} days — READ THE GMAIL THREAD before sending; there is history this draft could not see`);
+  }
+  const COLD_OPEN = /(thanks for (getting in touch|your enquiry)|nice to (meet|hear from) you|let me introduce)/i;
+  if (knownForDays > 30 && COLD_OPEN.test(text)) {
+    problems.push('opens like a first contact to someone we have known for over a month');
+  }
+
   return problems;
 }
 
-function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages }) {
+function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages, knownForDays }) {
   const L = [];
   const name = [contact.first_name, contact.last_name].filter(Boolean).join(' ') || contact.email;
   L.push(`PERSON: ${name} <${contact.email}>`);
@@ -329,6 +339,18 @@ function buildContext({ contact, activity, lead, property, facts, partnerFacts, 
     L.push('Either leave the point out, or say you will confirm it and add it to "unanswered".');
     for (const f of partnerFacts.unconfirmed) {
       L.push(`- ${f.question ? f.question + ' ' : ''}${textOf(f.answer_short, 300)}`);
+    }
+    L.push('');
+  }
+
+  if (knownForDays > 0) {
+    L.push(`THEY HAVE BEEN TALKING TO US FOR ${knownForDays} DAY(S).`);
+    if (knownForDays > 30) {
+      L.push('That is long enough that there is almost certainly a real email thread with');
+      L.push('them that this job cannot read — possibly in another language, possibly with');
+      L.push('figures already quoted or a promise already made. Write something that could');
+      L.push('not contradict it: no "thanks for getting in touch", no re-introducing the');
+      L.push('company, no re-offering a home they may already have been sent.');
     }
     L.push('');
   }
@@ -518,10 +540,22 @@ export default async function handler(req, res) {
       // back at someone three days later is the clearest tell that nobody read
       // the thread.
       const { data: prior } = await db.from('email_queue')
-        .select('subject, created_at, status')
+        .select('subject, created_at, status, trigger')
         .eq('to_email', contact.email)
         .in('status', ['sent', 'approved'])
-        .order('created_at', { ascending: false }).limit(5);
+        .order('created_at', { ascending: false }).limit(12);
+
+      // How long has this person been talking to us? Roland Payet had a
+      // month-long correspondence in French, with costs already quoted and a
+      // promise outstanding, and a draft was written to him as a cold English
+      // first contact. Anyone with history that old almost certainly has a
+      // real Gmail thread this job cannot see.
+      const { data: firstSeen } = await db.from('activities')
+        .select('created_at').eq('contact_id', contact.id)
+        .order('created_at', { ascending: true }).limit(1).maybeSingle();
+      const knownForDays = firstSeen
+        ? Math.round((Date.now() - new Date(firstSeen.created_at).getTime()) / 86400000)
+        : 0;
       const alreadySent = (prior || []).map(e => ({
         subject: e.subject,
         when: new Date(e.created_at).toISOString().slice(0, 10),
@@ -587,7 +621,7 @@ export default async function handler(req, res) {
         .order('created_at', { ascending: false }).limit(12);
       const alsoViewed = [...new Set((seen || []).map(s => textOf(s.description, 90)).filter(Boolean))];
 
-      const context = buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages });
+      const context = buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages, knownForDays });
 
       let out;
       try {
@@ -606,7 +640,7 @@ export default async function handler(req, res) {
       // The standard, enforced. A draft that fails still reaches the review
       // desk — silently dropping it would just be a different kind of silence —
       // but it arrives labelled with exactly what is wrong with it.
-      const problems = validateDraft(out, { property, alternatives, mayName });
+      const problems = validateDraft(out, { property, alternatives, mayName, knownForDays });
       if (problems.length) {
         skipped.push(`${contact.email}: draft failed review — ${problems.join('; ')}`);
       }
