@@ -34,7 +34,15 @@ const MAX_AGE_H   = 48;     // older than this, a draft is no longer a reply
 const MAX_PER_RUN = 5;      // a burst of enquiries drafts over several runs
 const MIN_MESSAGE = 12;     // shorter than this is not a question
 
-const ENQUIRY_TYPES = ['enquiry_submitted', 'gallery_enquiry', 'tour_request'];
+// floor_plan_requested was missing here until 11 Sep 2026, and it is the bulk
+// of what actually comes in: of 26 inbound events in the 24h before this fix,
+// 21 were floor-plan requests. The drafter was structurally blind to them, so
+// it produced nothing on four consecutive days while people looked at three
+// and four homes each.
+const ENQUIRY_TYPES = ['enquiry_submitted', 'gallery_enquiry', 'tour_request', 'floor_plan_requested'];
+// Only these carry a written message; a floor-plan request never does.
+const MESSAGE_TYPES = new Set(['enquiry_submitted', 'gallery_enquiry', 'tour_request']);
+const REPEAT_WINDOW_DAYS = 7;   // "looked at more than one home" counts as a question
 
 // Not every enquiry is a buyer asking a question. A developer offering to
 // list a building and a Rightmove notification body both clear the length
@@ -154,8 +162,17 @@ function buildContext({ contact, activity, lead, property, facts, partnerFacts, 
   if (contact.residence_country || contact.country) L.push(`Country: ${contact.residence_country || contact.country}`);
   if (contact.phone) L.push(`They gave a phone number.`);
   L.push('');
-  L.push(`THEY WROTE (${activity.created_at}):`);
-  L.push(textOf(activity.metadata?.message, 2000) || '(no message)');
+  const wrote = textOf(activity.metadata?.message, 2000);
+  if (wrote) {
+    L.push(`THEY WROTE (${activity.created_at}):`);
+    L.push(wrote);
+  } else {
+    // Most people never type anything — they open galleries. Saying "thanks
+    // for your question" to someone who asked none is the giveaway.
+    L.push(`THEY DID NOT WRITE ANYTHING. What they did (${activity.created_at}):`);
+    L.push(`- ${activity.type.replace(/_/g, ' ')}${property ? ` on ${property.title}` : ''}`);
+    L.push('Open with what they looked at and give them the numbers. Do not thank them for a question they did not ask, and do not invent one.');
+  }
   L.push('');
 
   // Requirements arrive in pieces. Guillaume told us "house not apartment",
@@ -342,16 +359,36 @@ export default async function handler(req, res) {
       .limit(60);
     if (aErr) throw new Error(aErr.message);
 
+    // One draft per person per run. Barbara asked for three galleries in three
+    // minutes; she needs one reply covering all three, not three replies.
+    const seenContacts = new Set();
+
     for (const activity of acts || []) {
       if (drafted.length >= MAX_PER_RUN) break;
       const label = activity.contact_id || activity.id;
 
-      // A gallery or floor-plan request with nothing written is already
-      // covered by the instant auto-reply. Drafting a second generic note
-      // is how a lead ends up with two emails saying the same thing.
-      const message = textOf(activity.metadata?.message, 4000);
-      if (message.length < MIN_MESSAGE) { skipped.push(`${label}: no question`); continue; }
       if (!activity.contact_id) { skipped.push(`${label}: no contact`); continue; }
+      if (seenContacts.has(activity.contact_id)) continue;
+
+      const message = textOf(activity.metadata?.message, 4000);
+      const wroteSomething = MESSAGE_TYPES.has(activity.type) && message.length >= MIN_MESSAGE;
+
+      // A single gallery click with nothing written belongs to
+      // process-gallery-followups, not here — that cron exists precisely to
+      // send one nudge per visit. But somebody opening two or more homes is
+      // shopping, and that is a question even when they never typed one.
+      let repeatSignal = 0;
+      if (!wroteSomething) {
+        const repeatSince = new Date(now - REPEAT_WINDOW_DAYS * 86400000).toISOString();
+        const { count } = await db.from('activities')
+          .select('id', { count: 'exact', head: true })
+          .eq('contact_id', activity.contact_id)
+          .in('type', ENQUIRY_TYPES)
+          .gte('created_at', repeatSince);
+        repeatSignal = count || 0;
+        if (repeatSignal < 2) { skipped.push(`${label}: one gallery click, left to the follow-up cron`); continue; }
+      }
+      seenContacts.add(activity.contact_id);
       if (NOT_A_BUYER.some(rx => rx.test(message))) {
         await flag(db, activity, null, 'Seller, developer or portal enquiry — needs David, not a buyer reply');
         skipped.push(`${label}: not a buyer enquiry`); continue;
