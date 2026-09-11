@@ -57,3 +57,6 @@ _to_delete/
 
 # Claude session scratch (settings, audit tarballs)
 /.claude/
+
+# scratch previews and render harnesses from Claude sessions
+Claude outputs/
