@@ -46,6 +46,7 @@ import { buildEmail as buildStudioEmail } from '@/lib/email/templateStore';
 import { isEnvTrue } from '@/lib/email/engine';
 import { isSuppressed } from '@/lib/suppressions';
 import { isCronRequest, isSecretAuthed } from '@/lib/cronAuth';
+import { humanOwnsThread } from '@/lib/humanThread';
 
 import { beat } from '@/lib/cronHeartbeat';
 // ── Tunables ────────────────────────────────────────────────────────────────
@@ -397,7 +398,7 @@ export default async function handler(req, res) {
 
   const results = [];
   let sent = 0, suppressed = 0, expired = 0, notDue = 0, optedOut = 0,
-      skippedCooldown = 0, skippedTest = 0, skippedNoProp = 0, errors = 0;
+      skippedCooldown = 0, skippedTest = 0, skippedNoProp = 0, skippedHuman = 0, errors = 0;
 
   for (const [contactId, allActs] of byContact) {
     if (onCooldown.has(contactId)) { skippedCooldown++; continue; }
@@ -461,6 +462,25 @@ export default async function handler(req, res) {
       }
       optedOut++;
       results.push({ email: contact.email, decision: dryRun ? 'would_skip_opted_out' : 'skipped_opted_out' });
+      continue;
+    }
+
+    // ── Human-thread guard (added 11 Sep 2026) ──────────────────────────────
+    // This job sent "Shall I put you in touch about the Estepona home?" to a
+    // man Dylan had been corresponding with in French for a month, and the
+    // same template to three people whose replies were waiting for review.
+    // A template never writes to someone a person already has.
+    const owned = await humanOwnsThread(db, { contactId, email });
+    if (owned.owned) {
+      if (!dryRun) {
+        await insertMarker(db, {
+          contact, status: 'rejected',
+          subject: 'Gallery follow-up — stood down (a person owns this thread)',
+          notes: owned.reason,
+        });
+      }
+      skippedHuman++;
+      results.push({ email: contact.email, decision: dryRun ? 'would_skip_human_thread' : 'skipped_human_thread', reason: owned.reason });
       continue;
     }
 
@@ -646,7 +666,7 @@ export default async function handler(req, res) {
     testEmails: testMode && showEmails ? testEmails : undefined,
     contactsScanned: byContact.size,
     sent, suppressed, expired, optedOut,
-    notDue, skippedCooldown, skippedTestMode: skippedTest, skippedNoProperty: skippedNoProp,
+    notDue, skippedCooldown, skippedTestMode: skippedTest, skippedHumanThread: skippedHuman, skippedNoProperty: skippedNoProp,
     errors,
     // Per-contact detail (addresses) only for a Bearer-secret caller.
     results: showEmails ? results : results.map(({ email, ...r }) => r),
