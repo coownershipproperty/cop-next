@@ -29,6 +29,7 @@ import { filterSuppressed } from '@/lib/suppressions';
 import { localeColumns } from '@/lib/i18n';
 import { buildWatchEmail, fmt, shell, propCard } from '@/lib/watchAlertEmail';
 import { isCronRequest } from '@/lib/cronAuth';
+import { heartbeatHandler } from '@/lib/cronHeartbeat';
 
 export const maxDuration = 120;
 
@@ -98,7 +99,7 @@ try {
 }
 }
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -245,3 +246,5 @@ export default async function handler(req, res) {
   console.log(`[watch-alerts] processed ${eligible.length} watches, sent ${sent} emails, deferred ${deferred}`);
   return res.status(200).json({ ok: true, watches: eligible.length, sent, deferred, capped: deferred > 0 });
 }
+
+export default heartbeatHandler('property-watch-alerts', handler);

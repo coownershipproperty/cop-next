@@ -22,6 +22,7 @@ import { expandRegions } from '@/lib/regionMap';
 import PropertyAlert from '@/emails/property-alert';
 import * as React from 'react';
 import { isCronRequest, isSecretAuthed } from '@/lib/cronAuth';
+import { heartbeatHandler } from '@/lib/cronHeartbeat';
 
 function getDb() {
   return createSupabaseAdminClient();
@@ -41,7 +42,7 @@ function regionMatches(p, regions) {
 
 export const maxDuration = 60;
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   // Vercel's schedule header or a Bearer secret (lib/cronAuth.js) — a bare
   // GET used to re-send every alert of the last 25 hours to every subscriber.
   if (!isCronRequest(req)) {
@@ -192,3 +193,5 @@ export default async function handler(req, res) {
 
   return res.status(200).json({ ok: true, newProperties: newProps.length, alertsSent: sent });
 }
+
+export default heartbeatHandler('send-property-alerts', handler);

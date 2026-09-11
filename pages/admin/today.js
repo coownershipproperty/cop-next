@@ -7,9 +7,10 @@
  * by itself. An empty page means nothing is waiting — that is the goal state,
  * and it is shown as such rather than as a blank.
  *
- * Every scheduled job has a Run button. The Vercel scheduler stopped
- * invoking every cron on 7 Sep 2026 and nobody knew for four days; with this
- * page the outage is visible in the Jobs strip and survivable from it.
+ * Every scheduled job shows two facts — did the scheduler fire it, did the
+ * job run — and has a Run button. The Vercel scheduler stopped invoking
+ * every cron on 7 Sep 2026 and nobody knew for four days; since 11 Sep the
+ * scheduler is pg_cron in Supabase, and both facts come from tables.
  */
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -41,9 +42,10 @@ function name(r) {
 const JOB_STATE = {
   ok:             { bg: C.good, ink: C.goodInk, text: 'running' },
   failing:        { bg: C.bad,  ink: C.badInk,  text: 'last run failed' },
-  stalled:        { bg: C.bad,  ink: C.badInk,  text: 'stalled' },
-  never:          { bg: C.warn, ink: C.warnInk, text: 'never seen' },
-  'no-heartbeat': { bg: C.shell, ink: C.faint,  text: 'no heartbeat yet' },
+  stalled:        { bg: C.bad,  ink: C.badInk,  text: 'fired but not running' },
+  rejected:       { bg: C.bad,  ink: C.badInk,  text: 'endpoint refused' },
+  'not-firing':   { bg: C.bad,  ink: C.badInk,  text: 'scheduler not firing' },
+  'no-heartbeat': { bg: C.warn, ink: C.warnInk, text: 'fires, no heartbeat yet' },
 }
 
 function Pill({ bg, ink, children }) {
@@ -152,7 +154,7 @@ export default function TodayPage() {
   }
 
   const s = state
-  const stalled = s ? s.jobs.filter((j) => j.state === 'stalled' || j.state === 'never' || j.state === 'failing').length : 0
+  const stalled = s ? s.jobs.filter((j) => ['stalled', 'not-firing', 'rejected', 'failing'].includes(j.state)).length : 0
 
   return (
     <AdminLayout>
@@ -177,7 +179,7 @@ export default function TodayPage() {
             <section style={{ background: C.paper, border: `1px solid ${stalled ? C.badInk : C.line}`, borderRadius: 12, padding: '14px 18px', marginBottom: 16 }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 10 }}>
                 <span style={{ fontSize: 15, fontWeight: 500 }}>Scheduled jobs</span>
-                <Muted>from <code>cron_runs</code> · {stalled ? `${stalled} not running` : 'all running'}</Muted>
+                <Muted>fired by pg_cron (<code>scheduler_runs</code>) · ran (<code>cron_runs</code>) · {stalled ? `${stalled} not running` : 'all running'}</Muted>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 8 }}>
                 {s.jobs.map((j) => {
@@ -196,10 +198,11 @@ export default function TodayPage() {
                       </div>
                       <div style={{ fontSize: 11, color: C.faint, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                         <span><code>{j.schedule}</code></span>
-                        <span>last {ago(j.lastRun)}</span>
+                        <span>fired {ago(j.lastFired)}{j.firedStatus ? ` (${j.firedStatus})` : ''}</span>
+                        <span>ran {ago(j.lastRun)}</span>
                         {j.errors24h > 0 && <span style={{ color: C.badInk }}>{j.errors24h} errors today</span>}
                       </div>
-                      {j.lastError && <div style={{ fontSize: 11, color: C.badInk }}><Trunc max={120}>{j.lastError}</Trunc></div>}
+                      {(j.firedError || j.lastError) && <div style={{ fontSize: 11, color: C.badInk }}><Trunc max={120}>{j.firedError || j.lastError}</Trunc></div>}
                       {res && (
                         <div style={{ fontSize: 11, color: res.ok ? C.goodInk : C.badInk, background: res.ok ? C.good : C.bad, borderRadius: 6, padding: '4px 8px', wordBreak: 'break-word' }}>
                           {res.ok ? `ran in ${res.ms} ms` : `failed${res.httpStatus ? ` (HTTP ${res.httpStatus})` : ''}`}

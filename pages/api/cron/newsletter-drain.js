@@ -39,6 +39,7 @@ import { sendHtml } from '@/lib/resend';
 import { listUnsubHeaders } from '@/lib/unsub';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { isCronRequest } from '@/lib/cronAuth';
+import { heartbeatHandler } from '@/lib/cronHeartbeat';
 
 /** Platform ceiling. The time budget below is what actually protects the run. */
 export const maxDuration = 300;
@@ -59,7 +60,7 @@ function getDb() {
   return createSupabaseAdminClient();
 }
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -295,3 +296,5 @@ export default async function handler(req, res) {
       : `Drained a batch (${sent} this run); ${remaining} still to go, next cron tick will continue.`,
   });
 }
+
+export default heartbeatHandler('newsletter-drain', handler);

@@ -1,6 +1,7 @@
 import { formatMadridDateTime } from '@/lib/adminTasks'
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin'
 import { isCronRequest } from '@/lib/cronAuth'
+import { heartbeatHandler } from '@/lib/cronHeartbeat'
 
 const ADMIN_EMAIL = process.env.ADMIN_TASK_REMINDER_EMAIL || 'info@co-ownership-property.com'
 
@@ -12,7 +13,7 @@ function escapeHtml(value) {
 
 export const maxDuration = 60;
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed.' })
   // Vercel sends x-vercel-cron-schedule, not x-vercel-cron — see lib/cronAuth.js.
   if (!isCronRequest(req)) return res.status(401).json({ error: 'Unauthorised' })
@@ -73,3 +74,5 @@ export default async function handler(req, res) {
 
   return res.json({ ok: true, checked: (dueTasks || []).length, sent, failed })
 }
+
+export default heartbeatHandler('admin-task-reminders', handler)

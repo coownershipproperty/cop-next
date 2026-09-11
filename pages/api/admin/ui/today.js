@@ -20,58 +20,27 @@
  *   disputed:    partner_facts needs_check   (contradictions / open questions)
  *   facts:       fact_requests open          (a draft needed a fact we lack)
  *   judgement:   admin_tasks open            (things only David can decide)
- *   jobs:        the vercel.json crons merged with cron_health
+ *   jobs:        lib/cronJobs merged with scheduler_runs (fired) and cron_runs (ran)
  * }
  *
  * POST { job } → runs that cron now, server-side, and returns what it said.
- * This exists because the Vercel scheduler stopped invoking every cron on
- * 7 Sep 2026 and nothing noticed for four days. With a Run button the outage
- * is an inconvenience, not a blocker. The call carries Bearer CRON_SECRET (or
- * CRM_SECRET) when one is configured, otherwise the schedule header that
- * lib/cronAuth accepts — either way it is an admin who pressed the button.
+ * The scheduler is pg_cron in Supabase since 11 Sep 2026 (the Vercel one
+ * stopped on 7 Sep and nothing noticed for four days); the Run button is for
+ * "now", not "eventually". The call carries Bearer CRON_SECRET (or CRM_SECRET)
+ * when one is configured, otherwise the schedule header that lib/cronAuth
+ * accepts — either way it is an admin who pressed the button.
  */
 import { requireAdmin } from '@/lib/newsletter/auth';
-import vercelConfig from '@/vercel.json';
+import { CRON_JOBS, expectedGapMinutes } from '@/lib/cronJobs';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://co-ownership-property.com';
 
-/**
- * How each cron identifies itself in cron_runs (lib/cronHeartbeat beat()).
- * A path not listed here has no heartbeat yet and is shown as "no heartbeat"
- * rather than "stalled" — an unknown is not a failure, and pretending it is
- * one would be exactly the kind of second copy of the truth this page exists
- * to remove.
- */
-const JOBS = {
-  '/api/cron/draft-replies':         { key: 'draft-replies',       label: 'Draft replies to enquiries' },
-  '/api/process-gallery-followups':  { key: 'gallery-followups',   label: 'Send batched gallery emails' },
-  '/api/process-email-queue':        { key: 'email-queue',         label: 'Send approved emails' },
-  '/api/email-engine':               { key: 'email-engine',        label: 'Automated follow-ups' },
-  '/api/cron/newsletter-drain':      { key: null,                  label: 'Newsletter sends' },
-  '/api/cron/admin-task-reminders':  { key: null,                  label: 'Task reminders' },
-  '/api/cron/rotate-featured':       { key: null,                  label: 'Rotate featured homes' },
-  '/api/cron/property-watch-alerts': { key: null,                  label: 'Property watch alerts' },
-  '/api/send-property-alerts':       { key: null,                  label: 'Saved-search alerts' },
-  '/api/cron/partner-contact-check': { key: null,                  label: 'Partner contact check' },
-};
-
-/** Roughly how long a schedule may go quiet before it is "stalled" (2 missed runs + slack). */
-function expectedGapMinutes(schedule) {
-  const m = /^\*\/(\d+) \* \* \* \*$/.exec(schedule || '');
-  if (m) return parseInt(m[1], 10) * 2 + 5;
-  return 26 * 60; // daily jobs: a day plus two hours
-}
-
 function cronPaths() {
-  return (vercelConfig?.crons || []).map((c) => ({
-    path: c.path,
-    schedule: c.schedule,
-    ...(JOBS[c.path] || { key: null, label: c.path }),
-  }));
+  return CRON_JOBS.map((j) => ({ ...j }));
 }
 
 async function loadState(db) {
-  const [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns] = await Promise.all([
+  const [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns, fired] = await Promise.all([
     db.from('leads_awaiting_reply').select('*').order('hours_waiting', { ascending: false }).limit(200),
     db.from('referrals_outstanding').select('*').order('days_since', { ascending: false }).limit(200),
     db.from('referrals_awaiting_outcome').select('*').order('days_since', { ascending: true }).limit(300),
@@ -106,29 +75,44 @@ async function loadState(db) {
       .select('job, ran_at, ok, duration_ms, summary, error')
       .order('ran_at', { ascending: false })
       .limit(200),
+    db.from('scheduler_runs')
+      .select('job, fired_at, status_code, timed_out, error_msg')
+      .order('fired_at', { ascending: false })
+      .limit(200),
   ]);
 
-  const firstError = [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns]
+  const firstError = [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns, fired]
     .map((r) => r.error).find(Boolean);
 
   const healthByJob = new Map((health.data || []).map((h) => [h.job, h]));
   const lastByJob = new Map();
   for (const r of lastRuns.data || []) if (!lastByJob.has(r.job)) lastByJob.set(r.job, r);
+  const firedByJob = new Map();
+  for (const r of fired.data || []) if (!firedByJob.has(r.job)) firedByJob.set(r.job, r);
 
   const now = Date.now();
   const jobs = cronPaths().map((j) => {
-    const h = j.key ? healthByJob.get(j.key) : null;
-    const last = j.key ? lastByJob.get(j.key) : null;
+    const h = healthByJob.get(j.key);
+    const last = lastByJob.get(j.key);
+    const f = firedByJob.get(j.key);
     const lastRun = last?.ran_at || h?.last_run || null;
+    const lastFired = f?.fired_at || null;
     const quietMin = lastRun ? Math.round((now - new Date(lastRun).getTime()) / 60000) : null;
+    const firedQuietMin = lastFired ? Math.round((now - new Date(lastFired).getTime()) / 60000) : null;
+    const gap = expectedGapMinutes(j.schedule);
+    // Two questions, in order: did the scheduler fire it, and did the job run?
     let state;
-    if (!j.key) state = 'no-heartbeat';
-    else if (!lastRun) state = 'never';
-    else if (quietMin > expectedGapMinutes(j.schedule)) state = 'stalled';
+    if (!lastFired || firedQuietMin > gap) state = 'not-firing';
+    else if (f && (f.timed_out || (f.status_code && f.status_code >= 400))) state = 'rejected';
+    else if (!lastRun) state = 'no-heartbeat';
+    else if (quietMin > gap) state = 'stalled';
     else if (last && last.ok === false) state = 'failing';
     else state = 'ok';
     return {
       ...j,
+      lastFired,
+      firedStatus: f?.status_code ?? null,
+      firedError: f?.error_msg || (f?.timed_out ? 'timed out' : null),
       lastRun,
       quietMin,
       state,

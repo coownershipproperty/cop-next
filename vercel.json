@@ -12,47 +12,5 @@
       "destination": "https://co-ownership-property.com/admin/leads/",
       "permanent": true
     }
-  ],
-  "crons": [
-    {
-      "path": "/api/process-gallery-followups",
-      "schedule": "*/5 * * * *"
-    },
-    {
-      "path": "/api/email-engine",
-      "schedule": "*/10 * * * *"
-    },
-    {
-      "path": "/api/process-email-queue",
-      "schedule": "*/5 * * * *"
-    },
-    {
-      "path": "/api/cron/draft-replies",
-      "schedule": "*/10 * * * *"
-    },
-    {
-      "path": "/api/cron/newsletter-drain",
-      "schedule": "*/5 * * * *"
-    },
-    {
-      "path": "/api/cron/admin-task-reminders",
-      "schedule": "*/5 * * * *"
-    },
-    {
-      "path": "/api/cron/rotate-featured",
-      "schedule": "30 5 * * *"
-    },
-    {
-      "path": "/api/cron/property-watch-alerts",
-      "schedule": "0 7 * * *"
-    },
-    {
-      "path": "/api/send-property-alerts",
-      "schedule": "30 7 * * *"
-    },
-    {
-      "path": "/api/cron/partner-contact-check",
-      "schedule": "0 9 * * *"
-    }
   ]
 }

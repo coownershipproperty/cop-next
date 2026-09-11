@@ -27,6 +27,7 @@ import { buildEmail } from '@/lib/email/templateStore';
 import { resolveUnsubPlaceholder, listUnsubHeaders } from '@/lib/unsub';
 import { isSuppressed } from '@/lib/suppressions';
 import { isCronRequest } from '@/lib/cronAuth';
+import { heartbeatHandler } from '@/lib/cronHeartbeat';
 
 export const maxDuration = 60;
 
@@ -61,7 +62,7 @@ const partnerDisplay = (slug) => PARTNER_DISPLAY[String(slug || '').toLowerCase(
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -205,3 +206,5 @@ export default async function handler(req, res) {
   console.log(`[partner-contact-check] ${refs?.length || 0} candidates, sent ${sent}, skipped ${skipped}`);
   return res.status(200).json({ ok: true, candidates: refs?.length || 0, sent, skipped, dryRun, results });
 }
+
+export default heartbeatHandler('partner-contact-check', handler);
