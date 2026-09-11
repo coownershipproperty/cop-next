@@ -117,13 +117,32 @@ function selectPartnerFacts(rows) {
   if (!rows?.length) return null;
   const guard = rows.filter(r => GUARD_TOPICS.has(r.topic));
   const soft = rows.filter(r => !GUARD_TOPICS.has(r.topic) && r.confidence !== 'verified');
-  const hard = rows
-    .filter(r => !GUARD_TOPICS.has(r.topic) && r.confidence === 'verified')
-    .sort((a, b) => {
-      const ia = FACT_PRIORITY.indexOf(a.topic), ib = FACT_PRIORITY.indexOf(b.topic);
-      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
-    })
-    .slice(0, MAX_VERIFIED_FACTS);
+  // Straight priority ordering is not enough: Vivla alone has 23 verified
+  // rental-policy rows, which would fill the budget before the model ever sees
+  // a running cost. Deal the topics out round by round instead, so every topic
+  // is represented and the high-priority ones simply get the deeper end.
+  const byTopic = new Map();
+  for (const r of rows) {
+    if (GUARD_TOPICS.has(r.topic) || r.confidence !== 'verified') continue;
+    if (!byTopic.has(r.topic)) byTopic.set(r.topic, []);
+    byTopic.get(r.topic).push(r);
+  }
+  const decks = [...byTopic.entries()].sort((a, b) => {
+    const ia = FACT_PRIORITY.indexOf(a[0]), ib = FACT_PRIORITY.indexOf(b[0]);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+  }).map(e => e[1]);
+
+  const hard = [];
+  for (let round = 0; hard.length < MAX_VERIFIED_FACTS; round++) {
+    let dealt = false;
+    for (const deck of decks) {
+      if (round >= deck.length) continue;
+      hard.push(deck[round]);
+      dealt = true;
+      if (hard.length >= MAX_VERIFIED_FACTS) break;
+    }
+    if (!dealt) break;
+  }
   return { verified: hard, unconfirmed: [...guard, ...soft] };
 }
 
