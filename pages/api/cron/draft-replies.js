@@ -199,6 +199,33 @@ function validateDraft(out, { property, alternatives, mayName }) {
     problems.push(`quotes ${money.length} figure(s) with no property link in the email`);
   }
 
+  // 4. A visible URL is not a link. Gmail rewrites a bare URL in the body into
+  //    a google.com/url redirect, so the reader sees a wall of tracking
+  //    gibberish where a home's name should be.
+  if (/https?:\/\//i.test(text)) {
+    problems.push('a URL is visible in the body — link the home on its name instead');
+  }
+
+  // 5. Never tell a client about a failure they did not experience. A draft on
+  //    11 Sep 2026 apologised to a lead for a photo gallery that had failed to
+  //    send; she had no idea one was coming. It invented a problem in her head
+  //    and then apologised for it.
+  const INTERNAL_FAILURE = /(did ?n'?t (reach|go out|arrive|get (to you|sent))|never (reached|arrived|went out)|my fault|our (fault|mistake|end)|on us\b|slipped past|apologi[sz]e for the (delay|galler|photos))/i;
+  const owned = text.match(INTERNAL_FAILURE);
+  if (owned) {
+    problems.push(`mentions an internal failure ("${owned[0]}") — did the client actually experience it?`);
+  }
+
+  // 6. A promise creates a task for David and a deadline for us. An offer costs
+  //    nothing. "Happy to send the running costs if useful" beats "I'll confirm
+  //    and come back to you" every time — and if the email already links the
+  //    page, there is nothing left to promise.
+  const PROMISE = /\bI'?ll\s+(send|get|forward|confirm|chase|come back|have (it|them|these)|chase (it|them) up)\b/i;
+  const promised = text.match(PROMISE);
+  if (promised) {
+    problems.push(`makes a promise ("${promised[0]}…") — offer instead, unless it is something we will genuinely do`);
+  }
+
   return problems;
 }
 
