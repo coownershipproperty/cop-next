@@ -98,6 +98,35 @@ function textOf(v, max = 400) {
 }
 
 /** Everything the model is allowed to know, as compact labelled text. */
+// partner_facts now holds 100-180 rows per operator (deep audit, 11 Sep 2026),
+// including 'contradictions' and 'open-questions' rows that exist precisely to
+// stop the model asserting something we cannot source. Taking an arbitrary
+// slice would drop the topic the lead actually asked about, so order by how
+// often a buyer asks, and keep every guard row.
+const FACT_PRIORITY = [
+  'running-costs', 'rental-policy', 'usage-allocation', 'booking-rules',
+  'purchase-costs', 'resale-exit', 'peak-and-holidays', 'guests-and-pets',
+  'ownership-structure', 'share-sizes', 'taxes', 'financing',
+  'management-service', 'pricing', 'trust-risk', 'identity',
+  'markets-inventory', 'agent-program',
+];
+const GUARD_TOPICS = new Set(['contradictions', 'open-questions']);
+const MAX_VERIFIED_FACTS = 80;
+
+function selectPartnerFacts(rows) {
+  if (!rows?.length) return null;
+  const guard = rows.filter(r => GUARD_TOPICS.has(r.topic));
+  const soft = rows.filter(r => !GUARD_TOPICS.has(r.topic) && r.confidence !== 'verified');
+  const hard = rows
+    .filter(r => !GUARD_TOPICS.has(r.topic) && r.confidence === 'verified')
+    .sort((a, b) => {
+      const ia = FACT_PRIORITY.indexOf(a.topic), ib = FACT_PRIORITY.indexOf(b.topic);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    })
+    .slice(0, MAX_VERIFIED_FACTS);
+  return { verified: hard, unconfirmed: [...guard, ...soft] };
+}
+
 function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed }) {
   const L = [];
   const name = [contact.first_name, contact.last_name].filter(Boolean).join(' ') || contact.email;
@@ -146,10 +175,20 @@ function buildContext({ contact, activity, lead, property, facts, partnerFacts, 
     L.push('');
   }
 
-  if (partnerFacts?.length) {
+  if (partnerFacts?.verified?.length) {
     L.push('VERIFIED FACTS ABOUT THE OPERATOR THAT MANAGES IT:');
-    for (const f of partnerFacts) {
-      L.push(`- ${f.question ? f.question + ' ' : ''}${textOf(f.answer_short, 420)}`);
+    for (const f of partnerFacts.verified) {
+      const scope = f.applies_to && f.applies_to !== 'all' ? ` (applies to: ${textOf(f.applies_to, 90)})` : '';
+      L.push(`- ${f.question ? f.question + ' ' : ''}${textOf(f.answer_short, 420)}${scope}`);
+    }
+    L.push('');
+  }
+
+  if (partnerFacts?.unconfirmed?.length) {
+    L.push('OPERATOR CLAIMS THAT ARE **NOT** CONFIRMED — NEVER STATE THESE AS FACT.');
+    L.push('Either leave the point out, or say you will confirm it and add it to "unanswered".');
+    for (const f of partnerFacts.unconfirmed) {
+      L.push(`- ${f.question ? f.question + ' ' : ''}${textOf(f.answer_short, 300)}`);
     }
     L.push('');
   }
@@ -282,9 +321,9 @@ export default async function handler(req, res) {
 
         if (property?.partner) {
           const { data: pf } = await db.from('partner_facts')
-            .select('topic, question, answer_short')
-            .eq('partner', property.partner).limit(60);
-          partnerFacts = pf || null;
+            .select('topic, question, answer_short, confidence, applies_to')
+            .eq('partner', property.partner).limit(400);
+          partnerFacts = selectPartnerFacts(pf);
 
           const { data: ref } = await db.from('partner_referrals')
             .select('partner, status').eq('contact_id', contact.id)
