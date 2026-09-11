@@ -57,6 +57,9 @@ const NOT_A_BUYER = [
   /\bpromoter\b/i,
 ];
 const DRAFT_TRIGGERS = ['enquiry_reply', 'enquiry_reply_draft'];
+// Triggers that fire without a human writing anything.
+const AUTOMATED_TRIGGERS = new Set(['floor_plan_requested', 'enquiry_submitted', 'property_watch',
+  'gallery_autoreply', 'search_saved', 'newsletter_signup', 'gallery_followup', 'gallery_nurture']);
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-5';
@@ -167,7 +170,7 @@ function selectPartnerFacts(rows) {
  */
 const PARTNER_NAMES = /\b(pacaso|vivla|myne|&\s*hamlet|and\s*hamlet|abitaro|paris property group)\b/i;
 
-function validateDraft(out, { property, alternatives, mayName, knownForDays }) {
+function validateDraft(out, { property, alternatives, mayName, knownForDays, hadHumanEmail }) {
   const problems = [];
   const html = String(out?.html || '');
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
@@ -226,20 +229,20 @@ function validateDraft(out, { property, alternatives, mayName, knownForDays }) {
     problems.push(`makes a promise ("${promised[0]}…") — offer instead, unless it is something we will genuinely do`);
   }
 
-  // 7. This job cannot read Gmail. For anyone we have known a while, the thread
-  //    is the truth and the draft is a guess until a human has compared them.
-  if (knownForDays > 30) {
-    problems.push(`known to us for ${knownForDays} days — READ THE GMAIL THREAD before sending; there is history this draft could not see`);
-  }
+  // 7. This job cannot read Gmail, so the thread is the truth and every draft is
+  //    a guess until a human has compared the two. No age threshold: 70% of the
+  //    contacts who have a real conversation started it within 30 days, and 20%
+  //    within a day.
+  problems.push('READ THE GMAIL THREAD before sending — this draft was written without it');
   const COLD_OPEN = /(thanks for (getting in touch|your enquiry)|nice to (meet|hear from) you|let me introduce)/i;
-  if (knownForDays > 30 && COLD_OPEN.test(text)) {
-    problems.push('opens like a first contact to someone we have known for over a month');
+  if (COLD_OPEN.test(text) && (knownForDays > 2 || hadHumanEmail)) {
+    problems.push('opens like a first contact to someone we have spoken to before');
   }
 
   return problems;
 }
 
-function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages, knownForDays }) {
+function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages, knownForDays, hadHumanEmail }) {
   const L = [];
   const name = [contact.first_name, contact.last_name].filter(Boolean).join(' ') || contact.email;
   L.push(`PERSON: ${name} <${contact.email}>`);
@@ -343,17 +346,17 @@ function buildContext({ contact, activity, lead, property, facts, partnerFacts, 
     L.push('');
   }
 
-  if (knownForDays > 0) {
-    L.push(`THEY HAVE BEEN TALKING TO US FOR ${knownForDays} DAY(S).`);
-    if (knownForDays > 30) {
-      L.push('That is long enough that there is almost certainly a real email thread with');
-      L.push('them that this job cannot read — possibly in another language, possibly with');
-      L.push('figures already quoted or a promise already made. Write something that could');
-      L.push('not contradict it: no "thanks for getting in touch", no re-introducing the');
-      L.push('company, no re-offering a home they may already have been sent.');
-    }
-    L.push('');
+  L.push(`THEY HAVE BEEN TALKING TO US FOR ${knownForDays} DAY(S).`);
+  L.push('THERE MAY BE AN EMAIL THREAD WITH THEM THAT THIS JOB CANNOT READ — possibly in');
+  L.push('another language, possibly with figures already quoted or a promise already made.');
+  L.push('Age is no guide: most real conversations start in the first week. Write something');
+  L.push('that could not contradict a thread you have not seen — no "thanks for getting in');
+  L.push('touch", no re-introducing the company, no re-offering a home they may already have');
+  L.push('been sent, and no claim about what we have or have not done for them.');
+  if (hadHumanEmail) {
+    L.push('WE HAVE WRITTEN TO THEM BY HAND BEFORE. A conversation certainly exists.');
   }
+  L.push('');
 
   if (alreadySent?.length) {
     L.push('WE HAVE ALREADY SENT THEM (newest first). Do NOT repeat this back to them —');
@@ -545,17 +548,23 @@ export default async function handler(req, res) {
         .in('status', ['sent', 'approved'])
         .order('created_at', { ascending: false }).limit(12);
 
-      // How long has this person been talking to us? Roland Payet had a
-      // month-long correspondence in French, with costs already quoted and a
-      // promise outstanding, and a draft was written to him as a cold English
-      // first contact. Anyone with history that old almost certainly has a
-      // real Gmail thread this job cannot see.
+      // How long we have known someone does NOT predict whether a real
+      // conversation exists. Of 417 contacts who have had a non-automated
+      // email from us, 294 got it within 30 days of first contact and 82
+      // within 24 hours. Mary Said was four days old and had the richest
+      // thread of anyone drafted on 11 Sep 2026. An age threshold would skip
+      // the check on 70% of the people it exists to catch, so there is no
+      // threshold: every draft carries the warning.
       const { data: firstSeen } = await db.from('activities')
         .select('created_at').eq('contact_id', contact.id)
         .order('created_at', { ascending: true }).limit(1).maybeSingle();
       const knownForDays = firstSeen
         ? Math.round((Date.now() - new Date(firstSeen.created_at).getTime()) / 86400000)
         : 0;
+      // This IS a real signal: we have written to them by hand before, so a
+      // thread certainly exists. Its absence proves nothing — David types
+      // replies straight into Gmail and those never touch email_queue.
+      const hadHumanEmail = (prior || []).some(e => !AUTOMATED_TRIGGERS.has(e.trigger));
       const alreadySent = (prior || []).map(e => ({
         subject: e.subject,
         when: new Date(e.created_at).toISOString().slice(0, 10),
@@ -621,7 +630,7 @@ export default async function handler(req, res) {
         .order('created_at', { ascending: false }).limit(12);
       const alsoViewed = [...new Set((seen || []).map(s => textOf(s.description, 90)).filter(Boolean))];
 
-      const context = buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages, knownForDays });
+      const context = buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages, knownForDays, hadHumanEmail });
 
       let out;
       try {
@@ -640,7 +649,7 @@ export default async function handler(req, res) {
       // The standard, enforced. A draft that fails still reaches the review
       // desk — silently dropping it would just be a different kind of silence —
       // but it arrives labelled with exactly what is wrong with it.
-      const problems = validateDraft(out, { property, alternatives, mayName, knownForDays });
+      const problems = validateDraft(out, { property, alternatives, mayName, knownForDays, hadHumanEmail });
       if (problems.length) {
         skipped.push(`${contact.email}: draft failed review — ${problems.join('; ')}`);
       }
