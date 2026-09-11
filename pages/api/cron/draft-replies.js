@@ -146,7 +146,7 @@ function selectPartnerFacts(rows) {
   return { verified: hard, unconfirmed: [...guard, ...soft] };
 }
 
-function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed }) {
+function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages }) {
   const L = [];
   const name = [contact.first_name, contact.last_name].filter(Boolean).join(' ') || contact.email;
   L.push(`PERSON: ${name} <${contact.email}>`);
@@ -157,6 +157,35 @@ function buildContext({ contact, activity, lead, property, facts, partnerFacts, 
   L.push(`THEY WROTE (${activity.created_at}):`);
   L.push(textOf(activity.metadata?.message, 2000) || '(no message)');
   L.push('');
+
+  // Requirements arrive in pieces. Guillaume told us "house not apartment",
+  // "can it be let", and "sea view, detached, 4 beds, Ibiza" across three
+  // separate messages; a reply built only from the latest one misses two
+  // thirds of what he actually asked for.
+  if (earlierMessages?.length) {
+    L.push('THEY ALSO SAID EARLIER (oldest first) — treat all of this as live:');
+    for (const m of earlierMessages) L.push(`- ${textOf(m, 400)}`);
+    L.push('');
+  }
+
+  const brief = [];
+  if (lead?.main_region || lead?.subregion) {
+    brief.push(`Looking in: ${[lead.subregion, lead.main_region].filter(Boolean).join(', ')}`);
+  }
+  if (lead?.budget_min || lead?.budget_max) {
+    const lo = lead.budget_min ? Number(lead.budget_min).toLocaleString('en-GB') : null;
+    const hi = lead.budget_max ? Number(lead.budget_max).toLocaleString('en-GB') : null;
+    brief.push(`Budget: ${lo && hi ? `${lo}-${hi}` : (hi ? `up to ${hi}` : `from ${lo}`)}`);
+  }
+  if (lead?.timeframe) brief.push(`Timeframe: ${textOf(lead.timeframe, 80)}`);
+  if (lead?.message && lead.message !== activity.metadata?.message) {
+    brief.push(`Their original enquiry: ${textOf(lead.message, 400)}`);
+  }
+  if (brief.length) {
+    L.push('WHAT THEY TOLD US THEY WANT:');
+    for (const b of brief) L.push(`- ${b}`);
+    L.push('');
+  }
 
   if (property) {
     L.push(`THE HOME THEY ASKED ABOUT: ${property.title}`);
@@ -208,6 +237,27 @@ function buildContext({ contact, activity, lead, property, facts, partnerFacts, 
     L.push('Either leave the point out, or say you will confirm it and add it to "unanswered".');
     for (const f of partnerFacts.unconfirmed) {
       L.push(`- ${f.question ? f.question + ' ' : ''}${textOf(f.answer_short, 300)}`);
+    }
+    L.push('');
+  }
+
+  if (alreadySent?.length) {
+    L.push('WE HAVE ALREADY SENT THEM (newest first). Do NOT repeat this back to them —');
+    L.push('build on it, and never re-introduce something they were told days ago:');
+    for (const e of alreadySent) L.push(`- ${e.when}: "${textOf(e.subject, 120)}"`);
+    L.push('');
+  }
+
+  if (alternatives?.length) {
+    L.push('OTHER HOMES WE HAVE LIVE THAT FIT WHAT THEY ASKED FOR:');
+    L.push('Offer these ONLY if they asked for alternatives, or if the home they asked about is gone.');
+    L.push('Use our own title and our own URL. Do not name the operator.');
+    for (const a of alternatives) {
+      const bits = [a.beds ? `${a.beds} bed` : null,
+        a.price ? `${a.currency || 'EUR'} ${Number(a.price).toLocaleString('en-GB')} per 1/${a.share_denominator || 8}` : null,
+        a.monthly_cost ? `${a.currency || 'EUR'} ${a.monthly_cost}/month` : null].filter(Boolean);
+      L.push(`- ${a.title} — ${bits.join(', ')}`);
+      L.push(`  https://co-ownership-property.com/property/${a.slug}/`);
     }
     L.push('');
   }
@@ -351,13 +401,80 @@ export default async function handler(req, res) {
         }
       }
 
+      // What have we already said to this person? Repeating the brochure email
+      // back at someone three days later is the clearest tell that nobody read
+      // the thread.
+      const { data: prior } = await db.from('email_queue')
+        .select('subject, created_at, status')
+        .eq('to_email', contact.email)
+        .in('status', ['sent', 'approved'])
+        .order('created_at', { ascending: false }).limit(5);
+      const alreadySent = (prior || []).map(e => ({
+        subject: e.subject,
+        when: new Date(e.created_at).toISOString().slice(0, 10),
+      }));
+
+      // Everything else they have written to us, oldest first — requirements
+      // arrive a piece at a time.
+      const { data: msgs } = await db.from('activities')
+        .select('metadata, created_at')
+        .eq('contact_id', contact.id)
+        .in('type', ['enquiry_submitted', 'gallery_enquiry', 'tour_request', 'email'])
+        .neq('id', activity.id)
+        .order('created_at', { ascending: true }).limit(8);
+      const earlierMessages = [...new Set((msgs || [])
+        .map(m => textOf(m.metadata?.message, 400))
+        .filter(t => t && t.length > 20))];
+
+      // Three live homes that fit what they asked for, so "do you have anything
+      // else?" and "that one has gone" both have a real answer in the draft.
+      let alternatives = [];
+      {
+        const region = property?.region || lead?.main_region || null;
+        const country = property?.country || null;
+        const target = Number(property?.price || lead?.budget_max || 0);
+        let qb = db.from('properties')
+          .select('slug, title, price, currency, beds, share_denominator, region, country')
+          .in('status', ['Live', 'for_sale']).limit(24);
+        if (region) qb = qb.eq('region', region);
+        else if (country) qb = qb.eq('country', country);
+        const { data: cand } = await qb;
+        const pool = (cand || []).filter(c => c.slug !== property?.slug);
+        const scored = pool.map(c => {
+          let score = 0;
+          if (property?.beds && c.beds) score += Math.abs(c.beds - property.beds) * 2;
+          if (target && c.price) score += Math.abs(Number(c.price) - target) / Math.max(target, 1) * 10;
+          if (lead?.budget_max && c.price && Number(c.price) > Number(lead.budget_max) * 1.15) score += 8;
+          return { c, score };
+        }).sort((a, b) => a.score - b.score);
+        // Ibiza alone has three near-identical Playa d'en Bossa 2-beds. Offering
+        // all three reads like a spreadsheet; take the best of each title first.
+        const picked = [], titlesSeen = new Set();
+        for (const { c } of scored) {
+          const key = String(c.title || '').split('—')[0].trim().toLowerCase();
+          if (titlesSeen.has(key)) continue;
+          titlesSeen.add(key); picked.push(c);
+          if (picked.length >= 3) break;
+        }
+        for (const { c } of scored) {
+          if (picked.length >= 3) break;
+          if (!picked.includes(c)) picked.push(c);
+        }
+        if (picked.length) {
+          const { data: af } = await db.from('property_facts')
+            .select('slug, monthly_cost').in('slug', picked.map(c => c.slug));
+          const costs = Object.fromEntries((af || []).map(f => [f.slug, f.monthly_cost]));
+          alternatives = picked.map(c => ({ ...c, monthly_cost: costs[c.slug] || null }));
+        }
+      }
+
       const { data: seen } = await db.from('activities')
         .select('description').eq('contact_id', contact.id)
         .in('type', ['floor_plan_requested', 'gallery_enquiry', 'enquiry_submitted', 'discreet_unlocked'])
         .order('created_at', { ascending: false }).limit(12);
       const alsoViewed = [...new Set((seen || []).map(s => textOf(s.description, 90)).filter(Boolean))];
 
-      const context = buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed });
+      const context = buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages });
 
       let out;
       try {
