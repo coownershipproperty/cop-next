@@ -28,6 +28,7 @@ import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { createEmailSend } from '@/lib/crm';
 import { preflightSequenceEmail, MANAGED_SEQUENCE_TYPES } from '@/lib/followupSequence';
 
+import { beat } from '@/lib/cronHeartbeat';
 function getDb() {
   return createSupabaseAdminClient();
 }
@@ -51,6 +52,7 @@ async function markStatus(db, id, status, fields = {}) {
 export const maxDuration = 60;
 
 export default async function handler(req, res) {
+  const __beatStart = Date.now();
   if (req.method !== 'GET' && req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -94,6 +96,7 @@ export default async function handler(req, res) {
     .lt('created_at', new Date(Date.now() - 15 * 60 * 1000).toISOString());
 
   if (!due || due.length === 0) {
+    await beat(db, 'email-queue', { startedAt: __beatStart });
     return res.status(200).json({ ok: true, sent: 0, stuckOld: stuckOld || 0 });
   }
 
@@ -196,6 +199,7 @@ export default async function handler(req, res) {
       failed++;
     }
   }
+  await beat(db, 'email-queue', { startedAt: __beatStart });
 
   return res.status(200).json({ ok: true, sent, failed, cancelled, rescheduled, skipped, stuck, stuckOld: stuckOld || 0 });
 }

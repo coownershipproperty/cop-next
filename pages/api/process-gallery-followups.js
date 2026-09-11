@@ -47,6 +47,7 @@ import { isEnvTrue } from '@/lib/email/engine';
 import { isSuppressed } from '@/lib/suppressions';
 import { isCronRequest, isSecretAuthed } from '@/lib/cronAuth';
 
+import { beat } from '@/lib/cronHeartbeat';
 // ── Tunables ────────────────────────────────────────────────────────────────
 const BURST_GAP_MIN = 45;   // unlocks >45 min apart are SEPARATE visits, not one
 
@@ -327,6 +328,7 @@ async function insertMarker(db, { contact, status, subject, html, notes, propert
 export const maxDuration = 60;
 
 export default async function handler(req, res) {
+  const __beatStart = Date.now();
   // Auth — Vercel cron (GET / x-vercel-cron) or an internal call with CRM_SECRET.
   // A bare GET used to count as the scheduler, which let anyone (a) read
   // every contact's email in the dry-run output and (b) run the sender
@@ -334,12 +336,14 @@ export default async function handler(req, res) {
   // secret (lib/cronAuth.js). Contact emails only go back to secret callers.
   if (!isCronRequest(req)) return res.status(401).json({ error: 'Unauthorised' });
   const showEmails = isSecretAuthed(req);
+  const db = getDb();   // needed by the heartbeat on the early exits below
 
   // ── SUPERSEDED BY THE EMAIL ENGINE ────────────────────────────────────────
   // Once the unified engine is live it owns the gallery_followup journey, so
   // this legacy processor stands down — guaranteeing there is never a
   // double-send. Cut over by setting EMAIL_ENGINE_ENABLED='true'.
   if (isEnvTrue('EMAIL_ENGINE_ENABLED')) {
+    await beat(db, 'gallery-followups', { startedAt: __beatStart });
     return res.status(200).json({
       ok: true, superseded: true,
       note: 'Handled by /api/email-engine (EMAIL_ENGINE_ENABLED=true).',
@@ -349,6 +353,7 @@ export default async function handler(req, res) {
   // ── SAFETY GATE ───────────────────────────────────────────────────────────
   // Until this is explicitly switched on, the endpoint does nothing at all.
   if (!isEnvTrue('GALLERY_FOLLOWUP_ENABLED')) {
+    await beat(db, 'gallery-followups', { startedAt: __beatStart });
     return res.status(200).json({
       ok: true, disabled: true,
       note: "Inactive. Set GALLERY_FOLLOWUP_ENABLED='true' to activate.",
@@ -360,7 +365,6 @@ export default async function handler(req, res) {
     .split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
   const testMode   = testEmails.length > 0;
 
-  const db  = getDb();
   const now = Date.now();
   const lookbackFrom = new Date(now - LOOKBACK_MIN * 60000).toISOString();
   const cooldownFrom = new Date(now - COOLDOWN_DAYS * 86400000).toISOString();
@@ -633,6 +637,7 @@ export default async function handler(req, res) {
       results.push({ email: contact.email, decision: 'error', error: e.message });
     }
   }
+  await beat(db, 'gallery-followups', { startedAt: __beatStart });
 
   return res.status(200).json({
     ok: true,

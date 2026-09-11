@@ -27,6 +27,7 @@ import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { isSuppressed } from '@/lib/suppressions';
 import { isCronRequest } from '@/lib/cronAuth';
 
+import { beat } from '@/lib/cronHeartbeat';
 export const maxDuration = 300;
 
 const MIN_AGE_MIN = 4;      // let the instant auto-reply land first
@@ -152,6 +153,53 @@ function selectPartnerFacts(rows) {
     if (!dealt) break;
   }
   return { verified: hard, unconfirmed: [...guard, ...soft] };
+}
+
+/**
+ * What "finished" means for a client reply.
+ *
+ * Every rule below is here because it was broken by a human or a model first:
+ * a draft went out on 11 Sep 2026 naming five homes with prices and not one
+ * link, which left the reader to go and search the site for the thing we had
+ * just recommended. A standard that lives in someone's head is not a standard.
+ *
+ * Returns a list of problems. An empty list means the draft is shippable.
+ */
+const PARTNER_NAMES = /\b(pacaso|vivla|myne|&\s*hamlet|and\s*hamlet|abitaro|paris property group)\b/i;
+
+function validateDraft(out, { property, alternatives, mayName }) {
+  const problems = [];
+  const html = String(out?.html || '');
+  const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+
+  if (!text.trim()) problems.push('empty body');
+  if (!textOf(out?.subject, 200)) problems.push('no subject');
+
+  // 1. Every home we name has to be one click away.
+  const homes = [property, ...(alternatives || [])].filter(Boolean);
+  for (const h of homes) {
+    const url = `/property/${h.slug}/`;
+    const named = h.title && text.toLowerCase().includes(String(h.title).split('—')[0].trim().toLowerCase());
+    if (named && !html.includes(url)) {
+      problems.push(`names "${String(h.title).split('—')[0].trim()}" without linking it`);
+    }
+  }
+
+  // 2. Never name an operator the lead has not been registered with.
+  const named = text.match(PARTNER_NAMES);
+  if (named && !mayName) {
+    problems.push(`names the operator "${named[0]}" — this lead is not registered with them`);
+  }
+
+  // 3. A money figure the lead can act on has to come with the home it belongs
+  //    to. A bare number with no listing beside it is how the wrong price gets
+  //    attached to the wrong house.
+  const money = text.match(/[€$£]\s?\d[\d,.]{2,}/g) || [];
+  if (money.length && !homes.some(h => html.includes(`/property/${h.slug}/`))) {
+    problems.push(`quotes ${money.length} figure(s) with no property link in the email`);
+  }
+
+  return problems;
 }
 
 function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages }) {
@@ -338,6 +386,7 @@ async function flag(db, activity, email, reason) {
 }
 
 export default async function handler(req, res) {
+  const __beatStart = Date.now();
   if (!isCronRequest(req)) return res.status(401).json({ message: 'Unauthorised' });
 
   const db = createSupabaseAdminClient();
@@ -527,6 +576,14 @@ export default async function handler(req, res) {
         continue;
       }
 
+      // The standard, enforced. A draft that fails still reaches the review
+      // desk — silently dropping it would just be a different kind of silence —
+      // but it arrives labelled with exactly what is wrong with it.
+      const problems = validateDraft(out, { property, alternatives, mayName });
+      if (problems.length) {
+        skipped.push(`${contact.email}: draft failed review — ${problems.join('; ')}`);
+      }
+
       const { error: iErr } = await db.from('email_queue').insert({
         to_email: contact.email,
         to_name: contact.first_name || null,
@@ -536,7 +593,9 @@ export default async function handler(req, res) {
         status: 'pending_review',
         contact_id: contact.id,
         lead_id: lead?.id || null,
+        notes: problems.length ? `NEEDS FIXING BEFORE SENDING: ${problems.join('; ')}` : null,
         template_props: {
+          draftProblems: problems.length ? problems : null,
           locale: contact.locale || 'en',
           property: property?.title || lead?.property_title || null,
           propertyUrl: property ? `https://co-ownership-property.com/property/${property.slug}/` : null,
@@ -559,6 +618,7 @@ export default async function handler(req, res) {
 
       drafted.push(contact.email);
     }
+    await beat(db, 'draft-replies', { startedAt: __beatStart });
 
     return res.status(200).json({
       ok: failed.length === 0,

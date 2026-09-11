@@ -32,6 +32,7 @@ import { runEngine, isEnvTrue } from '@/lib/email/engine';
 import { JOURNEYS } from '@/lib/email/journeys';
 import { isCronRequest, isSecretAuthed } from '@/lib/cronAuth';
 
+import { beat } from '@/lib/cronHeartbeat';
 function getDb() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, key);
@@ -40,6 +41,7 @@ function getDb() {
 export const maxDuration = 60;
 
 export default async function handler(req, res) {
+  const __beatStart = Date.now();
   // Auth — a plain GET (or Vercel cron header) counts as an authorised cron
   // call; an internal caller may also pass a Bearer secret.
   // Vercel's schedule header or a Bearer secret — a bare GET no longer
@@ -48,6 +50,7 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: 'Unauthorised' });
   }
   const showEmails = isSecretAuthed(req);
+  const db = getDb();   // heartbeat writes through this; runEngine gets its own
 
   const dryRun      = req.query.dry === '1' || req.query.dry === 'true';
   const onlyJourney = req.query.journey || null;
@@ -59,6 +62,7 @@ export default async function handler(req, res) {
   // nothing, so it is always safe to run — that is how you preview the engine
   // before switching it on.
   if (!dryRun && !isEnvTrue('EMAIL_ENGINE_ENABLED')) {
+    await beat(db, 'email-engine', { startedAt: __beatStart });
     return res.status(200).json({
       ok: true, disabled: true,
       note: "Email engine inactive. Set EMAIL_ENGINE_ENABLED='true' to activate. "
@@ -74,6 +78,7 @@ export default async function handler(req, res) {
       testEmails,
       onlyJourney,
     });
+    await beat(db, 'email-engine', { startedAt: __beatStart });
     return res.status(200).json({
       ok: true,
       dryRun,
