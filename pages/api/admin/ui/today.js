@@ -1,0 +1,195 @@
+/**
+ * GET/POST /api/admin/ui/today
+ * Admin-only (Bearer <supabase session token>, crm_admins allowlist).
+ *
+ * The one page that says what the business is waiting on. Every number here
+ * is DERIVED, live, from the table that records the doing — never from a
+ * to-do list, a note, or a copy. That is the whole point of it: on 11 Sep
+ * 2026 four partner registrations were reported as never done (from
+ * admin_tasks) when partner_referrals proved all four had been done two days
+ * earlier, and four commissions were called outstanding (from leads) when
+ * Qonto showed every invoice ever raised had been paid. A list that is
+ * derived cannot drift, and it closes itself when the work is done.
+ *
+ * GET → {
+ *   waiting:     leads_awaiting_reply        (acted, no human reply since)
+ *   unregistered: referrals_outstanding      (operator attached, no referral)
+ *   outcomes:    referrals_awaiting_outcome  (handed over, no won/invoice)
+ *   review:      email_queue pending_review  (drafts waiting for a human)
+ *   listings:    listing_changes not applied (dead/changed at the partner)
+ *   disputed:    partner_facts needs_check   (contradictions / open questions)
+ *   facts:       fact_requests open          (a draft needed a fact we lack)
+ *   judgement:   admin_tasks open            (things only David can decide)
+ *   jobs:        the vercel.json crons merged with cron_health
+ * }
+ *
+ * POST { job } → runs that cron now, server-side, and returns what it said.
+ * This exists because the Vercel scheduler stopped invoking every cron on
+ * 7 Sep 2026 and nothing noticed for four days. With a Run button the outage
+ * is an inconvenience, not a blocker. The call carries Bearer CRON_SECRET (or
+ * CRM_SECRET) when one is configured, otherwise the schedule header that
+ * lib/cronAuth accepts — either way it is an admin who pressed the button.
+ */
+import { requireAdmin } from '@/lib/newsletter/auth';
+import vercelConfig from '@/vercel.json';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://co-ownership-property.com';
+
+/**
+ * How each cron identifies itself in cron_runs (lib/cronHeartbeat beat()).
+ * A path not listed here has no heartbeat yet and is shown as "no heartbeat"
+ * rather than "stalled" — an unknown is not a failure, and pretending it is
+ * one would be exactly the kind of second copy of the truth this page exists
+ * to remove.
+ */
+const JOBS = {
+  '/api/cron/draft-replies':         { key: 'draft-replies',       label: 'Draft replies to enquiries' },
+  '/api/process-gallery-followups':  { key: 'gallery-followups',   label: 'Send batched gallery emails' },
+  '/api/process-email-queue':        { key: 'email-queue',         label: 'Send approved emails' },
+  '/api/email-engine':               { key: 'email-engine',        label: 'Automated follow-ups' },
+  '/api/cron/newsletter-drain':      { key: null,                  label: 'Newsletter sends' },
+  '/api/cron/admin-task-reminders':  { key: null,                  label: 'Task reminders' },
+  '/api/cron/rotate-featured':       { key: null,                  label: 'Rotate featured homes' },
+  '/api/cron/property-watch-alerts': { key: null,                  label: 'Property watch alerts' },
+  '/api/send-property-alerts':       { key: null,                  label: 'Saved-search alerts' },
+  '/api/cron/partner-contact-check': { key: null,                  label: 'Partner contact check' },
+};
+
+/** Roughly how long a schedule may go quiet before it is "stalled" (2 missed runs + slack). */
+function expectedGapMinutes(schedule) {
+  const m = /^\*\/(\d+) \* \* \* \*$/.exec(schedule || '');
+  if (m) return parseInt(m[1], 10) * 2 + 5;
+  return 26 * 60; // daily jobs: a day plus two hours
+}
+
+function cronPaths() {
+  return (vercelConfig?.crons || []).map((c) => ({
+    path: c.path,
+    schedule: c.schedule,
+    ...(JOBS[c.path] || { key: null, label: c.path }),
+  }));
+}
+
+async function loadState(db) {
+  const [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns] = await Promise.all([
+    db.from('leads_awaiting_reply').select('*').order('hours_waiting', { ascending: false }).limit(200),
+    db.from('referrals_outstanding').select('*').order('days_since', { ascending: false }).limit(200),
+    db.from('referrals_awaiting_outcome').select('*').order('days_since', { ascending: true }).limit(300),
+    db.from('email_queue')
+      .select('id, created_at, to_email, to_name, subject, notes')
+      .in('trigger', ['enquiry_reply', 'enquiry_reply_draft'])
+      .eq('status', 'pending_review')
+      .order('created_at', { ascending: false })
+      .limit(100),
+    db.from('listing_changes')
+      .select('id, detected_at, partner, slug, change_type, field, old_value, new_value, notes')
+      .eq('applied', false)
+      .order('detected_at', { ascending: false })
+      .limit(200),
+    db.from('partner_facts')
+      .select('partner, topic, question, answer, source_url, conflicts_with_url')
+      .eq('confidence', 'needs_check')
+      .order('partner')
+      .limit(300),
+    db.from('fact_requests')
+      .select('id, created_at, slug, partner, topic, question, status')
+      .neq('status', 'filled')
+      .order('created_at', { ascending: false })
+      .limit(100),
+    db.from('admin_tasks')
+      .select('id, task, due_at, reminder_at, reminder_status, created_at')
+      .is('completed_at', null)
+      .order('due_at', { ascending: true, nullsFirst: false })
+      .limit(100),
+    db.from('cron_health').select('*'),
+    db.from('cron_runs')
+      .select('job, ran_at, ok, duration_ms, summary, error')
+      .order('ran_at', { ascending: false })
+      .limit(200),
+  ]);
+
+  const firstError = [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns]
+    .map((r) => r.error).find(Boolean);
+
+  const healthByJob = new Map((health.data || []).map((h) => [h.job, h]));
+  const lastByJob = new Map();
+  for (const r of lastRuns.data || []) if (!lastByJob.has(r.job)) lastByJob.set(r.job, r);
+
+  const now = Date.now();
+  const jobs = cronPaths().map((j) => {
+    const h = j.key ? healthByJob.get(j.key) : null;
+    const last = j.key ? lastByJob.get(j.key) : null;
+    const lastRun = last?.ran_at || h?.last_run || null;
+    const quietMin = lastRun ? Math.round((now - new Date(lastRun).getTime()) / 60000) : null;
+    let state;
+    if (!j.key) state = 'no-heartbeat';
+    else if (!lastRun) state = 'never';
+    else if (quietMin > expectedGapMinutes(j.schedule)) state = 'stalled';
+    else if (last && last.ok === false) state = 'failing';
+    else state = 'ok';
+    return {
+      ...j,
+      lastRun,
+      quietMin,
+      state,
+      errors24h: h?.errors_24h ?? 0,
+      lastSummary: last?.summary || null,
+      lastError: last?.error || null,
+    };
+  });
+
+  return {
+    error: firstError ? firstError.message : null,
+    generatedAt: new Date().toISOString(),
+    waiting: waiting.data || [],
+    unregistered: unregistered.data || [],
+    outcomes: outcomes.data || [],
+    review: review.data || [],
+    listings: listings.data || [],
+    disputed: disputed.data || [],
+    facts: facts.data || [],
+    judgement: judgement.data || [],
+    jobs,
+  };
+}
+
+async function runJob(path) {
+  const job = cronPaths().find((j) => j.path === path);
+  if (!job) return { status: 400, body: { error: 'Unknown job' } };
+
+  const secret = process.env.CRON_SECRET || process.env.CRM_SECRET;
+  const headers = secret
+    ? { Authorization: `Bearer ${secret}` }
+    : { 'x-vercel-cron-schedule': job.schedule };
+
+  const startedAt = Date.now();
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 55000);
+    const r = await fetch(`${SITE_URL}${path}`, { headers, signal: controller.signal });
+    clearTimeout(timer);
+    const text = await r.text();
+    let body;
+    try { body = JSON.parse(text); } catch { body = { raw: text.slice(0, 2000) }; }
+    return { status: 200, body: { ok: r.ok, httpStatus: r.status, ms: Date.now() - startedAt, result: body } };
+  } catch (e) {
+    return { status: 200, body: { ok: false, ms: Date.now() - startedAt, error: e.name === 'AbortError' ? 'Timed out after 55s' : e.message } };
+  }
+}
+
+export default async function handler(req, res) {
+  const ctx = await requireAdmin(req, res);
+  if (!ctx) return;
+  const { db } = ctx;
+
+  if (req.method === 'GET') {
+    const state = await loadState(db);
+    return res.status(200).json(state);
+  }
+
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  const path = String(req.body?.job || '');
+  const { status, body } = await runJob(path);
+  return res.status(status).json(body);
+}

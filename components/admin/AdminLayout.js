@@ -7,6 +7,7 @@ const NAV_GROUPS = [
   {
     label: 'CRM',
     items: [
+      { href: '/admin/today', label: 'Today', icon: '☀' },
       { href: '/admin', label: 'Dashboard', icon: '⌂', exact: true },
       { href: '/admin/leads', label: 'Leads', icon: '◫', exclude: ['/admin/leads/sold'] },
       { href: '/admin/partners/queue', label: 'Needs attention', icon: '!' },
