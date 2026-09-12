@@ -241,7 +241,7 @@ function validateDraft(out, { property, alternatives, mayName, knownForDays, had
   //     Diego home" and "the team has confirmed floor plans are available".
   //     Nobody had checked anything. A fabricated verification is worse than
   //     a promise: it is a lie the client will act on.
-  const FABRICATED = /((I|we)'?(ve| have) (checked|spoken|asked|confirmed|heard back)|(has|have|they'?ve) confirmed|on its way|is attached|attached (is|are|here)|please find attached|ci-joint|je vous envoie le plan|vous trouverez|adjunto)/i;
+  const FABRICATED = /((I|we)'?(ve| have) (checked|spoken|asked|confirmed|heard back)|(has|have|they'?ve) confirmed|on its way|is attached|attached (is|are|here)|please find attached|(has|have) been sent|was sent|sent (to you )?separately|you should have (it|them) (now|by now)|ci-joint|je vous envoie le plan|vous trouverez|adjunto)/i;
   const fabricated = text.match(FABRICATED);
   if (fabricated) {
     problems.push(`claims a check or a document we do not have ("${fabricated[0]}") — nobody checked anything; remove it`);
@@ -266,7 +266,7 @@ function validateDraft(out, { property, alternatives, mayName, knownForDays, had
   return problems;
 }
 
-function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages, knownForDays, hadHumanEmail }) {
+function buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, askedAbout, alreadySent, alternatives, earlierMessages, knownForDays, hadHumanEmail }) {
   const L = [];
   const name = [contact.first_name, contact.last_name].filter(Boolean).join(' ') || contact.email;
   L.push(`PERSON: ${name} <${contact.email}>`);
@@ -407,7 +407,18 @@ function buildContext({ contact, activity, lead, property, facts, partnerFacts, 
     ? `NAMING: this person has already been registered with ${mayName}. You may name them.`
     : `NAMING: this person has NOT been registered with the operator. Do NOT name the operator or link to its site.`);
 
-  if (alsoViewed?.length) {
+  if (askedAbout?.length) {
+    L.push('');
+    L.push('OTHER HOMES THEY ASKED ABOUT THIS WEEK — write ONE email that covers the main home above AND every one of these, each linked on its own name. Never one email per home.');
+    for (const h of askedAbout) {
+      const bits = [`${h.currency || 'EUR'} ${Number(h.price || 0).toLocaleString('en-GB')} per share`];
+      if (h.monthly_cost) bits.push(`~${h.currency === 'USD' ? '$' : '€'}${h.monthly_cost}/month`);
+      if (h.usage_nights) bits.push(`${h.usage_nights} nights/yr`);
+      if (h.rental_allowed === false) bits.push('no letting');
+      if (h.status && !['Live', 'for_sale'].includes(h.status)) bits.push(`STATUS: ${h.status} — say so gently`);
+      L.push(`- ${h.title} → https://co-ownership-property.com/property/${h.slug}/ — ${bits.join(', ')}`);
+    }
+  } else if (alsoViewed?.length) {
     L.push('');
     L.push(`ALSO LOOKED AT RECENTLY: ${alsoViewed.slice(0, 8).join(' | ')}`);
     L.push('If it helps them, you may acknowledge that and offer to narrow it down.');
@@ -526,6 +537,17 @@ export default async function handler(req, res) {
         .limit(1);
       if ((existing || []).length) { skipped.push(`${label}: already drafted`); continue; }
 
+      // Earlier drafts for the same person that nobody has approved yet.
+      // Overnight on 12 Sep one lead collected eight separate drafts, one per
+      // home he clicked. One person gets ONE email covering every home: the
+      // new draft is written with all of them in view and the old ones are
+      // superseded once it exists.
+      const { data: pendingPrior } = await db.from('email_queue')
+        .select('id').eq('contact_id', activity.contact_id)
+        .in('trigger', DRAFT_TRIGGERS).eq('status', 'pending_review')
+        .gte('created_at', new Date(now - 7 * 86400 * 1000).toISOString());
+      const supersede = (pendingPrior || []).map(r => r.id);
+
       // A person (or a Claude session) may already have answered this in Gmail.
       // That leaves a track in activities: 'reply_drafted' (a Gmail draft was
       // written) or 'email' with direction 'outbound' (a hand-written email
@@ -551,7 +573,10 @@ export default async function handler(req, res) {
         .select('id, property_slug, property_title, partner')
         .eq('contact_id', contact.id).order('created_at', { ascending: false }).limit(1).maybeSingle();
 
-      const slug = activity.metadata?.slug || lead?.property_slug || null;
+      // floor_plan_requested and gallery clicks write propertySlug, not slug.
+      // Falling through to the lead's stored property meant a person asking
+      // about home B was answered about home A (Gabriela Willis, 12 Sep).
+      const slug = activity.metadata?.slug || activity.metadata?.propertySlug || lead?.property_slug || null;
       let property = null, facts = null, partnerFacts = null, mayName = null;
 
       if (slug) {
@@ -662,12 +687,26 @@ export default async function handler(req, res) {
       }
 
       const { data: seen } = await db.from('activities')
-        .select('description').eq('contact_id', contact.id)
+        .select('description, metadata, created_at').eq('contact_id', contact.id)
         .in('type', ['floor_plan_requested', 'gallery_enquiry', 'enquiry_submitted', 'discreet_unlocked'])
+        .gte('created_at', new Date(now - 7 * 86400 * 1000).toISOString())
         .order('created_at', { ascending: false }).limit(12);
       const alsoViewed = [...new Set((seen || []).map(s => textOf(s.description, 90)).filter(Boolean))];
 
-      const context = buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, alreadySent, alternatives, earlierMessages, knownForDays, hadHumanEmail });
+      // Every home they touched this week, as real rows, so the reply can cover
+      // all of them with a link on each name — not one email per click.
+      const askedSlugs = [...new Set((seen || []).map(s => s.metadata?.slug || s.metadata?.propertySlug).filter(Boolean))]
+        .filter(sl => sl !== property?.slug).slice(0, 6);
+      let askedAbout = [];
+      if (askedSlugs.length) {
+        const { data: ap } = await db.from('properties')
+          .select('slug, title, price, currency, beds, status').in('slug', askedSlugs);
+        const { data: afx } = await db.from('property_facts').select('slug, monthly_cost, rental_allowed, usage_nights').in('slug', askedSlugs);
+        const fx = Object.fromEntries((afx || []).map(f => [f.slug, f]));
+        askedAbout = (ap || []).map(r => ({ ...r, ...(fx[r.slug] || {}) }));
+      }
+
+      const context = buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, askedAbout, alreadySent, alternatives, earlierMessages, knownForDays, hadHumanEmail });
 
       let out;
       try {
@@ -686,7 +725,8 @@ export default async function handler(req, res) {
       // The standard, enforced. A draft that fails still reaches the review
       // desk — silently dropping it would just be a different kind of silence —
       // but it arrives labelled with exactly what is wrong with it.
-      let problems = validateDraft(out, { property, alternatives, mayName, knownForDays, hadHumanEmail });
+      const linkables = [...(alternatives || []), ...askedAbout];
+      let problems = validateDraft(out, { property, alternatives: linkables, mayName, knownForDays, hadHumanEmail });
 
       // Second pass. The first live run (12 Sep 2026) produced promises and
       // fabricated "I've checked with the team" lines on four of five drafts.
@@ -707,7 +747,7 @@ ${fixable.map(p => `- ${p}`).join('\n')}
 
 Return the corrected JSON only.`);
           if (!retry.escalate) {
-            const retryProblems = validateDraft(retry, { property, alternatives, mayName, knownForDays, hadHumanEmail });
+            const retryProblems = validateDraft(retry, { property, alternatives: linkables, mayName, knownForDays, hadHumanEmail });
             if (retryProblems.length < problems.length) { out = retry; problems = retryProblems; }
           }
         } catch (e) {
@@ -728,7 +768,6 @@ Return the corrected JSON only.`);
         status: 'pending_review',
         contact_id: contact.id,
         lead_id: lead?.id || null,
-        notes: problems.length ? `NEEDS FIXING BEFORE SENDING: ${problems.join('; ')}` : null,
         template_props: {
           draftProblems: problems.length ? problems : null,
           locale: contact.locale || 'en',
@@ -739,7 +778,9 @@ Return the corrected JSON only.`);
           model: MODEL,
           activity_id: activity.id,
         },
-        notes: textOf(out.notes, 500),
+        // One notes field: what is wrong first (the reviewer must see it), then the
+        // model's own note. A duplicate key here used to silently drop the warning.
+        notes: [problems.length ? `NEEDS FIXING BEFORE SENDING: ${problems.join('; ')}` : null, textOf(out.notes, 500)].filter(Boolean).join('\n'),
       });
       if (iErr) { failed.push(`${contact.email}: ${iErr.message}`); continue; }
 
@@ -751,6 +792,11 @@ Return the corrected JSON only.`);
         metadata: { activity_id: activity.id, unanswered: out.unanswered || [] },
       });
 
+      if (supersede.length) {
+        await db.from('email_queue')
+          .update({ status: 'rejected', rejected_at: new Date().toISOString(), notes: `Superseded by a consolidated draft covering every home (${new Date().toISOString().slice(0, 16)}Z)` })
+          .in('id', supersede).eq('status', 'pending_review');
+      }
       drafted.push(contact.email);
     }
     // A run that failed every draft is not a healthy run, whatever the HTTP
