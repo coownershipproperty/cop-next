@@ -367,6 +367,8 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
               "@type": "Organization",
               "@id": "https://co-ownership-property.com/#organization",
               "name": "Co-Ownership Property",
+              "legalName": "PREMPROPERTY SL",
+              "taxID": "B93358489",
               "url": "https://co-ownership-property.com",
               "logo": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png",
               "description": "The independent guide to luxury fractional ownership across Europe & the USA.",

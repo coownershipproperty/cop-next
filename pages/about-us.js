@@ -100,6 +100,12 @@ export default function AboutUs() {
               "url": "https://co-ownership-property.com",
               "logo": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png",
               "description": "Independent marketplace for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. Aggregates listings from multiple operators, sold as 1/8 shares held in property-specific LLCs.",
+              // The registered company behind the brand. An answer engine asked "is this
+              // company real?" needs a legal name and a tax number it can cross-check;
+              // until 12 Sep 2026 the schema had neither (entity strategy, mechanism 3).
+              "legalName": "PREMPROPERTY SL",
+              "taxID": "B93358489",
+              "vatID": "ESB93358489",
               "foundingDate": "2022",
               "founder": { "@id": "https://co-ownership-property.com/about-us/#david-olsson" },
               "employee": [
