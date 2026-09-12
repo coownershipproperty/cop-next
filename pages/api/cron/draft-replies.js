@@ -502,6 +502,19 @@ export default async function handler(req, res) {
         .limit(1);
       if ((existing || []).length) { skipped.push(`${label}: already drafted`); continue; }
 
+      // A person (or a Claude session) may already have answered this in Gmail.
+      // That leaves a track in activities: 'reply_drafted' (a Gmail draft was
+      // written) or 'email' with direction 'outbound' (a hand-written email
+      // went out). Either one newer than the enquiry means this is not ours.
+      const { data: handled } = await db.from('activities')
+        .select('id, type')
+        .eq('contact_id', activity.contact_id)
+        .in('type', ['reply_drafted', 'email'])
+        .gte('created_at', activity.created_at)
+        .limit(5);
+      const humanHandled = (handled || []).some(h => h.type === 'reply_drafted' || h.type === 'email');
+      if (humanHandled) { skipped.push(`${label}: answered in Gmail already`); continue; }
+
       const { data: contact } = await db.from('contacts')
         .select('id, email, first_name, last_name, phone, locale, country, residence_country, tags')
         .eq('id', activity.contact_id).maybeSingle();

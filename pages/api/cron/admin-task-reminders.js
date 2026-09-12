@@ -3,7 +3,8 @@ import { createSupabaseAdminClient } from '@/lib/supabaseAdmin'
 import { isCronRequest } from '@/lib/cronAuth'
 import { heartbeatHandler } from '@/lib/cronHeartbeat'
 
-const ADMIN_EMAIL = process.env.ADMIN_TASK_REMINDER_EMAIL || 'info@co-ownership-property.com'
+// David, 12 Sep 2026: internal reminders go to Dylan's COP inbox, not info@ (which lands in the Domosno inbox).
+const ADMIN_EMAIL = process.env.ADMIN_TASK_REMINDER_EMAIL || 'dylan@co-ownership-property.com'
 
 function escapeHtml(value) {
   return String(value || '').replace(/[&<>"']/g, (character) => ({

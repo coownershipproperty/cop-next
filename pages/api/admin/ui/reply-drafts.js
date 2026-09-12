@@ -118,7 +118,7 @@ export default async function handler(req, res) {
   if (!id || !action) return res.status(400).json({ error: 'Missing id or action' });
 
   const { data: draft, error: loadErr } = await db.from('email_queue')
-    .select('id, status, subject, html, notes, trigger, template_props')
+    .select('id, status, subject, html, notes, trigger, template_props, contact_id')
     .eq('id', id).maybeSingle();
   if (loadErr) return res.status(500).json({ error: loadErr.message });
   if (!draft) return res.status(404).json({ error: 'Draft not found' });
@@ -136,6 +136,34 @@ export default async function handler(req, res) {
     return data;
   }
 
+  // Keep what the reviewer changed, against what the drafter wrote. Every
+  // approve/update/reject is one row in draft_edits; the difference between
+  // "approved untouched" and "approved edited" is the drafter's report card,
+  // and the only honest basis for letting a reply type send without review.
+  // Best-effort: a failure here must never block the review action itself.
+  async function recordEdit(action, { subject, html, reason } = {}) {
+    try {
+      const editedSubject = typeof subject === 'string' ? subject : null;
+      const editedHtml = typeof html === 'string' ? html : null;
+      const norm = (v) => String(v ?? '').replace(/\s+/g, ' ').trim();
+      await db.from('draft_edits').insert({
+        email_queue_id: id,
+        contact_id: draft.contact_id || null,
+        action,
+        editor_email: adminEmail || null,
+        original_subject: draft.subject,
+        edited_subject: editedSubject,
+        original_html: draft.html,
+        edited_html: editedHtml,
+        subject_changed: editedSubject !== null && norm(editedSubject) !== norm(draft.subject),
+        html_changed: editedHtml !== null && norm(editedHtml) !== norm(draft.html),
+        reason: reason || null,
+      });
+    } catch (e) {
+      console.error(`[reply-drafts] draft_edits: ${e.message}`);
+    }
+  }
+
   try {
     if (action === 'update') {
       // Only a draft still under review (or parked as rejected) can be edited —
@@ -147,6 +175,7 @@ export default async function handler(req, res) {
       if (typeof req.body.subject === 'string') patch.subject = clean(req.body.subject, 300);
       if (typeof req.body.html === 'string') patch.html = String(req.body.html).slice(0, MAX_HTML);
       if (!Object.keys(patch).length) return res.status(400).json({ error: 'Nothing to update' });
+      await recordEdit('update', { subject: patch.subject, html: patch.html });
       return res.status(200).json({ draft: await apply(patch) });
     }
 
@@ -170,11 +199,13 @@ export default async function handler(req, res) {
       // Wrap in the personal shell + signature so the sent email matches the
       // rest of Dylan's mail (David, 6 Sep 2026: "no signature then, no?").
       patch.html = finalHtml(bodyHtml, draft.template_props);
+      await recordEdit('approve', { subject: patch.subject, html: typeof req.body.html === 'string' ? bodyHtml : undefined });
       return res.status(200).json({ draft: await apply(patch) });
     }
 
     if (action === 'reject') {
       const why = clean(req.body.reason || '', 300);
+      await recordEdit('reject', { reason: why });
       return res.status(200).json({
         draft: await apply({
           status: 'rejected',
