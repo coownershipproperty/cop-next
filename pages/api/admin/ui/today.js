@@ -56,7 +56,7 @@ async function loadState(db) {
       .order('detected_at', { ascending: false })
       .limit(200),
     db.from('partner_facts')
-      .select('partner, topic, question, answer, source_url, conflicts_with_url')
+      .select('partner, topic, question, answer_short, source_url, conflicts_with_url')
       .eq('confidence', 'needs_check')
       .order('partner')
       .limit(300),
@@ -102,7 +102,8 @@ async function loadState(db) {
     const gap = expectedGapMinutes(j.schedule);
     // Two questions, in order: did the scheduler fire it, and did the job run?
     let state;
-    if (!lastFired || firedQuietMin > gap) state = 'not-firing';
+    if (!lastFired) state = 'not-yet';          // scheduled, first run still ahead (daily jobs)
+    else if (firedQuietMin > gap) state = 'not-firing';
     else if (f && (f.timed_out || (f.status_code && f.status_code >= 400))) state = 'rejected';
     else if (!lastRun) state = 'no-heartbeat';
     else if (quietMin > gap) state = 'stalled';

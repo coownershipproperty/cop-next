@@ -85,6 +85,13 @@ Use ONLY the facts supplied below. They come from verified tables.
 - If something was asked that the facts do not cover, say plainly that you will confirm it with the team, and list that question in "unanswered".
 - If a fact is marked confidence "inferred" rather than "verified", treat it as unconfirmed: do not quote it as fact, and list it in "unanswered".
 - Never promise floor plans or documents unless the facts say they exist.
+- Never claim to have checked, asked, spoken to or heard back from the team, the operator or anyone else. You have not. A sentence like "I've checked with the team" or "they have confirmed" is a fabrication and the draft will be rejected.
+
+FLOOR-PLAN AND PHOTO REQUESTS
+"Floor plan requested" is a button on the listing page, not a message. The site has already emailed them the photo gallery. We almost never hold a floor plan, so the reply is not about a floor plan at all — it is the first human touch: greet them by name, link the home on its name, give the two or three facts that matter (share price, running cost, nights), and OFFER to ask the operator for plans if they would like them. Never write "the floor plan is on its way", "attached", "I'll send it", "je vous envoie le plan", "ci-joint" or any variant. If they wrote nothing, do not answer a question they did not ask.
+
+GREETING
+Always open with a greeting and their first name ("Hi Scott," / "Bonjour Roland," / "Hola Iker,"). Never start with the body.
 
 LETTING THE HOME OUT
 This is the single most dangerous question to get wrong, because the answer differs by operator AND by property, and a wrong yes sells someone an income they will never receive. Answer it ONLY from the per-property fact "Letting..." line below. If that line is absent, you do not know: say you will confirm it for this specific home and put it in "unanswered". Operator-level policy is context, never the answer — an operator that permits letting in principle may still manage a home where it is not allowed.
@@ -223,10 +230,27 @@ function validateDraft(out, { property, alternatives, mayName, knownForDays, had
   //    nothing. "Happy to send the running costs if useful" beats "I'll confirm
   //    and come back to you" every time — and if the email already links the
   //    page, there is nothing left to promise.
-  const PROMISE = /\bI'?ll\s+(send|get|forward|confirm|chase|come back|have (it|them|these)|chase (it|them) up)\b/i;
+  const PROMISE = /\bI'?ll\s+(send|get|forward|confirm|chase|come back|have (it|them|these)|chase (it|them) up)\b|je (vous )?(reviens|enverrai|confirmerai|transmettrai)|te (env[ií]o|confirmo|mando)\b/i;
   const promised = text.match(PROMISE);
   if (promised) {
     problems.push(`makes a promise ("${promised[0]}…") — offer instead, unless it is something we will genuinely do`);
+  }
+
+  // 6b. A claim to have done something we have not done. The first live run
+  //     (12 Sep 2026) wrote "I've checked with the team that manages the San
+  //     Diego home" and "the team has confirmed floor plans are available".
+  //     Nobody had checked anything. A fabricated verification is worse than
+  //     a promise: it is a lie the client will act on.
+  const FABRICATED = /((I|we)'?(ve| have) (checked|spoken|asked|confirmed|heard back)|(has|have|they'?ve) confirmed|on its way|is attached|attached (is|are|here)|please find attached|ci-joint|je vous envoie le plan|vous trouverez|adjunto)/i;
+  const fabricated = text.match(FABRICATED);
+  if (fabricated) {
+    problems.push(`claims a check or a document we do not have ("${fabricated[0]}") — nobody checked anything; remove it`);
+  }
+
+  // 6c. Every reply opens with a greeting and a name. Barbara's did not.
+  const bodyStart = String(out.html || '').replace(/^\s*(<p[^>]*>)?\s*/i, '').slice(0, 40);
+  if (!/^(hi|hello|dear|bonjour|hola|hallo|ciao|hej|olá|ola)\b/i.test(bodyStart)) {
+    problems.push('does not open with a greeting and their name');
   }
 
   // 7. This job cannot read Gmail, so the thread is the truth and every draft is
@@ -662,7 +686,35 @@ export default async function handler(req, res) {
       // The standard, enforced. A draft that fails still reaches the review
       // desk — silently dropping it would just be a different kind of silence —
       // but it arrives labelled with exactly what is wrong with it.
-      const problems = validateDraft(out, { property, alternatives, mayName, knownForDays, hadHumanEmail });
+      let problems = validateDraft(out, { property, alternatives, mayName, knownForDays, hadHumanEmail });
+
+      // Second pass. The first live run (12 Sep 2026) produced promises and
+      // fabricated "I've checked with the team" lines on four of five drafts.
+      // A reviewer should not be the first to catch what a regex already did:
+      // hand the model its own draft and the exact problems, once, and keep
+      // whichever version has fewer. The unconditional Gmail flag is not a
+      // defect the model can fix, so it does not trigger a retry.
+      const fixable = problems.filter(p => !p.startsWith('READ THE GMAIL THREAD'));
+      if (fixable.length) {
+        try {
+          const retry = await callClaude(`${context}
+
+YOUR FIRST DRAFT FAILED REVIEW. Here it is:
+${JSON.stringify({ subject: out.subject, html: out.html })}
+
+THE PROBLEMS, each of which must be gone from the corrected version:
+${fixable.map(p => `- ${p}`).join('\n')}
+
+Return the corrected JSON only.`);
+          if (!retry.escalate) {
+            const retryProblems = validateDraft(retry, { property, alternatives, mayName, knownForDays, hadHumanEmail });
+            if (retryProblems.length < problems.length) { out = retry; problems = retryProblems; }
+          }
+        } catch (e) {
+          console.error(`[draft-replies] retry failed for ${contact.email}: ${e.message}`);
+        }
+      }
+
       if (problems.length) {
         skipped.push(`${contact.email}: draft failed review — ${problems.join('; ')}`);
       }

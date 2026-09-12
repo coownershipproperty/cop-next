@@ -45,6 +45,7 @@ const JOB_STATE = {
   stalled:        { bg: C.bad,  ink: C.badInk,  text: 'fired but not running' },
   rejected:       { bg: C.bad,  ink: C.badInk,  text: 'endpoint refused' },
   'not-firing':   { bg: C.bad,  ink: C.badInk,  text: 'scheduler not firing' },
+  'not-yet':      { bg: C.warn, ink: C.warnInk, text: 'waiting for first run' },
   'no-heartbeat': { bg: C.warn, ink: C.warnInk, text: 'fires, no heartbeat yet' },
 }
 
