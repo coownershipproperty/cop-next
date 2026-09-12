@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
+import { foldIncludes } from '@/lib/fold'
 
 /**
  * /admin/sent — every email that left COP, laid out like Gmail's Sent folder.
@@ -240,11 +241,11 @@ export default function SentMail() {
 
   const visible = useMemo(() => {
     const f = FILTERS.find((x) => x.key === filter)
-    const needle = q.trim().toLowerCase()
+    const needle = q.trim()
     return rows.filter((r) => {
       if (f?.match && !f.match(r.kind)) return false
       if (!needle) return true
-      return [r.to_name, r.to_email, r.subject, snippet(r.html, 400)].some((v) => String(v || '').toLowerCase().includes(needle))
+      return foldIncludes([r.to_name, r.to_email, r.subject, snippet(r.html, 400)], needle)
     })
   }, [rows, filter, q])
 

@@ -11,6 +11,7 @@ import {
 } from '@/lib/internationalDialCodes'
 import { LEAD_SOURCE_OPTIONS } from '@/lib/leadSources'
 import { buildDestinationGroups, NATIONALITY_GROUPS } from '@/lib/leadFormOptions'
+import { foldIncludes } from '@/lib/fold'
 
 const EMPTY = {
   firstName: '', lastName: '', email: '', phoneDialCode: '+44', phone: '', nationality: '', leadSource: 'Manual entry',
@@ -88,10 +89,9 @@ export default function NewAdminLead() {
   }, [])
 
   const filteredProperties = useMemo(() => {
-    const needle = propertySearch.trim().toLowerCase()
+    const needle = propertySearch.trim()
     if (!needle) return properties.slice(0, 80)
-    return properties.filter((property) => [property.title, property.slug, property.city, property.region, property.country, property.partner]
-      .some((value) => value?.toLowerCase().includes(needle))).slice(0, 80)
+    return properties.filter((property) => foldIncludes([property.title, property.slug, property.city, property.region, property.country, property.partner], needle)).slice(0, 80)
   }, [properties, propertySearch])
 
   const selectedProperty = properties.find((property) => property.slug === form.propertySlug)

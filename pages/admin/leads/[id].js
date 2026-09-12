@@ -8,6 +8,7 @@ import LeadCommunicationPanel from '@/components/admin/LeadCommunicationPanel'
 import { supabase } from '@/lib/supabase'
 import { LEAD_SOURCE_OPTIONS } from '@/lib/leadSources'
 import { ALL_NATIONALITIES, buildDestinationGroups, hasDestination, NATIONALITY_GROUPS } from '@/lib/leadFormOptions'
+import { foldIncludes } from '@/lib/fold'
 
 const STATUS_OPTIONS = [
   ['new_lead', 'New lead'], ['contacted', 'Contacted'], ['lead_replied', 'Replied'],
@@ -151,13 +152,12 @@ export default function AdminLeadDetail() {
   const destinationGroups = useMemo(() => buildDestinationGroups(properties), [properties])
   const selectedSlugs = useMemo(() => new Set(shortlist.map((item) => item.property_slug)), [shortlist])
   const catalogue = useMemo(() => {
-    const needle = search.trim().toLowerCase()
+    const needle = search.trim()
     return properties.filter((property) => {
       if (selectedSlugs.has(property.slug)) return false
       if (region && ![property.region, property.city].includes(region)) return false
       if (!needle) return true
-      return [property.title, property.slug, property.city, property.region, property.country, property.partner]
-        .some((value) => value?.toLowerCase().includes(needle))
+      return foldIncludes([property.title, property.slug, property.city, property.region, property.country, property.partner], needle)
     }).slice(0, 80)
   }, [properties, selectedSlugs, search, region])
   const originalPropertySlug = lead?.original_property_slug || lead?.property_slug || null

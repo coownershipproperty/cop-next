@@ -31,6 +31,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
+import { foldIncludes } from '@/lib/fold'
 
 const C = {
   ink: '#1F2F3B', navy: '#2C4A5E', gold: '#C9A84C', cream: '#F5F2EC',
@@ -316,14 +317,9 @@ export default function CrmLeads() {
 
   // ── Group by contact: one row per person, best lead wins (CRM logic) ──────
   const grouped = useMemo(() => {
-    const query = q.trim().toLowerCase()
+    const query = q.trim()
     const filtered = pipeline.filter((l) => {
-      const mq = !query
-        || (l.name || '').toLowerCase().includes(query)
-        || (l.email || '').toLowerCase().includes(query)
-        || (l.phone || '').toLowerCase().includes(query)
-        || (l.main_region || '').toLowerCase().includes(query)
-        || (l.subregion || '').toLowerCase().includes(query)
+      const mq = foldIncludes([l.name, l.email, l.phone, l.main_region, l.subregion], query)
       return mq
         && (!status || l.status === status)
         && (!region || l.main_region === region)

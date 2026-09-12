@@ -3,6 +3,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import { PARTNER_HUB_STAGES } from '@/lib/partnerHub';
+import { foldIncludes } from '@/lib/fold';
 import {
   EUROPE_DIAL_CODES,
   EUROPE_COUNTRIES,
@@ -193,11 +194,7 @@ function NewLeadPropertyPicker({ value, onChange, showToast }) {
 
   const selectedSlugs = Array.isArray(value) ? value : [];
   const selected = selectedSlugs.map((slug) => catalogue.find((property) => property.slug === slug)).filter(Boolean);
-  const normalizedSearch = search.trim().toLocaleLowerCase();
-  const matches = catalogue.filter((property) => {
-    const haystack = `${property.title} ${property.location} ${property.slug}`.toLocaleLowerCase();
-    return !normalizedSearch || haystack.includes(normalizedSearch);
-  }).slice(0, 12);
+  const matches = catalogue.filter((property) => foldIncludes([property.title, property.location, property.slug], search)).slice(0, 12);
 
   function toggle(slug) {
     onChange(selectedSlugs.includes(slug)
@@ -675,11 +672,7 @@ function PartnerLeadDashboard({ leads, partnerName, onOpenLead }) {
   }, [leads]);
   const activeCount = PARTNER_ACTIVE_STAGES.reduce((total, stage) => total + stageCounts[stage], 0);
 
-  const normalizedSearch = search.trim().toLocaleLowerCase();
-  const filtered = leads.filter((lead) => {
-    const haystack = `${lead.name} ${lead.email} ${lead.phone} ${lead.location}`.toLocaleLowerCase();
-    return (!normalizedSearch || haystack.includes(normalizedSearch)) && (!stageFilter || lead.stage === stageFilter);
-  });
+  const filtered = leads.filter((lead) => foldIncludes([lead.name, lead.email, lead.phone, lead.location], search) && (!stageFilter || lead.stage === stageFilter));
 
   const summaryCards = [
     { label: 'Total leads', count: leads.length, tone: '' },
@@ -935,8 +928,7 @@ function LeadsView({ leads, partners, role, previewPartner, openLead, onChanged,
     if (workspaceLeadId && !leads.some((lead) => lead.id === workspaceLeadId)) setWorkspaceLeadId(null);
   }, [leads, workspaceLeadId]);
   const filtered = leads.filter((lead) => {
-    const haystack = `${lead.name} ${lead.email} ${lead.phone}`.toLowerCase();
-    return (!search || haystack.includes(search.toLowerCase())) && (!stage || lead.stage === stage) && (!partnerId || lead.partnerId === partnerId);
+    return foldIncludes([lead.name, lead.email, lead.phone], search) && (!stage || lead.stage === stage) && (!partnerId || lead.partnerId === partnerId);
   });
 
   if (role === 'partner' || previewPartner) {
@@ -1138,8 +1130,7 @@ function ShortlistEditor({ lead, shortlist, onRefresh, showToast }) {
 
   const savedSlugs = new Set(shortlist.map((property) => property.property_slug));
   const matches = catalogue.filter((property) => {
-    const haystack = `${property.title} ${property.location} ${property.slug}`.toLowerCase();
-    return !search || haystack.includes(search.toLowerCase());
+    return foldIncludes([property.title, property.location, property.slug], search);
   }).slice(0, 12);
 
   async function updateShortlist(operation, propertySlug) {

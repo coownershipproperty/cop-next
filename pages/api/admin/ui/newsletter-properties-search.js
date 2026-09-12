@@ -8,6 +8,7 @@
  * Otherwise returns a search by title/city/country with date_added desc.
  */
 import { requireAdmin } from '@/lib/newsletter/auth';
+import { fold } from '@/lib/fold';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -49,7 +50,10 @@ export default async function handler(req, res) {
 
   if (q && q.trim()) {
     const s = q.trim().replace(/[,()]/g, ' ');
-    query = query.or(`title.ilike.%${s}%,city.ilike.%${s}%,country.ilike.%${s}%,region.ilike.%${s}%,slug.ilike.%${s}%`);
+    // The slug is accent-free and hyphenated, so "sa rapita" finds Sa Ràpita
+    // through the slug even though ilike on the title would miss the accent.
+    const slugish = fold(s).replace(/[^a-z0-9]+/g, '-');
+    query = query.or(`title.ilike.%${s}%,city.ilike.%${s}%,country.ilike.%${s}%,region.ilike.%${s}%,slug.ilike.%${s}%,slug.ilike.%${slugish}%`);
   }
   if (partner) query = query.eq('partner', partner);
   if (country) query = query.eq('country', country);

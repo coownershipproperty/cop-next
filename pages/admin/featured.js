@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
+import { foldIncludes } from '@/lib/fold'
 
 // Admin → Featured. The homepage "Explore Our Properties" carousel now
 // ROTATES ITSELF every morning (see /api/cron/rotate-featured): trending
@@ -51,13 +52,11 @@ export default function AdminFeatured() {
   for (const p of allProps) bySlug[p.slug] = p
 
   const featuredSet = new Set(featured)
-  const q = search.trim().toLowerCase()
+  const q = search.trim()
   const available = allProps.filter(p => {
     if (featuredSet.has(p.slug)) return false
     if (!q) return true
-    return (p.title || '').toLowerCase().includes(q)
-        || (p.city || '').toLowerCase().includes(q)
-        || (p.country || '').toLowerCase().includes(q)
+    return foldIncludes([p.title, p.city, p.country], q)
   })
 
   function addSlug(slug) {

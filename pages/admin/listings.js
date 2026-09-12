@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
+import { foldIncludes } from '@/lib/fold'
 
 /**
  * /admin/listings — inventory table, rebuilt 26 Aug 2026 for customisability
@@ -141,7 +142,7 @@ export default function AdminListings() {
   }), [properties])
 
   const filtered = useMemo(() => {
-    const needle = search.trim().toLowerCase()
+    const needle = search.trim()
     const [pMin, pMax] = priceBand ? priceBand.split('-').map(Number) : [null, null]
     const rows = properties.filter((p) => {
       if (partner && p.partner !== partner) return false
@@ -151,7 +152,7 @@ export default function AdminListings() {
       if (minBeds && (p.beds || 0) < Number(minBeds)) return false
       if (pMin !== null && !((Number(p.price) || 0) >= pMin && (Number(p.price) || 0) <= pMax)) return false
       if (!needle) return true
-      return [p.title, p.slug, p.city, p.region, p.country, p.partner].some((value) => value?.toLowerCase().includes(needle))
+      return foldIncludes([p.title, p.slug, p.city, p.region, p.country, p.partner], needle)
     })
     rows.sort(SORTS[sort]?.fn || SORTS.newest.fn)
     return rows

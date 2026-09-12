@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
+import { foldIncludes } from '@/lib/fold'
 
 function money(value, currency = 'EUR') {
   if (value === null || value === undefined || value === '') return '—'
@@ -41,12 +42,11 @@ export default function SoldAdminLeads() {
   useEffect(() => { load() }, [load])
 
   const filtered = useMemo(() => {
-    const needle = search.trim().toLowerCase()
+    const needle = search.trim()
     if (!needle) return leads
     return leads.filter((lead) => {
       const contact = contactFor(lead)
-      return [contact?.first_name, contact?.last_name, contact?.email, lead.final_property_title, lead.final_property_region, lead.property_title, lead.main_region, lead.partner]
-        .some((value) => value?.toLowerCase().includes(needle))
+      return foldIncludes([contact?.first_name, contact?.last_name, contact?.email, lead.final_property_title, lead.final_property_region, lead.property_title, lead.main_region, lead.partner], needle)
     })
   }, [leads, search])
 

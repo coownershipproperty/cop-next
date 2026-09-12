@@ -5,6 +5,7 @@ import AdminLayout from '@/components/admin/AdminLayout'
 import { supabase } from '@/lib/supabase'
 import { C, input } from '@/components/admin/newsletter/tokens'
 import { Card, StatusBadge, GlobalAnimations, PrimaryButton, GhostButton, Toast } from '@/components/admin/newsletter/Primitives'
+import { foldIncludes } from '@/lib/fold'
 
 /**
  * /admin/newsletters
@@ -86,7 +87,7 @@ export default function NewslettersIndex() {
   // ── Filtering ───────────────────────────────────────────────────────────────
   const filtered = campaigns.filter(c => {
     if (statusFilter !== 'all' && c.status !== statusFilter) return false
-    if (search && !(c.name || '').toLowerCase().includes(search.toLowerCase())) return false
+    if (search && !foldIncludes([c.name], search)) return false
     if (dateFrom && c.created_at < dateFrom) return false
     if (dateTo && c.created_at > dateTo + 'T23:59:59') return false
     return true
