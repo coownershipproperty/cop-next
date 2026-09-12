@@ -701,7 +701,14 @@ export default async function handler(req, res) {
 
       drafted.push(contact.email);
     }
-    await beat(db, 'draft-replies', { startedAt: __beatStart });
+    // A run that failed every draft is not a healthy run, whatever the HTTP
+    // status says — record it so cron_health and /admin/today show it red.
+    await beat(db, 'draft-replies', {
+      startedAt: __beatStart,
+      ok: failed.length === 0,
+      summary: `drafted ${drafted.length}, failed ${failed.length}, skipped ${skipped.length}`,
+      error: failed.length ? failed[0] : null,
+    });
 
     return res.status(200).json({
       ok: failed.length === 0,
@@ -711,6 +718,7 @@ export default async function handler(req, res) {
       detail: { drafted, failed, skipped: skipped.slice(0, 10) },
     });
   } catch (e) {
+    await beat(db, 'draft-replies', { startedAt: __beatStart, ok: false, error: e.message });
     return res.status(500).json({ ok: false, error: e.message, drafted: drafted.length, failed, });
   }
 }
