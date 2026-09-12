@@ -26,6 +26,8 @@
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { isSuppressed } from '@/lib/suppressions';
 import { isCronRequest } from '@/lib/cronAuth';
+import { emailShell } from '@/lib/galleryFollowup';
+import { gmailConnected, findThreadWith, createGmailDraft, deleteGmailDraft } from '@/lib/gmail';
 
 import { beat } from '@/lib/cronHeartbeat';
 export const maxDuration = 300;
@@ -63,6 +65,12 @@ const AUTOMATED_TRIGGERS = new Set(['floor_plan_requested', 'enquiry_submitted',
 
 const API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-5';
+
+const ROLE = {
+  en: 'Co-Founder · Co-Ownership Property',
+  es: 'Cofundador · Co-Ownership Property',
+  fr: 'Cofondateur · Co-Ownership Property',
+};
 
 const PARTNER_DISPLAY = {
   pacaso: 'Pacaso', myne: 'MYNE', vivla: 'Vivla', andhamlet: '&Hamlet',
@@ -478,6 +486,8 @@ export default async function handler(req, res) {
 
   const db = createSupabaseAdminClient();
   const now = Date.now();
+  let gmailOn = false;
+  try { gmailOn = !!(await gmailConnected(db)) && !!process.env.GMAIL_OAUTH_CLIENT_ID; } catch { gmailOn = false; }
   const since = new Date(now - MAX_AGE_H * 3600 * 1000).toISOString();
   const until = new Date(now - MIN_AGE_MIN * 60 * 1000).toISOString();
 
@@ -759,7 +769,7 @@ Return the corrected JSON only.`);
         skipped.push(`${contact.email}: draft failed review — ${problems.join('; ')}`);
       }
 
-      const { error: iErr } = await db.from('email_queue').insert({
+      const { data: inserted, error: iErr } = await db.from('email_queue').insert({
         to_email: contact.email,
         to_name: contact.first_name || null,
         subject: textOf(out.subject, 200),
@@ -781,8 +791,29 @@ Return the corrected JSON only.`);
         // One notes field: what is wrong first (the reviewer must see it), then the
         // model's own note. A duplicate key here used to silently drop the warning.
         notes: [problems.length ? `NEEDS FIXING BEFORE SENDING: ${problems.join('; ')}` : null, textOf(out.notes, 500)].filter(Boolean).join('\n'),
-      });
+      }).select('id').maybeSingle();
       if (iErr) { failed.push(`${contact.email}: ${iErr.message}`); continue; }
+      const queueId = inserted?.id || null;
+
+      // The same draft in Gmail, where the reviewer actually looks (David,
+      // 12 Sep 2026). Inside the existing thread when there is one. Best-effort:
+      // the desk row is the record either way.
+      if (gmailOn) {
+        try {
+          const thread = await findThreadWith(db, contact.email);
+          const locale = String(contact.locale || 'en').slice(0, 2);
+          const g = await createGmailDraft(db, {
+            to: contact.email, toName: contact.first_name || null,
+            subject: textOf(out.subject, 200),
+            html: emailShell(String(out.html || ''), locale, ROLE[locale] || ROLE.en),
+            thread,
+          });
+          if (queueId) await db.from('email_queue').update({ gmail_draft_id: g.draftId, gmail_thread_id: g.threadId }).eq('id', queueId);
+        } catch (e) {
+          console.error(`[draft-replies] gmail draft for ${contact.email}: ${e.message}`);
+          if (queueId) await db.from('email_queue').update({ notes: `Gmail draft failed: ${textOf(e.message, 160)}` }).eq('id', queueId);
+        }
+      }
 
       await db.from('activities').insert({
         contact_id: contact.id,
@@ -793,9 +824,11 @@ Return the corrected JSON only.`);
       });
 
       if (supersede.length) {
+        const { data: olds } = await db.from('email_queue').select('id, gmail_draft_id').in('id', supersede).eq('status', 'pending_review');
         await db.from('email_queue')
           .update({ status: 'rejected', rejected_at: new Date().toISOString(), notes: `Superseded by a consolidated draft covering every home (${new Date().toISOString().slice(0, 16)}Z)` })
           .in('id', supersede).eq('status', 'pending_review');
+        if (gmailOn) for (const o of olds || []) if (o.gmail_draft_id) await deleteGmailDraft(db, o.gmail_draft_id);
       }
       drafted.push(contact.email);
     }
