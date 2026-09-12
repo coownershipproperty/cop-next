@@ -27,7 +27,7 @@ import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { isSuppressed } from '@/lib/suppressions';
 import { isCronRequest } from '@/lib/cronAuth';
 import { emailShell } from '@/lib/galleryFollowup';
-import { gmailConnected, findThreadWith, createGmailDraft, deleteGmailDraft } from '@/lib/gmail';
+import { gmailConnected, findThreadWith, createGmailDraft, deleteGmailDraft, humanWroteSince } from '@/lib/gmail';
 
 import { beat } from '@/lib/cronHeartbeat';
 export const maxDuration = 300;
@@ -577,6 +577,18 @@ export default async function handler(req, res) {
       if (!contact?.email) { skipped.push(`${label}: no email`); continue; }
       if ((Array.isArray(contact.tags) && contact.tags.includes('unsubscribed')) || await isSuppressed(db, contact.email)) {
         skipped.push(`${contact.email}: suppressed`); continue;
+      }
+
+      // Belt and braces: ask Gmail itself. On 11 Sep Dylan answered Elisabet
+      // in Spanish by hand; the CRM sync had not started yet, so the desk
+      // drafted her a second, different email the next night. If a person has
+      // written to this address since the enquiry, it is not ours to draft.
+      if (gmailOn) {
+        try {
+          if (await humanWroteSince(db, contact.email, activity.created_at)) {
+            skipped.push(`${label}: a person already wrote to them in Gmail`); continue;
+          }
+        } catch (e) { console.warn('[draft-replies] gmail check failed', e?.message || e); }
       }
 
       const { data: lead } = await db.from('leads')
