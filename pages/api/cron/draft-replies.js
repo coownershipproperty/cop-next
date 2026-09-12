@@ -95,8 +95,8 @@ Use ONLY the facts supplied below. They come from verified tables.
 - Never promise floor plans or documents unless the facts say they exist.
 - Never claim to have checked, asked, spoken to or heard back from the team, the operator or anyone else. You have not. A sentence like "I've checked with the team" or "they have confirmed" is a fabrication and the draft will be rejected.
 
-FLOOR-PLAN AND PHOTO REQUESTS
-"Floor plan requested" is a button on the listing page, not a message. The site has already emailed them the photo gallery. We almost never hold a floor plan, so the reply is not about a floor plan at all — it is the first human touch: greet them by name, link the home on its name, give the two or three facts that matter (share price, running cost, nights), and OFFER to ask the operator for plans if they would like them. Never write "the floor plan is on its way", "attached", "I'll send it", "je vous envoie le plan", "ci-joint" or any variant. If they wrote nothing, do not answer a question they did not ask.
+GALLERY UNLOCKS ("floor plan requested")
+The event the CRM calls "floor plan requested" is the button that unlocks the photo gallery on the listing page. NOBODY asked for a floor plan. They wanted to see the photos, and the site has already emailed them. So: do not mention floor plans, plans, "plano", "Grundriss" or documents at all unless the person WROTE asking for one. The reply is simply the first human touch: greet them by name, link the home on its name, give the two or three facts that matter (share price, running cost, nights), and invite them to say what they are looking for. If they wrote nothing, do not answer a question they did not ask, and never write "the floor plan is on its way", "attached", "I'll send it", "je vous envoie le plan", "ci-joint" or any variant.
 
 GREETING
 Always open with a greeting and their first name ("Hi Scott," / "Bonjour Roland," / "Hola Iker,"). Never start with the body.
@@ -185,7 +185,7 @@ function selectPartnerFacts(rows) {
  */
 const PARTNER_NAMES = /\b(pacaso|vivla|myne|&\s*hamlet|and\s*hamlet|abitaro|paris property group)\b/i;
 
-function validateDraft(out, { property, alternatives, mayName, knownForDays, hadHumanEmail }) {
+function validateDraft(out, { property, alternatives, mayName, knownForDays, hadHumanEmail, askedForPlan = false }) {
   const problems = [];
   const html = String(out?.html || '');
   const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
@@ -255,6 +255,15 @@ function validateDraft(out, { property, alternatives, mayName, knownForDays, had
     problems.push(`claims a check or a document we do not have ("${fabricated[0]}") — nobody checked anything; remove it`);
   }
 
+  // 6d. "Floor plan requested" is the gallery-unlock button, not a request.
+  //     Until 12 Sep 2026 every draft to a gallery-unlocker offered to chase a
+  //     floor plan nobody had asked for. Unless the person wrote the words,
+  //     the draft does not say them.
+  const FLOOR_PLAN = /(floor ?plans?|plan d'étage|plans? de l'appartement|planos?\b|grundriss|planimetri)/i;
+  if ((FLOOR_PLAN.test(text) || FLOOR_PLAN.test(String(out?.subject || ''))) && !askedForPlan) {
+    problems.push('mentions floor plans — nobody asked for one (the gallery-unlock button is not a floor-plan request); remove it');
+  }
+
   // 6c. Every reply opens with a greeting and a name. Barbara's did not.
   const bodyStart = String(out.html || '').replace(/^\s*(<p[^>]*>)?\s*/i, '').slice(0, 40);
   if (!/^(hi|hello|dear|bonjour|hola|hallo|ciao|hej|olá|ola)\b/i.test(bodyStart)) {
@@ -290,7 +299,10 @@ function buildContext({ contact, activity, lead, property, facts, partnerFacts, 
     // Most people never type anything — they open galleries. Saying "thanks
     // for your question" to someone who asked none is the giveaway.
     L.push(`THEY DID NOT WRITE ANYTHING. What they did (${activity.created_at}):`);
-    L.push(`- ${activity.type.replace(/_/g, ' ')}${property ? ` on ${property.title}` : ''}`);
+    const did = activity.type === 'floor_plan_requested'
+      ? 'unlocked the photo gallery'   // legacy event name; it is the gallery button, not a floor-plan request
+      : activity.type.replace(/_/g, ' ');
+    L.push(`- ${did}${property ? ` of ${property.title}` : ''}`);
     L.push('Open with what they looked at and give them the numbers. Do not thank them for a question they did not ask, and do not invent one.');
   }
   L.push('');
@@ -728,6 +740,9 @@ export default async function handler(req, res) {
         askedAbout = (ap || []).map(r => ({ ...r, ...(fx[r.slug] || {}) }));
       }
 
+      // Did they actually write the words? Only then may the draft say them.
+      const PLAN_WORDS = /(floor ?plans?|plan d'étage|planos?\b|grundriss|planimetri)/i;
+      const askedForPlan = PLAN_WORDS.test(String(activity.metadata?.message || '')) || (earlierMessages || []).some(m => PLAN_WORDS.test(String(m)));
       const context = buildContext({ contact, activity, lead, property, facts, partnerFacts, mayName, alsoViewed, askedAbout, alreadySent, alternatives, earlierMessages, knownForDays, hadHumanEmail });
 
       let out;
@@ -748,7 +763,7 @@ export default async function handler(req, res) {
       // desk — silently dropping it would just be a different kind of silence —
       // but it arrives labelled with exactly what is wrong with it.
       const linkables = [...(alternatives || []), ...askedAbout];
-      let problems = validateDraft(out, { property, alternatives: linkables, mayName, knownForDays, hadHumanEmail });
+      let problems = validateDraft(out, { property, alternatives: linkables, mayName, knownForDays, hadHumanEmail, askedForPlan });
 
       // Second pass. The first live run (12 Sep 2026) produced promises and
       // fabricated "I've checked with the team" lines on four of five drafts.
@@ -769,7 +784,7 @@ ${fixable.map(p => `- ${p}`).join('\n')}
 
 Return the corrected JSON only.`);
           if (!retry.escalate) {
-            const retryProblems = validateDraft(retry, { property, alternatives: linkables, mayName, knownForDays, hadHumanEmail });
+            const retryProblems = validateDraft(retry, { property, alternatives: linkables, mayName, knownForDays, hadHumanEmail, askedForPlan });
             if (retryProblems.length < problems.length) { out = retry; problems = retryProblems; }
           }
         } catch (e) {

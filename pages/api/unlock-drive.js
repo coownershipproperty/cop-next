@@ -353,7 +353,7 @@ export default async function handler(req, res) {
       await logActivity({
         contactId: contact.id,
         type:      'floor_plan_requested',
-        description: `Floor plan requested for ${propertyTitle}`,
+        description: `Unlocked the photo gallery of ${propertyTitle}`,
         // propertySlug + galleryUrl feed the multi-unlock follow-up email's
         // per-property gallery links (process-gallery-followups / email engine).
         metadata: { propertyTitle, propertyUrl, propertySlug, galleryUrl },
