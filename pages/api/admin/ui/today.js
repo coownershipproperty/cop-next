@@ -20,6 +20,8 @@
  *   disputed:    partner_facts needs_check   (contradictions / open questions)
  *   facts:       fact_requests open          (a draft needed a fact we lack)
  *   judgement:   admin_tasks open            (things only David can decide)
+ *   replyStats:  reply_time_stats            (median hours to draft / reply, 7 days)
+ *   slow:        reply_times                 (written enquiries with no reply after 4 h)
  *   jobs:        lib/cronJobs merged with scheduler_runs (fired) and cron_runs (ran)
  * }
  *
@@ -40,7 +42,7 @@ function cronPaths() {
 }
 
 async function loadState(db) {
-  const [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns, fired] = await Promise.all([
+  const [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns, fired, replyStats, slow] = await Promise.all([
     db.from('leads_awaiting_reply').select('*').order('hours_waiting', { ascending: false }).limit(200),
     db.from('referrals_outstanding').select('*').order('days_since', { ascending: false }).limit(200),
     db.from('referrals_awaiting_outcome').select('*').order('days_since', { ascending: true }).limit(300),
@@ -79,9 +81,17 @@ async function loadState(db) {
       .select('job, fired_at, status_code, timed_out, error_msg')
       .order('fired_at', { ascending: false })
       .limit(200),
+    db.from('reply_time_stats').select('*').maybeSingle(),
+    db.from('reply_times')
+      .select('email, first_name, last_name, enquiry_at, first_draft_at, first_reply_at')
+      .is('first_reply_at', null)
+      .lt('enquiry_at', new Date(Date.now() - 4 * 3600 * 1000).toISOString())
+      .gt('enquiry_at', new Date(Date.now() - 7 * 86400 * 1000).toISOString())
+      .order('enquiry_at', { ascending: true })
+      .limit(100),
   ]);
 
-  const firstError = [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns, fired]
+  const firstError = [waiting, unregistered, outcomes, review, listings, disputed, facts, judgement, health, lastRuns, fired, replyStats, slow]
     .map((r) => r.error).find(Boolean);
 
   const healthByJob = new Map((health.data || []).map((h) => [h.job, h]));
@@ -134,6 +144,8 @@ async function loadState(db) {
     disputed: disputed.data || [],
     facts: facts.data || [],
     judgement: judgement.data || [],
+    replyStats: replyStats.data || null,
+    slow: slow.data || [],
     jobs,
   };
 }

@@ -95,6 +95,15 @@ function Tile({ title, source, rows, render, href, empty = 'Nothing waiting' }) 
   )
 }
 
+function Stat({ n, label, bad }) {
+  return (
+    <div style={{ minWidth: 120 }}>
+      <div style={{ fontSize: 24, fontWeight: 500, color: bad ? C.badInk : C.ink, lineHeight: 1.1 }}>{n ?? '—'}</div>
+      <div style={{ fontSize: 12, color: C.soft, marginTop: 2 }}>{label}</div>
+    </div>
+  )
+}
+
 function Muted({ children }) {
   return <span style={{ color: C.faint, fontSize: 12, whiteSpace: 'nowrap' }}>{children}</span>
 }
@@ -216,6 +225,34 @@ export default function TodayPage() {
                 })}
               </div>
             </section>
+
+            {/* Reply time — the one number that says whether people are being answered. Targets: draft within 1 h, reply within 4 h. */}
+            {s.replyStats && (
+              <section style={{ background: C.paper, border: `1px solid ${s.replyStats.still_unanswered_over_4h ? C.badInk : C.line}`, borderRadius: 12, padding: '14px 18px', marginBottom: 16 }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: 15, fontWeight: 500 }}>Reply time, last 7 days</span>
+                  <Muted>from <code>reply_times</code> · targets: draft in 1 h, reply in 4 h</Muted>
+                </div>
+                <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap', marginTop: 10 }}>
+                  <Stat n={s.replyStats.enquiries_7d} label="written enquiries" />
+                  <Stat n={s.replyStats.median_hours_to_draft_7d != null ? `${s.replyStats.median_hours_to_draft_7d} h` : '—'} label="median to first draft" bad={s.replyStats.median_hours_to_draft_7d > 1} />
+                  <Stat n={s.replyStats.median_hours_to_reply_7d != null ? `${s.replyStats.median_hours_to_reply_7d} h` : '—'} label="median to reply" bad={s.replyStats.median_hours_to_reply_7d > 4} />
+                  <Stat n={s.replyStats.replies_over_target_7d} label="replied late or not at all" bad={s.replyStats.replies_over_target_7d > 0} />
+                  <Stat n={s.replyStats.still_unanswered_over_4h} label="unanswered right now, over 4 h" bad={s.replyStats.still_unanswered_over_4h > 0} />
+                </div>
+                {s.slow.length > 0 && (
+                  <ul style={{ listStyle: 'none', padding: 0, margin: '12px 0 0', display: 'grid', gap: 4 }}>
+                    {s.slow.slice(0, 8).map((r) => (
+                      <li key={r.email + r.enquiry_at} style={{ fontSize: 13, display: 'flex', gap: 8, alignItems: 'baseline' }}>
+                        <Trunc max={30}>{name(r)}</Trunc>
+                        <Muted>asked {ago(r.enquiry_at)}{r.first_draft_at ? ` · draft ready ${ago(r.first_draft_at)}` : ' · no draft yet'}</Muted>
+                      </li>
+                    ))}
+                    {s.slow.length > 8 && <li><Muted>and {s.slow.length - 8} more</Muted></li>}
+                  </ul>
+                )}
+              </section>
+            )}
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 14 }}>
               <Tile
