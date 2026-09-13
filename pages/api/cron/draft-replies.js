@@ -544,8 +544,16 @@ export default async function handler(req, res) {
       // process-gallery-followups, not here — that cron exists precisely to
       // send one nudge per visit. But somebody opening two or more homes is
       // shopping, and that is a question even when they never typed one.
+      //
+      // A FORM, though, is never "one gallery click". Jamie Rake filled in the
+      // enquiry form on the Santa Eulària villa on 12 Sep with his phone number
+      // and no message, and sat unanswered for eight hours because this
+      // branch filed him under gallery clicks. Anyone who submits an enquiry,
+      // a gallery enquiry or a tour request has asked to be contacted — they
+      // get a reply whether or not they typed a message.
+      const submittedAForm = MESSAGE_TYPES.has(activity.type);
       let repeatSignal = 0;
-      if (!wroteSomething) {
+      if (!wroteSomething && !submittedAForm) {
         const repeatSince = new Date(now - REPEAT_WINDOW_DAYS * 86400000).toISOString();
         const { count } = await db.from('activities')
           .select('id', { count: 'exact', head: true })
