@@ -27,7 +27,7 @@ import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { isSuppressed } from '@/lib/suppressions';
 import { isCronRequest } from '@/lib/cronAuth';
 import { emailShell } from '@/lib/galleryFollowup';
-import { gmailConnected, findThreadWith, createGmailDraft, deleteGmailDraft, humanWroteSince } from '@/lib/gmail';
+import { gmailConnected, findThreadWith, createGmailDraft, deleteGmailDraft, humanWroteSince, gmailDraftStatus } from '@/lib/gmail';
 
 import { beat } from '@/lib/cronHeartbeat';
 export const maxDuration = 300;
@@ -518,6 +518,40 @@ export default async function handler(req, res) {
 
   const drafted = [];
   const skipped = [];
+
+  // ── Close the loop with Gmail before drafting anything new ───────────────
+  // A desk row stays "pending_review" until someone marks it; the hourly
+  // Gmail→CRM sync does that, but an hour is long enough for David to see a
+  // draft for an email he has already sent (Scott, 12–13 Sep). Every run:
+  //   - the Gmail draft is gone and a person wrote to them since → sent;
+  //   - the Gmail draft is gone and nobody wrote → they deleted it → rejected;
+  //   - the Gmail draft still exists but a person already wrote to them since
+  //     the draft was made → the draft is stale: delete it, mark superseded.
+  const reconciled = [];
+  if (gmailOn) {
+    try {
+      const { data: openRows } = await db.from('email_queue')
+        .select('id, to_email, created_at, gmail_draft_id, gmail_thread_id, notes')
+        .eq('status', 'pending_review').in('trigger', DRAFT_TRIGGERS)
+        .not('gmail_draft_id', 'is', null)
+        .gte('created_at', new Date(now - 14 * 86400 * 1000).toISOString())
+        .limit(40);
+      for (const row of openRows || []) {
+        try {
+          const status = await gmailDraftStatus(db, row.gmail_draft_id);
+          const wrote = await humanWroteSince(db, row.to_email, row.created_at);
+          let patch = null;
+          if (status === 'gone' && wrote) patch = { status: 'sent', sent_at: new Date().toISOString(), notes: `${row.notes || ''}\nSent from Gmail (draft gone, reply seen).`.trim() };
+          else if (status === 'gone') patch = { status: 'rejected', rejected_at: new Date().toISOString(), notes: `${row.notes || ''}\nDraft deleted in Gmail without sending.`.trim() };
+          else if (wrote) {
+            await deleteGmailDraft(db, row.gmail_draft_id);
+            patch = { status: 'rejected', rejected_at: new Date().toISOString(), notes: `${row.notes || ''}\nSuperseded: a person wrote to them after this was drafted — Gmail draft removed.`.trim() };
+          }
+          if (patch) { await db.from('email_queue').update(patch).eq('id', row.id); reconciled.push(`${row.to_email}: ${patch.status}`); }
+        } catch (e) { console.warn('[draft-replies] reconcile', row.id, e?.message || e); }
+      }
+    } catch (e) { console.warn('[draft-replies] reconcile pass failed', e?.message || e); }
+  }
   const failed = [];
 
   try {
@@ -866,7 +900,7 @@ Return the corrected JSON only.`);
     await beat(db, 'draft-replies', {
       startedAt: __beatStart,
       ok: failed.length === 0,
-      summary: `drafted ${drafted.length}, failed ${failed.length}, skipped ${skipped.length}`,
+      summary: `drafted ${drafted.length}, failed ${failed.length}, skipped ${skipped.length}${reconciled.length ? `, reconciled ${reconciled.length}` : ''}`,
       error: failed.length ? failed[0] : null,
     });
 
@@ -875,7 +909,7 @@ Return the corrected JSON only.`);
       drafted: drafted.length,
       failed: failed.length,
       skipped: skipped.length,
-      detail: { drafted, failed, skipped: skipped.slice(0, 10) },
+      detail: { drafted, failed, skipped: skipped.slice(0, 10), reconciled },
     });
   } catch (e) {
     await beat(db, 'draft-replies', { startedAt: __beatStart, ok: false, error: e.message });
