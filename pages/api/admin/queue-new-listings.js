@@ -1,6 +1,8 @@
 /**
  * POST /api/admin/queue-new-listings
- * Queues a new-listings digest email to all newsletter subscribers as 'pending'.
+ * Queues a new-listings email to all newsletter subscribers as 'pending'.
+ * Uses the personalised newsletter layout (9 Sep 2026) — the old
+ * "JUST LISTED" grid was retired on 13 Sep 2026.
  * The CRM operator reviews then bulk-approves via /api/admin/send-campaign.
  *
  * Authorization: Bearer <Supabase access token for CRM admin>
@@ -11,7 +13,8 @@
  *   campaignId    — optional string key (default: 'new-listings-YYYY-MM-DD')
  */
 import { queueEmail } from '@/lib/resend';
-import NewListingsDigest from '@/emails/new-listings-digest';
+import PersonalisedNewsletter from '@/emails/personalised-newsletter';
+import { buildUserToken } from '@/lib/newsletter/render';
 import * as React from 'react';
 import { requireCrmAdmin, setCrmCors } from '@/lib/adminAuth';
 import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
@@ -92,7 +95,7 @@ export default async function handler(req, res) {
       title:    p.title,
       price:    `${symbol}${Number(p.price).toLocaleString('en-GB')}`,
       beds:     p.beds,
-      size:     p.size || null,
+      size:     p.size || 0,
       location: p.region,
       country:  p.country,
       slug:     p.slug,
@@ -112,16 +115,22 @@ export default async function handler(req, res) {
     try {
       // Tokenised — the plain `?email=` form dead-ends. See lib/unsub.js.
       const unsubscribeUrl = unsubUrl(contact.email);
+      const firstName = contact.first_name || 'there';
+      const userToken = buildUserToken(firstName, contact.email);
       await queueEmail({
         to:            contact.email,
         toName:        [contact.first_name, contact.last_name].filter(Boolean).join(' ') || null,
         subject,
-        template:      React.createElement(NewListingsDigest, {
-          newPropertyCount,
-          properties: templateProperties,
+        template:      React.createElement(PersonalisedNewsletter, {
+          firstName,
+          primaryProperties: templateProperties.map(p => ({
+            ...p,
+            galleryUrl: `${BASE}/property/${p.slug}/?t=${userToken}`,
+          })),
+          fallbackProperties: [],
           unsubscribeUrl,
         }),
-        templateName:  'new-listings-digest',
+        templateName:  'personalised-newsletter',
         templateProps: { newPropertyCount, slugs, campaignId },
         trigger:       'new_listings_campaign',
         notes:         `New listings campaign: ${campaignId} — ${orderedProps.map(p => p.title).join(', ')}`,

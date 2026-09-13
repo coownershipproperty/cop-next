@@ -21,14 +21,8 @@ const TEMPLATES = [
   {
     id: 'personalised-newsletter',
     name: 'Personalised Newsletter',
-    desc: 'Hero + secondary cards. Best for weekly curated picks.',
+    desc: 'The new-listings design (9 Sep 2026): eight best-matched homes, one per line, the reader\'s areas first.',
     thumb: '🏛',
-  },
-  {
-    id: 'new-listings-digest',
-    name: 'New Listings Digest',
-    desc: '3–8 fresh properties in a clean grid.',
-    thumb: '✨',
   },
   {
     id: 'property-alert',
@@ -55,7 +49,13 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
   const [name, setName] = useState(initialCampaign?.name || '')
   const [subject, setSubject] = useState(initialCampaign?.subject || '')
   const [introText, setIntroText] = useState(initialCampaign?.intro_text || '')
-  const [templateType, setTemplateType] = useState(initialCampaign?.template_type || 'personalised-newsletter')
+  // 'new-listings-digest' was the old grid design, retired 13 Sep 2026 —
+  // older campaign rows that still name it open as the personalised layout.
+  const [templateType, setTemplateType] = useState(
+    !initialCampaign?.template_type || initialCampaign.template_type === 'new-listings-digest'
+      ? 'personalised-newsletter'
+      : initialCampaign.template_type
+  )
   const [propertySlugs, setPropertySlugs] = useState(initialCampaign?.property_slugs || [])
   const [personalizeByRegion, setPersonalizeByRegion] = useState(initialCampaign?.personalize_by_region ?? true)
   const [audienceSegment, setAudienceSegment] = useState(initialCampaign?.audience_segment || 'all')

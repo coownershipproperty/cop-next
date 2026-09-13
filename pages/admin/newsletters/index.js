@@ -67,7 +67,7 @@ export default function NewslettersIndex() {
           name: `New listings — week of ${today}`,
           subject: `{{first_name}}, ${properties.length} new homes this week`,
           intro_text: `Fresh on Co-Ownership Property this week — ${properties.length} new homes just added. Have a wander.`,
-          template_type: 'new-listings-digest',
+          template_type: 'personalised-newsletter',
           property_slugs: slugs,
           personalize_by_region: true,
           audience_segment: 'all',
