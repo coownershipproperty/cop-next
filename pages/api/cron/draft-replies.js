@@ -37,15 +37,19 @@ const MAX_AGE_H   = 48;     // older than this, a draft is no longer a reply
 const MAX_PER_RUN = 5;      // a burst of enquiries drafts over several runs
 const MIN_MESSAGE = 12;     // shorter than this is not a question
 
-// floor_plan_requested was missing here until 11 Sep 2026, and it is the bulk
-// of what actually comes in: of 26 inbound events in the 24h before this fix,
-// 21 were floor-plan requests. The drafter was structurally blind to them, so
-// it produced nothing on four consecutive days while people looked at three
-// and four homes each.
-const ENQUIRY_TYPES = ['enquiry_submitted', 'gallery_enquiry', 'tour_request', 'floor_plan_requested'];
-// Only these carry a written message; a floor-plan request never does.
+// What earns a hand-written reply: a FORM. Someone who submitted an enquiry,
+// a gallery enquiry or a tour request asked to be contacted, message or not.
+//
+// Gallery unlocks (the legacy event name is floor_plan_requested) do NOT.
+// They were added here on 11 Sep 2026 and for two days every person who
+// opened three galleries got a bespoke email; David's call on 13 Sep: people
+// who have only unlocked galleries get the automated follow-ups
+// (process-gallery-followups: "Shall I put you in touch…", "The N homes you
+// looked at") and nothing hand-written until they actually write or fill in
+// a form. Unlocks are still read as CONTEXT when a real enquiry is drafted.
+const ENQUIRY_TYPES = ['enquiry_submitted', 'gallery_enquiry', 'tour_request'];
+// All of these carry a message box; it may be empty.
 const MESSAGE_TYPES = new Set(['enquiry_submitted', 'gallery_enquiry', 'tour_request']);
-const REPEAT_WINDOW_DAYS = 7;   // "looked at more than one home" counts as a question
 
 // Not every enquiry is a buyer asking a question. A developer offering to
 // list a building and a Rightmove notification body both clear the length
@@ -538,31 +542,12 @@ export default async function handler(req, res) {
       if (seenContacts.has(activity.contact_id)) continue;
 
       const message = textOf(activity.metadata?.message, 4000);
-      const wroteSomething = MESSAGE_TYPES.has(activity.type) && message.length >= MIN_MESSAGE;
 
-      // A single gallery click with nothing written belongs to
-      // process-gallery-followups, not here — that cron exists precisely to
-      // send one nudge per visit. But somebody opening two or more homes is
-      // shopping, and that is a question even when they never typed one.
-      //
-      // A FORM, though, is never "one gallery click". Jamie Rake filled in the
-      // enquiry form on the Santa Eulària villa on 12 Sep with his phone number
-      // and no message, and sat unanswered for eight hours because this
-      // branch filed him under gallery clicks. Anyone who submits an enquiry,
-      // a gallery enquiry or a tour request has asked to be contacted — they
-      // get a reply whether or not they typed a message.
-      const submittedAForm = MESSAGE_TYPES.has(activity.type);
-      let repeatSignal = 0;
-      if (!wroteSomething && !submittedAForm) {
-        const repeatSince = new Date(now - REPEAT_WINDOW_DAYS * 86400000).toISOString();
-        const { count } = await db.from('activities')
-          .select('id', { count: 'exact', head: true })
-          .eq('contact_id', activity.contact_id)
-          .in('type', ENQUIRY_TYPES)
-          .gte('created_at', repeatSince);
-        repeatSignal = count || 0;
-        if (repeatSignal < 2) { skipped.push(`${label}: one gallery click, left to the follow-up cron`); continue; }
-      }
+      // Every activity that reaches this loop is a submitted form (see
+      // ENQUIRY_TYPES): the person asked to be contacted, whether or not they
+      // typed anything. Jamie Rake (12 Sep) filled in the enquiry form with
+      // his phone number and no message and waited eight hours because an
+      // earlier version filed that under "one gallery click".
       seenContacts.add(activity.contact_id);
       if (NOT_A_BUYER.some(rx => rx.test(message))) {
         await flag(db, activity, null, 'Seller, developer or portal enquiry — needs David, not a buyer reply');
