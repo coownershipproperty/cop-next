@@ -22,40 +22,44 @@ const SITE = 'https://co-ownership-property.com';
 const CONFIRM = {
   en: {
     watch_subject: (title) => `You're tracking ${title}`,
-    watch_body: (title) =>
-      `You're now tracking <strong>${title}</strong>. If the price changes or availability moves, you'll hear from us first — no spam, only news about this home.`,
+    watch_body: (title, url) =>
+      `You're now tracking <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. If the price changes or availability moves, you'll hear from us first — no spam, only news about this home.`,
     wait_subject: (region) => `You're on the waitlist — ${region}`,
     wait_body: (title, region) =>
       `<strong>${title}</strong> is fully sold — but you're now first in line. The moment a new home in <strong>${region}</strong> joins our collection, you'll see it before anyone else.`,
     cta: 'Browse the collection',
+    view_home: 'View the home',
   },
   es: {
     watch_subject: (title) => `Estás siguiendo ${title}`,
-    watch_body: (title) =>
-      `Ahora sigues <strong>${title}</strong>. Si el precio cambia o se mueve la disponibilidad, serás el primero en saberlo.`,
+    watch_body: (title, url) =>
+      `Ahora sigues <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Si el precio cambia o se mueve la disponibilidad, serás el primero en saberlo.`,
     wait_subject: (region) => `Estás en la lista de espera — ${region}`,
     wait_body: (title, region) =>
       `<strong>${title}</strong> está vendida — pero ahora eres el primero de la lista. En cuanto llegue una nueva propiedad en <strong>${region}</strong>, la verás antes que nadie.`,
     cta: 'Ver la colección',
+    view_home: 'Ver la propiedad',
   },
   fr: {
     watch_subject: (title) => `Vous suivez ${title}`,
-    watch_body: (title) =>
-      `Vous suivez désormais <strong>${title}</strong>. Si le prix change ou si la disponibilité évolue, vous serez averti en premier.`,
+    watch_body: (title, url) =>
+      `Vous suivez désormais <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Si le prix change ou si la disponibilité évolue, vous serez averti en premier.`,
     wait_subject: (region) => `Vous êtes sur la liste d'attente — ${region}`,
     wait_body: (title, region) =>
       `<strong>${title}</strong> est entièrement vendu — mais vous êtes désormais premier sur la liste. Dès qu'un nouveau bien arrive en <strong>${region}</strong>, vous le verrez avant tout le monde.`,
     cta: 'Voir la collection',
+    view_home: 'Voir le bien',
     open_now: (region) => `En attendant, voici ce qui est disponible en <strong>${region}</strong> aujourd'hui :`,
   },
   de: {
     watch_subject: (title) => `Sie beobachten ${title}`,
-    watch_body: (title) =>
-      `Sie beobachten jetzt <strong>${title}</strong>. Ändert sich der Preis oder die Verfügbarkeit, erfahren Sie es als Erste(r) — kein Spam, nur Neuigkeiten zu diesem Haus.`,
+    watch_body: (title, url) =>
+      `Sie beobachten jetzt <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Ändert sich der Preis oder die Verfügbarkeit, erfahren Sie es als Erste(r) — kein Spam, nur Neuigkeiten zu diesem Haus.`,
     wait_subject: (region) => `Sie stehen auf der Warteliste — ${region}`,
     wait_body: (title, region) =>
       `<strong>${title}</strong> ist vollständig verkauft — aber Sie stehen jetzt ganz oben auf der Liste. Sobald ein neues Haus in <strong>${region}</strong> in unsere Kollektion kommt, sehen Sie es vor allen anderen.`,
     cta: 'Kollektion ansehen',
+    view_home: 'Das Haus ansehen',
     open_now: (region) => `Bis dahin — diese Häuser in <strong>${region}</strong> sind heute verfügbar:`,
   },
 };
@@ -88,7 +92,7 @@ function homesListHtml(homes) {
   return `<ul style="margin:0 0 22px;padding-left:20px;font-size:14px;line-height:1.6">${rows}</ul>`;
 }
 
-function confirmationHtml({ bodyHtml, cta, email, extraHtml = '' }) {
+function confirmationHtml({ bodyHtml, cta, email, extraHtml = '', ctaHref = `${SITE}/our-homes/`, secondaryHtml = '' }) {
   return `
   <div style="background:#F7F4EE;padding:40px 16px;font-family:Georgia,'Times New Roman',serif;color:#1E3448">
     <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #E8E3DC">
@@ -98,7 +102,7 @@ function confirmationHtml({ bodyHtml, cta, email, extraHtml = '' }) {
       <div style="padding:36px 32px 28px">
         <div style="width:36px;border-top:2px solid #C9A84C;margin:0 0 18px"></div>
         <p style="font-size:15px;line-height:1.7;margin:0 0 22px">${bodyHtml}</p>${extraHtml}
-        <a href="${SITE}/our-homes/" style="display:inline-block;background:#1E3448;color:#F4EFE4;text-decoration:none;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:13px 26px">${cta} &rarr;</a>
+        <a href="${ctaHref}" style="display:inline-block;background:#1E3448;color:#F4EFE4;text-decoration:none;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:13px 26px">${cta} &rarr;</a>${secondaryHtml}
       </div>
       <div style="padding:18px 32px;border-top:1px solid #E8E3DC">
         <p style="font-family:Arial,sans-serif;font-size:11px;color:#8a9aaa;margin:0">
@@ -188,12 +192,19 @@ export default async function handler(req, res) {
     const extraHtml = openNow.length
       ? `<p style="font-size:15px;line-height:1.7;margin:0 0 12px">${c.open_now(region)}</p>${homesListHtml(openNow)}`
       : '';
+    // The watch confirmation links to the home itself (David, 13 Sep 2026:
+    // "should have a link to the home") — the title in the sentence and the
+    // button both open the listing page; the collection is the secondary link.
+    // The waitlist one keeps the collection as its button: that home is sold.
+    const homeUrl = `${SITE}/property/${prop.slug}/`;
     await sendHtml({
       to: cleanEmail,
       subject: isWait ? c.wait_subject(region) : c.watch_subject(prop.title),
       html: confirmationHtml({
-        bodyHtml: isWait ? c.wait_body(prop.title, region) : c.watch_body(prop.title),
-        cta: c.cta,
+        bodyHtml: isWait ? c.wait_body(prop.title, region) : c.watch_body(prop.title, homeUrl),
+        cta: isWait ? c.cta : c.view_home,
+        ctaHref: isWait ? `${SITE}/our-homes/` : homeUrl,
+        secondaryHtml: isWait ? '' : `<p style="font-family:Arial,sans-serif;font-size:12px;margin:16px 0 0"><a href="${SITE}/our-homes/" style="color:#8a9aaa">${c.cta} &rarr;</a></p>`,
         email: cleanEmail,
         extraHtml,
       }),
