@@ -327,7 +327,8 @@ export async function getStaticProps({ params }) {
     .from('properties')
     .select(`slug, ${localeColumns(['title'])}, img, price, currency, city, region, country`)
     .in('slug', FEATURED_PROPERTY_SLUGS)
-    .in('status', ['Live', 'for_sale']);
+    .in('status', ['Live', 'for_sale'])
+    .eq('is_discreet', false);
 
   const featuredProperties = pickSidebarProperties(featuredRows, post).map(p => ({
     slug: p.slug,

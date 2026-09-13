@@ -72,7 +72,8 @@ export async function getStaticProps() {
     .from('properties')
     .select('slug, title, img, region, country, price, currency, beds, size, date_added')
     .in('slug', FEATURED_PROPERTY_SLUGS)
-    .in('status', ['Live', 'for_sale']);
+    .in('status', ['Live', 'for_sale'])
+    .eq('is_discreet', false);
 
   const bySlug = Object.fromEntries((rows || []).map(p => [p.slug, p]));
   const featuredProps = FEATURED_PROPERTY_SLUGS
