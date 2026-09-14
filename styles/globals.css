@@ -10570,10 +10570,10 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-discreet-btn:disabled{opacity:.6;cursor:not-allowed}
 @media (max-width:720px){.pp-discreet-cta{left:26px;right:auto;bottom:62px}.pp-discreet-panel{padding:22px 20px}}
 
-/* ── Discreet Sale card badge v4 (15 Sep 2026) — centred boxed tag, the way
-   MYNE labels "Discreet Marketing": a translucent navy box with a lock, top
-   centre of the photo. Overrides the v3 spaced-caps corner text. ── */
-.prop-card .prop-badge.prop-badge.discreet{top:22px;left:50%;right:auto;transform:translateX(-50%);padding:11px 20px;background:rgba(20,34,48,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.18);border-radius:3px;color:#fff;font-family:'Nunito Sans',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:none;text-shadow:none;display:inline-flex;align-items:center;gap:9px;line-height:1;white-space:nowrap;z-index:5;box-shadow:0 4px 18px rgba(0,0,0,.22)}
+/* ── Discreet Sale card badge v5 (15 Sep 2026, David chose option K) — a full-width
+   band through the middle of the photo: dark glass, a thin gold line top and bottom,
+   gold spaced caps with a small lock. Overrides the v3 corner text. ── */
+.prop-card .prop-badge.prop-badge.discreet{top:50%;left:0;right:0;transform:translateY(-50%);height:52px;padding:0 16px;box-sizing:border-box;justify-content:center;background:rgba(10,20,30,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);border-top:1px solid #C9A84C;border-bottom:1px solid #C9A84C;border-left:0;border-right:0;border-radius:0;box-shadow:0 0 0 4px rgba(10,20,30,.35);color:#F0D58A;font-family:'Nunito Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.3em;text-indent:.3em;text-transform:uppercase;text-shadow:none;display:inline-flex;align-items:center;gap:12px;line-height:1;white-space:nowrap;z-index:5}
 .prop-card .prop-badge.prop-badge.discreet::before{content:none}
-.prop-card .prop-badge.prop-badge.discreet svg{flex:none;color:#F0D58A}
-@media (max-width:720px){.prop-card .prop-badge.prop-badge.discreet{top:16px;padding:9px 16px;font-size:.76rem}}
+.prop-card .prop-badge.prop-badge.discreet svg{flex:none;width:14px;height:14px;color:#F0D58A}
+@media (max-width:720px){.prop-card .prop-badge.prop-badge.discreet{height:44px;font-size:.66rem;gap:10px}}
