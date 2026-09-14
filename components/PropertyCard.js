@@ -359,10 +359,16 @@ export default function PropertyCard({ property: p, priority = false }) {
           {p.status && String(p.status).toLowerCase().includes('sold') ? (
             <span className="prop-badge prop-badge-sold-out">Sold Out</span>
           ) : isDiscreet ? (
-            <>
-              <span className="prop-badge-shade" aria-hidden="true" />
-              <span className="prop-badge discreet">{t.private_sale}</span>
-            </>
+            /* Discreet Sale — a centred, boxed label like MYNE's "Discreet
+               Marketing" tag (David, 15 Sep 2026: the corner text was not
+               obvious enough). */
+            <span className="prop-badge discreet">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="4" y="11" width="16" height="10" rx="1.5" />
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+              </svg>
+              {t.private_sale}
+            </span>
           ) : p.label ? (
             <>
               <span className="prop-badge-shade" aria-hidden="true" />

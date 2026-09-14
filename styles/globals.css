@@ -10569,3 +10569,11 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-discreet-btn:hover{background:#b8943d}
 .pp-discreet-btn:disabled{opacity:.6;cursor:not-allowed}
 @media (max-width:720px){.pp-discreet-cta{left:26px;right:auto;bottom:62px}.pp-discreet-panel{padding:22px 20px}}
+
+/* ── Discreet Sale card badge v4 (15 Sep 2026) — centred boxed tag, the way
+   MYNE labels "Discreet Marketing": a translucent navy box with a lock, top
+   centre of the photo. Overrides the v3 spaced-caps corner text. ── */
+.prop-card .prop-badge.prop-badge.discreet{top:22px;left:50%;right:auto;transform:translateX(-50%);padding:11px 20px;background:rgba(20,34,48,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.18);border-radius:3px;color:#fff;font-family:'Nunito Sans',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:none;text-shadow:none;display:inline-flex;align-items:center;gap:9px;line-height:1;white-space:nowrap;z-index:5;box-shadow:0 4px 18px rgba(0,0,0,.22)}
+.prop-card .prop-badge.prop-badge.discreet::before{content:none}
+.prop-card .prop-badge.prop-badge.discreet svg{flex:none;color:#F0D58A}
+@media (max-width:720px){.prop-card .prop-badge.prop-badge.discreet{top:16px;padding:9px 16px;font-size:.76rem}}
