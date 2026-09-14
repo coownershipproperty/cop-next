@@ -20,7 +20,9 @@
  *   - a separate Resend API round-trip per email.
  * Both are now amortised:
  *   - interests are PRE-FETCHED for the whole audience in chunked bulk queries
- *     (prefetchInterests), so the per-recipient DB round-trip is gone;
+ *     (prefetchInterests in lib/newsletter/audience — since 14 Sep 2026 it
+ *     reads everything the contact looked at, not only their leads), so the
+ *     per-recipient DB round-trip is gone;
  *   - emails are rendered per recipient (personalisation is preserved) but sent
  *     in BATCHES of up to 100 via resend.batch.send, so ~1,000 emails cost ~10
  *     API calls, not ~1,000. A full list now dispatches in well under a minute,
@@ -44,7 +46,7 @@
  *      'sent' rows, never a per-invocation counter.
  */
 import { requireAdmin } from '@/lib/newsletter/auth';
-import { resolveAudience, excludeAlreadyEnquired, fetchAllRows } from '@/lib/newsletter/audience';
+import { resolveAudience, excludeAlreadyEnquired, fetchAllRows, prefetchInterests } from '@/lib/newsletter/audience';
 import { reorderForRecipient } from '@/lib/newsletter/personalize';
 import { renderRecipient } from '@/lib/newsletter/render';
 import { sendHtmlBatch } from '@/lib/resend';
@@ -78,39 +80,6 @@ function looksSendable(email) {
   const e = String(email || '').trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)) return false;
   return !RESERVED_DOMAIN.test(e);
-}
-
-/**
- * Bulk version of getContactInterests: one region/budget profile per contact,
- * built from a handful of chunked `leads` queries instead of one query per
- * recipient. Returns Map<contactId, { interests, budgetMax }>.
- */
-async function prefetchInterests(db, contactIds) {
-  const byContact = new Map();
-  for (let i = 0; i < contactIds.length; i += LOOKUP_CHUNK) {
-    const slice = contactIds.slice(i, i + LOOKUP_CHUNK);
-    const { data: leads, error } = await db
-      .from('leads')
-      .select('contact_id, main_region, subregion, budget_max')
-      .in('contact_id', slice);
-    if (error) throw new Error('interest prefetch failed: ' + error.message);
-    for (const l of leads || []) {
-      let entry = byContact.get(l.contact_id);
-      if (!entry) { entry = { interests: [], budgetMax: null }; byContact.set(l.contact_id, entry); }
-      const main = (l.main_region || '').trim() || null;
-      const sub  = (l.subregion  || '').trim() || null;
-      if (main || sub) {
-        if (!entry.interests.some(x => x.mainRegion === main && x.subregion === sub)) {
-          entry.interests.push({ mainRegion: main, subregion: sub });
-        }
-      }
-      if (l.budget_max) {
-        const b = Number(l.budget_max);
-        if (!entry.budgetMax || b > entry.budgetMax) entry.budgetMax = b;
-      }
-    }
-  }
-  return byContact;
 }
 
 export default async function handler(req, res) {

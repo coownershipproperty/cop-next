@@ -3584,6 +3584,16 @@ img { display:block; max-width:100%; height:auto; }
         }
 
 .results-count strong { color:var(--text-dark); }
+/* ?discreet=1 on /our-homes — the Discreet Sale collection on its own */
+.results-count .discreet-pill {
+            display:inline-block; margin-right:0.9rem; padding:0.3rem 0.7rem 0.28rem;
+            font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase;
+            color:#8C6F30; background:#F6F0E0; border:1px solid #D9C48F;
+        }
+.results-count .discreet-clear {
+            background:none; border:0; padding:0; cursor:pointer;
+            font:inherit; color:var(--text-dark); text-decoration:underline; text-underline-offset:3px;
+        }
 
 @media (max-width:768px) {
     .results-bar {

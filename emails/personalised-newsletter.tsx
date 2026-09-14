@@ -29,12 +29,38 @@ interface Property {
   galleryUrl?: string;
 }
 
+/**
+ * An announcement re-uses the whole design with its own words: the eyebrow,
+ * headline, default intro, the small label above each home, the two CTAs,
+ * the "and N more" line and the button. Everything not given keeps the
+ * weekly new-listings wording. First use: the Discreet Sale release
+ * (David, 14 Sep 2026 — "exact same type of design as the newsletter").
+ */
+export interface Announcement {
+  eyebrow?: string;
+  headline?: (n: number) => string;
+  intro?: (regionStr: string) => string;
+  homeLabel?: string;
+  /** Put the town in the title ("2-Bed Private Residence in Cala Major") and
+   *  keep the small label to region and country. For the Discreet Sale,
+   *  whose titles are deliberately generic and would otherwise all read the
+   *  same. */
+  placeInTitle?: boolean;
+  leadCta?: string;
+  rowCta?: string;
+  moreLine?: (more: number) => string;
+  buttonLabel?: (n: number, more: number) => string;
+  buttonHref?: string;
+  nudge?: string;
+}
+
 interface PersonalisedNewsletterEmailProps {
   firstName?: string;
   primaryProperties?: Property[];
   fallbackProperties?: Property[];
   unsubscribeUrl?: string;
   introOverride?: string | null;
+  announcement?: Announcement | null;
 }
 
 // Two colours. Ink for everything that is read, gold for the hairlines.
@@ -84,10 +110,18 @@ function crop(url: string, w: number, h: number) {
 }
 
 // "Place, Region, Country — What it is" → a small label and a real title.
-function splitTitle(p: Property) {
+function splitTitle(p: Property, placeInTitle = false) {
   const i = p.title.indexOf(' — ');
-  if (i > 0) return { place: p.title.slice(0, i), name: p.title.slice(i + 3) };
-  return { place: p.location || '', name: p.title };
+  let place = i > 0 ? p.title.slice(0, i) : (p.location || '');
+  let name  = i > 0 ? p.title.slice(i + 3) : p.title;
+  if (placeInTitle) {
+    const parts = place.split(',').map(x => x.trim()).filter(Boolean);
+    if (parts.length > 1) {
+      name  = `${name} in ${parts[0]}`;
+      place = parts.slice(1).join(', ');
+    }
+  }
+  return { place, name };
 }
 
 // **bold** in the campaign intro → <strong>, so locations stand out.
@@ -99,9 +133,10 @@ function renderBold(text: string) {
 }
 
 // ── Lead home ────────────────────────────────────────────────────────────────
-function LeadCard({ p }: { p: Property }) {
+function LeadCard({ p, homeLabel, ctaLabel, placeInTitle }: { p: Property; homeLabel?: string; ctaLabel: string; placeInTitle?: boolean }) {
   const href = hrefFor(p);
-  const { place, name } = splitTitle(p);
+  const { place, name } = splitTitle(p, placeInTitle);
+  const label = homeLabel ? `${homeLabel}\u2002\u00b7\u2002${place}` : place;
   return (
     <table width="100%" cellPadding="0" cellSpacing="0" role="presentation">
       <tbody>
@@ -111,12 +146,12 @@ function LeadCard({ p }: { p: Property }) {
           </Link>
         </td></tr>
         <tr><td style={{ padding: '30px 10px 0', textAlign: 'center' as const }}>
-          <Text style={place1}>{place}</Text>
+          <Text style={place1}>{label}</Text>
           <Link href={href} style={{ textDecoration: 'none' }}>
             <Text className="leadtitle" style={leadTitle}>{name}</Text>
           </Link>
           <Text style={priceLine}>{p.price} <span style={perShare}>per 1/8 share</span></Text>
-          <Link href={href} style={cta}>Discover the home</Link>
+          <Link href={href} style={cta}>{ctaLabel}</Link>
         </td></tr>
       </tbody>
     </table>
@@ -124,9 +159,10 @@ function LeadCard({ p }: { p: Property }) {
 }
 
 // ── One home per line: picture beside the words; stacks on a phone ───────────
-function RowCard({ p }: { p: Property }) {
+function RowCard({ p, homeLabel, ctaLabel, placeInTitle }: { p: Property; homeLabel?: string; ctaLabel: string; placeInTitle?: boolean }) {
   const href = hrefFor(p);
-  const { place, name } = splitTitle(p);
+  const { place, name } = splitTitle(p, placeInTitle);
+  const label = homeLabel ? `${homeLabel}\u2002\u00b7\u2002${place}` : place;
   return (
     <table width="100%" cellPadding="0" cellSpacing="0" role="presentation" style={rowBox}>
       <tbody><tr>
@@ -136,12 +172,12 @@ function RowCard({ p }: { p: Property }) {
           </Link>
         </td>
         <td className="rowcell rowtext" style={{ verticalAlign: 'middle' }}>
-          <Text style={place2}>{place}</Text>
+          <Text style={place2}>{label}</Text>
           <Link href={href} style={{ textDecoration: 'none' }}>
             <Text className="rowtitle" style={rowTitle}>{name}</Text>
           </Link>
           <Text style={rowPrice}>{p.price} <span style={perShare}>per share</span></Text>
-          <Link href={href} style={ctaSm}>Discover this home</Link>
+          <Link href={href} style={ctaSm}>{ctaLabel}</Link>
         </td>
       </tr></tbody>
     </table>
@@ -155,7 +191,9 @@ export default function PersonalisedNewsletterEmail({
   fallbackProperties = [],
   unsubscribeUrl = `${base}/unsubscribe`,
   introOverride = null,
+  announcement = null,
 }: PersonalisedNewsletterEmailProps) {
+  const A = announcement || {};
   const allProps = [...primaryProperties, ...fallbackProperties];
   const SHOWN    = 8;
   const lead     = allProps[0];
@@ -163,22 +201,35 @@ export default function PersonalisedNewsletterEmail({
   const n        = allProps.length;
   const more     = n - Math.min(n, SHOWN);
 
-  const regions = [...new Set(allProps.map(p => p.regionTag || p.location?.split(',')[0]).filter(Boolean))] as string[];
-  const top3    = regions.slice(0, 3);
-  const regionStr = regions.length > 3
-    ? top3.join(', ') + ' & more'
-    : top3.length > 1
-      ? top3.slice(0, -1).join(', ') + ' & ' + top3[top3.length - 1]
-      : top3[0] || '';
+  const regionsOf = (list: Property[]) => [...new Set(list.map(p => p.regionTag || p.location?.split(',')[0]).filter(Boolean))] as string[];
+  const joinRegions = (regions: string[]) => {
+    const top3 = regions.slice(0, 3);
+    return regions.length > 3
+      ? top3.join(', ') + ' & more'
+      : top3.length > 1
+        ? top3.slice(0, -1).join(', ') + ' & ' + top3[top3.length - 1]
+        : top3[0] || '';
+  };
+  // "Your areas first" names only the places that actually matched what the
+  // reader looked at; a reader with no history gets the intro without it.
+  const regionStr   = joinRegions(regionsOf(primaryProperties));
+  const previewStr  = joinRegions(regionsOf(allProps));
 
-  const headline = `${cap(numWord(n))} new home${n === 1 ? '' : 's'} this week`;
+  const headline = A.headline ? A.headline(n) : `${cap(numWord(n))} new home${n === 1 ? '' : 's'} this week`;
   const greeting = firstName !== 'there' ? `Dear ${firstName},` : 'Dear reader,';
   const issueLine = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-  const defaultIntro = regionStr
+  const eyebrow = A.eyebrow || 'New this week';
+  const defaultIntro = A.intro ? A.intro(regionStr) : (regionStr
     ? `Your areas first: ${regionStr}. Every one is deeded fractional ownership of the whole home, fully managed between stays.`
-    : 'Every one is deeded fractional ownership of the whole home, fully managed between stays.';
+    : 'Every one is deeded fractional ownership of the whole home, fully managed between stays.');
   const intro = (introOverride || '').replace(/^\s*hi\s+[^—\-–:,]*\s*[—\-–:,]\s*/i, '').trim() || defaultIntro;
-  const previewLine = `${headline}${regionStr ? ` — starting with ${regionStr}` : ''}`;
+  const previewLine = `${headline}${previewStr ? ` — ${regionStr ? 'starting with' : 'from'} ${previewStr}` : ''}`;
+  const leadCta = A.leadCta || 'Discover the home';
+  const rowCta  = A.rowCta  || 'Discover this home';
+  const moreText = A.moreLine ? A.moreLine(more) : `and ${numWord(more)} more new this week`;
+  const buttonText = A.buttonLabel ? A.buttonLabel(n, more) : (more > 0 ? `View all ${n} new homes` : 'View every home');
+  const buttonHref = A.buttonHref || `${base}/our-homes/`;
+  const nudgeText = A.nudge || 'Anything catch your eye?';
 
   return (
     <Html lang="en">
@@ -212,7 +263,7 @@ export default function PersonalisedNewsletterEmail({
 
           {/* Headline */}
           <Section className="pad" style={{ padding: '52px 56px 0', textAlign: 'center' as const }}>
-            <Text style={issueStyle}>New this week&ensp;·&ensp;{issueLine}</Text>
+            <Text style={issueStyle}>{eyebrow}&ensp;·&ensp;{issueLine}</Text>
             <Text className="h1" style={h1}>{headline}</Text>
             <Rule width={44} />
             <Text style={greetingStyle}>{greeting}</Text>
@@ -222,32 +273,32 @@ export default function PersonalisedNewsletterEmail({
           {/* Lead home */}
           {lead && (
             <Section className="pad" style={{ padding: '44px 56px 0' }}>
-              <LeadCard p={lead} />
+              <LeadCard p={lead} homeLabel={A.homeLabel} ctaLabel={leadCta} placeInTitle={A.placeInTitle} />
             </Section>
           )}
 
           {/* The rest of the selection */}
           {rest.length > 0 && (
             <Section className="pad" style={{ padding: '48px 56px 0' }}>
-              {rest.map((p, i) => <RowCard key={i} p={p} />)}
+              {rest.map((p, i) => <RowCard key={i} p={p} homeLabel={A.homeLabel} ctaLabel={rowCta} placeInTitle={A.placeInTitle} />)}
             </Section>
           )}
 
           {/* CTA */}
           <Section className="pad" style={{ padding: '20px 56px 0', textAlign: 'center' as const }}>
-            {more > 0 && <Text style={moreLine}>{`and ${numWord(more)} more new this week`}</Text>}
+            {more > 0 && <Text style={moreLine}>{moreText}</Text>}
             {/* Only promise more when there are more. When the email already
                 showed every new home, the button is an invitation to the whole
                 collection, not a repeat of what they just scrolled past. */}
-            <Link href={`${base}/our-homes/`} className="btn" style={button}>
-              {more > 0 ? `View all ${n} new homes` : 'View every home'}
+            <Link href={buttonHref} className="btn" style={button}>
+              {buttonText}
             </Link>
           </Section>
 
           {/* Sign-off */}
           <Section className="pad" style={{ padding: '52px 70px 8px', textAlign: 'center' as const }}>
             <Rule width={44} />
-            <Text style={nudge}>Anything catch your eye?<br />Simply reply to this email — a real person answers.</Text>
+            <Text style={nudge}>{nudgeText}<br />Simply reply to this email — a real person answers.</Text>
           </Section>
 
           {/* Footer */}

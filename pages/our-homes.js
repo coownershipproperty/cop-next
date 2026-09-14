@@ -807,6 +807,7 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
   // change); this is the same field, same copy, same behaviour.
   const [alertPhone,    setAlertPhone]    = useState('');
   const [alertStatus,   setAlertStatus]   = useState('idle'); // idle | sending | done | error
+  const [onlyDiscreet,  setOnlyDiscreet]  = useState(false);
   const [alertRegions,  setAlertRegions]  = useState([]);
   const [alertMaxPrice, setAlertMaxPrice] = useState('');
 
@@ -823,6 +824,9 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
       const r = Array.isArray(q.region) ? q.region : [q.region];
       setRegions(r);
     }
+    // ?discreet=1 — the Discreet Sale collection on its own (the button in
+    // the discreet-release announcement lands here, 14 Sep 2026).
+    if (q.discreet && q.discreet !== '0') setOnlyDiscreet(true);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady]);
 
@@ -913,22 +917,26 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
       list = list.filter(p => regions.some(r => propMatchesRegion(p, r)));
     }
 
+    // Discreet Sale only
+    if (onlyDiscreet) list = list.filter(p => p.discreet);
+
     // Sort
     if (sort === 'newest') list.sort((a, b) => dateVal(b.dateAdded) - dateVal(a.dateAdded));
     if (sort === 'asc')    list.sort((a, b) => (a.price || 0) - (b.price || 0));
     if (sort === 'desc')   list.sort((a, b) => (b.price || 0) - (a.price || 0));
 
     return list;
-  }, [allProperties, countries, regions, sort]);
+  }, [allProperties, countries, regions, sort, onlyDiscreet]);
 
   const visible = useMemo(() => filtered.slice(0, page * PAGE_SIZE), [filtered, page]);
   const hasMore = visible.length < filtered.length;
 
-  const hasActiveFilters = countries.length > 0 || sort !== 'newest';
+  const hasActiveFilters = countries.length > 0 || sort !== 'newest' || onlyDiscreet;
 
   function clearAll() {
     setCountries([]);
     setRegions([]);
+    setOnlyDiscreet(false);
     setSort('newest');
     setPage(1);
   }
@@ -1138,7 +1146,9 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
         {/* Results count */}
         <div className="results-bar">
           <p className="results-count">
+            {onlyDiscreet && <span className="discreet-pill">Discreet Sale</span>}
             {t.showing} <strong>{visible.length}</strong> {t.of} <strong>{filtered.length}</strong> {filtered.length === 1 ? t.property_singular : t.property_plural}
+            {onlyDiscreet && <> · <button type="button" className="discreet-clear" onClick={clearAll}>{t.clear_filters}</button></>}
           </p>
         </div>
 

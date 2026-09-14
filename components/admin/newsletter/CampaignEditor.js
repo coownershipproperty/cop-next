@@ -25,6 +25,12 @@ const TEMPLATES = [
     thumb: '🏛',
   },
   {
+    id: 'discreet-release',
+    name: 'Discreet Sale announcement',
+    desc: 'Same design as the personalised newsletter, announcement wording: every card says Discreet Sale, the CTA is the unlock, the button opens the discreet homes. Subject can use {{top_region}} and {{count}}.',
+    thumb: '🔒',
+  },
+  {
     id: 'property-alert',
     name: 'Property Alert',
     desc: 'Saved-search match. 1–4 properties with reasons.',
