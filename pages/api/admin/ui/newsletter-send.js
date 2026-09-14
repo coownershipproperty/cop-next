@@ -150,7 +150,7 @@ export default async function handler(req, res) {
   // Fetch properties once
   const { data: properties } = await db
     .from('properties')
-    .select('slug, title, region, city, country, price, currency, img, beds, size')
+    .select('slug, title, region, city, country, price, currency, img, email_img, beds, size')
     .in('slug', propertySlugs);
   const propBySlug = {};
   for (const p of properties || []) propBySlug[p.slug] = p;
