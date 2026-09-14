@@ -30,6 +30,7 @@ import { emailShell } from '@/lib/galleryFollowup';
 import { gmailConnected, findThreadWith, createGmailDraft, deleteGmailDraft, humanWroteSince, gmailDraftStatus } from '@/lib/gmail';
 
 import { beat } from '@/lib/cronHeartbeat';
+import { fold } from '@/lib/fold';
 export const maxDuration = 300;
 
 const MIN_AGE_MIN = 4;      // let the instant auto-reply land first
@@ -211,6 +212,10 @@ function validateDraft(out, { property, alternatives, mayName, knownForDays, had
 
   // 1. Every home we name has to be one click away.
   const homes = [property, ...(alternatives || [])].filter(Boolean);
+  const body = String(out?.body || '');
+  if (!property && (alternatives || []).length && /\b(don't|do not|doesn't|does not)\s+(currently\s+)?have\s+(anything|any homes?|a home|properties|listings)|nothing\s+(live|available|listed)|no\s+(homes?|properties|listings)\s+(live|available|in)\b/i.test(body)) {
+    problems.push(`says we have nothing there, but ${alternatives.length} live home(s) in that place were listed in the context — present them instead`);
+  }
   for (const h of homes) {
     const url = `/property/${h.slug}/`;
     const named = h.title && text.toLowerCase().includes(String(h.title).split('—')[0].trim().toLowerCase());
@@ -428,7 +433,26 @@ function buildContext({ contact, activity, lead, property, facts, partnerFacts, 
     L.push('');
   }
 
-  if (alternatives?.length) {
+  if (alternatives?.length && !property) {
+    L.push('HOMES WE HAVE LIVE IN THE PLACE THEY ASKED ABOUT — this IS the answer to their enquiry:');
+    L.push('Present them (the best fits first, with price and beds). NEVER say we have nothing there.');
+    L.push('Use our own title and our own URL for each.' + (mayName ? ` They are ${mayName} homes and this person is being registered with ${mayName}: say ${mayName} will be in touch and include the partner listing URL where given.` : ' Do not name the operator.'));
+    for (const a of alternatives) {
+      const bits = [a.beds ? `${a.beds} bed` : null,
+        a.price ? `${a.currency || 'EUR'} ${Number(a.price).toLocaleString('en-GB')} per 1/${a.share_denominator || 8}` : null,
+        a.monthly_cost ? `${a.currency || 'EUR'} ${a.monthly_cost}/month` : null,
+        a.city ? `in ${a.city}` : null].filter(Boolean);
+      L.push(`- ${a.title} — ${bits.join(', ')}`);
+      L.push(`  https://co-ownership-property.com/property/${a.slug}/`);
+      if (mayName && a.partner_url) L.push(`  ${mayName} listing: ${a.partner_url}`);
+    }
+    L.push('');
+  } else if (!property) {
+    L.push('WE FOUND NO LIVE HOME MATCHING THE PLACE THEY NAMED. Do NOT tell them we have nothing there —');
+    L.push('the search may simply have missed it. Say you are putting the right homes together for them and');
+    L.push('ask the one or two questions (budget, bedrooms, season) that would help; a person will check.');
+    L.push('');
+  } else if (alternatives?.length) {
     L.push('OTHER HOMES WE HAVE LIVE THAT FIT WHAT THEY ASKED FOR:');
     L.push('Offer these ONLY if they asked for alternatives, or if the home they asked about is gone.');
     L.push('Use our own title and our own URL. Do not name the operator.');
@@ -726,16 +750,34 @@ export default async function handler(req, res) {
       // Three live homes that fit what they asked for, so "do you have anything
       // else?" and "that one has gone" both have a real answer in the draft.
       let alternatives = [];
+      // A general enquiry names its place in the message ("1/8 ownership in
+      // Jackson Hole"), not in a column. On 13 Sep 2026 the drafter told Greg
+      // we had nothing in Jackson Hole while seven Pacaso homes sat Live there,
+      // because region/country were both null and the pool came back empty.
+      // So: match the message (and the lead's stated region) against every
+      // Live home's city / region / country / title, accent-folded.
+      let placeHomes = [];
       {
         const region = property?.region || lead?.main_region || null;
         const country = property?.country || null;
         const target = Number(property?.price || lead?.budget_max || 0);
         let qb = db.from('properties')
-          .select('slug, title, price, currency, beds, share_denominator, region, country')
+          .select('slug, title, price, currency, beds, share_denominator, region, country, city, partner, partner_url')
           .in('status', ['Live', 'for_sale']).limit(24);
         if (region) qb = qb.eq('region', region);
         else if (country) qb = qb.eq('country', country);
-        const { data: cand } = await qb;
+        let { data: cand } = await qb;
+        if (!property && !(cand || []).length) {
+          const said = fold([lead?.subregion, lead?.main_region, message, ...earlierMessages].filter(Boolean).join(' '));
+          const { data: live } = await db.from('properties')
+            .select('slug, title, price, currency, beds, share_denominator, region, country, city, partner, partner_url')
+            .in('status', ['Live', 'for_sale']).eq('is_discreet', false).limit(600);
+          const hit = (live || []).filter(c => {
+            const places = [c.city, c.region, c.country].filter(Boolean).map(fold);
+            return places.some(pl => pl.length > 3 && said.includes(pl));
+          });
+          if (hit.length) { cand = hit; placeHomes = hit; }
+        }
         const pool = (cand || []).filter(c => c.slug !== property?.slug);
         const scored = pool.map(c => {
           let score = 0;
@@ -757,11 +799,19 @@ export default async function handler(req, res) {
           if (picked.length >= 3) break;
           if (!picked.includes(c)) picked.push(c);
         }
+        if (placeHomes.length) {
+          // The place is the whole enquiry: show everything we have there
+          // (within reason), cheapest-fit first, not just three.
+          for (const { c } of scored) { if (picked.length >= 6) break; if (!picked.includes(c)) picked.push(c); }
+        }
         if (picked.length) {
           const { data: af } = await db.from('property_facts')
             .select('slug, monthly_cost').in('slug', picked.map(c => c.slug));
           const costs = Object.fromEntries((af || []).map(f => [f.slug, f.monthly_cost]));
           alternatives = picked.map(c => ({ ...c, monthly_cost: costs[c.slug] || null }));
+        }
+        if (!property && !mayName && alternatives.length && alternatives.every(a => a.partner === 'pacaso')) {
+          mayName = 'Pacaso'; // Pacaso homes: we register on enquiry and say so
         }
       }
 
