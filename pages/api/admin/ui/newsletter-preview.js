@@ -12,6 +12,7 @@
  * Logs the preview to campaign.preview_log.
  */
 import { requireAdmin } from '@/lib/newsletter/auth';
+import { filterSellable } from '@/lib/newsletter/sellable';
 import { sendHtml } from '@/lib/resend';
 import { renderRecipient } from '@/lib/newsletter/render';
 import { reorderForRecipient } from '@/lib/newsletter/personalize';
@@ -36,7 +37,7 @@ export default async function handler(req, res) {
     .single();
   if (campErr || !campaign) return res.status(404).json({ error: 'Campaign not found' });
 
-  const propertySlugs = campaign.property_slugs || [];
+  let propertySlugs = campaign.property_slugs || [];
   // Some templates (e.g. viewings-france) don't use the per-campaign property
   // picker — their content list is static (lib/viewings.json). Don't reject
   // those campaigns just because no property was added.
@@ -45,6 +46,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Campaign has no properties selected' });
   }
 
+  // Drop anything that cannot be bought today (sold / partner page says sold out or delisted).
+  {
+    const { keep, dropped } = await filterSellable(db, propertySlugs);
+    if (dropped.length) console.warn('[newsletter] dropped unsellable homes:', dropped.map(d => `${d.slug} (${d.reason})`).join(', '));
+    propertySlugs = keep;
+  }
   // Load the properties
   const { data: properties } = await db
     .from('properties')

@@ -46,6 +46,7 @@
  *      'sent' rows, never a per-invocation counter.
  */
 import { requireAdmin } from '@/lib/newsletter/auth';
+import { filterSellable } from '@/lib/newsletter/sellable';
 import { resolveAudience, excludeAlreadyEnquired, fetchAllRows, prefetchInterests } from '@/lib/newsletter/audience';
 import { reorderForRecipient } from '@/lib/newsletter/personalize';
 import { renderRecipient } from '@/lib/newsletter/render';
@@ -106,7 +107,7 @@ export default async function handler(req, res) {
   // killed. Already-sent recipients are skipped below.
   const isResume = campaign.status === 'sending';
 
-  const propertySlugs = campaign.property_slugs || [];
+  let propertySlugs = campaign.property_slugs || [];
   const TEMPLATES_WITHOUT_PROPERTY_PICKER = new Set(['viewings-france']);
   const skipPropertyCheck = TEMPLATES_WITHOUT_PROPERTY_PICKER.has(campaign.template_type);
   if (!propertySlugs.length && !skipPropertyCheck) return res.status(400).json({ error: 'No properties selected' });
@@ -139,6 +140,13 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Could not determine which recipients were already sent' });
   }
 
+  // Drop anything that cannot be bought today (sold / partner page says sold out or delisted).
+  {
+    const { keep, dropped } = await filterSellable(db, propertySlugs);
+    if (dropped.length) console.warn('[newsletter] dropped unsellable homes:', dropped.map(d => `${d.slug} (${d.reason})`).join(', '));
+    propertySlugs = keep;
+    if (!propertySlugs.length && !skipPropertyCheck) return res.status(400).json({ error: 'Every selected home is sold or unavailable — nothing to send', dropped });
+  }
   // Fetch properties once
   const { data: properties } = await db
     .from('properties')
