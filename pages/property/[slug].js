@@ -303,15 +303,18 @@ export async function getStaticPaths() {
   const supabase = getSupabase();
   const { data, error } = await supabase
     .from('properties')
-    .select('slug')
+    .select('slug, is_discreet')
     .in('status', PUBLIC_STATUSES);
 
   // A failed catalogue read must fail the build. Treating it as an empty
   // catalogue would deploy successfully without any pre-rendered properties.
   if (error) throw error;
 
+  // Discreet Sale homes are never pre-rendered: their getStaticProps returns
+  // a redirect, which Next.js only allows at request time (fallback:
+  // 'blocking'), never during the build ("gsp-redirect-during-prerender").
   return {
-    paths: (data || []).map(p => ({ params: { slug: p.slug } })),
+    paths: (data || []).filter(p => !p.is_discreet).map(p => ({ params: { slug: p.slug } })),
     fallback: 'blocking',
   };
 }
