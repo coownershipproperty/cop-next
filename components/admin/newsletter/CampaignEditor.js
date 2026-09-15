@@ -17,6 +17,13 @@ import { supabase } from '@/lib/supabase'
 import { C, input, label as labelStyle } from './tokens'
 import { Card, Field, Grid, PrimaryButton, GhostButton, Toast, GlobalAnimations, StatusBadge } from './Primitives'
 
+function isoToLocalInput(iso) {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return ''
+  const p = n => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`
+}
+
 const TEMPLATES = [
   {
     id: 'personalised-newsletter',
@@ -66,7 +73,10 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
   const [personalizeByRegion, setPersonalizeByRegion] = useState(initialCampaign?.personalize_by_region ?? true)
   const [audienceSegment, setAudienceSegment] = useState(initialCampaign?.audience_segment || 'all')
   const [audienceFilter, setAudienceFilter] = useState(initialCampaign?.audience_filter || {})
-  const [scheduledFor, setScheduledFor] = useState(initialCampaign?.scheduled_for ? initialCampaign.scheduled_for.slice(0, 16) : '')
+  // The picker speaks local time; the DB and the drain speak UTC. Convert
+  // both ways, otherwise "10:00" in Marbella is stored as 10:00 UTC and goes
+  // out at noon (found 15 Sep 2026, before the Discreet Sale release).
+  const [scheduledFor, setScheduledFor] = useState(initialCampaign?.scheduled_for ? isoToLocalInput(initialCampaign.scheduled_for) : '')
   const [excludeEnquired, setExcludeEnquired] = useState(true)
 
   const [campaignId, setCampaignId] = useState(initialCampaign?.id || null)
@@ -211,7 +221,7 @@ export default function CampaignEditor({ initialCampaign, onSaved, readOnly }) {
       personalize_by_region: personalizeByRegion,
       audience_segment: audienceSegment,
       audience_filter: audienceFilter,
-      scheduled_for: scheduledFor || null,
+      scheduled_for: scheduledFor ? new Date(scheduledFor).toISOString() : null,
       ...extraPatch,
     }
     const r = await authedFetch('/api/admin/ui/newsletter-save/', {
