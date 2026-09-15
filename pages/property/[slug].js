@@ -343,6 +343,13 @@ export async function getStaticProps({ params }) {
       return { notFound: true, revalidate: 3600 };
     }
 
+    // Discreet Sale homes have no listing page at all (David, 15 Sep 2026):
+    // the card opens the request popup and the brochure arrives by email.
+    // Anyone landing on the URL goes to the Discreet Sale collection instead.
+    if (property.is_discreet) {
+      return { redirect: { destination: '/our-homes/?discreet=1', permanent: false }, revalidate: 3600 };
+    }
+
     const prop = {
       ...property,
       driveUrl: property.drive_url,

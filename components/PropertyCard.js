@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { isFav, toggleFav, onFavsChange } from '@/lib/favs';
 import UnlockModal from '@/components/UnlockModal';
 import DiscreetUnlockModal from '@/components/DiscreetUnlockModal';
-import { getSavedUser } from '@/lib/savedUser';
 import { useCurrency, convertPrice, CURRENCY_SYMBOLS } from '@/hooks/useCurrency';
 import { localeFromPath, propertyHref, numberLocale } from '@/lib/i18n';
 
@@ -277,10 +276,10 @@ export default function PropertyCard({ property: p, priority = false }) {
   function handleLockClick(e) { e.stopPropagation(); setUnlockOpen(true); }
   function handleCardClick() {
     if (isLockSlide) return;
-    // Discreet homes: the enquiry popup unlocks the full listing. A visitor
-    // who has already enquired once goes straight to the page — it unlocks
-    // itself for them (one enquiry opens every discreet home).
-    if (isDiscreet && !getSavedUser().validated) { setDiscreetOpen(true); return; }
+    // Discreet homes have no listing page (David, 15 Sep 2026): the card opens
+    // the request popup and the full brochure arrives by email — every time,
+    // for everyone, saved visitor or not.
+    if (isDiscreet) { setDiscreetOpen(true); return; }
     window.location.href = href;
   }
 
