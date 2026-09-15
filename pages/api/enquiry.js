@@ -365,6 +365,10 @@ export default async function handler(req, res) {
   } catch (e) {
     console.error('[Mail] auto-reply recency check failed:', e.message); // fail open → send
   }
+  // A Discreet Sale brochure is the thing the person asked for, so the one-
+  // reply-per-hour guard never applies to it: two brochures in ten minutes is
+  // two brochures. (David's own test, 15 Sep 2026: second unlock got nothing.)
+  if (enquiryType === 'discreet') recentAutoReply = false;
   if (recentAutoReply) {
     try {
       if (contact) await logActivity({ contactId: contact.id, leadId: lead?.id || null, type: 'email_skipped', description: 'Enquiry auto-reply skipped — another auto-reply went out within the last hour', metadata: { type: 'enquiry_auto' } });

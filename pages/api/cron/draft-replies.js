@@ -607,6 +607,13 @@ export default async function handler(req, res) {
 
       const message = textOf(activity.metadata?.message, 4000);
 
+      // A Discreet Sale unlock is a brochure request, not a question: the
+      // brochure goes out instantly from /api/enquiry and nothing else is
+      // owed until the person writes back. (David, 15 Sep 2026.)
+      if (activity.metadata?.enquiryType === 'discreet' || /^Unlocked the full listing/i.test(message)) {
+        skipped.push(`${label}: discreet brochure request — no reply needed`); continue;
+      }
+
       // Every activity that reaches this loop is a submitted form (see
       // ENQUIRY_TYPES): the person asked to be contacted, whether or not they
       // typed anything. Jamie Rake (12 Sep) filled in the enquiry form with
