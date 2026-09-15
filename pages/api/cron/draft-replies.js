@@ -824,7 +824,7 @@ export default async function handler(req, res) {
 
       const { data: seen } = await db.from('activities')
         .select('description, metadata, created_at').eq('contact_id', contact.id)
-        .in('type', ['floor_plan_requested', 'gallery_enquiry', 'enquiry_submitted', 'discreet_unlocked'])
+        .in('type', ['floor_plan_requested', 'gallery_enquiry', 'enquiry_submitted', 'discreet_unlocked', 'brochure_requested'])
         .gte('created_at', new Date(now - 7 * 86400 * 1000).toISOString())
         .order('created_at', { ascending: false }).limit(12);
       const alsoViewed = [...new Set((seen || []).map(s => textOf(s.description, 90)).filter(Boolean))];

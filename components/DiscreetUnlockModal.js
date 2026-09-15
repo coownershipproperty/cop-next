@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { trackConversion } from '@/lib/gtag';
 import { track } from '@vercel/analytics';
 import { getSavedUser, saveUser } from '@/lib/savedUser';
-import { getFirstTouch } from '@/lib/attribution';
 import { localeFromPath, propertyHref } from '@/lib/i18n';
 import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
@@ -213,19 +212,16 @@ export default function DiscreetUnlockModal({ property: p, title, onClose, onUnl
     const sendEmail = email.trim();
     setStatus('sending');
     try {
-      const r = await fetch('/api/enquiry/', {
+      // A brochure request, not an enquiry (David, 15 Sep 2026): its own
+      // endpoint — no auto-reply, no drafter, no one-per-hour guard.
+      const r = await fetch('/api/discreet-brochure/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
           email: sendEmail,
           phone: phone.trim(),
-          property: p.title || title,
           propertySlug: p.slug,
-          url: propertyUrl,
-          message: 'Unlocked the full listing — discreet sale',
-          enquiryType: 'discreet',
-          attribution: getFirstTouch(),
           locale,
           [HONEYPOT_FIELD]: honeypot,
         }),
@@ -234,8 +230,8 @@ export default function DiscreetUnlockModal({ property: p, title, onClose, onUnl
       // validated: this address is now known to the CRM → discreet pages open
       // for it on every visit, and the gallery unlock is one-click too.
       saveUser({ name, email: sendEmail, phone: phone.trim(), validated: true });
-      trackConversion('generate_lead', 'Lead', { event_category: 'discreet_unlock', property_title: p.title || title, locale });
-      track('discreet_unlocked', { property: p.title || title, country: p.country || 'unspecified', locale });
+      trackConversion('generate_lead', 'Lead', { event_category: 'discreet_brochure', property_title: p.title || title, locale });
+      track('brochure_requested', { property: p.title || title, country: p.country || 'unspecified', locale });
       setStatus('done');
       // The brochure email is the listing (David, 15 Sep 2026) — nothing
       // unlocks on the page; the popup simply confirms it is on its way.
