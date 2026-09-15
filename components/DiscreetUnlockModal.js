@@ -26,12 +26,12 @@ export const DISCREET_COPY = {
   en: {
     badge: 'Discreet sale',
     heading: 'Unlock the full listing',
-    sub: "This home is marketed discreetly. Send an enquiry and we'll open the full listing for you — every photo, floor plans, amenities and the complete description.",
+    sub: "This home is sold discreetly. Leave your name and email and we'll send you the full brochure — every photo, floor plans, running costs and the complete description — and open the listing for you here.",
     first_name: 'First name', last_name: 'Last name', email: 'Email address', phone: 'Phone (optional)',
-    btn_idle: 'Unlock the full listing →', btn_sending: 'Unlocking…',
-    fine: 'No mailing lists — one personal reply about this home.',
-    success_heading: 'Unlocked',
-    success_msg: 'Opening the full listing for',
+    btn_idle: 'Send me the full listing →', btn_sending: 'Sending…',
+    fine: 'No mailing lists — the brochure, and a personal note from Dylan.',
+    success_heading: 'On its way',
+    success_msg: 'The full brochure is on its way to your inbox. Opening the listing for',
     view_home: 'Open the full listing →',
     error: 'Something went wrong. Please try again.',
     locked_title: 'Discreet sale — the full listing is available on request',
@@ -275,10 +275,8 @@ export default function DiscreetUnlockModal({ property: p, title, onClose, onUnl
               <p className="ul-sub">{t.sub}</p>
               <form onSubmit={submit} className="ul-form dr-form">
                 <HoneypotField />
-                <div className="dr-row">
-                  <input type="text" placeholder={t.first_name} value={first} onChange={e => setFirst(e.target.value)} autoComplete="given-name" required />
-                  <input type="text" placeholder={t.last_name} value={last} onChange={e => setLast(e.target.value)} autoComplete="family-name" />
-                </div>
+                {/* First name only — David, 15 Sep 2026: "it shouldn't ask for last name". */}
+                <input type="text" placeholder={t.first_name} value={first} onChange={e => setFirst(e.target.value)} autoComplete="given-name" required />
                 <input type="email" placeholder={t.email} value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" required />
                 <input type="tel" inputMode="tel" placeholder={t.phone} value={phone} onChange={e => setPhone(e.target.value)} autoComplete="tel" />
                 <button type="submit" disabled={status === 'sending'}>{status === 'sending' ? t.btn_sending : t.btn_idle}</button>

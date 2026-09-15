@@ -6,6 +6,7 @@ import { sendTeamNotification, cancelPendingSequence } from '@/lib/resend';
 import { handleEnquiryFollowups } from '@/lib/followupSequence';
 import { expandRegions } from '@/lib/regionMap';
 import { sendEnquiryReply } from '@/lib/enquiryReply';
+import { sendDiscreetBrochure } from '@/lib/discreetBrochure';
 import { t, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import { createPartnerReferral } from '@/lib/partnerReferrals';
 
@@ -377,6 +378,19 @@ export default async function handler(req, res) {
     if (recentAutoReply) throw Object.assign(new Error('skipped — auto-reply already sent within the hour'), { skipped: true });
     const pixel = emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '';
 
+    if (enquiryType === 'discreet' && resolvedProperty?.slug) {
+      // The unlock is the request for the listing: send the full brochure,
+      // not "I've got your questions". (David, 15 Sep 2026)
+      await sendDiscreetBrochure({
+        to:                email,
+        firstName:         firstName || name || null,
+        slug:              resolvedProperty.slug,
+        locale,
+        trackingPixelHtml: pixel,
+        contactId:         contact?.id || null,
+        leadId:            lead?.id    || null,
+      });
+    } else
     await sendEnquiryReply({
       to:                email,
       firstName:         firstName || name || null,

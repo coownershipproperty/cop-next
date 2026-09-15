@@ -6,11 +6,10 @@ import * as React from 'react';
 /**
  * Discreet-sale brochure — one home, sent to one named person.
  *
- * These homes are never published. There is no listing page to link to and
- * no card on our-homes: the seller asked for discretion and MYNE keeps them
- * in a separate, unpromoted table of their own partner portal. So this email
- * IS the listing — everything the reader is going to see about the house
- * arrives here, in their inbox, addressed to them.
+ * These homes are sold discreetly: a locked card on our-homes and nothing
+ * else, anywhere. Unlocking the card (name + email) sends this email — it
+ * IS the listing: everything we hold on the house arrives in their inbox,
+ * addressed to them, plus a tokenised link that opens the page online.
  *
  * Same design language as the personalised newsletter (9 Sep 2026): all
  * serif, ink and one muted gold, hairlines instead of boxes, nothing that
@@ -29,13 +28,19 @@ interface DiscreetBrochureEmailProps {
   price?: string;          // "€199,000"
   beds?: number;
   shareLabel?: string;     // "1/8"
-  daysLabel?: string;      // "44 nights minimum"
+  daysLabel?: string;      // "44 nights a year, minimum"
+  size?: string;           // "142 m²"
+  monthlyCost?: string;    // "€391 per month, all in"
   locationLine?: string;   // "Brenzone, Lake Garda, Italy"
   heroUrl?: string;
-  photos?: string[];
+  description?: string;    // plain text, paragraphs separated by blank lines
+  amenities?: string[];
+  photos?: string[];       // landscape photographs — two to a row
+  pages?: string[];        // brochure pages / mixed shots — full width, never cropped
   plans?: string[];
   rentalLabel?: string;
   specUrl?: string | null;
+  listingUrl?: string;     // property page carrying the visitor token
   viewingUrl?: string;
   unsubscribeUrl?: string;
 }
@@ -70,6 +75,15 @@ function crop(url: string, w: number, h: number) {
   if (!url) return url;
   if (url.includes('/storage/v1/object/public/')) {
     return url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/') + `?width=${w}&height=${h}&resize=cover&quality=82`;
+  }
+  return url;
+}
+
+// Same, but scaled to a width only — aspect ratio kept, nothing cut off.
+function fit(url: string, w: number) {
+  if (!url) return url;
+  if (url.includes('/storage/v1/object/public/')) {
+    return url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/') + `?width=${w}&resize=contain&quality=82`;
   }
   return url;
 }
@@ -125,13 +139,19 @@ export default function DiscreetBrochureEmail({
   price         = '',
   beds          = 0,
   shareLabel    = '1/8',
-  daysLabel     = '44 nights minimum',
+  daysLabel     = '44 nights a year, minimum',
+  size          = '',
+  monthlyCost   = '',
   locationLine  = '',
   heroUrl       = '',
+  description   = '',
+  amenities     = [],
   photos        = [],
+  pages         = [],
   plans         = [],
   rentalLabel   = '',
   specUrl       = null,
+  listingUrl    = '',
   viewingUrl    = `${base}/contact-us/`,
   unsubscribeUrl = `${base}/unsubscribe`,
 }: DiscreetBrochureEmailProps) {
@@ -185,9 +205,9 @@ export default function DiscreetBrochureEmail({
           <Section className="pad" style={{ padding: '40px 56px 0' }}>
             <Text style={greetingStyle}>{greeting}</Text>
             <Text className="intro" style={introStyle}>
-              Here is the full file on {shortPlace}. It is being sold discreetly at the owner&rsquo;s
-              request, so it appears nowhere on our website and is advertised nowhere else —
-              everything we have is below.
+              Here is the full listing for {shortPlace}. It is being sold discreetly at the
+              owner&rsquo;s request, so beyond a single photograph it is advertised nowhere —
+              everything we hold on the home is below, for you.
             </Text>
           </Section>
 
@@ -195,9 +215,44 @@ export default function DiscreetBrochureEmail({
           <Section className="pad" style={{ padding: '34px 56px 0' }}>
             <Fact label="Share" value={shareLabel} />
             {beds > 0 && <Fact label="Bedrooms" value={String(beds)} />}
+            {size && <Fact label="Living space" value={size} />}
             <Fact label="Your time" value={daysLabel} />
+            {monthlyCost && <Fact label="Running costs" value={monthlyCost} />}
             <Fact label="Use" value={rentalLabel || 'Owners and their guests only'} last />
           </Section>
+
+          {/* The home in words */}
+          {description && (
+            <>
+              <Section className="pad" style={{ padding: '48px 56px 18px', textAlign: 'center' as const }}>
+                <Text style={sectionLabel}>The home</Text>
+              </Section>
+              <Section className="pad" style={{ padding: '0 56px' }}>
+                {description.split(/\n\s*\n/).map((para, i) => (
+                  <Text key={i} className="intro" style={{ ...introStyle, marginBottom: 18 }}>{para.trim()}</Text>
+                ))}
+              </Section>
+            </>
+          )}
+          {amenities.length > 0 && (
+            <Section className="pad" style={{ padding: '10px 56px 0' }}>
+              <Text style={amenityLine}>{amenities.join('  ·  ')}</Text>
+            </Section>
+          )}
+
+          {/* Brochure pages — full width, never cropped */}
+          {pages.length > 0 && (
+            <>
+              <Section className="pad" style={{ padding: '48px 56px 22px', textAlign: 'center' as const }}>
+                <Text style={sectionLabel}>In pictures</Text>
+              </Section>
+              <Section className="pad" style={{ padding: '0 56px' }}>
+                {pages.map((u, i) => (
+                  <Img key={i} src={fit(u, 1056)} alt="" width="528" style={{ ...heroImg, marginBottom: 16 }} />
+                ))}
+              </Section>
+            </>
+          )}
 
           {/* Gallery */}
           {photos.length > 0 && (
@@ -243,10 +298,11 @@ export default function DiscreetBrochureEmail({
             <Rule width={44} />
             <Text style={sectionLabelCentred}>What happens next</Text>
             <Text className="intro" style={introStyle}>
-              There is no public listing to send you to, so the next step is a conversation rather
-              than a form. Tell me which dates suit you and I will arrange the viewing directly with
-              the team that manages the home. If it is not right, say so plainly — I would far
-              rather send you three more than have you feel steered towards this one.
+              The link below opens this listing online — and every other home in our Discreet
+              Sale — whenever you want to come back to it. When you would like to see the home,
+              tell me which dates suit you and I will arrange the viewing directly with the team
+              that manages it. If it is not right, say so plainly — I would far rather send you
+              three more than have you feel steered towards this one.
             </Text>
             <Text className="intro" style={{ ...introStyle, marginTop: 20 }}>
               One thing I would ask in return: the owner&rsquo;s discretion is the whole reason this
@@ -256,7 +312,7 @@ export default function DiscreetBrochureEmail({
 
           {/* CTA */}
           <Section className="pad" style={{ padding: '38px 56px 0', textAlign: 'center' as const }}>
-            <Link href={viewingUrl} className="btn" style={button}>Arrange a viewing</Link>
+            <Link href={listingUrl || viewingUrl} className="btn" style={button}>Open the full listing online</Link>
             <Text style={replyNote}>or simply reply to this email — it comes straight to me.</Text>
           </Section>
 
@@ -306,6 +362,7 @@ const factCell: React.CSSProperties = { padding: '15px 0' };
 const factLabel: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: C.soft, margin: 0 };
 const factValue: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, color: C.ink, margin: 0, textAlign: 'right' as const };
 
+const amenityLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 14, lineHeight: '1.9', color: C.soft, margin: 0, textAlign: 'center' as const };
 const sectionLabel: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.24em', textTransform: 'uppercase' as const, color: C.gold, margin: 0 };
 const sectionLabelCentred: React.CSSProperties = { ...sectionLabel, margin: '26px 0 18px', textAlign: 'center' as const };
 
