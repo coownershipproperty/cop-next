@@ -116,9 +116,13 @@ export default async function handler(req, res) {
       metadata: { propertySlug: slug, property: prop.title || slug, locale, enquiryType: 'discreet' },
     });
     await sendTeamNotification({
-      subject: `Brochure sent — ${prop.title || slug} to ${firstName || email}`,
+      // One subject per PERSON, not per home: Gmail only threads on the
+      // References header when the subject matches too, so someone who
+      // requests six brochures makes one inbox row with six messages in it,
+      // not six rows (David, 15 Sep 2026).
+      subject: `Brochures — ${firstName || email}${firstName ? ` <${email}>` : ''}`,
       html: `
-        <h2>Discreet Sale brochure sent</h2>
+        <h2>Discreet Sale brochure sent — ${prop.title || slug}</h2>
         <p><strong>Home:</strong> ${prop.title || slug}</p>
         <p><strong>To:</strong> ${firstName || ''} &lt;${email}&gt;${phone ? ` · ${String(phone).trim()}` : ''}</p>
         <p>This is a brochure request, not an enquiry — nothing to answer yet. If they use "Make an enquiry" or reply to the brochure, it lands in Gmail as a normal message.</p>
