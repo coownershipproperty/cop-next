@@ -9,7 +9,9 @@ import * as React from 'react';
  * These homes are sold discreetly: a locked card on our-homes and nothing
  * else, anywhere. Unlocking the card (name + email) sends this email — it
  * IS the listing: everything we hold on the house arrives in their inbox,
- * addressed to them, plus a tokenised link that opens the page online.
+ * addressed to them. The only call to action is an enquiry (a prefilled
+ * mailto — the one thing that works in every mail client), because there is
+ * no fuller listing anywhere to send them to.
  *
  * Same design language as the personalised newsletter (9 Sep 2026): all
  * serif, ink and one muted gold, hairlines instead of boxes, nothing that
@@ -40,7 +42,7 @@ interface DiscreetBrochureEmailProps {
   plans?: string[];
   rentalLabel?: string;
   specUrl?: string | null;
-  listingUrl?: string;     // property page carrying the visitor token
+  enquiryUrl?: string;     // mailto: prefilled for this home — the enquiry happens by email
   viewingUrl?: string;
   unsubscribeUrl?: string;
 }
@@ -151,7 +153,7 @@ export default function DiscreetBrochureEmail({
   plans         = [],
   rentalLabel   = '',
   specUrl       = null,
-  listingUrl    = '',
+  enquiryUrl    = '',
   viewingUrl    = `${base}/contact-us/`,
   unsubscribeUrl = `${base}/unsubscribe`,
 }: DiscreetBrochureEmailProps) {
@@ -298,11 +300,11 @@ export default function DiscreetBrochureEmail({
             <Rule width={44} />
             <Text style={sectionLabelCentred}>What happens next</Text>
             <Text className="intro" style={introStyle}>
-              The link below opens this listing online — and every other home in our Discreet
-              Sale — whenever you want to come back to it. When you would like to see the home,
-              tell me which dates suit you and I will arrange the viewing directly with the team
-              that manages it. If it is not right, say so plainly — I would far rather send you
-              three more than have you feel steered towards this one.
+              This email is the listing — there is nothing more to find online. When you would
+              like to know more or see the home, press the button below or simply reply: tell me
+              what you would like to know, or which dates suit you, and I will arrange it directly
+              with the team that manages the home. If it is not right, say so plainly — I would
+              far rather send you three more than have you feel steered towards this one.
             </Text>
             <Text className="intro" style={{ ...introStyle, marginTop: 20 }}>
               One thing I would ask in return: the owner&rsquo;s discretion is the whole reason this
@@ -312,7 +314,7 @@ export default function DiscreetBrochureEmail({
 
           {/* CTA */}
           <Section className="pad" style={{ padding: '38px 56px 0', textAlign: 'center' as const }}>
-            <Link href={listingUrl || viewingUrl} className="btn" style={button}>Open the full listing online</Link>
+            <Link href={enquiryUrl || viewingUrl} className="btn" style={button}>Make an enquiry</Link>
             <Text style={replyNote}>or simply reply to this email — it comes straight to me.</Text>
           </Section>
 

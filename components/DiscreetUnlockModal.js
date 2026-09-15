@@ -26,12 +26,12 @@ export const DISCREET_COPY = {
   en: {
     badge: 'Discreet sale',
     heading: 'Unlock the full listing',
-    sub: "This home is sold discreetly. Leave your name and email and we'll send you the full brochure — every photo, floor plans, running costs and the complete description — and open the listing for you here.",
+    sub: "This home is sold discreetly. Leave your name and email and the full brochure — every photo, floor plans, running costs and all the details — will be in your inbox within a minute.",
     first_name: 'First name', last_name: 'Last name', email: 'Email address', phone: 'Phone (optional)',
     btn_idle: 'Send me the full listing →', btn_sending: 'Sending…',
     fine: 'No mailing lists — the brochure, and a personal note from Dylan.',
     success_heading: 'On its way',
-    success_msg: 'The full brochure is on its way to your inbox. Opening the listing for',
+    success_msg: 'The full brochure is on its way to your inbox for',
     view_home: 'Open the full listing →',
     error: 'Something went wrong. Please try again.',
     locked_title: 'Discreet sale — the full listing is available on request',
@@ -237,12 +237,8 @@ export default function DiscreetUnlockModal({ property: p, title, onClose, onUnl
       trackConversion('generate_lead', 'Lead', { event_category: 'discreet_unlock', property_title: p.title || title, locale });
       track('discreet_unlocked', { property: p.title || title, country: p.country || 'unspecified', locale });
       setStatus('done');
-      if (onUnlocked) {
-        setTimeout(() => onUnlocked({ name, email: sendEmail }), 900);
-      } else {
-        const tok = visitorToken(name, sendEmail);
-        setTimeout(() => window.location.assign(`${href}${href.includes('?') ? '&' : '?'}t=${tok}`), 900);
-      }
+      // The brochure email is the listing (David, 15 Sep 2026) — nothing
+      // unlocks on the page; the popup simply confirms it is on its way.
     } catch {
       setStatus('error');
     }
@@ -266,7 +262,6 @@ export default function DiscreetUnlockModal({ property: p, title, onClose, onUnl
               <div className="ul-tick">✓</div>
               <h3>{t.success_heading}</h3>
               <p>{t.success_msg} <strong>{title}</strong>.</p>
-              {!onUnlocked && <a href={`${href}?t=${visitorToken(`${first} ${last}`.trim(), email.trim())}`} className="dr-view-link">{t.view_home}</a>}
             </div>
           ) : (
             <>
