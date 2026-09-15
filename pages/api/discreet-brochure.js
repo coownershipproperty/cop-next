@@ -24,6 +24,14 @@ import { sendTeamNotification } from '@/lib/resend';
 import { sendDiscreetBrochure } from '@/lib/discreetBrochure';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 
+// The rendered brochure, minus its <html>/<head>/<body> shell, so it can sit
+// inside the team note (David: "I like to see everything that gets sent").
+function brochureBodyOf(html) {
+  if (!html) return '';
+  const m = String(html).match(/<body[^>]*>([\s\S]*)<\/body>/i);
+  return `<div style="max-width:900px">${(m ? m[1] : String(html)).replace(/<img[^>]*\/api\/track[^>]*>/gi, '')}</div>`;
+}
+
 function cleanSlug(v) { return String(v || '').trim().toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 200); }
 
 export default async function handler(req, res) {
@@ -88,8 +96,9 @@ export default async function handler(req, res) {
     });
   } catch (_) {}
 
+  let sent = null;
   try {
-    await sendDiscreetBrochure({
+    sent = await sendDiscreetBrochure({
       to: email, firstName, slug, locale,
       contactId: contact?.id || null, leadId: lead?.id || null,
       trackingPixelHtml: emailSend?.tracking_id ? trackingPixel(emailSend.tracking_id) : '',
@@ -113,6 +122,9 @@ export default async function handler(req, res) {
         <p><strong>Home:</strong> ${prop.title || slug}</p>
         <p><strong>To:</strong> ${firstName || ''} &lt;${email}&gt;${phone ? ` · ${String(phone).trim()}` : ''}</p>
         <p>This is a brochure request, not an enquiry — nothing to answer yet. If they use "Make an enquiry" or reply to the brochure, it lands in Gmail as a normal message.</p>
+        <hr style="border:0;border-top:1px solid #ddd;margin:24px 0">
+        <p><strong>What they received</strong> — subject: ${sent?.subject || ''}</p>
+        ${brochureBodyOf(sent?.html)}
       `,
       threadKey: `discreet-${email}`,
     });
