@@ -10573,7 +10573,7 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 /* ── Discreet Sale card badge v5 (15 Sep 2026, David chose option K) — a full-width
    band through the middle of the photo: dark glass, a thin gold line top and bottom,
    gold spaced caps with a small lock. Overrides the v3 corner text. ── */
-.prop-card .prop-badge.prop-badge.discreet{top:50%;left:0;right:0;transform:translateY(-50%);height:52px;padding:0 16px;box-sizing:border-box;justify-content:center;background:rgba(10,20,30,.7);backdrop-filter:blur(12px) saturate(.9);-webkit-backdrop-filter:blur(12px) saturate(.9);border-top:1px solid #C9A84C;border-bottom:1px solid #C9A84C;border-left:0;border-right:0;border-radius:0;box-shadow:0 0 0 4px rgba(10,20,30,.45);color:#F5DE9A;font-family:'Nunito Sans',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.3em;text-indent:.3em;text-transform:uppercase;text-shadow:none;display:inline-flex;align-items:center;gap:12px;line-height:1;white-space:nowrap;z-index:5}
+.prop-card .prop-badge.prop-badge.discreet{top:26px;left:50%;right:auto;transform:translateX(-50%);height:44px;padding:0 22px 0 18px;box-sizing:border-box;justify-content:center;background:rgba(255,255,255,.22);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border:1px solid rgba(255,255,255,.45);border-radius:8px;box-shadow:0 4px 18px rgba(0,0,0,.18);color:#fff;font-family:'Nunito Sans',sans-serif;font-size:.98rem;font-weight:500;letter-spacing:.01em;text-indent:0;text-transform:none;text-shadow:0 1px 3px rgba(0,0,0,.25);display:inline-flex;align-items:center;gap:9px;line-height:1;white-space:nowrap;z-index:5}
 .prop-card .prop-badge.prop-badge.discreet::before{content:none}
-.prop-card .prop-badge.prop-badge.discreet svg{flex:none;width:14px;height:14px;color:#F0D58A}
-@media (max-width:720px){.prop-card .prop-badge.prop-badge.discreet{height:44px;font-size:.66rem;gap:10px}}
+.prop-card .prop-badge.prop-badge.discreet svg{flex:none;width:16px;height:16px;color:#fff}
+@media (max-width:720px){.prop-card .prop-badge.prop-badge.discreet{top:18px;height:40px;font-size:.9rem;gap:8px}}
