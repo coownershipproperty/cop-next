@@ -199,7 +199,7 @@ export default function DiscreetBrochureEmail({
           {/* Hero */}
           {heroUrl && (
             <Section className="pad" style={{ padding: '34px 56px 0' }}>
-              <Img src={crop(heroUrl, 1120, 720)} alt={name} width="528" style={heroImg} />
+              <Img src={crop(heroUrl, 1600, 1000)} alt={name} width="100%" style={heroImg} />
             </Section>
           )}
 
@@ -250,7 +250,7 @@ export default function DiscreetBrochureEmail({
               </Section>
               <Section className="pad" style={{ padding: '0 56px' }}>
                 {pages.map((u, i) => (
-                  <Img key={i} src={fit(u, 1056)} alt="" width="528" style={{ ...heroImg, marginBottom: 16 }} />
+                  <Img key={i} src={fit(u, 1447)} alt="" width="100%" style={{ ...heroImg, marginBottom: 16 }} />
                 ))}
               </Section>
             </>
@@ -277,7 +277,7 @@ export default function DiscreetBrochureEmail({
               </Section>
               <Section className="pad" style={{ padding: '0 56px' }}>
                 {plans.map((u, i) => (
-                  <Img key={i} src={u} alt="Floor plan" width="528" style={{ ...heroImg, marginBottom: 18 }} />
+                  <Img key={i} src={u} alt="Floor plan" width="100%" style={{ ...heroImg, marginBottom: 18 }} />
                 ))}
               </Section>
             </>
@@ -290,7 +290,7 @@ export default function DiscreetBrochureEmail({
                 <Text style={sectionLabel}>Specification</Text>
               </Section>
               <Section className="pad" style={{ padding: '0 56px' }}>
-                <Img src={specUrl} alt="Specification" width="528" style={heroImg} />
+                <Img src={specUrl} alt="Specification" width="100%" style={heroImg} />
               </Section>
             </>
           )}
@@ -340,9 +340,10 @@ export default function DiscreetBrochureEmail({
 }
 
 // ── Styles ───────────────────────────────────────────────────────────────────
-const bodyStyle: React.CSSProperties = { margin: 0, padding: '30px 0 40px', backgroundColor: C.paper, fontFamily: TEXT };
-const container: React.CSSProperties = { maxWidth: 640, margin: '0 auto' };
-const sheet: React.CSSProperties = { backgroundColor: C.card, border: `1px solid ${C.line}` };
+// Full width on white — no paper-coloured margin, no bordered sheet (David, 15 Sep 2026).
+const bodyStyle: React.CSSProperties = { margin: 0, padding: 0, backgroundColor: C.card, fontFamily: TEXT };
+const container: React.CSSProperties = { maxWidth: 900, width: '100%', margin: '0 auto' };
+const sheet: React.CSSProperties = { backgroundColor: C.card };
 
 const masthead: React.CSSProperties = { padding: '46px 56px 40px', textAlign: 'center' as const, borderBottom: `1px solid ${C.line}` };
 const wordmark: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, letterSpacing: '0.34em', textTransform: 'uppercase' as const, color: C.ink, margin: 0, paddingLeft: '0.34em', lineHeight: '1.4' };
@@ -353,11 +354,11 @@ const h1: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 38, lineHeight:
 const priceLine: React.CSSProperties = { fontFamily: TEXT, fontSize: 22, color: C.ink, margin: '24px 0 0' };
 const perShare: React.CSSProperties = { fontFamily: TEXT, fontSize: 15, fontStyle: 'italic', color: C.soft };
 
-const heroImg: React.CSSProperties = { width: '100%', maxWidth: 528, height: 'auto', display: 'block' };
+const heroImg: React.CSSProperties = { width: '100%', maxWidth: '100%', height: 'auto', display: 'block' };
 const galleryImg: React.CSSProperties = { width: '100%', height: 'auto', display: 'block' };
 
-const greetingStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, fontStyle: 'italic', color: C.ink, margin: '0 0 14px' };
-const introStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 18, lineHeight: '1.75', color: C.ink, margin: 0 };
+const greetingStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 19, fontStyle: 'italic', color: C.ink, margin: '0 auto 14px', maxWidth: 720 };
+const introStyle: React.CSSProperties = { fontFamily: TEXT, fontSize: 18, lineHeight: '1.75', color: C.ink, margin: '0 auto', maxWidth: 720 };
 
 const factCell: React.CSSProperties = { padding: '15px 0' };
 const factLabel: React.CSSProperties = { fontFamily: TEXT, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: C.soft, margin: 0 };
@@ -373,6 +374,6 @@ const replyNote: React.CSSProperties = { fontFamily: TEXT, fontSize: 17, fontSty
 const signOff: React.CSSProperties = { fontFamily: DISPLAY, fontSize: 20, color: C.ink, margin: '20px 0 0', lineHeight: '1.6' };
 const signRole: React.CSSProperties = { fontFamily: TEXT, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: C.soft };
 
-const footer: React.CSSProperties = { padding: '48px 56px 44px', marginTop: 48, borderTop: `1px solid ${C.line}`, textAlign: 'center' as const };
+const footer: React.CSSProperties = { padding: '48px 56px 44px', marginTop: 48, borderTop: `1px solid ${C.line}`, textAlign: 'center' as const, backgroundColor: C.paper };
 const footMark: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, letterSpacing: '0.3em', textTransform: 'uppercase' as const, color: C.ink, margin: '0 0 24px', paddingLeft: '0.3em' };
 const footSmall: React.CSSProperties = { fontFamily: TEXT, fontSize: 13, fontStyle: 'italic', lineHeight: '1.8', color: C.soft, margin: 0 };
