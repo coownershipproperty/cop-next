@@ -301,10 +301,9 @@ export default function DiscreetBrochureEmail({
             <Text style={sectionLabelCentred}>What happens next</Text>
             <Text className="intro" style={introStyle}>
               This email is the listing — there is nothing more to find online. When you would
-              like to know more or see the home, press the button below or simply reply: tell me
-              what you would like to know, or which dates suit you, and I will arrange it directly
-              with the team that manages the home. If it is not right, say so plainly — I would
-              far rather send you three more than have you feel steered towards this one.
+              like to know more, or to see the home, press the button below or simply reply: tell
+              me what you would like to know, or which dates suit you, and I will arrange it
+              directly with the team that manages the home.
             </Text>
             <Text className="intro" style={{ ...introStyle, marginTop: 20 }}>
               One thing I would ask in return: the owner&rsquo;s discretion is the whole reason this
