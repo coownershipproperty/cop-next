@@ -17,6 +17,8 @@ const FOOTER_COLS = {
     // English-only for now, like /list-with-cop/ above it. The hub itself
     // links the localised siblings of each comparison.
     [null,         'footer.compare', '/compare/'],
+    // English-only for now — the country guides have no locale siblings yet.
+    [null,         'footer.buying_guides', '/how-to-buy/'],
     ['favourites', 'nav.favourites'],
   ],
   company: [

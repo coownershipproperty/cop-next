@@ -20,9 +20,22 @@ import { ogLocaleFor } from '@/lib/i18n';
 
 const SITE_URL = 'https://co-ownership-property.com';
 
-export default function ComparePageRenderer({ locale, slug, entry, body, faqs, wordCount }) {
+/**
+ * Sections that render through this component. `compare` is the original and
+ * its behaviour is unchanged; `guide` was added 16 Sep 2026 for the
+ * per-country buyer guides, which are the same shape of page — one long HTML
+ * body, an FAQ block at the end, one canonical per locale — and did not
+ * justify a second copy of all this.
+ */
+const SECTIONS = {
+  compare: { key: 'compare', eyebrow: 'compareEyebrow', label: 'compareLabel' },
+  guide: { key: 'guide', eyebrow: 'guideEyebrow', label: 'guideLabel' },
+};
+
+export default function ComparePageRenderer({ locale, slug, entry, body, faqs, wordCount, section = 'compare', altLocales = ['en', 'es', 'fr', 'de'] }) {
   const ui = UI_STRINGS[locale];
-  const sectionPath = URL_PATHS[locale].compare;
+  const sec = SECTIONS[section] || SECTIONS.compare;
+  const sectionPath = URL_PATHS[locale][sec.key];
   const canonicalUrl = `${SITE_URL}${sectionPath}/${slug}/`;
   const fullTitle = `${entry.title} | Co-Ownership Property`;
 
@@ -83,7 +96,7 @@ export default function ComparePageRenderer({ locale, slug, entry, body, faqs, w
       "@id": canonicalUrl + "#breadcrumb",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": ui.homeLabel, "item": SITE_URL + "/" },
-        { "@type": "ListItem", "position": 2, "name": ui.compareLabel, "item": SITE_URL + sectionPath + "/" },
+        { "@type": "ListItem", "position": 2, "name": ui[sec.label], "item": SITE_URL + sectionPath + "/" },
         { "@type": "ListItem", "position": 3, "name": entry.h1, "item": canonicalUrl },
       ],
     },
@@ -92,12 +105,12 @@ export default function ComparePageRenderer({ locale, slug, entry, body, faqs, w
   // hreflang alternates — emit links to other locales' versions of this slug
   // (always EN; ES/FR/DE only if the slug exists in those locales, but we
   // pass all of them since slugs are stable across locales)
+  // Only locales that actually have this slug get an alternate. The compare
+  // pages pass all four because every comparison is translated; the country
+  // guides pass what exists, so a half-translated set never advertises a 404.
   const hreflangAlts = [
-    { hrefLang: 'en', href: `${SITE_URL}/compare/${slug}/` },
-    { hrefLang: 'es', href: `${SITE_URL}/es/comparativa/${slug}/` },
-    { hrefLang: 'fr', href: `${SITE_URL}/fr/comparaison/${slug}/` },
-    { hrefLang: 'de', href: `${SITE_URL}/de/vergleich/${slug}/` },
-    { hrefLang: 'x-default', href: `${SITE_URL}/compare/${slug}/` },
+    ...altLocales.map(loc => ({ hrefLang: loc, href: `${SITE_URL}${URL_PATHS[loc][sec.key]}/${slug}/` })),
+    { hrefLang: 'x-default', href: `${SITE_URL}${URL_PATHS.en[sec.key]}/${slug}/` },
   ];
 
   return (
@@ -128,7 +141,7 @@ export default function ComparePageRenderer({ locale, slug, entry, body, faqs, w
 
       <article className="compare-page">
         <section className="compare-hero">
-          <p className="compare-eyebrow">{ui.compareEyebrow}</p>
+          <p className="compare-eyebrow">{ui[sec.eyebrow]}</p>
           <h1 className="compare-h1">{entry.h1}</h1>
           {entry.subtitle && <p className="compare-subtitle">{entry.subtitle}</p>}
           <p className="compare-meta">

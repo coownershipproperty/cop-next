@@ -123,6 +123,14 @@ const EN_ONLY_PAGES = [
   { url: '/list-with-cop/', priority: '0.6', changefreq: 'monthly' },
   // /compare/ is emitted below with its three locale hubs and reciprocal
   // hreflang, rather than here as a bare EN-only entry. (16 Sep 2026)
+  // Per-country buyer guides — EN only for now. Added 16 Sep 2026 with the
+  // pages themselves: the tax and legal answers existed across ~30 FAQ pages,
+  // in no order a buyer could follow.
+  { url: '/how-to-buy/', priority: '0.8', changefreq: 'monthly' },
+  { url: '/how-to-buy/spain/', priority: '0.85', changefreq: 'monthly' },
+  { url: '/how-to-buy/france/', priority: '0.85', changefreq: 'monthly' },
+  { url: '/how-to-buy/italy/', priority: '0.85', changefreq: 'monthly' },
+  { url: '/how-to-buy/usa/', priority: '0.85', changefreq: 'monthly' },
   // /favourites/ intentionally excluded — noindex personal page
 ];
 
