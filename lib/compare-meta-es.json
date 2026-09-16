@@ -146,5 +146,98 @@
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
     "mentionsBrands": [],
     "wordCountTarget": 1300
+  },
+  "myne-vs-andhamlet": {
+    "slug": "myne-vs-andhamlet",
+    "title": "MYNE vs &Hamlet: dos operadores comparados",
+    "h1": "MYNE Homes frente a &Hamlet",
+    "subtitle": "Los dos operadores europeos que publican sus costes operativos, comparados sobre 108 viviendas: precio, tamaño, noches al año, normas de alquiler y lo que cuesta de verdad una noche en la casa.",
+    "metaDescription": "99 viviendas de MYNE y 9 de &Hamlet comparadas en precio de la participación, dormitorios, noches al año, alquiler y coste operativo por noche.",
+    "category": "partner-comparison",
+    "comparisonType": "partner",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      }
+    ],
+    "wordCountTarget": 2200
+  },
+  "fractional-ownership-vs-renting": {
+    "slug": "fractional-ownership-vs-renting",
+    "title": "Copropiedad fraccional o alquilar: las cifras",
+    "h1": "Copropiedad fraccional frente a alquilar una vivienda vacacional",
+    "subtitle": "Lo que cuesta de verdad una noche en una vivienda en copropiedad, medido sobre las 108 viviendas en las que hemos verificado la hoja de costes del propio operador, y la tarifa de alquiler por encima de la cual comprar sale más barato.",
+    "metaDescription": "Una vivienda en copropiedad sale a una mediana de 89 € la noche. Con el capital, las más baratas salen a 188 €. La tarifa de equilibrio, con los cálculos.",
+    "category": "model-comparison",
+    "comparisonType": "model",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      }
+    ],
+    "wordCountTarget": 2000
+  },
+  "which-co-ownership-operator": {
+    "slug": "which-co-ownership-operator",
+    "title": "¿Qué operador de copropiedad le conviene?",
+    "h1": "¿A qué operador de copropiedad debería comprar?",
+    "subtitle": "Seis operadores, 268 viviendas activas y las cuatro preguntas que de verdad lo deciden: el país, si puede alquilar la vivienda, si sus noches son un suelo o una asignación fija, y la financiación.",
+    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro y Paris Property Group: dónde vende cada uno, quién permite alquilar, cómo van las noches y a quién conviene cada cual.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Abitaro",
+        "url": "https://ownabitaro.com/"
+      },
+      {
+        "name": "Paris Property Group",
+        "url": "https://parispropertygroup.com/"
+      }
+    ],
+    "wordCountTarget": 2000
   }
 }

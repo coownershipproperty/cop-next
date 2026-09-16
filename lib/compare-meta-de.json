@@ -146,5 +146,98 @@
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
     "mentionsBrands": [],
     "wordCountTarget": 1300
+  },
+  "myne-vs-andhamlet": {
+    "slug": "myne-vs-andhamlet",
+    "title": "MYNE vs. &Hamlet: Miteigentums-Anbieter im Vergleich",
+    "h1": "MYNE Homes vs &Hamlet",
+    "subtitle": "Die beiden europäischen Anbieter, die ihre laufenden Kosten veröffentlichen, verglichen über 108 Immobilien: Preis, Größe, Nächte pro Jahr, Vermietungsregeln und was eine Nacht im Haus tatsächlich kostet.",
+    "metaDescription": "99 MYNE-Immobilien und 9 &Hamlet-Immobilien im Vergleich: Anteilspreis, Schlafzimmer, Nächte pro Jahr, Vermietung und verifizierte laufende Kosten.",
+    "category": "partner-comparison",
+    "comparisonType": "partner",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      }
+    ],
+    "wordCountTarget": 2200
+  },
+  "fractional-ownership-vs-renting": {
+    "slug": "fractional-ownership-vs-renting",
+    "title": "Fraktionales Miteigentum vs. Mieten: die echten Zahlen",
+    "h1": "Fraktionales Miteigentum vs Ferienhaus mieten",
+    "subtitle": "Was eine Nacht in einer Immobilie im Miteigentum tatsächlich kostet, gemessen an den 108 Immobilien, bei denen wir die Kostenaufstellung des Anbieters verifiziert haben — und der Mietpreis pro Nacht, ab dem Kaufen der günstigere Weg dorthin ist.",
+    "metaDescription": "Eine Immobilie im Miteigentum kostet im Median 89 € pro Nacht. Mit Kapital kommen die günstigsten auf 188 €. Der Mietpreis am Break-even, offen gerechnet.",
+    "category": "model-comparison",
+    "comparisonType": "model",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      }
+    ],
+    "wordCountTarget": 2000
+  },
+  "which-co-ownership-operator": {
+    "slug": "which-co-ownership-operator",
+    "title": "Welcher Miteigentums-Anbieter passt zu Ihnen?",
+    "h1": "Bei welchem Miteigentums-Anbieter sollten Sie kaufen?",
+    "subtitle": "Sechs Anbieter, 268 aktuell gelistete Immobilien und die vier Fragen, die es tatsächlich entscheiden — das Land, ob Sie vermieten dürfen, ob Ihre Nächte eine Untergrenze oder eine feste Zuteilung sind, und die Finanzierung.",
+    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro und Paris Property Group: wo jeder verkauft, wer die Vermietung erlaubt und wie die Nächte funktionieren.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Abitaro",
+        "url": "https://ownabitaro.com/"
+      },
+      {
+        "name": "Paris Property Group",
+        "url": "https://parispropertygroup.com/"
+      }
+    ],
+    "wordCountTarget": 2000
   }
 }

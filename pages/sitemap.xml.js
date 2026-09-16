@@ -121,10 +121,8 @@ const EN_ONLY_PAGES = [
   // the supply-side lead-gen page.
   { url: '/co-ownership-price-index/', priority: '0.8', changefreq: 'weekly' },
   { url: '/list-with-cop/', priority: '0.6', changefreq: 'monthly' },
-  // Added 16 Sep 2026 with the hub itself — /compare used to 308 to a single
-  // comparison, so the set had no index page of its own and the other five
-  // were orphans.
-  { url: '/compare/', priority: '0.8', changefreq: 'monthly' },
+  // /compare/ is emitted below with its three locale hubs and reciprocal
+  // hreflang, rather than here as a bare EN-only entry. (16 Sep 2026)
   // /favourites/ intentionally excluded — noindex personal page
 ];
 
@@ -392,6 +390,14 @@ export async function getServerSideProps({ res }) {
         if (hasDe) out.push(urlEntry(`${BASE}${altset.de}`, priority, 'weekly', undefined, altset));
         return out;
       }),
+
+    // Comparison hubs — EN + ES + FR + DE with reciprocal hreflang. The three
+    // locale hubs were created 16 Sep 2026; until then every locale
+    // comparison page pointed its BreadcrumbList at a 404.
+    ...(() => {
+      const altset = { en: '/compare/', es: '/es/comparativa/', fr: '/fr/comparaison/', de: '/de/vergleich/' };
+      return Object.entries(altset).map(([, p]) => urlEntry(`${BASE}${p}`, '0.8', 'monthly', undefined, altset));
+    })(),
 
     // Comparison pages — EN + ES + FR + DE with reciprocal hreflang.
     // Priority 0.85 (these are money pages for AI-search citation).

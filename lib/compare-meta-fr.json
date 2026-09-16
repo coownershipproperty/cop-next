@@ -146,5 +146,98 @@
       "Paris Property Group"
     ],
     "wordCountTarget": 1300
+  },
+  "myne-vs-andhamlet": {
+    "slug": "myne-vs-andhamlet",
+    "title": "MYNE vs &Hamlet : comparatif des opérateurs",
+    "h1": "MYNE Homes vs &Hamlet",
+    "subtitle": "Les deux opérateurs européens qui publient leurs coûts d'exploitation, comparés sur 108 biens : prix, taille, nuits par an, règles de location, et ce que coûte réellement une nuit dans la maison.",
+    "metaDescription": "99 biens MYNE et 9 biens &Hamlet comparés sur le prix de la part, les chambres, les nuits par an, la location et le coût d'exploitation vérifié par nuit.",
+    "category": "partner-comparison",
+    "comparisonType": "partner",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      }
+    ],
+    "wordCountTarget": 2200
+  },
+  "fractional-ownership-vs-renting": {
+    "slug": "fractional-ownership-vs-renting",
+    "title": "Copropriété fractionnée vs location : les vrais chiffres",
+    "h1": "Copropriété fractionnée ou location d'une résidence secondaire",
+    "subtitle": "Ce que coûte réellement une nuit dans un bien en copropriété, mesuré sur les 108 biens dont nous avons vérifié la fiche de coûts de l'opérateur — et le tarif de location à la nuit au-delà duquel acheter revient moins cher.",
+    "metaDescription": "Un bien en copropriété coûte 89 € la nuit en médiane. Avec le capital, les moins chers ressortent à 188 €. Le tarif de location d'équilibre, calcul à l'appui.",
+    "category": "model-comparison",
+    "comparisonType": "model",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      }
+    ],
+    "wordCountTarget": 2000
+  },
+  "which-co-ownership-operator": {
+    "slug": "which-co-ownership-operator",
+    "title": "Quel opérateur de copropriété choisir ?",
+    "h1": "Chez quel opérateur de copropriété acheter ?",
+    "subtitle": "Six opérateurs, 268 biens en vente, et les quatre questions qui tranchent vraiment — le pays, la possibilité de louer le bien, des nuits qui sont un plancher ou une allocation fixe, et le financement.",
+    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro et Paris Property Group : où chacun vend, qui autorise la location, comment marchent les nuits et à qui chacun convient.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Abitaro",
+        "url": "https://ownabitaro.com/"
+      },
+      {
+        "name": "Paris Property Group",
+        "url": "https://parispropertygroup.com/"
+      }
+    ],
+    "wordCountTarget": 2000
   }
 }
