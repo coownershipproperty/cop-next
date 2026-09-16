@@ -56,6 +56,12 @@ const NAV_ITEMS = [
   { key: 'blog',       labelKey: 'nav.blog' },
   { key: 'favourites', labelKey: 'nav.favourites', extra: 'cop-nav-favourites', badge: true },
   { key: 'contact',    labelKey: 'nav.contact' },
+  // Supply side. English-only for now, so routePath returns null elsewhere and
+  // the link simply does not appear — which is how this nav table already
+  // handles a page that exists in one language. It was findable from nowhere
+  // until 16 Sep 2026: no nav link, no canonical, no schema, and eight
+  // developers used the contact form this year instead.
+  { key: 'listWithCop', labelKey: 'nav.list_with_cop' },
 ];
 
 const NAV_LINKS = Object.fromEntries(

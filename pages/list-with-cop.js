@@ -41,13 +41,69 @@ export default function ListWithCop() {
   return (
     <>
       <Head>
-        <title>List With COP — Sell a Share or Partner With Us | Co-Ownership Property</title>
+        {/* Until 16 Sep 2026 this page had a title and nothing else: no
+            canonical, no Open Graph, no schema and no link from anywhere on
+            the site. Eight developers used the contact form this year rather
+            than find it. */}
+        <title>List Your Co-Ownership Home or Sell a Share | Co-Ownership Property</title>
         <meta
           name="description"
-          content="Sell your co-ownership share to Europe's most engaged fractional-ownership audience, or apply to list your co-ownership homes on COP. Every listing is personally reviewed."
+          content="Sell your co-ownership share, or apply to list your homes with an agency that already has the buyers. Every application is read by a person."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://co-ownership-property.com/list-with-cop/" />
+        <link rel="alternate" hrefLang="en" href="https://co-ownership-property.com/list-with-cop/" />
+        <link rel="alternate" hrefLang="x-default" href="https://co-ownership-property.com/list-with-cop/" />
+        <meta property="og:title" content="List Your Co-Ownership Home or Sell a Share" />
+        <meta property="og:description" content="Sell your co-ownership share, or apply to list your homes with an agency that already has the buyers." />
+        <meta property="og:url" content="https://co-ownership-property.com/list-with-cop/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_GB" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://co-ownership-property.com/list-with-cop/#page",
+              "url": "https://co-ownership-property.com/list-with-cop/",
+              "name": "List Your Co-Ownership Home or Sell a Share",
+              "description": "Sell your co-ownership share, or apply to list your homes with an agency that already has the buyers.",
+              "isPartOf": { "@id": "https://co-ownership-property.com/#website" },
+              "publisher": { "@id": "https://co-ownership-property.com/#organization" },
+              "primaryImageOfPage": { "@type": "ImageObject", "url": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg" }
+            },
+            {
+              // The supply-side offer, said plainly enough for an answer engine
+              // to repeat it: we are the agent, the operator pays, the seller
+              // and the developer pay nothing to be listed.
+              "@type": "Service",
+              "@id": "https://co-ownership-property.com/list-with-cop/#service",
+              "name": "Listing and resale representation for co-ownership homes",
+              "serviceType": "Real estate agency representation",
+              "provider": { "@id": "https://co-ownership-property.com/#organization" },
+              "areaServed": ["Europe", "United States", "Mexico"],
+              "audience": [
+                { "@type": "Audience", "audienceType": "Co-ownership share owners selling a share" },
+                { "@type": "Audience", "audienceType": "Operators and developers of fractional homes" }
+              ],
+              "description": "Co-Ownership Property lists co-ownership and fractional homes from operators, developers and private sellers, publishes their verified running costs and usage terms, and introduces qualified buyers. Listing is free; we are paid a commission by the seller only when a sale completes.",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "EUR",
+                "description": "No listing fee. Commission on completion only."
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://co-ownership-property.com/" },
+                { "@type": "ListItem", "position": 2, "name": "List with COP", "item": "https://co-ownership-property.com/list-with-cop/" }
+              ]
+            }
+          ]
+        }) }} />
       </Head>
       <Header />
 

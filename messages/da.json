@@ -11,7 +11,8 @@
     "blog": "Blog",
     "favourites": "Mine favoritter",
     "contact": "Kontakt os",
-    "language": "Sprog"
+    "language": "Sprog",
+    "list_with_cop": "Anmeld din bolig"
   },
   "footer": {
     "discover_heading": "Udforsk",
@@ -26,7 +27,8 @@
     "rights_reserved": "Alle rettigheder forbeholdes.",
     "list_your_home": "Tilmeld din bolig",
     "faq_buying": "Spørgsmål: køb",
-    "faq_staying": "Spørgsmål: ophold"
+    "faq_staying": "Spørgsmål: ophold",
+    "compare": "Sammenlign"
   },
   "common": {
     "language_switcher_label": "Sprog",
@@ -223,6 +225,5 @@
     "sold_badge": "Solgt",
     "bed_one": "{count} soveværelse",
     "bed_other": "{count} soveværelser"
-  },
-  "footer.compare": "Sammenlign"
+  }
 }

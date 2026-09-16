@@ -11,7 +11,8 @@
     "blog": "Blog",
     "favourites": "Favoriten",
     "contact": "Kontakt",
-    "language": "Sprache"
+    "language": "Sprache",
+    "list_with_cop": "Immobilie anbieten"
   },
   "footer": {
     "discover_heading": "Entdecken",
@@ -26,7 +27,8 @@
     "rights_reserved": "Alle Rechte vorbehalten.",
     "list_your_home": "Immobilie anbieten",
     "faq_buying": "FAQ: Kaufen",
-    "faq_staying": "FAQ: Aufenthalt"
+    "faq_staying": "FAQ: Aufenthalt",
+    "compare": "Vergleich"
   },
   "common": {
     "language_switcher_label": "Sprache",
@@ -223,6 +225,5 @@
     "sold_badge": "Verkauft",
     "bed_one": "{count} Schlafzimmer",
     "bed_other": "{count} Schlafzimmer"
-  },
-  "footer.compare": "Vergleich"
+  }
 }

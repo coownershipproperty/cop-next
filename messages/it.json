@@ -11,7 +11,8 @@
     "blog": "Blog",
     "favourites": "I miei preferiti",
     "contact": "Contattaci",
-    "language": "Lingua"
+    "language": "Lingua",
+    "list_with_cop": "Proponi il tuo immobile"
   },
   "footer": {
     "discover_heading": "Scopri",
@@ -26,7 +27,8 @@
     "rights_reserved": "Tutti i diritti riservati.",
     "list_your_home": "Proponi il tuo immobile",
     "faq_buying": "Domande frequenti: acquisto",
-    "faq_staying": "Domande frequenti: soggiorno"
+    "faq_staying": "Domande frequenti: soggiorno",
+    "compare": "Confronti"
   },
   "common": {
     "language_switcher_label": "Lingua",
@@ -223,6 +225,5 @@
     "sold_badge": "Venduto",
     "bed_one": "{count} camera",
     "bed_other": "{count} camere"
-  },
-  "footer.compare": "Confronti"
+  }
 }

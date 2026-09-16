@@ -11,7 +11,8 @@
     "blog": "Actualités",
     "favourites": "Mes favoris",
     "contact": "Contact",
-    "language": "Langue"
+    "language": "Langue",
+    "list_with_cop": "Proposez votre bien"
   },
   "footer": {
     "discover_heading": "Découvrir",
@@ -26,7 +27,8 @@
     "rights_reserved": "Tous droits réservés.",
     "list_your_home": "Proposez votre bien",
     "faq_buying": "FAQ : acheter",
-    "faq_staying": "FAQ : profiter"
+    "faq_staying": "FAQ : profiter",
+    "compare": "Comparatifs"
   },
   "common": {
     "language_switcher_label": "Langue",
@@ -223,6 +225,5 @@
     "sold_badge": "Vendue",
     "bed_one": "{count} chambre",
     "bed_other": "{count} chambres"
-  },
-  "footer.compare": "Comparatifs"
+  }
 }

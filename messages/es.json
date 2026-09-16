@@ -11,7 +11,8 @@
     "blog": "Blog",
     "favourites": "Favoritos",
     "contact": "Contacto",
-    "language": "Idioma"
+    "language": "Idioma",
+    "list_with_cop": "Publica tu propiedad"
   },
   "footer": {
     "discover_heading": "Descubre",
@@ -26,7 +27,8 @@
     "rights_reserved": "Todos los derechos reservados.",
     "list_your_home": "Publica tu propiedad",
     "faq_buying": "Preguntas frecuentes: comprar",
-    "faq_staying": "Preguntas frecuentes: disfrutar"
+    "faq_staying": "Preguntas frecuentes: disfrutar",
+    "compare": "Comparativas"
   },
   "common": {
     "language_switcher_label": "Idioma",
@@ -223,6 +225,5 @@
     "sold_badge": "Vendida",
     "bed_one": "{count} dormitorio",
     "bed_other": "{count} dormitorios"
-  },
-  "footer.compare": "Comparativas"
+  }
 }

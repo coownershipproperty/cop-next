@@ -11,7 +11,8 @@
     "blog": "Blog",
     "favourites": "My Favourites",
     "contact": "Contact Us",
-    "language": "Language"
+    "language": "Language",
+    "list_with_cop": "List Your Home"
   },
   "footer": {
     "discover_heading": "Discover",
@@ -26,7 +27,8 @@
     "rights_reserved": "All rights reserved.",
     "list_your_home": "List Your Home",
     "faq_buying": "Buying FAQ",
-    "faq_staying": "Staying FAQ"
+    "faq_staying": "Staying FAQ",
+    "compare": "Compare"
   },
   "common": {
     "language_switcher_label": "Language",
@@ -223,6 +225,5 @@
     "sold_badge": "Sold",
     "bed_one": "{count} Bed",
     "bed_other": "{count} Beds"
-  },
-  "footer.compare": "Compare"
+  }
 }

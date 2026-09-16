@@ -11,7 +11,8 @@
     "blog": "Blog",
     "favourites": "Mijn favorieten",
     "contact": "Contact",
-    "language": "Taal"
+    "language": "Taal",
+    "list_with_cop": "Meld uw woning aan"
   },
   "footer": {
     "discover_heading": "Ontdekken",
@@ -26,7 +27,8 @@
     "rights_reserved": "Alle rechten voorbehouden.",
     "list_your_home": "Meld uw woning aan",
     "faq_buying": "Vragen over kopen",
-    "faq_staying": "Vragen over verblijf"
+    "faq_staying": "Vragen over verblijf",
+    "compare": "Vergelijken"
   },
   "common": {
     "language_switcher_label": "Taal",
@@ -223,6 +225,5 @@
     "sold_badge": "Verkocht",
     "bed_one": "{count} slaapkamer",
     "bed_other": "{count} slaapkamers"
-  },
-  "footer.compare": "Vergelijken"
+  }
 }
