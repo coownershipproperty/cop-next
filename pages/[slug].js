@@ -499,7 +499,26 @@ export async function getStaticProps({ params }) {
   const contentPath = path.join(process.cwd(), 'content', 'destinations', `${slug}.html`);
 
   if (!fs.existsSync(contentPath)) {
-    return { redirect: { destination: `/blog/${slug}/`, permanent: true } };
+    // This catch-all used to 308 every unknown root path to /blog/<slug>/,
+    // which then 404s. Every crawler probe of an old WordPress URL
+    // (/xmlrpc.php, /post-sitemap.xml, /mallorca/) therefore produced BOTH a
+    // redirect and a 404 in Search Console — 539 redirects and 552 "not
+    // found" pages of pure noise. Redirect only when there is really a post
+    // at that slug (the legitimate case: blog posts that used to live at the
+    // root); otherwise return a straight 404. (16 Sep 2026)
+    let postExists = false;
+    try {
+      const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      if (url && key) {
+        const { data } = await createClient(url, key)
+          .from('posts').select('slug').eq('slug', slug).eq('published', true).limit(1).maybeSingle();
+        postExists = !!data;
+      }
+    } catch (_) { /* a database hiccup must not turn a real post into a 404 */ }
+    return postExists
+      ? { redirect: { destination: `/blog/${slug}/`, permanent: true } }
+      : { notFound: true, revalidate: 3600 };
   }
   const rawHtml = fs.readFileSync(contentPath, 'utf-8');
 

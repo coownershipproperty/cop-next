@@ -47,6 +47,30 @@ nextConfig.redirects = async () => [
   // ── Page redirects ──
   { source: '/sitemap_index.xml', destination: '/sitemap.xml', permanent: true },
 
+  // Owners and developers who want to list with us type these, not
+  // "/list-with-cop/". Eight of them reached the contact form this year
+  // because every one of these 404'd. (16 Sep 2026)
+  { source: '/sell-your-home', destination: '/list-with-cop/', permanent: true },
+  { source: '/sell-your-property', destination: '/list-with-cop/', permanent: true },
+  { source: '/sell-your-share', destination: '/list-with-cop/', permanent: true },
+  { source: '/sell', destination: '/list-with-cop/', permanent: true },
+  { source: '/list-your-home', destination: '/list-with-cop/', permanent: true },
+  { source: '/list-your-property', destination: '/list-with-cop/', permanent: true },
+  { source: '/list-with-us', destination: '/list-with-cop/', permanent: true },
+  { source: '/developers', destination: '/list-with-cop/', permanent: true },
+  { source: '/for-developers', destination: '/list-with-cop/', permanent: true },
+  { source: '/operators', destination: '/list-with-cop/', permanent: true },
+  { source: '/partner-with-us', destination: '/list-with-cop/', permanent: true },
+  { source: '/add-your-property', destination: '/list-with-cop/', permanent: true },
+
+  // Hubs people (and llms.txt readers) try by hand.
+  { source: '/compare', destination: '/compare/fractional-ownership-vs-timeshare/', permanent: false },
+  { source: '/comparisons', destination: '/compare/fractional-ownership-vs-timeshare/', permanent: false },
+  { source: '/compare/myne-vs-pacaso', destination: '/compare/pacaso-vs-myne/', permanent: true },
+  { source: '/compare/vivla-vs-pacaso', destination: '/compare/pacaso-vs-vivla/', permanent: true },
+  { source: '/compare/vivla-vs-myne', destination: '/compare/myne-vs-vivla/', permanent: true },
+  { source: '/compare/timeshare-vs-fractional-ownership', destination: '/compare/fractional-ownership-vs-timeshare/', permanent: true },
+
   { source: '/our-mission/', destination: '/about-us/', permanent: true },
   { source: '/renting-your-fractional-ownership-share-the-3-options-explained-cop/', destination: '/all-our-blog/', permanent: true },
 

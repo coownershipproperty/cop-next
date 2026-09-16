@@ -206,8 +206,25 @@ export async function getServerSideProps({ res }) {
   // PostgREST's null semantics would silently drop them all. (10 Sep 2026)
   const indexableProperties = (properties || []).filter(p => !p.is_discreet);
 
-  // Blog posts (from static JSON for stability)
-  const posts = JSON.parse(fs.readFileSync(path.join(cwd, 'lib', 'posts.json'), 'utf-8'));
+  // Blog posts — from the database, not lib/posts.json. That file was last
+  // committed on 14 May 2026, so every post published since (72 of them, the
+  // whole summer) was missing from the sitemap and from its hreflang set.
+  // The JSON stays as a fallback for the rare case the query fails: a sitemap
+  // with slightly stale blog URLs beats a sitemap with none. (16 Sep 2026)
+  let posts;
+  {
+    const { data: postRows, error: postErr } = await supabase
+      .from('posts')
+      .select('slug, date')
+      .eq('published', true)
+      .order('date', { ascending: false });
+    if (postErr || !postRows || postRows.length === 0) {
+      console.error('[sitemap] posts query failed, falling back to lib/posts.json:', postErr?.message);
+      posts = JSON.parse(fs.readFileSync(path.join(cwd, 'lib', 'posts.json'), 'utf-8'));
+    } else {
+      posts = postRows;
+    }
+  }
 
   // English destination slugs — all 48 destination HTML files at the root level
   // (URL pattern is /<slug>/, e.g. /france-fractional-ownership-properties/).
