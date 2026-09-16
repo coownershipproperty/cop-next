@@ -23,6 +23,154 @@ import HoneypotField from '@/components/HoneypotField';
 import { HONEYPOT_FIELD } from '@/lib/honeypot';
 import { getFirstTouch } from '@/lib/attribution';
 import hreflangLinks from '@/components/HreflangLinks';
+import { buildFactsPanel } from '@/lib/propertyFactsPanel';
+
+// ── "The numbers" panel ────────────────────────────────────────────────────
+// The values arrive from the server as data ({kind:'minimum', nights:44}),
+// never as finished sentences, so every language says them properly. See
+// lib/propertyFactsPanel.js for why.
+const FACTS_COPY = {
+  en: {
+    heading: 'The numbers',
+    share: (n) => `A 1/${n} share`, running: 'Running costs', time: 'Your time there', left: 'Still available',
+    monthly: (m) => `${m} a month`,
+    nights_minimum: (n) => `${n} nights a year, minimum`,
+    nights_fixed: (n) => `${n} nights a year`,
+    nights_uncapped: 'No set cap on total nights',
+    nights_fraction: (n) => `Your 1/${n} share of the year`,
+    shares_left: (n, d) => (n === 1 ? 'One share left' : `${n} of ${d} shares left`),
+    covers_advance: 'A fixed monthly advance against the home’s own budget — management, insurance, upkeep and the reserve. Electricity, heating, the clean after each stay and laundry are billed by use, on top.',
+    covers_budget: 'Your share of the home’s annual budget, billed monthly and trued up at the year end.',
+    verified: (d) => `Checked against the operator’s own cost sheet on ${d}.`,
+    ask: 'Want the exact detail behind any of these? Ask us — we are the agent, not the operator, so we have no reason to varnish the answer.',
+  },
+  es: {
+    heading: 'Los números',
+    share: (n) => `Una participación de 1/${n}`, running: 'Gastos corrientes', time: 'Tu tiempo allí', left: 'Aún disponible',
+    monthly: (m) => `${m} al mes`,
+    nights_minimum: (n) => `${n} noches al año, como mínimo`,
+    nights_fixed: (n) => `${n} noches al año`,
+    nights_uncapped: 'Sin límite de noches',
+    nights_fraction: (n) => `Tu 1/${n} del año`,
+    shares_left: (n, d) => (n === 1 ? 'Queda una participación' : `Quedan ${n} de ${d} participaciones`),
+    covers_advance: 'Un anticipo mensual fijo a cuenta del presupuesto de la casa — gestión, seguro, mantenimiento y el fondo de reserva. La luz, la calefacción, la limpieza tras cada estancia y la lavandería se facturan aparte, según consumo.',
+    covers_budget: 'Tu parte del presupuesto anual de la casa, facturada mensualmente y regularizada a fin de año.',
+    verified: (d) => `Comprobado con la hoja de costes del operador el ${d}.`,
+    ask: '¿Quieres el detalle exacto de alguno de estos números? Pregúntanos — somos la agencia, no el operador, así que no tenemos motivo para maquillar la respuesta.',
+  },
+  fr: {
+    heading: 'Les chiffres',
+    share: (n) => `Une quote-part de 1/${n}`, running: 'Charges courantes', time: 'Votre temps sur place', left: 'Encore disponible',
+    monthly: (m) => `${m} par mois`,
+    nights_minimum: (n) => `${n} nuits par an, au minimum`,
+    nights_fixed: (n) => `${n} nuits par an`,
+    nights_uncapped: 'Pas de plafond de nuits',
+    nights_fraction: (n) => `Votre 1/${n} de l’année`,
+    shares_left: (n, d) => (n === 1 ? 'Une quote-part restante' : `${n} quotes-parts restantes sur ${d}`),
+    covers_advance: 'Une avance mensuelle fixe sur le budget de la maison — gestion, assurance, entretien et fonds de réserve. L’électricité, le chauffage, le ménage après chaque séjour et le linge sont facturés à l’usage, en plus.',
+    covers_budget: 'Votre part du budget annuel de la maison, facturée mensuellement et régularisée en fin d’année.',
+    verified: (d) => `Vérifié sur la fiche de coûts de l’exploitant le ${d}.`,
+    ask: 'Vous voulez le détail exact derrière l’un de ces chiffres ? Demandez-nous — nous sommes l’agence, pas l’exploitant, donc aucune raison d’enjoliver la réponse.',
+  },
+  de: {
+    heading: 'Die Zahlen',
+    share: (n) => `Ein 1/${n}-Anteil`, running: 'Laufende Kosten', time: 'Ihre Zeit vor Ort', left: 'Noch verfügbar',
+    monthly: (m) => `${m} im Monat`,
+    nights_minimum: (n) => `${n} Nächte im Jahr, mindestens`,
+    nights_fixed: (n) => `${n} Nächte im Jahr`,
+    nights_uncapped: 'Keine feste Obergrenze an Nächten',
+    nights_fraction: (n) => `Ihr 1/${n} des Jahres`,
+    shares_left: (n, d) => (n === 1 ? 'Ein Anteil frei' : `${n} von ${d} Anteilen frei`),
+    covers_advance: 'Ein fester monatlicher Vorschuss auf das Budget des Hauses — Verwaltung, Versicherung, Instandhaltung und Rücklage. Strom, Heizung, die Reinigung nach jedem Aufenthalt und Wäsche werden zusätzlich nach Verbrauch abgerechnet.',
+    covers_budget: 'Ihr Anteil am Jahresbudget des Hauses, monatlich abgerechnet und zum Jahresende ausgeglichen.',
+    verified: (d) => `Am ${d} anhand der Kostenaufstellung des Betreibers geprüft.`,
+    ask: 'Sie möchten die genauen Details hinter einer dieser Zahlen? Fragen Sie uns — wir sind der Makler, nicht der Betreiber, und haben keinen Grund, die Antwort zu beschönigen.',
+  },
+  it: {
+    heading: 'I numeri',
+    share: (n) => `Una quota di 1/${n}`, running: 'Spese correnti', time: 'Il tuo tempo lì', left: 'Ancora disponibile',
+    monthly: (m) => `${m} al mese`,
+    nights_minimum: (n) => `${n} notti all’anno, come minimo`,
+    nights_fixed: (n) => `${n} notti all’anno`,
+    nights_uncapped: 'Nessun limite di notti',
+    nights_fraction: (n) => `Il tuo 1/${n} dell’anno`,
+    shares_left: (n, d) => (n === 1 ? 'Resta una quota' : `Restano ${n} quote su ${d}`),
+    covers_advance: 'Un anticipo mensile fisso sul bilancio della casa — gestione, assicurazione, manutenzione e fondo di riserva. Elettricità, riscaldamento, pulizia dopo ogni soggiorno e lavanderia sono fatturati a consumo, a parte.',
+    covers_budget: 'La tua parte del bilancio annuale della casa, fatturata mensilmente e conguagliata a fine anno.',
+    verified: (d) => `Verificato sul prospetto costi dell’operatore il ${d}.`,
+    ask: 'Vuoi il dettaglio esatto dietro uno di questi numeri? Chiedicelo — siamo l’agenzia, non l’operatore, quindi non abbiamo motivo di addolcire la risposta.',
+  },
+  nl: {
+    heading: 'De cijfers',
+    share: (n) => `Een 1/${n}-aandeel`, running: 'Vaste lasten', time: 'Uw tijd daar', left: 'Nog beschikbaar',
+    monthly: (m) => `${m} per maand`,
+    nights_minimum: (n) => `${n} nachten per jaar, minimaal`,
+    nights_fixed: (n) => `${n} nachten per jaar`,
+    nights_uncapped: 'Geen vaste limiet op het aantal nachten',
+    nights_fraction: (n) => `Uw 1/${n} van het jaar`,
+    shares_left: (n, d) => (n === 1 ? 'Nog één aandeel' : `Nog ${n} van de ${d} aandelen`),
+    covers_advance: 'Een vast maandelijks voorschot op het budget van de woning — beheer, verzekering, onderhoud en de reserve. Elektriciteit, verwarming, de schoonmaak na elk verblijf en was worden apart op gebruik afgerekend.',
+    covers_budget: 'Uw deel van het jaarbudget van de woning, maandelijks gefactureerd en aan het eind van het jaar verrekend.',
+    verified: (d) => `Gecontroleerd aan de hand van het kostenoverzicht van de beheerder op ${d}.`,
+    ask: 'Wilt u het exacte detail achter een van deze cijfers? Vraag het ons — wij zijn de makelaar, niet de beheerder, dus we hebben geen reden om het antwoord mooier te maken.',
+  },
+  pt: {
+    heading: 'Os números',
+    share: (n) => `Uma quota de 1/${n}`, running: 'Custos correntes', time: 'O seu tempo lá', left: 'Ainda disponível',
+    monthly: (m) => `${m} por mês`,
+    nights_minimum: (n) => `${n} noites por ano, no mínimo`,
+    nights_fixed: (n) => `${n} noites por ano`,
+    nights_uncapped: 'Sem limite de noites',
+    nights_fraction: (n) => `A sua 1/${n} parte do ano`,
+    shares_left: (n, d) => (n === 1 ? 'Resta uma quota' : `Restam ${n} de ${d} quotas`),
+    covers_advance: 'Um adiantamento mensal fixo por conta do orçamento da casa — gestão, seguro, manutenção e o fundo de reserva. Eletricidade, aquecimento, a limpeza após cada estadia e lavandaria são faturados à parte, conforme o uso.',
+    covers_budget: 'A sua parte do orçamento anual da casa, faturada mensalmente e acertada no fim do ano.',
+    verified: (d) => `Conferido na folha de custos do operador em ${d}.`,
+    ask: 'Quer o detalhe exato por trás de algum destes números? Pergunte-nos — somos a agência, não o operador, por isso não temos motivo para suavizar a resposta.',
+  },
+  sv: {
+    heading: 'Siffrorna',
+    share: (n) => `En 1/${n}-andel`, running: 'Löpande kostnader', time: 'Din tid där', left: 'Fortfarande ledigt',
+    monthly: (m) => `${m} i månaden`,
+    nights_minimum: (n) => `${n} nätter om året, som lägst`,
+    nights_fixed: (n) => `${n} nätter om året`,
+    nights_uncapped: 'Ingen fast gräns för antal nätter',
+    nights_fraction: (n) => `Din 1/${n} av året`,
+    shares_left: (n, d) => (n === 1 ? 'En andel kvar' : `${n} av ${d} andelar kvar`),
+    covers_advance: 'Ett fast månadsförskott mot husets egen budget — förvaltning, försäkring, underhåll och reserven. El, uppvärmning, städning efter varje vistelse och tvätt faktureras separat efter förbrukning.',
+    covers_budget: 'Din del av husets årsbudget, fakturerad månadsvis och avstämd vid årets slut.',
+    verified: (d) => `Kontrollerat mot driftbolagets egen kostnadssammanställning den ${d}.`,
+    ask: 'Vill du ha den exakta detaljen bakom någon av siffrorna? Fråga oss — vi är mäklaren, inte driftbolaget, så vi har ingen anledning att skönmåla svaret.',
+  },
+  da: {
+    heading: 'Tallene',
+    share: (n) => `En 1/${n}-andel`, running: 'Løbende udgifter', time: 'Din tid dernede', left: 'Stadig ledigt',
+    monthly: (m) => `${m} om måneden`,
+    nights_minimum: (n) => `${n} nætter om året, som minimum`,
+    nights_fixed: (n) => `${n} nætter om året`,
+    nights_uncapped: 'Ingen fast grænse for antal nætter',
+    nights_fraction: (n) => `Din 1/${n} af året`,
+    shares_left: (n, d) => (n === 1 ? 'Én andel tilbage' : `${n} af ${d} andele tilbage`),
+    covers_advance: 'Et fast månedligt acontobeløb mod boligens eget budget — administration, forsikring, vedligehold og henlæggelser. El, varme, rengøring efter hvert ophold og vask afregnes særskilt efter forbrug.',
+    covers_budget: 'Din del af boligens årsbudget, faktureret månedligt og afregnet ved årets afslutning.',
+    verified: (d) => `Kontrolleret mod driftsselskabets eget omkostningsark den ${d}.`,
+    ask: 'Vil du have den præcise detalje bag et af tallene? Spørg os — vi er mægleren, ikke driftsselskabet, så vi har ingen grund til at pynte på svaret.',
+  },
+  no: {
+    heading: 'Tallene',
+    share: (n) => `En 1/${n}-andel`, running: 'Løpende kostnader', time: 'Din tid der', left: 'Fortsatt ledig',
+    monthly: (m) => `${m} i måneden`,
+    nights_minimum: (n) => `${n} netter i året, som et minimum`,
+    nights_fixed: (n) => `${n} netter i året`,
+    nights_uncapped: 'Ingen fast grense for antall netter',
+    nights_fraction: (n) => `Din 1/${n} av året`,
+    shares_left: (n, d) => (n === 1 ? 'Én andel igjen' : `${n} av ${d} andeler igjen`),
+    covers_advance: 'Et fast månedlig forskudd mot boligens eget budsjett — forvaltning, forsikring, vedlikehold og avsetninger. Strøm, oppvarming, rengjøring etter hvert opphold og vask faktureres separat etter forbruk.',
+    covers_budget: 'Din del av boligens årsbudsjett, fakturert månedlig og gjort opp ved årsslutt.',
+    verified: (d) => `Kontrollert mot driftsselskapets egen kostnadsoversikt den ${d}.`,
+    ask: 'Vil du ha den eksakte detaljen bak et av tallene? Spør oss — vi er megleren, ikke driftsselskapet, så vi har ingen grunn til å pynte på svaret.',
+  },
+};
 
 // ── Locale-specific UI copy ────────────────────────────────────────────────
 const COPY = {
@@ -376,6 +524,12 @@ export async function getStaticProps({ params }) {
     // partner name itself never reaches the client.
     const showEnhancedSections = property.partner === 'pacaso';
 
+    // The numbers block. Built here because it needs the partner and the fact
+    // table, and resolved into an anonymous shape so the partner's name never
+    // reaches __NEXT_DATA__ (see lib/propertyFactsPanel.js). Discreet homes
+    // get nothing: their whole page is a teaser until the visitor enquires.
+    const facts = property.is_discreet ? null : await buildFactsPanel(supabase, property);
+
     // Partner-agnostic mandate: partner identity must never reach the
     // browser. The rendered page never shows it, but getStaticProps props are
     // serialised into __NEXT_DATA__ verbatim — so strip the partner fields
@@ -477,7 +631,7 @@ export async function getStaticProps({ params }) {
     // partner fields are stripped.
     const hreflangLocales = translatedLocales(property, ['title', 'description']);
 
-    return { props: { property: prop, similar, showEnhancedSections, hreflangLocales }, revalidate: 3600 };
+    return { props: { property: prop, similar, showEnhancedSections, facts: facts || null, hreflangLocales }, revalidate: 3600 };
   } catch (err) {
     // Failed ISR regeneration keeps serving the previous successful page.
     // Do not turn infrastructure/query failures into cacheable 404s.
@@ -767,7 +921,7 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale }) {
 }
 
 /* ── Main page ── */
-export default function PropertyPage({ property: p0, similar, showEnhancedSections = false, forceLocale = null, hreflangLocales = null }) {
+export default function PropertyPage({ property: p0, similar, showEnhancedSections = false, facts = null, forceLocale = null, hreflangLocales = null }) {
   const router = useRouter();
   // Discreet-sale homes: the static props carry a stripped row; once the
   // visitor has enquired the full listing is fetched and merged in here.
@@ -786,6 +940,24 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
 
   const local = localizedFields(p, locale);
   const locationTrail = destinationTrailForProperty(p, locale);
+
+  // The numbers panel. `facts` arrives as data, never as sentences, so each
+  // language phrases it itself — see lib/propertyFactsPanel.js.
+  const ft = FACTS_COPY[locale] || FACTS_COPY.en;
+  const usageText = (() => {
+    const u = facts && facts.usage;
+    if (!u) return null;
+    if (u.kind === 'uncapped') return ft.nights_uncapped;
+    if (u.kind === 'minimum' && u.nights) return ft.nights_minimum(u.nights);
+    if (u.kind === 'fixed' && u.nights) return ft.nights_fixed(u.nights);
+    return ft.nights_fraction(u.denom);
+  })();
+  const monthlyText = facts && facts.monthly
+    ? ft.monthly(fmt(facts.monthly, facts.currency, localeNumberFmt))
+    : null;
+  const verifiedText = facts && facts.verifiedOn && monthlyText
+    ? ft.verified(new Date(facts.verifiedOn).toLocaleDateString(localeNumberFmt, { day: 'numeric', month: 'long', year: 'numeric' }))
+    : null;
 
   const [showUnlock, setShowUnlock] = useState(false);
   const [showTour, setShowTour] = useState(false);
@@ -1182,14 +1354,14 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
       </>)}
 
       {/* ── Anchor tabs (Pacaso listings only) ── */}
-      {showEnhancedSections && (
+      {(showEnhancedSections || usageText) && (
       <nav className="pp-tabs" aria-label="Property sections">
         <a href="#overview" className="pp-tab">{t.tab_overview}</a>
-        <a href="#look-inside" className="pp-tab">{t.tab_look}</a>
+        {showEnhancedSections && <a href="#look-inside" className="pp-tab">{t.tab_look}</a>}
         {local.amenities.length > 0 && <a href="#amenities" className="pp-tab">{t.tab_amenities}</a>}
         {(p.lat || p.city) && <a href="#location" className="pp-tab">{t.tab_location}</a>}
         <a href="#co-ownership" className="pp-tab">{t.tab_coown}</a>
-        {Number(p.price) > 0 && <a href="#financing" className="pp-tab">{t.tab_fin}</a>}
+        {facts?.mortgage && Number(p.price) > 0 && <a href="#financing" className="pp-tab">{t.tab_fin}</a>}
       </nav>
       )}
 
@@ -1228,7 +1400,13 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
             {p.beds > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.beds}</span><span className="pp-stat-lbl">{t.bedrooms}</span></div>}
             {p.baths > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.baths}</span><span className="pp-stat-lbl">{t.bathrooms}</span></div>}
             {p.size > 0 && <div className="pp-stat"><span className="pp-stat-val">{p.size} m²</span><span className="pp-stat-lbl">{t.total_size}</span></div>}
-            <div className="pp-stat"><span className="pp-stat-val">{t.days_label(p.share_denominator || 8)}</span><span className="pp-stat-lbl">{t.per_year}</span></div>
+            {/* The old value here was ~365/n, which invents a number: it put
+                "~45 days" on Pacaso homes, which have no cap at all, and on
+                MYNE homes whose real figure is 44 as a floor. It now says
+                what the fact table actually knows, or nothing. */}
+            {usageText
+              ? <div className="pp-stat"><span className="pp-stat-val pp-stat-val-sm">{usageText}</span><span className="pp-stat-lbl">{t.per_year}</span></div>
+              : <div className="pp-stat"><span className="pp-stat-val">{t.days_label(p.share_denominator || 8)}</span><span className="pp-stat-lbl">{t.per_year}</span></div>}
             <div className="pp-stat"><span className="pp-stat-val">1/{p.share_denominator || 8}</span><span className="pp-stat-lbl">{t.share_size}</span></div>
             <a
               href="#property-enquiry"
@@ -1282,6 +1460,51 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
               </>
             ) : <p className="pp-desc-empty">{t.desc_empty}</p>}
           </div>
+          )}
+
+          {/* ── The numbers ──
+                 The share price, the running cost, the time and what is left,
+                 from property_facts and only where verified. A missing figure
+                 leaves its row out rather than being estimated: this block is
+                 the reason a buyer trusts us over the operator's own page, so
+                 there is nothing in it we cannot stand behind. ── */}
+          {facts && !discreetLocked && (
+            <div className="pp-numbers" id="the-numbers">
+              <h2 className="pp-heading">{ft.heading}</h2>
+              <div className="pp-num-rows">
+                {p.price > 0 && (
+                  <div className="pp-num-row">
+                    <span className="pp-num-lbl">{ft.share(facts.denom)}</span>
+                    <span className="pp-num-val">{fmt(p.price, p.currency || 'EUR', localeNumberFmt)}</span>
+                  </div>
+                )}
+                {monthlyText && (
+                  <div className="pp-num-row">
+                    <span className="pp-num-lbl">{ft.running}</span>
+                    <span className="pp-num-val">{monthlyText}</span>
+                  </div>
+                )}
+                {usageText && (
+                  <div className="pp-num-row">
+                    <span className="pp-num-lbl">{ft.time}</span>
+                    <span className="pp-num-val">{usageText}</span>
+                  </div>
+                )}
+                {facts.sharesLeft && (
+                  <div className="pp-num-row">
+                    <span className="pp-num-lbl">{ft.left}</span>
+                    <span className="pp-num-val pp-num-val-left">{ft.shares_left(facts.sharesLeft, facts.denom)}</span>
+                  </div>
+                )}
+              </div>
+              {monthlyText && (
+                <p className="pp-num-note">
+                  {facts.costsKind === 'advance' ? ft.covers_advance : ft.covers_budget}
+                  {verifiedText ? ` ${verifiedText}` : ''}
+                </p>
+              )}
+              <p className="pp-num-ask">{ft.ask}</p>
+            </div>
           )}
 
           {/* ── Look inside: gallery + 3D tour request (no tour is ever
@@ -1343,24 +1566,41 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
             </div>
           )}
 
-          {/* ── Co-ownership: how the model works (Pacaso listings only) ── */}
-          {showEnhancedSections && (
+          {/* ── Co-ownership: how the model works ──
+                 Was Pacaso-only, which hid the best explainer on the site from
+                 148 of 268 listings. Now everywhere, and the usage bullet says
+                 what the fact table knows rather than 365 divided by eight. ── */}
+          {(showEnhancedSections || usageText) && (
           <div className="pp-coown" id="co-ownership">
             <h2 className="pp-heading">{t.coown_heading}</h2>
             <ul className="pp-coown-list">
-              {t.coown_points(p.share_denominator || 8, Math.floor(365 / (p.share_denominator || 8))).map(([pointTitle, pointText], i) => (
-                <li key={i} className="pp-coown-item">
-                  <strong>{pointTitle}</strong>
-                  <span>{pointText}</span>
-                </li>
-              ))}
+              {t.coown_points(p.share_denominator || 8, Math.floor(365 / (p.share_denominator || 8))).map(([pointTitle, pointText], i) => {
+                // Bullet 1 is the usage one. Its stock title is 365/n, which
+                // is an invented figure; where the fact table knows the real
+                // one, that wins.
+                if (i === 1 && usageText) pointTitle = usageText;
+                return (
+                  <li key={i} className="pp-coown-item">
+                    <strong>{pointTitle}</strong>
+                    <span>{pointText}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           )}
 
           {/* ── Financing calculator — COP's own widget, generic maths, no
                  partner claims. Pacaso listings only. ── */}
-          {showEnhancedSections && Number(p.price) > 0 && (
+          {/* ── Financing ──
+                 The calculator asks for a down payment and an interest rate,
+                 so it only belongs where mortgage-style financing actually
+                 exists: MYNE's partner banks, Pacaso to 70% LTV, &Hamlet
+                 through Nordea. Vivla's facility is secured on an investment
+                 portfolio and Abitaro's is ten interest-free instalments —
+                 a mortgage calculator would misdescribe both — and Paris
+                 shares are cash purchases. ── */}
+          {facts?.mortgage && Number(p.price) > 0 && (
             <div className="pp-financing" id="financing">
               <FinancingCalculator
                 sharePrice={Number(p.price)}
