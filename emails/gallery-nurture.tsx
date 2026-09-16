@@ -35,7 +35,11 @@ export interface NurtureHome {
   nightsLine: string;
   booking: string;
   resale: string;
-  sharesLeft: string;       // "5 of 8 shares left"  (empty when stale/unknown)
+  sharesLeft: string;
+  // Added 17 Sep 2026 with the four panel shapes.
+  panelShape?: 'costs' | 'uncapped' | 'resale' | 'entry';
+  resaleStat?: string;
+  costsOnAsk?: boolean;       // "5 of 8 shares left"  (empty when stale/unknown)
   verifiedOn: string;       // "5 September 2026"
   beds?: number;
   size?: string;
@@ -129,17 +133,53 @@ function NumbersBlock({ h, first }: { h: NurtureHome; first: boolean }) {
       </Section>
       <Section style={{ padding: '14px 0 0' }}>
         <Fact label={`A ${h.shareLabel} share`} value={h.priceLabel} />
-        {h.monthlyCostLabel ? <Fact label="Running costs" value={h.monthlyCostLabel} /> : null}
-        <Fact label="Your time there" value={h.nightsShort} />
-        {h.sharesLeft
-          ? <Fact label="Still available" value={h.sharesLeft} last />
-          : (h.beds ? <Fact label="Bedrooms" value={String(h.beds)} last /> : null)}
+
+        {/* ── Four panel shapes, one per operator model. ──
+            Only 109 of 270 live homes have a verified running cost, and none
+            of Pacaso's 120 do, so a single cost-led panel is thin or empty on
+            most of the portfolio. Each shape leads on the strongest true thing
+            we hold for that operator. See panelShape() in lib/partnerTerms.js.
+            (17 Sep 2026) ── */}
+
+        {h.panelShape === 'costs' && (
+          <>
+            <Fact label="Running costs" value={h.monthlyCostLabel} />
+            <Fact label="Your time there" value={h.nightsShort} />
+            {h.sharesLeft
+              ? <Fact label="Still available" value={h.sharesLeft} last />
+              : (h.beds ? <Fact label="Bedrooms" value={String(h.beds)} last /> : null)}
+          </>
+        )}
+
+        {h.panelShape === 'uncapped' && (
+          <>
+            <Fact label="Your time there" value={h.nightsShort} />
+            {h.resaleStat ? <Fact label="Resale so far" value={h.resaleStat} /> : null}
+            {h.beds ? <Fact label="Bedrooms" value={String(h.beds)} last /> : null}
+          </>
+        )}
+
+        {h.panelShape === 'resale' && (
+          <>
+            <Fact label="Your time there" value={h.nightsShort} />
+            {h.resaleStat ? <Fact label="Resales in 2025" value={h.resaleStat} /> : null}
+            {h.beds ? <Fact label="Bedrooms" value={String(h.beds)} last /> : null}
+          </>
+        )}
+
+        {h.panelShape === 'entry' && (
+          <>
+            <Fact label="Your time there" value={h.nightsShort} />
+            {h.size ? <Fact label="Size" value={h.size} /> : null}
+            {h.beds ? <Fact label="Bedrooms" value={String(h.beds)} last /> : null}
+          </>
+        )}
       </Section>
       <Section style={{ padding: '22px 0 0' }}>
         <Text style={noteStyle}>
-          {h.monthlyCostLabel
-            ? <>The monthly figure is {h.costsCovers}{h.verifiedOn ? ` Checked against the operator’s own cost sheet on ${h.verifiedOn}.` : ''}</>
-            : <>Running costs here are {h.costsCovers}</>}
+          {h.costsOnAsk
+            ? <>Running costs here are {h.costsCovers} They are not published, so the figure comes from the team that runs the house &mdash; say the word and I will ask them for this one.</>
+            : <>The monthly figure is {h.costsCovers}{h.verifiedOn ? ` Checked against the operator’s own cost sheet on ${h.verifiedOn}.` : ''}</>}
         </Text>
       </Section>
     </Section>

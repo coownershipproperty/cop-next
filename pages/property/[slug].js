@@ -178,7 +178,6 @@ const COPY = {
     cobadge: (n) => `1/${n} Co-Ownership`,
     price_qualifier: (n) => `for a 1/${n} share`,
     bedrooms: 'Bedrooms', bathrooms: 'Bathrooms', total_size: 'Total size', per_year: 'Per year', share_size: 'Share size',
-    days_label: (n) => `~${Math.floor(365 / n)} days`,
     about_heading: 'About This Property',
     desc_empty: 'Full details coming soon. Use the enquiry form to get in touch.',
     show_less: 'Show less', read_more: 'Read more',
@@ -223,7 +222,6 @@ const COPY = {
     cobadge: (n) => `1/${n} de copropiedad`,
     price_qualifier: (n) => `por una participación de 1/${n}`,
     bedrooms: 'Dormitorios', bathrooms: 'Baños', total_size: 'Superficie total', per_year: 'Al año', share_size: 'Tamaño de fracción',
-    days_label: (n) => `~${Math.floor(365 / n)} días`,
     about_heading: 'Sobre esta propiedad',
     desc_empty: 'Próximamente más detalles. Usa el formulario de contacto para obtener información.',
     show_less: 'Ver menos', read_more: 'Leer más',
@@ -268,7 +266,6 @@ const COPY = {
     cobadge: (n) => `1/${n} en copropriété`,
     price_qualifier: (n) => `pour une part de 1/${n}`,
     bedrooms: 'Chambres', bathrooms: 'Salles de bain', total_size: 'Surface totale', per_year: 'Par an', share_size: 'Taille de la part',
-    days_label: (n) => `~${Math.floor(365 / n)} jours`,
     about_heading: 'À propos de ce bien',
     desc_empty: 'Plus de détails bientôt. Utilisez le formulaire pour nous contacter.',
     show_less: 'Voir moins', read_more: 'Lire la suite',
@@ -313,7 +310,6 @@ const COPY = {
     cobadge: (n) => `1/${n} Miteigentum`,
     price_qualifier: (n) => `für einen 1/${n}-Anteil`,
     bedrooms: 'Schlafzimmer', bathrooms: 'Badezimmer', total_size: 'Gesamtfläche', per_year: 'Pro Jahr', share_size: 'Anteilsgröße',
-    days_label: (n) => `~${Math.floor(365 / n)} Tage`,
     about_heading: 'Über diese Immobilie',
     desc_empty: 'Weitere Details folgen in Kürze. Bitte nutzen Sie das Anfrageformular, um Kontakt aufzunehmen.',
     show_less: 'Weniger anzeigen', read_more: 'Mehr lesen',
@@ -1400,9 +1396,16 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                 "~45 days" on Pacaso homes, which have no cap at all, and on
                 MYNE homes whose real figure is 44 as a floor. It now says
                 what the fact table actually knows, or nothing. */}
+            {/* No usage figure, no stat. The fallback here used to be
+                t.days_label(), which is 365 divided by the share denominator —
+                the generator behind every "~45 days" on the site. It is not a
+                number any operator publishes: it is a cap on Pacaso, who have
+                none, and it understates MYNE's 44 and &Hamlet's 45, both of
+                which are floors. Removed 17 Sep 2026; an empty slot is better
+                than an invented one. */}
             {usageText
               ? <div className="pp-stat"><span className="pp-stat-val pp-stat-val-sm">{usageText}</span><span className="pp-stat-lbl">{t.per_year}</span></div>
-              : <div className="pp-stat"><span className="pp-stat-val">{t.days_label(p.share_denominator || 8)}</span><span className="pp-stat-lbl">{t.per_year}</span></div>}
+              : null}
             <div className="pp-stat"><span className="pp-stat-val">1/{p.share_denominator || 8}</span><span className="pp-stat-lbl">{t.share_size}</span></div>
             <a
               href="#property-enquiry"
@@ -1556,18 +1559,24 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
           <div className="pp-coown" id="co-ownership">
             <h2 className="pp-heading">{t.coown_heading}</h2>
             <ul className="pp-coown-list">
-              {t.coown_points(p.share_denominator || 8, Math.floor(365 / (p.share_denominator || 8))).map(([pointTitle, pointText], i) => {
-                // Bullet 1 is the usage one. Its stock title is 365/n, which
-                // is an invented figure; where the fact table knows the real
-                // one, that wins.
-                if (i === 1 && usageText) pointTitle = usageText;
-                return (
-                  <li key={i} className="pp-coown-item">
-                    <strong>{pointTitle}</strong>
-                    <span>{pointText}</span>
-                  </li>
-                );
-              })}
+              {t.coown_points(p.share_denominator || 8, Math.floor(365 / (p.share_denominator || 8)))
+                .map(([pointTitle, pointText], i) => {
+                  // Bullet 1 is the usage one, and its stock title is 365/n —
+                  // the invented figure. Where the fact table knows the real
+                  // one, that wins; where it does not, the bullet is dropped
+                  // rather than shown with a number nobody publishes.
+                  if (i === 1) {
+                    if (!usageText) return null;
+                    pointTitle = usageText;
+                  }
+                  return (
+                    <li key={i} className="pp-coown-item">
+                      <strong>{pointTitle}</strong>
+                      <span>{pointText}</span>
+                    </li>
+                  );
+                })
+                .filter(Boolean)}
             </ul>
           </div>
           )}
