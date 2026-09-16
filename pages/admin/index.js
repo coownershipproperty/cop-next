@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import AdminTasks from '@/components/admin/AdminTasks'
+import UnansweredEnquiries from '@/components/admin/UnansweredEnquiries'
 import { supabase } from '@/lib/supabase'
 import styles from '@/styles/AdminDashboardHome.module.css'
 
@@ -134,6 +135,9 @@ export default function AdminDashboard() {
   const [followUpLeads, setFollowUpLeads] = useState([])
   const [latestNotes, setLatestNotes] = useState({})
   const [pinBusy, setPinBusy] = useState('')
+  // The 24-hour reply rule — the component works the figure out and hands it
+  // back so the same number appears on the summary tile.
+  const [replySla, setReplySla] = useState(null)
   const [properties, setProperties] = useState([])
   const [partnerLeads, setPartnerLeads] = useState([])
   const [partners, setPartners] = useState({})
@@ -289,10 +293,23 @@ export default function AdminDashboard() {
               <a href="#follow-up-priority"><span>FOLLOW-UP PRIORITY</span><strong>{loading ? '—' : followUpLeads.length.toLocaleString()}</strong><small>Open the priority queue</small></a>
               <div><span>LEAD VELOCITY</span><strong className={velocity < 0 ? styles.negative : ''}>{velocity >= 0 ? '+' : ''}{velocity}%</strong><small>Latest 4 weeks vs previous 4</small></div>
               <Link href="/admin/listings"><span>COP LISTINGS</span><strong>{loading ? '—' : counts.properties.toLocaleString()}</strong><small>{properties[0]?.date_added ? `Latest added ${relativeDate(properties[0].date_added)}` : 'Open inventory'}</small></Link>
+              {replySla && (
+                <a href="#unanswered-enquiries" className={replySla.overdue > 0 ? styles.slaBreach : styles.slaClear}>
+                  <span>AWAITING A REPLY</span>
+                  <strong>{replySla.overdue.toLocaleString()}</strong>
+                  <small>{replySla.overdue > 0
+                    ? `Past the 24-hour rule · ${replySla.waiting} open in total`
+                    : replySla.waiting > 0
+                      ? `${replySla.waiting} open, all still inside the day`
+                      : 'Everyone has had an answer'}</small>
+                </a>
+              )}
             </div>
             <div className={styles.miniTrend}><span>8-WEEK LEAD FLOW</span><LeadVelocityChart points={weeklyTrend} /></div>
           </aside>
         </div>
+
+        <UnansweredEnquiries onCount={setReplySla} />
 
         {!loading && <section id="follow-up-priority" className={`${styles.leadSection} ${styles.prioritySection}`}>
           <header className={styles.leadSectionHeader}>

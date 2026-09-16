@@ -6,6 +6,11 @@ const nextConfig = {
   // a scratch directory instead of clobbering .next — needed when the working
   // copy lives on a mount that refuses unlink(), where a rebuild over an
   // existing .next fails with EPERM. Production builds leave this unset.
+  // Build output directory. Vercel leaves COP_DIST_DIR unset, so production is
+  // '.next' exactly as before. It exists because a local `next build` on the
+  // mounted repo dies on EPERM trying to unlink stale .fuse_hidden files in
+  // .next — COP_DIST_DIR=~/nextbuild lets a build actually run, so code can be
+  // verified before it is pushed rather than after.
   distDir: process.env.COP_DIST_DIR || '.next',
   // Fallback public values so cop-crm builds succeed without env vars configured.
   // NEXT_PUBLIC_ (anon) keys — safe to embed; already shipped to the browser.
