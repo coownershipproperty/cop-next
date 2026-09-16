@@ -916,6 +916,55 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale }) {
   );
 }
 
+/**
+ * Sticky enquiry bar — phones only.
+ *
+ * On desktop the enquiry form sits in a sticky right rail and is never more
+ * than a glance away. On a phone that rail stacks to the very bottom of a
+ * long page, so the call to action is effectively absent for the audience
+ * that engages most: mobile runs 58% engaged against desktop's 33% and
+ * produces as many form starts from half the users.
+ *
+ * This shows the price and one button once the hero has scrolled past.
+ * (17 Sep 2026)
+ */
+function StickyEnquiryBar({ priceLabel, shareLabel, ctaLabel, onTap }) {
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    // Appear after roughly one screen, hide again at the foot of the page so
+    // it never sits on top of the enquiry form it is pointing at.
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      const atFoot = (window.innerHeight + y) > (document.body.scrollHeight - 900);
+      setShown(y > 520 && !atFoot);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  return (
+    <div className={`pp-stickybar${shown ? ' is-in' : ''}`} aria-hidden={!shown}>
+      <span className="pp-stickybar-price">
+        <span className="pp-stickybar-val">{priceLabel}</span>
+        <span className="pp-stickybar-lbl">{shareLabel}</span>
+      </span>
+      <a
+        href="#property-enquiry"
+        className="pp-stickybar-btn"
+        tabIndex={shown ? 0 : -1}
+        onClick={onTap}
+      >
+        {ctaLabel}
+      </a>
+    </div>
+  );
+}
+
 /* ── Main page ── */
 export default function PropertyPage({ property: p0, similar, showEnhancedSections = false, facts = null, forceLocale = null, hreflangLocales = null }) {
   const router = useRouter();
@@ -1702,6 +1751,13 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
           onClose={() => setShowTour(false)}
         />
       )}
+
+      <StickyEnquiryBar
+        priceLabel={fmt(p.price, p.currency || 'EUR', localeNumberFmt)}
+        shareLabel={t.cobadge(p.share_denominator || 8)}
+        ctaLabel={t.contact_cta}
+        onTap={() => track('property_stickybar_click', { property: local.title, slug: p.slug, locale })}
+      />
 
       <Newsletter />
       <Footer />
