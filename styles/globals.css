@@ -10844,24 +10844,6 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   .pp-page { padding-bottom: 76px; }
 }
 
-/* ── All-shares-together figure, beside the share price ──────────────────
-      Added 17 Sep 2026. The number is the headline share price multiplied by
-      the share count — nothing more. It is styled as clearly secondary to the
-      share price, because the share price is what the buyer pays and the
-      multiple is only there to say what tier of home it buys into. The label
-      never reads "value" or "full price": we hold no independent valuation
-      for any home, and the multiple includes renovation, furnishing, set-up
-      and the operator's margin as well as the house. ── */
-.pp-price-whole{display:inline-flex;align-items:baseline;gap:7px;margin-left:12px;padding-left:14px;border-left:1px solid rgba(201,168,76,.35)}
-.pp-price-whole-val{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:400;color:#2C4A5E;line-height:1;white-space:nowrap}
-.pp-price-whole-lbl{font-family:'Nunito Sans',sans-serif;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#6B8A9E}
-.pp-price-note{font-family:'Nunito Sans',sans-serif;font-size:.8rem;line-height:1.55;color:#6B8A9E;margin:2px 0 14px;max-width:52ch}
-@media (max-width:560px){
-  .pp-price-whole{margin-left:0;padding-left:0;border-left:0;flex-basis:100%;margin-top:7px}
-  .pp-price-whole-val{font-size:1.1rem}
-  .pp-price-note{font-size:.78rem;max-width:none}
-}
-
 /* ── Enquiry chips — tap to answer, in place of the free-text box ─────────
       17 Sep 2026. 21 of 1,186 property enquiries carried a typed message
       (1.8%), so the box was friction for 98% of people and told the person

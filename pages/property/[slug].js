@@ -177,8 +177,6 @@ const COPY = {
   en: {
     cobadge: (n) => `1/${n} Co-Ownership`,
     price_qualifier: (n) => `for a 1/${n} share`,
-    whole_label: (n) => `all ${n} shares together`,
-    whole_note: 'Covers the home, the renovation, the furnishing and the set-up — nothing added to the purchase price.',
     bedrooms: 'Bedrooms', bathrooms: 'Bathrooms', total_size: 'Total size', per_year: 'Per year', share_size: 'Share size',
     about_heading: 'About This Property',
     desc_empty: 'Full details coming soon. Use the enquiry form to get in touch.',
@@ -233,8 +231,6 @@ const COPY = {
   es: {
     cobadge: (n) => `1/${n} de copropiedad`,
     price_qualifier: (n) => `por una participación de 1/${n}`,
-    whole_label: (n) => `las ${n} participaciones juntas`,
-    whole_note: 'Incluye la casa, la reforma, el mobiliario y la puesta a punto — no se añade nada al precio de compra.',
     bedrooms: 'Dormitorios', bathrooms: 'Baños', total_size: 'Superficie total', per_year: 'Al año', share_size: 'Tamaño de fracción',
     about_heading: 'Sobre esta propiedad',
     desc_empty: 'Próximamente más detalles. Usa el formulario de contacto para obtener información.',
@@ -289,8 +285,6 @@ const COPY = {
   fr: {
     cobadge: (n) => `1/${n} en copropriété`,
     price_qualifier: (n) => `pour une part de 1/${n}`,
-    whole_label: (n) => `les ${n} parts réunies`,
-    whole_note: "Comprend la maison, la rénovation, l'ameublement et la mise en service — rien ne s'ajoute au prix d'achat.",
     bedrooms: 'Chambres', bathrooms: 'Salles de bain', total_size: 'Surface totale', per_year: 'Par an', share_size: 'Taille de la part',
     about_heading: 'À propos de ce bien',
     desc_empty: 'Plus de détails bientôt. Utilisez le formulaire pour nous contacter.',
@@ -345,8 +339,6 @@ const COPY = {
   de: {
     cobadge: (n) => `1/${n} Miteigentum`,
     price_qualifier: (n) => `für einen 1/${n}-Anteil`,
-    whole_label: (n) => `alle ${n} Anteile zusammen`,
-    whole_note: 'Enthält das Haus, die Renovierung, die Möblierung und die Einrichtung — zum Kaufpreis kommt nichts hinzu.',
     bedrooms: 'Schlafzimmer', bathrooms: 'Badezimmer', total_size: 'Gesamtfläche', per_year: 'Pro Jahr', share_size: 'Anteilsgröße',
     about_heading: 'Über diese Immobilie',
     desc_empty: 'Weitere Details folgen in Kürze. Bitte nutzen Sie das Anfrageformular, um Kontakt aufzunehmen.',
@@ -1178,25 +1170,6 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
   const [descExpanded, setDescExpanded] = useState(false);
   const cx = useCurrency();
 
-  /* All shares together: the headline share price multiplied by the share
-     count, shown in whatever currency the headline is shown in so the two
-     figures always agree. p.price is used rather than property_facts.share_price
-     because the headline is what the reader multiplies — and the two disagree
-     on 37 live homes where the partner audit is older than the listing. */
-  const wholeDisplay = (() => {
-    const denom = Number(p.share_denominator) || 0;
-    const base = Number(p.price) || 0;
-    if (!denom || !base) return null;
-    const whole = base * denom;
-    const fromCcy = p.currency || 'EUR';
-    const converted = cx ? convertPrice(whole, fromCcy, cx) : null;
-    if (converted != null) {
-      const sym = CURRENCY_SYMBOLS[cx.currency] || cx.currency;
-      return `~${sym}${fmtApprox(converted, localeNumberFmt)}`;
-    }
-    return fmt(whole, fromCcy, localeNumberFmt);
-  })();
-
   const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.img || p.images?.[0] || '/images/placeholder.jpg';
   const galleryTotal = p.galleryTotal || p.total_images || p.images.length;
@@ -1536,23 +1509,6 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                 return p.price ? fmt(p.price, fromCcy, localeNumberFmt) : null;
               })()}
             </span>
-            {/* ── All shares together ──────────────────────────────────────
-                   The share price times the share count. Deliberately NOT
-                   called a value, a valuation or a "full price": we have no
-                   independent valuation for any home (full_home_value is
-                   empty on all 295), and share x n is not market value —
-                   it includes the renovation, the furnishing, the set-up,
-                   the taxes and the operator's margin. Labelled as the
-                   arithmetic it is, so a reader who multiplies the headline
-                   figure themselves lands on exactly this number.
-                   Converted through the same rate as the headline price,
-                   or the two numbers stop agreeing in a non-EUR currency. ── */}
-            {p.price > 0 && wholeDisplay && (
-              <span className="pp-price-whole">
-                <span className="pp-price-whole-val">{wholeDisplay}</span>
-                <span className="pp-price-whole-lbl">{t.whole_label(p.share_denominator || 8)}</span>
-              </span>
-            )}
             {p.price > 0 && (
               <span className="pp-price-qualifier">{t.price_qualifier(p.share_denominator || 8)}</span>
             )}
@@ -1561,10 +1517,6 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
             )}
             <span className="pp-badge">{t.cobadge(p.share_denominator || 8)}</span>
           </div>
-
-          {p.price > 0 && wholeDisplay && (
-            <p className="pp-price-note">{t.whole_note}</p>
-          )}
 
           <nav className="pp-crumb">
             <LocationTrail items={locationTrail} separator=" · " />
