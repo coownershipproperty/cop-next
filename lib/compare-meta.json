@@ -109,5 +109,47 @@
     "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
     "mentionsBrands": [],
     "wordCountTarget": 1300
+  },
+  "best-fractional-ownership-companies": {
+    "slug": "best-fractional-ownership-companies",
+    "title": "The Best Fractional Ownership Companies in 2026, Compared",
+    "h1": "The best fractional ownership companies in 2026",
+    "subtitle": "Six operators, 268 live homes, and the figures measured from the listings themselves rather than taken from anybody's marketing — including the running costs two of them publish and four do not.",
+    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro and Paris Property Group compared on price, running costs, nights and resale — measured across 268 live homes.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      "Pacaso",
+      "MYNE Homes",
+      "Vivla",
+      "&Hamlet",
+      "Abitaro",
+      "Paris Property Group"
+    ],
+    "wordCountTarget": 2000
+  },
+  "pacaso-alternatives": {
+    "slug": "pacaso-alternatives",
+    "title": "Pacaso Alternatives: Four Reasons, Four Different Answers",
+    "h1": "Pacaso alternatives",
+    "subtitle": "People look for one for four reasons — price, geography, letting, or wanting the running costs up front — and each has a different answer.",
+    "metaDescription": "Too expensive, not in Europe, want to let it, or want Paris? Each reason has a different answer. Compared on measured figures from 268 live homes.",
+    "category": "category-comparison",
+    "comparisonType": "brand",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      "Pacaso",
+      "MYNE Homes",
+      "Vivla",
+      "&Hamlet",
+      "Abitaro",
+      "Paris Property Group"
+    ],
+    "wordCountTarget": 1300
   }
 }

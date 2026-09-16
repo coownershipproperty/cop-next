@@ -26,9 +26,11 @@ const SITE_URL = 'https://co-ownership-property.com';
 const ORDER = [
   'fractional-ownership-vs-timeshare',
   'fractional-ownership-vs-second-home',
+  'best-fractional-ownership-companies',
   'pacaso-vs-myne',
   'myne-vs-vivla',
   'pacaso-vs-vivla',
+  'pacaso-alternatives',
   'cop-vs-going-direct',
 ];
 
@@ -42,8 +44,8 @@ const GROUPS = [
   {
     key: 'operators',
     heading: 'Which operator suits you',
-    blurb: 'The models differ in ways that decide the purchase: nights a year, whether you may let the home, how resale works, and where the houses are. Compared side by side, on the same facts, in the same order.',
-    slugs: ['pacaso-vs-myne', 'myne-vs-vivla', 'pacaso-vs-vivla'],
+    blurb: 'The models differ in ways that decide the purchase: nights a year, whether you may let the home, how resale works, and where the houses are. Every figure is measured across the 268 live listings rather than taken from anybody\u2019s marketing.',
+    slugs: ['best-fractional-ownership-companies', 'pacaso-vs-myne', 'myne-vs-vivla', 'pacaso-vs-vivla', 'pacaso-alternatives'],
   },
   {
     key: 'route',
