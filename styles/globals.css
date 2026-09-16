@@ -8352,6 +8352,21 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
    Native browser accordion via <details>/<summary> would be cleaner but
    the H3+P pattern is what the renderer extracts for FAQPage schema, so
    we style what we have. */
+/* ── /signin ─────────────────────────────────────────────────────────────── */
+.signin-wrap { min-height: 62vh; display: flex; align-items: center; justify-content: center; padding: 5rem 1.25rem; background: var(--cream-bg, #faf8f4); }
+.signin-card { width: 100%; max-width: 30rem; padding: 2.6rem 2.4rem; background: #fff; border: 1px solid var(--border, #e5e0d6); border-radius: 4px; }
+.signin-card h1 { margin: 0 0 .9rem; font-family: 'Playfair Display', serif; font-size: 1.95rem; font-weight: 400; color: #143047; line-height: 1.2; }
+.signin-sub { margin: 0 0 1.8rem; font-family: 'Nunito Sans', sans-serif; font-size: .95rem; font-weight: 300; line-height: 1.75; color: #4a5568; }
+.signin-form label { display: block; margin-bottom: .5rem; font-family: 'Nunito Sans', sans-serif; font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: #6b8a9e; }
+.signin-form input[type="email"] { width: 100%; height: 48px; padding: 0 1rem; border: 1px solid var(--border, #e5e0d6); border-radius: 3px; font-family: 'Nunito Sans', sans-serif; font-size: .95rem; color: #143047; background: #fff; }
+.signin-form input[type="email"]:focus { outline: none; border-color: var(--warm-gold, #C9A84C); }
+.signin-form button { width: 100%; height: 48px; margin-top: .85rem; border: none; border-radius: 3px; background: var(--warm-gold, #C9A84C); color: #fff; font-family: 'Nunito Sans', sans-serif; font-size: .76rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: background .2s; }
+.signin-form button:hover { background: #b8963e; }
+.signin-form button:disabled { opacity: .6; cursor: default; }
+.signin-fine { margin: 1.4rem 0 0; font-family: 'Nunito Sans', sans-serif; font-size: .78rem; font-weight: 300; line-height: 1.7; color: #8a9bb0; }
+.signin-error { margin: 1.1rem 0 0; font-family: 'Nunito Sans', sans-serif; font-size: .86rem; color: #a23f3f; }
+@media (max-width: 560px) { .signin-card { padding: 2rem 1.4rem; } .signin-card h1 { font-size: 1.7rem; } }
+
 /* ── Comparison hub (/compare) ───────────────────────────────────────────── */
 .cmp-group { margin: 0 0 3rem; }
 .cmp-group > h2 { margin: 0 0 .6rem; }

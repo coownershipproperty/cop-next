@@ -28,6 +28,7 @@ const COPY = {
     oneclick_btn: 'View gallery →',
     oneclick_notyou: 'Not you?',
     all_galleries: 'One unlock opens every property gallery on the site.',
+    signin_hint: "Unlocked before, on another device? Sign in instead",
   },
   es: {
     eyebrow: 'Acceso exclusivo',
@@ -49,6 +50,7 @@ const COPY = {
     oneclick_btn: 'Ver galería →',
     oneclick_notyou: '¿No eres tú?',
     all_galleries: 'Un solo desbloqueo abre todas las galerías del sitio.',
+    signin_hint: "¿Ya lo desbloqueaste en otro dispositivo? Inicia sesión",
   },
   fr: {
     eyebrow: 'Accès exclusif',
@@ -70,6 +72,7 @@ const COPY = {
     oneclick_btn: 'Voir la galerie →',
     oneclick_notyou: "Ce n'est pas vous ?",
     all_galleries: 'Un seul déblocage ouvre toutes les galeries du site.',
+    signin_hint: "Déjà débloqué sur un autre appareil ? Connectez-vous",
   },
   de: {
     eyebrow: 'Exklusiver Zugang',
@@ -91,6 +94,7 @@ const COPY = {
     oneclick_btn: 'Galerie ansehen →',
     oneclick_notyou: 'Nicht Sie?',
     all_galleries: 'Einmal freischalten und alle Galerien der Website öffnen sich.',
+    signin_hint: "Schon auf einem anderen Gerät freigeschaltet? Anmelden",
   },
   it: {
     eyebrow: 'Accesso esclusivo',
@@ -112,6 +116,7 @@ const COPY = {
     oneclick_btn: 'Vedi la galleria →',
     oneclick_notyou: 'Non sei tu?',
     all_galleries: 'Sblocchi una volta e apri tutte le gallerie del sito.',
+    signin_hint: "Già sbloccato su un altro dispositivo? Accedi",
   },
   nl: {
     eyebrow: 'Exclusieve toegang',
@@ -133,6 +138,7 @@ const COPY = {
     oneclick_btn: 'Galerij bekijken →',
     oneclick_notyou: 'Bent u dit niet?',
     all_galleries: 'Eén keer ontgrendelen opent alle fotogalerijen op de site.',
+    signin_hint: "Al ontgrendeld op een ander apparaat? Log in",
   },
   pt: {
     eyebrow: 'Acesso exclusivo',
@@ -154,6 +160,7 @@ const COPY = {
     oneclick_btn: 'Ver galeria →',
     oneclick_notyou: 'Não é você?',
     all_galleries: 'Um único desbloqueio abre todas as galerias do site.',
+    signin_hint: "Já desbloqueou noutro dispositivo? Inicie sessão",
   },
   sv: {
     eyebrow: 'Exklusiv åtkomst',
@@ -175,6 +182,7 @@ const COPY = {
     oneclick_btn: 'Visa galleri →',
     oneclick_notyou: 'Inte du?',
     all_galleries: 'En upplåsning öppnar alla bostadsgallerier på webbplatsen.',
+    signin_hint: "Redan upplåst på en annan enhet? Logga in",
   },
   da: {
     eyebrow: 'Eksklusiv adgang',
@@ -196,6 +204,7 @@ const COPY = {
     oneclick_btn: 'Se galleri →',
     oneclick_notyou: 'Ikke dig?',
     all_galleries: 'Lås op én gang, og alle sitets boliggallerier åbner sig.',
+    signin_hint: "Allerede låst op på en anden enhed? Log ind",
   },
   no: {
     eyebrow: 'Eksklusiv tilgang',
@@ -217,6 +226,7 @@ const COPY = {
     oneclick_btn: 'Se galleriet →',
     oneclick_notyou: 'Ikke deg?',
     all_galleries: 'Én opplåsing åpner alle boliggalleriene på nettstedet.',
+    signin_hint: "Allerede låst opp på en annen enhet? Logg inn",
   },
 };
 
@@ -432,6 +442,11 @@ export default function UnlockModal({ propertyTitle, propertyUrl, propertySlug, 
             <h3>{t.heading}</h3>
             <p className="ul-sub">{t.oneclick_continue} <strong style={{ color: '#143047' }}>{email}</strong></p>
             <p style={{ margin: '-4px 0 14px', fontSize: '.82rem', color: '#C9A84C', fontWeight: 700, fontFamily: "'Nunito Sans',sans-serif" }}>✓ {t.all_galleries}</p>
+            {/* The way out for somebody who has already done this once on
+                another device — the whole reason /signin exists. */}
+            <p style={{ margin: '-8px 0 14px', fontSize: '.78rem', fontFamily: "'Nunito Sans',sans-serif" }}>
+              <a href="/signin/" style={{ color: '#6b8a9e', textDecoration: 'underline' }}>{t.signin_hint}</a>
+            </p>
             <form onSubmit={submitOneClick} className="ul-form">
               <button type="submit" disabled={status === 'sending'}>
                 {status === 'sending' ? t.btn_sending : t.oneclick_btn}

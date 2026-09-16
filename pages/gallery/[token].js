@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { readVisitorCookie } from '@/lib/signinToken';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { track } from '@vercel/analytics';
 import { createClient } from '@supabase/supabase-js';
@@ -13,7 +14,7 @@ function getSupabase() {
   );
 }
 
-export async function getServerSideProps({ params, query }) {
+export async function getServerSideProps({ params, query, req }) {
   const raw = params.token; // could be a base64 token OR a pretty slug
   let name = null, email = null, slug = null, title = null;
   // Locale comes in via ?lang= — preserved from the original email link.
@@ -80,7 +81,20 @@ export async function getServerSideProps({ params, query }) {
   // one lands on the property page, where the unlock is one click away.
   // Sold homes stay viewable with a token: a lead's saved link must not 404
   // the day the last share sells.
-  const looksLikeEmail = typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  let looksLikeEmail = typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+
+  // A signed-in visitor does not have to carry their address in the URL. The
+  // cookie is signed by us and cannot be forged, unlike the ?t= token in the
+  // path — which is why that one still may not stand in for an address.
+  if (!looksLikeEmail) {
+    const visitor = readVisitorCookie(req);
+    if (visitor && visitor.email) {
+      email = visitor.email;
+      name = name || visitor.name || null;
+      looksLikeEmail = true;
+    }
+  }
+
   if (!looksLikeEmail) {
     return { redirect: { destination: `/property/${slug}/?unlock=1`, permanent: false } };
   }

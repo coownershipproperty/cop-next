@@ -350,7 +350,7 @@ function HeroCapture() {
     if (!value || state === 'sending') return;
     setState('sending');
     try {
-      const r = await fetch('/api/newsletter', {
+      const r = await fetch('/api/newsletter/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: value, source: 'hero', locale: 'en', website: e.target.website?.value || '' }),

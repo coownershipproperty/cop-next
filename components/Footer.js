@@ -28,6 +28,7 @@ const FOOTER_COLS = {
   ],
   support: [
     ['contact',     'footer.get_in_touch'],
+    [null,          'footer.sign_in', '/signin/'],
     ['buyingFaqs',  'footer.faq_buying'],
     ['stayingFaqs', 'footer.faq_staying'],
     ['favourites',  'footer.saved_properties'],
