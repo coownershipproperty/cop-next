@@ -90,5 +90,61 @@
         "url": "https://www.vivla.com/"
       }
     ]
+  },
+  "best-fractional-ownership-companies": {
+    "slug": "best-fractional-ownership-companies",
+    "title": "Die besten Miteigentums-Anbieter 2026 im Vergleich",
+    "h1": "Die besten Anbieter für fraktionales Miteigentum 2026",
+    "subtitle": "Sechs Anbieter, 268 aktuell gelistete Immobilien und Zahlen, die an den Angeboten selbst gemessen und nicht aus irgendwessen Marketing übernommen sind — einschließlich der laufenden Kosten, die zwei von ihnen veröffentlichen und vier nicht.",
+    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro und Paris Property Group im Vergleich: Preis, laufende Kosten, Nächte und Weiterverkauf — gemessen an 268 Immobilien.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      "Pacaso",
+      "MYNE Homes",
+      "Vivla",
+      "&Hamlet",
+      "Abitaro",
+      "Paris Property Group"
+    ],
+    "wordCountTarget": 2000
+  },
+  "pacaso-alternatives": {
+    "slug": "pacaso-alternatives",
+    "title": "Pacaso-Alternativen: vier Gründe, vier Antworten",
+    "h1": "Pacaso-Alternativen",
+    "subtitle": "Menschen suchen aus vier Gründen nach einer Alternative — Preis, Geografie, Vermietung oder der Wunsch, die laufenden Kosten vorab zu kennen — und jeder Grund hat eine andere Antwort.",
+    "metaDescription": "Zu teuer, nicht in Europa, vermieten wollen oder Paris? Jeder Grund hat eine andere Antwort. Verglichen anhand gemessener Zahlen aus 268 Immobilien.",
+    "category": "category-comparison",
+    "comparisonType": "brand",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      "Pacaso",
+      "MYNE Homes",
+      "Vivla",
+      "&Hamlet",
+      "Abitaro",
+      "Paris Property Group"
+    ],
+    "wordCountTarget": 1300
+  },
+  "cop-vs-going-direct": {
+    "slug": "cop-vs-going-direct",
+    "title": "Über eine Agentur kaufen oder direkt beim Anbieter",
+    "h1": "Über Co-Ownership Property oder direkt zum Anbieter?",
+    "subtitle": "Der Anteil kostet auf beiden Wegen dasselbe. Was sich ändert, ist das, was Sie sehen können, bevor Sie sich festlegen, und wen Sie fragen können, wenn die Antwort unbequem ist.",
+    "metaDescription": "Der Anteilspreis ist auf beiden Wegen identisch — die Provision zahlt der Anbieter, nicht Sie. Anders sind Vergleich, Kostentransparenz und Ansprechpartner.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [],
+    "wordCountTarget": 1300
   }
 }

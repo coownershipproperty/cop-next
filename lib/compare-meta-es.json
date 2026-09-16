@@ -90,5 +90,61 @@
         "url": "https://www.vivla.com/"
       }
     ]
+  },
+  "best-fractional-ownership-companies": {
+    "slug": "best-fractional-ownership-companies",
+    "title": "Las mejores empresas de copropiedad fraccional en 2026",
+    "h1": "Las mejores empresas de copropiedad fraccional en 2026",
+    "subtitle": "Seis operadores, 268 viviendas activas y las cifras medidas sobre los propios listados en lugar de tomadas del marketing de nadie, incluidos los costes operativos que dos de ellos publican y cuatro no.",
+    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro y Paris Property Group comparados en precio, gastos corrientes, noches y reventa sobre 268 viviendas activas.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      "Pacaso",
+      "MYNE Homes",
+      "Vivla",
+      "&Hamlet",
+      "Abitaro",
+      "Paris Property Group"
+    ],
+    "wordCountTarget": 2000
+  },
+  "pacaso-alternatives": {
+    "slug": "pacaso-alternatives",
+    "title": "Alternativas a Pacaso: cuatro motivos, cuatro respuestas",
+    "h1": "Alternativas a Pacaso",
+    "subtitle": "La gente busca una por cuatro motivos —precio, geografía, alquiler o querer los costes operativos por adelantado— y cada uno tiene una respuesta distinta.",
+    "metaDescription": "¿Demasiado caro, no está en Europa, quieres alquilarla o quieres París? Cada motivo tiene su respuesta, medida sobre 268 viviendas activas.",
+    "category": "category-comparison",
+    "comparisonType": "brand",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      "Pacaso",
+      "MYNE Homes",
+      "Vivla",
+      "&Hamlet",
+      "Abitaro",
+      "Paris Property Group"
+    ],
+    "wordCountTarget": 1300
+  },
+  "cop-vs-going-direct": {
+    "slug": "cop-vs-going-direct",
+    "title": "Comprar a través de una agencia o directo al operador",
+    "h1": "¿A través de Co-Ownership Property o directo al operador?",
+    "subtitle": "La participación cuesta lo mismo de una forma u otra. Lo que cambia es lo que se puede ver antes de comprometerse y a quién se puede preguntar cuando la respuesta es incómoda.",
+    "metaDescription": "El precio de la participación es idéntico: la comisión la paga el operador, no tú. Cambia la comparación, los gastos corrientes que ves y quién responde.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [],
+    "wordCountTarget": 1300
   }
 }

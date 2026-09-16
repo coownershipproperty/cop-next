@@ -90,5 +90,61 @@
         "url": "https://www.vivla.com/"
       }
     ]
+  },
+  "cop-vs-going-direct": {
+    "slug": "cop-vs-going-direct",
+    "title": "Acheter via une agence ou en direct chez l'opérateur",
+    "h1": "Via Co-Ownership Property, ou directement chez l'opérateur ?",
+    "subtitle": "La part coûte la même chose dans les deux cas. Ce qui change, c'est ce que vous pouvez voir avant de vous engager, et à qui vous pouvez poser la question quand la réponse dérange.",
+    "metaDescription": "Le prix de la part est le même des deux côtés : l'opérateur paie la commission, pas vous. Ce qui change : la comparaison, les coûts et qui répond.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [],
+    "wordCountTarget": 1300
+  },
+  "best-fractional-ownership-companies": {
+    "slug": "best-fractional-ownership-companies",
+    "title": "Les meilleures sociétés de copropriété fractionnée 2026",
+    "h1": "Les meilleures sociétés de copropriété fractionnée en 2026",
+    "subtitle": "Six opérateurs, 268 biens en vente, et des chiffres mesurés à partir des annonces elles-mêmes plutôt que repris du marketing de qui que ce soit — y compris les coûts d'exploitation que deux d'entre eux publient et que quatre ne publient pas.",
+    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro et Paris Property Group comparés sur le prix, les charges, les nuits et la revente, sur 268 biens en vente.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      "Pacaso",
+      "MYNE Homes",
+      "Vivla",
+      "&Hamlet",
+      "Abitaro",
+      "Paris Property Group"
+    ],
+    "wordCountTarget": 2000
+  },
+  "pacaso-alternatives": {
+    "slug": "pacaso-alternatives",
+    "title": "Alternatives à Pacaso : quatre raisons, quatre réponses",
+    "h1": "Alternatives à Pacaso",
+    "subtitle": "On en cherche une pour quatre raisons — le prix, la géographie, la location, ou l'envie de connaître les coûts d'exploitation d'avance — et chacune appelle une réponse différente.",
+    "metaDescription": "Trop cher, pas en Europe, envie de louer ou envie de Paris ? Chaque raison a sa réponse. Chiffres mesurés sur 268 biens en vente chez six opérateurs.",
+    "category": "category-comparison",
+    "comparisonType": "brand",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      "Pacaso",
+      "MYNE Homes",
+      "Vivla",
+      "&Hamlet",
+      "Abitaro",
+      "Paris Property Group"
+    ],
+    "wordCountTarget": 1300
   }
 }
