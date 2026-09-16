@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { localeFromPath, t, routePath } from '@/lib/i18n';
+import { DESTINATIONS as DESTINATION_FILTERS, COUNTRY_PILLARS } from '@/lib/destinations';
 
 // Footer columns, generated per locale from ROUTE_SLUGS in lib/i18n.js and
 // the message catalogues. Previously a hand-maintained table per locale, which
@@ -47,14 +48,31 @@ function footerLinks(locale) {
   return { discover: build('discover'), company: build('company'), support: build('support') };
 }
 
-const DESTINATIONS = [
-  { href: '/spain-fractional-ownership-properties/',    label: { en: 'Spain',    es: 'España',   fr: 'Espagne',   de: 'Spanien',    it: 'Spagna',     nl: 'Spanje',     pt: 'Espanha',  sv: 'Spanien',  da: 'Spanien',  no: 'Spania' } },
-  { href: '/france-fractional-ownership-properties/',   label: { en: 'France',   es: 'Francia',  fr: 'France',    de: 'Frankreich', it: 'Francia',    nl: 'Frankrijk',  pt: 'França',   sv: 'Frankrike', da: 'Frankrig', no: 'Frankrike' } },
-  { href: '/italy-fractional-ownership-properties/',    label: { en: 'Italy',    es: 'Italia',   fr: 'Italie',    de: 'Italien',    it: 'Italia',     nl: 'Italië',     pt: 'Itália',   sv: 'Italien',  da: 'Italien',  no: 'Italia' } },
-  { href: '/usa-fractional-ownership-properties/',      label: { en: 'USA',      es: 'EE. UU.',  fr: 'États-Unis', de: 'USA',       it: 'Stati Uniti', nl: 'Verenigde Staten', pt: 'Estados Unidos', sv: 'USA', da: 'USA', no: 'USA' } },
-  { href: '/portugal-fractional-ownership-properties/', label: { en: 'Portugal', es: 'Portugal', fr: 'Portugal',  de: 'Portugal',   it: 'Portogallo', nl: 'Portugal',   pt: 'Portugal', sv: 'Portugal', da: 'Portugal', no: 'Portugal' } },
-  { href: '/austria-fractional-ownership-properties/',  label: { en: 'Austria',  es: 'Austria',  fr: 'Autriche',  de: 'Österreich', it: 'Austria',    nl: 'Oostenrijk', pt: 'Áustria',  sv: 'Österrike', da: 'Østrig',  no: 'Østerrike' } },
-];
+// Country labels. The SET of countries is not maintained here — it comes from
+// COUNTRY_PILLARS in lib/destinations.js, which is the file that decides what
+// a country pillar page is. This footer used to carry its own hand-written
+// list and had drifted to six entries while eleven pillar pages existed and
+// returned 200, so Germany, Mexico, England, Sweden and Croatia had no link
+// from any page on the site. A pillar with no label falls back to its English
+// country name rather than vanishing from the footer. (David, 17 Sep 2026)
+const COUNTRY_LABELS = {
+  'usa-fractional-ownership-properties':      { en: 'USA',      es: 'EE. UU.',  fr: 'États-Unis', de: 'USA',        it: 'Stati Uniti', nl: 'Verenigde Staten', pt: 'Estados Unidos', sv: 'USA',       da: 'USA',      no: 'USA' },
+  'spain-fractional-ownership-properties':    { en: 'Spain',    es: 'España',   fr: 'Espagne',    de: 'Spanien',    it: 'Spagna',      nl: 'Spanje',           pt: 'Espanha',        sv: 'Spanien',   da: 'Spanien',  no: 'Spania' },
+  'italy-fractional-ownership-properties':    { en: 'Italy',    es: 'Italia',   fr: 'Italie',     de: 'Italien',    it: 'Italia',      nl: 'Italië',           pt: 'Itália',         sv: 'Italien',   da: 'Italien',  no: 'Italia' },
+  'france-fractional-ownership-properties':   { en: 'France',   es: 'Francia',  fr: 'France',     de: 'Frankreich', it: 'Francia',     nl: 'Frankrijk',        pt: 'França',         sv: 'Frankrike', da: 'Frankrig', no: 'Frankrike' },
+  'austria-fractional-ownership-properties':  { en: 'Austria',  es: 'Austria',  fr: 'Autriche',   de: 'Österreich', it: 'Austria',     nl: 'Oostenrijk',       pt: 'Áustria',        sv: 'Österrike', da: 'Østrig',   no: 'Østerrike' },
+  'germany-fractional-ownership-properties':  { en: 'Germany',  es: 'Alemania', fr: 'Allemagne',  de: 'Deutschland', it: 'Germania',   nl: 'Duitsland',        pt: 'Alemanha',       sv: 'Tyskland',  da: 'Tyskland', no: 'Tyskland' },
+  'mexico-fractional-ownership-properties':   { en: 'Mexico',   es: 'México',   fr: 'Mexique',    de: 'Mexiko',     it: 'Messico',     nl: 'Mexico',           pt: 'México',         sv: 'Mexiko',    da: 'Mexico',   no: 'Mexico' },
+  'portugal-fractional-ownership-properties': { en: 'Portugal', es: 'Portugal', fr: 'Portugal',   de: 'Portugal',   it: 'Portogallo',  nl: 'Portugal',         pt: 'Portugal',       sv: 'Portugal',  da: 'Portugal', no: 'Portugal' },
+  'england-fractional-ownership-properties':  { en: 'England',  es: 'Inglaterra', fr: 'Angleterre', de: 'England',  it: 'Inghilterra', nl: 'Engeland',         pt: 'Inglaterra',     sv: 'England',   da: 'England',  no: 'England' },
+  'sweden-fractional-ownership-properties':   { en: 'Sweden',   es: 'Suecia',   fr: 'Suède',      de: 'Schweden',   it: 'Svezia',      nl: 'Zweden',           pt: 'Suécia',         sv: 'Sverige',   da: 'Sverige',  no: 'Sverige' },
+  'croatia-fractional-ownership-properties':  { en: 'Croatia',  es: 'Croacia',  fr: 'Croatie',    de: 'Kroatien',   it: 'Croazia',     nl: 'Kroatië',          pt: 'Croácia',        sv: 'Kroatien',  da: 'Kroatien', no: 'Kroatia' },
+};
+
+const DESTINATIONS = COUNTRY_PILLARS.map((slug) => ({
+  href: `/${slug}/`,
+  label: COUNTRY_LABELS[slug] || { en: (DESTINATION_FILTERS[slug] && DESTINATION_FILTERS[slug].country) || slug },
+}));
 
 // Social channels shown under the brand mark.
 const SOCIAL = [
@@ -106,8 +124,10 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Destinations */}
-        <div className="footer-col">
+        {/* Destinations — two sub-columns, because this list is eleven long
+            against five in Company and Support, and a single column left the
+            footer with a 700px ragged edge. */}
+        <div className="footer-col footer-col-destinations">
           <h4 className="footer-col-heading">{t('footer.destinations_heading', locale)}</h4>
           <ul>
             {DESTINATIONS.map(({ href, label }) => (

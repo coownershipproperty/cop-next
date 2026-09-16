@@ -6394,6 +6394,29 @@ section.props-sec,
   transition: color 0.2s;
 }
 .footer-col ul li a:hover { color: #C9A84C; }
+
+/* The destinations column carries all eleven country pillars (it used to
+   carry six, while eleven pages existed and returned 200). Eleven in one
+   column against five in Company and Support left a very ragged footer, so
+   this one splits in two and takes a wider share of the grid. */
+.footer-col-destinations ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem 1.4rem;
+  align-content: start;
+}
+.footer-inner { grid-template-columns: 1.7fr 1fr 1.5fr 1fr 1fr; }
+@media (max-width: 1100px) {
+  .footer-inner { grid-template-columns: 1.7fr 1fr 1.5fr; }
+}
+@media (max-width: 900px) {
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .footer-col-destinations { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-col-destinations ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.08);
   max-width: 1400px;
