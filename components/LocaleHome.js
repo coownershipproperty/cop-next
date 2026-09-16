@@ -418,6 +418,7 @@ export default function LocaleHome({ locale, copy, propertyCount, featuredProps,
       </section>
 
       {/* ===== LATEST POSTS SECTION ===== */}
+      {latestPosts.length > 0 && (
       <section className="latest-posts-section">
         <span className="lp-eyebrow">{copy.blog.eyebrow}</span>
         <h2 className="section-heading">{copy.blog.heading}</h2>
@@ -444,6 +445,7 @@ export default function LocaleHome({ locale, copy, propertyCount, featuredProps,
           <a href="/all-our-blog/" className="lp-all-btn">{copy.blog.viewAll}</a>
         </div>
       </section>
+      )}
 
       {/* ===== FAQ SECTION ===== */}
       <section className="faq-section" id="faq">
