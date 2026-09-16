@@ -71,6 +71,20 @@ export async function getServerSideProps({ params, query }) {
 
   if (!prop) return { redirect: { destination: '/our-homes/', permanent: false } };
 
+  // ── The gallery is gated ──────────────────────────────────────────────────
+  // Until 16 Sep 2026 this page rendered from the slug alone, so the "unlock"
+  // form was decorative: /gallery/<any-slug> showed every photo to anyone who
+  // guessed the URL. Every link we have ever emailed carries ?t= (the visitor
+  // token), and the modal opens the tab with it, so requiring an identified
+  // visitor breaks nothing a real lead does — and someone who arrives without
+  // one lands on the property page, where the unlock is one click away.
+  // Sold homes stay viewable with a token: a lead's saved link must not 404
+  // the day the last share sells.
+  const looksLikeEmail = typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  if (!looksLikeEmail) {
+    return { redirect: { destination: `/property/${slug}/?unlock=1`, permanent: false } };
+  }
+
   // Discreet-sale homes: the gallery is part of the locked full listing, so
   // the visitor token must name someone who has enquired (a CRM contact).
   // Anyone else goes to the property page, which offers the unlock.

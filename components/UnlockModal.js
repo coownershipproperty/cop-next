@@ -277,7 +277,7 @@ function slugFromPropertyUrl(url) {
   return m ? m[1] : '';
 }
 
-export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, propertySlug, propertyCountry, onClose }) {
+export default function UnlockModal({ propertyTitle, propertyUrl, propertySlug, propertyCountry, onClose }) {
   const router = useRouter();
   const locale = localeFromPath(router.asPath || router.pathname);
   const t = COPY[locale] || COPY.en;
@@ -315,7 +315,7 @@ export default function UnlockModal({ propertyTitle, driveUrl, propertyUrl, prop
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: sendName, email: sendEmail, phone: sendPhone, propertyTitle, driveUrl, propertyUrl,
+          name: sendName, email: sendEmail, phone: sendPhone, propertyTitle, propertyUrl,
           propertyCountry, locale, [HONEYPOT_FIELD]: honeypot,
         }),
       });

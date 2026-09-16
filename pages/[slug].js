@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
 import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
+import { capDiscreet } from '@/lib/discreetMix';
 import { createClient } from '@supabase/supabase-js';
 import destinationFaqs from '@/lib/destination-faqs.json';
 import destSameAs from '@/lib/destination-sameas.json';
@@ -274,7 +275,7 @@ async function fetchLiveProperties() {
       img:      p.img,
       images:      (p.images || []).slice(0, 3),
       totalImages: p.is_discreet ? 1 : (p.total_images || 0),
-      driveUrl:    p.is_discreet ? null : (p.drive_url || null), discreet: !!p.is_discreet,
+      hasGallery:    !p.is_discreet && !!p.drive_url, discreet: !!p.is_discreet,
       price:    p.price    || null,
       currency: p.currency || 'EUR',
       share_denominator: p.share_denominator || null,
@@ -669,9 +670,14 @@ export default function DestinationPage({
     return regions.sort((a, b) => counts[b] - counts[a]);
   }, [properties]);
 
-  const displayedProperties = activeFilter
-    ? properties.filter(p => getRegionLabel(p) === activeFilter)
-    : properties;
+  // Discreet homes have no listing page, so a grid full of them passes no link
+  // equity to any property and gives the visitor nothing to click through to.
+  // At most 3 of the 12 server-rendered cards are discreet (16 Sep 2026).
+  const displayedProperties = capDiscreet(
+    activeFilter ? properties.filter(p => getRegionLabel(p) === activeFilter) : properties,
+    SSR_CARD_CAP,
+    3,
+  );
 
   // ── Schemas ───────────────────────────────────────────────────────────────
   const schemas = [
@@ -743,7 +749,7 @@ export default function DestinationPage({
       "@type": "ItemList",
       "itemListOrder": "https://schema.org/ItemListUnordered",
       "numberOfItems": properties.length,
-      "itemListElement": properties.slice(0, 20).map((p, i) => ({
+      "itemListElement": properties.filter(p => !p.discreet).slice(0, 20).map((p, i) => ({
         "@type": "ListItem",
         "position": i + 1,
         "url": `https://co-ownership-property.com/property/${p.slug}/`,

@@ -246,7 +246,9 @@ export default function PropertyCard({ property: p, priority = false }) {
     .slice(0, 2);
   const imgSlides = [heroImg, ...supabaseExtras].filter(Boolean);
 
-  const hasLock = !isDiscreet && !!p.driveUrl;
+  // `hasGallery` is a server-computed boolean; the Drive URL itself never
+  // reaches the browser (16 Sep 2026 — it was a public folder in the page source).
+  const hasLock = !isDiscreet && !!p.hasGallery;
   const totalSlides = imgSlides.length + (hasLock ? 1 : 0);
   const isLockSlide = hasLock && slide >= imgSlides.length;
 
@@ -456,7 +458,6 @@ export default function PropertyCard({ property: p, priority = false }) {
       {unlockOpen && (
         <UnlockModal
           propertyTitle={title}
-          driveUrl={p.driveUrl}
           propertySlug={p.slug}
           propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`}
           propertyCountry={p.country || null}

@@ -10,6 +10,7 @@ import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import { track } from '@vercel/analytics';
 import { localeFromPath, localeColumns, pickLocalized, ogLocaleFor } from '@/lib/i18n';
+import { capDiscreet } from '@/lib/discreetMix';
 
 /** Fisher-Yates shuffle — runs once at build time for a stable random order */
 function shuffle(arr) {
@@ -61,12 +62,20 @@ export async function getStaticProps() {
     slug:     p.slug,
     title:    p.title,
     // Translated titles flow straight through; PropertyCard picks the right
-    // one based on its own locale detection (router or cookie).
-    ...pickLocalized(p, ['title']),
+    // one based on its own locale detection (router or cookie). Locales with
+    // no translation are omitted rather than serialised as null — 10 empty
+    // keys on 490 rows was ~75 KB of __NEXT_DATA__ for nothing.
+    ...Object.fromEntries(
+      Object.entries(pickLocalized(p, ['title'])).filter(([, v]) => v)
+    ),
     img:      p.img,
     images:      (p.images || []).slice(0, 3),
     totalImages: p.is_discreet ? 1 : (p.total_images || 0),
-    driveUrl:    p.is_discreet ? null : (p.drive_url || null),
+    // A boolean, never the Drive URL itself: the folder is publicly readable,
+    // so shipping it in __NEXT_DATA__ handed the gated gallery to anyone who
+    // opened the page source (16 Sep 2026). The card only needs to know
+    // whether there is a gallery behind the unlock.
+    hasGallery:  !p.is_discreet && !!p.drive_url,
     discreet:    !!p.is_discreet,
     price:    p.price    || null,
     currency: p.currency || 'EUR',
@@ -775,6 +784,8 @@ function regionLabel(r, t) {
 }
 
 const PAGE_SIZE = 24;
+// At most this many Discreet Sale cards per page of results (see capDiscreet).
+const MAX_DISCREET_PER_PAGE = 6;
 
 // The page renders the locale derived from its URL — no cookie magic, so the
 // English /our-homes/ stays English for English visitors regardless of which
@@ -925,6 +936,10 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
     if (sort === 'asc')    list.sort((a, b) => (a.price || 0) - (b.price || 0));
     if (sort === 'desc')   list.sort((a, b) => (b.price || 0) - (a.price || 0));
 
+    // Never let the discreet homes monopolise a page of results — unless the
+    // visitor has explicitly asked to see only those.
+    if (!onlyDiscreet) list = capDiscreet(list, PAGE_SIZE, MAX_DISCREET_PER_PAGE);
+
     return list;
   }, [allProperties, countries, regions, sort, onlyDiscreet]);
 
@@ -1030,8 +1045,8 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
             {
               "@type": "ItemList",
               "itemListOrder": "https://schema.org/ItemListUnordered",
-              "numberOfItems": allProperties.length,
-              "itemListElement": allProperties.slice(0, 24).map((p, i) => ({
+              "numberOfItems": allProperties.filter(p => !p.discreet).length,
+              "itemListElement": allProperties.filter(p => !p.discreet).slice(0, 24).map((p, i) => ({
                 "@type": "ListItem",
                 "position": i + 1,
                 "url": `https://co-ownership-property.com/property/${p.slug}/`,

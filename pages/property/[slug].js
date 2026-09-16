@@ -355,9 +355,20 @@ export async function getStaticProps({ params }) {
 
     const prop = {
       ...property,
-      driveUrl: property.drive_url,
+      // Booleans and counts only. `drive_url` is a publicly readable Google
+      // Drive folder and `photos`/`extra_photos` are the gated gallery itself:
+      // spreading the row put all three into __NEXT_DATA__, so the "unlock"
+      // was decorative for anyone who opened the page source (16 Sep 2026).
+      hasGallery: !!property.drive_url,
+      galleryTotal: (Array.isArray(property.photos) && property.photos.length > 0)
+        ? property.photos.length + (Array.isArray(property.extra_photos) ? property.extra_photos.length : 0)
+        : (property.total_images || (property.images || []).length),
       dateAdded: property.date_added,
     };
+    delete prop.drive_url;
+    delete prop.photos;
+    delete prop.extra_photos;
+    delete prop.documents;
 
     // Enhanced sections (tab bar, Look inside + 3D tour, Co-ownership,
     // Financing) render on Pacaso-partner listings only (Dylan, 20 Jul 2026).
@@ -385,12 +396,9 @@ export async function getStaticProps({ params }) {
     // fetches them from /api/discreet-listing once the visitor has enquired.
     if (property.is_discreet) {
       prop.images = property.img ? [property.img] : [];
-      prop.photos = [];
-      prop.extra_photos = [];
-      prop.documents = [];
       prop.total_images = 1;
-      prop.driveUrl = null;
-      delete prop.drive_url;
+      prop.galleryTotal = 1;
+      prop.hasGallery = false;
       delete prop.description;
       delete prop.amenities;
       for (const loc of ALL_LOCALES) { delete prop[`description_${loc}`]; delete prop[`amenities_${loc}`]; }
@@ -456,7 +464,7 @@ export async function getStaticProps({ params }) {
         beds: p.beds || null,
         size: p.size || null,
         status: p.status || null,
-        driveUrl: null, // no gallery-lock slide on similar cards
+        hasGallery: false, // no gallery-lock slide on similar cards
       }));
     } catch (_) {
       similar = [];
@@ -787,6 +795,18 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
   const [unlocked, setUnlocked] = useState(false);
   useEffect(() => { try { setUnlocked(!!getSavedUser().validated); } catch (e) {} }, []);
 
+  // Arriving from a gallery link with no visitor token (see pages/gallery/
+  // [token].js): open the unlock straight away rather than making them hunt
+  // for the button they had already used once.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (new URLSearchParams(window.location.search).get('unlock') === '1') {
+      try { if (getSavedUser().validated) { viewGallery(); return; } } catch (e) {}
+      setShowUnlock(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Fetch the full discreet listing for a known visitor. Known = a saved,
   // validated user in this browser, or a ?t= visitor token on the URL (the
   // link the enquiry popup / emails carry). One enquiry unlocks every
@@ -841,7 +861,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: su.name, email: su.email, phone: su.phone,
-          propertyTitle: local.title, driveUrl: p.driveUrl,
+          propertyTitle: local.title,
           propertyUrl: `https://co-ownership-property.com/property/${p.slug}/`,
           propertyCountry: p.country, locale, [HONEYPOT_FIELD]: '',
         }),
@@ -852,9 +872,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
   const cx = useCurrency();
   const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.img || p.images?.[0] || '/images/placeholder.jpg';
-  const galleryTotal = Array.isArray(p.photos) && p.photos.length > 0
-    ? p.photos.length + (Array.isArray(p.extra_photos) ? p.extra_photos.length : 0)
-    : (p.total_images || p.images.length);
+  const galleryTotal = p.galleryTotal || p.total_images || p.images.length;
   const missingCount = galleryTotal;
   const descParas = local.description ? local.description.split('\n').filter(Boolean) : [];
   const descVisible = descExpanded ? descParas : descParas.slice(0, 2);
@@ -1443,7 +1461,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
           onUnlocked={({ email, name }) => { setShowDiscreet(false); loadDiscreetListing(email, name); }}
         />
       )}
-      {showUnlock && <UnlockModal propertyTitle={local.title} driveUrl={p.driveUrl} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} onClose={() => setShowUnlock(false)} />}
+      {showUnlock && <UnlockModal propertyTitle={local.title} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} onClose={() => setShowUnlock(false)} />}
       {showEnhancedSections && showTour && (
         <TourRequestModal
           propertyTitle={local.title}
