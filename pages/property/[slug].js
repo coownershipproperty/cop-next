@@ -219,7 +219,8 @@ const COPY = {
     eq_err: 'Something went wrong. Please try again.',
     eq_chips: (sym) => [
       { k: 'when', q: 'When are you thinking?',
-        o: ['Next 3 months', 'This year', 'Just looking'] },
+        o: ['Next 3 months', 'This year', 'Just looking'] ,
+        v: ['3-months', 'this-year', 'browsing'] },
       { k: 'budget', q: 'Roughly what were you thinking of spending?',
         o: [`Under ${sym}200k`, `${sym}200\u2013400k`, `${sym}400k+`, 'Rather not say'] ,
         v: ['under-200k', '200-400k', '400k+', ''] },
@@ -274,7 +275,8 @@ const COPY = {
     eq_err: 'Algo salió mal. Inténtalo de nuevo.',
     eq_chips: (sym) => [
       { k: 'when', q: '\u00bfPara cu\u00e1ndo lo est\u00e1s pensando?',
-        o: ['En los pr\u00f3ximos 3 meses', 'Este a\u00f1o', 'Solo estoy mirando'] },
+        o: ['En los pr\u00f3ximos 3 meses', 'Este a\u00f1o', 'Solo estoy mirando'] ,
+        v: ['3-months', 'this-year', 'browsing'] },
       { k: 'budget', q: '\u00bfQu\u00e9 presupuesto tienes en mente, m\u00e1s o menos?',
         o: [`Menos de 200.000 ${sym}`, `200.000\u2013400.000 ${sym}`, `M\u00e1s de 400.000 ${sym}`, 'Prefiero no decirlo'] ,
         v: ['under-200k', '200-400k', '400k+', ''] },
@@ -329,7 +331,8 @@ const COPY = {
     eq_err: "Une erreur s'est produite. Veuillez réessayer.",
     eq_chips: (sym) => [
       { k: 'when', q: 'Dans quel d\u00e9lai envisagez-vous ?',
-        o: ['Dans les 3 mois', 'Cette ann\u00e9e', 'Je regarde seulement'] },
+        o: ['Dans les 3 mois', 'Cette ann\u00e9e', 'Je regarde seulement'] ,
+        v: ['3-months', 'this-year', 'browsing'] },
       { k: 'budget', q: 'Quel budget envisagez-vous, en gros ?',
         o: [`Moins de 200 000 ${sym}`, `200 000\u2013400 000 ${sym}`, `Plus de 400 000 ${sym}`, 'Je pr\u00e9f\u00e8re ne pas dire'] ,
         v: ['under-200k', '200-400k', '400k+', ''] },
@@ -384,7 +387,8 @@ const COPY = {
     eq_err: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
     eq_chips: (sym) => [
       { k: 'when', q: 'Wann denken Sie daran?',
-        o: ['In den n\u00e4chsten 3 Monaten', 'Dieses Jahr', 'Ich schaue mich nur um'] },
+        o: ['In den n\u00e4chsten 3 Monaten', 'Dieses Jahr', 'Ich schaue mich nur um'] ,
+        v: ['3-months', 'this-year', 'browsing'] },
       { k: 'budget', q: 'Mit welchem Budget rechnen Sie ungef\u00e4hr?',
         o: [`Unter 200.000 ${sym}`, `200.000\u2013400.000 ${sym}`, `\u00dcber 400.000 ${sym}`, 'Lieber nicht sagen'] ,
         v: ['under-200k', '200-400k', '400k+', ''] },
@@ -393,6 +397,182 @@ const COPY = {
     ],
     eq_chip_labels: { when: 'Zeitraum', budget: 'Budget', seen: 'Erfahrung' },
     eq_note_add: 'Nachricht hinzuf\u00fcgen (optional)',
+  },
+
+  /* it / nl / pt added 16 Sep 2026. All three are launched locales with live,
+     indexed property pages (/it/immobili/, /nl/woningen/, /pt/imoveis/) and
+     ~255 of 295 homes carrying translated titles and descriptions — but this
+     table stopped at four, so every one of those pages served its enquiry
+     form, its price qualifier and its co-ownership explainer in English.
+     sv/da/no are in FACTS_COPY and BELL_COPY but are not launched, so they
+     are deliberately not here yet. */
+  it: {
+    cobadge: (n) => `1/${n} di comproprietà`,
+    price_qualifier: (n) => `per una quota di 1/${n}`,
+    bedrooms: "Camere da letto", bathrooms: "Bagni", total_size: "Superficie totale", per_year: "All'anno", share_size: "Dimensione della quota",
+    about_heading: "Informazioni su questo immobile",
+    desc_empty: "I dettagli completi saranno disponibili a breve. Scrivici usando il modulo di richiesta informazioni.",
+    show_less: "Mostra meno", read_more: "Leggi tutto",
+    amenities_heading: "Caratteristiche e servizi",
+    all_amenities: (n) => `Vedi tutti i ${n} servizi`,
+    location_heading: "Posizione",
+    similar_heading: (country) => `${country}: immobili simili`,
+    pillar_link: (country) => `${country}: vedi tutti gli immobili in comproprietà →`,
+    tab_overview: "Panoramica", tab_look: "Interni", tab_amenities: "Servizi", tab_location: "Posizione", tab_coown: "Comproprietà", tab_fin: "Finanziamento",
+    look_heading: "Uno sguardo all'interno",
+    look_sub: "Sfoglia la galleria fotografica, oppure chiedici un tour virtuale 3D completo di questa casa.",
+    look_gallery_btn: "Visualizza la galleria fotografica",
+    tour_btn: "Richiedi un tour 3D",
+    coown_heading: "Come funziona la comproprietà",
+    coown_points: (n, days) => [
+      [`Possiede 1/${n} della casa`, "Proprietà immobiliare reale, con atto notarile a suo nome — non una multiproprietà, non un sistema a punti."],
+      [`~${days} giorni all'anno`, "I soggiorni sono distribuiti in modo equo tra i comproprietari nell'arco di tutto l'anno."],
+      ["I costi sono condivisi", `Paga 1/${n} dei costi di gestione complessivi della casa, ripartiti tra tutti i proprietari.`],
+      ["Gestione completa", "Manutenzione, pulizie e calendario dei soggiorni sono gestiti per lei — non le resta che arrivare e godersi la casa."],
+      ["Può vendere quando vuole", "La sua quota è un bene reale: può venderla al prezzo che stabilisce lei."],
+    ],
+    missing_photos: (n) => `Ci sono ancora ${n} foto da vedere`,
+    unlock_sub: "Sblocca una volta sola — vedrai tutte le gallerie del sito, gratis",
+    unlock_now: "Sblocca ora →",
+    unlocked_title: "Le sue gallerie sono sbloccate",
+    unlocked_sub: "Visualizza la galleria fotografica completa di questa casa",
+    view_gallery_btn: "Visualizza la galleria →",
+    form_eye: "Scrivici",
+    form_title: "Richiedi informazioni su questo immobile",
+    form_sub: "Il nostro team risponde di solito entro poche ore. Senza impegno.",
+    contact_cta: "Contattaci",
+    contact_sub: "Richiedi informazioni",
+    eq_name: "Il suo nome", eq_name_ph: "Nome e cognome",
+    eq_email: "Email", eq_email_ph: "your@email.com",
+    eq_phone: "Telefono", eq_phone_ph: "+1 o +44…",
+    eq_msg: "Messaggio", eq_msg_ph: "Domande su questo immobile…",
+    eq_send: "Invia richiesta →", eq_sending: "Invio in corso…",
+    eq_thanks: (n) => `Grazie ${n}! La ricontatteremo a breve.`,
+    eq_err: "Qualcosa è andato storto. Riprova.",
+    eq_chips: (sym) => [
+      { k: "when", q: "Che tempi ha in mente?",
+        o: ["Nei prossimi 3 mesi", "Quest'anno", "Sto solo guardando"],
+        v: ['3-months', 'this-year', 'browsing'] },
+      { k: "budget", q: "Che budget ha in mente, più o meno?",
+        o: [`Meno di 200.000 ${sym}`, `200.000–400.000 ${sym}`, `Oltre 400.000 ${sym}`, "Preferisco non dirlo"],
+        v: ['under-200k', '200-400k', '400k+', ''] },
+      { k: "seen", q: "Ha già valutato la comproprietà?",
+        o: ["È la prima volta che ne sento parlare", "È da un po' che cerco", "Ho già una quota"] },
+    ],
+    eq_chip_labels: { when: "Tempi", budget: "Budget", seen: "Esperienza" },
+    eq_note_add: "Aggiungi un messaggio (facoltativo)",
+  },
+  nl: {
+    cobadge: (n) => `1/${n} mede-eigendom`,
+    price_qualifier: (n) => `voor een 1/${n}-aandeel`,
+    bedrooms: "Slaapkamers", bathrooms: "Badkamers", total_size: "Totale oppervlakte", per_year: "Per jaar", share_size: "Aandeelgrootte",
+    about_heading: "Over deze woning",
+    desc_empty: "Volledige details volgen binnenkort. Gebruik het formulier om contact met ons op te nemen.",
+    show_less: "Minder tonen", read_more: "Meer lezen",
+    amenities_heading: "Kenmerken & voorzieningen",
+    all_amenities: (n) => `Alle ${n} voorzieningen`,
+    location_heading: "Locatie",
+    similar_heading: (country) => `Vergelijkbare woningen in ${country}`,
+    pillar_link: (country) => `Bekijk alle woningen met mede-eigendom in ${country} →`,
+    tab_overview: "Overzicht", tab_look: "Binnenkijken", tab_amenities: "Voorzieningen", tab_location: "Locatie", tab_coown: "Mede-eigendom", tab_fin: "Financiering",
+    look_heading: "Binnenkijken",
+    look_sub: "Bekijk de fotogalerij of vraag ons om een volledige 3D-rondleiding door deze woning.",
+    look_gallery_btn: "Fotogalerij bekijken",
+    tour_btn: "3D-rondleiding aanvragen",
+    coown_heading: "Hoe mede-eigendom werkt",
+    coown_points: (n, days) => [
+      [`U bezit 1/${n} van de woning`, "Echt eigendom, vastgelegd in de akte — geen timeshare, geen punten."],
+      [`~${days} dagen per jaar`, "Verblijven worden het hele jaar door eerlijk verdeeld tussen de mede-eigenaren."],
+      ["De kosten worden gedeeld", `U betaalt 1/${n} van de totale lopende kosten van de woning, gedeeld door alle eigenaren.`],
+      ["Volledig beheerd", "Onderhoud, schoonmaak en planning worden voor u geregeld — u komt alleen nog aan en geniet."],
+      ["Verkoop wanneer u wilt", "Uw aandeel is een echt bezit: u verkoopt het tegen een prijs die u zelf bepaalt."],
+    ],
+    missing_photos: (n) => `U mist ${n} foto's`,
+    unlock_sub: "Eén keer ontgrendelen — bekijk elke galerij op de site, gratis",
+    unlock_now: "Nu ontgrendelen →",
+    unlocked_title: "Uw galerijen zijn ontgrendeld",
+    unlocked_sub: "Bekijk de volledige fotogalerij van deze woning",
+    view_gallery_btn: "Galerij bekijken →",
+    form_eye: "Neem contact op",
+    form_title: "Informatie aanvragen over deze woning",
+    form_sub: "Ons team reageert meestal binnen een paar uur. Geheel vrijblijvend.",
+    contact_cta: "Contact opnemen",
+    contact_sub: "Informatie aanvragen",
+    eq_name: "Uw naam", eq_name_ph: "Volledige naam",
+    eq_email: "E-mail", eq_email_ph: "your@email.com",
+    eq_phone: "Telefoon", eq_phone_ph: "+31 of +32…",
+    eq_msg: "Bericht", eq_msg_ph: "Vragen over deze woning…",
+    eq_send: "Aanvraag versturen →", eq_sending: "Versturen…",
+    eq_thanks: (n) => `Bedankt ${n}! We nemen snel contact met u op.`,
+    eq_err: "Er is iets misgegaan. Probeer het opnieuw.",
+    eq_chips: (sym) => [
+      { k: "when", q: "Aan welke termijn denkt u?",
+        o: ["De komende 3 maanden", "Dit jaar", "Ik kijk alleen rond"],
+        v: ['3-months', 'this-year', 'browsing'] },
+      { k: "budget", q: "Aan welk budget denkt u ongeveer?",
+        o: [`Minder dan ${sym} 200.000`, `${sym} 200.000–400.000`, `Meer dan ${sym} 400.000`, "Zeg ik liever niet"],
+        v: ['under-200k', '200-400k', '400k+', ''] },
+      { k: "seen", q: "Kende u mede-eigendom al?",
+        o: ["Ik hoor er nu voor het eerst van", "Ik kijk al een tijdje rond", "Ik bezit al een aandeel"] },
+    ],
+    eq_chip_labels: { when: "Termijn", budget: "Budget", seen: "Ervaring" },
+    eq_note_add: "Bericht toevoegen (optioneel)",
+  },
+  pt: {
+    cobadge: (n) => `1/${n} em compropriedade`,
+    price_qualifier: (n) => `por uma quota de 1/${n}`,
+    bedrooms: "Quartos", bathrooms: "Casas de banho", total_size: "Área total", per_year: "Por ano", share_size: "Dimensão da quota",
+    about_heading: "Sobre este imóvel",
+    desc_empty: "Descrição completa em breve. Use o formulário de contacto para falar connosco.",
+    show_less: "Ver menos", read_more: "Ler mais",
+    amenities_heading: "Características e comodidades",
+    all_amenities: (n) => `Todas as ${n} comodidades`,
+    location_heading: "Localização",
+    similar_heading: (country) => `Imóveis semelhantes em ${country}`,
+    pillar_link: (country) => `Ver todos os imóveis em compropriedade em ${country} →`,
+    tab_overview: "Visão geral", tab_look: "Ver por dentro", tab_amenities: "Comodidades", tab_location: "Localização", tab_coown: "Compropriedade", tab_fin: "Financiamento",
+    look_heading: "Ver por dentro",
+    look_sub: "Percorra a galeria de fotografias ou peça-nos uma visita virtual 3D completa desta casa.",
+    look_gallery_btn: "Ver galeria de fotografias",
+    tour_btn: "Pedir visita 3D",
+    coown_heading: "Como funciona a compropriedade",
+    coown_points: (n, days) => [
+      [`É proprietário de 1/${n} da casa`, "Propriedade real, com escritura em seu nome — não é multipropriedade nem um sistema de pontos."],
+      [`~${days} dias por ano`, "As estadias são agendadas de forma justa entre os comproprietários ao longo de todo o ano."],
+      ["Os custos são partilhados", `Paga 1/${n} das despesas correntes da casa, repartidas por todos os proprietários.`],
+      ["Gestão completa", "Tratamos da manutenção, das limpezas e do calendário de estadias — basta chegar e aproveitar."],
+      ["Venda quando quiser", "A sua quota é um ativo real: pode vendê-la pelo preço que definir."],
+    ],
+    missing_photos: (n) => `Está a perder ${n} fotografias`,
+    unlock_sub: "Desbloqueie uma vez — veja todas as galerias do site, sem custos",
+    unlock_now: "Desbloquear agora →",
+    unlocked_title: "As suas galerias estão desbloqueadas",
+    unlocked_sub: "Veja a galeria de fotografias completa desta casa",
+    view_gallery_btn: "Ver galeria →",
+    form_eye: "Fale connosco",
+    form_title: "Peça informações sobre este imóvel",
+    form_sub: "A nossa equipa costuma responder em poucas horas. Sem compromisso.",
+    contact_cta: "Contacte-nos",
+    contact_sub: "Pedir informações",
+    eq_name: "O seu nome", eq_name_ph: "Nome completo",
+    eq_email: "Email", eq_email_ph: "your@email.com",
+    eq_phone: "Telemóvel", eq_phone_ph: "+351 ou +44…",
+    eq_msg: "Mensagem", eq_msg_ph: "Alguma dúvida sobre este imóvel…",
+    eq_send: "Enviar pedido →", eq_sending: "A enviar…",
+    eq_thanks: (n) => `Obrigado, ${n}! Entraremos em contacto em breve.`,
+    eq_err: "Algo correu mal. Tente novamente, por favor.",
+    eq_chips: (sym) => [
+      { k: "when", q: "Para quando está a pensar?",
+        o: ["Nos próximos 3 meses", "Este ano", "Só estou a ver"],
+        v: ['3-months', 'this-year', 'browsing'] },
+      { k: "budget", q: "Que orçamento tem em mente, mais ou menos?",
+        o: [`Menos de 200.000 ${sym}`, `200.000–400.000 ${sym}`, `Mais de 400.000 ${sym}`, "Prefiro não dizer"],
+        v: ['under-200k', '200-400k', '400k+', ''] },
+      { k: "seen", q: "Já conhecia a compropriedade?",
+        o: ["É a primeira vez que ouço falar", "Já ando a ver há algum tempo", "Já tenho uma quota"] },
+    ],
+    eq_chip_labels: { when: "Quando", budget: "Orçamento", seen: "Experiência" },
+    eq_note_add: "Adicionar uma nota (opcional)",
   },
 };
 
@@ -932,10 +1112,12 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale, currenc
          carry no "+", so parseBudgetRange reads them as a single number and
          returns them as a MAXIMUM — recording "over 400k" as "up to 400k",
          the exact opposite, and then matching the buyer to cheap homes. */
-      const budgetQ = chipQs.find(c => c.k === 'budget');
-      const budgetValue = budgetQ && chips.budget && budgetQ.v
-        ? budgetQ.v[budgetQ.o.indexOf(chips.budget)] || ''
-        : '';
+      const canon = (key) => {
+        const q = chipQs.find(c => c.k === key);
+        return q && chips[key] && q.v ? q.v[q.o.indexOf(chips[key])] || '' : '';
+      };
+      const budgetValue = canon('budget');
+      const timeframeValue = canon('when');
       /* The budget chip also goes up as `budget`, which the API already parses
          into leads.budget_min / budget_max (parseBudgetRange handles "Under
          X200k", "X200-400k" and "X400k+" whatever the currency symbol, since it
@@ -943,7 +1125,7 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale, currenc
          field and cannot be sorted or filtered on — which was the whole point
          of asking. "Rather not say" parses to nulls and is harmless. */
       const r = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...f, message: composed, budget: budgetValue || undefined, property: propertyTitle, propertySlug, url: propertyUrl, attribution: getFirstTouch(), locale, [HONEYPOT_FIELD]: honeypot }) });
+        body: JSON.stringify({ ...f, message: composed, budget: budgetValue || undefined, timeframe: timeframeValue || undefined, property: propertyTitle, propertySlug, url: propertyUrl, attribution: getFirstTouch(), locale, [HONEYPOT_FIELD]: honeypot }) });
       if (r.ok) {
         saveUser({ name: f.name, email: f.email });
         trackConversion('generate_lead', 'Lead', {

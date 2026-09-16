@@ -35,7 +35,13 @@ function propertySlugFromUrl(value) {
 async function resolveEnquiryProperty({ propertySlug, propertyTitle, propertyUrl }) {
   const db = getDb();
   const requestedSlug = cleanPropertySlug(propertySlug) || propertySlugFromUrl(propertyUrl);
-  const fields = 'slug,title,region,city,status,img,drive_url';
+  // `partner` is read here and never returned to the caller: this endpoint
+  // answers {ok:true} and nothing else. The property page deliberately
+  // strips partner identity out of its props so it never reaches the
+  // browser, so the enquiry cannot carry it up from the client — it has to
+  // be resolved here, from the slug, or leads.partner stays null (which is
+  // why every property lead in the CRM has a null partner today).
+  const fields = 'slug,title,region,city,status,img,drive_url,partner';
 
   if (requestedSlug) {
     const { data, error } = await db.from('properties').select(fields).eq('slug', requestedSlug).maybeSingle();
@@ -201,7 +207,7 @@ export default async function handler(req, res) {
   // the bot sees a normal success response and does not retry or adapt.
   if (isHoneypotFilled(req.body)) return res.status(200).json({ ok: true });
 
-  const { name, email, phone, message, property, propertySlug, url, destination, budget, enquiryType, attribution: rawAttribution, locale: rawLocale } = req.body;
+  const { name, email, phone, message, property, propertySlug, url, destination, budget, timeframe: rawTimeframe, enquiryType, attribution: rawAttribution, locale: rawLocale } = req.body;
   if (!email) return res.status(400).json({ error: 'Missing email' });
   const isCollectionEnquiry = enquiryType === 'collection';
 
@@ -221,6 +227,10 @@ export default async function handler(req, res) {
   const firstName = nameParts[0] || null;
   const lastName  = nameParts.slice(1).join(' ') || null;
   const attribution = normalizeAttribution(rawAttribution, req);
+  // Closed vocabulary — the column was null on all 2,676 leads before this,
+  // so this defines it. Anything else is dropped rather than stored.
+  const TIMEFRAMES = ['3-months', 'this-year', 'browsing'];
+  const timeframe = TIMEFRAMES.includes(rawTimeframe) ? rawTimeframe : null;
 
   // Resolve the authoritative COP listing before creating the lead. Property
   // forms send the slug directly; the public URL and exact title are retained
@@ -253,11 +263,23 @@ export default async function handler(req, res) {
         propertyTitle: property     || null,
         mainRegion:    destination  || resolvedProperty?.region || null,
         subregion:     resolvedProperty?.city || null,
+        partner:       resolvedProperty?.partner || null,
         message:       message      || null,
         budget:        budget       || null,
         attribution,
         enquiryPageUrl: safeUrl(url || req.headers.referer),
       });
+
+      // merge_or_create_contact_lead has no p_timeframe, and that function sits
+      // on every lead path in the product — not worth a migration for one
+      // column. Set it after the fact; a failure here must not lose the lead.
+      if (lead?.id && timeframe) {
+        try {
+          await getDb().from('leads').update({ timeframe }).eq('id', lead.id);
+        } catch (e) {
+          console.error('[CRM] timeframe update failed:', e.message);
+        }
+      }
 
       emailSend = await createEmailSend({
         contactId:     contact.id,
@@ -336,6 +358,7 @@ export default async function handler(req, res) {
         <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
         ${destination ? `<p><strong>Destinations:</strong> ${destination}</p>` : ''}
         ${budget ? `<p><strong>Budget:</strong> ${budget}</p>` : ''}
+        ${timeframe ? `<p><strong>Timeframe:</strong> ${timeframe}</p>` : ''}
         <p><strong>Message:</strong><br>${(message || 'No message').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\n/g, '<br>')}</p>
       `,
     });
