@@ -10843,3 +10843,37 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
   /* The bar covers the foot of the page; give the last section room. */
   .pp-page { padding-bottom: 76px; }
 }
+
+/* ── All-shares-together figure, beside the share price ──────────────────
+      Added 17 Sep 2026. The number is the headline share price multiplied by
+      the share count — nothing more. It is styled as clearly secondary to the
+      share price, because the share price is what the buyer pays and the
+      multiple is only there to say what tier of home it buys into. The label
+      never reads "value" or "full price": we hold no independent valuation
+      for any home, and the multiple includes renovation, furnishing, set-up
+      and the operator's margin as well as the house. ── */
+.pp-price-whole{display:inline-flex;align-items:baseline;gap:7px;margin-left:12px;padding-left:14px;border-left:1px solid rgba(201,168,76,.35)}
+.pp-price-whole-val{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:400;color:#2C4A5E;line-height:1;white-space:nowrap}
+.pp-price-whole-lbl{font-family:'Nunito Sans',sans-serif;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#6B8A9E}
+.pp-price-note{font-family:'Nunito Sans',sans-serif;font-size:.8rem;line-height:1.55;color:#6B8A9E;margin:2px 0 14px;max-width:52ch}
+@media (max-width:560px){
+  .pp-price-whole{margin-left:0;padding-left:0;border-left:0;flex-basis:100%;margin-top:7px}
+  .pp-price-whole-val{font-size:1.1rem}
+  .pp-price-note{font-size:.78rem;max-width:none}
+}
+
+/* ── Enquiry chips — tap to answer, in place of the free-text box ─────────
+      17 Sep 2026. 21 of 1,186 property enquiries carried a typed message
+      (1.8%), so the box was friction for 98% of people and told the person
+      writing the reply nothing. Three one-tap rows answer what the reply
+      otherwise guesses: when, how much, and how much they already know.
+      Sized for thumbs (min 40px tall) since mobile is the engaged half. ── */
+.eq-chips{display:flex;flex-direction:column;gap:9px}
+.eq-chips-q{font-family:'Nunito Sans',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6b8a9e}
+.eq-chips-row{display:flex;flex-wrap:wrap;gap:8px}
+.eq-chip{font-family:'Nunito Sans',sans-serif;font-size:.82rem;font-weight:500;color:#2C4A5E;background:#fff;border:1px solid #dfe5ea;border-radius:999px;padding:9px 15px;min-height:40px;cursor:pointer;transition:border-color .16s,background .16s,color .16s;line-height:1.2}
+.eq-chip:hover{border-color:#C9A84C;color:#143047}
+.eq-chip.is-on{background:#C9A84C;border-color:#C9A84C;color:#fff;font-weight:600}
+.eq-chip:focus-visible{outline:2px solid #143047;outline-offset:2px}
+.eq-note-add{align-self:flex-start;font-family:'Nunito Sans',sans-serif;font-size:.78rem;font-weight:600;color:#6b8a9e;background:none;border:none;border-bottom:1px dashed #c3ced6;padding:2px 0;cursor:pointer;transition:color .16s,border-color .16s}
+.eq-note-add:hover{color:#143047;border-bottom-color:#C9A84C}

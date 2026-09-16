@@ -177,6 +177,8 @@ const COPY = {
   en: {
     cobadge: (n) => `1/${n} Co-Ownership`,
     price_qualifier: (n) => `for a 1/${n} share`,
+    whole_label: (n) => `all ${n} shares together`,
+    whole_note: 'Covers the home, the renovation, the furnishing and the set-up — nothing added to the purchase price.',
     bedrooms: 'Bedrooms', bathrooms: 'Bathrooms', total_size: 'Total size', per_year: 'Per year', share_size: 'Share size',
     about_heading: 'About This Property',
     desc_empty: 'Full details coming soon. Use the enquiry form to get in touch.',
@@ -217,10 +219,22 @@ const COPY = {
     eq_send: 'Send Enquiry →', eq_sending: 'Sending…',
     eq_thanks: (n) => `Thanks ${n}! We'll be in touch shortly.`,
     eq_err: 'Something went wrong. Please try again.',
+    eq_chips: (sym) => [
+      { k: 'when', q: 'When are you thinking?',
+        o: ['Next 3 months', 'This year', 'Just looking'] },
+      { k: 'budget', q: 'Roughly what were you thinking of spending?',
+        o: [`Under ${sym}200k`, `${sym}200\u2013400k`, `${sym}400k+`, 'Rather not say'] },
+      { k: 'seen', q: 'Have you looked at co-ownership before?',
+        o: ["First I've heard of it", 'Been looking a while', 'I already own a share'] },
+    ],
+    eq_chip_labels: { when: 'Timing', budget: 'Budget', seen: 'Experience' },
+    eq_note_add: 'Add a note (optional)',
   },
   es: {
     cobadge: (n) => `1/${n} de copropiedad`,
     price_qualifier: (n) => `por una participación de 1/${n}`,
+    whole_label: (n) => `las ${n} participaciones juntas`,
+    whole_note: 'Incluye la casa, la reforma, el mobiliario y la puesta a punto — no se añade nada al precio de compra.',
     bedrooms: 'Dormitorios', bathrooms: 'Baños', total_size: 'Superficie total', per_year: 'Al año', share_size: 'Tamaño de fracción',
     about_heading: 'Sobre esta propiedad',
     desc_empty: 'Próximamente más detalles. Usa el formulario de contacto para obtener información.',
@@ -261,10 +275,22 @@ const COPY = {
     eq_send: 'Enviar consulta →', eq_sending: 'Enviando…',
     eq_thanks: (n) => `¡Gracias ${n}! Te contactaremos en breve.`,
     eq_err: 'Algo salió mal. Inténtalo de nuevo.',
+    eq_chips: (sym) => [
+      { k: 'when', q: '\u00bfPara cu\u00e1ndo lo est\u00e1s pensando?',
+        o: ['En los pr\u00f3ximos 3 meses', 'Este a\u00f1o', 'Solo estoy mirando'] },
+      { k: 'budget', q: '\u00bfQu\u00e9 presupuesto tienes en mente, m\u00e1s o menos?',
+        o: [`Menos de 200.000 ${sym}`, `200.000\u2013400.000 ${sym}`, `M\u00e1s de 400.000 ${sym}`, 'Prefiero no decirlo'] },
+      { k: 'seen', q: '\u00bfHab\u00edas visto antes la copropiedad?',
+        o: ['Es la primera vez', 'Llevo tiempo mirando', 'Ya tengo una participaci\u00f3n'] },
+    ],
+    eq_chip_labels: { when: 'Plazo', budget: 'Presupuesto', seen: 'Experiencia' },
+    eq_note_add: 'A\u00f1adir un comentario (opcional)',
   },
   fr: {
     cobadge: (n) => `1/${n} en copropriété`,
     price_qualifier: (n) => `pour une part de 1/${n}`,
+    whole_label: (n) => `les ${n} parts réunies`,
+    whole_note: "Comprend la maison, la rénovation, l'ameublement et la mise en service — rien ne s'ajoute au prix d'achat.",
     bedrooms: 'Chambres', bathrooms: 'Salles de bain', total_size: 'Surface totale', per_year: 'Par an', share_size: 'Taille de la part',
     about_heading: 'À propos de ce bien',
     desc_empty: 'Plus de détails bientôt. Utilisez le formulaire pour nous contacter.',
@@ -305,10 +331,22 @@ const COPY = {
     eq_send: 'Envoyer la demande →', eq_sending: 'Envoi en cours…',
     eq_thanks: (n) => `Merci ${n} ! Nous vous contacterons sous peu.`,
     eq_err: "Une erreur s'est produite. Veuillez réessayer.",
+    eq_chips: (sym) => [
+      { k: 'when', q: 'Dans quel d\u00e9lai envisagez-vous ?',
+        o: ['Dans les 3 mois', 'Cette ann\u00e9e', 'Je regarde seulement'] },
+      { k: 'budget', q: 'Quel budget envisagez-vous, en gros ?',
+        o: [`Moins de 200 000 ${sym}`, `200 000\u2013400 000 ${sym}`, `Plus de 400 000 ${sym}`, 'Je pr\u00e9f\u00e8re ne pas dire'] },
+      { k: 'seen', q: 'Connaissiez-vous d\u00e9j\u00e0 la copropri\u00e9t\u00e9 ?',
+        o: ["C'est la premi\u00e8re fois", 'Je cherche depuis un moment', 'Je poss\u00e8de d\u00e9j\u00e0 une part'] },
+    ],
+    eq_chip_labels: { when: 'D\u00e9lai', budget: 'Budget', seen: 'Exp\u00e9rience' },
+    eq_note_add: 'Ajouter un message (facultatif)',
   },
   de: {
     cobadge: (n) => `1/${n} Miteigentum`,
     price_qualifier: (n) => `für einen 1/${n}-Anteil`,
+    whole_label: (n) => `alle ${n} Anteile zusammen`,
+    whole_note: 'Enthält das Haus, die Renovierung, die Möblierung und die Einrichtung — zum Kaufpreis kommt nichts hinzu.',
     bedrooms: 'Schlafzimmer', bathrooms: 'Badezimmer', total_size: 'Gesamtfläche', per_year: 'Pro Jahr', share_size: 'Anteilsgröße',
     about_heading: 'Über diese Immobilie',
     desc_empty: 'Weitere Details folgen in Kürze. Bitte nutzen Sie das Anfrageformular, um Kontakt aufzunehmen.',
@@ -349,6 +387,16 @@ const COPY = {
     eq_send: 'Anfrage senden →', eq_sending: 'Wird gesendet…',
     eq_thanks: (n) => `Vielen Dank, ${n}! Wir melden uns in Kürze bei Ihnen.`,
     eq_err: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
+    eq_chips: (sym) => [
+      { k: 'when', q: 'Wann denken Sie daran?',
+        o: ['In den n\u00e4chsten 3 Monaten', 'Dieses Jahr', 'Ich schaue mich nur um'] },
+      { k: 'budget', q: 'Mit welchem Budget rechnen Sie ungef\u00e4hr?',
+        o: [`Unter 200.000 ${sym}`, `200.000\u2013400.000 ${sym}`, `\u00dcber 400.000 ${sym}`, 'Lieber nicht sagen'] },
+      { k: 'seen', q: 'Kannten Sie Miteigentum schon?',
+        o: ['Zum ersten Mal davon geh\u00f6rt', 'Schaue mich schon l\u00e4nger um', 'Ich besitze bereits einen Anteil'] },
+    ],
+    eq_chip_labels: { when: 'Zeitraum', budget: 'Budget', seen: 'Erfahrung' },
+    eq_note_add: 'Nachricht hinzuf\u00fcgen (optional)',
   },
 };
 
@@ -854,19 +902,37 @@ function Img({ src, alt, loading = 'lazy', priority = false, sizes = '100vw' }) 
 }
 
 /* ── Enquiry form (locale-aware) ── */
-function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale }) {
+function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale, currencySymbol = '\u20ac' }) {
   const t = COPY[locale] || COPY.en;
   const saved = getSavedUser();
   const [f, setF] = useState({ name: saved.name, email: saved.email, phone: '', message: '' });
   const [status, setStatus] = useState('idle');
   const set = k => e => setF(prev => ({ ...prev, [k]: e.target.value }));
 
+  /* Tap-to-answer, in place of the free-text box.
+     Of 1,186 property enquiries on record, 21 carried a typed message — 1.8%.
+     The box was therefore asking 98% of people to stare at an empty field and
+     then skip it, while telling the person writing the reply nothing at all.
+     Three taps answer the questions every reply currently has to guess:
+     when, how much, and whether they already understand the model.
+     The free-text box survives behind a disclosure for the 1.8% who use it. */
+  const [chips, setChips] = useState({});
+  const [noteOpen, setNoteOpen] = useState(false);
+  const chipQs = typeof t.eq_chips === 'function' ? t.eq_chips(currencySymbol) : [];
+  const tapChip = (k, v) => setChips(prev => (prev[k] === v ? (() => { const n = { ...prev }; delete n[k]; return n; })() : { ...prev, [k]: v }));
+
   async function submit(e) {
     e.preventDefault(); setStatus('sending');
     const honeypot = e.currentTarget.elements[HONEYPOT_FIELD]?.value || '';
     try {
+      /* The chip answers go into the same `message` field the textarea used, so
+         nothing downstream — CRM, reply drafter, notification email — changes. */
+      const answered = chipQs
+        .filter(c => chips[c.k])
+        .map(c => `${(t.eq_chip_labels && t.eq_chip_labels[c.k]) || c.k}: ${chips[c.k]}`);
+      const composed = [answered.join('\n'), f.message.trim()].filter(Boolean).join('\n\n');
       const r = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...f, property: propertyTitle, propertySlug, url: propertyUrl, attribution: getFirstTouch(), locale, [HONEYPOT_FIELD]: honeypot }) });
+        body: JSON.stringify({ ...f, message: composed, property: propertyTitle, propertySlug, url: propertyUrl, attribution: getFirstTouch(), locale, [HONEYPOT_FIELD]: honeypot }) });
       if (r.ok) {
         saveUser({ name: f.name, email: f.email });
         trackConversion('generate_lead', 'Lead', {
@@ -879,6 +945,11 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale }) {
           property: propertyTitle,
           url: propertyUrl,
           locale,
+          chips_answered: answered.length,
+          chip_when: chips.when || '',
+          chip_budget: chips.budget || '',
+          chip_seen: chips.seen || '',
+          typed_note: f.message.trim() ? 1 : 0,
         });
       }
       setStatus(r.ok ? 'done' : 'error');
@@ -904,10 +975,33 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale }) {
           <input type={type} placeholder={ph} value={f[k]} onChange={set(k)} required={req} />
         </div>
       ))}
-      <div className="eq-field">
-        <label>{t.eq_msg}</label>
-        <textarea rows={4} placeholder={t.eq_msg_ph} value={f.message} onChange={set('message')} />
-      </div>
+      {chipQs.map(c => (
+        <div key={c.k} className="eq-chips">
+          <span className="eq-chips-q">{c.q}</span>
+          <div className="eq-chips-row">
+            {c.o.map(opt => (
+              <button
+                type="button"
+                key={opt}
+                className={'eq-chip' + (chips[c.k] === opt ? ' is-on' : '')}
+                aria-pressed={chips[c.k] === opt}
+                onClick={() => tapChip(c.k, opt)}
+              >{opt}</button>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {noteOpen ? (
+        <div className="eq-field">
+          <label>{t.eq_msg}</label>
+          <textarea rows={3} placeholder={t.eq_msg_ph} value={f.message} onChange={set('message')} autoFocus />
+        </div>
+      ) : (
+        <button type="button" className="eq-note-add" onClick={() => setNoteOpen(true)}>
+          {t.eq_note_add || t.eq_msg}
+        </button>
+      )}
       <button type="submit" className="eq-submit" disabled={status === 'sending'}>
         {status === 'sending' ? t.eq_sending : t.eq_send}
       </button>
@@ -1083,6 +1177,26 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
   }
   const [descExpanded, setDescExpanded] = useState(false);
   const cx = useCurrency();
+
+  /* All shares together: the headline share price multiplied by the share
+     count, shown in whatever currency the headline is shown in so the two
+     figures always agree. p.price is used rather than property_facts.share_price
+     because the headline is what the reader multiplies — and the two disagree
+     on 37 live homes where the partner audit is older than the listing. */
+  const wholeDisplay = (() => {
+    const denom = Number(p.share_denominator) || 0;
+    const base = Number(p.price) || 0;
+    if (!denom || !base) return null;
+    const whole = base * denom;
+    const fromCcy = p.currency || 'EUR';
+    const converted = cx ? convertPrice(whole, fromCcy, cx) : null;
+    if (converted != null) {
+      const sym = CURRENCY_SYMBOLS[cx.currency] || cx.currency;
+      return `~${sym}${fmtApprox(converted, localeNumberFmt)}`;
+    }
+    return fmt(whole, fromCcy, localeNumberFmt);
+  })();
+
   const [amenExpanded, setAmenExpanded] = useState(false);
   const heroImg = p.img || p.images?.[0] || '/images/placeholder.jpg';
   const galleryTotal = p.galleryTotal || p.total_images || p.images.length;
@@ -1422,6 +1536,23 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                 return p.price ? fmt(p.price, fromCcy, localeNumberFmt) : null;
               })()}
             </span>
+            {/* ── All shares together ──────────────────────────────────────
+                   The share price times the share count. Deliberately NOT
+                   called a value, a valuation or a "full price": we have no
+                   independent valuation for any home (full_home_value is
+                   empty on all 295), and share x n is not market value —
+                   it includes the renovation, the furnishing, the set-up,
+                   the taxes and the operator's margin. Labelled as the
+                   arithmetic it is, so a reader who multiplies the headline
+                   figure themselves lands on exactly this number.
+                   Converted through the same rate as the headline price,
+                   or the two numbers stop agreeing in a non-EUR currency. ── */}
+            {p.price > 0 && wholeDisplay && (
+              <span className="pp-price-whole">
+                <span className="pp-price-whole-val">{wholeDisplay}</span>
+                <span className="pp-price-whole-lbl">{t.whole_label(p.share_denominator || 8)}</span>
+              </span>
+            )}
             {p.price > 0 && (
               <span className="pp-price-qualifier">{t.price_qualifier(p.share_denominator || 8)}</span>
             )}
@@ -1430,6 +1561,10 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
             )}
             <span className="pp-badge">{t.cobadge(p.share_denominator || 8)}</span>
           </div>
+
+          {p.price > 0 && wholeDisplay && (
+            <p className="pp-price-note">{t.whole_note}</p>
+          )}
 
           <nav className="pp-crumb">
             <LocationTrail items={locationTrail} separator=" · " />
@@ -1658,7 +1793,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
             <p className="pp-form-eye">{t.form_eye}</p>
             <h3 className="pp-form-title">{t.form_title}</h3>
             <p className="pp-form-sub">{t.form_sub}</p>
-            <EnquiryForm propertySlug={p.slug} propertyTitle={local.title} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} locale={locale} />
+            <EnquiryForm propertySlug={p.slug} propertyTitle={local.title} propertyUrl={`https://co-ownership-property.com/property/${p.slug}/`} locale={locale} currencySymbol={(cx && CURRENCY_SYMBOLS[cx.currency]) || CURRENCY_SYMBOLS[p.currency || 'EUR'] || '\u20ac'} />
           </div>
         </div>
 
