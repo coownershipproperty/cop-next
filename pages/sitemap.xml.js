@@ -123,14 +123,8 @@ const EN_ONLY_PAGES = [
   { url: '/list-with-cop/', priority: '0.6', changefreq: 'monthly' },
   // /compare/ is emitted below with its three locale hubs and reciprocal
   // hreflang, rather than here as a bare EN-only entry. (16 Sep 2026)
-  // Per-country buyer guides — EN only for now. Added 16 Sep 2026 with the
-  // pages themselves: the tax and legal answers existed across ~30 FAQ pages,
-  // in no order a buyer could follow.
-  { url: '/how-to-buy/', priority: '0.8', changefreq: 'monthly' },
-  { url: '/how-to-buy/spain/', priority: '0.85', changefreq: 'monthly' },
-  { url: '/how-to-buy/france/', priority: '0.85', changefreq: 'monthly' },
-  { url: '/how-to-buy/italy/', priority: '0.85', changefreq: 'monthly' },
-  { url: '/how-to-buy/usa/', priority: '0.85', changefreq: 'monthly' },
+  // The buyer guides and their hubs are emitted below with reciprocal
+  // hreflang, not here. (16 Sep 2026)
   // /favourites/ intentionally excluded — noindex personal page
 ];
 
@@ -398,6 +392,35 @@ export async function getServerSideProps({ res }) {
         if (hasDe) out.push(urlEntry(`${BASE}${altset.de}`, priority, 'weekly', undefined, altset));
         return out;
       }),
+
+    // Per-country buyer guides — hubs and pages, EN + ES + FR + DE with
+    // reciprocal hreflang. Added 16 Sep 2026: the tax and legal answers
+    // existed across ~30 FAQ pages, in no order a buyer could follow. A
+    // locale appears only where content/guides/<loc>/<slug>.html exists.
+    ...(() => {
+      const GUIDE_PATHS = { en: '/how-to-buy', es: '/es/como-comprar', fr: '/fr/comment-acheter', de: '/de/so-kaufen-sie' };
+      const guideDir = path.join(process.cwd(), 'content', 'guides');
+      const has = (loc, slug) => fs.existsSync(loc === 'en' ? path.join(guideDir, `${slug}.html`) : path.join(guideDir, loc, `${slug}.html`));
+      const enGuides = fs.existsSync(guideDir)
+        ? fs.readdirSync(guideDir).filter(f => f.endsWith('.html')).map(f => f.replace('.html', ''))
+        : [];
+      const out = [];
+      // Hubs: a locale hub exists as soon as that locale has any guide.
+      const hubAlt = {};
+      for (const loc of Object.keys(GUIDE_PATHS)) {
+        if (enGuides.some(slug => has(loc, slug))) hubAlt[loc] = `${GUIDE_PATHS[loc]}/`;
+      }
+      for (const p of Object.values(hubAlt)) out.push(urlEntry(`${BASE}${p}`, '0.8', 'monthly', undefined, hubAlt));
+      // Pages.
+      for (const slug of enGuides) {
+        const altset = {};
+        for (const loc of Object.keys(GUIDE_PATHS)) {
+          if (has(loc, slug)) altset[loc] = `${GUIDE_PATHS[loc]}/${slug}/`;
+        }
+        for (const p of Object.values(altset)) out.push(urlEntry(`${BASE}${p}`, '0.85', 'monthly', undefined, altset));
+      }
+      return out;
+    })(),
 
     // Comparison hubs — EN + ES + FR + DE with reciprocal hreflang. The three
     // locale hubs were created 16 Sep 2026; until then every locale

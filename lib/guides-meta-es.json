@@ -1,0 +1,118 @@
+{
+  "spain": {
+    "slug": "spain",
+    "country": "Spain",
+    "title": "Participación en copropiedad en España: guía 2026",
+    "h1": "Cómo comprar una participación en copropiedad en España",
+    "subtitle": "La estructura, el NIE, los impuestos que paga y los que no, lo que cuesta medido sobre las 82 viviendas españolas que listamos, y los siete pasos en el orden en que ocurren.",
+    "metaDescription": "Compra una participación en una SL española, así que no paga impuesto de transmisiones. Necesita un NIE: cuatro a ocho semanas. 82 viviendas desde 120.000 €.",
+    "category": "buyer-guide",
+    "homesListed": 82,
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      }
+    ],
+    "wordCountTarget": 2200
+  },
+  "france": {
+    "slug": "france",
+    "country": "France",
+    "title": "Participación en copropiedad en Francia: guía 2026",
+    "h1": "Cómo comprar una participación en copropiedad en Francia",
+    "subtitle": "La SCI, los honorarios de notaire que se ahorra, cómo funciona el IFI para residentes y no residentes, lo que cuesta en las 22 viviendas francesas que listamos, y los pasos en orden.",
+    "metaDescription": "Compra una participación en una SCI francesa, así que no se aplican los droits de mutation del 7,5–8 %. El IFI rara vez aprieta. 22 viviendas desde 119.000 €.",
+    "category": "buyer-guide",
+    "homesListed": 22,
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Paris Property Group",
+        "url": "https://parispropertygroup.com/"
+      }
+    ],
+    "wordCountTarget": 2000
+  },
+  "italy": {
+    "slug": "italy",
+    "country": "Italy",
+    "title": "Participación en copropiedad en Italia: guía 2026",
+    "h1": "Cómo comprar una participación en copropiedad en Italia",
+    "subtitle": "La SRL, quién paga en realidad el IMU, el codice fiscale, lo que cuesta en las 23 viviendas italianas que listamos — los costes operativos más bajos de todos los países que cubrimos.",
+    "metaDescription": "Compra una participación en una SRL italiana, sin imposta di registro. El IMU lo paga la sociedad. 23 viviendas desde 119.000 € y los costes más bajos.",
+    "category": "buyer-guide",
+    "homesListed": 23,
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      }
+    ],
+    "wordCountTarget": 1800
+  },
+  "usa": {
+    "slug": "usa",
+    "country": "United States",
+    "title": "Participación en copropiedad en EE. UU.: guía 2026",
+    "h1": "Cómo comprar una participación en copropiedad en Estados Unidos",
+    "subtitle": "La LLC específica del inmueble, en qué el mercado estadounidense es mejor y peor que el europeo, lo que cuesta en las 107 viviendas estadounidenses que listamos, y los pasos en orden.",
+    "metaDescription": "Compra una participación en una LLC específica del inmueble. 107 viviendas en 11 estados desde 68.000 $, noches sin tope con Pacaso y por qué no se alquila.",
+    "category": "buyer-guide",
+    "homesListed": 107,
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "Abitaro",
+        "url": "https://ownabitaro.com/"
+      }
+    ],
+    "wordCountTarget": 1900
+  }
+}

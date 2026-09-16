@@ -1,0 +1,118 @@
+{
+  "spain": {
+    "slug": "spain",
+    "country": "Spain",
+    "title": "Miteigentumsanteil in Spanien kaufen (Leitfaden 2026)",
+    "h1": "Wie Sie einen Miteigentumsanteil in Spanien kaufen",
+    "subtitle": "Die Struktur, die NIE, die Steuern, die Sie zahlen und die Sie nicht zahlen, was es bei den 82 spanischen Immobilien kostet, die wir listen, und die sieben Schritte in der Reihenfolge, in der sie passieren.",
+    "metaDescription": "Sie kaufen einen Anteil an einer spanischen SL, also keine Grunderwerbsteuer. Sie brauchen eine NIE, vier bis acht Wochen. 82 Immobilien ab 120.000 €.",
+    "category": "buyer-guide",
+    "homesListed": 82,
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      }
+    ],
+    "wordCountTarget": 2200
+  },
+  "france": {
+    "slug": "france",
+    "country": "France",
+    "title": "Miteigentumsanteil in Frankreich kaufen (Leitfaden 2026)",
+    "h1": "Wie Sie einen Miteigentumsanteil in Frankreich kaufen",
+    "subtitle": "Die SCI, die Notargebühren, die Sie vermeiden, wie die IFI für Ansässige und Nichtansässige wirkt, was es bei den 22 französischen Immobilien kostet, die wir listen, und die Schritte der Reihe nach.",
+    "metaDescription": "Sie kaufen einen Anteil an einer französischen SCI, also keine Notargebühren von 7,5–8 %. Die IFI greift bei einem Anteil selten. 22 Immobilien ab 119.000 €.",
+    "category": "buyer-guide",
+    "homesListed": 22,
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Paris Property Group",
+        "url": "https://parispropertygroup.com/"
+      }
+    ],
+    "wordCountTarget": 2000
+  },
+  "italy": {
+    "slug": "italy",
+    "country": "Italy",
+    "title": "Miteigentumsanteil in Italien kaufen (Leitfaden 2026)",
+    "h1": "Wie Sie einen Miteigentumsanteil in Italien kaufen",
+    "subtitle": "Die SRL, wer die IMU tatsächlich zahlt, der codice fiscale, was es bei den 23 italienischen Immobilien kostet, die wir listen — die niedrigsten laufenden Kosten aller Länder, die wir abdecken.",
+    "metaDescription": "Sie kaufen einen Anteil an einer italienischen SRL, also keine imposta di registro. Die IMU zahlt die Gesellschaft. 23 Immobilien ab 119.000 €.",
+    "category": "buyer-guide",
+    "homesListed": 23,
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      }
+    ],
+    "wordCountTarget": 1800
+  },
+  "usa": {
+    "slug": "usa",
+    "country": "United States",
+    "title": "Miteigentumsanteil in den USA kaufen (Leitfaden 2026)",
+    "h1": "Wie Sie einen Miteigentumsanteil in den Vereinigten Staaten kaufen",
+    "subtitle": "Die immobilienspezifische LLC, was der US-Markt besser und schlechter macht als Europa, was es bei den 107 amerikanischen Immobilien kostet, die wir listen, und die Schritte der Reihe nach.",
+    "metaDescription": "Sie kaufen einen Anteil an einer immobilienspezifischen LLC. 107 Immobilien in 11 Bundesstaaten ab 68.000 $, Pacasos Nächte ohne Obergrenze.",
+    "category": "buyer-guide",
+    "homesListed": 107,
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "Abitaro",
+        "url": "https://ownabitaro.com/"
+      }
+    ],
+    "wordCountTarget": 1900
+  }
+}
