@@ -61,3 +61,6 @@ _to_delete/
 
 # scratch previews and render harnesses from Claude sessions
 Claude outputs/
+
+# Local preview renders, never committed. (17 Sep 2026)
+/previews/

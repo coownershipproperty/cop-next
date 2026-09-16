@@ -952,12 +952,8 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
     if (u.kind === 'fixed' && u.nights) return ft.nights_fixed(u.nights);
     return ft.nights_fraction(u.denom);
   })();
-  const monthlyText = facts && facts.monthly
-    ? ft.monthly(fmt(facts.monthly, facts.currency, localeNumberFmt))
-    : null;
-  const verifiedText = facts && facts.verifiedOn && monthlyText
-    ? ft.verified(new Date(facts.verifiedOn).toLocaleDateString(localeNumberFmt, { day: 'numeric', month: 'long', year: 'numeric' }))
-    : null;
+  // The running cost and the verified-on line were derived here. Both left
+  // the page on 17 Sep 2026; the fact rows behind them are untouched.
 
   const [showUnlock, setShowUnlock] = useState(false);
   const [showTour, setShowTour] = useState(false);
@@ -1463,12 +1459,16 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
           )}
 
           {/* ── The numbers ──
-                 The share price, the running cost, the time and what is left,
-                 from property_facts and only where verified. A missing figure
-                 leaves its row out rather than being estimated: this block is
-                 the reason a buyer trusts us over the operator's own page, so
-                 there is nothing in it we cannot stand behind. ── */}
-          {facts && !discreetLocked && (
+                 The share price and the time, from property_facts and only
+                 where verified. A missing figure leaves its row out rather
+                 than being estimated.
+
+                 The running cost and the shares-remaining row were here and
+                 came out on David's instruction (17 Sep 2026): both are
+                 answers we give a buyer once they are talking to us, not
+                 figures to publish beside the price. The usage figure stays,
+                 because the alternative was the invented ~365/n. ── */}
+          {facts && usageText && !discreetLocked && (
             <div className="pp-numbers" id="the-numbers">
               <h2 className="pp-heading">{ft.heading}</h2>
               <div className="pp-num-rows">
@@ -1478,31 +1478,13 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                     <span className="pp-num-val">{fmt(p.price, p.currency || 'EUR', localeNumberFmt)}</span>
                   </div>
                 )}
-                {monthlyText && (
-                  <div className="pp-num-row">
-                    <span className="pp-num-lbl">{ft.running}</span>
-                    <span className="pp-num-val">{monthlyText}</span>
-                  </div>
-                )}
                 {usageText && (
                   <div className="pp-num-row">
                     <span className="pp-num-lbl">{ft.time}</span>
                     <span className="pp-num-val">{usageText}</span>
                   </div>
                 )}
-                {facts.sharesLeft && (
-                  <div className="pp-num-row">
-                    <span className="pp-num-lbl">{ft.left}</span>
-                    <span className="pp-num-val pp-num-val-left">{ft.shares_left(facts.sharesLeft, facts.denom)}</span>
-                  </div>
-                )}
               </div>
-              {monthlyText && (
-                <p className="pp-num-note">
-                  {facts.costsKind === 'advance' ? ft.covers_advance : ft.covers_budget}
-                  {verifiedText ? ` ${verifiedText}` : ''}
-                </p>
-              )}
               <p className="pp-num-ask">{ft.ask}</p>
             </div>
           )}
