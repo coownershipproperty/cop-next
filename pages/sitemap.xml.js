@@ -121,6 +121,10 @@ const EN_ONLY_PAGES = [
   // the supply-side lead-gen page.
   { url: '/co-ownership-price-index/', priority: '0.8', changefreq: 'weekly' },
   { url: '/list-with-cop/', priority: '0.6', changefreq: 'monthly' },
+  // Added 16 Sep 2026 with the hub itself — /compare used to 308 to a single
+  // comparison, so the set had no index page of its own and the other five
+  // were orphans.
+  { url: '/compare/', priority: '0.8', changefreq: 'monthly' },
   // /favourites/ intentionally excluded — noindex personal page
 ];
 

@@ -74,8 +74,12 @@ nextConfig.redirects = async () => [
   { source: '/add-your-property', destination: '/list-with-cop/', permanent: true },
 
   // Hubs people (and llms.txt readers) try by hand.
-  { source: '/compare', destination: '/compare/fractional-ownership-vs-timeshare/', permanent: false },
-  { source: '/comparisons', destination: '/compare/fractional-ownership-vs-timeshare/', permanent: false },
+  // /compare is a page now (pages/compare/index.js), not a redirect — it was
+  // sending the one URL people and answer engines try by hand off to a single
+  // comparison, leaving the other five as orphans.
+  { source: '/comparisons', destination: '/compare/', permanent: true },
+  { source: '/compare/cop-vs-direct', destination: '/compare/cop-vs-going-direct/', permanent: true },
+  { source: '/compare/agent-vs-direct', destination: '/compare/cop-vs-going-direct/', permanent: true },
   { source: '/compare/myne-vs-pacaso', destination: '/compare/pacaso-vs-myne/', permanent: true },
   { source: '/compare/vivla-vs-pacaso', destination: '/compare/pacaso-vs-vivla/', permanent: true },
   { source: '/compare/vivla-vs-myne', destination: '/compare/myne-vs-vivla/', permanent: true },

@@ -223,5 +223,6 @@
     "sold_badge": "Solgt",
     "bed_one": "{count} soverom",
     "bed_other": "{count} soverom"
-  }
+  },
+  "footer.compare": "Sammenlign"
 }

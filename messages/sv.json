@@ -223,5 +223,6 @@
     "sold_badge": "Såld",
     "bed_one": "{count} sovrum",
     "bed_other": "{count} sovrum"
-  }
+  },
+  "footer.compare": "Jämför"
 }

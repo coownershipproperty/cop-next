@@ -223,5 +223,6 @@
     "sold_badge": "Vendido",
     "bed_one": "{count} quarto",
     "bed_other": "{count} quartos"
-  }
+  },
+  "footer.compare": "Comparações"
 }

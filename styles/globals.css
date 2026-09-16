@@ -8352,6 +8352,45 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
    Native browser accordion via <details>/<summary> would be cleaner but
    the H3+P pattern is what the renderer extracts for FAQPage schema, so
    we style what we have. */
+/* ── Comparison hub (/compare) ───────────────────────────────────────────── */
+.cmp-group { margin: 0 0 3rem; }
+.cmp-group > h2 { margin: 0 0 .6rem; }
+.cmp-group > p { margin: 0 0 1.4rem; }
+.cmp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .8rem; }
+.cmp-list li { margin: 0; }
+.cmp-list a {
+  display: block;
+  padding: 1.15rem 1.35rem;
+  border: 1px solid var(--border, #e5e0d6);
+  border-radius: 4px;
+  background: #fff;
+  text-decoration: none;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.cmp-list a:hover {
+  border-color: var(--warm-gold, #C9A84C);
+  box-shadow: 0 8px 26px rgba(20,48,71,.07);
+  transform: translateY(-1px);
+}
+.cmp-list strong {
+  display: block;
+  margin-bottom: .35rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.16rem;
+  font-weight: 400;
+  color: #143047;
+  line-height: 1.35;
+}
+.cmp-list span {
+  display: block;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: .9rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: #5c6f80;
+}
+@media (max-width: 640px) { .cmp-list a { padding: 1rem 1.05rem; } }
+
 .compare-faq-section {
   margin-top: 64px;
   padding: 40px 0 8px;

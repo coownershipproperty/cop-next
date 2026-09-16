@@ -223,5 +223,6 @@
     "sold_badge": "Solgt",
     "bed_one": "{count} soveværelse",
     "bed_other": "{count} soveværelser"
-  }
+  },
+  "footer.compare": "Sammenlign"
 }

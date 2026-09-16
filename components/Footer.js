@@ -14,6 +14,9 @@ const FOOTER_COLS = {
     ['howItWorks', 'nav.how_it_works'],
     ['aboutUs',    'nav.about_us'],
     ['blog',       'nav.blog'],
+    // English-only for now, like /list-with-cop/ above it. The hub itself
+    // links the localised siblings of each comparison.
+    [null,         'footer.compare', '/compare/'],
     ['favourites', 'nav.favourites'],
   ],
   company: [

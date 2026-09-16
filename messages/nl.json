@@ -223,5 +223,6 @@
     "sold_badge": "Verkocht",
     "bed_one": "{count} slaapkamer",
     "bed_other": "{count} slaapkamers"
-  }
+  },
+  "footer.compare": "Vergelijken"
 }
