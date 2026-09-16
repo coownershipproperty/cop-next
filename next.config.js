@@ -84,6 +84,17 @@ nextConfig.redirects = async () => [
   { source: '/compare/vivla-vs-pacaso', destination: '/compare/pacaso-vs-vivla/', permanent: true },
   { source: '/compare/vivla-vs-myne', destination: '/compare/myne-vs-vivla/', permanent: true },
   { source: '/compare/timeshare-vs-fractional-ownership', destination: '/compare/fractional-ownership-vs-timeshare/', permanent: true },
+  // Reverse word order and the spellings people actually type for the three
+  // comparisons added 16 Sep 2026. '&Hamlet' loses its ampersand in a URL bar
+  // more often than it keeps it. (16 Sep 2026)
+  { source: '/compare/andhamlet-vs-myne', destination: '/compare/myne-vs-andhamlet/', permanent: true },
+  { source: '/compare/hamlet-vs-myne', destination: '/compare/myne-vs-andhamlet/', permanent: true },
+  { source: '/compare/myne-vs-hamlet', destination: '/compare/myne-vs-andhamlet/', permanent: true },
+  { source: '/compare/renting-vs-fractional-ownership', destination: '/compare/fractional-ownership-vs-renting/', permanent: true },
+  { source: '/compare/fractional-ownership-vs-rental', destination: '/compare/fractional-ownership-vs-renting/', permanent: true },
+  { source: '/compare/buy-or-rent', destination: '/compare/fractional-ownership-vs-renting/', permanent: true },
+  { source: '/compare/best-co-ownership-operator', destination: '/compare/which-co-ownership-operator/', permanent: true },
+  { source: '/compare/which-operator', destination: '/compare/which-co-ownership-operator/', permanent: true },
 
   { source: '/our-mission/', destination: '/about-us/', permanent: true },
   { source: '/renting-your-fractional-ownership-share-the-3-options-explained-cop/', destination: '/all-our-blog/', permanent: true },

@@ -26,10 +26,13 @@ const SITE_URL = 'https://co-ownership-property.com';
 const ORDER = [
   'fractional-ownership-vs-timeshare',
   'fractional-ownership-vs-second-home',
+  'fractional-ownership-vs-renting',
+  'which-co-ownership-operator',
   'best-fractional-ownership-companies',
   'pacaso-vs-myne',
   'myne-vs-vivla',
   'pacaso-vs-vivla',
+  'myne-vs-andhamlet',
   'pacaso-alternatives',
   'cop-vs-going-direct',
 ];
@@ -38,14 +41,14 @@ const GROUPS = [
   {
     key: 'model',
     heading: 'Is co-ownership the right thing at all?',
-    blurb: 'Before the operator matters, the model has to. These two answer the questions everybody asks first — whether this is a timeshare wearing a better suit, and whether it beats simply buying a whole house.',
-    slugs: ['fractional-ownership-vs-timeshare', 'fractional-ownership-vs-second-home'],
+    blurb: 'Before the operator matters, the model has to. These three answer the questions everybody asks first — whether this is a timeshare wearing a better suit, whether it beats simply buying a whole house, and whether it beats not buying at all.',
+    slugs: ['fractional-ownership-vs-timeshare', 'fractional-ownership-vs-second-home', 'fractional-ownership-vs-renting'],
   },
   {
     key: 'operators',
     heading: 'Which operator suits you',
     blurb: 'The models differ in ways that decide the purchase: nights a year, whether you may let the home, how resale works, and where the houses are. Every figure is measured across the 268 live listings rather than taken from anybody\u2019s marketing.',
-    slugs: ['best-fractional-ownership-companies', 'pacaso-vs-myne', 'myne-vs-vivla', 'pacaso-vs-vivla', 'pacaso-alternatives'],
+    slugs: ['which-co-ownership-operator', 'best-fractional-ownership-companies', 'pacaso-vs-myne', 'myne-vs-vivla', 'pacaso-vs-vivla', 'myne-vs-andhamlet', 'pacaso-alternatives'],
   },
   {
     key: 'route',

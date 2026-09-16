@@ -151,5 +151,98 @@
       "Paris Property Group"
     ],
     "wordCountTarget": 1300
+  },
+  "myne-vs-andhamlet": {
+    "slug": "myne-vs-andhamlet",
+    "title": "MYNE vs &Hamlet: Co-Ownership Operators Compared",
+    "h1": "MYNE Homes vs &Hamlet",
+    "subtitle": "The two European operators that publish their running costs, compared across 108 homes: price, size, nights a year, letting rules, and what a night in the house actually costs.",
+    "metaDescription": "99 MYNE homes and 9 &Hamlet homes compared on share price, bedrooms, nights a year, letting rules and verified running cost per night of use.",
+    "category": "partner-comparison",
+    "comparisonType": "partner",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      }
+    ],
+    "wordCountTarget": 2200
+  },
+  "fractional-ownership-vs-renting": {
+    "slug": "fractional-ownership-vs-renting",
+    "title": "Fractional Ownership vs Renting: The Real Numbers",
+    "h1": "Fractional ownership vs renting a holiday home",
+    "subtitle": "What a night in a co-owned home actually costs, measured across the 108 homes where we have verified the operator’s own cost sheet — and the nightly rental rate above which buying is the cheaper way to have it.",
+    "metaDescription": "A co-owned home runs at a median €89 a night. Add the capital and the cheapest come to €188. The break-even rental rate, with the workings shown.",
+    "category": "model-comparison",
+    "comparisonType": "model",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      }
+    ],
+    "wordCountTarget": 2000
+  },
+  "which-co-ownership-operator": {
+    "slug": "which-co-ownership-operator",
+    "title": "Which Co-Ownership Operator Is Right for You?",
+    "h1": "Which co-ownership operator should you buy from?",
+    "subtitle": "Six operators, 268 live homes, and the four questions that actually decide it — the country, whether you may let the home, whether your nights are a floor or a fixed allocation, and financing.",
+    "metaDescription": "Pacaso, MYNE, Vivla, &Hamlet, Abitaro and Paris Property Group: where each sells, who allows letting, how the nights work and who suits which buyer.",
+    "category": "category-comparison",
+    "comparisonType": "category",
+    "datePublished": "2026-09-16",
+    "dateModified": "2026-09-16",
+    "ogImage": "https://co-ownership-property.com/wp-content/uploads/2025/11/ibiza-villa.jpg",
+    "mentionsBrands": [
+      {
+        "name": "Pacaso",
+        "url": "https://www.pacaso.com/"
+      },
+      {
+        "name": "MYNE Homes",
+        "url": "https://www.myne-homes.com/"
+      },
+      {
+        "name": "Vivla",
+        "url": "https://www.vivla.com/"
+      },
+      {
+        "name": "&Hamlet",
+        "url": "https://www.andhamlet.com/"
+      },
+      {
+        "name": "Abitaro",
+        "url": "https://ownabitaro.com/"
+      },
+      {
+        "name": "Paris Property Group",
+        "url": "https://parispropertygroup.com/"
+      }
+    ],
+    "wordCountTarget": 2000
   }
 }
