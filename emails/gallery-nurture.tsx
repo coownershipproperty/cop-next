@@ -287,12 +287,12 @@ export default function GalleryNurtureEmail({
   const HEADLINE = {
     day1:  one ? `What ${place} actually costs` : 'What they actually cost',
     day4:  one ? `Two more like ${place}` : `Two more you haven’t seen`,
-    day10: 'Shall I make the introduction?',
+    day10: 'Want me to introduce you?',
   }[step];
   const PREVIEW = {
     day1:  one ? `${place} — the share price, the running costs and the nights` : 'The share price, the running costs and the nights',
     day4:  'The two closest homes we have to the one you looked at',
-    day10: 'Four things only the team who run the house can answer',
+    day10: 'They can answer things I can\u2019t',
   }[step];
 
   return (
@@ -422,13 +422,13 @@ export default function GalleryNurtureEmail({
             <>
               <Section className="pad" style={{ padding: '0 56px' }}>
                 <Text className="intro" style={introStyle}>
-                  You asked to see inside {one ? place : joinNames(shown)} a little while ago, and I have not crowded you since.
+                  You looked at {one ? place : joinNames(shown)} a couple of weeks ago, and I haven’t chased you about it since.
                 </Text>
                 <Text className="intro" style={{ ...introStyle, marginTop: 20 }}>
-                  If it is still on your mind, there are four things only the team who run the house can tell you: how many shares are left this week, whether there is any movement on the price, what financing they will put behind it, and how the calendar looks for the dates you actually want.
+                  If you’re still thinking about it, the team who run the house can tell you things I can’t: how many shares are left right now, whether the price has moved, what they can do on financing, and whether your dates are still free.
                 </Text>
                 <Text className="intro" style={{ ...introStyle, marginTop: 20 }}>
-                  I would introduce you with your name and what you are looking for already explained, so you start at the answers rather than at a form. It costs you nothing and commits you to nothing.
+                  I’d introduce you properly — who you are, what you’re after — so you skip the form and start at the answers.
                 </Text>
               </Section>
 
@@ -440,14 +440,14 @@ export default function GalleryNurtureEmail({
               )}
 
               <Section className="pad" style={{ padding: '40px 56px 0', textAlign: 'center' as const }}>
-                <Link href={introduceUrl || browseUrl} className="btn" style={button}>Yes — introduce me</Link>
-                <Text style={replyNote}>or simply reply with a yes; it comes straight to me.</Text>
+                <Link href={introduceUrl || browseUrl} className="btn" style={button}>Yes, introduce me</Link>
+                <Text style={replyNote}>or just reply yes. It comes straight to me.</Text>
               </Section>
 
               <Section className="pad" style={{ padding: '34px 56px 0' }}>
                 <Rule width={44} />
                 <Text className="intro" style={{ ...introStyle, marginTop: 26 }}>
-                  And if the timing is wrong, say so and I will keep an eye out instead. New homes arrive across the six operators every month, and I would rather send you the right one later than the nearest one now.
+                  And if it’s just bad timing, tell me. I’ll keep an eye out and come back when something fits you better.
                 </Text>
               </Section>
             </>
