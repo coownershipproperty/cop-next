@@ -75,6 +75,10 @@ const ROLE = {
   en: 'Co-Founder · Co-Ownership Property',
   es: 'Cofundador · Co-Ownership Property',
   fr: 'Cofondateur · Co-Ownership Property',
+  de: "Mitgründer · Co-Ownership Property",
+  it: "Cofondatore · Co-Ownership Property",
+  nl: "Medeoprichter · Co-Ownership Property",
+  pt: "Cofundador · Co-Ownership Property",
 };
 
 const PARTNER_DISPLAY = {
