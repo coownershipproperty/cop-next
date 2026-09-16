@@ -252,7 +252,7 @@ export default function GalleryNurtureEmail({
   const PREVIEW = {
     day1:  one ? `${place} — the share price, the running costs and the nights` : 'The share price, the running costs and the nights',
     day4:  'The two closest homes we have to the one you looked at',
-    day10: 'An introduction to the team that manages the home — no cost, no obligation',
+    day10: 'Four things only the team who run the house can answer',
   }[step];
 
   return (
@@ -382,13 +382,13 @@ export default function GalleryNurtureEmail({
             <>
               <Section className="pad" style={{ padding: '0 56px' }}>
                 <Text className="intro" style={introStyle}>
-                  A little while ago you asked to see inside {one ? place : joinNames(shown)}. I have left you alone since — you will have had enough emails from people who didn’t.
+                  You asked to see inside {one ? place : joinNames(shown)} a little while ago, and I have not crowded you since.
                 </Text>
                 <Text className="intro" style={{ ...introStyle, marginTop: 20 }}>
-                  There is one thing worth doing before you decide either way. We are agents: we do not run these houses, and we are not paid by you. What I can do is hand you to the team that does run it, with your name and what you are actually after already explained — so you skip the enquiry form, the holding reply and the first three emails, and start at the part where someone answers questions.
+                  If it is still on your mind, there are four things only the team who run the house can tell you: how many shares are left this week, whether there is any movement on the price, what financing they will put behind it, and how the calendar looks for the dates you actually want.
                 </Text>
                 <Text className="intro" style={{ ...introStyle, marginTop: 20 }}>
-                  It costs nothing, it commits you to nothing, and you are free to ask them the awkward questions and walk away. Most of the people I introduce do not end up buying — that is rather the point of finding out.
+                  I would introduce you with your name and what you are looking for already explained, so you start at the answers rather than at a form. It costs you nothing and commits you to nothing.
                 </Text>
               </Section>
 
@@ -407,7 +407,7 @@ export default function GalleryNurtureEmail({
               <Section className="pad" style={{ padding: '34px 56px 0' }}>
                 <Rule width={44} />
                 <Text className="intro" style={{ ...introStyle, marginTop: 26 }}>
-                  And if it is not the right home after all — tell me what would be. That is the more useful email of the two, and it is the one I would rather have.
+                  And if the timing is wrong, say so and I will keep an eye out instead. New homes arrive across the six operators every month, and I would rather send you the right one later than the nearest one now.
                 </Text>
               </Section>
             </>
