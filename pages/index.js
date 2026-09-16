@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import hreflangLinks from '@/components/HreflangLinks';
+import { orderForCountry, countryFromCookie } from '@/lib/geoOrder';
+import { trackConversion } from '@/lib/gtag';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -330,8 +332,88 @@ function PropCarousel({ items, propertyCount }) {
   );
 }
 
+/**
+ * The one email capture above the fold.
+ *
+ * Deliberately small: a line of type, a field and a button. It posts to the
+ * same /api/newsletter every other signup uses, with its own source so the
+ * homepage's contribution stays separable in reporting, and it carries the
+ * honeypot the API already checks. No modal, no delay, no exit intent.
+ */
+function HeroCapture() {
+  const [email, setEmail] = useState('');
+  const [state, setState] = useState('idle');   // idle | sending | done | error
+
+  async function submit(e) {
+    e.preventDefault();
+    const value = email.trim();
+    if (!value || state === 'sending') return;
+    setState('sending');
+    try {
+      const r = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: value, source: 'hero', locale: 'en', website: e.target.website?.value || '' }),
+      });
+      if (!r.ok) throw new Error('failed');
+      setState('done');
+      try { trackConversion('generate_lead', 'Lead', { event_category: 'newsletter', method: 'hero' }); } catch (err) {}
+    } catch (err) {
+      setState('error');
+    }
+  }
+
+  if (state === 'done') {
+    return (
+      <p className="hero-capture-done">
+        Done &mdash; you&rsquo;ll hear from us the week something new lists.
+      </p>
+    );
+  }
+
+  return (
+    <form className="hero-capture" onSubmit={submit}>
+      <label htmlFor="hero-capture-email">New homes, the week they list</label>
+      <div className="hero-capture-row">
+        <input
+          id="hero-capture-email"
+          type="email"
+          name="email"
+          inputMode="email"
+          autoComplete="email"
+          placeholder="your@email.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        {/* honeypot — bots fill it, people never see it */}
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hp-field" />
+        <button type="submit" disabled={state === 'sending'}>
+          {state === 'sending' ? 'Sending' : 'Send them'}
+        </button>
+      </div>
+      {state === 'error' && <span className="hero-capture-err">That didn&rsquo;t send &mdash; try again?</span>}
+    </form>
+  );
+}
+
 export default function Home({ propertyCount, featuredProps, latestPosts }) {
   const [activeDest, setActiveDest] = useState('spain');
+  // The carousel opens with the homes this visitor might actually buy. The
+  // server-rendered order is the editorial one — reordering happens after
+  // mount, from the cop_country cookie, so crawlers and anyone whose country
+  // we cannot read see the canonical page. See lib/geoOrder.js.
+  const [featured, setFeatured] = useState(featuredProps);
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const country = countryFromCookie(document.cookie);
+    if (!country) return;
+    const ordered = orderForCountry(featuredProps, country);
+    if (ordered.length && ordered.some((p, i) => p.slug !== featuredProps[i]?.slug)) {
+      setFeatured(ordered);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [featuredProps]);
   const videoRef = useRef(null);
   const destTabsRef = useRef(null);
 
@@ -395,7 +477,10 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
 {/* ===== HERO SECTION ===== */}
 {/* cache-bust: lang-switcher flags v2 — 2026-05-15 */}
     <section className="hero">
-        <video ref={videoRef} className="hero-video" autoPlay muted loop playsInline preload="auto" fetchPriority="high">
+        {/* poster: the first frame, so the fold is never a black rectangle
+            while 6 MB of video arrives — it is the largest contentful paint
+            on the site and it was empty until it loaded. */}
+        <video ref={videoRef} className="hero-video" poster="/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.jpg" autoPlay muted loop playsInline preload="auto" fetchPriority="high">
             <source src="/wp-content/uploads/2026/03/fractional-ownership-luxury-holiday-homes.mp4" type="video/mp4" />
         </video>
         <div className="hero-overlay"></div>
@@ -405,20 +490,33 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
 
         {/* Hero Content */}
         <div className="hero-content">
+            {/* "Your window to the world's finest co-ownership" was lovely
+                and said nothing: it did not tell a visitor what we are, what
+                we have, or why us rather than the operator. This does, in one
+                breath, and every clause of it is now demonstrable on any
+                listing page. */}
             <h1 className="hero-heading">
-                <span className="hero-pre">Your window to the</span>
-                <em>world's finest</em>
+                <span className="hero-pre">The independent agents for</span>
+                <em>co-ownership homes</em>
                 <span className="hero-rule"></span>
-                <span className="hero-post">co-ownership</span>
+                <span className="hero-post">in Europe and the USA</span>
             </h1>
+            <p className="hero-sub">
+                Nearly 300 deeded shares, from &euro;119,000. We don&rsquo;t run the houses &mdash;
+                which is why we can tell you what they really cost to own.
+            </p>
         </div>
 
         {/* Hero Bottom Section */}
         <div className="hero-bottom">
             <div className="hero-ctas">
-                <a href="/our-homes" className="hero-cta-primary">Browse Properties &rarr;</a>
+                <a href="/our-homes" className="hero-cta-primary">Browse the homes &rarr;</a>
                 <a href="/how-it-works" className="hero-cta-secondary">How It Works</a>
             </div>
+            {/* The only capture above the fold. Everything else asks for an
+                email three screens down, by which point most of the traffic
+                has gone. */}
+            <HeroCapture />
         </div>
     </section>
 
@@ -495,7 +593,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         <h2 className="section-heading">Explore Our Properties</h2>
         <p className="section-subtitle">Browse our curated collection of fractional ownership opportunities across the world's most desirable destinations.</p>
 
-        <PropCarousel items={featuredProps} propertyCount={propertyCount} />
+        <PropCarousel items={featured} propertyCount={propertyCount} />
 
         <div className="pc-browse-all">
           <a href="/our-homes/" className="pc-browse-btn">View All {propertyCount} Properties &rarr;</a>

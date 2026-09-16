@@ -142,6 +142,24 @@ export function middleware(request) {
     }
   }
 
+  // ── Country, for ordering rather than redirecting ──────────────────────────
+  // The homepage carousel puts the homes a visitor might actually buy first:
+  // an American sees the American homes and the French ones, a European sees
+  // Europe and a few of the cheapest American shares. That needs the country
+  // and nothing else — no redirect, no locale change, no content withheld.
+  // Refreshed daily like the currency cookie, and readable by client JS.
+  if (!request.cookies.has('cop_country')) {
+    const country = request.geo?.country || '';
+    if (/^[A-Z]{2}$/.test(country)) {
+      response.cookies.set('cop_country', country, {
+        maxAge: 86400,
+        sameSite: 'lax',
+        path: '/',
+        httpOnly: false,
+      });
+    }
+  }
+
   // ── Persist cop_locale even when we didn't redirect ─────────────────────────
   // Prevents the homepage from re-evaluating geo on every visit. Detect from
   // URL path if the visitor's already inside a locale subfolder.

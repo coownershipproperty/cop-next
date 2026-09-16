@@ -27,7 +27,9 @@ export default async function handler(req, res) {
   // long-running historical series (181 contacts, 28.7% phone capture) that the
   // rebuilt exit popup rejoins rather than restarts. Allowlisted rather than
   // free-text so a spoofed body cannot invent a channel and poison the numbers.
-  const ALLOWED_SOURCES = ['newsletter', 'popup_cop'];
+  // 'hero' is the capture above the fold on the homepage, added 16 Sep 2026 —
+  // separable from the footer signup so the fold's contribution is measurable.
+  const ALLOWED_SOURCES = ['newsletter', 'popup_cop', 'hero'];
   const source = ALLOWED_SOURCES.includes(rawSource) ? rawSource : 'newsletter';
 
   // Locale handling — validates against SUPPORTED_LOCALES, falls back to default ('en')
