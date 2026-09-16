@@ -40,6 +40,30 @@ const COPY = {
     cta: 'Ouvrir ma sélection',
     tip: 'Astuce : transférez cet e-mail à vos futurs co-propriétaires — le moyen le plus simple de comparer.',
   },
+  de: {
+    subject: (n) => n === 1 ? `Ihre Merkliste mit ${n} Immobilie — gesichert` : `Ihre Merkliste mit ${n} Immobilien — gesichert`,
+    intro: (n) => n === 1 ? `Ihre Merkliste mit <strong>${n} Immobilie</strong> ist gesichert. Öffnen Sie den Link unten auf einem beliebigen Gerät — Handy, Laptop, dem iPad der Familie — und Ihre Favoriten warten dort auf Sie.` : `Ihre Merkliste mit <strong>${n} Immobilien</strong> ist gesichert. Öffnen Sie den Link unten auf einem beliebigen Gerät — Handy, Laptop, dem iPad der Familie — und Ihre Favoriten warten dort auf Sie.`,
+    cta: "Meine Merkliste öffnen",
+    tip: "Tipp: Leiten Sie diese E-Mail an alle weiter, mit denen Sie gemeinsam Eigentümer werden möchten — so tauschen Sie sich am einfachsten aus.",
+  },
+  it: {
+    subject: (n) => n === 1 ? `La sua selezione di ${n} casa — salvata` : `La sua selezione di ${n} case — salvata`,
+    intro: (n) => n === 1 ? `La sua selezione di <strong>${n} casa</strong> è al sicuro. Apra il link qui sotto da qualsiasi dispositivo — telefono, portatile, l'iPad di casa — e i suoi preferiti saranno lì ad aspettarla.` : `La sua selezione di <strong>${n} case</strong> è al sicuro. Apra il link qui sotto da qualsiasi dispositivo — telefono, portatile, l'iPad di casa — e i suoi preferiti saranno lì ad aspettarla.`,
+    cta: "Apri la mia selezione",
+    tip: "Un consiglio: inoltri questa email a chi vorrebbe comprare insieme a lei — è il modo più semplice per confrontarvi.",
+  },
+  nl: {
+    subject: (n) => n === 1 ? `Uw shortlist van ${n} woning — bewaard` : `Uw shortlist van ${n} woningen — bewaard`,
+    intro: (n) => n === 1 ? `Uw shortlist van <strong>${n} woning</strong> is veilig bewaard. Open de link hieronder op elk apparaat — telefoon, laptop, de iPad van het gezin — en uw favorieten staan voor u klaar.` : `Uw shortlist van <strong>${n} woningen</strong> is veilig bewaard. Open de link hieronder op elk apparaat — telefoon, laptop, de iPad van het gezin — en uw favorieten staan voor u klaar.`,
+    cta: "Open mijn shortlist",
+    tip: "Tip: stuur deze e-mail door naar degene met wie u mede-eigenaar zou worden — dat is de makkelijkste manier om samen te overleggen.",
+  },
+  pt: {
+    subject: (n) => n === 1 ? `A sua seleção de ${n} casa — guardada` : `A sua seleção de ${n} casas — guardada`,
+    intro: (n) => n === 1 ? `A sua seleção de <strong>${n} casa</strong> está guardada em segurança. Abra o link abaixo em qualquer dispositivo — telemóvel, portátil, o iPad lá de casa — e os seus favoritos estarão à sua espera.` : `A sua seleção de <strong>${n} casas</strong> está guardada em segurança. Abra o link abaixo em qualquer dispositivo — telemóvel, portátil, o iPad lá de casa — e os seus favoritos estarão à sua espera.`,
+    cta: "Abrir a minha seleção",
+    tip: "Sugestão: reencaminhe este email a quem gostaria de ter como comproprietário — é a forma mais simples de trocarem impressões.",
+  },
 };
 
 const FAV_PATH = Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, routePath(l, 'favourites')]));

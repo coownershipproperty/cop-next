@@ -62,6 +62,36 @@ const CONFIRM = {
     view_home: 'Das Haus ansehen',
     open_now: (region) => `Bis dahin — diese Häuser in <strong>${region}</strong> sind heute verfügbar:`,
   },
+  it: {
+    watch_subject: (title) => `Sta seguendo ${title}`,
+    watch_body: (title, url) =>
+      `Ora sta seguendo <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Se cambia il prezzo o la disponibilità, la avviseremo prima di tutti — niente spam, solo notizie su questa casa.`,
+    wait_subject: (region) => `È in lista d'attesa — ${region}`,
+    wait_body: (title, region) =>
+      `Tutte le quote di <strong>${title}</strong> sono state vendute — ma ora lei è in cima alla lista. Non appena una nuova casa in <strong>${region}</strong> entrerà nella nostra collezione, la vedrà prima di chiunque altro.`,
+    cta: "Scopri la collezione",
+    view_home: "Vedi la casa",
+  },
+  nl: {
+    watch_subject: (title) => `U volgt ${title}`,
+    watch_body: (title, url) =>
+      `U volgt nu <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Verandert de prijs of komt er beweging in de beschikbaarheid, dan hoort u het als eerste van ons — geen spam, alleen nieuws over deze woning.`,
+    wait_subject: (region) => `U staat op de wachtlijst — ${region}`,
+    wait_body: (title, region) =>
+      `<strong>${title}</strong> is volledig verkocht — maar u staat nu vooraan in de rij. Zodra er een nieuwe <strong>${region}</strong>-woning aan onze collectie wordt toegevoegd, ziet u die als eerste.`,
+    cta: "Bekijk de collectie",
+    view_home: "Bekijk de woning",
+  },
+  pt: {
+    watch_subject: (title) => `Está a acompanhar ${title}`,
+    watch_body: (title, url) =>
+      `Está agora a acompanhar <a href="${url}" style="color:#1E3448"><strong>${title}</strong></a>. Se o preço mudar ou a disponibilidade se alterar, terá notícias nossas em primeiro lugar — sem spam, apenas novidades sobre esta casa.`,
+    wait_subject: (region) => `Está na lista de espera — ${region}`,
+    wait_body: (title, region) =>
+      `As quotas de <strong>${title}</strong> estão todas vendidas — mas está agora à frente da fila. Assim que uma nova casa em <strong>${region}</strong> entrar na nossa coleção, será a primeira pessoa a vê-la.`,
+    cta: "Ver a coleção",
+    view_home: "Ver a casa",
+  },
 };
 CONFIRM.en.open_now = (region) => `While you wait, these homes in <strong>${region}</strong> are open right now:`;
 CONFIRM.es.open_now = (region) => `Mientras tanto, estas propiedades en <strong>${region}</strong> están disponibles ahora mismo:`;
