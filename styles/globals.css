@@ -3191,8 +3191,32 @@ footer {
             filter: grayscale(0%) opacity(1);
         }
 
+/* Operator wordmarks. The bar carried press logos until 17 Sep 2026; it now
+   carries the operators we actually list, set as type because we hold no
+   logo files for five of the six. Same grayscale-to-colour behaviour as the
+   images it replaced, so the bar reads identically at a glance. */
+.press-wordmark {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.32rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            line-height: 36px;
+            white-space: nowrap;
+            color: #1C2B3A;
+            opacity: 0.45;
+            text-decoration: none;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+.press-wordmark:hover,
+        .press-wordmark:focus-visible {
+            opacity: 1;
+            color: var(--warm-gold, #A98A45);
+        }
+
 @media (max-width: 640px) {
             .press-logo-item img { height: 26px; }
+            .press-wordmark { font-size: 1.02rem; line-height: 26px; }
             .press-track { gap: 40px; }
             .press-bar { padding: 28px 0 22px; }
             .press-bar-header-line { max-width: 60px; }

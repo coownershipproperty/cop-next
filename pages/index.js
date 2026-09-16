@@ -3,6 +3,7 @@ import hreflangLinks from '@/components/HreflangLinks';
 import { orderForCountry, countryFromCookie } from '@/lib/geoOrder';
 import { trackConversion } from '@/lib/gtag';
 import Image from 'next/image';
+import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -340,6 +341,21 @@ function PropCarousel({ items, propertyCount }) {
  * homepage's contribution stays separable in reporting, and it carries the
  * honeypot the API already checks. No modal, no delay, no exit intent.
  */
+// The six operators whose homes we list. Five have a profile page on this
+// site; Paris Property Group has one apartment rather than a profile, so it
+// points at the apartment. Every link here is a page that exists.
+const OPERATORS = [
+  { name: 'MYNE Homes', href: '/partners/myne/' },
+  { name: 'Pacaso', href: '/partners/pacaso/' },
+  { name: 'Vivla', href: '/partners/vivla/' },
+  { name: '\u0026Hamlet', href: '/partners/andhamlet/' },
+  { name: 'Abitaro', href: '/partners/abitaro/' },
+  { name: 'Paris Property Group', href: '/property/paris-6th-rue-du-four-3-bed-apartment-saint-germain/' },
+];
+// Two identical passes make the marquee loop seamlessly; the second is
+// hidden from assistive tech and taken out of the tab order.
+const OPERATOR_SETS = [false, true];
+
 function HeroCapture() {
   const [email, setEmail] = useState('');
   const [state, setState] = useState('idle');   // idle | sending | done | error
@@ -520,67 +536,34 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         </div>
     </section>
 
-    {/* ===== PRESS MARQUEE ===== */}
-    <div className="press-bar" role="region" aria-label="As featured in">
+    {/* ===== OPERATOR MARQUEE =====
+         Until 17 Sep 2026 this bar said "As Featured In" over The Times, the
+         FT, the Daily Mail, Forbes, the Express, Business Insider, Luxury
+         Travel Magazine and Rolling Stone. No evidence was ever found for any
+         of them. What we can say instead is true, checkable and actually more
+         useful to a buyer: these are the operators whose homes we list, and
+         every name links to what we know about them.
+
+         Wordmarks rather than logo files — we hold no operator logo assets
+         except Vivla's. Swapping any one for an <Image> later is a one-line
+         change. ── */}
+    <div className="press-bar" role="region" aria-label="The operators we list">
         <div className="press-bar-header">
-            <span className="press-bar-label">As Featured In</span>
+            <span className="press-bar-label">Homes From</span>
         </div>
         <div className="press-marquee-wrap">
         <div className="press-track-outer">
-            {/* Set 1 */}
-            <div className="press-track">
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-times.png" alt="The Times" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-ft.png" alt="Financial Times" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-dailymail.png" alt="Daily Mail" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-forbes.png" alt="Forbes" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-express.png" alt="Express" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="Business Insider" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="Luxury Travel Magazine" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="Rolling Stone" width={200} height={50} loading="eager" />
-                </div>
+            {OPERATOR_SETS.map((hidden, setIndex) => (
+            <div className="press-track" key={setIndex} aria-hidden={hidden || undefined}>
+                {OPERATORS.map(op => (
+                    <div className="press-logo-item" key={op.name}>
+                        <Link href={op.href} className="press-wordmark" tabIndex={hidden ? -1 : undefined}>
+                            {op.name}
+                        </Link>
+                    </div>
+                ))}
             </div>
-            {/* Set 2 (identical – creates seamless infinite loop) */}
-            <div className="press-track" aria-hidden="true">
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-times.png" alt="" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-ft.png" alt="" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-dailymail.png" alt="" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-forbes.png" alt="" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-express.png" alt="" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-businessinsider.png" alt="" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-luxtravel.png" alt="" width={200} height={50} loading="eager" />
-                </div>
-                <div className="press-logo-item">
-                    <Image src="/wp-content/uploads/2025/11/press-rollingstone.png" alt="" width={200} height={50} loading="eager" />
-                </div>
-            </div>
+            ))}
         </div>
         </div>
     </div>
