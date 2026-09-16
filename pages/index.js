@@ -3,7 +3,6 @@ import hreflangLinks from '@/components/HreflangLinks';
 import { orderForCountry, countryFromCookie } from '@/lib/geoOrder';
 import { trackConversion } from '@/lib/gtag';
 import Image from 'next/image';
-import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Newsletter from '@/components/Newsletter';
@@ -344,13 +343,20 @@ function PropCarousel({ items, propertyCount }) {
 // The six operators whose homes we list. Five have a profile page on this
 // site; Paris Property Group has one apartment rather than a profile, so it
 // points at the apartment. Every link here is a page that exists.
-const OPERATORS = [
-  { name: 'MYNE Homes', href: '/partners/myne/' },
-  { name: 'Pacaso', href: '/partners/pacaso/' },
-  { name: 'Vivla', href: '/partners/vivla/' },
-  { name: '\u0026Hamlet', href: '/partners/andhamlet/' },
-  { name: 'Abitaro', href: '/partners/abitaro/' },
-  { name: 'Paris Property Group', href: '/property/paris-6th-rue-du-four-3-bed-apartment-saint-germain/' },
+// The mastheads are back at David's call (17 Sep): the coverage belongs to
+// the operators whose homes COP lists, and COP sells their product, so
+// showing it is fair. What was not fair was the old label — "As Featured In"
+// on our own site reads as a claim about us. The label now says whose press
+// it is, which keeps the signal and drops the claim.
+const PRESS = [
+  { src: '/wp-content/uploads/2025/11/press-times.png', alt: 'The Times' },
+  { src: '/wp-content/uploads/2025/11/press-ft.png', alt: 'Financial Times' },
+  { src: '/wp-content/uploads/2025/11/press-dailymail.png', alt: 'Daily Mail' },
+  { src: '/wp-content/uploads/2025/11/press-forbes.png', alt: 'Forbes' },
+  { src: '/wp-content/uploads/2025/11/press-express.png', alt: 'Express' },
+  { src: '/wp-content/uploads/2025/11/press-businessinsider.png', alt: 'Business Insider' },
+  { src: '/wp-content/uploads/2025/11/press-luxtravel.png', alt: 'Luxury Travel Magazine' },
+  { src: '/wp-content/uploads/2025/11/press-rollingstone.png', alt: 'Rolling Stone' },
 ];
 // Two identical passes make the marquee loop seamlessly; the second is
 // hidden from assistive tech and taken out of the tab order.
@@ -506,20 +512,22 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
 
         {/* Hero Content */}
         <div className="hero-content">
-            {/* "Your window to the world's finest co-ownership" was lovely
-                and said nothing: it did not tell a visitor what we are, what
-                we have, or why us rather than the operator. This does, in one
-                breath, and every clause of it is now demonstrable on any
+            {/* The original line is back at David's call (17 Sep). It was
+                replaced on 16 Sep on the grounds that it told a visitor
+                nothing — true of the line on its own, but the fix was never
+                to lose it. The headline sets the tone; the sub does the
+                explaining, and every clause of it is demonstrable on any
                 listing page. */}
             <h1 className="hero-heading">
-                <span className="hero-pre">The independent agents for</span>
-                <em>co-ownership homes</em>
+                <span className="hero-pre">Your window to the</span>
+                <em>world&rsquo;s finest</em>
                 <span className="hero-rule"></span>
-                <span className="hero-post">in Europe and the USA</span>
+                <span className="hero-post">co-ownership</span>
             </h1>
             <p className="hero-sub">
-                Nearly 300 deeded shares, from &euro;119,000. We don&rsquo;t run the houses &mdash;
-                which is why we can tell you what they really cost to own.
+                The independent agents for co-ownership homes in Europe and the USA.
+                Nearly 300 deeded shares, from &euro;119,000 &mdash; and because we don&rsquo;t
+                run the houses, we can tell you what they really cost to own.
             </p>
         </div>
 
@@ -547,19 +555,17 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
          Wordmarks rather than logo files — we hold no operator logo assets
          except Vivla's. Swapping any one for an <Image> later is a one-line
          change. ── */}
-    <div className="press-bar" role="region" aria-label="The operators we list">
+    <div className="press-bar" role="region" aria-label="Our partners in the press">
         <div className="press-bar-header">
-            <span className="press-bar-label">Homes From</span>
+            <span className="press-bar-label">Our partners in the press</span>
         </div>
         <div className="press-marquee-wrap">
         <div className="press-track-outer">
             {OPERATOR_SETS.map((hidden, setIndex) => (
             <div className="press-track" key={setIndex} aria-hidden={hidden || undefined}>
-                {OPERATORS.map(op => (
-                    <div className="press-logo-item" key={op.name}>
-                        <Link href={op.href} className="press-wordmark" tabIndex={hidden ? -1 : undefined}>
-                            {op.name}
-                        </Link>
+                {PRESS.map(logo => (
+                    <div className="press-logo-item" key={logo.alt}>
+                        <Image src={logo.src} alt={hidden ? '' : logo.alt} width={200} height={50} loading="eager" />
                     </div>
                 ))}
             </div>
