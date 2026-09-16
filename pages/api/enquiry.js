@@ -336,7 +336,7 @@ export default async function handler(req, res) {
         <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
         ${destination ? `<p><strong>Destinations:</strong> ${destination}</p>` : ''}
         ${budget ? `<p><strong>Budget:</strong> ${budget}</p>` : ''}
-        <p><strong>Message:</strong> ${message || 'No message'}</p>
+        <p><strong>Message:</strong><br>${(message || 'No message').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\n/g, '<br>')}</p>
       `,
     });
   } catch (e) {

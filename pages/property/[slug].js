@@ -221,7 +221,8 @@ const COPY = {
       { k: 'when', q: 'When are you thinking?',
         o: ['Next 3 months', 'This year', 'Just looking'] },
       { k: 'budget', q: 'Roughly what were you thinking of spending?',
-        o: [`Under ${sym}200k`, `${sym}200\u2013400k`, `${sym}400k+`, 'Rather not say'] },
+        o: [`Under ${sym}200k`, `${sym}200\u2013400k`, `${sym}400k+`, 'Rather not say'] ,
+        v: ['under-200k', '200-400k', '400k+', ''] },
       { k: 'seen', q: 'Have you looked at co-ownership before?',
         o: ["First I've heard of it", 'Been looking a while', 'I already own a share'] },
     ],
@@ -275,7 +276,8 @@ const COPY = {
       { k: 'when', q: '\u00bfPara cu\u00e1ndo lo est\u00e1s pensando?',
         o: ['En los pr\u00f3ximos 3 meses', 'Este a\u00f1o', 'Solo estoy mirando'] },
       { k: 'budget', q: '\u00bfQu\u00e9 presupuesto tienes en mente, m\u00e1s o menos?',
-        o: [`Menos de 200.000 ${sym}`, `200.000\u2013400.000 ${sym}`, `M\u00e1s de 400.000 ${sym}`, 'Prefiero no decirlo'] },
+        o: [`Menos de 200.000 ${sym}`, `200.000\u2013400.000 ${sym}`, `M\u00e1s de 400.000 ${sym}`, 'Prefiero no decirlo'] ,
+        v: ['under-200k', '200-400k', '400k+', ''] },
       { k: 'seen', q: '\u00bfHab\u00edas visto antes la copropiedad?',
         o: ['Es la primera vez', 'Llevo tiempo mirando', 'Ya tengo una participaci\u00f3n'] },
     ],
@@ -329,7 +331,8 @@ const COPY = {
       { k: 'when', q: 'Dans quel d\u00e9lai envisagez-vous ?',
         o: ['Dans les 3 mois', 'Cette ann\u00e9e', 'Je regarde seulement'] },
       { k: 'budget', q: 'Quel budget envisagez-vous, en gros ?',
-        o: [`Moins de 200 000 ${sym}`, `200 000\u2013400 000 ${sym}`, `Plus de 400 000 ${sym}`, 'Je pr\u00e9f\u00e8re ne pas dire'] },
+        o: [`Moins de 200 000 ${sym}`, `200 000\u2013400 000 ${sym}`, `Plus de 400 000 ${sym}`, 'Je pr\u00e9f\u00e8re ne pas dire'] ,
+        v: ['under-200k', '200-400k', '400k+', ''] },
       { k: 'seen', q: 'Connaissiez-vous d\u00e9j\u00e0 la copropri\u00e9t\u00e9 ?',
         o: ["C'est la premi\u00e8re fois", 'Je cherche depuis un moment', 'Je poss\u00e8de d\u00e9j\u00e0 une part'] },
     ],
@@ -383,7 +386,8 @@ const COPY = {
       { k: 'when', q: 'Wann denken Sie daran?',
         o: ['In den n\u00e4chsten 3 Monaten', 'Dieses Jahr', 'Ich schaue mich nur um'] },
       { k: 'budget', q: 'Mit welchem Budget rechnen Sie ungef\u00e4hr?',
-        o: [`Unter 200.000 ${sym}`, `200.000\u2013400.000 ${sym}`, `\u00dcber 400.000 ${sym}`, 'Lieber nicht sagen'] },
+        o: [`Unter 200.000 ${sym}`, `200.000\u2013400.000 ${sym}`, `\u00dcber 400.000 ${sym}`, 'Lieber nicht sagen'] ,
+        v: ['under-200k', '200-400k', '400k+', ''] },
       { k: 'seen', q: 'Kannten Sie Miteigentum schon?',
         o: ['Zum ersten Mal davon geh\u00f6rt', 'Schaue mich schon l\u00e4nger um', 'Ich besitze bereits einen Anteil'] },
     ],
@@ -923,8 +927,23 @@ function EnquiryForm({ propertySlug, propertyTitle, propertyUrl, locale, currenc
         .filter(c => chips[c.k])
         .map(c => `${(t.eq_chip_labels && t.eq_chip_labels[c.k]) || c.k}: ${chips[c.k]}`);
       const composed = [answered.join('\n'), f.message.trim()].filter(Boolean).join('\n\n');
+      /* Canonical budget value, matched to the tapped label by position.
+         The label must not be parsed: "Mas de 400.000" and "Uber 400.000"
+         carry no "+", so parseBudgetRange reads them as a single number and
+         returns them as a MAXIMUM — recording "over 400k" as "up to 400k",
+         the exact opposite, and then matching the buyer to cheap homes. */
+      const budgetQ = chipQs.find(c => c.k === 'budget');
+      const budgetValue = budgetQ && chips.budget && budgetQ.v
+        ? budgetQ.v[budgetQ.o.indexOf(chips.budget)] || ''
+        : '';
+      /* The budget chip also goes up as `budget`, which the API already parses
+         into leads.budget_min / budget_max (parseBudgetRange handles "Under
+         X200k", "X200-400k" and "X400k+" whatever the currency symbol, since it
+         only reads the digits). Without this the answer is text in a message
+         field and cannot be sorted or filtered on — which was the whole point
+         of asking. "Rather not say" parses to nulls and is harmless. */
       const r = await fetch('/api/enquiry/', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...f, message: composed, property: propertyTitle, propertySlug, url: propertyUrl, attribution: getFirstTouch(), locale, [HONEYPOT_FIELD]: honeypot }) });
+        body: JSON.stringify({ ...f, message: composed, budget: budgetValue || undefined, property: propertyTitle, propertySlug, url: propertyUrl, attribution: getFirstTouch(), locale, [HONEYPOT_FIELD]: honeypot }) });
       if (r.ok) {
         saveUser({ name: f.name, email: f.email });
         trackConversion('generate_lead', 'Lead', {
