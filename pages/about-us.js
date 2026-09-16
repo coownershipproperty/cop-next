@@ -99,7 +99,7 @@ export default function AboutUs() {
               "alternateName": "COP",
               "url": "https://co-ownership-property.com",
               "logo": "https://co-ownership-property.com/wp-content/uploads/2025/10/COP-Logo-Large.png",
-              "description": "Independent marketplace for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. Aggregates listings from multiple operators, sold as 1/8 shares held in property-specific LLCs.",
+              "description": "Independent agents for deeded fractional co-ownership of luxury second homes across Europe, the USA, and Mexico. We list homes from every major operator, publish the running costs and usage terms for each, and introduce buyers to the team that manages the home.",
               // The registered company behind the brand. An answer engine asked "is this
               // company real?" needs a legal name and a tax number it can cross-check;
               // until 12 Sep 2026 the schema had neither (entity strategy, mechanism 3).
@@ -118,61 +118,16 @@ export default function AboutUs() {
                 "contactType": "customer service",
                 "availableLanguage": ["English", "Spanish", "French", "German"]
               },
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "5",
-                "bestRating": "5",
-                "worstRating": "1",
-                "ratingCount": "4",
-                "reviewCount": "4"
-              },
-              "review": [
-                { "@id": "https://co-ownership-property.com/about-us/#review-astrid" },
-                { "@id": "https://co-ownership-property.com/about-us/#review-harry-nicole" },
-                { "@id": "https://co-ownership-property.com/about-us/#review-mateo-anne" },
-                { "@id": "https://co-ownership-property.com/about-us/#review-jan-family" }
-              ],
+              // NO aggregateRating and no `review` array here, deliberately.
+              // Both were present until 16 Sep 2026: a flat 5.0 out of 5 from
+              // four reviews, each one carrying "publisher": this same
+              // organisation. That is COP publishing five-star reviews of COP.
+              // Google's structured-data policy forbids self-serving reviews on
+              // an Organization and enforces it with manual actions, and quite
+              // apart from Google it is not a claim we can stand behind.
+              // Real social proof is coming from real buyers — see the note in
+              // the testimonials section below.
               "sameAs": ["https://www.linkedin.com/company/co-ownership-property"]
-            },
-            {
-              "@type": "Review",
-              "@id": "https://co-ownership-property.com/about-us/#review-astrid",
-              "author": { "@type": "Person", "name": "Astrid" },
-              "itemReviewed": { "@id": "https://co-ownership-property.com/#organization" },
-              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
-              "reviewBody": "From the first stay, everything felt effortless. It's like arriving at your own home with the comfort of a hotel. The beds are made, towels ready — nothing to think about. Every visit starts with calm, not chores. I love it already, and I don't have to worry about a thing.",
-              "locationCreated": { "@type": "Place", "name": "Mougins, South of France" },
-              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
-            },
-            {
-              "@type": "Review",
-              "@id": "https://co-ownership-property.com/about-us/#review-harry-nicole",
-              "author": { "@type": "Person", "name": "Harry & Nicole" },
-              "itemReviewed": { "@id": "https://co-ownership-property.com/#organization" },
-              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
-              "reviewBody": "Owning a place in the French Alps had always been a dream. Fractional ownership offered the perfect solution — all the benefits of a luxury mountain home without the stress and cost of managing a whole property. Our son can now invite his school friends to ski for half term. It truly made our dream a reality.",
-              "locationCreated": { "@type": "Place", "name": "La Plagne, French Alps" },
-              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
-            },
-            {
-              "@type": "Review",
-              "@id": "https://co-ownership-property.com/about-us/#review-mateo-anne",
-              "author": { "@type": "Person", "name": "Mateo & Anne" },
-              "itemReviewed": { "@id": "https://co-ownership-property.com/#organization" },
-              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
-              "reviewBody": "We've been driving up from LA to Tahoe every summer for years, but couldn't justify a whole house. This ownership model felt like the perfect middle way. We finally own a piece of the land without the guilt of an unused mortgage. Transparent from day one — we couldn't be happier.",
-              "locationCreated": { "@type": "Place", "name": "Lake Tahoe, California" },
-              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
-            },
-            {
-              "@type": "Review",
-              "@id": "https://co-ownership-property.com/about-us/#review-jan-family",
-              "author": { "@type": "Person", "name": "Jan & Family" },
-              "itemReviewed": { "@id": "https://co-ownership-property.com/#organization" },
-              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5", "worstRating": "1" },
-              "reviewBody": "I sold my French holiday home, took the profit, and used just a quarter of that to buy a much nicer villa. Guilt gone. The villa is stunning, the kids love it, and the remaining weeks are rented out — more than covering the monthly running costs. Highly recommended.",
-              "locationCreated": { "@type": "Place", "name": "Port d'Andratx, Mallorca" },
-              "publisher": { "@id": "https://co-ownership-property.com/#organization" }
             },
             {
               "@type": "WebSite",
@@ -322,7 +277,15 @@ export default function AboutUs() {
         </div>
     </section>
 
-    {/* ===== TESTIMONIALS ===== */}
+    {/* ===== TESTIMONIALS =====
+         NOTE, 16 Sep 2026. These four carry stock photography and first names,
+         and the matching Review/AggregateRating schema was removed above
+         because COP was publishing five-star reviews of COP. Left visible
+         pending David's call, but they should be replaced by quotes from
+         people who actually bought — and there are now real ones to ask:
+         every completed sale is invoiced in Qonto with the buyer's name on
+         it. A named buyer saying one true sentence beats four invented ones.
+         Do not re-add the schema. */}
     <section className="sec testi-sec" style={{background: 'var(--cream-bg)'}}>
         <div className="sec-inner" style={{textAlign: 'center'}}>
             <p className="eyebrow">What Our Clients Say</p>

@@ -786,7 +786,7 @@ export default function DestinationPage({
     "url": "https://co-ownership-property.com",
     "logo": "https://co-ownership-property.com/wp-content/uploads/MAIN-LOGO-COP.svg",
     "image": "https://co-ownership-property.com/wp-content/uploads/MAIN-LOGO-COP.svg",
-    "description": "Co-Ownership Property (COP) is a curated marketplace for deeded fractional ownership of luxury second homes worldwide — Europe, the United States, Mexico — held in purpose-built LLC structures with full professional management.",
+    "description": "Co-Ownership Property (COP) are independent agents for deeded fractional ownership of luxury second homes worldwide — Europe, the United States, Mexico — held in purpose-built LLC structures with full professional management. We do not operate the homes; we list them, publish what they cost, and make the introduction.",
     "areaServed": [
       { "@type": "Country", "name": "France" },
       { "@type": "Country", "name": "Spain" },

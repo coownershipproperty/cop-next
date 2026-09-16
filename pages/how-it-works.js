@@ -134,7 +134,7 @@ export default function HowItWorks() {
               "@type": "HowTo",
               "@id": "https://co-ownership-property.com/how-it-works/#howto",
               "name": "How to buy a fractional co-ownership share",
-              "description": "The step-by-step process of acquiring a deeded fractional share in a luxury second home through the Co-Ownership Property marketplace.",
+              "description": "The step-by-step process of acquiring a deeded fractional share in a luxury second home through Co-Ownership Property, the independent agents for co-ownership.",
               "totalTime": "P6W",
               "estimatedCost": {
                 "@type": "MonetaryAmount",
