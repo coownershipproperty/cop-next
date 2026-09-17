@@ -809,10 +809,12 @@ img {
             margin: 0.55em 0;
         }
 
-/* "co-ownership" — same size as pre, small-caps feel */
+/* "co-ownership" — carries the space under the rule on its own now that
+   the sub-paragraph is gone, so it runs larger than the 0.72em it sat at
+   while it had a neighbour. (17 Sep 2026) */
         .hero-heading .hero-post {
             display: block;
-            font-size: 0.72em;
+            font-size: 0.85em;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             font-weight: 400;
@@ -3017,6 +3019,14 @@ footer {
 @media (max-width: 480px) {
             .hero-heading {
                 font-size: 2.1rem;
+            }
+
+            /* Hold "co-ownership" at the old 0.72em on small phones. At
+               0.85em it measures 283px against 288px of available width at
+               320px — 5px of headroom, before the parent's own padding.
+               Measured in Chromium with Playfair loaded. (17 Sep 2026) */
+            .hero-heading .hero-post {
+                font-size: 0.72em;
             }
 
             /* Full-width gold button on small phones */
