@@ -10,7 +10,7 @@ import ExpertForm from '@/components/ExpertForm';
 import PropertyCard from '@/components/PropertyCard';
 import { track } from '@vercel/analytics';
 import { localeFromPath, localeColumns, pickLocalized, ogLocaleFor } from '@/lib/i18n';
-import { capDiscreet } from '@/lib/discreetMix';
+import { capDiscreet, GRID_PAGE_SIZE, MAX_DISCREET_PER_PAGE, DEFAULT_DISCREET_MODE } from '@/lib/discreetMix';
 
 /** Fisher-Yates shuffle — runs once at build time for a stable random order */
 function shuffle(arr) {
@@ -91,7 +91,22 @@ export async function getStaticProps() {
     dateAdded:     p.date_added    || null,
   })));
 
-  return { props: { allProperties }, revalidate: 3600 };
+  // How the grid treats Discreet Sale cards. A setting rather than a constant:
+  // demoting them is an exception for the 14 Sep bulk release, not how the
+  // grid should behave when a single new discreet home arrives on its own.
+  let discreetGrid = { mode: DEFAULT_DISCREET_MODE, maxPerPage: MAX_DISCREET_PER_PAGE };
+  try {
+    const { data: setting } = await supabase
+      .from('crm_settings').select('value').eq('key', 'discreet_grid').maybeSingle();
+    if (setting && setting.value && typeof setting.value === 'object') {
+      discreetGrid = { ...discreetGrid, ...setting.value };
+    }
+  } catch (e) {
+    // A missing or unreadable setting must not cost us the catalogue page.
+    console.error('our-homes: discreet_grid setting unreadable, using defaults:', e?.message);
+  }
+
+  return { props: { allProperties, discreetGrid }, revalidate: 3600 };
 }
 
 // Fixed top-country order
@@ -783,9 +798,8 @@ function regionLabel(r, t) {
   return (t.region_labels && t.region_labels[r]) || r;
 }
 
-const PAGE_SIZE = 24;
-// At most this many Discreet Sale cards per page of results (see capDiscreet).
-const MAX_DISCREET_PER_PAGE = 6;
+// Both live in lib/discreetMix.js so the admin preview reads the same numbers.
+const PAGE_SIZE = GRID_PAGE_SIZE;
 
 // The page renders the locale derived from its URL — no cookie magic, so the
 // English /our-homes/ stays English for English visitors regardless of which
@@ -793,7 +807,8 @@ const MAX_DISCREET_PER_PAGE = 6;
 // URLs: /es/propiedades/ and /fr/proprietes/ each render this same component
 // via thin wrapper pages that pass `forceLocale`.
 
-export default function OurHomes({ allProperties, forceLocale, canonicalPath = '/our-homes/' }) {
+export default function OurHomes({ allProperties, forceLocale, canonicalPath = '/our-homes/',
+  discreetGrid = { mode: DEFAULT_DISCREET_MODE, maxPerPage: MAX_DISCREET_PER_PAGE } }) {
   const router = useRouter();
   // forceLocale wins (set by /es/propiedades/ and /fr/proprietes/ wrappers).
   // Otherwise derive from URL path — /our-homes/ always returns 'en'.
@@ -938,10 +953,11 @@ export default function OurHomes({ allProperties, forceLocale, canonicalPath = '
 
     // Never let the discreet homes monopolise a page of results — unless the
     // visitor has explicitly asked to see only those.
-    if (!onlyDiscreet) list = capDiscreet(list, PAGE_SIZE, MAX_DISCREET_PER_PAGE);
+    if (!onlyDiscreet) list = capDiscreet(list, PAGE_SIZE,
+      discreetGrid.maxPerPage ?? MAX_DISCREET_PER_PAGE, { mode: discreetGrid.mode });
 
     return list;
-  }, [allProperties, countries, regions, sort, onlyDiscreet]);
+  }, [allProperties, countries, regions, sort, onlyDiscreet, discreetGrid]);
 
   const visible = useMemo(() => filtered.slice(0, page * PAGE_SIZE), [filtered, page]);
   const hasMore = visible.length < filtered.length;
