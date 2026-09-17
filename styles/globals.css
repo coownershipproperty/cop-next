@@ -809,12 +809,10 @@ img {
             margin: 0.55em 0;
         }
 
-/* "co-ownership" — carries the space under the rule on its own now that
-   the sub-paragraph is gone, so it runs larger than the 0.72em it sat at
-   while it had a neighbour. (17 Sep 2026) */
+/* "co-ownership" — same size as pre, small-caps feel */
         .hero-heading .hero-post {
             display: block;
-            font-size: 0.85em;
+            font-size: 0.72em;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             font-weight: 400;
@@ -836,78 +834,8 @@ img {
     text-shadow: 0 1px 12px rgba(0,0,0,.45);
 }
 
-.hero-capture { margin-top: 1.6rem; max-width: 27rem; }
-.hero-capture label {
-    display: block;
-    margin-bottom: .55rem;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: .68rem;
-    letter-spacing: .17em;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: rgba(255,255,255,.88);
-    text-shadow: 0 1px 8px rgba(0,0,0,.5);
-}
-.hero-capture-row { display: flex; gap: .5rem; }
-.hero-capture input[type="email"] {
-    flex: 1 1 auto;
-    min-width: 0;
-    height: 46px;
-    padding: 0 .95rem;
-    border: 1px solid rgba(255,255,255,.45);
-    border-radius: 2px;
-    background: rgba(255,255,255,.12);
-    backdrop-filter: blur(6px);
-    color: #fff;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: .92rem;
-}
-.hero-capture input[type="email"]::placeholder { color: rgba(255,255,255,.62); }
-.hero-capture input[type="email"]:focus {
-    outline: none;
-    border-color: var(--warm-gold);
-    background: rgba(255,255,255,.18);
-}
-.hero-capture button {
-    flex: 0 0 auto;
-    height: 46px;
-    padding: 0 1.4rem;
-    border: none;
-    border-radius: 2px;
-    background: var(--warm-gold);
-    color: #fff;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: .74rem;
-    font-weight: 700;
-    letter-spacing: .13em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background .2s;
-}
-.hero-capture button:hover { background: #b8963e; }
-.hero-capture button:disabled { opacity: .6; cursor: default; }
-.hero-capture-err {
-    display: block;
-    margin-top: .5rem;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: .8rem;
-    color: #ffd9d9;
-}
-.hero-capture-done {
-    margin: 1.6rem 0 0;
-    max-width: 27rem;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: .95rem;
-    color: rgba(255,255,255,.95);
-    text-shadow: 0 1px 10px rgba(0,0,0,.5);
-}
-.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-
 @media (max-width: 768px) {
     .hero-sub { font-size: .94rem; margin-top: 1.1rem; }
-    .hero-capture { max-width: none; margin-top: 1.3rem; }
-    .hero-capture-row { flex-direction: column; }
-    .hero-capture button { width: 100%; }
 }
 
 /* Hero Bottom Bar */
@@ -3019,14 +2947,6 @@ footer {
 @media (max-width: 480px) {
             .hero-heading {
                 font-size: 2.1rem;
-            }
-
-            /* Hold "co-ownership" at the old 0.72em on small phones. At
-               0.85em it measures 283px against 288px of available width at
-               320px — 5px of headroom, before the parent's own padding.
-               Measured in Chromium with Playfair loaded. (17 Sep 2026) */
-            .hero-heading .hero-post {
-                font-size: 0.72em;
             }
 
             /* Full-width gold button on small phones */

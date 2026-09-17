@@ -362,66 +362,6 @@ const PRESS = [
 // hidden from assistive tech and taken out of the tab order.
 const OPERATOR_SETS = [false, true];
 
-function HeroCapture() {
-  const [email, setEmail] = useState('');
-  const [state, setState] = useState('idle');   // idle | sending | done | error
-
-  async function submit(e) {
-    e.preventDefault();
-    const value = email.trim();
-    if (!value || state === 'sending') return;
-    setState('sending');
-    try {
-      const r = await fetch('/api/newsletter/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: value, source: 'hero', locale: 'en', website: e.target.website?.value || '' }),
-      });
-      if (!r.ok) throw new Error('failed');
-      setState('done');
-      try { trackConversion('generate_lead', 'Lead', { event_category: 'newsletter', method: 'hero' }); } catch (err) {}
-    } catch (err) {
-      setState('error');
-    }
-  }
-
-  if (state === 'done') {
-    return (
-      <p className="hero-capture-done">
-        Done &mdash; you&rsquo;ll be among the first to know.
-      </p>
-    );
-  }
-
-  return (
-    <form className="hero-capture" onSubmit={submit}>
-      {/* No cadence promise. Sends run every few days when a sync brings
-          homes in, but the gaps are uneven — 2 days, then 14 — so a number
-          here would be a rod for our own back. (David, 17 Sep 2026) */}
-      <label htmlFor="hero-capture-email">New homes? Be the first to know.</label>
-      <div className="hero-capture-row">
-        <input
-          id="hero-capture-email"
-          type="email"
-          name="email"
-          inputMode="email"
-          autoComplete="email"
-          placeholder="your@email.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        {/* honeypot — bots fill it, people never see it */}
-        <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hp-field" />
-        <button type="submit" disabled={state === 'sending'}>
-          {state === 'sending' ? 'Sending' : 'Send them'}
-        </button>
-      </div>
-      {state === 'error' && <span className="hero-capture-err">That didn&rsquo;t send &mdash; try again?</span>}
-    </form>
-  );
-}
-
 export default function Home({ propertyCount, featuredProps, latestPosts }) {
   const [activeDest, setActiveDest] = useState('spain');
   // The carousel opens with the homes this visitor might actually buy. The
@@ -523,7 +463,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
                 listing page. */}
             <h1 className="hero-heading">
                 <span className="hero-pre">Your window to the</span>
-                <em>world&rsquo;s finest</em>
+                <em>world's finest</em>
                 <span className="hero-rule"></span>
                 <span className="hero-post">co-ownership</span>
             </h1>
@@ -532,13 +472,9 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
         {/* Hero Bottom Section */}
         <div className="hero-bottom">
             <div className="hero-ctas">
-                <a href="/our-homes" className="hero-cta-primary">Browse the homes &rarr;</a>
+                <a href="/our-homes" className="hero-cta-primary">Browse Properties &rarr;</a>
                 <a href="/how-it-works" className="hero-cta-secondary">How It Works</a>
             </div>
-            {/* The only capture above the fold. Everything else asks for an
-                email three screens down, by which point most of the traffic
-                has gone. */}
-            <HeroCapture />
         </div>
     </section>
 
