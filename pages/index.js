@@ -458,12 +458,12 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
       <Head>
         <title>Co-Ownership Property | Luxury Fractional Ownership</title>
         {hreflangLinks({ englishPath: '/' })}
-        <meta name="description" content="Browse 350+ luxury co-ownership properties across Europe and the USA. Real deeded ownership in the world's finest homes — from a fraction of the cost." />
+        <meta name="description" content="Browse 300+ luxury co-ownership homes across Europe and the USA, from six operators. Real ownership in the world's finest homes — from a fraction of the cost." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/" />
         <meta property="og:title" content="Co-Ownership Property | Luxury Fractional Ownership" />
-        <meta property="og:description" content="Browse 350+ luxury fractional ownership properties across Europe and the USA. Real deeded ownership from a fraction of the cost." />
+        <meta property="og:description" content="Browse 300+ luxury fractional ownership homes across Europe and the USA. Real ownership from a fraction of the cost." />
         <meta property="og:image" content="https://co-ownership-property.com/wp-content/uploads/2026/04/cop-og-image.jpg" />
         <meta property="og:url" content="https://co-ownership-property.com/" />
         <meta property="og:type" content="website" />
@@ -529,7 +529,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
             </h1>
             <p className="hero-sub">
                 The independent agents for co-ownership homes in Europe and the USA.
-                Nearly 300 deeded shares, from &euro;119,000 &mdash; and because we don&rsquo;t
+                300+ of them, from six operators &mdash; and because we don&rsquo;t
                 run the houses, we can tell you what they really cost to own.
             </p>
         </div>
