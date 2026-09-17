@@ -388,14 +388,17 @@ function HeroCapture() {
   if (state === 'done') {
     return (
       <p className="hero-capture-done">
-        Done &mdash; you&rsquo;ll hear from us the week something new lists.
+        Done &mdash; you&rsquo;ll be among the first to know.
       </p>
     );
   }
 
   return (
     <form className="hero-capture" onSubmit={submit}>
-      <label htmlFor="hero-capture-email">New homes, the week they list</label>
+      {/* No cadence promise. Sends run every few days when a sync brings
+          homes in, but the gaps are uneven — 2 days, then 14 — so a number
+          here would be a rod for our own back. (David, 17 Sep 2026) */}
+      <label htmlFor="hero-capture-email">New homes? Be the first to know.</label>
       <div className="hero-capture-row">
         <input
           id="hero-capture-email"
