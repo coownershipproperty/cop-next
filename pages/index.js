@@ -458,7 +458,7 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
       <Head>
         <title>Co-Ownership Property | Luxury Fractional Ownership</title>
         {hreflangLinks({ englishPath: '/' })}
-        <meta name="description" content="Browse 300+ luxury co-ownership homes across Europe and the USA, from six operators. Real ownership in the world's finest homes — from a fraction of the cost." />
+        <meta name="description" content="Browse 300+ luxury co-ownership homes across Europe and the USA. Real ownership in the world's finest homes — from a fraction of the cost." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href="https://co-ownership-property.com/" />
@@ -527,11 +527,6 @@ export default function Home({ propertyCount, featuredProps, latestPosts }) {
                 <span className="hero-rule"></span>
                 <span className="hero-post">co-ownership</span>
             </h1>
-            <p className="hero-sub">
-                The independent agents for co-ownership homes in Europe and the USA.
-                300+ of them, from six operators &mdash; and because we don&rsquo;t
-                run the houses, we can tell you what they really cost to own.
-            </p>
         </div>
 
         {/* Hero Bottom Section */}
