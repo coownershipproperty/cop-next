@@ -172,6 +172,16 @@ for (const row of rows) {
   }
   console.log(`  uploaded ${photos.length} photos`);
 
+  // A listing carries two photo sets, and filling only one makes it behave
+  // like a discreet home. `images` is what a visitor sees before giving an
+  // email — normal listings show three; discreet ones show one. `photos` is
+  // the gallery behind the unlock. The first run filled photos and left
+  // images empty, so the five staged homes showed nothing at all publicly,
+  // which is worse than discreet: a card with no picture to click.
+  const VISIBLE_BEFORE_UNLOCK = 3;
+  const visible = photos.slice(0, VISIBLE_BEFORE_UNLOCK);
+  const gallery = photos.slice(VISIBLE_BEFORE_UNLOCK);
+
   const { error: insErr } = await db.from('properties').insert({
     slug: row.slug, title: row.title, status: 'hidden',
     city: row.city, region: row.region, country: row.country,
@@ -179,7 +189,7 @@ for (const row of rows) {
     price, currency: 'USD', share_denominator: p.number_of_co_owners || 8,
     description: row.description, amenities: row.amenities,
     property_type: row.property_type, property_style: row.property_style,
-    img: hero, photos, total_images: photos.length,
+    img: hero, images: visible, photos: gallery, total_images: photos.length,
     lat: row.lat, lng: row.lng,
     rental: p.rental_permitted === true, is_discreet: false,
     partner: 'abitaro', partner_ref: `abitaro:${row.abitaro_slug}`,
