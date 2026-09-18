@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
-    const mode = body.mode === 'tail' ? 'tail' : 'mix';
+    const mode = ['tail', 'lead'].includes(body.mode) ? body.mode : 'mix';
     const n = parseInt(body.maxPerPage, 10);
     // Reject the settings that would break the grid instead of storing them:
     // at or above the window size is "no cap", zero strands every discreet
@@ -64,8 +64,7 @@ export default async function handler(req, res) {
   const saved = (setting && setting.value) || {};
 
   // ?mode= / ?cap= preview an unsaved change.
-  const mode = req.query.mode === 'tail' ? 'tail'
-             : req.query.mode === 'mix' ? 'mix'
+  const mode = ['tail', 'lead', 'mix'].includes(req.query.mode) ? req.query.mode
              : (saved.mode || DEFAULT_DISCREET_MODE);
   const capQ = parseInt(req.query.cap, 10);
   const cap = Number.isFinite(capQ) && capQ > 0 ? capQ
