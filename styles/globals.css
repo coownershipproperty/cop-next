@@ -7715,7 +7715,11 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 @media(max-width:960px){
   .pp-gallery{height:300px}
   .pp-content{grid-template-columns:1fr;gap:32px;padding:20px 20px 60px}
-  .pp-right{position:static}
+  /* position only was reset here until 18 Sep; the max-height and
+     overflow-y added to .pp-right for the desktop sticky bug leaked onto
+     mobile, capping the form and giving it an inner scrollbar that ran
+     out before the end of the form. Neither belongs on a static column. */
+  .pp-right{position:static;max-height:none;overflow:visible}
   .pp-contact-stat{display:block}
   .pp-similar-grid{grid-template-columns:repeat(2,1fr)}
   .pp-photo-grid{grid-template-columns:repeat(2,1fr)}
@@ -10789,6 +10793,18 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
    margin rule. This is the real one. */
 .pp-stickybar {
   display: none;
+}
+
+@media (max-width: 900px) {
+  /* .pp-stickybar is position:fixed at bottom:0 and nothing reserved space for
+     it, so it sat on top of whatever the page ended with — on a property page
+     that is the end of the enquiry form, i.e. SEND ENQUIRY. David, 18 Sep:
+     "i cant see the send button cus its covered by the contact up popup thing".
+     ~70px of bar (42px button + 28px padding) on top of the 60px the page
+     already had, plus the iOS home-indicator inset. Same 900px breakpoint the
+     bar itself uses, so the reservation cannot drift from the thing it is
+     reserving for. */
+  .pp-content { padding-bottom: calc(136px + env(safe-area-inset-bottom, 0px)); }
 }
 
 @media (max-width: 900px) {
