@@ -7534,9 +7534,41 @@ p[style*="font-family:Roboto"] { font-family: 'Nunito Sans', sans-serif !importa
 .pp-lb-lock:hover .pp-lb-lock-btn{background:#b8923e}
 
 /* ── Content wrapper ── */
-.pp-content{max-width:1200px;margin:0 auto;padding:24px 32px 80px;display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:start}
+/* The extra 80px of page width goes almost entirely to the enquiry column:
+   360 -> 420. The reading column barely moves (776 -> 796) because body text
+   at ~800px is already at a good measure and widening it would hurt.
+   A 360px form made the chip groups wrap to three and four rows — "Just
+   looking" sat alone under two siblings — which is both ugly and the reason
+   the form outgrew the viewport in the first place. Wider chips mean fewer
+   rows, a shorter form, and less need for the scroll fix below. (18 Sep 2026) */
+.pp-content{max-width:1280px;margin:0 auto;padding:24px 32px 80px;display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:start}
 .pp-left{min-width:0}
-.pp-right{position:sticky;top:100px}
+/* The enquiry column sticks below the header. A sticky element TALLER than
+   the viewport pins at its `top` and everything below the fold is then
+   unreachable: the page has to be scrolled to its very end before the bottom
+   of the form — including SEND ENQUIRY — comes into view. The sticky rule is
+   original (cfae42f); what changed is the form, which grew three qualifying
+   chip groups on 16 Sep 2026 and stopped fitting. Reported by David on
+   18 Sep: "you have to scroll to the bottom of the page to see the send
+   enquiry button".
+
+   max-height + overflow-y give the column its own scroll, so the button is
+   always one short scroll away wherever the reader is on the page. Both are
+   no-ops when the form does fit — no scrollbar appears — so short forms and
+   tall ones behave correctly without a height media query.
+
+   overflow-x is pinned to hidden because setting only overflow-y makes the
+   other axis compute to auto, which would show a stray horizontal scrollbar
+   on a sub-pixel overflow.
+
+   Below 960px .pp-right is position:static (see the media query further
+   down), so phones and tablets were never affected. */
+.pp-right{position:sticky;top:100px;max-height:calc(100vh - 124px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
+/* A full-width default scrollbar inside a 360px card reads as a broken box. */
+.pp-right::-webkit-scrollbar{width:6px}
+.pp-right::-webkit-scrollbar-thumb{background:rgba(44,74,94,.22);border-radius:3px}
+.pp-right::-webkit-scrollbar-track{background:transparent}
+.pp-right{scrollbar-width:thin;scrollbar-color:rgba(44,74,94,.22) transparent}
 
 /* ── Price row ── */
 .pp-price-row{display:flex;align-items:center;gap:16px;margin-bottom:10px;flex-wrap:wrap;margin-top:8px}
