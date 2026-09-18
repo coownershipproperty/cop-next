@@ -203,7 +203,9 @@ const COPY = {
     unlock_sub: 'Unlock once — see every gallery on the site, free',
     unlock_now: 'Unlock Now →',
     unlocked_title: 'Your galleries are unlocked',
-    unlocked_sub: 'View the full photo gallery for this home',
+    unlocked_sub: (n) => n > 1 ? `View all ${n} photos for this home`
+      : n === 1 ? 'View the photo for this home'
+      : 'View the full photo gallery for this home',
     view_gallery_btn: 'View Gallery →',
     form_eye: 'Get in touch',
     form_title: 'Enquire About This Property',
@@ -259,7 +261,9 @@ const COPY = {
     unlock_sub: 'Desbloquea una vez — ve todas las galerías del sitio, gratis',
     unlock_now: 'Desbloquear ahora →',
     unlocked_title: 'Tus galerías están desbloqueadas',
-    unlocked_sub: 'Ver la galería de fotos completa de esta vivienda',
+    unlocked_sub: (n) => n > 1 ? `Ver las ${n} fotos de esta vivienda`
+      : n === 1 ? 'Ver la foto de esta vivienda'
+      : 'Ver la galería de fotos completa de esta vivienda',
     view_gallery_btn: 'Ver galería →',
     form_eye: 'Contáctanos',
     form_title: 'Consulta sobre esta propiedad',
@@ -315,7 +319,9 @@ const COPY = {
     unlock_sub: "Débloquez une fois — voyez toutes les galeries du site, gratuit",
     unlock_now: 'Débloquer maintenant →',
     unlocked_title: 'Vos galeries sont débloquées',
-    unlocked_sub: 'Voir la galerie photo complète de ce bien',
+    unlocked_sub: (n) => n > 1 ? `Voir les ${n} photos de ce bien`
+      : n === 1 ? 'Voir la photo de ce bien'
+      : 'Voir la galerie photo complète de ce bien',
     view_gallery_btn: 'Voir la galerie →',
     form_eye: 'Nous contacter',
     form_title: 'Ce bien vous intéresse ?',
@@ -371,7 +377,9 @@ const COPY = {
     unlock_sub: 'Einmal freischalten — alle Galerien der Website sehen, kostenlos',
     unlock_now: 'Jetzt freischalten →',
     unlocked_title: 'Ihre Galerien sind freigeschaltet',
-    unlocked_sub: 'Die vollständige Fotogalerie dieses Objekts ansehen',
+    unlocked_sub: (n) => n > 1 ? `Alle ${n} Fotos dieses Objekts ansehen`
+      : n === 1 ? 'Das Foto dieses Objekts ansehen'
+      : 'Die vollständige Fotogalerie dieses Objekts ansehen',
     view_gallery_btn: 'Galerie ansehen →',
     form_eye: 'Kontakt aufnehmen',
     form_title: 'Anfrage zu dieser Immobilie',
@@ -435,7 +443,9 @@ const COPY = {
     unlock_sub: "Sblocca una volta sola — vedrai tutte le gallerie del sito, gratis",
     unlock_now: "Sblocca ora →",
     unlocked_title: "Le sue gallerie sono sbloccate",
-    unlocked_sub: "Visualizza la galleria fotografica completa di questa casa",
+    unlocked_sub: (n) => n > 1 ? `Vedi tutte le ${n} foto di questa casa`
+      : n === 1 ? 'Vedi la foto di questa casa'
+      : 'Visualizza la galleria fotografica completa di questa casa',
     view_gallery_btn: "Visualizza la galleria →",
     form_eye: "Scrivici",
     form_title: "Richiedi informazioni su questo immobile",
@@ -491,7 +501,9 @@ const COPY = {
     unlock_sub: "Eén keer ontgrendelen — bekijk elke galerij op de site, gratis",
     unlock_now: "Nu ontgrendelen →",
     unlocked_title: "Uw galerijen zijn ontgrendeld",
-    unlocked_sub: "Bekijk de volledige fotogalerij van deze woning",
+    unlocked_sub: (n) => n > 1 ? `Bekijk alle ${n} foto's van deze woning`
+      : n === 1 ? 'Bekijk de foto van deze woning'
+      : 'Bekijk de volledige fotogalerij van deze woning',
     view_gallery_btn: "Galerij bekijken →",
     form_eye: "Neem contact op",
     form_title: "Informatie aanvragen over deze woning",
@@ -547,7 +559,9 @@ const COPY = {
     unlock_sub: "Desbloqueie uma vez — veja todas as galerias do site, sem custos",
     unlock_now: "Desbloquear agora →",
     unlocked_title: "As suas galerias estão desbloqueadas",
-    unlocked_sub: "Veja a galeria de fotografias completa desta casa",
+    unlocked_sub: (n) => n > 1 ? `Veja as ${n} fotografias desta casa`
+      : n === 1 ? 'Veja a fotografia desta casa'
+      : 'Veja a galeria de fotografias completa desta casa',
     view_gallery_btn: "Ver galeria →",
     form_eye: "Fale connosco",
     form_title: "Peça informações sobre este imóvel",
@@ -1631,7 +1645,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                   <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
                 </svg>
                 <span className="pp-mob-lock-title">{unlocked ? t.unlocked_title : t.missing_photos(missingCount)}</span>
-                <span className="pp-mob-lock-sub">{unlocked ? t.unlocked_sub : t.unlock_sub}</span>
+                <span className="pp-mob-lock-sub">{unlocked ? t.unlocked_sub(galleryTotal) : t.unlock_sub}</span>
                 <span className="pp-mob-lock-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
               </div>
             )
@@ -1676,7 +1690,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
             <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
           </svg>
           <span className="pp-lock-title">{unlocked ? t.unlocked_title : t.missing_photos(missingCount)}</span>
-          <span className="pp-lock-sub">{unlocked ? t.unlocked_sub : t.unlock_sub}</span>
+          <span className="pp-lock-sub">{unlocked ? t.unlocked_sub(galleryTotal) : t.unlock_sub}</span>
           <span className="pp-lock-cta-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
         </div>
       </div>
@@ -2005,7 +2019,7 @@ export default function PropertyPage({ property: p0, similar, showEnhancedSectio
                   <rect x="3" y="11" width="18" height="11" rx="2"/>{unlocked ? <path d="M7 11V7a5 5 0 019.9-1"/> : <path d="M7 11V7a5 5 0 0110 0v4"/>}
                 </svg>
                 <span className="pp-lb-lock-title">{unlocked ? t.unlocked_title : t.missing_photos(missingCount)}</span>
-                <span className="pp-lb-lock-sub">{unlocked ? t.unlocked_sub : t.unlock_sub}</span>
+                <span className="pp-lb-lock-sub">{unlocked ? t.unlocked_sub(galleryTotal) : t.unlock_sub}</span>
                 <span className="pp-lb-lock-btn">{unlocked ? t.view_gallery_btn : t.unlock_now}</span>
               </div>
             ) : (
