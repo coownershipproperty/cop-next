@@ -57,6 +57,22 @@ const GONE_MARKERS = {
   ],
 };
 
+/**
+ * Abitaro is a JavaScript single-page app: every path on ownabitaro.com answers
+ * 200 with the same pre-JS shell, so reading the page can never tell us whether
+ * a residence is still for sale. Text matching would return "ok" forever, which
+ * is worse than not checking — it would look like coverage.
+ *
+ * They do publish the catalogue their own site reads from, so we ask that
+ * instead: two requests per run, and absence from it is the withdrawal signal.
+ * Sold residences drop out of this endpoint while coming_soon ones stay in, so
+ * "not in the catalogue" means withdrawn or sold — the same class of evidence
+ * as MYNE's "no longer available", and it still sits behind the circuit breaker
+ * below, because a slug they rename would look identical to one they pulled.
+ */
+const ABITARO_CATALOGUE = 'https://phplaravel-1627241-6429789.cloudwaysapps.com/api/public/properties';
+const ABITARO_MAX_PAGES = 6;
+
 /** More than this many hits in one run means their site changed, not our stock. */
 const AUTO_HIDE_CIRCUIT_BREAKER = 5;
 
@@ -81,6 +97,65 @@ async function fetchPage(url) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+async function fetchJson(url) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'COP-supply-check/1.0 (+https://co-ownership-property.com)',
+        'Accept': 'application/json',
+      },
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Returns slug -> { status, shares }, or null if we could not read the whole
+ * catalogue. Null matters: a half-read catalogue would make every residence we
+ * did not reach look withdrawn, so any failure has to fall back to "we do not
+ * know" rather than to a takedown.
+ */
+async function loadAbitaroCatalogue() {
+  const out = new Map();
+  for (let page = 1; page <= ABITARO_MAX_PAGES; page += 1) {
+    /* eslint-disable no-await-in-loop */
+    const body = await fetchJson(`${ABITARO_CATALOGUE}?page=${page}`);
+    /* eslint-enable no-await-in-loop */
+    if (!body || !Array.isArray(body.data)) return null;
+    for (const p of body.data) {
+      if (p && p.slug) out.set(p.slug, { status: p.status, shares: Number(p.available_shares_count ?? 0) });
+    }
+    if (!body.meta || body.meta.current_page >= body.meta.last_page) break;
+  }
+  return out.size ? out : null;
+}
+
+function classifyAbitaro(row, catalogue) {
+  const ref = row.partner_ref || '';
+  if (!ref.startsWith('abitaro:')) {
+    return { state: 'no_url', note: 'no abitaro:<slug> partner_ref to match against their catalogue' };
+  }
+  const slug = ref.slice('abitaro:'.length);
+  const entry = catalogue.get(slug);
+  if (!entry) return { state: 'gone', note: `residence "${slug}" is no longer in Abitaro's catalogue` };
+  if (entry.status && !['available', 'coming_soon'].includes(entry.status)) {
+    return { state: 'gone', note: `Abitaro marks "${slug}" as ${entry.status}` };
+  }
+  if (entry.status === 'available' && entry.shares === 0) {
+    // Not proof: Villa Tovere is "available" with no shares priced yet. Flag it.
+    return { state: 'missing', note: `"${slug}" is listed but shows 0 available shares — check whether it has sold out` };
+  }
+  return { state: 'ok', note: null };
 }
 
 function classify(row, page) {
@@ -118,7 +193,7 @@ async function handler(req, res) {
 
   const { data: rows, error } = await db
     .from('properties')
-    .select('slug, partner, partner_url, status, last_verified_at')
+    .select('slug, partner, partner_url, partner_ref, status, last_verified_at')
     .in('status', ['Live', 'for_sale'])
     .order('last_verified_at', { ascending: true, nullsFirst: true })
     .limit(limit);
@@ -127,10 +202,23 @@ async function handler(req, res) {
   const now = new Date().toISOString();
   const results = [];
 
+  // Once per run, not once per row — and only if we actually have Abitaro rows.
+  const abitaroCatalogue = rows.some((r) => (r.partner || '').toLowerCase() === 'abitaro')
+    ? await loadAbitaroCatalogue()
+    : null;
+
   for (let i = 0; i < rows.length; i += CONCURRENCY) {
     const slice = rows.slice(i, i + CONCURRENCY);
     /* eslint-disable no-await-in-loop */
     await Promise.all(slice.map(async (row) => {
+      if ((row.partner || '').toLowerCase() === 'abitaro') {
+        if (!abitaroCatalogue) {
+          results.push({ slug: row.slug, partner: row.partner, state: 'unreachable', note: 'could not read Abitaro catalogue' });
+          return;
+        }
+        results.push({ slug: row.slug, partner: row.partner, ...classifyAbitaro(row, abitaroCatalogue) });
+        return;
+      }
       if (!row.partner_url || !/^https?:\/\//.test(row.partner_url)) {
         results.push({ slug: row.slug, state: 'no_url', note: 'no partner_url to check' });
         return;
