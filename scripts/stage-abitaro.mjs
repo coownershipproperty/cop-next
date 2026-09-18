@@ -17,16 +17,20 @@ const SUPA = 'https://iotzzoxyckpyatzqcjbo.supabase.co';
 const DRY = process.argv.includes('--dry');
 
 /**
- * The key comes from the environment first so it never has to be written to a
- * file. .env.local is only a fallback, and it is blank on this machine:
- *
- *   SUPABASE_SERVICE_ROLE_KEY=... node scripts/stage-abitaro.mjs
- *
- * Get it from supabase.com/dashboard/project/iotzzoxyckpyatzqcjbo/settings/api-keys
- * -> service_role. --dry needs no key and touches nothing.
+ * Asking for the key beats templating it into a command line. A placeholder in
+ * a copy-paste command is a trap: it runs perfectly happily with the
+ * placeholder still in it, the value looks like a key to every layer that
+ * handles it, and the first thing that notices is Supabase rejecting a JWS
+ * seven photos deep. So the script asks, and checks the answer before it uses
+ * it. It also keeps the key out of shell history, which a command line does not.
  */
-function serviceKey() {
-  if (process.env.SUPABASE_SERVICE_ROLE_KEY) return process.env.SUPABASE_SERVICE_ROLE_KEY.trim();
+const KEY_SHAPES = [
+  /^eyJ[\w-]+\.[\w-]+\.[\w-]+$/,        // legacy JWT service_role key
+  /^sb_secret_[A-Za-z0-9_-]{20,}$/,       // current-format secret key
+];
+const looksLikeKey = (k) => KEY_SHAPES.some((re) => re.test(k));
+
+function readEnvKey() {
   try {
     const env = fs.readFileSync(new URL('../.env.local', import.meta.url), 'utf8');
     const m = env.match(/^SUPABASE_SERVICE_ROLE_KEY\s*=\s*"?([^"\r\n]+)"?\s*$/m);
@@ -34,30 +38,73 @@ function serviceKey() {
   } catch { return ''; }
 }
 
-const KEY = DRY ? '' : serviceKey();
-
-/**
- * --save-key writes the key into .env.local, which is gitignored and already
- * has the blank line waiting for it. Opt-in, never automatic: persisting a
- * credential is the owner's call, not the script's. Worth doing once, because
- * every other script here (translate-content, translate-titles-bulk, ...) wants
- * the same key and will then find it without being handed it again.
- */
-if (KEY && process.argv.includes('--save-key')) {
-  const f = new URL('../.env.local', import.meta.url);
-  const env = fs.readFileSync(f, 'utf8');
-  if (/^SUPABASE_SERVICE_ROLE_KEY\s*=\s*$/m.test(env)) {
-    fs.writeFileSync(f, env.replace(/^SUPABASE_SERVICE_ROLE_KEY\s*=\s*$/m, `SUPABASE_SERVICE_ROLE_KEY=${KEY}`));
-    console.log('Saved the key to .env.local (gitignored) - other scripts will find it now.');
-  } else {
-    console.log('.env.local already has a key; left it alone.');
-  }
+/** Reads a line with the terminal echo off, so the key never hits the screen. */
+function askHidden(prompt) {
+  return new Promise((resolve, reject) => {
+    if (!process.stdin.isTTY) return reject(new Error('no terminal to ask on'));
+    process.stdout.write(prompt);
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+    let buf = '';
+    const done = (val) => {
+      process.stdin.setRawMode(false);
+      process.stdin.pause();
+      process.stdin.removeListener('data', onData);
+      process.stdout.write('\n');
+      resolve(val);
+    };
+    const onData = (ch) => {
+      for (const c of ch) {
+        if (c === '\n' || c === '\r') return done(buf.trim());
+        if (c === '\u0003') { process.stdout.write('\n'); process.exit(130); }
+        if (c === '\u007f') { buf = buf.slice(0, -1); continue; }
+        buf += c;
+      }
+    };
+    process.stdin.on('data', onData);
+  });
 }
-if (!DRY && !KEY) {
-  console.error('No service-role key. Run:\n  SUPABASE_SERVICE_ROLE_KEY=<key> node scripts/stage-abitaro.mjs');
+
+async function serviceKey() {
+  const fromEnv = (process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim() || readEnvKey();
+  if (fromEnv && looksLikeKey(fromEnv)) return { key: fromEnv, asked: false };
+  if (fromEnv) {
+    console.error(`\nThe key already on this machine is not a real key (it starts "${fromEnv.slice(0, 14)}").`);
+    console.error('Ignoring it and asking instead.\n');
+  }
+  console.log('Copy the service_role key from:');
+  console.log('  https://supabase.com/dashboard/project/iotzzoxyckpyatzqcjbo/settings/api-keys\n');
+  for (let tries = 0; tries < 3; tries++) {
+    /* eslint-disable no-await-in-loop */
+    const k = await askHidden('Paste it here (it stays hidden), then press Enter: ');
+    /* eslint-enable no-await-in-loop */
+    if (looksLikeKey(k)) return { key: k, asked: true };
+    console.error(k ? '  That does not look like a Supabase key — it should start eyJ or sb_secret_.'
+                    : '  Nothing pasted.');
+  }
+  console.error('\nGiving up rather than guessing. Nothing was changed.');
   process.exit(1);
 }
-const db = KEY ? createClient(SUPA, KEY, { auth: { persistSession: false } }) : null;
+
+const KEY = DRY ? '' : (await serviceKey()).key;
+const db  = KEY ? createClient(SUPA, KEY, { auth: { persistSession: false } }) : null;
+
+// Prove the key works before downloading a single photo, so a bad key costs one
+// request instead of failing partway through the first listing.
+if (db) {
+  const { error } = await db.from('properties').select('slug').limit(1);
+  if (error) { console.error(`\nSupabase rejected that key: ${error.message}\nNothing was changed.`); process.exit(1); }
+  const env = new URL('../.env.local', import.meta.url);
+  const cur = fs.readFileSync(env, 'utf8');
+  if (/^SUPABASE_SERVICE_ROLE_KEY\s*=\s*$/m.test(cur)) {
+    fs.writeFileSync(env, cur.replace(/^SUPABASE_SERVICE_ROLE_KEY\s*=\s*$/m, `SUPABASE_SERVICE_ROLE_KEY=${KEY}`));
+    console.log('Key works. Saved it to .env.local (gitignored) so the other scripts find it too.\n');
+  } else {
+    console.log('Key works.\n');
+  }
+}
+
 const rows = JSON.parse(fs.readFileSync(new URL('./abitaro-listings.json', import.meta.url),'utf8'));
 
 // Same rules as lib/optimise-photo.js: <500KB, max 2000px, webp fallback.
