@@ -140,9 +140,13 @@ for (const row of rows) {
   }
 
   const priced = (p.shares || []).filter(s => s.status === 'available' && s.share_price_usd);
-  // Round UP to the dollar. Abitaro prices some shares to the cent and a
-  // rounded-down figure would quote a buyer less than the share actually costs.
-  const price  = Math.ceil(Math.min(...priced.map(s => Number(s.share_price_usd))));
+  // Round UP to the nearest thousand. Abitaro prices some shares to the cent
+  // ($301,152.50, $332,846.95) which reads as scraped data next to the round
+  // figures on every other listing. Up, never down: rounding down would quote
+  // a buyer less than the share actually costs, and the most this can overstate
+  // is $999 — under a third of a percent, and in the direction where the buyer
+  // finds the real price is slightly better rather than slightly worse.
+  const price  = Math.ceil(Math.min(...priced.map(s => Number(s.share_price_usd))) / 1000) * 1000;
   const total  = Number(p.total_area || p.interior_area || 0);
 
   const imgs = (p.gallery_images || []).slice().sort((a,b) => (a.order||0)-(b.order||0));
