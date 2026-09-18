@@ -94,16 +94,34 @@ export async function getStaticProps() {
   // How the grid treats Discreet Sale cards. A setting rather than a constant:
   // demoting them is an exception for the 14 Sep bulk release, not how the
   // grid should behave when a single new discreet home arrives on its own.
+  //
+  // Read with the SERVICE-ROLE client, not the anon one this page otherwise
+  // uses. crm_settings carries commission_rates — our rate with every partner —
+  // so it has exactly one policy, for authenticated CRM admins, and no anon
+  // policy at all. Under RLS the anon client's select does not throw: it
+  // returns zero rows. maybeSingle() then hands back null, the guard below
+  // falls through to the default, and the page renders 'mix' while the database
+  // says 'tail'. That is what happened between 17 and 18 Sep — the setting was
+  // saved, the code was deployed, and the catalogue quietly ignored both,
+  // because a silent fallback looks identical to a setting that was never set.
+  //
+  // The import is dynamic so the service key cannot reach the client bundle:
+  // getStaticProps runs only at build and revalidate time.
   let discreetGrid = { mode: DEFAULT_DISCREET_MODE, maxPerPage: MAX_DISCREET_PER_PAGE };
   try {
-    const { data: setting } = await supabase
+    const { createSupabaseAdminClient } = await import('@/lib/supabaseAdmin');
+    const { data: setting, error } = await createSupabaseAdminClient()
       .from('crm_settings').select('value').eq('key', 'discreet_grid').maybeSingle();
+    if (error) throw new Error(error.message);
     if (setting && setting.value && typeof setting.value === 'object') {
       discreetGrid = { ...discreetGrid, ...setting.value };
+    } else {
+      console.warn('our-homes: no discreet_grid row found, using default mode', DEFAULT_DISCREET_MODE);
     }
   } catch (e) {
-    // A missing or unreadable setting must not cost us the catalogue page.
-    console.error('our-homes: discreet_grid setting unreadable, using defaults:', e?.message);
+    // A missing or unreadable setting must not cost us the catalogue page —
+    // but it must be loud, because the failure is otherwise invisible.
+    console.error('our-homes: discreet_grid unreadable, falling back to', DEFAULT_DISCREET_MODE, '-', e?.message);
   }
 
   return { props: { allProperties, discreetGrid }, revalidate: 3600 };
