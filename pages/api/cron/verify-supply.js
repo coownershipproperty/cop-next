@@ -183,8 +183,20 @@ function classify(row, page) {
     // Sold-out homes carry a WAITLIST tag and an "(estimated)" resale price —
     // that is not inventory, so they stay sold.
     const seen = readPacaso(page.body);
+    // OFF_MARKET pages keep the layout but drop the price block entirely —
+    // four of them were Live on COP on 19 Sep 2026. Withdrawn, not sold.
+    if (/"listingStage":"OFF_MARKET"/.test(page.body)) {
+      return { state: 'gone', note: 'Pacaso page: listingStage OFF_MARKET' };
+    }
     if (!seen) return { state: 'unreachable', note: 'no listing data in page' };
-    if (seen.stage === 'PACASO_SOLD' || seen.shares === 0) {
+    // Stages seen across all 200 Pacaso pages on 19 Sep 2026: PACASO_SOLD
+    // (sold out, waitlist), PACASO_RESALE (owners reselling, 1-7 shares),
+    // PACASO_LISTING (Pacaso's own inventory), PRE_PACASO (not yet bought by
+    // Pacaso; sharesAvailable is 0/absent but the home is very much for sale)
+    // and COMING_SOON. So "0 shares" alone is not sold — Florence is
+    // PRE_PACASO with 0 and is Live. Sold is the sold stage, or a resale
+    // with nothing left.
+    if (seen.stage === 'PACASO_SOLD' || (seen.stage === 'PACASO_RESALE' && seen.shares === 0)) {
       return { state: 'sold', note: `Pacaso page: ${seen.stage || 'no stage'}, ${seen.shares ?? '?'} shares available${seen.tag ? `, ${seen.tag}` : ''}` };
     }
     return { state: 'ok', note: null };
