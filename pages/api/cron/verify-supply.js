@@ -35,9 +35,14 @@ import { createSupabaseAdminClient } from '@/lib/supabaseAdmin';
 import { isCronRequest } from '@/lib/cronAuth';
 import { heartbeatHandler } from '@/lib/cronHeartbeat';
 
+// 25 Pacaso pages at a 4s pace is ~2 minutes on their own; give the run room.
+export const maxDuration = 300;
+
 const BATCH = 50;          // 294 live listings ÷ 50 ≈ a 6-day cycle, inside the
                            // operating plan's "stale after 14 days" rule with room to spare
 const CONCURRENCY = 8;
+const PACASO_PER_RUN = 25;   // pacaso.com's WAF challenges an IP after ~90 pages in a few minutes
+const PACASO_PAUSE_MS = 4000;
 const FETCH_TIMEOUT_MS = 9000;
 
 /**
@@ -163,8 +168,26 @@ function classify(row, page) {
     // A 404 is not proof of a sale — partners rename URLs. Flag, never hide.
     return { state: 'missing', note: `partner page returned ${page.status}` };
   }
+  if (page.status === 202 && page.body.length < 5000) {
+    // AWS WAF in front of pacaso.com answers a bot challenge with an empty
+    // 202 once an IP asks for too many pages in a few minutes (seen 19 Sep
+    // 2026 after ~90 requests). Not a verdict on the listing; try later.
+    return { state: 'unreachable', note: 'rate-limited (WAF challenge 202)' };
+  }
   if (page.status !== 200) {
     return { state: 'unreachable', note: page.error || `HTTP ${page.status}` };
+  }
+  if ((row.partner || '').toLowerCase() === 'pacaso') {
+    // Structured, not textual: Pacaso keeps sold pages up (200, same layout),
+    // so "still for sale" is listingStage + sharesAvailable in the SSR data.
+    // Sold-out homes carry a WAITLIST tag and an "(estimated)" resale price —
+    // that is not inventory, so they stay sold.
+    const seen = readPacaso(page.body);
+    if (!seen) return { state: 'unreachable', note: 'no listing data in page' };
+    if (seen.stage === 'PACASO_SOLD' || seen.shares === 0) {
+      return { state: 'sold', note: `Pacaso page: ${seen.stage || 'no stage'}, ${seen.shares ?? '?'} shares available${seen.tag ? `, ${seen.tag}` : ''}` };
+    }
+    return { state: 'ok', note: null };
   }
   const markers = GONE_MARKERS[(row.partner || '').toLowerCase()];
   if (!markers) return { state: 'unknown_partner', note: 'no withdrawal marker known for this partner' };
@@ -180,6 +203,32 @@ function classify(row, page) {
     : { state: 'ok', note: null };
 }
 
+/**
+ * Pacaso server-renders the listing's own data into the HTML, so the page we
+ * already fetch to ask "is it still for sale?" also answers "at what price?".
+ * We never asked. On 19 Sep 2026 Jane Healey enquired on Rue du Bac at the
+ * $600,000 our row had carried since 18 April; Pacaso had relisted the last
+ * two shares as owner resales at $729,000 on 31 August. listing_changes had
+ * 68 Pacaso rows, every one of them a status — not a single price, ever.
+ *
+ * Read only what is unambiguous: the share price and shares-available fields
+ * of the listing object. Anything else (activity tags, resale flags) is
+ * reported in the note for a human, not acted on.
+ */
+function readPacaso(body) {
+  const price = body.match(/"sharePrice":(\d{4,9})\b/);
+  const shares = body.match(/"sharesAvailable":(\d{1,2})\b/);
+  const tag = body.match(/"primaryActivityTag":\{"key":"([A-Z_]+)"/);
+  const stage = body.match(/"listingStage":"([A-Z_]+)"/);
+  if (!price) return null;
+  return {
+    price: Number(price[1]),
+    shares: shares ? Number(shares[1]) : null,
+    tag: tag ? tag[1] : null,
+    stage: stage ? stage[1] : null,
+  };
+}
+
 async function handler(req, res) {
   if (!['GET', 'POST'].includes(req.method)) {
     res.setHeader('Allow', 'GET, POST');
@@ -193,7 +242,7 @@ async function handler(req, res) {
 
   const { data: rows, error } = await db
     .from('properties')
-    .select('slug, partner, partner_url, partner_ref, status, last_verified_at')
+    .select('slug, partner, partner_url, partner_ref, status, price, last_verified_at')
     .in('status', ['Live', 'for_sale'])
     .order('last_verified_at', { ascending: true, nullsFirst: true })
     .limit(limit);
@@ -207,8 +256,32 @@ async function handler(req, res) {
     ? await loadAbitaroCatalogue()
     : null;
 
-  for (let i = 0; i < rows.length; i += CONCURRENCY) {
-    const slice = rows.slice(i, i + CONCURRENCY);
+  // Pacaso sits behind a rate-based WAF rule; fetch those one at a time with a
+  // pause, everything else in parallel as before.
+  const isPacaso = (r) => (r.partner || '').toLowerCase() === 'pacaso';
+  const pacasoRows = rows.filter(isPacaso).slice(0, PACASO_PER_RUN);
+  const otherRows = rows.filter((r) => !isPacaso(r));
+  for (const row of pacasoRows) {
+    /* eslint-disable no-await-in-loop */
+    const page = await fetchPage(row.partner_url);
+    const verdict = classify(row, page);
+    if (page.status === 200) {
+      const seen = readPacaso(page.body);
+      if (seen) {
+        verdict.pacaso = seen;
+        if (verdict.state === 'ok' && Number(row.price) !== seen.price) {
+          verdict.priceChange = { from: Number(row.price), to: seen.price };
+          verdict.note = [verdict.note, `price ${row.price} -> ${seen.price}${seen.tag ? ` (${seen.tag})` : ''}`].filter(Boolean).join('; ');
+        }
+      }
+    }
+    results.push({ slug: row.slug, partner: row.partner, partner_url: row.partner_url, ...verdict });
+    await new Promise((res) => setTimeout(res, PACASO_PAUSE_MS));
+    /* eslint-enable no-await-in-loop */
+  }
+
+  for (let i = 0; i < otherRows.length; i += CONCURRENCY) {
+    const slice = otherRows.slice(i, i + CONCURRENCY);
     /* eslint-disable no-await-in-loop */
     await Promise.all(slice.map(async (row) => {
       if ((row.partner || '').toLowerCase() === 'abitaro') {
@@ -231,7 +304,8 @@ async function handler(req, res) {
   }
 
   const gone = results.filter((r) => r.state === 'gone');
-  const tripped = gone.length > AUTO_HIDE_CIRCUIT_BREAKER;
+  const sold = results.filter((r) => r.state === 'sold');
+  const tripped = (gone.length + sold.length) > AUTO_HIDE_CIRCUIT_BREAKER;
 
   if (!dryRun) {
     await Promise.all(results.map((r) => db.from('properties')
@@ -254,6 +328,42 @@ async function handler(req, res) {
       });
     }
 
+    for (const r of sold) {
+      // Pacaso says sold out. 'sold' not 'hidden': the site shows sold homes
+      // with a badge, and the Pacaso sold sweep has always used this status.
+      const apply = !tripped;
+      if (apply) await db.from('properties').update({ status: 'sold' }).eq('slug', r.slug);
+      await db.from('listing_changes').insert({
+        partner: r.partner, slug: r.slug, change_type: 'removed',
+        field: 'status', old_value: 'Live', new_value: apply ? 'sold' : 'Live',
+        applied: apply,
+        notes: apply
+          ? `verify-supply: ${r.note}. Marked sold automatically.`
+          : `verify-supply: ${r.note}. NOT changed: ${gone.length + sold.length} takedowns in one run, over the ${AUTO_HIDE_CIRCUIT_BREAKER} threshold. Check before acting.`,
+      });
+    }
+
+    for (const r of results.filter((x) => x.priceChange && x.state === 'ok')) {
+      // A price read off the partner's own page is the source of truth for
+      // the row (cop-business register: "What does this home cost? →
+      // the partner's own site; our price is a cache of it").
+      await db.from('properties').update({ price: r.priceChange.to }).eq('slug', r.slug);
+      await db.from('property_facts')
+        .update({ share_price: r.priceChange.to, shares_remaining: r.pacaso.shares, last_verified_at: now, source: r.partner_url })
+        .eq('slug', r.slug);
+      await db.from('listing_changes').insert({
+        partner: r.partner, slug: r.slug, change_type: 'price',
+        field: 'price', old_value: String(r.priceChange.from), new_value: String(r.priceChange.to),
+        applied: true,
+        notes: `verify-supply: read from the Pacaso listing page${r.pacaso.tag ? ` (${r.pacaso.tag}` : ''}${r.pacaso.shares != null ? `${r.pacaso.tag ? ', ' : ' ('}${r.pacaso.shares} shares available)` : (r.pacaso.tag ? ')' : '')}.`,
+      });
+    }
+    for (const r of results.filter((x) => x.pacaso && !x.priceChange && x.pacaso.shares != null)) {
+      await db.from('property_facts')
+        .update({ shares_remaining: r.pacaso.shares, last_verified_at: now })
+        .eq('slug', r.slug);
+    }
+
     for (const r of results.filter((x) => ['missing', 'no_url'].includes(x.state))) {
       await db.from('listing_changes').insert({
         partner: r.partner || 'unknown', slug: r.slug, change_type: 'fact',
@@ -270,6 +380,8 @@ async function handler(req, res) {
     ok: true, dryRun, checked: results.length, tally,
     circuitBreakerTripped: tripped,
     hidden: dryRun || tripped ? [] : gone.map((r) => r.slug),
+    markedSold: dryRun || tripped ? [] : sold.map((r) => r.slug),
+    priceChanges: results.filter((r) => r.priceChange).map((r) => ({ slug: r.slug, ...r.priceChange })),
     needsAttention: results.filter((r) => r.state !== 'ok'),
   });
 }
