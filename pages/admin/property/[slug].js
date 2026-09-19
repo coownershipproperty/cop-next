@@ -406,11 +406,12 @@ export default function PropertyEdit() {
               target="_blank"
               rel="noreferrer"
               onClick={async (e) => {
-                // A hidden/staged listing never renders its gallery to the
-                // public (19 Jul rule) — the page bounces to /our-homes/ with
-                // no explanation, which is what David hit on 19 Sep 2026. For
-                // anything not Live/for_sale/sold, open a signed admin preview.
-                if (['Live', 'for_sale', 'sold'].includes(property.status)) return;
+                // The public gallery needs an identified visitor (?t= token or
+                // the signed visitor cookie) and refuses hidden rows outright,
+                // so a bare /gallery/<slug> from the admin never shows photos:
+                // a Live home bounces to the property page's unlock modal and a
+                // hidden one to /our-homes/ — both of which David hit on 19 Sep
+                // 2026. Always open the signed admin preview instead.
                 e.preventDefault();
                 const win = window.open('', '_blank');
                 try {
@@ -428,7 +429,7 @@ export default function PropertyEdit() {
               }}
               style={{ fontSize: 12, color: C.gold, textDecoration: 'none', fontWeight: 600 }}
             >
-              View gallery ↗{['Live', 'for_sale', 'sold'].includes(property.status) ? '' : ' (preview)'}
+              View gallery ↗
             </a>
             <button
               type="button"
