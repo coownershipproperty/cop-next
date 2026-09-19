@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { readVisitorCookie } from '@/lib/signinToken';
+import { readVisitorCookie, verifyToken } from '@/lib/signinToken';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { track } from '@vercel/analytics';
 import { createClient } from '@supabase/supabase-js';
@@ -58,19 +58,40 @@ export async function getServerSideProps({ params, query, req }) {
 
   if (!slug) return { notFound: true };
 
+  // Admin preview of a hidden listing: a signed, two-hour token minted by
+  // /api/admin/ui/gallery-preview for a CRM admin. It is the only way a row
+  // that is not Live/for_sale/sold renders here, and it uses the service-role
+  // client because the anon policy hides those rows entirely.
+  const previewAdmin = typeof query.preview === 'string'
+    ? verifyToken(query.preview, 'gallery-preview')
+    : null;
+
   const supabase = getSupabase();
   // Publicly reachable by slug alone (the ?t= visitor token is optional), so
   // hidden/staged rows must never render here (19 Jul incident). Sold homes
   // stay viewable — gallery emails promise a permanent link and a lead's
   // saved link should not 404 the day the last share sells.
-  const { data: prop } = await supabase
-    .from('properties')
-    .select('slug, title, img, images, photos, extra_photos, documents, country, city, region, price, currency, beds, size, status, is_discreet')
-    .eq('slug', slug)
-    .in('status', ['Live', 'for_sale', 'sold'])
-    .maybeSingle();
+  const SELECT = 'slug, title, img, images, photos, extra_photos, documents, country, city, region, price, currency, beds, size, status, is_discreet';
+  let prop = null;
+  if (previewAdmin) {
+    const { createSupabaseAdminClient } = await import('@/lib/supabaseAdmin');
+    ({ data: prop } = await createSupabaseAdminClient().from('properties').select(SELECT).eq('slug', slug).maybeSingle());
+  } else {
+    ({ data: prop } = await supabase
+      .from('properties')
+      .select(SELECT)
+      .eq('slug', slug)
+      .in('status', ['Live', 'for_sale', 'sold'])
+      .maybeSingle());
+  }
 
   if (!prop) return { redirect: { destination: '/our-homes/', permanent: false } };
+
+  if (previewAdmin) {
+    const previewStatus = prop.status;
+    delete prop.is_discreet;
+    return { props: { name: 'Admin preview', email: previewAdmin.email, property: prop, locale, preview: previewStatus || 'hidden' } };
+  }
 
   // ── The gallery is gated ──────────────────────────────────────────────────
   // Until 16 Sep 2026 this page rendered from the slug alone, so the "unlock"
@@ -422,7 +443,7 @@ const clampPan = (v, scale, dim) => {
 const touchDist = (t) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
 const touchMid = (t) => ({ x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 });
 
-export default function GalleryPage({ name, email, property, locale = 'en' }) {
+export default function GalleryPage({ name, email, property, locale = 'en', preview = null }) {
   const t = COPY[locale] || COPY.en;
   const rawImages = Array.isArray(property.images) ? property.images : [];
 
@@ -728,6 +749,13 @@ export default function GalleryPage({ name, email, property, locale = 'en' }) {
           }}
         />
       </Head>
+
+      {preview && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 10000, padding: '8px 16px', textAlign: 'center',
+          background: '#C9A84C', color: '#1a3347', fontFamily: 'Jost, sans-serif', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          Admin preview — this listing is {preview}. Nobody else can open this gallery until it is Live.
+        </div>
+      )}
 
       <div
         ref={stageRef}

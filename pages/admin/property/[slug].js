@@ -401,13 +401,35 @@ export default function PropertyEdit() {
             >
               View on site ↗
             </Link>
-            <Link
+            <a
               href={`/gallery/${slug}`}
               target="_blank"
+              rel="noreferrer"
+              onClick={async (e) => {
+                // A hidden/staged listing never renders its gallery to the
+                // public (19 Jul rule) — the page bounces to /our-homes/ with
+                // no explanation, which is what David hit on 19 Sep 2026. For
+                // anything not Live/for_sale/sold, open a signed admin preview.
+                if (['Live', 'for_sale', 'sold'].includes(property.status)) return;
+                e.preventDefault();
+                const win = window.open('', '_blank');
+                try {
+                  const { data: { session } } = await supabase.auth.getSession();
+                  const res = await fetch(`/api/admin/ui/gallery-preview?slug=${encodeURIComponent(slug)}`, {
+                    headers: { Authorization: `Bearer ${session?.access_token || ''}` },
+                  });
+                  const j = await res.json();
+                  if (!res.ok || !j.url) throw new Error(j.error || 'no preview link');
+                  win.location.href = j.url;
+                } catch (err) {
+                  win.close();
+                  alert(`Could not open the preview: ${err.message}`);
+                }
+              }}
               style={{ fontSize: 12, color: C.gold, textDecoration: 'none', fontWeight: 600 }}
             >
-              View gallery ↗
-            </Link>
+              View gallery ↗{['Live', 'for_sale', 'sold'].includes(property.status) ? '' : ' (preview)'}
+            </a>
             <button
               type="button"
               onClick={() => {
