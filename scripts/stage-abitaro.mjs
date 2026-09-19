@@ -179,12 +179,15 @@ for (const row of rows) {
   // A listing carries two photo sets, and filling only one makes it behave
   // like a discreet home. `images` is what a visitor sees before giving an
   // email — normal listings show three; discreet ones show one. `photos` is
-  // the gallery behind the unlock. The first run filled photos and left
-  // images empty, so the five staged homes showed nothing at all publicly,
-  // which is worse than discreet: a card with no picture to click.
+  // the FULL gallery behind the unlock, teaser shots included: the gallery
+  // page renders `photos` alone and the property page counts it ("View all
+  // N photos"). The first run filled photos and left images empty (nothing
+  // showed publicly); the second split them, so the gallery opened without
+  // its three best shots and a 5-photo home read "View all 2 photos"
+  // (David, 19 Sep 2026). Teaser is a subset, never a complement.
   const VISIBLE_BEFORE_UNLOCK = 3;
   const visible = photos.slice(0, VISIBLE_BEFORE_UNLOCK);
-  const gallery = photos.slice(VISIBLE_BEFORE_UNLOCK);
+  const gallery = photos;
 
   const { error: insErr } = await db.from('properties').insert({
     slug: row.slug, title: row.title, status: 'hidden',
