@@ -724,8 +724,16 @@ img {
             .cop-header,
             .cop-header.scrolled {
                 background: rgba(26,51,71,0.99) !important;
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
+                /* NO backdrop-filter / filter / transform / will-change on
+                   .cop-header — ever. The mobile drawer (.cop-nav) is a
+                   position:fixed child of this header, and any of those
+                   properties turns the header into the drawer's containing
+                   block: the drawer is then clipped to the 80px header band
+                   and shows one link. Chrome ignores the -webkit- prefixed
+                   backdrop-filter so it looked fine on desktop; every iPhone
+                   browser is WebKit and broke (found 18 Sep 2026). The blur
+                   was invisible anyway behind a 99%-opaque background.
+                   scripts/check-header-css.js fails the build if it comes back. */
                 box-shadow: 0 2px 20px rgba(0,0,0,0.3);
                 border-bottom: none;
                 padding: 0.9rem 1.5rem;
@@ -5113,8 +5121,16 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
             .cop-header,
             .cop-header.scrolled {
                 background: rgba(26,51,71,0.99) !important;
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
+                /* NO backdrop-filter / filter / transform / will-change on
+                   .cop-header — ever. The mobile drawer (.cop-nav) is a
+                   position:fixed child of this header, and any of those
+                   properties turns the header into the drawer's containing
+                   block: the drawer is then clipped to the 80px header band
+                   and shows one link. Chrome ignores the -webkit- prefixed
+                   backdrop-filter so it looked fine on desktop; every iPhone
+                   browser is WebKit and broke (found 18 Sep 2026). The blur
+                   was invisible anyway behind a 99%-opaque background.
+                   scripts/check-header-css.js fails the build if it comes back. */
                 box-shadow: 0 2px 20px rgba(0,0,0,0.3);
                 border-bottom: none;
                 padding: 0.9rem 1.5rem;

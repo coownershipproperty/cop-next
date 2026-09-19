@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/check-header-css.js",
     "build": "next build",
+    "check:header-css": "node scripts/check-header-css.js",
+    "check:mobile-nav": "node scripts/check-mobile-nav.mjs",
     "start": "next start",
     "gsc:audit": "node scripts/gsc-audit.js",
     "email:dev": "email dev ./emails",
