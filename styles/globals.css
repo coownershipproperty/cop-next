@@ -438,6 +438,15 @@ img {
 
 /* Tighter breakpoint for mid-sized screens (1100–1280px) so 6 main links +
    prominent language pills fit comfortably without overlap. */
+/* Laptop widths (1281–1500px): eight centred links plus the EN pill overlap
+   ("List your home" was sitting under the language dropdown at ~1350px).
+   Drop the two links the logo and drawer already cover; tighten the rest. */
+@media (min-width: 1281px) and (max-width: 1500px) {
+  .cop-nav a.cop-nav-tight-hide { display: none; }
+  .cop-nav a { padding: 0.4rem 0.7rem; font-size: 0.78rem; letter-spacing: 0.1em; }
+  .cop-nav { max-width: calc(100vw - 400px); }
+}
+
 @media (max-width: 1280px) {
   .cop-nav a {
     padding: 0.4rem 0.78rem;

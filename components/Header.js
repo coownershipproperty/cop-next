@@ -49,7 +49,7 @@ function detectDynamicFamily(path, currentLocale) {
 // doesn't get that link — which is how a language can launch with a focused
 // page set instead of a nav bar full of 404s.
 const NAV_ITEMS = [
-  { key: 'home',       labelKey: 'nav.home' },
+  { key: 'home',       labelKey: 'nav.home', extra: 'cop-nav-tight-hide' },
   { key: 'homes',      labelKey: 'nav.our_homes' },
   { key: 'howItWorks', labelKey: 'nav.how_it_works' },
   { key: 'aboutUs',    labelKey: 'nav.about_us' },
@@ -61,7 +61,7 @@ const NAV_ITEMS = [
   // handles a page that exists in one language. It was findable from nowhere
   // until 16 Sep 2026: no nav link, no canonical, no schema, and eight
   // developers used the contact form this year instead.
-  { key: 'listWithCop', labelKey: 'nav.list_with_cop' },
+  { key: 'listWithCop', labelKey: 'nav.list_with_cop', extra: 'cop-nav-tight-hide' },
 ];
 
 const NAV_LINKS = Object.fromEntries(
