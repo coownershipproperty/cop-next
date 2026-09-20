@@ -201,12 +201,12 @@ export async function getStaticProps() {
     .in('status', ['Live', 'for_sale'])
     .eq('is_discreet', false);
   const byCountry = {};
-  const bySlug = {};
+  const imgBySlug = {};
   let minEur = null;
   const partners = new Set();
   for (const r of liveRows || []) {
     const c = r.country || '';
-    if (r.slug && r.img) bySlug[r.slug] = r.img;
+    if (r.slug && r.img) imgBySlug[r.slug] = r.img;
     if (!byCountry[c]) byCountry[c] = { count: 0, img: r.img || '', top: -1 };
     byCountry[c].count += 1;
     const pr = Number(r.price) || 0;
@@ -218,7 +218,7 @@ export async function getStaticProps() {
     .map(({ key, country, label, href }) => ({
       key, label, href,
       count: byCountry[country]?.count || 0,
-      img: bySlug[DEST_PICK[key]] || byCountry[country]?.img || '',
+      img: imgBySlug[DEST_PICK[key]] || byCountry[country]?.img || '',
     }))
     .filter(d => d.count > 0);
   const stats = {
